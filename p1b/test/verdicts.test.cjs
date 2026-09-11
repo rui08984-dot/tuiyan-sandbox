@@ -204,3 +204,108 @@ test('verdicts additive 迁移（p13）：旧 7 列表 ensure 后补 model/run_i
   const s = saveVerdict({ predictionId: pidA, promptVariant: 'v1_evidence', temperature: 0.9, verdictText: '迁移后新写入行，验证表结构可用。\nP=0.60', impliedProb: 0.6, runId: 'run-post-migration' });
   assert.equal(s.run_id, 'run-post-migration');
 });
+
+// ── p15 批次1-M1：per-path 注入（B1(a) 信息差）──────────────────────────────
+
+test('per-path 注入（p15）：loadEvidence 命中/悬空/空三态 + 200 字截断 + R-A 口径护栏', () => {
+  const conn = db.getConnection();
+  const { loadEvidence, NO_EVIDENCE_LINE } = require('../src/routes/verdicts');
+  const longText = '夜刀事件：'.padEnd(230, 'x');
+  const e1 = conn.prepare("INSERT INTO events (game_id, day, phase, seq, type, raw_text) VALUES (?, 1, 'day', 9001, 'death', ?)").run(gameId, longText).lastInsertRowid;
+  const pred = predictions.insertPrediction({ gameId: gameId, day: 1, sourceType: '预测卡', statement: '注入用例：命中+悬空混合', prob: 0.5, evidence: [Number(e1), 999999999] });
+  const block = loadEvidence(pred);
+  assert.ok(block.indexOf('账本事件引用') !== -1, '块头标注「账本事件引用」');
+  assert.ok(block.indexOf('非结算前信息') !== -1, 'R-A 口径护栏：不声称结算前信息');
+  assert.ok(block.indexOf('事件 #' + e1 + '（day 1/death）：') !== -1, '事件行格式 id+day/type');
+  assert.ok(block.indexOf(longText.slice(0, 200)) !== -1, 'raw_text 保留前 200 字');
+  assert.ok(block.indexOf(longText) === -1, '超出 200 字被截断');
+  assert.ok(block.indexOf('悬空') === -1, '悬空 id 静默跳过（不喂判词）');
+  const empty = predictions.insertPrediction({ gameId: gameId, day: 1, sourceType: '预测卡', statement: '注入用例：空引用', prob: 0.5, evidence: [] });
+  assert.equal(loadEvidence(empty), NO_EVIDENCE_LINE, '空引用 → 固定兜底行');
+  const allDangling = predictions.insertPrediction({ gameId: gameId, day: 1, sourceType: '预测卡', statement: '注入用例：全悬空', prob: 0.5, evidence: [999999998] });
+  assert.equal(loadEvidence(allDangling), NO_EVIDENCE_LINE, '全部悬空 → 固定兜底行');
+});
+
+test('per-path 注入（p15）：buildUserPrompt v1 证据/v2 纯题面/v3 基率行；禁更新指令措辞', () => {
+  const { buildUserPrompt, buildSystemPrompt } = require('../src/routes/verdicts');
+  const pred = { id: 1, game_id: gameId, day: 2, statement: '分流用例', layer: 'L6', evidence: [] };
+  const game = { game_type: 'werewolf' };
+  const p1 = buildUserPrompt(pred, game, { evidenceBlock: '账本事件引用（全量账本记录，非结算前信息）：\n事件 #1（day 1/death）：演示' });
+  assert.ok(p1.indexOf('账本事件引用') !== -1, 'v1 含证据块');
+  assert.ok(p1.indexOf('账本历史统计') === -1, 'v1 不带基率行');
+  const p2 = buildUserPrompt(pred, game, {});
+  assert.ok(p2.indexOf('账本事件引用') === -1 && p2.indexOf('账本历史统计') === -1, 'v2 纯题面（信息差对照）');
+  const p3 = buildUserPrompt(pred, game, { baseline: { n: 20, rate: 0.7 } });
+  assert.match(p3, /账本历史统计（同类局型 n=20，true 占比 70%），仅作背景参考/);
+  assert.ok(p3.indexOf('请据此更新') === -1 && p3.indexOf('据此更新') === -1, '禁更新指令式措辞（Schoenegger）');
+  const p3L1 = buildUserPrompt({ id: 1, game_id: gameId, day: 2, statement: 'L1 用例', layer: 'L1' }, game, { baseline: null });
+  assert.ok(p3L1.indexOf('账本历史统计') === -1, 'L1 重言层不注入基率行');
+  const legacy = buildUserPrompt(pred, game); // 兼容：不传 extras 与旧行为一致（题面 2 行+指令 1 行）
+  assert.equal(legacy.split('\n').length, 3);
+  assert.match(buildSystemPrompt('v1_evidence'), /Range: A%-B%/, '输出契约含区间行要求');
+  assert.match(buildSystemPrompt('v1_evidence'), /最后一行必须严格是「P=0.xx」/, '末行 P= 契约保留');
+});
+
+test('per-path 注入（p15）：loadBaseline LOO 排除自身 + n<10 样本不足 + L1/未分类不注入', () => {
+  const { loadBaseline } = require('../src/routes/verdicts');
+  for (let i = 0; i < 10; i++) { // 10 条同型局（werewolf）L6 已 resolve：1 false + 9 true
+    const r = predictions.insertPrediction({ gameId: gameId, day: 1, sourceType: '预测卡', statement: 'LOO 种子 ' + i, prob: 0.5, layer: 'L6' });
+    predictions.resolvePrediction(r.id, i === 0 ? 'false' : 'true', 'LOO 测试真值');
+  }
+  const probe = predictions.insertPrediction({ gameId: gameId, day: 1, sourceType: '预测卡', statement: 'LOO 探针（未 resolve）', prob: 0.5, layer: 'L6' });
+  let b = loadBaseline(probe);
+  assert.equal(b.n, 10, '本条未 resolve → 全部 10 条入样本');
+  assert.ok(Math.abs(b.rate - 0.9) < 1e-9, 'true 占比 9/10');
+  predictions.resolvePrediction(probe.id, 'true', 'LOO 探针自 resolve');
+  b = loadBaseline(predictions.getPrediction(probe.id));
+  assert.equal(b.n, 10, 'LOO：本条自身被排除（n=11-1）');
+  assert.ok(Math.abs(b.rate - 0.9) < 1e-9, '排除后占比仍 0.9（若含自身应为 10/11）');
+  const probeL3 = predictions.insertPrediction({ gameId: gameId, day: 1, sourceType: '预测卡', statement: '样本不足探针', prob: 0.5, layer: 'L3' });
+  const b2 = loadBaseline(probeL3);
+  assert.deepEqual(b2, { n: 0, rate: null }, '同 layer 无有效样本 → n=0，rate=null（如实不足）');
+  const l1 = predictions.insertPrediction({ gameId: gameId, day: 1, sourceType: '预测卡', statement: 'L1 探针', prob: 0.5, layer: 'L1' });
+  assert.equal(loadBaseline(l1), null, 'L1 重言层一律不注入');
+  const unclassified = predictions.insertPrediction({ gameId: gameId, day: 1, sourceType: '预测卡', statement: '未分类探针', prob: 0.5 });
+  assert.equal(loadBaseline(unclassified), null, '未分类层不注入（layer 绑定是基率语义前提）');
+});
+
+test('per-path 注入（p15）：buildMockVerdict 三路 Range 区间行 + v1 证据行 + P= 末行契约不破坏', () => {
+  const { buildMockVerdict, extractImpliedProb } = require('../src/routes/verdicts');
+  const evBlock = '账本事件引用（全量账本记录，非结算前信息）：\n事件 #1（day 1/death）：演示';
+  const m1 = buildMockVerdict('v1_evidence', 0.2, 'mock 区间用例', { evidenceBlock: evBlock });
+  assert.ok(m1.indexOf(evBlock) !== -1, 'v1 mock 含证据行引用');
+  assert.match(m1, /Range: 15%-35%\nP=0\.25\s*$/, 'v1 区间行紧邻 P= 之上');
+  assert.equal(extractImpliedProb(m1), 0.25, 'Range 行不破坏末行 P= 抽取');
+  const m2 = buildMockVerdict('v2_skeptical', 0.7, 'mock 区间用例');
+  assert.match(m2, /Range: 40%-60%\nP=0\.50\s*$/);
+  assert.ok(m2.indexOf('账本事件引用') === -1, 'v2 mock 无证据块（信息差对照）');
+  const m3 = buildMockVerdict('v3_baserate', 1.0, 'mock 区间用例', { baseline: { n: 10, rate: 0.9 } });
+  assert.match(m3, /账本历史统计（同类局型 n=10，true 占比 90%），仅作背景参考/);
+  assert.match(m3, /Range: 65%-85%\nP=0\.75\s*$/);
+  const m3insuf = buildMockVerdict('v3_baserate', 1.0, 'mock 区间用例', { baseline: { n: 3, rate: null } });
+  assert.match(m3insuf, /基率样本不足（同类局型有效样本 n=3<10），仅作背景参考/);
+  assert.ok(m3insuf.indexOf('请据此更新') === -1, 'mock 基率行同样禁更新指令');
+});
+
+test('per-path 注入（p15）：POST verdicts（MOCK）v1 落库文本含证据块；三路 Range 行 + extracted 全真', async () => {
+  const e5 = db.getConnection().prepare("INSERT INTO events (game_id, day, phase, seq, type, raw_text) VALUES (?, 1, 'dusk', 9002, 'death', '计票：{\"5\":4}')").run(gameId).lastInsertRowid;
+  const pidE = predictions.insertPrediction({ gameId: gameId, day: 1, sourceType: '预测卡', statement: '注入用例：API 链路', prob: 0.5, layer: 'L6', evidence: [Number(e5)] });
+  const r = await app.inject({ method: 'POST', url: gameUrl(gameId, '/predictions/' + pidE.id + '/verdicts') });
+  assert.equal(r.statusCode, 200);
+  const b = j(r);
+  assert.equal(b.errors.length, 0);
+  assert.equal(b.saved.length, 3);
+  const rows = db.getConnection().prepare('SELECT * FROM verdicts WHERE prediction_id = ? ORDER BY id').all(pidE.id);
+  assert.equal(rows.length, 3);
+  for (const row of rows) {
+    assert.match(row.verdict_text, /Range: \d+%-\d+%\nP=0.\d\d\s*$/, '区间行+末行 P= 契约');
+    assert.ok(row.implied_prob !== null, 'mock 末行可抽取');
+  }
+  const v1row = rows.find((x) => x.prompt_variant === 'v1_evidence');
+  assert.ok(v1row.verdict_text.indexOf('账本事件引用') !== -1, 'v1 落库文本含证据块');
+  assert.ok(v1row.verdict_text.indexOf('事件 #' + e5 + '（day 1/death）：') !== -1, '证据行带事件 id');
+  const v2row = rows.find((x) => x.prompt_variant === 'v2_skeptical');
+  assert.ok(v2row.verdict_text.indexOf('账本事件引用') === -1, 'v2 落库文本不含证据块');
+  const v3row = rows.find((x) => x.prompt_variant === 'v3_baserate');
+  assert.ok(v3row.verdict_text.indexOf('账本历史统计') !== -1, 'v3 落库文本含基率背景行（L6 有效样本）');
+});

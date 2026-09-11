@@ -27,6 +27,8 @@
  *   零破坏既有列；旧库由 ensurePredictionsTable 内 PRAGMA 检缺列+事务 ALTER 补齐（瞬时，锁 <5s）。
  *   layer=可预测性六层（L1 决定论/L2 系综/L3 短窗混沌/L4 自反/L5 不可约随机/L6 对抗），
  *   gate=descriptive/scored/blocked（G2 未过→检索来源题恒 descriptive），tier 与 layer 正交。
+ *   tautology（批次1-M1，p15）=重言标记 0/1（DEFAULT 0）：判定标准与结算定义重言的题
+ *   （如 L1 程序结算题）置 1，供 v3 基率注入豁免（L1 一律不注入）与后续消融分层。
  */
 const { db } = require('../deps');
 
@@ -52,7 +54,8 @@ const SCHEMA_PREDICTIONS = [
   '  baseline_brier REAL CHECK(baseline_brier IS NULL OR (baseline_brier >= 0 AND baseline_brier <= 1)),',
   '  public_exposure INTEGER CHECK(public_exposure IS NULL OR public_exposure IN (0,1)),',
   '  checklist_hash TEXT,',
-  "  gate TEXT CHECK(gate IS NULL OR gate IN ('descriptive','scored','blocked'))",
+  "  gate TEXT CHECK(gate IS NULL OR gate IN ('descriptive','scored','blocked')),",
+  '  tautology INTEGER DEFAULT 0',
   ');',
   'CREATE INDEX IF NOT EXISTS idx_predictions_game ON predictions(game_id, id DESC);',
   'CREATE INDEX IF NOT EXISTS idx_predictions_open ON predictions(outcome) WHERE outcome IS NULL;',
@@ -69,6 +72,8 @@ const AUDIT_COLUMNS = [
   'public_exposure INTEGER CHECK(public_exposure IS NULL OR public_exposure IN (0,1)),',
   'checklist_hash TEXT',
   "gate TEXT CHECK(gate IS NULL OR gate IN ('descriptive','scored','blocked'))",
+  // 批次1-M1（p15）：tautology 重言标记列（评审攻击 6 裁定捆同一次账本变更；M2 起由分类流程置位）
+  'tautology INTEGER DEFAULT 0',
 ];
 
 /** p1b 启动/路由注册时调用一次：建 p1b 私有表（幂等；绝不触碰 p1a 既有表）。
@@ -113,6 +118,7 @@ function rowToPrediction(row) {
     public_exposure: row.public_exposure === undefined ? null : row.public_exposure,
     checklist_hash: row.checklist_hash === undefined ? null : row.checklist_hash,
     gate: row.gate === undefined ? null : row.gate,
+    tautology: row.tautology === undefined ? null : row.tautology,
   };
 }
 
@@ -365,8 +371,28 @@ function updateAuditFields(id, f) {
   return getPrediction(id);
 }
 
+/**
+ * 重言标记置位/清除（批次1-M1 additive 列 tautology；评审攻击 6 裁定捆同一次账本变更）。
+ * 语义：tautology=1 表示该判定标准与结算定义重言（如「首夜平安」layer=L1 的程序结算题），
+ * 其基率对 v3 无信息量（0/30 白送）——loadBaseline 对 L1 一律不注入即源于此。
+ * M2 起由分类流程调用置位；本微步（M1）只交付函数与列迁移，不更新任何库数据。
+ * @param {number} id @param {0|1} flag
+ * @returns 读模型行；id 不存在 → null。
+ */
+function updateTautology(id, flag) {
+  if (flag !== 0 && flag !== 1) {
+    throw new Error('tautology 必须是 0 或 1，收到: ' + JSON.stringify(flag));
+  }
+  const conn = db.getConnection();
+  const exists = conn.prepare('SELECT id FROM predictions WHERE id = ?').get(id);
+  if (!exists) return null;
+  conn.prepare('UPDATE predictions SET tautology = ? WHERE id = ?').run(flag, id);
+  return getPrediction(id);
+}
+
 module.exports = {
   ensurePredictionsTable, insertPrediction, getPrediction, listByGame, listUnresolved,
   resolvePrediction, l0Gate, convertCheckpointsToPredictions, calibration, SOURCE_TYPES, OUTCOMES,
   updateAuditFields, LAYERS, GATES,
+  updateTautology,
 };

@@ -89,3 +89,51 @@ test('枚举常量导出（供路由层复用）', () => {
   assert.deepEqual(LAYERS, ['L1', 'L2', 'L3', 'L4', 'L5', 'L6']);
   assert.deepEqual(GATES, ['descriptive', 'scored', 'blocked']);
 });
+
+// ── p15 批次1-M1：tautology 重言标记列（additive 迁移，评审攻击 6 裁定）──────
+
+test('tautology（p15）：新行默认 0；updateTautology 置 1/清 0 读回；非法值与不存在 id', () => {
+  const { updateTautology } = require('../src/db/predictionsStore');
+  const row = insertPrediction({ gameId: 1, sourceType: '预测卡', statement: '重言标记用例行' });
+  assert.equal(row.tautology, 0, 'DEFAULT 0：新行默认 0');
+  assert.equal(updateTautology(row.id, 1).tautology, 1, '显式置 1 读回');
+  assert.equal(updateTautology(row.id, 0).tautology, 0, '清 0 读回');
+  assert.throws(() => updateTautology(row.id, 2), /tautology 必须是 0 或 1/);
+  assert.throws(() => updateTautology(row.id, null), /tautology 必须是 0 或 1/);
+  assert.equal(updateTautology(999999, 1), null, '不存在 id → null');
+});
+
+test('tautology（p15）：旧库 additive 迁移——缺列表 ensure 后补列，旧行 tautology=0', () => {
+  const conn = db.getConnection();
+  conn.exec('DROP TABLE predictions'); // 模拟迁移前旧库（本用例为文件末尾，drop 不影响其他用例）
+  conn.exec([
+    'CREATE TABLE predictions (',
+    '  id INTEGER PRIMARY KEY,',
+    '  game_id INTEGER NOT NULL REFERENCES games(id),',
+    '  day INTEGER,',
+    "  source_type TEXT NOT NULL CHECK(source_type IN ('验证点','预测卡')),",
+    '  statement TEXT NOT NULL,',
+    '  assigned_prob REAL CHECK(assigned_prob IS NULL OR (assigned_prob >= 0 AND assigned_prob <= 1)),',
+    '  evidence_json TEXT,',
+    "  created_at TEXT DEFAULT (datetime('now')),",
+    '  resolved_at TEXT,',
+    "  outcome TEXT CHECK(outcome IS NULL OR outcome IN ('true','false','ambiguous')),",
+    '  resolve_note TEXT,',
+    "  layer TEXT CHECK(layer IS NULL OR layer IN ('L1','L2','L3','L4','L5','L6')),",
+    "  secondary_layer TEXT CHECK(secondary_layer IS NULL OR secondary_layer IN ('L1','L2','L3','L4','L5','L6')),",
+    '  engine TEXT,',
+    '  baseline_brier REAL CHECK(baseline_brier IS NULL OR (baseline_brier >= 0 AND baseline_brier <= 1)),',
+    '  public_exposure INTEGER CHECK(public_exposure IS NULL OR public_exposure IN (0,1)),',
+    '  checklist_hash TEXT,',
+    "  gate TEXT CHECK(gate IS NULL OR gate IN ('descriptive','scored','blocked'))",
+    ');',
+  ].join('\n'));
+  conn.prepare("INSERT INTO predictions (game_id, source_type, statement) VALUES (1, '预测卡', '迁移前旧行（无 tautology 列）')").run();
+  ensurePredictionsTable(conn); // 幂等 ensure 触发 additive 迁移：PRAGMA 检缺 → ALTER ADD tautology
+  const cols = conn.prepare('PRAGMA table_info(predictions)').all().map((c) => c.name);
+  assert.ok(cols.indexOf('tautology') !== -1, 'tautology 列已补');
+  const oldRow = conn.prepare('SELECT * FROM predictions WHERE statement = ?').get('迁移前旧行（无 tautology 列）');
+  assert.equal(oldRow.tautology, 0, '旧行 DEFAULT 0');
+  const again = insertPrediction({ gameId: 1, sourceType: '预测卡', statement: '迁移后新行' });
+  assert.equal(again.tautology, 0, '迁移后写入链路可用');
+});
