@@ -1,0 +1,20 @@
+{
+ "total": 130,
+ "mapped": 129,
+ "official_script": 72,
+ "official_mapped": 72,
+ "official_coverage_pct": 100,
+ "travelers": 16,
+ "travelers_mapped": 16,
+ "experimental": 43,
+ "experimental_mapped": 42,
+ "ability_zh": 124,
+ "missing": [
+  {
+   "id": "mephit",
+   "name_en": "Mephit",
+   "edition": "",
+   "reason": "wiki 缺页/未验证"
+  }
+ ]
+}

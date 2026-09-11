@@ -1,0 +1,18 @@
+{
+ "id": "recluse",
+ "name_en": "Recluse",
+ "search_status": 200,
+ "hit_titles": [
+  "陌客"
+ ],
+ "name_zh": "陌客",
+ "ability_zh": "你可能会被当作邪恶阵营、爪牙角色或恶魔角色，即使你已死亡。",
+ "page": "陌客",
+ "file_verified": false,
+ "script": "暗流涌动",
+ "page_found": true,
+ "has_section": true,
+ "retry_route": "script-gallery:暗流涌动",
+ "appears_in": null,
+ "fan_like": false
+}

@@ -1,0 +1,1278 @@
+{
+  "generated_at": "2026-09-09T01:16:16.458Z",
+  "endpoint": {
+    "baseUrl": "https://tokenrhythm.studio/v1",
+    "model": "glm-5.3-flash",
+    "note": "api_key 仅内存，不落盘"
+  },
+  "mapping_impl": "real-splitBotcClaims",
+  "n_samples": 27,
+  "overall": {
+    "samples": 27,
+    "structural_ok": 27,
+    "latency": {
+      "n": 27,
+      "min": 3682.257,
+      "max": 168267.276,
+      "median": 15797.339,
+      "p90_linear": 48810.91940000001,
+      "p90_nearest": 53544.5,
+      "mean": 26503.335925925927,
+      "total": 715590.0700000001
+    },
+    "total_claims": 29,
+    "landed_claims": 28,
+    "aligned_claims": 25,
+    "claim_entry_rate": 0.9655172413793104,
+    "claim_aligned_rate": 0.8620689655172413,
+    "claim_classes": {
+      "botc": 0,
+      "main_role_ok": 15,
+      "main_role_fail": 1,
+      "main_generic": 10,
+      "main_misaligned": 3
+    },
+    "split_throw_samples": [
+      "snv-02"
+    ],
+    "verdicts": {
+      "correct": 14,
+      "suspect": 7,
+      "wrong": 6
+    },
+    "strict_error_rate": 0.2222222222222222,
+    "suspect_incl_error_rate": 0.48148148148148145,
+    "clean_rate": 0.5185185185185185
+  },
+  "by_edition": {
+    "tb": {
+      "samples": 9,
+      "structural_ok": 9,
+      "latency": {
+        "n": 9,
+        "min": 3713.136,
+        "max": 53544.5,
+        "median": 14191.582,
+        "p90_linear": 37431.477600000006,
+        "p90_nearest": 53544.5,
+        "mean": 21032.52988888889,
+        "total": 189292.769
+      },
+      "total_claims": 8,
+      "landed_claims": 8,
+      "aligned_claims": 7,
+      "claim_entry_rate": 1,
+      "claim_aligned_rate": 0.875,
+      "claim_classes": {
+        "botc": 0,
+        "main_role_ok": 6,
+        "main_role_fail": 0,
+        "main_generic": 1,
+        "main_misaligned": 1
+      },
+      "split_throw_samples": [],
+      "verdicts": {
+        "correct": 4,
+        "suspect": 3,
+        "wrong": 2
+      },
+      "strict_error_rate": 0.2222222222222222,
+      "suspect_incl_error_rate": 0.5555555555555556,
+      "clean_rate": 0.4444444444444444
+    },
+    "bmr": {
+      "samples": 9,
+      "structural_ok": 9,
+      "latency": {
+        "n": 9,
+        "min": 3682.257,
+        "max": 45655.199,
+        "median": 13696.046,
+        "p90_linear": 42519.807,
+        "p90_nearest": 45655.199,
+        "mean": 19082.847777777777,
+        "total": 171745.63
+      },
+      "total_claims": 13,
+      "landed_claims": 13,
+      "aligned_claims": 12,
+      "claim_entry_rate": 1,
+      "claim_aligned_rate": 0.9230769230769231,
+      "claim_classes": {
+        "botc": 0,
+        "main_role_ok": 5,
+        "main_role_fail": 0,
+        "main_generic": 7,
+        "main_misaligned": 1
+      },
+      "split_throw_samples": [],
+      "verdicts": {
+        "correct": 6,
+        "suspect": 2,
+        "wrong": 1
+      },
+      "strict_error_rate": 0.1111111111111111,
+      "suspect_incl_error_rate": 0.3333333333333333,
+      "clean_rate": 0.6666666666666666
+    },
+    "snv": {
+      "samples": 9,
+      "structural_ok": 9,
+      "latency": {
+        "n": 9,
+        "min": 4562.529,
+        "max": 168267.276,
+        "median": 24127.56,
+        "p90_linear": 78539.36640000003,
+        "p90_nearest": 168267.276,
+        "mean": 39394.63011111111,
+        "total": 354551.671
+      },
+      "total_claims": 8,
+      "landed_claims": 7,
+      "aligned_claims": 6,
+      "claim_entry_rate": 0.875,
+      "claim_aligned_rate": 0.75,
+      "claim_classes": {
+        "botc": 0,
+        "main_role_ok": 4,
+        "main_role_fail": 1,
+        "main_generic": 2,
+        "main_misaligned": 1
+      },
+      "split_throw_samples": [
+        "snv-02"
+      ],
+      "verdicts": {
+        "correct": 4,
+        "suspect": 2,
+        "wrong": 3
+      },
+      "strict_error_rate": 0.3333333333333333,
+      "suspect_incl_error_rate": 0.5555555555555556,
+      "clean_rate": 0.4444444444444444
+    }
+  },
+  "rows": [
+    {
+      "id": "tb-01",
+      "edition": "tb",
+      "cat": "声称具体角色",
+      "ms": 14191.582,
+      "structural_ok": true,
+      "error": null,
+      "attempts_internal": 1,
+      "attempts_external": 0,
+      "warnings": 0,
+      "event_type": "claim",
+      "n_claims": 2,
+      "classes": {
+        "botc": 0,
+        "main_role_ok": 1,
+        "main_role_fail": 0,
+        "main_generic": 1,
+        "main_misaligned": 0
+      },
+      "split_throws": false,
+      "landed_claims": 2,
+      "aligned_claims": 2,
+      "claims_detail": [
+        {
+          "i": 0,
+          "subject_seat": 3,
+          "predicate": "claims_role",
+          "object": "洗衣妇",
+          "class": "main_role_ok"
+        },
+        {
+          "i": 1,
+          "subject_seat": 3,
+          "predicate": "said",
+          "object": "4号和6号里有一个是投毒者",
+          "class": "main_generic"
+        }
+      ],
+      "verdict": "correct",
+      "verdict_reason": "洗衣妇 claims_role 精确；两人组命题以 said(3) 保留未越权断言到具体座位，无编造",
+      "exp_min_claims": 2
+    },
+    {
+      "id": "tb-02",
+      "edition": "tb",
+      "cat": "阵营声称",
+      "ms": 12537.284,
+      "structural_ok": true,
+      "error": null,
+      "attempts_internal": 1,
+      "attempts_external": 0,
+      "warnings": 0,
+      "event_type": "statement",
+      "n_claims": 1,
+      "classes": {
+        "botc": 0,
+        "main_role_ok": 0,
+        "main_role_fail": 0,
+        "main_generic": 0,
+        "main_misaligned": 1
+      },
+      "split_throws": false,
+      "landed_claims": 1,
+      "aligned_claims": 0,
+      "claims_detail": [
+        {
+          "i": 0,
+          "subject_seat": 5,
+          "predicate": "is_wolf",
+          "object": "爪牙",
+          "class": "main_misaligned"
+        }
+      ],
+      "verdict": "correct",
+      "verdict_reason": "指认核心在（is_wolf(5,爪牙)），7谓词内最贴近替身；阵营错位由映射层承担",
+      "exp_min_claims": 1
+    },
+    {
+      "id": "tb-03",
+      "edition": "tb",
+      "cat": "状态声称",
+      "ms": 9634.646,
+      "structural_ok": true,
+      "error": null,
+      "attempts_internal": 1,
+      "attempts_external": 0,
+      "warnings": 0,
+      "event_type": "statement",
+      "n_claims": 0,
+      "classes": {
+        "botc": 0,
+        "main_role_ok": 0,
+        "main_role_fail": 0,
+        "main_generic": 0,
+        "main_misaligned": 0
+      },
+      "split_throws": false,
+      "landed_claims": 0,
+      "aligned_claims": 0,
+      "claims_detail": [],
+      "verdict": "wrong",
+      "verdict_reason": "「我自己都醉了」核心状态声称整条丢失（0 claims）——无状态谓词可用且第一人称无席位，模型无从落笔",
+      "exp_min_claims": 1
+    },
+    {
+      "id": "tb-04",
+      "edition": "tb",
+      "cat": "状态声称",
+      "ms": 33403.222,
+      "structural_ok": true,
+      "error": null,
+      "attempts_internal": 1,
+      "attempts_external": 0,
+      "warnings": 0,
+      "event_type": "statement",
+      "n_claims": 0,
+      "classes": {
+        "botc": 0,
+        "main_role_ok": 0,
+        "main_role_fail": 0,
+        "main_generic": 0,
+        "main_misaligned": 0
+      },
+      "split_throws": false,
+      "landed_claims": 0,
+      "aligned_claims": 0,
+      "claims_detail": [],
+      "verdict": "wrong",
+      "verdict_reason": "「被投毒」状态丢失（0 claims），隐含自称占卜师亦丢失",
+      "exp_min_claims": 2
+    },
+    {
+      "id": "tb-05",
+      "edition": "tb",
+      "cat": "提名与处决",
+      "ms": 27417.531,
+      "structural_ok": true,
+      "error": null,
+      "attempts_internal": 1,
+      "attempts_external": 0,
+      "warnings": 0,
+      "event_type": "statement",
+      "n_claims": 1,
+      "classes": {
+        "botc": 0,
+        "main_role_ok": 1,
+        "main_role_fail": 0,
+        "main_generic": 0,
+        "main_misaligned": 0
+      },
+      "split_throws": false,
+      "landed_claims": 1,
+      "aligned_claims": 1,
+      "claims_detail": [
+        {
+          "i": 0,
+          "subject_seat": 7,
+          "predicate": "claims_role",
+          "object": "僧侣",
+          "class": "main_role_ok"
+        }
+      ],
+      "verdict": "suspect",
+      "verdict_reason": "跳僧侣转述与 vote(7) 都在；但提名者（发言者）归属丢失——actor_seat/action.seat 按 claims[0] 回填错指被提名者7号（llm.js:746 机制）",
+      "exp_min_claims": 1
+    },
+    {
+      "id": "tb-06",
+      "edition": "tb",
+      "cat": "死亡公布",
+      "ms": 7880.254,
+      "structural_ok": true,
+      "error": null,
+      "attempts_internal": 1,
+      "attempts_external": 0,
+      "warnings": 0,
+      "event_type": "death",
+      "n_claims": 0,
+      "classes": {
+        "botc": 0,
+        "main_role_ok": 0,
+        "main_role_fail": 0,
+        "main_generic": 0,
+        "main_misaligned": 0
+      },
+      "split_throws": false,
+      "landed_claims": 0,
+      "aligned_claims": 0,
+      "claims_detail": [],
+      "verdict": "correct",
+      "verdict_reason": "死亡事件正确、零编造；死亡事实由 event.type 承载符合契约",
+      "exp_min_claims": 0
+    },
+    {
+      "id": "tb-07",
+      "edition": "tb",
+      "cat": "复合句",
+      "ms": 26970.614,
+      "structural_ok": true,
+      "error": null,
+      "attempts_internal": 1,
+      "attempts_external": 0,
+      "warnings": 0,
+      "event_type": "claim",
+      "n_claims": 3,
+      "classes": {
+        "botc": 0,
+        "main_role_ok": 3,
+        "main_role_fail": 0,
+        "main_generic": 0,
+        "main_misaligned": 0
+      },
+      "split_throws": false,
+      "landed_claims": 3,
+      "aligned_claims": 3,
+      "claims_detail": [
+        {
+          "i": 0,
+          "subject_seat": 1,
+          "predicate": "claims_role",
+          "object": "占卜师",
+          "class": "main_role_ok"
+        },
+        {
+          "i": 1,
+          "subject_seat": 4,
+          "predicate": "is_role",
+          "object": "投毒者",
+          "class": "main_role_ok"
+        },
+        {
+          "i": 2,
+          "subject_seat": 1,
+          "predicate": "is_role",
+          "object": "红唇女郎",
+          "class": "main_role_ok"
+        }
+      ],
+      "verdict": "suspect",
+      "verdict_reason": "三条角色拆分全对；但「4号反咬」的指控归属未保留在 object（1号红唇女郎成裸断言），与基线R6同型",
+      "exp_min_claims": 3
+    },
+    {
+      "id": "tb-08",
+      "edition": "tb",
+      "cat": "含糊表述",
+      "ms": 3713.136,
+      "structural_ok": true,
+      "error": null,
+      "attempts_internal": 1,
+      "attempts_external": 0,
+      "warnings": 0,
+      "event_type": "statement",
+      "n_claims": 0,
+      "classes": {
+        "botc": 0,
+        "main_role_ok": 0,
+        "main_role_fail": 0,
+        "main_generic": 0,
+        "main_misaligned": 0
+      },
+      "split_throws": false,
+      "landed_claims": 0,
+      "aligned_claims": 0,
+      "claims_detail": [],
+      "verdict": "correct",
+      "verdict_reason": "含糊表述零编造，0 claims 合理",
+      "exp_min_claims": 0
+    },
+    {
+      "id": "tb-09",
+      "edition": "tb",
+      "cat": "提名与处决",
+      "ms": 53544.5,
+      "structural_ok": true,
+      "error": null,
+      "attempts_internal": 1,
+      "attempts_external": 0,
+      "warnings": 0,
+      "event_type": "death",
+      "n_claims": 1,
+      "classes": {
+        "botc": 0,
+        "main_role_ok": 1,
+        "main_role_fail": 0,
+        "main_generic": 0,
+        "main_misaligned": 0
+      },
+      "split_throws": false,
+      "landed_claims": 1,
+      "aligned_claims": 1,
+      "claims_detail": [
+        {
+          "i": 0,
+          "subject_seat": 12,
+          "predicate": "is_role",
+          "object": "间谍",
+          "class": "main_role_ok"
+        }
+      ],
+      "verdict": "suspect",
+      "verdict_reason": "处决+is_role(12,间谍)捕获；但「死前指认」归属（11号）未入 object，actor_seat=12 错指被指认者",
+      "exp_min_claims": 1
+    },
+    {
+      "id": "bmr-01",
+      "edition": "bmr",
+      "cat": "声称具体角色",
+      "ms": 24357.659,
+      "structural_ok": true,
+      "error": null,
+      "attempts_internal": 1,
+      "attempts_external": 0,
+      "warnings": 0,
+      "event_type": "claim",
+      "n_claims": 3,
+      "classes": {
+        "botc": 0,
+        "main_role_ok": 1,
+        "main_role_fail": 0,
+        "main_generic": 2,
+        "main_misaligned": 0
+      },
+      "split_throws": false,
+      "landed_claims": 3,
+      "aligned_claims": 3,
+      "claims_detail": [
+        {
+          "i": 0,
+          "subject_seat": 4,
+          "predicate": "claims_role",
+          "object": "驱魔人",
+          "class": "main_role_ok"
+        },
+        {
+          "i": 1,
+          "subject_seat": 4,
+          "predicate": "did_action",
+          "object": "昨晚选了8号",
+          "class": "main_generic"
+        },
+        {
+          "i": 2,
+          "subject_seat": 4,
+          "predicate": "said",
+          "object": "要是8号真是恶魔，今晚就没人死了",
+          "class": "main_generic"
+        }
+      ],
+      "verdict": "correct",
+      "verdict_reason": "驱魔人声称+选8号行动+条件句全捕获，无编造，未把条件指认当断言",
+      "exp_min_claims": 2
+    },
+    {
+      "id": "bmr-02",
+      "edition": "bmr",
+      "cat": "阵营声称",
+      "ms": 3682.257,
+      "structural_ok": true,
+      "error": null,
+      "attempts_internal": 1,
+      "attempts_external": 0,
+      "warnings": 0,
+      "event_type": "statement",
+      "n_claims": 1,
+      "classes": {
+        "botc": 0,
+        "main_role_ok": 0,
+        "main_role_fail": 0,
+        "main_generic": 0,
+        "main_misaligned": 1
+      },
+      "split_throws": false,
+      "landed_claims": 1,
+      "aligned_claims": 0,
+      "claims_detail": [
+        {
+          "i": 0,
+          "subject_seat": 6,
+          "predicate": "is_wolf",
+          "object": "恶魔",
+          "class": "main_misaligned"
+        }
+      ],
+      "verdict": "correct",
+      "verdict_reason": "恶魔指认捕获（is_wolf(6,恶魔)替身）；错位由映射层承担",
+      "exp_min_claims": 1
+    },
+    {
+      "id": "bmr-03",
+      "edition": "bmr",
+      "cat": "状态声称",
+      "ms": 12620.092,
+      "structural_ok": true,
+      "error": null,
+      "attempts_internal": 1,
+      "attempts_external": 0,
+      "warnings": 0,
+      "event_type": "statement",
+      "n_claims": 0,
+      "classes": {
+        "botc": 0,
+        "main_role_ok": 0,
+        "main_role_fail": 0,
+        "main_generic": 0,
+        "main_misaligned": 0
+      },
+      "split_throws": false,
+      "landed_claims": 0,
+      "aligned_claims": 0,
+      "claims_detail": [],
+      "verdict": "wrong",
+      "verdict_reason": "「我觉得我中毒了」状态整条丢失（0 claims）",
+      "exp_min_claims": 2
+    },
+    {
+      "id": "bmr-04",
+      "edition": "bmr",
+      "cat": "状态声称",
+      "ms": 45655.199,
+      "structural_ok": true,
+      "error": null,
+      "attempts_internal": 1,
+      "attempts_external": 0,
+      "warnings": 0,
+      "event_type": "statement",
+      "n_claims": 2,
+      "classes": {
+        "botc": 0,
+        "main_role_ok": 1,
+        "main_role_fail": 0,
+        "main_generic": 1,
+        "main_misaligned": 0
+      },
+      "split_throws": false,
+      "landed_claims": 2,
+      "aligned_claims": 2,
+      "claims_detail": [
+        {
+          "i": 0,
+          "subject_seat": 9,
+          "predicate": "did_action",
+          "object": "昨晚把3号选成醉酒",
+          "class": "main_generic"
+        },
+        {
+          "i": 1,
+          "subject_seat": 9,
+          "predicate": "is_role",
+          "object": "旅店老板",
+          "class": "main_role_ok"
+        }
+      ],
+      "verdict": "suspect",
+      "verdict_reason": "3号被选醉酒以 did_action(9) 的 object 承载（信息在但未结构化为3号状态）；「八成是旅店老板」推断以裸 is_role 落账无标注",
+      "exp_min_claims": 2
+    },
+    {
+      "id": "bmr-05",
+      "edition": "bmr",
+      "cat": "提名与处决",
+      "ms": 13696.046,
+      "structural_ok": true,
+      "error": null,
+      "attempts_internal": 1,
+      "attempts_external": 0,
+      "warnings": 0,
+      "event_type": "statement",
+      "n_claims": 1,
+      "classes": {
+        "botc": 0,
+        "main_role_ok": 1,
+        "main_role_fail": 0,
+        "main_generic": 0,
+        "main_misaligned": 0
+      },
+      "split_throws": false,
+      "landed_claims": 1,
+      "aligned_claims": 1,
+      "claims_detail": [
+        {
+          "i": 0,
+          "subject_seat": 10,
+          "predicate": "claims_role",
+          "object": "修补匠",
+          "class": "main_role_ok"
+        }
+      ],
+      "verdict": "suspect",
+      "verdict_reason": "修补匠跳身份+vote(10) 对；提名者归属缺口同 tb-05",
+      "exp_min_claims": 1
+    },
+    {
+      "id": "bmr-06",
+      "edition": "bmr",
+      "cat": "死亡公布",
+      "ms": 6447.065,
+      "structural_ok": true,
+      "error": null,
+      "attempts_internal": 1,
+      "attempts_external": 0,
+      "warnings": 0,
+      "event_type": "system",
+      "n_claims": 0,
+      "classes": {
+        "botc": 0,
+        "main_role_ok": 0,
+        "main_role_fail": 0,
+        "main_generic": 0,
+        "main_misaligned": 0
+      },
+      "split_throws": false,
+      "landed_claims": 0,
+      "aligned_claims": 0,
+      "claims_detail": [],
+      "verdict": "correct",
+      "verdict_reason": "平安夜零编造（BMR 夜死不公布语境处理正确）",
+      "exp_min_claims": 0
+    },
+    {
+      "id": "bmr-07",
+      "edition": "bmr",
+      "cat": "复合句",
+      "ms": 41735.959,
+      "structural_ok": true,
+      "error": null,
+      "attempts_internal": 1,
+      "attempts_external": 0,
+      "warnings": 0,
+      "event_type": "claim",
+      "n_claims": 3,
+      "classes": {
+        "botc": 0,
+        "main_role_ok": 1,
+        "main_role_fail": 0,
+        "main_generic": 2,
+        "main_misaligned": 0
+      },
+      "split_throws": false,
+      "landed_claims": 3,
+      "aligned_claims": 3,
+      "claims_detail": [
+        {
+          "i": 0,
+          "subject_seat": 1,
+          "predicate": "claims_role",
+          "object": "造谣者",
+          "class": "main_role_ok"
+        },
+        {
+          "i": 1,
+          "subject_seat": 1,
+          "predicate": "said",
+          "object": "2号是主谋",
+          "class": "main_generic"
+        },
+        {
+          "i": 2,
+          "subject_seat": 2,
+          "predicate": "said",
+          "object": "1号更像魔鬼代言人",
+          "class": "main_generic"
+        }
+      ],
+      "verdict": "correct",
+      "verdict_reason": "复合句两条指控均以 said 正确归属（1号散布/2号反击），是基线R6归属丢失的正对照",
+      "exp_min_claims": 3
+    },
+    {
+      "id": "bmr-08",
+      "edition": "bmr",
+      "cat": "含糊表述",
+      "ms": 7754.014,
+      "structural_ok": true,
+      "error": null,
+      "attempts_internal": 1,
+      "attempts_external": 0,
+      "warnings": 0,
+      "event_type": "statement",
+      "n_claims": 0,
+      "classes": {
+        "botc": 0,
+        "main_role_ok": 0,
+        "main_role_fail": 0,
+        "main_generic": 0,
+        "main_misaligned": 0
+      },
+      "split_throws": false,
+      "landed_claims": 0,
+      "aligned_claims": 0,
+      "claims_detail": [],
+      "verdict": "correct",
+      "verdict_reason": "群体含糊未编造具体座位",
+      "exp_min_claims": 0
+    },
+    {
+      "id": "bmr-09",
+      "edition": "bmr",
+      "cat": "声称具体角色",
+      "ms": 15797.339,
+      "structural_ok": true,
+      "error": null,
+      "attempts_internal": 1,
+      "attempts_external": 0,
+      "warnings": 0,
+      "event_type": "claim",
+      "n_claims": 3,
+      "classes": {
+        "botc": 0,
+        "main_role_ok": 1,
+        "main_role_fail": 0,
+        "main_generic": 2,
+        "main_misaligned": 0
+      },
+      "split_throws": false,
+      "landed_claims": 3,
+      "aligned_claims": 3,
+      "claims_detail": [
+        {
+          "i": 0,
+          "subject_seat": 5,
+          "predicate": "claims_role",
+          "object": "祖母",
+          "class": "main_role_ok"
+        },
+        {
+          "i": 1,
+          "subject_seat": 5,
+          "predicate": "said",
+          "object": "4号是她孙子",
+          "class": "main_generic"
+        },
+        {
+          "i": 2,
+          "subject_seat": 5,
+          "predicate": "said",
+          "object": "4号要是先死，她能看穿凶手那一伙",
+          "class": "main_generic"
+        }
+      ],
+      "verdict": "correct",
+      "verdict_reason": "祖母声称+孙辈关系 said 化；「孙子」未被编造成 is_role",
+      "exp_min_claims": 2
+    },
+    {
+      "id": "snv-01",
+      "edition": "snv",
+      "cat": "声称具体角色",
+      "ms": 30011.428,
+      "structural_ok": true,
+      "error": null,
+      "attempts_internal": 1,
+      "attempts_external": 0,
+      "warnings": 0,
+      "event_type": "claim",
+      "n_claims": 2,
+      "classes": {
+        "botc": 0,
+        "main_role_ok": 1,
+        "main_role_fail": 0,
+        "main_generic": 1,
+        "main_misaligned": 0
+      },
+      "split_throws": false,
+      "landed_claims": 2,
+      "aligned_claims": 2,
+      "claims_detail": [
+        {
+          "i": 0,
+          "subject_seat": 9,
+          "predicate": "claims_role",
+          "object": "筑梦师",
+          "class": "main_role_ok"
+        },
+        {
+          "i": 1,
+          "subject_seat": 9,
+          "predicate": "said",
+          "object": "昨晚梦见了一个邪恶玩家，但暂时不肯说是谁",
+          "class": "main_generic"
+        }
+      ],
+      "verdict": "correct",
+      "verdict_reason": "筑梦师+暂不透露目标，无编造",
+      "exp_min_claims": 2
+    },
+    {
+      "id": "snv-02",
+      "edition": "snv",
+      "cat": "阵营声称",
+      "ms": 24127.56,
+      "structural_ok": true,
+      "error": null,
+      "attempts_internal": 1,
+      "attempts_external": 0,
+      "warnings": 0,
+      "event_type": "statement",
+      "n_claims": 1,
+      "classes": {
+        "botc": 0,
+        "main_role_ok": 0,
+        "main_role_fail": 1,
+        "main_generic": 0,
+        "main_misaligned": 0
+      },
+      "split_throws": true,
+      "landed_claims": 0,
+      "aligned_claims": 0,
+      "claims_detail": [
+        {
+          "i": 0,
+          "subject_seat": 14,
+          "predicate": "is_role",
+          "object": "恶魔",
+          "class": "main_role_fail"
+        }
+      ],
+      "verdict": "wrong",
+      "verdict_reason": "阵营词「恶魔」被塞进 is_role（谓词不当）——resolveRole 失败，confirm 时 splitBotcClaims 抛 400 整批拒入；同型口播 tb-02/bmr-02 用 is_wolf，行为不一致",
+      "exp_min_claims": 1
+    },
+    {
+      "id": "snv-03",
+      "edition": "snv",
+      "cat": "状态声称",
+      "ms": 21886.013,
+      "structural_ok": true,
+      "error": null,
+      "attempts_internal": 1,
+      "attempts_external": 0,
+      "warnings": 0,
+      "event_type": "statement",
+      "n_claims": 0,
+      "classes": {
+        "botc": 0,
+        "main_role_ok": 0,
+        "main_role_fail": 0,
+        "main_generic": 0,
+        "main_misaligned": 0
+      },
+      "split_throws": false,
+      "landed_claims": 0,
+      "aligned_claims": 0,
+      "claims_detail": [],
+      "verdict": "wrong",
+      "verdict_reason": "「我感觉我中毒了」状态整条丢失（0 claims）",
+      "exp_min_claims": 1
+    },
+    {
+      "id": "snv-04",
+      "edition": "snv",
+      "cat": "状态声称",
+      "ms": 168267.276,
+      "structural_ok": true,
+      "error": null,
+      "attempts_internal": 3,
+      "attempts_external": 0,
+      "warnings": 0,
+      "event_type": "statement",
+      "n_claims": 0,
+      "classes": {
+        "botc": 0,
+        "main_role_ok": 0,
+        "main_role_fail": 0,
+        "main_generic": 0,
+        "main_misaligned": 0
+      },
+      "split_throws": false,
+      "landed_claims": 0,
+      "aligned_claims": 0,
+      "claims_detail": [],
+      "verdict": "wrong",
+      "verdict_reason": "醉酒状态+心上人推断全部丢失（0 claims）；内部重试2次延迟放大至168s",
+      "exp_min_claims": 2
+    },
+    {
+      "id": "snv-05",
+      "edition": "snv",
+      "cat": "提名与处决",
+      "ms": 56107.389,
+      "structural_ok": true,
+      "error": null,
+      "attempts_internal": 1,
+      "attempts_external": 0,
+      "warnings": 0,
+      "event_type": "statement",
+      "n_claims": 1,
+      "classes": {
+        "botc": 0,
+        "main_role_ok": 1,
+        "main_role_fail": 0,
+        "main_generic": 0,
+        "main_misaligned": 0
+      },
+      "split_throws": false,
+      "landed_claims": 1,
+      "aligned_claims": 1,
+      "claims_detail": [
+        {
+          "i": 0,
+          "subject_seat": 3,
+          "predicate": "claims_role",
+          "object": "贤者",
+          "class": "main_role_ok"
+        }
+      ],
+      "verdict": "suspect",
+      "verdict_reason": "贤者跳身份+vote(3) 对；提名者归属缺口同 tb-05",
+      "exp_min_claims": 1
+    },
+    {
+      "id": "snv-06",
+      "edition": "snv",
+      "cat": "死亡公布",
+      "ms": 27116.413,
+      "structural_ok": true,
+      "error": null,
+      "attempts_internal": 1,
+      "attempts_external": 0,
+      "warnings": 0,
+      "event_type": "system",
+      "n_claims": 0,
+      "classes": {
+        "botc": 0,
+        "main_role_ok": 0,
+        "main_role_fail": 0,
+        "main_generic": 0,
+        "main_misaligned": 0
+      },
+      "split_throws": false,
+      "landed_claims": 0,
+      "aligned_claims": 0,
+      "claims_detail": [],
+      "verdict": "correct",
+      "verdict_reason": "处决事实以 event(system)+action vote(8) 承载、零编造",
+      "exp_min_claims": 0
+    },
+    {
+      "id": "snv-07",
+      "edition": "snv",
+      "cat": "复合句",
+      "ms": 12683.566,
+      "structural_ok": true,
+      "error": null,
+      "attempts_internal": 1,
+      "attempts_external": 0,
+      "warnings": 0,
+      "event_type": "statement",
+      "n_claims": 2,
+      "classes": {
+        "botc": 0,
+        "main_role_ok": 1,
+        "main_role_fail": 0,
+        "main_generic": 0,
+        "main_misaligned": 1
+      },
+      "split_throws": false,
+      "landed_claims": 2,
+      "aligned_claims": 1,
+      "claims_detail": [
+        {
+          "i": 0,
+          "subject_seat": 5,
+          "predicate": "claims_role",
+          "object": "数学家",
+          "class": "main_role_ok"
+        },
+        {
+          "i": 1,
+          "subject_seat": 5,
+          "predicate": "is_wolf",
+          "object": "镜像双子里恶魔的那一半",
+          "class": "main_misaligned"
+        }
+      ],
+      "verdict": "suspect",
+      "verdict_reason": "数学家声称+镜像双子指认在；但「7号当场说」的指控归属未保留在 object，且阵营指认落 is_wolf 错位",
+      "exp_min_claims": 2
+    },
+    {
+      "id": "snv-08",
+      "edition": "snv",
+      "cat": "含糊表述",
+      "ms": 4562.529,
+      "structural_ok": true,
+      "error": null,
+      "attempts_internal": 1,
+      "attempts_external": 0,
+      "warnings": 0,
+      "event_type": "statement",
+      "n_claims": 0,
+      "classes": {
+        "botc": 0,
+        "main_role_ok": 0,
+        "main_role_fail": 0,
+        "main_generic": 0,
+        "main_misaligned": 0
+      },
+      "split_throws": false,
+      "landed_claims": 0,
+      "aligned_claims": 0,
+      "claims_detail": [],
+      "verdict": "correct",
+      "verdict_reason": "含糊零编造",
+      "exp_min_claims": 0
+    },
+    {
+      "id": "snv-09",
+      "edition": "snv",
+      "cat": "声称具体角色",
+      "ms": 9789.497,
+      "structural_ok": true,
+      "error": null,
+      "attempts_internal": 1,
+      "attempts_external": 0,
+      "warnings": 0,
+      "event_type": "claim",
+      "n_claims": 2,
+      "classes": {
+        "botc": 0,
+        "main_role_ok": 1,
+        "main_role_fail": 0,
+        "main_generic": 1,
+        "main_misaligned": 0
+      },
+      "split_throws": false,
+      "landed_claims": 2,
+      "aligned_claims": 2,
+      "claims_detail": [
+        {
+          "i": 0,
+          "subject_seat": 4,
+          "predicate": "claims_role",
+          "object": "卖花女孩",
+          "class": "main_role_ok"
+        },
+        {
+          "i": 1,
+          "subject_seat": 4,
+          "predicate": "said",
+          "object": "2号的票她从头盯到尾",
+          "class": "main_generic"
+        }
+      ],
+      "verdict": "correct",
+      "verdict_reason": "卖花女孩+盯票观察 said(4) 归属正确，无编造",
+      "exp_min_claims": 2
+    }
+  ],
+  "flagged": [
+    {
+      "id": "tb-03",
+      "verdict": "wrong",
+      "reason": "「我自己都醉了」核心状态声称整条丢失（0 claims）——无状态谓词可用且第一人称无席位，模型无从落笔",
+      "claims": []
+    },
+    {
+      "id": "tb-04",
+      "verdict": "wrong",
+      "reason": "「被投毒」状态丢失（0 claims），隐含自称占卜师亦丢失",
+      "claims": []
+    },
+    {
+      "id": "tb-05",
+      "verdict": "suspect",
+      "reason": "跳僧侣转述与 vote(7) 都在；但提名者（发言者）归属丢失——actor_seat/action.seat 按 claims[0] 回填错指被提名者7号（llm.js:746 机制）",
+      "claims": [
+        {
+          "i": 0,
+          "subject_seat": 7,
+          "predicate": "claims_role",
+          "object": "僧侣",
+          "class": "main_role_ok"
+        }
+      ]
+    },
+    {
+      "id": "tb-07",
+      "verdict": "suspect",
+      "reason": "三条角色拆分全对；但「4号反咬」的指控归属未保留在 object（1号红唇女郎成裸断言），与基线R6同型",
+      "claims": [
+        {
+          "i": 0,
+          "subject_seat": 1,
+          "predicate": "claims_role",
+          "object": "占卜师",
+          "class": "main_role_ok"
+        },
+        {
+          "i": 1,
+          "subject_seat": 4,
+          "predicate": "is_role",
+          "object": "投毒者",
+          "class": "main_role_ok"
+        },
+        {
+          "i": 2,
+          "subject_seat": 1,
+          "predicate": "is_role",
+          "object": "红唇女郎",
+          "class": "main_role_ok"
+        }
+      ]
+    },
+    {
+      "id": "tb-09",
+      "verdict": "suspect",
+      "reason": "处决+is_role(12,间谍)捕获；但「死前指认」归属（11号）未入 object，actor_seat=12 错指被指认者",
+      "claims": [
+        {
+          "i": 0,
+          "subject_seat": 12,
+          "predicate": "is_role",
+          "object": "间谍",
+          "class": "main_role_ok"
+        }
+      ]
+    },
+    {
+      "id": "bmr-03",
+      "verdict": "wrong",
+      "reason": "「我觉得我中毒了」状态整条丢失（0 claims）",
+      "claims": []
+    },
+    {
+      "id": "bmr-04",
+      "verdict": "suspect",
+      "reason": "3号被选醉酒以 did_action(9) 的 object 承载（信息在但未结构化为3号状态）；「八成是旅店老板」推断以裸 is_role 落账无标注",
+      "claims": [
+        {
+          "i": 0,
+          "subject_seat": 9,
+          "predicate": "did_action",
+          "object": "昨晚把3号选成醉酒",
+          "class": "main_generic"
+        },
+        {
+          "i": 1,
+          "subject_seat": 9,
+          "predicate": "is_role",
+          "object": "旅店老板",
+          "class": "main_role_ok"
+        }
+      ]
+    },
+    {
+      "id": "bmr-05",
+      "verdict": "suspect",
+      "reason": "修补匠跳身份+vote(10) 对；提名者归属缺口同 tb-05",
+      "claims": [
+        {
+          "i": 0,
+          "subject_seat": 10,
+          "predicate": "claims_role",
+          "object": "修补匠",
+          "class": "main_role_ok"
+        }
+      ]
+    },
+    {
+      "id": "snv-02",
+      "verdict": "wrong",
+      "reason": "阵营词「恶魔」被塞进 is_role（谓词不当）——resolveRole 失败，confirm 时 splitBotcClaims 抛 400 整批拒入；同型口播 tb-02/bmr-02 用 is_wolf，行为不一致",
+      "claims": [
+        {
+          "i": 0,
+          "subject_seat": 14,
+          "predicate": "is_role",
+          "object": "恶魔",
+          "class": "main_role_fail"
+        }
+      ]
+    },
+    {
+      "id": "snv-03",
+      "verdict": "wrong",
+      "reason": "「我感觉我中毒了」状态整条丢失（0 claims）",
+      "claims": []
+    },
+    {
+      "id": "snv-04",
+      "verdict": "wrong",
+      "reason": "醉酒状态+心上人推断全部丢失（0 claims）；内部重试2次延迟放大至168s",
+      "claims": []
+    },
+    {
+      "id": "snv-05",
+      "verdict": "suspect",
+      "reason": "贤者跳身份+vote(3) 对；提名者归属缺口同 tb-05",
+      "claims": [
+        {
+          "i": 0,
+          "subject_seat": 3,
+          "predicate": "claims_role",
+          "object": "贤者",
+          "class": "main_role_ok"
+        }
+      ]
+    },
+    {
+      "id": "snv-07",
+      "verdict": "suspect",
+      "reason": "数学家声称+镜像双子指认在；但「7号当场说」的指控归属未保留在 object，且阵营指认落 is_wolf 错位",
+      "claims": [
+        {
+          "i": 0,
+          "subject_seat": 5,
+          "predicate": "claims_role",
+          "object": "数学家",
+          "class": "main_role_ok"
+        },
+        {
+          "i": 1,
+          "subject_seat": 5,
+          "predicate": "is_wolf",
+          "object": "镜像双子里恶魔的那一半",
+          "class": "main_misaligned"
+        }
+      ]
+    }
+  ]
+}

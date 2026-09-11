@@ -1,0 +1,18 @@
+{
+ "id": "gunslinger",
+ "name_en": "Gunslinger",
+ "search_status": 200,
+ "hit_titles": [
+  "枪手"
+ ],
+ "name_zh": "枪手",
+ "ability_zh": "每个白天，当首次投票被统计后，你可以选择一名刚投过票的玩家：他死亡。",
+ "page": "枪手",
+ "file_verified": false,
+ "script": "暗流涌动",
+ "page_found": true,
+ "has_section": true,
+ "retry_route": "script-gallery:暗流涌动",
+ "appears_in": null,
+ "fan_like": false
+}

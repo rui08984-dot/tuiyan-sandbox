@@ -1,0 +1,19 @@
+{
+ "id": "investigator",
+ "name_en": "Investigator",
+ "search_status": 200,
+ "hit_titles": [
+  "调查员",
+  "陷阱师Trapper"
+ ],
+ "name_zh": "调查员",
+ "ability_zh": "在你的首个夜晚，你会得知两名玩家和一个爪牙角色：这两名玩家之一是该角色（或者你会得知没有爪牙在场）。",
+ "page": "调查员",
+ "file_verified": false,
+ "script": "暗流涌动",
+ "page_found": true,
+ "has_section": true,
+ "retry_route": "script-gallery:暗流涌动",
+ "appears_in": null,
+ "fan_like": false
+}

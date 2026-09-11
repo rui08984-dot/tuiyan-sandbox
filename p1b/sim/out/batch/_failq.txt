@@ -1,0 +1,20 @@
+[
+ {
+  "game": "sim-ww-20260912",
+  "seat": 2,
+  "action": "abstain",
+  "result": "llm-fail: LLM 响应缺 content"
+ },
+ {
+  "game": "sim-ww-20260912",
+  "seat": 4,
+  "action": "abstain",
+  "result": "llm-fail: LLM 响应缺 content"
+ },
+ {
+  "game": "sim-ww-20260914",
+  "seat": 6,
+  "action": "abstain",
+  "result": "llm-fail: LLM 响应缺 content"
+ }
+]

@@ -1,0 +1,17 @@
+{
+ "id": "soldier",
+ "name_en": "Soldier",
+ "search_status": 200,
+ "hit_titles": [],
+ "name_zh": "士兵",
+ "ability_zh": null,
+ "page": "士兵",
+ "file_verified": false,
+ "script": "暗流涌动",
+ "page_found": true,
+ "has_section": true,
+ "retry_route": "script-gallery:暗流涌动",
+ "appears_in": "灯火管制",
+ "fan_like": true,
+ "note_contaminated": "wiki 页 \"士兵\" 被《灯火管制》粉丝同名角色占用，页内能力与官方能力(EN)语义不符，置空防污染"
+}

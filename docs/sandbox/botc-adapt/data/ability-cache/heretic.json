@@ -1,0 +1,8 @@
+{
+ "id": "heretic",
+ "page": "异端分子",
+ "len": 2757,
+ "ability_zh": "所有本来获胜的玩家，改为落败；所有本来落败的玩家，改为获胜，即使你已死亡。",
+ "appears_in": null,
+ "fan_like": false
+}

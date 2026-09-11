@@ -1,0 +1,48 @@
+{
+  "id": "snv-02",
+  "edition": "snv",
+  "cat": "阵营声称",
+  "day": 2,
+  "phase": "day",
+  "speakerSeat": null,
+  "text": "14号就是恶魔，他的投票方向一直带着两三个爪牙走，跟风的人自己心里有数。",
+  "expected": {
+    "event_type": "statement",
+    "claims": [
+      {
+        "subject_seat": 14,
+        "predicate_ideal": "is_demon",
+        "object": "恶魔",
+        "map_expect": "botc",
+        "note": "群体爪牙暗示无具体座位，不应编造"
+      }
+    ],
+    "action": null
+  },
+  "ms": 24127.56,
+  "attempts_external": 0,
+  "error": null,
+  "out": {
+    "event": {
+      "day": 2,
+      "phase": "day",
+      "type": "statement",
+      "raw_text": "14号就是恶魔，他的投票方向一直带着两三个爪牙走，跟风的人自己心里有数。",
+      "actor_seat": 14
+    },
+    "claims": [
+      {
+        "subject_seat": 14,
+        "predicate": "is_role",
+        "object": "恶魔"
+      }
+    ],
+    "action": null,
+    "warnings": [],
+    "meta": {
+      "mode": "LIVE",
+      "attempts": 1
+    },
+    "actor_seat": 14
+  }
+}

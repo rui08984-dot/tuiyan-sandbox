@@ -1,0 +1,18 @@
+{
+ "id": "juggler",
+ "name_en": "Juggler",
+ "search_status": 200,
+ "hit_titles": [
+  "杂耍艺人"
+ ],
+ "name_zh": "杂耍艺人",
+ "ability_zh": "在你的首个白天，你可以公开猜测任意玩家的角色最多五次。在当晚，你会得知猜测正确的角色数量。",
+ "page": "杂耍艺人",
+ "file_verified": false,
+ "script": "梦殒春宵",
+ "page_found": true,
+ "has_section": true,
+ "retry_route": "script-gallery:梦殒春宵",
+ "appears_in": null,
+ "fan_like": false
+}

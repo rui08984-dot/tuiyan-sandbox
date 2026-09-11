@@ -1,0 +1,18 @@
+{
+ "id": "politician",
+ "name_en": "Politician",
+ "search_status": 200,
+ "hit_titles": [
+  "政客"
+ ],
+ "name_zh": "政客",
+ "ability_zh": "如果你是对你的阵营落败负最大责任的人，你转变阵营并获胜，即使你已死亡。",
+ "page": "政客",
+ "file_verified": false,
+ "script": "梦殒春宵",
+ "page_found": true,
+ "has_section": true,
+ "retry_route": "script-gallery:梦殒春宵",
+ "appears_in": null,
+ "fan_like": false
+}

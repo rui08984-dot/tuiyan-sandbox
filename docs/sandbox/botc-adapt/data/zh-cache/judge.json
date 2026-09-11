@@ -1,0 +1,18 @@
+{
+ "id": "judge",
+ "name_en": "Judge",
+ "search_status": 200,
+ "hit_titles": [
+  "法官"
+ ],
+ "name_zh": "法官",
+ "ability_zh": "每局游戏限一次，如果其他玩家发起了提名，你可以选择让本次提名直接执行处决或让投票无效。",
+ "page": "法官",
+ "file_verified": false,
+ "script": "黯月初升",
+ "page_found": true,
+ "has_section": true,
+ "retry_route": "script-gallery:黯月初升",
+ "appears_in": null,
+ "fan_like": false
+}

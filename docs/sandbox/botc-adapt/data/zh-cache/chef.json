@@ -1,0 +1,20 @@
+{
+ "id": "chef",
+ "name_en": "Chef",
+ "search_status": 200,
+ "hit_titles": [
+  "厨师",
+  "传菜员Busboy",
+  "会计Bookkeeper"
+ ],
+ "name_zh": "厨师",
+ "ability_zh": "在你的首个夜晚，你会得知场上邻座的邪恶玩家有多少对。",
+ "page": "厨师",
+ "file_verified": false,
+ "script": "暗流涌动",
+ "page_found": true,
+ "has_section": true,
+ "retry_route": "script-gallery:暗流涌动",
+ "appears_in": null,
+ "fan_like": false
+}

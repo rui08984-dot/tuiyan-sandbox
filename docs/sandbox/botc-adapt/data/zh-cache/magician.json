@@ -1,0 +1,19 @@
+{
+ "id": "magician",
+ "name_en": "Magician",
+ "search_status": 200,
+ "hit_titles": [
+  "魔术师",
+  "黯月初升"
+ ],
+ "name_zh": "魔术师",
+ "ability_zh": "恶魔会以为你是爪牙。爪牙会以为你是恶魔。",
+ "page": "魔术师",
+ "file_verified": false,
+ "script": "黯月初升",
+ "page_found": true,
+ "has_section": true,
+ "retry_route": "script-gallery:黯月初升",
+ "appears_in": null,
+ "fan_like": false
+}

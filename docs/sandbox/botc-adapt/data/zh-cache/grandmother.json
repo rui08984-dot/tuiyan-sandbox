@@ -1,0 +1,19 @@
+{
+ "id": "grandmother",
+ "name_en": "Grandmother",
+ "search_status": 200,
+ "hit_titles": [
+  "珀",
+  "祖母"
+ ],
+ "name_zh": "祖母",
+ "ability_zh": "在你的首个夜晚，你会得知一名善良玩家和他的角色。 如果恶魔杀死了他，你也会死亡。",
+ "page": "祖母",
+ "file_verified": false,
+ "script": "黯月初升",
+ "page_found": true,
+ "has_section": true,
+ "retry_route": "script-gallery:黯月初升",
+ "appears_in": null,
+ "fan_like": false
+}

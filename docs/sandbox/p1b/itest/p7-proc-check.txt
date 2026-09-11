@@ -1,0 +1,28 @@
+=== node.exe processes ===
+PID=24156 :: D:\agent1super\node\node.exe D:\agent1super\mcp\node_modules\@playwright\mcp\cli.js --browser msedge
+PID=37620 :: D:\agent1super\node\node.exe D:\agent1super\mcp\node_modules\paperplain-mcp\server.js
+PID=33876 :: D:\agent1super\node\node.exe D:\agent1super\mcp\node_modules\@modelcontextprotocol\server-sequential-thinking\dist\index.js
+PID=11840 :: D:\agent1super\node\node.exe D:\agent1super\mcp\node_modules\aigroup-paper-mcp\dist\server.js
+PID=9996 :: D:\agent1super\node\node.exe D:\agent1super\mcp\node_modules\mcp-excel-controller-pro\server.js
+PID=34852 :: D:\agent1super\node\node.exe D:\agent1super\mcp\node_modules\one-search-mcp\dist\index.cjs
+PID=35504 :: D:\agent1super\node\node.exe D:\agent1super\mcp\node_modules\xlsx-mcp-server\dist\index.js
+PID=39240 :: "D:\agent1super\node\node.exe" D:\agent1super\dsh\node_modules\@deepseek-ai\dsh\lib\bin.js web 
+PID=4020 :: D:\agent1super\node\node.exe D:\codex\.mcp\apaper\node_modules\@ai4paper\apaper-mcp\bin\apaper-mcp.js
+PID=5236 :: D:/agent1super/node/node.exe D:/agent1super/mcp/node_modules/one-search-mcp/dist/index.cjs
+PID=5736 :: D:/agent1super/node/node.exe D:/agent1super/mcp/node_modules/aigroup-paper-mcp/dist/server.js
+PID=36016 :: D:/agent1super/node/node.exe D:/agent1super/mcp/node_modules/xlsx-mcp-server/dist/index.js
+PID=33312 :: D:/agent1super/node/node.exe D:/agent1super/mcp/node_modules/@playwright/mcp/cli.js --browser msedge --output-dir D:/agent1super/output/browser
+PID=13460 :: D:\agent1super\node\node.exe D:\agent1super\mcp\node_modules\@playwright\mcp\cli.js --browser msedge
+PID=18256 :: D:\agent1super\node\node.exe D:\agent1super\mcp\node_modules\@modelcontextprotocol\server-sequential-thinking\dist\index.js
+PID=34676 :: D:\agent1super\node\node.exe D:\agent1super\mcp\node_modules\paperplain-mcp\server.js
+PID=22280 :: D:\agent1super\node\node.exe D:\agent1super\mcp\node_modules\mcp-excel-controller-pro\server.js
+PID=35532 :: D:\agent1super\node\node.exe D:\agent1super\mcp\node_modules\one-search-mcp\dist\index.cjs
+PID=33092 :: D:\agent1super\node\node.exe D:\agent1super\mcp\node_modules\xlsx-mcp-server\dist\index.js
+PID=32000 :: D:\agent1super\node\node.exe D:\agent1super\mcp\node_modules\aigroup-paper-mcp\dist\server.js
+PID=33012 :: "C:\Program Files\nodejs\node.exe" src/server.js
+=== chrome with remote-debugging 92xx ===
+=== ports ===
+PORT 8787 LISTEN pid=33012
+PORT 9223 FREE
+PORT 4720 FREE
+=== done ===

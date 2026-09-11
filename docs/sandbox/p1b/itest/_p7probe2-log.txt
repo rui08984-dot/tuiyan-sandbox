@@ -1,0 +1,11 @@
+=== PROBE D: S4确认入账后紧跟宏 的复现 ===
+D0 topbar=🎭 推演沙盘 现场 管理 ⚙️ P7血染回归 血染钟楼 · 5人 切换/建局 − 第 1 天 ＋ 存活 5/5 ⚡ 天结算 1号·1号 2号·2号 3号·3号 4号·4号 5号·
+D1 确认卡=false
+D2 入账后 .sheet 数=0 .confirm-sheet 数=1 overlay 数=1
+D3 click 跳身份 -> clicked
+D4 .sheet 数=1 aria=跳身份 err=(none)
+D5 select0 set -> set
+D6 role set -> set value=女巫
+D7 出确认卡 -> clicked
+D8 confirm-sheet=true err=(none)
+D9 所有 .sheet-overlay aria=

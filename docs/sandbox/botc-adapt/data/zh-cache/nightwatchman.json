@@ -1,0 +1,18 @@
+{
+ "id": "nightwatchman",
+ "name_en": "Nightwatchman",
+ "search_status": 200,
+ "hit_titles": [
+  "守夜人"
+ ],
+ "name_zh": "守夜人",
+ "ability_zh": "每局游戏限一次，在夜晚时，你可以选择一名玩家：他会得知你是守夜人。",
+ "page": "守夜人",
+ "file_verified": false,
+ "script": "暗流涌动",
+ "page_found": true,
+ "has_section": true,
+ "retry_route": "script-gallery:暗流涌动",
+ "appears_in": null,
+ "fan_like": false
+}

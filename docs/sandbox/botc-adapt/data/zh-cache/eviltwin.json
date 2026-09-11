@@ -1,0 +1,18 @@
+{
+ "id": "eviltwin",
+ "name_en": "Evil Twin",
+ "search_status": 200,
+ "hit_titles": [
+  "镜像双子"
+ ],
+ "name_zh": "镜像双子",
+ "ability_zh": "你与一名对立阵营的玩家互相知道对方是什么角色。 如果其中善良玩家被处决，邪恶阵营获胜。 如果你们都存活，善良阵营无法获胜。",
+ "page": "镜像双子",
+ "file_verified": false,
+ "script": "梦殒春宵",
+ "page_found": true,
+ "has_section": true,
+ "retry_route": "script-gallery:梦殒春宵",
+ "appears_in": null,
+ "fan_like": false
+}

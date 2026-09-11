@@ -1,0 +1,57 @@
+{
+  "id": "tb-09",
+  "edition": "tb",
+  "cat": "提名与处决",
+  "day": 3,
+  "phase": "day",
+  "speakerSeat": null,
+  "text": "处决投票结束，11号被投出局了；他死前指认12号是间谍。",
+  "expected": {
+    "event_type": "vote",
+    "claims": [
+      {
+        "subject_seat": 12,
+        "predicate_ideal": "is_role",
+        "object": "间谍",
+        "map_expect": "main_role",
+        "note": "指认归属11号（死前发言）"
+      }
+    ],
+    "action": {
+      "action": "vote",
+      "target_seat": 11,
+      "note": "可选；处决事实可由 event.type 承载"
+    }
+  },
+  "ms": 53544.5,
+  "attempts_external": 0,
+  "error": null,
+  "out": {
+    "event": {
+      "day": 3,
+      "phase": "day",
+      "type": "death",
+      "raw_text": "处决投票结束，11号被投出局了；他死前指认12号是间谍。",
+      "actor_seat": 12
+    },
+    "claims": [
+      {
+        "subject_seat": 12,
+        "predicate": "is_role",
+        "object": "间谍"
+      }
+    ],
+    "action": {
+      "action": "vote",
+      "target_seat": 11,
+      "result": "11号被投票处决出局",
+      "seat": 12
+    },
+    "warnings": [],
+    "meta": {
+      "mode": "LIVE",
+      "attempts": 1
+    },
+    "actor_seat": 12
+  }
+}

@@ -1,0 +1,39 @@
+=== m4 probe @ 15:11:34 ===
+port8787: NO_LISTENER
+port9223: TCP    127.0.0.1:9223         0.0.0.0:0              LISTENING       15308
+pid15308: alive name=chrome path=C:\Users\crx\AppData\Local\Google\Chrome\Application\chrome.exe start=09/10/2026 12:26:12
+--- cmdline attempts for 15308 ---
+cim-cmdline: []
+wmic-cmdline: [process - Alias not found. ]
+--- CDP /json/list (tab evidence) ---
+[ { "description": "", "devtoolsFrontendUrl": "https://chrome-devtools-frontend.appspot.com/serve_rev/@1e112499da812a1dde62101ed601dcb93024aaff/inspector.html?ws=127.0.0.1:9223/devtools/page/8ECA05510FC3EAE507DB1DBABBC8EAB5", "id": "8ECA05510FC3EAE507DB1DBABBC8EAB5", "title": "AI 推演沙盘", "type": "page", "url": "http://127.0.0.1:8787/#/", "webSocketDebuggerUrl": "ws://127.0.0.1:9223/devtools/page/8ECA05510FC3EAE507DB1DBABBC8EAB5" }, { "description": "", "devtoolsFrontendUrl": "https://chrome-devtools-frontend.appspot.com/serve_rev/@1e112499da812a1dde62101ed601dcb93024aaff/inspector.html?ws=127.0.0.1:9223/devtools/page/C332B4CB80D38AE14843DA1359125466", "id": "C332B4CB80D38AE14843DA1359125466", "title": "127.0.0.1", "type": "page", "url": "http://127.0.0.1:8787/#/", "webSocketDebuggerUrl": "ws://127.0.0.1:9223/devtools/page/C332B4CB80D38AE14843DA1359125466" }, { "description": "", "devtoolsFrontendUrl": "https://chrome-devtools-frontend.appspot.com/serve_rev/@1e112499da812a1dde62101ed601dcb93024aaff/inspector.html?ws=127.0.0.1:9223/devtools/page/054F61F8AEB0DB8F516B4918ED458EA1", "id": "054F61F8AEB0DB8F516B4918ED458EA1", "title": "AI 推演沙盘", "type": "page", "url": "http://127.0.0.1:8787/#/", "webSocketDebuggerUrl": "ws://127.0.0.1:9223/devtools/page/054F61F8AEB0DB8F516B4918ED458EA1" }, { "description": "", "devtoolsFrontendUrl": "https://chrome-devtools-frontend.appspot.com/serve_rev/@1e112499da812a1dde62101ed601dcb93024aaff/inspector.html?ws=127.0.0.1:9223/devtools/page/EE63852BCA2A3A31C91A585948D246A1", "id": "EE63852BCA2A3A31C91A585948D246A1", "title": "AI 推演沙盘", "type": "page", "url": "http://127.0.0.1:8787/#/", "webSocketDebuggerUrl": "ws://127.0.0.1:9223/devtools/page/EE63852BCA2A3A31C91A585948D246A1" }, { "description": "", "devtoolsFrontendUrl": "https://chrome-devtools-frontend.appspot.com/serve_rev/@1e112499da812a1dde62101ed601dcb93024aaff/inspector.html?ws=127.0.0.1:9223/devtools/page/35FCEC50366E85AFBF2E6C2CD7EDC550", "id": "35FCEC50366E85AFBF2E6C2CD7EDC550", "title": "AI 推演沙盘", "type": "page", "url": "http://127.0.0.1:8787/#/", "webSocketDebuggerUrl": "ws://127.0.0.1:9223/devtools/page/35FCEC50366E85AFBF2E6C2CD7EDC550" }, { "description": "", "devtoolsFrontendUrl": "https://chrome-devtools-frontend.appspot.com/serve_rev/@1e112499da812a1dde62101ed601dcb93024aaff/inspector.html?ws=127.0.0.1:9223/devtools/page/53C76F7F8141130F6423E66A41652DAF", "id": "53C76F7F8141130F6423E66A41652DAF", "title": "AI 推演沙盘", "type": "page", "url": "http://127.0.0.1:8787/#/", "webSocketDebuggerUrl": "ws://127.0.0.1:9223/devtools/page/53C76F7F8141130F6423E66A41652DAF" }, { "description": "", "devtoolsFrontendUrl": "https://chrome-devtools-frontend.appspot.com/serve_rev/@1e112499da812a1dde62101ed601dcb93024aaff/inspector.html?ws=127.0.0.1:9223/devtools/page/D19BC12C0365C197770B71AA30E5A929", "id": "D19BC12C0365C197770B71AA30E5A929", "title": "AI 推演沙盘", "type": "page", "url": "http://127.0.0.1:8787/#/", "webSocketDebuggerUrl": "ws://127.0.0.1:9223/devtools/page/D19BC12C0365C197770B71AA30E5A929" }, { "description": "", "devtoolsFrontendUrl": "https://chrome-devtools-frontend.appspot.com/serve_rev/@1e112499da812a1dde62101ed601dcb93024aaff/inspector.html?ws=127.0.0.1:9223/devtools/page/6C6D4AC01E1267AA20F930DC3B8DB780", "id": "6C6D4AC01E1267AA20F930DC3B8DB780", "title": "about:blank", "type": "page", "url": "about:blank", "webSocketDebuggerUrl": "ws://127.0.0.1:9223/devtools/page/6C6D4AC01E1267AA20F930DC3B8DB780" } ] 
+--- all node.exe / chrome.exe PIDs (name only, no kill) ---
+chrome PID=564
+chrome PID=2416
+chrome PID=3020
+chrome PID=6016
+chrome PID=7260
+chrome PID=9260
+chrome PID=15308
+chrome PID=18524
+chrome PID=21468
+chrome PID=24772
+chrome PID=25712
+chrome PID=29336
+chrome PID=30384
+chrome PID=34120
+node PID=1124
+node PID=3176
+node PID=3536
+node PID=4108
+node PID=10332
+node PID=10952
+node PID=11984
+node PID=16216
+node PID=16408
+node PID=24180
+node PID=25140
+node PID=29952
+node PID=30648
+node PID=32712
+DONE

@@ -1,0 +1,32 @@
+2026-09-09T00:58:04.074Z === run start model=glm-5.3-flash base=https://tokenrhythm.studio/v1 only=--only=tb-01 alreadyDone=0
+2026-09-09T00:58:18.270Z [tb-01] 声称具体角色 14191.582ms ext=0 internal=1 ok claims=2
+2026-09-09T00:58:19.372Z === ALL DONE total=15s apiCalls(approx)=1
+2026-09-09T00:58:52.150Z === run start model=glm-5.3-flash base=https://tokenrhythm.studio/v1 only=ALL alreadyDone=1
+2026-09-09T00:58:52.153Z [tb-01] skip (done)
+2026-09-09T00:59:04.693Z [tb-02] 阵营声称 12537.284ms ext=0 internal=1 ok claims=1
+2026-09-09T00:59:15.439Z [tb-03] 状态声称 9634.646ms ext=0 internal=1 ok claims=0
+2026-09-09T00:59:49.958Z [tb-04] 状态声称 33403.222ms ext=0 internal=1 ok claims=0
+2026-09-09T01:00:18.490Z [tb-05] 提名与处决 27417.531ms ext=0 internal=1 ok claims=1
+2026-09-09T01:00:27.487Z [tb-06] 死亡公布 7880.254ms ext=0 internal=1 ok claims=0
+2026-09-09T01:00:55.570Z [tb-07] 复合句 26970.614ms ext=0 internal=1 ok claims=3
+2026-09-09T01:01:00.386Z [tb-08] 含糊表述 3713.136ms ext=0 internal=1 ok claims=0
+2026-09-09T01:01:55.030Z [tb-09] 提名与处决 53544.5ms ext=0 internal=1 ok claims=1
+2026-09-09T01:02:20.494Z [bmr-01] 声称具体角色 24357.659ms ext=0 internal=1 ok claims=3
+2026-09-09T01:02:25.280Z [bmr-02] 阵营声称 3682.257ms ext=0 internal=1 ok claims=1
+2026-09-09T01:02:39.008Z [bmr-03] 状态声称 12620.092ms ext=0 internal=1 ok claims=0
+2026-09-09T01:03:25.772Z [bmr-04] 状态声称 45655.199ms ext=0 internal=1 ok claims=2
+2026-09-09T01:03:40.575Z [bmr-05] 提名与处决 13696.046ms ext=0 internal=1 ok claims=1
+2026-09-09T01:03:48.138Z [bmr-06] 死亡公布 6447.065ms ext=0 internal=1 ok claims=0
+2026-09-09T01:04:30.979Z [bmr-07] 复合句 41735.959ms ext=0 internal=1 ok claims=3
+2026-09-09T01:04:39.843Z [bmr-08] 含糊表述 7754.014ms ext=0 internal=1 ok claims=0
+2026-09-09T01:04:56.745Z [bmr-09] 声称具体角色 15797.339ms ext=0 internal=1 ok claims=3
+2026-09-09T01:05:27.925Z [snv-01] 声称具体角色 30011.428ms ext=0 internal=1 ok claims=2
+2026-09-09T01:05:53.168Z [snv-02] 阵营声称 24127.56ms ext=0 internal=1 ok claims=1
+2026-09-09T01:06:16.160Z [snv-03] 状态声称 21886.013ms ext=0 internal=1 ok claims=0
+2026-09-09T01:09:05.540Z [snv-04] 状态声称 168267.276ms ext=0 internal=3 ok claims=0
+2026-09-09T01:10:02.755Z [snv-05] 提名与处决 56107.389ms ext=0 internal=1 ok claims=1
+2026-09-09T01:10:30.980Z [snv-06] 死亡公布 27116.413ms ext=0 internal=1 ok claims=0
+2026-09-09T01:10:44.767Z [snv-07] 复合句 12683.566ms ext=0 internal=1 ok claims=2
+2026-09-09T01:10:50.433Z [snv-08] 含糊表述 4562.529ms ext=0 internal=1 ok claims=0
+2026-09-09T01:11:01.330Z [snv-09] 声称具体角色 9789.497ms ext=0 internal=1 ok claims=2
+2026-09-09T01:11:02.433Z === ALL DONE total=730s apiCalls(approx)=26

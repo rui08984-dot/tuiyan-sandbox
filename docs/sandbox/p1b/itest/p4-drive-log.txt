@@ -1,0 +1,60 @@
+PNG saved: ./p4-games-mobile-390.png 192501B
+OK   S1 对局页渲染（页头+新建局按钮）
+OK   S2a 建局成功（局名+8席就位）
+OK   S2b 局详情出现（解析出 game id）
+OK   S2c 座位真名生效（1号=张三 3号=李四）
+OK   S2d 未改名席位保持默认（2号=2号）
+S3 事件入账: e12/e13/e14（claim 3 条）
+OK   S4a 列表标记进行中（进行中 · 第1天）
+OK   S4b 列表含事件计数（3 事件）
+OK   S4c 详情默认推进到当前天（第 1 天）
+OK   S4d 账本摘要（截至第 1 天：事件 3 条）
+OK   S4e-点击 后一天 成功
+OK   S4f 推进到第 2 天（允许预看/预结）
+OK   S5a 导出触发（toast 提示已导出 p1b-game-4.json）
+OK   S5b 导出内容（meta.game_id=4 + counts.events=3）
+OK   S6a 参谋卡页（对局下拉默认选中 P4 验收局）
+OK   S6b 名单真名跨页生效（1号·张三 3号·李四）
+OK   S7-预检 天结算按钮可用（无残留任务占用）
+OK   S7a 提交成功（参谋卡生成中… 横幅出现）
+S7b taskId=adv-mtseeqjd-2-0yy64（真实 LLM：tokenrhythm/glm-5.3-flash，约 2-3 分钟）
+OK   S7c 202 返回任务 id（LS 在跑任务已落）
+S8 轮询中… 60s 任务状态=running
+S8 轮询中… 120s 任务状态=running
+S8 轮询 60 次（3s 间隔）状态迁移: running -> running -> running ... running -> running -> failed@08:22:14
+FAIL S8a 任务到 done 且 UI 就绪提醒 | polls=60
+S8-证据 任务终态: status=failed saved=null 矛盾=? 假设=? 验证点=? 耗时=181.165s
+FAIL S8b 卡片头（═══ 参谋卡 · 思路非答案 ═══）
+FAIL S8c 矛盾区渲染（矛盾点 N 条 + 色标图例）
+FAIL S8d 假设区渲染（竞争假设三件套）
+FAIL S8e 验证点渲染（验证点区）
+FAIL S8f 已回存服务端（saved 徽标）
+S8g 色标实际出现: high=false mid=false（红=高 黄=中 样式见截图）
+PNG saved: ./p4-advisor-card-mobile-390.png 159501B
+PNG saved: ./p4-advisor-card-desktop-1280.png 50055B
+DOM 快照: p4-advisor-card.txt + p4-advisor-card-dom.html (0B)
+FAIL S10 历史参谋卡按天回看（存档 chip 第1天 → 卡片重现） | 🎭
+对局
+✍️
+录入
+🧠
+参谋卡
+⚙️
+设置
+🧠
+参谋卡
+
+天结算 → 后台异步生成（约 3 分钟）→ 就绪提醒 → 点开渲染。参谋卡是思路发生器：思路非答案。
+
+对局
+#4 P4验收·狼人杀8人（第1天 · 3事件）
+#3 P4验收·狼人杀8人（第1天 · 3事件）
+#2 P4验收·狼人杀8人（第1天 · 3事件）
+#1 集成验证局（第1天 · 5事件）
+结算天
+⚡ 天结算
+
+名单: 1号·张三 2号·2号 3号·李四 4号·4
+PNG saved: ./p4-games-desktop-1280.png 77843B
+DOM 快照: p4-games.txt
+P4-DRIVE RESULT: 7 FAILED

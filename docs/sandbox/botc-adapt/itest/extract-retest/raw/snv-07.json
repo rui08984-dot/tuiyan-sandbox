@@ -1,0 +1,59 @@
+{
+  "id": "snv-07",
+  "edition": "snv",
+  "cat": "复合句",
+  "day": 2,
+  "phase": "day",
+  "speakerSeat": null,
+  "text": "5号跳数学家，报了个准数；7号当场说5号是镜像双子里恶魔的那一半。",
+  "expected": {
+    "event_type": "claim",
+    "claims": [
+      {
+        "subject_seat": 5,
+        "predicate_ideal": "claims_role",
+        "object": "数学家",
+        "map_expect": "main_role"
+      },
+      {
+        "subject_seat": 5,
+        "predicate_ideal": "is_role",
+        "object": "镜像双子",
+        "map_expect": "main_role",
+        "note": "指认归属7号须保留在 object"
+      }
+    ],
+    "action": null
+  },
+  "ms": 12683.566,
+  "attempts_external": 0,
+  "error": null,
+  "out": {
+    "event": {
+      "day": 2,
+      "phase": "day",
+      "type": "statement",
+      "raw_text": "5号跳数学家，报了个准数；7号当场说5号是镜像双子里恶魔的那一半。",
+      "actor_seat": 5
+    },
+    "claims": [
+      {
+        "subject_seat": 5,
+        "predicate": "claims_role",
+        "object": "数学家"
+      },
+      {
+        "subject_seat": 5,
+        "predicate": "is_wolf",
+        "object": "镜像双子里恶魔的那一半"
+      }
+    ],
+    "action": null,
+    "warnings": [],
+    "meta": {
+      "mode": "LIVE",
+      "attempts": 1
+    },
+    "actor_seat": 5
+  }
+}

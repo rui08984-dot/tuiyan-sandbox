@@ -1,0 +1,8 @@
+{
+ "id": "barber",
+ "page": "理发师",
+ "len": 3006,
+ "ability_zh": "如果你死亡，在当晚恶魔可以选择两名玩家（不能选择其他恶魔）交换角色。",
+ "appears_in": null,
+ "fan_like": false
+}

@@ -1,0 +1,20 @@
+{
+ "id": "moonchild",
+ "name_en": "Moonchild",
+ "search_status": 200,
+ "hit_titles": [
+  "珀",
+  "教父",
+  "普卡"
+ ],
+ "name_zh": "月之子",
+ "ability_zh": "当你得知你死亡时，你要公开选择一名存活的玩家。如果他是善良的，在当晚他会死亡。",
+ "page": "月之子",
+ "file_verified": false,
+ "script": "黯月初升",
+ "page_found": true,
+ "has_section": true,
+ "retry_route": "script-gallery:黯月初升",
+ "appears_in": null,
+ "fan_like": false
+}

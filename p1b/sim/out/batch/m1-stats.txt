@@ -1,0 +1,47 @@
+M1 批量统计（30/30 局，source=sim，一夜狼 6 人）
+
+== 30 局清单 ==
+1. sim-ww-20260912 gid=8 wolf_win tokens=13146 calls=9 llmFails=2 发言长度[201/152/154/168/183]
+2. sim-ww-20260913 gid=9 village_win tokens=12916 calls=10 llmFails=1 发言长度[182/174/146/206/30]
+3. sim-ww-20260914 gid=10 village_win tokens=10742 calls=9 llmFails=2 发言长度[149/157/165/187/30]
+4. sim-ww-20260915 gid=11 wolf_win tokens=14170 calls=11 llmFails=0 发言长度[185/146/180/204/170]
+5. sim-ww-20260916 gid=12 wolf_win tokens=19299 calls=11 llmFails=0 发言长度[162/192/157/204/212]
+6. sim-ww-20260917 gid=13 wolf_win tokens=14761 calls=11 llmFails=0 发言长度[190/160/187/189/219]
+7. sim-ww-20260918 gid=14 wolf_win tokens=16104 calls=11 llmFails=0 发言长度[157/173/183/182/198]
+8. sim-ww-20260919 gid=15 wolf_win tokens=15022 calls=11 llmFails=0 发言长度[153/147/149/184/214]
+9. sim-ww-20260920 gid=16 wolf_win tokens=15713 calls=11 llmFails=0 发言长度[190/175/156/173/219]
+10. sim-ww-20260921 gid=17 wolf_win tokens=16898 calls=11 llmFails=0 发言长度[154/201/178/173/182]
+11. sim-ww-20260922 gid=18 wolf_win tokens=16595 calls=11 llmFails=0 发言长度[163/168/214/204/199]
+12. sim-ww-20260923 gid=19 village_win tokens=12621 calls=11 llmFails=0 发言长度[150/173/147/185/157]
+13. sim-ww-20260924 gid=20 village_win tokens=15992 calls=10 llmFails=1 发言长度[159/133/178/183/212]
+14. sim-ww-20260925 gid=21 wolf_win tokens=13704 calls=11 llmFails=0 发言长度[162/147/174/189/188]
+15. sim-ww-20260926 gid=22 village_win tokens=18619 calls=11 llmFails=0 发言长度[169/190/187/193/193]
+16. sim-ww-20260927 gid=23 wolf_win tokens=14672 calls=10 llmFails=1 发言长度[168/206/192/196/30]
+17. sim-ww-20260928 gid=24 village_win tokens=16093 calls=11 llmFails=0 发言长度[176/160/159/166/176]
+18. sim-ww-20260929 gid=25 wolf_win tokens=18913 calls=12 llmFails=0 发言长度[196/212/189/192/188]
+19. sim-ww-20260930 gid=26 wolf_win tokens=12644 calls=11 llmFails=0 发言长度[185/159/167/195/182]
+20. sim-ww-20260931 gid=27 wolf_win tokens=15384 calls=11 llmFails=0 发言长度[171/172/177/194/196]
+21. sim-ww-20260932 gid=28 village_win tokens=15501 calls=11 llmFails=0 发言长度[160/177/176/204/175]
+22. sim-ww-20260933 gid=29 wolf_win tokens=17150 calls=11 llmFails=0 发言长度[161/169/165/197/194]
+23. sim-ww-20260934 gid=30 wolf_win tokens=14997 calls=11 llmFails=0 发言长度[168/165/179/185/183]
+24. sim-ww-20260935 gid=31 village_win tokens=16232 calls=11 llmFails=0 发言长度[163/195/194/200/166]
+25. sim-ww-20260936 gid=32 village_win tokens=15798 calls=11 llmFails=0 发言长度[157/161/184/175/168]
+26. sim-ww-20260937 gid=33 wolf_win tokens=13872 calls=11 llmFails=0 发言长度[160/174/180/209/208]
+27. sim-ww-20260938 gid=34 wolf_win tokens=19241 calls=12 llmFails=0 发言长度[148/176/148/210/195]
+28. sim-ww-20260939 gid=35 wolf_win tokens=16450 calls=11 llmFails=0 发言长度[182/166/160/205/196]
+29. sim-ww-20260940 gid=36 wolf_win tokens=16711 calls=12 llmFails=0 发言长度[202/163/168/220/197]
+30. sim-ww-20260941 gid=37 wolf_win tokens=16083 calls=12 llmFails=0 发言长度[185/171/201/215/205]
+
+== 胜负分布 ==
+village_win=9  wolf_win=21  （随机放逐基线：夜刀后 5 活人含 2 狼 3 民，P(逐中狼)=3/5 → 狼胜期望 12/30；实测显著偏离 → 好人侧 LLM 放逐决策劣于随机，策略不对称信号）
+
+== 发言长度分布 ==
+全部: n=150 均值=176 中位=178
+对比首局: 首局 n=5 长度=201/152/154/168/183 均值=172
+
+== 落库量（L0 records 口径） ==
+events=310  claims=337（L0 门禁=games≥30 ∧ records≥200）
+
+== 成本与失败率 ==
+LLM 调用=327  llm-fail=7（率 2.1%，熔断线 10%）
+tokens: prompt+completion 总=466043（熔断线 600000）  均值/局=15535

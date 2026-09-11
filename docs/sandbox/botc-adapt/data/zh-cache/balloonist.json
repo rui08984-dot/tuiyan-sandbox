@@ -1,0 +1,18 @@
+{
+ "id": "balloonist",
+ "name_en": "Balloonist",
+ "search_status": 200,
+ "hit_titles": [
+  "气球驾驶员"
+ ],
+ "name_zh": "气球驾驶员",
+ "ability_zh": "每个夜晚，你会得知一名与上个夜晚得知的玩家角色类型不同的玩家。[+0~1 外来者]",
+ "page": "气球驾驶员",
+ "file_verified": false,
+ "script": "暗流涌动",
+ "page_found": true,
+ "has_section": true,
+ "retry_route": "script-gallery:暗流涌动",
+ "appears_in": null,
+ "fan_like": false
+}

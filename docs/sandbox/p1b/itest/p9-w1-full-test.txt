@@ -1,0 +1,140 @@
+✔ test\meihua.js (112.0269ms)
+PASS | T1 常规起卦：本卦=山火贲
+PASS | T2 贲卦爻画：[1,0,1,0,0,1]（自下而上）
+PASS | T3 动爻=4
+PASS | T4 互卦（手工推演）=雷水解
+PASS | T5 变卦（手工推演）=离为火
+PASS | T6 体用：体=离火，用=艮土，体生用
+PASS | T7 边界 %8=0：(8,16)→上坤下坤=坤为地，动爻 24%6=0→6
+PASS | T8 边界 %6=0：(3,3)→离为火，上爻动，变卦=火雷噬嗑
+PASS | T9 五行相生：水生木/木生火
+PASS | T10 五行相克：火克金/金克火（克我）
+PASS | T11 比和与体用五分类
+PASS | T12 卦名抽查：上离下巽=鼎（规格例子）
+PASS | T13 卦名抽查：天地否/地天泰/水雷屯
+PASS | T14 64 卦名表完备性：8×8 全有卦名
+PASS | T15 qiGuaByTotal(10) 默认对半拆：(5,5)→巽为风
+PASS | T16 qiGuaByTotal 自定义拆法：(10,[7,3]) 等价 (7,3)=贲
+PASS | T17 非法输入全部拒绝
+-----------------------------
+TOTAL: 17 | PASS: 17 | FAIL: 0
+✔ test\meihua.test.cjs (85.5621ms)
+✔ fnv1a 公开测试向量：""=2166136261、"a"=3826002220（哈希口径冻结） (56.7024ms)
+✔ 锚点G1 局#1 werewolf 6人：A=387,B=166 → 火水未济·动爻1·体离火/用坎水·用克体·变火泽睽 (0.8276ms)
+✔ 锚点G2 局#2 botc 9人：A=161,B=56 → 天地否·动爻1·用生体·变天雷无妄 (0.1308ms)
+✔ 确定性：同输入两次完全一致；换 id 换卦；type/game_type 别名等价 (0.2503ms)
+✔ 非法输入拒绝：缺 id / 缺 created_at / player_count=0 / 空 type (0.3786ms)
+✔ MOCK 断语模板：含卦名+娱乐参考、含体用关系；capVerdict 硬截 200 (0.1533ms)
+✔ POST /api/games 建判词测试局 (17.0554ms)
+✔ GET /api/games/:id/oracle → 200：casting 全套 + verdict 含卦名与娱乐参考 + disclaimer 精确 (1.1576ms)
+✔ 同局两次 GET 响应体逐字节一致（同局同卦同断语） (1.2291ms)
+✔ API casting 与本地 deriveCasting(建局返回 game) 一致 (1.2378ms)
+✔ 404（局不存在）/ 400（非整数 id） (0.8835ms)
+✔ LIVE 缝：fetchImpl 注入 → mode=live、verdict=注入文本(trim)、线检 system 首行/无 response_format (9.4336ms)
+✔ LIVE 失败缝：fetchImpl 抛错 → 200 + mode=mock_fallback + llm_error（不谎报为 LLM 断语） (4.8096ms)
+✔ 时间起卦锚点：2026-09-25 12:00（中秋·八月十五·午时）→ A=30,B=37 水风井·动1·互火泽睽·变水天需·体坎水/用巽木·体生用 (69.1879ms)
+✔ 历法口径冻结（公开历表事实核验，p9-anchor-probe.cjs 实测）：春节锚/闰六月记法/正月初一年界/晚子时 (1.8205ms)
+✔ 三法管线单源：castByTime/castByRandom/castByNumbers 结果与 meihua.qiGuaByNumbers 直调一致（零复制卦理） (0.5276ms)
+✔ 确定性：castByTime 同时刻恒同卦；castByRandom 注入序列端界（1/512）确定性可测 (0.7206ms)
+✔ random 形状：缺省 CSPRNG 20 次采样全部 1..512 整数、casting 结构完整、source=crypto.randomInt (0.5121ms)
+✔ 非法输入拒绝：castByTime 非 Date/Invalid Date；castByNumbers 0/负数（meihua 自校验透传） (0.3095ms)
+✔ DISCLAIMER 单源：lib/oracleCast 复用 lib/oracle 的「娱乐参考」（不另立字符串） (0.0603ms)
+✔ POST /api/oracle/cast numbers：201+形状+冻结锚(7,3)→山火贲+disclaimer 精确+verdict NULL+game_id NULL (14.3452ms)
+✔ POST cast 校验：n1=0 / 缺 n2 / 非整数 / 超防滥用上限 / 非法 method / 缺 method → 全 400 (3.8566ms)
+✔ POST cast time：固定 ISO 锚点与 lib castByTime 同卦+inputs 留档；缺 date=当前时刻 smoke (2.1751ms)
+✔ POST cast time 非法 date → 400 (0.8002ms)
+✔ POST cast random：201+两数 1..512+形状+disclaimer (0.6703ms)
+✔ game_id 挂局：建局→cast 带 game_id 落档关联；(8,16)→坤为地·动6·变山地剥（meihua README 变卦锚）；不存在→404 (1.9239ms)
+✔ GET /api/oracle/readings：回读=落档证据（新→旧，首条=挂局行），total ≥ 5 (0.7209ms)
+✔ 回读逐字段一致：readings 里的 (7,3) 行 casting 与 POST 响应 deepEqual、inputs 还原 (0.6031ms)
+✔ 分页与钳制：limit=2 首条=全量首条、offset=2 首条=全量第3条；limit=0/offset=-1→400；limit=5000 钳 100 (1.903ms)
+✔ game_id 过滤：?game_id=挂局id 只含挂局行；自由排盘行 game_id=null 且仍在全量中 (0.9831ms)
+✔ 落档直查 DB：oracle_readings 行数与 API total 一致（better-sqlite3 直查证据） (0.3828ms)
+✔ GET /api/health：mock 模式 + :memory: db (68.3844ms)
+✔ POST /api/games：201 + 自动建席 1..N（默认名=N号） (3.5022ms)
+✔ POST /api/games 第二局（空局，供 advise 预检 400 用） (1.0175ms)
+✔ POST /api/games 非法枚举 game_type → 400 (2.5106ms)
+✔ POST /api/games 缺 player_count → 400 (0.6061ms)
+✔ GET /api/games/:id：详情含名单 (0.7092ms)
+✔ GET /api/games/:id 局不存在 → 404 (0.3733ms)
+✔ GET /api/games/:id 非整数 id → 400 (0.3347ms)
+✔ 宏 claim_role（跳身份）→ 结构化确认卡 extracted_by=macro (1.3594ms)
+✔ 宏 check（查杀）→ is_wolf 指向对象席位 (0.6252ms)
+✔ 宏 good（金水）→ is_good 指向对象席位 (0.4938ms)
+✔ 宏非法 kind → 400；查杀对象是自己 → 400；对象席位不在名单 → 400 (1.0329ms)
+✔ POST /events/confirm：宏卡入账 201（返回 event_id/seq/claim_ids） (1.2716ms)
+✔ confirm：金水宏卡入账（供后续修订用） (0.7864ms)
+✔ confirm 非法 phase（noon）→ 400 (0.4093ms)
+✔ confirm 非 system 事件缺 actor_seat → 400 (0.4457ms)
+✔ confirm claim 席位不在名单 → 400 (0.4629ms)
+✔ POST /events/extract：meta.mode=MOCK + 确定性拆解 (2.1504ms)
+✔ extract 空文本 → 400 (0.4136ms)
+✔ extract 结果 confirm 入账（自由文本与宏同一路径） (0.8465ms)
+✔ claims edit：改 object 生效并回显 (0.7679ms)
+✔ claims edit 三个字段都不给 → 400 (0.4468ms)
+✔ claims edit 归属局不符 → 404 (0.4552ms)
+✔ claims retract：retracted 行从 state 消失（不可见） (1.1747ms)
+✔ claims retract 后 edit → 409（账本纪律） (0.4746ms)
+✔ confirm 带 action（第2天 vote）入账 (0.9657ms)
+✔ actions edit：改 target_seat 生效 (0.7773ms)
+✔ actions edit target_seat=null → 400 (0.4609ms)
+✔ actions retract 后 edit → 409 (0.7569ms)
+✔ GET state?uptoDay=1：过滤 day≥2，retracted 不可见 (0.7493ms)
+✔ state?uptoDay=0 → 400 (0.2805ms)
+✔ GET export：meta+counts 齐全 (0.5513ms)
+✔ export 局不存在 → 404 (0.2651ms)
+✔ GET /api/games 列表：event_count/current_day 随事件更新 (0.4791ms)
+✔ PUT /api/games/:id/seats：改名生效，详情与 state 位次可见新名 (1.6844ms)
+✔ PUT /seats 错误路径：空数组/空名/不在名单 → 400；局不存在 → 404 (1.2529ms)
+✔ POST /day/1/advise：202 立即返回 task_id（异步不阻塞） (2.8442ms)
+✔ GET /api/tasks/:taskId：running→done，卡片结构齐全且回存 (0.3841ms)
+✔ GET /api/tasks/不存在 → 404 (0.2167ms)
+✔ POST advise：空局（无事件）预检 → 400 (0.4432ms)
+✔ GET /api/games/:id/cards：按天倒序列出存档卡（读已落库数据） (0.6195ms)
+✔ GET /api/games/:id/cards/:day：单卡形状正确；无存档/局不存在 → 404 (1.0354ms)
+✔ GET /api/providers：初始为空（临时配置文件） (0.4287ms)
+✔ PUT /api/providers/:key：upsert + api_key 掩码（响应无明文） (2.7322ms)
+✔ PUT 留空 api_key = 保留现有值（留空=不改语义） (2.0413ms)
+✔ POST activate + GET list：active 指向正确且仍脱敏 (2.2868ms)
+✔ POST test：mock 模式跳过真实连接（不外呼） (0.5723ms)
+✔ PUT 非法 provider key → 400；activate 不存在 → 404 (0.8589ms)
+✔ 未知路由 → 404（统一 not found 形状） (1.8938ms)
+✔ B2 建局：botc+script=tb → 201 且剧本落 p1b 私有表（详情/列表可见） (1.43ms)
+✔ B2 建局：botc 缺 script → 201 兼容既有建局路径；script 非法枚举 → 400 (0.6612ms)
+✔ B2 无剧本 botc 局：角色/阵营声称 → 400；通用谓词照走主表 (1.2554ms)
+✔ B2 建局：werewolf 局 script 字段被忽略（回归零影响） (0.4799ms)
+✔ B2 角色声称：中文角色名 confirm → 主表 claims object 归一为角色 id (1.9727ms)
+✔ B2 角色声称：英文名/大小写归一同 id；越剧本/未知角色 → 400 (2.1619ms)
+✔ B2 阵营声称：is_demon → 落 p1b 私有表 botc_claims（confirm 返回 botc_claim_ids + GET 可见） (1.3599ms)
+✔ B2 阵营声称：werewolf 局发 BOTC 谓词 → 400（新谓词 botc 局专属） (2.0701ms)
+✔ B2 对跳检测：两 seat 同声称唯一角色 → advise 卡命中 [对跳] 且存档回存 (2.6699ms)
+✔ B2 对跳检测：非唯一旅行者（枪手）两 seat 同声称 → 不报对跳（unique_note 驱动） (2.5967ms)
+✔ B2 阵营互斥/多恶魔/状态矛盾 → botc-only 对挂 live 卡；存档只收主表引用对 (3.823ms)
+✔ B2 通用谓词：botc 局 said/is_good 等仍走主表（botc_claim_ids 为空） (0.6372ms)
+✔ B2 botc-claims retract：软删后 GET 不可见；重复撤回幂等 (1.2301ms)
+✔ B2 roles.js：剧本角色集/唯一性/中英映射/团队结构（数据驱动单测） (0.4711ms)
+✔ B3 上下文构造：TB 角色清单/裁量警示/入门本提示；BMR 夜死；SNV 疯狂；非法剧本不注入 (0.1288ms)
+✔ B3 TB 局 advise：捕获的 system prompt 含角色清单与洗衣妇能力（追加在原 system 尾部） (2.7915ms)
+✔ B3 BMR 局 advise：捕获的 prompt 含夜死不公布+多杀机制提示 (1.9168ms)
+✔ B3 werewolf 局 advise：捕获 prompt 与基线逐字节一致（零改动回归） (1.766ms)
+✔ B3 回归：BMR 局经 HTTP advise（llmMock）正常出卡——注入改动不破坏 MOCK 路径 (2.3318ms)
+✔ B2.3 setup：botc 局 + 两条阵营声称（is_demon/is_minion 各一） (1.2148ms)
+✔ B2.3 botc 声称 edit：BOTC 谓词原地改（is_demon→is_minion + 主语改） (0.8911ms)
+✔ B2.3 botc 声称 edit：谓词改回 7 通用枚举 → 跨表迁移主表（软删本行+主表新建） (1.2222ms)
+✔ B2.3 botc 声称 edit 错误路径 + 主表 edit 路由边界钉死 (1.8879ms)
+✔ B7 抽取上下文构造：角色清单/4 专属谓词/反例/禁 is_wolf；非法剧本不注入 (0.2299ms)
+✔ B7 wrapper：system 尾部追加上下文 + user 插【发言席位】行；双重包装幂等 (0.3211ms)
+✔ B7 botc 局 extract 端到端：注入段进 prompt + 载体/阵营词双重还原出卡 (8.8652ms)
+✔ B7 werewolf 局 extract：prompt 零注入（无标记/无席位行），行为与基线一致 (4.5434ms)
+✔ B7 零声称机械复查：原话含阵营/状态关键词但 0 claims → 警告留痕 (5.096ms)
+✔ B7 splitBotcClaims 护栏单元：词修复/降级 said/is_wolf 修复/越剧本仍 400 (0.5564ms)
+✔ B7 confirm 护栏端到端：is_role(恶魔) 201 入 botc_claims（原 400 拒整批） (6.4306ms)
+✔ B7 wrapper 响应侧：原生 Response（ok/status 为原型 getter）仍被正确消费——B7 复测实抓回归 (9.5176ms)
+ℹ tests 113
+ℹ suites 0
+ℹ pass 113
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 576.5861

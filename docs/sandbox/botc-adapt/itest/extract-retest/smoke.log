@@ -1,0 +1,3 @@
+=== run start model=glm-5.3-flash base=https://tokenrhythm.studio/v1 only=--only=tb-01 alreadyDone=0
+[tb-01] 声称具体角色 14191.582ms ext=0 internal=1 ok claims=2
+=== ALL DONE total=15s apiCalls(approx)=1

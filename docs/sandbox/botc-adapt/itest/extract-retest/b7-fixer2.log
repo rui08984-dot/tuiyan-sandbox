@@ -1,0 +1,4 @@
+risky count=7 [27e6,27e9]
+WARN: sep indexOf not matched
+after risky=0 hasASCIIconst=false
+SYNTAX_OK

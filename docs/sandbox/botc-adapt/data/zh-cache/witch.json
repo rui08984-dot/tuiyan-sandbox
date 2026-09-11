@@ -1,0 +1,20 @@
+{
+ "id": "witch",
+ "name_en": "Witch",
+ "search_status": 200,
+ "hit_titles": [
+  "女巫",
+  "祸根Cursed",
+  "巫医Witch doctor"
+ ],
+ "name_zh": "女巫",
+ "ability_zh": "每个夜晚，你要选择一名玩家：如果他明天白天发起提名，他死亡。如果只有三名存活的玩家，你失去此能力。",
+ "page": "女巫",
+ "file_verified": false,
+ "script": "梦殒春宵",
+ "page_found": true,
+ "has_section": true,
+ "retry_route": "script-gallery:梦殒春宵",
+ "appears_in": null,
+ "fan_like": false
+}

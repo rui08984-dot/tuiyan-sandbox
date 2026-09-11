@@ -1,0 +1,184 @@
+/* P1b-4 对局设置页 + 参谋卡面板 专属样式 —— 沿用 app.css 设计语言（变量/按钮/表单/抽屉/badge/chip）。 */
+
+/* ── 对局页：局列表（历史局 + 进行中标记）── */
+.game-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.game-item {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--panel); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: 12px 14px;
+}
+.game-item.is-selected { border-color: rgba(224, 168, 60, 0.55); }
+.game-item-main { flex: 1; min-width: 0; background: none; border: none; color: inherit; font: inherit; text-align: left; padding: 0; cursor: pointer; }
+.game-item-name { font-weight: 600; font-size: 15.5px; }
+.game-item-meta { margin: 2px 0 0; color: var(--muted); font-size: 12.5px; }
+.game-badges { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
+.game-item > .btn { flex-shrink: 0; }
+
+/* ── 局详情 ── */
+.detail-card {
+  background: var(--panel); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: 14px; margin-bottom: 12px;
+}
+.detail-head { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.detail-title { font-weight: 700; font-size: 17px; }
+.detail-meta { color: var(--muted); font-size: 13px; }
+.detail-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+.detail-actions .btn { min-height: 44px; }
+
+/* 天数推进器（当前第几天：服务端 current_day=最新事件天；查看截至第 N 天账本） */
+.day-advance { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.day-advance .btn { min-width: 48px; }
+.day-advance-num { min-width: 84px; text-align: center; font-weight: 700; color: var(--accent); font-size: 17px; }
+.state-sum { margin: 10px 0 0; color: var(--muted); font-size: 13.5px; }
+.state-events { margin: 8px 0 0; padding-left: 18px; font-size: 13.5px; }
+.state-events li { margin: 3px 0; word-break: break-all; }
+
+/* 座位名单（默认「N号」可改真名；真名 overlay 存本机，见 lib/seatNames.ts） */
+.seat-list { display: grid; gap: 8px; margin-top: 4px; }
+.seat-row { display: flex; align-items: center; gap: 8px; }
+.seat-badge {
+  flex: 0 0 auto; width: 48px; text-align: center;
+  font-size: 13px; padding: 11px 0; border-radius: 8px;
+  background: var(--panel-2); border: 1px solid var(--line); color: var(--muted);
+}
+.seat-row input { flex: 1; min-width: 0; }
+.seat-hint { margin: 10px 0 0; font-size: 12px; color: var(--muted); }
+
+/* 轻提示（与 input.css .toast 同款：本页独立引入保持一致观感） */
+.toast {
+  position: sticky; top: 8px; z-index: 25;
+  background: rgba(88, 179, 104, 0.14); color: var(--ok);
+  border: 1px solid rgba(88, 179, 104, 0.4);
+  border-radius: 10px; padding: 10px 14px; font-size: 14px;
+  margin-bottom: 10px; word-break: break-all;
+}
+
+/* ── 参谋卡面板：结算工具条 ── */
+.adv-toolbar {
+  background: var(--panel); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: 12px 14px; margin-bottom: 12px;
+  display: grid; gap: 10px;
+}
+.adv-toolbar .row { display: flex; gap: 8px; align-items: flex-end; flex-wrap: wrap; }
+.adv-toolbar .field { flex: 1 1 200px; margin: 0; }
+.adv-toolbar .day-field { flex: 0 0 120px; }
+.adv-toolbar .btn { flex-shrink: 0; }
+
+/* 生成中横幅 + 就绪提醒 */
+.adv-running {
+  display: flex; align-items: center; gap: 10px;
+  background: rgba(224, 168, 60, 0.12); border: 1px solid rgba(224, 168, 60, 0.5);
+  border-radius: var(--radius); padding: 12px 14px; margin-bottom: 12px;
+}
+.adv-running .spinner {
+  width: 16px; height: 16px; border-radius: 50%; flex-shrink: 0;
+  border: 2px solid rgba(224, 168, 60, 0.35); border-top-color: var(--accent);
+  animation: adv-spin 0.9s linear infinite;
+}
+@keyframes adv-spin { to { transform: rotate(360deg); } }
+.adv-ready {
+  background: rgba(88, 179, 104, 0.14); border: 1px solid rgba(88, 179, 104, 0.4);
+  color: var(--ok); border-radius: var(--radius); padding: 12px 14px; margin-bottom: 12px;
+}
+
+/* ── 参谋卡（结构对齐 p1a-terminal/src/cards.js）── */
+.adv-card {
+  background: var(--panel); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: 14px; margin-bottom: 12px;
+}
+.adv-card-banner {
+  text-align: center; font-weight: 700; letter-spacing: 1px;
+  color: var(--accent); border-bottom: 1px solid var(--line);
+  padding-bottom: 10px; margin-bottom: 4px;
+}
+.adv-card-sub { text-align: center; color: var(--muted); font-size: 12.5px; margin: 6px 0 0; word-break: break-all; }
+.adv-sec-title { margin: 16px 0 8px; font-size: 13px; color: var(--muted); font-weight: 600; letter-spacing: 1px; }
+.adv-warn {
+  margin: 10px 0 0; padding: 8px 10px; border-radius: 8px; font-size: 13px;
+  background: rgba(217, 164, 65, 0.14); color: var(--warn); word-break: break-all;
+}
+
+/* 矛盾区：欠定度色标 high=红 mid=黄 low=灰 */
+.contr-card {
+  border: 1px solid var(--line); border-left-width: 3px; border-radius: 10px;
+  background: var(--panel-2); padding: 10px 12px; margin-bottom: 8px;
+}
+.contr-card.under-high { border-left-color: var(--danger); }
+.contr-card.under-mid { border-left-color: var(--warn); }
+.contr-card.under-low { border-left-color: var(--line); }
+.contr-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.under-badge { font-size: 12px; line-height: 1; border-radius: 999px; padding: 5px 9px; white-space: nowrap; }
+.under-badge.high { background: rgba(224, 92, 74, 0.18); color: var(--danger); }
+.under-badge.mid { background: rgba(217, 164, 65, 0.16); color: var(--warn); }
+.under-badge.low { background: var(--panel-2); color: var(--muted); border: 1px solid var(--line); }
+.ref-chip {
+  font-size: 11.5px; padding: 2px 7px; border-radius: 999px;
+  background: var(--bg); border: 1px solid var(--line);
+  color: var(--muted); white-space: nowrap;
+}
+.contr-exp { margin: 8px 0 0; padding-left: 16px; font-size: 13.5px; }
+.contr-exp li { margin: 3px 0; word-break: break-all; }
+
+/* 假设区双栏对峙：≥360px 两列并排，过窄自动堆叠 */
+.hyp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 8px; }
+.hyp-card {
+  border: 1px solid var(--line); border-radius: 10px; background: var(--panel-2);
+  padding: 10px 12px; display: flex; flex-direction: column; gap: 6px; min-width: 0;
+}
+.hyp-head { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.hyp-id { font-weight: 700; color: var(--accent); font-size: 13.5px; }
+.tend-badge { font-size: 12px; line-height: 1; border-radius: 999px; padding: 4px 8px; white-space: nowrap; }
+.tend-strong { background: rgba(224, 168, 60, 0.18); color: var(--accent); }
+.tend-mid { background: rgba(217, 164, 65, 0.16); color: var(--warn); }
+.tend-weak { background: var(--panel-2); color: var(--muted); border: 1px solid var(--line); }
+.hyp-content { margin: 0; font-size: 14px; word-break: break-all; }
+.hyp-evs { margin: 0; font-size: 12px; color: var(--muted); word-break: break-all; }
+.hyp-foot { margin: auto 0 0; font-size: 11.5px; color: var(--muted); }
+
+/* 验证点 checklist（可勾选，本机持久化） */
+.cp-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.cp-item {
+  display: flex; align-items: flex-start; gap: 10px; cursor: pointer;
+  border: 1px solid var(--line); border-radius: 10px; background: var(--panel-2);
+  padding: 10px 12px;
+}
+.cp-item input[type="checkbox"] { width: 18px; height: 18px; min-height: 0; margin-top: 2px; accent-color: var(--accent); flex-shrink: 0; }
+.cp-item.done .cp-text { color: var(--muted); text-decoration: line-through; }
+.cp-text { font-size: 14px; word-break: break-all; }
+.cp-res { color: var(--muted); font-size: 12px; white-space: nowrap; }
+
+/* ── 补充件 ── */
+.row2 { display: grid; gap: 12px; grid-template-columns: 1fr 1fr; }
+.sheet-seats { max-height: 240px; overflow-y: auto; padding-right: 4px; }
+.chip.is-on { border-color: rgba(224, 168, 60, 0.6); color: var(--accent); }
+.adv-roster { margin: 4px 0 0; font-size: 12.5px; color: var(--muted); word-break: break-all; }
+
+/* ── B4：BOTC 局详情（阵营/状态声称 + 角色参考面板）── */
+.botc-claim-list { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 6px; font-size: 13.5px; }
+.botc-claim-list li { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; word-break: break-all; }
+.role-ref { margin-top: 4px; }
+.role-ref-grid { margin-top: 10px; display: grid; gap: 8px; }
+.role-card {
+  background: var(--panel-2); border: 1px solid var(--line); border-radius: 10px;
+  padding: 10px 12px; display: grid; gap: 4px;
+}
+.role-card-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.role-card-name { font-weight: 600; font-size: 14.5px; }
+.role-card-en { color: var(--muted); font-size: 12px; }
+.role-card-ability { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.5; }
+.team-badge {
+  font-size: 11.5px; line-height: 1; border-radius: 999px; padding: 3px 8px;
+  white-space: nowrap; flex-shrink: 0;
+}
+.team-townsfold, .team-townsfolk { background: rgba(88, 179, 104, 0.16); color: var(--ok); }
+.team-outsider { background: var(--panel); color: var(--muted); border: 1px solid var(--line); }
+.team-minion { background: rgba(217, 164, 65, 0.16); color: var(--warn); }
+.team-demon { background: rgba(224, 92, 74, 0.16); color: var(--danger); }
+.team-traveller, .team-fabled { background: rgba(224, 168, 60, 0.16); color: var(--accent); }
+
+/* 桌面宽屏微调 */
+@media (min-width: 900px) {
+  .hyp-grid { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+  .role-ref-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+}
+

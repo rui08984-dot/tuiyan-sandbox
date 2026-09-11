@@ -1,0 +1,1 @@
+SELECT g.name AS game, a.seat, a.action, a.result FROM actions a JOIN events e ON a.event_id=e.id JOIN games g ON e.game_id=g.id WHERE a.action='abstain' AND a.result LIKE 'llm-fail%' AND g.name LIKE 'sim-ww-%' ORDER BY g.id

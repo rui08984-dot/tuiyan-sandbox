@@ -1,0 +1,22 @@
+{
+  "ok": true,
+  "game_id": 7,
+  "name": "m0-run1",
+  "events": 10,
+  "claims": 12,
+  "actions": 6,
+  "result": "wolf_win",
+  "usage": {
+    "call_target": "<=40",
+    "style_anchor_count": 2,
+    "calls": 10,
+    "prompt_tokens": 3774,
+    "completion_tokens": 9594,
+    "parse_fallback": 0
+  },
+  "deviations": [],
+  "files": [
+    "m0-run1.replay.md",
+    "m0-run1.truth.md"
+  ]
+}

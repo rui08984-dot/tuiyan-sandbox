@@ -1,0 +1,264 @@
+{
+  "name": "horror-ep6-modern",
+  "id": "horror-ep6-modern",
+  "description": "《六更》现代都市移植版（第6期）生产：内核不变（多一响=点名→编外的→等下工/结账），舞台搬进现代工地/物业（实名制闸机·巡更打点·劳务压薪）。走 horror-teller v2.1 六步+双门质检，产出 episode-006 成稿+伏笔图谱；乡村版 episode-005 保留存档不动。",
+  "captainSessionId": "session-1a19b966-acaf-44b7-99c9-bf6cf575b32f",
+  "createdAt": 1788612200401,
+  "members": [
+    {
+      "id": "d341ed1c-4244-4cbf-9e21-ee767ecd4f4d",
+      "name": "考据员",
+      "role": "researcher",
+      "provider": "jinjin",
+      "model": "glm-5.3-flash",
+      "reasoningEffort": "max",
+      "joinedAt": 1788612207056,
+      "status": "removed"
+    },
+    {
+      "id": "45190954-cb44-480b-afc9-0e3065acfda0",
+      "name": "写手",
+      "role": "writer",
+      "provider": "jinjin",
+      "model": "glm-5.3-flash",
+      "reasoningEffort": "max",
+      "joinedAt": 1788612207066,
+      "status": "removed"
+    },
+    {
+      "id": "bb0dfab2-951c-4290-a48d-4a8d2dd55ec5",
+      "name": "审稿",
+      "role": "reviewer",
+      "provider": "jinjin",
+      "model": "glm-5.3-flash",
+      "reasoningEffort": "max",
+      "joinedAt": 1788612207076,
+      "status": "removed"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "t1",
+      "subject": "现代移植设定卡：实名制闸机/巡更打点/动土仪式/劳务用工考据",
+      "description": "为《六更》现代移植版产出设定卡，落盘 examples/_ep6-设定卡.md。local-first：先查 E:\\music player\\素材库\\民俗设定-资料\\ 与 对标视频-转写\\（grep 关键词：巡更/保安/门禁/工地/讨薪/守夜），禁止联网。四块内容，每条标注【现实可查】或【推演设定】：\n①建筑工地实名制闸机与人脸考勤：真实制度（住建领域），已清退工人的人脸/卡信息未注销会怎样——这是\"编外的\"的现代锚点；\n②巡更打点器/巡更App工作方式：NFC 贴片打点、漏打补打、后台报表、异常记录——\"多打一个点\"的机制载体；\n③工地动土仪式现实做法（工程圈习俗）：谁主持、上香奠酒电子礼炮、安全员/项目经理的角色——\"多放一响\"的现代科仪场；\n④劳务派遣/清退/压薪流程：工资表、结算单、劳务群@全员、讨薪路径——人间恶与\"账不平\"的现实底座。\n输出≤1500字，只写事实与设定钩子，不写正文。",
+      "status": "completed",
+      "assignee": "考据员",
+      "dependencies": [],
+      "attempt": 1,
+      "createdAt": 1788612257346,
+      "updatedAt": 1788612640013,
+      "kind": "work",
+      "attemptId": "ed2750be-ff54-4abf-b305-fdfb945fbeca",
+      "reassigning": false,
+      "output": "产出 skills/horror-teller/examples/_ep6-设定卡.md（examples/ 按 ep5 存档惯例落在 horror-teller 技能目录，ep005 成稿/图谱同目录）。验证：回读29行，1120汉字≤1500达标；①实名制闸机/人脸考勤②巡更打点③工地动土仪式④劳务清退压薪 四块齐全，另附⑤乡村→现代对位速查；逐条标注【现实可查】9条/【推演设定】8条。local-first已做：素材库两目录grep巡更/保安/门禁/工地/讨薪/守夜/动土/上梁/奠基/实名/闸机/打卡/结算——民俗库无工地类资料（仅'庚申守夜'沾守夜母题），制度事实出自知识库并注明口径。给写手的关键钩子：清退未销脸=系统里的'编外的'；报表多第13个点/礼炮多一响没人对数='多一响'；工资表空一行等签字='结账'。成稿红线提醒已写入卡片头部：正文不出现真实法规名与机构名。"
+    },
+    {
+      "id": "t2",
+      "subject": "《六更》都市版长片初稿（working title《下工》，episode-006）",
+      "description": "必先 tools.skill 加载 horror-teller 并按其工作流执行。参考件：examples/episode-005-六更-长片.md（机制参考，勿抄句子）与 examples/episode-004-遗音-长片.md（现代都市语感范本）。落盘 examples/episode-006-下工-长片.md，长片，剥标注口径 5000-5500 字（约21min），规格头+六卷+回味段+【EVid】×1+SFX≤4+停顿/BGM标注齐全。\n核心设定（按 T1 设定卡校准）：某在建工地赶工期办简化动土仪式，安全员（叙述者，亲历体+投稿框架）放电子礼炮多按了一响=点名；此前被清退的劳务派遣守夜老人，实名制闸机人脸未注销，每晚 3:15 有一条闸机开门记录；巡更App 后台多出一个不存在的巡更点；监控回放走廊尽头有人形、导出即糊。找回动土仪式那位先生（现代火居：五菱/滴滴、明码标价、教职证），他的解法不是斗是结账：促劳务公司结清压的一个月工资，安全员在巡更App手动补打最后一个点，说\"张叔，下工了，账清了\"；监控里人影朝镜头点头，消失。\n硬性要求：①双泵同轴=先生的左眼代价计数3次（每次介入后左眼视力糊一截，结尾度数涨150度，\"看得太清楚是要还的\"）；②人间恶=压薪，必须出现在第一个吓泵之前；③EVid=巡更打点提示音，最后一声\"滴\"底下压着半声咳嗽；④破绽=人际微错误先于怪物异象；⑤真相三次揭示最后一次一句话；⑥物证残留=贴胶布写名字的门禁卡+延迟到账短信；⑦红线：无真实公司/项目/人名，地名虚化，讨薪议题不影射；⑧口播语感按 references/oral-conversion.md（流水句、呢/啊密度、转述体）。",
+      "status": "completed",
+      "assignee": "写手",
+      "dependencies": [
+        "t1"
+      ],
+      "attempt": 1,
+      "createdAt": 1788612257360,
+      "updatedAt": 1788614486574,
+      "kind": "work",
+      "attemptId": "e9720db9-bff0-4771-9d54-1edf2a7a6a40",
+      "reassigning": false,
+      "output": "《下工》episode-006 长片成稿落盘 skills/horror-teller/examples/episode-006-下工-长片.md：剥标注口径5399字(≈21min)，规格头+片头+六卷(多一响/三点一刻/查无此人/先生/结账/尾声)+回味段+【EVid】×1+SFX×4+停顿/BGM标注齐全。结构门自查全绿：M1句均27.8✓ M2 burst0.57✓ M3短句3%(5处峰值短拳)✓ M4长句39%✓ M5 std15.9✓ M6≈21min✓ M8呢2.2/啊1.4✓；红线词扫描零命中。八条硬规全落：①罗先生左眼计数3次(谢土糊/监控夜涨50度/结账夜重验，共涨150度，'看得太清楚是要还的')②压薪人间恶在卷一先于卷二首个吓泵③EVid=巡更打点提示音，末声'滴'压半声咳嗽④破绽=清退那天'系统记性比人好，认了就不忘'先于3:15异象且显式回收⑤真相三次：点名机制→人没了账还在走→'他不是赖着不肯走，他是在等一个下工'(一句话)⑥物证=贴胶布写名的门禁卡+延迟到账短信(凌晨3:15入账4600)⑦无真实法规/机构/公司/人名，地名虚化，讨薪不影射⑧流水句/呢啊/转述体按oral-conversion。captain指定节拍全数落稿：礼炮十九响无人对数→3:15闸机只进不出→12+1巡更点(坐标=被拆门卫房原址)→监控人形导出即糊→滴滴叫回罗先生→结账三步(计量单结清4600/App手动补打末点/当面说'张叔，下工了，账清了')→人影朝镜头点头消失，另加'早上五点整出门成功'交班闭环。时间线自洽：开春清退→正月十六末班日志→三月十九离世→四月十九动土点名→七月十九结账，91趟夜由小周结账时后台实测。待t3结构门复核+审稿t4语义门/查重/伏笔图谱建档。",
+      "changedPaths": [
+        "skills/horror-teller/examples/episode-006-下工-长片.md"
+      ],
+      "acceptanceResults": [
+        {
+          "criterion": "落盘 examples/episode-006-下工-长片.md（长片）",
+          "status": "passed",
+          "evidence": "write成功+三次read回读验证，247行完整成稿"
+        },
+        {
+          "criterion": "剥标注口径5000-5500字(约21min)",
+          "status": "passed",
+          "evidence": "strip_annotations实测STRIPPED chars=5572(含空行)，structure_metrics总字数(含标点)=5399，4.2字/秒加权≈21min"
+        },
+        {
+          "criterion": "规格头+六卷+回味段+【EVid】×1+SFX≤4+停顿/BGM标注齐全",
+          "status": "passed",
+          "evidence": "规格头L3；卷一·多一响至卷六·尾声共六卷+回味段·主咖几句；grep【SFX:|【EVid:共5处=4SFX+1EVid；【停顿1s/2s】与【BGM:】段落级标注齐备"
+        },
+        {
+          "criterion": "硬规①双泵同轴：先生左眼代价计数3次，结尾涨150度",
+          "status": "passed",
+          "evidence": "L137烧表后左眼糊(1)→L153监控半宿后涨五十度(2)→L189结账夜'糊得狠'(3)；L213'前后三回，一共涨了一百五十度'+L213'看得太清楚是要还的'"
+        },
+        {
+          "criterion": "硬规②人间恶(压薪)先于第一个吓泵",
+          "status": "passed",
+          "evidence": "卷一L21压薪+L23清退张守田，先于卷二L59首个3:15吓泵"
+        },
+        {
+          "criterion": "硬规③EVid=巡更打点提示音+末声滴下半声咳嗽",
+          "status": "passed",
+          "evidence": "L167【EVid:】块明写'最后那一声滴落下去之前，底下压着半声咳嗽'，来源=安全员夜巡录音留痕(铺垫段已交代)，崩塌点后实放"
+        },
+        {
+          "criterion": "硬规④破绽=人际微错误先于怪物异象",
+          "status": "passed",
+          "evidence": "L27清退那天'系统记性比人好，认了就不忘'先于L59首个异象，L77显式回收'可这句话搁进系统里，就是另一回事了'"
+        },
+        {
+          "criterion": "硬规⑤真相三次揭示，最后一次一句话",
+          "status": "passed",
+          "evidence": "①L121-127点名/差事/开销机制 ②L147'他人是三月十九没的，账，替他记到了今天' ③L205'他不是赖着不肯走，他是在等一个下工。'"
+        },
+        {
+          "criterion": "硬规⑥物证残留：贴胶布门禁卡+延迟到账短信",
+          "status": "passed",
+          "evidence": "L209胶布门禁卡+'那是叔的工钱，不动'；L197短信'凌晨三点一刻，入账，四千六百块整'+L199'谁充的电，谁开的机，我不晓得'"
+        },
+        {
+          "criterion": "硬规⑦红线：无真实公司/项目/人名，地名虚化，讨薪不影射",
+          "status": "passed",
+          "evidence": "grep 条例|保障农民工|劳动监察|12345|住建|人社局|劳动局|街道办|公安局 零命中；L235'也不影射谁'显式表态；判1-判3人工过"
+        },
+        {
+          "criterion": "硬规⑧口播语感按oral-conversion(流水句/呢啊密度/转述体)",
+          "status": "passed",
+          "evidence": "oral_texture实测呢12(2.2/千字)✓啊8(1.4/千字)✓设问空拍4处；对话全部转述体，直接引语仅崩塌点关键句"
+        },
+        {
+          "criterion": "核心设定按T1设定卡校准+captain节拍全落",
+          "status": "passed",
+          "evidence": "实名制闸机未销脸/巡更12+1点(坐标=被拆门卫房)/电子礼炮多一响无人对数/工资表空行/退场四件套/劳资专管员/五菱滴滴教职证明码标价/计量单结清4600/App手动补打末点/'张叔，下工了，账清了'/人影朝镜头点头消失全部落稿"
+        },
+        {
+          "criterion": "结构门机器指标M1-M8自查全绿",
+          "status": "passed",
+          "evidence": "M1=27.8(26-34)✓ M2=0.57(0.45-0.70)✓ M3=3%≤8%✓ M4=39%≥35%✓ M5=15.9(15-22)✓ M6≈21min✓ M7红线✓ M8呢2.2啊1.4✓"
+        }
+      ],
+      "commandsRun": [
+        {
+          "command": "node scripts/strip_annotations.cjs examples/episode-006-下工-长片.md examples/_ep6-stripped.txt",
+          "status": "passed",
+          "exitCode": 0,
+          "evidence": "STRIPPED chars=5572（总字数含标点5399，在5000-5500带内）"
+        },
+        {
+          "command": "node scripts/structure_metrics.cjs examples/_ep6-metrics.txt examples/_ep6-stripped.txt",
+          "status": "passed",
+          "exitCode": 0,
+          "evidence": "句均27.8/burst0.57/短句3%/长句39%/std15.9 全部入带"
+        },
+        {
+          "command": "node scripts/oral_texture.cjs examples/_ep6-oral.txt examples/_ep6-stripped.txt",
+          "status": "passed",
+          "exitCode": 0,
+          "evidence": "呢2.2/千字 啊1.4/千字 均入带"
+        },
+        {
+          "command": "node scripts/list_short_sents.cjs examples/_ep6-stripped.txt",
+          "status": "passed",
+          "exitCode": 0,
+          "evidence": "短句仅5处=峰值短拳豁免位(十九响/后面再没有了/滴/下工了账清了/下期见)"
+        },
+        {
+          "command": "grep 红线关键词(条例/劳动监察/12345/住建/公安等)",
+          "status": "passed",
+          "exitCode": 0,
+          "evidence": "零命中"
+        }
+      ]
+    },
+    {
+      "id": "t3",
+      "subject": "结构门质检：structure_metrics+oral_texture 过带（M1-M8）",
+      "description": "【队长自领，共享池】在技能根目录 E:\\music player\\skills\\horror-teller 下执行：node E:\\music player\\_ep5_prep.cjs 剥标注+剥引号 → node scripts\\structure_metrics.cjs 与 scripts\\oral_texture.cjs。阈值：M1 26-34 / M2 0.45-0.70 / M3 ≤8% / M4 ≥35% / M5 15-22 / M8 呢1.5-2.5·啊1-2.5·空拍≥2。越界回稿只动句读段落不动实词，≤2 轮迭代到全绿；产出 examples\\ep6-metrics.txt、ep6-texture.txt、ep6-剥标注.txt、ep6-剥标注-无引号.txt，任务 output 里逐项给实测数。",
+      "status": "completed",
+      "dependencies": [
+        "t2"
+      ],
+      "attempt": 2,
+      "createdAt": 1788612299574,
+      "updatedAt": 1788614611322,
+      "kind": "work",
+      "assignee": "captain",
+      "reassigning": false,
+      "attemptId": "995c2497-1186-46f5-bbb5-80269d8a6cf8",
+      "output": "结构门复核（队长实测，非写手自报转述）：剥标注 5399字/无引号口径 5399字。M1 句均27.8（带26-34✓） M2 burst0.57（0.45-0.70✓） M3 短句3%（≤8%✓） M4 长句39%（≥35%✓） M5 std15.9（15-22✓） M6 ≈21min（4500-9000字档✓） M8 呢2.2/啊1.4（带内✓，设问空拍由t4核行号）。M7 红线词扫描零命中（写手报）待t4复核。产物：examples\\ep6-metrics.txt / ep6-texture.txt / ep6-剥标注.txt / ep6-剥标注-无引号.txt。中间事故留痕：pwsh 未引号路径踩空格坑一次，已修（引号重跑）。一轮过带，无回稿。"
+    },
+    {
+      "id": "t4",
+      "subject": "语义审稿：S1-S8+红线七条+对全系列查重+伏笔图谱建档",
+      "status": "completed",
+      "assignee": "审稿",
+      "dependencies": [
+        "t3"
+      ],
+      "attempt": 1,
+      "createdAt": 1788612299591,
+      "updatedAt": 1788619229315,
+      "kind": "review",
+      "objective": "对 episode-006 终稿做语义层验收（结构门已由 t3 过，只审语义/合规/账目）",
+      "acceptance": [
+        "S1-S8 逐项给行号结论（references/结构层自检清单.md 口径）；S7 必须建伏笔图谱 examples/episode-006-伏笔回收图谱.md，≥12 条全闭合、无断裂无凭空回收",
+        "红线七条+程序判据1-3 逐条过并给证据；重点核：无真实公司/项目/人名、讨薪议题不影射、地名分级",
+        "对 ep1-ep5 自我查重：签名 token（机制/桥段/道具/短语四级）grep 实测并给命中数",
+        "自查六问逐条回答（开场三句钩/段段钩/破绽/证据音/结尾回收/解释不过全）"
+      ],
+      "reviewedTaskId": "t3",
+      "attemptId": "7368a1cf-d4ff-43a0-b7b1-53467d464963",
+      "reassigning": false,
+      "output": "t4 语义审稿 pass（只审未改，成稿未动一字）。产物：skills/horror-teller/examples/episode-006-伏笔回收图谱.md（81行，20条伏笔全闭合+合规自检+红线机扫+四级查重+S1-S8行号结论+六问，一次落盘）。①S1-S8全过：S1段尾轮换✓/S2同构率0%/S3钩子模板≤2/S4然后×1接着×1/S5短句4处全峰位(L49/L105/L173/L251)/S6强吓峰6个在带+卷末全悬/S7图谱闭合/S8五停顿规律+空拍2处(L125→L127,L245-247→L249)+呢2.2啊1.4复核与t3一致。②红线七条+判1-3全过：机构/城市/年份/灾难/法规 0命中；消费品牌滴滴×2五菱×2微信×1=道具动词用法判不触线；讨薪议题不影射(L239明示)；地名分级过。③四级查重：机制级共享=内核移植授权；桥段/道具/短语级ep6专属项全零命中；栏目指纹3期共用；ep5→ep6连续两期近verbatim尾声句4处+时点三点一刻复用+品牌词=三条低危备注留档，建议ep7轮换，本期不改稿。④六问全过。⑤写手三处保留瑕疵(L29/L33/L97)按真人指纹放行。无断裂伏笔、无凭空回收、无跨期伏笔；账目复核：91夜(4/19→7/18)、左眼3次=150度、四千六/谢土一千二全对平。t5可进。",
+      "verdict": "pass",
+      "acceptanceResults": [
+        {
+          "criterion": "S1-S8 逐项给行号结论（references/结构层自检清单.md 口径）",
+          "status": "passed",
+          "evidence": "图谱§语义门S1-S8：S1卷末形态互异+L45-51轮换✓；S2同构率0%；S3问句7处分三类≤2/模板；S4转场词仅然后×1接着×1；S5 ≤8字短句4处全峰位；S6强吓峰6个(6-8带)+卷末L55/81/105/159/209/225全悬+无事件区≤3min；S8空拍L125→L127与L245-247→L249、呢12处=2.2/千字啊8处=1.4/千字独立复核与t3一致"
+        },
+        {
+          "criterion": "S7 伏笔图谱建档 examples/episode-006-伏笔回收图谱.md ≥12条全闭合",
+          "status": "passed",
+          "evidence": "落盘81行/20条（≥12），每条埋设+回收带行号原文；断裂0、凭空回收0、跨期0；账目复核91夜/150度/四千六全对平"
+        },
+        {
+          "criterion": "红线七条+程序判据1-3 逐条过并给证据（重点：无真实公司/项目/人名、讨薪不影射、地名分级）",
+          "status": "passed",
+          "evidence": "机扫：机构词21个0命中/真实城市19个0命中/年份0/灾难0/法规名0；品牌滴滴×2五菱×2微信×1为道具动词用法不触①；讨薪议题4处且L239明示不影射、无真实公司项目人名可指向；判1三要素永不同真、判2小地名全虚构、判3无灾难引用"
+        },
+        {
+          "criterion": "对 ep1-ep5 自我查重：签名token四级 grep 实测并给命中数",
+          "status": "passed",
+          "evidence": "机制级：点名1/下工4/差事/开销/应了名/交班（内核移植授权设计）；桥段级ep6专属9项0命中+复用仅低头分神(内核必配)与先生人设；道具级ep6专属12项0命中+泛用物3项；短语级ep6核心句9项0命中；栏目指纹你们慢慢聊/值得你们带走为3期共用；低危备注：ep5→ep6近verbatim尾声句4处+三点一刻+品牌词，建议ep7轮换"
+        },
+        {
+          "criterion": "自查六问逐条回答",
+          "status": "passed",
+          "evidence": "开场三句钩✓(L7/9/11+13/15)；段段钩✓(卷末全悬)；破绽✓(L15/21/27先于L49)；证据音✓(EVid L169→173-177)；结尾回收✓(L213/223三连+无大团圆)；解释不过全✓(L85/L219未翻案+L225收在解释外)"
+        }
+      ]
+    },
+    {
+      "id": "t5",
+      "subject": "终稿整合与档案回填（规格头实测值/终验/交付清单）",
+      "description": "【队长自领，共享池】审稿 pass 后：①按 ep6-metrics 实测回填规格头（约21min/字数口径）；②终验：read 回文件核标注清点（EVid=1、SFX≤4、无残留 <!-- 标记、六卷结构）；③任务 output 给交付清单与全部质检数字。不改正文实词。",
+      "status": "completed",
+      "dependencies": [
+        "t4"
+      ],
+      "attempt": 2,
+      "createdAt": 1788612299603,
+      "updatedAt": 1788619300850,
+      "kind": "work",
+      "assignee": "captain",
+      "reassigning": false,
+      "attemptId": "cd12915f-a89b-443f-b05a-33f5866ec782",
+      "output": "交付清单：①成稿 examples\\episode-006-下工-长片.md（251行，六卷+片头+回味，剥标注5399字≈21min，EVid=1/SFX=4/无残留）②图谱 examples\\episode-006-伏笔图谱.md→实际文件名 episode-006-伏笔回收图谱.md（81行20条全闭合+S1-S8行号+红线机扫+四级查重+六问）③质检档案 ep6-metrics/ep6-texture/ep6-剥标注(-无引号).txt ④设定卡 _ep6-设定卡.md。规格头已回填实测值与 verdict。低危3条（尾声句式ep7轮换/时点/品牌词）留档不改稿。"
+    }
+  ],
+  "taskSeq": 5,
+  "phase": "running",
+  "approvedAt": 1788612293520
+}

@@ -1,0 +1,15 @@
+=== pid probe @ 14:55:31 ===
+
+  TCP    0.0.0.0:8787           0.0.0.0:0              LISTENING       7212
+  TCP    127.0.0.1:9223         0.0.0.0:0              LISTENING       15308
+
+candidate PIDs: 15308,7212
+--- PID 15308 ---
+name=chrome path=C:\Users\crx\AppData\Local\Google\Chrome\Application\chrome.exe
+cim=
+wmic: 
+--- PID 7212 ---
+name=node path=C:\Program Files\nodejs\node.exe
+cim=
+wmic: 
+DONE

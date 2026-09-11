@@ -1,0 +1,59 @@
+{
+  "id": "bmr-04",
+  "edition": "bmr",
+  "cat": "状态声称",
+  "day": 1,
+  "phase": "day",
+  "speakerSeat": 3,
+  "text": "9号昨晚把3号选成醉酒了，他八成是旅店老板，我这些话今天全作废。",
+  "expected": {
+    "event_type": "statement",
+    "claims": [
+      {
+        "subject_seat": 9,
+        "predicate_ideal": "claims_role",
+        "object": "旅店老板",
+        "map_expect": "main_role",
+        "note": "由行为推断身份，无标注推断口径"
+      },
+      {
+        "subject_seat": 3,
+        "predicate_ideal": "status_drunk",
+        "object": "醉酒",
+        "map_expect": "botc"
+      }
+    ],
+    "action": null
+  },
+  "ms": 45655.199,
+  "attempts_external": 0,
+  "error": null,
+  "out": {
+    "event": {
+      "day": 1,
+      "phase": "day",
+      "type": "statement",
+      "raw_text": "9号昨晚把3号选成醉酒了，他八成是旅店老板，我这些话今天全作废。",
+      "actor_seat": 9
+    },
+    "claims": [
+      {
+        "subject_seat": 9,
+        "predicate": "did_action",
+        "object": "昨晚把3号选成醉酒"
+      },
+      {
+        "subject_seat": 9,
+        "predicate": "is_role",
+        "object": "旅店老板"
+      }
+    ],
+    "action": null,
+    "warnings": [],
+    "meta": {
+      "mode": "LIVE",
+      "attempts": 1
+    },
+    "actor_seat": 9
+  }
+}

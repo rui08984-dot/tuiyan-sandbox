@@ -1,0 +1,21 @@
+{
+  "prereg_version": 1,
+  "frozen_at": "2026-09-11T00:00:00+08:00",
+  "frozen_before_run": true,
+  "seed": 20260911,
+  "provider": "tokenrhythm",
+  "model": "glm-5.3-flash",
+  "temperature": 0.7,
+  "variant": {
+    "id": "ownww6p-v1",
+    "name": "一夜终极狼人杀 6 人（MVP 冒烟）",
+    "players": 6,
+    "roles": { "werewolf": 2, "villager": 4 },
+    "night": { "kills": 1 },
+    "day": { "speech_rounds": 1, "speech_order": "seat_asc_alive" },
+    "vote": { "mode": " plurality_exile ", "tiebreak": "seeded_rng" },
+    "win_rule": "exile_wolf -> village_win; else wolf_win"
+  },
+  "prompt_version": "pv1",
+  "notes": "M0 冒烟单局；角色分配用 crypto.randomInt（任务书指定，非种子复现，偏差已记录）；投票平票用 mulberry32(seed) 破平。本文件冻结后禁改；prompt 迭代必须升 prompt_version 且只跑新局。"
+}

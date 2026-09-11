@@ -1,0 +1,36 @@
+== node/msedge processes ==
+9724 | msedge.exe | "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" --single-argument http://127.0.0.1:3080/
+29520 | msedge.exe | "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" --type=crashpad-handler "--user-data-dir=C:\Users\crx\AppData\Local\Microsoft\Edge\User Data" /pr
+16544 | msedge.exe | "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" --type=gpu-process --use-angle=d3d11 --gpu-preferences=WAAAAAAAAADgAAAEAAAAAAAAAAAAAGAAQAAAAAAAAA
+25716 | msedge.exe | "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" --type=utility --utility-sub-type=network.mojom.NetworkService --lang=zh-CN --service-sandbox-typ
+10440 | msedge.exe | "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" --type=utility --utility-sub-type=storage.mojom.StorageService --lang=zh-CN --service-sandbox-typ
+26564 | msedge.exe | "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" --type=renderer --extension-process --renderer-sub-type=extension --pdf-upsell-enabled --video-ca
+26896 | msedge.exe | "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" --type=utility --utility-sub-type=audio.mojom.AudioService --lang=zh-CN --service-sandbox-type=au
+32528 | msedge.exe | "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" --type=utility --utility-sub-type=edge_search_indexer.mojom.SearchIndexerInterfaceBroker --lang=z
+6104 | node.exe | "C:\Program Files\nodejs\node.exe" src/server.js
+31280 | msedge.exe | "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" --type=renderer --pdf-upsell-enabled --video-capture-use-gpu-memory-buffer --lang=zh-CN --js-flag
+4288 | msedge.exe | "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" --type=renderer --pdf-upsell-enabled --video-capture-use-gpu-memory-buffer --lang=zh-CN --js-flag
+34052 | msedge.exe | "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" --type=renderer --pdf-upsell-enabled --video-capture-use-gpu-memory-buffer --lang=zh-CN --js-flag
+34104 | msedge.exe | "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" --type=utility --utility-sub-type=video_capture.mojom.VideoCaptureService --lang=zh-CN --service-
+35204 | msedge.exe | "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" --type=renderer --pdf-upsell-enabled --video-capture-use-gpu-memory-buffer --lang=zh-CN --js-flag
+35544 | node.exe | "D:\agent1super\node\node.exe" D:\agent1super\dsh\node_modules\@deepseek-ai\dsh\lib\bin.js web 
+26632 | node.exe | D:\agent1super\node\node.exe D:\codex\.mcp\apaper\node_modules\@ai4paper\apaper-mcp\bin\apaper-mcp.js
+30920 | node.exe | D:/agent1super/node/node.exe D:/agent1super/mcp/node_modules/one-search-mcp/dist/index.cjs
+5688 | node.exe | D:/agent1super/node/node.exe D:/agent1super/mcp/node_modules/aigroup-paper-mcp/dist/server.js
+13564 | node.exe | D:/agent1super/node/node.exe D:/agent1super/mcp/node_modules/xlsx-mcp-server/dist/index.js
+31436 | node.exe | D:/agent1super/node/node.exe D:/agent1super/mcp/node_modules/@playwright/mcp/cli.js --browser msedge --output-dir D:/agent1super/output/browser
+14036 | msedge.exe | "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" --type=renderer --pdf-upsell-enabled --video-capture-use-gpu-memory-buffer --lang=zh-CN --js-flag
+32400 | node.exe | D:\agent1super\node\node.exe D:\agent1super\mcp\node_modules\paperplain-mcp\server.js
+9764 | node.exe | D:\agent1super\node\node.exe D:\agent1super\mcp\node_modules\@modelcontextprotocol\server-sequential-thinking\dist\index.js
+31340 | node.exe | D:\agent1super\node\node.exe D:\agent1super\mcp\node_modules\@playwright\mcp\cli.js --browser msedge
+34896 | node.exe | D:\agent1super\node\node.exe D:\agent1super\mcp\node_modules\mcp-excel-controller-pro\server.js
+3764 | node.exe | D:\agent1super\node\node.exe D:\agent1super\mcp\node_modules\xlsx-mcp-server\dist\index.js
+18292 | node.exe | D:\agent1super\node\node.exe D:\agent1super\mcp\node_modules\aigroup-paper-mcp\dist\server.js
+22044 | node.exe | D:\agent1super\node\node.exe D:\agent1super\mcp\node_modules\one-search-mcp\dist\index.cjs
+33064 | msedge.exe | "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" --type=renderer --extension-process --renderer-sub-type=extension --pdf-upsell-enabled --video-ca
+32212 | msedge.exe | "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" --type=renderer --extension-process --renderer-sub-type=extension --pdf-upsell-enabled --video-ca
+== ports ==
+PORT8787=6104
+PORT9223=free
+== health ==
+HEALTH=200 {"ok":true,"service":"p1b-web-workbench","db_path":"E:\\music player\\docs\\sandbox\\p1b\\itest\\p7-test.db","llm_mock":true,"engine":{"db_contract":"v1","reused_from":"p1a-terminal"}}

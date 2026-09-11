@@ -1,0 +1,119 @@
+/* mystic.css —— 独立玄学排盘页（P9 W2，#/mystic）。
+   类名约定沿用 oracle.css：变量复用站内 --panel/--line/--muted/--accent/--panel-2，组件一律 mystic- 前缀。
+   拍板铁律：页面级恒挂「娱乐参考 · 非游戏研判」横幅，绝不接入任何游戏研判功能。 */
+
+.mystic-page {
+  max-width: 720px; margin: 0 auto; padding: 12px 12px 40px;
+  display: flex; flex-direction: column; gap: 12px;
+}
+
+/* 页面级恒挂横幅（铁律：始终可见，不随排盘状态消失） */
+.mystic-banner {
+  align-self: center; padding: 6px 14px; border-radius: 999px;
+  background: rgba(224, 168, 60, 0.14); color: var(--accent);
+  font-size: 12.5px; white-space: nowrap;
+}
+
+.mystic-head h2 { margin: 0; font-size: 20px; }
+.mystic-sub { margin: 4px 0 0; color: var(--muted); font-size: 12.5px; }
+
+/* 三法排盘表单 */
+.mystic-form-panel {
+  background: var(--panel); border: 1px solid var(--line);
+  border-radius: 12px; padding: 12px;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.mystic-method-tabs { display: flex; gap: 8px; }
+.mystic-method-tab {
+  flex: 1; min-height: 34px; border-radius: 8px; font-size: 13.5px;
+  border: 1px solid var(--line); background: transparent; color: inherit;
+}
+.mystic-method-tab.is-active { border-color: var(--accent); color: var(--accent); }
+.mystic-numbers-row { display: flex; gap: 8px; }
+.mystic-input {
+  flex: 1; min-width: 0; min-height: 36px; padding: 0 10px; font-size: 14px;
+  border: 1px solid var(--line); border-radius: 8px; background: var(--panel-2); color: inherit;
+}
+.mystic-cast-btn { min-height: 36px; }
+.mystic-form-hint { margin: 0; color: var(--muted); font-size: 12px; }
+.mystic-err { margin: 0; }
+
+/* 卦象大展示：本/互/变 三列（窄屏自动堆叠） */
+.mystic-result-panel {
+  background: var(--panel); border: 1px solid var(--line);
+  border-radius: 12px; padding: 12px;
+}
+.mystic-result-title { font-size: 14.5px; color: var(--muted); margin-bottom: 10px; }
+.mystic-casting { display: flex; flex-direction: column; gap: 10px; }
+.mystic-gua-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+@media (max-width: 420px) {
+  .mystic-gua-grid { gap: 6px; }
+}
+.mystic-gua-card {
+  background: var(--panel-2); border: 1px solid var(--line); border-radius: 10px;
+  padding: 10px 8px; text-align: center;
+}
+.mystic-gua-label { color: var(--muted); font-size: 12px; margin-bottom: 8px; }
+.mystic-gua-name { margin-top: 8px; font-size: 14px; }
+.mystic-gua-sub { color: var(--muted); font-size: 11.5px; margin-top: 2px; }
+.mystic-yao-empty { color: var(--muted); font-size: 12px; padding: 8px 0; }
+
+/* 六爻图（自下而上数组，渲染自上而下：上爻在顶） */
+.mystic-yao-stack { display: flex; flex-direction: column; gap: 5px; width: 72px; margin: 0 auto; }
+.mystic-yao { position: relative; display: flex; gap: 8px; padding-right: 22px; }
+.mystic-yao-bar { display: block; flex: 1; height: 9px; border-radius: 3px; background: var(--muted); }
+.mystic-yao.is-dong .mystic-yao-bar { background: var(--accent); }
+.mystic-yao-tag {
+  position: absolute; right: 0; top: 50%; transform: translateY(-50%);
+  font-size: 11px; line-height: 1; color: var(--accent);
+}
+
+/* 动爻体用五行条 */
+.mystic-tiyong {
+  padding: 8px 10px; border-radius: 8px; font-size: 13.5px; background: var(--panel-2);
+}
+.mystic-derived { color: var(--muted); font-size: 12px; }
+
+/* 历史列表（新→旧）+ 分页 */
+.mystic-history-panel {
+  background: var(--panel); border: 1px solid var(--line);
+  border-radius: 12px; padding: 12px;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.mystic-history-head { display: flex; align-items: baseline; gap: 8px; }
+.mystic-history-head h3 { margin: 0; font-size: 15px; margin-right: auto; }
+.mystic-history-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.mystic-history-item {
+  width: 100%; text-align: left; background: transparent; border: none; color: inherit;
+  padding: 9px 4px; border-bottom: 1px solid var(--line);
+  display: flex; flex-direction: column; gap: 2px; cursor: pointer;
+}
+.mystic-history-item:last-child { border-bottom: none; }
+.mystic-history-gua { font-size: 14.5px; }
+.mystic-history-meta { color: var(--muted); font-size: 12px; }
+.mystic-empty { margin: 0; }
+.mystic-pager { display: flex; align-items: center; gap: 8px; justify-content: center; }
+.mystic-pager-info { font-size: 12.5px; min-width: 64px; text-align: center; }
+
+/* 回看抽屉（同站内弹层惯例：底部升起，z-45 不越过既有模态层级） */
+.mystic-overlay {
+  position: fixed; inset: 0; z-index: 45;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex; align-items: flex-end; justify-content: center;
+}
+.mystic-drawer {
+  width: 100%; max-width: 520px; max-height: 90dvh; overflow-y: auto;
+  background: var(--panel);
+  border: 1px solid var(--line); border-bottom: none;
+  border-radius: 16px 16px 0 0;
+  padding: 16px 16px calc(16px + env(safe-area-inset-bottom));
+}
+.mystic-drawer-head { display: flex; align-items: center; gap: 8px; }
+.mystic-drawer-head h2 { margin: 0; font-size: 18px; margin-right: auto; }
+.mystic-drawer-meta { margin: 6px 0 0; color: var(--muted); font-size: 12.5px; }
+.mystic-drawer .mystic-casting { margin-top: 12px; }
+.mystic-verdict-note { margin: 10px 0 0; color: var(--muted); font-size: 12.5px; }
+.mystic-drawer-foot { display: flex; justify-content: flex-end; margin-top: 14px; }
+
+/* OracleZone 弹层「进入排盘」链接（a.btn reset，纯增量不碰 oracle.css） */
+a.oracle-mystic-link { text-decoration: none; display: inline-flex; align-items: center; }

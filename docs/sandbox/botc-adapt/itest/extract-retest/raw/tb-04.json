@@ -1,0 +1,46 @@
+{
+  "id": "tb-04",
+  "edition": "tb",
+  "cat": "状态声称",
+  "day": 2,
+  "phase": "day",
+  "speakerSeat": 7,
+  "text": "我觉得我被投毒了，昨晚占卜师给我的结果肯定是反的。",
+  "expected": {
+    "event_type": "statement",
+    "claims": [
+      {
+        "subject_seat": 7,
+        "predicate_ideal": "status_poisoned",
+        "object": "中毒",
+        "map_expect": "botc"
+      },
+      {
+        "subject_seat": 7,
+        "predicate_ideal": "claims_role",
+        "object": "占卜师",
+        "map_expect": "main_role",
+        "note": "隐含自称占卜师；若模型输出此条属推断，判可疑"
+      }
+    ],
+    "action": null
+  },
+  "ms": 33403.222,
+  "attempts_external": 0,
+  "error": null,
+  "out": {
+    "event": {
+      "day": 2,
+      "phase": "day",
+      "type": "statement",
+      "raw_text": "我觉得我被投毒了，昨晚占卜师给我的结果肯定是反的。"
+    },
+    "claims": [],
+    "action": null,
+    "warnings": [],
+    "meta": {
+      "mode": "LIVE",
+      "attempts": 1
+    }
+  }
+}

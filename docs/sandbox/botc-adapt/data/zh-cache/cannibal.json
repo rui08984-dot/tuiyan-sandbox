@@ -1,0 +1,18 @@
+{
+ "id": "cannibal",
+ "name_en": "Cannibal",
+ "search_status": 200,
+ "hit_titles": [
+  "食人族"
+ ],
+ "name_zh": "食人族",
+ "ability_zh": "你拥有上个死于处决的玩家的能力。如果该玩家属于邪恶阵营，你中毒直到下个善良玩家被处决。",
+ "page": "食人族",
+ "file_verified": false,
+ "script": "黯月初升",
+ "page_found": true,
+ "has_section": true,
+ "retry_route": "script-gallery:黯月初升",
+ "appears_in": null,
+ "fan_like": false
+}

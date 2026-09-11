@@ -1,0 +1,19 @@
+{
+ "id": "poisoner",
+ "name_en": "Poisoner",
+ "search_status": 200,
+ "hit_titles": [
+  "普卡",
+  "投毒者"
+ ],
+ "name_zh": "投毒者",
+ "ability_zh": "每个夜晚，你要选择一名玩家：他在当晚和明天白天中毒。",
+ "page": "投毒者",
+ "file_verified": false,
+ "script": "暗流涌动",
+ "page_found": true,
+ "has_section": true,
+ "retry_route": "script-gallery:暗流涌动",
+ "appears_in": null,
+ "fan_like": false
+}

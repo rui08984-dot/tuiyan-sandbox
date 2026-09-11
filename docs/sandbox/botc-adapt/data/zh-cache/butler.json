@@ -1,0 +1,18 @@
+{
+ "id": "butler",
+ "name_en": "Butler",
+ "search_status": 200,
+ "hit_titles": [
+  "管家"
+ ],
+ "name_zh": "管家",
+ "ability_zh": "每个夜晚，你要选择除你以外的一名玩家：明天白天，只有他投票时你才能投票。",
+ "page": "管家",
+ "file_verified": false,
+ "script": "暗流涌动",
+ "page_found": true,
+ "has_section": true,
+ "retry_route": "script-gallery:暗流涌动",
+ "appears_in": null,
+ "fan_like": false
+}

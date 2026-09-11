@@ -1,0 +1,18 @@
+{
+ "id": "deviant",
+ "name_en": "Deviant",
+ "search_status": 200,
+ "hit_titles": [
+  "怪咖"
+ ],
+ "name_zh": "怪咖",
+ "ability_zh": "如果你表现得很有趣，当天你不能被流放。",
+ "page": "怪咖",
+ "file_verified": false,
+ "script": "梦殒春宵",
+ "page_found": true,
+ "has_section": true,
+ "retry_route": "script-gallery:梦殒春宵",
+ "appears_in": null,
+ "fan_like": false
+}

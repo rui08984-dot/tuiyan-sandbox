@@ -1,0 +1,20 @@
+{
+ "id": "virgin",
+ "name_en": "Virgin",
+ "search_status": 200,
+ "hit_titles": [
+  "贞洁者",
+  "谛听之杖Veraxillus",
+  "护火贞女Vestal Virgin"
+ ],
+ "name_zh": "贞洁者",
+ "ability_zh": "当你首次被提名时，如果提名你的玩家是镇民，他立刻被处决。",
+ "page": "贞洁者",
+ "file_verified": false,
+ "script": "暗流涌动",
+ "page_found": true,
+ "has_section": true,
+ "retry_route": "script-gallery:暗流涌动",
+ "appears_in": null,
+ "fan_like": false
+}

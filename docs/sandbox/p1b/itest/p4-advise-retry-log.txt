@@ -1,0 +1,19 @@
+R0 当前页: 🎭 | 对局 | ✍️ | 录入 | 🧠 | 参谋卡 | ⚙️ | 设置 | 🧠 | 参谋卡 |  | 天结算 → 后台异步生成（约 3 分钟）→ 就绪提醒 → 点开渲染。参谋卡是思路发生器：思路非答案。 |  | 对局 | #4 P4验收·狼人杀8人（第1天 · 3事件） | #3 P4验收·狼人杀8人（第1天 · 3事件） | #2 P4验收·狼人杀8人（第1天 · 3事
+OK   R1 天结算按钮可用
+R1 提交后: 生成中横幅=true
+R1 taskId=adv-mtsem2iu-3-krhbr
+R2 轮询 60s: running
+R2 轮询 120s: running
+R2 轮询 180s: failed
+R2 状态迁移: running->running ... running->failed（共 60 轮）
+R2 终态: failed saved=null 矛盾=? 假设=? 验证点=? error="generateCards：JSON 强解析在 2 次重试后仍失败。\nattempt 1 传输失败: DeepSeek API HTTP 504\nattempt 2 传输失败: DeepSeek API HTTP 504\nattem
+FALLBACK: 重试未到 done（上游 504），改用第一轮真实 LLM 产物（game2/day1）渲染 UI 链路
+OK   F1 真实 LLM 卡渲染（思路非答案）
+OK   F2 假设区（3 套真实假设）
+OK   F3 验证点（5 条）
+OK   F4 未发现矛盾（真实 LLM 输出 0 矛盾）
+OK   F5 已回存服务端徽标
+PNG saved: ./p4-advisor-card-mobile-390.png 214765B
+PNG saved: ./p4-advisor-card-desktop-1280.png 104168B
+PNG saved: ./p4-advisor-archive-mobile-390.png 214765B
+ADVISE-RETRY RESULT (fallback): ALL PASS

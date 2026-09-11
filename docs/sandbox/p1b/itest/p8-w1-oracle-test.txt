@@ -1,0 +1,21 @@
+✔ fnv1a 公开测试向量：""=2166136261、"a"=3826002220（哈希口径冻结） (57.1035ms)
+✔ 锚点G1 局#1 werewolf 6人：A=387,B=166 → 火水未济·动爻1·体离火/用坎水·用克体·变火泽睽 (0.861ms)
+✔ 锚点G2 局#2 botc 9人：A=161,B=56 → 天地否·动爻1·用生体·变天雷无妄 (0.1339ms)
+✔ 确定性：同输入两次完全一致；换 id 换卦；type/game_type 别名等价 (0.2558ms)
+✔ 非法输入拒绝：缺 id / 缺 created_at / player_count=0 / 空 type (0.3094ms)
+✔ MOCK 断语模板：含卦名+娱乐参考、含体用关系；capVerdict 硬截 200 (0.1325ms)
+✔ POST /api/games 建判词测试局 (21.029ms)
+✔ GET /api/games/:id/oracle → 200：casting 全套 + verdict 含卦名与娱乐参考 + disclaimer 精确 (1.0935ms)
+✔ 同局两次 GET 响应体逐字节一致（同局同卦同断语） (1.2229ms)
+✔ API casting 与本地 deriveCasting(建局返回 game) 一致 (1.2786ms)
+✔ 404（局不存在）/ 400（非整数 id） (0.8375ms)
+✔ LIVE 缝：fetchImpl 注入 → mode=live、verdict=注入文本(trim)、线检 system 首行/无 response_format (9.3235ms)
+✔ LIVE 失败缝：fetchImpl 抛错 → 200 + mode=mock_fallback + llm_error（不谎报为 LLM 断语） (4.8599ms)
+ℹ tests 13
+ℹ suites 0
+ℹ pass 13
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 404.5551

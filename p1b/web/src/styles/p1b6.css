@@ -1,0 +1,71 @@
+/* B6 一页现场流（P1B-UX-ONEPAGE）—— 顶栏三区 + 现场主屏布局 + 引导流样式。 */
+
+/* ── 顶栏：品牌 + 现场/管理 + 设置齿轮（移动端常驻顶部，桌面居中）── */
+.appbar {
+  position: sticky; top: 0; z-index: 30;
+  display: flex; align-items: center; gap: 6px;
+  padding: 6px 12px;
+  padding-top: calc(6px + env(safe-area-inset-top));
+  background: rgba(26, 22, 15, 0.96);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(8px);
+}
+.brand {
+  display: flex; align-items: center; gap: 6px; margin-right: auto;
+  color: var(--text); text-decoration: none; font-weight: 700; font-size: 15px;
+}
+.appbar-nav { display: flex; gap: 4px; }
+.appbar-link {
+  display: flex; align-items: center; min-height: 44px; padding: 0 14px;
+  color: var(--muted); text-decoration: none; font-size: 14px; border-radius: 10px;
+}
+.appbar-link.is-active { color: var(--accent); background: rgba(224, 168, 60, 0.12); }
+.appbar-gear {
+  display: flex; align-items: center; justify-content: center;
+  min-width: 44px; min-height: 44px; font-size: 18px;
+  color: var(--muted); text-decoration: none; border-radius: 10px;
+}
+.appbar-gear.is-active { color: var(--accent); background: rgba(224, 168, 60, 0.12); }
+
+/* 现场主屏：无底部 Tab 栏 → 输入条贴底，内容底部预留输入条高度（手机竖屏单手） */
+.content { padding-bottom: calc(150px + env(safe-area-inset-bottom)); }
+
+/* ── 参谋卡区：时间线顶部可展开大卡 ── */
+.adv-strip {
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 8px 12px; margin-bottom: 12px;
+}
+.adv-strip-title { font-weight: 700; font-size: 14.5px; }
+.adv-strip-meta { color: var(--muted); font-size: 12.5px; }
+.adv-strip .btn { min-height: 38px; padding: 0 12px; margin-left: auto; flex-shrink: 0; }
+.adv-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 12px; padding: 4px 10px; border-radius: 999px; white-space: nowrap;
+  background: rgba(224, 168, 60, 0.16); color: var(--accent);
+}
+.adv-badge .spinner { width: 10px; height: 10px; border-width: 2px; }
+.adv-badge.is-ready { background: rgba(88, 179, 104, 0.14); color: var(--ok); }
+.adv-body {
+  background: var(--panel); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: 12px 14px; margin-bottom: 12px;
+}
+.adv-hist-row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+
+/* ── 空态主 CTA（开新局引导流入口）── */
+.live-hero { text-align: center; padding: 26px 12px 10px; }
+.live-hero .btn { min-height: 52px; min-width: 220px; font-size: 16px; font-weight: 600; }
+
+/* ── 新建引导流：分步指示 ── */
+.wiz-steps { display: flex; gap: 8px; margin: 2px 0 10px; font-size: 12.5px; }
+.wiz-step { flex: 1; text-align: center; padding: 7px 0; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); }
+.wiz-step.is-on { color: var(--accent); border-color: rgba(224, 168, 60, 0.55); }
+.sheet-search { margin-top: 4px; }
+.sheet-cta { width: 100%; margin-top: 4px; }
+
+/* 桌面宽屏自适应 */
+@media (min-width: 900px) {
+  .appbar { justify-content: center; padding: 6px 16px; }
+  .appbar-inner { display: flex; align-items: center; gap: 10px; width: 100%; max-width: 860px; }
+  .content { padding-bottom: 48px; max-width: 860px; }
+}

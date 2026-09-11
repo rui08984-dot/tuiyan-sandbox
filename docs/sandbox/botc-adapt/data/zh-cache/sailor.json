@@ -1,0 +1,19 @@
+{
+ "id": "sailor",
+ "name_en": "Sailor",
+ "search_status": 200,
+ "hit_titles": [
+  "僵怖",
+  "普卡"
+ ],
+ "name_zh": "水手",
+ "ability_zh": "你不会死亡。每个夜晚，你要选择除你以外的一名存活的玩家：你或他之一会醉酒直到下个黄昏。",
+ "page": "水手",
+ "file_verified": false,
+ "script": "黯月初升",
+ "page_found": true,
+ "has_section": true,
+ "retry_route": "script-gallery:黯月初升",
+ "appears_in": "器官之旅",
+ "fan_like": false
+}

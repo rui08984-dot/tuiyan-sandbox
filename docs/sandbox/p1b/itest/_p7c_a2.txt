@@ -1,0 +1,48 @@
+const pageText = async () => evaljs('document.body.innerText');
+const click = async (s) => evaljs("(()=>{const b=" + s + ";if(!b)return false;b.click();return true})()");
+async function setVal(sel, v) {
+  const isExpr = /^[(\[]/.test(sel) || sel.indexOf('document') === 0;
+  const elExpr = isExpr ? sel : q(sel);
+  return evaljs("(()=>{const el=" + elExpr + ";if(!el)return false;(" + SETVAL + ")(" + "el," + JSON.stringify(v) + ");return true})()");
+}
+const nth = (sel, i) => "(document.querySelectorAll('" + sel + "'))[" + i + "]";
+const q = (sel) => "document.querySelector('" + sel + "')";
+async function api(path, opts) {
+  const expr = "(async () => { const r = await fetch('" + path + "', " + JSON.stringify(opts || {}) + "); return JSON.stringify({ status: r.status, body: await r.text() }); })()";
+  const parsed = JSON.parse(await evaljs(expr));
+  return { status: parsed.status, body: parsed.body ? JSON.parse(parsed.body) : null };
+}
+async function shot(pngOut, width, height, mobile) {
+  await send('Emulation.setDeviceMetricsOverride', { width: width, height: height, deviceScaleFactor: mobile ? 2 : 1, mobile: mobile });
+  await sleep(900);
+  const s = await send('Page.captureScreenshot', { format: 'png' });
+  fs.writeFileSync(pngOut, Buffer.from(s.result.data, 'base64'));
+  console.log('PNG saved: ' + pngOut.split('\\').pop() + ' ' + fs.statSync(pngOut).size + 'B');
+}
+async function nav(hash) { await send('Page.navigate', { url: BASE + '/' + hash }); await sleep(1800); }
+async function waitSel(sel, timeoutMs) {
+  const deadline = Date.now() + (timeoutMs || 15000);
+  while (Date.now() < deadline) {
+    if (await evaljs("!!" + q(sel))) return true;
+    await sleep(450);
+  }
+  return false;
+}
+async function waitText(txt, timeoutMs) {
+  const deadline = Date.now() + (timeoutMs || 15000);
+  while (Date.now() < deadline) {
+    const p = await pageText();
+    if (p.indexOf(txt) >= 0) return true;
+    await sleep(450);
+  }
+  return false;
+}async function ensureOnGame(name) {
+  await nav('#/');
+  await sleep(800);
+  if ((await pageText()).indexOf(name) >= 0) return 'already';
+  await evaljs("(()=>{const b=" + btn('切换/建局') + ";if(b)b.click();return !!b})()");
+  await sleep(700);
+  await evaljs("(()=>{const b=" + btn(name) + ";if(b)b.click();return !!b})()");
+  await sleep(1600);
+  return (await pageText()).indexOf(name) >= 0 ? 'switched' : 'fail';
+}

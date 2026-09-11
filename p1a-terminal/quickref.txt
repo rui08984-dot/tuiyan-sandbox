@@ -1,0 +1,15 @@
+﻿================  AI 推演沙盘 P1a 终端版 · 就绪  ================
+
+ 常用命令（直接输入，回车执行）：
+
+   开新局    node src/cli.js new 局名 werewolf 人数
+   录入发言  node src/cli.js add 局id 发言记录
+   天结算    node src/cli.js day 局id 天数   （约3分钟出参谋卡）
+   查账本    node src/cli.js list 局id
+   导出      node src/cli.js export 局id
+   改账      node src/cli.js edit 编号 新内容
+   撤账      node src/cli.js retract 编号
+
+ 示例：node src/cli.js new 周五朋友局 werewolf 10
+ （局名含空格时用英文双引号包住）
+================================================================

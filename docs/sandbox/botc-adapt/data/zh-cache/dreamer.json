@@ -1,0 +1,18 @@
+{
+ "id": "dreamer",
+ "name_en": "Dreamer",
+ "search_status": 200,
+ "hit_titles": [
+  "筑梦师"
+ ],
+ "name_zh": "筑梦师",
+ "ability_zh": "每个夜晚，你要选择除你及旅行者以外的一名玩家：你会得知一个善良角色和一个邪恶角色，该玩家是其中一个角色。",
+ "page": "筑梦师",
+ "file_verified": false,
+ "script": "梦殒春宵",
+ "page_found": true,
+ "has_section": true,
+ "retry_route": "script-gallery:梦殒春宵",
+ "appears_in": null,
+ "fan_like": false
+}

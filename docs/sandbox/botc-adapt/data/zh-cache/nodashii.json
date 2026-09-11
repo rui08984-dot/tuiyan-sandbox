@@ -1,0 +1,20 @@
+{
+ "id": "nodashii",
+ "name_en": "No Dashii",
+ "search_status": 200,
+ "hit_titles": [
+  "测试页面",
+  "名动京城",
+  "诺-达鲺"
+ ],
+ "name_zh": "诺-达鲺",
+ "ability_zh": "每个夜晚*，你要选择一名玩家：他死亡。 与你邻近的两名镇民中毒。",
+ "page": "诺-达鲺",
+ "file_verified": false,
+ "script": "梦殒春宵",
+ "page_found": true,
+ "has_section": true,
+ "retry_route": "script-gallery:梦殒春宵",
+ "appears_in": null,
+ "fan_like": false
+}

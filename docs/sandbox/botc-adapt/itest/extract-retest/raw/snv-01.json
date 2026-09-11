@@ -1,0 +1,58 @@
+{
+  "id": "snv-01",
+  "edition": "snv",
+  "cat": "声称具体角色",
+  "day": 1,
+  "phase": "day",
+  "speakerSeat": null,
+  "text": "9号说自己是筑梦师，昨晚梦见了一个邪恶玩家，但暂时不肯说是谁。",
+  "expected": {
+    "event_type": "claim",
+    "claims": [
+      {
+        "subject_seat": 9,
+        "predicate_ideal": "claims_role",
+        "object": "筑梦师",
+        "map_expect": "main_role"
+      },
+      {
+        "subject_seat": 9,
+        "predicate_ideal": "said",
+        "object": "暂不透露目标",
+        "map_expect": "main_generic"
+      }
+    ],
+    "action": null
+  },
+  "ms": 30011.428,
+  "attempts_external": 0,
+  "error": null,
+  "out": {
+    "event": {
+      "day": 1,
+      "phase": "day",
+      "type": "claim",
+      "raw_text": "9号说自己是筑梦师，昨晚梦见了一个邪恶玩家，但暂时不肯说是谁。",
+      "actor_seat": 9
+    },
+    "claims": [
+      {
+        "subject_seat": 9,
+        "predicate": "claims_role",
+        "object": "筑梦师"
+      },
+      {
+        "subject_seat": 9,
+        "predicate": "said",
+        "object": "昨晚梦见了一个邪恶玩家，但暂时不肯说是谁"
+      }
+    ],
+    "action": null,
+    "warnings": [],
+    "meta": {
+      "mode": "LIVE",
+      "attempts": 1
+    },
+    "actor_seat": 9
+  }
+}

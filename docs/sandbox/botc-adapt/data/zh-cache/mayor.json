@@ -1,0 +1,20 @@
+{
+ "id": "mayor",
+ "name_en": "Mayor",
+ "search_status": 200,
+ "hit_titles": [
+  "镇长",
+  "悖论者Contrarian",
+  "阴谋主义者Conspiracist"
+ ],
+ "name_zh": "镇长",
+ "ability_zh": "如果只有三名玩家存活且白天没有人被处决，你的阵营获胜。 如果你在夜晚即将死亡，可能会有一名其他玩家代替你死亡。",
+ "page": "镇长",
+ "file_verified": false,
+ "script": "暗流涌动",
+ "page_found": true,
+ "has_section": true,
+ "retry_route": "script-gallery:暗流涌动",
+ "appears_in": null,
+ "fan_like": false
+}

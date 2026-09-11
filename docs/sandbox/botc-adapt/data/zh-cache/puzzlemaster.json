@@ -1,0 +1,18 @@
+{
+ "id": "puzzlemaster",
+ "name_en": "Puzzlemaster",
+ "search_status": 200,
+ "hit_titles": [
+  "解谜大师"
+ ],
+ "name_zh": "解谜大师",
+ "ability_zh": "一名玩家醉酒，即使你已死亡。每局游戏限一次，你可以猜测谁是那个醉酒的玩家，如果猜对了，你会得知谁是恶魔，但如果猜错了，你会得知错误的“谁是恶魔”信息。",
+ "page": "解谜大师",
+ "file_verified": false,
+ "script": "梦殒春宵",
+ "page_found": true,
+ "has_section": true,
+ "retry_route": "script-gallery:梦殒春宵",
+ "appears_in": null,
+ "fan_like": false
+}

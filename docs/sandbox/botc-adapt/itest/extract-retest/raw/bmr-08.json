@@ -1,0 +1,40 @@
+{
+  "id": "bmr-08",
+  "edition": "bmr",
+  "cat": "含糊表述",
+  "day": 1,
+  "phase": "day",
+  "speakerSeat": null,
+  "text": "昨晚的风声太乱了，我说不清谁有问题，反正肯定不止一个爪牙在浑水摸鱼。",
+  "expected": {
+    "event_type": "statement",
+    "claims": [
+      {
+        "subject_seat": "无/发言者",
+        "predicate_ideal": "said",
+        "object": "含糊表态",
+        "map_expect": "main_generic",
+        "note": "群体含糊不应编造具体座位"
+      }
+    ],
+    "action": null
+  },
+  "ms": 7754.014,
+  "attempts_external": 0,
+  "error": null,
+  "out": {
+    "event": {
+      "day": 1,
+      "phase": "day",
+      "type": "statement",
+      "raw_text": "昨晚的风声太乱了，我说不清谁有问题，反正肯定不止一个爪牙在浑水摸鱼。"
+    },
+    "claims": [],
+    "action": null,
+    "warnings": [],
+    "meta": {
+      "mode": "LIVE",
+      "attempts": 1
+    }
+  }
+}

@@ -1,0 +1,1269 @@
+﻿来源URL: https://bbs.xiawai.com/thread328066p1v1
+文章标题: 狼人猎人(封面狼人杀JY无敌猎人PandakillS2E2复盘)
+作者: papaya（侠外游戏论坛转载，原作出处=封面/B站「封面君」狼人杀内容号）
+对局: PandaKill 第2季第2集（B站 av57535338 为 S2 合集）
+抓取时间: 
+2026-09-11 20:00
+抓取方式: Invoke-WebRequest 直抓 Discuz 论坛页，未增删语义内容
+================================================================================
+
+
+	   
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>狼人猎人(封面狼人杀JY无敌猎人PandakillS2E2复盘) - IOS游戏 -  侠外游戏论坛 -  全球中文游戏玩家俱乐部 bbs.xiawai.com</title>
+<link href="https://bbs.xiawai.com/thread328066p1v1" rel="canonical" />
+<meta name="keywords" content="狼人猎人(封面狼人杀JY无敌猎人PandakillS2E2复盘)" />
+<meta name="description" content=" 狼人猎人(封面狼人杀JY无敌猎人PandakillS2E2复盘) ,侠外游戏论坛" />
+<meta name="generator" content="Discuz! X3" />
+<meta name="author" content="Discuz! Team and Comsenz UI Team" />
+<meta name="copyright" content="2001-2013 Comsenz Inc." />
+<meta name="MSSmartTagsPreventParsing" content="True" />
+<meta http-equiv="MSThemeCompatible" content="Yes" />
+<base href="https://bbs.xiawai.com/" /><link rel="stylesheet" type="text/css" href="data/cache/style_1_common.css?csW" /><link rel="stylesheet" type="text/css" href="data/cache/style_1_forum_viewthread.css?csW" /><script type="text/javascript">var STYLEID = '1', STATICURL = 'static/', IMGDIR = 'static/image/common', VERHASH = 'csW', charset = 'utf-8', discuz_uid = '0', cookiepre = 'TmnK_2132_', cookiedomain = '', cookiepath = '/', showusercard = '1', attackevasive = '0', disallowfloat = 'newthread|reply', creditnotice = '1|威望|点,2|银子|两,3|武功|阶,4|元宝|锭', defaultstyle = '', REPORTURL = 'aHR0cHM6Ly9iYnMueGlhd2FpLmNvbS90aHJlYWQzMjgwNjZwMXYx', SITEURL = 'https://bbs.xiawai.com/', JSPATH = 'data/cache/', DYNAMICURL = '';</script>
+<script src="data/cache/common.js?csW" type="text/javascript"></script>
+<meta name="application-name" content="侠外游戏论坛" />
+<meta name="msapplication-tooltip" content="侠外游戏论坛" />
+<meta name="msapplication-task" content="name=侠外论坛;action-uri=https://bbs.xiawai.com/forum.php;icon-uri=https://bbs.xiawai.com/static/image/common/bbs.ico" />
+<meta name="msapplication-task" content="name=动态;action-uri=https://bbs.xiawai.com/home.php;icon-uri=https://bbs.xiawai.com/static/image/common/home.ico" /><link rel="archives" title="侠外游戏论坛" href="https://bbs.xiawai.com/archiver/" />
+<script src="data/cache/forum.js?csW" type="text/javascript"></script>
+</head>
+
+<body id="nv_forum" class="pg_viewthread" onkeydown="if(event.keyCode==27) return false;">
+<div id="append_parent"></div><div id="ajaxwaitid"></div>
+<div id="toptb" class="cl">
+<style type="text/css">
+			.avt img { -moz-border-radius: 50%; -webkit-border-radius: 50%; border-radius: 500%; }
+		</style><div class="wp">
+<div class="z"><span style="padding-left:20px;">全球中文玩家俱乐部 Chinese players club of the Global .</span>
+</div>
+<div class="y"><span style="padding-right:20px;">
+<a id="switchblind" href="javascript:;" onclick="toggleBlind(this)" title="开启辅助访问" class="switchblind">开启辅助访问</a>
+<!--设为首页开始--><a href="javascript:;"  onclick="setHomepage('https://bbs.xiawai.com/');">设为首页</a><a href="https://bbs.xiawai.com/"  onclick="addFavorite(this.href, '侠外游戏论坛');return false;">收藏本站</a><link rel='stylesheet' id='css_xiawai_badge' type='text/css' href='source/plugin/xiawai_badge/template/css/xiawai_badge.css?{VERHASH}'/></span>
+</div>
+</div>
+</div>
+
+<div id="qmenu_menu" class="p_pop blk" style="display: none;">
+<div class="ptm pbw hm">
+请 <a href="javascript:;" class="xi2" onclick="lsSubmit()"><strong>登录</strong></a> 后使用快捷导航<br />没有帐号？<a href="member.php?mod=xiawaicom" class="xi2 xw1">立即注册</a>
+</div>
+<div id="fjump_menu" class="btda"></div></div><div class="hdc cl">
+<div class="wp">
+<div id="hd"><h2><a href="https://bbs.xiawai.com/" title="侠外游戏论坛"><img src="static/image/common/logo.gif" alt="侠外游戏论坛" border="0" /></a></h2><script src="data/cache/logging.js?csW" type="text/javascript"></script>
+<form method="post" autocomplete="off" id="lsform" action="member.php?mod=logging&amp;action=login&amp;loginsubmit=yes&amp;infloat=yes&amp;lssubmit=yes" onsubmit="pwmd5('ls_password');return lsSubmit();">
+<div class="fastlg cl">
+<span id="return_ls" style="display:none"></span>
+<div class="y pns">
+<table cellspacing="0" cellpadding="0">
+<tr>
+<td><label for="ls_username">帐号</label></td>
+<td><input type="text" name="username" id="ls_username" class="px vm xg1"  value="UID/用户名/Email" onfocus="if(this.value == 'UID/用户名/Email'){this.value = '';this.className = 'px vm';}" onblur="if(this.value == ''){this.value = 'UID/用户名/Email';this.className = 'px vm xg1';}" tabindex="901" /></td>
+<td class="fastlg_l"><label for="ls_cookietime"><input type="checkbox" name="cookietime" id="ls_cookietime" class="pc" value="2592000" tabindex="903" />自动登录</label></td>
+<td>&nbsp;<a href="javascript:;" onclick="showWindow('login', 'member.php?mod=logging&action=login&viewlostpw=1')">找回密码</a></td>
+</tr>
+<tr>
+<td><label for="ls_password">密码</label></td>
+<td><input type="password" name="password" id="ls_password" class="px vm" autocomplete="off" tabindex="902" /></td>
+<td class="fastlg_l"><button type="submit" class="pn vm" tabindex="904" style="width: 75px;"><em>登录</em></button></td>
+<td>&nbsp;<a href="member.php?mod=xiawaicom" class="xi2 xw1">立即注册</a></td>
+</tr>
+</table>
+<input type="hidden" name="quickforward" value="yes" />
+<input type="hidden" name="handlekey" value="ls" />
+</div>
+</div>
+</form>
+
+<script src="data/cache/md5.js?csW" type="text/javascript" reload="1"></script>
+</div></div>
+</div>
+<div id="nv"><div class="wp">
+<a href="javascript:;" id="qmenu" onmouseover="delayShow(this, function () {showMenu({'ctrlid':'qmenu','pos':'34!','ctrlclass':'a','duration':2});showForummenu(44);})">快捷导航</a>
+<ul><li id="mn_Ndff3" ><a href="https://www.xiawai.com/" hidefocus="true" target="_blank"  >首页</a></li><li class="a" id="mn_N9c64" ><a href="https://bbs.xiawai.com/" hidefocus="true"  >侠外论坛</a></li><li id="mn_N830f" ><a href="https://bbs.xiawai.com/home.php?mod=spacecp&ac=invite" hidefocus="true"  >邀请侠客</a></li><li id="mn_Nc2ec" ><a href="pxiawai_badgemxiawai_badge" hidefocus="true" title="badge"  >江湖称号<span>badge</span></a></li><li id="mn_N009e" ><a href="pmpage_signmsign" hidefocus="true"  >每日签到</a></li><li id="mn_N2a40" ><a href="pxiawaiseotaskmindex" hidefocus="true"  >每日任务</a></li><li id="mn_N9a12" onmouseover="showMenu({'ctrlid':this.id,'ctrlclass':'hover','menuid':'plugin_menu'})"><a href="#" hidefocus="true" title="侠外论坛插件"  >功能插件<span>侠外论坛插件</span></a></li><li id="mn_N9840" ><a href="pauctionmauction" hidefocus="true" title="Auction"   style="color: yellow">积分兑奖<span>Auction</span></a></li><li id="mn_N0fc0" ><a href="https://bbs.xiawai.com/home.php?mod=medal" hidefocus="true"  >荣誉勋章</a></li></ul>
+</div></div>
+                                        <div class="wp">
+<ul class="p_pop h_pop" id="plugin_menu" style="display: none">  <li><a href="pluckypostmshow" id="mn_plink_show">发帖际遇</a></li>
+ </ul>
+<div class="p_pop h_pop" id="mn_userapp_menu" style="display: none"></div><div id="mu" class="cl">
+</div><div id="scbar" class="scbar_narrow cl">
+<form id="scbar_form" method="post" autocomplete="off" onsubmit="searchFocus($('scbar_txt'))" action="search.php?searchsubmit=yes" target="_blank">
+<input type="hidden" name="mod" id="scbar_mod" value="search" />
+<input type="hidden" name="formhash" value="86092df9" />
+<input type="hidden" name="srchtype" value="title" />
+<input type="hidden" name="srhfid" value="44" />
+<input type="hidden" name="srhlocality" value="forum::viewthread" />
+<table cellspacing="0" cellpadding="0">
+<tr>
+<td class="scbar_icon_td"></td>
+<td class="scbar_txt_td"><input type="text" name="srchtxt" id="scbar_txt" value="请输入搜索内容" autocomplete="off" x-webkit-speech speech /></td>
+<td class="scbar_type_td"><a href="javascript:;" id="scbar_type" class="xg1" onclick="showMenu(this.id)" hidefocus="true">搜索</a></td>
+<td class="scbar_btn_td"><button type="submit" name="searchsubmit" id="scbar_btn" sc="1" class="pn pnc" value="true"><strong class="xi2">搜索</strong></button></td>
+<td class="scbar_hot_td">
+<div id="scbar_hot">
+<strong class="xw1">热搜: </strong>
+
+<a href="search.php?mod=forum&amp;srchtxt=%E7%94%B5%E5%BD%B1&amp;formhash=86092df9&amp;searchsubmit=true&amp;source=hotsearch" target="_blank" class="xi2" sc="1">电影</a>
+
+
+
+<a href="search.php?mod=forum&amp;srchtxt=%E7%94%B5%E8%A7%86%E5%89%A7&amp;formhash=86092df9&amp;searchsubmit=true&amp;source=hotsearch" target="_blank" class="xi2" sc="1">电视剧</a>
+
+
+
+<a href="search.php?mod=forum&amp;srchtxt=%E5%8A%A8%E6%BC%AB&amp;formhash=86092df9&amp;searchsubmit=true&amp;source=hotsearch" target="_blank" class="xi2" sc="1">动漫</a>
+
+
+
+<a href="search.php?mod=forum&amp;srchtxt=%E6%88%90%E4%BA%BA&amp;formhash=86092df9&amp;searchsubmit=true&amp;source=hotsearch" target="_blank" class="xi2" sc="1">成人</a>
+
+
+
+<a href="search.php?mod=forum&amp;srchtxt=%E6%81%90%E6%80%96%E5%9B%BE%E7%89%87&amp;formhash=86092df9&amp;searchsubmit=true&amp;source=hotsearch" target="_blank" class="xi2" sc="1">恐怖图片</a>
+
+
+
+<a href="search.php?mod=forum&amp;srchtxt=GIF%E5%8A%A8%E5%9B%BE&amp;formhash=86092df9&amp;searchsubmit=true&amp;source=hotsearch" target="_blank" class="xi2" sc="1">GIF动图</a>
+
+
+
+<a href="search.php?mod=forum&amp;srchtxt=%E8%BF%85%E9%9B%B7%E4%BC%9A%E5%91%98&amp;formhash=86092df9&amp;searchsubmit=true&amp;source=hotsearch" target="_blank" class="xi2" sc="1">迅雷会员</a>
+
+
+
+<a href="search.php?mod=forum&amp;srchtxt=%E6%88%90%E4%BA%BA%E6%B8%B8%E6%88%8F&amp;formhash=86092df9&amp;searchsubmit=true&amp;source=hotsearch" target="_blank" class="xi2" sc="1">成人游戏</a>
+
+
+
+<a href="search.php?mod=forum&amp;srchtxt=LOL&amp;formhash=86092df9&amp;searchsubmit=true&amp;source=hotsearch" target="_blank" class="xi2" sc="1">LOL</a>
+
+
+
+<a href="search.php?mod=forum&amp;srchtxt=%E8%8B%B1%E9%9B%84%E8%81%94%E7%9B%9F&amp;formhash=86092df9&amp;searchsubmit=true&amp;source=hotsearch" target="_blank" class="xi2" sc="1">英雄联盟</a>
+
+
+
+<a href="search.php?mod=forum&amp;srchtxt=DNF&amp;formhash=86092df9&amp;searchsubmit=true&amp;source=hotsearch" target="_blank" class="xi2" sc="1">DNF</a>
+
+
+
+<a href="search.php?mod=forum&amp;srchtxt=%E7%BD%91%E7%BB%9C%E6%B8%B8%E6%88%8F&amp;formhash=86092df9&amp;searchsubmit=true&amp;source=hotsearch" target="_blank" class="xi2" sc="1">网络游戏</a>
+
+
+
+<a href="search.php?mod=forum&amp;srchtxt=%E7%BD%91%E9%A1%B5%E6%B8%B8%E6%88%8F&amp;formhash=86092df9&amp;searchsubmit=true&amp;source=hotsearch" target="_blank" class="xi2" sc="1">网页游戏</a>
+
+
+
+<a href="search.php?mod=forum&amp;srchtxt=%E5%8D%95%E6%9C%BA%E6%B8%B8%E6%88%8F&amp;formhash=86092df9&amp;searchsubmit=true&amp;source=hotsearch" target="_blank" class="xi2" sc="1">单机游戏</a>
+
+
+
+<a href="search.php?mod=forum&amp;srchtxt=IOS%E6%B8%B8%E6%88%8F&amp;formhash=86092df9&amp;searchsubmit=true&amp;source=hotsearch" target="_blank" class="xi2" sc="1">IOS游戏</a>
+
+
+
+<a href="search.php?mod=forum&amp;srchtxt=%E5%AE%89%E5%8D%93%E6%B8%B8%E6%88%8F&amp;formhash=86092df9&amp;searchsubmit=true&amp;source=hotsearch" target="_blank" class="xi2" sc="1">安卓游戏</a>
+
+</div>
+</td>
+</tr>
+</table>
+</form>
+</div>
+<ul id="scbar_type_menu" class="p_pop" style="display: none;"><li><a href="javascript:;" rel="curforum" fid="44" >本版</a></li><li><a href="javascript:;" rel="forum" class="curtype">帖子</a></li><li><a href="javascript:;" rel="user">用户</a></li></ul>
+<script type="text/javascript">
+initSearchmenu('scbar', '');
+</script>
+</div>
+</div>
+
+
+<style type="text/css">
+<!--
+.xl_nav {width: 1198px;	margin: 0 auto;padding-top: 13px;padding-bottom: 10px;background: #fff;border: 1px solid #E8EFF5;border-top: none;border-radius: 0;overflow: hidden;font-size: 14px;margin-bottom:0px;}
+.xl_nav .col_4{width: 24.7%;float: left;}
+.xl_nav .col_3{width: 33%;float: left;}	
+.icon_wp{width: 26.5%;float: left;text-align: center;}
+.icon_wp dd{width: 100%;height: 51px;line-height: 51px;text-indent: -9999px;}	
+.icon_wp dd a{display: block;width: 100%;height: 51px;}
+.icon_wp dt{text-align: right;}
+.icon_wp dt a{margin: 0 11px 0 0;*+margin: 0 6px 0 0;}
+.subul{width: 73%;padding-top:0px;padding-bottom:0px;float: right;}
+.col_3 .subul li{width: 49.7%;float: left;text-align: center;height: 25px;line-height: 25px;}
+
+.col_4 .subul li{width: 49.7%;float: left;text-align: center;height: 25px;line-height: 25px;}
+
+.subul li a{color: #666;text-decoration:underline}
+.subul li a:hover{color: #C00;}
+.subul li a{display:inline-block;width:90%;height:25px;margin:0 auto;}
+
+.item_01 dd{background: url(static/image/forum/shiting.gif) no-repeat right top;}
+.item_02 dd{background: url(static/image/forum/zhenxiang.gif) no-repeat right top}
+.item_03 dd{background: url(static/image/forum/duanzi.gif) no-repeat right top;}	
+
+.item_04 dd{background: url(static/image/forum/xiaoshuo.gif) no-repeat right top;}
+
+/*自定义链接鼠标悬停时背景蓝色，文字红色的样式*/
+.subul li a:hover{
+background:#336699; color:#fff;text-decoration:none;
+}
+-->
+</style>
+
+<div class="xl_nav cl"> 
+
+<div class="col_4 item_01">
+<dl class="icon_wp">
+<dd><a href="//bbs.xiawai.com/forum37p1" >视听</a></dd>	
+<dt><a href="//bbs.xiawai.com/forum37p1" >视听</a></dt>
+</dl>
+<ul class="subul">
+<li><a href="//bbs.xiawai.com/type37t87p1">在线电影</a></li>
+<li><a href="//bbs.xiawai.com/type37t6p1">搞笑视频</a></li>
+<li><a href="//bbs.xiawai.com/type37t74p1">相声小品</a></li>
+<li><a href="//bbs.xiawai.com/type37t5p1">音乐分享</a></li>
+<li><a href="//bbs.xiawai.com/type37t4p1">电影下载</a></li>
+<li><a href="//bbs.xiawai.com/type37t88p1">电视剧集</a></li>
+</ul>
+</div>
+<div class="col_4 item_02">
+<dl class="icon_wp">
+<dd><a href="//bbs.xiawai.com/forum36p1" >图片</a></dd>	
+<dt><a href="//bbs.xiawai.com/forum36p1" >图片</a></dt>
+</dl>
+<ul class="subul">
+<li><a href="//bbs.xiawai.com/type36t2p1">爆笑网图</a></li>
+<li><a href="//bbs.xiawai.com/type36t16p1">邪恶漫画</a></li>
+<li><a href="//bbs.xiawai.com/type36t3p1">美丽女优</a></li>
+<li><a href="//bbs.xiawai.com/type36t75p1">中国女神</a></li>
+<li><a href="//bbs.xiawai.com/type36t76p1">韩国美女</a></li>
+<li><a href="//bbs.xiawai.com/type36t77p1">亚洲其他</a></li>
+
+</ul>
+</div>
+<div class="col_4 item_03">
+<dl class="icon_wp">
+<dd><a href="//bbs.xiawai.com/forum56p1" >段子</a></dd>	
+<dt><a href="//bbs.xiawai.com/forum56p1" >段子</a></dt>
+</dl>
+<ul class="subul">
+<li><a href="//bbs.xiawai.com/type56t41p1">夫妻笑话</a></li>
+<li><a href="//bbs.xiawai.com/type56t42p1">内涵段子</a></li>
+<li><a href="//bbs.xiawai.com/type56t49p1">经典笑话</a></li>
+<li><a href="//bbs.xiawai.com/type56t40p1">糗事百科</a></li>
+<li><a href="//bbs.xiawai.com/type56t60p1">祝福短信</a></li>
+<li><a href="//bbs.xiawai.com/type56t62p1">爱情短信</a></li>
+</ul>
+</div>	
+<div class="col_4 item_04">
+<dl class="icon_wp">
+<dd><a href="//bbs.xiawai.com/forum57p1">小说</a></dd>	
+<dt><a href="//bbs.xiawai.com/forum57p1">小说</a></dt>
+</dl>
+<ul class="subul">
+<li><a href="//bbs.xiawai.com/type57t50p1">武侠修真</a></li>
+<li><a href="//bbs.xiawai.com/type57t44p1">科幻小说</a></li>
+<li><a href="//bbs.xiawai.com/type57t45p1">恐怖小说</a></li>
+<li><a href="//bbs.xiawai.com/type57t43p1">女生言情</a></li>
+<li><a href="//bbs.xiawai.com/type57t65p1">网游小说</a></li>
+<li><a href="//bbs.xiawai.com/type57t67p1">都市小说</a></li>
+</ul>
+</div>	
+
+</div>
+<script src="//libs.baidu.com/jquery/1.11.3/jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript"> var jQuery = jQuery.noConflict(); </script>
+<script type="text/javascript">
+  var urlstr = window.location.href;
+  jQuery(".xl_nav a").each(function () {
+  
+    if ((urlstr).indexOf(jQuery(this).attr('href')) > -1&&jQuery(this).attr('href')!=''&&(urlstr).indexOf("forum")==-1) {
+
+      jQuery(this).css({"background":"#336699","color":"#fff","text-decoration":"none"}); 
+  
+    } 
+  });
+
+</script>
+
+<script src="./source/plugin/xiawai_attplay/jplayer/jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript">jQuery.noConflict();var xiawai_attplay_DIR='/source/plugin/xiawai_attplay/';</script>
+<script src="./source/plugin/xiawai_attplay/jplayer/jquery.jplayer.min.js" type="text/javascript"></script> 
+<link rel="stylesheet" type="text/css" href="./source/plugin/xiawai_attplay/jplayer/jplayer.css?csW" />
+<script src="./source/plugin/xiawai_attplay/jplayer/swfobject.js?csW" type="text/javascript"></script>
+
+		<script type="text/javascript" src="./source/plugin/saya_frontjs/sayaquery.js"></script>
+		<script type="text/javascript">sayaQuery.noConflict();</script>
+<div id="wp" class="wp">
+<script type="text/javascript">var fid = parseInt('44'), tid = parseInt('328066');</script>
+
+<script src="data/cache/forum_viewthread.js?csW" type="text/javascript"></script>
+<script type="text/javascript">zoomstatus = parseInt(1);var imagemaxwidth = '850';var aimgcount = new Array();</script>
+
+<style id="diy_style" type="text/css"></style>
+<!--[diy=diynavtop]--><div id="diynavtop" class="area"></div><!--[/diy]-->
+<div id="pt" class="bm cl">
+<div class="z">
+<a href="./" class="nvhm" title="首页">侠外游戏论坛</a><em>&raquo;</em><a href="/">侠外论坛</a> <em>&rsaquo;</em> <a href="https://bbs.xiawai.com/forum.php?gid=38">游戏综合</a> <em>&rsaquo;</em> <a href="https://bbs.xiawai.com/forum44p1">IOS游戏</a> <em>&rsaquo;</em> <a href="https://bbs.xiawai.com/thread328066p1v1">狼人猎人(封面狼人杀JY无敌猎人PandakillS2E2复盘) ...</a>
+</div>
+</div>
+
+<style type="text/css">
+			.pls .avatar img { padding: 5px; background: #FFF; -moz-border-radius: 50%; -webkit-border-radius: 50%; border-radius: 500%; }
+			.bui a img { -moz-border-radius: 50%; -webkit-border-radius: 50%; border-radius: 500%; }
+		</style><style id="diy_style" type="text/css"></style>
+<div class="wp">
+<!--[diy=diy1]--><div id="diy1" class="area"></div><!--[/diy]-->
+</div>
+
+<div id="ct" class="wp cl">
+<div id="pgt" class="pgs mbm cl ">
+<div class="pgt"></div>
+<span class="y pgb"><a href="https://bbs.xiawai.com/forum44p1">返回列表</a></span>
+<a id="newspecial" onmouseover="$('newspecial').id = 'newspecialtmp';this.id = 'newspecial';showMenu({'ctrlid':this.id})" onclick="showWindow('newthread', 'forum.php?mod=post&action=newthread&fid=44')" href="javascript:;" title="发新帖"><img src="static/image/common/pn_post.png" alt="发新帖" /></a></div>
+
+
+
+<div id="postlist" class="pl bm">
+<table cellspacing="0" cellpadding="0">
+<tr>
+<td class="pls ptn pbn">
+<div class="hm ptn">
+<span class="xg1">查看:</span> <span class="xi1">1400</span><span class="pipe">|</span><span class="xg1">回复:</span> <span class="xi1">1</span>
+</div>
+</td>
+<td class="plc ptm pbn vwthd">
+<div class="y">
+<a href="https://bbs.xiawai.com/forum.php?mod=viewthread&amp;action=printable&amp;tid=328066" title="打印" target="_blank"><img src="static/image/common/print.png" alt="打印" class="vm" /></a>
+<a href="https://bbs.xiawai.com/forum.php?mod=redirect&amp;goto=nextoldset&amp;tid=328066" title="上一主题"><img src="static/image/common/thread-prev.png" alt="上一主题" class="vm" /></a>
+<a href="https://bbs.xiawai.com/forum.php?mod=redirect&amp;goto=nextnewset&amp;tid=328066" title="下一主题"><img src="static/image/common/thread-next.png" alt="下一主题" class="vm" /></a>
+</div>
+<span class="xg1 side_btn">
+<a onclick="setcookie('close_leftinfo', 1);location.reload();" title="收起左侧" class="btn_s_close" href="javascript:;"><img src="static/image/common/control_l.png" alt="收起左侧" class="vm" /></a>
+</span>
+<h1 class="ts">
+<a href="type44t19p1">[IOS讨论]</a>
+<span id="thread_subject">狼人猎人(封面狼人杀JY无敌猎人PandakillS2E2复盘)</span>
+</h1>
+<span class="xg1">
+<a href="https://bbs.xiawai.com/thread328066p1v1" onclick="return copyThreadUrl(this, '侠外游戏论坛')" >[复制链接]</a>
+</span>
+</td>
+</tr>
+</table>
+
+
+<table cellspacing="0" cellpadding="0" class="ad">
+<tr>
+<td class="pls">
+</td>
+<td class="plc">
+</td>
+</tr>
+</table><div id="post_1078506" ><table id="pid1078506" class="plhin" summary="pid1078506" cellspacing="0" cellpadding="0">
+<tr>
+
+<td class="pls" rowspan="2">
+<div id="favatar1078506" class="pls favatar">
+ <div class="pi">
+<div class="authi"><a href="https://bbs.xiawai.com/spaceuidv43" target="_blank" class="xw1" style="color: #2B4199">papaya</a>
+</div>
+</div>
+<div class="p_pop blk bui card_gender_0" id="userinfo1078506" style="display: none; margin-top: -11px;">
+<div class="m z">
+<div id="userinfo1078506_ma"></div>
+</div>
+<div class="i y">
+<div>
+<strong><a href="https://bbs.xiawai.com/spaceuidv43" target="_blank" class="xi2" style="color: #2B4199">papaya</a></strong>
+<em>当前离线</em>
+</div><p><em><a href="https://bbs.xiawai.com/home.php?mod=spacecp&amp;ac=usergroup&amp;gid=12" target="_blank"><font color="#2B4199">ミ侠外护法ミ</font></a></em></p>
+<dl class="cl">
+<dt>积分</dt><dd><a href="https://bbs.xiawai.com/home.php?mod=space&uid=43&do=profile" target="_blank" class="xi2">41878</a></dd>
+<dt>帖子</dt><dd><a href="https://bbs.xiawai.com/home.php?mod=space&uid=43&do=thread&type=reply&view=me&from=space" target="_blank" class="xi2">7286</a></dd>
+<dt>主题</dt><dd><a href="https://bbs.xiawai.com/home.php?mod=space&uid=43&do=thread&type=thread&view=me&from=space" target="_blank" class="xi2">3183</a></dd>
+<dt>精华</dt><dd></dd>
+<dt>在线时间</dt><dd>1 小时</dd>
+<dt>最后登录</dt><dd>2014-4-23</dd>
+<dt>性别</dt><dd>保密</dd>
+<dt>注册时间</dt><dd>2013-6-9</dd>
+
+</dl><div class="imicn">
+<a href="https://bbs.xiawai.com/home.php?mod=space&amp;uid=43&amp;do=profile" target="_blank" title="查看详细资料"><img src="static/image/common/userinfo.gif" alt="查看详细资料" /></a>
+<a href="https://bbs.xiawai.com/home.php?mod=magic&amp;mid=showip&amp;idtype=user&amp;id=papaya" id="a_showip_li_1078506" class="xi2" onclick="showWindow(this.id, this.href)"><img src="static//image/magic/showip.small.gif" alt="" /> 窥视卡</a>
+<a href="https://bbs.xiawai.com/home.php?mod=magic&amp;mid=checkonline&amp;idtype=user&amp;id=papaya" id="a_repent_1078506" class="xi2" onclick="showWindow(this.id, this.href)"><img src="static//image/magic/checkonline.small.gif" alt="" /> 雷达卡</a>
+</div>
+<div id="avatarfeed"><span id="threadsortswait"></span></div>
+</div>
+</div>
+<div>
+<div class="avatar" onmouseover="showauthor(this, 'userinfo1078506')"><a href="https://bbs.xiawai.com/spaceuidv43" class="avtm" target="_blank"><img src="https://ucenter.xiawai.com/avatar.php?uid=43&size=middle" /></a></div>
+</div>
+<div class="tns xg2"><table cellspacing="0" cellpadding="0"><th><p><a href="https://bbs.xiawai.com/home.php?mod=space&uid=43&do=thread&type=thread&view=me&from=space" class="xi2">3183</a></p>主题</th><th><p><a href="https://bbs.xiawai.com/home.php?mod=space&uid=43&do=thread&type=reply&view=me&from=space" class="xi2">7286</a></p>帖子</th><td><p><a href="https://bbs.xiawai.com/home.php?mod=space&uid=43&do=profile" class="xi2"><span title="41878">4万</span></a></p>积分</td></table></div>
+<p><a href="https://bbs.xiawai.com/home.php?mod=spacecp&amp;ac=usergroup&amp;gid=12" target="_blank"><img src="data/attachment/common/level/lv3.png" alt="" class="vm" /></a></p>
+<p><em><a href="https://bbs.xiawai.com/home.php?mod=spacecp&amp;ac=usergroup&amp;gid=12" target="_blank"><font color="#2B4199">ミ侠外护法ミ</font></a></em></p>
+
+
+<p><span id="g_up1078506" onmouseover="showMenu({'ctrlid':this.id, 'pos':'12!'});"><img src="static/image/common/star_level2.gif" alt="Rank: 7" /><img src="static/image/common/star_level2.gif" alt="Rank: 7" /><img src="static/image/common/star_level1.gif" alt="Rank: 7" /></span></p>
+<div id="g_up1078506_menu" class="tip tip_4" style="display: none;"><div class="tip_horn"></div><div class="tip_c"><font color="#2B4199">ミ侠外护法ミ</font>, 积分 41878, 距离下一级还需 38122 积分</div></div>
+
+
+<p><span class="pbg2"  id="upgradeprogress_1078506" onmouseover="showMenu({'ctrlid':this.id, 'pos':'12!', 'menuid':'g_up1078506_menu'});"><span class="pbr2" style="width:23%;"></span></span></p>
+
+
+<span class="xwinfo"><li>
+<dl class="cl" style="line-height:22px;height:22px;border-bottom:1px dashed #ccc;">
+<dt><img style="vertical-align:middle" src="https://bbs.xiawai.com/static/image/info/weiwang.png" /> 威望</dt><dd>0 点</dd></dl><dl class="cl" style="line-height:22px;height:22px;border-bottom:1px dashed #ccc;">
+<dt><img style="vertical-align:middle" src="https://bbs.xiawai.com/static/image/info/yinzi.png" /> 银子</dt><dd>20086 两</dd></dl><dl class="cl" style="line-height:22px;height:22px;border-bottom:1px dashed #ccc;">
+<dt><img style="vertical-align:middle" src="https://bbs.xiawai.com/static/image/info/wugong.png" /> 武功</dt><dd>14505 阶</dd></dl><dl class="cl" style="line-height:22px;height:22px;border-bottom:1px dashed #ccc;">
+<dt><img style="vertical-align:middle" src="https://bbs.xiawai.com/static/image/info/yuanbao.png" /> 元宝</dt><dd>0 锭</dd></dl><dl class="cl" style="line-height:22px;height:22px;border-bottom:1px dashed #ccc;">
+<dt style="color:#FF5F5F;"><img src="https://bbs.xiawai.com/static/image/info/jinghua.png" style="vertical-align:middle;padding-bottom:3px;">    精华</dt><dd style="color:#FF5F5F;"><a href="https://bbs.xiawai.com/home.php?mod=space&uid=43&do=thread&type=thread&view=me&from=space" target="_blank" class="xi2">0</a>  篇</dd>
+</dl>
+</li></span>
+
+<dl class="pil cl"></dl>
+<ul class="xl xl2 o cl">
+<li class="pm2"><a href="https://bbs.xiawai.com/home.php?mod=spacecp&amp;ac=pm&amp;op=showmsg&amp;handlekey=showmsg_43&amp;touid=43&amp;pmid=0&amp;daterange=2&amp;pid=1078506&amp;tid=328066" onclick="showWindow('sendpm', this.href);" title="发消息" class="xi2">发消息</a></li>
+</ul>
+</div>
+</td>
+	
+<td class="plc">
+<div class="pi">
+<div id="fj" class="y">
+<label class="z">电梯直达</label>
+<input type="text" class="px p_fre z" size="2" onkeyup="$('fj_btn').href='forum.php?mod=redirect&ptid=328066&authorid=0&postno='+this.value" onkeydown="if(event.keyCode==13) {window.location=$('fj_btn').href;return false;}" title="跳转到指定楼层" />
+<a href="javascript:;" id="fj_btn" class="z" title="跳转到指定楼层"><img src="static/image/common/fj_btn.png" alt="跳转到指定楼层" class="vm" /></a>
+</div>
+<strong>
+<a href="https://bbs.xiawai.com/thread328066p1v1"   id="postnum1078506" onclick="setCopy(this.href, '帖子地址复制成功');return false;">
+俺是撸主</a>
+</strong>
+<div class="pti">
+<div class="pdbt">
+</div>
+<div class="authi">
+<img class="authicn vm" id="authicon1078506" src="static/image/common/online_member.gif" />
+<em id="authorposton1078506">发表于 2021-4-3 03:22:22</em>
+<span class="pipe">|</span>
+<a href="https://bbs.xiawai.com/forum.php?mod=viewthread&amp;tid=328066&amp;page=1&amp;authorid=43" rel="nofollow">只看该作者</a>
+<span class="none"><img src="static/image/common/arw_r.gif" class="vm" alt="回帖奖励" /></span>
+<span class="pipe show">|</span><a href="https://bbs.xiawai.com/forum.php?mod=viewthread&amp;tid=328066&amp;extra=page%3D1&amp;ordertype=1"  class="show">倒序浏览</a>
+<span class="pipe show">|</span><a href="javascript:;" onclick="readmode($('thread_subject').innerHTML, 1078506);" class="show">阅读模式</a>
+</div>
+</div>
+</div><div class="pct"><style type="text/css">.pcb{margin-right:0}</style><div class="pcb">
+ 
+<div class="t_fsz">
+<table cellspacing="0" cellpadding="0"><tr><td class="t_f" id="postmessage_1078506">
+<div class="attach_nopermission attach_tips">
+<div>
+<h3><strong>
+马上注册，结交更多侠客，享用更多功能，让你轻松玩转侠外论坛。</strong></h3>
+<p>您需要 <a href="member.php?mod=logging&amp;action=login" onclick="showWindow('login', this.href);return false;">登录</a> 才可以下载或查看，没有帐号？<a href="member.php?mod=xiawaicom" title="注册帐号">立即注册</a> </p>
+</div>
+<span class="atips_close" onclick="this.parentNode.style.display='none'">x</span>
+</div>
+今天封面君继续为大家带来的是一场经典的面杀复盘，本局游戏中JY上演无敌猎人，最后一枪带走狼人赢得比赛！<br />
+对局选取：Pandakill 第2季第2集<br />
+视频链接：<br />
+好的，不多BB，正片开始！<br />
+游戏配置：<br />
+4狼：3狼+1恶魔，恶魔可以在和狼队一起睁眼后单独睁眼一次，验证一名玩家是否为神，恶魔无法自爆/自刀，吃毒不死。<br />
+4民：4普通村民<br />
+4神：预女猎守（预言家+女巫+猎人+守卫）<br />
+<br />
+<img id="aimg_bZFFI" onclick="zoom(this, this.src, 0, 0, 0)" class="zoom" file="https://att.xiawai.com/data/attachment/forum/202104/03/lpvtfvc2rvv231747.jpg" onmouseover="img_onmouseoverfunc(this)" lazyloadthumb="1" border="0" alt="" /><br />
+<br />
+狼人：1号【昵称已打码】，2号09,6号沐沐，8号Sol<br />
+预言家：12号老党<br />
+女巫：10号小苍<br />
+猎人：11号JY<br />
+守卫：3号小舞<br />
+村民：4号囚徒，5号大宝，7号鼠大王，9号李锦。<br />
+<br />
+<img id="aimg_WzNfF" onclick="zoom(this, this.src, 0, 0, 0)" class="zoom" file="https://att.xiawai.com/data/attachment/forum/202104/03/agmygpeoe43231748.jpg" onmouseover="img_onmouseoverfunc(this)" lazyloadthumb="1" border="0" alt="" /><br />
+<br />
+8号Sol君恶魔牌起跳预言家发9号村民李锦金水，12号老党起跳预言家发4号囚徒金水，12号高票吃到警徽，且第一晚平安夜女巫10号小苍救了9号李锦，狼人劣势开局。<br />
+第一轮发言，1号【昵称已打码】打冲锋狼，2号酒神、6号沐沐打倒钩狼，但是1号【昵称已打码】迅速被4号囚徒和11号JY打成狼人牌，不得不说囚徒和JY抿人的功力还是非常强的。尤其是JY，第一轮末置位归票，直接点齐3狼（1号【昵称已打码】<strong>狼人猎人</strong>，2号酒神倒钩，8号Sol悍跳），而且保下3/4/5/7/9号5张好人牌，最后一狼出在10号和6号之中，尤其是用非常清晰的逻辑保下了被狼人打成扛推牌的5号和9号两张牌，这样的逻辑功底……啧啧，封面君真是佩服得五体投地。<br />
+而且最后JY强势带队：<br />
+我11号这里是张猎人牌，你们如果要出12号预言家之前，请先出掉我猎人牌，谁想投票出12，直接出我11号！<br />
+这样强势的发言以及精准的狼坑，狼队此时生存空间已经非常狭窄。<br />
+<br />
+<img id="aimg_i6Qcl" onclick="zoom(this, this.src, 0, 0, 0)" class="zoom" file="https://att.xiawai.com/data/attachment/forum/202104/03/05joy2ifsrx231749.jpg" onmouseover="img_onmouseoverfunc(this)" lazyloadthumb="1" border="0" alt="" /><br />
+<br />
+然而很不幸的是，12号预言家老党还是被高票数冲出局。<br />
+<br />
+<img id="aimg_juaQx" onclick="zoom(this, this.src, 0, 0, 0)" class="zoom" file="https://att.xiawai.com/data/attachment/forum/202104/03/x3tru3utwas231750.jpg" onmouseover="img_onmouseoverfunc(this)" lazyloadthumb="1" border="0" alt="" /><br />
+<br />
+封面君分析：<br />
+这里其实就暴露出来JY和申屠的区别了：JY上来第一轮基本点齐4狼，不给狼队留任何生存空间，导致本来要倒钩的2号和6号也直接挂票给了12号预言家导致预言家被冲出局，而且JY是在归票位跳猎人，这样的归票位猎人很难让好人信服。反观申屠，申屠一般每轮只点出1匹狼，给其他3匹狼留有幻想以为自己还没有暴露，这样温水煮青蛙让狼队每轮逐渐流失人数，而且申屠自己也不会被打成焦点牌。<br />
+第二天，10号女巫小苍死亡，未报出银水，未开出毒药，好人已走两神，且JY已经跳猎人，可以说狼队只要再找到一个守卫，就可以直接自爆接刀了。好人已经天崩地裂。<br />
+第二轮囚徒选择让JY先发言，JY直接点齐4狼（1/2/6/8）,接下来就是看其他人能否相信JY了。<br />
+<br />
+<img id="aimg_UDf31" onclick="zoom(this, this.src, 0, 0, 0)" class="zoom" file="https://att.xiawai.com/data/attachment/forum/202104/03/vj4xao0tz2x231751.jpg" onmouseover="img_onmouseoverfunc(this)" lazyloadthumb="1" border="0" alt="" /><br />
+<br />
+第二天发言，1号【昵称已打码】和6号沐沐两张狼牌对跳女巫混淆好人视线，但是好人全部投票出8。狼队损失了最重要的的恶魔牌，可以说本轮JY和5号大宝发言功不可没。<br />
+<br />
+<img id="aimg_t69sd" onclick="zoom(this, this.src, 0, 0, 0)" class="zoom" file="https://att.xiawai.com/data/attachment/forum/202104/03/1knft3fqfor231752.jpg" onmouseover="img_onmouseoverfunc(this)" lazyloadthumb="1" border="0" alt="" /><br />
+<br />
+第三天，由于恶魔已走，无法报出验神信息，导致狼队错误地刀掉了7号鼠大王村民牌，此时场上3狼2神3民，形式非常焦灼。<br />
+但是囚徒选择让6号沐沐先发言，6号沐沐为了保住1号【昵称已打码】队友<strong>狼人猎人</strong>，只能选择自爆。<br />
+第四天天亮，5号玩家倒牌。1号【昵称已打码】自爆。<br />
+第五天天亮，11号JY倒牌，开枪带走2号酒神，游戏结束，好人胜利！<br />
+封面君分析：<br />
+本轮JY可以说将逻辑和抿人发挥到了极致，不仅迅速点齐4狼，而且保住了在扛推位上的3张好人牌，可以说也正是JY的点狼精准，才让狼人被迫不得不迅速自爆混淆局势。才能让好人在2神出局的情况下力挽狂澜完成逆转，可以说本轮JY的猎人已经出神入化，本局游戏十分精彩，建议大家观看复盘视频！返回搜狐，查看更多<br />
+<br />
+以上内容就是狼人猎人(封面狼人杀JY无敌猎人PandakillS2E2复盘)的相关内容介绍，喜欢侠外游戏论坛的朋友可以关注我们。</td></tr></table>
+
+
+</div>
+<div id="comment_1078506" class="cm">
+</div><div class="a_pb"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4774278672180649"
+     crossorigin="anonymous"></script>
+<!-- 横幅广告 -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-4774278672180649"
+     data-ad-slot="4006646544"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div><div id="post_rate_div_1078506"></div>
+<script type="text/javascript">var auc_list_tmp = $('auc_list_tmp');if(auc_list_tmp !== null){document.write(auc_list_tmp.innerHTML);auc_list_tmp.innerHTML='';}
+function lalala(){
+	ajaxget('plugin.php?id=auction:involve&operation=view&tid=328066&page=1', 'list_ajax');
+	$('list_ajax').style.display = 'block';
+}
+if($('list_ajax')){setTimeout('lalala()', 1000);}
+</script>
+<div id="oldnew">
+    
+    <div class="l">
+        <font style="background-color:#C5D5E2;">&nbsp;&nbsp;上一篇：</font>
+        <a href="https://bbs.xiawai.com/thread327903p1v1" title="火影忍者游戏(火影忍者大全火影忍者小游戏)">火影忍者游戏(火影忍者大全火影忍者小游戏)</a>
+    </div>
+    
+    
+    <div class="r">
+        <font style="background-color:#C5D5E2;">&nbsp;&nbsp;下一篇：</font>
+        <a href="https://bbs.xiawai.com/thread327423p1v1" title="吕布皮肤(.英雄三国吕布复仇！战神之怒皮肤首曝光)">吕布皮肤(.英雄三国吕布复仇！战神之怒皮肤首曝光)</a>
+    </div>
+    
+</div>
+</div>
+</div>
+
+</td></tr>
+<tr><td class="plc plm">
+<div id="p_btn" class="mtw mbm hm cl">
+
+<a href="https://bbs.xiawai.com/home.php?mod=spacecp&amp;ac=favorite&amp;type=thread&amp;id=328066" id="k_favorite" onclick="showWindow(this.id, this.href, 'get', 0);" onmouseover="this.title = $('favoritenumber').innerHTML + ' 人收藏'" title="收藏本帖"><i><img src="static/image/common/fav.gif" alt="收藏" />收藏<span id="favoritenumber" style="display:none">0</span></i></a>
+<a class="sharep" href="home.php?mod=spacecp&amp;ac=share&amp;type=thread&amp;id=328066" onclick="showWindow('sharethread', this.href, 'get', 0);" title="分享推精华"><i><img src="static/image/common/oshr.png" alt="分享" />分享</i></a>
+<a id="recommend_add" href="forum.php?mod=misc&amp;action=recommend&amp;do=add&amp;tid=328066&amp;hash=86092df9"  onclick="showWindow('login', this.href)" onmouseover="this.title = $('recommendv_add').innerHTML + ' 人顶'" title="顶一下"><i><img src="static/image/common/rec_add.gif" alt="顶" />顶<span id="recommendv_add" style="display:none">0</span></i></a>
+<a id="recommend_subtract" href="forum.php?mod=misc&amp;action=recommend&amp;do=subtract&amp;tid=328066&amp;hash=86092df9"  onclick="showWindow('login', this.href)" onmouseover="this.title = $('recommendv_subtract').innerHTML + ' 人踩'" title="踩一下"><i><img src="static/image/common/rec_subtract.gif" alt="踩" />踩<span id="recommendv_subtract" style="display:none">0</span></i></a>
+</div>
+<div class="sign">这里是你的个性签名位置，可在“设置”-“个人信息”-“个人签名”处修改。</div>
+</td>
+</tr>
+<tr id="_postposition1078506"></tr>
+<tr>
+<td class="pls"></td>
+<td class="plc" style="overflow:visible;">
+<div class="po hin">
+<div class="pob cl">
+<em>
+<a class="fastre" href="forum.php?mod=post&amp;action=reply&amp;fid=44&amp;tid=328066&amp;reppost=1078506&amp;extra=page%3D1&amp;page=1" onclick="showWindow('reply', this.href)">回复</a>
+</em>
+
+<p>
+<a href="javascript:;" id="mgc_post_1078506" onmouseover="showMenu(this.id)" class="showmenu">使用道具</a>
+<a href="javascript:;" onclick="showWindow('miscreport1078506', 'misc.php?mod=report&rtype=post&rid=1078506&tid=328066&fid=44', 'get', -1);return false;">举报</a>
+</p>
+
+<ul id="mgc_post_1078506_menu" class="p_pop mgcmn" style="display: none;">
+<li><a href="https://bbs.xiawai.com/home.php?mod=magic&amp;mid=bump&amp;idtype=tid&amp;id=328066" id="a_bump" onclick="showWindow(this.id, this.href)"><img src="static/image/magic/bump.small.gif" />提升卡</a></li>
+<li><a href="https://bbs.xiawai.com/home.php?mod=magic&amp;mid=stick&amp;idtype=tid&amp;id=328066" id="a_stick" onclick="showWindow(this.id, this.href)"><img src="static/image/magic/stick.small.gif" />置顶卡</a></li>
+<li><a href="https://bbs.xiawai.com/home.php?mod=magic&amp;mid=close&amp;idtype=tid&amp;id=328066" id="a_stick" onclick="showWindow(this.id, this.href)"><img src="static/image/magic/close.small.gif" />沉默卡</a></li>
+<li><a href="https://bbs.xiawai.com/home.php?mod=magic&amp;mid=open&amp;idtype=tid&amp;id=328066" id="a_stick" onclick="showWindow(this.id, this.href)"><img src="static/image/magic/open.small.gif" />喧嚣卡</a></li>
+<li><a href="https://bbs.xiawai.com/home.php?mod=magic&amp;mid=highlight&amp;idtype=tid&amp;id=328066" id="a_stick" onclick="showWindow(this.id, this.href)"><img src="static/image/magic/highlight.small.gif" />变色卡</a></li>
+<li><a href="https://bbs.xiawai.com/home.php?mod=magic&amp;mid=jack&amp;idtype=tid&amp;id=328066" id="a_jack" onclick="showWindow(this.id, this.href)"><img src="static/image/magic/jack.small.gif" />千斤顶</a></li>
+<li><a href="https://bbs.xiawai.com/home.php?mod=magic&amp;mid=namepost&amp;idtype=pid&amp;id=1078506:328066" id="a_namepost_1078506" onclick="showWindow(this.id, this.href)"><img src="static/image/magic/namepost.small.gif" />照妖镜</a><li>
+</ul>
+<script type="text/javascript" reload="1">checkmgcmn('post_1078506')</script>
+</div>
+</div>
+</td>
+</tr>
+<tr class="ad">
+<td class="pls">
+</td>
+<td class="plc">
+</td>
+</tr>
+</table>
+<script type="text/javascript" reload="1">
+aimgcount[1078506] = ['bZFFI','WzNfF','i6Qcl','juaQx','UDf31','t69sd'];
+attachimggroup(1078506);
+var aimgfid = 0;
+</script>
+</div><div id="post_1078568" ><table id="pid1078568" class="plhin" summary="pid1078568" cellspacing="0" cellpadding="0">
+<tr>
+<td class="pls" rowspan="2">
+<div id="favatar1078568" class="pls favatar">
+ <a name="lastpost"></a><div class="pi">
+<div class="authi"><a href="https://bbs.xiawai.com/spaceuidv344" target="_blank" class="xw1" style="color: #608AD4">我是胖子</a>
+</div>
+</div>
+<div class="p_pop blk bui card_gender_0" id="userinfo1078568" style="display: none; margin-top: -11px;">
+<div class="m z">
+<div id="userinfo1078568_ma"></div>
+</div>
+<div class="i y">
+<div>
+<strong><a href="https://bbs.xiawai.com/spaceuidv344" target="_blank" class="xi2" style="color: #608AD4">我是胖子</a></strong>
+<em>当前离线</em>
+</div><p><em><a href="https://bbs.xiawai.com/home.php?mod=spacecp&amp;ac=usergroup&amp;gid=10" target="_blank"><font color="#608AD4">ミ江湖小侠ミ</font></a></em></p>
+<dl class="cl">
+<dt>积分</dt><dd><a href="https://bbs.xiawai.com/home.php?mod=space&uid=344&do=profile" target="_blank" class="xi2">3094</a></dd>
+<dt>帖子</dt><dd><a href="https://bbs.xiawai.com/home.php?mod=space&uid=344&do=thread&type=reply&view=me&from=space" target="_blank" class="xi2">387</a></dd>
+<dt>主题</dt><dd><a href="https://bbs.xiawai.com/home.php?mod=space&uid=344&do=thread&type=thread&view=me&from=space" target="_blank" class="xi2">74</a></dd>
+<dt>精华</dt><dd></dd>
+<dt>在线时间</dt><dd>0 小时</dd>
+<dt>最后登录</dt><dd>2021-5-2</dd>
+<dt>性别</dt><dd>保密</dd>
+<dt>注册时间</dt><dd>2013-8-15</dd>
+
+</dl><div class="imicn">
+<a href="https://bbs.xiawai.com/home.php?mod=space&amp;uid=344&amp;do=profile" target="_blank" title="查看详细资料"><img src="static/image/common/userinfo.gif" alt="查看详细资料" /></a>
+<a href="https://bbs.xiawai.com/home.php?mod=magic&amp;mid=showip&amp;idtype=user&amp;id=%E6%88%91%E6%98%AF%E8%83%96%E5%AD%90" id="a_showip_li_1078568" class="xi2" onclick="showWindow(this.id, this.href)"><img src="static//image/magic/showip.small.gif" alt="" /> 窥视卡</a>
+<a href="https://bbs.xiawai.com/home.php?mod=magic&amp;mid=checkonline&amp;idtype=user&amp;id=%E6%88%91%E6%98%AF%E8%83%96%E5%AD%90" id="a_repent_1078568" class="xi2" onclick="showWindow(this.id, this.href)"><img src="static//image/magic/checkonline.small.gif" alt="" /> 雷达卡</a>
+</div>
+<div id="avatarfeed"><span id="threadsortswait"></span></div>
+</div>
+</div>
+<div>
+<div class="avatar" onmouseover="showauthor(this, 'userinfo1078568')"><a href="https://bbs.xiawai.com/spaceuidv344" class="avtm" target="_blank"><img src="https://ucenter.xiawai.com/avatar.php?uid=344&size=middle" /></a></div>
+</div>
+
+</div>
+</td>
+
+	
+<td class="plc">
+<div class="pi">
+<strong>
+<a href="https://bbs.xiawai.com/forum.php?mod=redirect&goto=findpost&ptid=328066&pid=1078568"   id="postnum1078568" onclick="setCopy(this.href, '帖子地址复制成功');return false;">
+沙花按摩</a>
+</strong>
+<div class="pti">
+<div class="pdbt">
+</div>
+<div class="authi">
+<img class="authicn vm" id="authicon1078568" src="static/image/common/online_member.gif" />
+<em id="authorposton1078568">发表于 2021-4-3 07:00:14</em>
+<span class="xg1"><font color="orange">本帖发自侠外论坛手机版</font></span>
+<span class="pipe">|</span>
+<a href="https://bbs.xiawai.com/forum.php?mod=viewthread&amp;tid=328066&amp;page=1&amp;authorid=344" rel="nofollow">只看该作者</a>
+</div>
+</div>
+</div><div class="pct"><div class="pcb">
+<div class="t_fsz">
+<table cellspacing="0" cellpadding="0"><tr><td class="t_f" id="postmessage_1078568">
+运气就是机会碰巧撞到了你的努力。</td></tr></table>
+
+
+</div>
+<div id="comment_1078568" class="cm">
+</div><div id="post_rate_div_1078568"></div>
+</div>
+</div>
+
+</td></tr>
+<tr><td class="plc plm">
+<div class="sign">这里是你的个性签名位置，可在“设置”-“个人信息”-“个人签名”处修改。</div>
+</td>
+</tr>
+<tr id="_postposition1078568"></tr>
+<tr>
+<td class="pls"></td>
+<td class="plc" style="overflow:visible;">
+<div class="po hin">
+<div class="pob cl">
+<em>
+<a class="fastre" href="forum.php?mod=post&amp;action=reply&amp;fid=44&amp;tid=328066&amp;repquote=1078568&amp;extra=page%3D1&amp;page=1" onclick="showWindow('reply', this.href)">回复</a>
+<a class="replyadd" href="forum.php?mod=misc&amp;action=postreview&amp;do=support&amp;tid=328066&amp;pid=1078568&amp;hash=86092df9"  onclick="showWindow('login', this.href)" onmouseover="this.title = ($('review_support_1078568').innerHTML ? $('review_support_1078568').innerHTML : 0) + ' 人 支持'">支持 <span id="review_support_1078568"></span></a>
+<a class="replysubtract" href="forum.php?mod=misc&amp;action=postreview&amp;do=against&amp;tid=328066&amp;pid=1078568&amp;hash=86092df9"  onclick="showWindow('login', this.href)" onmouseover="this.title = ($('review_against_1078568').innerHTML ? $('review_against_1078568').innerHTML : 0) + ' 人 反对'">反对 <span id="review_against_1078568"></span></a>
+</em>
+
+<p>
+<a href="javascript:;" id="mgc_post_1078568" onmouseover="showMenu(this.id)" class="showmenu">使用道具</a>
+<a href="javascript:;" onclick="showWindow('miscreport1078568', 'misc.php?mod=report&rtype=post&rid=1078568&tid=328066&fid=44', 'get', -1);return false;">举报</a>
+</p>
+
+<ul id="mgc_post_1078568_menu" class="p_pop mgcmn" style="display: none;">
+<li><a href="https://bbs.xiawai.com/home.php?mod=magic&amp;mid=namepost&amp;idtype=pid&amp;id=1078568:328066" id="a_namepost_1078568" onclick="showWindow(this.id, this.href)"><img src="static/image/magic/namepost.small.gif" />照妖镜</a><li>
+</ul>
+<script type="text/javascript" reload="1">checkmgcmn('post_1078568')</script>
+</div>
+</div>
+</td>
+</tr>
+<tr class="ad">
+<td class="pls">
+</td>
+<td class="plc">
+</td>
+</tr>
+</table>
+</div><div id="postlistreply" class="pl"><div id="post_new" class="viewthread_table" style="display: none"></div></div>
+</div>
+
+
+<form method="post" autocomplete="off" name="modactions" id="modactions">
+<input type="hidden" name="formhash" value="86092df9" />
+<input type="hidden" name="optgroup" />
+<input type="hidden" name="operation" />
+<input type="hidden" name="listextra" value="page%3D1" />
+<input type="hidden" name="page" value="1" />
+</form>
+
+
+
+<div class="pgs mtm mbm cl">
+<span class="pgb y"><a href="https://bbs.xiawai.com/forum44p1">返回列表</a></span>
+<a id="newspecialtmp" onmouseover="$('newspecial').id = 'newspecialtmp';this.id = 'newspecial';showMenu({'ctrlid':this.id})" onclick="showWindow('newthread', 'forum.php?mod=post&action=newthread&fid=44')" href="javascript:;" title="发新帖"><img src="static/image/common/pn_post.png" alt="发新帖" /></a>
+</div>
+
+<!--[diy=diyfastposttop]--><div id="diyfastposttop" class="area"></div><!--[/diy]-->
+<script type="text/javascript">
+var postminchars = parseInt('10');
+var postmaxchars = parseInt('10000');
+var disablepostctrl = parseInt('0');
+</script>
+
+<div id="f_pst" class="pl bm bmw">
+<form method="post" autocomplete="off" id="fastpostform" action="forum.php?mod=post&amp;action=reply&amp;fid=44&amp;tid=328066&amp;extra=page%3D1&amp;replysubmit=yes&amp;infloat=yes&amp;handlekey=fastpost" onSubmit="return fastpostvalidate(this)">
+<table cellspacing="0" cellpadding="0">
+<tr>
+<td class="pls">
+</td>
+<td class="plc">
+
+<span id="fastpostreturn"></span>
+
+
+<div class="cl">
+<div id="fastsmiliesdiv" class="y"><div id="fastsmiliesdiv_data"><div id="fastsmilies"></div></div></div><div class="hasfsl" id="fastposteditor">
+<div class="tedt mtn">
+<div class="bar">
+<span class="y">
+<a href="https://bbs.xiawai.com/forum.php?mod=post&amp;action=reply&amp;fid=44&amp;tid=328066" onclick="return switchAdvanceMode(this.href)">高级模式</a>
+</span><script src="data/cache/seditor.js?csW" type="text/javascript"></script>
+<div class="fpd">
+<a href="javascript:;" title="文字加粗" class="fbld">B</a>
+<a href="javascript:;" title="设置文字颜色" class="fclr" id="fastpostforecolor">Color</a>
+<a id="fastpostimg" href="javascript:;" title="图片" class="fmg">Image</a>
+<a id="fastposturl" href="javascript:;" title="添加链接" class="flnk">Link</a>
+<a id="fastpostquote" href="javascript:;" title="引用" class="fqt">Quote</a>
+<a id="fastpostcode" href="javascript:;" title="代码" class="fcd">Code</a>
+<a href="javascript:;" class="fsml" id="fastpostsml">Smilies</a>
+</div></div>
+<div class="area">
+<div class="pt hm">
+您需要登录后才可以回帖 <a href="member.php?mod=logging&amp;action=login" onclick="showWindow('login', this.href)" class="xi2">登录</a> | <a href="member.php?mod=xiawaicom" class="xi2">立即注册</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<input type="hidden" name="formhash" value="86092df9" />
+<input type="hidden" name="usesig" value="" />
+<input type="hidden" name="subject" value="  " />
+<p class="ptm pnpost">
+<a href="https://bbs.xiawai.com/home.php?mod=spacecp&amp;ac=credit&amp;op=rule&amp;fid=44" class="y" target="_blank">本版积分规则</a>
+<button type="button" onclick="showWindow('login', 'member.php?mod=logging&action=login&guestmessage=yes')" name="replysubmit" id="fastpostsubmit" class="pn pnc vm" value="replysubmit" tabindex="5"><strong>发表回复</strong></button>
+<label for="fastpostrefresh"><input id="fastpostrefresh" type="checkbox" class="pc" />回帖后跳转到最后一页</label>
+<script type="text/javascript">if(getcookie('fastpostrefresh') == 1) {$('fastpostrefresh').checked=true;}</script>
+</p>
+</td>
+</tr>
+</table>
+</form>
+</div>
+
+<script type="text/javascript">
+new lazyload();
+</script>
+<script type="text/javascript">document.onkeyup = function(e){keyPageScroll(e, 0, 0, 'forum.php?mod=viewthread&tid=328066', 1);}</script>
+</div>
+
+<div class="wp mtn">
+<!--[diy=diy3]--><div id="diy3" class="area"></div><!--[/diy]-->
+</div>
+
+<script type="text/javascript">
+function succeedhandle_followmod(url, msg, values) {
+var fObj = $('followmod_'+values['fuid']);
+if(values['type'] == 'add') {
+fObj.innerHTML = '不收听';
+fObj.href = 'home.php?mod=spacecp&ac=follow&op=del&fuid='+values['fuid'];
+} else if(values['type'] == 'del') {
+fObj.innerHTML = '收听TA';
+fObj.href = 'home.php?mod=spacecp&ac=follow&op=add&hash=86092df9&fuid='+values['fuid'];
+}
+}
+fixed_avatar([1078506,1078568], 1);
+</script>	</div>
+<hr style="height:10px;border:none;border-top:1px solid #cdcdcd; background-color:#f7f7f7;" />
+<script src="/source/plugin/bilicen_pptv3/js/misc.js" type="text/javascript"></script>
+
+<style type="text/css"> 
+#scrolltop {
+   display: none;
+}
+ul#navmenu ul
+{ 
+display: none; 
+position: absolute; 
+left: -233px;
+bottom: 5px;
+} 
+ul#navmenu li:hover ul ul, 
+ul#navmenu li.iehover ul ul,  { 
+display: none; 
+} 
+ul#navmenu li:hover ul, 
+ul#navmenu ul li:hover ul, 
+ul#navmenu ul ul li:hover ul, 
+ul#navmenu li.iehover ul, 
+ul#navmenu ul li.iehover ul, 
+ul#navmenu ul ul li.iehover ul { 
+display: block; 
+} 
+
+#xiawaitop a {margin: 6px 0;}
+
+#xiawaitop { z-index: 200; visibility: visible; right: 50%; margin-right: -670px; }
+
+#xiawaitopa { visibility: hidden;}
+#xiawaitop, #xiawaitop a { border: none;}
+
+#xiawaitop { position: fixed; bottom: 40px; display: block; width: 50px; background: none repeat scroll 0% 0% transparent; border: 0px #cdcdcd solid; border-radius: 3px; border-top: 0; cursor: pointer; }
+#xiawaitop:hover { text-decoration: none; }
+
+#xiawaitop a { display: block; width: 50px; height: 50px; padding: 0; line-height: 12px; text-align: center; color: #787878; text-decoration: none; background: #f8f8f8 url('source/plugin/xiawai_top/template/dxiawaitop1.png') no-repeat 0 0; border-top: 0px #cdcdcd solid; }
+
+                a.xiawaitopa:hover { background-position: -50px 0px !important;}
+a.replyfast { background-position: 0 -50px !important; }
+a.replyfast:hover { background-position: -50px -50px !important;}
+a.returnlist { background-position: 0 -100px !important; }
+a.returnlist:hover { background-position: -50px -100px !important;}
+a.returnboard { background-position: -100px -300px !important; }
+a.returnboard:hover { background-position: -150px -300px !important;}
+a.jzqr { background-position: 0 -150px !important; }
+a.jzqr:hover { background-position: -50px -150px !important;}	
+                a.jzwx { background-position: 0 -400px !important; }
+a.jzwx:hover { background-position: -50px -400px !important;}				
+a.jzkf { background-position: -100px 0px !important; }
+a.jzkf:hover { background-position: -150px -0px !important;}
+a.jzfx { background-position: -100px -50px !important; }
+a.jzfx:hover { background-position: -150px -50px !important;}
+.jzfxn { background: #fff !important; width: 231px !important; height: 260px !important; }
+a.jzlast { background-position: -100px -100px !important; }
+a.jzlast:hover { background-position: -150px -100px !important;}
+a.jznext { background-position: -100px -150px !important; }
+a.jznext:hover { background-position: -150px -150px !important;}				
+a.jzsct { background-position: 0px -200px !important; }
+a.jzsct:hover { background-position: -50px -200px !important;}				
+a.jzscb { background-position: -100px -200px !important; }
+a.jzscb:hover { background-position: -150px -200px !important;}				
+a.jzqqq { background-position: 0px -250px !important; }
+a.jzqqq:hover { background-position: -50px -250px !important;}
+                a.jzsoso { background-position: -100px -400px !important; }
+a.jzsoso:hover { background-position: -150px -400px !important;}					
+a.jzwo { background-position: -100px -250px !important; }
+a.jzwo:hover { background-position: -150px -250px !important;}
+a.jzzdy { background-position: 0px -300px !important; }
+a.jzzdy:hover { background-position: -50px -300px !important;}
+a.jzfbzt { background-position: 0px -350px !important; }
+a.jzfbzt:hover { background-position: -50px -350px !important;}
+a.jzkfzx { background-position: -100px -350px !important; }
+a.jzkfzx:hover { background-position: -150px -350px !important;}
+
+
+
+#jzqrn { background: #fff !important; width: 231px !important; height: 260px !important; }
+#jzqrn { border: 1px solid rgb(210, 210, 210); text-align: center; }
+#jzqrn p {
+    font-size: 15px;
+    padding-bottom: 15px;
+    text-align: center;
+color: #999;
+    font-family: Microsoft YaHei;
+}
+#jzwon { background: #fff !important; width: 231px !important; height: 260px !important; }
+#jzwon { border: 1px solid rgb(210, 210, 210); }
+#jzfxn { border: 1px solid rgb(210, 210, 210); }
+#jzfxn h3 {
+    height: 23px;
+    background: none repeat scroll 0% 0% rgb(250, 250, 250);
+    border-bottom: 1px solid rgb(236, 236, 236);
+    padding: 10px 0px 0px 10px;
+}
+#jzfxn .bdsharebuttonbox { padding: 13px 0px 0px 20px; }
+#jzfxn .bdsharebuttonbox a, #jzfxn .bdsharebuttonbox .bds_more {
+    float: left;
+    font-size: 12px;
+    padding-left: 25px;
+    line-height: 16px;
+text-align: left;
+    height: 16px;
+    background: url("icons_1_16.png") no-repeat scroll 0px 0px ;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    margin: 6px 6px 6px 0px;
+text-indent: 0;
+    overflow: hidden;
+width: 68px;
+}
+#jzfxn .bdsharebuttonbox .bds_qzone {
+    background-position: 0px -52px !important;
+}
+#jzfxn .bdsharebuttonbox .bds_tsina {
+    background-position: 0px -104px !important;
+}
+#jzfxn .bdsharebuttonbox .bds_tqq {
+    background-position: 0px -260px !important;
+}
+#jzfxn .bdsharebuttonbox .bds_renren {
+    background-position: 0px -208px !important;
+}
+#jzfxn .bdsharebuttonbox .bds_tqf {
+    background-position: 0px -364px !important;
+}
+#jzfxn .bdsharebuttonbox .bds_tieba {
+    background-position: 0px -728px !important;
+}
+#jzfxn .bdsharebuttonbox .bds_sqq {
+    background-position: 0px -2652px !important;
+}
+#jzfxn .bdsharebuttonbox .bds_hi {
+    background-position: 0px -416px !important;
+}
+#jzfxn .bdsharebuttonbox .bds_isohu {
+    background-position: 0px -3016px !important;
+}
+#jzfxn .bdsharebuttonbox .bds_weixin {
+    background-position: 0px -1612px !important;
+}
+#jzfxn .bdsharebuttonbox .bds_t163 {
+    background-position: 0px -832px !important;
+}
+#jzfxn .bdsharebuttonbox .bds_tsohu {
+    background-position: 0px -520px !important;
+}
+#jzfxn .bdsharebuttonbox .bds_baidu {
+    background-position: 0px -2600px !important;
+}
+#jzfxn .bdsharebuttonbox .bds_qq {
+    background-position: 0px -624px !important;
+}
+#xiawaitop a b {
+    visibility: hidden;
+    font-weight: normal;
+}
+</style> 
+
+<script type="text/javascript"> 
+// JavaScript Document
+function goTopEx(){
+        var obj=document.getElementById("goTopBtn");
+        function getScrollTop(){
+                return document.documentElement.scrollTop || document.body.scrollTop;
+            }
+        function setScrollTop(value){
+            if(document.documentElement.scrollTop){
+                    document.documentElement.scrollTop=value;
+                }else{
+                    document.body.scrollTop=value;
+                }
+                
+            }    
+        window.onscroll=function(){getScrollTop()>0?obj.style.display="":obj.style.display="none";
+                    var h=document.body.scrollHeight - getScrollTop() - obj.offsetTop - obj.offsetHeight;
+                    obj.style.bottom=0+"px";
+                    if(h<350){
+                        obj.style.bottom=340+"px";
+                        obj.style.top="auto";
+                    }
+
+        
+        }
+        obj.onclick=function(){
+
+            var goTop=setInterval(scrollMove,10);
+            function scrollMove(){
+                    setScrollTop(getScrollTop()/1.1);
+                    if(getScrollTop()<1)clearInterval(goTop);
+
+                }
+        }
+    }
+
+</script> 
+
+<div id="xiawaitop" >
+    
+    
+<span>
+<a href="https://bbs.xiawai.com/forum.php?mod=post&amp;action=newthread&amp;fid=44" class="jzfbzt" title="发布主题"><b>发布主题</b></a>
+</span>
+
+<span><a class="jzlast" href="forum.php?mod=redirect&amp;goto=nextoldset&amp;tid=328066" title="上个主题" ><b>上个主题</b></a></span>	
+<span><a class="jznext" href="forum.php?mod=redirect&amp;goto=nextnewset&amp;tid=328066" title="下个主题" ><b>下个主题</b></a></span>
+
+<span><a href="https://bbs.xiawai.com/forum.php?mod=post&amp;action=reply&amp;fid=44&amp;tid=328066&amp;extra=page%3D1&amp;page=" onclick="showWindow('reply', this.href)" class="replyfast" title="快速回复"><b>快速回复</b></a></span>	
+
+<span><a href="https://bbs.xiawai.com/home.php?mod=spacecp&amp;ac=favorite&amp;type=thread&amp;id=328066&amp;formhash=86092df9" id="k_favorite" onclick="showWindow(this.id, this.href, 'get', 0);" onmouseover="this.title = $('favoritenumber').innerHTML + ' 人已收藏'" title="!fav_thread!" class="jzsct" ><b>收藏帖子</b></a></span>
+	
+
+<span>		
+<a href="https://bbs.xiawai.com/forum44p1" hidefocus="true" class="returnlist" title="返回列表"><b>返回列表</b></a>
+</span>	
+
+<span><a rel="nofollow" title="搜索" class="jzsoso" href="javascript:;" onclick="showWindow('jzso','plugin.php?id=xiawai_top:xiawai_so')"><b>搜索</b></a></span>	
+
+    
+<span><ul id="navmenu"> <li><a title="QR Code"  class="jzqr" href="forum.php?mobile=yes"><b>QR Code</b></a> <ul> <div id="jzqrn">
+
+
+<img src="source/plugin/xiawai_top/template/qr.png" width="228" height="228" />
+<p>打开手机扫描上面的二维码</p>
+
+
+
+</div> </ul></li></ul> </span>	
+
+<span>
+<ul id="navmenu"> 
+<li><a title="个人中心" class="jzwo" >
+
+<b>个人中心</b></a> 
+<ul> <div id="jzwon">
+
+<style type="text/css">
+
+#jzmms{padding: 2px; text-align: right; }
+.navbar-unread {
+    background-color: #E74C3C;
+    border-radius: 30px;
+    color: #FFF;
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 17px;
+    min-width: 8px;
+    padding: 0px 4px;
+    right: 0px;
+    text-align: center;
+    text-shadow: none;
+    z-index: 10;
+align: right;
+}
+
+.navbar-unreadn {
+    background: url("source/plugin/xiawai_top/template/mmsn.png") no-repeat scroll 0px 0px ;
+    border-radius: 30px;
+    color: #FFF;
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 17px;
+    min-width: 8px;
+    padding: 0px 4px;
+    right: 0px;
+    text-align: center;
+    text-shadow: none;
+    z-index: 10;
+align: right;
+}	
+
+#jzgrzxkp {
+height: 260px;
+width: 231px;
+background:#f2f6f8;
+font-family: Microsoft YaHei;
+}
+
+#jzgrzxkp .jzgrzxkptop {
+height: 140px;
+background:  url("source/plugin/xiawai_top/template/1.jpg") no-repeat 0 0 #0079b8 ;
+color: #fff;
+}
+#jzgrzxkp .jzgrzxkptop a{
+
+color: #fff;
+}
+
+#jzgrzxkp .jzgrzxkptop h3 {
+ height: 16px;
+font-weight:normal;
+    padding: 8px 0px 0px 10px;
+font-size: 16px;
+}
+
+#jzgrzxkp .jzgrzxkptop .jzgrzxkpthtle {
+height: 35px;
+}
+#jzgrzxkp .jzgrzxkptop .jzgrzxkpimg {
+height: 65px;
+text-align:center;
+}
+
+#jzgrzxkp .jzgrzxkptop .jzgrzxkpimg img {
+width: 54px;
+width: 54px;
+border-radius: 100px;
+margin-top: 2px;
+
+
+}
+
+#jzgrzxkp .jzgrzxkptop .jzgrzxkpimg .jzgrzxkpimgn {
+width: 58px;
+height: 58px;
+border-radius: 100px;
+background: none repeat scroll 0% 0% #fff;
+margin-top: 5px;
+margin-right: auto;
+    margin-left: auto;
+}
+
+#jzgrzxkp .jzyhm {
+    font-size: 15px;
+    line-height: 22px;
+text-align: center;
+padding-bottom: 10px;
+text-align:center;
+}
+
+#jzgrzxkp .jzyhm a {
+    width: 231px;
+    height: 15px;
+text-align:center;
+background: none ;
+}
+
+#jzgrzxkp .jzgrzxkpbox  { height: 120px; background:#f1f1f1;}
+
+#jzgrzxkp .jzgrzxkpbox a { background:url("source/plugin/xiawai_top/template/gr.png") no-repeat 0 0  ;  width:57px;height:60px;float:left; margin: 0px;}
+
+.box01{background-position: 0px 0px !important;}
+.box02{background-position: -57px 0px !important;}
+.box03{background-position: -114px 0px !important;}
+.box04{background-position: -171px 0px !important;}
+
+.box05{background-position: 0px -60px !important;}
+.box06{background-position: -57px -60px !important;}
+.box07{background-position: -114px -60px !important;}
+.box08{background-position: -171px -60px !important;}
+.box09{background-position: 0px -120px !important;}
+
+
+#xiawai-grzx-skin a{
+margin: 0px;
+top: 0px;
+height: 20px;
+width: 20px;
+overflow: hidden;
+background-image: url('source/plugin/xiawai_top/template/wei.png');
+background-position: 0px 0px;
+background-repeat: no-repeat;
+position: absolute;
+display: block;
+right: 0px;
+}
+
+</style>
+
+<div id="jzgrzxkp" class="jzgrzxkp">
+
+<div class="jzgrzxkptop">
+<div class="jzgrzxkpthtle">
+<h3>个人中心</h3>
+</div>  
+<div class="jzgrzxkpimg">
+<div class="jzgrzxkpimgn">
+<img src="https://ucenter.xiawai.com//avatar.php?uid=0&size=big">
+</div>
+</div>
+   
+<div class="jzyhm"><a href="member.php?mod=logging&amp;action=login" onClick="showWindow('login', this.href)">登录或注册</a></div>
+ 
+</div>
+<div class="jzgrzxkpbox">
+
+<a href="https://bbs.xiawai.com/home.php?mod=space&amp;do=favorite&amp;view=me" class="box01" target="_blank"  title="收藏" ></a>
+
+<a href="https://bbs.xiawai.com/forum.php?mod=guide&amp;view=my" class="box02" target="_blank"  title="!mypost!" ></a>
+
+<a href="https://bbs.xiawai.com/home.php?mod=space&amp;do=notice" class="box09" target="_blank"  title="提醒" >
+
+</a>
+
+<a href="https://bbs.xiawai.com/home.php?mod=space&amp;do=pm" class="box04" target="_blank"  title="消息" >
+
+</a>
+
+<a href="https://bbs.xiawai.com/home.php?mod=spacecp" class="box05" target="_blank" title="设置" ></a>
+
+<a href="https://bbs.xiawai.com/home.php?mod=medal" class="box06" target="_blank" title="勋章" ></a>
+
+<a href="https://bbs.xiawai.com/home.php?mod=task" class="box07" target="_blank" title="任务" ></a>
+
+</div>
+</div>
+</div>
+</ul>
+</li>
+</ul>
+</span>	
+
+<span>
+<DIV style="DISPLAY: none" id="goTopBtn" ><a title="返回顶部" class="xiawaitopa" ><b>返回顶部</b></a></DIV>
+</span>
+    <SCRIPT type=text/javascript>goTopEx();</SCRIPT>
+
+</div>
+
+<script src="/source/plugin/forum_side/js/misc.js" type="text/javascript"></script><div id="ft" class="wp cl">
+<div id="flk" class="y">
+<p>
+<a href="https://www.xiawai.com/article/cid_8.html" target="_blank"  style="font-weight: bold;text-decoration: underline;">联系我们</a><span class="pipe">|</span><a href="https://bbs.xiawai.com/archiver/" >Archiver</a><span class="pipe">|</span><a href="https://bbs.xiawai.com/forum.php?mobile=yes" >手机版</a><span class="pipe">|</span><a href="https://bbs.xiawai.com/forum.php?mod=misc&action=showdarkroom" >小黑屋</a><span class="pipe">|</span><strong><a href="https://www.xiawai.com/" target="_blank">侠外网</a></strong>
+( 豫ICP备13018943号-1 )<script defer src="https://stats.rosehacker.com/script.js" data-website-id="1990ee34-242d-4bef-bf75-86bb07143ac3"></script></p>
+<p class="xs0">
+GMT+8, 2026-9-11 20:00<span id="debuginfo">
+, Processed in 0.122952 second(s), 39 queries
+, Gzip On.
+</span>
+</p>
+</div>
+<div id="frt">
+<p>Copyright &copy; 2001-2023 <strong><a href="https://bbs.xiawai.com/" target="_blank" style="border-bottom:1px solid;font-size:14px;">侠外游戏论坛</a></strong>  Powered by <u>!Zucsud</u> <em>X3.5</em></p>
+<p class="xs0">Support By <u>A mysterious team</u> , <u>A great team</u> ! Email: <u><img src="/static/image/common/email.png" style="margin-bottom:-2px;"></u></p>
+</div></div>
+<script src="home.php?mod=misc&ac=sendmail&rand=1789128003" type="text/javascript"></script>
+<div id="scrolltop">
+<span><a href="https://bbs.xiawai.com/forum.php?mod=post&amp;action=reply&amp;fid=44&amp;tid=328066&amp;extra=page%3D1&amp;page=1" onclick="showWindow('reply', this.href)" class="replyfast" title="快速回复"><b>快速回复</b></a></span>
+<span hidefocus="true"><a title="返回顶部" onclick="window.scrollTo('0','0')" class="scrolltopa" ><b>返回顶部</b></a></span>
+<span>
+<a href="https://bbs.xiawai.com/forum44p1" hidefocus="true" class="returnlist" title="返回列表"><b>返回列表</b></a>
+</span>
+</div>
+<script type="text/javascript">_attachEvent(window, 'scroll', function () { showTopLink(); });checkBlind();</script>
+</body>
+</html>

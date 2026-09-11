@@ -1,0 +1,18 @@
+{
+ "id": "vortox",
+ "name_en": "Vortox",
+ "search_status": 200,
+ "hit_titles": [
+  "涡流"
+ ],
+ "name_zh": "涡流",
+ "ability_zh": "每个夜晚*，你要选择一名玩家：他死亡。 镇民玩家的能力都会产生错误信息。 如果白天没人被处决，邪恶阵营获胜。",
+ "page": "涡流",
+ "file_verified": false,
+ "script": "梦殒春宵",
+ "page_found": true,
+ "has_section": true,
+ "retry_route": "script-gallery:梦殒春宵",
+ "appears_in": null,
+ "fan_like": false
+}

@@ -1,0 +1,18 @@
+=== PID 38128 ===
+
+ProcessId   : 38128
+Name        : node.exe
+CommandLine : "C:\Program Files\nodejs\node.exe" src/server.js
+
+
+=== PID 4720 ===
+
+=== LISTEN 8787 ===
+
+LocalAddress LocalPort OwningProcess
+------------ --------- -------------
+0.0.0.0           8787         38128
+
+
+=== LISTEN 9223 ===
+

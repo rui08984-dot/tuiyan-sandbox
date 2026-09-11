@@ -1,0 +1,48 @@
+{
+  "id": "bmr-02",
+  "edition": "bmr",
+  "cat": "阵营声称",
+  "day": 2,
+  "phase": "day",
+  "speakerSeat": null,
+  "text": "6号绝对是恶魔，最近三天死的全是他身边一圈人。",
+  "expected": {
+    "event_type": "statement",
+    "claims": [
+      {
+        "subject_seat": 6,
+        "predicate_ideal": "is_demon",
+        "object": "恶魔",
+        "map_expect": "botc",
+        "note": "预计 is_wolf(6) 透传错位或 said"
+      }
+    ],
+    "action": null
+  },
+  "ms": 7719.569,
+  "attempts_external": 0,
+  "error": null,
+  "out": {
+    "event": {
+      "day": 2,
+      "phase": "day",
+      "type": "statement",
+      "raw_text": "6号绝对是恶魔，最近三天死的全是他身边一圈人。",
+      "actor_seat": 6
+    },
+    "claims": [
+      {
+        "subject_seat": 6,
+        "predicate": "said",
+        "object": "__BOTC[is_demon]6号是恶魔"
+      }
+    ],
+    "action": null,
+    "warnings": [],
+    "meta": {
+      "mode": "LIVE",
+      "attempts": 1
+    },
+    "actor_seat": 6
+  }
+}

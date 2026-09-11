@@ -1,0 +1,12 @@
+[eval]:1
+const m=require('./p1b/src/botc/extractPrompt.js'); const c=m.translateContentToCarriers('`json\n{\
+                                                                                         ^^^^^^^^^^
+Invalid string escape
+
+SyntaxError: Invalid or unexpected token
+    at makeContextifyScript (node:internal/vm:194:14)
+    at compileScript (node:internal/process/execution:388:10)
+    at evalTypeScript (node:internal/process/execution:260:22)
+    at node:internal/main/eval_string:71:3
+
+Node.js v24.19.0

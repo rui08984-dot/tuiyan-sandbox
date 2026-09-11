@@ -1,0 +1,40 @@
+{
+  "id": "tb-08",
+  "edition": "tb",
+  "cat": "含糊表述",
+  "day": 1,
+  "phase": "day",
+  "speakerSeat": null,
+  "text": "反正我们镇上现在乱得很，我感觉有人的信息不对劲，但我说不好是谁。",
+  "expected": {
+    "event_type": "statement",
+    "claims": [
+      {
+        "subject_seat": "无/发言者",
+        "predicate_ideal": "said",
+        "object": "含糊表态",
+        "map_expect": "main_generic",
+        "note": "期望 0..1 条 said；出现具体座位指认即编造"
+      }
+    ],
+    "action": null
+  },
+  "ms": 3713.136,
+  "attempts_external": 0,
+  "error": null,
+  "out": {
+    "event": {
+      "day": 1,
+      "phase": "day",
+      "type": "statement",
+      "raw_text": "反正我们镇上现在乱得很，我感觉有人的信息不对劲，但我说不好是谁。"
+    },
+    "claims": [],
+    "action": null,
+    "warnings": [],
+    "meta": {
+      "mode": "LIVE",
+      "attempts": 1
+    }
+  }
+}

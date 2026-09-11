@@ -1,0 +1,15 @@
+SCRIPTS: tb,bmr,snv
+tb roles: 27
+tb team structure: {"townsfolk":13,"outsider":4,"minion":4,"demon":1,"traveler":5}
+tb unique count: 22 has washerwoman: true
+tb unique has gunslinger(traveler): false
+resolve 洗衣妇: washerwoman
+resolve 'WASHERWOMAN': washerwoman
+resolve washerwoman: washerwoman
+resolve mephit zh fallback: Mephit | minion 0
+resolve unknown: null
+roleInEdition washerwoman/tb: true
+roleInEdition gambler/tb: false
+roleInEdition gambler/bmr: true
+abilityZh washerwoman: 在你的首个夜晚，你会得知两名玩家和一...
+bmr unique count: 25 snv unique count: 25

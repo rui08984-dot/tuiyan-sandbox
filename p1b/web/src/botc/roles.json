@@ -1,0 +1,1352 @@
+{
+  "_comment": "生成自 docs/sandbox/botc-adapt/data/roles-zh.json 勿手改（p1b/web/scripts/build-botc-roles.mjs）",
+  "source": "docs/sandbox/botc-adapt/data/roles-zh.json",
+  "generated_at": "2026-09-09T00:20:47.198Z",
+  "count": 130,
+  "roles": [
+    {
+      "id": "washerwoman",
+      "name_zh": "洗衣妇",
+      "name_en": "Washerwoman",
+      "team": "townsfolk",
+      "editions": [
+        "tb"
+      ],
+      "ability_zh": "在你的首个夜晚，你会得知两名玩家和一个镇民角色：这两名玩家之一是该角色。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "librarian",
+      "name_zh": "图书管理员",
+      "name_en": "Librarian",
+      "team": "townsfolk",
+      "editions": [
+        "tb"
+      ],
+      "ability_zh": "在你的首个夜晚，你会得知两名玩家和一个外来者角色：这两名玩家之一是该角色（或者你会得知没有外来者在场）。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "investigator",
+      "name_zh": "调查员",
+      "name_en": "Investigator",
+      "team": "townsfolk",
+      "editions": [
+        "tb"
+      ],
+      "ability_zh": "在你的首个夜晚，你会得知两名玩家和一个爪牙角色：这两名玩家之一是该角色（或者你会得知没有爪牙在场）。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "chef",
+      "name_zh": "厨师",
+      "name_en": "Chef",
+      "team": "townsfolk",
+      "editions": [
+        "tb"
+      ],
+      "ability_zh": "在你的首个夜晚，你会得知场上邻座的邪恶玩家有多少对。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "empath",
+      "name_zh": "共情者",
+      "name_en": "Empath",
+      "team": "townsfolk",
+      "editions": [
+        "tb"
+      ],
+      "ability_zh": "每个夜晚，你会得知与你邻近的两名存活的玩家中邪恶玩家的数量。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "fortuneteller",
+      "name_zh": "占卜师",
+      "name_en": "Fortune Teller",
+      "team": "townsfolk",
+      "editions": [
+        "tb"
+      ],
+      "ability_zh": "每个夜晚，你要选择两名玩家：你会得知他们之中是否有恶魔。 会有一名善良玩家始终被你的能力当作恶魔。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "undertaker",
+      "name_zh": "送葬者",
+      "name_en": "Undertaker",
+      "team": "townsfolk",
+      "editions": [
+        "tb"
+      ],
+      "ability_zh": "每个夜晚*，你会得知今天白天死于处决的玩家的角色。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "monk",
+      "name_zh": "僧侣",
+      "name_en": "Monk",
+      "team": "townsfolk",
+      "editions": [
+        "tb"
+      ],
+      "ability_zh": "每个夜晚*，你要选择除你以外的一名玩家：当晚恶魔的负面能力对他无效。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "ravenkeeper",
+      "name_zh": "守鸦人",
+      "name_en": "Ravenkeeper",
+      "team": "townsfolk",
+      "editions": [
+        "tb"
+      ],
+      "ability_zh": "如果你在夜晚死亡，你会被唤醒，然后你要选择一名玩家：你会得知他的角色。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "virgin",
+      "name_zh": "贞洁者",
+      "name_en": "Virgin",
+      "team": "townsfolk",
+      "editions": [
+        "tb"
+      ],
+      "ability_zh": "当你首次被提名时，如果提名你的玩家是镇民，他立刻被处决。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "slayer",
+      "name_zh": "猎手",
+      "name_en": "Slayer",
+      "team": "townsfolk",
+      "editions": [
+        "tb"
+      ],
+      "ability_zh": "每局游戏限一次，你可以在白天时公开选择一名玩家：如果他是恶魔，他死亡。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "soldier",
+      "name_zh": "士兵",
+      "name_en": "Soldier",
+      "team": "townsfolk",
+      "editions": [
+        "tb"
+      ],
+      "ability_zh": "You are safe from the Demon.",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "mayor",
+      "name_zh": "镇长",
+      "name_en": "Mayor",
+      "team": "townsfolk",
+      "editions": [
+        "tb"
+      ],
+      "ability_zh": "如果只有三名玩家存活且白天没有人被处决，你的阵营获胜。 如果你在夜晚即将死亡，可能会有一名其他玩家代替你死亡。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "butler",
+      "name_zh": "管家",
+      "name_en": "Butler",
+      "team": "outsider",
+      "editions": [
+        "tb"
+      ],
+      "ability_zh": "每个夜晚，你要选择除你以外的一名玩家：明天白天，只有他投票时你才能投票。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "drunk",
+      "name_zh": "酒鬼",
+      "name_en": "Drunk",
+      "team": "outsider",
+      "editions": [
+        "tb"
+      ],
+      "ability_zh": "你不知道你是酒鬼。你以为你是一个镇民角色，但其实你不是。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "recluse",
+      "name_zh": "陌客",
+      "name_en": "Recluse",
+      "team": "outsider",
+      "editions": [
+        "tb"
+      ],
+      "ability_zh": "你可能会被当作邪恶阵营、爪牙角色或恶魔角色，即使你已死亡。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "saint",
+      "name_zh": "圣徒",
+      "name_en": "Saint",
+      "team": "outsider",
+      "editions": [
+        "tb"
+      ],
+      "ability_zh": "如果你死于处决，你的阵营落败。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "poisoner",
+      "name_zh": "投毒者",
+      "name_en": "Poisoner",
+      "team": "minion",
+      "editions": [
+        "tb"
+      ],
+      "ability_zh": "每个夜晚，你要选择一名玩家：他在当晚和明天白天中毒。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "spy",
+      "name_zh": "间谍",
+      "name_en": "Spy",
+      "team": "minion",
+      "editions": [
+        "tb"
+      ],
+      "ability_zh": "每个夜晚，你能查看魔典。 你可能会被当作善良阵营、镇民角色或外来者角色，即使你已死亡。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "scarletwoman",
+      "name_zh": "红唇女郎",
+      "name_en": "Scarlet Woman",
+      "team": "minion",
+      "editions": [
+        "tb"
+      ],
+      "ability_zh": "如果大于等于五名玩家存活时（旅行者不计算在内）恶魔死亡，你变成那个恶魔。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "baron",
+      "name_zh": "男爵",
+      "name_en": "Baron",
+      "team": "minion",
+      "editions": [
+        "tb"
+      ],
+      "ability_zh": "会有额外的外来者在场。[+2 外来者]",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "imp",
+      "name_zh": "小恶魔",
+      "name_en": "Imp",
+      "team": "demon",
+      "editions": [
+        "tb"
+      ],
+      "ability_zh": "每个夜晚*，你要选择一名玩家：他死亡。如果你以这种方式自杀，一名爪牙会变成小恶魔。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "bureaucrat",
+      "name_zh": "官员",
+      "name_en": "Bureaucrat",
+      "team": "traveler",
+      "editions": [
+        "tb"
+      ],
+      "ability_zh": "每个夜晚，你要选择除你以外的一名玩家：明天白天，他的投票算作三票。",
+      "unique_note": "非唯一（旅行者：官方规则允许多名玩家持同一旅行者角色）"
+    },
+    {
+      "id": "thief",
+      "name_zh": "窃贼",
+      "name_en": "Thief",
+      "team": "traveler",
+      "editions": [
+        "tb"
+      ],
+      "ability_zh": "每个夜晚，你要选择除你以外的一名玩家：明天白天他的投票会被算作负数。",
+      "unique_note": "非唯一（旅行者：官方规则允许多名玩家持同一旅行者角色）"
+    },
+    {
+      "id": "gunslinger",
+      "name_zh": "枪手",
+      "name_en": "Gunslinger",
+      "team": "traveler",
+      "editions": [
+        "tb"
+      ],
+      "ability_zh": "每个白天，当首次投票被统计后，你可以选择一名刚投过票的玩家：他死亡。",
+      "unique_note": "非唯一（旅行者：官方规则允许多名玩家持同一旅行者角色）"
+    },
+    {
+      "id": "scapegoat",
+      "name_zh": "替罪羊",
+      "name_en": "Scapegoat",
+      "team": "traveler",
+      "editions": [
+        "tb"
+      ],
+      "ability_zh": "如果你的阵营的一名玩家被处决，你可能会代替他被处决。",
+      "unique_note": "非唯一（旅行者：官方规则允许多名玩家持同一旅行者角色）"
+    },
+    {
+      "id": "beggar",
+      "name_zh": "乞丐",
+      "name_en": "Beggar",
+      "team": "traveler",
+      "editions": [
+        "tb"
+      ],
+      "ability_zh": "你只能使用投票标记才能投票。 死亡的玩家可以将他的投票标记给你，如果他这么做，你会得知他的阵营。 你不会中毒和醉酒。",
+      "unique_note": "非唯一（旅行者：官方规则允许多名玩家持同一旅行者角色）"
+    },
+    {
+      "id": "grandmother",
+      "name_zh": "祖母",
+      "name_en": "Grandmother",
+      "team": "townsfolk",
+      "editions": [
+        "bmr"
+      ],
+      "ability_zh": "在你的首个夜晚，你会得知一名善良玩家和他的角色。 如果恶魔杀死了他，你也会死亡。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "sailor",
+      "name_zh": "水手",
+      "name_en": "Sailor",
+      "team": "townsfolk",
+      "editions": [
+        "bmr"
+      ],
+      "ability_zh": "你不会死亡。每个夜晚，你要选择除你以外的一名存活的玩家：你或他之一会醉酒直到下个黄昏。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "chambermaid",
+      "name_zh": "侍女",
+      "name_en": "Chambermaid",
+      "team": "townsfolk",
+      "editions": [
+        "bmr"
+      ],
+      "ability_zh": "每个夜晚，你要选择除你以外的两名存活的玩家：你会得知他们中有几人在当晚因其自身能力而被唤醒。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "exorcist",
+      "name_zh": "驱魔人",
+      "name_en": "Exorcist",
+      "team": "townsfolk",
+      "editions": [
+        "bmr"
+      ],
+      "ability_zh": "每个夜晚*，你要选择一名玩家（与上个夜晚不同）：如果你选中了恶魔，他会得知你是什么角色，但他当晚不会因其自身能力而被唤醒。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "innkeeper",
+      "name_zh": "旅店老板",
+      "name_en": "Innkeeper",
+      "team": "townsfolk",
+      "editions": [
+        "bmr"
+      ],
+      "ability_zh": "每个夜晚*，你要选择两名玩家：他们当晚不会死亡，但其中一人会醉酒到下个黄昏。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "gambler",
+      "name_zh": "赌徒",
+      "name_en": "Gambler",
+      "team": "townsfolk",
+      "editions": [
+        "bmr"
+      ],
+      "ability_zh": "每个夜晚*，你要选择一名玩家并猜测该玩家的角色：如果你猜错了，你会死亡。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "gossip",
+      "name_zh": "造谣者",
+      "name_en": "Gossip",
+      "team": "townsfolk",
+      "editions": [
+        "bmr"
+      ],
+      "ability_zh": "每个白天，你可以公开发表一个声明。如果该声明正确，在当晚会有一名玩家死亡。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "courtier",
+      "name_zh": "侍臣",
+      "name_en": "Courtier",
+      "team": "townsfolk",
+      "editions": [
+        "bmr"
+      ],
+      "ability_zh": "每局游戏限一次，在夜晚时，你可以选择一个角色：如果该角色在场，该角色之一从当晚开始醉酒三天三夜。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "professor",
+      "name_zh": "教授",
+      "name_en": "Professor",
+      "team": "townsfolk",
+      "editions": [
+        "bmr"
+      ],
+      "ability_zh": "每局游戏限一次，在夜晚时*，你可以选择一名死亡的玩家：如果他是镇民，你会将他起死回生。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "minstrel",
+      "name_zh": "吟游诗人",
+      "name_en": "Minstrel",
+      "team": "townsfolk",
+      "editions": [
+        "bmr"
+      ],
+      "ability_zh": "When a Minion dies by execution, all other players (except Travellers) are drunk until dusk tomorrow.",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "tealady",
+      "name_zh": "茶艺师",
+      "name_en": "Tea Lady",
+      "team": "townsfolk",
+      "editions": [
+        "bmr"
+      ],
+      "ability_zh": "如果与你邻近的两名存活的玩家是善良的，他们不会死亡。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "pacifist",
+      "name_zh": "和平主义者",
+      "name_en": "Pacifist",
+      "team": "townsfolk",
+      "editions": [
+        "bmr"
+      ],
+      "ability_zh": "被处决的善良玩家可能不会死亡。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "fool",
+      "name_zh": "弄臣",
+      "name_en": "Fool",
+      "team": "townsfolk",
+      "editions": [
+        "bmr"
+      ],
+      "ability_zh": "The first time you die, you don't.",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "tinker",
+      "name_zh": "修补匠",
+      "name_en": "Tinker",
+      "team": "outsider",
+      "editions": [
+        "bmr"
+      ],
+      "ability_zh": "你随时可能死亡。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "moonchild",
+      "name_zh": "月之子",
+      "name_en": "Moonchild",
+      "team": "outsider",
+      "editions": [
+        "bmr"
+      ],
+      "ability_zh": "当你得知你死亡时，你要公开选择一名存活的玩家。如果他是善良的，在当晚他会死亡。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "goon",
+      "name_zh": "莽夫",
+      "name_en": "Goon",
+      "team": "outsider",
+      "editions": [
+        "bmr"
+      ],
+      "ability_zh": "每个夜晚，首个使用其自身能力选择了你的玩家会醉酒直到下个黄昏。你会转变为他的阵营。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "lunatic",
+      "name_zh": "疯子",
+      "name_en": "Lunatic",
+      "team": "outsider",
+      "editions": [
+        "bmr"
+      ],
+      "ability_zh": "你以为你是一个恶魔，但其实你不是。 恶魔知道你是什么角色以及你在每个夜晚选择了哪些玩家。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "godfather",
+      "name_zh": "教父",
+      "name_en": "Godfather",
+      "team": "minion",
+      "editions": [
+        "bmr"
+      ],
+      "ability_zh": "在你的首个夜晚，你会得知有哪些外来者角色在场。 如果有外来者在白天死亡，你会在当晚被唤醒并且你要选择一名玩家：他死亡。[-1或+1外来者]",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "devilsadvocate",
+      "name_zh": "魔鬼代言人",
+      "name_en": "Devil's Advocate",
+      "team": "minion",
+      "editions": [
+        "bmr"
+      ],
+      "ability_zh": "每个夜晚，选择一名存活玩家。若其在当晚被恶魔攻击，改为使其中毒。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "assassin",
+      "name_zh": "刺客",
+      "name_en": "Assassin",
+      "team": "minion",
+      "editions": [
+        "bmr"
+      ],
+      "ability_zh": "每个白天，可秘密选择一名玩家。若其为恶魔，该恶魔中毒。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "mastermind",
+      "name_zh": "主谋",
+      "name_en": "Mastermind",
+      "team": "minion",
+      "editions": [
+        "bmr"
+      ],
+      "ability_zh": "如果恶魔因为死于处决而因此导致游戏结束时，再额外进行一个夜晚和一个白天。在那个白天如果有玩家被处决，他的阵营落败。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "zombuul",
+      "name_zh": "僵怖",
+      "name_en": "Zombuul",
+      "team": "demon",
+      "editions": [
+        "bmr"
+      ],
+      "ability_zh": "每个夜晚*，如果今天白天没有人死亡，你会被唤醒并要选择一名玩家：他死亡。 当你首次死亡后，你仍存活，但会被当作死亡。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "pukka",
+      "name_zh": "普卡",
+      "name_en": "Pukka",
+      "team": "demon",
+      "editions": [
+        "bmr"
+      ],
+      "ability_zh": "每个夜晚，你要选择一名玩家：他中毒。 上个因你的能力中毒的玩家会死亡并恢复健康。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "shabaloth",
+      "name_zh": "沙巴洛斯",
+      "name_en": "Shabaloth",
+      "team": "demon",
+      "editions": [
+        "bmr"
+      ],
+      "ability_zh": "每个夜晚*，你要选择两名玩家：他们死亡。 你的上个夜晚选择过的且当前死亡的玩家可能会被你反刍。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "po",
+      "name_zh": "珀",
+      "name_en": "Po",
+      "team": "demon",
+      "editions": [
+        "bmr"
+      ],
+      "ability_zh": "每个夜晚*，你可以选择一名玩家：他死亡。 如果你上次选择时没有选择任何玩家，当晚你要选择三名玩家：他们死亡。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "apprentice",
+      "name_zh": "学徒",
+      "name_en": "Apprentice",
+      "team": "traveler",
+      "editions": [
+        "bmr"
+      ],
+      "ability_zh": "在你的首个夜晚，如果你是善良的，你会获得一个镇民角色的能力；如果你是邪恶的，你会获得一个爪牙角色的能力。",
+      "unique_note": "非唯一（旅行者：官方规则允许多名玩家持同一旅行者角色）"
+    },
+    {
+      "id": "matron",
+      "name_zh": "女舍监",
+      "name_en": "Matron",
+      "team": "traveler",
+      "editions": [
+        "bmr"
+      ],
+      "ability_zh": "每个白天，你可以选择至多三对玩家交换座位。 玩家不能离开座位私聊。",
+      "unique_note": "非唯一（旅行者：官方规则允许多名玩家持同一旅行者角色）"
+    },
+    {
+      "id": "judge",
+      "name_zh": "法官",
+      "name_en": "Judge",
+      "team": "traveler",
+      "editions": [
+        "bmr"
+      ],
+      "ability_zh": "每局游戏限一次，如果其他玩家发起了提名，你可以选择让本次提名直接执行处决或让投票无效。",
+      "unique_note": "非唯一（旅行者：官方规则允许多名玩家持同一旅行者角色）"
+    },
+    {
+      "id": "bishop",
+      "name_zh": "主教",
+      "name_en": "Bishop",
+      "team": "traveler",
+      "editions": [
+        "bmr"
+      ],
+      "ability_zh": "只有说书人可以发起提名。每个白天说书人至少要提名一名你对立阵营的玩家。",
+      "unique_note": "非唯一（旅行者：官方规则允许多名玩家持同一旅行者角色）"
+    },
+    {
+      "id": "voudon",
+      "name_zh": "巫毒师",
+      "name_en": "Voudon",
+      "team": "traveler",
+      "editions": [
+        "bmr"
+      ],
+      "ability_zh": "只有你和死亡的玩家可以投票，且投票不需要使用投票标记。忽略票数需要过半的要求。",
+      "unique_note": "非唯一（旅行者：官方规则允许多名玩家持同一旅行者角色）"
+    },
+    {
+      "id": "clockmaker",
+      "name_zh": "钟表匠",
+      "name_en": "Clockmaker",
+      "team": "townsfolk",
+      "editions": [
+        "snv"
+      ],
+      "ability_zh": "在你的首个夜晚，你会得知恶魔与爪牙之间最近的距离。（邻座的玩家距离为1）",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "dreamer",
+      "name_zh": "筑梦师",
+      "name_en": "Dreamer",
+      "team": "townsfolk",
+      "editions": [
+        "snv"
+      ],
+      "ability_zh": "每个夜晚，你要选择除你及旅行者以外的一名玩家：你会得知一个善良角色和一个邪恶角色，该玩家是其中一个角色。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "snakecharmer",
+      "name_zh": "舞蛇人",
+      "name_en": "Snake Charmer",
+      "team": "townsfolk",
+      "editions": [
+        "snv"
+      ],
+      "ability_zh": "每个夜晚，你要选择一名存活的玩家：如果你选中了恶魔，你和他交换角色和阵营，然后他中毒。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "mathematician",
+      "name_zh": "数学家",
+      "name_en": "Mathematician",
+      "team": "townsfolk",
+      "editions": [
+        "snv"
+      ],
+      "ability_zh": "每个夜晚，你会得知有多少名玩家的能力因为其他角色的能力而未正常生效。（从上个黎明到你被唤醒时）",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "flowergirl",
+      "name_zh": "卖花女孩",
+      "name_en": "Flowergirl",
+      "team": "townsfolk",
+      "editions": [
+        "snv"
+      ],
+      "ability_zh": "每个夜晚*，你会得知在今天白天时是否有恶魔投过票。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "towncrier",
+      "name_zh": "城镇公告员",
+      "name_en": "Town Crier",
+      "team": "townsfolk",
+      "editions": [
+        "snv"
+      ],
+      "ability_zh": "每个夜晚*，你会得知在今天白天时是否有爪牙发起过提名。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "oracle",
+      "name_zh": "神谕者",
+      "name_en": "Oracle",
+      "team": "townsfolk",
+      "editions": [
+        "snv"
+      ],
+      "ability_zh": "每个夜晚*，你会得知有多少名死亡的玩家是邪恶的。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "savant",
+      "name_zh": "博学者",
+      "name_en": "Savant",
+      "team": "townsfolk",
+      "editions": [
+        "snv"
+      ],
+      "ability_zh": "每个白天，你可以私下询问说书人以得知两条信息：一个是正确的，一个是错误的。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "seamstress",
+      "name_zh": "女裁缝",
+      "name_en": "Seamstress",
+      "team": "townsfolk",
+      "editions": [
+        "snv"
+      ],
+      "ability_zh": "每局游戏限一次，在夜晚时，你可以选择除你以外的两名玩家：你会得知他们是否为同一阵营。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "philosopher",
+      "name_zh": "哲学家",
+      "name_en": "Philosopher",
+      "team": "townsfolk",
+      "editions": [
+        "snv"
+      ],
+      "ability_zh": "每局游戏限一次，在夜晚时，你可以选择一个善良角色：你获得该角色的能力。 如果这个角色在场，他醉酒。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "artist",
+      "name_zh": "艺术家",
+      "name_en": "Artist",
+      "team": "townsfolk",
+      "editions": [
+        "snv"
+      ],
+      "ability_zh": "每局游戏限一次，在白天时，你可以私下询问说书人一个是非问题，你会得知该问题的答案。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "juggler",
+      "name_zh": "杂耍艺人",
+      "name_en": "Juggler",
+      "team": "townsfolk",
+      "editions": [
+        "snv"
+      ],
+      "ability_zh": "在你的首个白天，你可以公开猜测任意玩家的角色最多五次。在当晚，你会得知猜测正确的角色数量。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "sage",
+      "name_zh": "贤者",
+      "name_en": "Sage",
+      "team": "townsfolk",
+      "editions": [
+        "snv"
+      ],
+      "ability_zh": "如果恶魔杀死了你，在当晚你会被唤醒并得知两名玩家，其中一名是杀死你的那个恶魔。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "mutant",
+      "name_zh": "畸形秀演员",
+      "name_en": "Mutant",
+      "team": "outsider",
+      "editions": [
+        "snv"
+      ],
+      "ability_zh": "如果你“疯狂”地证明自己是外来者，你可能被处决。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "sweetheart",
+      "name_zh": "心上人",
+      "name_en": "Sweetheart",
+      "team": "outsider",
+      "editions": [
+        "snv"
+      ],
+      "ability_zh": "当你死亡时，会有一名玩家开始醉酒。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "barber",
+      "name_zh": "理发师",
+      "name_en": "Barber",
+      "team": "outsider",
+      "editions": [
+        "snv"
+      ],
+      "ability_zh": "如果你死亡，在当晚恶魔可以选择两名玩家（不能选择其他恶魔）交换角色。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "klutz",
+      "name_zh": "呆瓜",
+      "name_en": "Klutz",
+      "team": "outsider",
+      "editions": [
+        "snv"
+      ],
+      "ability_zh": "当你得知你死亡时，你要公开选择一名存活的玩家：如果他是邪恶的，你的阵营落败。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "eviltwin",
+      "name_zh": "镜像双子",
+      "name_en": "Evil Twin",
+      "team": "minion",
+      "editions": [
+        "snv"
+      ],
+      "ability_zh": "你与一名对立阵营的玩家互相知道对方是什么角色。 如果其中善良玩家被处决，邪恶阵营获胜。 如果你们都存活，善良阵营无法获胜。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "witch",
+      "name_zh": "女巫",
+      "name_en": "Witch",
+      "team": "minion",
+      "editions": [
+        "snv"
+      ],
+      "ability_zh": "每个夜晚，你要选择一名玩家：如果他明天白天发起提名，他死亡。如果只有三名存活的玩家，你失去此能力。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "cerenovus",
+      "name_zh": "洗脑师",
+      "name_en": "Cerenovus",
+      "team": "minion",
+      "editions": [
+        "snv"
+      ],
+      "ability_zh": "每个夜晚，你要选择一名玩家和一个善良角色。他明天白天和夜晚需要“疯狂”地证明自己是这个角色，不然他可能被处决。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "pithag",
+      "name_zh": "麻脸巫婆",
+      "name_en": "Pit-Hag",
+      "team": "minion",
+      "editions": [
+        "snv"
+      ],
+      "ability_zh": "每个夜晚*，你要选择一名玩家和一个角色，如果该角色不在场，他变成该角色。如果因此创造了一个恶魔，当晚的死亡由说书人决定。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "fanggu",
+      "name_zh": "方古",
+      "name_en": "Fang Gu",
+      "team": "demon",
+      "editions": [
+        "snv"
+      ],
+      "ability_zh": "每个夜晚*，你要选择一名玩家：他死亡。 首个会被这种能力杀死的外来者改为变成一个邪恶的方古且你代替他死亡。[+1外来者]",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "vigormortis",
+      "name_zh": "亡骨魔",
+      "name_en": "Vigormortis",
+      "team": "demon",
+      "editions": [
+        "snv"
+      ],
+      "ability_zh": "每个夜晚*，你要选择一名玩家：他死亡。 被你杀死的爪牙保留他的能力，且与他邻近的两名镇民之一中毒。[-1外来者]",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "nodashii",
+      "name_zh": "诺-达鲺",
+      "name_en": "No Dashii",
+      "team": "demon",
+      "editions": [
+        "snv"
+      ],
+      "ability_zh": "每个夜晚*，你要选择一名玩家：他死亡。 与你邻近的两名镇民中毒。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "vortox",
+      "name_zh": "涡流",
+      "name_en": "Vortox",
+      "team": "demon",
+      "editions": [
+        "snv"
+      ],
+      "ability_zh": "每个夜晚*，你要选择一名玩家：他死亡。 镇民玩家的能力都会产生错误信息。 如果白天没人被处决，邪恶阵营获胜。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "barista",
+      "name_zh": "咖啡师",
+      "name_en": "Barista",
+      "team": "traveler",
+      "editions": [
+        "snv"
+      ],
+      "ability_zh": "每个夜晚，直至下个黄昏，由说书人二选一：1）一名玩家解除并免受醉酒和中毒影响，且会得知正确信息；2）一名玩家的能力可以生效两次。该玩家会得知是哪个效果。",
+      "unique_note": "非唯一（旅行者：官方规则允许多名玩家持同一旅行者角色）"
+    },
+    {
+      "id": "harlot",
+      "name_zh": "流莺",
+      "name_en": "Harlot",
+      "team": "traveler",
+      "editions": [
+        "snv"
+      ],
+      "ability_zh": "每个夜晚*，你要选择一名存活的玩家：如果他同意，你会得知他的角色，但是你们两个可能同时死亡。",
+      "unique_note": "非唯一（旅行者：官方规则允许多名玩家持同一旅行者角色）"
+    },
+    {
+      "id": "butcher",
+      "name_zh": "屠夫",
+      "name_en": "Butcher",
+      "team": "traveler",
+      "editions": [
+        "snv"
+      ],
+      "ability_zh": "每个白天，首次处决后，你可以再次发起提名。",
+      "unique_note": "非唯一（旅行者：官方规则允许多名玩家持同一旅行者角色）"
+    },
+    {
+      "id": "bonecollector",
+      "name_zh": "集骨者",
+      "name_en": "Bone Collector",
+      "team": "traveler",
+      "editions": [
+        "snv"
+      ],
+      "ability_zh": "每局游戏限一次，在夜晚时*，你可以选择一名死亡的玩家：他重新获得能力直到下个黄昏。",
+      "unique_note": "非唯一（旅行者：官方规则允许多名玩家持同一旅行者角色）"
+    },
+    {
+      "id": "deviant",
+      "name_zh": "怪咖",
+      "name_en": "Deviant",
+      "team": "traveler",
+      "editions": [
+        "snv"
+      ],
+      "ability_zh": "如果你表现得很有趣，当天你不能被流放。",
+      "unique_note": "非唯一（旅行者：官方规则允许多名玩家持同一旅行者角色）"
+    },
+    {
+      "id": "noble",
+      "name_zh": "贵族",
+      "name_en": "Noble",
+      "team": "townsfolk",
+      "editions": [],
+      "ability_zh": "在你的首个夜晚，你会得知三名玩家：其中有且只有一名玩家是邪恶的。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "bountyhunter",
+      "name_zh": "赏金猎人",
+      "name_en": "Bounty Hunter",
+      "team": "townsfolk",
+      "editions": [],
+      "ability_zh": "在你的首个夜晚，你会得知一名邪恶玩家。 每当你得知的玩家死亡，你会在当晚得知另一名邪恶玩家。[会有一名镇民转变为邪恶阵营]",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "pixie",
+      "name_zh": "小精灵",
+      "name_en": "Pixie",
+      "team": "townsfolk",
+      "editions": [],
+      "ability_zh": "在你的首个夜晚，你会得知一个在场的镇民角色。如果你“疯狂”地证明你是该角色，当他死亡时你获得该角色的能力。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "general",
+      "name_zh": "将军",
+      "name_en": "General",
+      "team": "townsfolk",
+      "editions": [],
+      "ability_zh": "每个夜晚，你会得知说书人认为哪个阵营当前更有优势（善良/邪恶/均势）。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "preacher",
+      "name_zh": "传教士",
+      "name_en": "Preacher",
+      "team": "townsfolk",
+      "editions": [],
+      "ability_zh": "每个夜晚，你要选择一名玩家：如果你选中了爪牙，他会得知被传教士选中。 所有被你选中的爪牙失去能力。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "king",
+      "name_zh": "国王",
+      "name_en": "King",
+      "team": "townsfolk",
+      "editions": [],
+      "ability_zh": "每个夜晚，如果死亡的玩家数量大于存活的玩家数量，你会得知一个存活的角色。恶魔知道你是什么角色。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "balloonist",
+      "name_zh": "气球驾驶员",
+      "name_en": "Balloonist",
+      "team": "townsfolk",
+      "editions": [],
+      "ability_zh": "每个夜晚，你会得知一名与上个夜晚得知的玩家角色类型不同的玩家。[+0~1 外来者]",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "cultleader",
+      "name_zh": "异教领袖",
+      "name_en": "Cult Leader",
+      "team": "townsfolk",
+      "editions": [],
+      "ability_zh": "每个夜晚，你会转变为与你邻近的一名存活的玩家的阵营。每个白天，你可以提议所有玩家加入你的教派，如果所有善良玩家同意加入，你的阵营获胜。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "lycanthrope",
+      "name_zh": "半兽人",
+      "name_en": "Lycanthrope",
+      "team": "townsfolk",
+      "editions": [],
+      "ability_zh": "每个夜晚*，你要选择一名存活玩家：如果他是善良的，他死亡，并且当晚恶魔不会造成死亡。 会有一名善良玩家始终被当作邪恶阵营。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "amnesiac",
+      "name_zh": "失忆者",
+      "name_en": "Amnesiac",
+      "team": "townsfolk",
+      "editions": [],
+      "ability_zh": "你不知道你的能力是什么。每个白天你可以找说书人猜测一次，你会得知你的猜测有多准确。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "nightwatchman",
+      "name_zh": "守夜人",
+      "name_en": "Nightwatchman",
+      "team": "townsfolk",
+      "editions": [],
+      "ability_zh": "每局游戏限一次，在夜晚时，你可以选择一名玩家：他会得知你是守夜人。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "engineer",
+      "name_zh": "工程师",
+      "name_en": "Engineer",
+      "team": "townsfolk",
+      "editions": [],
+      "ability_zh": "每局游戏限一次，在夜晚时，你可以选择让恶魔变成你选择的恶魔角色，或让所有爪牙变成你选择的爪牙角色。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "fisherman",
+      "name_zh": "渔夫",
+      "name_en": "Fisherman",
+      "team": "townsfolk",
+      "editions": [],
+      "ability_zh": "每局游戏限一次，在白天时，你可以让说书人给你一些能帮助你的阵营获胜的建议。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "huntsman",
+      "name_zh": "巡山人",
+      "name_en": "Huntsman",
+      "team": "townsfolk",
+      "editions": [],
+      "ability_zh": "每局游戏限一次，在夜晚时，你可以选择一名存活的玩家：如果你选中了落难少女，她会变成一个不在场的镇民角色。[+落难少女]",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "alchemist",
+      "name_zh": "炼金术士",
+      "name_en": "Alchemist",
+      "team": "townsfolk",
+      "editions": [],
+      "ability_zh": "You have a not-in-play Minion ability.",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "farmer",
+      "name_zh": "农夫",
+      "name_en": "Farmer",
+      "team": "townsfolk",
+      "editions": [],
+      "ability_zh": "当你在夜晚死亡时，一名存活的善良玩家会变成农夫。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "magician",
+      "name_zh": "魔术师",
+      "name_en": "Magician",
+      "team": "townsfolk",
+      "editions": [],
+      "ability_zh": "恶魔会以为你是爪牙。爪牙会以为你是恶魔。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "choirboy",
+      "name_zh": "唱诗男孩",
+      "name_en": "Choirboy",
+      "team": "townsfolk",
+      "editions": [],
+      "ability_zh": "如果国王死亡，在当晚你会得知哪名玩家是杀死国王的恶魔。[+国王]",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "poppygrower",
+      "name_zh": "罂粟种植者",
+      "name_en": "Poppy Grower",
+      "team": "townsfolk",
+      "editions": [],
+      "ability_zh": "爪牙和恶魔互相不认识。如果你死亡，当晚他们会互相认识。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "atheist",
+      "name_zh": "无神论者",
+      "name_en": "Atheist",
+      "team": "townsfolk",
+      "editions": [],
+      "ability_zh": "说书人可以打破游戏规则。如果说书人被处决，善良阵营获胜，即使你已死亡。[无邪恶角色在场]",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "cannibal",
+      "name_zh": "食人族",
+      "name_en": "Cannibal",
+      "team": "townsfolk",
+      "editions": [],
+      "ability_zh": "你拥有上个死于处决的玩家的能力。如果该玩家属于邪恶阵营，你中毒直到下个善良玩家被处决。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "snitch",
+      "name_zh": "告密者",
+      "name_en": "Snitch",
+      "team": "outsider",
+      "editions": [],
+      "ability_zh": "Minions start knowing 3 not-in-play characters.",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "acrobat",
+      "name_zh": "杂技演员",
+      "name_en": "Acrobat",
+      "team": "outsider",
+      "editions": [],
+      "ability_zh": "每个夜晚*，你要选择一名玩家：如果当晚他醉酒或中毒，你死亡。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "puzzlemaster",
+      "name_zh": "解谜大师",
+      "name_en": "Puzzlemaster",
+      "team": "outsider",
+      "editions": [],
+      "ability_zh": "一名玩家醉酒，即使你已死亡。每局游戏限一次，你可以猜测谁是那个醉酒的玩家，如果猜对了，你会得知谁是恶魔，但如果猜错了，你会得知错误的“谁是恶魔”信息。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "heretic",
+      "name_zh": "异端分子",
+      "name_en": "Heretic",
+      "team": "outsider",
+      "editions": [],
+      "ability_zh": "所有本来获胜的玩家，改为落败；所有本来落败的玩家，改为获胜，即使你已死亡。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "damsel",
+      "name_zh": "落难少女",
+      "name_en": "Damsel",
+      "team": "outsider",
+      "editions": [],
+      "ability_zh": "所有爪牙都知道你在场。每局游戏限一次，任意爪牙可以公开猜测你的角色，如果猜对，你的阵营落败。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "golem",
+      "name_zh": "魔像",
+      "name_en": "Golem",
+      "team": "outsider",
+      "editions": [],
+      "ability_zh": "每局游戏你只能发起提名一次。当你发起提名时，如果被你提名的玩家不是恶魔，他死亡。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "politician",
+      "name_zh": "政客",
+      "name_en": "Politician",
+      "team": "outsider",
+      "editions": [],
+      "ability_zh": "如果你是对你的阵营落败负最大责任的人，你转变阵营并获胜，即使你已死亡。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "widow",
+      "name_zh": "寡妇",
+      "name_en": "Widow",
+      "team": "minion",
+      "editions": [],
+      "ability_zh": "在你的首个夜晚，你能查看魔典并选择一名玩家：他中毒。随后，始终会有一名善良玩家知道寡妇在场。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "fearmonger",
+      "name_zh": "恐惧之灵",
+      "name_en": "Fearmonger",
+      "team": "minion",
+      "editions": [],
+      "ability_zh": "每个夜晚，你要选择一名玩家：如果你提名他且他被处决，他的阵营落败。当你首次选择或更换目标时，所有玩家都会得知你选择了新的玩家。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "psychopath",
+      "name_zh": "精神病患者",
+      "name_en": "Psychopath",
+      "team": "minion",
+      "editions": [],
+      "ability_zh": "每个白天，在提名开始前，你可以公开选择一名玩家：他死亡。如果你被处决，提名你的玩家需要和你猜拳，只有你输了你才会死亡。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "goblin",
+      "name_zh": "哥布林",
+      "name_en": "Goblin",
+      "team": "minion",
+      "editions": [],
+      "ability_zh": "如果你在被提名后公开声明自己是哥布林且在那个白天被处决，你的阵营获胜。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "mephit",
+      "name_zh": "",
+      "name_en": "Mephit",
+      "team": "minion",
+      "editions": [],
+      "ability_zh": "You start knowing a secret word. The 1st good player to say this word becomes evil that night.",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "mezepheles",
+      "name_zh": "灵言师",
+      "name_en": "Mezepheles",
+      "team": "minion",
+      "editions": [],
+      "ability_zh": "在你的首个夜晚，你会得知一个关键词。首个说出该关键词的善良玩家会在当晚转变为邪恶阵营。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "marionette",
+      "name_zh": "提线木偶",
+      "name_en": "Marionette",
+      "team": "minion",
+      "editions": [],
+      "ability_zh": "你以为你是一个善良角色，但其实你不是。恶魔会知道你是什么角色。[提线木偶会与恶魔邻座]",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "boomdandy",
+      "name_zh": "炸弹人",
+      "name_en": "Boomdandy",
+      "team": "minion",
+      "editions": [],
+      "ability_zh": "如果你被处决，除三名玩家以外的其他所有玩家均会死亡。一分钟之后，被最多玩家手指指着的玩家死亡。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "lilmonsta",
+      "name_zh": "小怪宝",
+      "name_en": "Lil' Monsta",
+      "team": "demon",
+      "editions": [],
+      "ability_zh": "每个夜晚，所有爪牙要秘密决定由哪名玩家来照看小怪宝，然后该玩家被当作恶魔。每个夜晚*，会有一名玩家死亡。[+1爪牙]",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "lleech",
+      "name_zh": "痢蛭",
+      "name_en": "Lleech",
+      "team": "demon",
+      "editions": [],
+      "ability_zh": "每个夜晚*，你要选择一名玩家：他死亡。在你的首个夜晚，你要选择一名存活的玩家：他中毒，只有他死亡时你才会一同死亡。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "alhadikhia",
+      "name_zh": "哈迪寂亚",
+      "name_en": "Al-Hadikhia",
+      "team": "demon",
+      "editions": [],
+      "ability_zh": "每个夜晚*，你要选择三名玩家（所有玩家都会得知你选了谁）：他们分别秘密决定自己的生死，然后如果他们都存活则都死亡。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "legion",
+      "name_zh": "军团",
+      "name_en": "Legion",
+      "team": "demon",
+      "editions": [],
+      "ability_zh": "每个夜晚*，可能有一名玩家死亡。如果一项提名只有邪恶玩家投票，投票无效。你也会被当作是爪牙。[多数玩家为军团]",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "leviathan",
+      "name_zh": "利维坦",
+      "name_en": "Leviathan",
+      "team": "demon",
+      "editions": [],
+      "ability_zh": "如果多于一名善良玩家被处决，邪恶阵营获胜。 所有玩家都知道利维坦在场。 在第五个白天结束时，邪恶阵营获胜。",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "riot",
+      "name_zh": "暴乱",
+      "name_en": "Riot",
+      "team": "demon",
+      "editions": [],
+      "ability_zh": "被提名的玩家死亡，但他可以立刻再次发起提名（第三天白天他必须这么做）。在第三个白天结束时，邪恶阵营获胜。[所有爪牙都是暴乱]",
+      "unique_note": "唯一（BOTC 常规剧本角色每局唯一）"
+    },
+    {
+      "id": "gangster",
+      "name_zh": "黑帮",
+      "name_en": "Gangster",
+      "team": "traveler",
+      "editions": [],
+      "ability_zh": "每个白天限一次，你可以杀死与你邻近的两名存活的玩家中的一名，但需要另一边那个存活的玩家同意。",
+      "unique_note": "非唯一（旅行者：官方规则允许多名玩家持同一旅行者角色）"
+    }
+  ]
+}

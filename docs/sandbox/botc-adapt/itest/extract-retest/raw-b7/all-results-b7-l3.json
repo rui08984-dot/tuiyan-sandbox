@@ -1,0 +1,793 @@
+{
+  "startedAt": "2026-09-09T02:04:20.460Z",
+  "endpoint": {
+    "baseUrl": "https://tokenrhythm.studio/v1",
+    "model": "glm-5.3-flash",
+    "note": "B7 retest; api_key 仅内存"
+  },
+  "players": [
+    {
+      "seat": 1,
+      "name": "玩家1"
+    },
+    {
+      "seat": 2,
+      "name": "玩家2"
+    },
+    {
+      "seat": 3,
+      "name": "玩家3"
+    },
+    {
+      "seat": 4,
+      "name": "玩家4"
+    },
+    {
+      "seat": 5,
+      "name": "玩家5"
+    },
+    {
+      "seat": 6,
+      "name": "玩家6"
+    },
+    {
+      "seat": 7,
+      "name": "玩家7"
+    },
+    {
+      "seat": 8,
+      "name": "玩家8"
+    },
+    {
+      "seat": 9,
+      "name": "玩家9"
+    },
+    {
+      "seat": 10,
+      "name": "玩家10"
+    },
+    {
+      "seat": 11,
+      "name": "玩家11"
+    },
+    {
+      "seat": 12,
+      "name": "玩家12"
+    },
+    {
+      "seat": 13,
+      "name": "玩家13"
+    },
+    {
+      "seat": 14,
+      "name": "玩家14"
+    },
+    {
+      "seat": 15,
+      "name": "玩家15"
+    }
+  ],
+  "results": [
+    {
+      "id": "tb-03",
+      "edition": "tb",
+      "cat": "状态声称",
+      "day": 1,
+      "phase": "day",
+      "speakerSeat": 2,
+      "text": "我自己都醉了，我刚才报的信息你们千万别信。",
+      "expected": {
+        "event_type": "statement",
+        "claims": [
+          {
+            "subject_seat": 2,
+            "predicate_ideal": "status_drunk",
+            "object": "醉酒",
+            "map_expect": "botc",
+            "note": "speakerSeat 不进 prompt，第一人称归属缺口探针"
+          }
+        ],
+        "action": null
+      },
+      "ms": 8471.117,
+      "attempts_external": 0,
+      "error": null,
+      "out": {
+        "event": {
+          "day": 1,
+          "phase": "day",
+          "type": "statement",
+          "raw_text": "我自己都醉了，我刚才报的信息你们千万别信。",
+          "actor_seat": 2
+        },
+        "claims": [
+          {
+            "subject_seat": 2,
+            "predicate": "said",
+            "object": "__BOTC[status_drunk]自称醉酒"
+          }
+        ],
+        "action": null,
+        "warnings": [],
+        "meta": {
+          "mode": "LIVE",
+          "attempts": 1
+        },
+        "actor_seat": 2,
+        "l3_claims": [
+          {
+            "subject_seat": 2,
+            "predicate": "status_drunk",
+            "object": "自称醉酒"
+          }
+        ],
+        "l3_warnings": []
+      }
+    },
+    {
+      "id": "tb-04",
+      "edition": "tb",
+      "cat": "状态声称",
+      "day": 2,
+      "phase": "day",
+      "speakerSeat": 7,
+      "text": "我觉得我被投毒了，昨晚占卜师给我的结果肯定是反的。",
+      "expected": {
+        "event_type": "statement",
+        "claims": [
+          {
+            "subject_seat": 7,
+            "predicate_ideal": "status_poisoned",
+            "object": "中毒",
+            "map_expect": "botc"
+          },
+          {
+            "subject_seat": 7,
+            "predicate_ideal": "claims_role",
+            "object": "占卜师",
+            "map_expect": "main_role",
+            "note": "隐含自称占卜师；若模型输出此条属推断，判可疑"
+          }
+        ],
+        "action": null
+      },
+      "ms": 24511.097,
+      "attempts_external": 0,
+      "error": null,
+      "out": {
+        "event": {
+          "day": 2,
+          "phase": "day",
+          "type": "statement",
+          "raw_text": "我觉得我被投毒了，昨晚占卜师给我的结果肯定是反的。",
+          "actor_seat": 7
+        },
+        "claims": [
+          {
+            "subject_seat": 7,
+            "predicate": "said",
+            "object": "__BOTC[status_poisoned]自称被投毒"
+          },
+          {
+            "subject_seat": 7,
+            "predicate": "said",
+            "object": "认为昨晚占卜师给他的结果因中毒而肯定是反的"
+          }
+        ],
+        "action": null,
+        "warnings": [],
+        "meta": {
+          "mode": "LIVE",
+          "attempts": 1
+        },
+        "actor_seat": 7,
+        "l3_claims": [
+          {
+            "subject_seat": 7,
+            "predicate": "status_poisoned",
+            "object": "自称被投毒"
+          },
+          {
+            "subject_seat": 7,
+            "predicate": "said",
+            "object": "认为昨晚占卜师给他的结果因中毒而肯定是反的"
+          }
+        ],
+        "l3_warnings": []
+      }
+    },
+    {
+      "id": "bmr-03",
+      "edition": "bmr",
+      "cat": "状态声称",
+      "day": 2,
+      "phase": "day",
+      "speakerSeat": 5,
+      "text": "我觉得我中毒了，教授白天给我的那条信息八成是反的。",
+      "expected": {
+        "event_type": "statement",
+        "claims": [
+          {
+            "subject_seat": 5,
+            "predicate_ideal": "status_poisoned",
+            "object": "中毒",
+            "map_expect": "botc"
+          },
+          {
+            "subject_seat": 5,
+            "predicate_ideal": "claims_role",
+            "object": "教授",
+            "map_expect": "main_role",
+            "note": "隐含自称教授，若输出属推断"
+          }
+        ],
+        "action": null
+      },
+      "ms": 6715.101,
+      "attempts_external": 0,
+      "error": null,
+      "out": {
+        "event": {
+          "day": 2,
+          "phase": "day",
+          "type": "statement",
+          "raw_text": "我觉得我中毒了，教授白天给我的那条信息八成是反的。",
+          "actor_seat": 5
+        },
+        "claims": [
+          {
+            "subject_seat": 5,
+            "predicate": "said",
+            "object": "__BOTC[status_poisoned]自称被投毒"
+          }
+        ],
+        "action": null,
+        "warnings": [],
+        "meta": {
+          "mode": "LIVE",
+          "attempts": 1
+        },
+        "actor_seat": 5,
+        "l3_claims": [
+          {
+            "subject_seat": 5,
+            "predicate": "status_poisoned",
+            "object": "自称被投毒"
+          }
+        ],
+        "l3_warnings": []
+      }
+    },
+    {
+      "id": "snv-03",
+      "edition": "snv",
+      "cat": "状态声称",
+      "day": 2,
+      "phase": "day",
+      "speakerSeat": 6,
+      "text": "我感觉我中毒了，今天听到的所有信息都像是反的。",
+      "expected": {
+        "event_type": "statement",
+        "claims": [
+          {
+            "subject_seat": 6,
+            "predicate_ideal": "status_poisoned",
+            "object": "中毒",
+            "map_expect": "botc",
+            "note": "第一人称归属缺口探针"
+          }
+        ],
+        "action": null
+      },
+      "ms": 3954.289,
+      "attempts_external": 0,
+      "error": null,
+      "out": {
+        "event": {
+          "day": 2,
+          "phase": "day",
+          "type": "statement",
+          "raw_text": "我感觉我中毒了，今天听到的所有信息都像是反的。",
+          "actor_seat": 6
+        },
+        "claims": [
+          {
+            "subject_seat": 6,
+            "predicate": "said",
+            "object": "__BOTC[status_poisoned]自称被投毒"
+          }
+        ],
+        "action": null,
+        "warnings": [],
+        "meta": {
+          "mode": "LIVE",
+          "attempts": 1
+        },
+        "actor_seat": 6,
+        "l3_claims": [
+          {
+            "subject_seat": 6,
+            "predicate": "status_poisoned",
+            "object": "自称被投毒"
+          }
+        ],
+        "l3_warnings": []
+      }
+    },
+    {
+      "id": "snv-04",
+      "edition": "snv",
+      "cat": "状态声称",
+      "day": 3,
+      "phase": "day",
+      "speakerSeat": 2,
+      "text": "6号昨天处决后我就一直脑子不清醒，我八成吃到了心上人的醉酒效果。",
+      "expected": {
+        "event_type": "statement",
+        "claims": [
+          {
+            "subject_seat": 6,
+            "predicate_ideal": "is_role",
+            "object": "心上人",
+            "map_expect": "main_role",
+            "note": "由处决+醉酒效果反推6号是心上人，推断口径"
+          },
+          {
+            "subject_seat": 2,
+            "predicate_ideal": "status_drunk",
+            "object": "醉酒",
+            "map_expect": "botc",
+            "note": "第一人称归属缺口探针"
+          }
+        ],
+        "action": null
+      },
+      "ms": 24552.481,
+      "attempts_external": 0,
+      "error": null,
+      "out": {
+        "event": {
+          "day": 3,
+          "phase": "day",
+          "type": "statement",
+          "raw_text": "6号昨天处决后我就一直脑子不清醒，我八成吃到了心上人的醉酒效果。",
+          "actor_seat": 2
+        },
+        "claims": [
+          {
+            "subject_seat": 2,
+            "predicate": "said",
+            "object": "__BOTC[status_drunk]自称疑似吃到心上人的醉酒效果（6号昨天处决后开始脑子不清醒）"
+          }
+        ],
+        "action": null,
+        "warnings": [],
+        "meta": {
+          "mode": "LIVE",
+          "attempts": 1
+        },
+        "actor_seat": 2,
+        "l3_claims": [
+          {
+            "subject_seat": 2,
+            "predicate": "status_drunk",
+            "object": "自称疑似吃到心上人的醉酒效果（6号昨天处决后开始脑子不清醒）"
+          }
+        ],
+        "l3_warnings": []
+      }
+    },
+    {
+      "id": "snv-02",
+      "edition": "snv",
+      "cat": "阵营声称",
+      "day": 2,
+      "phase": "day",
+      "speakerSeat": null,
+      "text": "14号就是恶魔，他的投票方向一直带着两三个爪牙走，跟风的人自己心里有数。",
+      "expected": {
+        "event_type": "statement",
+        "claims": [
+          {
+            "subject_seat": 14,
+            "predicate_ideal": "is_demon",
+            "object": "恶魔",
+            "map_expect": "botc",
+            "note": "群体爪牙暗示无具体座位，不应编造"
+          }
+        ],
+        "action": null
+      },
+      "ms": 7307.255,
+      "attempts_external": 0,
+      "error": null,
+      "out": {
+        "event": {
+          "day": 2,
+          "phase": "day",
+          "type": "statement",
+          "raw_text": "14号就是恶魔，他的投票方向一直带着两三个爪牙走，跟风的人自己心里有数。",
+          "actor_seat": 14
+        },
+        "claims": [
+          {
+            "subject_seat": 14,
+            "predicate": "said",
+            "object": "__BOTC[is_demon]14号是恶魔，其投票方向疑似带动两三个爪牙（未指明具体席位）"
+          }
+        ],
+        "action": null,
+        "warnings": [],
+        "meta": {
+          "mode": "LIVE",
+          "attempts": 1
+        },
+        "actor_seat": 14,
+        "l3_claims": [
+          {
+            "subject_seat": 14,
+            "predicate": "is_demon",
+            "object": "14号是恶魔，其投票方向疑似带动两三个爪牙（未指明具体席位）"
+          }
+        ],
+        "l3_warnings": []
+      }
+    },
+    {
+      "id": "tb-02",
+      "edition": "tb",
+      "cat": "阵营声称",
+      "day": 1,
+      "phase": "day",
+      "speakerSeat": null,
+      "text": "5号从开局就在给小恶魔打掩护，他八成是爪牙。",
+      "expected": {
+        "event_type": "statement",
+        "claims": [
+          {
+            "subject_seat": 5,
+            "predicate_ideal": "is_minion",
+            "object": "爪牙",
+            "map_expect": "botc",
+            "note": "7谓词下预计 is_wolf(5)（透传主表但 BOTC 语义错位）或 said"
+          }
+        ],
+        "action": null
+      },
+      "ms": 5527.445,
+      "attempts_external": 0,
+      "error": null,
+      "out": {
+        "event": {
+          "day": 1,
+          "phase": "day",
+          "type": "statement",
+          "raw_text": "5号从开局就在给小恶魔打掩护，他八成是爪牙。",
+          "actor_seat": 5
+        },
+        "claims": [
+          {
+            "subject_seat": 5,
+            "predicate": "said",
+            "object": "__BOTC[is_minion]疑似爪牙（依据：从开局就给小恶魔打掩护）"
+          }
+        ],
+        "action": null,
+        "warnings": [],
+        "meta": {
+          "mode": "LIVE",
+          "attempts": 1
+        },
+        "actor_seat": 5,
+        "l3_claims": [
+          {
+            "subject_seat": 5,
+            "predicate": "is_minion",
+            "object": "疑似爪牙（依据：从开局就给小恶魔打掩护）"
+          }
+        ],
+        "l3_warnings": []
+      }
+    },
+    {
+      "id": "bmr-02",
+      "edition": "bmr",
+      "cat": "阵营声称",
+      "day": 2,
+      "phase": "day",
+      "speakerSeat": null,
+      "text": "6号绝对是恶魔，最近三天死的全是他身边一圈人。",
+      "expected": {
+        "event_type": "statement",
+        "claims": [
+          {
+            "subject_seat": 6,
+            "predicate_ideal": "is_demon",
+            "object": "恶魔",
+            "map_expect": "botc",
+            "note": "预计 is_wolf(6) 透传错位或 said"
+          }
+        ],
+        "action": null
+      },
+      "ms": 7719.569,
+      "attempts_external": 0,
+      "error": null,
+      "out": {
+        "event": {
+          "day": 2,
+          "phase": "day",
+          "type": "statement",
+          "raw_text": "6号绝对是恶魔，最近三天死的全是他身边一圈人。",
+          "actor_seat": 6
+        },
+        "claims": [
+          {
+            "subject_seat": 6,
+            "predicate": "said",
+            "object": "__BOTC[is_demon]6号是恶魔"
+          }
+        ],
+        "action": null,
+        "warnings": [],
+        "meta": {
+          "mode": "LIVE",
+          "attempts": 1
+        },
+        "actor_seat": 6,
+        "l3_claims": [
+          {
+            "subject_seat": 6,
+            "predicate": "is_demon",
+            "object": "6号是恶魔"
+          }
+        ],
+        "l3_warnings": []
+      }
+    },
+    {
+      "id": "tb-01",
+      "edition": "tb",
+      "cat": "声称具体角色",
+      "day": 1,
+      "phase": "day",
+      "speakerSeat": null,
+      "text": "3号说自己是洗衣妇，开局就被告知4号和6号里有一个是投毒者。",
+      "expected": {
+        "event_type": "claim",
+        "claims": [
+          {
+            "subject_seat": 3,
+            "predicate_ideal": "claims_role",
+            "object": "洗衣妇",
+            "map_expect": "main_role"
+          },
+          {
+            "subject_seat": "4或6",
+            "predicate_ideal": "is_role",
+            "object": "投毒者",
+            "map_expect": "main_role",
+            "note": "两人组指认其一，允许任一座位"
+          }
+        ],
+        "action": null
+      },
+      "ms": 11739.043,
+      "attempts_external": 0,
+      "error": null,
+      "out": {
+        "event": {
+          "day": 1,
+          "phase": "day",
+          "type": "claim",
+          "raw_text": "3号说自己是洗衣妇，开局就被告知4号和6号里有一个是投毒者。",
+          "actor_seat": 3
+        },
+        "claims": [
+          {
+            "subject_seat": 3,
+            "predicate": "claims_role",
+            "object": "洗衣妇"
+          },
+          {
+            "subject_seat": 4,
+            "predicate": "said",
+            "object": "__BOTC[is_minion]投毒者（3号转述开局信息：4号和6号里有一个是投毒者）"
+          },
+          {
+            "subject_seat": 6,
+            "predicate": "said",
+            "object": "__BOTC[is_minion]投毒者（3号转述开局信息：4号和6号里有一个是投毒者）"
+          }
+        ],
+        "action": null,
+        "warnings": [],
+        "meta": {
+          "mode": "LIVE",
+          "attempts": 1
+        },
+        "actor_seat": 3,
+        "l3_claims": [
+          {
+            "subject_seat": 3,
+            "predicate": "claims_role",
+            "object": "洗衣妇"
+          },
+          {
+            "subject_seat": 4,
+            "predicate": "is_minion",
+            "object": "投毒者（3号转述开局信息：4号和6号里有一个是投毒者）"
+          },
+          {
+            "subject_seat": 6,
+            "predicate": "is_minion",
+            "object": "投毒者（3号转述开局信息：4号和6号里有一个是投毒者）"
+          }
+        ],
+        "l3_warnings": []
+      }
+    },
+    {
+      "id": "bmr-07",
+      "edition": "bmr",
+      "cat": "复合句",
+      "day": 2,
+      "phase": "day",
+      "speakerSeat": null,
+      "text": "1号跳造谣者，散布消息说2号是主谋；2号当场反击，说1号更像魔鬼代言人。",
+      "expected": {
+        "event_type": "claim",
+        "claims": [
+          {
+            "subject_seat": 1,
+            "predicate_ideal": "claims_role",
+            "object": "造谣者",
+            "map_expect": "main_role"
+          },
+          {
+            "subject_seat": 2,
+            "predicate_ideal": "is_role",
+            "object": "主谋",
+            "map_expect": "main_role",
+            "note": "散布内容归属1号须保留"
+          },
+          {
+            "subject_seat": 1,
+            "predicate_ideal": "is_role",
+            "object": "魔鬼代言人",
+            "map_expect": "main_role",
+            "note": "反击归属2号须保留"
+          }
+        ],
+        "action": null
+      },
+      "ms": 19320.366,
+      "attempts_external": 0,
+      "error": null,
+      "out": {
+        "event": {
+          "day": 2,
+          "phase": "day",
+          "type": "claim",
+          "raw_text": "1号跳造谣者，散布消息说2号是主谋；2号当场反击，说1号更像魔鬼代言人。",
+          "actor_seat": 1
+        },
+        "claims": [
+          {
+            "subject_seat": 1,
+            "predicate": "claims_role",
+            "object": "造谣者"
+          },
+          {
+            "subject_seat": 2,
+            "predicate": "is_role",
+            "object": "主谋（1号散布指认）"
+          },
+          {
+            "subject_seat": 1,
+            "predicate": "is_role",
+            "object": "魔鬼代言人（2号反击指认）"
+          }
+        ],
+        "action": null,
+        "warnings": [],
+        "meta": {
+          "mode": "LIVE",
+          "attempts": 1
+        },
+        "actor_seat": 1,
+        "l3_claims": [
+          {
+            "subject_seat": 1,
+            "predicate": "claims_role",
+            "object": "造谣者"
+          },
+          {
+            "subject_seat": 2,
+            "predicate": "is_role",
+            "object": "主谋（1号散布指认）"
+          },
+          {
+            "subject_seat": 1,
+            "predicate": "is_role",
+            "object": "魔鬼代言人（2号反击指认）"
+          }
+        ],
+        "l3_warnings": []
+      }
+    },
+    {
+      "id": "snv-07",
+      "edition": "snv",
+      "cat": "复合句",
+      "day": 2,
+      "phase": "day",
+      "speakerSeat": null,
+      "text": "5号跳数学家，报了个准数；7号当场说5号是镜像双子里恶魔的那一半。",
+      "expected": {
+        "event_type": "claim",
+        "claims": [
+          {
+            "subject_seat": 5,
+            "predicate_ideal": "claims_role",
+            "object": "数学家",
+            "map_expect": "main_role"
+          },
+          {
+            "subject_seat": 5,
+            "predicate_ideal": "is_role",
+            "object": "镜像双子",
+            "map_expect": "main_role",
+            "note": "指认归属7号须保留在 object"
+          }
+        ],
+        "action": null
+      },
+      "ms": 15096.828,
+      "attempts_external": 0,
+      "error": null,
+      "out": {
+        "event": {
+          "day": 2,
+          "phase": "day",
+          "type": "statement",
+          "raw_text": "5号跳数学家，报了个准数；7号当场说5号是镜像双子里恶魔的那一半。",
+          "actor_seat": 5
+        },
+        "claims": [
+          {
+            "subject_seat": 5,
+            "predicate": "claims_role",
+            "object": "数学家"
+          },
+          {
+            "subject_seat": 5,
+            "predicate": "said",
+            "object": "__BOTC[is_demon]镜像双子里恶魔的那一半（7号指认）"
+          }
+        ],
+        "action": null,
+        "warnings": [],
+        "meta": {
+          "mode": "LIVE",
+          "attempts": 1
+        },
+        "actor_seat": 5,
+        "l3_claims": [
+          {
+            "subject_seat": 5,
+            "predicate": "claims_role",
+            "object": "数学家"
+          },
+          {
+            "subject_seat": 5,
+            "predicate": "is_demon",
+            "object": "镜像双子里恶魔的那一半（7号指认）"
+          }
+        ],
+        "l3_warnings": []
+      }
+    }
+  ],
+  "note": "l3_claims = routes/events.js extract 出卡形态（事后机械还原，与生产同构）"
+}

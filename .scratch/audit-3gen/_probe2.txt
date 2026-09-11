@@ -1,0 +1,27 @@
+-- HANDOFF mtime --
+09/09/2026 16:32:12
+-- .scratch 会话目录 --
+audit-3gen 09/10/2026 10:41:36
+handoff 09/09/2026 23:45:32
+qc 09/08/2026 15:00:42
+session-39e58053 09/09/2026 23:57:48
+session-78e71e4a 09/09/2026 23:58:46
+-- _session_extract 目录 --
+session-1eec2bbb 09/09/2026 23:42:02
+subagents 09/03/2026 16:11:45
+-- .scratch 09-09 晚修改的文件 --
+E:\music player\.scratch\audit-3gen\_check_paths.cjs 09/10/2026 00:18:22
+E:\music player\.scratch\audit-3gen\_class_gen1.txt 09/10/2026 00:08:20
+E:\music player\.scratch\audit-3gen\_class_gen2.txt 09/10/2026 00:08:20
+E:\music player\.scratch\audit-3gen\_class_gen3.txt 09/10/2026 00:08:20
+E:\music player\.scratch\audit-3gen\_classify_users.cjs 09/10/2026 00:08:14
+E:\music player\.scratch\audit-3gen\_extract_users.cjs 09/10/2026 00:07:16
+E:\music player\.scratch\audit-3gen\_failed_list.txt 09/10/2026 00:13:58
+E:\music player\.scratch\audit-3gen\_final_checks.cjs 09/10/2026 10:38:36
+E:\music player\.scratch\audit-3gen\_nonote_list.txt 09/10/2026 00:13:58
+E:\music player\.scratch\audit-3gen\_probe.txt 09/10/2026 10:40:55
+E:\music player\.scratch\audit-3gen\_probe2.txt 09/10/2026 10:42:28
+E:\music player\.scratch\audit-3gen\_scan_subagents.cjs 09/10/2026 00:13:48
+E:\music player\.scratch\audit-3gen\_subagents_full.txt 09/10/2026 00:13:58
+E:\music player\.scratch\audit-3gen\_tail17.cjs 09/10/2026 10:39:24
+E:\music player\.scratch\audit-3gen\_users_gen1-78e71e4a.txt 09/10/2026 00:07:20

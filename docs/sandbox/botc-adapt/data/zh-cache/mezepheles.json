@@ -1,0 +1,19 @@
+{
+ "id": "mezepheles",
+ "name_en": "Mezepheles",
+ "search_status": 200,
+ "hit_titles": [
+  "灵言师",
+  "黯月初升"
+ ],
+ "name_zh": "灵言师",
+ "ability_zh": "在你的首个夜晚，你会得知一个关键词。首个说出该关键词的善良玩家会在当晚转变为邪恶阵营。",
+ "page": "灵言师",
+ "file_verified": false,
+ "script": "黯月初升",
+ "page_found": true,
+ "has_section": true,
+ "retry_route": "script-gallery:黯月初升",
+ "appears_in": null,
+ "fan_like": false
+}

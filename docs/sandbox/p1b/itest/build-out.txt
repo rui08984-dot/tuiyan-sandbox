@@ -1,0 +1,13 @@
+
+> p1b-web@0.1.0 build
+> tsc && vite build
+
+vite v5.4.21 building for production...
+transforming...
+✓ 52 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.47 kB │ gzip:  0.32 kB
+dist/assets/index-CrYDooGg.css   12.11 kB │ gzip:  2.96 kB
+dist/assets/index-CkxazIe2.js   205.79 kB │ gzip: 67.21 kB
+✓ built in 511ms

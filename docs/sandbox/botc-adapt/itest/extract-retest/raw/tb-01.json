@@ -1,0 +1,59 @@
+{
+  "id": "tb-01",
+  "edition": "tb",
+  "cat": "声称具体角色",
+  "day": 1,
+  "phase": "day",
+  "speakerSeat": null,
+  "text": "3号说自己是洗衣妇，开局就被告知4号和6号里有一个是投毒者。",
+  "expected": {
+    "event_type": "claim",
+    "claims": [
+      {
+        "subject_seat": 3,
+        "predicate_ideal": "claims_role",
+        "object": "洗衣妇",
+        "map_expect": "main_role"
+      },
+      {
+        "subject_seat": "4或6",
+        "predicate_ideal": "is_role",
+        "object": "投毒者",
+        "map_expect": "main_role",
+        "note": "两人组指认其一，允许任一座位"
+      }
+    ],
+    "action": null
+  },
+  "ms": 14191.582,
+  "attempts_external": 0,
+  "error": null,
+  "out": {
+    "event": {
+      "day": 1,
+      "phase": "day",
+      "type": "claim",
+      "raw_text": "3号说自己是洗衣妇，开局就被告知4号和6号里有一个是投毒者。",
+      "actor_seat": 3
+    },
+    "claims": [
+      {
+        "subject_seat": 3,
+        "predicate": "claims_role",
+        "object": "洗衣妇"
+      },
+      {
+        "subject_seat": 3,
+        "predicate": "said",
+        "object": "4号和6号里有一个是投毒者"
+      }
+    ],
+    "action": null,
+    "warnings": [],
+    "meta": {
+      "mode": "LIVE",
+      "attempts": 1
+    },
+    "actor_seat": 3
+  }
+}

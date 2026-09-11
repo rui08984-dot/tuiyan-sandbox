@@ -1,0 +1,55 @@
+{
+  "id": "snv-05",
+  "edition": "snv",
+  "cat": "提名与处决",
+  "day": 2,
+  "phase": "day",
+  "speakerSeat": null,
+  "text": "我提名3号，他跳贤者，可贤者被恶魔杀时能看见恶魔是谁，他到现在一个名字都没报，投他。",
+  "expected": {
+    "event_type": "vote",
+    "claims": [
+      {
+        "subject_seat": 3,
+        "predicate_ideal": "claims_role",
+        "object": "贤者",
+        "map_expect": "main_role"
+      }
+    ],
+    "action": {
+      "action": "vote",
+      "target_seat": 3
+    }
+  },
+  "ms": 56107.389,
+  "attempts_external": 0,
+  "error": null,
+  "out": {
+    "event": {
+      "day": 2,
+      "phase": "day",
+      "type": "statement",
+      "raw_text": "我提名3号，他跳贤者，可贤者被恶魔杀时能看见恶魔是谁，他到现在一个名字都没报，投他。",
+      "actor_seat": 3
+    },
+    "claims": [
+      {
+        "subject_seat": 3,
+        "predicate": "claims_role",
+        "object": "贤者"
+      }
+    ],
+    "action": {
+      "action": "vote",
+      "target_seat": 3,
+      "result": "质疑3号贤者声称（至今未报出恶魔名字），提名并投票3号",
+      "seat": 3
+    },
+    "warnings": [],
+    "meta": {
+      "mode": "LIVE",
+      "attempts": 1
+    },
+    "actor_seat": 3
+  }
+}

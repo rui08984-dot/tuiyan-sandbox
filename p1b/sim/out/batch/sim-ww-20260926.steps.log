@@ -1,0 +1,21 @@
+2026-09-11T13:00:53.358Z start
+2026-09-11T13:00:53.359Z db init: E:\music player\p1a-terminal\data\p1a.db
+2026-09-11T13:00:53.365Z game created id=22
+2026-09-11T13:00:53.366Z roles assigned; wolves=3,5 anchors=2
+2026-09-11T13:00:58.563Z night kill done target=1 calls=1
+2026-09-11T13:00:58.564Z speech batch1 seats=2,3,4 start
+2026-09-11T13:01:10.785Z speech seat=3 len=165 claims=2 calls=2
+2026-09-11T13:01:17.001Z speech seat=2 len=186 claims=2 calls=3
+2026-09-11T13:01:18.290Z speech seat=4 len=183 claims=2 calls=4
+2026-09-11T13:01:18.291Z speech batch2 seats=5,6 start
+2026-09-11T13:01:35.832Z speech seat=6 len=189 claims=3 calls=5
+2026-09-11T13:01:37.146Z speech seat=5 len=189 claims=3 calls=6
+2026-09-11T13:01:51.907Z vote seat=4 -> 5 calls=7
+2026-09-11T13:01:52.339Z vote seat=2 -> 5 calls=8
+2026-09-11T13:02:01.718Z vote seat=6 -> 3 calls=9
+2026-09-11T13:02:10.097Z vote seat=5 -> 3 calls=10
+2026-09-11T13:02:21.461Z vote seat=3 -> 5 calls=11
+2026-09-11T13:02:21.461Z stage1 done gid=22 votes={"2":5,"3":5,"4":5,"5":3,"6":3}
+2026-09-11T13:02:21.466Z start
+2026-09-11T13:02:21.467Z stage2 start
+2026-09-11T13:02:21.473Z exporting replay+truth+summary

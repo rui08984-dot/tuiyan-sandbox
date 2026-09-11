@@ -1,0 +1,39 @@
+# ===== p13 微步1 批次0 .gitignore =====
+# —— key 保护（硬约束，最高违规：p1a-terminal/config/ 含 providers.json 真 key）——
+p1a-terminal/config/
+
+# —— 依赖 / 构建产物 ——
+node_modules/
+p1b/web/dist/
+tools/pdfenv/
+
+# —— SQLite 运行时伴生文件（p1a.db 本体入库，wal/shm 不入）——
+*.db-wal
+*.db-shm
+
+# —— 运行时提取 / 会话状态 ——
+.dshwolf/
+/_session_extract/
+.scratch/_session_extract/
+
+# —— 论文精读：档案 .md/.cjs 入库，cache 大件不入 ——
+.scratch/forecast-debate/全文精读/**/cache/
+
+# —— DSH 运行时会话/视觉产物（追加项：240MB+ jsonl 会话原始记录，见 p13-PROGRESS）——
+.scratch/session-*/
+.dsh-session-import/
+.dsh-vision-router/
+docs/sandbox/p1b/itest/p7-chrome-profile/
+
+# —— 大件媒体资产（音视频/成品/字体/压图；git 不收媒体，.gitignore 追加项见 p13-PROGRESS）——
+*.zip
+*.wav
+*.mp3
+*.mp4
+*.m4a
+assets/bg_video/
+assets/covers/
+assets/fonts/
+/out/
+/素材库/
+botc_acl2026.pdf

@@ -1,0 +1,17 @@
+Copied audio to public/playlist.mp3
+Loaded 8 lyric lines from JSON file
+Copied background image to public/photo_02_17426256.jpg
+Auto-detected audio duration: 1771.78s
+
+Rendering video...
+  Audio: E:/music player/assets/ep01/playlist.mp3
+  Title: MIDNIGHT RADIO
+  Duration: 1771.8s
+  Lyrics: 8 lines
+  Output: E:\music player\out\EP01B_render_tmp.mp4
+  Codec: h264
+  Background: photo_02_17426256.jpg
+  Browser: C:/Users/crx/.agents/skills/acestep-simplemv/scripts/node_modules/.remotion/chrome-headless-shell/win64/chrome-headless-shell-win64/chrome-headless-shell.exe
+
+
+✅ Video rendered successfully: E:\music player\out\EP01B_render_tmp.mp4

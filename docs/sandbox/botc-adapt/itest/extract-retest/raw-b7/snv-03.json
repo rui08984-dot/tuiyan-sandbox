@@ -1,0 +1,48 @@
+{
+  "id": "snv-03",
+  "edition": "snv",
+  "cat": "状态声称",
+  "day": 2,
+  "phase": "day",
+  "speakerSeat": 6,
+  "text": "我感觉我中毒了，今天听到的所有信息都像是反的。",
+  "expected": {
+    "event_type": "statement",
+    "claims": [
+      {
+        "subject_seat": 6,
+        "predicate_ideal": "status_poisoned",
+        "object": "中毒",
+        "map_expect": "botc",
+        "note": "第一人称归属缺口探针"
+      }
+    ],
+    "action": null
+  },
+  "ms": 3954.289,
+  "attempts_external": 0,
+  "error": null,
+  "out": {
+    "event": {
+      "day": 2,
+      "phase": "day",
+      "type": "statement",
+      "raw_text": "我感觉我中毒了，今天听到的所有信息都像是反的。",
+      "actor_seat": 6
+    },
+    "claims": [
+      {
+        "subject_seat": 6,
+        "predicate": "said",
+        "object": "__BOTC[status_poisoned]自称被投毒"
+      }
+    ],
+    "action": null,
+    "warnings": [],
+    "meta": {
+      "mode": "LIVE",
+      "attempts": 1
+    },
+    "actor_seat": 6
+  }
+}

@@ -1,0 +1,33 @@
+﻿[Script Info]
+ScriptType: v4.00+
+PlayResX: 1920
+PlayResY: 1080
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: BigTitle,Georgia,96,&H00F8F4EC,&H00000000,&H88000000,1,0,0,0,100,100,2,0,1,2.5,3,5,60,60,300,1
+Style: Sub,Microsoft YaHei,38,&H00E8DCC8,&H00000000,&H88000000,0,0,0,0,100,100,2,0,1,1.5,2,5,60,60,180,1
+Style: NowTitle,Georgia,74,&H00F8F4EC,&H00000000,&H88000000,1,0,0,0,100,100,1,0,1,2.5,3,5,60,60,320,1
+Style: Corner,Georgia,28,&H00F8F4EC,&H00000000,&H64000000,1,0,0,0,100,100,3,0,1,1.5,1.5,9,40,40,40,1
+Style: Decl,Microsoft YaHei,20,&H00C8C0B4,&H00000000,&H50000000,0,0,0,0,100,100,1,0,1,1,1,2,40,40,28,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 1,0:00:00.50,0:00:11.50,BigTitle,,0,0,0,,{\fad(1000,1200)}MIDNIGHT RADIO · EP.01
+Dialogue: 1,0:00:01.50,0:00:11.50,Sub,,0,0,0,,{\fad(1200,1200)}深夜电台 · 顺序播放 · 戴上耳机
+Dialogue: 0,0:00:00.00,0:03:28.25,Corner,,0,0,0,,{\fad(800,400)\alpha&H40&}Slow Dance
+Dialogue: 0,0:03:29.05,0:03:34.05,NowTitle,,0,0,0,,{\fad(700,700)}The Last Box
+Dialogue: 0,0:03:28.55,0:07:01.08,Corner,,0,0,0,,{\fad(800,400)\alpha&H40&}The Last Box
+Dialogue: 0,0:07:01.88,0:07:06.88,NowTitle,,0,0,0,,{\fad(700,700)}Café Reverie
+Dialogue: 0,0:07:01.38,0:10:33.26,Corner,,0,0,0,,{\fad(800,400)\alpha&H40&}Café Reverie
+Dialogue: 0,0:10:34.06,0:10:39.06,NowTitle,,0,0,0,,{\fad(700,700)}Bend The Blues
+Dialogue: 0,0:10:33.56,0:14:19.11,Corner,,0,0,0,,{\fad(800,400)\alpha&H40&}Bend The Blues
+Dialogue: 0,0:14:19.91,0:14:24.91,NowTitle,,0,0,0,,{\fad(700,700)}幻觉的荒野
+Dialogue: 0,0:14:19.41,0:18:30.97,Corner,,0,0,0,,{\fad(800,400)\alpha&H40&}幻觉的荒野
+Dialogue: 0,0:18:31.77,0:18:36.77,NowTitle,,0,0,0,,{\fad(700,700)}ハーフビート
+Dialogue: 0,0:18:31.27,0:21:46.63,Corner,,0,0,0,,{\fad(800,400)\alpha&H40&}ハーフビート
+Dialogue: 0,0:21:47.43,0:21:52.43,NowTitle,,0,0,0,,{\fad(700,700)}Stand In The Light
+Dialogue: 0,0:21:46.93,0:25:36.89,Corner,,0,0,0,,{\fad(800,400)\alpha&H40&}Stand In The Light
+Dialogue: 0,0:25:37.69,0:25:42.69,NowTitle,,0,0,0,,{\fad(700,700)}雪落时的温热
+Dialogue: 0,0:25:37.19,0:29:31.48,Corner,,0,0,0,,{\fad(800,400)\alpha&H40&}雪落时的温热
+Dialogue: 0,0:00:00.00,0:29:31.28,Decl,,0,0,0,,{\alpha&H60&\fad(1500,1500)}AI-generated music · original composition

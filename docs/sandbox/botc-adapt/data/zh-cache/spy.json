@@ -1,0 +1,18 @@
+{
+ "id": "spy",
+ "name_en": "Spy",
+ "search_status": 200,
+ "hit_titles": [
+  "间谍"
+ ],
+ "name_zh": "间谍",
+ "ability_zh": "每个夜晚，你能查看魔典。 你可能会被当作善良阵营、镇民角色或外来者角色，即使你已死亡。",
+ "page": "间谍",
+ "file_verified": false,
+ "script": "暗流涌动",
+ "page_found": true,
+ "has_section": true,
+ "retry_route": "script-gallery:暗流涌动",
+ "appears_in": null,
+ "fan_like": false
+}

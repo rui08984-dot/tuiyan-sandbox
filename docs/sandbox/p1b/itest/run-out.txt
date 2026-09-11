@@ -1,0 +1,16 @@
+OK  GET /api/health
+OK  POST /games -> game.id=1 (自动建席1..8)
+OK  宏1 跳身份卡（前端构造，未走LLM）
+OK  宏1 confirm 入账 201
+OK  宏2 查杀卡 confirm 入账
+OK  宏3 金水卡 confirm 入账
+OK  POST /events/extract（meta.mode 应为 MOCK）
+OK  自由文本卡 confirm 入账（与宏同一路径）
+OK  GET state?uptoDay=1 概要
+OK  死亡入账后存活席位（前端顶部条口径，应为 1,2,3,4,6,7,8）
+OK  POST claims/1/edit -> object=女巫
+OK  POST claims/2/retract -> retracted
+OK  action edit(target 5->6)+retract
+NEG-1 OK 409
+NEG-2 OK 400
+ALL DONE game_id=1

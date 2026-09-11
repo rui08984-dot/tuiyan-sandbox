@@ -1,0 +1,40 @@
+{
+  "id": "snv-08",
+  "edition": "snv",
+  "cat": "含糊表述",
+  "day": 1,
+  "phase": "day",
+  "speakerSeat": null,
+  "text": "我说不上来，反正今天谁都别信得太死，包括我自己。",
+  "expected": {
+    "event_type": "statement",
+    "claims": [
+      {
+        "subject_seat": "无/发言者",
+        "predicate_ideal": "said",
+        "object": "含糊表态",
+        "map_expect": "main_generic",
+        "note": "期望 0..1 条 said"
+      }
+    ],
+    "action": null
+  },
+  "ms": 4562.529,
+  "attempts_external": 0,
+  "error": null,
+  "out": {
+    "event": {
+      "day": 1,
+      "phase": "day",
+      "type": "statement",
+      "raw_text": "我说不上来，反正今天谁都别信得太死，包括我自己。"
+    },
+    "claims": [],
+    "action": null,
+    "warnings": [],
+    "meta": {
+      "mode": "LIVE",
+      "attempts": 1
+    }
+  }
+}

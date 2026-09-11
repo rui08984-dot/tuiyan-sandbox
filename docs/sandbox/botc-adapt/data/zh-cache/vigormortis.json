@@ -1,0 +1,18 @@
+{
+ "id": "vigormortis",
+ "name_en": "Vigormortis",
+ "search_status": 200,
+ "hit_titles": [
+  "亡骨魔"
+ ],
+ "name_zh": "亡骨魔",
+ "ability_zh": "每个夜晚*，你要选择一名玩家：他死亡。 被你杀死的爪牙保留他的能力，且与他邻近的两名镇民之一中毒。[-1外来者]",
+ "page": "亡骨魔",
+ "file_verified": false,
+ "script": "梦殒春宵",
+ "page_found": true,
+ "has_section": true,
+ "retry_route": "script-gallery:梦殒春宵",
+ "appears_in": null,
+ "fan_like": false
+}

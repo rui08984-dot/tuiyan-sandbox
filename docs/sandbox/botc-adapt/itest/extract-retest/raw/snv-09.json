@@ -1,0 +1,58 @@
+{
+  "id": "snv-09",
+  "edition": "snv",
+  "cat": "声称具体角色",
+  "day": 1,
+  "phase": "day",
+  "speakerSeat": null,
+  "text": "4号自称卖花女孩，说2号的票她从头盯到尾。",
+  "expected": {
+    "event_type": "claim",
+    "claims": [
+      {
+        "subject_seat": 4,
+        "predicate_ideal": "claims_role",
+        "object": "卖花女孩",
+        "map_expect": "main_role"
+      },
+      {
+        "subject_seat": 2,
+        "predicate_ideal": "said",
+        "object": "被盯票",
+        "map_expect": "main_generic"
+      }
+    ],
+    "action": null
+  },
+  "ms": 9789.497,
+  "attempts_external": 0,
+  "error": null,
+  "out": {
+    "event": {
+      "day": 1,
+      "phase": "day",
+      "type": "claim",
+      "raw_text": "4号自称卖花女孩，说2号的票她从头盯到尾。",
+      "actor_seat": 4
+    },
+    "claims": [
+      {
+        "subject_seat": 4,
+        "predicate": "claims_role",
+        "object": "卖花女孩"
+      },
+      {
+        "subject_seat": 4,
+        "predicate": "said",
+        "object": "2号的票她从头盯到尾"
+      }
+    ],
+    "action": null,
+    "warnings": [],
+    "meta": {
+      "mode": "LIVE",
+      "attempts": 1
+    },
+    "actor_seat": 4
+  }
+}

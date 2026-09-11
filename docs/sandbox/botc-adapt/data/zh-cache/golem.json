@@ -1,0 +1,19 @@
+{
+ "id": "golem",
+ "name_en": "Golem",
+ "search_status": 200,
+ "hit_titles": [
+  "魔像",
+  "黯月初升"
+ ],
+ "name_zh": "魔像",
+ "ability_zh": "每局游戏你只能发起提名一次。当你发起提名时，如果被你提名的玩家不是恶魔，他死亡。",
+ "page": "魔像",
+ "file_verified": false,
+ "script": "黯月初升",
+ "page_found": true,
+ "has_section": true,
+ "retry_route": "script-gallery:黯月初升",
+ "appears_in": null,
+ "fan_like": false
+}

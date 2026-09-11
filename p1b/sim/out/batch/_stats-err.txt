@@ -1,0 +1,18 @@
+E:\music player\p1a-terminal\node_modules\better-sqlite3\lib\methods\wrappers.js:5
+	return this[cppdb].prepare(sql, this, false, false);
+	                   ^
+
+SqliteError: no such column: game_id
+    at Database.prepare (E:\music player\p1a-terminal\node_modules\better-sqlite3\lib\methods\wrappers.js:5:21)
+    at Object.<anonymous> (E:\music player\p1b\sim\batch-stats.cjs:47:20)
+    at Module._compile (node:internal/modules/cjs/loader:1872:14)
+    at Object..js (node:internal/modules/cjs/loader:2003:10)
+    at Module.load (node:internal/modules/cjs/loader:1594:32)
+    at Module._load (node:internal/modules/cjs/loader:1396:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+    at node:internal/main/run_main_module:33:47 {
+  code: 'SQLITE_ERROR'
+}
+
+Node.js v24.19.0

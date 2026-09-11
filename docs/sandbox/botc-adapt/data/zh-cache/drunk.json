@@ -1,0 +1,20 @@
+{
+ "id": "drunk",
+ "name_en": "Drunk",
+ "search_status": 200,
+ "hit_titles": [
+  "流感Flu",
+  "恐惧Fear",
+  "大象Elephant"
+ ],
+ "name_zh": "酒鬼",
+ "ability_zh": "你不知道你是酒鬼。你以为你是一个镇民角色，但其实你不是。",
+ "page": "酒鬼",
+ "file_verified": false,
+ "script": "暗流涌动",
+ "page_found": true,
+ "has_section": true,
+ "retry_route": "script-gallery:暗流涌动",
+ "appears_in": null,
+ "fan_like": false
+}

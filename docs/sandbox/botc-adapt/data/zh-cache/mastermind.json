@@ -1,0 +1,20 @@
+{
+ "id": "mastermind",
+ "name_en": "Mastermind",
+ "search_status": 200,
+ "hit_titles": [
+  "教父",
+  "主谋",
+  "僵怖"
+ ],
+ "name_zh": "主谋",
+ "ability_zh": "如果恶魔因为死于处决而因此导致游戏结束时，再额外进行一个夜晚和一个白天。在那个白天如果有玩家被处决，他的阵营落败。",
+ "page": "主谋",
+ "file_verified": false,
+ "script": "黯月初升",
+ "page_found": true,
+ "has_section": true,
+ "retry_route": "script-gallery:黯月初升",
+ "appears_in": null,
+ "fan_like": true
+}

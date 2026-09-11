@@ -1,0 +1,140 @@
+{
+  "game": {
+    "id": 2,
+    "name": "P4验收·狼人杀8人",
+    "game_type": "werewolf",
+    "player_count": 8,
+    "created_at": "2026-09-08 08:03:59"
+  },
+  "players": [
+    {
+      "id": 13,
+      "game_id": 2,
+      "seat": 1,
+      "name": "1号"
+    },
+    {
+      "id": 14,
+      "game_id": 2,
+      "seat": 2,
+      "name": "2号"
+    },
+    {
+      "id": 15,
+      "game_id": 2,
+      "seat": 3,
+      "name": "3号"
+    },
+    {
+      "id": 16,
+      "game_id": 2,
+      "seat": 4,
+      "name": "4号"
+    },
+    {
+      "id": 17,
+      "game_id": 2,
+      "seat": 5,
+      "name": "5号"
+    },
+    {
+      "id": 18,
+      "game_id": 2,
+      "seat": 6,
+      "name": "6号"
+    },
+    {
+      "id": 19,
+      "game_id": 2,
+      "seat": 7,
+      "name": "7号"
+    },
+    {
+      "id": 20,
+      "game_id": 2,
+      "seat": 8,
+      "name": "8号"
+    }
+  ],
+  "events": [
+    {
+      "id": 6,
+      "game_id": 2,
+      "day": 1,
+      "phase": "day",
+      "seq": 1,
+      "type": "claim",
+      "actor_seat": 2,
+      "raw_text": "2号跳预言家"
+    },
+    {
+      "id": 7,
+      "game_id": 2,
+      "day": 1,
+      "phase": "day",
+      "seq": 2,
+      "type": "claim",
+      "actor_seat": 3,
+      "raw_text": "3号查杀5号"
+    },
+    {
+      "id": 8,
+      "game_id": 2,
+      "day": 1,
+      "phase": "day",
+      "seq": 3,
+      "type": "claim",
+      "actor_seat": 1,
+      "raw_text": "1号给4号发金水"
+    }
+  ],
+  "claims": [
+    {
+      "id": 8,
+      "event_id": 6,
+      "day": 1,
+      "phase": "day",
+      "seat": 2,
+      "subject_seat": 2,
+      "predicate": "claims_role",
+      "object": "预言家",
+      "extracted_by": "macro",
+      "confirmed_by_user": 1
+    },
+    {
+      "id": 9,
+      "event_id": 7,
+      "day": 1,
+      "phase": "day",
+      "seat": 3,
+      "subject_seat": 5,
+      "predicate": "is_wolf",
+      "object": "查杀",
+      "extracted_by": "macro",
+      "confirmed_by_user": 1
+    },
+    {
+      "id": 10,
+      "event_id": 8,
+      "day": 1,
+      "phase": "day",
+      "seat": 1,
+      "subject_seat": 4,
+      "predicate": "is_good",
+      "object": "好人",
+      "extracted_by": "macro",
+      "confirmed_by_user": 1
+    }
+  ],
+  "actions": [],
+  "meta": {
+    "game_id": 2,
+    "exported_at": "2026-09-08T08:04:06.512Z",
+    "schema_contract": "v1",
+    "counts": {
+      "events": 3,
+      "claims": 3,
+      "actions": 0
+    }
+  }
+}

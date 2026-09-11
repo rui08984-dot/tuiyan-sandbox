@@ -1,0 +1,46 @@
+{
+  "id": "bmr-03",
+  "edition": "bmr",
+  "cat": "状态声称",
+  "day": 2,
+  "phase": "day",
+  "speakerSeat": 5,
+  "text": "我觉得我中毒了，教授白天给我的那条信息八成是反的。",
+  "expected": {
+    "event_type": "statement",
+    "claims": [
+      {
+        "subject_seat": 5,
+        "predicate_ideal": "status_poisoned",
+        "object": "中毒",
+        "map_expect": "botc"
+      },
+      {
+        "subject_seat": 5,
+        "predicate_ideal": "claims_role",
+        "object": "教授",
+        "map_expect": "main_role",
+        "note": "隐含自称教授，若输出属推断"
+      }
+    ],
+    "action": null
+  },
+  "ms": 12620.092,
+  "attempts_external": 0,
+  "error": null,
+  "out": {
+    "event": {
+      "day": 2,
+      "phase": "day",
+      "type": "statement",
+      "raw_text": "我觉得我中毒了，教授白天给我的那条信息八成是反的。"
+    },
+    "claims": [],
+    "action": null,
+    "warnings": [],
+    "meta": {
+      "mode": "LIVE",
+      "attempts": 1
+    }
+  }
+}

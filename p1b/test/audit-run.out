@@ -1,0 +1,16 @@
+✔ 七审计列已存在（新库直建即含） (0.5953ms)
+✔ INSERT 带审计字段 → 读回一致 (0.6769ms)
+✔ INSERT 不带审计字段 → 七列全 NULL（向后兼容） (0.3064ms)
+✔ 非法枚举 → insertPrediction 抛错 (0.5757ms)
+✔ CHECK 兜底：绕过 store 直插非法 layer 被 SQLite 拒绝 (0.2886ms)
+✔ updateAuditFields：补录 + 显式 null 清空 + 空对象幂等 + 不存在 id (0.6926ms)
+✔ l0Gate 不受审计字段影响（计数含新行，门禁语义不变） (0.3558ms)
+✔ 枚举常量导出（供路由层复用） (0.6091ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 140.1893

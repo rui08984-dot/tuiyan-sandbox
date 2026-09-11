@@ -1,0 +1,20 @@
+{
+ "id": "saint",
+ "name_en": "Saint",
+ "search_status": 200,
+ "hit_titles": [
+  "圣徒",
+  "启示录Inysyns",
+  "卡卡十五期培训认证说书人名单"
+ ],
+ "name_zh": "圣徒",
+ "ability_zh": "如果你死于处决，你的阵营落败。",
+ "page": "圣徒",
+ "file_verified": false,
+ "script": "暗流涌动",
+ "page_found": true,
+ "has_section": true,
+ "retry_route": "script-gallery:暗流涌动",
+ "appears_in": null,
+ "fan_like": false
+}

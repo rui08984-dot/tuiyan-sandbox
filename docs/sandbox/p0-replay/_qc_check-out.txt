@@ -1,0 +1,14 @@
+===== lyingman =====
+PASS | lyingman E-编号连续性（1..31 无跳号） | 31 个唯一编号，共 37 次引用
+PASS | lyingman E-编号无重复定义（- N: 模式） | 31 条事件定义
+PASS | lyingman 头部泄露：结果行 | 无结果行
+FAIL | lyingman 头部泄露：叙事标签 | 头部含叙事标签: JY封神（探针已证模型有此背景知识）→ 切片时屏蔽
+PASS | lyingman 人数口径一致（truth 狼数 vs 头部声明） | truth 狼数=4，头部=4 狼，一致
+PASS | lyingman truth 好人名单 | 好人=7，狼=4，合计=11
+===== pandakill =====
+PASS | pandakill E-编号连续性（1..19 无跳号） | 19 个唯一编号，共 25 次引用
+PASS | pandakill E-编号无重复定义（- N: 模式） | 19 条事件定义
+PASS | pandakill 头部泄露：结果行 | 无结果行
+FAIL | pandakill 头部泄露：叙事标签 | 头部含叙事标签: 阴阳倒钩（探针已证模型有此背景知识）→ 切片时屏蔽
+PASS | pandakill 人数口径一致（truth 狼数 vs 头部声明） | truth 狼数=4，头部=4 狼，一致
+PASS | pandakill truth 好人名单 | 好人=8，狼=4，合计=12

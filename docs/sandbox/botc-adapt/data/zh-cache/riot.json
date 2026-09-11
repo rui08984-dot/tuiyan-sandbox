@@ -1,0 +1,18 @@
+{
+ "id": "riot",
+ "name_en": "Riot",
+ "search_status": 200,
+ "hit_titles": [
+  "暴乱"
+ ],
+ "name_zh": "暴乱",
+ "ability_zh": "被提名的玩家死亡，但他可以立刻再次发起提名（第三天白天他必须这么做）。在第三个白天结束时，邪恶阵营获胜。[所有爪牙都是暴乱]",
+ "page": "暴乱",
+ "file_verified": false,
+ "script": "梦殒春宵",
+ "page_found": true,
+ "has_section": true,
+ "retry_route": "script-gallery:梦殒春宵",
+ "appears_in": null,
+ "fan_like": false
+}

@@ -1,0 +1,29 @@
+=== run start model=glm-5.3-flash base=https://tokenrhythm.studio/v1 only=ALL alreadyDone=1
+[tb-01] skip (done)
+[tb-02] 阵营声称 12537.284ms ext=0 internal=1 ok claims=1
+[tb-03] 状态声称 9634.646ms ext=0 internal=1 ok claims=0
+[tb-04] 状态声称 33403.222ms ext=0 internal=1 ok claims=0
+[tb-05] 提名与处决 27417.531ms ext=0 internal=1 ok claims=1
+[tb-06] 死亡公布 7880.254ms ext=0 internal=1 ok claims=0
+[tb-07] 复合句 26970.614ms ext=0 internal=1 ok claims=3
+[tb-08] 含糊表述 3713.136ms ext=0 internal=1 ok claims=0
+[tb-09] 提名与处决 53544.5ms ext=0 internal=1 ok claims=1
+[bmr-01] 声称具体角色 24357.659ms ext=0 internal=1 ok claims=3
+[bmr-02] 阵营声称 3682.257ms ext=0 internal=1 ok claims=1
+[bmr-03] 状态声称 12620.092ms ext=0 internal=1 ok claims=0
+[bmr-04] 状态声称 45655.199ms ext=0 internal=1 ok claims=2
+[bmr-05] 提名与处决 13696.046ms ext=0 internal=1 ok claims=1
+[bmr-06] 死亡公布 6447.065ms ext=0 internal=1 ok claims=0
+[bmr-07] 复合句 41735.959ms ext=0 internal=1 ok claims=3
+[bmr-08] 含糊表述 7754.014ms ext=0 internal=1 ok claims=0
+[bmr-09] 声称具体角色 15797.339ms ext=0 internal=1 ok claims=3
+[snv-01] 声称具体角色 30011.428ms ext=0 internal=1 ok claims=2
+[snv-02] 阵营声称 24127.56ms ext=0 internal=1 ok claims=1
+[snv-03] 状态声称 21886.013ms ext=0 internal=1 ok claims=0
+[snv-04] 状态声称 168267.276ms ext=0 internal=3 ok claims=0
+[snv-05] 提名与处决 56107.389ms ext=0 internal=1 ok claims=1
+[snv-06] 死亡公布 27116.413ms ext=0 internal=1 ok claims=0
+[snv-07] 复合句 12683.566ms ext=0 internal=1 ok claims=2
+[snv-08] 含糊表述 4562.529ms ext=0 internal=1 ok claims=0
+[snv-09] 声称具体角色 9789.497ms ext=0 internal=1 ok claims=2
+=== ALL DONE total=730s apiCalls(approx)=26

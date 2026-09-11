@@ -1,0 +1,22 @@
+{
+  "ok": true,
+  "game_id": 31,
+  "name": "sim-ww-20260935",
+  "events": 10,
+  "claims": 10,
+  "actions": 6,
+  "result": "village_win",
+  "usage": {
+    "call_target": "<=40",
+    "style_anchor_count": 2,
+    "calls": 11,
+    "prompt_tokens": 4071,
+    "completion_tokens": 12161,
+    "parse_fallback": 0
+  },
+  "deviations": [],
+  "files": [
+    "sim-ww-20260935.replay.md",
+    "sim-ww-20260935.truth.md"
+  ]
+}

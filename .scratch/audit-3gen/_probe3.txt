@@ -1,0 +1,11 @@
+-- HANDOFF 关键行 --
+H L31: 6. **LIVE 实测**：glm-5.3-flash（TokenRhythm 中转，key 在 config/providers.json）参谋卡 168.1s 质量优（无辜解释 3 条/假设 3 套含女巫线分歧/验证点 4 条带分辨标注）
+H L96: 9. key 永不入 git（config/ 已 .gitignore）；env 优先级高于 config 文件
+H L100: - config/providers.json：active=tokenrhythm（https://tokenrhythm.studio/v1，glm-5.3-flash 强推理，抽取+参谋卡共用）
+-- 总交接 关键行 --
+Z L19: **进行中（唯一）：B6 一页现场流改版，第四棒 a3d95555 干完微步收工等唤醒。**
+Z L22: - **双代理局面（重要）**：第四棒=947efc30（ready，有完整上下文）；第三棒 a3d95555 已下停工令（ready，队列已消化，勿再给它派活
+Z L33: - **用户拍板记录**：UX=A 一页现场流+弹层管理（任务书=docs/sandbox/p1b/P1B-UX-ONEPAGE.md）；血染三本一起；kill
+Z L34: - **铁律**：禁改 p1a-terminal/**（引擎只读复用）；禁改共享库 p1a-terminal/data/p1a.db 既有表结构（BOTC 扩展
+Z L41: - 交付证据：docs/sandbox/p1b/itest/（p4-/p5-/p5pre-/p7- 前缀全部产物+p5-integration-report.m
+Z L51: providers.json 含真实 key（.gitignore 已护）；本文件与所有交接物零 key；历史暴露两起已在待办提醒用户轮换。

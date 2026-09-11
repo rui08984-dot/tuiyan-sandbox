@@ -1,0 +1,19 @@
+{
+  "name": "p1b-web-workbench",
+  "version": "0.1.0",
+  "description": "推演沙盘 P1b 网页工作台 · 后端（Fastify，复用 p1a-terminal 引擎 db/engine/llm，零迁移）",
+  "private": true,
+  "type": "commonjs",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test"
+  },
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@fastify/cors": "^11.3.0",
+    "@fastify/static": "^8.0.3",
+    "fastify": "^5.2.1",
+    "lunar-javascript": "^1.7.7"
+  }
+}

@@ -1,0 +1,19 @@
+{
+ "id": "sage",
+ "name_en": "Sage",
+ "search_status": 200,
+ "hit_titles": [
+  "贤者",
+  "巫医Medicine Man"
+ ],
+ "name_zh": "贤者",
+ "ability_zh": "如果恶魔杀死了你，在当晚你会被唤醒并得知两名玩家，其中一名是杀死你的那个恶魔。",
+ "page": "贤者",
+ "file_verified": false,
+ "script": "梦殒春宵",
+ "page_found": true,
+ "has_section": true,
+ "retry_route": "script-gallery:梦殒春宵",
+ "appears_in": null,
+ "fan_like": false
+}

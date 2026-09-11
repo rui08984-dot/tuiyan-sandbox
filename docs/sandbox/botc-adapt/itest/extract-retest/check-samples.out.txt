@@ -1,0 +1,31 @@
+total samples: 27
+tb: 9 -> tb-01,tb-02,tb-03,tb-04,tb-05,tb-06,tb-07,tb-08,tb-09
+bmr: 9 -> bmr-01,bmr-02,bmr-03,bmr-04,bmr-05,bmr-06,bmr-07,bmr-08,bmr-09
+snv: 9 -> snv-01,snv-02,snv-03,snv-04,snv-05,snv-06,snv-07,snv-08,snv-09
+cat 声称具体角色: 5
+cat 阵营声称: 3
+cat 状态声称: 6
+cat 提名与处决: 4
+cat 死亡公布: 3
+cat 复合句: 3
+cat 含糊表述: 3
+tb cats(7): 声称具体角色/阵营声称/状态声称/提名与处决/死亡公布/复合句/含糊表述
+bmr cats(7): 声称具体角色/阵营声称/状态声称/提名与处决/死亡公布/复合句/含糊表述
+snv cats(7): 声称具体角色/阵营声称/状态声称/提名与处决/死亡公布/复合句/含糊表述
+   (note) tb-02 object「爪牙」: NOT-A-ROLE
+   (note) tb-03 object「醉酒」: NOT-A-ROLE
+   (note) tb-04 object「中毒」: NOT-A-ROLE
+   (note) tb-08 object「含糊表态」: NOT-A-ROLE
+   (note) bmr-01 object「恶魔」: NOT-A-ROLE
+   (note) bmr-02 object「恶魔」: NOT-A-ROLE
+   (note) bmr-03 object「中毒」: NOT-A-ROLE
+   (note) bmr-04 object「醉酒」: NOT-A-ROLE
+   (note) bmr-08 object「含糊表态」: NOT-A-ROLE
+   (note) bmr-09 object「孙辈关系」: NOT-A-ROLE
+   (note) snv-01 object「暂不透露目标」: NOT-A-ROLE
+   (note) snv-02 object「恶魔」: NOT-A-ROLE
+   (note) snv-03 object「中毒」: NOT-A-ROLE
+   (note) snv-04 object「醉酒」: NOT-A-ROLE
+   (note) snv-08 object「含糊表态」: NOT-A-ROLE
+   (note) snv-09 object「被盯票」: NOT-A-ROLE
+main_role membership issues: 0

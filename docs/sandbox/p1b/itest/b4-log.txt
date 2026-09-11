@@ -1,0 +1,89 @@
+OK   POST /games botc+script=tb → 201 & game.script=tb | {"game":{"id":2,"name":"B4暗流涌动局","type":"botc","game_type":"botc","player_count":6,"status":"active","created_at":"2026-09-09 00:37:27","current_day":0,"script":"tb"},"players":[{"id":7,"game_id":2,"s
+OK   GET /games 列表行带 script=tb
+OK   详情头含 剧本徽章「暗流涌动 TB」 | 🎭
+对局
+✍️
+录入
+🧠
+参谋卡
+⚙️
+设置
+🎭
+对局
+＋ 新建局
+
+局列表按事件数标记进行中（current_day = 最新事件天）；点局卡片进详情：天数推进 / 座位名单 / 导出 JSON。
+
+B4暗流涌动局
+未开局
+#2 · 血染钟楼·暗流涌动 TB · 6人 · 0 事件
+详情
+B4暗流涌动局
+未开局
+#1 · 血染钟楼·暗流涌动 TB · 6人 · 0 事件
+详情
+B4暗流涌动局
+#2 · 血染钟楼·暗流涌动 TB · 6人 · 服务端当前第 0 天
+⬇ 导出 JSON
+🧠 去参谋卡（第 1 天）
+天数推进器
+−
+第 1 天
+＋
+服务端最新事件天 0
+
+截至第 1 天：事
+OK   botc 声称卡出现（空态提示）
+OK   角色参考按钮计数 27 角色（TB，展开前）
+OK   角色参考含「洗衣妇」+团队徽章「镇民」
+OK   角色参考含「恶魔」团队
+OK   录入页选到 botc 局（血染钟楼）
+OK   确认卡为 BOTC 模式（谓词可切换 .claim-edit）
+OK   确认卡谓词全集含「是恶魔(is_demon)」选项
+OK   确认卡角色建议来自 TB 剧本（datalist 含 洗衣妇）
+OK   确认卡展示中文角色名「洗衣妇」
+OK   入账成功（事件流出现 洗衣妇）
+OK   主表声称 object 已归一为角色 id=washerwoman | {"id":1,"event_id":1,"day":1,"phase":"day","seat":2,"subject_seat":2,"predicate":"claims_role","object":"washerwoman","extracted_by":"macro","confirmed_by_user":1}
+OK   确认卡谓词已切「是恶魔(is_demon)」
+OK   GET botc-claims 返回 is_demon 声称（subject=3） | {"game_id":2,"claims":[{"id":1,"game_id":2,"event_id":2,"day":1,"phase":"day","seat":2,"subject_seat":3,"predicate":"is_demon","object":"夜里跳法衣那批人可信","extracted_by":"macro","confirmed_by_user":1}]}
+OK   事件流出现「是恶魔」徽章行
+OK   详情阵营/状态声称区显示「是恶魔」（2号→3号） | 🎭
+对局
+✍️
+录入
+🧠
+参谋卡
+⚙️
+设置
+🎭
+对局
+＋ 新建局
+
+局列表按事件数标记进行中（current_day = 最新事件天）；点局卡片进详情：天数推进 / 座位名单 / 导出 JSON。
+
+B4暗流涌动局
+进行中 · 第1天
+#2 · 血染钟楼·暗流涌动 TB · 6人 · 2 事件
+详情
+B4暗流涌动局
+未开局
+#1 · 血染钟楼·暗流涌动 TB · 6人 · 0 事件
+详情
+B4暗流涌动局
+#2 · 血染钟楼·暗流涌动 TB · 6人 · 服务端当前第 1 天
+⬇ 导出 JSON
+🧠 去参谋卡（第 1 天）
+天数推进器
+−
+第 1 天
+＋
+服务端最新事件天 1
+
+截至第
+OK   POST werewolf 局 201（无 script） | {"game":{"id":3,"name":"B4狼人杀回归局","type":"werewolf","game_type":"werewolf","player_count":8,"status":"active","created_at":"2026-09-09 00:37:46","current_day":0
+OK   werewolf 局 GET botc-claims = 空数组（路由不炸）
+OK   werewolf 确认卡无谓词切换（.claim-edit 不存在）
+OK   werewolf 确认卡保持原样（is_wolf 徽章 + 「查杀」）
+OK   werewolf 事件流 is_wolf 入账正常
+OK   werewolf 详情无血染钟楼卡/无剧本徽章
+FAILS=0

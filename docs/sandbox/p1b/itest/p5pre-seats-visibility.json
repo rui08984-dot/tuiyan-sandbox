@@ -1,0 +1,57 @@
+{
+  "when": "2026-09-08T09:07:34.537Z",
+  "game": 2,
+  "seat": 4,
+  "expect": "王五",
+  "got": "王五",
+  "players": [
+    {
+      "id": 13,
+      "game_id": 2,
+      "seat": 1,
+      "name": "1号"
+    },
+    {
+      "id": 14,
+      "game_id": 2,
+      "seat": 2,
+      "name": "2号"
+    },
+    {
+      "id": 15,
+      "game_id": 2,
+      "seat": 3,
+      "name": "3号"
+    },
+    {
+      "id": 16,
+      "game_id": 2,
+      "seat": 4,
+      "name": "王五"
+    },
+    {
+      "id": 17,
+      "game_id": 2,
+      "seat": 5,
+      "name": "5号"
+    },
+    {
+      "id": 18,
+      "game_id": 2,
+      "seat": 6,
+      "name": "6号"
+    },
+    {
+      "id": 19,
+      "game_id": 2,
+      "seat": 7,
+      "name": "7号"
+    },
+    {
+      "id": 20,
+      "game_id": 2,
+      "seat": 8,
+      "name": "8号"
+    }
+  ]
+}

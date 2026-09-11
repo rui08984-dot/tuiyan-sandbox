@@ -1,0 +1,75 @@
+{
+  "id": "tb-07",
+  "edition": "tb",
+  "cat": "复合句",
+  "day": 2,
+  "phase": "day",
+  "speakerSeat": null,
+  "text": "1号跳占卜师，说他昨晚验出4号是投毒者；4号反咬1号是红唇女郎。",
+  "expected": {
+    "event_type": "claim",
+    "claims": [
+      {
+        "subject_seat": 1,
+        "predicate_ideal": "claims_role",
+        "object": "占卜师",
+        "map_expect": "main_role"
+      },
+      {
+        "subject_seat": 4,
+        "predicate_ideal": "is_role",
+        "object": "投毒者",
+        "map_expect": "main_role"
+      },
+      {
+        "subject_seat": 1,
+        "predicate_ideal": "is_role",
+        "object": "红唇女郎",
+        "map_expect": "main_role",
+        "note": "反咬归属4号须保留在 object（基线 R6 对照）"
+      }
+    ],
+    "action": null
+  },
+  "ms": 26970.614,
+  "attempts_external": 0,
+  "error": null,
+  "out": {
+    "event": {
+      "day": 2,
+      "phase": "day",
+      "type": "claim",
+      "raw_text": "1号跳占卜师，说他昨晚验出4号是投毒者；4号反咬1号是红唇女郎。",
+      "actor_seat": 1
+    },
+    "claims": [
+      {
+        "subject_seat": 1,
+        "predicate": "claims_role",
+        "object": "占卜师"
+      },
+      {
+        "subject_seat": 4,
+        "predicate": "is_role",
+        "object": "投毒者"
+      },
+      {
+        "subject_seat": 1,
+        "predicate": "is_role",
+        "object": "红唇女郎"
+      }
+    ],
+    "action": {
+      "action": "check_target",
+      "target_seat": 4,
+      "result": "1号声称昨晚验出4号为投毒者",
+      "seat": 1
+    },
+    "warnings": [],
+    "meta": {
+      "mode": "LIVE",
+      "attempts": 1
+    },
+    "actor_seat": 1
+  }
+}

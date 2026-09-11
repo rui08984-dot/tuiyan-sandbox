@@ -1,0 +1,23 @@
+冲突对总数: 10
+- c11:c12 | [对跳] 唯一角色「洗衣妇（washerwoman）」被 2 号（claim#11）与 3 号（claim#12）同
+- c15:c17 | [对跳] 唯一角色「小恶魔（imp）」被 6 号（claim#15）与 2 号（claim#17）同时声称/指认，互
+- c11:c17 | [自相矛盾] 座位2 的角色声称不一致：claim#11="洗衣妇（washerwoman）" vs claim#1
+- c15:b103 botc | [阵营互斥] 座位6 自称/被指认为「小恶魔（imp，demon）」又被 1 号指认 is_minion（botc_
+- c15:c16 | [阵营互斥] 座位6 自称/被指认为「小恶魔（imp，demon）」又被发好人金水（claim#16），必有一假
+- b101:b103 botc | [阵营互斥] 座位6 被同时指认 is_demon（botc_claim#101）与 is_minion（botc_
+- c16:b101 botc | [阵营互斥] 座位6 被同时指认 is_demon（botc_claim#101）与好人（claim#16），阵营互
+- c16:b103 botc | [阵营互斥] 座位6 被同时指认 is_minion（botc_claim#103）与好人（claim#16），阵营
+- b101:b102 botc | [多恶魔] 座位5（botc_claim#102）与座位6（botc_claim#101）被不同来源指认 is_de
+- b104:b105 botc | [状态矛盾] 座位8 在 day1 被同一来源（2 号）同时报醉酒（botc_claim#104）与中毒（botc_
+RB1 对跳命中: true
+RB1 旅行者枪手不对跳: true
+RB2 改跳命中: true
+RB3 demon×is_good 命中: true
+RB3 imp(自认)×is_demon 不报: true
+RB3 imp×is_minion 命中: true
+RB3 demon×is_minion 命中: true
+RB4 多恶魔命中: true
+RB5 状态矛盾命中: true
+RB5 day2 单 drunk 不报: true
+全部对跳对 claim 引用为整数主表 id: true
+botc_only 对不含主表引用: true

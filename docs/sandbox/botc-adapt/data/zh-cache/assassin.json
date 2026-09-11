@@ -1,0 +1,20 @@
+{
+ "id": "assassin",
+ "name_en": "Assassin",
+ "search_status": 200,
+ "hit_titles": [
+  "珀",
+  "刺客",
+  "普卡"
+ ],
+ "name_zh": "刺客",
+ "ability_zh": "每个白天，可秘密选择一名玩家。若其为恶魔，该恶魔中毒。",
+ "page": "刺客",
+ "file_verified": false,
+ "script": "黯月初升",
+ "page_found": true,
+ "has_section": true,
+ "retry_route": "script-gallery:黯月初升",
+ "appears_in": null,
+ "fan_like": false
+}

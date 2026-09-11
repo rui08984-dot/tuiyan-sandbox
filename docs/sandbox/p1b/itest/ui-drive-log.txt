@@ -1,0 +1,14 @@
+OK   S1 建局+选局（局名+存活8/8）
+OK   S2 宏1 确认卡出现（宏录入徽标+第1轮）
+OK   S2 宏1 入账（2号跳预言家）
+OK   S3 宏2 查杀入账（3号查杀5号）
+OK   S4 宏3 金水入账（1号给4号发金水）
+OK   S5a 席位键控提交成功（行为人+对象均=7）
+OK   S5b YD5 重显一轮（第 2 轮 + 检测到修改 + 复核按钮）
+OK   S5c YD5 复核入账（claims 跟随行为人 7号 → 7号）
+OK   S6 MOCK 抽取卡（AI 抽取 · MOCK 徽标 + 2 条声称）
+OK   S6 自由文本入账（raw 文本可见）
+OK   S7 claims edit 生效（「女巫+守卫」可见）
+OK   S8 撤回两击武装（确认撤回? 出现）
+OK   S8 retract 生效（金水 claim 行消失，事件原文仍在）
+UI-DRIVE RESULT: ALL PASS

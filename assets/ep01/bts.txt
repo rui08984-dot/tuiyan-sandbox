@@ -1,0 +1,8 @@
+file 'E:/music player/assets/ep01/bg_00.ts'
+file 'E:/music player/assets/ep01/bg_01.ts'
+file 'E:/music player/assets/ep01/bg_02.ts'
+file 'E:/music player/assets/ep01/bg_03.ts'
+file 'E:/music player/assets/ep01/bg_04.ts'
+file 'E:/music player/assets/ep01/bg_05.ts'
+file 'E:/music player/assets/ep01/bg_06.ts'
+file 'E:/music player/assets/ep01/bg_07.ts'

@@ -1,0 +1,18 @@
+{
+ "id": "choirboy",
+ "name_en": "Choirboy",
+ "search_status": 200,
+ "hit_titles": [
+  "唱诗男孩"
+ ],
+ "name_zh": "唱诗男孩",
+ "ability_zh": "如果国王死亡，在当晚你会得知哪名玩家是杀死国王的恶魔。[+国王]",
+ "page": "唱诗男孩",
+ "file_verified": false,
+ "script": "暗流涌动",
+ "page_found": true,
+ "has_section": true,
+ "retry_route": "script-gallery:暗流涌动",
+ "appears_in": null,
+ "fan_like": false
+}

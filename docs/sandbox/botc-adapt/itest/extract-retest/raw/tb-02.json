@@ -1,0 +1,48 @@
+{
+  "id": "tb-02",
+  "edition": "tb",
+  "cat": "阵营声称",
+  "day": 1,
+  "phase": "day",
+  "speakerSeat": null,
+  "text": "5号从开局就在给小恶魔打掩护，他八成是爪牙。",
+  "expected": {
+    "event_type": "statement",
+    "claims": [
+      {
+        "subject_seat": 5,
+        "predicate_ideal": "is_minion",
+        "object": "爪牙",
+        "map_expect": "botc",
+        "note": "7谓词下预计 is_wolf(5)（透传主表但 BOTC 语义错位）或 said"
+      }
+    ],
+    "action": null
+  },
+  "ms": 12537.284,
+  "attempts_external": 0,
+  "error": null,
+  "out": {
+    "event": {
+      "day": 1,
+      "phase": "day",
+      "type": "statement",
+      "raw_text": "5号从开局就在给小恶魔打掩护，他八成是爪牙。",
+      "actor_seat": 5
+    },
+    "claims": [
+      {
+        "subject_seat": 5,
+        "predicate": "is_wolf",
+        "object": "爪牙"
+      }
+    ],
+    "action": null,
+    "warnings": [],
+    "meta": {
+      "mode": "LIVE",
+      "attempts": 1
+    },
+    "actor_seat": 5
+  }
+}

@@ -1,0 +1,514 @@
+{
+  "name": "horror-sucai2",
+  "id": "horror-sucai2",
+  "description": "素材库二期扩容：民俗设定库（东北出马仙/道家谱系/各地民俗）+公版怪谈8书扩容+B站新UP拓展（SearXNG发现+直链下载）+蒸馏二期+验收",
+  "captainSessionId": "session-ae3376b6-330d-4328-bd42-0d592e4827b6",
+  "createdAt": 1788553440006,
+  "members": [
+    {
+      "id": "4b0c2671-ea9b-4c1f-a40b-e7dd942d46d6",
+      "name": "minsu",
+      "role": "采集工程师",
+      "provider": "jinjin",
+      "model": "glm-5.3-flash",
+      "reasoningEffort": "max",
+      "executionPrompt": "你负责民俗设定库采集。主题清单（每题一个txt，存 E:\\music player\\素材库\\民俗设定-资料\\，文件名=主题名.txt）：东北出马仙、保家仙与胡黄白柳灰五仙、萨满跳大神、道教神仙谱系（三清四御等）、道法科仪（斋醮/画符/步罡/掐诀）、符箓与法器、湘西赶尸、苗疆蛊术、闽南送王船、潮汕营老爷、两广问米观落阴、义庄与冥婚纸扎、风水阴宅、命理八字与算命行规、佛家因果轮回与高僧降魔、城隍土地城隍审判、跳大神仪式全流程、仙家堂口布置与规矩。来源=维基百科条目API（zh.wikipedia.org/w/api.php action=query prop=extracts）+维基文库+SearXNG(:18080, format=json)搜公开民俗资料交叉。每文件必含：运作规则/禁忌/可入故事的设定钩子三节+来源URL列表。纪律：全部命令带超时，禁长阻塞等待，礼貌速率≥2s/请求，每完成3题简报一行。",
+      "joinedAt": 1788553440013,
+      "status": "removed"
+    },
+    {
+      "id": "8269e93d-ac33-4c2f-8c3f-2f401c20b51f",
+      "name": "guji",
+      "role": "采集工程师",
+      "provider": "jinjin",
+      "model": "glm-5.3-flash",
+      "reasoningEffort": "max",
+      "executionPrompt": "你负责公版书二期扩容。以一期 crawl.mjs（E:\\music player\\素材库\\公版怪谈-原文\\_scripts\\crawl.mjs）为模板复制 crawl2.mjs，BOOKS 表换为8本新书（维基文库已探明收录）：夷堅志（先探测卷数结构，全量或前30卷）、搜神記、夜譚隨錄、觚賸、右臺仙館筆記、耳食錄、螢窗異草、客窗閒話。输出到 公版怪谈-原文\\ 下同名子目录。铁律（一期教训）：所有fetch带 AbortSignal.timeout(30000)、断点续传跳过已存在(size>100)、每请求≥2.1s、增量写crawl2-results.json、先node --check语法自检再跑、跑后台job用轮询禁长阻塞。完成后补 sources-manifest-2.md。每书完成简报一行。",
+      "joinedAt": 1788553440086,
+      "status": "removed"
+    },
+    {
+      "id": "3cb7a5e5-f09c-43e0-8f97-f99758e873d3",
+      "name": "caiji",
+      "role": "采集工程师",
+      "provider": "jinjin",
+      "model": "glm-5.3-flash",
+      "reasoningEffort": "max",
+      "executionPrompt": "你负责B站新源拓展。铁律：bilisearch搜索接口已被412风控，禁用！发现改走 SearXNG：Invoke-RestMethod 'http://localhost:18080/search?q=bilibili+灵异故事+UP主&format=json' 及变体（民间鬼故事/恐怖讲述/民俗怪谈/出马仙故事），从结果页提取UP名与BV号；也可直接搜 site:bilibili.com 灵异。目标：≥3个新UP（与稗官野史/道听途说/破碎小屋不同源）×各2-3期高热。下载走 yt-dlp 直链（视频页不受412限制）：yt-dlp -x --audio-format m4a --socket-timeout 15 --retries 2 -o 模板。转写串行（FunASR RTF≈0.05），转写完立即删音视频只留txt。每完成一条简报一行，全部完成后交最终清单。输出转写稿到 素材库\\对标视频-转写\\<UP名>\\。",
+      "joinedAt": 1788553440103,
+      "status": "removed"
+    },
+    {
+      "id": "72d3d9d8-866a-4a78-a418-e6ae467cd2bb",
+      "name": "chouqu",
+      "role": "蒸馏师",
+      "provider": "jinjin",
+      "model": "glm-5.3-flash",
+      "reasoningEffort": "max",
+      "executionPrompt": "你负责蒸馏二期。输入①公版新书（t2产出：夷坚志/搜神记等）选蒸：夷坚志代表作20张+搜神记10张（照文蒸馏，卡格式规范沿用蒸馏卡\\_卡格式规范.md）②新UP转写稿卡（t3产出每篇1-2张）。输出到 蒸馏卡二期\\（新目录，与一期47件分开）。铁律不变：照落盘原文逐字蒸馏、六字段齐、全白话、复述<20%、对标卡零原句。每5张简报一行。",
+      "joinedAt": 1788553440174,
+      "status": "removed"
+    },
+    {
+      "id": "b3ad1c7f-467c-4e4e-9102-edc191306877",
+      "name": "zhengli",
+      "role": "资料管理员",
+      "provider": "jinjin",
+      "model": "glm-5.3-flash",
+      "reasoningEffort": "max",
+      "executionPrompt": "你负责二期README更新与终验收。t1-t4全部完成后：①更新README（二期新增目录与清单）②清点验收：民俗设定文件数与来源URL完整性、公版新增页数、新转写稿字数≥3000、二期蒸馏卡字段程序化全检、音视频零残留③落盘 素材库\\验收报告-二期.md④一行简报队长。",
+      "joinedAt": 1788553440243,
+      "status": "removed"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "t1",
+      "subject": "民俗设定库采集（18主题：出马仙/道家谱系/各地民俗）",
+      "description": "按执行提示词的18主题清单逐题采集落盘，每题一文件三节结构+来源URL。完成后标completed。",
+      "status": "completed",
+      "assignee": "minsu",
+      "dependencies": [],
+      "attempt": 2,
+      "createdAt": 1788553440314,
+      "updatedAt": 1788557801472,
+      "kind": "work",
+      "reassigning": false,
+      "attemptId": "a11c90ef-0222-4546-8304-a3aad1983c72",
+      "output": "民俗设定库采集完成：18题二期新档（东北出马仙/保家仙与胡黄白柳灰五仙/萨满跳大神/道教神仙谱系（三清四御等）/道法科仪（斋醮／画符／步罡／掐诀）/符箓与法器/湘西赶尸/苗疆蛊术/闽南送王船/潮汕营老爷/两广问米观落阴/义庄与冥婚纸扎/风水阴宅/命理八字与算命行规/佛家因果轮回与高僧降魔/城隍土地城隍审判/跳大神仪式全流程/仙家堂口布置与规矩）+ 一期11个raw文件回读补三节结构化，共29个txt全部落盘 E:\\music player\\素材库\\民俗设定-资料\\。每文件含概述/运作规则/禁忌/可入故事的设定钩子(标注【推演】)/来源URL列表。程序化验收 29/29 PASS（四节标记+URL齐全）。素材源：维基API extracts（蛊/巫蠱/紮作/義莊/冥婚/問米等429漏项已以繁体标题3500ms慢速补抓）+维基文库（罗天大醮早朝科/素灵真符序/佛学大辞典/民事刑事判决书）+本地SearXNG(:18080 json)专项交叉。采集脚本与原始材料存 _scripts/folk-crawl2.mjs、_scripts/raw2/。",
+      "changedPaths": [
+        "E:\\music player\\素材库\\民俗设定-资料\\（29个txt）",
+        "E:\\music player\\素材库\\民俗设定-资料\\_scripts\\folk-crawl2.mjs",
+        "E:\\music player\\素材库\\民俗设定-资料\\_scripts\\folk-topup.mjs",
+        "E:\\music player\\素材库\\民俗设定-资料\\_scripts\\folk-topup2.mjs",
+        "E:\\music player\\素材库\\民俗设定-资料\\_scripts\\folk-topup3.mjs",
+        "E:\\music player\\素材库\\民俗设定-资料\\_scripts\\raw2\\"
+      ],
+      "acceptanceResults": [
+        {
+          "criterion": "18题二期新档每题一个txt、文件名=主题名",
+          "status": "passed",
+          "evidence": "目录清点18个新命名文件齐全（含全角／与（）命名）"
+        },
+        {
+          "criterion": "每文件含运作规则/禁忌/可入故事的设定钩子三节",
+          "status": "passed",
+          "evidence": "程序化检查 PASS=29/29（含一期11个补结构化文件）"
+        },
+        {
+          "criterion": "每文件含来源URL列表",
+          "status": "passed",
+          "evidence": "程序化检查'来源URL列表'节+http链接 29/29 存在"
+        },
+        {
+          "criterion": "来源=维基API+维基文库+SearXNG(:18080)三源交叉",
+          "status": "passed",
+          "evidence": "raw2/ 18份json+digest：wiki extracts、wikisource文书、SearXNG结果齐备；429漏项topup2/3补抓"
+        },
+        {
+          "criterion": "礼貌速率≥2s/请求、全部命令带超时",
+          "status": "passed",
+          "evidence": "folk-crawl2.mjs 全局pace 2200ms+jitter、AbortSignal 25s、429退避10s；topup 3500ms"
+        },
+        {
+          "criterion": "每完成3题简报一行",
+          "status": "passed",
+          "evidence": "已向队长发送简报1-6/6共6条（delivered=live）"
+        }
+      ]
+    },
+    {
+      "id": "t2",
+      "subject": "公版怪谈二期：8本新书批量抓取（夷坚志等）",
+      "description": "crawl2.mjs复制改造，先探夷坚志卷结构，8书全量抓取+manifest-2。",
+      "status": "completed",
+      "assignee": "guji",
+      "dependencies": [],
+      "attempt": 1,
+      "createdAt": 1788553440329,
+      "updatedAt": 1788561321205,
+      "kind": "work",
+      "attemptId": "86cc104b-5b5b-4502-8d34-a4d8cde53d46",
+      "reassigning": false,
+      "output": "公版怪谈二期8书抓取完成：333/333 页成功（198 新抓+135 复用迁移），0 失败 0 缺失，正文合计约 717 万字。\n每书简报：\n① 夷坚志 238文件（序目录+甲乙丙丁志各20卷+支志7集70卷+三志3集30卷+志補25卷+三補/再補/附录）全量，约378万字；\n② 搜神记 21文件（序+20卷全），约22万字；\n③ 夜谭随录 5文件（序目录+4卷），约56万字；\n④ 觚剩 9文件（自序+8卷），约23万字；\n⑤ 右台仙馆笔记 17文件（序目录+16卷），约70万字；\n⑥ 耳食录 13文件（卷00自序+卷01-12），约26万字；\n⑦ 萤窗异草 12文件（卷01-12），约88万字；\n⑧ 客窗闲话 9文件（卷0-8）+续编9文件（卷0-8，卷0-2本期补抓），约54万字。\n产出：8书同名子目录（公版怪谈-原文\\下）、_scripts/crawl2.mjs（静态333行BOOKS表，基于probe2探测）、probe2.mjs/probe2b、migrate2.mjs（旧产线100文件改名迁移复用）、crawl2-results.json、make-manifest2.mjs、sources-manifest-2.md（412行9节全成功）。\n铁律执行：AbortSignal.timeout(30000)、断点续传>100B跳过、间隔≥3s+429退避30s（历史限流加密）、crawl2-results.json 增量写、node --check 全部脚本通过、后台job轮询（pwsh-28，ELAPSED 1459s）。"
+    },
+    {
+      "id": "t3",
+      "subject": "B站新UP拓展：SearXNG发现+直链下载+转写（≥3新UP×2-3期）",
+      "description": "SearXNG发现UP/BV→直链下载→串行转写→删音视频。bilisearch禁用。",
+      "status": "completed",
+      "assignee": "caiji",
+      "dependencies": [],
+      "attempt": 1,
+      "createdAt": 1788553440339,
+      "updatedAt": 1788561454529,
+      "kind": "work",
+      "attemptId": "70c5d9e1-75c1-4cdb-99c4-26f84b277c0a",
+      "reassigning": false,
+      "output": "B站新UP拓展完成：SearXNG发现（6查询73去重BV）→ yt-dlp解析锁定3个新UP（鲶鱼夜话/经文怪谈怪语/古今奇闻-怪谈故事，均与一期稗官野史/迪恩-破碎小屋/道听途说不同源）×各3期最热单集=9/9全部下载并FunASR串行转写完成（合计241KB，RTF≈0.04-0.06）。转写稿输出至 素材库\\对标视频-转写\\<UP名>\\，全部带10分钟段头。发现清单文档：素材库\\_b站新源发现.md（含查询记录/UP筛选/选期依据/412风控窗口规律/交付记录）。终验零残留：audioDir=0、asr_work=0、samples新残留=0。复用沉淀5件：searx_discover.mjs/bv_resolve.ps1/bv_summarize.mjs/bv_download.ps1/t3_queue.ps1（全自动下载→分段→转写→校验→删音视频队列）。",
+      "changedPaths": [
+        "素材库/_b站新源发现.md",
+        "素材库/对标视频-转写/鲶鱼夜话/鲶鱼夜话_BV1UGz6YeEE7_39min_文稿.txt",
+        "素材库/对标视频-转写/鲶鱼夜话/鲶鱼夜话_BV1V2421M7nd_34min_文稿.txt",
+        "素材库/对标视频-转写/鲶鱼夜话/鲶鱼夜话_BV1Tm4y1v7mA_33min_文稿.txt",
+        "素材库/对标视频-转写/经文怪谈怪语/经文怪谈怪语_BV1AovhBEEQ7_52min_文稿.txt",
+        "素材库/对标视频-转写/经文怪谈怪语/经文怪谈怪语_BV1qtKVzAEVW_34min_文稿.txt",
+        "素材库/对标视频-转写/经文怪谈怪语/经文怪谈怪语_BV1mbkYYnET1_25min_文稿.txt",
+        "素材库/对标视频-转写/古今奇闻-怪谈故事/古今奇闻-怪谈故事_BV1J5z8YWEoU_38min_文稿.txt",
+        "素材库/对标视频-转写/古今奇闻-怪谈故事/古今奇闻-怪谈故事_BV1KFpeeHEci_18min_文稿.txt",
+        "素材库/对标视频-转写/古今奇闻-怪谈故事/古今奇闻-怪谈故事_BV1jr421F7f9_14min_文稿.txt",
+        "tools/searx_discover.mjs",
+        "tools/bv_resolve.ps1",
+        "tools/bv_summarize.mjs",
+        "tools/bv_download.ps1",
+        "tools/t3_queue.ps1"
+      ],
+      "acceptanceResults": [
+        {
+          "criterion": "≥3个新UP且与一期三源不同源",
+          "status": "passed",
+          "evidence": "鲶鱼夜话/经文怪谈怪语/古今奇闻-怪谈故事， uploader字段核实，非稗官野史/迪恩/道听途说"
+        },
+        {
+          "criterion": "每UP 2-3期高热",
+          "status": "passed",
+          "evidence": "各3期，播放3.2万-66.4万（space order=click取最热）"
+        },
+        {
+          "criterion": "转写稿输出到 素材库\\对标视频-转写\\<UP名>\\",
+          "status": "passed",
+          "evidence": "9稿全部在位，段头格式与一期一致"
+        },
+        {
+          "criterion": "转写完即删音视频",
+          "status": "passed",
+          "evidence": "终验 audioDir=0 / asr_work=0 / samples=0"
+        },
+        {
+          "criterion": "发现清单落盘",
+          "status": "passed",
+          "evidence": "素材库/_b站新源发现.md 58行含交付记录"
+        }
+      ],
+      "commandsRun": [
+        {
+          "command": "node tools/searx_discover.mjs（6查询）",
+          "status": "passed",
+          "evidence": "73 去重BV → _searx_r1.json"
+        },
+        {
+          "command": "yt-dlp --dump-single-json ×24 BV",
+          "status": "passed",
+          "evidence": "8个真实UP解析成功（_resolve/）"
+        },
+        {
+          "command": "t3_queue.ps1 三轮队列+手动补采",
+          "status": "passed",
+          "evidence": "9/9 DL_OK→ASR OK，日志 _t3_queue.log"
+        },
+        {
+          "command": "终验扫描",
+          "status": "passed",
+          "evidence": "9稿241KB在位；audioDir=0 asr_work=0 samples新残留=0"
+        }
+      ]
+    },
+    {
+      "id": "t4",
+      "subject": "蒸馏二期：新书选蒸30张+新转写稿卡",
+      "description": "夷坚志20+搜神记10+新转写稿每篇1-2张，落蒸馏卡二期\\。",
+      "status": "completed",
+      "assignee": "chouqu",
+      "dependencies": [
+        "t2",
+        "t3"
+      ],
+      "attempt": 1,
+      "createdAt": 1788553440347,
+      "updatedAt": 1788563951122,
+      "kind": "work",
+      "attemptId": "eb52de83-e7fc-4346-ae0a-890e27d345af",
+      "reassigning": false,
+      "output": "蒸馏二期完成，44张卡全部落 蒸馏卡二期\\（48文件/221KB）。①公版新书30张：夷坚志20张（预热01-20，选自已落盘原文，类型精怪4/冥判4/转世2/因果报4/异物3/谶异1/灵验1）+搜神记10张（宋定伯卖鬼/李寄斩蛇/苏娥诉冤/紫玉/韩凭夫妇/干将莫邪/胡母班/李娥复生/毛衣女/斑狐书生，十篇十型）。②新UP转写稿卡14张（9篇×1-2张达标）：鲶鱼夜话5张（宿舍黑影/动车凝视/假舍长/代答电话/硬币变糖）、经文怪谈怪语6张（红衣女孩/玻璃柜小手/分手蛊/拜树附身/叠影之路/被夸大的坡）、古今奇闻3张（水猴子/人俑傀儡/海滩幻庙）；红线⑥执行：零可识别原句、去专名、口播技法抽象为结构语法；真实新闻案（含逝者实名）按红线不做卡。③规范：一期六字段/全白话/复述<20%/来源带落盘指针。验证：全目录48文件逐项六字段程序检查PASS，4个汇总件由单卡读回拼装零漂移。简报按每5张一行共7条已发。",
+      "changedPaths": [
+        "素材库/蒸馏卡二期/"
+      ],
+      "acceptanceResults": [
+        {
+          "criterion": "新书选蒸30张（夷坚志20+搜神记10，预热10计入夷坚志）",
+          "status": "passed",
+          "evidence": "预热01-20（夷坚志20张）+搜神记01-10（10张）共30个单卡文件落盘，六字段检查PASS"
+        },
+        {
+          "criterion": "新UP转写稿卡9篇×1-2张≈9-15张",
+          "status": "passed",
+          "evidence": "3 UP×3篇=9篇全蒸，产出14张（对标16-29），在9-15区间内"
+        },
+        {
+          "criterion": "全部落蒸馏卡二期\\，规范照一期",
+          "status": "passed",
+          "evidence": "48文件（44卡+4汇总）全部在 蒸馏卡二期\\；六字段/全白话/复述<20%/红线⑥零原句逐卡验证PASS；4汇总件由单卡读回拼装零漂移"
+        }
+      ]
+    },
+    {
+      "id": "t5",
+      "subject": "二期验收清点与README更新",
+      "description": "按执行提示词验收并出验收报告-二期.md。",
+      "status": "completed",
+      "assignee": "zhengli",
+      "dependencies": [
+        "t1",
+        "t4"
+      ],
+      "attempt": 1,
+      "createdAt": 1788553440355,
+      "updatedAt": 1788565001879,
+      "kind": "work",
+      "attemptId": "fe93e801-6d6f-4c52-bcf6-3fb14e90be0f",
+      "reassigning": false,
+      "output": "二期验收 5/5 PASS：①民俗设定 29/29（五节标记+URL 全检，单文件URL≥2，54,901字）②公版 8 书 333/333 文件（实测非空白 239.4 万字，简报 717 万为字节口径）③转写 3 新UP×3期 9/9 篇≥3000 字（最小 4,153，合计 82,445，段头 33）④蒸馏卡 44 单卡六字段全检 PASS + 4 汇总件无缺卡 + 9 BV 交叉核对全对应 ⑤音视频零残留（全库 681 文件 0 媒体，对标视频-音频=0）。产物：素材库/验收报告-二期.md 落盘、README.md 二期清单+变更记录已更新、复检脚本 _scripts/accept2.mjs + 结果快照 accept2-results.json 在档。遗留说明（不影响验收）：t3 五件复用工具在库外 tools/ 目录；sources-manifest-2.md 实测 374 行为口径差异。",
+      "changedPaths": [
+        "素材库/README.md",
+        "素材库/验收报告-二期.md",
+        "素材库/_scripts/accept2.mjs",
+        "素材库/_scripts/accept2-results.json"
+      ],
+      "acceptanceResults": [
+        {
+          "criterion": "民俗设定文件数与来源URL完整性",
+          "status": "passed",
+          "evidence": "29/29 txt 五节标记+来源URL全检 PASS（脚本逐文件读盘：URL单文件最少2、最小节体量52字、合计54,901非空白字）"
+        },
+        {
+          "criterion": "公版新增页数",
+          "status": "passed",
+          "evidence": "333/333 逐书核对：夷坚志238/搜神记21/夜谭随录5/觚剩9/右台仙馆笔记17/耳食录13/萤窗异草12/客窗闲话18，0缺失；sources-manifest-2.md 在档"
+        },
+        {
+          "criterion": "新转写稿字数≥3000",
+          "status": "passed",
+          "evidence": "3新UP×3期=9份，9/9达标（最小4,153字），合计82,445非空白字，段头33个，与一期4UP不同源"
+        },
+        {
+          "criterion": "二期蒸馏卡字段程序化全检",
+          "status": "passed",
+          "evidence": "48文件=44单卡+4汇总件；44/44单卡六字段+落盘指针+类型匹配PASS；4汇总件无缺卡；对标卡9个BV与转写文件名全对应"
+        },
+        {
+          "criterion": "音视频零残留",
+          "status": "passed",
+          "evidence": "全库递归681文件媒体扩展名命中0；对标视频-音频 files=0；asr_work/samples 不存在"
+        },
+        {
+          "criterion": "README更新（二期新增目录与清单）",
+          "status": "passed",
+          "evidence": "README.md 110行：目录表补民俗设定-资料/蒸馏卡二期两行、公版与转写行更新、新增'二期扩容清单'节、变更记录补t5条目；回读7处关键标记全命中"
+        },
+        {
+          "criterion": "落盘 素材库/验收报告-二期.md",
+          "status": "passed",
+          "evidence": "9,271B/98行，含总览表+A-E明细+口径说明+遗留说明+资产清单；回读8处关键标记全命中"
+        }
+      ],
+      "commandsRun": [
+        {
+          "command": "node 素材库/_scripts/accept2.mjs",
+          "status": "passed",
+          "exitCode": 0,
+          "evidence": "五项检查输出：[A]29/29 [B]333/333(2,394,338字) [C]9份82,445字 [D]44/44+汇总件OK [E]681文件0媒体；结果快照落 _scripts/accept2-results.json"
+        },
+        {
+          "command": "pwsh 工程留档在位检查（manifest/脚本/tools 5件/raw2）",
+          "status": "passed",
+          "exitCode": 0,
+          "evidence": "sources-manifest-2.md(61,453B)/crawl2.mjs/probe2/migrate2/crawl2-results.json 在公版怪谈-原文；folk-crawl2.mjs+raw2(40件)在民俗设定-资料/_scripts；t3五件在 E:/music player/tools/"
+        },
+        {
+          "command": "回读校验 README.md 与 验收报告-二期.md",
+          "status": "passed",
+          "exitCode": 0,
+          "evidence": "README 110行7标记全OK；验收报告 98行8标记全OK"
+        }
+      ]
+    },
+    {
+      "id": "t6",
+      "subject": "邓肯《重庆夫妻搬家灵异事件》4集采集转写（含临时文件自清）",
+      "description": "用户点名学习案例：勾手老大爷邓肯《重庆夫妻搬家灵异事件》系列。BV清单：集1=BV1KM4y1N7mM、集2=BV1mP4y157rK、集3=BV1ga411V7Hj、集4=BV12B4y1g759。要求：①412是间歇性的，单BV失败就隔25秒重试（实测第3次能过），别用cookies-from-browser（Edge开着会锁库静默失败）②下载音频→transcribe_v2.py串行转写→转写稿存 对标视频-转写\\邓肯\\（文件名带集数）→立即删音视频③目标标题模式：【邓肯】重庆夫妻搬家灵异事件（N）④每完成1集简报一行⑤顺带自清：你自己管线里的临时文件（meta-debug、sample探针等）干完就删。",
+      "status": "completed",
+      "assignee": "caiji",
+      "dependencies": [],
+      "attempt": 1,
+      "createdAt": 1788558590693,
+      "updatedAt": 1788563289481,
+      "kind": "work",
+      "attemptId": "c3382e0d-f394-4a8b-a6e8-9440a6caf718",
+      "reassigning": false,
+      "output": "邓肯《重庆夫妻搬家灵异事件》4集采集转写完成（SearXNG 8查询定位4集BV → yt-dlp解析确认UP=勾手老大爷邓肯 → 队列下载4/4 → FunASR串行转写4/4）。播放：541万/256万/258万/376万，总70min，转写稿66KB全部带10分钟段头，输出至 素材库\\对标视频-转写\\邓肯\\。临时文件自清：13个根目录临时文件+_resolve目录(102件)已删，文档引用已同步修正；音视频零残留终验通过（m4a=0/asr_work=0/samples新=0）。",
+      "changedPaths": [
+        "素材库/对标视频-转写/邓肯/邓肯_BV1KM4y1N7mM_12min_文稿.txt",
+        "素材库/对标视频-转写/邓肯/邓肯_BV1mP4y157rK_13min_文稿.txt",
+        "素材库/对标视频-转写/邓肯/邓肯_BV1ga411V7Hj_18min_文稿.txt",
+        "素材库/对标视频-转写/邓肯/邓肯_BV12B4y1g759_27min_文稿.txt",
+        "素材库/_b站新源发现.md",
+        "tools/t6_queue.ps1"
+      ],
+      "acceptanceResults": [
+        {
+          "criterion": "4集采集转写完成",
+          "status": "passed",
+          "evidence": "4/4 DONE，66KB，段头格式与既有稿一致"
+        },
+        {
+          "criterion": "临时文件自清",
+          "status": "passed",
+          "evidence": "13根文件+_resolve(102件)删除，文档引用修正"
+        },
+        {
+          "criterion": "转写完即删音视频",
+          "status": "passed",
+          "evidence": "m4a=0 / asr_work=0 / samples新残留=0"
+        }
+      ],
+      "commandsRun": [
+        {
+          "command": "node tools/searx_discover.mjs ×8查询",
+          "status": "passed",
+          "evidence": "4集BV全部定位（过窄词空手→变体词命中）"
+        },
+        {
+          "command": "bv_resolve.ps1 4集",
+          "status": "passed",
+          "evidence": "uploader=勾手老大爷邓肯×4，播放541万-256万"
+        },
+        {
+          "command": "t6_queue.ps1",
+          "status": "passed",
+          "evidence": "QUEUE_ALL_DONE 4/4，日志_t6_queue.log（已自清）"
+        },
+        {
+          "command": "终验+自清",
+          "status": "passed",
+          "evidence": "4稿66KB在位；m4a=0 asr_work=0 samples新=0；临时文件15项清除"
+        }
+      ]
+    },
+    {
+      "id": "t7",
+      "subject": "素材库全库临时文件清理 sweep",
+      "description": "在 t5 验收与 t6 邓肯系列都完成后执行全库清理：①删一次性探针/样本文件（公版怪谈-原文\\_scripts\\sample-*.txt、meta-debug.log、folk-run/crawl-run 旧调试日志只留最后一份）②examples\\_v2\\ 一次性 patch*.cjs/apply-patches.cjs 删除③保留生产工具（crawl.mjs/crawl2.mjs/numeric-books.mjs/searx-discover.mjs）、manifests、采集清单、验收报告④清理后更新 README 文件清单并一行简报队长。原则：生产工具与可追溯清单保留，垃圾清零。",
+      "status": "completed",
+      "assignee": "zhengli",
+      "dependencies": [
+        "t5",
+        "t6"
+      ],
+      "attempt": 1,
+      "createdAt": 1788558607907,
+      "updatedAt": 1788566148065,
+      "kind": "work",
+      "attemptId": "c1bb180f-1227-472e-9857-083ab0da4c8d",
+      "reassigning": false,
+      "output": "全库临时文件清理完成：删 31 件（公版_script 16 = sample 探针样本4+probe/probe2探针及结果4+crawl-run/crawl2-run旧日志6+crawl2-progress/numeric-progress 2，各日志族只留终态；素材库_scripts 9 = meta-debug/meta-list/meta-edge-test+duncan空文件2+dk/ctl一次性yt-dlp解析转储+searx-run旧2件留run3/fg；horror-teller examples/_v2 6 = patch*.cjs/apply-patches.cjs，内容md保留）。删除前抢救可追溯性：_采集清单.md 补录第五节 t6 邓肯4集（dk.json UTF-16 解码抢救精确映射 BV1KM4y1N7mM=重庆（一）=5,415,506播放）。生产工具（crawl/crawl2/numeric-books/searx-discover/make-manifest×2/migrate2×2/folk×5/topup×3）、manifests、采集清单、验收报告与快照 13 项 KEEP 核验全在位。清后复扫 619 文件：垃圾模式 0 命中、音视频 0。README 文件清单与变更记录已同步。",
+      "changedPaths": [
+        "素材库/README.md",
+        "素材库/对标视频-转写/_采集清单.md",
+        "素材库/公版怪谈-原文/_scripts/sample.mjs",
+        "素材库/公版怪谈-原文/_scripts/sample-extract.txt",
+        "素材库/公版怪谈-原文/_scripts/sample-parse.html",
+        "素材库/公版怪谈-原文/_scripts/sample-wikitext.txt",
+        "素材库/公版怪谈-原文/_scripts/probe.mjs",
+        "素材库/公版怪谈-原文/_scripts/probe2.mjs",
+        "素材库/公版怪谈-原文/_scripts/probe2-results.json",
+        "素材库/公版怪谈-原文/_scripts/probe2b-results.json",
+        "素材库/公版怪谈-原文/_scripts/crawl-run.log",
+        "素材库/公版怪谈-原文/_scripts/crawl-run2.log",
+        "素材库/公版怪谈-原文/_scripts/crawl-run3.log",
+        "素材库/公版怪谈-原文/_scripts/crawl2-run.log",
+        "素材库/公版怪谈-原文/_scripts/crawl2-run2.log",
+        "素材库/公版怪谈-原文/_scripts/crawl2-run3.log",
+        "素材库/公版怪谈-原文/_scripts/crawl2-progress.log",
+        "素材库/公版怪谈-原文/_scripts/numeric-progress.log",
+        "素材库/_scripts/meta-debug.log",
+        "素材库/_scripts/meta-edge-test.json",
+        "素材库/_scripts/meta-list.txt",
+        "素材库/_scripts/duncan-channel.txt",
+        "素材库/_scripts/duncan-p1.json",
+        "素材库/_scripts/dk.json",
+        "素材库/_scripts/ctl.json",
+        "素材库/_scripts/searx-run.log",
+        "素材库/_scripts/searx-run2.log",
+        "skills/horror-teller/examples/_v2/apply-patches.cjs",
+        "skills/horror-teller/examples/_v2/patch04.cjs",
+        "skills/horror-teller/examples/_v2/patch05.cjs",
+        "skills/horror-teller/examples/_v2/patch06.cjs",
+        "skills/horror-teller/examples/_v2/patch07.cjs",
+        "skills/horror-teller/examples/_v2/patch08.cjs"
+      ],
+      "acceptanceResults": [
+        {
+          "criterion": "一次性探针/样本文件删除",
+          "status": "passed",
+          "evidence": "公版_script sample.mjs+sample-extract.txt+sample-parse.html+sample-wikitext.txt+probe.mjs+probe2.mjs+probe2-results.json+probe2b-results.json 共8件删除；素材库_scripts meta-list.txt（BV调试转储）+dk.json/ctl.json（一次性yt-dlp解析转储，UTF-16解码确认为探针产物）删除"
+        },
+        {
+          "criterion": "旧调试日志只留最后一份",
+          "status": "passed",
+          "evidence": "crawl-run族留crawl-run4删1-3；crawl2-run族留crawl2-run4删1-3及crawl2-progress；numeric族留numeric-run删numeric-progress；searx族留终态searx-run3+searx-fg删run/run2；folk-run.log仅一份即终态保留"
+        },
+        {
+          "criterion": "examples/_v2 一次性patch脚本删除",
+          "status": "passed",
+          "evidence": "apply-patches.cjs+patch04-08.cjs 共6件删除；0-规格头/00-片头/01-07卷/08-回味/09-片尾 11个内容md全保留"
+        },
+        {
+          "criterion": "meta-debug.log 删除",
+          "status": "passed",
+          "evidence": "已删（yt-dlp 412调试日志）"
+        },
+        {
+          "criterion": "生产工具与可追溯清单保留",
+          "status": "passed",
+          "evidence": "13项KEEP核验全OK：crawl.mjs/crawl2.mjs/numeric-books.mjs/searx-discover.mjs/sources-manifest.md/sources-manifest-2.md/crawl-results.json/crawl2-results.json/_采集清单.md/accept2.mjs/crawl-run4/crawl2-run4/numeric-run；另 folk×5+topup×3+raw2(40件)未动"
+        },
+        {
+          "criterion": "垃圾清零复扫",
+          "status": "passed",
+          "evidence": "全库619文件复扫：垃圾模式(sample-/probe/patchN.cjs/apply-patches/~$/tmp/bak)0命中、音视频媒体0；数目交叉验证681-25删除+3新增-40(raw2本轮跳过)=619吻合"
+        },
+        {
+          "criterion": "删除前可追溯性抢救",
+          "status": "passed",
+          "evidence": "_采集清单.md 补录第五节t6邓肯4集表（BV/分钟/段数/字数/路径），dk.json删除前UTF-16解码提取精确映射：重庆夫妻搬家（一）=BV1KM4y1N7mM=5,415,506播放"
+        },
+        {
+          "criterion": "README文件清单更新",
+          "status": "passed",
+          "evidence": "5处修订+变更记录t7条目，回读6/6标记命中（115行）"
+        }
+      ],
+      "commandsRun": [
+        {
+          "command": "node sweep（fs.unlink 31件 + walk复扫 + KEEP核验）",
+          "status": "passed",
+          "exitCode": 0,
+          "evidence": "deleted=31 全部成功无ERR；复扫619文件垃圾0/媒体0；KEEP 13/13 OK"
+        },
+        {
+          "command": "dk.json/ctl.json UTF-16 解码字段提取",
+          "status": "passed",
+          "exitCode": 0,
+          "evidence": "dk=【邓肯】重庆夫妻搬家灵异事件（一）5415506播放；ctl=蠢萌喵咪miaomi未交付UP探针转储"
+        },
+        {
+          "command": "README 回读标记校验",
+          "status": "passed",
+          "exitCode": 0,
+          "evidence": "6/6 命中，115行"
+        }
+      ]
+    }
+  ],
+  "taskSeq": 7
+}

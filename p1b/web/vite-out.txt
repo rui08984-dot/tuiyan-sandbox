@@ -1,0 +1,12 @@
+
+> p1b-web@0.1.0 dev
+> vite
+
+
+  VITE v5.4.21  ready in 348 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: http://198.18.0.1:5173/
+  ➜  Network: http://26.68.126.72:5173/
+  ➜  Network: http://10.38.23.183:5173/
+  ➜  Network: http://172.26.208.1:5173/

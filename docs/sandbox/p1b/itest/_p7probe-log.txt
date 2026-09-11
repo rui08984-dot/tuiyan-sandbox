@@ -1,0 +1,28 @@
+=== PROBE A: 宏确认卡不弹之谜 ===
+A0 hash=#/ | games=["2:P7血染回归:botc","1:P7狼人杀回归:werewolf"]
+A1 点跳身份前 .sheet 数=0
+A2 click 跳身份 -> clicked
+A3 .sheet 数=1 sheetAria=跳身份
+A4 sheetError=(none)
+A5 select0 set -> set
+A6 role input 数=1 set -> set
+A7 role value now=女巫
+A8 click 出确认卡 -> clicked
+A9 confirm-sheet=true sheetError=(none) overlayAria=待确认卡
+A10 confirm text head=待确认卡第 1 轮宏录入 · 不走LLM事件原文：2号跳女巫事件（第 1 天 · 白天）行为人 高险行为人2号·赵六天数时段夜晚白天黄昏类型声称 1 条（对象席位可键控修正）claims_role「女巫」对象（第1条）2号·赵六行动 0 条（无行动）放弃确认入账
+=== PROBE B: botc 局创建后落地之谜 ===
+B1 用 TopBar GameSheet 选已有 botc 局（id=2）——先回现场
+B2 GameSheet 局按钮=✕ || ＋ 开新局（分步引导） || #2 P7血染回归（血染钟楼 5人 · 第0天 · 0事件） || #1 P7狼人杀回归（狼人杀 8人 · 第1天 · 5事件） || 取消
+false
+B4 选局后宏 datalist=洗衣妇,图书管理员,调查员,厨师,共情者,占卜师,送葬者,僧侣,守鸦人,贞洁者,猎手,士兵,镇长,管家,酒鬼,陌客,圣徒,投毒者,间谍,红唇女郎,男爵,小恶魔,官员,窃贼,枪手,替罪羊,乞丐
+=== PROBE C: 向导重建 botc 局并逐步 dump ===
+C1 wizard overlay=开新局引导
+C2 set局名 -> set
+C3 set类型botc -> set
+C4 剧本select出现=2 opts=狼人杀|血染钟楼|剧本 ;; 暗流涌动 TB|黯月初升 BMR|梦殒春宵 SNV
+C5 set人数5 -> set
+C6 下一步按钮存在=true 点击 -> clicked
+C7 step2 席位input数=10 主按钮=创建局并进入现场
+C8 创建后 hash=#/ | 页面文本头=🎭 推演沙盘 现场 管理 ⚙️ P7血染回归 血染钟楼 · 5人 切换/建局 − 第 1 天 ＋ 存活 5/5 ⚡ 天结算 1号·1号 2号·2号 3号·3号 4号·4号 5号·5号 🧠 参谋卡 暂无存档 ▼ 展开 第 1 天事件流（最新在上） 本日暂无已入账事件——在下方输入条记录或用宏录入。 夜晚 白天 黄昏 跳身份 席位+角色 查杀 席位→对象
+C9 games API=["3:P7血染回归2:botc:tb","2:P7血染回归:botc:tb","1:P7狼人杀回归:werewolf:-"]
+C10 topbar含血染=true topbar含P7血染回归2=false

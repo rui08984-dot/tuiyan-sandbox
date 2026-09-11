@@ -1,0 +1,294 @@
+{
+  "game_id": 1,
+  "cards": [
+    {
+      "day": 1,
+      "hypotheses": [
+        {
+          "id": 1,
+          "game_id": 1,
+          "day": 1,
+          "content": "假设A：1、2 号悍跳狼的常规局，真预言家在其余座位中",
+          "stance": {
+            "1": "wolf_suspect",
+            "2": "wolf_suspect",
+            "3": "good_believe",
+            "4": "good_believe",
+            "5": "good_believe",
+            "6": "good_believe",
+            "7": "good_believe",
+            "8": "good_believe",
+            "9": "good_believe",
+            "10": "good_believe",
+            "11": "good_believe",
+            "12": "good_believe",
+            "suspect_ranking": [
+              1,
+              2
+            ]
+          },
+          "support_events": [
+            1
+          ],
+          "oppose_events": [
+            2
+          ],
+          "tendency": "mid"
+        },
+        {
+          "id": 2,
+          "game_id": 1,
+          "day": 1,
+          "content": "假设B：无人悍跳，矛盾源于信息差与记错的误判局",
+          "stance": {
+            "1": "good_believe",
+            "2": "good_believe",
+            "3": "good_believe",
+            "4": "good_believe",
+            "5": "good_believe",
+            "6": "good_believe",
+            "7": "good_believe",
+            "8": "good_believe",
+            "9": "good_believe",
+            "10": "good_believe",
+            "11": "good_believe",
+            "12": "good_believe"
+          },
+          "support_events": [
+            1
+          ],
+          "oppose_events": [],
+          "tendency": "weak"
+        },
+        {
+          "id": 3,
+          "game_id": 1,
+          "day": 1,
+          "content": "假设A：1、2 号悍跳狼的常规局，真预言家在其余座位中",
+          "stance": {
+            "1": "wolf_suspect",
+            "2": "wolf_suspect",
+            "3": "good_believe",
+            "4": "good_believe",
+            "5": "good_believe",
+            "6": "good_believe",
+            "7": "good_believe",
+            "8": "good_believe",
+            "9": "good_believe",
+            "10": "good_believe",
+            "11": "good_believe",
+            "12": "good_believe",
+            "suspect_ranking": [
+              1,
+              2
+            ]
+          },
+          "support_events": [
+            1
+          ],
+          "oppose_events": [
+            2
+          ],
+          "tendency": "mid"
+        },
+        {
+          "id": 4,
+          "game_id": 1,
+          "day": 1,
+          "content": "假设B：无人悍跳，矛盾源于信息差与记错的误判局",
+          "stance": {
+            "1": "good_believe",
+            "2": "good_believe",
+            "3": "good_believe",
+            "4": "good_believe",
+            "5": "good_believe",
+            "6": "good_believe",
+            "7": "good_believe",
+            "8": "good_believe",
+            "9": "good_believe",
+            "10": "good_believe",
+            "11": "good_believe",
+            "12": "good_believe"
+          },
+          "support_events": [
+            1
+          ],
+          "oppose_events": [],
+          "tendency": "weak"
+        },
+        {
+          "id": 5,
+          "game_id": 1,
+          "day": 1,
+          "content": "假设A：1号真预言家查杀成立，8号为狼焊跳发2号伪金水；12号为真女巫，5号为好人战术假跳（挡刀/搅局）或狼队搅水，警徽归1号属真预言家正常当选",
+          "stance": {
+            "1": "good_believe",
+            "2": "neutral",
+            "3": "unknown",
+            "4": "unknown",
+            "5": "neutral",
+            "6": "unknown",
+            "7": "unknown",
+            "8": "wolf_suspect",
+            "9": "unknown",
+            "10": "unknown",
+            "11": "unknown",
+            "12": "good_believe",
+            "suspect_ranking": [
+              8,
+              5,
+              2,
+              6,
+              7,
+              3,
+              4,
+              9,
+              10,
+              11
+            ]
+          },
+          "support_events": [
+            1,
+            3,
+            5
+          ],
+          "oppose_events": [
+            2
+          ],
+          "tendency": "mid"
+        },
+        {
+          "id": 6,
+          "game_id": 1,
+          "day": 1,
+          "content": "假设B：8号真预言家、2号金水成立，1号为狼悍跳骗取警长并对8号栽赃查杀；女巫之争中5号为真女巫，12号为好人挡刀假跳或狼队搅水",
+          "stance": {
+            "1": "wolf_suspect",
+            "2": "good_believe",
+            "3": "unknown",
+            "4": "unknown",
+            "5": "good_believe",
+            "6": "unknown",
+            "7": "unknown",
+            "8": "good_believe",
+            "9": "unknown",
+            "10": "unknown",
+            "11": "unknown",
+            "12": "neutral",
+            "suspect_ranking": [
+              1,
+              12,
+              6,
+              7,
+              3,
+              4,
+              9,
+              10,
+              11
+            ]
+          },
+          "support_events": [
+            2,
+            4
+          ],
+          "oppose_events": [
+            1,
+            3
+          ],
+          "tendency": "mid"
+        },
+        {
+          "id": 7,
+          "game_id": 1,
+          "day": 1,
+          "content": "假设C：1号真预言家查杀成立、8号狼焊跳，但12号「认女巫」实为狼队搅水式假认，5号为真女巫——与A的区别在于女巫线压注相反：真女巫是5号而非12号",
+          "stance": {
+            "1": "good_believe",
+            "2": "neutral",
+            "3": "unknown",
+            "4": "unknown",
+            "5": "good_believe",
+            "6": "unknown",
+            "7": "unknown",
+            "8": "wolf_suspect",
+            "9": "unknown",
+            "10": "unknown",
+            "11": "unknown",
+            "12": "wolf_suspect",
+            "suspect_ranking": [
+              8,
+              12,
+              2,
+              6,
+              7,
+              3,
+              4,
+              9,
+              10,
+              11
+            ]
+          },
+          "support_events": [
+            1,
+            4
+          ],
+          "oppose_events": [
+            5
+          ],
+          "tendency": "weak"
+        }
+      ],
+      "contradictions": [
+        {
+          "id": 1,
+          "game_id": 1,
+          "claim_a": 6,
+          "claim_b": 7,
+          "action_a": null,
+          "action_b": null,
+          "conflict_desc": "[LLM] c6:c7",
+          "underdetermination": "high",
+          "innocent_explanations": [
+            "女巫可能毒错人/救错人——毒与守是合法谎言（药剂类）",
+            "信息差：夜晚视角不同或没听到关键发言（信息差类）"
+          ],
+          "generated_by": "llm",
+          "evidence_day": 1
+        },
+        {
+          "id": 2,
+          "game_id": 1,
+          "claim_a": 6,
+          "claim_b": 7,
+          "action_a": null,
+          "action_b": null,
+          "conflict_desc": "[LLM] c6:c7",
+          "underdetermination": "high",
+          "innocent_explanations": [
+            "女巫可能毒错人/救错人——毒与守是合法谎言（药剂类）",
+            "信息差：夜晚视角不同或没听到关键发言（信息差类）"
+          ],
+          "generated_by": "llm",
+          "evidence_day": 1
+        },
+        {
+          "id": 3,
+          "game_id": 1,
+          "claim_a": 6,
+          "claim_b": 7,
+          "action_a": null,
+          "action_b": null,
+          "conflict_desc": "[LLM] c6:c7",
+          "underdetermination": "high",
+          "innocent_explanations": [
+            "战术类：好人主动假跳女巫挡刀或诱骗狼队自刀/骗解药，真女巫可能恰在5、12其中之一，双跳双方不必然存在狼人",
+            "信息差：12号原话为「认女巫」，措辞上可能是站边式附和或口头信息被误传，并非正式身份声称，与5号的正式跳女巫冲突强度有限",
+            "药剂类：真女巫为报首夜用药信息而必须起跳，另一人悍跳女巫抢信息位，悍跳一方仍可能是好人阵营的战术谎言而非狼"
+          ],
+          "generated_by": "llm",
+          "evidence_day": 1
+        }
+      ]
+    }
+  ]
+}

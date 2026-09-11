@@ -1,0 +1,13 @@
+=== B7 retest start model=glm-5.3-flash subset=tb-03,tb-04,bmr-03,snv-03,snv-04,snv-02,tb-02,bmr-02,tb-01,bmr-07,snv-07
+[tb-03] 状态声称 8471.117ms ext=0 internal=1 ok claims=1
+[tb-04] 状态声称 24511.097ms ext=0 internal=1 ok claims=2
+[bmr-03] 状态声称 6715.101ms ext=0 internal=1 ok claims=1
+[snv-03] 状态声称 3954.289ms ext=0 internal=1 ok claims=1
+[snv-04] 状态声称 24552.481ms ext=0 internal=1 ok claims=1
+[snv-02] 阵营声称 7307.255ms ext=0 internal=1 ok claims=1
+[tb-02] 阵营声称 5527.445ms ext=0 internal=1 ok claims=1
+[bmr-02] 阵营声称 7719.569ms ext=0 internal=1 ok claims=1
+[tb-01] 声称具体角色 11739.043ms ext=0 internal=1 ok claims=3
+[bmr-07] 复合句 19320.366ms ext=0 internal=1 ok claims=3
+[snv-07] 复合句 15096.828ms ext=0 internal=1 ok claims=2
+=== B7 DONE total=147s

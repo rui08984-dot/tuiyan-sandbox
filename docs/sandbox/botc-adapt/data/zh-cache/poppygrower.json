@@ -1,0 +1,18 @@
+{
+ "id": "poppygrower",
+ "name_en": "Poppy Grower",
+ "search_status": 200,
+ "hit_titles": [
+  "罂粟种植者"
+ ],
+ "name_zh": "罂粟种植者",
+ "ability_zh": "爪牙和恶魔互相不认识。如果你死亡，当晚他们会互相认识。",
+ "page": "罂粟种植者",
+ "file_verified": false,
+ "script": "梦殒春宵",
+ "page_found": true,
+ "has_section": true,
+ "retry_route": "script-gallery:梦殒春宵",
+ "appears_in": null,
+ "fan_like": false
+}

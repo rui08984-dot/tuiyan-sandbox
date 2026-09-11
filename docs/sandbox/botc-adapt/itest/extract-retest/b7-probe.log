@@ -1,0 +1,5 @@
+FENCED=>{"claims":[{"subject_seat":14,"predicate":"said","object":"__BOTC[is_demon]14号是恶魔"},{"subject_seat":2,"predicate":"said","object":"醉了"}]}
+NOMUTATE=>{"claims":[{"subject_seat":2,"predicate":"said","object":"醉了"}]}
+BACK=>{"claims":[{"subject_seat":14,"predicate":"said","object":"⟦BOTC:is_demon⟧14号是恶魔"},{"subject_seat":14,"predicate":"is_demon","object":"恶魔"},{"subject_seat":5,"predicate":"is_minion","object":"爪牙"},{"subject_seat":1,"predicate":"claims_role","object":"洗衣妇"}],"warnings":["claims[1]: is_role「恶魔」按 BOTC 语义归入 is_demon（阵营/状态词还原）","claims[2]: is_wolf「爪牙」按 BOTC 语义归入 is_minion（阵营/状态词还原）"]}
+CTX mark=>true roles=>false preds=>true
+CTX invalid=>""

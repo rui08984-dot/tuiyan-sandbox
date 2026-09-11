@@ -1,0 +1,40 @@
+{
+  "id": "tb-03",
+  "edition": "tb",
+  "cat": "状态声称",
+  "day": 1,
+  "phase": "day",
+  "speakerSeat": 2,
+  "text": "我自己都醉了，我刚才报的信息你们千万别信。",
+  "expected": {
+    "event_type": "statement",
+    "claims": [
+      {
+        "subject_seat": 2,
+        "predicate_ideal": "status_drunk",
+        "object": "醉酒",
+        "map_expect": "botc",
+        "note": "speakerSeat 不进 prompt，第一人称归属缺口探针"
+      }
+    ],
+    "action": null
+  },
+  "ms": 9634.646,
+  "attempts_external": 0,
+  "error": null,
+  "out": {
+    "event": {
+      "day": 1,
+      "phase": "day",
+      "type": "statement",
+      "raw_text": "我自己都醉了，我刚才报的信息你们千万别信。"
+    },
+    "claims": [],
+    "action": null,
+    "warnings": [],
+    "meta": {
+      "mode": "LIVE",
+      "attempts": 1
+    }
+  }
+}

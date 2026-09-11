@@ -1,0 +1,8 @@
+{
+ "id": "cannibal",
+ "page": "食人族",
+ "len": 1134,
+ "ability_zh": "你拥有上个死于处决的玩家的能力。如果该玩家属于邪恶阵营，你中毒直到下个善良玩家被处决。",
+ "appears_in": null,
+ "fan_like": false
+}

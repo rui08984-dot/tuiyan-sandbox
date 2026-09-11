@@ -1,0 +1,71 @@
+{
+  "id": "bmr-07",
+  "edition": "bmr",
+  "cat": "复合句",
+  "day": 2,
+  "phase": "day",
+  "speakerSeat": null,
+  "text": "1号跳造谣者，散布消息说2号是主谋；2号当场反击，说1号更像魔鬼代言人。",
+  "expected": {
+    "event_type": "claim",
+    "claims": [
+      {
+        "subject_seat": 1,
+        "predicate_ideal": "claims_role",
+        "object": "造谣者",
+        "map_expect": "main_role"
+      },
+      {
+        "subject_seat": 2,
+        "predicate_ideal": "is_role",
+        "object": "主谋",
+        "map_expect": "main_role",
+        "note": "散布内容归属1号须保留"
+      },
+      {
+        "subject_seat": 1,
+        "predicate_ideal": "is_role",
+        "object": "魔鬼代言人",
+        "map_expect": "main_role",
+        "note": "反击归属2号须保留"
+      }
+    ],
+    "action": null
+  },
+  "ms": 19320.366,
+  "attempts_external": 0,
+  "error": null,
+  "out": {
+    "event": {
+      "day": 2,
+      "phase": "day",
+      "type": "claim",
+      "raw_text": "1号跳造谣者，散布消息说2号是主谋；2号当场反击，说1号更像魔鬼代言人。",
+      "actor_seat": 1
+    },
+    "claims": [
+      {
+        "subject_seat": 1,
+        "predicate": "claims_role",
+        "object": "造谣者"
+      },
+      {
+        "subject_seat": 2,
+        "predicate": "is_role",
+        "object": "主谋（1号散布指认）"
+      },
+      {
+        "subject_seat": 1,
+        "predicate": "is_role",
+        "object": "魔鬼代言人（2号反击指认）"
+      }
+    ],
+    "action": null,
+    "warnings": [],
+    "meta": {
+      "mode": "LIVE",
+      "attempts": 1
+    },
+    "actor_seat": 1
+  }
+}

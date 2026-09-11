@@ -1,0 +1,46 @@
+/* oracle.css —— 对局玄学化判词彩蛋（P2 W2）。
+   层级铁律：.oracle-overlay z-45 低于确认卡（.confirm-overlay 60）与宏表单/编辑抽屉（.sheet-overlay 50），
+   绝不遮挡既有模态与 B6 S 系列选择器定位。 */
+
+/* 常驻小入口（AdvisorZone 下方独立行，不改动既有元素） */
+.oracle-entry-row { display: flex; align-items: center; gap: 8px; margin: 8px 0 0; }
+.oracle-entry { min-height: 34px; padding: 0 12px; font-size: 13px; }
+.oracle-entry-hint { color: var(--muted); font-size: 12px; }
+
+/* 彩蛋弹层（手机底部升起，桌面居中，同站内弹层惯例） */
+.oracle-overlay {
+  position: fixed; inset: 0; z-index: 45;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex; align-items: flex-end; justify-content: center;
+}
+.oracle-card {
+  width: 100%; max-width: 520px; max-height: 90dvh; overflow-y: auto;
+  background: var(--panel);
+  border: 1px solid var(--line); border-bottom: none;
+  border-radius: 16px 16px 0 0;
+  padding: 16px 16px calc(16px + env(safe-area-inset-bottom));
+}
+.oracle-head { display: flex; align-items: center; gap: 8px; }
+.oracle-head h2 { margin: 0; font-size: 18px; margin-right: auto; }
+.oracle-loading { margin: 12px 0 0; }
+
+/* 卦象三行：本卦/互卦/变卦 */
+.oracle-gua { margin-top: 12px; display: flex; flex-direction: column; gap: 6px; }
+.oracle-gua-row { display: flex; align-items: baseline; gap: 8px; font-size: 14.5px; }
+.oracle-gua-label { color: var(--muted); font-size: 12.5px; width: 34px; flex: none; }
+.oracle-gua-sub { color: var(--muted); font-size: 12.5px; margin-left: auto; text-align: right; }
+
+/* 动爻体用五行条 */
+.oracle-tiyong {
+  margin-top: 10px; padding: 8px 10px; border-radius: 8px; font-size: 13.5px;
+  background: var(--panel-2);
+}
+
+/* 断语与恒挂标注 */
+.oracle-verdict { margin: 12px 0 0; font-size: 15px; line-height: 1.7; }
+.oracle-disclaimer {
+  margin-top: 12px; padding: 5px 10px; border-radius: 999px; display: inline-block;
+  background: rgba(224, 168, 60, 0.14); color: var(--accent); font-size: 12.5px; white-space: nowrap;
+}
+.oracle-llmerr { margin: 8px 0 0; color: var(--muted); font-size: 12px; }
+.oracle-foot { display: flex; justify-content: flex-end; margin-top: 14px; }

@@ -1,0 +1,12 @@
+L3 applied to 11 rows
+tb-03 -> 2:status_drunk
+tb-04 -> 7:status_poisoned | 7:said
+bmr-03 -> 5:status_poisoned
+snv-03 -> 6:status_poisoned
+snv-04 -> 2:status_drunk
+snv-02 -> 14:is_demon
+tb-02 -> 5:is_minion
+bmr-02 -> 6:is_demon
+tb-01 -> 3:claims_role | 4:is_minion | 6:is_minion
+bmr-07 -> 1:claims_role | 2:is_role | 1:is_role
+snv-07 -> 5:claims_role | 5:is_demon

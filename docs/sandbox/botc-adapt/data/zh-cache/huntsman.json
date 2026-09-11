@@ -1,0 +1,19 @@
+{
+ "id": "huntsman",
+ "name_en": "Huntsman",
+ "search_status": 200,
+ "hit_titles": [
+  "巡山人",
+  "黯月初升"
+ ],
+ "name_zh": "巡山人",
+ "ability_zh": "每局游戏限一次，在夜晚时，你可以选择一名存活的玩家：如果你选中了落难少女，她会变成一个不在场的镇民角色。[+落难少女]",
+ "page": "巡山人",
+ "file_verified": false,
+ "script": "黯月初升",
+ "page_found": true,
+ "has_section": true,
+ "retry_route": "script-gallery:黯月初升",
+ "appears_in": null,
+ "fan_like": false
+}

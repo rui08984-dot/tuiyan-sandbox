@@ -1,0 +1,57 @@
+{
+  "id": "tb-05",
+  "edition": "tb",
+  "cat": "提名与处决",
+  "day": 2,
+  "phase": "day",
+  "speakerSeat": null,
+  "text": "我提名7号，他昨天跳的是僧侣，可僧侣夜里该保人，昨晚死的偏偏是3号，投他。",
+  "expected": {
+    "event_type": "vote",
+    "claims": [
+      {
+        "subject_seat": 7,
+        "predicate_ideal": "claims_role",
+        "object": "僧侣",
+        "map_expect": "main_role",
+        "note": "转述7号昨日跳身份"
+      }
+    ],
+    "action": {
+      "action": "vote",
+      "target_seat": 7
+    },
+    "note": "提名者是发言者但契约 action 无 actor_seat，actor_seat=claims[0].subject_seat 会错指——归属缺口探针"
+  },
+  "ms": 27417.531,
+  "attempts_external": 0,
+  "error": null,
+  "out": {
+    "event": {
+      "day": 2,
+      "phase": "day",
+      "type": "statement",
+      "raw_text": "我提名7号，他昨天跳的是僧侣，可僧侣夜里该保人，昨晚死的偏偏是3号，投他。",
+      "actor_seat": 7
+    },
+    "claims": [
+      {
+        "subject_seat": 7,
+        "predicate": "claims_role",
+        "object": "僧侣"
+      }
+    ],
+    "action": {
+      "action": "vote",
+      "target_seat": 7,
+      "result": "提名7号并号召投票给7号",
+      "seat": 7
+    },
+    "warnings": [],
+    "meta": {
+      "mode": "LIVE",
+      "attempts": 1
+    },
+    "actor_seat": 7
+  }
+}

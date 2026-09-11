@@ -1,0 +1,64 @@
+{
+  "id": "bmr-01",
+  "edition": "bmr",
+  "cat": "声称具体角色",
+  "day": 1,
+  "phase": "day",
+  "speakerSeat": null,
+  "text": "4号说自己是驱魔人，昨晚选了8号，要是8号真是恶魔，今晚就没人死了。",
+  "expected": {
+    "event_type": "claim",
+    "claims": [
+      {
+        "subject_seat": 4,
+        "predicate_ideal": "claims_role",
+        "object": "驱魔人",
+        "map_expect": "main_role"
+      },
+      {
+        "subject_seat": 8,
+        "predicate_ideal": "is_demon",
+        "object": "恶魔",
+        "map_expect": "botc",
+        "note": "条件式指认；若模型输出 is_role(8,恶魔)，resolveRole 失败→400 探针"
+      }
+    ],
+    "action": null
+  },
+  "ms": 24357.659,
+  "attempts_external": 0,
+  "error": null,
+  "out": {
+    "event": {
+      "day": 1,
+      "phase": "day",
+      "type": "claim",
+      "raw_text": "4号说自己是驱魔人，昨晚选了8号，要是8号真是恶魔，今晚就没人死了。",
+      "actor_seat": 4
+    },
+    "claims": [
+      {
+        "subject_seat": 4,
+        "predicate": "claims_role",
+        "object": "驱魔人"
+      },
+      {
+        "subject_seat": 4,
+        "predicate": "did_action",
+        "object": "昨晚选了8号"
+      },
+      {
+        "subject_seat": 4,
+        "predicate": "said",
+        "object": "要是8号真是恶魔，今晚就没人死了"
+      }
+    ],
+    "action": null,
+    "warnings": [],
+    "meta": {
+      "mode": "LIVE",
+      "attempts": 1
+    },
+    "actor_seat": 4
+  }
+}

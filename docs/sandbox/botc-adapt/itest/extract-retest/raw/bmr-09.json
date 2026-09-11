@@ -1,0 +1,64 @@
+{
+  "id": "bmr-09",
+  "edition": "bmr",
+  "cat": "声称具体角色",
+  "day": 1,
+  "phase": "day",
+  "speakerSeat": null,
+  "text": "5号自称祖母，她说4号是她孙子，4号要是先死，她能看穿凶手那一伙。",
+  "expected": {
+    "event_type": "claim",
+    "claims": [
+      {
+        "subject_seat": 5,
+        "predicate_ideal": "claims_role",
+        "object": "祖母",
+        "map_expect": "main_role"
+      },
+      {
+        "subject_seat": 4,
+        "predicate_ideal": "said",
+        "object": "孙辈关系",
+        "map_expect": "main_generic",
+        "note": "「孙子」非角色名——若 is_role(4,孙子)→400 探针"
+      }
+    ],
+    "action": null
+  },
+  "ms": 15797.339,
+  "attempts_external": 0,
+  "error": null,
+  "out": {
+    "event": {
+      "day": 1,
+      "phase": "day",
+      "type": "claim",
+      "raw_text": "5号自称祖母，她说4号是她孙子，4号要是先死，她能看穿凶手那一伙。",
+      "actor_seat": 5
+    },
+    "claims": [
+      {
+        "subject_seat": 5,
+        "predicate": "claims_role",
+        "object": "祖母"
+      },
+      {
+        "subject_seat": 5,
+        "predicate": "said",
+        "object": "4号是她孙子"
+      },
+      {
+        "subject_seat": 5,
+        "predicate": "said",
+        "object": "4号要是先死，她能看穿凶手那一伙"
+      }
+    ],
+    "action": null,
+    "warnings": [],
+    "meta": {
+      "mode": "LIVE",
+      "attempts": 1
+    },
+    "actor_seat": 5
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "p1a-terminal",
+  "version": "0.1.0",
+  "description": "AI 推演沙盘 P1a 终端版 · A 路：数据层（SQLite）+ 纯代码矛盾比对器（契约 schema-contract-v0）",
+  "type": "commonjs",
+  "main": "src/db.js",
+  "scripts": {
+    "test": "node test/engine.test.cjs && node test/golden.test.cjs && node test/db-v1.test.cjs && node test/llm.test.cjs && node test/cli.test.cjs && node test/cards.test.cjs"
+  },
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "better-sqlite3": "^13.0.3"
+  }
+}

@@ -1,0 +1,18 @@
+{
+ "id": "goblin",
+ "name_en": "Goblin",
+ "search_status": 200,
+ "hit_titles": [
+  "哥布林"
+ ],
+ "name_zh": "哥布林",
+ "ability_zh": "如果你在被提名后公开声明自己是哥布林且在那个白天被处决，你的阵营获胜。",
+ "page": "哥布林",
+ "file_verified": false,
+ "script": "暗流涌动",
+ "page_found": true,
+ "has_section": true,
+ "retry_route": "script-gallery:暗流涌动",
+ "appears_in": null,
+ "fan_like": false
+}

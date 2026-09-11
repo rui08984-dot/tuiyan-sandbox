@@ -1,0 +1,42 @@
+{
+  "meta": {
+    "purpose": "B5 逐条语义判定（人工对照 raw 实际输出；全部数字统计由 eval-stats.cjs 机械复算）",
+    "口径": "✅correct=核心语义全捕获无编造无冲突；⚠️suspect=核心语义在但含无标注推断或归属丢失；❌wrong=事实错误/关键遗漏/谓词不当/编造",
+    "说明": "阵营指认落 is_wolf 在抽取层判✅（7谓词内最贴近替身），其 BOTC 语义错位由映射层狼错位类承担"
+  },
+  "judgments": [
+    {"id":"tb-01","verdict":"correct","reason":"洗衣妇 claims_role 精确；两人组命题以 said(3) 保留未越权断言到具体座位，无编造"},
+    {"id":"tb-02","verdict":"correct","reason":"指认核心在（is_wolf(5,爪牙)），7谓词内最贴近替身；阵营错位由映射层承担"},
+    {"id":"tb-03","verdict":"wrong","reason":"「我自己都醉了」核心状态声称整条丢失（0 claims）——无状态谓词可用且第一人称无席位，模型无从落笔"},
+    {"id":"tb-04","verdict":"wrong","reason":"「被投毒」状态丢失（0 claims），隐含自称占卜师亦丢失"},
+    {"id":"tb-05","verdict":"suspect","reason":"跳僧侣转述与 vote(7) 都在；但提名者（发言者）归属丢失——actor_seat/action.seat 按 claims[0] 回填错指被提名者7号（llm.js:746 机制）"},
+    {"id":"tb-06","verdict":"correct","reason":"死亡事件正确、零编造；死亡事实由 event.type 承载符合契约"},
+    {"id":"tb-07","verdict":"suspect","reason":"三条角色拆分全对；但「4号反咬」的指控归属未保留在 object（1号红唇女郎成裸断言），与基线R6同型"},
+    {"id":"tb-08","verdict":"correct","reason":"含糊表述零编造，0 claims 合理"},
+    {"id":"tb-09","verdict":"suspect","reason":"处决+is_role(12,间谍)捕获；但「死前指认」归属（11号）未入 object，actor_seat=12 错指被指认者"},
+    {"id":"bmr-01","verdict":"correct","reason":"驱魔人声称+选8号行动+条件句全捕获，无编造，未把条件指认当断言"},
+    {"id":"bmr-02","verdict":"correct","reason":"恶魔指认捕获（is_wolf(6,恶魔)替身）；错位由映射层承担"},
+    {"id":"bmr-03","verdict":"wrong","reason":"「我觉得我中毒了」状态整条丢失（0 claims）"},
+    {"id":"bmr-04","verdict":"suspect","reason":"3号被选醉酒以 did_action(9) 的 object 承载（信息在但未结构化为3号状态）；「八成是旅店老板」推断以裸 is_role 落账无标注"},
+    {"id":"bmr-05","verdict":"suspect","reason":"修补匠跳身份+vote(10) 对；提名者归属缺口同 tb-05"},
+    {"id":"bmr-06","verdict":"correct","reason":"平安夜零编造（BMR 夜死不公布语境处理正确）"},
+    {"id":"bmr-07","verdict":"correct","reason":"复合句两条指控均以 said 正确归属（1号散布/2号反击），是基线R6归属丢失的正对照"},
+    {"id":"bmr-08","verdict":"correct","reason":"群体含糊未编造具体座位"},
+    {"id":"bmr-09","verdict":"correct","reason":"祖母声称+孙辈关系 said 化；「孙子」未被编造成 is_role"},
+    {"id":"snv-01","verdict":"correct","reason":"筑梦师+暂不透露目标，无编造"},
+    {"id":"snv-02","verdict":"wrong","reason":"阵营词「恶魔」被塞进 is_role（谓词不当）——resolveRole 失败，confirm 时 splitBotcClaims 抛 400 整批拒入；同型口播 tb-02/bmr-02 用 is_wolf，行为不一致"},
+    {"id":"snv-03","verdict":"wrong","reason":"「我感觉我中毒了」状态整条丢失（0 claims）"},
+    {"id":"snv-04","verdict":"wrong","reason":"醉酒状态+心上人推断全部丢失（0 claims）；内部重试2次延迟放大至168s"},
+    {"id":"snv-05","verdict":"suspect","reason":"贤者跳身份+vote(3) 对；提名者归属缺口同 tb-05"},
+    {"id":"snv-06","verdict":"correct","reason":"处决事实以 event(system)+action vote(8) 承载、零编造"},
+    {"id":"snv-07","verdict":"suspect","reason":"数学家声称+镜像双子指认在；但「7号当场说」的指控归属未保留在 object，且阵营指认落 is_wolf 错位"},
+    {"id":"snv-08","verdict":"correct","reason":"含糊零编造"},
+    {"id":"snv-09","verdict":"correct","reason":"卖花女孩+盯票观察 said(4) 归属正确，无编造"}
+  ],
+  "suggestions": [
+    {"title":"注入剧本角色清单+明示 BOTC 专属谓词（或立替身规范）——最高优先级","body":"实测 botc 专属谓词产出 0/29：状态声称 6 条全部丢失、阵营声称靠 is_wolf/is_role 硬塞且三本行为不一致（is_wolf×2、is_role×1 触发 400）。建议二选一由队长定：①botc 局 payload 注入本局剧本角色清单并扩 4 谓词说明；②不扩谓词，prompt 明示「阵营/状态口播统一落 is_wolf/said，object 必须保留原词」，配合映射层做替身翻译。"},
+    {"title":"发言席位进 payload——修第一人称归属黑洞","body":"speakerSeat 已在 ctx 但 buildExtractUserPayload 从不输出：6 条第一人称/状态样本 4 条 0 claims；且 actor_seat/action.seat 一律按 claims[0].subject_seat 回填（llm.js:744/747），提名句把行动人错指成被提名者（tb-05/bmr-05/snv-05 全中）。payload 增一行【发言席位】即可让「我」可归属，成本极低。"},
+    {"title":"反例注入：阵营词不是角色名；转述指控必须保留归属","body":"snv-02 的 is_role(14,恶魔) 直接让 splitBotcClaims 抛 400 整批拒入（对的 claims 也陪葬）；tb-07/snv-07 指控归属丢失成裸断言（同 prompt 下 bmr-07 做对了，说明可教）。建议在 EXTRACT_SYSTEM_PROMPT 铁律区增两条反例：①「恶魔/爪牙」等阵营词禁止入 is_role；②「X号说/反咬」的归属（谁说的）必须写进 object。"},
+    {"title":"（代码侧护栏，非 prompt）400 整批失败降级 + 零声称机械复查","body":"splitBotcClaims 对不可解析角色现为首遇即 throw（p1b/src/botc/claims.js），一条坏 claim 让整批 confirm 拒入；建议降级为 said+warning 收集（改动属 B2 代码，归队长定）。另建议抽取后机械校验：原话含醉酒/中毒/恶魔/爪牙关键词但 claims 为空 → 触发重试或警告（对应本次 6 条状态丢失）。"}
+  ]
+}

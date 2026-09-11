@@ -1,0 +1,1522 @@
+{
+  "generated_at": "2026-09-09T02:08:43.463Z",
+  "endpoint": {
+    "baseUrl": "https://tokenrhythm.studio/v1",
+    "model": "glm-5.3-flash",
+    "note": "B7 retest; api_key 仅内存"
+  },
+  "subset": [
+    "tb-03",
+    "tb-04",
+    "bmr-03",
+    "snv-03",
+    "snv-04",
+    "snv-02",
+    "tb-02",
+    "bmr-02",
+    "tb-01",
+    "bmr-07",
+    "snv-07"
+  ],
+  "before": {
+    "samples": 11,
+    "structural_ok": 11,
+    "total_claims": 10,
+    "landed_claims": 10,
+    "aligned_claims": 6,
+    "entry_rate": 1,
+    "aligned_rate": 0.6,
+    "claim_classes": {
+      "botc": 0,
+      "main_role_ok": 3,
+      "main_role_fail": 1,
+      "main_generic": 3,
+      "main_misaligned": 3
+    },
+    "throw_samples": [],
+    "status_samples": [
+      {
+        "id": "tb-03",
+        "edition": "tb",
+        "cat": "状态声称",
+        "ms": 9634.646,
+        "structural_ok": true,
+        "error": null,
+        "attempts_internal": 1,
+        "warnings": 0,
+        "n_claims": 0,
+        "classes": {
+          "botc": 0,
+          "main_role_ok": 0,
+          "main_role_fail": 0,
+          "main_generic": 0,
+          "main_misaligned": 0
+        },
+        "split_throws": false,
+        "splitErr": null,
+        "landed_claims": 0,
+        "aligned_claims": 0,
+        "is_status_sample": true,
+        "is_align_sample": false,
+        "got_status_claims": 0,
+        "claims_detail": []
+      },
+      {
+        "id": "tb-04",
+        "edition": "tb",
+        "cat": "状态声称",
+        "ms": 33403.222,
+        "structural_ok": true,
+        "error": null,
+        "attempts_internal": 1,
+        "warnings": 0,
+        "n_claims": 0,
+        "classes": {
+          "botc": 0,
+          "main_role_ok": 0,
+          "main_role_fail": 0,
+          "main_generic": 0,
+          "main_misaligned": 0
+        },
+        "split_throws": false,
+        "splitErr": null,
+        "landed_claims": 0,
+        "aligned_claims": 0,
+        "is_status_sample": true,
+        "is_align_sample": false,
+        "got_status_claims": 0,
+        "claims_detail": []
+      },
+      {
+        "id": "bmr-03",
+        "edition": "bmr",
+        "cat": "状态声称",
+        "ms": 12620.092,
+        "structural_ok": true,
+        "error": null,
+        "attempts_internal": 1,
+        "warnings": 0,
+        "n_claims": 0,
+        "classes": {
+          "botc": 0,
+          "main_role_ok": 0,
+          "main_role_fail": 0,
+          "main_generic": 0,
+          "main_misaligned": 0
+        },
+        "split_throws": false,
+        "splitErr": null,
+        "landed_claims": 0,
+        "aligned_claims": 0,
+        "is_status_sample": true,
+        "is_align_sample": false,
+        "got_status_claims": 0,
+        "claims_detail": []
+      },
+      {
+        "id": "snv-03",
+        "edition": "snv",
+        "cat": "状态声称",
+        "ms": 21886.013,
+        "structural_ok": true,
+        "error": null,
+        "attempts_internal": 1,
+        "warnings": 0,
+        "n_claims": 0,
+        "classes": {
+          "botc": 0,
+          "main_role_ok": 0,
+          "main_role_fail": 0,
+          "main_generic": 0,
+          "main_misaligned": 0
+        },
+        "split_throws": false,
+        "splitErr": null,
+        "landed_claims": 0,
+        "aligned_claims": 0,
+        "is_status_sample": true,
+        "is_align_sample": false,
+        "got_status_claims": 0,
+        "claims_detail": []
+      },
+      {
+        "id": "snv-04",
+        "edition": "snv",
+        "cat": "状态声称",
+        "ms": 168267.276,
+        "structural_ok": true,
+        "error": null,
+        "attempts_internal": 3,
+        "warnings": 0,
+        "n_claims": 0,
+        "classes": {
+          "botc": 0,
+          "main_role_ok": 0,
+          "main_role_fail": 0,
+          "main_generic": 0,
+          "main_misaligned": 0
+        },
+        "split_throws": false,
+        "splitErr": null,
+        "landed_claims": 0,
+        "aligned_claims": 0,
+        "is_status_sample": true,
+        "is_align_sample": false,
+        "got_status_claims": 0,
+        "claims_detail": []
+      }
+    ],
+    "status_captured": [],
+    "status_captured_as_status": [],
+    "align_samples": [
+      {
+        "id": "tb-02",
+        "edition": "tb",
+        "cat": "阵营声称",
+        "ms": 12537.284,
+        "structural_ok": true,
+        "error": null,
+        "attempts_internal": 1,
+        "warnings": 0,
+        "n_claims": 1,
+        "classes": {
+          "botc": 0,
+          "main_role_ok": 0,
+          "main_role_fail": 0,
+          "main_generic": 0,
+          "main_misaligned": 1
+        },
+        "split_throws": false,
+        "splitErr": null,
+        "landed_claims": 1,
+        "aligned_claims": 0,
+        "is_status_sample": false,
+        "is_align_sample": true,
+        "got_status_claims": 0,
+        "claims_detail": [
+          {
+            "i": 0,
+            "subject_seat": 5,
+            "predicate": "is_wolf",
+            "object": "爪牙",
+            "class": "main_misaligned"
+          }
+        ]
+      },
+      {
+        "id": "bmr-02",
+        "edition": "bmr",
+        "cat": "阵营声称",
+        "ms": 3682.257,
+        "structural_ok": true,
+        "error": null,
+        "attempts_internal": 1,
+        "warnings": 0,
+        "n_claims": 1,
+        "classes": {
+          "botc": 0,
+          "main_role_ok": 0,
+          "main_role_fail": 0,
+          "main_generic": 0,
+          "main_misaligned": 1
+        },
+        "split_throws": false,
+        "splitErr": null,
+        "landed_claims": 1,
+        "aligned_claims": 0,
+        "is_status_sample": false,
+        "is_align_sample": true,
+        "got_status_claims": 0,
+        "claims_detail": [
+          {
+            "i": 0,
+            "subject_seat": 6,
+            "predicate": "is_wolf",
+            "object": "恶魔",
+            "class": "main_misaligned"
+          }
+        ]
+      },
+      {
+        "id": "snv-02",
+        "edition": "snv",
+        "cat": "阵营声称",
+        "ms": 24127.56,
+        "structural_ok": true,
+        "error": null,
+        "attempts_internal": 1,
+        "warnings": 0,
+        "n_claims": 1,
+        "classes": {
+          "botc": 0,
+          "main_role_ok": 0,
+          "main_role_fail": 1,
+          "main_generic": 0,
+          "main_misaligned": 0
+        },
+        "split_throws": false,
+        "splitErr": null,
+        "landed_claims": 1,
+        "aligned_claims": 0,
+        "is_status_sample": false,
+        "is_align_sample": true,
+        "got_status_claims": 0,
+        "claims_detail": [
+          {
+            "i": 0,
+            "subject_seat": 14,
+            "predicate": "is_role",
+            "object": "恶魔",
+            "class": "main_role_fail"
+          }
+        ]
+      },
+      {
+        "id": "snv-07",
+        "edition": "snv",
+        "cat": "复合句",
+        "ms": 12683.566,
+        "structural_ok": true,
+        "error": null,
+        "attempts_internal": 1,
+        "warnings": 0,
+        "n_claims": 2,
+        "classes": {
+          "botc": 0,
+          "main_role_ok": 1,
+          "main_role_fail": 0,
+          "main_generic": 0,
+          "main_misaligned": 1
+        },
+        "split_throws": false,
+        "splitErr": null,
+        "landed_claims": 2,
+        "aligned_claims": 1,
+        "is_status_sample": false,
+        "is_align_sample": true,
+        "got_status_claims": 0,
+        "claims_detail": [
+          {
+            "i": 0,
+            "subject_seat": 5,
+            "predicate": "claims_role",
+            "object": "数学家",
+            "class": "main_role_ok"
+          },
+          {
+            "i": 1,
+            "subject_seat": 5,
+            "predicate": "is_wolf",
+            "object": "镜像双子里恶魔的那一半",
+            "class": "main_misaligned"
+          }
+        ]
+      }
+    ],
+    "align_captured_as_botc": [],
+    "misaligned_claims": 3,
+    "median_ms": 14191.582
+  },
+  "after": {
+    "samples": 11,
+    "structural_ok": 11,
+    "total_claims": 17,
+    "landed_claims": 17,
+    "aligned_claims": 15,
+    "entry_rate": 1,
+    "aligned_rate": 0.8823529411764706,
+    "claim_classes": {
+      "botc": 11,
+      "main_role_ok": 3,
+      "main_role_fail": 2,
+      "main_generic": 1,
+      "main_misaligned": 0
+    },
+    "throw_samples": [],
+    "status_samples": [
+      {
+        "id": "tb-03",
+        "edition": "tb",
+        "cat": "状态声称",
+        "ms": 8471.117,
+        "structural_ok": true,
+        "error": null,
+        "attempts_internal": 1,
+        "warnings": 0,
+        "n_claims": 1,
+        "classes": {
+          "botc": 1,
+          "main_role_ok": 0,
+          "main_role_fail": 0,
+          "main_generic": 0,
+          "main_misaligned": 0
+        },
+        "split_throws": false,
+        "splitErr": null,
+        "landed_claims": 1,
+        "aligned_claims": 1,
+        "is_status_sample": true,
+        "is_align_sample": false,
+        "got_status_claims": 1,
+        "claims_detail": [
+          {
+            "i": 0,
+            "subject_seat": 2,
+            "predicate": "status_drunk",
+            "object": "自称醉酒",
+            "class": "botc"
+          }
+        ]
+      },
+      {
+        "id": "tb-04",
+        "edition": "tb",
+        "cat": "状态声称",
+        "ms": 24511.097,
+        "structural_ok": true,
+        "error": null,
+        "attempts_internal": 1,
+        "warnings": 0,
+        "n_claims": 2,
+        "classes": {
+          "botc": 1,
+          "main_role_ok": 0,
+          "main_role_fail": 0,
+          "main_generic": 1,
+          "main_misaligned": 0
+        },
+        "split_throws": false,
+        "splitErr": null,
+        "landed_claims": 2,
+        "aligned_claims": 2,
+        "is_status_sample": true,
+        "is_align_sample": false,
+        "got_status_claims": 1,
+        "claims_detail": [
+          {
+            "i": 0,
+            "subject_seat": 7,
+            "predicate": "status_poisoned",
+            "object": "自称被投毒",
+            "class": "botc"
+          },
+          {
+            "i": 1,
+            "subject_seat": 7,
+            "predicate": "said",
+            "object": "认为昨晚占卜师给他的结果因中毒而肯定是反的",
+            "class": "main_generic"
+          }
+        ]
+      },
+      {
+        "id": "bmr-03",
+        "edition": "bmr",
+        "cat": "状态声称",
+        "ms": 6715.101,
+        "structural_ok": true,
+        "error": null,
+        "attempts_internal": 1,
+        "warnings": 0,
+        "n_claims": 1,
+        "classes": {
+          "botc": 1,
+          "main_role_ok": 0,
+          "main_role_fail": 0,
+          "main_generic": 0,
+          "main_misaligned": 0
+        },
+        "split_throws": false,
+        "splitErr": null,
+        "landed_claims": 1,
+        "aligned_claims": 1,
+        "is_status_sample": true,
+        "is_align_sample": false,
+        "got_status_claims": 1,
+        "claims_detail": [
+          {
+            "i": 0,
+            "subject_seat": 5,
+            "predicate": "status_poisoned",
+            "object": "自称被投毒",
+            "class": "botc"
+          }
+        ]
+      },
+      {
+        "id": "snv-03",
+        "edition": "snv",
+        "cat": "状态声称",
+        "ms": 3954.289,
+        "structural_ok": true,
+        "error": null,
+        "attempts_internal": 1,
+        "warnings": 0,
+        "n_claims": 1,
+        "classes": {
+          "botc": 1,
+          "main_role_ok": 0,
+          "main_role_fail": 0,
+          "main_generic": 0,
+          "main_misaligned": 0
+        },
+        "split_throws": false,
+        "splitErr": null,
+        "landed_claims": 1,
+        "aligned_claims": 1,
+        "is_status_sample": true,
+        "is_align_sample": false,
+        "got_status_claims": 1,
+        "claims_detail": [
+          {
+            "i": 0,
+            "subject_seat": 6,
+            "predicate": "status_poisoned",
+            "object": "自称被投毒",
+            "class": "botc"
+          }
+        ]
+      },
+      {
+        "id": "snv-04",
+        "edition": "snv",
+        "cat": "状态声称",
+        "ms": 24552.481,
+        "structural_ok": true,
+        "error": null,
+        "attempts_internal": 1,
+        "warnings": 0,
+        "n_claims": 1,
+        "classes": {
+          "botc": 1,
+          "main_role_ok": 0,
+          "main_role_fail": 0,
+          "main_generic": 0,
+          "main_misaligned": 0
+        },
+        "split_throws": false,
+        "splitErr": null,
+        "landed_claims": 1,
+        "aligned_claims": 1,
+        "is_status_sample": true,
+        "is_align_sample": false,
+        "got_status_claims": 1,
+        "claims_detail": [
+          {
+            "i": 0,
+            "subject_seat": 2,
+            "predicate": "status_drunk",
+            "object": "自称疑似吃到心上人的醉酒效果（6号昨天处决后开始脑子不清醒）",
+            "class": "botc"
+          }
+        ]
+      }
+    ],
+    "status_captured": [
+      "tb-03",
+      "tb-04",
+      "bmr-03",
+      "snv-03",
+      "snv-04"
+    ],
+    "status_captured_as_status": [
+      "tb-03",
+      "tb-04",
+      "bmr-03",
+      "snv-03",
+      "snv-04"
+    ],
+    "align_samples": [
+      {
+        "id": "snv-02",
+        "edition": "snv",
+        "cat": "阵营声称",
+        "ms": 7307.255,
+        "structural_ok": true,
+        "error": null,
+        "attempts_internal": 1,
+        "warnings": 0,
+        "n_claims": 1,
+        "classes": {
+          "botc": 1,
+          "main_role_ok": 0,
+          "main_role_fail": 0,
+          "main_generic": 0,
+          "main_misaligned": 0
+        },
+        "split_throws": false,
+        "splitErr": null,
+        "landed_claims": 1,
+        "aligned_claims": 1,
+        "is_status_sample": false,
+        "is_align_sample": true,
+        "got_status_claims": 0,
+        "claims_detail": [
+          {
+            "i": 0,
+            "subject_seat": 14,
+            "predicate": "is_demon",
+            "object": "14号是恶魔，其投票方向疑似带动两三个爪牙（未指明具体席位）",
+            "class": "botc"
+          }
+        ]
+      },
+      {
+        "id": "tb-02",
+        "edition": "tb",
+        "cat": "阵营声称",
+        "ms": 5527.445,
+        "structural_ok": true,
+        "error": null,
+        "attempts_internal": 1,
+        "warnings": 0,
+        "n_claims": 1,
+        "classes": {
+          "botc": 1,
+          "main_role_ok": 0,
+          "main_role_fail": 0,
+          "main_generic": 0,
+          "main_misaligned": 0
+        },
+        "split_throws": false,
+        "splitErr": null,
+        "landed_claims": 1,
+        "aligned_claims": 1,
+        "is_status_sample": false,
+        "is_align_sample": true,
+        "got_status_claims": 0,
+        "claims_detail": [
+          {
+            "i": 0,
+            "subject_seat": 5,
+            "predicate": "is_minion",
+            "object": "疑似爪牙（依据：从开局就给小恶魔打掩护）",
+            "class": "botc"
+          }
+        ]
+      },
+      {
+        "id": "bmr-02",
+        "edition": "bmr",
+        "cat": "阵营声称",
+        "ms": 7719.569,
+        "structural_ok": true,
+        "error": null,
+        "attempts_internal": 1,
+        "warnings": 0,
+        "n_claims": 1,
+        "classes": {
+          "botc": 1,
+          "main_role_ok": 0,
+          "main_role_fail": 0,
+          "main_generic": 0,
+          "main_misaligned": 0
+        },
+        "split_throws": false,
+        "splitErr": null,
+        "landed_claims": 1,
+        "aligned_claims": 1,
+        "is_status_sample": false,
+        "is_align_sample": true,
+        "got_status_claims": 0,
+        "claims_detail": [
+          {
+            "i": 0,
+            "subject_seat": 6,
+            "predicate": "is_demon",
+            "object": "6号是恶魔",
+            "class": "botc"
+          }
+        ]
+      },
+      {
+        "id": "snv-07",
+        "edition": "snv",
+        "cat": "复合句",
+        "ms": 15096.828,
+        "structural_ok": true,
+        "error": null,
+        "attempts_internal": 1,
+        "warnings": 0,
+        "n_claims": 2,
+        "classes": {
+          "botc": 1,
+          "main_role_ok": 1,
+          "main_role_fail": 0,
+          "main_generic": 0,
+          "main_misaligned": 0
+        },
+        "split_throws": false,
+        "splitErr": null,
+        "landed_claims": 2,
+        "aligned_claims": 2,
+        "is_status_sample": false,
+        "is_align_sample": true,
+        "got_status_claims": 0,
+        "claims_detail": [
+          {
+            "i": 0,
+            "subject_seat": 5,
+            "predicate": "claims_role",
+            "object": "数学家",
+            "class": "main_role_ok"
+          },
+          {
+            "i": 1,
+            "subject_seat": 5,
+            "predicate": "is_demon",
+            "object": "镜像双子里恶魔的那一半（7号指认）",
+            "class": "botc"
+          }
+        ]
+      }
+    ],
+    "align_captured_as_botc": [
+      "snv-02",
+      "tb-02",
+      "bmr-02",
+      "snv-07"
+    ],
+    "misaligned_claims": 0,
+    "median_ms": 8471.117
+  },
+  "per_sample": [
+    {
+      "id": "tb-03",
+      "edition": "tb",
+      "cat": "状态声称",
+      "before": {
+        "id": "tb-03",
+        "edition": "tb",
+        "cat": "状态声称",
+        "ms": 9634.646,
+        "structural_ok": true,
+        "error": null,
+        "attempts_internal": 1,
+        "warnings": 0,
+        "n_claims": 0,
+        "classes": {
+          "botc": 0,
+          "main_role_ok": 0,
+          "main_role_fail": 0,
+          "main_generic": 0,
+          "main_misaligned": 0
+        },
+        "split_throws": false,
+        "splitErr": null,
+        "landed_claims": 0,
+        "aligned_claims": 0,
+        "is_status_sample": true,
+        "is_align_sample": false,
+        "got_status_claims": 0,
+        "claims_detail": []
+      },
+      "after": {
+        "id": "tb-03",
+        "edition": "tb",
+        "cat": "状态声称",
+        "ms": 8471.117,
+        "structural_ok": true,
+        "error": null,
+        "attempts_internal": 1,
+        "warnings": 0,
+        "n_claims": 1,
+        "classes": {
+          "botc": 1,
+          "main_role_ok": 0,
+          "main_role_fail": 0,
+          "main_generic": 0,
+          "main_misaligned": 0
+        },
+        "split_throws": false,
+        "splitErr": null,
+        "landed_claims": 1,
+        "aligned_claims": 1,
+        "is_status_sample": true,
+        "is_align_sample": false,
+        "got_status_claims": 1,
+        "claims_detail": [
+          {
+            "i": 0,
+            "subject_seat": 2,
+            "predicate": "status_drunk",
+            "object": "自称醉酒",
+            "class": "botc"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tb-04",
+      "edition": "tb",
+      "cat": "状态声称",
+      "before": {
+        "id": "tb-04",
+        "edition": "tb",
+        "cat": "状态声称",
+        "ms": 33403.222,
+        "structural_ok": true,
+        "error": null,
+        "attempts_internal": 1,
+        "warnings": 0,
+        "n_claims": 0,
+        "classes": {
+          "botc": 0,
+          "main_role_ok": 0,
+          "main_role_fail": 0,
+          "main_generic": 0,
+          "main_misaligned": 0
+        },
+        "split_throws": false,
+        "splitErr": null,
+        "landed_claims": 0,
+        "aligned_claims": 0,
+        "is_status_sample": true,
+        "is_align_sample": false,
+        "got_status_claims": 0,
+        "claims_detail": []
+      },
+      "after": {
+        "id": "tb-04",
+        "edition": "tb",
+        "cat": "状态声称",
+        "ms": 24511.097,
+        "structural_ok": true,
+        "error": null,
+        "attempts_internal": 1,
+        "warnings": 0,
+        "n_claims": 2,
+        "classes": {
+          "botc": 1,
+          "main_role_ok": 0,
+          "main_role_fail": 0,
+          "main_generic": 1,
+          "main_misaligned": 0
+        },
+        "split_throws": false,
+        "splitErr": null,
+        "landed_claims": 2,
+        "aligned_claims": 2,
+        "is_status_sample": true,
+        "is_align_sample": false,
+        "got_status_claims": 1,
+        "claims_detail": [
+          {
+            "i": 0,
+            "subject_seat": 7,
+            "predicate": "status_poisoned",
+            "object": "自称被投毒",
+            "class": "botc"
+          },
+          {
+            "i": 1,
+            "subject_seat": 7,
+            "predicate": "said",
+            "object": "认为昨晚占卜师给他的结果因中毒而肯定是反的",
+            "class": "main_generic"
+          }
+        ]
+      }
+    },
+    {
+      "id": "bmr-03",
+      "edition": "bmr",
+      "cat": "状态声称",
+      "before": {
+        "id": "bmr-03",
+        "edition": "bmr",
+        "cat": "状态声称",
+        "ms": 12620.092,
+        "structural_ok": true,
+        "error": null,
+        "attempts_internal": 1,
+        "warnings": 0,
+        "n_claims": 0,
+        "classes": {
+          "botc": 0,
+          "main_role_ok": 0,
+          "main_role_fail": 0,
+          "main_generic": 0,
+          "main_misaligned": 0
+        },
+        "split_throws": false,
+        "splitErr": null,
+        "landed_claims": 0,
+        "aligned_claims": 0,
+        "is_status_sample": true,
+        "is_align_sample": false,
+        "got_status_claims": 0,
+        "claims_detail": []
+      },
+      "after": {
+        "id": "bmr-03",
+        "edition": "bmr",
+        "cat": "状态声称",
+        "ms": 6715.101,
+        "structural_ok": true,
+        "error": null,
+        "attempts_internal": 1,
+        "warnings": 0,
+        "n_claims": 1,
+        "classes": {
+          "botc": 1,
+          "main_role_ok": 0,
+          "main_role_fail": 0,
+          "main_generic": 0,
+          "main_misaligned": 0
+        },
+        "split_throws": false,
+        "splitErr": null,
+        "landed_claims": 1,
+        "aligned_claims": 1,
+        "is_status_sample": true,
+        "is_align_sample": false,
+        "got_status_claims": 1,
+        "claims_detail": [
+          {
+            "i": 0,
+            "subject_seat": 5,
+            "predicate": "status_poisoned",
+            "object": "自称被投毒",
+            "class": "botc"
+          }
+        ]
+      }
+    },
+    {
+      "id": "snv-03",
+      "edition": "snv",
+      "cat": "状态声称",
+      "before": {
+        "id": "snv-03",
+        "edition": "snv",
+        "cat": "状态声称",
+        "ms": 21886.013,
+        "structural_ok": true,
+        "error": null,
+        "attempts_internal": 1,
+        "warnings": 0,
+        "n_claims": 0,
+        "classes": {
+          "botc": 0,
+          "main_role_ok": 0,
+          "main_role_fail": 0,
+          "main_generic": 0,
+          "main_misaligned": 0
+        },
+        "split_throws": false,
+        "splitErr": null,
+        "landed_claims": 0,
+        "aligned_claims": 0,
+        "is_status_sample": true,
+        "is_align_sample": false,
+        "got_status_claims": 0,
+        "claims_detail": []
+      },
+      "after": {
+        "id": "snv-03",
+        "edition": "snv",
+        "cat": "状态声称",
+        "ms": 3954.289,
+        "structural_ok": true,
+        "error": null,
+        "attempts_internal": 1,
+        "warnings": 0,
+        "n_claims": 1,
+        "classes": {
+          "botc": 1,
+          "main_role_ok": 0,
+          "main_role_fail": 0,
+          "main_generic": 0,
+          "main_misaligned": 0
+        },
+        "split_throws": false,
+        "splitErr": null,
+        "landed_claims": 1,
+        "aligned_claims": 1,
+        "is_status_sample": true,
+        "is_align_sample": false,
+        "got_status_claims": 1,
+        "claims_detail": [
+          {
+            "i": 0,
+            "subject_seat": 6,
+            "predicate": "status_poisoned",
+            "object": "自称被投毒",
+            "class": "botc"
+          }
+        ]
+      }
+    },
+    {
+      "id": "snv-04",
+      "edition": "snv",
+      "cat": "状态声称",
+      "before": {
+        "id": "snv-04",
+        "edition": "snv",
+        "cat": "状态声称",
+        "ms": 168267.276,
+        "structural_ok": true,
+        "error": null,
+        "attempts_internal": 3,
+        "warnings": 0,
+        "n_claims": 0,
+        "classes": {
+          "botc": 0,
+          "main_role_ok": 0,
+          "main_role_fail": 0,
+          "main_generic": 0,
+          "main_misaligned": 0
+        },
+        "split_throws": false,
+        "splitErr": null,
+        "landed_claims": 0,
+        "aligned_claims": 0,
+        "is_status_sample": true,
+        "is_align_sample": false,
+        "got_status_claims": 0,
+        "claims_detail": []
+      },
+      "after": {
+        "id": "snv-04",
+        "edition": "snv",
+        "cat": "状态声称",
+        "ms": 24552.481,
+        "structural_ok": true,
+        "error": null,
+        "attempts_internal": 1,
+        "warnings": 0,
+        "n_claims": 1,
+        "classes": {
+          "botc": 1,
+          "main_role_ok": 0,
+          "main_role_fail": 0,
+          "main_generic": 0,
+          "main_misaligned": 0
+        },
+        "split_throws": false,
+        "splitErr": null,
+        "landed_claims": 1,
+        "aligned_claims": 1,
+        "is_status_sample": true,
+        "is_align_sample": false,
+        "got_status_claims": 1,
+        "claims_detail": [
+          {
+            "i": 0,
+            "subject_seat": 2,
+            "predicate": "status_drunk",
+            "object": "自称疑似吃到心上人的醉酒效果（6号昨天处决后开始脑子不清醒）",
+            "class": "botc"
+          }
+        ]
+      }
+    },
+    {
+      "id": "snv-02",
+      "edition": "snv",
+      "cat": "阵营声称",
+      "before": {
+        "id": "snv-02",
+        "edition": "snv",
+        "cat": "阵营声称",
+        "ms": 24127.56,
+        "structural_ok": true,
+        "error": null,
+        "attempts_internal": 1,
+        "warnings": 0,
+        "n_claims": 1,
+        "classes": {
+          "botc": 0,
+          "main_role_ok": 0,
+          "main_role_fail": 1,
+          "main_generic": 0,
+          "main_misaligned": 0
+        },
+        "split_throws": false,
+        "splitErr": null,
+        "landed_claims": 1,
+        "aligned_claims": 0,
+        "is_status_sample": false,
+        "is_align_sample": true,
+        "got_status_claims": 0,
+        "claims_detail": [
+          {
+            "i": 0,
+            "subject_seat": 14,
+            "predicate": "is_role",
+            "object": "恶魔",
+            "class": "main_role_fail"
+          }
+        ]
+      },
+      "after": {
+        "id": "snv-02",
+        "edition": "snv",
+        "cat": "阵营声称",
+        "ms": 7307.255,
+        "structural_ok": true,
+        "error": null,
+        "attempts_internal": 1,
+        "warnings": 0,
+        "n_claims": 1,
+        "classes": {
+          "botc": 1,
+          "main_role_ok": 0,
+          "main_role_fail": 0,
+          "main_generic": 0,
+          "main_misaligned": 0
+        },
+        "split_throws": false,
+        "splitErr": null,
+        "landed_claims": 1,
+        "aligned_claims": 1,
+        "is_status_sample": false,
+        "is_align_sample": true,
+        "got_status_claims": 0,
+        "claims_detail": [
+          {
+            "i": 0,
+            "subject_seat": 14,
+            "predicate": "is_demon",
+            "object": "14号是恶魔，其投票方向疑似带动两三个爪牙（未指明具体席位）",
+            "class": "botc"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tb-02",
+      "edition": "tb",
+      "cat": "阵营声称",
+      "before": {
+        "id": "tb-02",
+        "edition": "tb",
+        "cat": "阵营声称",
+        "ms": 12537.284,
+        "structural_ok": true,
+        "error": null,
+        "attempts_internal": 1,
+        "warnings": 0,
+        "n_claims": 1,
+        "classes": {
+          "botc": 0,
+          "main_role_ok": 0,
+          "main_role_fail": 0,
+          "main_generic": 0,
+          "main_misaligned": 1
+        },
+        "split_throws": false,
+        "splitErr": null,
+        "landed_claims": 1,
+        "aligned_claims": 0,
+        "is_status_sample": false,
+        "is_align_sample": true,
+        "got_status_claims": 0,
+        "claims_detail": [
+          {
+            "i": 0,
+            "subject_seat": 5,
+            "predicate": "is_wolf",
+            "object": "爪牙",
+            "class": "main_misaligned"
+          }
+        ]
+      },
+      "after": {
+        "id": "tb-02",
+        "edition": "tb",
+        "cat": "阵营声称",
+        "ms": 5527.445,
+        "structural_ok": true,
+        "error": null,
+        "attempts_internal": 1,
+        "warnings": 0,
+        "n_claims": 1,
+        "classes": {
+          "botc": 1,
+          "main_role_ok": 0,
+          "main_role_fail": 0,
+          "main_generic": 0,
+          "main_misaligned": 0
+        },
+        "split_throws": false,
+        "splitErr": null,
+        "landed_claims": 1,
+        "aligned_claims": 1,
+        "is_status_sample": false,
+        "is_align_sample": true,
+        "got_status_claims": 0,
+        "claims_detail": [
+          {
+            "i": 0,
+            "subject_seat": 5,
+            "predicate": "is_minion",
+            "object": "疑似爪牙（依据：从开局就给小恶魔打掩护）",
+            "class": "botc"
+          }
+        ]
+      }
+    },
+    {
+      "id": "bmr-02",
+      "edition": "bmr",
+      "cat": "阵营声称",
+      "before": {
+        "id": "bmr-02",
+        "edition": "bmr",
+        "cat": "阵营声称",
+        "ms": 3682.257,
+        "structural_ok": true,
+        "error": null,
+        "attempts_internal": 1,
+        "warnings": 0,
+        "n_claims": 1,
+        "classes": {
+          "botc": 0,
+          "main_role_ok": 0,
+          "main_role_fail": 0,
+          "main_generic": 0,
+          "main_misaligned": 1
+        },
+        "split_throws": false,
+        "splitErr": null,
+        "landed_claims": 1,
+        "aligned_claims": 0,
+        "is_status_sample": false,
+        "is_align_sample": true,
+        "got_status_claims": 0,
+        "claims_detail": [
+          {
+            "i": 0,
+            "subject_seat": 6,
+            "predicate": "is_wolf",
+            "object": "恶魔",
+            "class": "main_misaligned"
+          }
+        ]
+      },
+      "after": {
+        "id": "bmr-02",
+        "edition": "bmr",
+        "cat": "阵营声称",
+        "ms": 7719.569,
+        "structural_ok": true,
+        "error": null,
+        "attempts_internal": 1,
+        "warnings": 0,
+        "n_claims": 1,
+        "classes": {
+          "botc": 1,
+          "main_role_ok": 0,
+          "main_role_fail": 0,
+          "main_generic": 0,
+          "main_misaligned": 0
+        },
+        "split_throws": false,
+        "splitErr": null,
+        "landed_claims": 1,
+        "aligned_claims": 1,
+        "is_status_sample": false,
+        "is_align_sample": true,
+        "got_status_claims": 0,
+        "claims_detail": [
+          {
+            "i": 0,
+            "subject_seat": 6,
+            "predicate": "is_demon",
+            "object": "6号是恶魔",
+            "class": "botc"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tb-01",
+      "edition": "tb",
+      "cat": "声称具体角色",
+      "before": {
+        "id": "tb-01",
+        "edition": "tb",
+        "cat": "声称具体角色",
+        "ms": 14191.582,
+        "structural_ok": true,
+        "error": null,
+        "attempts_internal": 1,
+        "warnings": 0,
+        "n_claims": 2,
+        "classes": {
+          "botc": 0,
+          "main_role_ok": 1,
+          "main_role_fail": 0,
+          "main_generic": 1,
+          "main_misaligned": 0
+        },
+        "split_throws": false,
+        "splitErr": null,
+        "landed_claims": 2,
+        "aligned_claims": 2,
+        "is_status_sample": false,
+        "is_align_sample": false,
+        "got_status_claims": 0,
+        "claims_detail": [
+          {
+            "i": 0,
+            "subject_seat": 3,
+            "predicate": "claims_role",
+            "object": "洗衣妇",
+            "class": "main_role_ok"
+          },
+          {
+            "i": 1,
+            "subject_seat": 3,
+            "predicate": "said",
+            "object": "4号和6号里有一个是投毒者",
+            "class": "main_generic"
+          }
+        ]
+      },
+      "after": {
+        "id": "tb-01",
+        "edition": "tb",
+        "cat": "声称具体角色",
+        "ms": 11739.043,
+        "structural_ok": true,
+        "error": null,
+        "attempts_internal": 1,
+        "warnings": 0,
+        "n_claims": 3,
+        "classes": {
+          "botc": 2,
+          "main_role_ok": 1,
+          "main_role_fail": 0,
+          "main_generic": 0,
+          "main_misaligned": 0
+        },
+        "split_throws": false,
+        "splitErr": null,
+        "landed_claims": 3,
+        "aligned_claims": 3,
+        "is_status_sample": false,
+        "is_align_sample": false,
+        "got_status_claims": 0,
+        "claims_detail": [
+          {
+            "i": 0,
+            "subject_seat": 3,
+            "predicate": "claims_role",
+            "object": "洗衣妇",
+            "class": "main_role_ok"
+          },
+          {
+            "i": 1,
+            "subject_seat": 4,
+            "predicate": "is_minion",
+            "object": "投毒者（3号转述开局信息：4号和6号里有一个是投毒者）",
+            "class": "botc"
+          },
+          {
+            "i": 2,
+            "subject_seat": 6,
+            "predicate": "is_minion",
+            "object": "投毒者（3号转述开局信息：4号和6号里有一个是投毒者）",
+            "class": "botc"
+          }
+        ]
+      }
+    },
+    {
+      "id": "bmr-07",
+      "edition": "bmr",
+      "cat": "复合句",
+      "before": {
+        "id": "bmr-07",
+        "edition": "bmr",
+        "cat": "复合句",
+        "ms": 41735.959,
+        "structural_ok": true,
+        "error": null,
+        "attempts_internal": 1,
+        "warnings": 0,
+        "n_claims": 3,
+        "classes": {
+          "botc": 0,
+          "main_role_ok": 1,
+          "main_role_fail": 0,
+          "main_generic": 2,
+          "main_misaligned": 0
+        },
+        "split_throws": false,
+        "splitErr": null,
+        "landed_claims": 3,
+        "aligned_claims": 3,
+        "is_status_sample": false,
+        "is_align_sample": false,
+        "got_status_claims": 0,
+        "claims_detail": [
+          {
+            "i": 0,
+            "subject_seat": 1,
+            "predicate": "claims_role",
+            "object": "造谣者",
+            "class": "main_role_ok"
+          },
+          {
+            "i": 1,
+            "subject_seat": 1,
+            "predicate": "said",
+            "object": "2号是主谋",
+            "class": "main_generic"
+          },
+          {
+            "i": 2,
+            "subject_seat": 2,
+            "predicate": "said",
+            "object": "1号更像魔鬼代言人",
+            "class": "main_generic"
+          }
+        ]
+      },
+      "after": {
+        "id": "bmr-07",
+        "edition": "bmr",
+        "cat": "复合句",
+        "ms": 19320.366,
+        "structural_ok": true,
+        "error": null,
+        "attempts_internal": 1,
+        "warnings": 0,
+        "n_claims": 3,
+        "classes": {
+          "botc": 0,
+          "main_role_ok": 1,
+          "main_role_fail": 2,
+          "main_generic": 0,
+          "main_misaligned": 0
+        },
+        "split_throws": false,
+        "splitErr": null,
+        "landed_claims": 3,
+        "aligned_claims": 1,
+        "is_status_sample": false,
+        "is_align_sample": false,
+        "got_status_claims": 0,
+        "claims_detail": [
+          {
+            "i": 0,
+            "subject_seat": 1,
+            "predicate": "claims_role",
+            "object": "造谣者",
+            "class": "main_role_ok"
+          },
+          {
+            "i": 1,
+            "subject_seat": 2,
+            "predicate": "is_role",
+            "object": "主谋（1号散布指认）",
+            "class": "main_role_fail"
+          },
+          {
+            "i": 2,
+            "subject_seat": 1,
+            "predicate": "is_role",
+            "object": "魔鬼代言人（2号反击指认）",
+            "class": "main_role_fail"
+          }
+        ]
+      }
+    },
+    {
+      "id": "snv-07",
+      "edition": "snv",
+      "cat": "复合句",
+      "before": {
+        "id": "snv-07",
+        "edition": "snv",
+        "cat": "复合句",
+        "ms": 12683.566,
+        "structural_ok": true,
+        "error": null,
+        "attempts_internal": 1,
+        "warnings": 0,
+        "n_claims": 2,
+        "classes": {
+          "botc": 0,
+          "main_role_ok": 1,
+          "main_role_fail": 0,
+          "main_generic": 0,
+          "main_misaligned": 1
+        },
+        "split_throws": false,
+        "splitErr": null,
+        "landed_claims": 2,
+        "aligned_claims": 1,
+        "is_status_sample": false,
+        "is_align_sample": true,
+        "got_status_claims": 0,
+        "claims_detail": [
+          {
+            "i": 0,
+            "subject_seat": 5,
+            "predicate": "claims_role",
+            "object": "数学家",
+            "class": "main_role_ok"
+          },
+          {
+            "i": 1,
+            "subject_seat": 5,
+            "predicate": "is_wolf",
+            "object": "镜像双子里恶魔的那一半",
+            "class": "main_misaligned"
+          }
+        ]
+      },
+      "after": {
+        "id": "snv-07",
+        "edition": "snv",
+        "cat": "复合句",
+        "ms": 15096.828,
+        "structural_ok": true,
+        "error": null,
+        "attempts_internal": 1,
+        "warnings": 0,
+        "n_claims": 2,
+        "classes": {
+          "botc": 1,
+          "main_role_ok": 1,
+          "main_role_fail": 0,
+          "main_generic": 0,
+          "main_misaligned": 0
+        },
+        "split_throws": false,
+        "splitErr": null,
+        "landed_claims": 2,
+        "aligned_claims": 2,
+        "is_status_sample": false,
+        "is_align_sample": true,
+        "got_status_claims": 0,
+        "claims_detail": [
+          {
+            "i": 0,
+            "subject_seat": 5,
+            "predicate": "claims_role",
+            "object": "数学家",
+            "class": "main_role_ok"
+          },
+          {
+            "i": 1,
+            "subject_seat": 5,
+            "predicate": "is_demon",
+            "object": "镜像双子里恶魔的那一半（7号指认）",
+            "class": "botc"
+          }
+        ]
+      }
+    }
+  ],
+  "notes": {
+    "claimsGuardrail": "B7 后 splitBotcClaims 词修复+降级，不再 400 拒整批",
+    "carrier": "L2 载体 + L3 还原出卡"
+  }
+}

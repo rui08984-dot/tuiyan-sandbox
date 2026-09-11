@@ -1,0 +1,13 @@
+BEFORE: claims=10 entry=100.0% aligned=60.0% status_captured=0/5 as_status=0 align_as_botc=0/4 throws=[] misaligned=3
+AFTER : claims=17 entry=100.0% aligned=88.2% status_captured=5/5 as_status=5 align_as_botc=4/4 throws=[] misaligned=0
+tb-03 [状态声称] claims 0->1 aligned 0->1 throws false->false classes {"botc":1,"main_role_ok":0,"main_role_fail":0,"main_generic":0,"main_misaligned":0}
+tb-04 [状态声称] claims 0->2 aligned 0->2 throws false->false classes {"botc":1,"main_role_ok":0,"main_role_fail":0,"main_generic":1,"main_misaligned":0}
+bmr-03 [状态声称] claims 0->1 aligned 0->1 throws false->false classes {"botc":1,"main_role_ok":0,"main_role_fail":0,"main_generic":0,"main_misaligned":0}
+snv-03 [状态声称] claims 0->1 aligned 0->1 throws false->false classes {"botc":1,"main_role_ok":0,"main_role_fail":0,"main_generic":0,"main_misaligned":0}
+snv-04 [状态声称] claims 0->1 aligned 0->1 throws false->false classes {"botc":1,"main_role_ok":0,"main_role_fail":0,"main_generic":0,"main_misaligned":0}
+snv-02 [阵营声称] claims 1->1 aligned 0->1 throws false->false classes {"botc":1,"main_role_ok":0,"main_role_fail":0,"main_generic":0,"main_misaligned":0}
+tb-02 [阵营声称] claims 1->1 aligned 0->1 throws false->false classes {"botc":1,"main_role_ok":0,"main_role_fail":0,"main_generic":0,"main_misaligned":0}
+bmr-02 [阵营声称] claims 1->1 aligned 0->1 throws false->false classes {"botc":1,"main_role_ok":0,"main_role_fail":0,"main_generic":0,"main_misaligned":0}
+tb-01 [声称具体角色] claims 2->3 aligned 2->3 throws false->false classes {"botc":2,"main_role_ok":1,"main_role_fail":0,"main_generic":0,"main_misaligned":0}
+bmr-07 [复合句] claims 3->3 aligned 3->1 throws false->false classes {"botc":0,"main_role_ok":1,"main_role_fail":2,"main_generic":0,"main_misaligned":0}
+snv-07 [复合句] claims 2->2 aligned 1->2 throws false->false classes {"botc":1,"main_role_ok":1,"main_role_fail":0,"main_generic":0,"main_misaligned":0}

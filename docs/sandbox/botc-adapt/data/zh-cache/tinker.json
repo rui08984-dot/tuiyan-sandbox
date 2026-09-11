@@ -1,0 +1,20 @@
+{
+ "id": "tinker",
+ "name_en": "Tinker",
+ "search_status": 200,
+ "hit_titles": [
+  "教父",
+  "僵怖",
+  "修补匠"
+ ],
+ "name_zh": "修补匠",
+ "ability_zh": "你随时可能死亡。",
+ "page": "修补匠",
+ "file_verified": false,
+ "script": "黯月初升",
+ "page_found": true,
+ "has_section": true,
+ "retry_route": "script-gallery:黯月初升",
+ "appears_in": null,
+ "fan_like": false
+}

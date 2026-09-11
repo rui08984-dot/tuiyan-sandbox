@@ -1,0 +1,18 @@
+{
+ "id": "boomdandy",
+ "name_en": "Boomdandy",
+ "search_status": 200,
+ "hit_titles": [
+  "炸弹人"
+ ],
+ "name_zh": "炸弹人",
+ "ability_zh": "如果你被处决，除三名玩家以外的其他所有玩家均会死亡。一分钟之后，被最多玩家手指指着的玩家死亡。",
+ "page": "炸弹人",
+ "file_verified": false,
+ "script": "暗流涌动",
+ "page_found": true,
+ "has_section": true,
+ "retry_route": "script-gallery:暗流涌动",
+ "appears_in": null,
+ "fan_like": false
+}

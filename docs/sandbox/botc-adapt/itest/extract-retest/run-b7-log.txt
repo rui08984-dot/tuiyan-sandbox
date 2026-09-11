@@ -1,0 +1,31 @@
+2026-09-09T01:55:39.848Z === B7 retest start model=glm-5.3-flash subset=tb-03,tb-04,bmr-03,snv-03,snv-04,snv-02,tb-02,bmr-02,tb-01,bmr-07,snv-07
+2026-09-09T01:55:50.794Z [tb-03] attempt 1 FAILED: extractEvent：JSON 强解析在 2 次重试后仍失败。
+attempt 1 传输失败: DeepSeek 响应异常（注入 fetchImpl 须返回 {ok,status,json()}）
+attempt 2 传输失败: DeepSeek 响应异常（注入 fetchImpl 须返回 {ok,status,json()}）
+attempt 3 传输失败: DeepSeek 响应异常（注入
+2026-09-09T01:56:09.821Z [tb-03] attempt 2 FAILED: extractEvent：JSON 强解析在 2 次重试后仍失败。
+attempt 1 传输失败: DeepSeek 响应异常（注入 fetchImpl 须返回 {ok,status,json()}）
+attempt 2 传输失败: DeepSeek 响应异常（注入 fetchImpl 须返回 {ok,status,json()}）
+attempt 3 传输失败: DeepSeek 响应异常（注入
+2026-09-09T01:56:26.149Z [tb-03] attempt 3 FAILED: extractEvent：JSON 强解析在 2 次重试后仍失败。
+attempt 1 传输失败: DeepSeek 响应异常（注入 fetchImpl 须返回 {ok,status,json()}）
+attempt 2 传输失败: DeepSeek 响应异常（注入 fetchImpl 须返回 {ok,status,json()}）
+attempt 3 传输失败: DeepSeek 响应异常（注入
+2026-09-09T01:56:26.151Z [tb-03] 状态声称 46298.112ms ext=2 internal=- ERROR
+2026-09-09T01:57:15.461Z [tb-04] attempt 1 FAILED: extractEvent：JSON 强解析在 2 次重试后仍失败。
+attempt 1 传输失败: DeepSeek 响应异常（注入 fetchImpl 须返回 {ok,status,json()}）
+attempt 2 传输失败: DeepSeek 响应异常（注入 fetchImpl 须返回 {ok,status,json()}）
+attempt 3 传输失败: DeepSeek 响应异常（注入
+2026-09-09T02:04:20.460Z === B7 retest start model=glm-5.3-flash subset=tb-03,tb-04,bmr-03,snv-03,snv-04,snv-02,tb-02,bmr-02,tb-01,bmr-07,snv-07
+2026-09-09T02:04:28.935Z [tb-03] 状态声称 8471.117ms ext=0 internal=1 ok claims=1
+2026-09-09T02:04:54.550Z [tb-04] 状态声称 24511.097ms ext=0 internal=1 ok claims=2
+2026-09-09T02:05:02.370Z [bmr-03] 状态声称 6715.101ms ext=0 internal=1 ok claims=1
+2026-09-09T02:05:07.437Z [snv-03] 状态声称 3954.289ms ext=0 internal=1 ok claims=1
+2026-09-09T02:05:33.088Z [snv-04] 状态声称 24552.481ms ext=0 internal=1 ok claims=1
+2026-09-09T02:05:41.506Z [snv-02] 阵营声称 7307.255ms ext=0 internal=1 ok claims=1
+2026-09-09T02:05:48.139Z [tb-02] 阵营声称 5527.445ms ext=0 internal=1 ok claims=1
+2026-09-09T02:05:56.962Z [bmr-02] 阵营声称 7719.569ms ext=0 internal=1 ok claims=1
+2026-09-09T02:06:09.814Z [tb-01] 声称具体角色 11739.043ms ext=0 internal=1 ok claims=3
+2026-09-09T02:06:30.249Z [bmr-07] 复合句 19320.366ms ext=0 internal=1 ok claims=3
+2026-09-09T02:06:46.463Z [snv-07] 复合句 15096.828ms ext=0 internal=1 ok claims=2
+2026-09-09T02:06:47.562Z === B7 DONE total=147s

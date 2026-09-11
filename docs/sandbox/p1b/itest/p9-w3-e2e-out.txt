@@ -1,0 +1,27 @@
+[15:30:52] STEP0 pre-clean orphans + fresh db + port check
+[15:30:52] port 8791 free, fresh db
+[15:30:52] STEP1 start server PORT=8791 P1B_DB_PATH=p9-run.db P1B_LLM_MOCK=1
+[15:30:52] server pid=8872
+[15:30:52] STEP2 wait ready (max 30s)
+[15:30:53] server ready (waited 1 x 0.5s)
+[15:30:53] STEP3 POST cast x3 (numbers/time/random)
+[15:30:53] cast numbers id=1 a/b=3/7 ben=火山旅 dong=4 tiyong=艮/土-离/火 verdict= disclaimer=娱乐参考
+[15:30:53] cast time id=2 ben=地天泰 derived_from={"method":"time","lunar_year":2026,"lunar_month":8,"leap_month":false,"lunar_day":1,"year_zhi":"午","year_zhi_number":7,"hour_zhi":"申","hour_zhi_number":9,"local_time":"2026-09-11T15:30:53","calendar":"lunar-javascript@1.7.7"}
+[15:30:53] cast random id=3 a/b=93/397 ben=巽为风
+[15:30:53] STEP4 GET readings back
+[15:30:53] readings total=3 top3ids=3,2,1 top3methods=random,time,numbers
+[15:30:53] order new-to-old check: True
+[15:30:53] pagination probe limit=1: total=3 items=1
+[15:30:53] STEP5 verdict regression witness (create game + GET oracle)
+[15:30:53] game created id=1
+[15:30:53] game oracle mode=mock disclaimer=娱乐参考 ben=天雷无妄 verdict_len=71
+[15:30:53] STEP6 screenshots via headless Edge (3 routes)
+[15:30:53] edge=C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe
+[15:30:53] shot FAIL p9-w3-mystic-page.png
+[15:30:53] shot FAIL p9-w3-live-page.png
+[15:30:53] shot FAIL p9-w3-manage-page.png
+[15:30:53] STEP7 verify cmdline then kill
+[15:30:54] cmdline check: "C:\Program Files\nodejs\node.exe" src/server.js
+[15:30:54] killed pid=8872
+[15:30:54] port 8791 released
+[15:30:54] DONE

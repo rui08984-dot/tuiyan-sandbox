@@ -1,0 +1,18 @@
+{
+ "id": "savant",
+ "name_en": "Savant",
+ "search_status": 200,
+ "hit_titles": [
+  "博学者"
+ ],
+ "name_zh": "博学者",
+ "ability_zh": "每个白天，你可以私下询问说书人以得知两条信息：一个是正确的，一个是错误的。",
+ "page": "博学者",
+ "file_verified": false,
+ "script": "梦殒春宵",
+ "page_found": true,
+ "has_section": true,
+ "retry_route": "script-gallery:梦殒春宵",
+ "appears_in": null,
+ "fan_like": false
+}

@@ -1,0 +1,20 @@
+{
+ "id": "tealady",
+ "name_en": "Tea Lady",
+ "search_status": 200,
+ "hit_titles": [
+  "疯子",
+  "僵怖",
+  "普卡"
+ ],
+ "name_zh": "茶艺师",
+ "ability_zh": "如果与你邻近的两名存活的玩家是善良的，他们不会死亡。",
+ "page": "茶艺师",
+ "file_verified": false,
+ "script": "黯月初升",
+ "page_found": true,
+ "has_section": true,
+ "retry_route": "script-gallery:黯月初升",
+ "appears_in": null,
+ "fan_like": false
+}

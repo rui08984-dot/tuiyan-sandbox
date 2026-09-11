@@ -1,0 +1,20 @@
+{
+ "id": "exorcist",
+ "name_en": "Exorcist",
+ "search_status": 200,
+ "hit_titles": [
+  "僵怖",
+  "普卡",
+  "驱魔人"
+ ],
+ "name_zh": "驱魔人",
+ "ability_zh": "每个夜晚*，你要选择一名玩家（与上个夜晚不同）：如果你选中了恶魔，他会得知你是什么角色，但他当晚不会因其自身能力而被唤醒。",
+ "page": "驱魔人",
+ "file_verified": false,
+ "script": "黯月初升",
+ "page_found": true,
+ "has_section": true,
+ "retry_route": "script-gallery:黯月初升",
+ "appears_in": null,
+ "fan_like": false
+}

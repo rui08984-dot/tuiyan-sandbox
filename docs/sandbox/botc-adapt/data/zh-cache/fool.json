@@ -1,0 +1,21 @@
+{
+ "id": "fool",
+ "name_en": "Fool",
+ "search_status": 200,
+ "hit_titles": [
+  "普卡",
+  "沙巴洛斯",
+  "乖僻者Misfit"
+ ],
+ "name_zh": "弄臣",
+ "ability_zh": null,
+ "page": "弄臣",
+ "file_verified": false,
+ "script": "黯月初升",
+ "page_found": true,
+ "has_section": true,
+ "retry_route": "script-gallery:黯月初升",
+ "appears_in": "歌剧魅影",
+ "fan_like": true,
+ "note_contaminated": "wiki 页 \"弄臣\" 被《歌剧魅影》粉丝同名角色占用，页内能力与官方能力(EN)语义不符，置空防污染"
+}

@@ -1,0 +1,16 @@
+[
+  {
+    "out": "roles-townsquare.json",
+    "url": "https://raw.githubusercontent.com/bra1n/townsquare/master/src/roles.json",
+    "status": 200,
+    "size": 65425,
+    "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
+  },
+  {
+    "out": "script-schema.json",
+    "url": "https://raw.githubusercontent.com/ThePandemoniumInstitute/botc-release/main/script-schema.json",
+    "status": 200,
+    "size": 17491,
+    "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
+  }
+]

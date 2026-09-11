@@ -1,0 +1,18 @@
+{
+ "id": "clockmaker",
+ "name_en": "Clockmaker",
+ "search_status": 200,
+ "hit_titles": [
+  "钟表匠"
+ ],
+ "name_zh": "钟表匠",
+ "ability_zh": "在你的首个夜晚，你会得知恶魔与爪牙之间最近的距离。（邻座的玩家距离为1）",
+ "page": "钟表匠",
+ "file_verified": false,
+ "script": "梦殒春宵",
+ "page_found": true,
+ "has_section": true,
+ "retry_route": "script-gallery:梦殒春宵",
+ "appears_in": null,
+ "fan_like": false
+}

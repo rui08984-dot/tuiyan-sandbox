@@ -1,0 +1,18 @@
+{
+ "id": "klutz",
+ "name_en": "Klutz",
+ "search_status": 200,
+ "hit_titles": [
+  "呆瓜"
+ ],
+ "name_zh": "呆瓜",
+ "ability_zh": "当你得知你死亡时，你要公开选择一名存活的玩家：如果他是邪恶的，你的阵营落败。",
+ "page": "呆瓜",
+ "file_verified": false,
+ "script": "梦殒春宵",
+ "page_found": true,
+ "has_section": true,
+ "retry_route": "script-gallery:梦殒春宵",
+ "appears_in": null,
+ "fan_like": false
+}

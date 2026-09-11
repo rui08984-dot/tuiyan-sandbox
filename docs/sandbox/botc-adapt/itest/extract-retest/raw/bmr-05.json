@@ -1,0 +1,55 @@
+{
+  "id": "bmr-05",
+  "edition": "bmr",
+  "cat": "提名与处决",
+  "day": 2,
+  "phase": "day",
+  "speakerSeat": null,
+  "text": "我提名10号，他跳的是修补匠，修补匠死了会当场翻牌，他不敢让说书人碰他，投他。",
+  "expected": {
+    "event_type": "vote",
+    "claims": [
+      {
+        "subject_seat": 10,
+        "predicate_ideal": "claims_role",
+        "object": "修补匠",
+        "map_expect": "main_role"
+      }
+    ],
+    "action": {
+      "action": "vote",
+      "target_seat": 10
+    }
+  },
+  "ms": 13696.046,
+  "attempts_external": 0,
+  "error": null,
+  "out": {
+    "event": {
+      "day": 2,
+      "phase": "day",
+      "type": "statement",
+      "raw_text": "我提名10号，他跳的是修补匠，修补匠死了会当场翻牌，他不敢让说书人碰他，投他。",
+      "actor_seat": 10
+    },
+    "claims": [
+      {
+        "subject_seat": 10,
+        "predicate": "claims_role",
+        "object": "修补匠"
+      }
+    ],
+    "action": {
+      "action": "vote",
+      "target_seat": 10,
+      "result": "提名10号并号召投票10号",
+      "seat": 10
+    },
+    "warnings": [],
+    "meta": {
+      "mode": "LIVE",
+      "attempts": 1
+    },
+    "actor_seat": 10
+  }
+}

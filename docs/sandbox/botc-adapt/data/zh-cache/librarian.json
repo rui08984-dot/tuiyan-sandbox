@@ -1,0 +1,19 @@
+{
+ "id": "librarian",
+ "name_en": "Librarian",
+ "search_status": 200,
+ "hit_titles": [
+  "图书管理员",
+  "地狱藏书员"
+ ],
+ "name_zh": "图书管理员",
+ "ability_zh": "在你的首个夜晚，你会得知两名玩家和一个外来者角色：这两名玩家之一是该角色（或者你会得知没有外来者在场）。",
+ "page": "图书管理员",
+ "file_verified": false,
+ "script": "暗流涌动",
+ "page_found": true,
+ "has_section": true,
+ "retry_route": "script-gallery:暗流涌动",
+ "appears_in": null,
+ "fan_like": false
+}

@@ -1,0 +1,142 @@
+/* 录入页（P1b-3）专属样式 —— 沿用 app.css 设计语言（变量/按钮/表单/抽屉），只补页面件。 */
+
+/* ── 轻提示（入账/修订/撤回回执）── */
+.toast {
+  position: sticky; top: 8px; z-index: 25;
+  background: rgba(88, 179, 104, 0.14); color: var(--ok);
+  border: 1px solid rgba(88, 179, 104, 0.4);
+  border-radius: 10px; padding: 10px 14px; font-size: 14px;
+  margin-bottom: 10px; word-break: break-all;
+}
+
+/* ── 顶部条：局名 + 第 N 天 + 存活名单 ── */
+.topbar {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 12px 14px;
+  margin-bottom: 12px;
+}
+.topbar-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.topbar-name { font-weight: 700; font-size: 17px; margin-right: auto; }
+.topbar-meta { color: var(--muted); font-size: 13px; }
+.day-stepper { display: inline-flex; align-items: center; gap: 6px; }
+.day-stepper .btn { min-height: 38px; min-width: 38px; padding: 0 10px; font-size: 16px; }
+.day-num { min-width: 64px; text-align: center; font-weight: 700; color: var(--accent); font-size: 16px; }
+
+.roster { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.roster-chip {
+  font-size: 12.5px; line-height: 1; padding: 6px 9px; border-radius: 999px;
+  background: rgba(88, 179, 104, 0.14); color: var(--ok);
+  border: 1px solid rgba(88, 179, 104, 0.35); white-space: nowrap;
+}
+.roster-chip.is-dead {
+  background: var(--panel-2); color: var(--muted);
+  border-color: var(--line); text-decoration: line-through;
+}
+
+/* ── 常驻输入条：吸附在视口底部（B6 一页现场流：无底部 Tab 栏，直接贴底）── */
+.input-bar {
+  position: sticky;
+  bottom: calc(8px + env(safe-area-inset-bottom));
+  z-index: 20;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 10px 12px;
+  box-shadow: 0 -6px 18px rgba(0, 0, 0, 0.35);
+}
+.input-bar .phase-row { display: flex; gap: 6px; margin-bottom: 8px; }
+.input-main { display: flex; gap: 8px; align-items: flex-end; }
+.input-main textarea { flex: 1; min-height: 44px; max-height: 120px; resize: none; }
+.input-send { flex: 0 0 auto; min-width: 72px; font-weight: 600; }
+
+.macro-row { display: flex; gap: 8px; margin-bottom: 8px; }
+.macro-btn {
+  flex: 1; min-height: 48px;             /* 大触控区 ≥44px */
+  border-radius: 10px; font-size: 15px; font-weight: 600;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+}
+.macro-btn small { font-size: 11px; font-weight: 400; color: var(--muted); }
+
+/* ── 当日事件流时间线（最新在上）── */
+.tl-empty { color: var(--muted); font-size: 14px; padding: 14px 4px; }
+.tl-item {
+  background: var(--panel); border: 1px solid var(--line); border-left: 3px solid var(--accent);
+  border-radius: var(--radius); padding: 10px 12px; margin-bottom: 10px;
+}
+.tl-head { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.tl-seq { color: var(--muted); font-size: 12.5px; }
+.tl-type { font-size: 12px; padding: 3px 8px; border-radius: 999px; background: rgba(224, 168, 60, 0.16); color: var(--accent); }
+.tl-actor { font-weight: 600; font-size: 14.5px; }
+.tl-raw { margin: 6px 0 2px; font-size: 14.5px; word-break: break-all; }
+.tl-claims { margin-top: 8px; display: grid; gap: 6px; }
+.tl-claim { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; font-size: 13.5px; }
+.tl-claim .pred { font-size: 12px; padding: 2px 8px; border-radius: 999px; white-space: nowrap; }
+.pred-claims_role { background: rgba(224, 168, 60, 0.16); color: var(--accent); }
+.pred-is_wolf { background: rgba(224, 92, 74, 0.16); color: var(--danger); }
+.pred-is_good { background: rgba(88, 179, 104, 0.16); color: var(--ok); }
+.pred-other { background: var(--panel-2); color: var(--muted); }
+.tl-row-actions { display: flex; gap: 6px; margin-left: auto; }
+.tl-row-actions .btn { min-height: 34px; padding: 0 10px; font-size: 12.5px; }
+.tl-row-actions .btn.is-armed { background: var(--danger); border-color: var(--danger); color: #fff; }
+.tl-ext { color: var(--muted); font-size: 12px; }
+
+/* ── 待确认卡：全屏模态（手机底部升起，桌面居中）── */
+.confirm-overlay {
+  position: fixed; inset: 0; z-index: 60;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex; align-items: flex-end; justify-content: center;
+}
+.confirm-sheet {
+  width: 100%; max-width: 720px; max-height: 94dvh;
+  display: flex; flex-direction: column;
+  overflow-y: auto;
+  background: var(--panel);
+  border: 1px solid var(--line); border-bottom: none;
+  border-radius: 16px 16px 0 0;
+  padding: 16px 16px calc(16px + env(safe-area-inset-bottom));
+}
+.confirm-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.confirm-head h2 { margin: 0; font-size: 18px; margin-right: auto; }
+.confirm-round { font-size: 12px; padding: 4px 10px; border-radius: 999px; background: rgba(224, 168, 60, 0.16); color: var(--accent); white-space: nowrap; }
+.confirm-raw { margin: 10px 0 0; color: var(--muted); font-size: 13.5px; word-break: break-all; }
+.confirm-warn {
+  margin: 10px 0 0; padding: 8px 10px; border-radius: 8px; font-size: 13.5px;
+  background: rgba(217, 164, 65, 0.14); color: var(--warn);
+}
+.confirm-re {
+  margin: 10px 0 0; padding: 8px 10px; border-radius: 8px; font-size: 13.5px;
+  background: rgba(224, 92, 74, 0.14); color: var(--danger);
+}
+.confirm-sec { margin-top: 14px; }
+.confirm-sec > .sec-title { margin: 0 0 8px; font-size: 13px; color: var(--muted); letter-spacing: 1px; }
+.ev-grid { display: flex; gap: 10px; flex-wrap: wrap; align-items: flex-end; }
+.ev-grid .field { flex: 1 1 120px; }
+.ev-grid .field-seat { flex: 0 0 auto; }
+.seat-wrap { display: flex; align-items: center; gap: 6px; }
+.seat-wrap input { width: 76px; text-align: center; }
+.seat-name { font-size: 12.5px; color: var(--muted); white-space: nowrap; }
+.claim-card {
+  border: 1px solid var(--line); border-radius: 10px;
+  padding: 10px; margin-bottom: 8px; background: var(--panel-2);
+}
+.claim-card .claim-line { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; font-size: 14px; margin-bottom: 6px; }
+.claim-card .obj-text { font-weight: 600; }
+.claim-card .seat-field { display: flex; align-items: center; gap: 6px; }
+.claim-card .seat-field label { font-size: 12.5px; color: var(--muted); }
+.claim-card .seat-field input { width: 76px; text-align: center; min-height: 40px; }
+.action-card { border: 1px solid var(--line); border-radius: 10px; padding: 10px; background: var(--panel-2); }
+.confirm-foot { display: flex; gap: 10px; margin-top: 16px; position: sticky; bottom: 0; background: var(--panel); padding-top: 10px; }
+.confirm-foot .btn { flex: 1; min-height: 48px; }
+
+/* ── B4：BOTC 局确认卡——谓词切换 + 对象编辑；事件流 BOTC 声称徽章 ── */
+.claim-edit { display: grid; gap: 8px; margin-top: 8px; }
+.claim-edit .field-label em { color: var(--muted); font-style: normal; font-size: 12px; }
+.pred-botc { background: rgba(217, 164, 65, 0.16); color: var(--warn); }
+
+@media (min-width: 900px) {
+  .confirm-overlay { align-items: center; padding: 24px; }
+  .confirm-sheet { border-radius: 16px; border-bottom: 1px solid var(--line); max-height: 86dvh; }
+  .claim-edit { grid-template-columns: 1fr 2fr; }
+}

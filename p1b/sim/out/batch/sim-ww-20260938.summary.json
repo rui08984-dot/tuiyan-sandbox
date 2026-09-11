@@ -1,0 +1,22 @@
+{
+  "ok": true,
+  "game_id": 34,
+  "name": "sim-ww-20260938",
+  "events": 10,
+  "claims": 13,
+  "actions": 6,
+  "result": "wolf_win",
+  "usage": {
+    "call_target": "<=40",
+    "style_anchor_count": 2,
+    "calls": 12,
+    "prompt_tokens": 4882,
+    "completion_tokens": 14359,
+    "parse_fallback": 0
+  },
+  "deviations": [],
+  "files": [
+    "sim-ww-20260938.replay.md",
+    "sim-ww-20260938.truth.md"
+  ]
+}

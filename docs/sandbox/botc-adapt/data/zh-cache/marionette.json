@@ -1,0 +1,19 @@
+{
+ "id": "marionette",
+ "name_en": "Marionette",
+ "search_status": 200,
+ "hit_titles": [
+  "提线木偶",
+  "腹语者Ventriloquist"
+ ],
+ "name_zh": "提线木偶",
+ "ability_zh": "你以为你是一个善良角色，但其实你不是。恶魔会知道你是什么角色。[提线木偶会与恶魔邻座]",
+ "page": "提线木偶",
+ "file_verified": false,
+ "script": "暗流涌动",
+ "page_found": true,
+ "has_section": true,
+ "retry_route": "script-gallery:暗流涌动",
+ "appears_in": null,
+ "fan_like": false
+}

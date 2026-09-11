@@ -1,0 +1,29 @@
+washerwoman | 洗衣妇 | Washerwoman | townsfolk | ["tb"] | 唯一（
+librarian | 图书管理员 | Librarian | townsfolk | ["tb"] | 唯一（
+seer | NOT FOUND
+imp | 小恶魔 | Imp | demon | ["tb"] | 唯一（
+poisoner | 投毒者 | Poisoner | minion | ["tb"] | 唯一（
+butler | 管家 | Butler | outsider | ["tb"] | 唯一（
+soldier | 士兵 | Soldier | townsfolk | ["tb"] | 唯一（
+mayor | 镇长 | Mayor | townsfolk | ["tb"] | 唯一（
+drunk | 酒鬼 | Drunk | outsider | ["tb"] | 唯一（
+spy | 间谍 | Spy | minion | ["tb"] | 唯一（
+scarlet_woman | NOT FOUND
+baron | 男爵 | Baron | minion | ["tb"] | 唯一（
+puzzlemaster | 解谜大师 | Puzzlemaster | outsider | [] | 唯一（
+gambler | 赌徒 | Gambler | townsfolk | ["bmr"] | 唯一（
+vortox | 涡流 | Vortox | demon | ["snv"] | 唯一（
+beggar | 乞丐 | Beggar | traveler | ["tb"] | 非唯一
+barista | 咖啡师 | Barista | traveler | ["snv"] | 非唯一
+bureaucrat | 官员 | Bureaucrat | traveler | ["tb"] | 非唯一
+harlot | 流莺 | Harlot | traveler | ["snv"] | 非唯一
+butler2 | NOT FOUND
+gunslinger | 枪手 | Gunslinger | traveler | ["tb"] | 非唯一
+mephit | null | Mephit | minion | [] | 唯一（
+--- tb travelers ---
+bureaucrat/官员/非唯一, thief/窃贼/非唯一, gunslinger/枪手/非唯一, scapegoat/替罪羊/非唯一, beggar/乞丐/非唯一
+--- tb roles full list ---
+washerwoman(洗衣妇,townsfolk), librarian(图书管理员,townsfolk), investigator(调查员,townsfolk), chef(厨师,townsfolk), empath(共情者,townsfolk), fortuneteller(占卜师,townsfolk), undertaker(送葬者,townsfolk), monk(僧侣,townsfolk), ravenkeeper(守鸦人,townsfolk), virgin(贞洁者,townsfolk), slayer(猎手,townsfolk), soldier(士兵,townsfolk), mayor(镇长,townsfolk), butler(管家,outsider), drunk(酒鬼,outsider), recluse(陌客,outsider), saint(圣徒,outsider), poisoner(投毒者,minion), spy(间谍,minion), scarletwoman(红唇女郎,minion), baron(男爵,minion), imp(小恶魔,demon), bureaucrat(官员,traveler), thief(窃贼,traveler), gunslinger(枪手,traveler), scapegoat(替罪羊,traveler), beggar(乞丐,traveler)
+--- bmr-only sample (in bmr not tb, non-traveler) ---
+grandmother(祖母), sailor(水手), chambermaid(侍女), exorcist(驱魔人), innkeeper(旅店老板), gambler(赌徒), gossip(造谣者), courtier(侍臣)
+--- test count baseline ---

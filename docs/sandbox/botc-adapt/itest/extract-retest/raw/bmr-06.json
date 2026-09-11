@@ -1,0 +1,33 @@
+{
+  "id": "bmr-06",
+  "edition": "bmr",
+  "cat": "死亡公布",
+  "day": 3,
+  "phase": "day",
+  "speakerSeat": null,
+  "text": "说书人：今天早上没有人死亡，昨晚是平安夜。",
+  "expected": {
+    "event_type": "system",
+    "claims": [],
+    "action": null,
+    "note": "BMR 夜死不公布——平安夜公布期望 0 claims 无编造"
+  },
+  "ms": 6447.065,
+  "attempts_external": 0,
+  "error": null,
+  "out": {
+    "event": {
+      "day": 3,
+      "phase": "day",
+      "type": "system",
+      "raw_text": "说书人：今天早上没有人死亡，昨晚是平安夜。"
+    },
+    "claims": [],
+    "action": null,
+    "warnings": [],
+    "meta": {
+      "mode": "LIVE",
+      "attempts": 1
+    }
+  }
+}

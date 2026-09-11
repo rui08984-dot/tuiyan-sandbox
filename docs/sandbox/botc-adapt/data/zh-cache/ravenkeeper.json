@@ -1,0 +1,18 @@
+{
+ "id": "ravenkeeper",
+ "name_en": "Ravenkeeper",
+ "search_status": 200,
+ "hit_titles": [
+  "守鸦人"
+ ],
+ "name_zh": "守鸦人",
+ "ability_zh": "如果你在夜晚死亡，你会被唤醒，然后你要选择一名玩家：你会得知他的角色。",
+ "page": "守鸦人",
+ "file_verified": false,
+ "script": "暗流涌动",
+ "page_found": true,
+ "has_section": true,
+ "retry_route": "script-gallery:暗流涌动",
+ "appears_in": null,
+ "fan_like": false
+}

@@ -1,0 +1,8 @@
+games: id=7 name=m0-run1 type=werewolf_sim_6p_onenight n=6 source=sim
+events: 10
+claims: 12
+actions: 6
+claims 样例: [{"seat":3,"subject_seat":3,"predicate":"claims_role","object":"平民","extracted_by":"sim-llm"},{"seat":1,"subject_seat":4,"predicate":"is_good","object":"好人","extracted_by":"sim-llm"},{"seat":1,"subject_seat":6,"predicate":"is_wolf","object":"狼人","extracted_by":"sim-llm"},{"seat":1,"subject_seat":1,"predicate":"is_good","object":"好人","extracted_by":"sim-llm"},{"seat":2,"subject_seat":2,"predicate":"is_good","object":"大家","extracted_by":"sim-llm"}]
+actions 样例: [{"seat":1,"action":"kill_target","target_seat":4},{"seat":1,"action":"vote","target_seat":6},{"seat":5,"action":"vote","target_seat":2},{"seat":6,"action":"vote","target_seat":1},{"seat":2,"action":"vote","target_seat":6}]
+meta.stage=2 result=wolf_win roles={"1":"werewolf","2":"werewolf","3":"villager","4":"villager","5":"villager","6":"villager"}
+SQL 查回: PASS

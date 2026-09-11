@@ -1,0 +1,4 @@
+STEP1 carriers=["said:__BOTC[is_demon]14号是恶魔","said:__BOTC[status_drunk]","said:__BOTC[status_poisoned]自称被投毒","is_role:恶魔","claims_role:洗衣妇"]
+STEP2 back=["is_demon:14号是恶魔","status_drunk:","status_poisoned:自称被投毒","is_demon:恶魔","claims_role:洗衣妇"]
+STEP2 warnings=1
+ROUNDTRIP=PASS

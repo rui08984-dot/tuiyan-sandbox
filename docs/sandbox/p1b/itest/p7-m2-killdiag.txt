@@ -1,0 +1,11 @@
+=== killdiag @ 14:57:58 ===
+--- whoami / elevation ---
+user=LAPTOP-H8M0N0H8\crx
+elevated=False
+--- taskkill with stderr ---
+ERROR: Access denied | 
+exitcode=1
+--- Stop-Process try ---
+Stop-Process: issued
+pid7212-after: GONE
+DONE

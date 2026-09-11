@@ -1,0 +1,8 @@
+mapping_impl=real-splitBotcClaims
+samples=27 structural_ok=27
+latency ms: median=15797.3 p90_lin=48810.9 p90_nr=53544.5
+tb: ok=9/9 claims=8 entry=100.0% aligned=87.5% median=14192ms strict_err=22.2%
+bmr: ok=9/9 claims=13 entry=100.0% aligned=92.3% median=13696ms strict_err=11.1%
+snv: ok=9/9 claims=8 entry=87.5% aligned=75.0% median=24128ms strict_err=33.3%
+classes={"botc":0,"main_role_ok":15,"main_role_fail":1,"main_generic":10,"main_misaligned":3} throw_samples=["snv-02"]
+verdicts={"correct":14,"suspect":7,"wrong":6}

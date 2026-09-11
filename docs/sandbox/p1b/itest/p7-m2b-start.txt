@@ -1,0 +1,7 @@
+=== start2 @ 15:02:03 ===
+{"ok":true,"service":"p1b-web-workbench","db_path":"E:\\music player\\docs\\sandbox\\p1b\\itest\\p7-run.db","llm_mock":true,"engine":{"db_contract":"v1","reused_from":"p1a-terminal"}}
+health-ok: True
+listener PID=3796
+proc: node alive
+games: {"games":[]}
+DONE

@@ -1,0 +1,5 @@
+live
+manage
+LivePage.tsx
+ManagePage.tsx
+SettingsPage.tsx

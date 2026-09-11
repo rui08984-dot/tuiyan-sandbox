@@ -1,0 +1,8 @@
+file 'E:/ace-step/output/新歌三首-0901/21v4_SlowDance_返场_seed1037707474.wav'
+file 'E:/ace-step/output/新歌三首-0901/16_TheLastBox_响度版.wav'
+file 'D:/audio-models/apollo-test/t2_slowbrew_restored.wav'
+file 'E:/ace-step/output/新歌三首-0901/19_BendTheBlues_母带版.wav'
+file 'D:/audio-models/apollo-test/t3_midnight_restored.wav'
+file 'E:/ace-step/output/新歌三首-0901/20_ハーフビート_日语CityPop_seed4118293766.wav'
+file 'E:/ace-step/output/新歌三首-0901/22v2_StandInTheLight_v3_Gospel_seed1907403168.wav'
+file 'D:/audio-models/apollo-test/t5_no2_restored.wav'

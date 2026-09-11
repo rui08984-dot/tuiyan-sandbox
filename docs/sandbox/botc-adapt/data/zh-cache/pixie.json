@@ -1,0 +1,19 @@
+{
+ "id": "pixie",
+ "name_en": "Pixie",
+ "search_status": 200,
+ "hit_titles": [
+  "小精灵",
+  "悲剧演员Thespian"
+ ],
+ "name_zh": "小精灵",
+ "ability_zh": "在你的首个夜晚，你会得知一个在场的镇民角色。如果你“疯狂”地证明你是该角色，当他死亡时你获得该角色的能力。",
+ "page": "小精灵",
+ "file_verified": false,
+ "script": "暗流涌动",
+ "page_found": true,
+ "has_section": true,
+ "retry_route": "script-gallery:暗流涌动",
+ "appears_in": null,
+ "fan_like": false
+}

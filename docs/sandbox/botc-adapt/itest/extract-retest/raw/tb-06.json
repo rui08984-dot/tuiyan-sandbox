@@ -1,0 +1,33 @@
+{
+  "id": "tb-06",
+  "edition": "tb",
+  "cat": "死亡公布",
+  "day": 2,
+  "phase": "day",
+  "speakerSeat": null,
+  "text": "说书人宣布，昨晚9号死在了夜里，没有留下遗言。",
+  "expected": {
+    "event_type": "death",
+    "claims": [],
+    "action": null,
+    "note": "BOTC 夜死公布不含角色——期望 0 claims，无编造探针"
+  },
+  "ms": 7880.254,
+  "attempts_external": 0,
+  "error": null,
+  "out": {
+    "event": {
+      "day": 2,
+      "phase": "night",
+      "type": "death",
+      "raw_text": "说书人宣布，昨晚9号死在了夜里，没有留下遗言。"
+    },
+    "claims": [],
+    "action": null,
+    "warnings": [],
+    "meta": {
+      "mode": "LIVE",
+      "attempts": 1
+    }
+  }
+}

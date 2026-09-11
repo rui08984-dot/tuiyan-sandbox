@@ -1,0 +1,18 @@
+{
+ "id": "damsel",
+ "name_en": "Damsel",
+ "search_status": 200,
+ "hit_titles": [
+  "落难少女"
+ ],
+ "name_zh": "落难少女",
+ "ability_zh": "所有爪牙都知道你在场。每局游戏限一次，任意爪牙可以公开猜测你的角色，如果猜对，你的阵营落败。",
+ "page": "落难少女",
+ "file_verified": false,
+ "script": "黯月初升",
+ "page_found": true,
+ "has_section": true,
+ "retry_route": "script-gallery:黯月初升",
+ "appears_in": null,
+ "fan_like": false
+}

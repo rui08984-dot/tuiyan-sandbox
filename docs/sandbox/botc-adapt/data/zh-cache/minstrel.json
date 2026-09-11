@@ -1,0 +1,17 @@
+{
+ "id": "minstrel",
+ "name_en": "Minstrel",
+ "search_status": 200,
+ "hit_titles": [],
+ "name_zh": "吟游诗人",
+ "ability_zh": null,
+ "page": "吟游诗人",
+ "file_verified": false,
+ "script": "黯月初升",
+ "page_found": true,
+ "has_section": true,
+ "retry_route": "script-gallery:黯月初升",
+ "appears_in": "魔法祭典",
+ "fan_like": false,
+ "note_contaminated": "wiki 页 \"吟游诗人\" 被《魔法祭典》粉丝同名角色占用，页内能力与官方能力(EN)语义不符，置空防污染"
+}

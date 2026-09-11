@@ -1,0 +1,55 @@
+{
+  "id": "snv-04",
+  "edition": "snv",
+  "cat": "状态声称",
+  "day": 3,
+  "phase": "day",
+  "speakerSeat": 2,
+  "text": "6号昨天处决后我就一直脑子不清醒，我八成吃到了心上人的醉酒效果。",
+  "expected": {
+    "event_type": "statement",
+    "claims": [
+      {
+        "subject_seat": 6,
+        "predicate_ideal": "is_role",
+        "object": "心上人",
+        "map_expect": "main_role",
+        "note": "由处决+醉酒效果反推6号是心上人，推断口径"
+      },
+      {
+        "subject_seat": 2,
+        "predicate_ideal": "status_drunk",
+        "object": "醉酒",
+        "map_expect": "botc",
+        "note": "第一人称归属缺口探针"
+      }
+    ],
+    "action": null
+  },
+  "ms": 24552.481,
+  "attempts_external": 0,
+  "error": null,
+  "out": {
+    "event": {
+      "day": 3,
+      "phase": "day",
+      "type": "statement",
+      "raw_text": "6号昨天处决后我就一直脑子不清醒，我八成吃到了心上人的醉酒效果。",
+      "actor_seat": 2
+    },
+    "claims": [
+      {
+        "subject_seat": 2,
+        "predicate": "said",
+        "object": "__BOTC[status_drunk]自称疑似吃到心上人的醉酒效果（6号昨天处决后开始脑子不清醒）"
+      }
+    ],
+    "action": null,
+    "warnings": [],
+    "meta": {
+      "mode": "LIVE",
+      "attempts": 1
+    },
+    "actor_seat": 2
+  }
+}

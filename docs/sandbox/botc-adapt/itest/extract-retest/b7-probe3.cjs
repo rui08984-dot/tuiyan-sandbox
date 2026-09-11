@@ -1,0 +1,11 @@
+'use strict';
+const m = require('E:/music player/p1b/src/botc/extractPrompt.js');
+const carrier = m.toCarrier ? m.toCarrier({subject_seat:14, predicate:'is_demon', object:'14号'}) : null;
+console.log('toCarrier exported? ' + !!m.toCarrier);
+const obj = carrier.object;
+console.log('obj=' + JSON.stringify(obj));
+console.log('obj cps=' + [...obj].map(c => c.codePointAt(0).toString(16)).join(','));
+console.log('PREFIX cps=' + [...m.BOTC_CARRIER_PREFIX].map(c => c.codePointAt(0).toString(16)).join(','));
+console.log('startsWith=' + obj.startsWith(m.BOTC_CARRIER_PREFIX));
+const back = m.mapBotcCarriersBack([carrier]);
+console.log('BACK=' + JSON.stringify(back));

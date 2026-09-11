@@ -1,0 +1,37 @@
+{
+  "id": "snv-06",
+  "edition": "snv",
+  "cat": "死亡公布",
+  "day": 3,
+  "phase": "day",
+  "speakerSeat": null,
+  "text": "说书人宣布：昨天白天8号被处决出局，昨晚无人死亡。",
+  "expected": {
+    "event_type": "death",
+    "claims": [],
+    "action": null,
+    "note": "处决事实由 event.type/vote 承载，期望 0 claims 无编造"
+  },
+  "ms": 27116.413,
+  "attempts_external": 0,
+  "error": null,
+  "out": {
+    "event": {
+      "day": 3,
+      "phase": "day",
+      "type": "system",
+      "raw_text": "说书人宣布：昨天白天8号被处决出局，昨晚无人死亡。"
+    },
+    "claims": [],
+    "action": {
+      "action": "vote",
+      "target_seat": 8,
+      "result": "8号于昨天白天被投票处决出局"
+    },
+    "warnings": [],
+    "meta": {
+      "mode": "LIVE",
+      "attempts": 1
+    }
+  }
+}

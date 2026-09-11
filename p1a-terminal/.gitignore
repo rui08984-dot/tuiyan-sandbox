@@ -1,0 +1,8 @@
+# p1a-terminal · 契约 schema-contract-v0 §5（YD6）
+node_modules/
+config/
+*.db
+*.db-wal
+*.db-shm
+.env*
+test-out*.txt

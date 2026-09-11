@@ -1,0 +1,21 @@
+PNG saved: ./p5pre-games-mobile-390.png 187519B
+OK   S1a game2 详情打开（座位4原名=4号）
+OK   S1b UI 显示新名（座位4=王五）
+OK   S1c 离线镜像缓存已同步（2:4=王五）
+OK   S2a 另一端 GET /api/games/2 可见新名（players[seat=4].name=王五）
+S2b 摘录落盘: p5pre-seats-visibility.json
+OK   S3a 建局成功（解析 id=5）
+OK   S3b 详情显示真名（1号=张三 3号=李四，来源=服务端 GET）
+OK   S3c 另一端 GET 回读真名（张三/李四在库）
+OK   S4a 历史区=服务端存档口径
+OK   S4b 服务端 chip 出现（第1天 · 7假设）
+OK   S4c 卡面=服务端存档（截至该天）
+OK   S4d 矛盾区（3 条，证据天 d1 chips）
+OK   S4e 假设区（7 套）
+OK   S4f 验证点不入库提示（（无验证点））
+PNG saved: ./p5pre-advisor-servercard-mobile-390.png 228395B
+PNG saved: ./p5pre-advisor-servercard-desktop-1280.png 99576B
+S4g 快照: txt+dom(3664B)+2 图
+OK   S5a game2 服务端卡（未发现矛盾 + 3 假设 + 无验证点）
+S5b game1 /cards 摘录落盘: p5pre-cards-game1.json（evidence_day 字段在列）
+P5PRE-DRIVE RESULT: ALL PASS

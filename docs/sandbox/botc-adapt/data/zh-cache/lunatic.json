@@ -1,0 +1,19 @@
+{
+ "id": "lunatic",
+ "name_en": "Lunatic",
+ "search_status": 200,
+ "hit_titles": [
+  "疯子",
+  "教父"
+ ],
+ "name_zh": "疯子",
+ "ability_zh": "你以为你是一个恶魔，但其实你不是。 恶魔知道你是什么角色以及你在每个夜晚选择了哪些玩家。",
+ "page": "疯子",
+ "file_verified": false,
+ "script": "黯月初升",
+ "page_found": true,
+ "has_section": true,
+ "retry_route": "script-gallery:黯月初升",
+ "appears_in": null,
+ "fan_like": false
+}

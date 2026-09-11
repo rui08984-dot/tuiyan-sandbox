@@ -1,0 +1,36 @@
+
+> p1b-web-workbench@0.1.0 test
+> node --test
+
+E:\music player\p1b\src\botc\extractPrompt.js:122
+  BOTC_EXTRACT_MARK, BOTC_SEAT_MARK, BOTC_CARRIER_PREFIX, BOTC_CARRIER_PREDICATES,
+                                     ^
+
+ReferenceError: BOTC_CARRIER_PREFIX is not defined
+    at Object.<anonymous> (E:\music player\p1b\src\botc\extractPrompt.js:122:38)
+    at Module._compile (node:internal/modules/cjs/loader:1872:14)
+    at Object..js (node:internal/modules/cjs/loader:2003:10)
+    at Module.load (node:internal/modules/cjs/loader:1594:32)
+    at Module._load (node:internal/modules/cjs/loader:1396:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.require (node:internal/modules/cjs/loader:1617:12)
+    at require (node:internal/modules/helpers:153:16)
+    at Object.<anonymous> (E:\music player\p1b\src\routes\events.js:12:57)
+    at Module._compile (node:internal/modules/cjs/loader:1872:14)
+
+Node.js v24.19.0
+✖ test\server.test.cjs (182.9411ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 203.5898
+
+✖ failing tests:
+
+test at test\server.test.cjs:1:1
+✖ test\server.test.cjs (182.9411ms)
+  'test failed'

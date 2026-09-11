@@ -1,0 +1,14 @@
+新增表: ["botc_claims","botc_games"]
+既有表未变: true
+getGameScript: tb
+main 行数: 3 | botc 行数: 1
+角色归一: washerwoman | x
+botc 谓词: is_demon
+越剧本拦截: 400 claims[0].object「赌徒」不是剧本 tb 中的有效角色名（中/英文
+未知拦截: 400
+addBotcClaim id: 1
+list: 1 is_demon 1
+get: true is_demon
+retract: true → list: 0
+retract 幂等不存在: false
+非法 script 拦截: 400

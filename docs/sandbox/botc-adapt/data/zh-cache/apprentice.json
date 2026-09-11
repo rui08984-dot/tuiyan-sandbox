@@ -1,0 +1,18 @@
+{
+ "id": "apprentice",
+ "name_en": "Apprentice",
+ "search_status": 200,
+ "hit_titles": [
+  "学徒"
+ ],
+ "name_zh": "学徒",
+ "ability_zh": "在你的首个夜晚，如果你是善良的，你会获得一个镇民角色的能力；如果你是邪恶的，你会获得一个爪牙角色的能力。",
+ "page": "学徒",
+ "file_verified": false,
+ "script": "黯月初升",
+ "page_found": true,
+ "has_section": true,
+ "retry_route": "script-gallery:黯月初升",
+ "appears_in": null,
+ "fan_like": false
+}

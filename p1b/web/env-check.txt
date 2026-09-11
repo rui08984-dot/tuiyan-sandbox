@@ -1,0 +1,4 @@
+PORT8787=free
+PORT9223=free
+CHROME=notfound
+EDGE=C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe

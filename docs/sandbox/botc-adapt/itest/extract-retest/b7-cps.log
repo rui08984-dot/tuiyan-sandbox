@@ -1,0 +1,3 @@
+L30: "const BOTC_CARRIER_PREFIX = '⟦BOTC:';"  hi-cps=[27e6]
+L181: "    const m = obj.indexOf(BOTC_CARRIER_PREFIX) === 0"  hi-cps=[]
+L187: "        out.push(Object.assign({}, c, { predicate: pred, object: obj.slice(m + 1).trim() }"  hi-cps=[]
