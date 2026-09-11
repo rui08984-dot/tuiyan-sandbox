@@ -27,3 +27,32 @@
 - node --test **157/157 全绿**（基线 156+1 透传用例；full-run.out 已刷新）
 - R-A 产 verdicts 268 行零触碰（本批未跑 judge-runner 全量/未写库）；8787 零接触；禁改件（p12/J/G/INDEX/S2/sim-titles.cjs/predictionsStore.js）未动
 - 工作区其他 M/?? 文件（G-合并/S2/INDEX/J/PREREAD/二期 等）=队长亲笔与其他棒产物，未 add 未改
+
+---
+
+# M2 · 数据与口径件（2026-09-12 · M1 验收通过后执行）
+
+## 1. l0Gate 双口径（p1b/src/db/predictionsStore.js）
+
+- 新增 `records_valid`（tautology=0 计数）与既有 `records`（总账）双字段并列输出；**review_unlocked 判定改用 records_valid**（重言灌水不解锁门禁）；gate 文案加「重言式题（tautology=1）不计入门禁」。
+- 测试 +1 用例（predictions-audit.test.cjs）：置重言后总账不变/有效口径 −1/文案断言/review_unlocked 仍布尔。
+
+## 2. 模板 v2 --write 落库（R-B 初始语料，事务）
+
+- **sim-templates-v2.cjs 守卫升级**：`--write` 单参数仍 REFUSE（退出码 2，已实测）；必须 `--write --confirm` 显式确认模式（队长授权解除 S1「永不承担落库」守卫，头注释同步改写；dry-run readonly 路径原样保留，Q0-2 自检 PASS 30/30 复核）。
+- **落库口径**：12 模板×30 局（gid 8-37）；statement 前缀 `[cutoff=C2·发言结束后/计票前（R-B 主判据时点）]`；**evidence_json=C2 锚前事件 id**（与 R-A 结算证据严格区分）；layer/engine=模板建议值（v2 清单 walkthrough）；checklist_hash=**v2**；X 指派=gid%6+1（与干跑 Q0-3 验证数据同口径）；resolve 程序真值全回填（结算锚写 resolve_note）。
+- **落库量（如实记账）**：WRITE_STATS={games:30, templates:12, inserted:**360**, skippedDup:0, ambiguous:0, trueN:206, falseN:154}——高于任务书预期 250-350 上缘（12 型×30 局无重复无 ambiguous 全落）。
+- **抽验（game=8，3 条明细）**：evidence=8 条全为 cutoff 前公开事件（夜幕/夜死公告/发言×5/「发言结束」锚 ev#36）；dusk 计票 ev#37 与 system 终局 ev#38 **未混入**（与 R-A 结算证据严格区分 ✓）；statement 前缀/checklist_hash/layer 全符合。
+- **l0_gate 双口径复核**：records=450（90 旧+360 新）、**records_valid=420**（450−30 重言 L1）、resolved=450/unresolved=0、**review_unlocked=true**（games=30 ∧ records_valid=420≥200——**门禁状态翻转，重跑条件达成**；报表脚本探索性文案为硬编码属后续批次口径，本批不改）。
+
+## 3. PREREG-RB v1 草案（.scratch/forecast-debate/PREREG-RB-v1-待确认.md，**不冻结**）
+
+- 数据与分组：12 题型×30 局=360 条 cutoff-safe 题；对照锚=**分题型基率下限 b(1−b)**（程序结算真值常数预测器）；R-A 结算证据臂为历史参照不进计分。
+- 判据：逐题型逐路 Brier vs b(1−b)，噪声条款 ±0.06；**合并条款=跨 ≥3 不相关题型方向一致**（对齐 T1 跨域要求）；**L1 carve-out=0.5**（L1 题型 impute 用 0.5 不用基率——规则可复算型基率是程序产物无对照信息）；TOST d=0.5；ambiguous 剔除如实计数（实测=0）。
+- 四要素追平（sha256 冻结时算+runId 通道+stop-rule≤2+archive-rb-pre）；endpoint=单路 Brier、median 只记账、γ̂ 不得版；多重比较声明（12 型×3 路=36 比较明示探索性+方向预注册）。
+- **状态=待确认草案，不冻结**——R-B 判词跑批（360×3 live）待队长批准后执行。
+
+## 4. 测试与 commit
+
+- node --test **158/158 全绿**（157+l0Gate 双口径用例；full-run.out 已刷新）
+- commit hash 见 git log「批次2-M2：l0Gate 双口径+模板 v2 落库 360+PREREG-RB v1 草案」

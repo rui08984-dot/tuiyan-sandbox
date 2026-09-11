@@ -85,6 +85,21 @@ test('l0Gate 不受审计字段影响（计数含新行，门禁语义不变）'
   assert.match(g.gate, /只记不评/);
 });
 
+test('l0Gate 双口径（批次2-M2）：records 总账 vs records_valid（tautology=0），review_unlocked 用有效口径', () => {
+  const { updateTautology } = require('../src/db/predictionsStore');
+  const g0 = l0Gate();
+  const row = insertPrediction({ gameId: 1, sourceType: '预测卡', statement: '双口径用例行' });
+  const g1 = l0Gate();
+  assert.equal(g1.records, g0.records + 1, '总账 +1');
+  assert.equal(g1.records_valid, g0.records_valid + 1, '默认 tautology=0 → 有效口径同步 +1');
+  updateTautology(row.id, 1);
+  const g2 = l0Gate();
+  assert.equal(g2.records, g1.records, '置重言后总账不变');
+  assert.equal(g2.records_valid, g1.records_valid - 1, '重言置 1 → 有效口径 -1（不计入门禁）');
+  assert.ok(g2.gate.indexOf('不计入门禁') !== -1, 'gate 文案注明重言不计入门禁');
+  assert.equal(typeof g2.review_unlocked, 'boolean', 'review_unlocked 仍为布尔（判定源已换 records_valid）');
+});
+
 test('枚举常量导出（供路由层复用）', () => {
   assert.deepEqual(LAYERS, ['L1', 'L2', 'L3', 'L4', 'L5', 'L6']);
   assert.deepEqual(GATES, ['descriptive', 'scored', 'blocked']);

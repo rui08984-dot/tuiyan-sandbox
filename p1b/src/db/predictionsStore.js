@@ -235,20 +235,25 @@ function resolvePrediction(id, outcome, note) {
 
 /**
  * L0 门禁状态（只读统计，不含任何评分——「评」要等门禁解锁）。
- * review_unlocked = 局数 ≥30 且记录数 ≥200；false 时 UI 一切数字只配「参考」。
+ * 批次 2-M2 双口径：records=总账（含重言式题）；records_valid=tautology=0 计数
+ * （重言式题不计入门禁——S1 A3/批次 2 裁定：恒定结果题对校准/门禁无信息量）。
+ * review_unlocked = 局数 ≥30 且 **records_valid** ≥200（改用有效口径，重言灌水不解锁门禁）；
+ * false 时 UI 一切数字只配「参考」。
  */
 function l0Gate() {
   const conn = db.getConnection();
   const records = conn.prepare('SELECT COUNT(*) AS n FROM predictions').get().n;
+  const recordsValid = conn.prepare('SELECT COUNT(*) AS n FROM predictions WHERE tautology = 0').get().n;
   const games = conn.prepare('SELECT COUNT(DISTINCT game_id) AS n FROM predictions').get().n;
   const resolved = conn.prepare('SELECT COUNT(*) AS n FROM predictions WHERE outcome IS NOT NULL').get().n;
   return {
-    gate: 'L0 只记不评：n≥30 局 ∧ 200 条前不评分，UI 数字只配「参考」',
+    gate: 'L0 只记不评：n≥30 局 ∧ 200 条前不评分，UI 数字只配「参考」；重言式题（tautology=1）不计入门禁',
     games: games,
     records: records,
+    records_valid: recordsValid,
     resolved: resolved,
     unresolved: records - resolved,
-    review_unlocked: games >= 30 && records >= 200,
+    review_unlocked: games >= 30 && recordsValid >= 200,
   };
 }
 
