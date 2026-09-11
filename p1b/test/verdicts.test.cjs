@@ -149,3 +149,58 @@ test('calibration n≥30 → ok：ECE 强校验（全 0.8）+ 10 桶 + source_ty
   assert.match(b.note, /参考/);
   assert.ok(b.l0_gate, 'l0_gate 恒挂');
 });
+
+// ── p13 批次0.5：verdicts 表 model/run_id 版本戳两列（additive 迁移）──────────
+
+test('verdicts 版本戳（p13）：saveVerdict 传 model/runId 落库读回；省略时 NULL（旧调用方兼容）', async () => {
+  const { saveVerdict, listVerdictsByPrediction } = require('../src/db/verdictsStore');
+  // 非标准 3 路温度（0.5/0.6）避开 (prediction_id, prompt_variant, temperature) 唯一索引
+  const s = saveVerdict({
+    predictionId: pidA, promptVariant: 'v3_baserate', temperature: 0.5,
+    verdictText: '版本戳测试行：模型与重跑批次要能从库上读回。\nP=0.40', impliedProb: 0.4,
+    model: 'mock-model-x', runId: 'run-20260912-p13',
+  });
+  assert.equal(s.model, 'mock-model-x', '写端落 model');
+  assert.equal(s.run_id, 'run-20260912-p13', '写端落 run_id');
+  const hit = listVerdictsByPrediction(pidA).find((x) => x.temperature === 0.5);
+  assert.ok(hit, '读模型带出新行');
+  assert.equal(hit.model, 'mock-model-x');
+  assert.equal(hit.run_id, 'run-20260912-p13');
+  const bare = saveVerdict({
+    predictionId: pidA, promptVariant: 'v2_skeptical', temperature: 0.6,
+    verdictText: '旧调用方兼容行：不传版本戳时两列应如实 NULL。\nP=0.55', impliedProb: 0.55,
+  });
+  assert.equal(bare.model, null, '省略 model → NULL');
+  assert.equal(bare.run_id, null, '省略 runId → NULL');
+});
+
+test('verdicts additive 迁移（p13）：旧 7 列表 ensure 后补 model/run_id，旧行两列 NULL', () => {
+  const { ensureVerdictsTable } = require('../src/db/verdictsStore');
+  const conn = db.getConnection();
+  // 模拟旧库：drop 后重建迁移前的 7 列旧表（CHECK 照旧），插一行旧行
+  conn.exec('DROP TABLE verdicts');
+  conn.exec([
+    'CREATE TABLE verdicts (',
+    '  id INTEGER PRIMARY KEY,',
+    '  prediction_id INTEGER NOT NULL REFERENCES predictions(id),',
+    "  prompt_variant TEXT NOT NULL CHECK(prompt_variant IN ('v1_evidence','v2_skeptical','v3_baserate')),",
+    '  temperature REAL NOT NULL CHECK(temperature BETWEEN 0 AND 1),',
+    '  verdict_text TEXT NOT NULL,',
+    '  implied_prob REAL CHECK(implied_prob IS NULL OR (implied_prob >= 0 AND implied_prob <= 1)),',
+    "  created_at TEXT DEFAULT (datetime('now'))",
+    ');',
+  ].join('\n'));
+  conn.prepare("INSERT INTO verdicts (prediction_id, prompt_variant, temperature, verdict_text, implied_prob) VALUES (?, 'v1_evidence', 0.2, '迁移前的旧判词行（无版本戳）。P=0.50', 0.5)").run(pidA);
+  ensureVerdictsTable(conn); // 幂等 ensure 触发 additive 迁移
+  const names = conn.prepare('PRAGMA table_info(verdicts)').all().map((c) => c.name);
+  assert.ok(names.indexOf('model') !== -1, 'model 列已补');
+  assert.ok(names.indexOf('run_id') !== -1, 'run_id 列已补');
+  const oldRow = conn.prepare("SELECT * FROM verdicts WHERE prompt_variant = 'v1_evidence' AND temperature = 0.2").get();
+  assert.ok(oldRow, '旧行还在');
+  assert.equal(oldRow.model, null, '旧行 model NULL（如实留空不回填）');
+  assert.equal(oldRow.run_id, null, '旧行 run_id NULL');
+  // 迁移后表可用：saveVerdict 走新列写入不炸
+  const { saveVerdict } = require('../src/db/verdictsStore');
+  const s = saveVerdict({ predictionId: pidA, promptVariant: 'v1_evidence', temperature: 0.9, verdictText: '迁移后新写入行，验证表结构可用。\nP=0.60', impliedProb: 0.6, runId: 'run-post-migration' });
+  assert.equal(s.run_id, 'run-post-migration');
+});

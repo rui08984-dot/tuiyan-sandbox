@@ -12,11 +12,17 @@
  *（项目两次负结果均死于 LLM 直接输出数字——temperature=0 也只是稳定地错同一个数）。
  *
  * 存储切分照 predictionsStore/oracleStore 先例：p1b 私有表 additive，零碰 p1a 既有表。
+ *
+ * 版本戳（p13 批次0.5 additive 迁移）：model=生成该判词的模型标识；run_id=预注册重跑
+ * 批次 id（重跑 90 条实验隔离旧判词用）。可空 TEXT，旧行两列 NULL 如实留空不回填。
  */
 const { db } = require('../deps');
 
 const PROMPT_VARIANTS = ['v1_evidence', 'v2_skeptical', 'v3_baserate'];
 const TEMPERATURES = [0.2, 0.7, 1.0];
+
+// 版本戳两列的 additive 迁移定义（列名 = 定义串第一个 token，照 predictionsStore.AUDIT_COLUMNS 先例）
+const VERSION_COLUMNS = ['model TEXT', 'run_id TEXT'];
 
 const SCHEMA_VERDICTS = [
   'CREATE TABLE IF NOT EXISTS verdicts (',
@@ -26,6 +32,8 @@ const SCHEMA_VERDICTS = [
   '  temperature REAL NOT NULL CHECK(temperature BETWEEN 0 AND 1),',
   '  verdict_text TEXT NOT NULL,',
   '  implied_prob REAL CHECK(implied_prob IS NULL OR (implied_prob >= 0 AND implied_prob <= 1)),',
+  '  model TEXT,',
+  '  run_id TEXT,',
   "  created_at TEXT DEFAULT (datetime('now'))",
   ');',
   'CREATE INDEX IF NOT EXISTS idx_verdicts_pred ON verdicts(prediction_id, id);',
@@ -37,6 +45,16 @@ const SCHEMA_VERDICTS = [
 function ensureVerdictsTable(conn) {
   if (!conn) throw new Error('ensureVerdictsTable: 需要 better-sqlite3 连接');
   conn.exec(SCHEMA_VERDICTS);
+  // additive 迁移（p13 批次0.5，照 predictionsStore.ensurePredictionsTable 先例）：
+  // 旧库缺 model/run_id → PRAGMA 检测后事务内逐条 ALTER（毫秒级，锁 <5s）；旧行两列 NULL。
+  const cols = new Set(conn.prepare('PRAGMA table_info(verdicts)').all().map((c) => c.name));
+  const missing = VERSION_COLUMNS.filter((def) => !cols.has(def.split(' ')[0]));
+  if (missing.length) {
+    const migrate = conn.transaction(() => {
+      for (const def of missing) conn.exec('ALTER TABLE verdicts ADD COLUMN ' + def);
+    });
+    migrate();
+  }
 }
 
 function rowToVerdict(row) {
@@ -48,6 +66,8 @@ function rowToVerdict(row) {
     temperature: row.temperature,
     verdict_text: row.verdict_text,
     implied_prob: row.implied_prob === undefined ? null : row.implied_prob,
+    model: row.model === undefined ? null : row.model,
+    run_id: row.run_id === undefined ? null : row.run_id,
     created_at: row.created_at,
   };
 }
@@ -55,7 +75,7 @@ function rowToVerdict(row) {
 /**
  * 落一行判词（INSERT OR IGNORE 幂等：同点同路重复生成保首条，返回既有/新插入行）。
  * @param {{predictionId:number, promptVariant:string, temperature:number,
- *   verdictText:string, impliedProb?:number|null}} v
+ *   verdictText:string, impliedProb?:number|null, model?:string|null, runId?:string|null}} v
  */
 function saveVerdict(v) {
   if (!v || PROMPT_VARIANTS.indexOf(v.promptVariant) === -1) {
@@ -68,10 +88,13 @@ function saveVerdict(v) {
   if (prob !== null && (typeof prob !== 'number' || !Number.isFinite(prob) || prob < 0 || prob > 1)) {
     throw new Error('implied_prob 必须是 [0,1] 数值或 null，收到: ' + JSON.stringify(prob));
   }
+  // model/runId 可选版本戳：缺省 NULL=旧调用方行为不变；重跑批次由调用方显式传 runId
+  const model = (v.model === undefined || v.model === null) ? null : String(v.model);
+  const runId = (v.runId === undefined || v.runId === null) ? null : String(v.runId);
   const conn = db.getConnection();
-  conn.prepare('INSERT OR IGNORE INTO verdicts (prediction_id, prompt_variant, temperature, verdict_text, implied_prob)'
-    + ' VALUES (?, ?, ?, ?, ?)')
-    .run(v.predictionId, v.promptVariant, v.temperature, v.verdictText.trim(), prob);
+  conn.prepare('INSERT OR IGNORE INTO verdicts (prediction_id, prompt_variant, temperature, verdict_text, implied_prob, model, run_id)'
+    + ' VALUES (?, ?, ?, ?, ?, ?, ?)')
+    .run(v.predictionId, v.promptVariant, v.temperature, v.verdictText.trim(), prob, model, runId);
   return conn.prepare('SELECT * FROM verdicts WHERE prediction_id = ? AND prompt_variant = ? AND temperature = ?')
     .get(v.predictionId, v.promptVariant, v.temperature);
 }
