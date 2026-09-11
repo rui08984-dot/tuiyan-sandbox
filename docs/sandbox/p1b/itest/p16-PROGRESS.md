@@ -55,4 +55,25 @@
 ## 4. 测试与 commit
 
 - node --test **158/158 全绿**（157+l0Gate 双口径用例；full-run.out 已刷新）
-- commit hash 见 git log「批次2-M2：l0Gate 双口径+模板 v2 落库 360+PREREG-RB v1 草案」
+- commit hash 见 git log「批次2-M2：l0Gate 双口径+模板 v2 落库 360+PREREG-RB v1 草案」（=9aa1a53）
+
+---
+
+# R-B 执行 · PREREG-RB v1 已冻结（2026-09-12 深夜）
+
+## 冻结与撤回留痕
+
+- **冻结 commit 锚=09706e3**「PREREG-RB v1 冻结+hash 记档（ca1b5cdb）」；hash=ca1b5cdbddfc7a3333b827fb453972e5f0c063cfe3f20e089bcc3b91752ed2bb（node 原字节口径排除 hash 行，复算自洽已验证；pwsh Set-Content 中转禁用——p16 M1 教训沿用）。文件名后缀「-待确认」为历史遗留，状态以文件头「已冻结」为准。
+- **archive-rb-pre**：R-A 产 verdicts 268 行全列导出 → .scratch/forecast-debate/verdicts-archive-rb-pre-20260912.json（复核回读=268）；run_id 分布全 NULL（R-A 跑批时通道未建，历史事实）。**不清表**：R-B 判词落同一 verdicts 表，批次隔离由 runId 列承担（M1 通道）；R-A 268 行零触碰。
+
+## 烟测记录（2 题×3 路 live，5/6 行实证）
+
+- 烟测题=pred#91（T1）/pred#92（T2）；run_id=ca1b5cdbddfc、model=tokenrhythm/glm-5.3-flash 全部落行。
+- **四维度人审（5 行实证）**：①v1 引用 cutoff 前事件 ✓（v#269「事件#30 明确记载：夜1死亡公布为3号」）②结算内容零泄漏 ✓（无「计票：{」「游戏结束」「被放逐出局」原始结算文本；v3 文本「计票前」为 cutoff 口径描述非泄漏）③Range 区间行+末行 P=0.xx 契约 ✓（Range: 2%-8%/70%-88%/52%-64%/60%-84%/20%-45%）④v2 零证据零基率 ✓、v3@L6 含基率背景行 ✓（「n=269 中该判定为真占 58%」——口径注记：v3 注入基率=全账本同型池（混 R-A 结算真值），与判据对照基率（模板型 30 局）不同源，计分报告注明）。
+- 第 6 行（v3@92）被单命令 120s 上限截断未落库——同链同构（v3@91 已实证），全量跑批幂等自动补齐（补齐后于计分节复核）。
+- 烟测裁定：**通过**（工程无故障）。
+
+## 全量跑批
+
+- 后台作业（pwsh-12）启动：judge-runner 全量（选题 450=R-A 90 幂等跳过仅重算写回+v2 360 生成×3 路）；预计 3-6 小时；errors 落 judge-errors.log；stop-rule=一次跑完禁择优、工程重跑 ≤2 次。
+- token 成本记账：烟测 6+全量 ~1074 ≈ **1080 调用**（与任务书预估一致，如实记账）。
