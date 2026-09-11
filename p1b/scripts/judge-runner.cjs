@@ -2,10 +2,24 @@
 /** 微步 3 批量判词 runner（Q 棒）：90 条 sim 预测 × 3 路走生产 verdicts 端点（幂等保首条），
  *  每条完成后 median(implied_prob) 写回 assigned_prob（无抽取值→NULL 如实保留）。进度逐条打印。
  *  p13 批次0.5 修补：①选题 SQL 加 games.source='sim' 域过滤（防 real 真人域卷入）；
- *  ②响应体 errors 数组逐条落 p1b/sim/out/judge-errors.log；③偶数 median 退化注释。 */
+ *  ②响应体 errors 数组逐条落 p1b/sim/out/judge-errors.log；③偶数 median 退化注释。
+ *  批次1-R-A：加 --limit=N 烟测参数（选题 SQL/注入链/写回逻辑全不动）。
+ *  批次2-M1（R-A 后解冻件）：inject body 带 runId（=PREREG-判词重跑-v1.md 冻结 sha256 前 12 位，
+ *  排除 hash 行口径与文件协议一致）与 model（tokenrhythm/glm-5.3-flash），verdicts 表按批次指纹分组。 */
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 const ERR_LOG = path.join(__dirname, '..', 'sim', 'out', 'judge-errors.log');
+const PREREG_MD = path.join(__dirname, '..', '..', '.scratch', 'forecast-debate', 'PREREG-判词重跑-v1.md');
+/** runId = PREREG 冻结版 sha256 前 12 位（排除 `> sha256` 行，口径=文件头协议）；文件缺失→'prereg-missing' 如实标注 */
+function calcRunId() {
+  try {
+    const lines = fs.readFileSync(PREREG_MD, 'utf8').split(/\r?\n/).filter((l) => !l.startsWith('> sha256'));
+    return crypto.createHash('sha256').update(lines.join('\n'), 'utf8').digest('hex').slice(0, 12);
+  } catch (e) { return 'prereg-missing'; }
+}
+const RUN_ID = calcRunId();
+const MODEL = 'tokenrhythm/glm-5.3-flash';
 async function main() {
   process.env.LLM_MOCK = '';
   const { buildServer } = require('../src/server');
@@ -31,7 +45,7 @@ async function main() {
       done++;
       continue; // 幂等重跑：已满 3 路的跳过生成，仅重算写回
     }
-    const r = await app.inject({ method: 'POST', url: '/api/games/' + p.game_id + '/predictions/' + p.id + '/verdicts' });
+    const r = await app.inject({ method: 'POST', url: '/api/games/' + p.game_id + '/predictions/' + p.id + '/verdicts', body: { runId: RUN_ID, model: MODEL } });
     if (r.statusCode !== 200) {
       console.log('ERR pid=' + p.id + ' status=' + r.statusCode);
       continue;

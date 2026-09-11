@@ -61,9 +61,25 @@ async function run() {
       const doneCount = prog.games.filter(x => x.status === 'done').length;
       if (doneCount > 0 && doneCount % 10 === 0 && !prog['sentinel' + doneCount]) {
         const files = prog.games.filter(x => x.status === 'done').map(x => path.join(OUT, x.name + '.replay.md'));
-        runSentinel(files, path.join(OUT, 'm1-sentinel-' + doneCount + '.txt'));
+        const repPath = path.join(OUT, 'm1-sentinel-' + doneCount + '.txt');
+        runSentinel(files, repPath);
         prog['sentinel' + doneCount] = true;
-        stepLog('sentinel-' + doneCount + ' written');
+        // 批次2-M1 哨兵熔断（S1 A4 修法）：报告读回，WARN 命中→sentinelWarns+1 否则清零；
+        // 连续≥2 → STOP（与 token/llm-fail 熔断同级同形态），人工复核门后人工清 prog.sentinelWarns 才续跑。
+        let repText = '';
+        try { repText = fs.readFileSync(repPath, 'utf8'); } catch (e) { repText = ''; }
+        if (/WARN/.test(repText)) {
+          prog.sentinelWarns = (prog.sentinelWarns || 0) + 1;
+          stepLog('sentinel-' + doneCount + ' WARN ×' + prog.sentinelWarns);
+          if (prog.sentinelWarns >= 2) {
+            stepLog('STOP: sentinel WARN ×2 — 人工复核门');
+            saveProg(prog);
+            return;
+          }
+        } else {
+          prog.sentinelWarns = 0;
+          stepLog('sentinel-' + doneCount + ' written');
+        }
       }
       if ((i + 1) % 5 === 0) stepLog('batch checkpoint ' + (i + 1) + '/30 (done=' + doneCount + ')');
       saveProg(prog);

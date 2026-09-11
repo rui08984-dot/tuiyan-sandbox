@@ -309,3 +309,33 @@ test('per-path 注入（p15）：POST verdicts（MOCK）v1 落库文本含证据
   const v3row = rows.find((x) => x.prompt_variant === 'v3_baserate');
   assert.ok(v3row.verdict_text.indexOf('账本历史统计') !== -1, 'v3 落库文本含基率背景行（L6 有效样本）');
 });
+
+// ── 批次2-M1（R-A 后解冻件）：verdicts runId/model API 透传 ─────────────────
+
+test('runId/model 透传（批次2-M1）：POST body 带 runId/model 落库读回；缺省 NULL（旧调用方兼容）', async () => {
+  const pidR = predictions.insertPrediction({ gameId: gameId, day: 1, sourceType: '预测卡', statement: '透传用例：带批次指纹', prob: 0.5, layer: 'L6', evidence: [] });
+  let r = await app.inject({ method: 'POST', url: gameUrl(gameId, '/predictions/' + pidR.id + '/verdicts'), payload: { runId: 'f232e2a54689', model: 'tokenrhythm/glm-5.3-flash' } });
+  assert.equal(r.statusCode, 200);
+  let b = j(r);
+  assert.equal(b.errors.length, 0);
+  for (const s of b.saved) {
+    assert.equal(s.run_id, 'f232e2a54689', '响应带 run_id');
+    assert.equal(s.model, 'tokenrhythm/glm-5.3-flash', '响应带 model');
+  }
+  const rows = db.getConnection().prepare('SELECT * FROM verdicts WHERE prediction_id = ?').all(pidR.id);
+  assert.equal(rows.length, 3);
+  for (const row of rows) {
+    assert.equal(row.run_id, 'f232e2a54689', '库内 run_id 落行');
+    assert.equal(row.model, 'tokenrhythm/glm-5.3-flash', '库内 model 落行');
+  }
+  // 缺省：不带 body 的旧调用方 → 两列 NULL（向后兼容）
+  const pidN = predictions.insertPrediction({ gameId: gameId, day: 1, sourceType: '预测卡', statement: '透传用例：缺省 NULL', prob: 0.5, layer: 'L6', evidence: [] });
+  r = await app.inject({ method: 'POST', url: gameUrl(gameId, '/predictions/' + pidN.id + '/verdicts') });
+  assert.equal(r.statusCode, 200);
+  b = j(r);
+  assert.equal(b.errors.length, 0);
+  for (const s of b.saved) {
+    assert.equal(s.run_id, null, '缺省 run_id=NULL');
+    assert.equal(s.model, null, '缺省 model=NULL');
+  }
+});

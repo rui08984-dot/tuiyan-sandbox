@@ -195,6 +195,11 @@ function register(app, ctx) {
     if (!pred || pred.game_id !== gameId) {
       throw httpError(404, '预测记录不存在或不属于该局: ' + pid);
     }
+    // 批次2-M1（R-A 后解冻件）：runId/model 可选透传（additive，缺省 NULL）——
+    // 跑批批次指纹（PREREG hash 前 12 位）与模型口径入 verdicts 表，供消融按重跑批次分组。
+    const bodyRun = req.body || {};
+    const runId = (typeof bodyRun.runId === 'string' && bodyRun.runId.trim()) ? bodyRun.runId.trim() : null;
+    const model = (typeof bodyRun.model === 'string' && bodyRun.model.trim()) ? bodyRun.model.trim() : null;
     const options = resolveLlmOptions({ store: ctx.store, llmMock: ctx.llmMock, fetchImpl: ctx.fetchImpl });
     const mode = llm.resolveMode(options); // mockMode/无 key → MOCK（零网络，与 extract/advise/oracle 同链）
     // per-path 注入件（批次1-M1）：与 variant 无关，循环外各算一次（纯查库零网络）
@@ -223,6 +228,8 @@ function register(app, ctx) {
           temperature: route.temperature,
           verdictText: text,
           impliedProb: prob,
+          runId: runId,
+          model: model,
         });
         saved.push({
           id: row.id,
@@ -231,6 +238,8 @@ function register(app, ctx) {
           implied_prob: row.implied_prob,
           extracted: prob !== null,
           created_at: row.created_at,
+          run_id: row.run_id,
+          model: row.model,
         });
       } catch (e) {
         // 单路失败不落库不编造（消融数据干净优先）；如实标注
