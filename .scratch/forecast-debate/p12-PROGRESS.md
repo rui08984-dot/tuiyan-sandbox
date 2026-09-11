@@ -24,6 +24,7 @@
 3. 本局放逐投票最高票数 ≥3 票 → 真值=放逐计票 JSON——layer=L6
 
 **落库**：90 inserted / 0 skipped（幂等防重：同 game_id+statement 查重）；七审计字段全填（gate=descriptive / checklist_hash=v1 / public_exposure=0 / engine=structural 或 proc_calc）；assigned_prob=0.5 均匀基线占位（占位口径：无信息基线，真 3 路判词 implied_prob 下微步接入）；resolve=90 全回填（true 44 / false 46，程序结算真值无歧义）；evidence_json 引用对应结算事件 id。
+   - **【更正 2026-09-12】**初版称 evidence_json 引用结算事件 id 系失实——sim-titles.cjs 写端漏传（L33-36 未传 evidence）致库中 90/90 全空（2026-09-12 只读实核）；批次 1-M2 已用 scripts/backfill-evidence.cjs --apply 事务回填对齐（90/90 changed，抽验 3 条与该局结算事件精确对应；commit 见 p15-PROGRESS.md M2 节 git hash）。
 
 **l0_gate 状态**：games=30 / records=90 / resolved=90 / unresolved=0 / review_unlocked=false（90<200，只记不评维持，UI 参考铁律不变）。
 
@@ -34,12 +35,14 @@
 ## 微步 3 · 判词接入+分层校准报表（2026-09-11 完 · Q 棒收官）
 
 **判词生成**：90 条 × 3 路（v1_evidence/T0.2、v2_skeptical/T0.7、v3_baserate/T1.0）走生产 verdicts 端点（app.inject 同生产链路，tokenrhythm live，幂等保首条）=270 次真 LLM 调用，后台 job 约 18 分钟完成。**机械抽取契约 100% 命中**：median 写回 90 / 抽取失败 0（末行 P=0.xx 契约全部合规）；写回后 assigned_prob=median(三路 implied_prob)（0.5 占位被替换）。
+   - **【更正 2026-09-12】**「270 次真 LLM 调用」与「median 写回 90/抽取失败 0」系口径失实：270 调用 **263 落库**（v1 86 / v2 89 / v3 88），7 次单路失败当时零日志（judge-errors.log 机制已于 p13 批次0.5 补建）；路数<3 时写回取**算术平均**（非 median——2 路=(a+b)/2、0 路留 NULL），故「median 写回 90」实为「90 条均有写回、其中路数<3 者为均值口径」。
 
 **分层校准报表（探索性声明：90<200 只记不评；L6 ECE 为 10 桶下界口径——K F58 分桶恒低估）**：
 - 样本：L6=60 / L1=30 / 全部=90
 - **L6 ECE=0.2114**（下界口径）：桶[0.4-0.5) n=23 true_rate=0.696；桶[0.5-0.6) n=28 true_rate=0.786——判词系统性**欠自信**（低置信高命中）
 - **Brier 对比（第一份「判词 vs 无信息基线」真数据，90 点）**：0.5 占位=**0.2500**；v1_evidence=0.3876（n=86）/v2_skeptical=0.3285（n=89）/v3_baserate=0.3360（n=88）/median 写回=0.3617——**三路判词全部劣于无信息基线**（负结果，与 D-裁决「判词=基率噪声版」风险预言一致：outcome 基率≈49% 而判词中位偏 Yes，acquiescence 方向错配）
 - **L1 重言式单列**：n=30 outcome 恒 false，Brier=mean(p²)——占位校准无信息，语义已标注
+- **A5【更正补录 2026-09-12】**：L1 median 写回 **Brier=0.5970**（_redteamA-recalc.cjs 复算口径可复跑；重言式题上判词为反向信息，占位 0.25 的 2.4 倍）——初版分层报表漏列此行，系红队复算（_redteamA-recalc.cjs）发现后补录。
 
 **3 路相关矩阵 → λ̂ → γ̂（K 棒公式首次跑真数据）**：r(v1~v2)=0.3134 / r(v1~v3)=0.1625 / r(v2~v3)=0.0473 → **λ̂=0.1744 → γ̂=3/(1+2λ̂)=2.2243**——三路多样性真实存在（相关性低），γ̂=2.22 强于 AIA 固定 √3≈1.73。**诚实限定**：在判词整体劣于无信息基线的前提下，γ̂ 只证明「结构参数可估计」，不构成「极端化有效」的证据——先修判词质量（本数据指向：判词需按结果基率再校准，TS 在前纪律的必要性被本数据反向确认）。
 

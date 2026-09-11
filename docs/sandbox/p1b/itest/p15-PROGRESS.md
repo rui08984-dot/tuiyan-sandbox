@@ -1,8 +1,36 @@
-# p15-PROGRESS · 批次1-M1 · A1 三件套代码+backfill dry-run（施工棒 · 微步 M1）
+# p15-PROGRESS · 批次1-M1+M2 · A1 三件套收口（施工棒）
 
-日期：2026-09-12 ｜ 执行：施工棒（p15） ｜ 状态：**M1 完成，停等验收**（禁 apply/禁 M2）
+日期：2026-09-12 ｜ 执行：施工棒（p15） ｜ 状态：**M1 验收通过（1536ec6/7bf650b），M2 完成，停等验收**
 
-## 改动清单（commit①=2d99a13 批次0.5；commit②=本文件所在提交，hash 见 git log -1）
+## M2 · apply 回填+tautology 置位+档案更正（2026-09-12）
+
+### 1. backfill --apply（90 条 evidence 回填）
+- apply 前 dry-run1：STATS={games:30,scanned:90,changed:90,unchanged:0,missing:0}（预期 90 精确命中）
+- --apply：事务提交「已提交事务 UPDATE evidence_json（仅 DIFF 行）」，STATS 同上
+- apply 后只读复核：rows=90 evidence_empty=0 evidence_filled=90（M1 时 90/90 空 → 0/90）
+- **抽验 3 条人工核对（game=8）**：pred#1[L6 本局狼人阵营胜利]→event#38 system「游戏结束：狼人阵营胜利（放逐的 2 号是平民，狼人 1、5 号存活）」；pred#2[L1 本局首夜平安]→event#30 day/death「天亮了。公布夜 1 死亡：3 号死亡」；pred#3[L6 放逐投票≥3 票]→event#37 dusk/death「计票：{"2":3}。2 号被放逐出局」——三件均与该局结算事件精确对应，无跨局悬空
+- **幂等复跑 dry-run2**：STATS={games:30,scanned:90,changed:0,unchanged:90,missing:0}——changed=0 符合幂等预期（90 行全 SAME）
+
+### 2. tautology 置位
+- SQL 原文：UPDATE predictions SET tautology=1 WHERE layer='L1' AND statement LIKE '本局首夜平安%'
+- 复核：update_changes=30，置位后 count=30（库内 tautology=1 总数 30 / =0 总数 60，90 行全覆盖）；l0Gate 双口径不动（批次 2 做）
+
+### 3. p12-PROGRESS 档案更正（追加注记，原文未动）
+- L27 追加【更正 2026-09-12】：evidence_json「引用结算事件 id」系失实→90/90 空实况+M2 回填对齐
+- L38 追加【更正 2026-09-12】：270 调用 263 落库（v1 86/v2 89/v3 88），7 次单路失败零日志（judge-errors.log 已于 p13 补建）；路数<3 时写回取算术平均非 median
+- L45 追加 A5【更正补录 2026-09-12】：L1 median 写回 Brier=0.5970（_redteamA-recalc.cjs 复算口径可复跑；重言式题上判词为反向信息，占位 0.25 的 2.4 倍）
+
+### 4. 测试与 commit
+- node --test 全量 156/156 全绿（full-run.out 已刷新）
+- commit③ hash 见 git log「批次1-M2：90 条 evidence 回填 apply+tautology 置位 30+p12 档案更正（A2/A5）」
+
+### 边界
+- 禁跑 judge-runner（重跑属 PREREG 后）✓；禁改 verdicts.js ✓；8787 零接触 ✓；临时脚本 _m2-tautology.cjs 已删
+- M2 的库写入仅两处：90 条 evidence_json 回填 + 30 条 tautology 置位（均队长指令原文口径）
+
+## M1 · A1 三件套代码+dry-run（已验收 1536ec6+7bf650b）
+
+## 改动清单（commit①=2d99a13 批次0.5；commit②=1536ec6 批次1-M1）
 
 | # | 文件 | 改动 |
 |---|---|---|
