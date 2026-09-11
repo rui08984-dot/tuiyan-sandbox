@@ -89,3 +89,36 @@ MODE=DRY-RUN
 - **R-A 口径护栏已写死**：证据块头恒标「非结算前信息」；v3 措辞恒「仅作背景参考」无更新指令；L1 与未分类层不注入基率；LOO 排除自身。
 - 临时探针（_probe-m1.cjs/_fix-line.cjs/_check.err/_run.tmp.out）已清理；dry-run 全量输出留档 .scratch/forecast-debate/backfill-dryrun-20260912.out。
 - 施工期插曲（如实记录）：SCHEMA 加列踩「JS 数组逗号 vs SQL 列逗号」两层结构坑 3 次（read 工具行尾显示与实际字节不一致加重了误判），最终用 AUDIT_COLUMNS 先例逐字符对齐修复；测试断言正则手误 1 次经程序化替换修复。根因均为笔误非环境。
+
+---
+
+# 批次 1.5 · TS/Platt 回测+Murphy 报表+PREREG v1（2026-09-12）
+
+前置：M2 验收通过（572088b）。本批次三件全零 LLM、库只读、未动 src/test。
+
+## 1. ts-rebacktest.cjs（LOO 主口径）
+
+- 头部双警告：F33 分数归一化（三路温度 0.2/0.7/1.0 非同尺度，逐路独立拟合为最小归一化处置）+评审边界（结论只做预期管理，不进 PREREG 判据）
+- 三路结果（全量层，n=86/89/88）：原始 Brier 0.3876/0.3285/0.3360 → **TS LOO 0.2563/0.2532/0.2537**（T̂ 全顶格 20=强软化；ΔBrier bootstrap CI 全不含 0）→ Platt LOO 0.1877/0.2219/0.2429（Platt 优于 TS：2 参数能纠偏 Yes 的偏移，TS 只缩放）
+- **acquiescence 可校回比例（TS 口径）≈0.95**：校准几乎全数回收「判词 vs 最优常数」差距，但回收终点≈常数基率 0.25——**三路无任何超越常数的信号**（p12「判词=基率噪声版」负结果的量化确认）
+- L1 重言层单列：Platt LOO=0.0000（重言可完美拟合=非信息）；v3 Platt Newton 发散已修（步长截断 clamp±2）
+
+## 2. report-murphy.cjs（K F56 三分解，0.05×20 桶）
+
+- **20/20 行自检「Brier=REL−RES+UNC+VarW−2CovW 分解✓」**：精确恒等式含桶内方差/协方差项（离散 Murphy 的诚实口径；REL−RES+UNC 对 binned 预测 f̄_j 严格成立，直接 Brier 差=VarW−2CovW）
+- 全量：v1 REL=0.2459/RES=0.1076；v2 0.1720/0.0941；v3 0.2022/0.1179；median 0.2348/0.1240；0.5 占位 REL≈0.0001（无信息基线的零校准误差+零分辨率）
+- L1/tautology=1 层单列：UNC=0、RES=0、REL=Brier——**A5 的 L1 median Brier=0.5970 正式进报表**（0.5970=REL，重言反向信息量化）
+- ECE20 对照行恒挂 F58 下界口径注记
+
+## 3. PREREG-判词重跑-v1.md（待确认版）
+
+- 位置：.scratch/forecast-debate/PREREG-判词重跑-v1.md；sha256=e2609e68b9ded8a08d0509cfc88cd7acfabb8e755a7bf41517074c46132f17e5（排除 `> sha256` 行口径，**自洽复算已验证**）
+- 四要素追平 Confident（A0 差异表行动项 1）：①证伪条件逐字计分 ②复现设计=sha256+commit 锚+LCG 种子 987654321+DB 快照 hash ③stop-rule=一次跑完禁择优+失败重跑≤2 次只修工程故障 ④撤回留痕=verdicts JSON 归档+predictions 快照+版本号递进
+- 判据：R-A1 v1 全量 Brier≤0.05（FBSim H0<0.03 参考下界；>0.10=工程排查非改判据）；R-A2 L1 acquiescence 双向（锚=重跑前 L1 median 0.5970）；R-A3 v2 复刻 ~0.33 信息真空；v3@L6 ΔBrier ±0.06 噪声条款；TOST d=0.5 双向可发表
+- impute 规则（0.5/基率，跑前写死+打标）；endpoint 冻结（单路 Brier，median 只记账，γ̂ 双轨不得版）；多重比较声明（判据族<5 且方向预注册，Šidák 不适用）；ECE/coverage 不进判据（K F13/F22/F58/F61）
+- **状态=待确认版**：用户对 R-A/R-B 拆分有否决权，确认后改「已冻结」+commit 锚
+
+## 4. 测试与 commit
+
+- node --test 156/156 全绿（full-run.out 已刷新；1.5 未动 src/test）
+- commit④ hash 见 git log「批次1.5：TS/Platt 回测+Murphy 报表+PREREG v1 草案」
