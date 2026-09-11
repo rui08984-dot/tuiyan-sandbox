@@ -18,6 +18,9 @@ const APPLY = process.argv.indexOf('--apply') !== -1;
 
 // 与 sim-titles.cjs 同逻辑重算每局三题 evidence（win/peace/votes）
 const titlesOf = (g) => {
+  // 注意（p14 坑位提示）：events.actor_seat 存的是 players.id 而非座位号，读座位号须 LEFT JOIN players 还原；
+  // 本脚本三题 evidence 判定只消费 type/day/phase/raw_text（win=system『游戏结束』/peace=day1 death/votes=dusk death 计票），
+  // actor_seat 为照抄 sim-titles 查询口径的死列，不参与任何判定。
   const evs = conn.prepare('SELECT id, day, phase, type, actor_seat, raw_text FROM events WHERE game_id = ? ORDER BY seq').all(g.id);
   const endEv = evs.find((e) => e.type === 'system' && e.raw_text.indexOf('游戏结束') !== -1);
   const nightDeath = evs.find((e) => e.type === 'death' && e.day === 1 && e.phase === 'day');

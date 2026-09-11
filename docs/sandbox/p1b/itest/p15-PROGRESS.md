@@ -50,6 +50,10 @@ MODE=DRY-RUN
 [DIFF] game=14 key=win prediction_id=19 现值=[] 新值=[98]
 ```
 
+## 队长补充处置（M1 验收前增量）
+
+- **actor_seat 语义坑核查（p14 提示）**：M1 两件均不消费 events.actor_seat——backfill-evidence.cjs 三题判定只用 type/day/phase/raw_text（与 sim-titles 同安全路径，p14 L153 自证 raw_text 匹配不触雷）；verdicts.js loadEvidence 查询刻意不含该列。已在此两处加防误用注释（「actor_seat 存 players.id，读座位号须 LEFT JOIN players 还原」），full-run.out 已随注释版重跑刷新（156/156 不变）。
+
 ## 边界与移交
 
 - **M1 禁区全遵守**：未 --apply、未 UPDATE 任何库数据（零写入已实证）、未跑 judge-runner、8787 零接触、未碰 p1b/web/**、meihua.js、p1a-terminal/src、p1b/src/botc/、sim-templates-v2*（6108f49c 在写）。

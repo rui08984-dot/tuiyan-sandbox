@@ -96,6 +96,8 @@ function loadEvidence(prediction) {
   const conn = db.getConnection();
   const lines = [];
   for (const id of ids) {
+    // 注意（p14 坑位提示）：events.actor_seat 存 players.id 而非座位号——本查询刻意不取该列；
+    // 证据行只暴露 id/day/type/raw_text，若未来需展示席位归属必须 LEFT JOIN players 还原。
     const ev = conn.prepare('SELECT id, game_id, day, type, raw_text FROM events WHERE id = ? AND game_id = ?')
       .get(id, prediction.game_id);
     if (!ev) continue; // 悬空/跨局引用不喂（如实跳过）
