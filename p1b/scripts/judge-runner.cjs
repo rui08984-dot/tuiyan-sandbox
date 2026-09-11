@@ -19,8 +19,13 @@ async function main() {
     "SELECT pr.id, pr.game_id FROM predictions pr JOIN games g ON g.id = pr.game_id"
     + " WHERE g.source = 'sim' AND pr.layer IN ('L1','L6') ORDER BY pr.id"
   ).all();
+  // 烟测支持（批次1-R-A 工程修复）：--limit=N 只取前 N 条预测（选题 SQL/注入链/写回逻辑全不动）
+  const limitArg = process.argv.find((a) => a.startsWith('--limit='));
+  const limit = limitArg ? parseInt(limitArg.split('=')[1], 10) : null;
+  const selected = (limit && limit > 0) ? preds.slice(0, limit) : preds;
+  if (limit) console.log('LIMIT selected=' + selected.length + '/' + preds.length);
   let done = 0, medianed = 0, nulled = 0;
-  for (const p of preds) {
+  for (const p of selected) {
     const already = conn.prepare('SELECT COUNT(*) n FROM verdicts WHERE prediction_id = ?').get(p.id).n;
     if (already >= 3) {
       done++;
@@ -53,7 +58,7 @@ async function main() {
     conn.prepare('UPDATE predictions SET assigned_prob = ? WHERE id = ?').run(med, p.id);
     if (med === null) nulled++; else medianed++;
     done++;
-    if (done % 10 === 0) console.log('PROGRESS ' + done + '/' + preds.length);
+    if (done % 10 === 0) console.log('PROGRESS ' + done + '/' + selected.length);
   }
   console.log('DONE done=' + done + ' medianed=' + medianed + ' nulled=' + nulled);
   await app.close();
