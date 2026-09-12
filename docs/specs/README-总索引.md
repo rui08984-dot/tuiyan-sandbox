@@ -96,7 +96,8 @@
 ### 数据源普查
 | 件 | 说明 |
 |---|---|
-| `p1b/sim/out/sources-wide-probe.out` (34.6KB) | **广域普查**（200+ URL 实测，16 域可用） |
+| `p1b/sim/out/sources-wide-probe.out` (35.7KB) | **广域普查探测**（20 域 / 200+ URL 实测 / 16 域可用 / 143 条原始证据） |
+| `p1b/sim/out/sources-wide-batch.out` (10.7KB) | **广域普查出题**（✅ 463 条入库 / 15 域 / backfill 280 + forward 183） |
 | `p1b/sim/out/sources-wide-probe.jsonl` | 143 条原始证据 |
 
 ### 关键文档
