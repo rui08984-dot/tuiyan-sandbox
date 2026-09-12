@@ -5,7 +5,20 @@
 
 // ── 对局 ──
 
-export type GameType = 'werewolf' | 'botc' | 'script';
+/** 游戏类型 id —— 后端驱动（GET /api/adapters）：新增游戏零改前端，本地只透传字符串 */
+export type GameType = string;
+/** GET /api/adapters 单条（后端登记表）：id/name/kind/ready 必填，余为适配器可选元信息 */
+export interface AdapterInfo {
+  id: string;
+  name: string;
+  kind: string;
+  ready: boolean;
+  source?: string;
+  layer?: string | null;
+  checklist?: string | null;
+  contract?: string;
+  missing?: string[];
+}
 export type GameStatus = 'active' | 'finished';
 /** BOTC 官方三剧本（BRIEFS 拍板三本一起）：暗流涌动/黯月初升/梦殒春宵 */
 export type BotcScript = 'tb' | 'bmr' | 'snv';

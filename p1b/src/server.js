@@ -72,6 +72,7 @@ async function buildServer(opts) {
   require('./routes/predictions').register(app, ctx); // p10 W1：预测卡 L0 账本（POST 落注/GET 分页/POST resolve 真值回填/GET unresolved/GET calibration；只记不评门禁 n≥30 局∧200 条）
   require('./routes/verdicts').register(app, ctx); // p10 W2：多路判词（POST 3 路生成全量落 verdicts 表；LLM 只出文本，implied_prob 由末行 P=0.xx 正则机械抽取）
   require('./routes/audit').register(app, ctx); // G1 反馈#3 M2：审计器仪表盘聚合 GET /api/audit/summary（纯 SQL 只读零 LLM；l0Gate 双口径 + layer×checklist_hash 分组 + gate 分组）
+  require('./routes/adapters').register(app, ctx); // 通用化：GET /api/adapters 游戏类型登记（内置 werewolf/botc/script + 扫 adapters/ 目录自动登记 avalon）
 
   // 静态托管前端 dist：存在则挂（挂在 /api 之后，显式路由优先），不存在静默跳过
   if (fs.existsSync(WEB_DIST)) {
@@ -120,5 +121,4 @@ if (require.main === module) {
     process.exit(1);
   });
 }
-
 module.exports = { buildServer, start, lanAddresses, WEB_DIST };

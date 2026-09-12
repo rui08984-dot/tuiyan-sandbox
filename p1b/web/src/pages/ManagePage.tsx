@@ -7,13 +7,14 @@ import { SCRIPT_LABEL } from '../botc/roles';
 import '../styles/p1b4.css';
 import GameDetail from './manage/GameDetail';
 import NewGameWizard from '../components/NewGameWizard';
+import { useGameTypes } from '../lib/useGameTypes';
 
-const TYPE_LABEL: Record<Game['type'], string> = { werewolf: '狼人杀', botc: '血染钟楼', script: '剧本' };
 const LS_SELECTED = 'p1b.games.selectedId';
 const errMsg = (e: unknown): string => (e instanceof Error ? e.message : String(e));
 
 export default function ManagePage() {
   const navigate = useNavigate();
+  const { label: typeLabel } = useGameTypes(); // 类型名后端驱动（失败回落内置三型）
   const [games, setGames] = useState<Game[] | null>(null);
   const [loadErr, setLoadErr] = useState<string | null>(null);
   const [toast, setToast] = useState<string | null>(null);
@@ -100,7 +101,7 @@ export default function ManagePage() {
                     : <span className="badge badge-warn">未开局</span>}
                 </span>
                 <span className="game-item-meta" style={{ display: 'block' }}>
-                  #{g.id} · {TYPE_LABEL[g.type]}{g.type === 'botc' && g.script ? '·' + SCRIPT_LABEL[g.script] : ''} · {g.player_count}人 · {g.event_count ?? 0} 事件
+                  #{g.id} · {typeLabel(g.type)}{g.type === 'botc' && g.script ? '·' + SCRIPT_LABEL[g.script] : ''} · {g.player_count}人 · {g.event_count ?? 0} 事件
                 </span>
               </button>
               <button type="button" className="btn" onClick={() => pick(g.id)}>详情</button>

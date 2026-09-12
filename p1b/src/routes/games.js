@@ -9,6 +9,7 @@ const { db } = require('../deps');
 const botcClaims = require('../botc/claims'); // B2：botc 局剧本挂 p1b 私有表 botc_games
 const { SCRIPTS } = require('../botc/roles');
 const { httpError, requireInt, requireEnum, requireNonEmptyString, GAME_TYPES, toInt } = require('../util');
+const { listAdapters } = require('./adapters'); // 通用化：可用类型 = 内置三型 ∪ adapters/ 目录登记 id
 
 function publicGame(row, currentDay) {
   return {
@@ -34,6 +35,16 @@ function currentDayOf(gameId) {
   return row && row.d ? row.d : 0;
 }
 
+/** 可用游戏类型 = 内置 GAME_TYPES ∪ adapters/ 目录登记 id（加新游戏只需落适配器文件，前后端零改）*/
+let _allowedTypes = null;
+function allowedGameTypes() {
+  if (!_allowedTypes) {
+    _allowedTypes = GAME_TYPES.slice();
+    for (const a of listAdapters()) if (_allowedTypes.indexOf(a.id) === -1) _allowedTypes.push(a.id);
+  }
+  return _allowedTypes;
+}
+
 function register(app) {
   app.get('/api/games', async () => {
     const conn = db.getConnection();
@@ -50,7 +61,7 @@ function register(app) {
     const body = req.body || {};
     const name = requireNonEmptyString('name', body.name === undefined ? '' : String(body.name));
     const gt = body.type !== undefined ? body.type : body.game_type;
-    requireEnum('game_type', gt, GAME_TYPES);
+    requireEnum('game_type', gt, allowedGameTypes());
     const pc = requireInt('player_count', body.player_count, 1);
     if (pc > 99) throw httpError(400, 'player_count 上限 99');
     // B2：botc 局支持挂剧本（tb|bmr|snv，给了就强校验枚举），落 p1b 私有表 botc_games

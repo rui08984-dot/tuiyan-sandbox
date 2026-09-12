@@ -6,6 +6,7 @@
 import { useState } from 'react';
 import type { BotcScript, Game, GameType } from '../../types';
 import { SCRIPT_LABEL } from '../../botc/roles';
+import { useGameTypes } from '../../lib/useGameTypes';
 
 export interface RosterChip { seat: number; name: string; alive: boolean }
 
@@ -27,9 +28,8 @@ interface TopBarProps {
   onWizard?: () => void;
 }
 
-const TYPE_LABEL: Record<GameType, string> = { werewolf: '狼人杀', botc: '血染钟楼', script: '剧本' };
-
 export default function TopBar(p: TopBarProps) {
+  const { label: typeLabel } = useGameTypes(); // 类型名后端驱动（失败回落内置三型）
   const [open, setOpen] = useState(false);
   const alive = p.roster.filter((r) => r.alive).length;
   const upper = Math.max(1, p.maxDay) + 1; // 允许预录下一天
@@ -37,7 +37,7 @@ export default function TopBar(p: TopBarProps) {
     <div className="topbar">
       <div className="topbar-row">
         <span className="topbar-name">{p.game ? p.game.name : '未选局'}</span>
-        <span className="topbar-meta">{p.game ? TYPE_LABEL[p.game.type] + ' · ' + p.game.player_count + '人' : ''}</span>
+        <span className="topbar-meta">{p.game ? typeLabel(p.game.type) + ' · ' + p.game.player_count + '人' : ''}</span>
         <button className="btn" style={{ minHeight: 38 }} onClick={() => setOpen(true)}>切换/建局</button>
       </div>
       <div className="topbar-row" style={{ marginTop: 8 }}>
@@ -82,14 +82,15 @@ export default function TopBar(p: TopBarProps) {
 
 function GameSheet(props: {
   games: Game[]; currentId: number | null; busy: boolean;
-  onPick: (id: number) => void; onCreate: (i: { name: string; type: GameType; player_count: number; script?: BotcScript }) => void;
+  onPick: (id: number) => void; onCreate: (i: { name: string; type: string; player_count: number; script?: BotcScript }) => void;
   onWizard?: () => void;
   onClose: () => void;
 }) {
+  const { types: gameTypes, label: typeLabel } = useGameTypes(); // 类型表后端驱动（失败回落内置三型）
   const [q, setQ] = useState('');
   const shown = props.games.filter((g) => g.name.includes(q.trim()) || String(g.id).includes(q.trim()));
   const [name, setName] = useState('');
-  const [type, setType] = useState<GameType>('werewolf');
+  const [type, setType] = useState<string>('werewolf');
   const [count, setCount] = useState(8);
   const [script, setScript] = useState<BotcScript>('tb'); // B4：botc 局剧本（仅 type=botc 时随局提交）
   const [err, setErr] = useState<string | null>(null);
@@ -124,7 +125,7 @@ function GameSheet(props: {
           {shown.map((g) => (
             <button key={g.id} className="btn" style={{ justifyContent: 'flex-start', textAlign: 'left' }}
               disabled={props.busy} onClick={() => props.onPick(g.id)}>
-              #{g.id} {g.name}（{TYPE_LABEL[g.type]} {g.player_count}人 · 第{g.current_day ?? 0}天 · {g.event_count ?? 0}事件）
+              #{g.id} {g.name}（{typeLabel(g.type)} {g.player_count}人 · 第{g.current_day ?? 0}天 · {g.event_count ?? 0}事件）
             </button>
           ))}
           {!props.onWizard && (
@@ -136,8 +137,8 @@ function GameSheet(props: {
           </label>
           <label className="field">
             <span className="field-label">类型</span>
-            <select value={type} onChange={(e) => setType(e.target.value as GameType)}>
-              {(Object.keys(TYPE_LABEL) as GameType[]).map((t) => <option key={t} value={t}>{TYPE_LABEL[t]}</option>)}
+            <select value={type} onChange={(e) => setType(e.target.value)}>
+              {gameTypes.map((t) => <option key={t.id} value={t.id}>{t.name}</option>)}
             </select>
           </label>
           <label className="field">

@@ -3,14 +3,15 @@ import { useEffect, useState } from 'react';
 import * as api from '../../api';
 import type { Game, Player } from '../../types';
 import { SCRIPT_LABEL } from '../../botc/roles';
+import { useGameTypes } from '../../lib/useGameTypes';
 import BotcClaimsCard from './BotcClaimsCard';
 import DayAdvanceCard from './DayAdvanceCard';
 import SeatListCard from './SeatListCard';
 
-const TYPE_LABEL: Record<Game['type'], string> = { werewolf: '狼人杀', botc: '血染钟楼', script: '剧本' };
 const errMsg = (e: unknown): string => (e instanceof Error ? e.message : String(e));
 
 export default function GameDetail(props: { gameId: number; flashToast: (t: string) => void; onGoLive: () => void }) {
+  const { label: typeLabel } = useGameTypes(); // 类型名后端驱动（失败回落内置三型）
   const [detail, setDetail] = useState<{ game: Game; players: Player[] } | null>(null);
   const [detailErr, setDetailErr] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
@@ -64,7 +65,7 @@ export default function GameDetail(props: { gameId: number; flashToast: (t: stri
         <div className="detail-head">
           <span className="detail-title">{g.name}</span>
           <span className="detail-meta">
-            #{g.id} · {TYPE_LABEL[g.type]}{detailScript ? '·' + SCRIPT_LABEL[detailScript] : ''} · {g.player_count}人 · 服务端当前第 {g.current_day ?? 0} 天
+            #{g.id} · {typeLabel(g.type)}{detailScript ? '·' + SCRIPT_LABEL[detailScript] : ''} · {g.player_count}人 · 服务端当前第 {g.current_day ?? 0} 天
           </span>
         </div>
         <div className="detail-actions">

@@ -1,9 +1,10 @@
 /** NewGameWizard —— 开新局分步引导流（B6）：①局名/类型/剧本[botc]/人数 → ②席位名单 → 创建直达现场。 */
 import { useState } from 'react';
 import * as api from '../api';
-import type { BotcScript, Game, GameType, Player } from '../types';
+import type { BotcScript, Game, Player } from '../types';
 import { defaultSeatName, setSeatName } from '../lib/seatNames';
 import { Step1Form, Step2Form } from './NewGameWizardSteps';
+import { useGameTypes } from '../lib/useGameTypes';
 
 const errMsg = (e: unknown): string => (e instanceof Error ? e.message : String(e));
 
@@ -13,7 +14,8 @@ export default function NewGameWizard(props: {
 }) {
   const [step, setStep] = useState<1 | 2>(1);
   const [name, setName] = useState('');
-  const [type, setType] = useState<GameType>('werewolf');
+  const [type, setType] = useState<string>('werewolf');
+  const { types } = useGameTypes(); // 类型表后端驱动（失败回落内置三型）
   const [script, setScript] = useState<BotcScript>('tb');
   const [count, setCount] = useState(8);
   const [names, setNames] = useState<string[]>(() => Array.from({ length: 8 }, (_, i) => defaultSeatName(i + 1)));
@@ -78,7 +80,7 @@ export default function NewGameWizard(props: {
         </div>
         {step === 1 ? (
           <Step1Form name={name} setName={setName} type={type} setType={setType}
-            script={script} setScript={setScript} count={count} applyCount={applyCount} />
+            script={script} setScript={setScript} count={count} applyCount={applyCount} types={types} />
         ) : (
           <Step2Form names={names} setNames={setNames} />
         )}

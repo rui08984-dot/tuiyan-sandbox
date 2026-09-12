@@ -1,16 +1,19 @@
 /** NewGameWizardSteps —— 开新局引导流两步表单（B6，纯受控件）。 */
-import type { BotcScript, GameType } from '../types';
+import type { BotcScript } from '../types';
+import { FALLBACK_TYPES } from '../lib/adapters';
+import type { GameTypeOption } from '../lib/adapters';
 import { SCRIPT_LABEL } from '../botc/roles';
 import { defaultSeatName } from '../lib/seatNames';
 
-const TYPE_LABEL: Record<GameType, string> = { werewolf: '狼人杀', botc: '血染钟楼', script: '剧本' };
-
 export function Step1Form(p: {
   name: string; setName: (v: string) => void;
-  type: GameType; setType: (v: GameType) => void;
+  type: string; setType: (v: string) => void;
   script: BotcScript; setScript: (v: BotcScript) => void;
   count: number; applyCount: (n: number) => void;
+  /** 游戏类型选项（后端驱动 /api/adapters）；缺省走内置回落，单独渲染不炸 */
+  types?: GameTypeOption[];
 }) {
+  const types = p.types ?? FALLBACK_TYPES;
   return (
     <div className="form-grid">
       <label className="field">
@@ -20,8 +23,8 @@ export function Step1Form(p: {
       <div className="row2">
         <label className="field">
           <span className="field-label">类型</span>
-          <select value={p.type} onChange={(e) => p.setType(e.target.value as GameType)}>
-            {(Object.keys(TYPE_LABEL) as GameType[]).map((t) => (<option key={t} value={t}>{TYPE_LABEL[t]}</option>))}
+          <select value={p.type} onChange={(e) => p.setType(e.target.value)}>
+            {types.map((t) => (<option key={t.id} value={t.id}>{t.name}</option>))}
           </select>
         </label>
         <label className="field">

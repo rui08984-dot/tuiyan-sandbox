@@ -6,6 +6,7 @@
  */
 import type {
   AuditSummary, BotcClaim, Claim, ConfirmPayload, CreateGameInput, EventPhase, Game, GameState, OracleResult, Player, Provider,
+  AdapterInfo,
   OracleCastResult, OracleInterpretResult, OracleReadingsResult, PendingCard, ProviderInput, ProviderListResult, ProviderTestResult, TaskStatus,
   ServerCard, ServerCardsResult, SeatRename, SeatsSaveResult,
 } from './types';
@@ -236,4 +237,9 @@ export function listOracleReadings(opts?: { limit?: number; offset?: number; gam
 export function getAuditSummary(): Promise<AuditSummary> {
   if (USE_MOCK) return Promise.reject(new ApiError(0, 'mock 模式未实现审计仪表盘接口，请直连后端'));
   return request('/audit/summary', 'GET');
+}
+// ── 游戏类型（后端驱动 · 通用化）──
+/** GET /api/adapters：可用游戏类型登记表（含 adapters/ 目录自动登记项，如 avalon） */
+export function listAdapters(): Promise<AdapterInfo[]> {
+  return USE_MOCK ? mockApi.listAdapters() : request('/adapters', 'GET');
 }

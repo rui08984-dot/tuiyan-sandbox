@@ -6,6 +6,7 @@
  */
 import type {
   AdvisorCard, ConfirmPayload, CreateGameInput, Game, GameState, Player,
+  AdapterInfo,
   PendingCard, Provider, ProviderInput, ProviderListResult, ProviderTestResult,
   ServerCard, ServerCardsResult, SeatsSaveResult, TaskStatus,
 } from './types';
@@ -234,5 +235,14 @@ export const mockApi = {
     if (!t) throw new Error('任务不存在：' + taskId);
     if (Date.now() - t.startedAt < 2500) return { status: 'running', card: null, error: null };
     return { status: 'done', card: mockCard(t.day), error: null };
+  },
+  // ── 游戏类型（后端驱动 · 通用化）──
+  async listAdapters(): Promise<AdapterInfo[]> {
+    await delay();
+    return [
+      { id: 'werewolf', name: '狼人杀', kind: 'engine', ready: true },
+      { id: 'botc', name: '血染钟楼', kind: 'engine', ready: true },
+      { id: 'script', name: '剧本', kind: 'script', ready: true },
+    ];
   },
 };
