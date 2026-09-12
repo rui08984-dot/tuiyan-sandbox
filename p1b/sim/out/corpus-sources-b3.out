@@ -1,0 +1,405 @@
+{
+  "run_at": "2026-09-13T01:46:01+08:00",
+  "confirm": true,
+  "probe": [
+    {
+      "src": "AQ-om-pm10",
+      "url": "air-quality-api.open-meteo.com/v1/air-quality?...&hourly=pm10&start_date=&end_date=",
+      "http": 200,
+      "note": "实测 365 天 9024 小时点全非空；旧棒 HTTP 400 系参数写法问题，非源不可用"
+    },
+    {
+      "src": "AQ-cams",
+      "url": "...&domains=cams_global",
+      "http": 200,
+      "note": "亦可用"
+    },
+    {
+      "src": "Binance-vision",
+      "url": "data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=1000",
+      "http": 200,
+      "note": "1000 根日线，[0]=UTC 日开，[4]=close"
+    },
+    {
+      "src": "Binance/CoinGecko/Coinbase/Kraken/OKX",
+      "url": "api.binance.com / api.coingecko.com / api.coinbase.com / api.kraken.com / okx.com",
+      "http": 0,
+      "note": "全部 fetch failed（本机网络层），唯一可用通道=data-api.binance.vision"
+    },
+    {
+      "src": "Wikimedia-pageviews",
+      "url": "wikimedia.org/api/rest_v1/metrics/pageviews/per-article/...",
+      "http": 200,
+      "note": "items[].{timestamp,views}；实测 365 天窗口 55071B"
+    },
+    {
+      "src": "GitHub-stats",
+      "url": "api.github.com/repos/{owner}/{repo}/stats/commit_activity",
+      "http": 200,
+      "note": "52 周 [{week,total,days[7]}]；core 限速 60/h 无 token（rate_limit 实测 remaining=46）"
+    },
+    {
+      "src": "Frankfurter",
+      "url": "api.frankfurter.app/{date}?from=USD&to=CNY",
+      "http": 200,
+      "note": "body.rates.CNY；区间 {a}..{b} 亦可用（1972 天窗口 55KB）；未来窗口 404=pending"
+    },
+    {
+      "src": "npm-downloads",
+      "url": "api.npmjs.org/downloads/range/{a}:{b}/{pkg}",
+      "http": 200,
+      "note": "downloads[].{day,downloads}；366 天窗口 15KB"
+    },
+    {
+      "src": "DBnomics-BIS",
+      "url": "api.db.nomics.world/v22/series/BIS/WS_EER/{code}?observations=1",
+      "http": 200,
+      "note": "D.N.B.US 10681 个日点；period/value 同位；value 含 \"NA\" 字符串须过滤；数据末点实测 2025-07（滞后约 14 月）"
+    },
+    {
+      "src": "DBnomics-IMF",
+      "url": "api.db.nomics.world/v22/series/IMF/WEO:2024-10",
+      "http": 200,
+      "note": "8624 序列（年度 WEO，含预测值）→ 本批未采用以避免用预测当历史"
+    },
+    {
+      "src": "DBnomics-ECB-EXR",
+      "url": "api.db.nomics.world/v22/series/ECB/EXR/D.USD.EUR.SP00.A",
+      "http": 200,
+      "note": "日频 7148 点（现役脚本用月频系列）"
+    },
+    {
+      "src": "stooq.com/pl CSV",
+      "url": "stooq.com/q/d/l/?s=aapl.us&i=d",
+      "http": 200,
+      "note": "返回 HTML 反爬页（非 CSV）→ 不可用，弃用"
+    },
+    {
+      "src": "Yahoo-Finance",
+      "url": "query1/query2.finance.yahoo.com/v8/finance/chart/AAPL",
+      "http": 403,
+      "note": "拒绝"
+    },
+    {
+      "src": "pypistats / arxiv-export",
+      "url": "pypistats.org/api/..., export.arxiv.org/api/query",
+      "http": 429,
+      "note": "限速"
+    },
+    {
+      "src": "OpenAQ-v3",
+      "url": "api.openaq.org/v3/parameters",
+      "http": 401,
+      "note": "需 X-API-Key → 弃用"
+    },
+    {
+      "src": "CryptoCompare",
+      "url": "min-api.cryptocompare.com/data/price",
+      "http": 401,
+      "note": "需 API key → 弃用"
+    },
+    {
+      "src": "SEC-EDGAR",
+      "url": "data.sec.gov/api/xbrl/companyconcept/...",
+      "http": 0,
+      "note": "fetch failed（本机）"
+    },
+    {
+      "src": "GitHub-stargazers",
+      "url": "api.github.com/repos/x/y/stargazers",
+      "http": 401,
+      "note": "需认证 → 弃用（改用 stats/commit_activity 免认证）"
+    },
+    {
+      "src": "WorldBank",
+      "url": "api.worldbank.org/v2/country/US/indicator/NY.GDP.MKTP.CD",
+      "http": 200,
+      "note": "可用（本批未出题：年度值粒度粗、基率易压 0/1）"
+    },
+    {
+      "src": "USGS-count",
+      "url": "earthquake.usgs.gov/fdsnws/event/1/count?...",
+      "http": 200,
+      "note": "count 整数（现役 forward 脚本已用）"
+    },
+    {
+      "src": "OM-flood",
+      "url": "flood-api.open-meteo.com/v1/flood?daily=river_discharge",
+      "http": 200,
+      "note": "river_discharge；历史段可查、未来段常有 null → 本批未出题"
+    }
+  ],
+  "resolve_check_evidence": [
+    {
+      "src": "corpus:airqual",
+      "http": 200,
+      "got": "日均=21.76 (n=24h)",
+      "threshold": "<=43",
+      "outcome": "true",
+      "note": "上海 2026-08-04"
+    },
+    {
+      "src": "corpus:crypto",
+      "http": 200,
+      "got": "close=63043.56",
+      "threshold": ">=82615.22",
+      "outcome": "false",
+      "note": "BTCUSDT 2026-08-14 UTC"
+    },
+    {
+      "src": "corpus:wikipv",
+      "http": 200,
+      "got": "views=4995",
+      "threshold": ">=6141",
+      "outcome": "false",
+      "note": "Bitcoin 2026-09-08"
+    },
+    {
+      "src": "corpus:ghcommit",
+      "http": 200,
+      "got": "total=121",
+      "threshold": ">=53",
+      "outcome": "true",
+      "note": "nodejs/node 2026-08-30 周"
+    },
+    {
+      "src": "corpus:fx",
+      "http": 200,
+      "got": "rates.CNY=6.7413",
+      "threshold": ">=7.1264",
+      "outcome": "false",
+      "note": "USD/CNY 2026-08-14；前瞻区间端点对未来窗口返回 404（=正确的 pending）"
+    },
+    {
+      "src": "corpus:npmdl",
+      "http": 200,
+      "got": "sum=114596558",
+      "threshold": ">=131023645",
+      "outcome": "false",
+      "note": "react 2026-08-08~14"
+    },
+    {
+      "src": "corpus:bis",
+      "http": 200,
+      "got": "月均=105.228",
+      "threshold": ">=87.568",
+      "outcome": "true",
+      "note": "D.N.B.US 2024-11（\"NA\" 已过滤）"
+    }
+  ],
+  "sources": {
+    "aq": {
+      "label": "Open-Meteo 空气质量 PM10",
+      "game_type": "corpus:airqual",
+      "total": 20,
+      "backfill": 10,
+      "forward": 10,
+      "prob_min": 0.3014,
+      "prob_max": 0.7018,
+      "band_ok": true,
+      "samples_backfill": [
+        "【backfill】上海 2026-08-04 日 PM10 日均浓度 <= 32.5 μg/m³（cutoff=2026-08-03T23:59:59+08:00，严格早于事件日；真值锚=Open-Meteo air-quality hourly.pm10 该日全小时均值。历史回填批次，非实时预测）"
+      ],
+      "samples_forward": [
+        "【forward】上海 2026-09-15 日 PM10 日均浓度 <= 29.7 μg/m³（cutoff=落库时点 2026-09-13T01:46:01+08:00，事件日尚未发生；真值锚=Open-Meteo air-quality hourly.pm10 该日全小时均值。前瞻批次，真值未发生）"
+      ],
+      "resolve_examples": [
+        {
+          "kind": "openmeteo_air_pm10_daily_mean",
+          "url": "https://air-quality-api.open-meteo.com/v1/air-quality?latitude=31.23&longitude=121.47&hourly=pm10&timezone=GMT&start_date={date}&end_date={date}",
+          "field": "hourly.time[] 前缀==date 的全部 hourly.pm10[] 算术均值"
+        },
+        {
+          "kind": "openmeteo_air_pm10_daily_mean",
+          "url": "https://air-quality-api.open-meteo.com/v1/air-quality?latitude=31.23&longitude=121.47&hourly=pm10&timezone=GMT&start_date={date}&end_date={date}",
+          "field": "hourly.time[] 前缀==date 的全部 hourly.pm10[] 算术均值"
+        }
+      ]
+    },
+    "crypto": {
+      "label": "Binance 加密日线",
+      "game_type": "corpus:crypto",
+      "total": 12,
+      "backfill": 6,
+      "forward": 6,
+      "prob_min": 0.3,
+      "prob_max": 0.7004,
+      "band_ok": true,
+      "samples_backfill": [
+        "【backfill】BTC/USDT 2026-08-14（UTC 日）收盘价 >= 96444.74 USDT（cutoff=2026-08-13T23:59:59+08:00，严格早于该 UTC 日；真值锚=Binance klines [4]=close。历史回填批次，非实时预测）"
+      ],
+      "samples_forward": [
+        "【forward】BTC/USDT 2026-09-15（UTC 日）收盘价 >= 95840.62 USDT（cutoff=落库时点 2026-09-13T01:46:01+08:00，该 UTC 日尚未结束；真值锚=Binance klines [4]=close。前瞻批次，真值未发生）"
+      ],
+      "resolve_examples": [
+        {
+          "kind": "binance_daily_close",
+          "url": "https://data-api.binance.vision/api/v3/klines?symbol={symbol}&interval=1d&limit=1000&startTime={start_ms}&endTime={end_ms}",
+          "field": "返回数组[0][4] = close"
+        },
+        {
+          "kind": "binance_daily_close",
+          "url": "https://data-api.binance.vision/api/v3/klines?symbol={symbol}&interval=1d&limit=1000&startTime={start_ms}&endTime={end_ms}",
+          "field": "返回数组[0][4] = close"
+        }
+      ]
+    },
+    "wiki": {
+      "label": "Wikimedia pageviews",
+      "game_type": "corpus:wikipv",
+      "total": 25,
+      "backfill": 15,
+      "forward": 10,
+      "prob_min": 0.3,
+      "prob_max": 0.7013,
+      "band_ok": true,
+      "samples_backfill": [
+        "【backfill】en.wikipedia 「Bitcoin」 2026-09-08 页面浏览量 >= 6981 次（cutoff=2026-09-07T23:59:59+08:00，严格早于该日；真值锚=Wikimedia pageviews API items[].views。历史回填批次，非实时预测）"
+      ],
+      "samples_forward": [
+        "【forward】en.wikipedia 「Bitcoin」 2026-09-16 页面浏览量 >= 6554 次（cutoff=落库时点 2026-09-13T01:46:01+08:00，该日尚未发生；真值锚=Wikimedia pageviews API items[].views。前瞻批次，真值未发生）"
+      ],
+      "resolve_examples": [
+        {
+          "kind": "wikimedia_pageviews",
+          "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/all-agents/Bitcoin/daily/{date}00/{date}00",
+          "field": "items[] 中 timestamp=='YYYYMMDD00' 者 .views"
+        },
+        {
+          "kind": "wikimedia_pageviews",
+          "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/all-agents/Bitcoin/daily/{date}00/{date}00",
+          "field": "items[] 中 timestamp=='YYYYMMDD00' 者 .views"
+        }
+      ]
+    },
+    "gh": {
+      "label": "GitHub 周提交",
+      "game_type": "corpus:ghcommit",
+      "total": 9,
+      "backfill": 6,
+      "forward": 3,
+      "prob_min": 0.3077,
+      "prob_max": 0.72,
+      "band_ok": true,
+      "samples_backfill": [
+        "【backfill】GitHub nodejs/node 默认分支 2026-08-30~2026-09-05 一周提交数 >= 61（cutoff=2026-08-29T23:59:59+08:00，严格早于该周起点；真值锚=GitHub stats/commit_activity [].total。历史回填批次，非实时预测）"
+      ],
+      "samples_forward": [
+        "【forward】GitHub nodejs/node 默认分支 2026-09-20~2026-09-26 一周提交数 >= 61（cutoff=落库时点 2026-09-13T01:46:01+08:00，该周尚未开始；真值锚=GitHub stats/commit_activity [].total。前瞻批次，真值未发生）"
+      ],
+      "resolve_examples": [
+        {
+          "kind": "github_weekly_commits",
+          "url": "https://api.github.com/repos/nodejs/node/stats/commit_activity",
+          "field": "weeks[] 中 new Date(week*1000) 的 ISO 日期 == week_start 那项的 .total"
+        },
+        {
+          "kind": "github_weekly_commits",
+          "url": "https://api.github.com/repos/nodejs/node/stats/commit_activity",
+          "field": "weeks[] 中 new Date(week*1000) 的 ISO 日期 == week_start 那项的 .total"
+        }
+      ]
+    },
+    "fx": {
+      "label": "Frankfurter 汇率",
+      "game_type": "corpus:fx",
+      "total": 12,
+      "backfill": 6,
+      "forward": 6,
+      "prob_min": 0.303,
+      "prob_max": 0.6,
+      "band_ok": true,
+      "samples_backfill": [
+        "【backfill】USD/CNY 在 2026-08-14 的 ECB 参考汇率 >= 6.9390（cutoff=2026-08-13T23:59:59+08:00，严格早于该发布日；真值锚=Frankfurter API rates。历史回填批次，非实时预测）"
+      ],
+      "samples_forward": [
+        "【forward】USD/CNY 在 2026-09-16 当周首个 ECB 发布日的参考汇率 >= 7.1076（cutoff=落库时点 2026-09-13T01:46:01+08:00，该日尚未到（非发布日顺延至下一发布日）；真值锚=Frankfurter API rates。前瞻批次，真值未发生）"
+      ],
+      "resolve_examples": [
+        {
+          "kind": "frankfurter_rate_range",
+          "url": "https://api.frankfurter.app/{date}..{date_plus7}?from={base}&to={quote}",
+          "field": "body.rates 的键中 >= date 的最早一日的 body.rates[D][quote]"
+        },
+        {
+          "kind": "frankfurter_rate_range",
+          "url": "https://api.frankfurter.app/{date}..{date_plus7}?from={base}&to={quote}",
+          "field": "body.rates 的键中 >= date 的最早一日的 body.rates[D][quote]"
+        }
+      ]
+    },
+    "npm": {
+      "label": "npm 周下载",
+      "game_type": "corpus:npmdl",
+      "total": 9,
+      "backfill": 3,
+      "forward": 6,
+      "prob_min": 0.3005,
+      "prob_max": 0.6013,
+      "band_ok": true,
+      "samples_backfill": [
+        "【backfill】npm 包 react 在 2026-08-08~2026-08-14 的 7 日下载量 >= 131023645（cutoff=2026-08-07T23:59:59+08:00，严格早于该窗口；真值锚=npm downloads/range。历史回填批次，非实时预测）"
+      ],
+      "samples_forward": [
+        "【forward】npm 包 react 在 2026-09-16~2026-09-22 的 7 日下载量 >= 141517729（cutoff=落库时点 2026-09-13T01:46:01+08:00，窗口尚未开始；真值锚=npm downloads/range downloads[].downloads 求和。前瞻批次，真值未发生）"
+      ],
+      "resolve_examples": [
+        {
+          "kind": "npm_downloads_window",
+          "url": "https://api.npmjs.org/downloads/range/{start}:{end}/react",
+          "field": "body.downloads[].downloads 求和（按 .day 落在 [start,end]）"
+        },
+        {
+          "kind": "npm_downloads_window",
+          "url": "https://api.npmjs.org/downloads/range/{start}:{end}/react",
+          "field": "body.downloads[].downloads 求和（按 .day 落在 [start,end]）"
+        }
+      ]
+    },
+    "bis": {
+      "label": "DBnomics BIS 有效汇率",
+      "game_type": "corpus:bis",
+      "total": 12,
+      "backfill": 6,
+      "forward": 6,
+      "prob_min": 0.3011,
+      "prob_max": 0.6012,
+      "band_ok": true,
+      "samples_backfill": [
+        "【backfill】BIS 美元名义有效汇率（D.N.B.US） 2024-05 月均值 >= 96.270（cutoff=2024-04-30T23:59:59+08:00，严格早于该月；真值锚=DBnomics BIS/WS_EER series.docs[0].value 月内均值。历史回填批次，非实时预测）"
+      ],
+      "samples_forward": [
+        "【forward】BIS 美元名义有效汇率（D.N.B.US） 2026-10 月均值 >= 97.217（cutoff=落库时点 2026-09-13T01:46:01+08:00，该月尚未发生；真值锚=DBnomics BIS/WS_EER series.docs[0].value 月内均值。注意 BIS 实测发布滞后约 14 个月（已发布至 2025-07），resolve 需待该月完整观测发布。前瞻批次，真值未发生）"
+      ],
+      "resolve_examples": [
+        {
+          "kind": "dbnomics_bis_monthly_mean",
+          "url": "https://api.db.nomics.world/v22/series/BIS/WS_EER/D.N.B.US?observations=1",
+          "field": "series.docs[0].period[]/value[] 该月内均值"
+        },
+        {
+          "kind": "dbnomics_bis_monthly_mean",
+          "url": "https://api.db.nomics.world/v22/series/BIS/WS_EER/D.N.B.US?observations=1",
+          "field": "series.docs[0].period[]/value[] 该月内均值"
+        }
+      ]
+    }
+  },
+  "total": 99,
+  "backfill_total": 52,
+  "forward_total": 47,
+  "band_violations": [],
+  "slug_dupes": [],
+  "inserted": 99,
+  "skipped": 0,
+  "duplicate_skipped": 0,
+  "l0Gate_after": {
+    "gate": "L0 只记不评：n≥30 局 ∧ 200 条前不评分，UI 数字只配「参考」；重言式题（tautology=1）不计入门禁",
+    "games": 41,
+    "records": 971,
+    "records_valid": 941,
+    "resolved": 602,
+    "unresolved": 369,
+    "review_unlocked": true
+  }
+}
