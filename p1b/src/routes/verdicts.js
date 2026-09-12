@@ -72,9 +72,11 @@ function buildUserPrompt(prediction, game, extras) {
 
 // ── per-path 注入件（批次1-M1，p15）──────────────────────────────────────────
 
-const EVIDENCE_TRUNC = 200;   // 每条事件 raw_text 截 200 字
+const EVIDENCE_TRUNC = 120;   // 每条事件 raw_text 截 120 字（批次 2-R-C：从 200 降防挤占——诊断 §4：发言中位 178 字、16% 被截）
 const LOO_MIN_N = 10;         // 有效基率样本下限（n<10 如实标「基率样本不足」）
-const EVIDENCE_HEAD = '账本事件引用（全量账本记录，非结算前信息）：';
+const EVIDENCE_HEAD = '账本证据引用（截至 cutoff 的公开记录，非结算信息）：';
+const CLAIMS_HEAD = '账本声称记录（claims 结构化，按声称席位聚合）：';
+const STATS_HEAD = '账本机械统计（截至 cutoff，纯代码计算零 LLM）：';
 const NO_EVIDENCE_LINE = '（本条无证据引用，仅题面陈述）';
 
 /** 截断（超长加省略号） */
@@ -84,26 +86,65 @@ function truncateText(s, n) {
 }
 
 /**
- * 证据块（v1 专属，R-A 读数实验口径）：prediction.evidence_json 事件 id → events 表
- * id+game_id 双条件查（防跨局悬空引用喂进判词），每条拼「事件 #id（day N/type）：raw_text」。
- * 空/全部悬空 → 「（本条无证据引用，仅题面陈述）」。块头恒标「账本事件引用」并明示
- * 非结算前信息——90 条系已 resolve 题，读数能力 ≠ 信息价值（队长规划 §1.1 要害）。
+ * 证据块 2.0（v1 专属，R-C 证据呈现升级；rb-attribution 诊断 2026-09-13 落地）——三段结构化注入：
+ *   a) 事件流：evidence_json 事件 id → events id+game_id 双条件查（防跨局悬空），raw_text 截 120 字；
+ *   b) 结构化 claims：claims 表按声称席位聚合（条数+逐条谓词→对象，单条截 80 字），标「账本声称记录」
+ *      ——诊断 §5 管道层缺口：R-B 时 claims 从不注入，T7 精确规则（idclaims≥10）首因丢失；
+ *   c) 机械特征卡：发言条数/总字数/声称总数/身份声称/指认总数/被指认席位数/单席最高被指认/夜死席位
+ *      ——全部由 evidence 事件集+其 claims 纯代码计算（零 LLM），标「账本机械统计（截至 cutoff）」；
+ *      禁止注入任何结算信息（计票/终局/roles 不触达；夜死席位取自天亮公告文本= cutoff 前公开信息，
+ *      正则取「N 号死亡」避开 events.actor_seat=players.id 坑）。
+ * 空/全部悬空 → 「（本条无证据引用，仅题面陈述）」。
  * @returns {string} 多行证据块（零网络，纯查库）
  */
 function loadEvidence(prediction) {
   const ids = (prediction && Array.isArray(prediction.evidence)) ? prediction.evidence : [];
   if (!ids.length) return NO_EVIDENCE_LINE;
   const conn = db.getConnection();
-  const lines = [];
+  // a) 事件流
+  const evs = [];
   for (const id of ids) {
-    // 注意（p14 坑位提示）：events.actor_seat 存 players.id 而非座位号——本查询刻意不取该列；
-    // 证据行只暴露 id/day/type/raw_text，若未来需展示席位归属必须 LEFT JOIN players 还原。
-    const ev = conn.prepare('SELECT id, game_id, day, type, raw_text FROM events WHERE id = ? AND game_id = ?')
+    // p14 坑位提示：events.actor_seat 存 players.id 而非座位号——本查询不取该列；夜死席位从公告文本正则取。
+    const ev = conn.prepare('SELECT id, game_id, day, phase, type, raw_text FROM events WHERE id = ? AND game_id = ?')
       .get(id, prediction.game_id);
-    if (!ev) continue; // 悬空/跨局引用不喂（如实跳过）
-    lines.push('事件 #' + ev.id + '（day ' + ev.day + '/' + ev.type + '）：' + truncateText(ev.raw_text, EVIDENCE_TRUNC));
+    if (ev) evs.push(ev);
   }
-  return lines.length ? EVIDENCE_HEAD + '\n' + lines.join('\n') : NO_EVIDENCE_LINE;
+  if (!evs.length) return NO_EVIDENCE_LINE; // 全部悬空
+  // b) 结构化 claims（claims.seat/subject_seat=座位号——A0 差异表 L82 口径，与 events.actor_seat 不同）
+  const claims = conn.prepare('SELECT seat, subject_seat, predicate, object FROM claims WHERE event_id IN ('
+    + ids.map(() => '?').join(',') + ') ORDER BY id').all.apply(
+    conn.prepare('SELECT seat, subject_seat, predicate, object FROM claims WHERE event_id IN ('
+      + ids.map(() => '?').join(',') + ') ORDER BY id'), ids);
+  // 按声称席位聚合
+  const bySeat = {};
+  for (const c of claims) { (bySeat[c.seat] = bySeat[c.seat] || []).push(c.predicate + '→' + c.object); }
+  const claimLines = Object.keys(bySeat).sort((x, y) => x - y).map((seat) =>
+    '席位 ' + seat + ' 共声称 ' + bySeat[seat].length + ' 条：' + bySeat[seat].map((s) => truncateText(s, 80)).join('；'));
+  // c) 机械特征卡（纯代码；特征定义=rb-attribution §2）
+  const stmts = evs.filter((e) => e.type === 'statement');
+  const charsTotal = stmts.reduce((a, e) => a + e.raw_text.length, 0);
+  const ID_PRED = ['is_wolf', 'is_good', 'claims_role'];
+  const idclaims = claims.filter((c) => ID_PRED.indexOf(c.predicate) !== -1).length;
+  const wolfAcc = {};
+  for (const c of claims) if (c.predicate === 'is_wolf' && String(c.seat) !== String(c.subject_seat)) wolfAcc[c.subject_seat] = (wolfAcc[c.subject_seat] || 0) + 1;
+  const wolfaccTotal = Object.values(wolfAcc).reduce((x, y) => x + y, 0);
+  const accusedDist = Object.keys(wolfAcc).length;
+  const topAccused = wolfaccTotal ? Math.max.apply(null, Object.values(wolfAcc)) : 0;
+  let victimSeat = null;
+  const nightDeath = evs.find((e) => e.type === 'death' && e.phase === 'day');
+  if (nightDeath) { const m = nightDeath.raw_text.match(/(\d+)\s*号死亡/); if (m) victimSeat = m[1]; }
+  const statLines = [
+    '发言条数：' + stmts.length + '；发言总字数：' + charsTotal,
+    '声称总数：' + claims.length + '（其中身份声称 ' + idclaims + '）',
+    '指认总数（is_wolf 指认他人）：' + wolfaccTotal + '；被指认席位数：' + accusedDist + '；单席最高被指认：' + topAccused,
+    '夜死席位：' + (victimSeat === null ? '无' : victimSeat + ' 号'),
+  ];
+  // 组装：a 事件流 + b claims + c 特征卡
+  const blocks = [EVIDENCE_HEAD];
+  for (const ev of evs) blocks.push('事件 #' + ev.id + '（day ' + ev.day + '/' + ev.type + '）：' + truncateText(ev.raw_text, EVIDENCE_TRUNC));
+  if (claimLines.length) { blocks.push(CLAIMS_HEAD); blocks.push.apply(blocks, claimLines); }
+  blocks.push(STATS_HEAD); blocks.push.apply(blocks, statLines);
+  return blocks.join('\n');
 }
 
 /**

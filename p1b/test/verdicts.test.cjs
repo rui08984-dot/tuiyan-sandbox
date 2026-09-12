@@ -214,11 +214,11 @@ test('per-path 注入（p15）：loadEvidence 命中/悬空/空三态 + 200 字�
   const e1 = conn.prepare("INSERT INTO events (game_id, day, phase, seq, type, raw_text) VALUES (?, 1, 'day', 9001, 'death', ?)").run(gameId, longText).lastInsertRowid;
   const pred = predictions.insertPrediction({ gameId: gameId, day: 1, sourceType: '预测卡', statement: '注入用例：命中+悬空混合', prob: 0.5, evidence: [Number(e1), 999999999] });
   const block = loadEvidence(pred);
-  assert.ok(block.indexOf('账本事件引用') !== -1, '块头标注「账本事件引用」');
-  assert.ok(block.indexOf('非结算前信息') !== -1, 'R-A 口径护栏：不声称结算前信息');
+  assert.ok(block.indexOf('账本证据引用') !== -1, '块头标注「账本证据引用」（批次2-R-C 2.0 口径）');
+  assert.ok(block.indexOf('非结算信息') !== -1, '口径护栏：不声称结算信息');
   assert.ok(block.indexOf('事件 #' + e1 + '（day 1/death）：') !== -1, '事件行格式 id+day/type');
-  assert.ok(block.indexOf(longText.slice(0, 200)) !== -1, 'raw_text 保留前 200 字');
-  assert.ok(block.indexOf(longText) === -1, '超出 200 字被截断');
+  assert.ok(block.indexOf(longText.slice(0, 120)) !== -1, 'raw_text 保留前 120 字');
+  assert.ok(block.indexOf(longText) === -1, '超出 120 字被截断');
   assert.ok(block.indexOf('悬空') === -1, '悬空 id 静默跳过（不喂判词）');
   const empty = predictions.insertPrediction({ gameId: gameId, day: 1, sourceType: '预测卡', statement: '注入用例：空引用', prob: 0.5, evidence: [] });
   assert.equal(loadEvidence(empty), NO_EVIDENCE_LINE, '空引用 → 固定兜底行');
@@ -302,12 +302,48 @@ test('per-path 注入（p15）：POST verdicts（MOCK）v1 落库文本含证据
     assert.ok(row.implied_prob !== null, 'mock 末行可抽取');
   }
   const v1row = rows.find((x) => x.prompt_variant === 'v1_evidence');
-  assert.ok(v1row.verdict_text.indexOf('账本事件引用') !== -1, 'v1 落库文本含证据块');
+  assert.ok(v1row.verdict_text.indexOf('账本证据引用') !== -1, 'v1 落库文本含证据块');
   assert.ok(v1row.verdict_text.indexOf('事件 #' + e5 + '（day 1/death）：') !== -1, '证据行带事件 id');
   const v2row = rows.find((x) => x.prompt_variant === 'v2_skeptical');
-  assert.ok(v2row.verdict_text.indexOf('账本事件引用') === -1, 'v2 落库文本不含证据块');
+  assert.ok(v2row.verdict_text.indexOf('账本证据引用') === -1, 'v2 落库文本不含证据块');
   const v3row = rows.find((x) => x.prompt_variant === 'v3_baserate');
   assert.ok(v3row.verdict_text.indexOf('账本历史统计') !== -1, 'v3 落库文本含基率背景行（L6 有效样本）');
+});
+
+// ── 批次2-R-C：loadEvidence 2.0 三段结构化注入（rb-attribution 诊断落地）────
+
+test('loadEvidence 2.0（R-C）：三段注入——事件流+claims 按席位聚合+机械特征卡，零结算泄漏', () => {
+  const conn = db.getConnection();
+  // 构造 mini 局证据集：cutoff 前公开事件（夜公告/夜死公告/发言×2）+结算事件（不入 evidence）
+  const g = gameId;
+  const evA = conn.prepare("INSERT INTO events (game_id, day, phase, seq, type, raw_text) VALUES (?, 1, 'night', 9101, 'system', '夜幕降临，全体闭眼。')").run(g).lastInsertRowid;
+  const evB = conn.prepare("INSERT INTO events (game_id, day, phase, seq, type, raw_text) VALUES (?, 1, 'day', 9102, 'death', '天亮了。公布夜 1 死亡：5 号死亡，无遗言。')").run(g).lastInsertRowid;
+  const evC = conn.prepare("INSERT INTO events (game_id, day, phase, seq, type, raw_text) VALUES (?, 1, 'day', 9103, 'statement', '5 号：我是平民。')").run(g).lastInsertRowid;
+  const evD = conn.prepare("INSERT INTO events (game_id, day, phase, seq, type, raw_text) VALUES (?, 1, 'day', 9104, 'statement', '3 号：我怀疑 5 号话里有话，2 号也发言很短。')").run(g).lastInsertRowid;
+  const evDusk = conn.prepare("INSERT INTO events (game_id, day, phase, seq, type, raw_text) VALUES (?, 1, 'dusk', 9105, 'death', '计票：{\"2\":4}。2 号被放逐出局。')").run(g).lastInsertRowid; // 结算事件
+  const evEnd = conn.prepare("INSERT INTO events (game_id, day, phase, seq, type, raw_text) VALUES (?, 1, 'night', 9106, 'system', '游戏结束：狼人阵营胜利。')").run(g).lastInsertRowid; // 结算事件
+  // claims（seat/subject_seat=座位号口径）：2 号 is_wolf 指认 5 号；3 号自认平民×2（其一重复）
+  conn.prepare("INSERT INTO claims (event_id, seat, subject_seat, predicate, object) VALUES (?, 2, 5, 'is_wolf', '狼人')").run(evD);
+  conn.prepare("INSERT INTO claims (event_id, seat, subject_seat, predicate, object) VALUES (?, 2, 2, 'is_good', '好人')").run(evD);
+  conn.prepare("INSERT INTO claims (event_id, seat, subject_seat, predicate, object) VALUES (?, 3, 5, 'is_good', '平民')").run(evC);
+  const pred = predictions.insertPrediction({ gameId: g, day: 1, sourceType: '预测卡', statement: '2.0 用例：三段注入', prob: 0.5, layer: 'L6', evidence: [Number(evA), Number(evB), Number(evC), Number(evD)] });
+  const { loadEvidence } = require('../src/routes/verdicts');
+  const block = loadEvidence(pred);
+  // a 段：事件流（只含 cutoff 前 4 条）
+  for (const ev of [evA, evB, evC, evD]) assert.ok(block.indexOf('事件 #' + ev + '（day 1/') !== -1, 'a 段事件 #' + ev + ' 在块中');
+  assert.ok(block.indexOf('计票：{"2":4}') === -1 && block.indexOf('游戏结束：狼人阵营胜利') === -1, '无泄漏：dusk 计票/system 终局原文不出现');
+  assert.ok(block.indexOf('事件 #' + evDusk) === -1 && block.indexOf('事件 #' + evEnd) === -1, '结算事件 id 不进块');
+  // b 段：claims 按席位聚合
+  assert.ok(block.indexOf('账本声称记录') !== -1, 'b 段头');
+  assert.ok(block.indexOf('席位 2 共声称 2 条：is_wolf→狼人；is_good→好人') !== -1, '席位 2 聚合（is_wolf 指认 5 号）');
+  assert.ok(block.indexOf('席位 3 共声称 1 条：is_good→平民') !== -1, '席位 3 聚合（自认平民）');
+  assert.ok(block.indexOf('席位 6') === -1, '无 claims 的席位（6 号）不出现');
+  // c 段：机械特征卡
+  assert.ok(block.indexOf('账本机械统计（截至 cutoff，纯代码计算零 LLM）') !== -1, 'c 段头');
+  assert.ok(block.indexOf('发言条数：2；发言总字数：') !== -1, '发言条数/总字数（两条 statement）');
+  assert.ok(block.indexOf('声称总数：3（其中身份声称 3）') !== -1, '声称总数/身份声称');
+  assert.ok(block.indexOf('指认总数（is_wolf 指认他人）：1；被指认席位数：1；单席最高被指认：1') !== -1, '指认特征（自指认不算指认他人）');
+  assert.ok(block.indexOf('夜死席位：5 号') !== -1, '夜死席位从公告文本正则取（p14 坑规避）');
 });
 
 // ── 批次2-M1（R-A 后解冻件）：verdicts runId/model API 透传 ─────────────────
