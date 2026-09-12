@@ -48,7 +48,7 @@
 
 ## 语料库首批落库（corpus 棒 2026-09-12 · Top3 非对局题源 · 勘察报告=docs/specs/语料库扩展-公开数据源勘察-20260913.md）
 
-- **三条合成局**（db.createGame，player_count=1 占位席）：#40 corpus:openmeteo / #41 corpus:dbnomics / #42 corpus:cwl。如实备注：**games 表无 source 列（schema 未动）**，source 语义由 game_type 前缀 corpus:* 承载。
+- **三条合成局**（db.createGame，player_count=1 占位席）：#40 corpus:openmeteo / #41 corpus:dbnomics / #42 corpus:cwl。（原注「games 表无 source 列」**系误报，已更正**——见下方更正注记；source 列=sim M0 additive 加出，三局现已 UPDATE source='corpus'。）
 - **四条 predictions**（七审计列齐全：checklist_hash=v2+gate=descriptive+public_exposure=0+tautology=0，evidence_json=cutoff 快照含 resolve 参数）：
   - #451 L3/engine=aci prob=0.01「上海 2026-09-14 日最高气温>35°C」cutoff=2026-09-12T15:02:08+08:00（ingest 实抓冻结）；快照=09-14 预报 30.2℃+气候基率（2015-2024 九月 300 天仅 3 天>35℃，Open-Meteo archive 实抓）
   - #452 L2/stat_baseline prob=0.4502「2026-09 月 USD/EUR 月均（ECB/EXR/M.USD.EUR.SP00.A）<1.15」cutoff=2026-09-01T00:00+08:00；快照=历史占比 149/331（截至 2026-07 pre-cutoff 已发布口径；08 月值发布于月后未计入）
@@ -59,4 +59,12 @@
 - **测试**：p1b node --test **168/168 全绿**（916ms）。
 - **语义**：本批=审计器记账（gate=descriptive），**不进任何校准宣称**。
 - **避坑存档**：①SQLite 严格模式拒双引号字符串字面量（LIKE 'corpus:%' 必须单引号或参数化）；②Open-Meteo archive API 对未来日期返回 HTTP 400（≠无数据，resolver 映射为 pending）；③DBnomics 整序列拉取偶发 >15s（FETCH_MS 放宽 30s）；④写文件进 run_code 时内容串用行数组组装，禁裸双引号跨行。
+
+
+## 更正注记（2026-09-12 验收补刀 · 队长库实核发现）
+
+- **误报更正留痕**：本文件上文「games 表无 source 列（schema 未动）」为**错误结论**。实测 PRAGMA table_info(games)+sqlite_master：source 列存在（sim M0 additive 加出，`source TEXT NOT NULL DEFAULT 'real'`，另有 meta 列），无 CHECK 约束。误报根因=勘察时只读了 db.js 的 CREATE TABLE 建表段就断言整表结构——additive ALTER 列不在建表语句里，**取证方法错误**（应 PRAGMA/实测）。
+- **违规与纠正**：三合成局 #40/41/42 落库时吃了 DEFAULT 'real'，违反源分层纪律（corpus 既非 sim 亦非 real，混入 real 会污染 real 域统计）。纠正=事务内 `UPDATE games SET source='corpus' WHERE id IN (40,41,42)`（updated_rows=3，库写入仅此三行）。
+- **复核**：UPDATE 后 g40/41/42 source 全='corpus'（全库 source='corpus' 计数=3，未误伤他局）；l0Gate 双口径 UPDATE 前后不变（records=454/records_valid=424/games=33——UPDATE 不触 predictions 计数，符合预期）。
+- **纪律沉淀**：凡断言「表无某列/某约束」，必须 PRAGMA table_info+sqlite_master.sql 实测，禁凭建表语句段推断（additive 迁移列不可见）。
 
