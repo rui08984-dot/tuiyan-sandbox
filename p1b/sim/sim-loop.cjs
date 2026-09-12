@@ -17,7 +17,7 @@ const dbApi = require('../../p1a-terminal/src/db.js');
 const { chatOnce } = require('./llm-client.cjs');
 
 function parseArgs(argv) {
-  const a = { stage: '1', prereg: 'p1b/sim/prereg.json', db: path.join(__dirname, '..', '..', 'p1a-terminal', 'data', 'p1a.db'), out: path.join(__dirname, 'out'), name: 'sim-ownww6p-m0-run1' };
+  const a = { stage: '1', day: 1, variant: 'tubian3d', prereg: 'p1b/sim/prereg.json', db: path.join(__dirname, '..', '..', 'p1a-terminal', 'data', 'p1a.db'), out: path.join(__dirname, 'out'), name: 'sim-ownww6p-m0-run1' };
   for (let i = 2; i < argv.length; i++) {
     const k = argv[i];
     if (k === '--prereg') a.prereg = argv[++i];
@@ -25,6 +25,8 @@ function parseArgs(argv) {
     else if (k === '--out') a.out = argv[++i];
     else if (k === '--name') a.name = argv[++i];
     else if (k === '--stage') a.stage = argv[++i];
+    else if (k === '--day') a.day = Number(argv[++i]);
+    else if (k === '--variant') a.variant = String(argv[++i]);
     else if (k === '--seed') a.seed = argv[++i];
   }
   return a;
@@ -68,7 +70,7 @@ function extractJson(text) {
 }
 
 /** additive 补齐 games.source/meta 列（只加不改，偏差记录） */
-function ensureSimColumns(conn, deviations) {
+function ensureSimColumns(conn, deviations = []) {
   const cols = conn.pragma('table_info(games)').map(c => c.name);
   if (!cols.includes('source')) {
     conn.exec("ALTER TABLE games ADD COLUMN source TEXT NOT NULL DEFAULT 'real'");
@@ -135,6 +137,39 @@ function buildWolfKillPrompt(ctx) {
   ].join('\n');
 }
 
+function buildSeerCheckPrompt(ctx) {
+  const { seat, aliveSeats, checkedHistory } = ctx;
+  return [
+    '你是「多日局标准狼人杀」6 人局（狼×2/预言家×1/女巫×1/民×2，屠边）的预言家，座号 ' + seat + ' 号。现在是夜里，轮到你行动。',
+    '你是预言家，每晚可查验一名存活玩家的阵营（狼/好人），结果仅你自己知道，不可公开。',
+    JSON_RULE,
+    '输出格式：{"check_seat":整数座位号}',
+    '只能查验存活玩家，可以查验自己以外的任意存活者。存活席位：' + (aliveSeats || []).join('、') + '号。',
+    '',
+    '【既往查验记录（仅你自己可见）】',
+    (checkedHistory && checkedHistory.length) ? checkedHistory.map(h => h.seat + '号=' + h.result).join('；') : '（无，这是你第一次查验）',
+    '',
+    '选择今晚要查验的座位。只输出 JSON。',
+  ].join('\n');
+}
+
+function buildWitchPrompt(ctx) {
+  const { seat, aliveSeats, killTarget, potions } = ctx;
+  const pot = potions || { save: false, poison: false };
+  return [
+    '你是「多日局标准狼人杀」6 人局（狼×2/预言家×1/女巫×1/民×2，屠边）的女巫，座号 ' + seat + ' 号。现在是夜里，轮到你行动。',
+    '你是女巫，解药 1 瓶 + 毒药 1 瓶（全程各一瓶，同夜至多用一瓶），毒不可救，解药生效=平安夜，可自救。',
+    JSON_RULE,
+    '输出格式：{"save":true/false,"poison_seat":整数座位号或 null}',
+    'save=true 表示对刀口使用解药（救活他，本夜平安）；poison_seat=N 表示对 N 号使用毒药；同夜至多用一瓶，故两者不可同时为真。',
+    '你的剩余药水：' + (pot.save ? '解药可用' : '解药已用') + '、' + (pot.poison ? '毒药可用' : '毒药已用') + '。',
+    '昨夜刀口=' + (killTarget === null || killTarget === undefined ? '（无）' : killTarget + '号') + '。',
+    '可以毒杀的存活席位：' + (aliveSeats || []).join('、') + '号。',
+    '',
+    '决定今晚是否用药。只输出 JSON。',
+  ].join('\n');
+}
+
 /** LLM 调用封装：1 次重试（附纠偏提示），usage 累计，parse 失败计数 */
 async function callJson(messages, { temperature, model, usageAgg, retries = 1, maxTokens = 2000 }) {
   let lastErr;
@@ -176,6 +211,7 @@ async function main(argv) {
   const deviations = [];
   const usageAgg = { calls: 0, prompt_tokens: 0, completion_tokens: 0, parse_fallback: 0 };
   if (args.stage === '2') { await runStage2(args, prereg); return; }
+  if (args.stage === 'day') { await runDay(args, prereg); return; }
 
   // 建局
   stepLog('db init: ' + args.db);
@@ -184,12 +220,12 @@ async function main(argv) {
   ensureSimColumns(conn, deviations);
   const cleaned = cleanupPartialSimGames(conn, args.name);
   if (cleaned) stepLog('cleaned partial sim games: ' + cleaned);
-  const game = dbApi.createGame(args.name, 'werewolf_sim_6p_onenight', 6);
+  const game = dbApi.createGame(args.name, 'werewolf_sim_6p_tubian3d', 6);
   stepLog('game created id=' + game.id);
   const gid = game.id;
 
   // 角色分配（crypto.randomInt 洗牌，任务书指定；真值只进 meta）
-  const roles = cryptoShuffle(['werewolf', 'werewolf', 'villager', 'villager', 'villager', 'villager']);
+  const roles = cryptoShuffle(['werewolf', 'werewolf', 'seer', 'witch', 'villager', 'villager']);
   const seatRole = {}; roles.forEach((r0, i) => { seatRole[i + 1] = r0; });
   const wolves = [1, 2, 3, 4, 5, 6].filter(s => seatRole[s] === 'werewolf');
   const villagers = [1, 2, 3, 4, 5, 6].filter(s => seatRole[s] === 'villager');
@@ -274,6 +310,24 @@ async function main(argv) {
 
 }
 
+
+/** day 入口：多日局第 N 天（--day N）骨架。B1 只落 ensureSimColumns + 日参数解析，不开夜行动。 */
+async function runDay(args, prereg) {
+  const day = Number(args.day) || 1;
+  const variant = args.variant || 'tubian3d';
+  dbApi.init(path.resolve(args.db));
+  const conn = dbApi.getConnection();
+  conn.pragma('busy_timeout = 5000');
+  const deviations = [];
+  ensureSimColumns(conn, deviations); // 新库初始只有 5 列，无 source/meta，runDay 入口也必须补列
+  const row = conn.prepare("SELECT id, meta FROM games WHERE name=? AND source='sim' ORDER BY id DESC LIMIT 1").get(args.name);
+  const summary = { ok: true, stage: 'day', day, variant, game_id: row ? row.id : null, name: args.name, deviations, files: [] };
+  fs.mkdirSync(args.out, { recursive: true });
+  fs.writeFileSync(path.join(args.out, args.name + '.day' + day + '.summary.json'), JSON.stringify(summary, null, 2), 'utf8');
+  console.log('[DAY-OK] ' + JSON.stringify(summary));
+  dbApi.closeCurrent();
+}
+
 /** stage2：纯本地结算+导出（读 stage1 meta，零 LLM 调用，秒级） */
 async function runStage2(args, prereg) {
   const stepLog = msg => fs.appendFileSync(path.join(args.out, args.name + '.steps.log'), new Date().toISOString() + ' ' + msg + '\n');
@@ -281,6 +335,9 @@ async function runStage2(args, prereg) {
   dbApi.init(path.resolve(args.db));
   const conn = dbApi.getConnection();
   conn.pragma('busy_timeout = 5000');
+  const colDev = [];
+  ensureSimColumns(conn, colDev); // 新库初始只有 5 列，无 source/meta，必须先补列再查
+  if (colDev.length) stepLog('ensureSimColumns: ' + colDev.join(' | '));
   const row = conn.prepare("SELECT id, meta FROM games WHERE name=? AND source='sim' ORDER BY id DESC LIMIT 1").get(args.name);
   if (!row) throw new Error('stage2 找不到 stage1 局: ' + args.name);
   const gid = row.id;
@@ -290,7 +347,7 @@ async function runStage2(args, prereg) {
   const seatRole = truth.roles, wolves = truth.wolves, villagers = truth.villagers;
   const killTarget = truth.night.kill_target, victim = truth.deaths.night1;
   const votes = m.stage1.votes;
-  const usageAgg = m.qc, deviations = m.deviations || [];
+  const usageAgg = m.qc, deviations = (m.deviations || []).concat(colDev);
   const rng = mulberry32(prereg.seed);
   const aliveAfterNight = m.stage1.alive_after_night.slice();
   const tally = {}; for (const s of Object.values(votes)) { if (s > 0) tally[s] = (tally[s] || 0) + 1; }
