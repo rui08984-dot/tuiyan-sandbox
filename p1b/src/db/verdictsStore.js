@@ -15,6 +15,10 @@
  *
  * 版本戳（p13 批次0.5 additive 迁移）：model=生成该判词的模型标识；run_id=预注册重跑
  * 批次 id（重跑 90 条实验隔离旧判词用）。可空 TEXT，旧行两列 NULL 如实留空不回填。
+ *
+ * 批次 2-RC 索引升级（additive）：UNIQUE 路由索引扩展 run_id——R-C「不清表+三批隔离」
+ * 要求同一 (pid,variant,temperature) 可按 runId 并存多批判词（R-A NULL/R-B ca1b/R-C 各自
+ * 一行）；表达式索引 COALESCE(run_id,'') 保旧幂等语义（NULL 行组内仍保首条）。
  */
 const { db } = require('../deps');
 
@@ -37,8 +41,8 @@ const SCHEMA_VERDICTS = [
   "  created_at TEXT DEFAULT (datetime('now'))",
   ');',
   'CREATE INDEX IF NOT EXISTS idx_verdicts_pred ON verdicts(prediction_id, id);',
-  // 幂等：同一预测点同一路只留首条判词（created_at=证据时间戳语义，F 防泄漏要求稳定）
-  'CREATE UNIQUE INDEX IF NOT EXISTS idx_verdicts_route ON verdicts(prediction_id, prompt_variant, temperature);',
+  // 幂等唯一索引不在本 SCHEMA 内创建（批次 2-RC：索引引用 run_id 列，必须等 ensure 内补列
+  // 完成后再建——统一由 ensureVerdictsTable 末尾的索引管理段负责）
 ].join('\n');
 
 /** p1b 启动/路由注册时调用一次（幂等；绝不触碰 p1a 既有表） */
@@ -54,6 +58,20 @@ function ensureVerdictsTable(conn) {
       for (const def of missing) conn.exec('ALTER TABLE verdicts ADD COLUMN ' + def);
     });
     migrate();
+  }
+  // 批次 2-RC 索引管理（补列完成之后执行；索引引用 run_id 列）：
+  // 旧 UNIQUE 索引（不含 run_id）→ 含 run_id 表达式索引；新库/重建表直接建新索引。
+  const idxNames = new Set(conn.prepare('PRAGMA index_list(verdicts)').all().map((i) => i.name));
+  const hasOld = idxNames.has('idx_verdicts_route');
+  const hasNew = idxNames.has('idx_verdicts_route_run');
+  if (hasOld && !hasNew) {
+    const migrateIdx = conn.transaction(() => {
+      conn.exec('DROP INDEX idx_verdicts_route');
+      conn.exec("CREATE UNIQUE INDEX idx_verdicts_route_run ON verdicts(prediction_id, prompt_variant, temperature, COALESCE(run_id,''))");
+    });
+    migrateIdx();
+  } else if (!hasOld && !hasNew) {
+    conn.exec("CREATE UNIQUE INDEX IF NOT EXISTS idx_verdicts_route_run ON verdicts(prediction_id, prompt_variant, temperature, COALESCE(run_id,''))");
   }
 }
 
@@ -95,8 +113,10 @@ function saveVerdict(v) {
   conn.prepare('INSERT OR IGNORE INTO verdicts (prediction_id, prompt_variant, temperature, verdict_text, implied_prob, model, run_id)'
     + ' VALUES (?, ?, ?, ?, ?, ?, ?)')
     .run(v.predictionId, v.promptVariant, v.temperature, v.verdictText.trim(), prob, model, runId);
-  return conn.prepare('SELECT * FROM verdicts WHERE prediction_id = ? AND prompt_variant = ? AND temperature = ?')
-    .get(v.predictionId, v.promptVariant, v.temperature);
+  // 返回**本批次**行（按 runId 过滤；跨批旧行不混返——批次 2-RC 烟测假象根因之二）
+  return conn.prepare('SELECT * FROM verdicts WHERE prediction_id = ? AND prompt_variant = ? AND temperature = ?'
+    + " AND COALESCE(run_id,'') = COALESCE(?, '')")
+    .get(v.predictionId, v.promptVariant, v.temperature, runId === undefined || runId === null ? null : runId);
 }
 
 /** 单点全量判词（新→旧）。 */

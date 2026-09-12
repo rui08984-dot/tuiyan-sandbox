@@ -375,3 +375,24 @@ test('runId/model 透传（批次2-M1）：POST body 带 runId/model 落库读�
     assert.equal(s.model, null, '缺省 model=NULL');
   }
 });
+
+// ── 批次2-RC：verdicts 三批 runId 隔离（索引升级 additive）────────────────
+
+test('三批 runId 隔离（批次2-RC）：同 pid 同路不同 runId 并存；批内幂等保首条；NULL 组幂等（R-A 口径不变）', () => {
+  const { saveVerdict, listVerdictsByPrediction } = require('../src/db/verdictsStore');
+  const pidX = predictions.insertPrediction({ gameId: gameId, day: 1, sourceType: '预测卡', statement: '三批隔离用例', prob: 0.5, layer: 'L6', evidence: [] });
+  const sRb = saveVerdict({ predictionId: pidX.id, promptVariant: 'v1_evidence', temperature: 0.2, verdictText: 'R-B 批行（1.0 注入时代）。\nRange: 30%-50%\nP=0.40', impliedProb: 0.4, runId: 'ca1b5cdbddfc' });
+  const sRc = saveVerdict({ predictionId: pidX.id, promptVariant: 'v1_evidence', temperature: 0.2, verdictText: 'R-C 批行（2.0 三段注入时代）。\nRange: 20%-40%\nP=0.55', impliedProb: 0.55, runId: 'f4f760aa50e1' });
+  assert.notEqual(sRc.id, sRb.id, '跨 runId 并存：R-C 行是新行（三批隔离核心）');
+  const rows = listVerdictsByPrediction(pidX.id);
+  assert.equal(rows.length, 2, '同 pid 同路两批各行一行');
+  // 批内幂等：同 runId 重发 → 保首条（OR IGNORE）
+  const sRc2 = saveVerdict({ predictionId: pidX.id, promptVariant: 'v1_evidence', temperature: 0.2, verdictText: 'R-C 重发行。\nP=0.55', impliedProb: 0.55, runId: 'f4f760aa50e1' });
+  assert.equal(sRc2.id, sRc.id, '同 runId 批内幂等保首条');
+  assert.equal(listVerdictsByPrediction(pidX.id).length, 2, '幂等后仍两行');
+  // NULL 组（R-A 口径）：不带 runId 重复 → COALESCE 组内幂等保首条（旧行为不回归）
+  const pidY = predictions.insertPrediction({ gameId: gameId, day: 1, sourceType: '预测卡', statement: 'NULL 组幂等用例', prob: 0.5, layer: 'L6', evidence: [] });
+  const n1 = saveVerdict({ predictionId: pidY.id, promptVariant: 'v1_evidence', temperature: 0.2, verdictText: 'NULL 批首条。\nP=0.50', impliedProb: 0.5 });
+  const n2 = saveVerdict({ predictionId: pidY.id, promptVariant: 'v1_evidence', temperature: 0.2, verdictText: 'NULL 批重发行。\nP=0.50', impliedProb: 0.5 });
+  assert.equal(n2.id, n1.id, 'NULL（R-A 口径）组内幂等保首条（旧语义不回归）');
+});

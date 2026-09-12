@@ -1,0 +1,3 @@
+RUN_ID=f4f760aa50e1 (--runid 显式传入)
+PROGRESS 200/450
+DONE done=450 medianed=2 nulled=0

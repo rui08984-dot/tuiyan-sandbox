@@ -49,3 +49,7 @@
 {"ts":"2026-09-12T05:37:37.305Z","pid":48368,"prediction_id":200,"variant":"v1_evidence","error":"LLM API HTTP 504"}
 {"ts":"2026-09-12T05:40:43.208Z","pid":48368,"prediction_id":249,"variant":"v1_evidence","error":"LLM API HTTP 504"}
 {"ts":"2026-09-12T05:40:43.208Z","pid":48368,"prediction_id":249,"variant":"v3_baserate","error":"fetch failed"}
+{"ts":"2026-09-12T07:02:10.962Z","pid":45132,"prediction_id":200,"variant":"v1_evidence","error":"LLM API HTTP 504"}
+{"ts":"2026-09-12T07:14:21.102Z","pid":54128,"prediction_id":17,"variant":"v3_baserate","error":"LLM API HTTP 504"}
+{"ts":"2026-09-12T07:16:15.793Z","pid":54128,"prediction_id":21,"variant":"v1_evidence","error":"LLM API HTTP 503"}
+{"ts":"2026-09-12T07:26:14.918Z","pid":54128,"prediction_id":38,"variant":"v3_baserate","error":"LLM API HTTP 504"}
