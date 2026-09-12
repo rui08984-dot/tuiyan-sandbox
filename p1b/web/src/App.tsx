@@ -7,6 +7,7 @@ import LivePage from './pages/LivePage';
 import ManagePage from './pages/ManagePage';
 import SettingsPage from './pages/SettingsPage';
 import MysticPage from './pages/mystic/MysticPage';
+import AuditPage from './pages/audit/AuditPage';
 import './styles/p1b6.css';
 
 function NavLinkCls(isActive: boolean) {
@@ -46,6 +47,7 @@ export default function App() {
             <Route path="/manage" element={<ManagePage />} />
             <Route path="/settings" element={<SettingsPage />} />
             <Route path="/mystic" element={<MysticPage />} />
+            <Route path="/audit" element={<AuditPage />} />
             {/* 旧四 Tab 路径重定向（书签/旧链接兼容） */}
             <Route path="/games" element={<Navigate to="/manage" replace />} />
             <Route path="/input" element={<Navigate to="/" replace />} />

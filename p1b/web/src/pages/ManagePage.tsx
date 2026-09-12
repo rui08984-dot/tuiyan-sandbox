@@ -66,7 +66,11 @@ export default function ManagePage() {
       <header className="page-head">
         <span className="page-icon" aria-hidden>🗂️</span>
         <h1>对局管理</h1>
-        <button type="button" className="btn btn-primary" style={{ marginLeft: 'auto' }} onClick={() => setWizardOpen(true)}>
+        <button type="button" className="btn" style={{ marginLeft: 'auto' }} onClick={() => navigate('/audit')}
+          data-testid="manage-audit-entry" title="万物审计仪表盘（分层账本 · 只记不评）">
+          📊 审计
+        </button>
+        <button type="button" className="btn btn-primary" onClick={() => setWizardOpen(true)}>
           ＋ 开新局
         </button>
       </header>

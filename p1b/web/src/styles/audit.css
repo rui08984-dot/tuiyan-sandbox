@@ -1,0 +1,58 @@
+/* P18 M2 万物审计仪表盘（/audit）专属样式 —— 沿用 app.css 设计语言（变量/badge/callout），
+ * 布局手机竖屏优先、桌面双列网格。纯展示零 LLM：本文件只有静态样式。 */
+
+/* 恒挂定位横幅（铁律：页面级始终可见，不随加载状态消失） */
+.audit-banner {
+  align-self: center; padding: 6px 14px; border-radius: 999px;
+  background: rgba(224, 168, 60, 0.14); color: var(--accent);
+  font-size: 12.5px; white-space: nowrap;
+}
+
+.audit-head { margin: 10px 0 2px; }
+.audit-head h2 { margin: 0 0 4px; font-size: 19px; letter-spacing: 0.5px; }
+.audit-sub { margin: 0; color: var(--muted); font-size: 13px; }
+
+/* 四块卡：桌面双列，手机单列 */
+.audit-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+  gap: 12px; margin-top: 12px; align-items: start;
+}
+.audit-card {
+  border: 1px solid var(--line); border-radius: var(--radius);
+  background: var(--panel); padding: 12px 14px; min-width: 0;
+}
+.audit-card-title { margin: 0 0 4px; font-size: 15px; font-weight: 600; }
+.audit-card-note { margin: 0 0 8px; color: var(--muted); font-size: 12.5px; }
+
+/* 账本分层表 */
+.audit-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.audit-table th, .audit-table td { padding: 5px 6px; text-align: left; border-top: 1px solid var(--line); }
+.audit-table th { border-top: none; color: var(--muted); font-weight: 500; font-size: 12.5px; }
+.audit-num { text-align: right; font-variant-numeric: tabular-nums; }
+.audit-mut { color: var(--muted); }
+
+/* 键值行（双口径 / 门禁进度） */
+.audit-kv { display: flex; justify-content: space-between; gap: 8px; padding: 4px 0; font-size: 13.5px; }
+.audit-kv b { font-variant-numeric: tabular-nums; font-weight: 600; }
+
+/* 静态校准汇总区两行读数 */
+.audit-static-line { padding: 8px 0; border-top: 1px solid var(--line); font-size: 13.5px; }
+.audit-static-line:first-of-type { border-top: none; }
+.audit-static-tag { font-weight: 600; margin-right: 6px; }
+.audit-exploratory {
+  display: inline-block; margin-top: 8px; padding: 4px 10px; border-radius: 999px;
+  background: rgba(217, 164, 65, 0.14); color: var(--warn); font-size: 12px; white-space: nowrap;
+}
+
+/* 六层说明行 */
+.audit-layer-row { display: flex; gap: 10px; padding: 8px 0; border-top: 1px solid var(--line); }
+.audit-layer-row:first-of-type { border-top: none; }
+.audit-layer-id {
+  flex: 0 0 auto; min-width: 34px; text-align: center; align-self: flex-start;
+  padding: 3px 7px; border-radius: 999px; background: var(--panel-2);
+  border: 1px solid var(--line); font-size: 12.5px; font-weight: 600;
+}
+.audit-layer-body { min-width: 0; }
+.audit-layer-name { font-weight: 600; font-size: 13.5px; }
+.audit-layer-brief { margin: 2px 0; color: var(--text); font-size: 13px; }
+.audit-layer-engine { margin: 0; color: var(--muted); font-size: 12.5px; }

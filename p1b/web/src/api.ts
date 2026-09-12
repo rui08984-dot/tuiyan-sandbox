@@ -5,7 +5,7 @@
  * 供后端（P1b-1）未就绪期开发；生产构建不带该变量即直连同源 /api。
  */
 import type {
-  BotcClaim, Claim, ConfirmPayload, CreateGameInput, EventPhase, Game, GameState, OracleResult, Player, Provider,
+  AuditSummary, BotcClaim, Claim, ConfirmPayload, CreateGameInput, EventPhase, Game, GameState, OracleResult, Player, Provider,
   OracleCastResult, OracleInterpretResult, OracleReadingsResult, PendingCard, ProviderInput, ProviderListResult, ProviderTestResult, TaskStatus,
   ServerCard, ServerCardsResult, SeatRename, SeatsSaveResult,
 } from './types';
@@ -228,4 +228,12 @@ export function listOracleReadings(opts?: { limit?: number; offset?: number; gam
   if (opts?.offset != null) q.push('offset=' + opts.offset);
   if (opts?.gameId != null) q.push('game_id=' + opts.gameId);
   return request('/oracle/readings' + (q.length ? '?' + q.join('&') : ''), 'GET');
+}
+
+// ── P18 M2：万物审计仪表盘（/audit 页数据源；纯账本统计只记不评）──
+
+/** GET /api/audit/summary —— l0Gate 双口径 + layer×checklist_hash 分组 + gate 分组（纯 SQL 只读，零 LLM 零评分）；mock 开发模式未实现（直连后端） */
+export function getAuditSummary(): Promise<AuditSummary> {
+  if (USE_MOCK) return Promise.reject(new ApiError(0, 'mock 模式未实现审计仪表盘接口，请直连后端'));
+  return request('/audit/summary', 'GET');
 }

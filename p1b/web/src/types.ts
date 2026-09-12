@@ -376,3 +376,44 @@ export interface OracleReadingsResult {
   limit: number;
   offset: number;
 }
+
+// ── P18 M2：万物审计仪表盘（GET /api/audit/summary；纯 SQL 只读聚合，零 LLM 零评分）──
+// 形状对齐 p1b/src/routes/audit.js。词汇纪律（P18-M2 铁律）：本节类型与 /audit 页全文禁用
+// 任务书所列宣称字样，一律用「审计/校准参考/分层账本」；review_unlocked=false 时一切数字只配「参考」。
+
+/** layer×checklist_hash 分组行（审计列 NULL 原样返回 null=未分层，由 UI 标注） */
+export interface AuditLayerGroup {
+  layer: string | null;
+  checklist_hash: string | null;
+  n: number;
+  /** 组内 tautology=1 计数（重言式题隔离账，不计入门禁有效口径） */
+  tautology_n: number;
+}
+
+/** gate 分组行（descriptive/scored/blocked，审计列未补录= null） */
+export interface AuditGateGroup {
+  gate: string | null;
+  n: number;
+}
+
+/** l0Gate 双口径（对齐 predictionsStore.l0Gate）：records=总账（含重言）；
+ *  records_valid=tautology=0 有效口径；review_unlocked=局数≥30 ∧ 有效≥200（重言灌水不解锁） */
+export interface AuditL0Gate {
+  gate: string;
+  games: number;
+  records: number;
+  records_valid: number;
+  resolved: number;
+  unresolved: number;
+  review_unlocked: boolean;
+}
+
+/** GET /api/audit/summary 响应（只记不评账本透出，不返回任何准确率/校准评分） */
+export interface AuditSummary {
+  l0_gate: AuditL0Gate;
+  by_layer_checklist: AuditLayerGroup[];
+  by_gate: AuditGateGroup[];
+  total: number;
+  generated_at: string;
+  note: string;
+}

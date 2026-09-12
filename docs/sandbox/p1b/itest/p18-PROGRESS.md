@@ -68,3 +68,37 @@
 - **复核**：UPDATE 后 g40/41/42 source 全='corpus'（全库 source='corpus' 计数=3，未误伤他局）；l0Gate 双口径 UPDATE 前后不变（records=454/records_valid=424/games=33——UPDATE 不触 predictions 计数，符合预期）。
 - **纪律沉淀**：凡断言「表无某列/某约束」，必须 PRAGMA table_info+sqlite_master.sql 实测，禁凭建表语句段推断（additive 迁移列不可见）。
 
+---
+
+## M2 执行（2026-09-12 · 断点续作棒）
+
+### 承接说明（前一棒断点）
+
+- 前一棒死于模型服务瞬断（约 7 分钟寿命），后端半成品已在盘；本棒逐件核验后直接采信、未推翻重写：`p1b/src/routes/audit.js` 完整落盘（GET /api/audit/summary：l0Gate 双口径 + layer×checklist_hash 分组 + 组内 tautology 计数 + gate 分组，纯 SQL 只读零 LLM，module.exports={register} 在，**本棒零改动**）；`p1b/test/audit.test.cjs` 已落盘但未实跑；`p1b/src/server.js` L74 注册行在（注释齐）。
+- 本棒工作=测试实跑修用例 + 前端 /audit 页四块 + 入口 + build + 本锚。
+
+### 改动清单（1/2 · 测试修复）
+
+- **audit.test.cjs 修用例（audit.js 逻辑合规，只修测试不反向）**：原用例经 HTTP POST 落注时把 layer/checklist_hash/gate 放进 payload——但 predictions 落注契约面只收 statement+prob（审计列不在落注面；分类是元数据，落注后走 `store.updateAuditFields` 补录，p16 M2 先例），且 a5 行缺必填 prob → 400 中断造数（total=4），连锁 5 用例红。
+- **修法**：落注面只发 statement+prob（a5 补 prob=0.5）；六条落注后逐条 `updateAuditFields(id,{layer,checklistHash,gate})` 补录并断言生效（r1.layer==='L2' 等）；a5 不补录保 NULL 组语义。单文件 6/6 全绿。
+
+### 改动清单（2/2 · 前端，全部 additive）
+
+- `web/src/types.ts`：+AuditLayerGroup / AuditGateGroup / AuditL0Gate / AuditSummary（形状对齐 routes/audit.js）。
+- `web/src/api.ts`：+getAuditSummary()（mock 模式拒绝并提示直连后端，同 getOracle 先例）。
+- `web/src/pages/audit/AuditPage.tsx` 新建 + `web/src/styles/audit.css` 新建；`App.tsx` +/audit 路由；`ManagePage.tsx` 头部 +「📊 审计」入口按钮（data-testid=manage-audit-entry）。
+- **四块 UI 与 data-testid**：
+  ① 账本分层卡 `audit-ledger-card`：layer×checklist_hash 计数表 `audit-ledger-table`（NULL 组标「未分层」）+ l0Gate 双口径 `audit-l0-dual`（总账/有效口径/已回填/待回填/覆盖局数）+ gate 分布 `audit-gate-dist`。
+  ② 分层校准汇总区 `audit-calib-card`（静态两行）：`audit-ra-line`「R-A 读数门：Brier 0.0008——达成（结算证据读数）」／`audit-rb-line`「R-B 信息价值：负结果——三路判词≈分题型基率（TOST 等价达成），合并条款未达成」；恒挂 `audit-exploratory`「探索性 · 判据=PREREG 冻结件」+ 两读数禁混宣称注（p16 M2 口径）。
+  ③ 六层分类说明卡 `audit-layers-card`：L1-L6 一句话定义+引擎姿态（词表照《万物分类清单 v2》速查表），行 testid=audit-layer-L1…L6（运行时拼接 'audit-layer-'+id）。
+  ④ 门禁状态卡 `audit-gate-card`：`audit-gate-status`（review_unlocked 徽标）+ 30 局/200 条进度 + `audit-gate-copy`「只记不评」口径文案（透出后端 l0_gate.gate 原文）。
+- **恒挂定位横幅** `audit-banner`「万物审计 · 只记不评」（role=note，不随加载/出错状态消失）。
+- **UI 铁律自检**：/audit 页四个源文件 grep 任务书禁词（宣称二字+对局专属词）**零命中**（源码注释亦去字面，防 grep 误伤）；纯展示零 LLM（②区=编译期常量，不发任何模型请求）；任务书示例横幅字面含宣称二字，故以「万物审计 · 只记不评」替代（如实留痕）。
+
+### 测试与构建收据
+
+- **单文件**：`node --test test/audit.test.cjs` → tests 6 / pass 6 / fail 0。
+- **全量**：`node --test` → **tests 174 / pass 174 / fail 0**（duration_ms 1012；=基线 167 + audit 新用例 6 + 并行线 1）；收据以 pwsh `*>` 重定向刷新 `p1b/test/full-run.out`（UTF-8 合法，20804 字节/192 行，未用 2>&1 管道）。
+- **build**：`cd p1b/web && npm.cmd run build`（tsc && vite build）**exit 0**，76 modules；dist 新 bundle **index-CxGN2ElZ.js**（旧 index-CatPXW5g.js → 新 CxGN2ElZ）+ 新 CSS index-DChJsPOY.css；产物内实抓「万物审计」「只记不评」及 12 个 audit-* testid 字面（audit-layer-* 为运行时拼接属预期）。
+- **边界**：8787 服务进程零接触（页面随用户重启 bat 生效）；禁改清单（p1a-terminal/**、botc 五文件、meihua.js、providers.json、PREREG 冻结件、p7-p17 已发布节、audit.js）零触碰。
+
