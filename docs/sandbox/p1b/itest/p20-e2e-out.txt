@@ -1,0 +1,32 @@
+[17:05:13] STEP1 snapshot real p1a.db -> p20.db (VACUUM INTO, source read-only)
+[17:05:13] snapshot ok 2248704 bytes
+[17:05:13] STEP2 start isolated server PORT=8793
+OK   隔离实例就绪
+[17:05:13] STEP3 GET /api/audit/summary over real HTTP
+OK   HTTP 200 | status=200
+OK   响应含 layer_calibration | type=object
+OK   响应含 pending_forward | n=50
+OK   pending_forward_total=112 | got=112
+OK   pending_forward 截断到 50 | got=50
+OK   事件日升序（无日粒度排后）
+OK   全部为未回填真值的前瞻题
+OK   layer_calibration 5 层 | [["L1",180,180,0.211482,0.522222],["L2",43,32,0.264152,0.5],["L3",211,96,0.25343,0.520833],["L5",32,24,0.148837,0.208333],["L6",270,270,0.194134,0.577778]]
+OK   Brier 非 null 且 brier_n 有量
+[17:05:13] STEP4 launch headless Edge CDP :9223
+OK   Edge CDP 就绪
+[17:05:14] STEP5 drive /#/audit in real browser
+OK   页面根 audit-page 渲染
+OK   恒挂定位横幅「万物审计 · 只记不评」
+OK   新块①：待解前瞻卡存在
+OK   新块②：分层校准卡存在
+OK   前瞻卡副标题含「前瞻批次 · 真值未发生」 | 前瞻批次 · 真值未发生：以下为未回填真值的记录（事件日升序；显示前 50 条 / 共 112 条）。 落注概率与到期日仅作「参考」——真值到达前不可结算、不作任何命中/准确率宣称。
+OK   前瞻表有数据行（≤50） | rows=50
+OK   前瞻表含已知题面（上海/温度）
+OK   前瞻表含到期日 2026-09-14
+OK   分层校准表 5 行 | rows=5
+OK   校准卡含 L1/L3/L6 层名
+OK   校准卡显示 Brier 样例（0.211/0.253/0.194） | 0.211,0.264,0.253,0.149,0.194
+OK   校准卡显示基率百分数 | 52.2%,50.0%,52.1%,20.8%,57.8%
+OK   铁律：UI 全文禁「预测」等宣称字样 | hits=[]
+[17:05:20] screenshots + dom dumped
+[17:05:20] FAILS=0

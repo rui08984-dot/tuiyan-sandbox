@@ -56,3 +56,9 @@
 .audit-layer-name { font-weight: 600; font-size: 13.5px; }
 .audit-layer-brief { margin: 2px 0; color: var(--text); font-size: 13px; }
 .audit-layer-engine { margin: 0; color: var(--muted); font-size: 12.5px; }
+
+/* 待解前瞻表：题面列限宽截断（title 带全文），保持表格可读 */
+.audit-forward-stmt {
+  max-width: 260px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  font-size: 12.5px;
+}

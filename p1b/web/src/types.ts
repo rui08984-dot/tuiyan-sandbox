@@ -408,11 +408,44 @@ export interface AuditL0Gate {
   review_unlocked: boolean;
 }
 
-/** GET /api/audit/summary 响应（只记不评账本透出，不返回任何准确率/校准评分） */
+/** 分层校准聚合行（/audit「分层校准」块）：n/resolved 恒为账本计数；
+ *  brier=已回填真值且概率非空题上的机械算术（brier_n=0 → brier=null，样本不足不编造）；
+ *  base_rate=settled（true/false）中 true 占比（base_rate_n=0 → base_rate=null）。 */
+export interface AuditLayerCalibration {
+  layer: string | null;
+  n: number;
+  resolved: number;
+  ambiguous: number;
+  settled: number;
+  brier: number | null;
+  brier_n: number;
+  base_rate: number | null;
+  base_rate_n: number;
+}
+
+/** 待解前瞻题行（未回填真值；event_day=null 表示无日粒度，target 保留目标期文本） */
+export interface AuditPendingForward {
+  id: number;
+  statement: string;
+  assigned_prob: number | null;
+  layer: string | null;
+  gate: string | null;
+  event_day: string | null;
+  target: string | null;
+  created_at: string | null;
+}
+
+/** GET /api/audit/summary 响应（只记不评账本透出；校准列为机械算术，样本不足留空） */
 export interface AuditSummary {
   l0_gate: AuditL0Gate;
   by_layer_checklist: AuditLayerGroup[];
   by_gate: AuditGateGroup[];
+  /** 按 layer 聚合账本 + Brier/基率（机械算术；样本不足 null） */
+  layer_calibration: AuditLayerCalibration[];
+  /** 未回填真值的前瞻题（事件日升序，最多 50 条） */
+  pending_forward: AuditPendingForward[];
+  /** 前瞻题总数（截断前，供 UI 标「显示前 50 / 共 M」） */
+  pending_forward_total: number;
   total: number;
   generated_at: string;
   note: string;

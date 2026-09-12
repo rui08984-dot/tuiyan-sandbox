@@ -2,10 +2,12 @@
  * AuditPage —— 万物审计仪表盘（#/audit；G1 反馈 #3 · M2）。
  *
  * 数据源：GET /api/audit/summary（纯 SQL 只读聚合，零 LLM 零网络零评分——后端铁律同源）。
- * 四块：①账本分层卡（layer×checklist_hash 计数表 + l0Gate 双口径 + gate 分布）
+ * 六块：①账本分层卡（layer×checklist_hash 计数表 + l0Gate 双口径 + gate 分布）
  *      ②分层校准汇总区（静态两行：R-A 读数门 / R-B 信息价值，恒挂「探索性 · 判据=PREREG 冻结件」）
  *      ③六层分类说明卡（L1-L6 一句话定义 + 引擎姿态，词表照 docs/specs/万物分类清单-v2.md）
- *      ④门禁状态卡（review_unlocked + 「只记不评」文案）。
+ *      ④门禁状态卡（review_unlocked + 「只记不评」文案）
+ *      ⑤待解前瞻卡（未回填真值的前瞻批次清单：题面/层次/落注概率/到期日；恒挂「真值未发生」）
+ *      ⑥分层校准卡（layer × n/resolved + 已回填真值题上的 Brier vs 基率；样本不足留空）。
  *
  * UI 铁律（写死，违反=返工）：
  *  · UI 全文禁用任务书 P18-M2 所列宣称字样（以「审计/校准参考/分层账本」替代）；
@@ -17,7 +19,7 @@
  */
 import { useCallback, useEffect, useState } from 'react';
 import * as api from '../../api';
-import type { AuditSummary } from '../../types';
+import type { AuditSummary, AuditLayerCalibration, AuditPendingForward } from '../../types';
 import '../../styles/audit.css';
 
 const errMsg = (e: unknown): string => (e instanceof Error ? e.message : String(e));
@@ -39,6 +41,24 @@ const STATIC_CALIB = {
   badge: '探索性 · 判据=PREREG 冻结件',
   note: '本区为静态结算读数（R-A/R-B 跑批 2026-09-12），非本页账本实时计算；两读数禁止混宣称（R-A 数字不得用于 R-B 结论，反之亦然）。',
 };
+
+/** 概率 0-1 → 百分数字面（null 原样留空=如实，禁用占位数字） */
+const pct = (v: number | null): string => (v === null || v === undefined ? '—' : (v * 100).toFixed(1) + '%');
+/** Brier 三态文案：null → 「样本不足」（不编造数字） */
+const tri = (v: number | null): string => (v === null || v === undefined ? '样本不足' : v.toFixed(3));
+/** 基率行（settled 中 true 占比 + 样本量） */
+const baseRate = (r: AuditLayerCalibration): string => {
+  if (r.base_rate === null || r.base_rate_n === 0) return '样本不足';
+  return (r.base_rate * 100).toFixed(1) + '%（n=' + r.base_rate_n + '）';
+};
+/** 到期日列：无日粒度（月频/期号类题）如实标「目标期」并给 target 文本 */
+const dueOf = (r: AuditPendingForward) => {
+  if (r.event_day) return r.event_day;
+  const t = r.target || r.statement;
+  return t ? t.slice(0, 24) + (t.length > 24 ? '…' : '') : '目标期';
+};
+/** 图例（校准口径说明，静态常量零计算） */
+const CALIB_LEGEND = 'n=账本条数 ｜ resolved=已回填真值 ｜ 校准参考=已回填真值且概率非空题上的均方误差 ｜ 基率=真值题中为真的占比；样本不足留空';
 
 export default function AuditPage() {
   const [summary, setSummary] = useState<AuditSummary | null>(null);
@@ -158,6 +178,69 @@ export default function AuditPage() {
             </div>
             <span className="audit-exploratory" data-testid="audit-exploratory">{STATIC_CALIB.badge}</span>
             <p className="audit-card-note" style={{ marginTop: 8, marginBottom: 0 }}>{STATIC_CALIB.note}</p>
+          </div>
+
+          {/* ⑤ 待解前瞻卡（真值未发生的前瞻批次；事件日升序，UI 只标到期日不宣称结果） */}
+          <div className="audit-card" data-testid="audit-forward-card">
+            <h3 className="audit-card-title">待解前瞻</h3>
+            <p className="audit-card-note">
+              前瞻批次 · 真值未发生：以下为未回填真值的记录（事件日升序；显示前 {summary.pending_forward.length} 条 / 共 {summary.pending_forward_total} 条）。
+              落注概率与到期日仅作「参考」——真值到达前不可结算、不作任何命中/准确率宣称。
+            </p>
+            <table className="audit-table" data-testid="audit-forward-table">
+              <thead>
+                <tr><th>题面</th><th>层</th><th className="audit-num">落注概率</th><th>到期日</th></tr>
+              </thead>
+              <tbody>
+                {summary.pending_forward.map((r) => (
+                  <tr key={r.id} data-testid={'audit-forward-' + r.id}>
+                    <td className="audit-forward-stmt" title={r.statement}>{r.target || r.statement}</td>
+                    <td>{r.layer ?? <span className="audit-mut">未分层</span>}</td>
+                    <td className="audit-num">{pct(r.assigned_prob)}</td>
+                    <td>{dueOf(r)}</td>
+                  </tr>
+                ))}
+                {summary.pending_forward.length === 0 && (
+                  <tr><td colSpan={4} className="audit-mut">暂无待解前瞻记录</td></tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+
+          {/* ⑥ 分层校准卡（账本计数 + 机械算术；样本不足留空，禁编造） */}
+          <div className="audit-card" data-testid="audit-layer-calib-card">
+            <h3 className="audit-card-title">分层校准（账本）</h3>
+            <p className="audit-card-note">
+              分层账本 × 校准参考（只记不评，机械算术）。{CALIB_LEGEND}
+            </p>
+            <table className="audit-table" data-testid="audit-layer-calib-table">
+              <thead>
+                <tr>
+                  <th>层</th>
+                  <th className="audit-num">n</th>
+                  <th className="audit-num">resolved</th>
+                  <th className="audit-num">校准参考</th>
+                  <th>基率</th>
+                </tr>
+              </thead>
+              <tbody>
+                {summary.layer_calibration.map((r, i) => (
+                  <tr key={i} data-testid={'audit-calib-' + (r.layer ?? 'null')}>
+                    <td>{r.layer ?? <span className="audit-mut">未分层</span>}</td>
+                    <td className="audit-num">{r.n}</td>
+                    <td className="audit-num">{r.resolved}</td>
+                    <td className="audit-num">{tri(r.brier)}</td>
+                    <td>{baseRate(r)}</td>
+                  </tr>
+                ))}
+                {summary.layer_calibration.length === 0 && (
+                  <tr><td colSpan={5} className="audit-mut">账本暂无记录</td></tr>
+                )}
+              </tbody>
+            </table>
+            <p className="audit-card-note" style={{ marginTop: 8, marginBottom: 0 }}>
+              校准参考为已有真值题上的机械算术（零模型），仅作「审计参考」；样本不足时留空。
+            </p>
           </div>
 
           {/* ③ 六层分类说明卡 */}

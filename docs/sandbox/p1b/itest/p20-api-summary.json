@@ -1,0 +1,660 @@
+{
+ "l0_gate": {
+  "gate": "L0 只记不评：n≥30 局 ∧ 200 条前不评分，UI 数字只配「参考」；重言式题（tautology=1）不计入门禁",
+  "games": 33,
+  "records": 736,
+  "records_valid": 706,
+  "resolved": 602,
+  "unresolved": 134,
+  "review_unlocked": true
+ },
+ "by_layer_checklist": [
+  {
+   "layer": "L1",
+   "checklist_hash": "v1",
+   "n": 30,
+   "tautology_n": 30
+  },
+  {
+   "layer": "L1",
+   "checklist_hash": "v2",
+   "n": 150,
+   "tautology_n": 0
+  },
+  {
+   "layer": "L2",
+   "checklist_hash": "bf1",
+   "n": 32,
+   "tautology_n": 0
+  },
+  {
+   "layer": "L2",
+   "checklist_hash": "v2",
+   "n": 3,
+   "tautology_n": 0
+  },
+  {
+   "layer": "L2",
+   "checklist_hash": null,
+   "n": 8,
+   "tautology_n": 0
+  },
+  {
+   "layer": "L3",
+   "checklist_hash": "bf1",
+   "n": 96,
+   "tautology_n": 0
+  },
+  {
+   "layer": "L3",
+   "checklist_hash": "v2",
+   "n": 17,
+   "tautology_n": 0
+  },
+  {
+   "layer": "L3",
+   "checklist_hash": null,
+   "n": 98,
+   "tautology_n": 0
+  },
+  {
+   "layer": "L5",
+   "checklist_hash": "bf1",
+   "n": 24,
+   "tautology_n": 0
+  },
+  {
+   "layer": "L5",
+   "checklist_hash": "v2",
+   "n": 2,
+   "tautology_n": 0
+  },
+  {
+   "layer": "L5",
+   "checklist_hash": null,
+   "n": 6,
+   "tautology_n": 0
+  },
+  {
+   "layer": "L6",
+   "checklist_hash": "v1",
+   "n": 60,
+   "tautology_n": 0
+  },
+  {
+   "layer": "L6",
+   "checklist_hash": "v2",
+   "n": 210,
+   "tautology_n": 0
+  }
+ ],
+ "by_gate": [
+  {
+   "gate": "descriptive",
+   "n": 736
+  }
+ ],
+ "layer_calibration": [
+  {
+   "layer": "L1",
+   "n": 180,
+   "resolved": 180,
+   "ambiguous": 0,
+   "settled": 180,
+   "brier": 0.211482,
+   "brier_n": 180,
+   "base_rate": 0.522222,
+   "base_rate_n": 180
+  },
+  {
+   "layer": "L2",
+   "n": 43,
+   "resolved": 32,
+   "ambiguous": 0,
+   "settled": 32,
+   "brier": 0.264152,
+   "brier_n": 32,
+   "base_rate": 0.5,
+   "base_rate_n": 32
+  },
+  {
+   "layer": "L3",
+   "n": 211,
+   "resolved": 96,
+   "ambiguous": 0,
+   "settled": 96,
+   "brier": 0.25343,
+   "brier_n": 96,
+   "base_rate": 0.520833,
+   "base_rate_n": 96
+  },
+  {
+   "layer": "L5",
+   "n": 32,
+   "resolved": 24,
+   "ambiguous": 0,
+   "settled": 24,
+   "brier": 0.148837,
+   "brier_n": 24,
+   "base_rate": 0.208333,
+   "base_rate_n": 24
+  },
+  {
+   "layer": "L6",
+   "n": 270,
+   "resolved": 270,
+   "ambiguous": 0,
+   "settled": 270,
+   "brier": 0.194134,
+   "brier_n": 270,
+   "base_rate": 0.577778,
+   "base_rate_n": 270
+  }
+ ],
+ "pending_forward": [
+  {
+   "id": 625,
+   "statement": "【forward】上海 2026-09-14 日最高气温 > 27°C（未来 1-3 天，亚洲）（cutoff=落库时点 2026-09-13T00:47:01+08:00，事件日尚未发生；真值锚=Open-Meteo forecast/archive daily.temperature_2m_max[2026-09-14]。前瞻批次，真值未发生）",
+   "assigned_prob": 0.5633,
+   "layer": "L3",
+   "gate": "descriptive",
+   "event_day": "2026-09-14",
+   "target": "上海 2026-09-14 日最高气温 > 27°C（未来 1-3 天，亚洲）",
+   "created_at": "2026-09-12 16:47:14"
+  },
+  {
+   "id": 632,
+   "statement": "【forward】北京 2026-09-14 日最高气温 > 27°C（未来 1-3 天，亚洲）（cutoff=落库时点 2026-09-13T00:47:01+08:00，事件日尚未发生；真值锚=Open-Meteo forecast/archive daily.temperature_2m_max[2026-09-14]。前瞻批次，真值未发生）",
+   "assigned_prob": 0.45,
+   "layer": "L3",
+   "gate": "descriptive",
+   "event_day": "2026-09-14",
+   "target": "北京 2026-09-14 日最高气温 > 27°C（未来 1-3 天，亚洲）",
+   "created_at": "2026-09-12 16:47:14"
+  },
+  {
+   "id": 639,
+   "statement": "【forward】广州 2026-09-14 日最高气温 > 31°C（未来 1-3 天，亚洲）（cutoff=落库时点 2026-09-13T00:47:01+08:00，事件日尚未发生；真值锚=Open-Meteo forecast/archive daily.temperature_2m_max[2026-09-14]。前瞻批次，真值未发生）",
+   "assigned_prob": 0.5833,
+   "layer": "L3",
+   "gate": "descriptive",
+   "event_day": "2026-09-14",
+   "target": "广州 2026-09-14 日最高气温 > 31°C（未来 1-3 天，亚洲）",
+   "created_at": "2026-09-12 16:47:14"
+  },
+  {
+   "id": 646,
+   "statement": "【forward】成都 2026-09-14 日最高气温 > 26°C（未来 1-3 天，亚洲）（cutoff=落库时点 2026-09-13T00:47:01+08:00，事件日尚未发生；真值锚=Open-Meteo forecast/archive daily.temperature_2m_max[2026-09-14]。前瞻批次，真值未发生）",
+   "assigned_prob": 0.4833,
+   "layer": "L3",
+   "gate": "descriptive",
+   "event_day": "2026-09-14",
+   "target": "成都 2026-09-14 日最高气温 > 26°C（未来 1-3 天，亚洲）",
+   "created_at": "2026-09-12 16:47:14"
+  },
+  {
+   "id": 653,
+   "statement": "【forward】东京 2026-09-14 日最高气温 > 27°C（未来 1-3 天，亚洲）（cutoff=落库时点 2026-09-13T00:47:01+08:00，事件日尚未发生；真值锚=Open-Meteo forecast/archive daily.temperature_2m_max[2026-09-14]。前瞻批次，真值未发生）",
+   "assigned_prob": 0.5,
+   "layer": "L3",
+   "gate": "descriptive",
+   "event_day": "2026-09-14",
+   "target": "东京 2026-09-14 日最高气温 > 27°C（未来 1-3 天，亚洲）",
+   "created_at": "2026-09-12 16:47:14"
+  },
+  {
+   "id": 660,
+   "statement": "【forward】首尔 2026-09-14 日最高气温 > 25°C（未来 1-3 天，亚洲）（cutoff=落库时点 2026-09-13T00:47:01+08:00，事件日尚未发生；真值锚=Open-Meteo forecast/archive daily.temperature_2m_max[2026-09-14]。前瞻批次，真值未发生）",
+   "assigned_prob": 0.5567,
+   "layer": "L3",
+   "gate": "descriptive",
+   "event_day": "2026-09-14",
+   "target": "首尔 2026-09-14 日最高气温 > 25°C（未来 1-3 天，亚洲）",
+   "created_at": "2026-09-12 16:47:14"
+  },
+  {
+   "id": 667,
+   "statement": "【forward】新加坡 2026-09-14 日最高气温 > 29°C（未来 1-3 天，亚洲）（cutoff=落库时点 2026-09-13T00:47:01+08:00，事件日尚未发生；真值锚=Open-Meteo forecast/archive daily.temperature_2m_max[2026-09-14]。前瞻批次，真值未发生）",
+   "assigned_prob": 0.67,
+   "layer": "L3",
+   "gate": "descriptive",
+   "event_day": "2026-09-14",
+   "target": "新加坡 2026-09-14 日最高气温 > 29°C（未来 1-3 天，亚洲）",
+   "created_at": "2026-09-12 16:47:14"
+  },
+  {
+   "id": 674,
+   "statement": "【forward】悉尼 2026-09-14 日最高气温 > 20°C（未来 1-3 天，大洋洲）（cutoff=落库时点 2026-09-13T00:47:01+08:00，事件日尚未发生；真值锚=Open-Meteo forecast/archive daily.temperature_2m_max[2026-09-14]。前瞻批次，真值未发生）",
+   "assigned_prob": 0.46,
+   "layer": "L3",
+   "gate": "descriptive",
+   "event_day": "2026-09-14",
+   "target": "悉尼 2026-09-14 日最高气温 > 20°C（未来 1-3 天，大洋洲）",
+   "created_at": "2026-09-12 16:47:14"
+  },
+  {
+   "id": 681,
+   "statement": "【forward】伦敦 2026-09-14 日最高气温 > 20°C（未来 1-3 天，欧洲）（cutoff=落库时点 2026-09-13T00:47:01+08:00，事件日尚未发生；真值锚=Open-Meteo forecast/archive daily.temperature_2m_max[2026-09-14]。前瞻批次，真值未发生）",
+   "assigned_prob": 0.4667,
+   "layer": "L3",
+   "gate": "descriptive",
+   "event_day": "2026-09-14",
+   "target": "伦敦 2026-09-14 日最高气温 > 20°C（未来 1-3 天，欧洲）",
+   "created_at": "2026-09-12 16:47:14"
+  },
+  {
+   "id": 688,
+   "statement": "【forward】巴黎 2026-09-14 日最高气温 > 22°C（未来 1-3 天，欧洲）（cutoff=落库时点 2026-09-13T00:47:01+08:00，事件日尚未发生；真值锚=Open-Meteo forecast/archive daily.temperature_2m_max[2026-09-14]。前瞻批次，真值未发生）",
+   "assigned_prob": 0.4767,
+   "layer": "L3",
+   "gate": "descriptive",
+   "event_day": "2026-09-14",
+   "target": "巴黎 2026-09-14 日最高气温 > 22°C（未来 1-3 天，欧洲）",
+   "created_at": "2026-09-12 16:47:14"
+  },
+  {
+   "id": 695,
+   "statement": "【forward】纽约 2026-09-14 日最高气温 > 25°C（未来 1-3 天，北美）（cutoff=落库时点 2026-09-13T00:47:01+08:00，事件日尚未发生；真值锚=Open-Meteo forecast/archive daily.temperature_2m_max[2026-09-14]。前瞻批次，真值未发生）",
+   "assigned_prob": 0.51,
+   "layer": "L3",
+   "gate": "descriptive",
+   "event_day": "2026-09-14",
+   "target": "纽约 2026-09-14 日最高气温 > 25°C（未来 1-3 天，北美）",
+   "created_at": "2026-09-12 16:47:14"
+  },
+  {
+   "id": 702,
+   "statement": "【forward】洛杉矶 2026-09-14 日最高气温 > 31°C（未来 1-3 天，北美）（cutoff=落库时点 2026-09-13T00:47:01+08:00，事件日尚未发生；真值锚=Open-Meteo forecast/archive daily.temperature_2m_max[2026-09-14]。前瞻批次，真值未发生）",
+   "assigned_prob": 0.4533,
+   "layer": "L3",
+   "gate": "descriptive",
+   "event_day": "2026-09-14",
+   "target": "洛杉矶 2026-09-14 日最高气温 > 31°C（未来 1-3 天，北美）",
+   "created_at": "2026-09-12 16:47:14"
+  },
+  {
+   "id": 709,
+   "statement": "【forward】开罗 2026-09-14 日最高气温 > 36°C（未来 1-3 天，非洲）（cutoff=落库时点 2026-09-13T00:47:01+08:00，事件日尚未发生；真值锚=Open-Meteo forecast/archive daily.temperature_2m_max[2026-09-14]。前瞻批次，真值未发生）",
+   "assigned_prob": 0.4867,
+   "layer": "L3",
+   "gate": "descriptive",
+   "event_day": "2026-09-14",
+   "target": "开罗 2026-09-14 日最高气温 > 36°C（未来 1-3 天，非洲）",
+   "created_at": "2026-09-12 16:47:14"
+  },
+  {
+   "id": 716,
+   "statement": "【forward】圣保罗 2026-09-14 日最高气温 > 27°C（未来 1-3 天，南美）（cutoff=落库时点 2026-09-13T00:47:01+08:00，事件日尚未发生；真值锚=Open-Meteo forecast/archive daily.temperature_2m_max[2026-09-14]。前瞻批次，真值未发生）",
+   "assigned_prob": 0.5,
+   "layer": "L3",
+   "gate": "descriptive",
+   "event_day": "2026-09-14",
+   "target": "圣保罗 2026-09-14 日最高气温 > 27°C（未来 1-3 天，南美）",
+   "created_at": "2026-09-12 16:47:14"
+  },
+  {
+   "id": 626,
+   "statement": "【forward】上海 2026-09-15 日最高气温 > 27°C（未来 1-3 天，亚洲）（cutoff=落库时点 2026-09-13T00:47:01+08:00，事件日尚未发生；真值锚=Open-Meteo forecast/archive daily.temperature_2m_max[2026-09-15]。前瞻批次，真值未发生）",
+   "assigned_prob": 0.5633,
+   "layer": "L3",
+   "gate": "descriptive",
+   "event_day": "2026-09-15",
+   "target": "上海 2026-09-15 日最高气温 > 27°C（未来 1-3 天，亚洲）",
+   "created_at": "2026-09-12 16:47:14"
+  },
+  {
+   "id": 633,
+   "statement": "【forward】北京 2026-09-15 日最高气温 > 27°C（未来 1-3 天，亚洲）（cutoff=落库时点 2026-09-13T00:47:01+08:00，事件日尚未发生；真值锚=Open-Meteo forecast/archive daily.temperature_2m_max[2026-09-15]。前瞻批次，真值未发生）",
+   "assigned_prob": 0.45,
+   "layer": "L3",
+   "gate": "descriptive",
+   "event_day": "2026-09-15",
+   "target": "北京 2026-09-15 日最高气温 > 27°C（未来 1-3 天，亚洲）",
+   "created_at": "2026-09-12 16:47:14"
+  },
+  {
+   "id": 640,
+   "statement": "【forward】广州 2026-09-15 日最高气温 > 31°C（未来 1-3 天，亚洲）（cutoff=落库时点 2026-09-13T00:47:01+08:00，事件日尚未发生；真值锚=Open-Meteo forecast/archive daily.temperature_2m_max[2026-09-15]。前瞻批次，真值未发生）",
+   "assigned_prob": 0.5833,
+   "layer": "L3",
+   "gate": "descriptive",
+   "event_day": "2026-09-15",
+   "target": "广州 2026-09-15 日最高气温 > 31°C（未来 1-3 天，亚洲）",
+   "created_at": "2026-09-12 16:47:14"
+  },
+  {
+   "id": 647,
+   "statement": "【forward】成都 2026-09-15 日最高气温 > 26°C（未来 1-3 天，亚洲）（cutoff=落库时点 2026-09-13T00:47:01+08:00，事件日尚未发生；真值锚=Open-Meteo forecast/archive daily.temperature_2m_max[2026-09-15]。前瞻批次，真值未发生）",
+   "assigned_prob": 0.4833,
+   "layer": "L3",
+   "gate": "descriptive",
+   "event_day": "2026-09-15",
+   "target": "成都 2026-09-15 日最高气温 > 26°C（未来 1-3 天，亚洲）",
+   "created_at": "2026-09-12 16:47:14"
+  },
+  {
+   "id": 654,
+   "statement": "【forward】东京 2026-09-15 日最高气温 > 27°C（未来 1-3 天，亚洲）（cutoff=落库时点 2026-09-13T00:47:01+08:00，事件日尚未发生；真值锚=Open-Meteo forecast/archive daily.temperature_2m_max[2026-09-15]。前瞻批次，真值未发生）",
+   "assigned_prob": 0.5,
+   "layer": "L3",
+   "gate": "descriptive",
+   "event_day": "2026-09-15",
+   "target": "东京 2026-09-15 日最高气温 > 27°C（未来 1-3 天，亚洲）",
+   "created_at": "2026-09-12 16:47:14"
+  },
+  {
+   "id": 661,
+   "statement": "【forward】首尔 2026-09-15 日最高气温 > 25°C（未来 1-3 天，亚洲）（cutoff=落库时点 2026-09-13T00:47:01+08:00，事件日尚未发生；真值锚=Open-Meteo forecast/archive daily.temperature_2m_max[2026-09-15]。前瞻批次，真值未发生）",
+   "assigned_prob": 0.5567,
+   "layer": "L3",
+   "gate": "descriptive",
+   "event_day": "2026-09-15",
+   "target": "首尔 2026-09-15 日最高气温 > 25°C（未来 1-3 天，亚洲）",
+   "created_at": "2026-09-12 16:47:14"
+  },
+  {
+   "id": 668,
+   "statement": "【forward】新加坡 2026-09-15 日最高气温 > 29°C（未来 1-3 天，亚洲）（cutoff=落库时点 2026-09-13T00:47:01+08:00，事件日尚未发生；真值锚=Open-Meteo forecast/archive daily.temperature_2m_max[2026-09-15]。前瞻批次，真值未发生）",
+   "assigned_prob": 0.67,
+   "layer": "L3",
+   "gate": "descriptive",
+   "event_day": "2026-09-15",
+   "target": "新加坡 2026-09-15 日最高气温 > 29°C（未来 1-3 天，亚洲）",
+   "created_at": "2026-09-12 16:47:14"
+  },
+  {
+   "id": 675,
+   "statement": "【forward】悉尼 2026-09-15 日最高气温 > 20°C（未来 1-3 天，大洋洲）（cutoff=落库时点 2026-09-13T00:47:01+08:00，事件日尚未发生；真值锚=Open-Meteo forecast/archive daily.temperature_2m_max[2026-09-15]。前瞻批次，真值未发生）",
+   "assigned_prob": 0.46,
+   "layer": "L3",
+   "gate": "descriptive",
+   "event_day": "2026-09-15",
+   "target": "悉尼 2026-09-15 日最高气温 > 20°C（未来 1-3 天，大洋洲）",
+   "created_at": "2026-09-12 16:47:14"
+  },
+  {
+   "id": 682,
+   "statement": "【forward】伦敦 2026-09-15 日最高气温 > 20°C（未来 1-3 天，欧洲）（cutoff=落库时点 2026-09-13T00:47:01+08:00，事件日尚未发生；真值锚=Open-Meteo forecast/archive daily.temperature_2m_max[2026-09-15]。前瞻批次，真值未发生）",
+   "assigned_prob": 0.4667,
+   "layer": "L3",
+   "gate": "descriptive",
+   "event_day": "2026-09-15",
+   "target": "伦敦 2026-09-15 日最高气温 > 20°C（未来 1-3 天，欧洲）",
+   "created_at": "2026-09-12 16:47:14"
+  },
+  {
+   "id": 689,
+   "statement": "【forward】巴黎 2026-09-15 日最高气温 > 22°C（未来 1-3 天，欧洲）（cutoff=落库时点 2026-09-13T00:47:01+08:00，事件日尚未发生；真值锚=Open-Meteo forecast/archive daily.temperature_2m_max[2026-09-15]。前瞻批次，真值未发生）",
+   "assigned_prob": 0.4767,
+   "layer": "L3",
+   "gate": "descriptive",
+   "event_day": "2026-09-15",
+   "target": "巴黎 2026-09-15 日最高气温 > 22°C（未来 1-3 天，欧洲）",
+   "created_at": "2026-09-12 16:47:14"
+  },
+  {
+   "id": 696,
+   "statement": "【forward】纽约 2026-09-15 日最高气温 > 25°C（未来 1-3 天，北美）（cutoff=落库时点 2026-09-13T00:47:01+08:00，事件日尚未发生；真值锚=Open-Meteo forecast/archive daily.temperature_2m_max[2026-09-15]。前瞻批次，真值未发生）",
+   "assigned_prob": 0.51,
+   "layer": "L3",
+   "gate": "descriptive",
+   "event_day": "2026-09-15",
+   "target": "纽约 2026-09-15 日最高气温 > 25°C（未来 1-3 天，北美）",
+   "created_at": "2026-09-12 16:47:14"
+  },
+  {
+   "id": 703,
+   "statement": "【forward】洛杉矶 2026-09-15 日最高气温 > 31°C（未来 1-3 天，北美）（cutoff=落库时点 2026-09-13T00:47:01+08:00，事件日尚未发生；真值锚=Open-Meteo forecast/archive daily.temperature_2m_max[2026-09-15]。前瞻批次，真值未发生）",
+   "assigned_prob": 0.4533,
+   "layer": "L3",
+   "gate": "descriptive",
+   "event_day": "2026-09-15",
+   "target": "洛杉矶 2026-09-15 日最高气温 > 31°C（未来 1-3 天，北美）",
+   "created_at": "2026-09-12 16:47:14"
+  },
+  {
+   "id": 710,
+   "statement": "【forward】开罗 2026-09-15 日最高气温 > 36°C（未来 1-3 天，非洲）（cutoff=落库时点 2026-09-13T00:47:01+08:00，事件日尚未发生；真值锚=Open-Meteo forecast/archive daily.temperature_2m_max[2026-09-15]。前瞻批次，真值未发生）",
+   "assigned_prob": 0.4867,
+   "layer": "L3",
+   "gate": "descriptive",
+   "event_day": "2026-09-15",
+   "target": "开罗 2026-09-15 日最高气温 > 36°C（未来 1-3 天，非洲）",
+   "created_at": "2026-09-12 16:47:14"
+  },
+  {
+   "id": 717,
+   "statement": "【forward】圣保罗 2026-09-15 日最高气温 > 27°C（未来 1-3 天，南美）（cutoff=落库时点 2026-09-13T00:47:01+08:00，事件日尚未发生；真值锚=Open-Meteo forecast/archive daily.temperature_2m_max[2026-09-15]。前瞻批次，真值未发生）",
+   "assigned_prob": 0.5,
+   "layer": "L3",
+   "gate": "descriptive",
+   "event_day": "2026-09-15",
+   "target": "圣保罗 2026-09-15 日最高气温 > 27°C（未来 1-3 天，南美）",
+   "created_at": "2026-09-12 16:47:14"
+  },
+  {
+   "id": 627,
+   "statement": "【forward】上海 2026-09-17 日最高气温 > 27°C（未来 4-7 天，亚洲）（cutoff=落库时点 2026-09-13T00:47:01+08:00，事件日尚未发生；真值锚=Open-Meteo forecast/archive daily.temperature_2m_max[2026-09-17]。前瞻批次，真值未发生）",
+   "assigned_prob": 0.5633,
+   "layer": "L3",
+   "gate": "descriptive",
+   "event_day": "2026-09-17",
+   "target": "上海 2026-09-17 日最高气温 > 27°C（未来 4-7 天，亚洲）",
+   "created_at": "2026-09-12 16:47:14"
+  },
+  {
+   "id": 634,
+   "statement": "【forward】北京 2026-09-17 日最高气温 > 27°C（未来 4-7 天，亚洲）（cutoff=落库时点 2026-09-13T00:47:01+08:00，事件日尚未发生；真值锚=Open-Meteo forecast/archive daily.temperature_2m_max[2026-09-17]。前瞻批次，真值未发生）",
+   "assigned_prob": 0.45,
+   "layer": "L3",
+   "gate": "descriptive",
+   "event_day": "2026-09-17",
+   "target": "北京 2026-09-17 日最高气温 > 27°C（未来 4-7 天，亚洲）",
+   "created_at": "2026-09-12 16:47:14"
+  },
+  {
+   "id": 641,
+   "statement": "【forward】广州 2026-09-17 日最高气温 > 31°C（未来 4-7 天，亚洲）（cutoff=落库时点 2026-09-13T00:47:01+08:00，事件日尚未发生；真值锚=Open-Meteo forecast/archive daily.temperature_2m_max[2026-09-17]。前瞻批次，真值未发生）",
+   "assigned_prob": 0.5833,
+   "layer": "L3",
+   "gate": "descriptive",
+   "event_day": "2026-09-17",
+   "target": "广州 2026-09-17 日最高气温 > 31°C（未来 4-7 天，亚洲）",
+   "created_at": "2026-09-12 16:47:14"
+  },
+  {
+   "id": 648,
+   "statement": "【forward】成都 2026-09-17 日最高气温 > 26°C（未来 4-7 天，亚洲）（cutoff=落库时点 2026-09-13T00:47:01+08:00，事件日尚未发生；真值锚=Open-Meteo forecast/archive daily.temperature_2m_max[2026-09-17]。前瞻批次，真值未发生）",
+   "assigned_prob": 0.4833,
+   "layer": "L3",
+   "gate": "descriptive",
+   "event_day": "2026-09-17",
+   "target": "成都 2026-09-17 日最高气温 > 26°C（未来 4-7 天，亚洲）",
+   "created_at": "2026-09-12 16:47:14"
+  },
+  {
+   "id": 655,
+   "statement": "【forward】东京 2026-09-17 日最高气温 > 27°C（未来 4-7 天，亚洲）（cutoff=落库时点 2026-09-13T00:47:01+08:00，事件日尚未发生；真值锚=Open-Meteo forecast/archive daily.temperature_2m_max[2026-09-17]。前瞻批次，真值未发生）",
+   "assigned_prob": 0.5,
+   "layer": "L3",
+   "gate": "descriptive",
+   "event_day": "2026-09-17",
+   "target": "东京 2026-09-17 日最高气温 > 27°C（未来 4-7 天，亚洲）",
+   "created_at": "2026-09-12 16:47:14"
+  },
+  {
+   "id": 662,
+   "statement": "【forward】首尔 2026-09-17 日最高气温 > 25°C（未来 4-7 天，亚洲）（cutoff=落库时点 2026-09-13T00:47:01+08:00，事件日尚未发生；真值锚=Open-Meteo forecast/archive daily.temperature_2m_max[2026-09-17]。前瞻批次，真值未发生）",
+   "assigned_prob": 0.5567,
+   "layer": "L3",
+   "gate": "descriptive",
+   "event_day": "2026-09-17",
+   "target": "首尔 2026-09-17 日最高气温 > 25°C（未来 4-7 天，亚洲）",
+   "created_at": "2026-09-12 16:47:14"
+  },
+  {
+   "id": 669,
+   "statement": "【forward】新加坡 2026-09-17 日最高气温 > 29°C（未来 4-7 天，亚洲）（cutoff=落库时点 2026-09-13T00:47:01+08:00，事件日尚未发生；真值锚=Open-Meteo forecast/archive daily.temperature_2m_max[2026-09-17]。前瞻批次，真值未发生）",
+   "assigned_prob": 0.67,
+   "layer": "L3",
+   "gate": "descriptive",
+   "event_day": "2026-09-17",
+   "target": "新加坡 2026-09-17 日最高气温 > 29°C（未来 4-7 天，亚洲）",
+   "created_at": "2026-09-12 16:47:14"
+  },
+  {
+   "id": 676,
+   "statement": "【forward】悉尼 2026-09-17 日最高气温 > 20°C（未来 4-7 天，大洋洲）（cutoff=落库时点 2026-09-13T00:47:01+08:00，事件日尚未发生；真值锚=Open-Meteo forecast/archive daily.temperature_2m_max[2026-09-17]。前瞻批次，真值未发生）",
+   "assigned_prob": 0.46,
+   "layer": "L3",
+   "gate": "descriptive",
+   "event_day": "2026-09-17",
+   "target": "悉尼 2026-09-17 日最高气温 > 20°C（未来 4-7 天，大洋洲）",
+   "created_at": "2026-09-12 16:47:14"
+  },
+  {
+   "id": 683,
+   "statement": "【forward】伦敦 2026-09-17 日最高气温 > 20°C（未来 4-7 天，欧洲）（cutoff=落库时点 2026-09-13T00:47:01+08:00，事件日尚未发生；真值锚=Open-Meteo forecast/archive daily.temperature_2m_max[2026-09-17]。前瞻批次，真值未发生）",
+   "assigned_prob": 0.4667,
+   "layer": "L3",
+   "gate": "descriptive",
+   "event_day": "2026-09-17",
+   "target": "伦敦 2026-09-17 日最高气温 > 20°C（未来 4-7 天，欧洲）",
+   "created_at": "2026-09-12 16:47:14"
+  },
+  {
+   "id": 690,
+   "statement": "【forward】巴黎 2026-09-17 日最高气温 > 22°C（未来 4-7 天，欧洲）（cutoff=落库时点 2026-09-13T00:47:01+08:00，事件日尚未发生；真值锚=Open-Meteo forecast/archive daily.temperature_2m_max[2026-09-17]。前瞻批次，真值未发生）",
+   "assigned_prob": 0.4767,
+   "layer": "L3",
+   "gate": "descriptive",
+   "event_day": "2026-09-17",
+   "target": "巴黎 2026-09-17 日最高气温 > 22°C（未来 4-7 天，欧洲）",
+   "created_at": "2026-09-12 16:47:14"
+  },
+  {
+   "id": 697,
+   "statement": "【forward】纽约 2026-09-17 日最高气温 > 25°C（未来 4-7 天，北美）（cutoff=落库时点 2026-09-13T00:47:01+08:00，事件日尚未发生；真值锚=Open-Meteo forecast/archive daily.temperature_2m_max[2026-09-17]。前瞻批次，真值未发生）",
+   "assigned_prob": 0.51,
+   "layer": "L3",
+   "gate": "descriptive",
+   "event_day": "2026-09-17",
+   "target": "纽约 2026-09-17 日最高气温 > 25°C（未来 4-7 天，北美）",
+   "created_at": "2026-09-12 16:47:14"
+  },
+  {
+   "id": 704,
+   "statement": "【forward】洛杉矶 2026-09-17 日最高气温 > 31°C（未来 4-7 天，北美）（cutoff=落库时点 2026-09-13T00:47:01+08:00，事件日尚未发生；真值锚=Open-Meteo forecast/archive daily.temperature_2m_max[2026-09-17]。前瞻批次，真值未发生）",
+   "assigned_prob": 0.4533,
+   "layer": "L3",
+   "gate": "descriptive",
+   "event_day": "2026-09-17",
+   "target": "洛杉矶 2026-09-17 日最高气温 > 31°C（未来 4-7 天，北美）",
+   "created_at": "2026-09-12 16:47:14"
+  },
+  {
+   "id": 711,
+   "statement": "【forward】开罗 2026-09-17 日最高气温 > 36°C（未来 4-7 天，非洲）（cutoff=落库时点 2026-09-13T00:47:01+08:00，事件日尚未发生；真值锚=Open-Meteo forecast/archive daily.temperature_2m_max[2026-09-17]。前瞻批次，真值未发生）",
+   "assigned_prob": 0.4867,
+   "layer": "L3",
+   "gate": "descriptive",
+   "event_day": "2026-09-17",
+   "target": "开罗 2026-09-17 日最高气温 > 36°C（未来 4-7 天，非洲）",
+   "created_at": "2026-09-12 16:47:14"
+  },
+  {
+   "id": 718,
+   "statement": "【forward】圣保罗 2026-09-17 日最高气温 > 27°C（未来 4-7 天，南美）（cutoff=落库时点 2026-09-13T00:47:01+08:00，事件日尚未发生；真值锚=Open-Meteo forecast/archive daily.temperature_2m_max[2026-09-17]。前瞻批次，真值未发生）",
+   "assigned_prob": 0.5,
+   "layer": "L3",
+   "gate": "descriptive",
+   "event_day": "2026-09-17",
+   "target": "圣保罗 2026-09-17 日最高气温 > 27°C（未来 4-7 天，南美）",
+   "created_at": "2026-09-12 16:47:14"
+  },
+  {
+   "id": 628,
+   "statement": "【forward】上海 2026-09-19 日最高气温 > 27°C（未来 4-7 天，亚洲）（cutoff=落库时点 2026-09-13T00:47:01+08:00，事件日尚未发生；真值锚=Open-Meteo forecast/archive daily.temperature_2m_max[2026-09-19]。前瞻批次，真值未发生）",
+   "assigned_prob": 0.5633,
+   "layer": "L3",
+   "gate": "descriptive",
+   "event_day": "2026-09-19",
+   "target": "上海 2026-09-19 日最高气温 > 27°C（未来 4-7 天，亚洲）",
+   "created_at": "2026-09-12 16:47:14"
+  },
+  {
+   "id": 635,
+   "statement": "【forward】北京 2026-09-19 日最高气温 > 27°C（未来 4-7 天，亚洲）（cutoff=落库时点 2026-09-13T00:47:01+08:00，事件日尚未发生；真值锚=Open-Meteo forecast/archive daily.temperature_2m_max[2026-09-19]。前瞻批次，真值未发生）",
+   "assigned_prob": 0.45,
+   "layer": "L3",
+   "gate": "descriptive",
+   "event_day": "2026-09-19",
+   "target": "北京 2026-09-19 日最高气温 > 27°C（未来 4-7 天，亚洲）",
+   "created_at": "2026-09-12 16:47:14"
+  },
+  {
+   "id": 642,
+   "statement": "【forward】广州 2026-09-19 日最高气温 > 31°C（未来 4-7 天，亚洲）（cutoff=落库时点 2026-09-13T00:47:01+08:00，事件日尚未发生；真值锚=Open-Meteo forecast/archive daily.temperature_2m_max[2026-09-19]。前瞻批次，真值未发生）",
+   "assigned_prob": 0.5833,
+   "layer": "L3",
+   "gate": "descriptive",
+   "event_day": "2026-09-19",
+   "target": "广州 2026-09-19 日最高气温 > 31°C（未来 4-7 天，亚洲）",
+   "created_at": "2026-09-12 16:47:14"
+  },
+  {
+   "id": 649,
+   "statement": "【forward】成都 2026-09-19 日最高气温 > 26°C（未来 4-7 天，亚洲）（cutoff=落库时点 2026-09-13T00:47:01+08:00，事件日尚未发生；真值锚=Open-Meteo forecast/archive daily.temperature_2m_max[2026-09-19]。前瞻批次，真值未发生）",
+   "assigned_prob": 0.4833,
+   "layer": "L3",
+   "gate": "descriptive",
+   "event_day": "2026-09-19",
+   "target": "成都 2026-09-19 日最高气温 > 26°C（未来 4-7 天，亚洲）",
+   "created_at": "2026-09-12 16:47:14"
+  },
+  {
+   "id": 656,
+   "statement": "【forward】东京 2026-09-19 日最高气温 > 27°C（未来 4-7 天，亚洲）（cutoff=落库时点 2026-09-13T00:47:01+08:00，事件日尚未发生；真值锚=Open-Meteo forecast/archive daily.temperature_2m_max[2026-09-19]。前瞻批次，真值未发生）",
+   "assigned_prob": 0.5,
+   "layer": "L3",
+   "gate": "descriptive",
+   "event_day": "2026-09-19",
+   "target": "东京 2026-09-19 日最高气温 > 27°C（未来 4-7 天，亚洲）",
+   "created_at": "2026-09-12 16:47:14"
+  },
+  {
+   "id": 663,
+   "statement": "【forward】首尔 2026-09-19 日最高气温 > 25°C（未来 4-7 天，亚洲）（cutoff=落库时点 2026-09-13T00:47:01+08:00，事件日尚未发生；真值锚=Open-Meteo forecast/archive daily.temperature_2m_max[2026-09-19]。前瞻批次，真值未发生）",
+   "assigned_prob": 0.5567,
+   "layer": "L3",
+   "gate": "descriptive",
+   "event_day": "2026-09-19",
+   "target": "首尔 2026-09-19 日最高气温 > 25°C（未来 4-7 天，亚洲）",
+   "created_at": "2026-09-12 16:47:14"
+  },
+  {
+   "id": 670,
+   "statement": "【forward】新加坡 2026-09-19 日最高气温 > 29°C（未来 4-7 天，亚洲）（cutoff=落库时点 2026-09-13T00:47:01+08:00，事件日尚未发生；真值锚=Open-Meteo forecast/archive daily.temperature_2m_max[2026-09-19]。前瞻批次，真值未发生）",
+   "assigned_prob": 0.67,
+   "layer": "L3",
+   "gate": "descriptive",
+   "event_day": "2026-09-19",
+   "target": "新加坡 2026-09-19 日最高气温 > 29°C（未来 4-7 天，亚洲）",
+   "created_at": "2026-09-12 16:47:14"
+  },
+  {
+   "id": 677,
+   "statement": "【forward】悉尼 2026-09-19 日最高气温 > 20°C（未来 4-7 天，大洋洲）（cutoff=落库时点 2026-09-13T00:47:01+08:00，事件日尚未发生；真值锚=Open-Meteo forecast/archive daily.temperature_2m_max[2026-09-19]。前瞻批次，真值未发生）",
+   "assigned_prob": 0.46,
+   "layer": "L3",
+   "gate": "descriptive",
+   "event_day": "2026-09-19",
+   "target": "悉尼 2026-09-19 日最高气温 > 20°C（未来 4-7 天，大洋洲）",
+   "created_at": "2026-09-12 16:47:14"
+  }
+ ],
+ "pending_forward_total": 112,
+ "total": 736,
+ "generated_at": "2026-09-12T17:05:13.623Z",
+ "note": "万物审计仪表盘：纯账本统计（只记不评），零 LLM；校准列为已回填真值题上的机械算术（样本不足留空不编造）；review_unlocked=false 时本页一切数字只配「参考」"
+}
