@@ -1,0 +1,10 @@
+const fs=require('fs');const d='E:/music player/docs/sandbox/p1b/itest/';
+const out=fs.readFileSync(d+'p22-e2e-out.txt','utf8').split(/\r?\n/);
+const v=out.filter(x=>/^(OK|FAIL)/.test(x));
+console.log('VERDICT COUNT='+v.length+'  FAIL='+v.filter(x=>x.startsWith('FAIL')).length);
+console.log(v.map(x=>x.replace('OK   ','PASS ')).join('\n'));
+const dom=fs.readFileSync(d+'p22-audit-dom.txt','utf8');
+const banned=['预测','预报','押注','胜率'];
+console.log('--- DOM 全文词检（含折叠区）：'+banned.map(w=>w+'='+(dom.split(w).length-1)).join(' '));
+console.log('DOM 含审计导航链接文本: '+dom.includes('审计'));
+fs.writeFileSync(d+'p22-verdicts.json',JSON.stringify(v,null,1),'utf8');

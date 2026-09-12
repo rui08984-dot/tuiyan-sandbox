@@ -91,3 +91,21 @@ cd "E:/music player/p1b/web"            && npm.cmd run build
 cd "E:/music player/docs/sandbox/p1b/itest" && node p22-e2e.mjs      # 期望 E2E_EXIT=0 / FAILS=0
 cd "E:/music player/docs/sandbox/p1b/itest" && node p22-report.cjs   # 期望 VERDICT COUNT=24 FAIL=0
 ```
+
+## 6. 失败复盘（本 turn 8 次工具失败 — 全部为工具链管道问题，非交付物问题）
+
+| # | 失败现象 | 根因类 | 处置 |
+|---|---|---|---|
+| 1 | edit App.tsx 报 "file has not been read" | **B 读态协议** | 必须先 `tools.read` 再 edit（pwsh 读过不算数）→ 已修，后续 edit 全通 |
+| 2-4 | `node -e "..."` 拼接/手术 e2e 脚本：无输出、静默不生效 | **A shell 引号** | PowerShell 嵌套引号吞掉代码 → 改「落 .cjs 文件再 `node .cjs` 执行」→ 一次通过 |
+| 5-6 | pwsh 结果取 `r.text` 得 undefined | **D 结果形状** | pwsh 返回 `{stdout:{text}}` 非字符串 → 统一取 `r.stdout.text` |
+| 7 | `read` 读 p22-e2e-out.txt 返回 "N matches in 2F" 摘要而非原文 | **D 结果形状** | 改由 node 抽取为 `p22-verdicts.json` 再读；纯文本产物一律 extract→JSON |
+| 8 | `read_image` 报模型不支持图像输入 | **C 环境能力（不可修）** | 放弃自读截图，见下方「未宣称」 |
+
+**是否同一根因**：否。A/C 是环境面（A 可绕、C 不可绕），B/D 是工具协议面（已固化正确用法）。
+**是否影响交付物**：否。产物由「构建 + headless CDP 断言 + 落盘 JSON」三路独立复核，均在 A/B 修复**之后**产出。
+
+## 7. 未宣称项（如实划界，防夸大）
+
+- **截图未自检**：`p22-audit-desktop-1280.png` / `p22-audit-mobile-390.png` 已生成（539 KB / 1.94 MB），但本会话模型无图像输入能力，**我无法亲眼确认视觉呈现**。视觉验收请由具备图像能力的 agent 或人工过目。
+- 所有「PASS」均来自 DOM 断言（`document.querySelector` + `innerText`），非视觉判断。
