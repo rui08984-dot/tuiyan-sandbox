@@ -35,6 +35,20 @@ const RESOLVERS = {
   },
   async cwl_ssq_red_contains(r) { return cwlEval(r, (d) => d.red.split(',').indexOf(r.ball) !== -1, 'red 含 ' + r.ball); },
   async cwl_ssq_blue_odd(r) { return cwlEval(r, (d) => d.blue % 2 === 1, 'blue 为奇数'); },
+  // ── forward 批专用 kind（2026-09-12 队长补：前瞻题的事件日多为未来，需 forecast/archive 双通道）──
+  async openmeteo_forecast_daily_max(r) {
+    const today = new Date().toLocaleString('sv-SE', { timeZone: 'Asia/Shanghai', hour12: false }).slice(0, 10);
+    const isArchive = r.date <= today;
+    const base = isArchive ? 'https://archive-api.open-meteo.com/v1/archive' : 'https://api.open-meteo.com/v1/forecast';
+    const u = base + '?latitude=' + r.lat + '&longitude=' + r.lon + '&daily=temperature_2m_max&timezone=Asia%2FShanghai&start_date=' + r.date + '&end_date=' + r.date;
+    let j;
+    try { j = await getJson(u); } catch (e) { if (String(e.message).indexOf('HTTP 400') !== -1) return { pending: 'archive 尚无 ' + r.date + '（ERA5 未入库）' }; throw e; }
+    const v = j.daily && j.daily.temperature_2m_max ? j.daily.temperature_2m_max[0] : null;
+    if (v === null || v === undefined) return { pending: '尚无 ' + r.date + ' 日值' };
+    const ok = r.cmp === '<' ? v < r.threshold_c : v > r.threshold_c;
+    return { outcome: ok ? 'true' : 'false', note: (isArchive ? 'Open-Meteo archive' : 'Open-Meteo forecast') + ' ' + r.date + ' max=' + v + 'C（阈值 ' + r.cmp + r.threshold_c + '，机检）' };
+  },
+  async cwl_ssq_blue_odd_forward(r) { return this.cwl_ssq_blue_odd(r); },
 };
 
 async function cwlEval(r, predicate, what) {
