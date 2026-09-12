@@ -1,0 +1,62 @@
+{
+ "archived_at": "2026-09-12T08:06:32.508Z",
+ "purpose": "切片干验事故归档：judge-runner --slice 验证误用生产库+假 runId=DRYRUNTEST，新 runId 幂等语义（按批计数）导致对既有行免疫、重新生成 3 路判词落库。行本身是真 LLM 输出但批次指纹为测试值，不入任何实验批次，归档后删除。",
+ "row_count": 5,
+ "rows": [
+  {
+   "id": 1379,
+   "prediction_id": 92,
+   "prompt_variant": "v2_skeptical",
+   "temperature": 0.7,
+   "verdict_text": "怀疑派：现有信息不足。6人一夜通常仅2狼，狼伪报好人最多贡献2条；达到≥4还需好人误判或悍跳指狼，且需发言中明确身份断言。缺乏发言文本，不能排除，但倾向不成立。\n\nRange: 20%-45%\nP=0.32",
+   "implied_prob": 0.32,
+   "created_at": "2026-09-12 08:04:19",
+   "model": "tokenrhythm/glm-5.3-flash",
+   "run_id": "DRYRUNTEST"
+  },
+  {
+   "id": 1380,
+   "prediction_id": 92,
+   "prompt_variant": "v3_baserate",
+   "temperature": 1,
+   "verdict_text": "忽略个案细节，直接锚定同类局型历史基率：n=269 中该判据（≥4 条身份断言被结算证伪）成立占比 57.6%，仅略高于五五开，说明“≥4 条”在 6 人一夜局中并非高发但略占优。一夜局存在换牌机制与狼人否认身份的结构性来源，断言集中被证伪具备条件，但计数达到 4 条仍依赖发言密度。无个案信息时维持基率附近，不作显著上下调整。\n\nRange: 50%-65%\nP=0.58",
+   "implied_prob": 0.58,
+   "created_at": "2026-09-12 08:04:37",
+   "model": "tokenrhythm/glm-5.3-flash",
+   "run_id": "DRYRUNTEST"
+  },
+  {
+   "id": 1381,
+   "prediction_id": 96,
+   "prompt_variant": "v1_evidence",
+   "temperature": 0.2,
+   "verdict_text": "正文分析：首发言者为4号。支持判真：4号全场唯一未遭is_wolf指认的发言者，嫌疑集中于2号（被指2次）、5号、1号；4号已自称平民且无重大矛盾。反对判真：投票尚未发生，存在变数；6号对4号公开表露不满（“拿我开刀”），可能分票带节奏；6人局票易分散，平票后随机性不可控；首发言者可能被归为带节奏对象。综合看4号被逐风险显著低于2/5号。\n\nRange: 70%-88%\nP=0.78",
+   "implied_prob": 0.78,
+   "created_at": "2026-09-12 08:04:51",
+   "model": "tokenrhythm/glm-5.3-flash",
+   "run_id": "DRYRUNTEST"
+  },
+  {
+   "id": 1382,
+   "prediction_id": 96,
+   "prompt_variant": "v2_skeptical",
+   "temperature": 0.7,
+   "verdict_text": "反例：首发言者信息最少、陈述易含糊，若被后续对跳或指狼波及，可能成票型焦点。缺口：未知发言顺序、实际票型、平票是否强制放逐。替代解释：六人局随机基线下首发言者被放逐概率仅约1/6，且平票无放逐时判定自动成立，无证据表明早发言系统性高危。倾向：判定成立概率偏高，仅保留首发言者信息弱势导致被票出的风险。\n\nRange: 65%-85%\nP=0.75",
+   "implied_prob": 0.75,
+   "created_at": "2026-09-12 08:05:14",
+   "model": "tokenrhythm/glm-5.3-flash",
+   "run_id": "DRYRUNTEST"
+  },
+  {
+   "id": 1383,
+   "prediction_id": 96,
+   "prompt_variant": "v3_baserate",
+   "temperature": 1,
+   "verdict_text": "仅凭基率视角：同类局型269局中，首位公开发言者未被放逐者占57.6%。一夜狼6人局信息量有限，首位发言者无显著位置劣势，放逐结果接近随机偏移，账本统计可信度尚可（样本量充足）。无个案细节修正，点估计取基率中心略回落以对冲样本异质性与局型漂移风险，区间适度放宽。\n\nRange: 52%-63%\nP=0.58",
+   "implied_prob": 0.58,
+   "created_at": "2026-09-12 08:05:24",
+   "model": "tokenrhythm/glm-5.3-flash",
+   "run_id": "DRYRUNTEST"
+  }
+ ]
+}

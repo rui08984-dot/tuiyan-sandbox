@@ -47,9 +47,20 @@ async function main() {
   const limit = limitArg ? parseInt(limitArg.split('=')[1], 10) : null;
   const selected = (limit && limit > 0) ? preds.slice(0, limit) : preds;
   if (limit) console.log('LIMIT selected=' + selected.length + '/' + preds.length);
+  // 批次2-RC 并行切片（纯工程提速，判据/选题口径不变）：--slice=K/N 按序取模分片（K∈1..N），
+  // 多进程跑不相交子集；幂等由 (pid,variant,temp,runId) 唯一索引兜底；分片参数进日志供对账。
+  const sliceArg = process.argv.find((a) => a.startsWith('--slice='));
+  let selectedFinal = selected;
+  if (sliceArg) {
+    const parts = sliceArg.split('=')[1].split('/').map((x) => parseInt(x, 10));
+    const k = parts[0], n = parts[1];
+    if (!k || !n || k < 1 || k > n) { console.error('BAD --slice=' + sliceArg); process.exit(2); }
+    selectedFinal = selected.filter((_, i) => i % n === k - 1);
+    console.log('SLICE ' + k + '/' + n + ' selected=' + selectedFinal.length + '/' + selected.length);
+  }
   console.log('RUN_ID=' + RUN_ID + (RUN_ID_EXPLICIT ? ' (--runid 显式传入)' : ' (缺省回退旧口径——建议显式 --runid=，防批次指纹污染)'));
   let done = 0, medianed = 0, nulled = 0;
-  for (const p of selected) {
+  for (const p of selectedFinal) {
     // 批次2-RC 纠正：幂等按 runId 计数（三批隔离语义——R-B 行不挡 R-C 批生成；
     // 旧口径 COUNT(*) 不分 runId 致 R-C 全量被 R-B 行跳过，pwsh-8 实证 medianed=2 即此）
     const already = conn.prepare('SELECT COUNT(*) n FROM verdicts WHERE prediction_id = ? AND run_id = ?').get(p.id, RUN_ID).n;
@@ -86,9 +97,9 @@ async function main() {
     conn.prepare('UPDATE predictions SET assigned_prob = ? WHERE id = ?').run(med, p.id);
     if (med === null) nulled++; else medianed++;
     done++;
-    if (done % 10 === 0) console.log('PROGRESS ' + done + '/' + selected.length);
+    if (done % 10 === 0) console.log('PROGRESS ' + done + '/' + selectedFinal.length);
   }
-  console.log('DONE done=' + done + ' medianed=' + medianed + ' nulled=' + nulled);
+  console.log('DONE done=' + done + '/' + selectedFinal.length + ' medianed=' + medianed + ' nulled=' + nulled);
   await app.close();
   try { db.closeCurrent(); } catch (e) {}
 }
