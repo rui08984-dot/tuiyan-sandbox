@@ -1,0 +1,131 @@
+================================================================================
+ 广域源批量出题 · 报告（sources-wide-batch.out）
+ 生成时间：2026-09-12T18:56:41.868Z ｜ 脚本：p1b/scripts/_sources-wide-batch.cjs（即用即删）
+ 落库：p1a.db predictions 表（game_type 前缀 corpus:，source_type=预测卡，layer L2/L3，gate=descriptive）
+================================================================================
+【总量】total=463  forward=183  backfill=280  （同源双出题：每源 backfill 用 cutoff 前分位阈值 + forward 用当前全历史）
+【质量门】基率带=(0.15,0.85)  越界=0  基率范围=[0.3000, 0.7527]
+          prob=历史基率现算（pickTh：候选分位 0.5/0.6/0.4/0.7/0.3 中筛 (0.15,0.85)，按 seed 轮换防常数基率游戏）
+          resolve 缺 URL/field 的题数=0（应为 0）
+          statement 前缀校验：forward 183 + backfill 280 = 463（无第三种前缀）
+          cutoff 早于事件：463/463 通过（逐题读 evidence.meta.cutoff 与目标期比对，含月末/周末/年末边界）
+          重复 slug=0（幂等键 = 同局 + 归一化 statement）
+
+【分域产量】（15 个域落地；域2/14/16/17/19 未出题，理由见 sources-wide-probe.out）
+  域  题数  fwd  bf   基率区间
+  10air       84   36  48   [0.3017, 0.7069]
+  11econ      15    6   9   [0.3053, 0.7181]
+  12crypto    24    9  15   [0.3000, 0.7000]
+  13net        5    2   3   [0.3000, 0.7143]
+  15power     30   21   9   [0.3000, 0.7368]
+  18edu        9    3   6   [0.3000, 0.6364]
+  1sports      7    3   4   [0.3125, 0.7234]
+  20weather  176   75 101   [0.3021, 0.7527]
+  3transit     7    3   4   [0.3000, 0.6020]
+  4health      9    3   6   [0.3077, 0.7170]
+  5agri       16    0  16   [0.3016, 0.7097]
+  6energy     28    0  28   [0.3016, 0.7101]
+  7scitech     5    2   3   [0.3750, 0.5714]
+  8astro       6    2   4   [0.3002, 0.7008]
+  9ocean      42   18  24   [0.3000, 0.7097]
+
+【分引擎明细】（37 个 engine）
+  · crossref_weekly_doi_baserate  n=3 layer=L2 基率[0.4000,0.5714]
+      【backfill】Crossref 2026-08-23~2026-08-29 一周新注册 DOI 数 >= 246479 条
+  · crossref_weekly_doi_baserate_forward  n=2 layer=L2 基率[0.3750,0.5000]
+      【forward】Crossref 2026-09-14~2026-09-20 一周新注册 DOI 数 >= 255924 条
+  · cta_daily_rides_baserate  n=4 layer=L2 基率[0.3015,0.6020]
+      【backfill】芝加哥 CTA 2026-06-27 全系统总乘车量 >= 1064991 人次
+  · cta_daily_rides_baserate_forward  n=3 layer=L2 基率[0.3000,0.5000]
+      【forward】芝加哥 CTA 2026-09-14 全系统总乘车量 >= 1088142 人次
+  · delphi_fluview_ili_baserate  n=6 layer=L2 基率[0.3077,0.7170]
+      【backfill】美国 CDC FluView 202630 周（MMWR）ILI 就诊量 >= 42083 人次
+  · delphi_fluview_ili_baserate_forward  n=3 layer=L2 基率[0.5088,0.7018]
+      【forward】美国 CDC FluView 202638 周（MMWR）ILI 就诊量 >= 37661 人次
+  · elexon_fuelhh_daily_mean_baserate  n=9 layer=L2 基率[0.3125,0.6471]
+      【backfill】英国电网 2026-09-09 日「风电」发电均值 >= 9484 MW（Elexon FUELHH）
+  · elexon_fuelhh_daily_mean_baserate_forward  n=6 layer=L2 基率[0.3158,0.7368]
+      【forward】英国电网 2026-09-14 日「风电」发电均值 >= 9306 MW（Elexon FUELHH）
+  · energycharts_de_daily_mean_baserate  n=20 layer=L2 基率[0.3030,0.7101]
+      【backfill】德国电网 2026-09-09 日「Hydro Run-of-River」发电均值 >= 1502 MW（Energy-Charts）
+  · energycharts_de_daily_mean_baserate_forward  n=15 layer=L2 基率[0.3000,0.7000]
+      【forward】德国电网 2026-09-14 日「Hydro Run-of-River」发电均值 >= 1330 MW（Energy-Charts）
+  · eurostat_tertiary_attain_baserate  n=6 layer=L2 基率[0.3000,0.5556]
+      【backfill】Eurostat 德国 2023 年 25-74 岁高等教育人口占比（%） >= 16.9
+  · eurostat_tertiary_attain_baserate_forward  n=3 layer=L2 基率[0.3636,0.6364]
+      【forward】Eurostat 德国 2026 年 25-74 岁高等教育人口占比（%） >= 20.4
+  · eurostat_unemployment_monthly_baserate  n=9 layer=L2 基率[0.3053,0.7156]
+      【backfill】Eurostat 德国 2025-09 月失业率（%） <= 3.70
+  · eurostat_unemployment_monthly_baserate_forward  n=6 layer=L2 基率[0.3127,0.7181]
+      【forward】Eurostat 德国 2026-09 月失业率（%） <= 3.70
+  · ghcn_daily_tmax_baserate  n=9 layer=L3 基率[0.3040,0.7507]
+      【backfill】NCEI GHCN 纽约中央公园（USW00094728） 2026-09-06 日最高气温 >= 65.0 °F
+  · ghcn_daily_tmax_baserate_forward  n=6 layer=L3 基率[0.3059,0.7527]
+      【forward】NCEI GHCN 纽约中央公园（USW00094728） 2026-09-15 日最高气温 >= 73.0 °F
+  · kraken_daily_close_baserate  n=15 layer=L2 基率[0.3026,0.6076]
+      【backfill】Kraken SOL/USD 2026-09-08（UTC 日）日线收盘 >= 75.94 USD
+  · kraken_daily_close_baserate_forward  n=9 layer=L2 基率[0.3000,0.7000]
+      【forward】Kraken SOL/USD 2026-09-14（UTC 日）日线收盘 >= 75.29 USD
+  · mlb_daily_total_runs_baserate  n=4 layer=L2 基率[0.3125,0.7234]
+      【backfill】MLB 2026-09-08 全部已完赛比赛总得分 >= 119 分（15 场）
+  · mlb_daily_total_runs_baserate_forward  n=3 layer=L2 基率[0.4082,0.7143]
+      【forward】MLB 2026-09-14 全部已完赛比赛总得分 >= 127 分
+  · noaa_ssn_monthly_baserate  n=4 layer=L3 基率[0.3002,0.7008]
+      【backfill】NOAA 太阳黑子数 2026-05 月均值 >= 109.9
+  · noaa_ssn_monthly_baserate_forward  n=2 layer=L3 基率[0.3004,0.4010]
+      【forward】NOAA 太阳黑子数 2026-09 月均值 >= 87.2
+  · noaa_tide_daily_high_baserate  n=24 layer=L2 基率[0.3226,0.7097]
+      【backfill】NOAA 波士顿站（8443970） 2026-09-08 当日潮位最高小时值 >= 1.467 m（MSL）
+  · noaa_tide_daily_high_baserate_forward  n=18 layer=L2 基率[0.3000,0.7000]
+      【forward】NOAA 波士顿站（8443970） 2026-09-14 当日潮位最高小时值 >= 1.626 m（MSL）
+  · nvd_cve_weekly_count_baserate  n=3 layer=L2 基率[0.5000,0.7143]
+      【backfill】NVD 2026-08-09~2026-08-15 一周新发布 CVE 数 >= 1852 条
+  · nvd_cve_weekly_count_baserate_forward  n=2 layer=L2 基率[0.3000,0.6000]
+      【forward】NVD 2026-09-14~2026-09-20 一周新发布 CVE 数 >= 2056 条
+  · openmeteo_ozone_baserate  n=24 layer=L3 基率[0.3017,0.7069]
+      【backfill】伦敦 2026-09-08 日 臭氧 日均浓度 <= 66.3 μg/m³
+  · openmeteo_ozone_baserate_forward  n=18 layer=L3 基率[0.3058,0.7025]
+      【forward】伦敦 2026-09-14 日 臭氧 日均浓度 <= 65.5 μg/m³
+  · openmeteo_pm2_5_baserate  n=24 layer=L3 基率[0.3017,0.7069]
+      【backfill】伦敦 2026-09-08 日 PM2.5 日均浓度 <= 6.4 μg/m³
+  · openmeteo_pm2_5_baserate_forward  n=18 layer=L3 基率[0.3058,0.7025]
+      【forward】伦敦 2026-09-14 日 PM2.5 日均浓度 <= 4.6 μg/m³
+  · openmeteo_wx_precipitation_sum_baserate  n=28 layer=L3 基率[0.3021,0.7113]
+      【backfill】柏林 2026-09-08 日降水量 <= 2.1 mm（Open-Meteo ERA5）
+  · openmeteo_wx_precipitation_sum_baserate_forward  n=21 layer=L3 基率[0.3030,0.7172]
+      【forward】柏林 2026-09-16 日降水量 <= 1.1 mm（Open-Meteo 预报）
+  · openmeteo_wx_sunshine_duration_baserate  n=32 layer=L3 基率[0.3053,0.7083]
+      【backfill】柏林 2026-09-08 日照时数 >= 52304.6 s（Open-Meteo ERA5）
+  · openmeteo_wx_sunshine_duration_baserate_forward  n=24 layer=L3 基率[0.3030,0.7071]
+      【forward】柏林 2026-09-16 日照时数 >= 50430.0 s（Open-Meteo 预报）
+  · openmeteo_wx_wind_speed_10m_max_baserate  n=32 layer=L3 基率[0.3021,0.7188]
+      【backfill】柏林 2026-09-08 日最大风速 >= 17.0 km/h（Open-Meteo ERA5）
+  · openmeteo_wx_wind_speed_10m_max_baserate_forward  n=24 layer=L3 基率[0.3030,0.7273]
+      【forward】柏林 2026-09-16 日最大风速 >= 18.8 km/h（Open-Meteo 预报）
+  · wb_commodity_annual_baserate  n=24 layer=L2 基率[0.3016,0.7097]
+      【backfill】World Bank 商品价格 小麦(US HRW) 2022 年均价 >= 185.12 USD/mt
+【样例（3 条 · 直接摘自 p1a.db，含完整 resolve 参数）】
+ 1) 【backfill】NOAA 波士顿站（8443970） 2026-09-08 当日潮位最高小时值 >= 1.467 m（MSL）  prob=0.7000
+    resolve: { kind: 'noaa_tide_daily_max',
+      url_template: 'https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?product=predictions&application=dsh-probe&begin_date={date_nodash}&end_date={date_nodash}&datum=MSL&station=8443970&time_zone=gmt&units=metric&interval=h&format=json',
+      station: '8443970', date: '2026-09-08', threshold: 1.467, cmp: '>=',
+      field: 'body.predictions[].v 当日最大（m, MSL, GMT 日）' }
+    cutoff: 2026-09-07T23:59:59+08:00（严格早于 09-08 目标日）｜dom=9ocean
+ 2) 【backfill】NOAA 波士顿站（8443970） 2026-09-10 当日潮位最高小时值 >= 1.592 m（MSL）  prob=0.4063
+    resolve 同上（station=8443970, date=2026-09-10, threshold=1.592）
+    cutoff: 2026-09-09T23:59:59+08:00｜同源同标的、不同目标日 → 阈值不同、基率不同（0.70 vs 0.41）
+ 3) 【backfill】NOAA 波士顿站（8443970） 2026-09-11 当日潮位最高小时值 >= 1.514 m（MSL）  prob=0.6061
+    cutoff: 2026-09-10T23:59:59+08:00｜dom=9ocean
+ （forward 样例见 sources-wide-batch.json 的 by_engine[].sample；例如
+   【forward】德国电网 2026-09-15 日「Solar」发电均值 >= 12480 MW → Energy-Charts public_power，
+   【forward】东京 2026-09-17 日降水量 <= 0.6 mm → Open-Meteo forecast daily.precipitation_sum[0]）
+================================================================================
+【本批新增的写法要点 / 踩坑（相对 corpus-sources-b3.cjs）】
+ 1) 本脚本不 require corpus-sources-b3.cjs —— 该文件模块顶层直接调 main()，require 会连带执行并把
+    corpus-sources-b3.out/.rows.json 覆盖掉。改为逐字同源拷贝 jget/pickTh/quantile/inBand/pct/isoOf/addDays/bkCut。
+ 2) 所有 forward 的 cutoff 一律取 RUN_AT（落库时点），目标期取「未来」；对月/年粒度源另加 nextFwdMonths()
+    守卫（月末必须 > TODAY），避免「目标月已过完」这类伪前瞻（本批实测揪出并修正 3 条）。
+ 3) 月/年/周粒度源需各自的解析器：wbAnnual（年）、wbMonthly（YYYY-MM）、epiOf（MMWR 周）。
+    早期版本误把年粒度当月度用，已整批删除重建。
+ 4) 幂等键 = 同局 + 归一化 statement（抹 cutoff），重跑不重复落卡；本批先 DELETE 后 INSERT 保证干净。
+================================================================================

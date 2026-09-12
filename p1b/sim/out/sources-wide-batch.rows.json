@@ -1,0 +1,437 @@
+[
+ {
+  "gameType": "corpus:econ",
+  "layer": "L2",
+  "engine": "eurostat_unemployment_monthly_baserate",
+  "phase": "backfill",
+  "slug": "euune.M.NSA.TOTAL.PC_ACT.T.DE.2025-09",
+  "prob": 0.4107,
+  "statement": "【backfill】Eurostat 德国 2025-09 月失业率（%） <= 3.70",
+  "baseRateNote": "回填·德国：cutoff 前 224 个月失业率中 <= 3.70 占 41.1%（分位 q=0.4）",
+  "resolve": {
+   "kind": "dbnomics_eurostat_unemployment_monthly",
+   "url_template": "https://api.db.nomics.world/v22/series/Eurostat/une_rt_m/M.NSA.TOTAL.PC_ACT.T.DE?observations=1",
+   "series_code": "M.NSA.TOTAL.PC_ACT.T.DE",
+   "month": "2025-09",
+   "threshold": 3.7,
+   "cmp": "<=",
+   "field": "body.series.docs[0] 中 period==month 的 value（%）"
+  },
+  "truthPreview": "实测=4 → false",
+  "meta": {
+   "dom": "11econ",
+   "series_code": "M.NSA.TOTAL.PC_ACT.T.DE",
+   "month": "2025-09",
+   "threshold": 3.7,
+   "cutoff": "2025-08-31T23:59:59+08:00",
+   "phase": "backfill",
+   "pub_lag_months": 1
+  }
+ },
+ {
+  "gameType": "corpus:econ",
+  "layer": "L2",
+  "engine": "eurostat_unemployment_monthly_baserate",
+  "phase": "backfill",
+  "slug": "euune.M.NSA.TOTAL.PC_ACT.T.DE.2025-10",
+  "prob": 0.7156,
+  "statement": "【backfill】Eurostat 德国 2025-10 月失业率（%） <= 5.10",
+  "baseRateNote": "回填·德国：cutoff 前 225 个月失业率中 <= 5.10 占 71.6%（分位 q=0.7）",
+  "resolve": {
+   "kind": "dbnomics_eurostat_unemployment_monthly",
+   "url_template": "https://api.db.nomics.world/v22/series/Eurostat/une_rt_m/M.NSA.TOTAL.PC_ACT.T.DE?observations=1",
+   "series_code": "M.NSA.TOTAL.PC_ACT.T.DE",
+   "month": "2025-10",
+   "threshold": 5.1,
+   "cmp": "<=",
+   "field": "body.series.docs[0] 中 period==month 的 value（%）"
+  },
+  "truthPreview": "实测=3.5 → true",
+  "meta": {
+   "dom": "11econ",
+   "series_code": "M.NSA.TOTAL.PC_ACT.T.DE",
+   "month": "2025-10",
+   "threshold": 5.1,
+   "cutoff": "2025-09-30T23:59:59+08:00",
+   "phase": "backfill",
+   "pub_lag_months": 1
+  }
+ },
+ {
+  "gameType": "corpus:econ",
+  "layer": "L2",
+  "engine": "eurostat_unemployment_monthly_baserate",
+  "phase": "backfill",
+  "slug": "euune.M.NSA.TOTAL.PC_ACT.T.DE.2025-11",
+  "prob": 0.3053,
+  "statement": "【backfill】Eurostat 德国 2025-11 月失业率（%） <= 3.40",
+  "baseRateNote": "回填·德国：cutoff 前 226 个月失业率中 <= 3.40 占 30.5%（分位 q=0.3）",
+  "resolve": {
+   "kind": "dbnomics_eurostat_unemployment_monthly",
+   "url_template": "https://api.db.nomics.world/v22/series/Eurostat/une_rt_m/M.NSA.TOTAL.PC_ACT.T.DE?observations=1",
+   "series_code": "M.NSA.TOTAL.PC_ACT.T.DE",
+   "month": "2025-11",
+   "threshold": 3.4,
+   "cmp": "<=",
+   "field": "body.series.docs[0] 中 period==month 的 value（%）"
+  },
+  "truthPreview": "实测=3.7 → false",
+  "meta": {
+   "dom": "11econ",
+   "series_code": "M.NSA.TOTAL.PC_ACT.T.DE",
+   "month": "2025-11",
+   "threshold": 3.4,
+   "cutoff": "2025-10-31T23:59:59+08:00",
+   "phase": "backfill",
+   "pub_lag_months": 1
+  }
+ },
+ {
+  "gameType": "corpus:econ",
+  "layer": "L2",
+  "engine": "eurostat_unemployment_monthly_baserate_forward",
+  "phase": "forward",
+  "slug": "euune.M.NSA.TOTAL.PC_ACT.T.DE.2026-09",
+  "prob": 0.4141,
+  "statement": "【forward】Eurostat 德国 2026-09 月失业率（%） <= 3.70",
+  "baseRateNote": "前瞻·德国：已发布 227 个月（2007-01~2025-11，官方直连已到 2026-07）失业率中 <= 3.70 占 41.4%（分位 q=0.4，pre-cutoff）",
+  "resolve": {
+   "kind": "eurostat_live_unemployment_monthly",
+   "url_template": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/une_rt_m?format=JSON&geo=DE&s_adj=SA&unit=PC_ACT&sex=T&age=TOTAL&lastTimePeriod={last_n}",
+   "geo": "DE",
+   "month": "2026-09",
+   "threshold": 3.7,
+   "cmp": "<=",
+   "field": "官方直连 body.dimension.time.category.index 反查 month → body.value[该索引]（%）"
+  },
+  "meta": {
+   "dom": "11econ",
+   "geo": "DE",
+   "month": "2026-09",
+   "threshold": 3.7,
+   "cutoff": "2026-09-13T02:55:58+08:00",
+   "phase": "forward",
+   "pub_lag_months": 1,
+   "anchor_live_last": "2026-07"
+  }
+ },
+ {
+  "gameType": "corpus:econ",
+  "layer": "L2",
+  "engine": "eurostat_unemployment_monthly_baserate_forward",
+  "phase": "forward",
+  "slug": "euune.M.NSA.TOTAL.PC_ACT.T.DE.2026-10",
+  "prob": 0.7181,
+  "statement": "【forward】Eurostat 德国 2026-10 月失业率（%） <= 5.10",
+  "baseRateNote": "前瞻·德国：已发布 227 个月（2007-01~2025-11，官方直连已到 2026-07）失业率中 <= 5.10 占 71.8%（分位 q=0.7，pre-cutoff）",
+  "resolve": {
+   "kind": "eurostat_live_unemployment_monthly",
+   "url_template": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/une_rt_m?format=JSON&geo=DE&s_adj=SA&unit=PC_ACT&sex=T&age=TOTAL&lastTimePeriod={last_n}",
+   "geo": "DE",
+   "month": "2026-10",
+   "threshold": 5.1,
+   "cmp": "<=",
+   "field": "官方直连 body.dimension.time.category.index 反查 month → body.value[该索引]（%）"
+  },
+  "meta": {
+   "dom": "11econ",
+   "geo": "DE",
+   "month": "2026-10",
+   "threshold": 5.1,
+   "cutoff": "2026-09-13T02:55:58+08:00",
+   "phase": "forward",
+   "pub_lag_months": 1,
+   "anchor_live_last": "2026-07"
+  }
+ },
+ {
+  "gameType": "corpus:econ",
+  "layer": "L2",
+  "engine": "eurostat_unemployment_monthly_baserate",
+  "phase": "backfill",
+  "slug": "euune.M.NSA.TOTAL.PC_ACT.T.FR.2025-09",
+  "prob": 0.4191,
+  "statement": "【backfill】Eurostat 法国 2025-09 月失业率（%） <= 8.50",
+  "baseRateNote": "回填·法国：cutoff 前 272 个月失业率中 <= 8.50 占 41.9%（分位 q=0.4）",
+  "resolve": {
+   "kind": "dbnomics_eurostat_unemployment_monthly",
+   "url_template": "https://api.db.nomics.world/v22/series/Eurostat/une_rt_m/M.NSA.TOTAL.PC_ACT.T.FR?observations=1",
+   "series_code": "M.NSA.TOTAL.PC_ACT.T.FR",
+   "month": "2025-09",
+   "threshold": 8.5,
+   "cmp": "<=",
+   "field": "body.series.docs[0] 中 period==month 的 value（%）"
+  },
+  "truthPreview": "实测=7.8 → true",
+  "meta": {
+   "dom": "11econ",
+   "series_code": "M.NSA.TOTAL.PC_ACT.T.FR",
+   "month": "2025-09",
+   "threshold": 8.5,
+   "cutoff": "2025-08-31T23:59:59+08:00",
+   "phase": "backfill",
+   "pub_lag_months": 1
+  }
+ },
+ {
+  "gameType": "corpus:econ",
+  "layer": "L2",
+  "engine": "eurostat_unemployment_monthly_baserate",
+  "phase": "backfill",
+  "slug": "euune.M.NSA.TOTAL.PC_ACT.T.FR.2025-10",
+  "prob": 0.3077,
+  "statement": "【backfill】Eurostat 法国 2025-10 月失业率（%） <= 8.10",
+  "baseRateNote": "回填·法国：cutoff 前 273 个月失业率中 <= 8.10 占 30.8%（分位 q=0.3）",
+  "resolve": {
+   "kind": "dbnomics_eurostat_unemployment_monthly",
+   "url_template": "https://api.db.nomics.world/v22/series/Eurostat/une_rt_m/M.NSA.TOTAL.PC_ACT.T.FR?observations=1",
+   "series_code": "M.NSA.TOTAL.PC_ACT.T.FR",
+   "month": "2025-10",
+   "threshold": 8.1,
+   "cmp": "<=",
+   "field": "body.series.docs[0] 中 period==month 的 value（%）"
+  },
+  "truthPreview": "实测=7.9 → true",
+  "meta": {
+   "dom": "11econ",
+   "series_code": "M.NSA.TOTAL.PC_ACT.T.FR",
+   "month": "2025-10",
+   "threshold": 8.1,
+   "cutoff": "2025-09-30T23:59:59+08:00",
+   "phase": "backfill",
+   "pub_lag_months": 1
+  }
+ },
+ {
+  "gameType": "corpus:econ",
+  "layer": "L2",
+  "engine": "eurostat_unemployment_monthly_baserate",
+  "phase": "backfill",
+  "slug": "euune.M.NSA.TOTAL.PC_ACT.T.FR.2025-11",
+  "prob": 0.7153,
+  "statement": "【backfill】Eurostat 法国 2025-11 月失业率（%） <= 9.40",
+  "baseRateNote": "回填·法国：cutoff 前 274 个月失业率中 <= 9.40 占 71.5%（分位 q=0.7）",
+  "resolve": {
+   "kind": "dbnomics_eurostat_unemployment_monthly",
+   "url_template": "https://api.db.nomics.world/v22/series/Eurostat/une_rt_m/M.NSA.TOTAL.PC_ACT.T.FR?observations=1",
+   "series_code": "M.NSA.TOTAL.PC_ACT.T.FR",
+   "month": "2025-11",
+   "threshold": 9.4,
+   "cmp": "<=",
+   "field": "body.series.docs[0] 中 period==month 的 value（%）"
+  },
+  "truthPreview": "实测=7.8 → true",
+  "meta": {
+   "dom": "11econ",
+   "series_code": "M.NSA.TOTAL.PC_ACT.T.FR",
+   "month": "2025-11",
+   "threshold": 9.4,
+   "cutoff": "2025-10-31T23:59:59+08:00",
+   "phase": "backfill",
+   "pub_lag_months": 1
+  }
+ },
+ {
+  "gameType": "corpus:econ",
+  "layer": "L2",
+  "engine": "eurostat_unemployment_monthly_baserate_forward",
+  "phase": "forward",
+  "slug": "euune.M.NSA.TOTAL.PC_ACT.T.FR.2026-09",
+  "prob": 0.4255,
+  "statement": "【forward】Eurostat 法国 2026-09 月失业率（%） <= 8.50",
+  "baseRateNote": "前瞻·法国：已发布 275 个月（2003-01~2025-11，官方直连已到 2026-07）失业率中 <= 8.50 占 42.5%（分位 q=0.4，pre-cutoff）",
+  "resolve": {
+   "kind": "eurostat_live_unemployment_monthly",
+   "url_template": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/une_rt_m?format=JSON&geo=FR&s_adj=SA&unit=PC_ACT&sex=T&age=TOTAL&lastTimePeriod={last_n}",
+   "geo": "FR",
+   "month": "2026-09",
+   "threshold": 8.5,
+   "cmp": "<=",
+   "field": "官方直连 body.dimension.time.category.index 反查 month → body.value[该索引]（%）"
+  },
+  "meta": {
+   "dom": "11econ",
+   "geo": "FR",
+   "month": "2026-09",
+   "threshold": 8.5,
+   "cutoff": "2026-09-13T02:55:58+08:00",
+   "phase": "forward",
+   "pub_lag_months": 1,
+   "anchor_live_last": "2026-07"
+  }
+ },
+ {
+  "gameType": "corpus:econ",
+  "layer": "L2",
+  "engine": "eurostat_unemployment_monthly_baserate_forward",
+  "phase": "forward",
+  "slug": "euune.M.NSA.TOTAL.PC_ACT.T.FR.2026-10",
+  "prob": 0.3127,
+  "statement": "【forward】Eurostat 法国 2026-10 月失业率（%） <= 8.10",
+  "baseRateNote": "前瞻·法国：已发布 275 个月（2003-01~2025-11，官方直连已到 2026-07）失业率中 <= 8.10 占 31.3%（分位 q=0.3，pre-cutoff）",
+  "resolve": {
+   "kind": "eurostat_live_unemployment_monthly",
+   "url_template": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/une_rt_m?format=JSON&geo=FR&s_adj=SA&unit=PC_ACT&sex=T&age=TOTAL&lastTimePeriod={last_n}",
+   "geo": "FR",
+   "month": "2026-10",
+   "threshold": 8.1,
+   "cmp": "<=",
+   "field": "官方直连 body.dimension.time.category.index 反查 month → body.value[该索引]（%）"
+  },
+  "meta": {
+   "dom": "11econ",
+   "geo": "FR",
+   "month": "2026-10",
+   "threshold": 8.1,
+   "cutoff": "2026-09-13T02:55:58+08:00",
+   "phase": "forward",
+   "pub_lag_months": 1,
+   "anchor_live_last": "2026-07"
+  }
+ },
+ {
+  "gameType": "corpus:econ",
+  "layer": "L2",
+  "engine": "eurostat_unemployment_monthly_baserate",
+  "phase": "backfill",
+  "slug": "euune.M.NSA.TOTAL.PC_ACT.T.ES.2025-09",
+  "prob": 0.6004,
+  "statement": "【backfill】Eurostat 西班牙 2025-09 月失业率（%） <= 17.70",
+  "baseRateNote": "回填·西班牙：cutoff 前 473 个月失业率中 <= 17.70 占 60.0%（分位 q=0.6）",
+  "resolve": {
+   "kind": "dbnomics_eurostat_unemployment_monthly",
+   "url_template": "https://api.db.nomics.world/v22/series/Eurostat/une_rt_m/M.NSA.TOTAL.PC_ACT.T.ES?observations=1",
+   "series_code": "M.NSA.TOTAL.PC_ACT.T.ES",
+   "month": "2025-09",
+   "threshold": 17.7,
+   "cmp": "<=",
+   "field": "body.series.docs[0] 中 period==month 的 value（%）"
+  },
+  "truthPreview": "实测=10.6 → true",
+  "meta": {
+   "dom": "11econ",
+   "series_code": "M.NSA.TOTAL.PC_ACT.T.ES",
+   "month": "2025-09",
+   "threshold": 17.7,
+   "cutoff": "2025-08-31T23:59:59+08:00",
+   "phase": "backfill",
+   "pub_lag_months": 1
+  }
+ },
+ {
+  "gameType": "corpus:econ",
+  "layer": "L2",
+  "engine": "eurostat_unemployment_monthly_baserate",
+  "phase": "backfill",
+  "slug": "euune.M.NSA.TOTAL.PC_ACT.T.ES.2025-10",
+  "prob": 0.5042,
+  "statement": "【backfill】Eurostat 西班牙 2025-10 月失业率（%） <= 16.10",
+  "baseRateNote": "回填·西班牙：cutoff 前 474 个月失业率中 <= 16.10 占 50.4%（分位 q=0.5）",
+  "resolve": {
+   "kind": "dbnomics_eurostat_unemployment_monthly",
+   "url_template": "https://api.db.nomics.world/v22/series/Eurostat/une_rt_m/M.NSA.TOTAL.PC_ACT.T.ES?observations=1",
+   "series_code": "M.NSA.TOTAL.PC_ACT.T.ES",
+   "month": "2025-10",
+   "threshold": 16.1,
+   "cmp": "<=",
+   "field": "body.series.docs[0] 中 period==month 的 value（%）"
+  },
+  "truthPreview": "实测=10.4 → true",
+  "meta": {
+   "dom": "11econ",
+   "series_code": "M.NSA.TOTAL.PC_ACT.T.ES",
+   "month": "2025-10",
+   "threshold": 16.1,
+   "cutoff": "2025-09-30T23:59:59+08:00",
+   "phase": "backfill",
+   "pub_lag_months": 1
+  }
+ },
+ {
+  "gameType": "corpus:econ",
+  "layer": "L2",
+  "engine": "eurostat_unemployment_monthly_baserate",
+  "phase": "backfill",
+  "slug": "euune.M.NSA.TOTAL.PC_ACT.T.ES.2025-11",
+  "prob": 0.7032,
+  "statement": "【backfill】Eurostat 西班牙 2025-11 月失业率（%） <= 19.40",
+  "baseRateNote": "回填·西班牙：cutoff 前 475 个月失业率中 <= 19.40 占 70.3%（分位 q=0.7）",
+  "resolve": {
+   "kind": "dbnomics_eurostat_unemployment_monthly",
+   "url_template": "https://api.db.nomics.world/v22/series/Eurostat/une_rt_m/M.NSA.TOTAL.PC_ACT.T.ES?observations=1",
+   "series_code": "M.NSA.TOTAL.PC_ACT.T.ES",
+   "month": "2025-11",
+   "threshold": 19.4,
+   "cmp": "<=",
+   "field": "body.series.docs[0] 中 period==month 的 value（%）"
+  },
+  "truthPreview": "实测=10.2 → true",
+  "meta": {
+   "dom": "11econ",
+   "series_code": "M.NSA.TOTAL.PC_ACT.T.ES",
+   "month": "2025-11",
+   "threshold": 19.4,
+   "cutoff": "2025-10-31T23:59:59+08:00",
+   "phase": "backfill",
+   "pub_lag_months": 1
+  }
+ },
+ {
+  "gameType": "corpus:econ",
+  "layer": "L2",
+  "engine": "eurostat_unemployment_monthly_baserate_forward",
+  "phase": "forward",
+  "slug": "euune.M.NSA.TOTAL.PC_ACT.T.ES.2026-09",
+  "prob": 0.6029,
+  "statement": "【forward】Eurostat 西班牙 2026-09 月失业率（%） <= 17.70",
+  "baseRateNote": "前瞻·西班牙：已发布 476 个月（1986-04~2025-11，官方直连已到 2026-07）失业率中 <= 17.70 占 60.3%（分位 q=0.6，pre-cutoff）",
+  "resolve": {
+   "kind": "eurostat_live_unemployment_monthly",
+   "url_template": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/une_rt_m?format=JSON&geo=ES&s_adj=SA&unit=PC_ACT&sex=T&age=TOTAL&lastTimePeriod={last_n}",
+   "geo": "ES",
+   "month": "2026-09",
+   "threshold": 17.7,
+   "cmp": "<=",
+   "field": "官方直连 body.dimension.time.category.index 反查 month → body.value[该索引]（%）"
+  },
+  "meta": {
+   "dom": "11econ",
+   "geo": "ES",
+   "month": "2026-09",
+   "threshold": 17.7,
+   "cutoff": "2026-09-13T02:55:58+08:00",
+   "phase": "forward",
+   "pub_lag_months": 1,
+   "anchor_live_last": "2026-07"
+  }
+ },
+ {
+  "gameType": "corpus:econ",
+  "layer": "L2",
+  "engine": "eurostat_unemployment_monthly_baserate_forward",
+  "phase": "forward",
+  "slug": "euune.M.NSA.TOTAL.PC_ACT.T.ES.2026-10",
+  "prob": 0.5063,
+  "statement": "【forward】Eurostat 西班牙 2026-10 月失业率（%） <= 16.10",
+  "baseRateNote": "前瞻·西班牙：已发布 476 个月（1986-04~2025-11，官方直连已到 2026-07）失业率中 <= 16.10 占 50.6%（分位 q=0.5，pre-cutoff）",
+  "resolve": {
+   "kind": "eurostat_live_unemployment_monthly",
+   "url_template": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/une_rt_m?format=JSON&geo=ES&s_adj=SA&unit=PC_ACT&sex=T&age=TOTAL&lastTimePeriod={last_n}",
+   "geo": "ES",
+   "month": "2026-10",
+   "threshold": 16.1,
+   "cmp": "<=",
+   "field": "官方直连 body.dimension.time.category.index 反查 month → body.value[该索引]（%）"
+  },
+  "meta": {
+   "dom": "11econ",
+   "geo": "ES",
+   "month": "2026-10",
+   "threshold": 16.1,
+   "cutoff": "2026-09-13T02:55:58+08:00",
+   "phase": "forward",
+   "pub_lag_months": 1,
+   "anchor_live_last": "2026-07"
+  }
+ }
+]

@@ -1,0 +1,386 @@
+...........
+TOTAL 143 | STRICT_OK 43 | JSON200 68 | HTTP200 76
+=== STRICT OK (可无key机检) ===
+spo.mlb | 200 | j1 | s1 | nokey | 2026-09-12 | 19867B | MLB官方-赛程比分
+spo.nhl | 200 | j1 | s1 | nokey | 2026-09-19 | 2498B | NHL官方-比分
+spo.espn | 200 | j1 | s1 | nokey | 2027-06-01 | 2243B | ESPN-足球比分
+spo.bsc | 200 | j1 | s1 | nokey | 2025-02-02 | 15768B | openligadb-德甲
+air.opensky | 200 | j1 | s1 | nokey | - | 1543370B | OpenSky-全部航班状态
+tra.tfl | 200 | j1 | s1 | nokey | 2029-09-09 | 94184B | TfL-伦敦地铁客流
+tra.sfmta | 200 | j1 | s1 | nokey | 2026-09-16 | 3350B | SFMTA-停车/交通
+hea.cdcnrev | 200 | j1 | s1 | nokey | 2023-09-27 | 1982B | CDC-NREV死亡率
+hea.who | 200 | j1 | s1 | nokey | 2025-12-19 | 1868B | WHO-GHO疟疾
+agr.worldbank | 200 | j1 | s1 | nokey | 2026-07-13 | 736B | WorldBank-农业原料价
+ene.uk | 200 | j1 | s1 | nokey | 2026-09-12 | 329B | UK国家电网-发电组合
+ene.ci | 200 | j1 | s1 | nokey | 2026-09-11 | 191B | CarbonIntensity-碳强度
+sci.ghr | 200 | j1 | s1 | nokey | 2026-09-09 | 69361B | GitHub-发布数(repo)
+sci.ghc | 200 | j1 | s1 | nokey | 2026-09-12 | 15250B | GitHub-提交活动
+sci.crossref | 200 | j1 | s1 | nokey | 2026-09-09 | 3947B | Crossref-注册DOI数
+sci.hf | 200 | j1 | s1 | nokey | 2023-09-12 | 2660B | HuggingFace-模型下载
+ast.sw | 200 | j1 | s1 | nokey | 2026-09-12 | 4802B | NOAA-SpaceWeather地磁
+ast.sw3 | 200 | j1 | s1 | nokey | 2026-09-12 | 59B | SWPC-太阳风
+sea.coast | 200 | j1 | s1 | nokey | - | 7119B | CoastWatch-海温异常
+aq.om_hist | 200 | j1 | s1 | nokey | 2026-09-12 | 9958B | OM-北京PM2.5历史
+aq.om_eu | 200 | j1 | s1 | nokey | 2026-09-16 | 6544B | OM-巴黎AQI
+aq.om_fc | 200 | j1 | s1 | nokey | 2026-09-16 | 3533B | OM-上海AQI预报
+aq.om_us | 200 | j1 | s1 | nokey | 2026-09-14 | 4897B | OM-洛杉矶US-AQI
+eco.db_cpi | 200 | j1 | s1 | nokey | 2026-01-22 | 34342B | DBnomics-欧元区HICP
+eco.db_ecb | 200 | j1 | s1 | nokey | 2026-07-25 | 71619B | DBnomics-ECB利率
+eco.db_oecd | 200 | j1 | s1 | nokey | 2026-06-16 | 7590B | DBnomics-OECD领先指标
+eco.wb | 200 | j1 | s1 | nokey | 2026-07-13 | 759B | WorldBank-CPI同比
+eco.eurostat | 200 | j1 | s1 | nokey | 2026-09-04 | 4363B | Eurostat-失业率
+cry.coinbase | 200 | j1 | s1 | nokey | 2026-09-12 | 184B | Coinbase-ETH现货
+net.ripestat | 200 | j1 | s1 | nokey | 2026-09-12 | 50352B | RIPEstat-BGP前缀
+net.nvd | 200 | j1 | s1 | nokey | 2026-09-12 | 6404B | NVD-漏洞披露
+pwr.uk | 200 | j1 | s1 | nokey | 2026-09-12 | 184B | UK-碳强度/发电
+food.wb | 200 | j1 | s1 | nokey | 2026-07-13 | 705B | WorldBank-谷物产量
+pop.wb | 200 | j1 | s1 | nokey | 2026-07-13 | 645B | WorldBank-人口
+pop.eurostat | 200 | j1 | s1 | nokey | 2026-07-21 | 4817B | Eurostat-人口变化
+pop.unhcr | 200 | j1 | s1 | nokey | - | 359B | UNHCR-难民统计
+edu.wb | 200 | j1 | s1 | nokey | 2026-07-13 | 800B | WorldBank-识字率
+edu.eurostat | 200 | j1 | s1 | nokey | 2026-09-10 | 10256B | Eurostat-教育程度
+wx.om_h | 200 | j1 | s1 | nokey | 2026-09-11 | 667B | OM-东京多变量历史
+wx.om_f | 200 | j1 | s1 | nokey | 2026-09-18 | 590B | OM-伦敦降水预报
+wx.om_s | 200 | j1 | s1 | nokey | 2026-09-12 | 554B | OM-拉萨日照时数
+wx.om_e | 200 | j1 | s1 | nokey | 2026-09-05 | 505B | OM-历史再分析ERA5
+wx.metno | 200 | j1 | s1 | nokey | 2026-09-22 | 37572B | MET-Norway-降水预报
+=== SEMI (200+JSON 但含占位key或非序列) ===
+hea.cdcflu | 200 | j1 | s0 | nokey | - | 56B | CDC-FluView周报
+hea.fda | 200 | j1 | s0 | nokey | 2026-09-02 | 4331B | FDA-药品召回
+hea.epi | 200 | j1 | s0 | nokey | - | 56B | Delphi-流感住院率
+agr.yahoo | 200 | j1 | s0 | nokey | - | 2246B | Yahoo-ZW=F玉米
+agr.nasdaq | 200 | j1 | s0 | nokey | - | 165B | Nasdaq-玉米期货
+ene.eiaW | 200 | j1 | s1 | KEY | 2007-02-19 | 1536B | EIA-汽油周价
+ene.eia2 | 200 | j1 | s1 | KEY | 2026-06-26 | 1443B | EIA-原油库存
+ene.yahoo | 200 | j1 | s0 | nokey | - | 3579B | Yahoo-NG=F天然气
+ast.sw2 | 200 | j1 | s0 | nokey | - | 512287B | SWPC-太阳黑子数
+ast.neows | 200 | j1 | s0 | KEY | 2026-09-19 | 32636B | NASA-NEO近地天体
+ast.donki | 200 | j1 | s1 | KEY | 2026-09-09 | 3307B | NASA-DONKI太阳耀斑
+sea.noaa | 200 | j1 | s0 | nokey | 2026-09-11 | 36096B | NOAA-CO-OPS潮位
+sea.tide | 200 | j1 | s0 | nokey | 2026-09-12 | 943B | NOAA-潮汐预报
+aq.waqi | 200 | j1 | s1 | KEY | 2026-09-18 | 2118B | WAQI-城市AQI
+cry.defi | 200 | j1 | s0 | nokey | - | 17B | DefiLlama-TVL
+cry.block | 200 | j1 | s0 | nokey | - | 381B | Blockchain.info-链上指标
+cry.coingecko | 200 | j1 | s0 | nokey | - | 52B | CoinGecko-市值
+con.osrm | 200 | j1 | s0 | nokey | - | 595B | OSRM-路线时长
+con.nyctraffic | 200 | j1 | s0 | nokey | - | 703B | NYC-交通量计数
+con.gbfs | 200 | j1 | s0 | nokey | - | 963181B | GBFS-共享单车可用
+pwr.eia | 200 | j1 | s1 | KEY | 2026-09-12 | 1244B | EIA-美国日负荷
+pwr.eia2 | 200 | j1 | s0 | KEY | - | 1379B | EIA-州级发电量
+pwr.energy | 200 | j1 | s0 | nokey | - | 40051B | Energy-Charts-德国发电
+edu.college | 200 | j1 | s0 | KEY | - | 2264B | CollegeScorecard-毕业率
+wx.ghcn | 200 | j1 | s0 | nokey | 2026-09-08 | 791B | NOAA-GHCN日观测
+=== FAIL ===
+spo.sd | 403 | application/json | 48 | sofascore-英超 | {"error": {"code": 403, "reason": "Forbidden" }}
+spo.fd | 403 | application/json | 152 | football-data.org-英超积分 | {"message":"The resource you are looking for is restricted and apparen
+spo.nba | 401 | text/plain | 12 | balldontlie-NBA赛程 | Unauthorized
+spo.blea | 401 | text/plain | 12 | balldontlie-EuroLeague | Unauthorized
+air.aero | 401 | application/json | 91 | AeroDataBox-航班状态 | {"message":"Invalid API key. Go to https:\/\/docs.rapidapi.com\/docs\/
+air.av | 401 | application/json | 159 | aviationstack-实时航班 | { "error": { "code": "missing_access_key", "message": "You have not su
+air.fra | ERR:fetch failed | - | 0 | Frankfurt机场-延误 | 
+air.faa | 200 | application/xml | 1943 | FAA-机场延误状态 | <AIRPORT_STATUS_INFORMATION><Update_Time>Sat Sep 12 18:08:19 2026 GMT<
+air.tf | 404 | text/html | 2309 | FlightAware-机场延误 | <!DOCTYPE HTML> <html dir="LTR" lang="en"> <head> <meta http-equiv="Co
+tra.nyc | 400 | application/json | 1400 | MTA-纽约地铁ridership | {"message":"Query coordinator error: query.soql.no-such-column; No suc
+tra.bart | 404 | text/html | 67163 | BART-日客流 | <!DOCTYPE html> <html lang="en" dir="ltr"> <head> <meta charset="utf-8
+tra.wmata | 401 | application/json | 152 | WMATA-地铁状态 | { "statusCode": 401, "message": "Access denied due to missing subscrip
+tra.lta | 404 | text/plain | 31 | 新加坡LTA-巴士到达 | The requested API was not found
+hea.euro | 404 | text/html | 1245 | ECDC-结核周报 | <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w
+hea.owid | 404 | text/html | 27150 | OWID-COVID/流感序列 | <!doctype html> <html lang="en"> <head> <meta charset="UTF-8" /> <meta
+agr.stooq | 200 | text/html | 796 | Stooq-小麦/玉米/大豆 | <!DOCTYPE html><html><head><meta charset="utf-8"><meta name="robots" c
+agr.usda | 401 | - | 26 | USDA-QuickStats玉米价 | {"error":["unauthorized"]}
+agr.fao | 404 | text/html | 1031 | FAO-食品价格指数 | <!DOCTYPE html> <html> <head> <title>FAOSTAT</title> <link rel='author
+ene.stooq | 200 | text/html | 796 | Stooq-布伦特原油 | <!DOCTYPE html><html><head><meta charset="utf-8"><meta name="robots" c
+ene.entsoe | 401 | text/xml | 859 | ENTSO-E-日前电价 | <?xml version="1.0" encoding="UTF-8"?> <Acknowledgement_MarketDocument
+ene.ember | 403 | application/json | 27 | Ember-电力数据 | {"detail":"No API key set"}
+sci.arxiv | 429 | text/html | 14 | arXiv-量子分类论文数 | Rate exceeded.
+sci.openalex | 429 | application/json | 351 | OpenAlex-年论文数 | {"error":"Rate limit exceeded","message":"Insufficient budget. This re
+sci.epo | 403 | application/xml | 208 | EPO-OPS专利 | <error><code>403</code><message>This request has been rejected due to 
+sci.patents | ERR:fetch failed | - | 0 | PatentsView-专利授权 | 
+ast.mpc | 404 | text/html | 1073 | MPC-小行星观测 | <!DOCTYPE html> <html> <head> <title>The page you were looking for doe
+ast.aavso | 403 | text/html | 5727 | AAVSO-变星光变 | <!DOCTYPE html><html lang="en-US"><head><title>Just a moment...</title
+ast.iers | 404 | text/html | 196 | IERS-地球自转参数 | <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN"> <html><head> <title
+sea.erddap | 500 | text/plain | 139 | NOAA-ERDDAP海温 | Error { code=500; message="Internal Server Error: Error: destinationVa
+sea.argo | 400 | application/json | 365 | Argo-剖面观测 | {"message":"request.query.startDate should match format \"date-time\",
+sea.noaandbc | 200 | text/plain | 605642 | NDBC-浮标海况 | #YY MM DD hh mm WDIR WSPD GST WVHT DPD APD MWD PRES ATMP WTMP DEWP VIS
+aq.epa | 400 | application/json | 350 | EPA-AQS小时值 | { "Header": [ { "status": "Failed", "request_time": "2026-09-12T14:09:
+eco.db_une | 404 | application/json | 282 | DBnomics-美国失业率 | {"_meta":{"args":{"align_periods":false,"dataset_code":"LAUS","dimensi
+eco.fred | 400 | application/json | 162 | FRED-失业率(无key) | {"error_code":400,"error_message":"Bad Request. Variable api_key is no
+eco.oecd | 404 | text/plain | 65 | OECD-SDMX失业率 | Could not find Dataflow and/or DSD related with this data request
+cry.bin1 | ERR:fetch failed | - | 0 | Binance-SOLUSDT K线 | 
+cry.bin2 | ERR:fetch failed | - | 0 | Binance-ETH合约资金费率 | 
+cry.bin3 | ERR:fetch failed | - | 0 | Binance-未平仓合约 | 
+cry.bin4 | ERR:fetch failed | - | 0 | Binance-24h涨跌幅 | 
+cry.okx | ERR:fetch failed | - | 0 | OKX-BTC永续行情 | 
+cry.mempool | ERR:fetch failed | - | 0 | mempool.space-手续费 | 
+net.cf | 400 | application/json | 141 | Cloudflare-雷达攻击 | {"success":false,"errors":[{"code":9106,"message":"Missing X-Auth-Key,
+net.cf2 | 400 | application/json | 141 | CF-雷达排名 | {"success":false,"errors":[{"code":9106,"message":"Missing X-Auth-Key,
+net.crt | 502 | text/html | 150 | crt.sh-证书透明度 | <html> <head><title>502 Bad Gateway</title></head> <body> <center><h1>
+net.cf3 | 400 | - | 0 | CF-1.1.1.1 DNS调试 | 
+net.bgp | ERR:fetch failed | - | 0 | BGPView-ASN信息 | 
+con.tomtom | 401 | application/json | 102 | TomTom-拥堵指数 | {"detailedError":{"code":"Unauthorized","message":"You are missing val
+con.here | 401 | application/json | 81 | HERE-交通流 | {"error":"Unauthorized","error_description":"apiKey invalid. apiKey no
+con.chicago | 400 | application/json | 1085 | 芝加哥-交通密度 | {"message":"Query coordinator error: query.soql.no-such-column; No suc
+pwr.entsoe | 401 | text/xml | 859 | ENTSO-E-实际负荷 | <?xml version="1.0" encoding="UTF-8"?> <Acknowledgement_MarketDocument
+pwr.elexon | 404 | application/json | 54 | Elexon-英国发电 | { "statusCode": 404, "message": "Resource not found" }
+pwr.em | 401 | application/json | 171 | ElectricityMaps-碳强度 | {"error":"Invalid auth-token","message":"Please provide a valid authen
+food.usda | 404 | - | 0 | USDA-玉米产量(PSD) | 
+food.psd | 403 | application/json | 13 | USDA-PSD全库 | "Bad API Key"
+food.nass | 401 | - | 26 | NASS-谷物库存 | {"error":["unauthorized"]}
+food.fao | 401 | - | 28 | FAO-谷物产量 | Missing Authorization Header
+food.fao2 | 404 | text/html | 1031 | FAOSTAT-生产指数 | <!DOCTYPE html> <html> <head> <title>FAOSTAT</title> <link rel='author
+food.wap | 200 | text/html | 3531 | AMIS-市场监测 | <!doctype html> <html> <head> <meta charset="utf-8"> <title>AMIS Agric
+pop.census | 200 | text/html | 8529 | Census-人口估计 | <html style="font-size: 14px;"> <head> <title>Missing Key</title> <lin
+pop.census2 | 200 | text/html | 8529 | Census-国际数据库 | <html style="font-size: 14px;"> <head> <title>Missing Key</title> <lin
+pop.un | 401 | - | 0 | UN-人口数据门户 | 
+pop.oecd | 404 | text/plain | 65 | OECD-SDMX人口 | Could not find Dataflow and/or DSD related with this data request
+edu.unesco | 400 | application/json | 140 | UNESCO-教育统计 | {"message":"At least one geoUnit or indicator query parameter value mu
+edu.naep | 404 | text/html | 1245 | NAEP-美国成绩 | <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w
+edu.oecd | 404 | text/plain | 65 | OECD-教育水平 | Could not find Dataflow and/or DSD related with this data request
+edu.pisa | 404 | application/json | 54 | PISA-成绩数据 | { "statusCode": 404, "message": "Resource not found" }
+box.omdb | 401 | application/json | 47 | OMDb-票房 | {"Response":"False","Error":"Invalid API key!"}
+box.tmdb | 401 | application/json | 103 | TMDB-周票房榜 | {"status_code":7,"status_message":"Invalid API key: You must be grante
+box.bom | 200 | text/html | 192432 | BoxOfficeMojo-周末榜 | <!doctype html><html class="a-no-js" data-19ax5a9jf="dingo"><head><scr
+box.the | 404 | text/html | 126319 | TheNumbers-票房 | <!DOCTYPE html> <html xmlns:og="https://ogp.me/ns#"> <head> <link rel=
+box.yt | 400 | application/json | 738 | YouTube-热门视频 | { "error": { "code": 400, "message": "API key not valid. Please pass a
+box.rt | 404 | text/html | 43017 | RottenTomatoes-榜单 | <!DOCTYPE html> <html lang="en" dir="ltr" xmlns="http://www.w3.org/199
+box.netflix | 403 | text/html | 8522 | Netflix-Top10(非官方) | <html lang="en"> <head> <meta charset="UTF-8" /> <meta name="viewport"
+wx.nws | 400 | application/problem+json | 390 | NWS-美国预警 | { "correlationId": "260b38a", "parameterErrors": [ { "parameter": "que
+wx.cdo | 400 | application/json | 62 | NCEI-CDO(需key) | {"status" : "400", "message" : "Token parameter is required."}
+
+================================================================================
+ 广域数据源普查 · 分域判定报告（17 轮探测 / 200+ 候选 URL / 全部实测直连 fetch）
+ 探测时间：2026-09-12~13 ｜ 脚本：p1b/scripts/_probe-sources-wide{,2..17}.cjs（即用即删）
+ 原始证据：sources-wide-probe.jsonl（143 条）+ _probe2..17.tmp（逐轮字段级输出）
+ 判定口径：HTTP 200 + JSON/CSV 可解析 + 有可机检真值锚 + 随实例变化 + 无需 key
+================================================================================
+【总览】
+  域1 体育 ................. 可用（MLB/NHL/ESPN/openligadb；sofascore/football-data 403）
+  域2 航班准点率 ........... 部分可用（FAA NAS XML 200 + OpenSky 快照 200；准点率类全需 key）
+  域3 地铁公交客流 ......... 可用但滞后（CTA 200 最新 2026-06-30；MTA 200 但停更于 2024-12）
+  域4 公共卫生 ............. 可用（Delphi FluView 200 / CDC RDQM 200 周更最新）
+  域5 农业期货 ............. 官方源不可用；替代=World Bank 商品月价 200（小麦/玉米/大豆/大麦）
+  域6 能源 ................. 可用（EIA 200 含 DEMO_KEY / Energy-Charts 200 / Elexon 200 / UK 碳强度 200）
+  域7 科技计量 ............. 可用（GitHub releases 200 / Crossref 周注册量 200；arXiv、OpenAlex 429）
+  域8 天文 ................. 可用（SWPC 太阳黑子 200 月更 / NeoWs 200 但 DEMO_KEY 限流）
+  域9 海洋 ................. 可用（NOAA 潮汐预报 200 六站验证 / NDBC 浮标 200 纯文本）
+  域10 空气质量多变量 ....... 可用（Open-Meteo 六变量 200，历史 92 天 + 归档窗口）
+  域11 经济多维 ............. 可用（Eurostat 失业率 200 / ISM PMI 200 / ECB 利率 200）
+  域12 加密更多 ............. 可用（Kraken/Bitstamp/Gemini/Coinbase/DefiLlama/Blockchain.info 全 200）
+  域13 网络数据 ............. 部分可用（NVD CVE 200 强 / RIPEstat 200；Cloudflare Radar 400、crt.sh 502）
+  域14 交通拥堵指数 ......... 不可用（TomTom 401 / HERE 401；仅 OSRM 路线时长 200，非拥堵）
+  域15 电力负荷 ............. 可用（EIA 200 / Elexon FUELHH 200 / Energy-Charts 200）
+  域16 粮食产量库存 ......... 不可用（USDA PSD 403 / NASS 401 / FAO 401；无 key 无解）
+  域17 人口移民 ............. 部分可用（World Bank 200 / UNHCR 200；Eurostat 系列码 404 待定位）
+  域18 教育考试 ............. 可用（Eurostat 高等教育占比 200 / World Bank 识字率 200）
+  域19 娱乐票房 ............. 部分可用（BoxOfficeMojo 200 但为 HTML 需解析；API 类全 401/404）
+  域20 天气多变量 ........... 可用（Open-Meteo archive/forecast 200 + NCEI GHCN 200 双锚）
+  附：USGS 地震 ............. 可用（fdsnws 200，周 95 条 M4.5+，天然可机检）
+
+================================================================================
+【逐域证据】（HTTP 码为实测值；URL 均已实发）
+================================================================================
+■ 域1 体育赛事结果 —— 可用（3 源，均为 JSON）
+  [200] https://statsapi.mlb.com/api/v1/schedule?sportId=1&date=<YYYY-MM-DD>
+        证据：totalGames=15；dates[].games[].teams.{away,home}.score + status.abstractGameState='Final'
+        锚：单场/单日总得分（整数）。近 30 天 totalGames=399 → 历史足量出 backfill
+  [200] https://api-web.nhle.com/v1/score/<YYYY-MM-DD>  → games[]（当日比赛，赛季内非空）
+  [200] https://site.api.espn.com/apis/site/v2/sports/soccer/eng.1/scoreboard?dates=<YYYYMMDD> → events[].competitions[0].competitors[].score
+  [200] https://api.openligadb.de/getmatchdata/bl1/2025 → matchResults[].pointsTeam1/2（德甲，赛季归档）
+  不可用：api.sofascore.com 403；api.football-data.org 403（需 token）；api.balldontlie.io 401
+■ 域2 航班准点率 —— 部分可用
+  [200] https://opensky-network.org/api/states/all → 1.54 MB 快照（无 key；但为瞬时状态，非"准点率"真值）
+  [200] https://nasstatus.faa.gov/api/airport-status-information → XML 2.3 KB，含 Update_Time/机场延误状态
+        注：Accept: application/json 时返回 406，必须默认 Accept
+  [200] https://www.ndbc.noaa.gov/data/realtime2/*.txt（浮标，非航班，见域9）
+  不可用：aerodatabox/aviationstack 401；flightaware 404；Frankfurt flightinfo DNS 失败；
+          BTS「Marketing Carrier On-Time」数据集 403（no row or column access to non-tabular）
+  结论：准点率"可机检真值锚"仅 FAA NAS 的 XML 计数，弱；建议本域只作附属，不主推
+■ 域3 地铁/公交客流 —— 可用但新鲜度受限
+  [200] https://data.cityofchicago.org/resource/6iiy-9s97.json → total_rides 日粒度，最新 2026-06-30（滞后 ~2.5 月）
+        历史 9312 行（$select=count(*) 实测）
+  [200] https://data.ny.gov/resource/wujg-7c2s.json（MTA 小时级）→ 最新仅 2024-12-31（停更）
+  [200] https://data.ny.gov/resource/vxuj-8kew.json（MTA 日客流）→ 最新 2025-01-09（停更）
+  [200] https://data.cityofnewyork.us/resource/7ym2-wayt.json → 交通量计数（2013 年级，不可用于前瞻）
+  结论：CTA 可出 backfill（滞后 2 月，cutoff 需按发布日期留裕度）；forward 仅 CTA 可用但真值要等 2 月
+■ 域4 公共卫生 —— 可用（强）
+  [200] https://api.delphi.cmu.edu/epidata/fluview/?regions=nat&epiweeks=<a>-<b>
+        证据：202630-202637 返回 6 周；最新 epiweek=202635，num_ili=35237，release_date=2026-09-11
+        锚：num_ili 整数，周更，历史 57 周（202532~202635 实测）
+  [200] https://data.cdc.gov/resource/rdmq-nq56.json → 急诊就诊占比（percent_visits_covid/influenza/rsv），周更，最新 week_end=2026-09-05
+  [200] https://data.cdc.gov/resource/x9gk-5huc.json → 法定报告病例（含 2026 年周）
+  [200] https://ghoapi.azureedge.net/api/<Indicator> → WHO GHO 指标（疟疾发病率 23 国年值）
+  [200] https://data.cdc.gov/resource/muzy-jte6.json → NREV 死亡率（最新 2023-09，陈旧）
+  不可用：opendata.ecdc.europa.eu/tuberculosis 404；OWID indicators API 404
+■ 域5 农业期货 —— 官方源不可用，World Bank 商品月价替代可用
+  [200] https://api.db.nomics.world/v22/series/WB/commodity_prices/<CODE>?observations=1
+        CODE：KFWHEAT_US_HRW-1W 小麦 / FMAIZE-1W 玉米 / KFSOYBEANS-1W 大豆 / FBARLEY-1W 大麦
+              FCRUDE_PETRO-1W 布伦特原油 / KFNGAS_US-1W 美国天然气（能源域复用）
+        证据：n=71 点（月度），实测值 2026 年：小麦 193.39 / 玉米 191.27 / 大豆 431.63 / 大麦 179.21
+              ★ 陷阱：period 尾部含 2029/2030 占位年（值非空）→ 必须按 period <= 当月 过滤
+  [200] https://api.db.nomics.world/v22/series/IMF/PCPS/A.W00.PSOYB.USD?observations=1（大豆年价 35 点，末 2024）
+  不可用：stooq.com/q/d/l/（返回 HTML 反爬页）；quickstats.nass.usda.gov 401；PSD API 403；
+          FAOSTAT 404/401；Yahoo finance 403；Nasdaq api 400（assetclass 参数被拒）
+■ 域6 能源 —— 可用（4 源）
+  [200] https://api.eia.gov/v2/...&api_key=DEMO_KEY → 实测可用（汽油周价、原油库存、州级发电）
+  [200] https://api.energy-charts.info/public_power?country=de&start=&end= → unix_seconds[] + production_types[].data[]（96 点/日，21 类）
+  [200] https://data.elexon.co.uk/bmrs/api/v1/datasets/FUELHH?format=json → 760 条/次，20 种燃料
+        ★ 陷阱：from/to 参数只吃 1 天；30 天窗口实测 n=760 days=1；settlementDateFrom 400
+  [200] https://api.carbonintensity.org.uk/intensity|/generation → UK 碳强度/发电组合（半小时粒度）
+  不可用：ENTSO-E 401（需 token）；Ember 403；ElectricityMaps 401
+■ 域7 科技计量 —— 可用（2 强源）
+  [200] https://api.crossref.org/works?filter=from-created-date:<a>,until-created-date:<b>&rows=0
+        → message["total-results"]；实测周值 217k~318k（8 周序列），天然周更、量级稳定
+  [200] https://api.github.com/repos/<owner>/<repo>/releases?per_page=100 → published_at 可切 28 天窗
+        实测 kubernetes 30 条（v1.37.0 2026-08-26）★ 无 token 限速 60/h（rate_limit 实测 core=2/60 见底）
+  [200] https://huggingface.co/api/models?sort=downloads → 模型下载榜
+  [200] https://api.openalex.org（限速 429：dailyRemainingUsd 用尽）；export.arxiv.org 429 + 连接中断
+  不可用：EPO OPS 403；PatentsView 连接失败
+■ 域8 天文 —— 可用（1 强源 + 1 受限）
+  [200] https://services.swpc.noaa.gov/json/solar-cycle/observed-solar-cycle-indices.json
+        → 3332 点月值 {time-tag, ssn, f10.7}；实测末点 2026-08 ssn=76；1749 年起长历史
+  [200] https://api.nasa.gov/neo/rest/v1/feed?api_key=DEMO_KEY → element_count（周 17~41 个）
+        ★ 连续调用即 429（实测 5/8 次失败）→ 不建议入批
+  [200] https://services.swpc.noaa.gov/products/noaa-planetary-k-index.json → Kp 地磁 3 小时粒度
+  [200] https://services.swpc.noaa.gov/text/daily-solar-indices.txt → 纯文本日报
+  不可用：minorplanetcenter web_service 404；AAVSO 403（Cloudflare）；IERS finals2000A 404
+■ 域9 海洋 —— 可用（强，且"预报=真值"双窗口）
+  [200] https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?product=predictions&...&interval=h
+        → predictions[].{t,v}；实测 6 站（8443970 波士顿 / 9414290 旧金山 / 8518750 纽约 /
+          8723214 迈阿密 / 9447130 西雅图 / 9410230 圣迭戈）各 816 点（过去 30 天 + 未来 3 天）
+        ★ 未来段为天文推算预报 → forward 题的真值当天即可取，无需等待
+  [200] https://www.ndbc.noaa.gov/data/realtime2/41010.txt|46001|51002 → 浮标纯文本 605 KB（波高/海温），需解析
+  [200] https://coastwatch.pfeg.noaa.gov/erddap/info/index.json → ERDDAP 目录（SST griddap 500 报错，目录可用）
+  不可用：argovis 400（日期格式）；ERDDAP griddap SST 500
+■ 域10 空气质量多变量 —— 可用（强）
+  [200] https://air-quality-api.open-meteo.com/v1/air-quality?hourly=pm2_5,ozone,nitrogen_dioxide,sulphur_dioxide,carbon_monoxide,pm10
+        证据：六变量全部返回（72 点/3 天实测）；历史 past_days=92 可用（80 KB）；归档窗口 start_date/end_date 亦可用
+        ★ 已实测城市：伦敦/东京/悉尼/开普敦/墨西哥城/首尔/柏林/纽约/巴黎/上海/新德里/圣保罗
+  [200] WAQI api.waqi.info/feed/<city>/?token=demo → 可用（但 demo token 非长期）
+  不可用：EPA AQS 400（示例 key 无效）
+■ 域11 经济多维 —— 可用（3 源）
+  [200] https://api.db.nomics.world/v22/series/Eurostat/une_rt_m/M.NSA.TOTAL.PC_ACT.T.<CC>?observations=1
+        → 德国 227 点 / 法国 275 / 西班牙 476；末点 2025-11：DE 3.7% / FR 7.8% / ES 10.2%
+  [200] https://api.db.nomics.world/v22/series/ISM/pmi?observations=1 → 68 点月值（末 2025-12）
+        ISM 数据集 23 个（bacord/pmi/prices/production/...）
+  [200] https://api.db.nomics.world/v22/series/ECB/FM/D.U2.EUR.4F.KR.MRR_FR.LEV?observations=1 → 7079 点日频，末 2026-09-05 = 2.4%
+  [200] https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/une_rt_m?format=JSON&geo=DE&s_adj=SA&unit=PC_ACT&sex=T → 93 值
+  不可用：DBnomics BLS/LAUS 404；FRED 400（需 key）；OECD SDMX 404（dataflow 名不符）
+■ 域12 加密更多 —— 可用（多交易所互证，本机可直连）
+  [200] https://api.kraken.com/0/public/OHLC?pair=SOLUSD|XTZUSD&interval=1440&since=<sec>
+        ★ 陷阱：result 键非请求名（SOLUSD→SOLUSD 但 XBTUSD→XXBTZUSD）→ 必须取 result 中非 last 的键
+  [200] https://www.bitstamp.net/api/v2/ohlc/solusd/?step=86400
+  [200] https://api.gemini.com/v2/candles/solusd/1day → 364 根
+  [200] https://api.exchange.coinbase.com/products/ETH-USD/candles?granularity=86400 → 350 根
+  [200] https://api.llama.fi/v2/historicalChainTvl/Ethereum → 3273 点日 TVL；/tvl/aave 即时
+  [200] https://api.blockchain.info/charts/n-transactions?timespan=1year&format=json → values[]
+  [200] https://mempool.space/api/v1/fees/recommended（探测轮 200，后轮连接失败）
+  不可用：api.binance.com / fapi.binance.com / okx.com 全部 fetch failed（本机网络层，与 b3 记录一致）
+■ 域13 网络数据 —— 部分可用（NVD 强）
+  [200] https://services.nvd.nist.gov/rest/json/cves/2.0?pubStartDate=<a>T00:00:00.000&pubEndDate=<b>T23:59:59.999
+        → totalResults；实测 12 周序列 1530~3963 条/周（2026-06~09），量级稳定、天然周更
+  [200] https://stat.ripe.net/data/bgp-updates/data.json?resource=8.8.8.0/24&starttime=&endtime=
+        → data.updates[]；3 天 672 条 / 30 天 5383 条（attrs.timestamp 可切日，实测 ISO 格式）
+  [200] https://data.bts.gov/api/catalog/v1?q=... → 目录检索（元数据）
+  不可用：Cloudflare Radar 400（缺 X-Auth-Key）；crt.sh 502；BGPView 连接失败；one.one.one.one DNS 400
+■ 域14 交通拥堵指数 —— 不可用（本域无免 key 真值源）
+  [200] https://router.project-osrm.org/route/v1/driving/... → duration 秒（是路线时长，非拥堵指数）
+  不可用：TomTom flowSegmentData 401；HERE data.traffic 401；芝加哥/纽约交通量数据集列名 400
+  结论：除非接受"OSRM 路线时长"作代理锚，本域建议整域放弃
+■ 域15 电力负荷 —— 可用（3 源）
+  [200] https://api.eia.gov/v2/electricity/rto/region-data/data/?api_key=DEMO_KEY&facets[respondent][]=CISO&facets[type][]=D
+        → 实测返回 6 点，末点 2026-09-12T17 CISO 需求 32821 MWh（小时级，真实时）
+  [200] https://data.elexon.co.uk/bmrs/api/v1/datasets/FUELHH?format=json&from=&to=（英国燃料结构，见域6 参数陷阱）
+  [200] https://api.energy-charts.info/public_power?country=de（见域6）
+  [200] https://api.carbonintensity.org.uk/intensity（UK 碳强度半小时）
+■ 域16 粮食产量/库存 —— 不可用
+  不可用：apps.fas.usda.gov PSD 403「Bad API Key」；quickstats.nass.usda.gov 401；faostatservices 401；
+          FAO 旧接口 404；AMIS 返回 HTML
+  结论：无 key 无解；若要粮食类题目，改用域5 的 World Bank 商品价格（价而非产量/库存）
+■ 域17 人口/移民 —— 部分可用
+  [200] https://api.worldbank.org/v2/country/DE/indicator/SP.POP.TOTL?format=json&per_page=5&mrnev=5
+        → 5 年值，2025 年德国 83,491,249（年更，粒度粗 → 基率易压 0/1，慎用）
+  [200] https://api.unhcr.org/population/v1/population/?yearFrom=&yearTo= → items[]（难民统计）
+  [200] https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/demo_gind?format=JSON&geo=DE → 4817B
+        注：DBnomics 版 demo_gind 系列码 404（实测 A.T.POP.TOTAL.DE 不存在），需先枚举 /series/Eurostat/demo_gind?limit=20
+  不可用：api.census.gov 缺 key（返回 HTML Missing Key）；population.un.org 401；OECD SDMX 404
+■ 域18 教育/考试 —— 可用（2 源，年度粒度）
+  [200] https://api.db.nomics.world/v22/series/Eurostat/edat_lfse_03/A.F.UNK.PC.ED5-8.<CC>?observations=1
+        → 11 个年度点；2024：德国 22% / 法国 23.9% / 西班牙 19.9%（25-74 岁高教占比）
+  [200] https://api.worldbank.org/v2/country/<CC>/indicator/SE.ADT.LITR.ZS?format=json&mrnev=3 → 识字率
+  [200] https://api.data.gov/ed/collegescorecard/v1/schools?api_key=DEMO_KEY → 6273 所院校毕业率（DEMO_KEY 可用）
+  不可用：UNESCO UIS 400（必须给 geoUnit/indicator）；NAEP 404；OECD SDMX 404；PISA 404
+■ 域19 娱乐票房 —— 部分可用（仅 HTML 页）
+  [200] https://www.boxofficemojo.com/weekend/ 与 /weekend/2026W36/ → HTML 190~263 KB，含 $金额
+  [200] https://www.boxofficemojo.com/weekend/by-year/2026/ → 年度周末表
+  [200] https://api.tvmaze.com/schedule?country=US&date=<YYYY-MM-DD> → 101 条，airdate 与请求日一致（可作为"电视播出"机检锚）
+  [200] https://api.tvmaze.com/shows/82?embed=episodes → 73 集
+  不可用：OMDb 401；TMDB 401；YouTube Data API 400；RottenTomatoes 404；Netflix Tudum 404；
+          Jikan 504；TheNumbers 404
+  结论：票房只能靠 HTML 抓取（非 JSON）→ 若坚持机检需自写 HTML 解析；TVmaze 是干净替代
+■ 域20 天气多变量 —— 可用（强，双锚）
+  [200] https://archive-api.open-meteo.com/v1/archive?...&daily=precipitation_sum,wind_speed_10m_max,sunshine_duration
+        → daily.time[] 与三数组同位；实测东京 19 天窗口；ERA5 再分析（滞后 ~2 天）
+  [200] https://api.open-meteo.com/v1/forecast?...&daily=...&forecast_days=7 → 7 天预报（★ start_date/end_date 与 forecast_days 互斥，同时给报 400）
+  [200] https://www.ncei.noaa.gov/access/services/data/v1?dataset=daily-summaries&stations=USW00094728&dataTypes=TMAX,PRCP&format=json
+        → 367 点/年；实测 2026-09-08 TMAX=80°F PRCP=0.00（★ 必须带 units=standard，否则 TMAX 返回 267 的十分度）
+  [200] https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=&lon= → 37 KB 挪威气象局预报
+  [200] https://api.weather.gov/alerts/active（需 User-Agent 且 limit 参数名不同，400 → 可修）
+  附 [200] https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&minmagnitude=4.5 → 周 95 条 M4.5+
+
+================================================================================
+【推荐题目形态】（按可出题强度排序；★=本批已实产出题）
+================================================================================
+★★★ 一线（真值当天可取 / 周更 / 历史足量）
+  ★ Open-Meteo 空气质量 pm2_5/ozone 日均 → 城市×变量×日，阈值取 cutoff 前分位，cmp '<='（域10）
+  ★ Open-Meteo 天气 precipitation_sum/wind_speed_10m_max/sunshine_duration → 城市×变量×日（域20）
+  ★ NOAA 潮汐预报 predictions 当日最高 → 站点×日，cmp '>='；未来段是天文推算=当日即出真值（域9）
+  ★ NCEI GHCN TMAX 日最高温 → 站点×日（域20 第二锚，独立于 Open-Meteo）
+  ★ Energy-Charts 德国 21 类发电日均 → 类型×日（域6/15）
+  ★ Elexon FUELHH 英国风电/CCGT/核电日均 → 燃料×日（域6/15）
+  ★ Kraken/Bitstamp/Gemini/Coinbase 日线收盘 → 交易对×日（域12，四所互证）
+  ★ MLB 单日总得分 → 日（域1）
+★★ 二线（周更，需等发布；基率稳）
+  ★ Delphi FluView num_ili 周值（域4）
+  ★ NVD CVE 周发布数（域13）
+  ★ Crossref DOI 周注册量（域7）
+  ★ GitHub releases 28 天窗计数（域7，注意 60/h 限速）
+★★ 三线（月更 / 发布滞后，需 pub_lag 参数）
+  ★ World Bank 商品月均价（小麦/玉米/大豆/大麦/原油/天然气）（域5/6）
+  ★ Eurostat 月度失业率（DE/FR/ES）（域11）
+  ★ NOAA 太阳黑子月值（域8）
+  ★ Eurostat 年度高教占比（域18）
+★ 备用（需额外条件）
+  CTA 芝加哥客流（域3，真值滞后 ~2.5 月 → 只宜 backfill）
+  TVmaze 播出表（域19 干净替代）
+  ISM PMI / ECB 利率（域11，可再扩）
+  USGS 地震计数（附域，天然机检）
+  NVD/RIPEstat BGP 更新（域13，需按 attrs.timestamp 自行切窗）
+✘ 建议放弃
+  域14 交通拥堵（无免 key 真值）；域16 粮食产量库存（无 key 无解）；域2 准点率（仅 FAA XML 弱锚）
+================================================================================
+【踩坑清单】（本轮实测，供后续棒直接避雷）
+  1) Open-Meteo forecast：start_date/end_date 与 forecast_days 互斥，同给 → 400
+  2) DBnomics 商品 series 的 period 尾部含 2029/2030 占位年 → 必须 period <= 当月 过滤
+  3) NCEI GHCN 必须 units=standard，否则 TMAX 是 ×10 整数（267 而非 80）
+  4) Kraken result 键名会变（XBTUSD → XXBTZUSD）→ 取 result 中非 'last' 的键
+  5) Elexon from/to 只吃 1 天窗口（30 天请求仍只回 760 条/1 天）→ 逐日拉
+  6) FAA NAS 必须默认 Accept（给 application/json → 406）
+  7) api.github.com 无 token 限速 60/h，实测见底 core=2 → 一次跑完，别重试
+  8) api.nasa.gov NeoWs DEMO_KEY 连续调用即 429（5/8 失败）→ 不宜入批
+  9) export.arxiv.org / api.openalex.org 本机 429（速率预算耗尽）
+ 10) api.binance.com / okx.com / api.blockchain.info 部分轮次 fetch failed（本机网络层不稳）
+ 11) 大量 401/403 源均为"需 key"，非源不可用：football-data、balldontlie、EIA(有 DEMO_KEY 例外可用)、
+     EPA AQS、USDA、FAO、FRED、TomTom、HERE、TMDB、OMDb、Cloudflare Radar、ElectricityMaps
+
+================================================================================
+【第二批：出题结果（见 sources-wide-batch.out）】
+  已对 15 个可用域落地 463 题（backfill 280 + forward 183），全部通过质量门：
+    基率带 (0.15,0.85) 越界 0；基率范围 [0.3000, 0.7527]；resolve 缺 URL/field 0；
+    cutoff 早于事件 463/463；重复 slug 0。
+  分域：10air 84 ｜ 20weather 176 ｜ 9ocean 42 ｜ 15power 30 ｜ 6energy 28 ｜ 12crypto 24 ｜
+        5agri 16 ｜ 11econ 15 ｜ 4health 9 ｜ 18edu 9 ｜ 1sports 7 ｜ 3transit 7 ｜ 8astro 6 ｜
+        7scitech 5 ｜ 13net 5
+  未出题的域：2（准点率，仅弱锚）、14（拥堵，无免 key 源）、16（粮食产量，全需 key）、
+              17（人口，年粒度粗 + Eurostat 系列码待枚举）、19（票房，纯 HTML）
+  证据文件：sources-wide-batch.json（分域/分引擎统计）、sources-wide-batch.rows.json（463 条全量行）
+================================================================================
