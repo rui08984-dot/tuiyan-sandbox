@@ -1,0 +1,412 @@
+{
+ "generated_at": "2026-09-12",
+ "corpus": "31 sim games gid 7..37 (werewolf_sim_6p_onenight)",
+ "detector": "mirror reimplementation of contradictions.js judgment logic (W1-W6), truth-blind, labeled 镜像实现非调用本体",
+ "baseline": {
+  "games": 31,
+  "total_events": 310,
+  "total_pairs": 32,
+  "hist": {
+   "W1": 0,
+   "W2": 32,
+   "W3": 0,
+   "W4": 0,
+   "W5": 0,
+   "W6": 0
+  },
+  "tv_self": 0,
+  "deterministic": true,
+  "flagged_rows_baseline": 49,
+  "fp_rate": 0.15806451612903225,
+  "per_game_counts": [
+   {
+    "gid": 7,
+    "pairs": 2
+   },
+   {
+    "gid": 8,
+    "pairs": 0
+   },
+   {
+    "gid": 9,
+    "pairs": 0
+   },
+   {
+    "gid": 10,
+    "pairs": 0
+   },
+   {
+    "gid": 11,
+    "pairs": 3
+   },
+   {
+    "gid": 12,
+    "pairs": 1
+   },
+   {
+    "gid": 13,
+    "pairs": 0
+   },
+   {
+    "gid": 14,
+    "pairs": 1
+   },
+   {
+    "gid": 15,
+    "pairs": 2
+   },
+   {
+    "gid": 16,
+    "pairs": 0
+   },
+   {
+    "gid": 17,
+    "pairs": 0
+   },
+   {
+    "gid": 18,
+    "pairs": 0
+   },
+   {
+    "gid": 19,
+    "pairs": 2
+   },
+   {
+    "gid": 20,
+    "pairs": 3
+   },
+   {
+    "gid": 21,
+    "pairs": 0
+   },
+   {
+    "gid": 22,
+    "pairs": 0
+   },
+   {
+    "gid": 23,
+    "pairs": 0
+   },
+   {
+    "gid": 24,
+    "pairs": 1
+   },
+   {
+    "gid": 25,
+    "pairs": 1
+   },
+   {
+    "gid": 26,
+    "pairs": 0
+   },
+   {
+    "gid": 27,
+    "pairs": 2
+   },
+   {
+    "gid": 28,
+    "pairs": 4
+   },
+   {
+    "gid": 29,
+    "pairs": 1
+   },
+   {
+    "gid": 30,
+    "pairs": 4
+   },
+   {
+    "gid": 31,
+    "pairs": 1
+   },
+   {
+    "gid": 32,
+    "pairs": 0
+   },
+   {
+    "gid": 33,
+    "pairs": 0
+   },
+   {
+    "gid": 34,
+    "pairs": 2
+   },
+   {
+    "gid": 35,
+    "pairs": 0
+   },
+   {
+    "gid": 36,
+    "pairs": 1
+   },
+   {
+    "gid": 37,
+    "pairs": 1
+   }
+  ],
+  "games_with_pairs": 17
+ },
+ "arms": {
+  "A@0.1": {
+   "cls": "A",
+   "rho": 0.1,
+   "points": 31,
+   "tp": 31,
+   "recall": 1,
+   "hit_pairs": 31,
+   "tp_by_rule": {
+    "W4": 31
+   },
+   "recall_by_sub": {
+    "tally_flip": {
+     "n": 31,
+     "tp": 31
+    }
+   },
+   "poll_pairs_total": 63,
+   "pair_delta_median": 1,
+   "tv_type_dist_vs_clean": 0.4920634920634921,
+   "per_game_tv_median": 0.5
+  },
+  "A@0.3": {
+   "cls": "A",
+   "rho": 0.3,
+   "points": 93,
+   "tp": 93,
+   "recall": 1,
+   "hit_pairs": 176,
+   "tp_by_rule": {
+    "W4": 114,
+    "W6": 62
+   },
+   "recall_by_sub": {
+    "tally_flip": {
+     "n": 31,
+     "tp": 31
+    },
+    "outcome_seat": {
+     "n": 31,
+     "tp": 31
+    },
+    "forge_exile": {
+     "n": 31,
+     "tp": 31
+    }
+   },
+   "poll_pairs_total": 146,
+   "pair_delta_median": 4,
+   "tv_type_dist_vs_clean": 0.7808219178082192,
+   "per_game_tv_median": 0.5
+  },
+  "A@0.5": {
+   "cls": "A",
+   "rho": 0.5,
+   "points": 155,
+   "tp": 155,
+   "recall": 1,
+   "hit_pairs": 362,
+   "tp_by_rule": {
+    "W4": 176,
+    "W6": 186
+   },
+   "recall_by_sub": {
+    "tally_flip": {
+     "n": 31,
+     "tp": 31
+    },
+    "outcome_seat": {
+     "n": 31,
+     "tp": 31
+    },
+    "forge_exile": {
+     "n": 93,
+     "tp": 93
+    }
+   },
+   "poll_pairs_total": 270,
+   "pair_delta_median": 8,
+   "tv_type_dist_vs_clean": 0.8814814814814815,
+   "per_game_tv_median": 0.6666666666666667
+  },
+  "B@0.1": {
+   "cls": "B",
+   "rho": 0.1,
+   "points": 31,
+   "tp": 31,
+   "recall": 1,
+   "hit_pairs": 31,
+   "tp_by_rule": {
+    "W3": 31
+   },
+   "recall_by_sub": {
+    "b_kind0": {
+     "n": 31,
+     "tp": 31
+    }
+   },
+   "poll_pairs_total": 63,
+   "pair_delta_median": 1,
+   "tv_type_dist_vs_clean": 0.4920634920634921,
+   "per_game_tv_median": 0.5
+  },
+  "B@0.3": {
+   "cls": "B",
+   "rho": 0.3,
+   "points": 93,
+   "tp": 75,
+   "recall": 0.8064516129032258,
+   "hit_pairs": 80,
+   "tp_by_rule": {
+    "W1": 24,
+    "W2": 25,
+    "W3": 31
+   },
+   "recall_by_sub": {
+    "b_kind0": {
+     "n": 31,
+     "tp": 31
+    },
+    "b_kind1": {
+     "n": 31,
+     "tp": 22
+    },
+    "b_kind2": {
+     "n": 31,
+     "tp": 22
+    }
+   },
+   "poll_pairs_total": 112,
+   "pair_delta_median": 3,
+   "tv_type_dist_vs_clean": 0.4910714285714286,
+   "per_game_tv_median": 0.5
+  },
+  "B@0.5": {
+   "cls": "B",
+   "rho": 0.5,
+   "points": 155,
+   "tp": 135,
+   "recall": 0.8709677419354839,
+   "hit_pairs": 186,
+   "tp_by_rule": {
+    "W1": 24,
+    "W2": 100,
+    "W3": 62
+   },
+   "recall_by_sub": {
+    "b_kind0": {
+     "n": 31,
+     "tp": 31
+    },
+    "b_kind1": {
+     "n": 31,
+     "tp": 21
+    },
+    "b_kind2": {
+     "n": 31,
+     "tp": 22
+    },
+    "b_kind3": {
+     "n": 31,
+     "tp": 31
+    },
+    "b_kind4": {
+     "n": 31,
+     "tp": 30
+    }
+   },
+   "poll_pairs_total": 202,
+   "pair_delta_median": 6,
+   "tv_type_dist_vs_clean": 0.4257425742574258,
+   "per_game_tv_median": 0.5
+  },
+  "C@0.1": {
+   "cls": "C",
+   "rho": 0.1,
+   "points": 31,
+   "tp": 31,
+   "recall": 1,
+   "hit_pairs": 31,
+   "tp_by_rule": {
+    "W5": 31
+   },
+   "recall_by_sub": {
+    "nightdeath_first": {
+     "n": 31,
+     "tp": 31
+    }
+   },
+   "poll_pairs_total": 63,
+   "pair_delta_median": 1,
+   "tv_type_dist_vs_clean": 0.4920634920634921,
+   "per_game_tv_median": 0.5
+  },
+  "C@0.3": {
+   "cls": "C",
+   "rho": 0.3,
+   "points": 93,
+   "tp": 93,
+   "recall": 1,
+   "hit_pairs": 124,
+   "tp_by_rule": {
+    "W3": 31,
+    "W5": 93
+   },
+   "recall_by_sub": {
+    "nightdeath_first": {
+     "n": 31,
+     "tp": 31
+    },
+    "exile_before_speech": {
+     "n": 31,
+     "tp": 31
+    },
+    "gameend_before_vote": {
+     "n": 31,
+     "tp": 31
+    }
+   },
+   "poll_pairs_total": 156,
+   "pair_delta_median": 4,
+   "tv_type_dist_vs_clean": 0.7948717948717949,
+   "per_game_tv_median": 0.5
+  },
+  "C@0.5": {
+   "cls": "C",
+   "rho": 0.5,
+   "points": 155,
+   "tp": 104,
+   "recall": 0.6709677419354839,
+   "hit_pairs": 135,
+   "tp_by_rule": {
+    "W3": 42,
+    "W5": 93
+   },
+   "recall_by_sub": {
+    "nightdeath_first": {
+     "n": 31,
+     "tp": 0
+    },
+    "exile_before_speech": {
+     "n": 31,
+     "tp": 31
+    },
+    "gameend_before_vote": {
+     "n": 31,
+     "tp": 31
+    },
+    "nightstart_last": {
+     "n": 31,
+     "tp": 31
+    },
+    "statement_after_end": {
+     "n": 31,
+     "tp": 11
+    }
+   },
+   "poll_pairs_total": 125,
+   "pair_delta_median": 3,
+   "tv_type_dist_vs_clean": 0.744,
+   "per_game_tv_median": 0.5
+  }
+ }
+}
