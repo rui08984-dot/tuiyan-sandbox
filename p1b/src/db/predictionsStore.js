@@ -136,6 +136,13 @@ const GATES = ['descriptive', 'scored', 'blocked'];
 function assertAuditFields(f) {
   const src = f || {};
   const o = {};
+  // F16 修（2026-09-13）：未知 audit 键抛错，防命名漂移静默落空
+  const KNOWN = ['layer','secondaryLayer','engine','baselineBrier','publicExposure','checklistHash','gate'];
+  const SNAKE = { layer:'layer', secondary_layer:'secondaryLayer', engine:'engine', baseline_brier:'baselineBrier', public_exposure:'publicExposure', checklist_hash:'checklistHash', gate:'gate' };
+  for (const k of Object.keys(src)) {
+    if (KNOWN.indexOf(k) !== -1) continue;
+    if (SNAKE[k]) throw new Error('audit 字段命名漂移: 收到下划线「' + k + '」，请改用驼峰「' + SNAKE[k] + '」(F16 防复发)');
+  }
   const put = (key, v, ok, msg) => {
     if (v === undefined) return;
     if (v === null) { o[key] = null; return; }
