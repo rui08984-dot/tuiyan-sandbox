@@ -1,0 +1,99 @@
+{
+  "run_at": "2026-09-13T00:40:35+08:00",
+  "confirm": true,
+  "sources": {
+    "weather": {
+      "layer": "L3",
+      "count": 96,
+      "prob": {
+        "n": 96,
+        "min": 0.3943,
+        "max": 0.563
+      }
+    },
+    "fx": {
+      "layer": "L2",
+      "count": 32,
+      "prob": {
+        "n": 32,
+        "min": 0.2285,
+        "max": 0.4669
+      }
+    },
+    "cwl": {
+      "layer": "L5",
+      "count": 24,
+      "prob": {
+        "n": 24,
+        "min": 0.1579,
+        "max": 0.7368
+      }
+    }
+  },
+  "verify": {
+    "resolved": 152,
+    "pending": 0,
+    "failed": 0,
+    "total": 152
+  },
+  "inserted": 152,
+  "skipped": 0,
+  "samples": {
+    "weather": [
+      "【backfill】上海 2024-01-01 日最高气温 > 9°C（cutoff=2023-12-31T23:59:59+08:00，严格早于事件日；真值锚=Open-Meteo archive daily.temperature_2m_max[2024-01-01]。历史回填批次，非实时预测）",
+      "【backfill】上海 2024-01-08 日最高气温 > 9°C（cutoff=2024-01-07T23:59:59+08:00，严格早于事件日；真值锚=Open-Meteo archive daily.temperature_2m_max[2024-01-08]。历史回填批次，非实时预测）"
+    ],
+    "fx": [
+      "【backfill】2024-03 月 USD/EUR 月均参考汇率（ECB/EXR/M.USD.EUR.SP00.A）< 1.08（cutoff=2024-02-29T23:59:59+08:00，严格早于目标月；真值锚=DBnomics 同序列 2024-03 观测值。历史回填批次，非实时预测）",
+      "【backfill】2024-03 月 USD/EUR 月均参考汇率（ECB/EXR/M.USD.EUR.SP00.A）< 1.1（cutoff=2024-02-29T23:59:59+08:00，严格早于目标月；真值锚=DBnomics 同序列 2024-03 观测值。历史回填批次，非实时预测）"
+    ],
+    "cwl": [
+      "【backfill】双色球第 2026101 期红球包含号码 07（cutoff=2026-08-31T23:59:59+08:00，严格早于开奖日；真值锚=cwl 官方开奖公告 2026101 期 red 串。历史回填批次，非实时预测）",
+      "【backfill】双色球第 2026099 期红球包含号码 07（cutoff=2026-08-26T23:59:59+08:00，严格早于开奖日；真值锚=cwl 官方开奖公告 2026099 期 red 串。历史回填批次，非实时预测）"
+    ]
+  },
+  "verify_rows_sample": [
+    {
+      "slug": "corpus:openmeteo-bf-上海-20240101-gt9",
+      "status": "resolved",
+      "outcome": "false",
+      "note": "Open-Meteo archive 2024-01-01 max=7.7C（阈值 9C，机检）",
+      "prob": 0.4839,
+      "layer": "L3"
+    },
+    {
+      "slug": "corpus:openmeteo-bf-上海-20240108-gt9",
+      "status": "resolved",
+      "outcome": "true",
+      "note": "Open-Meteo archive 2024-01-08 max=10C（阈值 9C，机检）",
+      "prob": 0.4839,
+      "layer": "L3"
+    },
+    {
+      "slug": "corpus:openmeteo-bf-上海-20240115-gt9",
+      "status": "resolved",
+      "outcome": "false",
+      "note": "Open-Meteo archive 2024-01-15 max=6.8C（阈值 9C，机检）",
+      "prob": 0.4839,
+      "layer": "L3"
+    }
+  ],
+  "l0_before": {
+    "gate": "L0 只记不评：n≥30 局 ∧ 200 条前不评分，UI 数字只配「参考」；重言式题（tautology=1）不计入门禁",
+    "games": 33,
+    "records": 472,
+    "records_valid": 442,
+    "resolved": 450,
+    "unresolved": 22,
+    "review_unlocked": true
+  },
+  "l0_after": {
+    "gate": "L0 只记不评：n≥30 局 ∧ 200 条前不评分，UI 数字只配「参考」；重言式题（tautology=1）不计入门禁",
+    "games": 33,
+    "records": 624,
+    "records_valid": 594,
+    "resolved": 450,
+    "unresolved": 174,
+    "review_unlocked": true
+  }
+}
