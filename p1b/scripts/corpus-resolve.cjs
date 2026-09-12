@@ -1,0 +1,75 @@
+'use strict';
+// 语料库题目机械 resolve（corpus 棒 2026-09-12）：零 LLM，按 evidence_json[0].resolve 参数
+// 拉公开源真值后回填 outcome/resolve_note。真值未到的题（预报日未入 archive/月值未发布/期未开奖）
+// 保持 unresolved 跳过；网络失败跳过不写。账本不可变：已 resolve 拒改（resolvePrediction 守卫）。
+// 用法：node scripts/corpus-resolve.cjs [--confirm]
+const { db } = require('../src/deps');
+const { resolvePrediction } = require('../src/db/predictionsStore');
+const CONFIRM = process.argv.includes('--confirm');
+const FETCH_MS = 30000;
+async function getJson(url) {
+  const ac = new AbortController();
+  const t = setTimeout(() => ac.abort(), FETCH_MS);
+  try { const res = await fetch(url, { signal: ac.signal }); if (!res.ok) throw new Error('HTTP ' + res.status); return await res.json(); } finally { clearTimeout(t); }
+}
+
+// ── 真值锚取数（每 kind 一个纯函数：入参 resolve 对象，出参 {pending?|outcome,note}）──
+const RESOLVERS = {
+  async openmeteo_daily_max(r) {
+    const u = 'https://archive-api.open-meteo.com/v1/archive?latitude=' + r.lat + '&longitude=' + r.lon + '&start_date=' + r.date + '&end_date=' + r.date + '&daily=temperature_2m_max&timezone=Asia%2FShanghai';
+    let j;
+    try { j = await getJson(u); } catch (e) { if (String(e.message).indexOf('HTTP 400') !== -1) return { pending: 'archive 尚无 ' + r.date + '（ERA5 未入库）' }; throw e; }
+    const v = j.daily && j.daily.temperature_2m_max ? j.daily.temperature_2m_max[0] : null;
+    if (v === null || v === undefined) return { pending: 'archive 尚无 ' + r.date + ' 日值' };
+    return { outcome: v > r.threshold_c ? 'true' : 'false', note: 'Open-Meteo archive ' + r.date + ' max=' + v + 'C（阈值 ' + r.threshold_c + 'C，机检）' };
+  },
+  async dbnomics_series_value(r) {
+    const u = 'https://api.db.nomics.world/v22/series/' + r.provider + '/' + r.dataset + '/' + r.series + '?observations=1';
+    const j = await getJson(u);
+    const doc = j.series && j.series.docs && j.series.docs[0];
+    if (!doc) return { pending: '序列不存在' };
+    const i = doc.period.indexOf(r.period);
+    const v = i >= 0 ? doc.value[i] : null;
+    if (v === null || v === undefined) return { pending: r.period + ' 观测值未发布' };
+    return { outcome: v < r.threshold ? 'true' : 'false', note: 'DBnomics ' + r.series + ' ' + r.period + '=' + v + '（阈值 ' + r.threshold + '，机检）' };
+  },
+  async cwl_ssq_red_contains(r) { return cwlEval(r, (d) => d.red.split(',').indexOf(r.ball) !== -1, 'red 含 ' + r.ball); },
+  async cwl_ssq_blue_odd(r) { return cwlEval(r, (d) => d.blue % 2 === 1, 'blue 为奇数'); },
+};
+
+async function cwlEval(r, predicate, what) {
+  const u = 'https://www.cwl.gov.cn/cwl_admin/front/cwlkj/search/kjxx/findDrawNotice?name=ssq&issueCount=30';
+  const j = await getJson(u);
+  const hit = (j.result || []).find((d) => d.code === r.issue);
+  if (!hit) return { pending: '第 ' + r.issue + ' 期未开奖' };
+  const ok = predicate(hit);
+  return { outcome: ok ? 'true' : 'false', note: 'cwl 官方 ' + r.issue + ' 期 red=' + hit.red + ' blue=' + hit.blue + '（' + what + '，机检）' };
+}
+//RESOLVE-B2
+async function main() {
+  db.init();
+  const conn = db.getConnection();
+  const rows = conn.prepare('SELECT p.id, p.evidence_json FROM predictions p JOIN games g ON g.id = p.game_id WHERE g.game_type LIKE ? AND p.outcome IS NULL ORDER BY p.id').all('corpus%');
+  console.log('corpus pending rows:', rows.length, 'confirm=' + CONFIRM);
+  let resolved = 0, pending = 0, failed = 0;
+  for (const row of rows) {
+    let ev = null;
+    try { ev = JSON.parse(row.evidence_json || '[]'); } catch (e) { ev = []; }
+    const r = ev && ev[0] && ev[0].resolve;
+    if (!r || !RESOLVERS[r.kind]) { console.log('skip id=' + row.id, '（无 resolve 参数，不机械回填）'); continue; }
+    let out;
+    try { out = await RESOLVERS[r.kind](r); } catch (e) { out = { error: e.message }; }
+    if (out && out.pending) { pending++; console.log('pending id=' + row.id, r.kind, '—', out.pending); continue; }
+    if (out && out.error) { failed++; console.log('fetch-fail id=' + row.id, r.kind, '—', out.error, '（跳过不写）'); continue; }
+    if (CONFIRM) {
+      const res = resolvePrediction(row.id, out.outcome, out.note);
+      if (res.ok) { resolved++; console.log('resolved id=' + row.id, '->', out.outcome, '|', out.note); }
+      else { console.log('resolve-refused id=' + row.id, res.reason); }
+    } else {
+      console.log('[dry] would resolve id=' + row.id, '->', out.outcome, '|', out.note);
+    }
+  }
+  console.log('summary: resolved=' + resolved, 'pending=' + pending, 'fetch-fail=' + failed, 'confirm=' + CONFIRM);
+  if (!CONFIRM) console.log('DRY-RUN：未写库。加 --confirm 执行机械回填。');
+}
+main().catch((e) => { console.error('FAIL:', e.message); process.exit(1); });
