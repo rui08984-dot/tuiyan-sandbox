@@ -102,3 +102,12 @@
 - **build**：`cd p1b/web && npm.cmd run build`（tsc && vite build）**exit 0**，76 modules；dist 新 bundle **index-CxGN2ElZ.js**（旧 index-CatPXW5g.js → 新 CxGN2ElZ）+ 新 CSS index-DChJsPOY.css；产物内实抓「万物审计」「只记不评」及 12 个 audit-* testid 字面（audit-layer-* 为运行时拼接属预期）。
 - **边界**：8787 服务进程零接触（页面随用户重启 bat 生效）；禁改清单（p1a-terminal/**、botc 五文件、meihua.js、providers.json、PREREG 冻结件、p7-p17 已发布节、audit.js）零触碰。
 
+
+
+## 语料第二批（2026-09-12 · 主会话亲笔 · 派棒两度死于模型服务瞬断后收回自营）
+
+- **工具**：p1b/scripts/corpus-ingest-b2.cjs（--confirm 显式写库；prob=脚本内现算的严格比较口径气候基率，不留漂移）；探针脚本用后即删。
+- **落库 18 条**（id 455-472）：L3 天气 16 条=四城市（上海>30°C/北京>28°C/广州>32°C/成都>25°C）×09-13..09-16，prob=各城市 2015-2024 九月严格大于占比（0.20/0.34/0.30/0.65）；L2 汇率 2 条=USD/EUR 2026-10 <1.15（0.4488）与 <1.10（0.2952），cutoff=落库时点。
+- **阈值纪律**：全部落中段基率 (0.05,0.95) 防恒真恒假（Q0-3 精神）；日元题被否决——历史序列近恒真（<185=99%）或 cutoff 时点答案已定（<145 违反 Q0-2 精神），换 USD/EUR 同序列第二阈值。
+- **复核**：l0Gate 454→472 / 442 valid / unresolved=22；resolve dry-run 22 条全 pending（ERA5 未入库/月值未发布），fetch-fail=0。零触碰 sim/real 域。
+- **教训**：派棒三连死（模型服务瞬断）→ 主会话自营；汇率题阈值必须查历史分布再定，禁拍脑袋。
