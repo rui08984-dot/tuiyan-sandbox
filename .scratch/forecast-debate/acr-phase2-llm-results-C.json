@@ -1,0 +1,861 @@
+{
+ "generated_at": "2026-09-12T18:16:03.356Z",
+ "phase": "ACR-二期·LLM 层（参谋卡 P_win/P_vote 漂移）",
+ "corpus": "gid 7,8,9,10,11,12（子集；全量语料=7..37 sim 共 31 局）",
+ "params": {
+  "cls": "C",
+  "rho": 0.3,
+  "K_reps": 3,
+  "temperature": 0.2,
+  "windows": [
+   "cutoff"
+  ],
+  "pairs_injected": "空（纯账本读数；机械检测对不喂 LLM）",
+  "model": "tokenrhythm/glm-5.3-flash",
+  "max_calls": 200,
+  "pairs_mode": "base,poll"
+ },
+ "calls_used": 14,
+ "cost": {
+  "calls_with_usage": 37,
+  "prompt_tokens": 55925,
+  "completion_tokens": 43907,
+  "total_tokens": 99832,
+  "est_cny": 0.299,
+  "est_note": "按 ¥3/百万 token 混合单价粗估（S2 §① ¥1-5/1.1M 口径反推），真实账单以 TokenRhythm 为准"
+ },
+ "threshold": 0.15,
+ "windows": {
+  "cutoff": {
+   "window_note": "cutoff=投票前公开记录（排除计票/终局，防结算泄漏）",
+   "n_games_paired": 6,
+   "noise_floor_self": {
+    "tv_win": 0.010000000000000002,
+    "tv_vote": 0.10666666666666669,
+    "max": 0.10666666666666669
+   },
+   "main_reading_mean": {
+    "tv_win": 0.012222222222222226,
+    "tv_vote": 0.042222222222222223,
+    "max": 0.042222222222222223
+   },
+   "main_reading_median": {
+    "tv_win": 0.003333333333333355,
+    "tv_vote": 0.0366666666666666,
+    "max": 0.0366666666666666
+   },
+   "per_game": [
+    {
+     "gid": 7,
+     "tv_win": 0.003333333333333355,
+     "tv_vote": 0.07333333333333338,
+     "max": 0.07333333333333338
+    },
+    {
+     "gid": 8,
+     "tv_win": 0,
+     "tv_vote": 0.0366666666666666,
+     "max": 0.0366666666666666
+    },
+    {
+     "gid": 9,
+     "tv_win": 0,
+     "tv_vote": 0.04000000000000002,
+     "max": 0.04000000000000002
+    },
+    {
+     "gid": 10,
+     "tv_win": 0.043333333333333335,
+     "tv_vote": 0.04666666666666669,
+     "max": 0.04666666666666669
+    },
+    {
+     "gid": 11,
+     "tv_win": 0.006666666666666654,
+     "tv_vote": 0.023333333333333338,
+     "max": 0.023333333333333338
+    },
+    {
+     "gid": 12,
+     "tv_win": 0.020000000000000018,
+     "tv_vote": 0.03333333333333335,
+     "max": 0.03333333333333335
+    }
+   ],
+   "per_game_max_mean": 0.042222222222222223,
+   "per_game_max_median": 0.0366666666666666,
+   "per_game_max_p90": 0.07333333333333338,
+   "p_win_mean_base": 0.4938888888888889,
+   "p_win_mean_poll": 0.505,
+   "p_win_signed_shift": 0.011111111111111127,
+   "pass_mean": true,
+   "pass_median": true,
+   "pass_pergame_mean": true,
+   "baseline_per_game": [
+    {
+     "gid": 7,
+     "window": "cutoff",
+     "events": 8,
+     "claims": 12,
+     "agg": {
+      "p_win": 0.49333333333333335,
+      "p_vote": {
+       "1": 0.25333333333333335,
+       "2": 0.25666666666666665,
+       "3": 0.14,
+       "4": 0.006666666666666667,
+       "5": 0.12,
+       "6": 0.2233333333333333
+      }
+     },
+     "within": {
+      "tv_win": 0.013333333333333345,
+      "tv_vote": 0.07333333333333335,
+      "max": 0.07333333333333335,
+      "pairs": 3
+     },
+     "usages": [
+      {
+       "completion_tokens": 511,
+       "prompt_tokens": 1559,
+       "total_tokens": 2070,
+       "completion_tokens_details": {
+        "reasoning_tokens": 409
+       },
+       "prompt_tokens_details": {
+        "cached_tokens": 0
+       }
+      },
+      {
+       "completion_tokens": 1600,
+       "prompt_tokens": 1559,
+       "total_tokens": 3159,
+       "completion_tokens_details": {
+        "reasoning_tokens": 1516
+       },
+       "prompt_tokens_details": {
+        "cached_tokens": 0
+       }
+      },
+      {
+       "completion_tokens": 1154,
+       "prompt_tokens": 1559,
+       "total_tokens": 2713,
+       "completion_tokens_details": {
+        "reasoning_tokens": 1053
+       },
+       "prompt_tokens_details": {
+        "cached_tokens": 0
+       }
+      }
+     ],
+     "errors": []
+    },
+    {
+     "gid": 8,
+     "window": "cutoff",
+     "events": 8,
+     "claims": 13,
+     "agg": {
+      "p_win": 0.5,
+      "p_vote": {
+       "1": 0.05333333333333334,
+       "2": 0.41333333333333333,
+       "3": 0.0033333333333333335,
+       "4": 0.18333333333333335,
+       "5": 0.16333333333333333,
+       "6": 0.18333333333333335
+      }
+     },
+     "within": {
+      "tv_win": 0,
+      "tv_vote": 0.08999999999999998,
+      "max": 0.08999999999999998,
+      "pairs": 3
+     },
+     "usages": [
+      {
+       "completion_tokens": 908,
+       "prompt_tokens": 1572,
+       "total_tokens": 2480,
+       "completion_tokens_details": {
+        "reasoning_tokens": 800
+       },
+       "prompt_tokens_details": {
+        "cached_tokens": 0
+       }
+      },
+      {
+       "completion_tokens": 831,
+       "prompt_tokens": 1572,
+       "total_tokens": 2403,
+       "completion_tokens_details": {
+        "reasoning_tokens": 734
+       },
+       "prompt_tokens_details": {
+        "cached_tokens": 0
+       }
+      },
+      {
+       "completion_tokens": 1079,
+       "prompt_tokens": 1572,
+       "total_tokens": 2651,
+       "completion_tokens_details": {
+        "reasoning_tokens": 961
+       },
+       "prompt_tokens_details": {
+        "cached_tokens": 0
+       }
+      }
+     ],
+     "errors": []
+    },
+    {
+     "gid": 9,
+     "window": "cutoff",
+     "events": 8,
+     "claims": 9,
+     "agg": {
+      "p_win": 0.5,
+      "p_vote": {
+       "1": 0.06333333333333335,
+       "2": 0.06666666666666668,
+       "3": 0.46,
+       "4": 0.003333333333333334,
+       "5": 0.1866666666666667,
+       "6": 0.22000000000000003
+      }
+     },
+     "within": {
+      "tv_win": 0,
+      "tv_vote": 0.09666666666666666,
+      "max": 0.09666666666666666,
+      "pairs": 3
+     },
+     "usages": [
+      {
+       "completion_tokens": 466,
+       "prompt_tokens": 1382,
+       "total_tokens": 1848,
+       "completion_tokens_details": {
+        "reasoning_tokens": 373
+       },
+       "prompt_tokens_details": {
+        "cached_tokens": 0
+       }
+      },
+      {
+       "completion_tokens": 1119,
+       "prompt_tokens": 1382,
+       "total_tokens": 2501,
+       "completion_tokens_details": {
+        "reasoning_tokens": 1011
+       },
+       "prompt_tokens_details": {
+        "cached_tokens": 1344
+       }
+      },
+      {
+       "completion_tokens": 1086,
+       "prompt_tokens": 1382,
+       "total_tokens": 2468,
+       "completion_tokens_details": {
+        "reasoning_tokens": 989
+       },
+       "prompt_tokens_details": {
+        "cached_tokens": 0
+       }
+      }
+     ],
+     "errors": []
+    },
+    {
+     "gid": 10,
+     "window": "cutoff",
+     "events": 8,
+     "claims": 8,
+     "agg": {
+      "p_win": 0.5,
+      "p_vote": {
+       "1": 0.12,
+       "2": 0.22666666666666666,
+       "3": 0.23,
+       "4": 0,
+       "5": 0.12666666666666668,
+       "6": 0.2966666666666667
+      }
+     },
+     "within": {
+      "tv_win": 0,
+      "tv_vote": 0.12999999999999998,
+      "max": 0.12999999999999998,
+      "pairs": 3
+     },
+     "usages": [
+      {
+       "completion_tokens": 1019,
+       "prompt_tokens": 1329,
+       "total_tokens": 2348,
+       "completion_tokens_details": {
+        "reasoning_tokens": 914
+       },
+       "prompt_tokens_details": {
+        "cached_tokens": 0
+       }
+      },
+      {
+       "completion_tokens": 1196,
+       "prompt_tokens": 1329,
+       "total_tokens": 2525,
+       "completion_tokens_details": {
+        "reasoning_tokens": 1099
+       },
+       "prompt_tokens_details": {
+        "cached_tokens": 0
+       }
+      },
+      {
+       "completion_tokens": 888,
+       "prompt_tokens": 1329,
+       "total_tokens": 2217,
+       "completion_tokens_details": {
+        "reasoning_tokens": 792
+       },
+       "prompt_tokens_details": {
+        "cached_tokens": 0
+       }
+      }
+     ],
+     "errors": []
+    },
+    {
+     "gid": 11,
+     "window": "cutoff",
+     "events": 8,
+     "claims": 13,
+     "agg": {
+      "p_win": 0.49333333333333335,
+      "p_vote": {
+       "1": 0,
+       "2": 0.09000000000000001,
+       "3": 0.19000000000000003,
+       "4": 0.23666666666666666,
+       "5": 0.2833333333333334,
+       "6": 0.20000000000000004
+      }
+     },
+     "within": {
+      "tv_win": 0.013333333333333345,
+      "tv_vote": 0.09666666666666668,
+      "max": 0.09666666666666668,
+      "pairs": 3
+     },
+     "usages": [
+      {
+       "completion_tokens": 1105,
+       "prompt_tokens": 1607,
+       "total_tokens": 2712,
+       "completion_tokens_details": {
+        "reasoning_tokens": 1002
+       },
+       "prompt_tokens_details": {
+        "cached_tokens": 0
+       }
+      },
+      {
+       "completion_tokens": 1065,
+       "prompt_tokens": 1607,
+       "total_tokens": 2672,
+       "completion_tokens_details": {
+        "reasoning_tokens": 961
+       },
+       "prompt_tokens_details": {
+        "cached_tokens": 0
+       }
+      },
+      {
+       "completion_tokens": 1115,
+       "prompt_tokens": 1607,
+       "total_tokens": 2722,
+       "completion_tokens_details": {
+        "reasoning_tokens": 1015
+       },
+       "prompt_tokens_details": {
+        "cached_tokens": 0
+       }
+      }
+     ],
+     "errors": []
+    },
+    {
+     "gid": 12,
+     "window": "cutoff",
+     "events": 8,
+     "claims": 13,
+     "agg": {
+      "p_win": 0.4766666666666666,
+      "p_vote": {
+       "1": 0.17999999999999997,
+       "2": 0,
+       "3": 0.4333333333333333,
+       "4": 0.16333333333333333,
+       "5": 0.16333333333333333,
+       "6": 0.06
+      }
+     },
+     "within": {
+      "tv_win": 0.033333333333333326,
+      "tv_vote": 0.1533333333333334,
+      "max": 0.1533333333333334,
+      "pairs": 3
+     },
+     "usages": [
+      {
+       "completion_tokens": 1396,
+       "prompt_tokens": 1612,
+       "total_tokens": 3008,
+       "completion_tokens_details": {
+        "reasoning_tokens": 1289
+       },
+       "prompt_tokens_details": {
+        "cached_tokens": 0
+       }
+      },
+      {
+       "completion_tokens": 1470,
+       "prompt_tokens": 1612,
+       "total_tokens": 3082,
+       "completion_tokens_details": {
+        "reasoning_tokens": 1375
+       },
+       "prompt_tokens_details": {
+        "cached_tokens": 0
+       }
+      },
+      {
+       "completion_tokens": 1600,
+       "prompt_tokens": 1612,
+       "total_tokens": 3212,
+       "completion_tokens_details": {
+        "reasoning_tokens": 1514
+       },
+       "prompt_tokens_details": {
+        "cached_tokens": 0
+       }
+      }
+     ],
+     "errors": []
+    }
+   ],
+   "polluted_per_game": [
+    {
+     "gid": 7,
+     "window": "cutoff",
+     "n_inj_actual": 3,
+     "points": 3,
+     "events": 8,
+     "claims": 12,
+     "subs": [
+      "nightdeath_first",
+      "exile_before_speech",
+      "gameend_before_vote"
+     ],
+     "agg": {
+      "p_win": 0.49,
+      "p_vote": {
+       "1": 0.24666666666666667,
+       "2": 0.26666666666666666,
+       "3": 0.08,
+       "4": 0,
+       "5": 0.12666666666666665,
+       "6": 0.28
+      }
+     },
+     "usages": [
+      {
+       "completion_tokens": 868,
+       "prompt_tokens": 1559,
+       "total_tokens": 2427,
+       "completion_tokens_details": {
+        "reasoning_tokens": 765
+       },
+       "prompt_tokens_details": {
+        "cached_tokens": 0
+       }
+      },
+      {
+       "completion_tokens": 1301,
+       "prompt_tokens": 1559,
+       "total_tokens": 2860,
+       "completion_tokens_details": {
+        "reasoning_tokens": 1184
+       },
+       "prompt_tokens_details": {
+        "cached_tokens": 0
+       }
+      },
+      {
+       "completion_tokens": 1052,
+       "prompt_tokens": 1559,
+       "total_tokens": 2611,
+       "completion_tokens_details": {
+        "reasoning_tokens": 953
+       },
+       "prompt_tokens_details": {
+        "cached_tokens": 0
+       }
+      },
+      {
+       "completion_tokens": 1198,
+       "prompt_tokens": 1559,
+       "total_tokens": 2757,
+       "completion_tokens_details": {
+        "reasoning_tokens": 1098
+       },
+       "prompt_tokens_details": {
+        "cached_tokens": 0
+       }
+      }
+     ],
+     "errors": [],
+     "tv_win_vs_base": 0.003333333333333355,
+     "tv_vote_vs_base": 0.07333333333333338,
+     "p_win_base": 0.49333333333333335,
+     "p_win_poll": 0.49,
+     "top_vote_base": "2:0.26 1:0.25",
+     "top_vote_poll": "6:0.28 2:0.27"
+    },
+    {
+     "gid": 8,
+     "window": "cutoff",
+     "n_inj_actual": 3,
+     "points": 3,
+     "events": 8,
+     "claims": 13,
+     "subs": [
+      "nightdeath_first",
+      "exile_before_speech",
+      "gameend_before_vote"
+     ],
+     "agg": {
+      "p_win": 0.5,
+      "p_vote": {
+       "1": 0.07666666666666667,
+       "2": 0.3966666666666667,
+       "3": 0,
+       "4": 0.18999999999999997,
+       "5": 0.14666666666666667,
+       "6": 0.18999999999999997
+      }
+     },
+     "usages": [
+      {
+       "completion_tokens": 867,
+       "prompt_tokens": 1572,
+       "total_tokens": 2439,
+       "completion_tokens_details": {
+        "reasoning_tokens": 764
+       },
+       "prompt_tokens_details": {
+        "cached_tokens": 0
+       }
+      },
+      {
+       "completion_tokens": 1244,
+       "prompt_tokens": 1572,
+       "total_tokens": 2816,
+       "completion_tokens_details": {
+        "reasoning_tokens": 1141
+       },
+       "prompt_tokens_details": {
+        "cached_tokens": 0
+       }
+      },
+      {
+       "completion_tokens": 991,
+       "prompt_tokens": 1572,
+       "total_tokens": 2563,
+       "completion_tokens_details": {
+        "reasoning_tokens": 889
+       },
+       "prompt_tokens_details": {
+        "cached_tokens": 0
+       }
+      }
+     ],
+     "errors": [],
+     "tv_win_vs_base": 0,
+     "tv_vote_vs_base": 0.0366666666666666,
+     "p_win_base": 0.5,
+     "p_win_poll": 0.5,
+     "top_vote_base": "2:0.41 4:0.18",
+     "top_vote_poll": "2:0.40 4:0.19"
+    },
+    {
+     "gid": 9,
+     "window": "cutoff",
+     "n_inj_actual": 3,
+     "points": 3,
+     "events": 8,
+     "claims": 9,
+     "subs": [
+      "nightdeath_first",
+      "exile_before_speech",
+      "gameend_before_vote"
+     ],
+     "agg": {
+      "p_win": 0.5,
+      "p_vote": {
+       "1": 0.056666666666666664,
+       "2": 0.05333333333333334,
+       "3": 0.48333333333333334,
+       "4": 0.01,
+       "5": 0.16666666666666666,
+       "6": 0.23
+      }
+     },
+     "usages": [
+      {
+       "completion_tokens": 1221,
+       "prompt_tokens": 1382,
+       "total_tokens": 2603,
+       "completion_tokens_details": {
+        "reasoning_tokens": 1120
+       },
+       "prompt_tokens_details": {
+        "cached_tokens": 0
+       }
+      },
+      {
+       "completion_tokens": 1107,
+       "prompt_tokens": 1382,
+       "total_tokens": 2489,
+       "completion_tokens_details": {
+        "reasoning_tokens": 1014
+       },
+       "prompt_tokens_details": {
+        "cached_tokens": 0
+       }
+      },
+      {
+       "completion_tokens": 1312,
+       "prompt_tokens": 1382,
+       "total_tokens": 2694,
+       "completion_tokens_details": {
+        "reasoning_tokens": 1209
+       },
+       "prompt_tokens_details": {
+        "cached_tokens": 0
+       }
+      }
+     ],
+     "errors": [],
+     "tv_win_vs_base": 0,
+     "tv_vote_vs_base": 0.04000000000000002,
+     "p_win_base": 0.5,
+     "p_win_poll": 0.5,
+     "top_vote_base": "3:0.46 6:0.22",
+     "top_vote_poll": "3:0.48 6:0.23"
+    },
+    {
+     "gid": 10,
+     "window": "cutoff",
+     "n_inj_actual": 3,
+     "points": 3,
+     "events": 8,
+     "claims": 8,
+     "subs": [
+      "nightdeath_first",
+      "exile_before_speech",
+      "gameend_before_vote"
+     ],
+     "agg": {
+      "p_win": 0.5433333333333333,
+      "p_vote": {
+       "1": 0.08666666666666666,
+       "2": 0.2266666666666666,
+       "3": 0.2766666666666666,
+       "4": 0,
+       "5": 0.11666666666666665,
+       "6": 0.29333333333333333
+      }
+     },
+     "usages": [
+      {
+       "completion_tokens": 2035,
+       "prompt_tokens": 1329,
+       "total_tokens": 3364,
+       "completion_tokens_details": {
+        "reasoning_tokens": 1931
+       },
+       "prompt_tokens_details": {
+        "cached_tokens": 0
+       }
+      },
+      {
+       "completion_tokens": 1225,
+       "prompt_tokens": 1329,
+       "total_tokens": 2554,
+       "completion_tokens_details": {
+        "reasoning_tokens": 1129
+       },
+       "prompt_tokens_details": {
+        "cached_tokens": 0
+       }
+      },
+      {
+       "completion_tokens": 779,
+       "prompt_tokens": 1329,
+       "total_tokens": 2108,
+       "completion_tokens_details": {
+        "reasoning_tokens": 681
+       },
+       "prompt_tokens_details": {
+        "cached_tokens": 0
+       }
+      }
+     ],
+     "errors": [],
+     "tv_win_vs_base": 0.043333333333333335,
+     "tv_vote_vs_base": 0.04666666666666669,
+     "p_win_base": 0.5,
+     "p_win_poll": 0.5433333333333333,
+     "top_vote_base": "6:0.30 3:0.23",
+     "top_vote_poll": "6:0.29 3:0.28"
+    },
+    {
+     "gid": 11,
+     "window": "cutoff",
+     "n_inj_actual": 3,
+     "points": 3,
+     "events": 8,
+     "claims": 13,
+     "subs": [
+      "nightdeath_first",
+      "exile_before_speech",
+      "gameend_before_vote"
+     ],
+     "agg": {
+      "p_win": 0.5,
+      "p_vote": {
+       "1": 0,
+       "2": 0.09,
+       "3": 0.18999999999999997,
+       "4": 0.24666666666666662,
+       "5": 0.29666666666666663,
+       "6": 0.17666666666666664
+      }
+     },
+     "usages": [
+      {
+       "completion_tokens": 1458,
+       "prompt_tokens": 1607,
+       "total_tokens": 3065,
+       "completion_tokens_details": {
+        "reasoning_tokens": 1353
+       },
+       "prompt_tokens_details": {
+        "cached_tokens": 0
+       }
+      },
+      {
+       "completion_tokens": 1899,
+       "prompt_tokens": 1607,
+       "total_tokens": 3506,
+       "completion_tokens_details": {
+        "reasoning_tokens": 1782
+       },
+       "prompt_tokens_details": {
+        "cached_tokens": 0
+       }
+      },
+      {
+       "completion_tokens": 1437,
+       "prompt_tokens": 1607,
+       "total_tokens": 3044,
+       "completion_tokens_details": {
+        "reasoning_tokens": 1334
+       },
+       "prompt_tokens_details": {
+        "cached_tokens": 0
+       }
+      }
+     ],
+     "errors": [],
+     "tv_win_vs_base": 0.006666666666666654,
+     "tv_vote_vs_base": 0.023333333333333338,
+     "p_win_base": 0.49333333333333335,
+     "p_win_poll": 0.5,
+     "top_vote_base": "5:0.28 4:0.24",
+     "top_vote_poll": "5:0.30 4:0.25"
+    },
+    {
+     "gid": 12,
+     "window": "cutoff",
+     "n_inj_actual": 3,
+     "points": 3,
+     "events": 8,
+     "claims": 13,
+     "subs": [
+      "nightdeath_first",
+      "exile_before_speech",
+      "gameend_before_vote"
+     ],
+     "agg": {
+      "p_win": 0.49666666666666665,
+      "p_vote": {
+       "1": 0.16,
+       "2": 0,
+       "3": 0.45333333333333337,
+       "4": 0.15333333333333335,
+       "5": 0.16,
+       "6": 0.07333333333333335
+      }
+     },
+     "usages": [
+      {
+       "completion_tokens": 696,
+       "prompt_tokens": 1612,
+       "total_tokens": 2308,
+       "completion_tokens_details": {
+        "reasoning_tokens": 592
+       },
+       "prompt_tokens_details": {
+        "cached_tokens": 0
+       }
+      },
+      {
+       "completion_tokens": 2208,
+       "prompt_tokens": 1612,
+       "total_tokens": 3820,
+       "completion_tokens_details": {
+        "reasoning_tokens": 2113
+       },
+       "prompt_tokens_details": {
+        "cached_tokens": 0
+       }
+      },
+      {
+       "completion_tokens": 1401,
+       "prompt_tokens": 1612,
+       "total_tokens": 3013,
+       "completion_tokens_details": {
+        "reasoning_tokens": 1297
+       },
+       "prompt_tokens_details": {
+        "cached_tokens": 0
+       }
+      }
+     ],
+     "errors": [],
+     "tv_win_vs_base": 0.020000000000000018,
+     "tv_vote_vs_base": 0.03333333333333335,
+     "p_win_base": 0.4766666666666666,
+     "p_win_poll": 0.49666666666666665,
+     "top_vote_base": "3:0.43 1:0.18",
+     "top_vote_poll": "3:0.45 1:0.16"
+    }
+   ]
+  }
+ }
+}

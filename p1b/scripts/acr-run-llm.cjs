@@ -162,15 +162,22 @@ function normalizeReading(obj) {
 }
 async function callCardsOnce(view, gid, tag) {
   if (callCount >= MAX_CALLS) throw new Error('成本闸：已达 ACR2_MAX_CALLS=' + MAX_CALLS + '，停调（' + tag + '）');
-  callCount++;
   const t0 = Date.now();
-  const r = await chatOnce([
-    { role: 'system', content: CARDS_SYS },
-    { role: 'user', content: buildUserPayload(view, gid, view._note) },
-  ], { providerKey: 'tokenrhythm', temperature: TEMP, maxTokens: 1600, timeoutMs: 90000 });
-  const reading = normalizeReading(parseJsonLoose(r.content)) || normalizeReading(salvageReading(r.content));
-  if (!reading) throw new Error('读数抽取失败（raw 前 200）：' + String(r.content).slice(0, 200));
-  return { reading: reading, usage: r.usage, model: r.model, ms: Date.now() - t0 };
+  let last = null;
+  for (let a = 0; a < 2; a++) {                     // 实测空 content 偶发（推理 token 吃满）→ 单调用内重试 1 次
+    if (callCount >= MAX_CALLS) throw new Error('成本闸：已达 ' + MAX_CALLS + '（' + tag + '）');
+    callCount++;
+    try {
+      const r = await chatOnce([
+        { role: 'system', content: CARDS_SYS },
+        { role: 'user', content: buildUserPayload(view, gid, view._note) },
+      ], { providerKey: 'tokenrhythm', temperature: TEMP, maxTokens: 2400, timeoutMs: 90000 });
+      const reading = normalizeReading(parseJsonLoose(r.content)) || normalizeReading(salvageReading(r.content));
+      if (reading) return { reading: reading, usage: r.usage, model: r.model, ms: Date.now() - t0 };
+      last = '读数抽取失败（raw 前 200）：' + String(r.content).slice(0, 200);
+    } catch (e) { last = String((e && e.message) || e); }
+  }
+  throw new Error(last || '未知失败');
 }
 /** 单条件 K 次采样（K=ACR2_REPS，默认 3）；部分失败如实保留 readings，全失败抛错 */
 async function sampleCondition(view, gid, tag) {
@@ -227,6 +234,34 @@ async function main() {
   const want = arg('pairs', 'base,poll').split(',');
   const withFull = argv.indexOf('--full') !== -1;
   const reps = Number(process.env.ACR2_REPS || 3);
+  const RATE = inj.RATES[1];                                  // 0.30（RATES=[0.10,0.30,0.50]）
+  const CACHE = path.join(__dirname, '..', '..', '.scratch', 'forecast-debate', 'acr2-cache.json');
+  let cache = {};
+  try { cache = JSON.parse(fs.readFileSync(CACHE, 'utf8')); } catch (e) { cache = {}; }
+  const saveCache = () => fs.writeFileSync(CACHE, JSON.stringify(cache, null, 1), 'utf8');
+  const CACHE_V = 'v2';                                       // prompt/解析器版本戳（改动须升版防脏读）
+  async function sampleCached(gid, name, cond, view, tag) {
+    const key = [CACHE_V, (cond === 'clean' ? '-' : cls), gid, name, cond, 'K' + reps].join('|');
+    if (cache[key] && Array.isArray(cache[key].readings) && cache[key].readings.length >= reps) {
+      log('[CACHE] ' + key);
+      return { readings: cache[key].readings.slice(0, reps), usages: cache[key].usages || [], errors: [], cached: true };
+    }
+    // 部分命中（如崩溃残留 n<reps）：只补差额，复用已付费样本
+    if (cache[key] && Array.isArray(cache[key].readings) && cache[key].readings.length > 0) {
+      const have = cache[key].readings;
+      const need = reps - have.length;
+      log('[CACHE-PARTIAL] ' + key + ' have=' + have.length + ' 补 ' + need);
+      const extra = await sampleCondition(view, gid, tag + '#topup');
+      const merged = have.concat(extra.readings).slice(0, reps);
+      cache[key] = { readings: merged, usages: (cache[key].usages || []).concat(extra.usages), at: new Date().toISOString() };
+      saveCache();
+      return { readings: merged, usages: cache[key].usages, errors: extra.errors, cached: false };
+    }
+    const s = await sampleCondition(view, gid, tag);
+    cache[key] = { readings: s.readings, usages: s.usages, at: new Date().toISOString() };
+    saveCache();                                              // 逐条件落盘（崩溃不丢已付费样本）
+    return s;
+  }
   const outPath = arg('out', path.join(__dirname, '..', '..', '.scratch', 'forecast-debate',
     'acr-phase2-llm-results-' + cls + (withFull ? '-full' : '') + '.json'));
   const WIN = [['cutoff', cutoffView]];
@@ -256,7 +291,7 @@ async function main() {
       const name = kv[0], view = kv[1];
       const rec = { gid: g.gid, window: name, events: view.events.length, claims: view.claims.length };
       try {
-        const s = await sampleCondition(view, g.gid, 'base_' + name);
+        const s = await sampleCached(g.gid, name, 'clean', view, 'base_' + name);
         rec.agg = aggregate(s.readings); rec.within = withinNoise(s.readings); rec.usages = s.usages; rec.errors = s.errors;
         log('[BASE/' + name + '] gid=' + g.gid + ' K=' + s.readings.length + ' pw=' + fmt(rec.agg.p_win)
           + ' withinNoise max=' + fmt(rec.within.max) + ' top=' + topSeats(rec.agg.p_vote));
@@ -277,7 +312,7 @@ async function main() {
         const b = base[name][g.gid];
         if (!b || !b.agg) { rec.error = '无零污染基线（基线缺失）'; polluted[name].push(rec); continue; }
         try {
-          const s = await sampleCondition(view, g.gid, 'poll_' + cls + '_' + name);
+          const s = await sampleCached(g.gid, name, 'poll' + cls, view, 'poll_' + cls + '_' + name);
           rec.agg = aggregate(s.readings); rec.usages = s.usages; rec.errors = s.errors;
           rec.tv_win_vs_base = tvBern(rec.agg.p_win, b.agg.p_win);
           rec.tv_vote_vs_base = tvSimplex(rec.agg.p_vote, b.agg.p_vote);
