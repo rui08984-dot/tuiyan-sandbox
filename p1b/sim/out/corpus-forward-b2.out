@@ -52,6 +52,5 @@
   ],
   "samples_dlt": [
     "【forward】大乐透第 26105 期后区含 01（cutoff=落库时点 2026-09-13T01:07:55+08:00，该期尚未开奖；期号=上期 26104+1 年内序递推；预期开奖日 2026-09-14（周一/三/六口径，仅供标月）；真值锚=体彩官方 lotteryDrawResult。前瞻二轮）"
-  ],
-  "round1_archived_to": "corpus-forward.round1.out"
+  ]
 }

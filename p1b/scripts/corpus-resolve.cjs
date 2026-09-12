@@ -7,10 +7,10 @@ const { db } = require('../src/deps');
 const { resolvePrediction } = require('../src/db/predictionsStore');
 const CONFIRM = process.argv.includes('--confirm');
 const FETCH_MS = 30000;
-async function getJson(url) {
+async function getJson(url, headers) {
   const ac = new AbortController();
   const t = setTimeout(() => ac.abort(), FETCH_MS);
-  try { const res = await fetch(url, { signal: ac.signal }); if (!res.ok) throw new Error('HTTP ' + res.status); return await res.json(); } finally { clearTimeout(t); }
+  try { const res = await fetch(url, { signal: ac.signal, headers: headers || {} }); if (!res.ok) throw new Error('HTTP ' + res.status); return await res.json(); } finally { clearTimeout(t); }
 }
 
 // ── 真值锚取数（每 kind 一个纯函数：入参 resolve 对象，出参 {pending?|outcome,note}）──
@@ -49,6 +49,30 @@ const RESOLVERS = {
     return { outcome: ok ? 'true' : 'false', note: (isArchive ? 'Open-Meteo archive' : 'Open-Meteo forecast') + ' ' + r.date + ' max=' + v + 'C（阈值 ' + r.cmp + r.threshold_c + '，机检）' };
   },
   async cwl_ssq_blue_odd_forward(r) { return this.cwl_ssq_blue_odd(r); },
+  // ── corpus-forward-b2 批新增 kind（2026-09-13 施工棒）：体彩大乐透前瞻题真值锚 ──
+  // 口径：前区 5 号（01-35）+ 后区 2 号（01-12），球号为补零两位串；只读官方 lotteryDrawResult。
+  // 设计约定（由 corpus-forward-b2.cjs 写入 evidence[0].resolve）：
+  //   back_ball=两位串 → 后区是否含该号；front_max_ge=N → 前区最大号是否 >= N（同题只带一个字段）。
+  async dlt_draw_result(r) {
+    const u = 'https://webapi.sporttery.cn/gateway/lottery/getHistoryPageListV1.qry?gameNo=85&provinceId=0&pageSize=60&isVerify=1&pageNo=1';
+    const j = await getJson(u);
+    const list = (j.value && j.value.list) || [];
+    const hit = list.find((d) => String(d.lotteryDrawNum) === String(r.issue));
+    if (!hit) return { pending: '第 ' + r.issue + ' 期未开奖' };
+    const nums = String(hit.lotteryDrawResult).trim().split(/\s+/);
+    const front = nums.slice(0, 5).map((x) => String(x));
+    const back = nums.slice(5, 7).map((x) => String(x));
+    if (r.back_ball !== undefined && r.back_ball !== null) {
+      const ok = back.indexOf(String(r.back_ball)) !== -1;
+      return { outcome: ok ? 'true' : 'false', note: '体彩官方 dlt ' + r.issue + ' 期 lotteryDrawResult=' + hit.lotteryDrawResult + '（后区含 ' + r.back_ball + '，机检）' };
+    }
+    if (r.front_max_ge !== undefined && r.front_max_ge !== null) {
+      const mx = Math.max.apply(null, front.map(Number));
+      const ok = mx >= Number(r.front_max_ge);
+      return { outcome: ok ? 'true' : 'false', note: '体彩官方 dlt ' + r.issue + ' 期 lotteryDrawResult=' + hit.lotteryDrawResult + '（前区最大号 ' + mx + ' >= ' + r.front_max_ge + '，机检）' };
+    }
+    return { pending: 'resolve 参数未带 back_ball/front_max_ge（' + r.issue + '）' };
+  },
 };
 
 async function cwlEval(r, predicate, what) {
