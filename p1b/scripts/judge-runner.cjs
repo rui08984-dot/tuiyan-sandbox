@@ -4,21 +4,24 @@
  *  p13 批次0.5 修补：①选题 SQL 加 games.source='sim' 域过滤（防 real 真人域卷入）；
  *  ②响应体 errors 数组逐条落 p1b/sim/out/judge-errors.log；③偶数 median 退化注释。
  *  批次1-R-A：加 --limit=N 烟测参数（选题 SQL/注入链/写回逻辑全不动）。
- *  批次2-M1（R-A 后解冻件）：inject body 带 runId（=PREREG-判词重跑-v1.md 冻结 sha256 前 12 位，
- *  排除 hash 行口径与文件协议一致）与 model（tokenrhythm/glm-5.3-flash），verdicts 表按批次指纹分组。 */
+ *  批次2-M1（R-A 后解冻件）：inject body 带 runId 与 model（tokenrhythm/glm-5.3-flash），verdicts 表按批次指纹分组。
+ *  批次2-RB 纠正（溯源污染修复）：runId 改 --runid= 参数显式传入——根因=M1 版硬编码读
+ *  PREREG-判词重跑-v1.md 算出 R-A hash（f232e2a54689）污染 R-B 批次；缺省回退旧口径并打 WARN。 */
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 const ERR_LOG = path.join(__dirname, '..', 'sim', 'out', 'judge-errors.log');
 const PREREG_MD = path.join(__dirname, '..', '..', '.scratch', 'forecast-debate', 'PREREG-判词重跑-v1.md');
-/** runId = PREREG 冻结版 sha256 前 12 位（排除 `> sha256` 行，口径=文件头协议）；文件缺失→'prereg-missing' 如实标注 */
+/** 旧口径（缺省回退用）：PREREG-判词重跑-v1.md sha256 前 12 位（排除 `> sha256` 行）；文件缺失→'prereg-missing' */
 function calcRunId() {
   try {
     const lines = fs.readFileSync(PREREG_MD, 'utf8').split(/\r?\n/).filter((l) => !l.startsWith('> sha256'));
     return crypto.createHash('sha256').update(lines.join('\n'), 'utf8').digest('hex').slice(0, 12);
   } catch (e) { return 'prereg-missing'; }
 }
-const RUN_ID = calcRunId();
+const runidArg = process.argv.find((a) => a.startsWith('--runid='));
+const RUN_ID = (runidArg && runidArg.split('=')[1]) || calcRunId();
+const RUN_ID_EXPLICIT = Boolean(runidArg);
 const MODEL = 'tokenrhythm/glm-5.3-flash';
 async function main() {
   process.env.LLM_MOCK = '';
@@ -38,6 +41,7 @@ async function main() {
   const limit = limitArg ? parseInt(limitArg.split('=')[1], 10) : null;
   const selected = (limit && limit > 0) ? preds.slice(0, limit) : preds;
   if (limit) console.log('LIMIT selected=' + selected.length + '/' + preds.length);
+  console.log('RUN_ID=' + RUN_ID + (RUN_ID_EXPLICIT ? ' (--runid 显式传入)' : ' (缺省回退旧口径——建议显式 --runid=，防批次指纹污染)'));
   let done = 0, medianed = 0, nulled = 0;
   for (const p of selected) {
     const already = conn.prepare('SELECT COUNT(*) n FROM verdicts WHERE prediction_id = ?').get(p.id).n;
