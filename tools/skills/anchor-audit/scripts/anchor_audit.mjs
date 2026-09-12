@@ -24,15 +24,16 @@ const extRe = new RegExp('\\.(' + EXTS.join('|') + ')$', 'i');
 const refs = new Map(); // raw -> {line, kind}
 
 lines.forEach((ln, i) => {
+  const lnClean = ln.replace(/~~[^~]*~~/g, ''); // 剔除删除线（已废止引用）
   // 1) 反引号包裹（优先级最高）
-  for (const m of ln.matchAll(/`([^`]+)`/g)) {
+  for (const m of lnClean.matchAll(/`([^`]+)`/g)) {
     const v = m[1].trim();
     const isCommit = /^[0-9a-f]{7,40}$/.test(v);
     const isPath = extRe.test(v) && (v.includes('/') || v.includes('\\') || v.length > 6) && !/^\\.?[a-z0-9]+$/i.test(v);
     if (isCommit || isPath) refs.set(v, { line: i + 1, kind: isCommit ? 'commit' : 'path' });
   }
   // 2) 裸路径（宽规则：只要带已知扩展名且非纯扩展名，就抽）
-  for (const m of ln.matchAll(/([A-Za-z0-9_][A-Za-z0-9_./\\-]*\.(?:jsonl|json|tsx|mjs|cjs|html|txt|log|out|sql|md|ts|js|py|sh|db|ps1|css))/g)) {
+  for (const m of lnClean.matchAll(/([A-Za-z0-9_][A-Za-z0-9_./\\-]*\.(?:jsonl|json|tsx|mjs|cjs|html|txt|log|out|sql|md|ts|js|py|sh|db|ps1|css))/g)) {
     const v = m[1].trim();
     if (/^\.?[a-z0-9]{1,5}$/i.test(v)) continue;      // 纯扩展名 → 跳过
     if (/^https?:/i.test(v)) continue;                  // URL → 跳过
