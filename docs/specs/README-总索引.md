@@ -59,6 +59,61 @@
 
 ---
 
+
+## 4.5 · 本会话施工产物（2026-09-12/13 · 全部盘上可核）
+
+### 语料管线（4 个脚本）
+| 脚本 | 条数 | 说明 |
+|---|---|---|
+| `p1b/scripts/corpus-backfill.cjs` | 152 | 历史回填（天气/汇率/彩票） |
+| `p1b/scripts/corpus-forward.cjs` | 112 | 前瞻一批（跨洲 14 城） |
+| `p1b/scripts/corpus-forward-b2.cjs` | 136 | 前瞻二轮（补 10/11 月） |
+| `p1b/scripts/corpus-forward-oct.cjs` | 69 | 10 月 realtime 补量 |
+| `p1b/scripts/corpus-sources-b3.cjs` | 99 | 7 新源双出题 |
+| `p1b/scripts/corpus-resolve.cjs` | — | resolver（14 kind） |
+| `p1b/scripts/corpus-resolve-daemon.cjs` | 465 行 | **自动 resolve 调度**（--once/--loop/--due-only） |
+
+### 检测与适配
+| 文件 | 说明 |
+|---|---|
+| `p1b/src/detectors/werewolf-contradictions.js` | **矛盾检测层**（444 行，W1-W6 版型无关，ACR 结果落地） |
+| `p1b/src/adapters/avalon.js` | **阿瓦隆适配器**（681 行，五方法契约） |
+
+### UI（3 件）
+| 文件 | 说明 |
+|---|---|
+| `p1b/src/routes/audit.js` + `AuditPage.tsx` | **审计页三层递进**（p20+p22：状态卡/分层卡/折叠明细） |
+| `p1b/src/routes/adapters.js` + `lib/useGameTypes.ts` | **游戏类型后端驱动**（p21，加游戏只改后端） |
+| `p1b/web/dist` | 最新 bundle index-BRXPntAZ.js |
+
+### 真人局入库
+| 件 | 说明 |
+|---|---|
+| `p1b/scripts/m2-ingest-ep789.cjs` | **第 7/8/9 局入库**（n_real 8→11，泄漏自检 0） |
+| `docs/sandbox/p0-replay/M2-入库报告-第7-8-9局.md` | 入库报告 |
+| `docs/sandbox/p0-replay/M2-终审清单-第7-8-9局.md` | 三局终审清单 |
+
+### 数据源普查
+| 件 | 说明 |
+|---|---|
+| `p1b/sim/out/sources-wide-probe.out` (34.6KB) | **广域普查**（200+ URL 实测，16 域可用） |
+| `p1b/sim/out/sources-wide-probe.jsonl` | 143 条原始证据 |
+
+### 关键文档
+| 件 | 说明 |
+|---|---|
+| `docs/specs/讨论汇总与实施路线-20260913.md` | **本会话讨论全记录**（用户 7 观点 + 队长 6 建议） |
+| `docs/specs/前瞻多点铺量-冲刺计划-20260912.md` | forward 批动机与规格（含 §7 G2 断档分析） |
+| `docs/specs/语料库历史回填-加速计划-20260912.md` | backfill 批 + §3.5 融合架构 |
+| `docs/specs/待办队列与派单排程-20260912.md` | 任务队列 |
+| `docs/sandbox/p1b/itest/p19~p22-PROGRESS.md` | 进度锚（含工具纪律 §十二/十三） |
+
+### 实验报告
+| 件 | 说明 |
+|---|---|
+| `.scratch/forecast-debate/acr-二期报告-20260912.md` | **ACR 二期**（cutoff PASS / full FAIL） |
+| `.scratch/forecast-debate/acr-一期报告-20260912.md` | ACR 一期（机械层） |
+
 ## 5 · 铁律速查（违反=弃棒）
 
 ①玄学恒挂娱乐参考，绝不接研判 ②UI 禁「预测」字样（用审计/校准参考/分层账本）③无真值锚不入账本（Q0-1/2/3 拒收门）④LLM 仅四角色（聚合/基率/多路/校准）⑤key 不出服务端 ⑥预注册冻结后禁改 ⑦账本不可变 ⑧**派单并发上限 2-3 棒** ⑨8787 用户 bat 管理，代理零接触 ⑩微步回合制（先落盘再设计）
