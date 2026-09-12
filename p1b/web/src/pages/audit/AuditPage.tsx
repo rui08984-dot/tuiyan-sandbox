@@ -2,6 +2,10 @@
  * AuditPage —— 万物审计仪表盘（#/audit；G1 反馈 #3 · M2）。
  *
  * 数据源：GET /api/audit/summary（纯 SQL 只读聚合，零 LLM 零网络零评分——后端铁律同源）。
+ * 布局：三层递进（2026-09-13 改造，用户反馈「列了一堆数据、缺交互界面」）——
+ *   第一屏「一句话状态」：大号数字卡（在观察 N / 已回填 M / 门禁状态）+ 一句人话总结 + 折叠口径；
+ *   第二屏「分层账本」：L1-L6 六张可点击展开的卡（题量/已解真值/校准参考/基率）；
+ *   第三屏「明细长文」：原五块表（账本分层/门禁状态/待解前瞻/六层说明）收进默认折叠的 <details>。
  * 六块：①账本分层卡（layer×checklist_hash 计数表 + l0Gate 双口径 + gate 分布）
  *      ②分层校准汇总区（静态两行：R-A 读数门 / R-B 信息价值，恒挂「探索性 · 判据=PREREG 冻结件」）
  *      ③六层分类说明卡（L1-L6 一句话定义 + 引擎姿态，词表照 docs/specs/万物分类清单-v2.md）
@@ -80,6 +84,14 @@ export default function AuditPage() {
 
   const l0 = summary?.l0_gate ?? null;
 
+  // 分层索引（第一/二屏用）：layer_calibration 按层取；无该层数据如实留空（样本不足不编造）
+  const calibByLayer: Record<string, AuditLayerCalibration | undefined> = {};
+  for (const r of summary?.layer_calibration ?? []) calibByLayer[r.layer ?? '未分层'] = r;
+  // 一句话人话总结（只用账本数字，无任何宣称字样）
+  const heroLine = l0 === null ? '' : (l0.review_unlocked
+    ? '账本已解锁，正在观察 ' + l0.unresolved + ' 条前瞻题（已回填 ' + l0.resolved + ' 条真值）—— 读数可出具，仍只作参考。'
+    : '门禁未解锁：覆盖 ' + l0.games + '/30 局、有效口径 ' + l0.records_valid + '/200 条，本页数字只作参考。');
+
   return (
     <section className="page" data-testid="audit-page">
       {/* 恒挂定位横幅（铁律）：页面级始终可见，不随加载/出错状态消失 */}
@@ -98,8 +110,77 @@ export default function AuditPage() {
         </div>
       )}
 
+      {/* ── 第一屏 · 一句话状态（大号数字 + 人话总结；数字旁恒挂「参考」） ── */}
       {summary && l0 && (
-        <div className="audit-grid">
+        <div className="audit-hero" data-testid="audit-hero">
+          <div className="audit-hero-nums">
+            <div className="audit-hero-num" data-testid="audit-hero-open">
+              <b>{l0.unresolved}</b><span>在观察 · 未回填真值</span>
+            </div>
+            <div className="audit-hero-num" data-testid="audit-hero-resolved">
+              <b>{l0.resolved}</b><span>已回填 · 真值已到</span>
+            </div>
+            <div className="audit-hero-num" data-testid="audit-hero-gate">
+              <b className={l0.review_unlocked ? 'is-ok' : 'is-warn'}>{l0.review_unlocked ? '已解锁' : '未解锁'}</b>
+              <span>门禁状态</span>
+            </div>
+          </div>
+          <p className="audit-hero-line" data-testid="audit-hero-line">{heroLine}</p>
+          <p className="audit-hero-ref">以上数字只作「参考」（账本快照：{summary.generated_at}）</p>
+          <details className="audit-fold audit-fold-hero" data-testid="audit-hero-more">
+            <summary>展开账本口径（总账 / 有效口径 / 覆盖局数）</summary>
+            <div className="audit-kv"><span>总账条数（含重言隔离）</span><b>{l0.records}<i className="audit-ref">参考</i></b></div>
+            <div className="audit-kv"><span>有效口径（tautology=0）</span><b>{l0.records_valid}<i className="audit-ref">参考</i></b></div>
+            <div className="audit-kv"><span>待回填</span><b>{l0.unresolved}<i className="audit-ref">参考</i></b></div>
+            <div className="audit-kv"><span>覆盖局数</span><b>{l0.games}<i className="audit-ref">参考</i></b></div>
+            <p className="audit-card-note" style={{ marginTop: 6, marginBottom: 0 }}>{l0.gate}</p>
+          </details>
+        </div>
+      )}
+
+      {/* ── 第二屏 · 分层卡片（L1-L6 六张卡，可点击展开该层明细） ── */}
+      {summary && (
+        <section className="audit-screen" data-testid="audit-layers-screen">
+          <h3 className="audit-screen-title">第二屏 · 分层账本（L1-L6）</h3>
+          <p className="audit-card-note">
+            点任意卡片可展开该层明细（本屏内折叠）。题量/已解真值/校准参考/基率皆为账本机械算术，只作「参考」；样本不足如实留空。
+          </p>
+          <div className="audit-layer-grid" data-testid="audit-layers-grid">
+            {LAYER_CARDS.map((lc) => {
+              const r = calibByLayer[lc.id];
+              return (
+                <details className="audit-lcard" key={lc.id} data-testid={'audit-lcard-' + lc.id}>
+                  <summary className="audit-lcard-head">
+                    <span className="audit-layer-id">{lc.id}</span>
+                    <span className="audit-lcard-name">{lc.name}</span>
+                    <span className="audit-lcard-mini">题量 {r ? r.n : 0} · 已解真值 {r ? r.resolved : 0} · 校准参考 {r ? tri(r.brier) : '样本不足'}</span>
+                    <span className="audit-lcard-caret" aria-hidden>▸</span>
+                  </summary>
+                  <div className="audit-lcard-body">
+                    <div className="audit-lcard-stats">
+                      <div className="audit-lcard-stat"><span>题量</span><b>{r ? r.n : 0}</b></div>
+                      <div className="audit-lcard-stat"><span>已解真值</span><b>{r ? r.resolved : 0}</b></div>
+                      <div className="audit-lcard-stat"><span>校准参考</span><b>{r ? tri(r.brier) : '样本不足'}</b></div>
+                      <div className="audit-lcard-stat"><span>基率</span><b>{r ? baseRate(r) : '样本不足'}</b></div>
+                    </div>
+                    <p className="audit-lcard-brief">{lc.brief}</p>
+                    <p className="audit-lcard-engine">引擎姿态：{lc.engine} ｜ 模型角色：{lc.llm}</p>
+                    {r
+                      ? <p className="audit-lcard-extra">已判真/假 <b>{r.settled}</b> 条 · 无法判定 <b>{r.ambiguous}</b> 条（账本计数，参考）</p>
+                      : <p className="audit-lcard-extra">账本暂无该层记录（未分层题见第三屏明细）</p>}
+                  </div>
+                </details>
+              );
+            })}
+          </div>
+        </section>
+      )}
+
+      {/* ── 第三屏 · 明细表（默认折叠：账本分层/门禁状态/待解前瞻/六层说明） ── */}
+      {summary && l0 && (
+        <details className="audit-fold audit-fold-detail" data-testid="audit-detail-fold">
+          <summary>第三屏 · 明细表（账本分层 · 门禁状态 · 待解前瞻 · 六层说明）—— 点此展开</summary>
+          <div className="audit-grid">
           {/* ① 账本分层卡 */}
           <div className="audit-card" data-testid="audit-ledger-card">
             <h3 className="audit-card-title">账本分层</h3>
@@ -258,7 +339,8 @@ export default function AuditPage() {
               </div>
             ))}
           </div>
-        </div>
+          </div>
+        </details>
       )}
 
       {summary && (

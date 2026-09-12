@@ -31,6 +31,9 @@ export default function App() {
               <NavLink to="/manage" className={({ isActive }) => 'appbar-link ' + (NavLinkCls(isActive) ?? '')}>
                 管理
               </NavLink>
+              <NavLink to="/audit" className={({ isActive }) => 'appbar-link ' + (NavLinkCls(isActive) ?? '')}>
+                审计
+              </NavLink>
               <NavLink to="/mystic" className={({ isActive }) => 'appbar-link ' + (NavLinkCls(isActive) ?? '')}>
                 ☯ 排盘
               </NavLink>
