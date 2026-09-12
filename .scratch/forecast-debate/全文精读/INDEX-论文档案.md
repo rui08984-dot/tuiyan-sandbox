@@ -1,4 +1,4 @@
-# 论文档案索引（INDEX · 2026-09-11 · 精读线 11 篇）
+# 论文档案索引（INDEX · 2026-09-11 · 一期精读线 12 条【v1.2 更正：J1-J6+K1-K6 计 12，原「11 篇」系 K2 WRONGID 替换后未同步总数——深夜评审漏报补抓】；二期档案节见文末）
 
 > 三层分类法：【事实层】=自论文原文实抓的数字/表格/公式（可回缓存逐字核对，最硬）；【结论层】=作者声称与推断（采信度按三态：已核/转述/待验证，red-team 修正随注）；【数学层】=公式编号清单（K 线 F 系列 62 条，全部带节号/变量/适用条件）。
 > 引用规则：对外引用任何数字必须回【事实层】核对+带题集/口径/日期三要素（J 笔记论文3⑦2 三文三口径对照表）。
@@ -86,4 +86,38 @@ SIAM Review 卷期页码｜MAPIE exchangeability test 函数名｜Metaculus 聚�
 ## 五、书单留档（YAGNI 未读）
 Genest-Zidek opinion pool｜Satopää IJF 2014｜Murphy 1973｜2608.28482｜1406.2148/1506.06405/2111.03153｜Schoenegger 2402.07862｜Paleka foreknowledge 2025｜Turtel 2025｜Yan 2024｜Zou Autocast 2022
 
-（INDEX 完 · 精读线 11 篇 · 缓存约 5.5MB 全部在 .scratch/forecast-debate/全文精读/）
+（一期 INDEX 完 · 精读线 12 条【v1.2 同步】 · 缓存约 5.5MB；二期 15 篇/缓存 25+ 件见下方二期档案节）
+
+---
+
+# 二期精读档案（二期棒 · 2026-09-12 · A 梯队 6 件 + B 梯队 9 件 + 非 arXiv 三经典收官）
+
+> 二期工作区：全文精读/二期/（PREREAD-二期任务清单.md=任务真源；二期-PROGRESS.md=进度真源；各笔记 二期笔记-*.md；缓存 25+ 件在 二期/cache/）。
+> 爬取配方沉淀：batch_extract.py 产 md 公式全丢（trafilatura 抠 MathML）→ 一律 pwsh Invoke-WebRequest 下 raw HTML → _extract-html.cjs 抽 txt 保 alttext 公式；PDF 走 _pdf2txt.py（pypdf）。
+
+## 二期·A 梯队（2027 复测锚点件＋竞品）
+- A0 竞品三篇（四问+差异表体例）：B11 前完成 MafiaScope 2607.10645（笔记88行）/Auditing 2607.10814（91行）/Confident 2608.24691（101行）——三线定位：probing/auditability/settlement，第四缝（settlement+calibration+aggregation）归本项目；总差异表 二期笔记-A0三篇总差异表.md（related work 直接可用）。
+- A1 BLF 2604.18576v4（88行→135行）：信念状态四件套+式7-13（logit 收缩聚合/层级 Platt）+ABI 71.0 vs 70.9 原句；D.7 警示「FB 上最优实为无收缩，先测跨路 logit-σ」。
+- A2 ForecastBench-Sim 2606.18686v1（103行）：turn 60 快照+三 regime P(Y)/P(Y|X)/P(Y|do(X))+干预三臂 placebo；H0 读数门 <0.03 标尺（已入 R-A 读数门 PREREG 备注）。
+- A3 反向缩放 2605.22672v2（92行）：超线性×regime change 触发；「metric choice reverses the sign」单阈值盲区三层论证——L1+ 升分布记分须同步 CRPS+pinball（已记为记分升级预注册前置）。
+- A4 Cooke 2026（77行，**CC BY 4.0 合法全文**）：聚合方法最重要因子（1472.3→3.8→2.2）+点预报肥尾 perilous+PCM=三路判词第二聚合路线（挂账 L1）。
+- A5 KK516（53行，**全文未获取降权**）：preregistered many-designs 129 团队×516 算法——「哪种聚合最优跨题集不可预测」；唯一阳性信号=历史误差反馈（背书账本架构）。
+
+## 二期·B 梯队（书单）
+- B6 2608.28482 How Proper Scoring Rules Shape LLM Forecasting（72行）：作者=Turtel+Satopää+Tetlock；五计分规则训练目标不可互换（BIN 分解）；reward diversity=集成多样性第三轴。
+- B7 1406.2148v5 Information Diversity（61行）：**=K5 原始 NIPS 母本**（F51/F52/F54/F55 逐字定位）；λ̂ 按证据通道分别估=极端化第一优先量。
+- B8 1506.06405v2 Extremizing Real-Valued（47行）：Var Expansion+实值 extremization 凸优化式(1-2)（资源/票数预测直接算法）。
+- B9 2111.03153v2 Robust Aggregation（42行）：known prior 下极端化平均=minimax 鲁棒最优（因子→√3 与 AIA 呼应【引申】）。
+- B10 2402.07862v2 AI-Augmented Predictions（38行）：N=991 三臂 RCT；LLM 助手显著提升人类预测且建议质量差异不显著；10 戒律 prompt=超预测者判词路底稿。
+- B11 2506.00723v1 Pitfalls（51行）：评测纲领七 issue（winner's curse/Brier 跨基率不可比/backtesting 训练混淆）。
+- B12 2412.18544v2 Consistency Checks（45行）：九检查+即时评测（Cond R>0.9）；一致性可作弊警示。
+- B13 Turtel 前作候选（26行，候选锁定级）：候选①=2608.28482 所引 Turtel et al. 2026 ②TMLR bbhdeL8EUX 待核。
+- B14 2206.15474v2 Autocast（46行）：框架级；人群时间序列=账本判词分布演化先例；2022 结论引用须带时间戳。
+
+## 二期·非 arXiv 三经典收官（二期笔记-非arXiv三经典收官.md）
+- Satopää IJF 2014：摘要未获取（身份锁定 PII S0169207013001635）；K5 存疑#1 由 B7 全文对齐替代完成；IJF 逐字对齐留待获取。
+- Murphy 1973：**全文在盘**（AMS XML 721KB→txt 82.6K chars，格式待整固）；出处确认（vector partition 原文）；K F56 逐字对核留下轮。
+- Genest-Zidek 1986：元数据已核（S2 API）；全文未获取（Euclid 反爬）；不可能性结论=「别赌单一聚合」的理论层依据【引申】。
+- Yan 2024：未搜定挂账（多轮搜索无唯一候选，待队长线索）。
+
+（二期档案完 · 二期棒 2026-09-12）

@@ -1,0 +1,46 @@
+=== sim-templates-v2 dry-run · 零 db 写入（readonly）· games=30 ===
+Q0-2 cutoff 早于结算：PASS（30 局全部 cutoff.seq < exile.seq）
+
+== 基率表（30 局）==
+id   layer engine      cutoff n_amb true false rate    Q0-3
+T1   L6    structural  C2       0   17   13  0.567  PASS
+T2   L6    structural  C2       0   17   13  0.567  PASS
+T3   L1    proc_calc   C2       0   11   19  0.367  PASS
+T4   L1    proc_calc   C2       0   27    3  0.900  PASS
+T5   L1    proc_calc   C2       0   15   15  0.500  PASS
+T6   L6    structural  C2       0   19   11  0.633  PASS
+T7   L1    proc_calc   C2       0   12   18  0.400  PASS
+T8   L6    structural  C2       0   25    5  0.833  PASS
+T9a  L6    structural  C2       0    9   21  0.300  PASS
+T9b  L1    proc_calc   C2       0   29    1  0.967  PASS
+T9   L6    structural  C2       0    9   21  0.300  PASS
+T10  L6    structural  C2       0   16   14  0.533  PASS
+
+== T1 按存活座位 X 分列 ==
+X=1: n=30 true=15 rate=0.500 Q0-3 PASS
+X=2: n=30 true=17 rate=0.567 Q0-3 PASS
+X=3: n=30 true=19 rate=0.633 Q0-3 PASS
+X=4: n=30 true=19 rate=0.633 Q0-3 PASS
+X=5: n=30 true=21 rate=0.700 Q0-3 PASS
+X=6: n=30 true=29 rate=0.967 Q0-3 PASS
+
+T2 假声称计数分布: min=2 p25=3 med=4 p75=5 max=7
+T7 身份声称计数分布: min=7 p25=8 med=9 p75=11 max=13
+
+== 样例局 trace gid=37（wolves=[5,6] victim=2 exiled=1 result=wolf_win）==
+cutoff C2=seq 8（发言结束后/计票前（R-B 主判据时点））可用证据: 8 events [system:2 death:1 statement:5] + 10 claims
+T1 | 本局第 1 天结束前，2 号存活 => false (anchor ev#328)
+T2 | 本局被真值证伪的身份断言（is_wolf/is_good 与结算角色相反，或自称平民实为狼）不少于 4 条 => true (anchor ev#328)
+T3 | 本局放逐计票中，最高票与次高票之差不超过 1 票 => true (anchor ev#327)
+T4 | 本局放逐投票无弃票（全部存活者均投出有效票） => true (anchor ev#327)
+T5 | 本局放逐投票最高票数不少于 4 票 => false (anchor ev#327)
+T6 | 本局第一条公开发言的玩家未被放逐 => true (anchor ev#327)
+T7 | 截至第 1 天发言结束，全场累计身份声称（is_wolf/is_good/claims_role）不少于 10 条 => false (anchor ev#328)
+T8 | 本局至少有一名狼人获得至少 1 票 => true (anchor ev#327)
+T9a | 本局被放逐者是狼人 => false (anchor ev#328)
+T9b | 本局放逐计票最高票唯一（未触发破平） => true (anchor ev#327)
+T9 | 本局被放逐者是狼人，且其最高票唯一（无破平） => false (anchor ev#328)
+T10 | 本局第一条公开发言的玩家未被放逐，且投票无弃票 => true (anchor ev#328)
+
+== 零写入声明 ==
+readonly 连接=E:\music player\p1a-terminal\data\p1a.db；全文件无 INSERT/UPDATE/DELETE/CREATE/ALTER；未触碰 predictions/verdicts。

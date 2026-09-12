@@ -1,0 +1,85 @@
+{
+  "prereg": "PREREG-VoI-a（弱口径）S2续集-Gemini增量设计.md §③",
+  "run_at": "2026-09-11T20:06:23.767Z",
+  "db_sha256": "c89d09be4471281c044735307c99c60798ae0e13434f68eaad9cc4de1b30b7cf",
+  "data": {
+    "predictions": 90,
+    "verdicts_v2": 90,
+    "verdicts_v1": 90,
+    "verdicts_v3": 88,
+    "d_missing_pids": [
+      56,
+      80
+    ]
+  },
+  "type_stats": {
+    "win": {
+      "n": 30,
+      "trueN": 21
+    },
+    "votes": {
+      "n": 30,
+      "trueN": 23
+    },
+    "peace": {
+      "n": 30,
+      "trueN": 0
+    }
+  },
+  "base_note": "分型 LOO true 占比（排除自身）；peace 型全 false → base=0 恒不过基率窗；votes 型 base>0.7 恒不过；win 型 self-true 21 条 base=0.6897 过窗",
+  "calibration": {
+    "rule": "候选=D 观测值+INF；open 率∈[20%,40%] 距 30% 最近；并列取更小 τ_D",
+    "status": "塌窗（无候选落 20-40%）→ 失败长相②路径",
+    "tau_D": 0.06108888888888888,
+    "openN": 3,
+    "openRate": 0.03333333333333333
+  },
+  "c_proxy_note": "F22 双 p 值法 n=90 失真，用 |p_v2-0.5|>=0.1 代理（队长任务书口径，如实标注）",
+  "scopes": [
+    {
+      "name": "全量",
+      "n": 90,
+      "openN": 3,
+      "openRate": 0.03333333333333333,
+      "brier_v2": 0.2865977777777776,
+      "brier_base": 0.13872374157748701,
+      "delta_all": 0.1478740362002906,
+      "delta_open": 0.2964860879904876
+    },
+    {
+      "name": "L6",
+      "n": 60,
+      "openN": 3,
+      "openRate": 0.05,
+      "brier_v2": 0.25362500000000004,
+      "brier_base": 0.20808561236623052,
+      "delta_all": 0.045539387633769524,
+      "delta_open": 0.2964860879904876
+    },
+    {
+      "name": "L1",
+      "n": 30,
+      "openN": 0,
+      "openRate": 0,
+      "brier_v2": 0.35254333333333326,
+      "brier_base": 0,
+      "delta_all": 0.35254333333333326,
+      "delta_open": null
+    }
+  ],
+  "verdict": {
+    "main": "未达成（开口子集 ΔBrier ≥ 全量 → 失败长相①：J5 开口规则本域证伪）",
+    "noise": "超噪声带（≥0.06，可作方向性结论）",
+    "bootstrap_ci_open_delta": {
+      "lo": 0.28808608799048757,
+      "hi": 0.31328608799048757
+    },
+    "bootstrap_note": "LCG 987654321 ×2000，伴生读数不进判据"
+  },
+  "compliance": {
+    "llm_calls": 0,
+    "db_write": false,
+    "query_only": true,
+    "frozen_files_touched": false
+  }
+}

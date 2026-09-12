@@ -1,0 +1,10 @@
+PASS | E编号连续 | 34定义/34引用 缺号=
+PASS | 头部无结果行 | QC修正②④口径
+PASS | 死亡集合 replay=truth | E-9->2:ok E-11->4:ok E-22->11/7:ok E-23->3/8:ok E-29->9:ok E-31->1:ok
+PASS | 死亡集合 slots=truth | slots=4,2,11,7,3,8,9,1
+PASS | 昼2唱票4:2 | 12号票=2 9号票=4
+PASS | 人数口径4-4-4 | truth锚点+头部一致
+PASS | ID绑定12/12 | slots别名=12 replay名单行=true
+PASS | 四预言家宣称 | 1/6/9/12 replay+truth对齐
+PASS | 终局交牌好人胜 | replay E-34/truth锚点/slots surrender
+PASS | 12号夜2查验未考 | slots复核队列+truth标注
