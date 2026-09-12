@@ -1,0 +1,37 @@
+{
+  "prereg_version": 2,
+  "frozen_at": null,
+  "frozen_before_run": false,
+  "draft_note": "B1 施工草案（未冻结）——按设计 §5.1 五元组模板落地，B4 批才冻结；冻结前禁改冻结后禁改（改动=版本递进）",
+  "seed": 20261001,
+  "provider": "tokenrhythm",
+  "model": "glm-5.3-flash",
+  "temperature": 0.7,
+  "variant": {
+    "id": "ownww6p-tubian3d-v1",
+    "name": "6人标准狼 3天 屠边",
+    "players": 6,
+    "roles": {
+      "werewolf": 2,
+      "seer": 1,
+      "witch": 1,
+      "villager": 2
+    },
+    "night": {
+      "kills": 1,
+      "check": 1,
+      "save_potions": 1,
+      "poison_potions": 1,
+      "one_potion_per_night": true
+    },
+    "day": {
+      "speech_rounds": 1,
+      "speech_order": "seat_asc_alive",
+      "exile_per_day": 1,
+      "last_words": "exile_only"
+    },
+    "win_rule": "wolves_all_dead->village_win; gods_all_dead||villagers_all_dead->wolf_win; day>3&wolves_alive->wolf_win",
+    "days_max": 3
+  },
+  "prompt_version": "pv2"
+}

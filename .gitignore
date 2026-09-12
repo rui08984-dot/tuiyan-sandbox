@@ -37,3 +37,10 @@ assets/fonts/
 /out/
 /素材库/
 botc_acl2026.pdf
+# ===== p19 阶段2 多日局施工（2026-09-12 晚）=====
+# B1 自测临时库副本：禁入库（生产库 p1a.db 本体仍入库，二者分离）
+p1a-terminal/data/p1a-multidev.db
+p1a-terminal/data/p1a-multidev.db-wal
+p1a-terminal/data/p1a-multidev.db-shm
+# 多日局自测产物目录（未冻结前的试跑件，冻结后按批另议）
+p1b/sim/out/multidev/
