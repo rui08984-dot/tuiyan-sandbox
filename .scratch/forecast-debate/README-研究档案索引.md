@@ -36,7 +36,9 @@
 | 文档 | 结论 |
 |---|---|
 | `acr-一期报告-20260912.md` (11KB) | ACR 抗投毒机械层：A 100%/B 80.6%/C 100% @30%（**已落地到产品**） |
-| `acr-phase2-llm-run.log` | ACR 二期 LLM 层（**运行中**） |
+| **`acr-二期报告-20260912.md`** (10.9KB) | **ACR 二期 LLM 层（✅ 已完成 2026-09-13）**：cutoff 口径三类全 PASS（A 0.0875 / B 0.0850 / C 0.0422 ≤0.15）；**关键发现=漂移由「事件窗」决定非投毒本身**（同批投毒 cutoff 0.0875 vs full 0.6485，7 倍）；成本 ¥1.01/112 调用；n=6 方向性信号 |
+| `acr-phase2-llm-results-{A,A-full,B,C}.json` | ACR 二期原始读数（106 样本） |
+| `acr2-cache.json` | ACR 二期逐样本缓存（62KB） |
 | `rb-attribution-诊断-20260913.md` (8.3KB) | R-B 归因：证据有信号但判词没用上 |
 | `voi-a-report-20260912.md` (7.2KB) | VoI-a 负结果（开口规则信息真空域证伪） |
 | `backfill-dryrun-20260912.out` / `smoketest-run1-20260912.out` | 跑批收据 |
