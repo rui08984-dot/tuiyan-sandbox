@@ -77,7 +77,15 @@ export function useAdvise(opts: { onDone?: (day: number) => void; onFailed?: (ms
           setTask(null);
           optsRef.current.onFailed?.('参谋卡生成失败：' + (st.error ?? '未知错误'));
         }
-      } catch { /* 单次轮询失败（网络抖动）→ 下一轮继续 */ }
+      } catch (e) {
+        // 单次网络抖动 → 下一轮继续；404（任务不存在，如服务重启）→ 清除陈旧任务并如实报告
+        //（G1 反馈#2 修复：此前 404 被静默吞掉，strip 永远卡「生成中 Ns」）
+        if (!stopped && e instanceof api.ApiError && e.status === 404) {
+          clearRunningTask();
+          setTask(null);
+          optsRef.current.onFailed?.('参谋卡任务已不存在（服务可能重启过），已停止等待——可重新天结算');
+        }
+      }
     }, POLL_MS);
     return () => { stopped = true; window.clearInterval(timer); };
   }, [task]);
@@ -100,16 +108,22 @@ export function useAdvise(opts: { onDone?: (day: number) => void; onFailed?: (ms
     setCurrent(null);
   }
 
-  /** 打开服务端某天存档卡（「截至该天」语义；验证点不入库 → 空数组） */
+  /** 打开服务端某天存档卡（「截至该天」语义；验证点不入库 → 空数组）。
+   * G1 反馈#2 修复：失败不再静默（404/网络错此前被 void 丢弃=「点了没反应」）——
+   * 置 cardsErr 由 AdvisorZone 展示，保留当前视图不闪空。 */
   async function openServerCard(gameId: number, d: number) {
     setCardsErr(null);
-    const c = await api.getServerCard(gameId, d);
-    setCurrent({
-      source: 'server',
-      gameId,
-      day: d,
-      entry: { card: { ...c, checkpoints: [], warnings: [] }, finished_at: null, task_id: undefined },
-    });
+    try {
+      const c = await api.getServerCard(gameId, d);
+      setCurrent({
+        source: 'server',
+        gameId,
+        day: d,
+        entry: { card: { ...c, checkpoints: [], warnings: [] }, finished_at: null, task_id: undefined },
+      });
+    } catch (e) {
+      setCardsErr('第 ' + d + ' 天存档打开失败：' + errMsg(e));
+    }
   }
 
   /** 本机兜底缓存卡（服务端不可达时） */

@@ -68,6 +68,7 @@ async function buildServer(opts) {
   registerProviders(app, ctx);
   registerOracle(app, ctx); // P2 W1：GET /api/games/:id/oracle
   require('./routes/oracleCast').register(app, ctx); // p9 W1：独立玄学排盘 POST /api/oracle/cast + GET /api/oracle/readings（三法起卦+历史档案；require+register 同一句 = 任务书单次原子编辑约束）
+  require('./routes/oracleInterpret').register(app, ctx); // G1 反馈#1：独立排盘断语 POST /api/oracle/interpret（扩展走 wrapper：复用 P8 断语链，UPDATE 写回 verdict 结构位；恒挂「娱乐参考」，绝不接入游戏研判）
   require('./routes/predictions').register(app, ctx); // p10 W1：预测卡 L0 账本（POST 落注/GET 分页/POST resolve 真值回填/GET unresolved/GET calibration；只记不评门禁 n≥30 局∧200 条）
   require('./routes/verdicts').register(app, ctx); // p10 W2：多路判词（POST 3 路生成全量落 verdicts 表；LLM 只出文本，implied_prob 由末行 P=0.xx 正则机械抽取）
 

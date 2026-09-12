@@ -6,7 +6,7 @@
  */
 import type {
   BotcClaim, Claim, ConfirmPayload, CreateGameInput, EventPhase, Game, GameState, OracleResult, Player, Provider,
-  OracleCastResult, OracleReadingsResult, PendingCard, ProviderInput, ProviderListResult, ProviderTestResult, TaskStatus,
+  OracleCastResult, OracleInterpretResult, OracleReadingsResult, PendingCard, ProviderInput, ProviderListResult, ProviderTestResult, TaskStatus,
   ServerCard, ServerCardsResult, SeatRename, SeatsSaveResult,
 } from './types';
 
@@ -212,6 +212,12 @@ export function castOracle(
   const body: Record<string, unknown> = { method, params: params ?? {} };
   if (gameId != null) body.game_id = gameId;
   return request('/oracle/cast', 'POST', body);
+}
+
+/** POST /api/oracle/interpret —— 排盘断语（G1 反馈#1；恒挂「娱乐参考」，mode 三态同 P8）；mock 开发模式未实现 */
+export function interpretOracle(id: number): Promise<OracleInterpretResult> {
+  if (USE_MOCK) return Promise.reject(new ApiError(0, 'mock 模式未实现玄学排盘接口，请直连后端'));
+  return request('/oracle/interpret', 'POST', { id });
 }
 
 /** GET /api/oracle/readings —— 排盘历史档案（分页，新→旧） */

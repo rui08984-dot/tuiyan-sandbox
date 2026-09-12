@@ -23,6 +23,19 @@ export default function ManagePage() {
     return Number.isInteger(v) && v > 0 ? v : null;
   });
   const [wizardOpen, setWizardOpen] = useState(false);
+  const detailRef = useRef<HTMLDivElement | null>(null);
+  const [selSeq, setSelSeq] = useState(0);
+
+  /** 点选局（G1 反馈#2 修复）：详情块渲染在长列表底部，此前点击零滚动=「点了没反应」；
+   * 现选择后把详情滚入视口（首挂仅 LS 恢复选中时不滚，保留列表视图）。 */
+  function pick(id: number) {
+    setSelectedId(id);
+    setSelSeq((n) => n + 1);
+  }
+  useEffect(() => {
+    if (selSeq === 0) return;
+    detailRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, [selSeq]);
 
   const flashToast = useCallback((t: string) => {
     setToast(t);
@@ -75,7 +88,7 @@ export default function ManagePage() {
           const started = (g.event_count ?? 0) > 0;
           return (
             <li key={g.id} className={'game-item' + (g.id === selectedId ? ' is-selected' : '')}>
-              <button type="button" className="game-item-main" onClick={() => setSelectedId(g.id)} aria-pressed={g.id === selectedId}>
+              <button type="button" className="game-item-main" onClick={() => pick(g.id)} aria-pressed={g.id === selectedId}>
                 <span className="game-item-name" style={{ display: 'block' }}>{g.name}</span>
                 <span className="game-badges">
                   {started
@@ -86,14 +99,16 @@ export default function ManagePage() {
                   #{g.id} · {TYPE_LABEL[g.type]}{g.type === 'botc' && g.script ? '·' + SCRIPT_LABEL[g.script] : ''} · {g.player_count}人 · {g.event_count ?? 0} 事件
                 </span>
               </button>
-              <button type="button" className="btn" onClick={() => setSelectedId(g.id)}>详情</button>
+              <button type="button" className="btn" onClick={() => pick(g.id)}>详情</button>
             </li>
           );
         })}
       </ul>
 
       {selectedId != null && (
-        <GameDetail gameId={selectedId} flashToast={flashToast} onGoLive={() => navigate('/')} />
+        <div ref={detailRef}>
+          <GameDetail gameId={selectedId} flashToast={flashToast} onGoLive={() => navigate('/')} />
+        </div>
       )}
 
       {wizardOpen && <NewGameWizard onClose={() => setWizardOpen(false)} onCreated={handleCreated} />}

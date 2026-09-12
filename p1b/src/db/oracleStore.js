@@ -69,6 +69,20 @@ function saveOracleReading(reading) {
   return getOracleReading(Number(info.lastInsertRowid));
 }
 
+/**
+ * 断语写回（G1 反馈 #1，P9 预留结构位启用）：UPDATE 同一行 verdict 列，幂等不新增行。
+ * @param {number} id oracle_readings 主键
+ * @param {string|null} verdict 断语文本（mock/live 同一落位；重解读即覆盖）
+ * @returns {object|null} 更新后的读模型行；行不存在返回 null
+ */
+function updateOracleReadingVerdict(id, verdict) {
+  const conn = db.getConnection();
+  const info = conn.prepare('UPDATE oracle_readings SET verdict = ? WHERE id = ?')
+    .run(verdict === undefined ? null : verdict, id);
+  if (!info.changes) return null;
+  return getOracleReading(id);
+}
+
 function getOracleReading(id) {
   const row = db.getConnection()
     .prepare('SELECT * FROM oracle_readings WHERE id = ?').get(id);
@@ -97,4 +111,4 @@ function listOracleReadings(opts) {
   return { items: rows.map(rowToReading), total: total, limit: limit, offset: offset };
 }
 
-module.exports = { ensureOracleReadingsTable, saveOracleReading, getOracleReading, listOracleReadings };
+module.exports = { ensureOracleReadingsTable, saveOracleReading, getOracleReading, updateOracleReadingVerdict, listOracleReadings };

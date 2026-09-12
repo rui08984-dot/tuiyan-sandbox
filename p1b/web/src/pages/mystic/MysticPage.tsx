@@ -1,14 +1,17 @@
 /**
- * MysticPage —— 独立玄学排盘页（P9 W2，#/mystic）：
+ * MysticPage —— 独立玄学排盘页（P9 W2 #/mystic；G1 反馈#1 增补 interpret 断语区）：
  *  · 三法起卦表单：数字两输入 / 时间一键「起当前卦」（不传 date = 服务器当前时刻）/ 随机一键；
  *  · 卦象大展示：本/互/变六爻图（yao 自下而上，渲染自上而下）+ 动爻体用五行条 + 起卦留档；
- *  · 历史排盘列表（GET /api/oracle/readings 分页，新→旧）+ 回看抽屉（与排盘展示同构复用）；
+ *  · 断语区（G1 反馈#1）：出卦后自动 POST /api/oracle/interpret 一次，在页面恒挂「娱乐参考」
+ *    横幅下展示断语（mode=live 显 LLM 断语 ≤120 字；mock/mock_fallback 显本地模板并如实标注；
+ *    断语服务不可达时用前端静态白话兜底：卦名+体用五行+动爻一句话，零 LLM 零网络）；
+ *  · 历史排盘列表（GET /api/oracle/readings 分页，新→旧）+ 回看抽屉（verdict 已落位则显示）；
  *  · 拍板铁律（写死）：页面级恒挂「娱乐参考 · 非游戏研判」横幅，绝不接入任何游戏研判功能；
- *    排盘=纯数学，断语属推断层——本页不接断语（排盘记录 verdict 恒空），本组件禁止被参谋/研判类页面引用。
- * 数据源：POST /api/oracle/cast（201）+ GET /api/oracle/readings（分页）。
+ *    断语=娱乐参考推断层，本组件禁止被参谋/研判类页面引用。
+ * 数据源：POST /api/oracle/cast（201）+ POST /api/oracle/interpret（201）+ GET /api/oracle/readings（分页）。
  */
-import { useCallback, useEffect, useState } from 'react';
-import { castOracle, listOracleReadings } from '../../api';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { castOracle, interpretOracle, listOracleReadings } from '../../api';
 import type { MysticCasting, OracleCastResult, OracleGua, OracleReading } from '../../types';
 import '../../styles/mystic.css';
 
@@ -18,6 +21,18 @@ const METHOD_LABEL: Record<OracleReading['method'], string> = {
   random: '随机起卦',
 };
 const PAGE_SIZE = 20;
+
+/** 断语区视图状态（G1 反馈#1）：loading / 已得断语（llm=LLM 断语、template=本地模板、static=前端白话兜底） */
+type InterpView =
+  | { loading: true }
+  | { loading: false; text: string; source: 'llm' | 'template' | 'static'; note?: string };
+
+/** 纯前端兜底静态白话（零 LLM 零网络）：断语服务不可达时的确定性展示口径 */
+function staticFallback(c: MysticCasting): string {
+  return '本卦「' + c.benGua.fullName + '」，动第' + c.dongYao + '爻：体' + c.ti.trigram + '（' + c.ti.wuXing
+    + '）、用' + c.yong.trigram + '（' + c.yong.wuXing + '），' + c.tiYongRelation
+    + '。卦理白话仅供参考——娱乐参考，非游戏研判。';
+}
 
 /** 单卦六爻图：yao[6] 自下而上（1=阳 0=阴），渲染自上而下（上爻在顶）；动爻高亮标「动/变」 */
 function YaoStack({ gua, dongYao, dongTag }: { gua: OracleGua; dongYao?: number; dongTag?: string }) {
@@ -98,6 +113,8 @@ export default function MysticPage() {
   const [busy, setBusy] = useState(false);
   const [castErr, setCastErr] = useState<string | null>(null);
   const [result, setResult] = useState<OracleCastResult | null>(null);
+  const [interp, setInterp] = useState<InterpView | null>(null);
+  const interpSeq = useRef(0); // 防串台：连续起卦时只认最后一次断语响应
 
   const [readings, setReadings] = useState<OracleReading[] | null>(null);
   const [total, setTotal] = useState(0);
@@ -142,10 +159,38 @@ export default function MysticPage() {
       setResult(r);
       setPage(0);
       void refresh(0);
+      void interpret(r.id, r.casting); // G1 反馈#1：出卦后自动 interpret 一次
     } catch (e) {
       setCastErr(e instanceof Error ? e.message : String(e));
     } finally {
       setBusy(false);
+    }
+  }
+
+  /** 断语自动获取（G1 反馈#1）：interpret 端点 → mode 三态展示；端点不可达 → 前端静态白话兜底 */
+  async function interpret(id: number, c: MysticCasting) {
+    const seq = ++interpSeq.current;
+    setInterp({ loading: true });
+    try {
+      const r = await interpretOracle(id);
+      if (seq !== interpSeq.current) return; // 已有更新一次起卦，丢弃旧响应
+      if (r.mode === 'live') {
+        setInterp({ loading: false, text: r.verdict, source: 'llm' });
+      } else {
+        setInterp({
+          loading: false, text: r.verdict, source: 'template',
+          note: (r.mode === 'mock_fallback' && r.llm_error)
+            ? 'LLM 断语暂不可用（' + r.llm_error + '）——已显示本地模板'
+            : '当前为本地模板断语——未接 LLM',
+        });
+      }
+      void refresh(0); // 同步历史列表该条 verdict 落位
+    } catch (e) {
+      if (seq !== interpSeq.current) return;
+      setInterp({
+        loading: false, text: staticFallback(c), source: 'static',
+        note: '断语服务不可达（' + (e instanceof Error ? e.message : String(e)) + '）——静态白话兜底',
+      });
     }
   }
 
@@ -166,7 +211,7 @@ export default function MysticPage() {
 
       <header className="mystic-head">
         <h2>☯ 梅花易数排盘</h2>
-        <p className="mystic-sub">排盘=纯数学 · 断语属推断层，本页不接断语不接研判（排盘记录 verdict 恒空）</p>
+        <p className="mystic-sub">排盘=纯数学 · 断语=娱乐参考推断层（出卦自动请求一次，服务不可达时静态白话兜底）· 不接任何游戏研判</p>
       </header>
 
       <section className="mystic-form-panel" aria-label="起卦">
@@ -216,6 +261,18 @@ export default function MysticPage() {
         <section className="mystic-result-panel" aria-label="最新排盘">
           <div className="mystic-result-title">最新排盘 #{result.id} · {METHOD_LABEL[result.method]}</div>
           <CastingView c={result.casting} />
+          {/* 断语区（G1 反馈#1）：恒挂页面级「娱乐参考」横幅之下，head 自带口径标注 */}
+          <div className="mystic-verdict" data-testid="mystic-verdict">
+            <div className="mystic-verdict-head">断语 · 娱乐参考（非游戏研判）</div>
+            {interp?.loading && <p className="mystic-form-hint">断语生成中……</p>}
+            {interp && !interp.loading && (
+              <>
+                <p className="mystic-verdict-text">{interp.text}</p>
+                {interp.note && <p className="mystic-verdict-note">{interp.note}</p>}
+              </>
+            )}
+            {!interp && <p className="mystic-form-hint">（断语待生成）</p>}
+          </div>
         </section>
       )}
 
@@ -255,7 +312,7 @@ export default function MysticPage() {
             </div>
             <p className="mystic-drawer-meta">{METHOD_LABEL[drawer.method]} · {drawer.created_at} UTC{drawer.game_id != null ? ' · 局#' + drawer.game_id : ''}</p>
             <CastingView c={drawer.casting} />
-            <p className="mystic-verdict-note">{drawer.verdict ?? '（断语属推断层：排盘记录 verdict 恒空，本页未接任何研判）'}</p>
+            <p className="mystic-verdict-note">{drawer.verdict ?? '（该排盘未生成断语——最新排盘会自动请求「娱乐参考」断语）'}</p>
             <div className="mystic-drawer-foot">
               <button type="button" className="btn btn-primary" onClick={() => setDrawer(null)}>关闭</button>
             </div>

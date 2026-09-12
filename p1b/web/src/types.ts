@@ -344,6 +344,20 @@ export interface OracleCastResult {
   game_id: number | null;
 }
 
+/** POST /api/oracle/interpret 响应（201，G1 反馈#1）：读档复用 P8 断语链，mode 三态同 P8 契约 */
+export interface OracleInterpretResult {
+  id: number;
+  method: 'numbers' | 'time' | 'random';
+  inputs: Record<string, unknown>;
+  casting: MysticCasting;
+  verdict: string;
+  disclaimer: string;
+  mode: 'mock' | 'live' | 'mock_fallback';
+  llm_error?: string;
+  created_at: string;
+  game_id: number | null;
+}
+
 /** GET /api/oracle/readings 单条（与 OracleCastResult 同形，复用同一抽屉视图） */
 export interface OracleReading {
   id: number;

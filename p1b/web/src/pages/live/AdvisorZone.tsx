@@ -61,8 +61,13 @@ export default function AdvisorZone(props: { gameId: number; gameName: string; a
               ))}
             {histCount === 0 && <p className="muted" style={{ margin: '4px 0' }}>（暂无存档）</p>}
           </div>
-          {a.cardsSource === 'local' && a.cardsErr && (
-            <p className="seat-hint" style={{ marginTop: 8 }}>服务端存档不可达（{a.cardsErr}），显示本机缓存兜底。</p>
+          {/* G1 反馈#2 修复：cardsErr 两种来源都可见——local=服务端不可达兜底说明；server=单次打开失败如实报错 */}
+          {a.cardsErr && (
+            <p className="seat-hint" style={{ marginTop: 8 }} role="alert">
+              {a.cardsSource === 'local'
+                ? '服务端存档不可达（' + a.cardsErr + '），显示本机缓存兜底。'
+                : '⚠ ' + a.cardsErr}
+            </p>
           )}
         </div>
       )}
