@@ -1,0 +1,6 @@
+RUN_ID=ca1b5cdbddfc (--runid 显式传入)
+PROGRESS 200/450
+PROGRESS 220/450
+PROGRESS 350/450
+PROGRESS 390/450
+DONE done=450 medianed=27 nulled=0
