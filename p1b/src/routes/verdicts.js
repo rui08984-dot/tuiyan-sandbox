@@ -135,7 +135,9 @@ function loadEvidence(prediction, opts) {
   // 旧实现把元素直接当 SQL 参数绑定（下方 events 循环与 claims 的 IN 展开）→ RangeError，
   // 生产 POST /predictions/:pid/verdicts 打到 corpus 预测即 500。此处只保留可作事件 id 的标量；
   // 纯结构化快照走专用兜底行（与修复前基线的差异仅出现在这些原本会崩溃的行上）。
-  const raw = (prediction && Array.isArray(prediction.evidence)) ? prediction.evidence : [];
+  // 命题 A 消融窗口覆盖（additive）：opts.evidenceIds 显式给出事件 id 集时优先（缺省＝prediction.evidence，逐字节不变）。
+  const raw = (opts && Array.isArray(opts.evidenceIds)) ? opts.evidenceIds
+    : ((prediction && Array.isArray(prediction.evidence)) ? prediction.evidence : []);
   if (!raw.length) return NO_EVIDENCE_LINE;
   const ids = raw.filter((v) => typeof v === 'number' || (typeof v === 'string' && v.trim() !== ''));
   if (!ids.length) return STRUCTURED_EVIDENCE_LINE;
@@ -379,7 +381,9 @@ function register(app, ctx) {
     const options = resolveLlmOptions({ store: ctx.store, llmMock: ctx.llmMock, fetchImpl: ctx.fetchImpl });
     const mode = llm.resolveMode(options); // mockMode/无 key → MOCK（零网络，与 extract/advise/oracle 同链）
     // per-path 注入件（批次1-M1）：与 variant 无关，循环外各算一次（纯查库零网络）
-    const evidenceBlock = loadEvidence(pred);
+    // 命题 A 消融窗口覆盖（additive）：body.evidenceIds 由编排器按 prereg-a-windows 计算后传入；缺省＝现状。
+    const windowIds = (req.body && Array.isArray(req.body.evidenceIds)) ? req.body.evidenceIds : undefined;
+    const evidenceBlock = loadEvidence(pred, { evidenceIds: windowIds });
     const baseline = loadBaseline(pred);
     const saved = [];
     const errors = [];
