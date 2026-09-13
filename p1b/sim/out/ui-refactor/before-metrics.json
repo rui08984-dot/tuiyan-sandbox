@@ -1,0 +1,76 @@
+{
+ "label": "before",
+ "base": "http://127.0.0.1:8791/#/audit",
+ "seed": {
+  "layered_rows": 24,
+  "forward": 1,
+  "r4_rows": 2,
+  "unlayered": 1
+ },
+ "widths": {
+  "375": {
+   "doc_scroll_width": 375,
+   "doc_client_width": 375,
+   "h_overflow_px": 0,
+   "window_scroll_x_after_scrollTo": 0,
+   "content_max_width": "720px",
+   "content_client_width": 375,
+   "kpi_cells": 0,
+   "matrix_rows": 0,
+   "old_layer_cards": 6,
+   "has_breadcrumb": false,
+   "has_alertbar": false,
+   "tab_count": 0,
+   "emoji_count": 4,
+   "table_count": 3
+  },
+  "768": {
+   "doc_scroll_width": 768,
+   "doc_client_width": 768,
+   "h_overflow_px": 0,
+   "window_scroll_x_after_scrollTo": 0,
+   "content_max_width": "720px",
+   "content_client_width": 720,
+   "kpi_cells": 0,
+   "matrix_rows": 0,
+   "old_layer_cards": 6,
+   "has_breadcrumb": false,
+   "has_alertbar": false,
+   "tab_count": 0,
+   "emoji_count": 4,
+   "table_count": 3
+  },
+  "1024": {
+   "doc_scroll_width": 1024,
+   "doc_client_width": 1024,
+   "h_overflow_px": 0,
+   "window_scroll_x_after_scrollTo": 0,
+   "content_max_width": "860px",
+   "content_client_width": 860,
+   "kpi_cells": 0,
+   "matrix_rows": 0,
+   "old_layer_cards": 6,
+   "has_breadcrumb": false,
+   "has_alertbar": false,
+   "tab_count": 0,
+   "emoji_count": 4,
+   "table_count": 3
+  },
+  "1440": {
+   "doc_scroll_width": 1440,
+   "doc_client_width": 1440,
+   "h_overflow_px": 0,
+   "window_scroll_x_after_scrollTo": 0,
+   "content_max_width": "860px",
+   "content_client_width": 860,
+   "kpi_cells": 0,
+   "matrix_rows": 0,
+   "old_layer_cards": 6,
+   "has_breadcrumb": false,
+   "has_alertbar": false,
+   "tab_count": 0,
+   "emoji_count": 4,
+   "table_count": 3
+  }
+ }
+}

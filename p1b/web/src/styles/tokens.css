@@ -1,0 +1,89 @@
+/* P1b UI 设计令牌（UI 重构 §7 步 1 · 基座）
+ * ① app.css:5-16 的 12 个变量原样迁入（暖暗色身份，值逐字不改）
+ * ② 补全：密度（density 9）／字阶／间距／圆角／层级阴影／语义色／L1-L6 层色
+ * ③ 字体：Fira Sans（正文）＋ Fira Code（数字/ID/判据）＋ 全局 tabular-nums（列对齐）
+ * ④ 本文件只定义令牌 + body 字体两条规则；不改任何布局选择器（步 1 结构零变化）
+ */
+:root {
+  /* ── 基础身份（原样迁入 app.css:5-16）── */
+  color-scheme: dark;
+  --bg: #14110c;
+  --panel: #1e1913;
+  --panel-2: #262019;
+  --line: #3a3227;
+  --text: #ece5d8;
+  --muted: #a89a83;
+  --accent: #e0a83c;
+  --accent-ink: #2a1f08;
+  --ok: #58b368;
+  --warn: #d9a441;
+  --danger: #e05c4a;
+  --radius: 12px;
+
+  /* ── 字体（Fira 由 @fontsource 本地打包，离线可用；缺失回退系统字体）── */
+  --font-sans: "Fira Sans", "Segoe UI", system-ui, -apple-system, "Microsoft YaHei", sans-serif;
+  --font-mono: "Fira Code", "Cascadia Code", Consolas, ui-monospace, monospace;
+
+  /* ── 字阶 ── */
+  --font-size-xs: 11px;
+  --font-size-small: 12px;
+  --font-size-base: 13.5px;
+  --font-size-body: 14px;
+  --font-size-h3: 15px;
+  --font-size-h2: 19px;
+  --font-size-metric: 26px;
+  --line-height: 1.5;
+
+  /* ── 间距 / 密度（density 9）── */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --grid-gap: 8px;
+  --card-padding: 12px;
+  --table-row-height: 36px;
+  --header-height: 56px;
+  --sidebar-width: 240px;
+
+  /* ── 圆角 / 层级阴影 ── */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-pill: 999px;
+  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.35);
+  --shadow-2: 0 4px 12px rgba(0, 0, 0, 0.38);
+  --shadow-3: 0 10px 28px rgba(0, 0, 0, 0.45);
+
+  /* ── 语义色（ok/warn/danger 复用人格色；info 补一档 + 四档底）── */
+  --info: #6fb3d8;
+  --ok-bg: rgba(88, 179, 104, 0.14);
+  --warn-bg: rgba(217, 164, 65, 0.14);
+  --danger-bg: rgba(224, 92, 74, 0.14);
+  --info-bg: rgba(111, 179, 216, 0.14);
+
+  /* ── L1-L6 层色（矩阵表/徽章；--panel 上对比度 ≥4.5:1，实测见收据）── */
+  --layer-l1: #7fb2ff;
+  --layer-l2: #8ed08a;
+  --layer-l3: #e0a83c;
+  --layer-l4: #d59ae6;
+  --layer-l5: #63c7cf;
+  --layer-l6: #f08a7a;
+
+  /* ── 容器宽（容器分类：数据页 1280 / 表单页 720 / 阅读 860）── */
+  --content-wide: 1280px;
+  --content-form: 720px;
+  --content-reading: 860px;
+
+  /* ── 栅格 / 断点（375 / 768 / 1024 / 1440）── */
+  --grid-columns: 12;
+  --breakpoint-sm: 375px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1440px;
+}
+
+/* 全局字体与数字对齐（本文件唯一全局规则，不涉布局） */
+body { font-family: var(--font-sans); font-variant-numeric: tabular-nums; }
+.u-mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }

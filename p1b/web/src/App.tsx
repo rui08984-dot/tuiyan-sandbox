@@ -1,69 +1,77 @@
 /**
- * B6 一页现场流壳：三区导航（现场 / 管理 / 设置齿轮）+ 旧四 Tab 路由重定向保兼容。
- * HashRouter 保留 —— 后端静态托管 dist 无需 SPA fallback，手机直接刷新不 404。
+ * P1b 应用壳（UI 重构步 1+2，2026-09-14）：HashRouter —— 后端静态托管 dist，无需 SPA fallback。
+ * 导航收敛为四组「概览／接题／对局／审计」+ 右侧工具（排盘／设置）；容器按页分类
+ * （数据页 .content--wide 1280 ／ 表单页 .content--form 720 ／ 其余 860 阅读宽）。
+ * 路由全兼容：/live→/、/games→/manage、/input|/advisor→/、*→/（一个不破）。
  */
-import { HashRouter, Navigate, NavLink, Route, Routes } from 'react-router-dom';
+import { HashRouter, Navigate, NavLink, Route, Routes, useLocation } from 'react-router-dom';
 import LivePage from './pages/LivePage';
 import ManagePage from './pages/ManagePage';
 import SettingsPage from './pages/SettingsPage';
 import MysticPage from './pages/mystic/MysticPage';
 import AuditPage from './pages/audit/AuditPage';
 import IntakePage from './pages/intake/IntakePage';
+import { IconLayers, IconCompass, IconGear } from './components/ui';
 import './styles/p1b6.css';
 
-function NavLinkCls(isActive: boolean) {
-  return isActive ? 'is-active' : undefined;
+const linkCls = ({ isActive }: { isActive: boolean }) => 'appbar-link' + (isActive ? ' is-active' : '');
+const toolCls = ({ isActive }: { isActive: boolean }) => 'appbar-gear' + (isActive ? ' is-active' : '');
+
+/** 容器分类（治 D1：860 一刀切） */
+function containerClass(path: string): string {
+  if (path === '/audit') return 'content content--wide';
+  if (path === '/intake' || path === '/settings') return 'content content--form';
+  return 'content';
+}
+
+function Shell() {
+  const { pathname } = useLocation();
+  return (
+    <div className="app">
+      <header className="appbar">
+        <div className="appbar-inner">
+          <NavLink to="/" className="brand" aria-label="AI 推演沙盘">
+            <IconLayers size={18} />
+            <span>推演沙盘</span>
+          </NavLink>
+          <nav className="appbar-nav" aria-label="主导航">
+            <NavLink to="/" end className={linkCls}>概览</NavLink>
+            <NavLink to="/intake" className={linkCls}>接题</NavLink>
+            <NavLink to="/manage" className={linkCls}>对局</NavLink>
+            <NavLink to="/audit" className={linkCls}>审计</NavLink>
+          </nav>
+          <NavLink to="/mystic" className={toolCls} aria-label="排盘（娱乐参考）" title="排盘（娱乐参考）">
+            <IconCompass size={18} />
+          </NavLink>
+          <NavLink to="/settings" className={toolCls} aria-label="设置" title="设置">
+            <IconGear size={18} />
+          </NavLink>
+        </div>
+      </header>
+      <main className={containerClass(pathname)}>
+        <Routes>
+          <Route path="/" element={<LivePage />} />
+          <Route path="/manage" element={<ManagePage />} />
+          <Route path="/settings" element={<SettingsPage />} />
+          <Route path="/mystic" element={<MysticPage />} />
+          <Route path="/audit" element={<AuditPage />} />
+          <Route path="/intake" element={<IntakePage />} />
+          {/* 旧路径重定向保兼容（书签/旧链接） */}
+          <Route path="/live" element={<Navigate to="/" replace />} />
+          <Route path="/games" element={<Navigate to="/manage" replace />} />
+          <Route path="/input" element={<Navigate to="/" replace />} />
+          <Route path="/advisor" element={<Navigate to="/" replace />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </main>
+    </div>
+  );
 }
 
 export default function App() {
   return (
     <HashRouter>
-      <div className="app">
-        <header className="appbar">
-          <div className="appbar-inner">
-            <NavLink to="/" className="brand" aria-label="AI 推演沙盘">
-              <span aria-hidden>🎭</span>
-              <span>推演沙盘</span>
-            </NavLink>
-            <nav className="appbar-nav" aria-label="主导航">
-              <NavLink to="/" end className={({ isActive }) => 'appbar-link ' + (NavLinkCls(isActive) ?? '')}>
-                现场
-              </NavLink>
-              <NavLink to="/manage" className={({ isActive }) => 'appbar-link ' + (NavLinkCls(isActive) ?? '')}>
-                管理
-              </NavLink>
-              <NavLink to="/audit" className={({ isActive }) => 'appbar-link ' + (NavLinkCls(isActive) ?? '')}>
-                审计
-              </NavLink>
-              <NavLink to="/intake" className={({ isActive }) => 'appbar-link ' + (NavLinkCls(isActive) ?? '')}>
-                接题
-              </NavLink>
-              <NavLink to="/mystic" className={({ isActive }) => 'appbar-link ' + (NavLinkCls(isActive) ?? '')}>
-                ☯ 排盘
-              </NavLink>
-            </nav>
-            <NavLink to="/settings" className={({ isActive }) => 'appbar-gear' + (NavLinkCls(isActive) ? ' is-active' : '')}
-              aria-label="设置" title="设置">
-              <span aria-hidden>⚙️</span>
-            </NavLink>
-          </div>
-        </header>
-        <main className="content">
-          <Routes>
-            <Route path="/" element={<LivePage />} />
-            <Route path="/manage" element={<ManagePage />} />
-            <Route path="/settings" element={<SettingsPage />} />
-            <Route path="/mystic" element={<MysticPage />} />
-            <Route path="/audit" element={<AuditPage />} />
-            <Route path="/intake" element={<IntakePage />} />
-            {/* 旧四 Tab 路径重定向（书签/旧链接兼容） */}
-            <Route path="/games" element={<Navigate to="/manage" replace />} />
-            <Route path="/input" element={<Navigate to="/" replace />} />
-            <Route path="/advisor" element={<Navigate to="/" replace />} />
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
-        </main>
-      </div>
+      <Shell />
     </HashRouter>
   );
 }

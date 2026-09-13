@@ -557,3 +557,38 @@ export interface IntakeQuestionsResult {
   generated_at: string;
   note: string;
 }
+
+// ── UI 重构步 2：审计页 KPI 只读端点（GET /api/audit/g2-kpi）──
+
+/** 分层 Brier 置信区间行（正态近似；n<30 时 ci 为 null=如实留空） */
+export interface AuditBrierCi {
+  layer: string | null;
+  n: number;
+  brier: number | null;
+  ci_lo: number | null;
+  ci_hi: number | null;
+}
+
+/** R4 口径 KPI（与 g2-report.cjs 同源；纯只读） */
+export interface AuditKpi {
+  qualified_pool: number;
+  hardest: number;
+  out_of_domain: number;
+  out_of_regime: number;
+  unlayered: number;
+  regime_rows: number;
+  tautology_rows: number;
+}
+
+/** 分层 × gate 计数行（矩阵表 gate 列数据源） */
+export interface AuditLayerGate { layer: string | null; gate: string | null; n: number }
+
+export interface AuditG2KpiResult {
+  ok: boolean;
+  kpi: AuditKpi;
+  layer_brier_ci: AuditBrierCi[];
+  layer_gate: AuditLayerGate[];
+  generated_at: string;
+  spec_ref: string;
+  note: string;
+}

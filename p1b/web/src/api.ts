@@ -10,6 +10,7 @@ import type {
   OracleCastResult, OracleInterpretResult, OracleReadingsResult, PendingCard, ProviderInput, ProviderListResult, ProviderTestResult, TaskStatus,
   ServerCard, ServerCardsResult, SeatRename, SeatsSaveResult,
   IntakeClassifyResult, IntakeRejectsResult, IntakeQuestionsResult,
+  AuditG2KpiResult,
 } from './types';
 
 export const USE_MOCK = String(import.meta.env.VITE_USE_MOCK ?? '') === '1';
@@ -269,4 +270,12 @@ export function listIntakeRejects(opts?: { limit?: number }): Promise<IntakeReje
   if (USE_MOCK) return Promise.reject(new ApiError(0, 'mock 模式未实现接题接口，请直连后端'));
   const q = opts?.limit != null ? '?limit=' + opts.limit : '';
   return request('/intake/rejects' + q, 'GET');
+}
+
+// ── UI 重构步 2：审计页 KPI（只读；合格池/最难档/域外计数 + 分层 Brier CI）──
+
+/** GET /api/audit/g2-kpi —— R4 口径只读 KPI（口径与 g2-report.cjs 同源；mock 未实现） */
+export function getAuditG2Kpi(): Promise<AuditG2KpiResult> {
+  if (USE_MOCK) return Promise.reject(new ApiError(0, 'mock 模式未实现审计 KPI 接口，请直连后端'));
+  return request('/audit/g2-kpi', 'GET');
 }

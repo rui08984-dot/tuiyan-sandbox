@@ -1,0 +1,83 @@
+/* UI 组件基座样式（自研，吃 tokens.css；不引 UI 库） */
+
+/* ── 容器分类（治 D1：860 一刀切）——用双类提高优先级，不依赖导入顺序 ── */
+.content.content--wide { max-width: var(--content-wide); }
+.content.content--form { max-width: var(--content-form); }
+
+/* ── KPI 行 / StatCard ── */
+.ui-kpi-row { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: var(--grid-gap); }
+@media (max-width: 1023px) { .ui-kpi-row { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 767px) { .ui-kpi-row { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.ui-stat { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius-md); padding: var(--card-padding); min-width: 0; box-shadow: var(--shadow-1); }
+.ui-stat-label { color: var(--muted); font-size: var(--font-size-small); display: block; }
+.ui-stat-value { font-size: var(--font-size-metric); font-weight: 600; line-height: 1.15; font-variant-numeric: tabular-nums; display: block; }
+.ui-stat-caption { color: var(--muted); font-size: var(--font-size-xs); display: block; }
+.ui-stat.is-accent { border-color: rgba(224, 168, 60, 0.45); }
+.ui-stat.is-warn { border-color: rgba(217, 164, 65, 0.5); }
+.ui-stat.is-danger { border-color: rgba(224, 92, 74, 0.5); }
+
+/* ── Badge ── */
+.ui-badge { display: inline-flex; align-items: center; gap: 4px; padding: 1px 8px; border-radius: var(--radius-pill); font-size: var(--font-size-small); border: 1px solid var(--line); color: var(--text); background: var(--panel-2); white-space: nowrap; }
+.ui-badge.is-ok { color: var(--ok); background: var(--ok-bg); border-color: transparent; }
+.ui-badge.is-warn { color: var(--warn); background: var(--warn-bg); border-color: transparent; }
+.ui-badge.is-danger { color: var(--danger); background: var(--danger-bg); border-color: transparent; }
+.ui-badge.is-info { color: var(--info); background: var(--info-bg); border-color: transparent; }
+.ui-badge.is-muted { color: var(--muted); }
+.ui-badge.is-l1 { color: var(--layer-l1); } .ui-badge.is-l2 { color: var(--layer-l2); }
+.ui-badge.is-l3 { color: var(--layer-l3); } .ui-badge.is-l4 { color: var(--layer-l4); }
+.ui-badge.is-l5 { color: var(--layer-l5); } .ui-badge.is-l6 { color: var(--layer-l6); }
+
+/* ── KVTable ── */
+.ui-kv { border: 1px solid var(--line); border-radius: var(--radius-sm); overflow: hidden; }
+.ui-kv-row { display: flex; justify-content: space-between; gap: var(--space-3); padding: 6px var(--space-3); border-top: 1px solid var(--line); font-size: var(--font-size-base); min-height: var(--table-row-height); align-items: center; }
+.ui-kv-row:first-child { border-top: none; }
+.ui-kv-key { color: var(--muted); }
+.ui-kv-val { text-align: right; font-variant-numeric: tabular-nums; word-break: break-word; }
+
+/* ── Tabs ── */
+.ui-tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--line); overflow-x: auto; }
+.ui-tab { appearance: none; background: transparent; color: var(--muted); border: none; border-bottom: 2px solid transparent; padding: 8px 12px; font: inherit; font-size: var(--font-size-base); cursor: pointer; white-space: nowrap; }
+.ui-tab[aria-selected="true"] { color: var(--accent); border-bottom-color: var(--accent); }
+.ui-tab:hover { color: var(--text); }
+.ui-tabpanel { padding-top: var(--space-3); }
+
+/* ── Breadcrumb ── */
+.ui-crumbs { display: flex; align-items: center; gap: 6px; font-size: var(--font-size-small); color: var(--muted); flex-wrap: wrap; }
+.ui-crumb.is-current { color: var(--text); }
+.ui-crumb-sep { opacity: 0.55; }
+
+/* ── AlertBar ── */
+.ui-alertbar { display: flex; flex-direction: column; gap: 6px; }
+.ui-alert { display: flex; align-items: center; gap: 8px; padding: 7px 10px; border-radius: var(--radius-sm); font-size: var(--font-size-base); border: 1px solid var(--line); }
+.ui-alert.is-warn { background: var(--warn-bg); border-color: transparent; color: var(--warn); }
+.ui-alert.is-danger { background: var(--danger-bg); border-color: transparent; color: var(--danger); }
+.ui-alert.is-info { background: var(--info-bg); border-color: transparent; color: var(--info); }
+.ui-alert.is-ok { background: var(--ok-bg); border-color: transparent; color: var(--ok); }
+.ui-alert-dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; flex: 0 0 auto; }
+
+/* ── EmptyState ── */
+.ui-empty { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 18px; color: var(--muted); font-size: var(--font-size-base); text-align: center; }
+.ui-empty svg { opacity: 0.7; }
+
+/* ── 通用块 / 栅格 ── */
+.ui-section { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius-md); padding: var(--card-padding); min-width: 0; }
+.ui-section-title { margin: 0 0 var(--space-2); font-size: var(--font-size-h3); font-weight: 600; display: flex; align-items: center; gap: 6px; }
+.ui-note { margin: 6px 0 0; color: var(--muted); font-size: var(--font-size-small); }
+.ui-grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: var(--grid-gap); align-items: start; }
+.ui-stack { display: flex; flex-direction: column; gap: var(--grid-gap); }
+
+/* ── 分层矩阵表 ── */
+.ui-matrix { width: 100%; border-collapse: collapse; font-size: var(--font-size-base); }
+.ui-matrix th, .ui-matrix td { padding: 6px var(--space-2); text-align: left; border-top: 1px solid var(--line); }
+.ui-matrix th { border-top: none; color: var(--muted); font-weight: 500; font-size: var(--font-size-small); }
+.ui-matrix tbody tr.is-row { cursor: pointer; height: var(--table-row-height); }
+.ui-matrix tbody tr.is-row:hover { background: var(--panel-2); }
+.ui-matrix .num { text-align: right; font-variant-numeric: tabular-nums; font-family: var(--font-mono); }
+.ui-matrix tr.is-detail td { background: var(--bg); cursor: default; }
+@media (max-width: 767px) {
+  .ui-matrix thead { display: none; }
+  .ui-matrix, .ui-matrix tbody, .ui-matrix tr, .ui-matrix td { display: block; width: 100%; }
+  .ui-matrix tr.is-row { border: 1px solid var(--line); border-radius: var(--radius-sm); margin-bottom: 6px; padding: 6px 8px; height: auto; }
+  .ui-matrix td { border: none; padding: 2px 0; }
+  .ui-matrix td.hide-narrow { display: none; }
+}
