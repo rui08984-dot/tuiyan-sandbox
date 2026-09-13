@@ -1,0 +1,33 @@
+{
+  "_probe": {
+    "source": "api.manifold.markets",
+    "endpoint": "/v0/market/TPkEjiNb1wVCIGFnPcDD",
+    "fetchedAtUtc": "2026-09-13T11:00:35.406Z",
+    "task": "P4-B' Manifold 对表样例 1/3（气温域）",
+    "domainMatch": "同域不同标的：我方 openmeteo_daily_max=单点日最高温阈值二元化；此题=全球年均温逐年超阈。域级匹配，标的粒度差异须披露（弱重叠）"
+  },
+  "id": "TPkEjiNb1wVCIGFnPcDD",
+  "slug": "will-the-average-global-temperature",
+  "url": "https://manifold.markets/SteveRabin/will-the-average-global-temperature",
+  "question": "Will the average global temperature in 2024 exceed 2023?",
+  "outcomeType": "BINARY",
+  "mechanism": "cpmm-1",
+  "createdTime": 1697219070717,
+  "createdTimeIso": "2023-10-13T17:44:30.717Z",
+  "closeTime": 1736513087891,
+  "closeTimeIso": "2025-01-10T12:44:47.891Z",
+  "resolutionTime": 1736513087891,
+  "resolutionTimeIso": "2025-01-10T12:44:47.891Z",
+  "resolution": "YES",
+  "resolutionProbability": 0.989587179524178,
+  "volume": 498482.991991998,
+  "volume24Hours": 0,
+  "uniqueBettorCount": 1873,
+  "creatorUsername": "SteveRabin",
+  "groupSlugs": [
+    "climate",
+    "global-warming",
+    "science-default"
+  ],
+  "probHistoryNote": "社区概率轨迹经 GET /v0/bets?contractId=<id> 重建；close 时刻社区概率 = closeTime 前最后一笔 bet 的 probAfter（仅对表用，不回填账本）"
+}

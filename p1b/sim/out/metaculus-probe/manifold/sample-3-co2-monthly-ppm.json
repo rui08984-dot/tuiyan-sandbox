@@ -1,0 +1,34 @@
+{
+  "_probe": {
+    "source": "api.manifold.markets",
+    "endpoint": "/v0/market/NUx7e2a7uKsh4jfVuRJ6",
+    "fetchedAtUtc": "2026-09-13T11:00:35.406Z",
+    "task": "P4-B' Manifold 对表样例 3/3（CO2 域）",
+    "domainMatch": "强同构：我方 noaa_gml_co2_daily=月度浓度阈值型；此题=2024-02 月度 CO2 浓度 >422ppm（NOAA 月度值裁决，resTime-closeTime≈10 天=发布时滞）。注意：关键词须搜 ppm / Carbon Dioxide，搜 CO2 命中的多为排放量型"
+  },
+  "id": "NUx7e2a7uKsh4jfVuRJ6",
+  "slug": "will-a-monthly-value-of-carbon-diox-45e139a0fcb6",
+  "url": "https://manifold.markets/Herrpickle/will-a-monthly-value-of-carbon-diox-45e139a0fcb6",
+  "question": "Will a monthly value of Carbon Dioxide in February 2024 be above 422 ppm?",
+  "outcomeType": "BINARY",
+  "mechanism": "cpmm-1",
+  "createdTime": 1703343562367,
+  "createdTimeIso": "2023-12-23T14:59:22.367Z",
+  "closeTime": 1709240340000,
+  "closeTimeIso": "2024-02-29T20:59:00.000Z",
+  "resolutionTime": 1710097430681,
+  "resolutionTimeIso": "2024-03-10T19:03:50.681Z",
+  "resolution": "YES",
+  "resolutionProbability": 1,
+  "volume": 13828.705268921,
+  "volume24Hours": 0,
+  "uniqueBettorCount": 30,
+  "creatorUsername": "Herrpickle",
+  "groupSlugs": [
+    "climate-change",
+    "science-default",
+    "global-warming",
+    "climate"
+  ],
+  "probHistoryNote": "社区概率轨迹经 GET /v0/bets?contractId=<id> 重建；close 时刻社区概率 = closeTime 前最后一笔 bet 的 probAfter（仅对表用，不回填账本）"
+}

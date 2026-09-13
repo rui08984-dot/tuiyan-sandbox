@@ -34,4 +34,20 @@ open_time（开注） → close_time / scheduled_close_time（停注/冻结） �
 3. 用**同一道题**同时印证 close_time 与 community 概率末点，验证「close 时刻概率」可稳定取到。
 4. 完成后再按 §三 的选定锚点，对同型题批量对齐。
 
-（窗口对齐方案完 · 2026-09-13）
+## 六、Manifold 时间轴（2026-09-13 **字段级实测**补节；上方 Metaculus 节保留原样，仍标 [待实测/不可达]）
+
+> 源：api.manifold.markets 免 key 实测（收据 manifold/RECEIPT.md，样例 3 条）。时间戳均为 **ms epoch**。
+> 话术纪律：下表「裁决值」是**社区共识参考，非真值**。
+
+| 字段 | 实测语义 | ↔ 我方双窗 |
+|---|---|---|
+| createdTime | 市场创建即开放交易 | Manifold **无「数据可见性边界」概念** ⇒ cutoff 不映射，仅我方侧自持 |
+| closeTime | 停注/冻结 | **主锚**（社区共识最终态，对表用） |
+| resolutionTime | 实际裁决时刻 | full 窗终点；实测时滞：CPI 题 ≈+39 分钟、CO2 月度题 ≈+10 天（等 NOAA 月度值发布） |
+| resolution / resolutionProbability | 裁决值/裁决概率（YES/NO/MKT/CANCEL） | 真值替代物；**MKT=按市场概率裁决**（resProb 可用，标注自我实现）；**CANCEL 必剔** |
+| 概率历史 | /v0/bets?contractId=[id] 的 probBefore/probAfter 序列 | close 时刻社区概率 = closeTime 前最后一笔 bet 的 probAfter（**仅对表，不回填账本**） |
+
+锚点规则（照 §三 二选一、全程固定）：**主锚 closeTime；备锚 createdTime**。
+不可映射项：§四 五条**全部照用** + Manifold 特有两条：①无可见性边界（cutoff 语义缺位）；②裁决时滞域间差异大（分钟级~10 天），按域实测后披露。
+
+（窗口对齐方案完 · 2026-09-13，含 Manifold 实测节）

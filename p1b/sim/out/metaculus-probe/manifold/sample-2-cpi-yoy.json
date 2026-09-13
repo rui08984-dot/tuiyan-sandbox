@@ -1,0 +1,32 @@
+{
+  "_probe": {
+    "source": "api.manifold.markets",
+    "endpoint": "/v0/market/ygAdp992O9",
+    "fetchedAtUtc": "2026-09-13T11:00:35.406Z",
+    "task": "P4-B' Manifold 对表样例 2/3（经济域）",
+    "domainMatch": "强同构：我方 dbnomics_series_value 型=序列+期次+阈值方向；此题=CPI YoY（序列）+2026-06（期次）+≥4.5%（阈值方向）。§三 五条匹配规则可全中"
+  },
+  "id": "ygAdp992O9",
+  "slug": "will-us-cpi-inflation-12month-for-j",
+  "url": "https://manifold.markets/Terminator2/will-us-cpi-inflation-12month-for-j",
+  "question": "Will US CPI inflation (12-month) for June 2026 be 4.5% or higher?",
+  "outcomeType": "BINARY",
+  "mechanism": "cpmm-1",
+  "createdTime": 1782046147197,
+  "createdTimeIso": "2026-06-21T12:49:07.197Z",
+  "closeTime": 1784032200000,
+  "closeTimeIso": "2026-07-14T12:30:00.000Z",
+  "resolutionTime": 1784034539844,
+  "resolutionTimeIso": "2026-07-14T13:08:59.844Z",
+  "resolution": "NO",
+  "resolutionProbability": 0.048836845957407,
+  "volume": 813.94772891656,
+  "volume24Hours": 0,
+  "uniqueBettorCount": 19,
+  "creatorUsername": "Terminator2",
+  "groupSlugs": [
+    "inflation",
+    "us-economy"
+  ],
+  "probHistoryNote": "社区概率轨迹经 GET /v0/bets?contractId=<id> 重建；close 时刻社区概率 = closeTime 前最后一笔 bet 的 probAfter（仅对表用，不回填账本）"
+}
