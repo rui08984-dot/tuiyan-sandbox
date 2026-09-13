@@ -55,7 +55,10 @@ const SCHEMA_PREDICTIONS = [
   '  public_exposure INTEGER CHECK(public_exposure IS NULL OR public_exposure IN (0,1)),',
   '  checklist_hash TEXT,',
   "  gate TEXT CHECK(gate IS NULL OR gate IN ('descriptive','scored','blocked')),",
-  '  tautology INTEGER DEFAULT 0',
+  '  tautology INTEGER DEFAULT 0,',
+  // R4（2026-09-13）：G2 门禁世代标记 + 到期日列（design §4.2 实现前置）
+  '  g2_regime TEXT,',
+  '  matures_at TEXT',
   ');',
   'CREATE INDEX IF NOT EXISTS idx_predictions_game ON predictions(game_id, id DESC);',
   'CREATE INDEX IF NOT EXISTS idx_predictions_open ON predictions(outcome) WHERE outcome IS NULL;',
@@ -74,6 +77,9 @@ const AUDIT_COLUMNS = [
   "gate TEXT CHECK(gate IS NULL OR gate IN ('descriptive','scored','blocked'))",
   // 批次1-M1（p15）：tautology 重言标记列（评审攻击 6 裁定捆同一次账本变更；M2 起由分类流程置位）
   'tautology INTEGER DEFAULT 0',
+  // R4（2026-09-13）：新增两列 additive 迁移定义（旧库 ALTER；新库随建表即有）
+  'g2_regime TEXT',
+  'matures_at TEXT',
 ];
 
 /** p1b 启动/路由注册时调用一次：建 p1b 私有表（幂等；绝不触碰 p1a 既有表）。
