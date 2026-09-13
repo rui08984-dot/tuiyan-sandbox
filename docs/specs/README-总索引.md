@@ -166,6 +166,15 @@
 | 同目录六件产出 | 红队A-方案审查（**A20 不可逆级**：D2 回测题落库矛盾+G2 零排除）/红队B-科学性审查（**B-H1 门零质量指标**/B-H2 ②采信链循环）/查阅A-外部对标（**命题 A 空位维持+时间窗挤压**）/查阅B-盘上实证/头脑风暴（25→8→5）/交叉对抗-合议纪要 |
 | **核心定性** | G2-R4=**过程能力门**（不含预测质量读数，对外表述恒挂限定语）；命题 A 定性「限时抢跑」（先补 3.0 消融 PREREG 再跑首报）；施工线注意：阻塞级 5 条（落库位置/写端补列/影子库/K2/K3）须在任何 D2 相关施工前完成 |
 
+### G2 口径修订 R4.3 与契约表 date_derivation（2026-09-14）
+| 件 | 说明 |
+|---|---|
+| p1b/sim/out/g2-contract-frozen-r4.json | **契约表扩展**：顶层 date_derivations **22 kind** 到期日换算规则＋previous_sha256；sha256 bafd3d389a91…→**007b41188807…dbaa260dbf**（contracts 34/aliases 25 原字段零改动；依据 docs/specs/决策brief-月度年度resolve.date口径-20260914.md §5，用户批口径 B） |
+| design **§4.2.4 修订 R4.3** | **① 池入池判定扩展**：resolve.date 或 date_derivation 换算 effective_date（到期＝数据发布日，保守近似）；backfill 172 行维持排除（PREREG 锚＝statement 标记，非 phase 键）；规则表锚 SSQ 日/二/四·DLT 一/三/六·BOM 年内第 NN 个周日（仅 2026 年段，跨年需新锚） |
+| p1b/scripts/g2-report.cjs（+66 行 additive） | date_derivation 接线＋逐 kind 披露（换算入池 427/failed=0）；backfill 排除标签改名 backfill_no_forwardLooking |
+| 存量化补列（微步 3） | 254 行前瞻 matures_at=effective_date（1058→1312 non-null；写前快照 sha 5a72ef3f…，integrity ok）；读数不变 |
+| 读数 | ① 1058→**1312**｜③ 长 33→**197**（短 439/中 147）｜④ **1120**（覆盖 1312/1312）｜**门 PASS 不翻转**｜测试 226 绿｜收据 p1b/sim/out/g2-report-r4-dd-gated.out|.json |
+
 ## 5 · 铁律速查（违反=弃棒）
 
 ①玄学恒挂娱乐参考，绝不接研判 ②UI 禁「预测」字样（用审计/校准参考/分层账本）③无真值锚不入账本（Q0-1/2/3 拒收门）④LLM 仅四角色（聚合/基率/多路/校准）⑤key 不出服务端 ⑥预注册冻结后禁改 ⑦账本不可变 ⑧**派单并发上限 2-3 棒** ⑨8787 用户 bat 管理，代理零接触 ⑩微步回合制（先落盘再设计）
