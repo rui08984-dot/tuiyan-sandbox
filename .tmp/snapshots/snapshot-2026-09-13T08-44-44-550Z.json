@@ -1,0 +1,31 @@
+{
+ "generated_at": "2026-09-13T08:44:44.595Z",
+ "source": "E:\\music player\\p1a-terminal\\data\\p1a.db",
+ "snapshot": "E:\\music player\\.tmp\\snapshots\\p1a-2026-09-13T08-44-44-550Z.db",
+ "source_sha256_before": {
+  "db": "f69d2d6d20451ba804e139919b3d9d03c94f44069281557a238f1aef75375c2a",
+  "wal": "690e4c50d7fbd87974c0ac03397525406c41bfe94956ba6c544761bc338085fe",
+  "shm": "ac18bcdb21393a4b31dbed4c6d8de42f84c6b2a7deb514fb3080ad2ff1c895c9"
+ },
+ "snapshot_sha256": "697919d3fb36cb77cfc82fdfdd3b7897d306d6194e1a79afdaf3df18c3d0c177",
+ "snapshot_bytes": 5902336,
+ "prod_intake_questions": {
+  "exists": false
+ },
+ "prod_tables": [
+  "actions",
+  "botc_claims",
+  "botc_games",
+  "claims",
+  "contradictions",
+  "events",
+  "games",
+  "hypotheses",
+  "oracle_readings",
+  "players",
+  "predictions",
+  "process_roles",
+  "truth_vault",
+  "verdicts"
+ ]
+}

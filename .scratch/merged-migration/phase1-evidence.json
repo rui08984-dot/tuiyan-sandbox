@@ -1,0 +1,83 @@
+{
+ "phase": 1,
+ "db": "p1a-terminal/data/p1a.db",
+ "apply": true,
+ "pre": {
+  "predictions_n": 1923,
+  "predictions_sql": "CREATE TABLE predictions (\n  id INTEGER PRIMARY KEY,\n  game_id INTEGER NOT NULL REFERENCES games(id),\n  day INTEGER,\n  source_type TEXT NOT NULL CHECK(source_type IN ('验证点','预测卡')),\n  statement TEXT NOT NULL,\n  assigned_prob REAL CHECK(assigned_prob IS NULL OR (assigned_prob >= 0 AND assigned_prob <= 1)),\n  evidence_json TEXT,\n  created_at TEXT DEFAULT (datetime('now')),\n  resolved_at TEXT,\n  outcome TEXT CHECK(outcome IS NULL OR outcome IN ('true','false','ambiguous')),\n  resolve_note TEXT,\n  layer TEXT CHECK(layer IS NULL OR layer IN ('L1','L2','L3','L4','L5','L6')),\n  secondary_layer TEXT CHECK(secondary_layer IS NULL OR secondary_layer IN ('L1','L2','L3','L4','L5','L6')),\n  engine TEXT,\n  baseline_brier REAL CHECK(baseline_brier IS NULL OR (baseline_brier >= 0 AND baseline_brier <= 1)),\n  public_exposure INTEGER CHECK(public_exposure IS NULL OR public_exposure IN (0,1)),\n  checklist_hash TEXT,\n  gate TEXT CHECK(gate IS NULL OR gate IN ('descriptive','scored','blocked'))\n, tautology INTEGER DEFAULT 0, g2_regime TEXT, matures_at TEXT)",
+  "truth_vault_exists": false,
+  "process_roles_exists": false,
+  "predictions_public_exists": false,
+  "objects_n": 18
+ },
+ "snapshot": {
+  "label": "phase1",
+  "source": "p1a-terminal/data/p1a.db",
+  "snapshot": "E:\\music player\\.scratch\\backup\\p1a-pre-phase1-20260913163521.db",
+  "bytes": 3788800,
+  "sha256": "b6d47aa8e7cdead6b75d6729e84f363b6acf2183da08e447c6fbb7a8293258af",
+  "taken_at": "2026-09-13T08:35:21.448Z",
+  "snapshot_integrity": "ok",
+  "snapshot_predictions_n": 1923
+ },
+ "busy_retries": 0,
+ "ms": 7,
+ "post": {
+  "predictions_total": 1923,
+  "predictions_resolved": 1238,
+  "vault_rows": 1923,
+  "vault_missing": 0,
+  "vault_orphan": 0,
+  "truth_column_diff": 0,
+  "ok": true,
+  "predictions_sql_unchanged": true,
+  "roles": [
+   {
+    "role": "backtest",
+    "enforcement": "contract",
+    "may_read": "[\"predictions_public\"]",
+    "forbidden": "[\"truth_vault\",\"predictions.outcome\",\"predictions.resolved_at\",\"predictions.resolve_note\",\"predictions.evidence_json\"]"
+   },
+   {
+    "role": "participant",
+    "enforcement": "contract",
+    "may_read": "[\"predictions_public\"]",
+    "forbidden": "[\"truth_vault\",\"predictions.outcome\",\"predictions.resolved_at\",\"predictions.resolve_note\",\"predictions.evidence_json\"]"
+   },
+   {
+    "role": "resolver",
+    "enforcement": "contract",
+    "may_read": "[\"predictions\",\"truth_vault\",\"intake_questions\",\"evidence_json[0].resolve\"]",
+    "forbidden": "[]"
+   },
+   {
+    "role": "scorer",
+    "enforcement": "contract",
+    "may_read": "[\"predictions\",\"truth_vault\"]",
+    "forbidden": "[\"predictions.outcome 回写\"]"
+   }
+  ],
+  "view_columns": [
+   "prediction_id",
+   "game_id",
+   "day",
+   "source_type",
+   "statement",
+   "assigned_prob",
+   "layer",
+   "secondary_layer",
+   "engine",
+   "gate",
+   "checklist_hash",
+   "tautology",
+   "g2_regime",
+   "matures_at",
+   "public_exposure",
+   "created_at",
+   "cutoff_at",
+   "resolve_spec",
+   "origin"
+  ],
+  "view_rows": 1923
+ }
+}

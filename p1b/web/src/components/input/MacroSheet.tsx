@@ -7,6 +7,7 @@ import { useState } from 'react';
 import type { BotcScript, EventPhase, Player } from '../../types';
 import { rolesByScript } from '../../botc/roles';
 import { MACRO_LABEL, type MacroInput, type MacroKind } from './confirm-flow';
+import { IconClose } from '../ui';
 
 const ROLE_SUGGEST = ['预言家', '女巫', '猎人', '守卫', '预言家+守卫', '村民'];
 
@@ -48,7 +49,7 @@ export default function MacroSheet(p: MacroSheetProps) {
       <div className="sheet">
         <div className="sheet-head">
           <h2>{MACRO_LABEL[p.kind]} · 宏录入</h2>
-          <button className="btn btn-ghost" onClick={p.onClose} aria-label="关闭">✕</button>
+          <button className="btn btn-ghost" onClick={p.onClose} aria-label="关闭"><IconClose size={16} /></button>
         </div>
         <p className="muted" style={{ margin: '0 0 4px', fontSize: 13 }}>
           第 {p.day} 天 · {p.phase === 'day' ? '白天' : p.phase === 'night' ? '夜晚' : '黄昏'} · 确定后仍出确认卡复核

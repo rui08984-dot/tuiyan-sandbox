@@ -383,11 +383,14 @@ function register(app, ctx) {
     // per-path 注入件（批次1-M1）：与 variant 无关，循环外各算一次（纯查库零网络）
     // 命题 A 消融窗口覆盖（additive）：body.evidenceIds 由编排器按 prereg-a-windows 计算后传入；缺省＝现状。
     const windowIds = (req.body && Array.isArray(req.body.evidenceIds)) ? req.body.evidenceIds : undefined;
+    // 命题 A 重试通道（additive）：body.onlyVariants 限定本 POST 只跑指定变体（跑批第二遍外科单变体重试用）；缺省＝现状（三路全跑）。
+    const onlyVariants = (req.body && Array.isArray(req.body.onlyVariants)) ? req.body.onlyVariants.filter((v) => typeof v === 'string') : null;
     const evidenceBlock = loadEvidence(pred, { evidenceIds: windowIds });
     const baseline = loadBaseline(pred);
     const saved = [];
     const errors = [];
     for (const route of ROUTES) {
+      if (onlyVariants && onlyVariants.indexOf(route.variant) === -1) continue; // additive：单变体重试过滤（缺省不过滤）
       try {
         let text;
         if (mode === 'MOCK') {

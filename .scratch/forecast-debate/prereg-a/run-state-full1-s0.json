@@ -1,0 +1,82 @@
+{
+ "tag": "full1",
+ "done": {
+  "91|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1321,
+   "window_events": 8
+  },
+  "91|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1264,
+   "window_events": 8
+  },
+  "91|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1321,
+   "window_events": 8
+  },
+  "91|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1419,
+   "window_events": 10
+  },
+  "91|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1362,
+   "window_events": 10
+  },
+  "91|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1419,
+   "window_events": 10
+  },
+  "92|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1321,
+   "window_events": 8
+  },
+  "92|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1264,
+   "window_events": 8
+  },
+  "92|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1321,
+   "window_events": 8
+  },
+  "93|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1321,
+   "window_events": 8
+  }
+ },
+ "calls": 30,
+ "cost": 0.27,
+ "stop_reason": null,
+ "started_at": "2026-09-13T11:14:42.802Z",
+ "retry_pending": [
+  {
+   "key": "92|cutoff|C",
+   "pid": 92,
+   "game_id": 8,
+   "window": "cutoff",
+   "arm": "C",
+   "run_id": "preregA-full1-C-cutoff",
+   "failed": [
+    "v1_evidence"
+   ]
+  }
+ ]
+}

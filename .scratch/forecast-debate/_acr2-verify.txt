@@ -1,0 +1,23 @@
+## acr-phase2-llm-results-A.json win=cutoff n=6
+  gid 7 json(tw=0.0267 tv=0.0600) recompute(tw=-0.0267 tv=0.0600) Kbase=3 Kpoll=3 MATCH=false
+  gid 8 json(tw=0.0000 tv=0.0433) recompute(tw=0.0000 tv=0.0433) Kbase=3 Kpoll=3 MATCH=false
+  gid 9 json(tw=0.0000 tv=0.1267) recompute(tw=0.0000 tv=0.1267) Kbase=3 Kpoll=3 MATCH=false
+  gid 10 json(tw=0.0000 tv=0.1433) recompute(tw=0.0000 tv=0.1433) Kbase=3 Kpoll=1 MATCH=false
+  gid 11 json(tw=0.0067 tv=0.0567) recompute(tw=0.0067 tv=0.0567) Kbase=3 Kpoll=2 MATCH=false
+  gid 12 json(tw=0.0500 tv=0.0950) recompute(tw=0.0250 tv=0.0450) Kbase=2 Kpoll=2 MATCH=false
+## acr-phase2-llm-results-A-full.json win=cutoff n=3
+  gid 7 json(tw=0.0267 tv=0.0600) recompute(tw=-0.0267 tv=0.0600) Kbase=3 Kpoll=3 MATCH=false
+  gid 8 json(tw=0.0000 tv=0.0433) recompute(tw=0.0000 tv=0.0433) Kbase=3 Kpoll=3 MATCH=false
+  gid 9 json(tw=0.0000 tv=0.1267) recompute(tw=0.0000 tv=0.1267) Kbase=3 Kpoll=3 MATCH=false
+## acr-phase2-llm-results-A-full.json win=full n=3
+  gid 7 json(tw=0.0000 tv=0.4967) recompute(tw=0.0000 tv=0.4967) Kbase=1 Kpoll=3 MATCH=false
+  gid 8 json(tw=0.0000 tv=0.9500) recompute(tw=0.0000 tv=0.9500) Kbase=3 Kpoll=1 MATCH=false
+  gid 9 json(tw=0.0000 tv=0.7767) recompute(tw=0.0000 tv=0.7767) Kbase=3 Kpoll=2 MATCH=false
+## acr-phase2-llm-results-B.json win=cutoff n=3
+  gid 7 json(tw=0.0133 tv=0.1133) recompute(tw=-0.0433 tv=0.1067) Kbase=3 Kpoll=1 MATCH=false
+  gid 8 json(tw=0.0000 tv=0.1000) recompute(tw=0.0000 tv=0.1300) Kbase=3 Kpoll=3 MATCH=false
+  gid 9 json(tw=0.0067 tv=0.0933) recompute(tw=-0.0067 tv=0.0933) Kbase=3 Kpoll=3 MATCH=false
+## acr-phase2-llm-results-C.json win=cutoff n=3
+  gid 7 json(tw=0.0067 tv=0.0400) recompute(tw=0.0067 tv=0.0400) Kbase=3 Kpoll=1 MATCH=false
+  gid 8 json(tw=0.0000 tv=0.0367) recompute(tw=0.0000 tv=0.0367) Kbase=3 Kpoll=3 MATCH=false
+  gid 9 json(tw=0.0000 tv=0.0400) recompute(tw=0.0000 tv=0.0400) Kbase=3 Kpoll=3 MATCH=false

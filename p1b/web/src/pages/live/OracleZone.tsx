@@ -1,6 +1,6 @@
 /**
  * OracleZone —— 对局玄学化判词（P2 线 W2，赛后娱乐彩蛋弹层）：
- *  · 现场页常驻小入口「☯ 判词」手动开；
+ *  · 现场页常驻小入口「判词」手动开；
  *  · 天结算就绪（advise.current source='task'，即 .adv-badge.is-ready 出现的同一信号）
  *    后自动弹一次：localStorage key 含 game id（p1b.oracle.seen.v1.<gid>，值=已弹 day）防重弹；
  *  · z-index 45：低于确认卡（.confirm-overlay 60）与宏表单/编辑抽屉（.sheet-overlay 50），
@@ -14,6 +14,7 @@ import { getOracle } from '../../api';
 import type { OracleResult } from '../../types';
 import type { useAdvise } from './useAdvise';
 import '../../styles/oracle.css';
+import { IconCompass, IconClose } from '../../components/ui';
 
 type Advise = ReturnType<typeof useAdvise>;
 
@@ -64,15 +65,15 @@ export default function OracleZone(props: { gameId: number; advise: Advise }) {
     <>
       <div className="oracle-entry-row">
         <button type="button" className="btn oracle-entry" onClick={openCard}
-          title="本局玄学判词（赛后娱乐彩蛋）">☯ 判词</button>
+          title="本局玄学判词（赛后娱乐彩蛋）"><IconCompass size={16} /> 判词</button>
         <span className="oracle-entry-hint">赛后娱乐彩蛋 · 非游戏研判</span>
       </div>
       {open && (
         <div className="oracle-overlay" role="dialog" aria-modal="true" aria-label="本局玄学判词">
           <div className="oracle-card">
             <div className="oracle-head">
-              <h2>☯ 本局玄学判词</h2>
-              <button type="button" className="btn btn-ghost" onClick={() => setOpen(false)} aria-label="关闭">✕</button>
+              <h2><IconCompass size={18} /> 本局玄学判词</h2>
+              <button type="button" className="btn btn-ghost" onClick={() => setOpen(false)} aria-label="关闭"><IconClose size={16} /></button>
             </div>
             {loading && <p className="muted oracle-loading">起卦中……</p>}
             {err && <div className="sheet-error">{err}</div>}

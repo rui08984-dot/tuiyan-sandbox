@@ -47,7 +47,7 @@ export function useConfirmFlow(ctx: {
     try {
       const r = await api.confirmEvents(ctx.gameId, toConfirmPayload(card));
       setCard(null);
-      ctx.flashToast('✓ 已入账 e' + (r.event_id ?? '?') + '（seq ' + r.seq + '）· 声称 ' + (r.claim_ids?.length ?? 0) + ' 条 · 行动 ' + (r.action_ids?.length ?? 0) + ' 条');
+      ctx.flashToast('已入账 e' + (r.event_id ?? '?') + '（seq ' + r.seq + '）· 声称 ' + (r.claim_ids?.length ?? 0) + ' 条 · 行动 ' + (r.action_ids?.length ?? 0) + ' 条');
       setText('');
       await ctx.reloadAll(ctx.gameId, ctx.day);
     } catch (e) { setCardErr(errMsg(e)); } finally { ctx.setBusy(false); }

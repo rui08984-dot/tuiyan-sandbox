@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import type { Hypothesis } from '../../types';
 import { fmtEvs, fmtRes, fmtTime, loadChecks, saveChecks, type ArchiveEntry } from '../../lib/adviseArchive';
+import { IconAlert } from '../ui';
 
 const UNDER_LABEL = { high: '高欠定度', mid: '中欠定度', low: '低欠定度' } as const;
 const TEND_LABEL: Record<string, string> = { strong: '倾向:强', mid: '倾向:中', weak: '倾向:弱' };
@@ -39,7 +40,7 @@ export default function AdvisorCardView(props: {
         {props.source === 'server' ? ' · 服务端存档（截至该天）' : props.entry.finished_at ? ' · ' + fmtTime(props.entry.finished_at) : ''}
         {card.saved ? ' · 已回存服务端' : ''}
       </p>
-      {(card.warnings ?? []).map((w, i) => <p key={i} className="adv-warn">⚠ {w}</p>)}
+      {(card.warnings ?? []).map((w, i) => <p key={i} className="adv-warn"><IconAlert size={14} /> {w}</p>)}
 
       <h3 className="adv-sec-title">矛盾点 {contrs.length} 条（欠定度色标：高=红 中=黄 低=灰）</h3>
       {contrs.length === 0 && <p className="muted" style={{ margin: '0 4px' }}>未发现矛盾</p>}

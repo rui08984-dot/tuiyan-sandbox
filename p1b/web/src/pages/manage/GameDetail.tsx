@@ -7,6 +7,7 @@ import { useGameTypes } from '../../lib/useGameTypes';
 import BotcClaimsCard from './BotcClaimsCard';
 import DayAdvanceCard from './DayAdvanceCard';
 import SeatListCard from './SeatListCard';
+import { IconPen } from '../../components/ui';
 
 const errMsg = (e: unknown): string => (e instanceof Error ? e.message : String(e));
 
@@ -47,7 +48,7 @@ export default function GameDetail(props: { gameId: number; flashToast: (t: stri
       a.click();
       a.remove();
       URL.revokeObjectURL(url);
-      props.flashToast('✓ 已导出 p1b-game-' + detail.game.id + '.json（' + blob.size + ' 字节）');
+      props.flashToast('已导出 p1b-game-' + detail.game.id + '.json（' + blob.size + ' 字节）');
     } catch (e) { setDetailErr(errMsg(e)); } finally { setBusy(false); }
   }
 
@@ -69,9 +70,9 @@ export default function GameDetail(props: { gameId: number; flashToast: (t: stri
           </span>
         </div>
         <div className="detail-actions">
-          <button type="button" className="btn" onClick={() => props.onGoLive()}>✍️ 去现场</button>
+          <button type="button" className="btn" onClick={() => props.onGoLive()}><IconPen size={15} /> 去现场</button>
           <button type="button" className="btn" onClick={() => void doExport()} disabled={busy}>
-            {busy ? '导出中…' : '⬇ 导出 JSON'}
+            {busy ? '导出中…' : '导出 JSON'}
           </button>
         </div>
       </div>

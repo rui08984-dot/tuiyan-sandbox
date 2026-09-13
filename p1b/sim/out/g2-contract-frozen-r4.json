@@ -7,44 +7,468 @@
     "frozen_at": "2026-09-13",
     "frozen_by": "agent（batch3 #6a）",
     "review": "逐函数对照源码人工复核；辅助函数 finish/cwlEval 的公共读取已并入各契约",
-    "field_semantics": { "required": "全部必须存在且非空", "one_of": "每个数组至少一个存在（OR 组）" }
+    "field_semantics": {
+      "required": "全部必须存在且非空",
+      "one_of": "每个数组至少一个存在（OR 组）"
+    },
+    "refrozen_at": "2026-09-14",
+    "refrozen_by": "agent（口径B 微步1/4 · date_derivations 22 kind · additive）",
+    "refrozen_reason": "决策brief §5 口径B：为 22 个周期 kind 登记 date_derivation 到期日换算规则（g2-report 换算用，微步2 接线）；sha 变更原因＝本扩展；旧 sha 存顶层 previous_sha256；探测收据=p1b/scripts/_bd-dateprobe.cjs/_bd-anchorprobe.cjs（只读）"
   },
   "contracts": {
-    "openmeteo_daily_max": { "src": "L18-25", "required": ["lat", "lon", "date", "threshold_c"], "one_of": [] },
-    "dbnomics_series_value": { "src": "L26-35", "required": ["provider", "dataset", "series", "period", "threshold"], "one_of": [] },
-    "cwl_ssq_red_contains": { "src": "L36 + cwlEval L382-389", "required": ["issue", "ball"], "one_of": [] },
-    "cwl_ssq_blue_odd": { "src": "L37 + cwlEval L382-389", "required": ["issue"], "one_of": [] },
-    "openmeteo_forecast_daily_max": { "src": "L39-50", "required": ["lat", "lon", "date", "cmp", "threshold_c"], "one_of": [] },
-    "cwl_ssq_blue_odd_forward": { "src": "L51（this.cwl_ssq_blue_odd）", "required": ["issue"], "one_of": [] },
-    "dlt_draw_result": { "src": "L56-75", "required": ["issue"], "one_of": [["back_ball", "front_max_ge"]] },
-    "_omHourlyMean": { "src": "L77-91", "required": ["date", "cmp", "threshold"], "one_of": [["url_template", "url"]] },
-    "_omDaily": { "src": "L92-109", "required": ["date", "cmp", "threshold"], "one_of": [["url_template", "url"]] },
-    "_dbnPeriod": { "src": "L111-121", "required": ["cmp", "threshold"], "one_of": [["url_template", "url"], ["series", "series_code"], ["period", "month", "year"]] },
-    "_dbnMonthMean": { "src": "L122-136", "required": ["series", "month", "cmp", "threshold"], "one_of": [["url_template", "url"]] },
-    "_eurostatJsonstat": { "src": "L138-153", "required": ["cmp", "threshold"], "one_of": [["url_template", "url"], ["month", "year"]] },
-    "_delphiFlu": { "src": "L155-162", "required": ["epiweek", "cmp", "threshold"], "one_of": [["url_template", "url"]] },
-    "binance_daily_close": { "src": "L164-168", "required": ["date", "symbol", "cmp", "threshold"], "one_of": [["url_template", "url"]] },
-    "kraken_daily_close": { "src": "L169-177", "required": ["date", "pair", "cmp", "threshold"], "one_of": [["url_template", "url"]] },
-    "frankfurter_rate": { "src": "L178-185", "required": ["date", "base", "quote", "cmp", "threshold"], "one_of": [["url_template", "url"]] },
-    "frankfurter_rate_range": { "src": "L186-194", "required": ["date", "date_plus7", "base", "quote", "cmp", "threshold"], "one_of": [["url_template", "url"]] }
-,
-    "_noaaTideDailyHigh": { "src": "L196-204", "required": ["date", "station", "cmp", "threshold"], "one_of": [["url_template", "url"]] },
-    "ghcn_daily_tmax": { "src": "L205-211", "required": ["date", "station", "cmp", "threshold"], "one_of": [["url_template", "url"]] },
-    "usgs_nwis_daily_discharge": { "src": "L212-220", "required": ["date", "site", "cmp", "threshold"], "one_of": [["url_template", "url"]] },
-    "noaa_gml_co2_daily": { "src": "L221-228", "required": ["date", "cmp", "threshold"], "one_of": [["url", "url_template"]] },
-    "crossref_week_total": { "src": "L230-237", "required": ["week_start", "cmp", "threshold"], "one_of": [["url_template", "url"]] },
-    "nvd_cve_week_count": { "src": "L238-244", "required": ["week_start", "cmp", "threshold"], "one_of": [["url_template", "url"]] },
-    "github_weekly_commits": { "src": "L245-253", "required": ["url", "week_start", "repo", "cmp", "threshold"], "one_of": [] },
-    "openalex_works_count": { "src": "L254-261", "required": ["start", "cmp", "threshold"], "one_of": [["url_template", "url"]] },
-    "npm_downloads_window": { "src": "L262-269", "required": ["start", "end", "package", "cmp", "threshold"], "one_of": [["url_template", "url"]] },
-    "wikimedia_pageviews": { "src": "L270-278", "required": ["date", "article", "cmp", "threshold"], "one_of": [["url_template", "url"]] },
-    "elexon_fuelhh_daily_mean": { "src": "L280-287", "required": ["date", "fuel", "cmp", "threshold"], "one_of": [["url_template", "url"]] },
-    "energycharts_daily_mean": { "src": "L288-299", "required": ["date", "country", "type", "cmp", "threshold"], "one_of": [["url_template", "url"]] },
-    "mlb_schedule_daily_total_runs": { "src": "L300-311", "required": ["date", "cmp", "threshold"], "one_of": [["url_template", "url"]] },
-    "cta_daily_total_rides": { "src": "L312-320", "required": ["url", "date", "cmp", "threshold"], "one_of": [] },
-    "bom_weekend_top10_gross": { "src": "L321-333", "required": ["week", "cmp", "threshold"], "one_of": [] },
-    "jpl_cad_monthly_count": { "src": "L334-340", "required": ["url", "month", "cmp", "threshold"], "one_of": [] },
-    "swpc_solar_cycle_monthly": { "src": "L341-350", "required": ["url", "month", "field_name", "cmp", "threshold"], "one_of": [] }
+    "openmeteo_daily_max": {
+      "src": "L18-25",
+      "required": [
+        "lat",
+        "lon",
+        "date",
+        "threshold_c"
+      ],
+      "one_of": []
+    },
+    "dbnomics_series_value": {
+      "src": "L26-35",
+      "required": [
+        "provider",
+        "dataset",
+        "series",
+        "period",
+        "threshold"
+      ],
+      "one_of": []
+    },
+    "cwl_ssq_red_contains": {
+      "src": "L36 + cwlEval L382-389",
+      "required": [
+        "issue",
+        "ball"
+      ],
+      "one_of": []
+    },
+    "cwl_ssq_blue_odd": {
+      "src": "L37 + cwlEval L382-389",
+      "required": [
+        "issue"
+      ],
+      "one_of": []
+    },
+    "openmeteo_forecast_daily_max": {
+      "src": "L39-50",
+      "required": [
+        "lat",
+        "lon",
+        "date",
+        "cmp",
+        "threshold_c"
+      ],
+      "one_of": []
+    },
+    "cwl_ssq_blue_odd_forward": {
+      "src": "L51（this.cwl_ssq_blue_odd）",
+      "required": [
+        "issue"
+      ],
+      "one_of": []
+    },
+    "dlt_draw_result": {
+      "src": "L56-75",
+      "required": [
+        "issue"
+      ],
+      "one_of": [
+        [
+          "back_ball",
+          "front_max_ge"
+        ]
+      ]
+    },
+    "_omHourlyMean": {
+      "src": "L77-91",
+      "required": [
+        "date",
+        "cmp",
+        "threshold"
+      ],
+      "one_of": [
+        [
+          "url_template",
+          "url"
+        ]
+      ]
+    },
+    "_omDaily": {
+      "src": "L92-109",
+      "required": [
+        "date",
+        "cmp",
+        "threshold"
+      ],
+      "one_of": [
+        [
+          "url_template",
+          "url"
+        ]
+      ]
+    },
+    "_dbnPeriod": {
+      "src": "L111-121",
+      "required": [
+        "cmp",
+        "threshold"
+      ],
+      "one_of": [
+        [
+          "url_template",
+          "url"
+        ],
+        [
+          "series",
+          "series_code"
+        ],
+        [
+          "period",
+          "month",
+          "year"
+        ]
+      ]
+    },
+    "_dbnMonthMean": {
+      "src": "L122-136",
+      "required": [
+        "series",
+        "month",
+        "cmp",
+        "threshold"
+      ],
+      "one_of": [
+        [
+          "url_template",
+          "url"
+        ]
+      ]
+    },
+    "_eurostatJsonstat": {
+      "src": "L138-153",
+      "required": [
+        "cmp",
+        "threshold"
+      ],
+      "one_of": [
+        [
+          "url_template",
+          "url"
+        ],
+        [
+          "month",
+          "year"
+        ]
+      ]
+    },
+    "_delphiFlu": {
+      "src": "L155-162",
+      "required": [
+        "epiweek",
+        "cmp",
+        "threshold"
+      ],
+      "one_of": [
+        [
+          "url_template",
+          "url"
+        ]
+      ]
+    },
+    "binance_daily_close": {
+      "src": "L164-168",
+      "required": [
+        "date",
+        "symbol",
+        "cmp",
+        "threshold"
+      ],
+      "one_of": [
+        [
+          "url_template",
+          "url"
+        ]
+      ]
+    },
+    "kraken_daily_close": {
+      "src": "L169-177",
+      "required": [
+        "date",
+        "pair",
+        "cmp",
+        "threshold"
+      ],
+      "one_of": [
+        [
+          "url_template",
+          "url"
+        ]
+      ]
+    },
+    "frankfurter_rate": {
+      "src": "L178-185",
+      "required": [
+        "date",
+        "base",
+        "quote",
+        "cmp",
+        "threshold"
+      ],
+      "one_of": [
+        [
+          "url_template",
+          "url"
+        ]
+      ]
+    },
+    "frankfurter_rate_range": {
+      "src": "L186-194",
+      "required": [
+        "date",
+        "date_plus7",
+        "base",
+        "quote",
+        "cmp",
+        "threshold"
+      ],
+      "one_of": [
+        [
+          "url_template",
+          "url"
+        ]
+      ]
+    },
+    "_noaaTideDailyHigh": {
+      "src": "L196-204",
+      "required": [
+        "date",
+        "station",
+        "cmp",
+        "threshold"
+      ],
+      "one_of": [
+        [
+          "url_template",
+          "url"
+        ]
+      ]
+    },
+    "ghcn_daily_tmax": {
+      "src": "L205-211",
+      "required": [
+        "date",
+        "station",
+        "cmp",
+        "threshold"
+      ],
+      "one_of": [
+        [
+          "url_template",
+          "url"
+        ]
+      ]
+    },
+    "usgs_nwis_daily_discharge": {
+      "src": "L212-220",
+      "required": [
+        "date",
+        "site",
+        "cmp",
+        "threshold"
+      ],
+      "one_of": [
+        [
+          "url_template",
+          "url"
+        ]
+      ]
+    },
+    "noaa_gml_co2_daily": {
+      "src": "L221-228",
+      "required": [
+        "date",
+        "cmp",
+        "threshold"
+      ],
+      "one_of": [
+        [
+          "url",
+          "url_template"
+        ]
+      ]
+    },
+    "crossref_week_total": {
+      "src": "L230-237",
+      "required": [
+        "week_start",
+        "cmp",
+        "threshold"
+      ],
+      "one_of": [
+        [
+          "url_template",
+          "url"
+        ]
+      ]
+    },
+    "nvd_cve_week_count": {
+      "src": "L238-244",
+      "required": [
+        "week_start",
+        "cmp",
+        "threshold"
+      ],
+      "one_of": [
+        [
+          "url_template",
+          "url"
+        ]
+      ]
+    },
+    "github_weekly_commits": {
+      "src": "L245-253",
+      "required": [
+        "url",
+        "week_start",
+        "repo",
+        "cmp",
+        "threshold"
+      ],
+      "one_of": []
+    },
+    "openalex_works_count": {
+      "src": "L254-261",
+      "required": [
+        "start",
+        "cmp",
+        "threshold"
+      ],
+      "one_of": [
+        [
+          "url_template",
+          "url"
+        ]
+      ]
+    },
+    "npm_downloads_window": {
+      "src": "L262-269",
+      "required": [
+        "start",
+        "end",
+        "package",
+        "cmp",
+        "threshold"
+      ],
+      "one_of": [
+        [
+          "url_template",
+          "url"
+        ]
+      ]
+    },
+    "wikimedia_pageviews": {
+      "src": "L270-278",
+      "required": [
+        "date",
+        "article",
+        "cmp",
+        "threshold"
+      ],
+      "one_of": [
+        [
+          "url_template",
+          "url"
+        ]
+      ]
+    },
+    "elexon_fuelhh_daily_mean": {
+      "src": "L280-287",
+      "required": [
+        "date",
+        "fuel",
+        "cmp",
+        "threshold"
+      ],
+      "one_of": [
+        [
+          "url_template",
+          "url"
+        ]
+      ]
+    },
+    "energycharts_daily_mean": {
+      "src": "L288-299",
+      "required": [
+        "date",
+        "country",
+        "type",
+        "cmp",
+        "threshold"
+      ],
+      "one_of": [
+        [
+          "url_template",
+          "url"
+        ]
+      ]
+    },
+    "mlb_schedule_daily_total_runs": {
+      "src": "L300-311",
+      "required": [
+        "date",
+        "cmp",
+        "threshold"
+      ],
+      "one_of": [
+        [
+          "url_template",
+          "url"
+        ]
+      ]
+    },
+    "cta_daily_total_rides": {
+      "src": "L312-320",
+      "required": [
+        "url",
+        "date",
+        "cmp",
+        "threshold"
+      ],
+      "one_of": []
+    },
+    "bom_weekend_top10_gross": {
+      "src": "L321-333",
+      "required": [
+        "week",
+        "cmp",
+        "threshold"
+      ],
+      "one_of": []
+    },
+    "jpl_cad_monthly_count": {
+      "src": "L334-340",
+      "required": [
+        "url",
+        "month",
+        "cmp",
+        "threshold"
+      ],
+      "one_of": []
+    },
+    "swpc_solar_cycle_monthly": {
+      "src": "L341-350",
+      "required": [
+        "url",
+        "month",
+        "field_name",
+        "cmp",
+        "threshold"
+      ],
+      "one_of": []
+    }
   },
   "aliases": {
     "openmeteo_air_daily_mean": "_omHourlyMean",
@@ -72,7 +496,152 @@
     "noaa_tide_daily_max": "_noaaTideDailyHigh",
     "energycharts_public_power_daily_mean": "energycharts_daily_mean",
     "noaa_solar_cycle_ssn_monthly": "swpc_solar_cycle_monthly"
-  }
+  },
+  "date_derivations": {
+    "dbnomics_series_value": {
+      "source_key": "period",
+      "granularity": "monthly",
+      "rule": "date = last_day(月 + 1 个月)；输入 YYYY-MM，输出次月最后一日 YYYY-MM-DD",
+      "approximation": "conservative_upper_bound",
+      "note": "保守近似＝月度值发布窗口上界"
+    },
+    "dbnomics_bis_monthly_mean": {
+      "source_key": "month",
+      "granularity": "monthly",
+      "rule": "date = last_day(月 + 1 个月)；输入 YYYY-MM，输出次月最后一日 YYYY-MM-DD",
+      "approximation": "conservative_upper_bound",
+      "note": "保守近似＝月度值发布窗口上界"
+    },
+    "dbnomics_eurostat_unemployment_monthly": {
+      "source_key": "month",
+      "granularity": "monthly",
+      "rule": "date = last_day(月 + 1 个月)；输入 YYYY-MM，输出次月最后一日 YYYY-MM-DD",
+      "approximation": "conservative_upper_bound",
+      "note": "保守近似＝月度值发布窗口上界"
+    },
+    "eurostat_live_unemployment_monthly": {
+      "source_key": "month",
+      "granularity": "monthly",
+      "rule": "date = last_day(月 + 1 个月)；输入 YYYY-MM，输出次月最后一日 YYYY-MM-DD",
+      "approximation": "conservative_upper_bound",
+      "note": "保守近似＝月度值发布窗口上界"
+    },
+    "swpc_solar_cycle_monthly": {
+      "source_key": "month",
+      "granularity": "monthly",
+      "rule": "date = last_day(月 + 1 个月)；输入 YYYY-MM，输出次月最后一日 YYYY-MM-DD",
+      "approximation": "conservative_upper_bound",
+      "note": "保守近似＝月度值发布窗口上界"
+    },
+    "noaa_solar_cycle_ssn_monthly": {
+      "source_key": "month",
+      "granularity": "monthly",
+      "rule": "date = last_day(月 + 1 个月)；输入 YYYY-MM，输出次月最后一日 YYYY-MM-DD",
+      "approximation": "conservative_upper_bound",
+      "note": "保守近似＝月度值发布窗口上界"
+    },
+    "jpl_cad_monthly_count": {
+      "source_key": "month",
+      "granularity": "monthly",
+      "rule": "date = last_day(月 + 1 个月)；输入 YYYY-MM，输出次月最后一日 YYYY-MM-DD",
+      "approximation": "conservative_upper_bound",
+      "note": "保守近似＝月计数窗口（[月首, 次月首)）结束后取发布窗口上界"
+    },
+    "dbnomics_wb_commodity_annual": {
+      "source_key": "year",
+      "granularity": "yearly",
+      "rule": "date = 次年 12 月 31 日；输入 YYYY",
+      "approximation": "conservative_upper_bound",
+      "note": "保守近似，发布滞后长；派单原案「次年同月最后一日」因 resolve 仅含 year、无 month 键（实测 n=24）无法锚月，取上界更保守的次年最后一日",
+      "rule_status": "adjusted_by_probe"
+    },
+    "eurostat_demo_pjan_annual": {
+      "source_key": "year",
+      "granularity": "yearly",
+      "rule": "date = 次年 12 月 31 日；输入 YYYY",
+      "approximation": "conservative_upper_bound",
+      "note": "保守近似，Eurostat 年度发布滞后可达 1 年+（生成侧自述约 12 个月）"
+    },
+    "eurostat_live_tertiary_attain": {
+      "source_key": "year",
+      "granularity": "yearly",
+      "rule": "date = 次年 12 月 31 日；输入 YYYY",
+      "approximation": "conservative_upper_bound",
+      "note": "保守近似，年度发布滞后长"
+    },
+    "dbnomics_eurostat_tertiary_attain": {
+      "source_key": "year",
+      "granularity": "yearly",
+      "rule": "date = 次年 12 月 31 日；输入 YYYY",
+      "approximation": "conservative_upper_bound",
+      "note": "保守近似，年度发布滞后长"
+    },
+    "npm_downloads_window": {
+      "source_key": "end",
+      "granularity": "daily",
+      "rule": "date = resolve.end 原值（YYYY-MM-DD，直接取用零换算）"
+    },
+    "github_weekly_commits": {
+      "source_key": "week_end",
+      "granularity": "daily",
+      "rule": "date = resolve.week_end 原值（YYYY-MM-DD，直接取用零换算）"
+    },
+    "delphi_fluview_ili": {
+      "source_key": "epiweek",
+      "granularity": "weekly",
+      "rule": "输入 YYYYWW；date = Y 年 MMWR 第 1 周（含 1 月 4 日、周日起始）的周六 S1 + (N-1)*7 天",
+      "note": "MMWR 周日始周六终（CDC 定义）；FluView 发布滞后约 1 周未计入（按派单口径取周结束日）"
+    },
+    "delphi_fluview_num_ili": {
+      "source_key": "epiweek",
+      "granularity": "weekly",
+      "rule": "输入 YYYYWW；date = Y 年 MMWR 第 1 周（含 1 月 4 日、周日起始）的周六 S1 + (N-1)*7 天",
+      "note": "MMWR 周日始周六终（CDC 定义）；FluView 发布滞后约 1 周未计入（按派单口径取周结束日）"
+    },
+    "cwl_ssq_red_contains": {
+      "source_key": "issue",
+      "granularity": "draw",
+      "rule": "输入 YYYYNNN（2026 年段）；k = NNN-106；date = 2026-09-13 + floor(k/3)*7 天 + [0,2,4][k mod 3] 天；2026-09-13 = 第 2026106 期开奖日（周日 21:15+08:00）；开奖星期 = 日/二/四",
+      "note": "锚期反推：库内题面 id=453（cutoff=2026-09-13T21:15 开奖前）锚定 2026106=2026-09-13；id=601/602 的 cutoff 算术交叉验证星期序列；派单表「周一/三/日」与库内锚矛盾，按锚实证为日/二/四；仅适用 2026 年段（实测 2026089-2026124），跨年需新年锚"
+    },
+    "cwl_ssq_blue_odd": {
+      "source_key": "issue",
+      "granularity": "draw",
+      "rule": "输入 YYYYNNN（2026 年段）；k = NNN-106；date = 2026-09-13 + floor(k/3)*7 天 + [0,2,4][k mod 3] 天；2026-09-13 = 第 2026106 期开奖日（周日 21:15+08:00）；开奖星期 = 日/二/四",
+      "note": "锚期反推：库内题面 id=453（cutoff=2026-09-13T21:15 开奖前）锚定 2026106=2026-09-13；id=601/602 的 cutoff 算术交叉验证星期序列；派单表「周一/三/日」与库内锚矛盾，按锚实证为日/二/四；仅适用 2026 年段（实测 2026089-2026124），跨年需新年锚"
+    },
+    "dlt_draw_result": {
+      "source_key": "issue",
+      "granularity": "draw",
+      "rule": "输入 YYNNN（2026 年段）；k = NNN-105；date = 2026-09-14 + floor(k/3)*7 天 + [0,2,5][k mod 3] 天；2026-09-14 = 第 26105 期开奖日（周一 21:25+08:00）；开奖星期 = 一/三/六",
+      "note": "锚期反推：库内题面 id=841/842/843 显式记录预期开奖日 26105=2026-09-14（一）、26106=09-16（三）、26107=09-19（六）；仅适用 2026 年段（实测 26105-26123），跨年需新年锚"
+    },
+    "crossref_week_total": {
+      "source_key": "week_start",
+      "granularity": "weekly",
+      "rule": "date = week_start + 6 天（窗口末日）",
+      "note": "与 resolver plusDays(week_start,6) 同构；实测 n=5 week_start 均为周日（YYYY-MM-DD），+6 即周六"
+    },
+    "nvd_cve_week_count": {
+      "source_key": "week_start",
+      "granularity": "weekly",
+      "rule": "date = week_start + 6 天（窗口末日）",
+      "note": "与 resolver plusDays(week_start,6) 同构；实测 n=5 week_start 均为周日（YYYY-MM-DD），+6 即周六"
+    },
+    "openalex_works_count": {
+      "source_key": "end",
+      "granularity": "daily",
+      "rule": "date = resolve.end 原值（YYYY-MM-DD，直接取用零换算）",
+      "note": "探测发现 resolve 实含 start+end 两键（契约 required 仅列 start）；生成侧 end=start+6 为窗口末日"
+    },
+    "bom_weekend_top10_gross": {
+      "source_key": "week",
+      "granularity": "weekly",
+      "rule": "输入 YYYYWNN（BOM 页面自身周末序号）；date = YYYY 年第 NN 个周日；2026 锚：W1 末日=2026-01-04（周日），date = 2026-01-04 + (NN-1)*7 天",
+      "note": "BOM 周末=Fri-Sun，末日=周日；2026 by-year 页实测复核：W37=Sep 11-13、W40=Oct 2-4；节假日 4 日长周末 BOM 另列行（如 2026W36 Sep 4-7），库内样本 W37/W40 均常规周末",
+      "rule_status": "verified_2026_web"
+    }
+  },
+  "date_derivation_added": "2026-09-14",
+  "previous_sha256": "bafd3d389a91b042d0875ad8678a260ed0636722385a8e18888550a6c6fb9808"
 }
-
-

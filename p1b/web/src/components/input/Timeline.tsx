@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from 'react';
 import type { BotcClaim, BotcScript, Claim, GameAction, GameEvent } from '../../types';
 import { botcRoleDisplay } from '../../botc/roles';
 import { BOTC_PRED_LABEL } from './confirm-flow';
+import { IconCheck, IconAlert } from '../ui';
 
 const PHASE_CN: Record<string, string> = { night: '夜', day: '昼', dusk: '黄昏' };
 const TYPE_CN: Record<string, string> = {
@@ -96,7 +97,7 @@ export default function Timeline(p: TimelineProps) {
                 </span>
                 <span>{c.seat}号 → {c.subject_seat}号{p.botcScript != null && (c.predicate === 'claims_role' || c.predicate === 'is_role') ? '「' + botcRoleDisplay(c.object) + '」' : '「' + c.object + '」'}</span>
                 {c.extracted_by === 'macro' && <span className="badge badge-accent">宏</span>}
-                {c.confirmed_by_user ? <span className="badge badge-ok">✓确认</span> : <span className="badge badge-warn">⚠未确认</span>}
+                {c.confirmed_by_user ? <span className="badge badge-ok"><IconCheck size={12} />确认</span> : <span className="badge badge-warn"><IconAlert size={12} />未确认</span>}
                 <span className="tl-row-actions">
                   <button className="btn" disabled={p.busy} onClick={() => p.onEditClaim(c)}>编辑</button>
                   <ArmedBtn label="撤回" armedLabel="确认撤回?" disabled={p.busy} onFire={() => p.onRetractClaim(c)} />
@@ -108,7 +109,7 @@ export default function Timeline(p: TimelineProps) {
                 <span className="tl-ext">b{bc.id}</span>
                 <span className="pred pred-botc">{BOTC_PRED_LABEL[bc.predicate] ?? bc.predicate}</span>
                 <span>{bc.seat}号 → {bc.subject_seat}号{bc.object ? '（' + bc.object + '）' : ''}</span>
-                {bc.confirmed_by_user ? <span className="badge badge-ok">✓确认</span> : <span className="badge badge-warn">⚠未确认</span>}
+                {bc.confirmed_by_user ? <span className="badge badge-ok"><IconCheck size={12} />确认</span> : <span className="badge badge-warn"><IconAlert size={12} />未确认</span>}
                 <span className="tl-row-actions">
                   <ArmedBtn label="撤回" armedLabel="确认撤回?" disabled={p.busy} onFire={() => p.onRetractBotcClaim(bc)} />
                 </span>

@@ -1,0 +1,28 @@
+✔ 建局与落注 fixtures（pidA 主角；pidB 挂第二局供跨局 404） (88.3043ms)
+✔ POST verdicts（MOCK）：3 路全量落库，variant×温度配对 + implied_prob 机械抽取 (2.0646ms)
+✔ verdict_text 全量落库（不只存聚合值，C 方案 3 原文）+ 末行 P= 格式 (0.2716ms)
+✔ POST verdicts 幂等：重复调用保首条（OR IGNORE），行 id 不变 (1.4359ms)
+✔ POST verdicts pid 跨局/不存在/局不存在 → 404 (1.4516ms)
+✔ extractImpliedProb 契约单元：认末行 P=0.xx 小数；拒 %、越界、缺失 (0.2686ms)
+✔ calibration n<30 → 「数据不足」（ambiguous 与 NULL prob 不计数） (5.7294ms)
+✔ calibration n≥30 → ok：ECE 强校验（全 0.8）+ 10 桶 + source_type 分层 (1.2751ms)
+✔ verdicts 版本戳（p13）：saveVerdict 传 model/runId 落库读回；省略时 NULL（旧调用方兼容） (0.7526ms)
+✔ verdicts additive 迁移（p13）：旧 7 列表 ensure 后补 model/run_id，旧行两列 NULL (1.0722ms)
+✔ per-path 注入（p15）：loadEvidence 命中/悬空/空三态 + 200 字截断 + R-A 口径护栏 (1.3135ms)
+✔ per-path 注入（p15）：buildUserPrompt v1 证据/v2 纯题面/v3 基率行；禁更新指令措辞 (0.2968ms)
+✔ per-path 注入（p15）：loadBaseline LOO 排除自身 + n<10 样本不足 + L1/未分类不注入 (2.0661ms)
+✔ per-path 注入（p15）：buildMockVerdict 三路 Range 区间行 + v1 证据行 + P= 末行契约不破坏 (0.2199ms)
+✔ per-path 注入（p15）：POST verdicts（MOCK）v1 落库文本含证据块；三路 Range 行 + extracted 全真 (1.5751ms)
+✔ loadEvidence 2.0（R-C）：三段注入——事件流+claims 按席位聚合+机械特征卡，零结算泄漏 (0.7079ms)
+✔ loadEvidence 3.0（命题 A）：d 段矛盾对数/涉及席位/类型分布+明细；2.0 三段仍逐字在 (0.812ms)
+✔ loadEvidence 消融开关：contradictions:false 与 env P1B_EVIDENCE_V3=0 逐字节退回 2.0 形状 (1.3617ms)
+✔ runId/model 透传（批次2-M1）：POST body 带 runId/model 落库读回；缺省 NULL（旧调用方兼容） (5.495ms)
+✔ 三批 runId 隔离（批次2-RC）：同 pid 同路不同 runId 并存；批内幂等保首条；NULL 组幂等（R-A 口径不变） (0.772ms)
+ℹ tests 20
+ℹ suites 0
+ℹ pass 20
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 445.1799

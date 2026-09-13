@@ -1,0 +1,369 @@
+{
+ "tag": "smoke",
+ "done": {
+  "91|cutoff|A": {
+   "run_id": "preregA-run1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1321,
+   "window_events": 8
+  },
+  "91|cutoff|B": {
+   "run_id": "preregA-run1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1321,
+   "window_events": 8
+  },
+  "91|cutoff|C": {
+   "run_id": "preregA-run1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1321,
+   "window_events": 8
+  },
+  "91|full|A": {
+   "run_id": "preregA-run1-A-full",
+   "status": 200,
+   "evidence_len": 1419,
+   "window_events": 10
+  },
+  "91|full|B": {
+   "run_id": "preregA-run1-B-full",
+   "status": 200,
+   "evidence_len": 1419,
+   "window_events": 10
+  },
+  "91|full|C": {
+   "run_id": "preregA-run1-C-full",
+   "status": 200,
+   "evidence_len": 1419,
+   "window_events": 10
+  },
+  "92|cutoff|A": {
+   "run_id": "preregA-run1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1321,
+   "window_events": 8
+  },
+  "92|cutoff|B": {
+   "run_id": "preregA-run1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1264,
+   "window_events": 8
+  },
+  "92|cutoff|C": {
+   "run_id": "preregA-run1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1321,
+   "window_events": 8
+  },
+  "92|full|A": {
+   "run_id": "preregA-run1-A-full",
+   "status": 200,
+   "evidence_len": 1419,
+   "window_events": 10
+  },
+  "92|full|B": {
+   "run_id": "preregA-run1-B-full",
+   "status": 200,
+   "evidence_len": 1362,
+   "window_events": 10
+  },
+  "92|full|C": {
+   "run_id": "preregA-run1-C-full",
+   "status": 200,
+   "evidence_len": 1419,
+   "window_events": 10
+  },
+  "93|cutoff|A": {
+   "run_id": "preregA-run1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1321,
+   "window_events": 8
+  },
+  "93|cutoff|B": {
+   "run_id": "preregA-run1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1264,
+   "window_events": 8
+  },
+  "93|cutoff|C": {
+   "run_id": "preregA-run1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1321,
+   "window_events": 8
+  },
+  "93|full|A": {
+   "run_id": "preregA-run1-A-full",
+   "status": 200,
+   "evidence_len": 1419,
+   "window_events": 10
+  },
+  "93|full|B": {
+   "run_id": "preregA-run1-B-full",
+   "status": 200,
+   "evidence_len": 1362,
+   "window_events": 10
+  },
+  "93|full|C": {
+   "run_id": "preregA-run1-C-full",
+   "status": 200,
+   "evidence_len": 1419,
+   "window_events": 10
+  },
+  "94|cutoff|A": {
+   "run_id": "preregA-run1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1321,
+   "window_events": 8
+  },
+  "94|cutoff|B": {
+   "run_id": "preregA-run1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1264,
+   "window_events": 8
+  },
+  "94|cutoff|C": {
+   "run_id": "preregA-run1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1321,
+   "window_events": 8
+  },
+  "94|full|A": {
+   "run_id": "preregA-run1-A-full",
+   "status": 200,
+   "evidence_len": 1419,
+   "window_events": 10
+  },
+  "94|full|B": {
+   "run_id": "preregA-run1-B-full",
+   "status": 200,
+   "evidence_len": 1362,
+   "window_events": 10
+  },
+  "94|full|C": {
+   "run_id": "preregA-run1-C-full",
+   "status": 200,
+   "evidence_len": 1419,
+   "window_events": 10
+  },
+  "95|cutoff|A": {
+   "run_id": "preregA-run1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1321,
+   "window_events": 8
+  },
+  "95|cutoff|B": {
+   "run_id": "preregA-run1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1264,
+   "window_events": 8
+  },
+  "95|cutoff|C": {
+   "run_id": "preregA-run1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1321,
+   "window_events": 8
+  },
+  "95|full|A": {
+   "run_id": "preregA-run1-A-full",
+   "status": 200,
+   "evidence_len": 1419,
+   "window_events": 10
+  },
+  "95|full|B": {
+   "run_id": "preregA-run1-B-full",
+   "status": 200,
+   "evidence_len": 1362,
+   "window_events": 10
+  },
+  "95|full|C": {
+   "run_id": "preregA-run1-C-full",
+   "status": 200,
+   "evidence_len": 1419,
+   "window_events": 10
+  },
+  "96|cutoff|A": {
+   "run_id": "preregA-run1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1321,
+   "window_events": 8
+  },
+  "96|cutoff|B": {
+   "run_id": "preregA-run1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1264,
+   "window_events": 8
+  },
+  "96|cutoff|C": {
+   "run_id": "preregA-run1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1321,
+   "window_events": 8
+  },
+  "96|full|A": {
+   "run_id": "preregA-run1-A-full",
+   "status": 200,
+   "evidence_len": 1419,
+   "window_events": 10
+  },
+  "96|full|B": {
+   "run_id": "preregA-run1-B-full",
+   "status": 200,
+   "evidence_len": 1362,
+   "window_events": 10
+  },
+  "96|full|C": {
+   "run_id": "preregA-run1-C-full",
+   "status": 200,
+   "evidence_len": 1419,
+   "window_events": 10
+  },
+  "97|cutoff|A": {
+   "run_id": "preregA-run1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1321,
+   "window_events": 8
+  },
+  "97|cutoff|B": {
+   "run_id": "preregA-run1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1264,
+   "window_events": 8
+  },
+  "97|cutoff|C": {
+   "run_id": "preregA-run1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1321,
+   "window_events": 8
+  },
+  "97|full|A": {
+   "run_id": "preregA-run1-A-full",
+   "status": 200,
+   "evidence_len": 1419,
+   "window_events": 10
+  },
+  "97|full|B": {
+   "run_id": "preregA-run1-B-full",
+   "status": 200,
+   "evidence_len": 1362,
+   "window_events": 10
+  },
+  "97|full|C": {
+   "run_id": "preregA-run1-C-full",
+   "status": 200,
+   "evidence_len": 1419,
+   "window_events": 10
+  },
+  "98|cutoff|A": {
+   "run_id": "preregA-run1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1321,
+   "window_events": 8
+  },
+  "98|cutoff|B": {
+   "run_id": "preregA-run1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1264,
+   "window_events": 8
+  },
+  "98|cutoff|C": {
+   "run_id": "preregA-run1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1321,
+   "window_events": 8
+  },
+  "98|full|A": {
+   "run_id": "preregA-run1-A-full",
+   "status": 200,
+   "evidence_len": 1419,
+   "window_events": 10
+  },
+  "98|full|B": {
+   "run_id": "preregA-run1-B-full",
+   "status": 200,
+   "evidence_len": 1362,
+   "window_events": 10
+  },
+  "98|full|C": {
+   "run_id": "preregA-run1-C-full",
+   "status": 200,
+   "evidence_len": 1419,
+   "window_events": 10
+  },
+  "99|cutoff|A": {
+   "run_id": "preregA-run1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1321,
+   "window_events": 8
+  },
+  "99|cutoff|B": {
+   "run_id": "preregA-run1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1264,
+   "window_events": 8
+  },
+  "99|cutoff|C": {
+   "run_id": "preregA-run1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1321,
+   "window_events": 8
+  },
+  "99|full|A": {
+   "run_id": "preregA-run1-A-full",
+   "status": 200,
+   "evidence_len": 1419,
+   "window_events": 10
+  },
+  "99|full|B": {
+   "run_id": "preregA-run1-B-full",
+   "status": 200,
+   "evidence_len": 1362,
+   "window_events": 10
+  },
+  "99|full|C": {
+   "run_id": "preregA-run1-C-full",
+   "status": 200,
+   "evidence_len": 1419,
+   "window_events": 10
+  },
+  "100|cutoff|A": {
+   "run_id": "preregA-run1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1321,
+   "window_events": 8
+  },
+  "100|cutoff|B": {
+   "run_id": "preregA-run1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1264,
+   "window_events": 8
+  },
+  "100|cutoff|C": {
+   "run_id": "preregA-run1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1321,
+   "window_events": 8
+  },
+  "100|full|A": {
+   "run_id": "preregA-run1-A-full",
+   "status": 200,
+   "evidence_len": 1419,
+   "window_events": 10
+  },
+  "100|full|B": {
+   "run_id": "preregA-run1-B-full",
+   "status": 200,
+   "evidence_len": 1362,
+   "window_events": 10
+  },
+  "100|full|C": {
+   "run_id": "preregA-run1-C-full",
+   "status": 200,
+   "evidence_len": 1419,
+   "window_events": 10
+  }
+ },
+ "calls": 180,
+ "cost": 1.62,
+ "stop_reason": "complete",
+ "started_at": "2026-09-13T09:42:58.689Z"
+}

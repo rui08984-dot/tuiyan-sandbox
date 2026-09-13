@@ -5,6 +5,7 @@ import type { BotcScript, Game, Player } from '../types';
 import { defaultSeatName, setSeatName } from '../lib/seatNames';
 import { Step1Form, Step2Form } from './NewGameWizardSteps';
 import { useGameTypes } from '../lib/useGameTypes';
+import { IconClose } from './ui';
 
 const errMsg = (e: unknown): string => (e instanceof Error ? e.message : String(e));
 
@@ -72,7 +73,7 @@ export default function NewGameWizard(props: {
       <div className="sheet">
         <div className="sheet-head">
           <h2>开新局</h2>
-          <button type="button" className="btn btn-ghost" onClick={props.onClose} aria-label="关闭">✕</button>
+          <button type="button" className="btn btn-ghost" onClick={props.onClose} aria-label="关闭"><IconClose size={16} /></button>
         </div>
         <div className="wiz-steps" aria-label="步骤">
           <span className={'wiz-step' + (step === 1 ? ' is-on' : '')}>① 局名 · 类型 · 人数</span>

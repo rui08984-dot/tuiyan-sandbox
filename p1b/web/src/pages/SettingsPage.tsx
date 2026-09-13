@@ -9,6 +9,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { activateProvider, deleteProvider, listProviders, testProvider } from '../api';
 import type { Provider, ProviderListResult, ProviderTestResult } from '../types';
+import { Tabs, IconGear, IconCheck, IconClose } from '../components/ui';
 import {
   ProviderEditorSheet,
   type EditorSession,
@@ -92,7 +93,7 @@ export default function SettingsPage() {
   return (
     <section className="page">
       <header className="page-head">
-        <span className="page-icon" aria-hidden>⚙️</span>
+        <IconGear size={20} />
         <h1>设置</h1>
       </header>
       <p className="page-sub">
@@ -124,49 +125,51 @@ export default function SettingsPage() {
             </div>
           )}
 
-          <h2 className="section-title">供应商列表</h2>
-          {list.providers.length === 0 && (
-            <div className="callout"><p>还没有供应商，从下方模板添加一个。</p></div>
-          )}
-          <ul className="provider-list">
-            {list.providers.map((p) => (
-              <ProviderCard
-                key={p.key}
-                provider={p}
-                isActive={p.key === list.active}
-                testResult={testResults[p.key]}
-                busyId={busy}
-                confirmDelete={confirmDelete === p.key}
-                onActivate={() => void handleActivate(p.key)}
-                onTest={() => void handleTest(p.key)}
-                onEdit={() => setEditor({ mode: 'edit', template: null, provider: p })}
-                onRequestDelete={() => setConfirmDelete(p.key)}
-                onCancelDelete={() => setConfirmDelete(null)}
-                onConfirmDelete={() => void handleDelete(p.key)}
-              />
-            ))}
-          </ul>
-
-          <h2 className="section-title">从模板添加</h2>
-          <div className="template-row">
-            {TEMPLATES.map((t) => (
-              <button
-                key={t.key}
-                type="button"
-                className="chip"
-                onClick={() => setEditor({ mode: 'add', template: t, provider: null })}
-              >
-                {t.label}
-              </button>
-            ))}
-          </div>
-          <button
-            type="button"
-            className="btn btn-block"
-            onClick={() => setEditor({ mode: 'add', template: null, provider: null })}
-          >
-            ＋ 空白自定义供应商
-          </button>
+          <Tabs testId="settings-tabs" tabs={[
+            { id: 'providers', label: '供应商', content: (
+              <div className="ui-section">
+                <h2 className="ui-section-title">供应商</h2>
+                {list.providers.length === 0 && (
+                  <div className="callout"><p>还没有供应商，切到「模板添加」加一个。</p></div>
+                )}
+                <ul className="provider-list">
+                  {list.providers.map((p) => (
+                    <ProviderCard
+                      key={p.key}
+                      provider={p}
+                      isActive={p.key === list.active}
+                      testResult={testResults[p.key]}
+                      busyId={busy}
+                      confirmDelete={confirmDelete === p.key}
+                      onActivate={() => void handleActivate(p.key)}
+                      onTest={() => void handleTest(p.key)}
+                      onEdit={() => setEditor({ mode: 'edit', template: null, provider: p })}
+                      onRequestDelete={() => setConfirmDelete(p.key)}
+                      onCancelDelete={() => setConfirmDelete(null)}
+                      onConfirmDelete={() => void handleDelete(p.key)}
+                    />
+                  ))}
+                </ul>
+              </div>
+            ) },
+            { id: 'templates', label: '模板添加', content: (
+              <div className="ui-section">
+                <h2 className="ui-section-title">模板添加</h2>
+                <div className="template-row">
+                  {TEMPLATES.map((t) => (
+                    <button key={t.key} type="button" className="chip"
+                      onClick={() => setEditor({ mode: 'add', template: t, provider: null })}>
+                      {t.label}
+                    </button>
+                  ))}
+                </div>
+                <button type="button" className="btn btn-block"
+                  onClick={() => setEditor({ mode: 'add', template: null, provider: null })}>
+                  ＋ 空白自定义供应商
+                </button>
+              </div>
+            ) },
+          ]} />
         </>
       )}
 
@@ -227,7 +230,7 @@ function ProviderCard(props: CardProps) {
 
       {testResult && (
         <p className={'test-result ' + (testResult.ok ? 'is-ok' : 'is-fail')} role="status">
-          {testResult.ok ? '✓' : '✗'} {testResult.message}
+          {testResult.ok ? <IconCheck size={14} /> : <IconClose size={14} />} {testResult.message}
           {testResult.ok && testResult.latency_ms != null ? ' · ' + testResult.latency_ms + 'ms' : ''}
         </p>
       )}

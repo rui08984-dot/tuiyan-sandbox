@@ -24,7 +24,7 @@ export function useLedgerOps(ctx: {
       if (editTarget.kind === 'claim') await api.editClaim(ctx.gameId, editTarget.row.id, patch as api.ClaimPatch);
       else await api.editAction(ctx.gameId, editTarget.row.id, patch as api.ActionPatch);
       setEditTarget(null);
-      ctx.flashToast('✓ 修订已生效（事件原文不可改）');
+      ctx.flashToast('修订已生效（事件原文不可改）');
       await ctx.loadState(ctx.gameId, ctx.day, false);
     } catch (e) { setEditErr(errMsg(e)); } finally { ctx.setBusy(false); }
   }
@@ -35,7 +35,7 @@ export function useLedgerOps(ctx: {
     try {
       if (kind === 'claim') await api.retractClaim(ctx.gameId, row.id);
       else await api.retractAction(ctx.gameId, row.id);
-      ctx.flashToast('✓ 已撤回（账本纪律：retracted 不可见）');
+      ctx.flashToast('已撤回（账本纪律：retracted 不可见）');
       await ctx.loadState(ctx.gameId, ctx.day, false);
     } catch (e) { ctx.setPageErr(errMsg(e)); } finally { ctx.setBusy(false); }
   }
@@ -45,7 +45,7 @@ export function useLedgerOps(ctx: {
     ctx.setBusy(true); ctx.setPageErr(null);
     try {
       await api.retractBotcClaim(ctx.gameId, row.id);
-      ctx.flashToast('✓ 阵营/状态声称已撤回（账本纪律：retracted 不可见）');
+      ctx.flashToast('阵营/状态声称已撤回（账本纪律：retracted 不可见）');
       await ctx.loadState(ctx.gameId, ctx.day, false);
       await ctx.loadBotcClaims(ctx.gameId);
     } catch (e) { ctx.setPageErr(errMsg(e)); } finally { ctx.setBusy(false); }

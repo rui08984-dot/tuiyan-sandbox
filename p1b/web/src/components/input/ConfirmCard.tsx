@@ -13,6 +13,7 @@ import {
   type SeatCtx,
 } from './confirm-flow';
 import SeatField from './SeatField';
+import { IconAlert } from '../ui';
 
 interface ConfirmCardProps {
   card: PendingCard;
@@ -41,7 +42,7 @@ export default function ConfirmCard(p: ConfirmCardProps) {
         </div>
         <p className="confirm-raw">事件原文：{c.event.raw_text}</p>
         {c.warnings && c.warnings.length > 0 && (
-          <div className="confirm-warn">⚠ {c.warnings.join('；')}</div>
+          <div className="confirm-warn"><IconAlert size={14} /> {c.warnings.join('；')}</div>
         )}
         {p.reshown && (
           <div className="confirm-re">检测到修改，已重显第 {p.round} 轮——请复核全部字段后再确认入库。</div>

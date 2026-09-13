@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { fmtTime, listArchive } from '../../lib/adviseArchive';
 import AdvisorCardView from '../../components/advisor/AdvisorCardView';
 import type { useAdvise } from './useAdvise';
+import { IconBrain, IconCheck } from '../../components/ui';
 
 type Advise = ReturnType<typeof useAdvise>;
 
@@ -18,9 +19,9 @@ export default function AdvisorZone(props: { gameId: number; gameName: string; a
   return (
     <>
       <div className="adv-strip" data-testid="advisor-strip">
-        <span className="adv-strip-title">🧠 参谋卡</span>
+        <span className="adv-strip-title"><IconBrain size={15} /> 参谋卡</span>
         {running && <span className="adv-badge"><span className="spinner" aria-hidden></span>生成中 {a.elapsedSec}s</span>}
-        {!running && cur && <span className="adv-badge is-ready">✓ 第 {cur.day} 天{cur.source === 'task' ? '就绪' : '存档'}</span>}
+        {!running && cur && <span className="adv-badge is-ready"><IconCheck size={13} /> 第 {cur.day} 天{cur.source === 'task' ? '就绪' : '存档'}</span>}
         <span className="adv-strip-meta">{histCount > 0 ? '存档 ' + histCount + ' 天' : '暂无存档'}</span>
         <button type="button" className="btn" onClick={() => setExpanded((o) => !o)}>
           {expanded ? '▲ 收起' : '▼ 展开'}
@@ -38,11 +39,11 @@ export default function AdvisorZone(props: { gameId: number; gameName: string; a
             </div>
           )}
           {!running && cur && cur.source === 'task' && (
-            <div className="adv-ready" role="status">✓ 第 {cur.day} 天参谋卡就绪（{fmtTime(cur.entry.finished_at) || '刚生成'}）</div>
+            <div className="adv-ready" role="status"><IconCheck size={13} /> 第 {cur.day} 天参谋卡就绪（{fmtTime(cur.entry.finished_at) || '刚生成'}）</div>
           )}
           {cur && <AdvisorCardView gameId={cur.gameId} entry={cur.entry} gameName={props.gameName} source={cur.source} />}
           {!cur && !running && (
-            <p className="muted" style={{ margin: '4px 0' }}>本局还没有参谋卡——顶部「⚡ 天结算」提交当日账本生成。</p>
+            <p className="muted" style={{ margin: '4px 0' }}>本局还没有参谋卡——顶部「天结算」提交当日账本生成。</p>
           )}
           <h3 className="adv-sec-title">历史卡（{a.cardsSource === 'server' ? '服务端存档 · 按天' : '本机缓存 · 服务端不可达'}）</h3>
           <div className="adv-hist-row">
@@ -66,7 +67,7 @@ export default function AdvisorZone(props: { gameId: number; gameName: string; a
             <p className="seat-hint" style={{ marginTop: 8 }} role="alert">
               {a.cardsSource === 'local'
                 ? '服务端存档不可达（' + a.cardsErr + '），显示本机缓存兜底。'
-                : '⚠ ' + a.cardsErr}
+                : a.cardsErr}
             </p>
           )}
         </div>

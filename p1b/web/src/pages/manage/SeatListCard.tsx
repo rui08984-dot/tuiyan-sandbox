@@ -53,7 +53,7 @@ export default function SeatListCard(props: {
       const r = await api.saveSeats(gid, props.players.map((p) => ({ seat: p.seat, name: defaultSeatName(p.seat) })));
       applyServerPlayers(r.players);
       clearSeatNames(gid);
-      props.flashToast('✓ 已恢复默认「N号」（服务端已落库）');
+      props.flashToast('已恢复默认「N号」（服务端已落库）');
     } catch (e) {
       props.flashToast('恢复默认失败：' + errMsg(e));
     } finally {

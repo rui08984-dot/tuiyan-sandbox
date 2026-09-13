@@ -1,0 +1,25 @@
+✔ Wilson 手算对照①：k=30/n=100 → p=0.3，CI≈[0.2189,0.3959] (82.7531ms)
+✔ Wilson 手算对照②：k=0/n=40 → CI=[0,0.087625]（Wald 会退化成 [0,0]，Wilson 不退化） (0.2465ms)
+✔ Wilson 高命中端 k=39/n=40：区间恒在 [0,1]，下界≈0.8712 (0.1067ms)
+✔ L2 护栏③：n<30 → 数据不足，不出 p 也不出区间；n=30 恰过准入线 (0.228ms)
+✔ L2 三种基率来源：history 序列 / counts / evidence.baseRateNote（与 g2-report 同口径） (0.3919ms)
+✔ L2 无源 / 无样本量：一律数据不足（宁可缺，不可编） (0.2626ms)
+✔ L5 均匀分布：n=6 认证源逐结果 1/6；目标结果 p=1/6 (0.3882ms)
+✔ L5 官方公布分布：outcomes/probs 照原样透出；非法分布退回 unsupported (0.6944ms)
+✔ L5 护栏①：无认证源声明 → unsupported，不出任何分布或概率 (0.1211ms)
+✔ L5 护栏②：输出不含「更准/更好」类断言（全量输出黑名单扫描 + 反向自检） (0.2222ms)
+✔ gate 状态机：L2/L5 + G2 PASS + 引擎 ok → scored；其余恒 descriptive (0.1377ms)
+✔ 端到端：L2 + base_rate{k:30,n:100} → gate=scored，prob/CI 落库（built&predicts=true） (17.2301ms)
+✔ 端到端：L2 + evidence.baseRateNote → scored 且证据随行落库；n<30 → descriptive 无 p (3.9235ms)
+✔ 端到端：L5 认证源 → scored（分布落 note）；无声明 → unsupported 且 descriptive (1.5841ms)
+✔ 口径护栏①（端到端批量）：未接线/未达标层不得出现概率 (3.1437ms)
+✔ additive 列：新库 PRAGMA 见 prob/prob_ci/engine_note；prob 越界入参被拒 (0.5586ms)
+✔ additive 迁移：旧库无三列 → ensureIntakeTables 自动 ALTER 补齐（幂等、不动既有数据） (2.0963ms)
+ℹ tests 17
+ℹ suites 0
+ℹ pass 17
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 427.5109

@@ -1,0 +1,160 @@
+{
+ "generated_at": "2026-09-13T08:42:45.096Z",
+ "db": "E:\\music player\\p1a-terminal\\data\\p1a.db",
+ "surface": {
+  "file": "E:\\music player\\.scratch\\backtest\\predictions-public-surface.db",
+  "bytes": 1114112,
+  "sha256": "dae7435516f79e7d5106a9835e170ec7320d875f990b86a5eec0c7e1d364c5b0",
+  "rows": 1923,
+  "columns": [
+   "prediction_id",
+   "game_id",
+   "day",
+   "source_type",
+   "statement",
+   "assigned_prob",
+   "layer",
+   "secondary_layer",
+   "engine",
+   "gate",
+   "checklist_hash",
+   "tautology",
+   "g2_regime",
+   "matures_at",
+   "public_exposure",
+   "created_at",
+   "cutoff_at",
+   "resolve_spec",
+   "origin"
+  ],
+  "rows_fingerprint_sha256": "2ef98d65dc8152849ee4f2398e7d48832c74d7c206b869697cd9867f84247271",
+  "sidecar": "E:\\music player\\.scratch\\backtest\\predictions-public-surface.db.meta.json",
+  "generated_at": "2026-09-13T08:42:45.077Z"
+ },
+ "spec": "docs/specs/历史回测引擎-规格D2-20260913.md §3.2 G-D2-0（第①②③步）",
+ "points": [
+  {
+   "point": "①角色表存在",
+   "pass": true,
+   "table_exists": true,
+   "roles": [
+    {
+     "role": "backtest",
+     "enforcement": "contract",
+     "may_read": "[\"predictions_public\"]",
+     "forbidden": "[\"truth_vault\",\"predictions.outcome\",\"predictions.resolved_at\",\"predictions.resolve_note\",\"predictions.evidence_json\"]"
+    },
+    {
+     "role": "participant",
+     "enforcement": "contract",
+     "may_read": "[\"predictions_public\"]",
+     "forbidden": "[\"truth_vault\",\"predictions.outcome\",\"predictions.resolved_at\",\"predictions.resolve_note\",\"predictions.evidence_json\"]"
+    },
+    {
+     "role": "resolver",
+     "enforcement": "contract",
+     "may_read": "[\"predictions\",\"truth_vault\",\"intake_questions\",\"evidence_json[0].resolve\"]",
+     "forbidden": "[]"
+    },
+    {
+     "role": "scorer",
+     "enforcement": "contract",
+     "may_read": "[\"predictions\",\"truth_vault\"]",
+     "forbidden": "[\"predictions.outcome 回写\"]"
+    }
+   ],
+   "contract_roles": 4,
+   "kernel_roles": 0,
+   "isolation_level": "contract-only（无内核级角色）"
+  },
+  {
+   "point": "②predictions_public 视图可用",
+   "pass": true,
+   "view_exists": true,
+   "columns": [
+    "prediction_id",
+    "game_id",
+    "day",
+    "source_type",
+    "statement",
+    "assigned_prob",
+    "layer",
+    "secondary_layer",
+    "engine",
+    "gate",
+    "checklist_hash",
+    "tautology",
+    "g2_regime",
+    "matures_at",
+    "public_exposure",
+    "created_at",
+    "cutoff_at",
+    "resolve_spec",
+    "origin"
+   ],
+   "leaked_columns": [],
+   "rows": 1923,
+   "sample_query_rows": 5
+  },
+  {
+   "point": "③回测进程 SELECT truth_vault 必须失败",
+   "pass": true,
+   "read_view": {
+    "ok": true,
+    "rows": 5
+   },
+   "truth_vault_select": {
+    "ok": false,
+    "code": "SQLITE_ERROR",
+    "message": "no such table: truth_vault"
+   },
+   "write_attempt": {
+    "ok": false,
+    "code": "SQLITE_READONLY",
+    "message": "attempt to write a readonly database"
+   },
+   "surface_objects": [
+    {
+     "type": "index",
+     "name": "sqlite_autoindex_public_surface_meta_1"
+    },
+    {
+     "type": "table",
+     "name": "predictions_public"
+    },
+    {
+     "type": "table",
+     "name": "public_surface_meta"
+    }
+   ],
+   "attach_plain": {
+    "mode": "plain ATTACH + PRAGMA query_only=1",
+    "view": {
+     "ok": true,
+     "rows": 1
+    },
+    "forbidden": {
+     "ok": false,
+     "code": "SQLITE_ERROR",
+     "message": "no such table: truth_vault"
+    },
+    "write_attempt": {
+     "ok": false,
+     "code": "SQLITE_READONLY",
+     "message": "attempt to write a readonly database"
+    }
+   },
+   "attach_uri": {
+    "ok": false,
+    "error": "unable to open database: file:E:\\music player\\.scratch\\backtest\\predictions-public-surface.db?mode=ro",
+    "note": "本机 better-sqlite3 未启用 URI 文件名 ⇒ ATTACH ...?mode=ro 变体不可用（如实记录，非静默跳过）"
+   }
+  }
+ ],
+ "counter_proof": {
+  "reachable_from_prod_connection": true,
+  "rows_in_vault": 1923,
+  "note": "直连生产库可读 truth_vault ⇒ 内核级隔离不存在；本阶段=面级隔离（独立 surface 文件）+ 契约级声明"
+ },
+ "verdict": "PASS"
+}

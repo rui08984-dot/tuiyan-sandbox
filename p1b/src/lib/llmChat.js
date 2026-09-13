@@ -12,6 +12,18 @@
  * ②无重试环（娱乐彩蛋，失败直接落 mock_fallback，由 routes/oracle.js 兜底）。
  * 仅供 routes/oracle.js 赛后娱乐判词使用，禁止接入任何游戏研判功能。
  */
+// ── token 用量计数（additive；命题 A 消融要实测单次费用；不改变返回契约）──
+const usageStats = { calls: 0, calls_with_usage: 0, prompt_tokens: 0, completion_tokens: 0, total_tokens: 0 };
+function noteUsage(u) {
+  if (!u) return;
+  usageStats.calls_with_usage++;
+  usageStats.prompt_tokens += Number(u.prompt_tokens || 0);
+  usageStats.completion_tokens += Number(u.completion_tokens || 0);
+  usageStats.total_tokens = usageStats.prompt_tokens + usageStats.completion_tokens;
+}
+function getUsageStats() { return Object.assign({}, usageStats); }
+function resetUsageStats() { usageStats.calls = 0; usageStats.calls_with_usage = 0; usageStats.prompt_tokens = 0; usageStats.completion_tokens = 0; usageStats.total_tokens = 0; }
+
 async function chatText(messages, options) {
   options = options || {};
   const apiKey = options.apiKey || process.env.LLM_API_KEY || process.env.DEEPSEEK_API_KEY || '';
@@ -35,9 +47,11 @@ async function chatText(messages, options) {
   if (!res || typeof res.ok !== 'boolean') throw new Error('LLM 响应异常（fetchImpl 须返回 {ok,status,json()}）');
   if (!res.ok) throw new Error('LLM API HTTP ' + res.status);
   const data = await res.json();
+  usageStats.calls++;
+  noteUsage(data && data.usage);
   const content = data && data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content;
   if (typeof content !== 'string' || !content.trim()) throw new Error('LLM 响应缺少 choices[0].message.content');
   return content.trim();
 }
 
-module.exports = { chatText };
+module.exports = { chatText, getUsageStats, resetUsageStats };

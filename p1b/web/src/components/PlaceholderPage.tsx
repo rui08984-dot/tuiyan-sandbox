@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { IconWrench } from './ui';
 
 interface Props {
   icon: string;
@@ -16,7 +17,7 @@ export function PlaceholderPage({ icon, title, phase, children }: Props) {
         <h1>{title}</h1>
       </header>
       <div className="callout">
-        <p className="callout-title">🚧 {phase} 施工中</p>
+        <p className="callout-title"><IconWrench size={16} /> {phase} 施工中</p>
         <div className="callout-body">{children}</div>
       </div>
     </section>

@@ -25,6 +25,15 @@ export const IconTarget = ({ size = 16 }: IconProps) => S('M12 22a10 10 0 1 0 0-
 export const IconArrow = ({ size = 16 }: IconProps) => S('M5 12h14|M12 5l7 7-7 7', size);
 export const IconGear = ({ size = 16 }: IconProps) => S('M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z|M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1A1.7 1.7 0 0 0 8.9 19a1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1A1.7 1.7 0 0 0 4.6 8.9a1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z', size);
 export const IconCompass = ({ size = 16 }: IconProps) => S('M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20Z|M16.2 7.8l-2.1 6.3-6.3 2.1 2.1-6.3 6.3-2.1Z', size);
+export const IconClose = ({ size = 16 }: IconProps) => S('M18 6 6 18|M6 6l12 12', size);
+export const IconBolt = ({ size = 16 }: IconProps) => S('M13 2 3 14h9l-1 8 10-12h-9l1-8Z', size);
+export const IconBook = ({ size = 16 }: IconProps) => S('M4 19.5A2.5 2.5 0 0 1 6.5 17H20|M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z', size);
+export const IconDownload = ({ size = 16 }: IconProps) => S('M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4|M7 10l5 5 5-5|M12 15V3', size);
+export const IconFolder = ({ size = 16 }: IconProps) => S('M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2Z', size);
+export const IconBrain = ({ size = 16 }: IconProps) => S('M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z|M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z', size);
+export const IconCheck = ({ size = 16 }: IconProps) => S('M20 6 9 17l-5-5', size);
+export const IconWrench = ({ size = 16 }: IconProps) => S('M14.7 6.3a4 4 0 0 0 5 5l-9.4 9.4a2.1 2.1 0 0 1-3-3Z|M14.7 6.3 18 3l3 3-3.3 3.3', size);
+export const IconChevron = ({ size = 16 }: IconProps) => S('M6 9l6 6 6-6', size);
 export function StatCard({ label, value, caption, tone, testId }: {
   label: ReactNode; value: ReactNode; caption?: ReactNode; tone?: 'accent' | 'warn' | 'danger'; testId?: string;
 }) {

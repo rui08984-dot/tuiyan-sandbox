@@ -7,6 +7,7 @@ import { useState } from 'react';
 import type { BotcScript, Game, GameType } from '../../types';
 import { SCRIPT_LABEL } from '../../botc/roles';
 import { useGameTypes } from '../../lib/useGameTypes';
+import { IconClose, IconBolt } from '../ui';
 
 export interface RosterChip { seat: number; name: string; alive: boolean }
 
@@ -52,7 +53,7 @@ export default function TopBar(p: TopBarProps) {
         {p.onSettle && (
           <button className="btn btn-primary" style={{ minHeight: 38 }} disabled={p.busy || p.settling}
             onClick={p.onSettle}>
-            {p.settling ? '生成中…' : '⚡ 天结算'}
+            {p.settling ? '生成中…' : <><IconBolt size={14} /> 天结算</>}
           </button>
         )}
         {p.settling && <span className="adv-badge"><span className="spinner" aria-hidden></span>生成中</span>}
@@ -107,7 +108,7 @@ function GameSheet(props: {
       <div className="sheet">
         <div className="sheet-head">
           <h2>选局 / 新建局</h2>
-          <button className="btn btn-ghost" onClick={props.onClose} aria-label="关闭">✕</button>
+          <button className="btn btn-ghost" onClick={props.onClose} aria-label="关闭"><IconClose size={16} /></button>
         </div>
         {props.games.length === 0 && <p className="muted">（暂无对局，先新建一局）</p>}
         {props.onWizard && (

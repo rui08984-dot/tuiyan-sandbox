@@ -1,0 +1,13 @@
+'use strict';
+const Database = require('E:/music player/p1a-terminal/node_modules/better-sqlite3');
+const db = new Database('E:/music player/p1a-terminal/data/p1a.db', { readonly: true });
+const all = (s) => db.prepare(s).all();
+console.log('--- 已到期但未解：按 evidence.kind ---');
+console.log(JSON.stringify(all("SELECT json_extract(e.value,'$.kind') k, COUNT(DISTINCT p.id) n, MIN(json_extract(e.value,'$.resolve.date')) minD, MAX(json_extract(e.value,'$.resolve.date')) maxD FROM predictions p, json_each(p.evidence_json) e WHERE p.outcome IS NULL AND json_extract(e.value,'$.resolve.date') IS NOT NULL AND json_extract(e.value,'$.resolve.date') < date('now') GROUP BY k ORDER BY n DESC"), null, 1));
+console.log('--- 已到期未解 总数(DISTINCT) ---');
+console.log(JSON.stringify(all("SELECT COUNT(DISTINCT p.id) n FROM predictions p, json_each(p.evidence_json) e WHERE p.outcome IS NULL AND json_extract(e.value,'$.resolve.date') IS NOT NULL AND json_extract(e.value,'$.resolve.date') < date('now')"), null, 1));
+console.log('--- 全库 resolve.date 分布(未解) ---');
+console.log(JSON.stringify(all("SELECT substr(json_extract(e.value,'$.resolve.date'),1,7) m, COUNT(DISTINCT p.id) n FROM predictions p, json_each(p.evidence_json) e WHERE p.outcome IS NULL AND json_extract(e.value,'$.resolve.date') IS NOT NULL GROUP BY m ORDER BY m"), null, 1));
+console.log('--- public_exposure NULL 的 kind 分布 ---');
+console.log(JSON.stringify(all("SELECT json_extract(e.value,'$.kind') k, COUNT(DISTINCT p.id) n, SUM(CASE WHEN p.public_exposure IS NULL THEN 0 ELSE 1 END) x FROM predictions p, json_each(p.evidence_json) e WHERE json_extract(e.value,'$.kind') IS NOT NULL AND p.public_exposure IS NULL GROUP BY k ORDER BY n DESC"), null, 1));
+db.close();

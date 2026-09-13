@@ -1,0 +1,27 @@
+===== acr-phase2-llm-results-A.json | 2026-09-12T17:44:23.770Z
+corpus: gid 7,8,9,10,11,12（子集；全量语料=7..37 sim 共 31 局） | calls_used: 18 | cost: {"calls_with_usage":31,"prompt_tokens":46877,"completion_tokens":33361,"total_tokens":80238,"est_cny":0.241,"est_note":"按 ¥3/百万 token 混合单价粗估（S2 §① ¥1-5/1.1M 口径反推），真实账单以 TokenRhythm 为准"}
+params: {"cls":"A","rho":0.3,"K_reps":3,"temperature":0.2,"windows":["cutoff"],"pairs_injected":"空（纯账本读数；机械检测对不喂 LLM）","model":"tokenrhythm/glm-5.3-flash","max_calls":300,"pairs_mode":"base,poll"}
+  [cutoff] n=6 mean(win=0.013888888888888904,vote=0.08750000000000001,max=0.08750000000000001) medMax=0.060000000000000026 pgMeanMax=0.08750000000000001 p90=0.14333333333333337
+    noiseMax=0.10277777777777779 pass(mean/med/pg)=true/true/true pw 0.5061111111111112->0.49444444444444446 shift=-0.011666666666666714
+    per_game: 7:m0.060 8:m0.043 9:m0.127 10:m0.143 11:m0.057 12:m0.095
+===== acr-phase2-llm-results-A-full.json | 2026-09-12T17:39:02.813Z
+corpus: gid 7,8,9（子集；全量语料=7..37 sim 共 31 局） | calls_used: 18 | cost: {"calls_with_usage":31,"prompt_tokens":48082,"completion_tokens":32228,"total_tokens":80310,"est_cny":0.241,"est_note":"按 ¥3/百万 token 混合单价粗估（S2 §① ¥1-5/1.1M 口径反推），真实账单以 TokenRhythm 为准"}
+params: {"cls":"A","rho":0.3,"K_reps":3,"temperature":0.2,"windows":["cutoff","full"],"pairs_injected":"空（纯账本读数；机械检测对不喂 LLM）","model":"tokenrhythm/glm-5.3-flash","max_calls":200,"pairs_mode":"base,poll"}
+  [cutoff] n=3 mean(win=0.00888888888888891,vote=0.07666666666666667,max=0.07666666666666667) medMax=0.060000000000000026 pgMeanMax=0.07666666666666667 p90=0.12666666666666665
+    noiseMax=0.08666666666666667 pass(mean/med/pg)=true/true/true pw 0.4977777777777778->0.4888888888888889 shift=-0.008888888888888946
+    per_game: 7:m0.060 8:m0.043 9:m0.127
+  [full] n=3 mean(win=0,vote=0.7411111111111112,max=0.7411111111111112) medMax=0.7766666666666667 pgMeanMax=0.7411111111111112 p90=0.95
+    noiseMax=0.06666666666666667 pass(mean/med/pg)=false/false/false pw 0.6666666666666666->0.6666666666666666 shift=0
+    per_game: 7:m0.497 8:m0.950 9:m0.777
+===== acr-phase2-llm-results-B.json | 2026-09-12T17:30:33.052Z
+corpus: gid 7,8,9（子集；全量语料=7..37 sim 共 31 局） | calls_used: 15 | cost: {"calls_with_usage":15,"prompt_tokens":23678,"completion_tokens":16777,"total_tokens":40455,"est_cny":0.121,"est_note":"按 ¥3/百万 token 混合单价粗估（S2 §① ¥1-5/1.1M 口径反推），真实账单以 TokenRhythm 为准"}
+params: {"cls":"B","rho":0.3,"K_reps":3,"temperature":0.2,"windows":["cutoff"],"pairs_injected":"空（纯账本读数；机械检测对不喂 LLM）","model":"tokenrhythm/glm-5.3-flash","max_calls":200,"pairs_mode":"base,poll"}
+  [cutoff] n=3 mean(win=0.006666666666666672,vote=0.10222222222222226,max=0.10222222222222226) medMax=0.10000000000000002 pgMeanMax=0.10222222222222226 p90=0.11333333333333334
+    noiseMax=0.08666666666666667 pass(mean/med/pg)=true/true/true pw 0.4977777777777778->0.4911111111111111 shift=-0.00666666666666671
+    per_game: 7:m0.113 8:m0.100 9:m0.093
+===== acr-phase2-llm-results-C.json | 2026-09-12T17:33:23.101Z
+corpus: gid 7,8,9（子集；全量语料=7..37 sim 共 31 局） | calls_used: 9 | cost: {"calls_with_usage":16,"prompt_tokens":23960,"completion_tokens":16364,"total_tokens":40324,"est_cny":0.121,"est_note":"按 ¥3/百万 token 混合单价粗估（S2 §① ¥1-5/1.1M 口径反推），真实账单以 TokenRhythm 为准"}
+params: {"cls":"C","rho":0.3,"K_reps":3,"temperature":0.2,"windows":["cutoff"],"pairs_injected":"空（纯账本读数；机械检测对不喂 LLM）","model":"tokenrhythm/glm-5.3-flash","max_calls":200,"pairs_mode":"base,poll"}
+  [cutoff] n=3 mean(win=0.002222222222222218,vote=0.03888888888888887,max=0.03888888888888887) medMax=0.03999999999999997 pgMeanMax=0.03888888888888887 p90=0.04000000000000002
+    noiseMax=0.08666666666666667 pass(mean/med/pg)=true/true/true pw 0.4977777777777778->0.5 shift=0.002222222222222181
+    per_game: 7:m0.040 8:m0.037 9:m0.040

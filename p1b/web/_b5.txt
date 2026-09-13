@@ -1,0 +1,22 @@
+
+> p1b-web@0.1.0 build
+> tsc && vite build
+
+vite v5.4.21 building for production...
+transforming...
+✓ 86 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                                          0.47 kB │ gzip:  0.32 kB
+dist/assets/fira-sans-latin-400-normal-66xCkunx.woff    21.88 kB
+dist/assets/fira-sans-latin-600-normal-DtSgd811.woff    22.11 kB
+dist/assets/fira-sans-latin-500-normal-Bkfzcwmr.woff    22.12 kB
+dist/assets/fira-code-latin-400-normal-DGosTW8U.woff2   23.31 kB
+dist/assets/fira-sans-latin-400-normal-a0AnQzuD.woff2   23.87 kB
+dist/assets/fira-sans-latin-500-normal-Bvbxc8ch.woff2   24.06 kB
+dist/assets/fira-sans-latin-600-normal-CXKlxLG9.woff2   24.84 kB
+dist/assets/fira-code-latin-400-normal-C-QZfXAs.woff    29.84 kB
+dist/assets/index-DXz-yDwx.css                          39.02 kB │ gzip:  7.55 kB
+dist/assets/mock-CNlTrHgq.js                             3.99 kB │ gzip:  1.94 kB
+dist/assets/index-DiR6YDKR.js                          293.74 kB │ gzip: 96.26 kB
+✓ built in 814ms

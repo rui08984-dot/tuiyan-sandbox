@@ -1,0 +1,6 @@
+
+> p1b-web@0.1.0 build
+> tsc && vite build
+
+src/pages/SettingsPage.tsx(12,26): error TS6133: 'IconCheck' is declared but its value is never read.
+src/pages/SettingsPage.tsx(12,37): error TS6133: 'IconClose' is declared but its value is never read.

@@ -25,7 +25,7 @@ export default function LivePage() {
     reloadAll: g.reloadAll, flashToast: g.flashToast,
   });
   const advise = useAdvise({
-    onDone: (d) => g.flashToast('✓ 第 ' + d + ' 天参谋卡就绪，已存档'),
+    onDone: (d) => g.flashToast('第 ' + d + ' 天参谋卡就绪，已存档'),
     onFailed: (m) => g.setPageErr(m),
   });
   const [wizardOpen, setWizardOpen] = useState(false);
@@ -41,7 +41,7 @@ export default function LivePage() {
     setWizardOpen(false);
     await g.loadGames();
     g.switchGame(game.id);
-    g.flashToast('✓ 局 #' + game.id + '「' + game.name + '」已创建，' + game.player_count + ' 席就位');
+    g.flashToast('局 #' + game.id + '「' + game.name + '」已创建，' + game.player_count + ' 席就位');
   }
 
   function doSettle() {

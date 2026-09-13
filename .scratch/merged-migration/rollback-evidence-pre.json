@@ -1,0 +1,28 @@
+{
+ "rollback_to": "pre",
+ "db": ".scratch/merged-migration/rollback-rehearsal.db",
+ "rows": 1923,
+ "rows_ok": true,
+ "dump_sha256": "4bd8f607cc299862a7e4f1dace0b9005fa5df39781c01001a9a4239b24495ce0",
+ "dump_sha256_ok": true,
+ "integrity": "ok",
+ "fk_check_errors": 0,
+ "layer_check_unknown_removed": true,
+ "unknown_insert_after_rollback": {
+  "ok": false,
+  "code": "SQLITE_CONSTRAINT_CHECK",
+  "message": "CHECK constraint failed: layer IS NULL OR layer IN ('L1','L2','L3','L4','L5','L6')"
+ },
+ "f4_objects_left": [],
+ "dropped_f4": [
+  "predictions_public",
+  "truth_vault",
+  "process_roles"
+ ],
+ "rollback_snapshot": {
+  "file": "E:\\music player\\.scratch\\backup\\p1a-rollback-presnap-1789288732549.db",
+  "sha256": "697919d3fb36cb77cfc82fdfdd3b7897d306d6194e1a79afdaf3df18c3d0c177"
+ },
+ "pre_migration_snapshot": "E:\\music player\\.scratch\\backup\\p1a-pre-phase2-20260913163707.db",
+ "generated_at": "2026-09-13T08:38:52.203Z"
+}

@@ -1,0 +1,34 @@
+========================================================================
+G2 能力门月报 -- R4 口径（审计器 design §4.2 修订 R4 · 2026-09-13）
+生成 2026-09-13T09:12:40.104Z | 库 E:\music player\p1a-terminal\data\p1a.db | 句柄只读 · 纯 SQL · 零 LLM · 零写库
+行域 g2_regime=R4 且非回测 | 门域 1923 行 / 账本 1923 行 | 门总判定 PASS
+门域外行数: 回测排除 0 行 | 不在 R4 行域 0 行 | 合计域外 0 行
+========================================================================
+[①] 合格题累计 >=60  -> PASS   值 1046（resolved 623；realtime 517 / backfill 529）
+    排除: no_resolve_date 877 | tautology 0
+    细则 B 落地：backfill 计入 ①（cutoff=matures_at-1 天）；两源分列见 qualified_realtime/qualified_backfill。
+[②] 抽检合格率 >=70%  -> PASS   值 100.0%   清单 E:\music player\p1b\sim\out\g2-audit-r4.json n=105 ok=105
+    10% 抽检候选池（确定性：合格题按 id 每 10 取 1）: n=105
+    复核构成（D-4）: {"machine":105,"agent_semantic":105,"human_calibration":14,"user":0} — 非全人工复核，不得声称"全人工"
+    人类校准段（D-3③）: {"n":14,"agreed":14,"rate":1,"reviewer":"队长（非端用户）","accepted":true,"basis":"pre_fix 一致率 5/14=0.357（未达 90%，故旧代理段不采信）→ 按校准结论修正 machine 段（改按已注册 kind 契约）后，14/14=1.0 ≥0.90 ⇒ 恢复采信","recheck":"1627（悉尼 dust≤0.0）：队长原判 REJECT 存疑，经源码核实 corpus-sources-b4.cjs L179 cmp0() 为恒真桩、L169-170 用它决定打印方向、L164 ge=false ⇒ 注解措辞 bug，实为 P(dust≤0.0)=72.5% 在带非恒定 ⇒ 队长更新判断为 PASS","sample_bias":"本校准样本由代理按「最可能分歧」挑选（8 假阳性 + 2 边界 + 4 顺延），偏向最易出错处，故 14/14 为偏保守证据","user_spot_check":0,"disclosure":"人类校准由队长执行、端用户抽验 0 题；整体仍非全人工复核，不得声称全人工"} -> 采信 YES
+    校准结账: 修正后 14/14 = 1.000：8 条假阳性翻正 + 4 条顺延一致 + 1331 一致 + 1627 经源码核实（cmp0() 恒真桩 ⇒ 注解措辞 bug）由队长改判 PASS；待办 （可选升级）端用户抽验 ≥10 题，可把 ② 采信基础从「队长校准」升级为「含端用户校准」
+[③] horizon 三层 短>=20 中>=20 长>=10(须 realtime)  -> PASS
+    短 419 | 中 77 | 长 21 | 未知 0 | past_or_negative(backfill) 529 | 长中 backfill 0
+    本细则读法（§4.2.1 A）：长 21 -> PASS | 严格读法对照：独立长 3 -> FAIL
+    ⑦披露（报告项）: 长∩最难 18/21 = 85.7%
+[④] 难度最难档 b(1-b)>=0.21（等价于基率 [0.30, 0.70]）且 >=20  -> PASS   值 916（realtime 455 / backfill 461；外生解析覆盖 1046/1046；模式 {"pct_share":1046}）
+[⑤] 月节律（仅报告·不作门）
+    2026-09  realtime 552 / backfill 686 / total 1238
+[⑦] 披露（报告项·不扣减）: 长∩最难 18/21 = 85.7% | 严格读法独立长 3 -> FAIL
+    重叠 id（全量 18 条）: 973,974,977,979,982,983,985,986,988,989,991,992,994,995,1008,1010,1012,1014
+[R3 防 Goodhart 合规]
+    分窗 resolved: realtime 552 / backfill 686
+    单批上限(细则 C·按批次): wide_backfill 280 ok | b4_backfill 217 ok | corpus-backfill-2026-09-12 152 ok | b3_backfill 52 ok -> ok | 累计 701（仅披露）
+    分层 3x 上限: L2 303<=966 ok | L3 374<=1098 ok | L5 24<=252 ok
+    分窗配额(上限 60.0%): realtime L3 30.0% | backfill L3 53.4%
+    审计列: baseline_brier 非空 0（**已废弃**：专家会盲区⑦裁决=废弃而非补齐；④ 走 baseRateNote 现算旁路，见 design §4.2.2）
+    诚实标注: 凡引用含 backfill 样本的校准结论（ECE/Brier/分辨率），报告须恒挂「含历史回填样本，非实时预测能力」
+========================================================================
+注: ② 结论=机器段+代理语义段（非全人工），采信须经 D-3③ 人类校准段 >=10 题且一致率 >=90%；③ 按细则 A 判定并披露 ⑦ 重叠；含 backfill 数字恒挂「含历史回填样本，非实时预测能力」。
+[g2-report] JSON -> E:\music player\p1b\sim\out\g2-report-batch1-final.json
+[g2-report] TEXT -> E:\music player\p1b\sim\out\g2-report-batch1-final.out

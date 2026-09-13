@@ -44,3 +44,9 @@ p1a-terminal/data/p1a-multidev.db-wal
 p1a-terminal/data/p1a-multidev.db-shm
 # 多日局自测产物目录（未冻结前的试跑件，冻结后按批另议）
 p1b/sim/out/multidev/
+
+# 大型 DB 快照/备份不入库（sha256 在 manifest/收据中留痕）
+p1b/sim/out/**/*.db
+p1b/sim/out/**/*.db-shm
+p1b/sim/out/**/*.db-wal
+_p1a_backup_pre_m2.db

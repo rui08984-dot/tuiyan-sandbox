@@ -8,6 +8,7 @@ import '../styles/p1b4.css';
 import GameDetail from './manage/GameDetail';
 import NewGameWizard from '../components/NewGameWizard';
 import { useGameTypes } from '../lib/useGameTypes';
+import { IconFolder, IconChart } from '../components/ui';
 
 const LS_SELECTED = 'p1b.games.selectedId';
 const errMsg = (e: unknown): string => (e instanceof Error ? e.message : String(e));
@@ -59,17 +60,17 @@ export default function ManagePage() {
     await loadGames();
     setSelectedId(game.id);
     navigate('/'); // 引导完成 → 直接进入现场
-    flashToast('✓ 局 #' + game.id + '「' + game.name + '」已创建，' + game.player_count + ' 席就位');
+    flashToast('局 #' + game.id + '「' + game.name + '」已创建，' + game.player_count + ' 席就位');
   }
 
   return (
     <section className="page">
       <header className="page-head">
-        <span className="page-icon" aria-hidden>🗂️</span>
+        <IconFolder size={20} />
         <h1>对局管理</h1>
         <button type="button" className="btn" style={{ marginLeft: 'auto' }} onClick={() => navigate('/audit')}
           data-testid="manage-audit-entry" title="万物审计仪表盘（分层账本 · 只记不评）">
-          📊 审计
+          <IconChart size={15} /> 审计
         </button>
         <button type="button" className="btn btn-primary" onClick={() => setWizardOpen(true)}>
           ＋ 开新局

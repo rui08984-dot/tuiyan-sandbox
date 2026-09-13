@@ -1,0 +1,17 @@
+'use strict';
+const Database = require('E:/music player/p1a-terminal/node_modules/better-sqlite3');
+const db = new Database('E:/music player/p1a-terminal/data/p1a.db', { readonly: true });
+const one = (s) => db.prepare(s).get();
+const all = (s) => db.prepare(s).all();
+const out = {};
+out.baseline_brier_nonnull = one('SELECT COUNT(*) n FROM predictions WHERE baseline_brier IS NOT NULL').n;
+out.public_exposure_nonnull = one('SELECT COUNT(*) n FROM predictions WHERE public_exposure IS NOT NULL').n;
+out.tautology_nonzero = one('SELECT COUNT(*) n FROM predictions WHERE tautology <> 0').n;
+out.engine_null = one('SELECT COUNT(*) n FROM predictions WHERE engine IS NULL').n;
+out.gate_null = one('SELECT COUNT(*) n FROM predictions WHERE gate IS NULL').n;
+out.layer_null = one('SELECT COUNT(*) n FROM predictions WHERE layer IS NULL').n;
+out.checklist_hash_distinct = all('SELECT checklist_hash, COUNT(*) n FROM predictions GROUP BY checklist_hash');
+out.layer_unknown = one("SELECT COUNT(*) n FROM predictions WHERE layer NOT IN ('L1','L2','L3','L4','L5','L6') OR layer IS NULL").n;
+out.overdue_unresolved = all("SELECT COUNT(*) n FROM predictions p, json_each(p.evidence_json) e WHERE p.outcome IS NULL AND json_extract(e.value,'$.resolve.date') IS NOT NULL AND json_extract(e.value,'$.resolve.date') < date('now')");
+console.log(JSON.stringify(out, null, 1));
+db.close();

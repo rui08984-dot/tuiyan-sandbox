@@ -1,0 +1,11 @@
+{
+ "rollback_script": "E:\\music player\\.scratch\\backup\\rollback-merged-migration-20260913163852.cjs",
+ "bytes": 8764,
+ "sha256": "dde221a221aedbc71b7914481ac81498d57b280dbf832179f84227066bd0ba09",
+ "pinned": {
+  "original_ddl_rows": 1923,
+  "original_dump_sha256": "4bd8f607cc299862a7e4f1dace0b9005fa5df39781c01001a9a4239b24495ce0",
+  "pre_phase2_snapshot": "E:\\music player\\.scratch\\backup\\p1a-pre-phase2-20260913163707.db",
+  "phase2_snapshot_sha256": "41cec6466bdbb9ce3fd2f6f00eb994d55a224176944c02b41b62be69c6ae6f38"
+ }
+}

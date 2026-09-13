@@ -16,6 +16,7 @@ import { useCallback, useEffect, useState } from 'react';
 import * as api from '../../api';
 import type { IntakeClassifyResult, IntakeRejectsResult, IntakeQuestionsResult } from '../../types';
 import '../../styles/intake.css';
+import { IconPen } from '../../components/ui';
 
 const errMsg = (e: unknown): string => (e instanceof Error ? e.message : String(e));
 
@@ -110,7 +111,7 @@ export default function IntakePage() {
       <div className="intake-banner" role="note" data-testid="intake-banner">开放接题 · 只记不评 · 分层账本</div>
 
       <header className="intake-head">
-        <h2>✍️ 开放接题</h2>
+        <h2><IconPen size={18} /> 开放接题</h2>
         <p className="intake-sub">拒收门三问 → 六层判定 → 引擎位；本页只调用接题接口，不做任何库写。</p>
       </header>
 

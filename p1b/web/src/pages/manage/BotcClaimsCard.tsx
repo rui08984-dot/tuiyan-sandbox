@@ -45,7 +45,7 @@ export default function BotcClaimsCard(props: { game: Game; script: BotcScript |
       {props.script && (
         <div className="role-ref">
           <button type="button" className="btn" style={{ marginTop: 10 }} onClick={() => setRefOpen((o) => !o)}>
-            {refOpen ? '▲ 收起角色参考' : '📖 展开本剧本角色参考（' + rolesByScript(props.script).length + ' 角色）'}
+            {refOpen ? '收起角色参考' : '展开本剧本角色参考（' + rolesByScript(props.script).length + ' 角色）'}
           </button>
           {refOpen && (
             <div className="role-ref-grid">
