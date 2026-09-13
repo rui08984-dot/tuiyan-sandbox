@@ -1,11 +1,11 @@
 ========================================================================
 G2 能力门月报 -- R4 口径（审计器 design §4.2 修订 R4 · 2026-09-13）
-生成 2026-09-13T10:38:20.162Z | 库 E:\music player\p1a-terminal\data\p1a.db | 句柄只读 · 纯 SQL · 零 LLM · 零写库
+生成 2026-09-13T10:47:47.534Z | 库 E:\music player\p1a-terminal\data\p1a.db | 句柄只读 · 纯 SQL · 零 LLM · 零写库
 行域 g2_regime=R4 且非回测 | 门域 1935 行 / 账本 1935 行 | 门总判定 PASS  [G2＝过程能力门，不含预测质量读数]
 门域外行数: 回测排除 0 行 | 不在 R4 行域 0 行 | 合计域外 0 行
 ========================================================================
 [①] 合格题累计 >=60  -> PASS   值 1312（resolved 623；realtime 783 / backfill 529）
-    排除: no_resolve_date 450 | backfill_no_matures_at 172 | cutoff_not_before_event 1 | tautology 0
+    排除: no_resolve_date 450 | backfill_no_forwardLooking 172 | cutoff_not_before_event 1 | tautology 0
     细则 B 落地：backfill 计入 ①（cutoff=matures_at-1 天）；两源分列见 qualified_realtime/qualified_backfill。
     [口径B·date_derivation v2026-09-14] 契约表 sha256=007b41188807 | 规则 22 kind
     换算入池 427 行 | 按 kind: dbnomics_series_value 123 / cwl_ssq_red_contains 42 / cwl_ssq_blue_odd 28 / dlt_draw_result 38 / github_weekly_commits 15 / npm_downloads_window 26 / dbnomics_bis_monthly_mean 28 / dbnomics_wb_commodity_annual 24 / dbnomics_eurostat_tertiary_attain 6 / eurostat_live_tertiary_attain 3 / noaa_solar_cycle_ssn_monthly 6 / crossref_week_total 5 / delphi_fluview_num_ili 9 / nvd_cve_week_count 5 / dbnomics_eurostat_unemployment_monthly 9 / eurostat_live_unemployment_monthly 6 / jpl_cad_monthly_count 4 / swpc_solar_cycle_monthly 6 / openalex_works_count 4 / eurostat_demo_pjan_annual 24 / bom_weekend_top10_gross 4 / delphi_fluview_ili 12
