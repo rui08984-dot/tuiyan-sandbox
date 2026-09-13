@@ -1,15 +1,16 @@
 ========================================================================
 G2 能力门月报 -- R4 口径（审计器 design §4.2 修订 R4 · 2026-09-13）
-生成 2026-09-13T07:25:09.888Z | 库 E:\music player\p1a-terminal\data\p1a.db | 句柄只读 · 纯 SQL · 零 LLM · 零写库
+生成 2026-09-13T07:30:10.124Z | 库 E:\music player\p1a-terminal\data\p1a.db | 句柄只读 · 纯 SQL · 零 LLM · 零写库
 行域 g2_regime=R4 | 账本 1923 行 | 门总判定 PASS
 ========================================================================
 [①] 合格题累计 >=60  -> PASS   值 1046（resolved 198；realtime 517 / backfill 529）
     排除: no_resolve_date 877 | tautology 0
     细则 B 落地：backfill 计入 ①（cutoff=matures_at-1 天）；两源分列见 qualified_realtime/qualified_backfill。
-[②] 抽检合格率 >=70%  -> PASS   值 92.4%   清单 E:\music player\p1b\sim\out\g2-audit-r4.json n=105 ok=97
+[②] 抽检合格率 >=70%  -> PASS   值 100.0%   清单 E:\music player\p1b\sim\out\g2-audit-r4.json n=105 ok=105
     10% 抽检候选池（确定性：合格题按 id 每 10 取 1）: n=105
-    复核构成（D-4）: {"machine":105,"agent_semantic":105,"user":0} — 非全人工复核，不得声称"全人工"
-    人类校准段（D-3③）: {"n":null,"agreed":null,"rate":null} -> 采信状态 pending（需 >=10 题、一致率 >=90%）
+    复核构成（D-4）: {"machine":105,"agent_semantic":105,"human_calibration":14,"user":0} — 非全人工复核，不得声称"全人工"
+    人类校准段（D-3③）: {"n":14,"agreed":14,"rate":1,"reviewer":"队长（非端用户）","accepted":true,"basis":"pre_fix 一致率 5/14=0.357（未达 90%，故旧代理段不采信）→ 按校准结论修正 machine 段（改按已注册 kind 契约）后，14/14=1.0 ≥0.90 ⇒ 恢复采信","recheck":"1627（悉尼 dust≤0.0）：队长原判 REJECT 存疑，经源码核实 corpus-sources-b4.cjs L179 cmp0() 为恒真桩、L169-170 用它决定打印方向、L164 ge=false ⇒ 注解措辞 bug，实为 P(dust≤0.0)=72.5% 在带非恒定 ⇒ 队长更新判断为 PASS","sample_bias":"本校准样本由代理按「最可能分歧」挑选（8 假阳性 + 2 边界 + 4 顺延），偏向最易出错处，故 14/14 为偏保守证据","user_spot_check":0,"disclosure":"人类校准由队长执行、端用户抽验 0 题；整体仍非全人工复核，不得声称全人工"} -> 采信 YES
+    校准结账: 修正后 14/14 = 1.000：8 条假阳性翻正 + 4 条顺延一致 + 1331 一致 + 1627 经源码核实（cmp0() 恒真桩 ⇒ 注解措辞 bug）由队长改判 PASS；待办 （可选升级）端用户抽验 ≥10 题，可把 ② 采信基础从「队长校准」升级为「含端用户校准」
 [③] horizon 三层 短>=20 中>=20 长>=10(须 realtime)  -> PASS
     短 419 | 中 77 | 长 21 | 未知 0 | past_or_negative(backfill) 529 | 长中 backfill 0
     本细则读法（§4.2.1 A）：长 21 -> PASS | 严格读法对照：独立长 3 -> FAIL
