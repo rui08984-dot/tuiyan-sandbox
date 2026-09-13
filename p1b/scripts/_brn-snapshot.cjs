@@ -1,0 +1,12 @@
+'use strict';
+const fs = require('fs');
+const Database = require('E:/music player/p1a-terminal/node_modules/better-sqlite3');
+const stamp = process.argv[2] || new Date().toISOString().replace(/[-:T]/g, '').slice(0, 14);
+const out = 'E:/music player/.scratch/backup/p1a-pre-brnbackfill-' + stamp + '.db';
+if (fs.existsSync(out)) throw new Error('snapshot exists: ' + out);
+const db = new Database('E:/music player/p1a-terminal/data/p1a.db');
+db.exec("VACUUM INTO '" + out + "'");
+const integ = db.prepare('PRAGMA integrity_check').get();
+const n = db.prepare('SELECT COUNT(*) n FROM predictions').get().n;
+db.close();
+console.log(JSON.stringify({ snapshot: out, bytes: fs.statSync(out).size, integrity: integ.integrity_check, predictions: n }));

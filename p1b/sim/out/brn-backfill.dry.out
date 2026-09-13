@@ -1,0 +1,45 @@
+[target] 拟补注记行数=174 (confirm=false)
+[reconcile] {"openmeteo_daily_max":{"n":113,"agree":112,"disagree":0,"noStored":1,"smallN":0},"dbnomics_series_value":{"n":35,"agree":34,"disagree":0,"noStored":1,"smallN":0},"cwl_ssq_red_contains":{"n":17,"agree":16,"disagree":0,"noStored":1,"smallN":16},"cwl_ssq_blue_odd":{"n":9,"agree":8,"disagree":0,"noStored":1,"smallN":8}}
+--- openmeteo_daily_max n=113 (抽样 3) ---
+  id=451 cutoff=2026-09-12 07:02:10 n=300 hit=0.01 重算=1.0% 存注记=null% agree=null
+    before: 气候基率：上海 2015-09..2024-09 共 300 个 9 月日，max>35°C 仅 3 日（Open-Meteo archive 实抓）
+    after : 气候基率：上海 2015-2024 共 300 个 9 月日，max>35°C 占 1.0%（Open-Meteo archive 实抓，严格大于口径）
+  id=455 cutoff=2026-09-12 09:22:05 n=300 hit=0.2 重算=20.0% 存注记=20.0% agree=true
+    before: 气候基率：上海 2015-2024 共 300 个 9 月日，max>30°C 占 20.0%（Open-Meteo archive 实抓，严格大于口径）
+    after : 气候基率：上海 2015-2024 共 300 个 9 月日，max>30°C 占 20.0%（Open-Meteo archive 实抓，严格大于口径）
+  id=456 cutoff=2026-09-12 09:22:05 n=300 hit=0.2 重算=20.0% 存注记=20.0% agree=true
+    before: 气候基率：上海 2015-2024 共 300 个 9 月日，max>30°C 占 20.0%（Open-Meteo archive 实抓，严格大于口径）
+    after : 气候基率：上海 2015-2024 共 300 个 9 月日，max>30°C 占 20.0%（Open-Meteo archive 实抓，严格大于口径）
+--- dbnomics_series_value n=35 (抽样 3) ---
+  id=452 cutoff=2026-09-12 07:02:10 n=331 hit=0.4502 重算=45.0% 存注记=null% agree=null cap=2026-07
+    before: 历史占比：月值 <1.15 共 149/331（截至 2026-07，pre-cutoff 已发布口径；2026-08 月值发布于月后未计入）
+    after : 前瞻·M.USD.EUR.SP00.A：pre-cutoff 已发布 331 个月值中 <1.15 占 45.0%（DBnomics ECB/EXR 实抓，pre-cutoff 已发布口径）
+  id=471 cutoff=2026-09-12 09:22:05 n=332 hit=0.4488 重算=44.9% 存注记=44.9% agree=true
+    before: 历史占比：M.USD.EUR.SP00.A 已发布 332 个月值中 <1.15 占 44.9%（pre-cutoff 已发布口径）；近月={"2026-05":1.16732,"2026-06":1.1518,"2026-07":1.141747826086
+    after : 前瞻·M.USD.EUR.SP00.A：pre-cutoff 已发布 332 个月值中 <1.15 占 44.9%（DBnomics ECB/EXR 实抓，pre-cutoff 已发布口径）
+  id=472 cutoff=2026-09-12 09:22:05 n=332 hit=0.2952 重算=29.5% 存注记=29.5% agree=true
+    before: 历史占比：M.USD.EUR.SP00.A 已发布 332 个月值中 <1.1 占 29.5%（pre-cutoff 已发布口径）；近月={"2026-05":1.16732,"2026-06":1.1518,"2026-07":1.1417478260869
+    after : 前瞻·M.USD.EUR.SP00.A：pre-cutoff 已发布 332 个月值中 <1.1 占 29.5%（DBnomics ECB/EXR 实抓，pre-cutoff 已发布口径）
+--- cwl_ssq_red_contains n=17 (抽样 3) ---
+  id=453 cutoff=2026-09-12 07:02:10 n=null hit=0.1818 重算=18.2% 存注记=null% agree=null
+    before: 组合数学：P(red 含 07)=1-C(32,6)/C(33,6)=6/33=0.1818；快照核 2026106 未开奖（最新=2026105@2026-09-10）
+    after : 前瞻·L5 认证随机：基率=组合数理论值 0.1818（1-C(32,6)/C(33,6)=6/33，2026106 快照未开奖，非历史拟合）
+  id=601 cutoff=2026-08-31T23:59:59+08:00 n=25 hit=0.16 重算=16.0% 存注记=16.0% agree=true
+    before: 历史回填批次，非实时预测；历史回填·双色球 red 含 07：cutoff 前 25 期中命中 16.0%（cwl 官方公告实抓，pre-cutoff 窗）
+    after : 历史回填·双色球 red 含 07：cutoff 前 25 期中命中 16.0%（样本不足 n=25；cwl 官方公告实抓，pre-cutoff 窗）
+  id=602 cutoff=2026-08-26T23:59:59+08:00 n=23 hit=0.1739 重算=17.4% 存注记=17.4% agree=true
+    before: 历史回填批次，非实时预测；历史回填·双色球 red 含 07：cutoff 前 23 期中命中 17.4%（cwl 官方公告实抓，pre-cutoff 窗）
+    after : 历史回填·双色球 red 含 07：cutoff 前 23 期中命中 17.4%（样本不足 n=23；cwl 官方公告实抓，pre-cutoff 窗）
+--- cwl_ssq_blue_odd n=9 (抽样 3) ---
+  id=454 cutoff=2026-09-12 07:02:10 n=null hit=0.5 重算=50.0% 存注记=null% agree=null
+    before: 组合数学：P(blue 奇数)=8/16=0.5
+    after : 前瞻·L5 认证随机：基率=组合数理论值 0.5000（8/16，2026106 快照未开奖，非历史拟合）
+  id=617 cutoff=2026-09-05T23:59:59+08:00 n=27 hit=0.5926 重算=59.3% 存注记=59.3% agree=true
+    before: 历史回填批次，非实时预测；历史回填·双色球 blue 奇数：cutoff 前 27 期中占 59.3%（cwl 官方公告实抓，pre-cutoff 窗）
+    after : 历史回填·双色球 blue 奇数：cutoff 前 27 期中占 59.3%（样本不足 n=27；cwl 官方公告实抓，pre-cutoff 窗）
+  id=618 cutoff=2026-08-31T23:59:59+08:00 n=25 hit=0.6 重算=60.0% 存注记=60.0% agree=true
+    before: 历史回填批次，非实时预测；历史回填·双色球 blue 奇数：cutoff 前 25 期中占 60.0%（cwl 官方公告实抓，pre-cutoff 窗）
+    after : 历史回填·双色球 blue 奇数：cutoff 前 25 期中占 60.0%（样本不足 n=25；cwl 官方公告实抓，pre-cutoff 窗）
+[reconcile] 与存量注记不一致=0
+[report] -> p1b/sim/out/brn-backfill-dry.report.json
+DRY-RUN：未写库。加 --confirm 执行。

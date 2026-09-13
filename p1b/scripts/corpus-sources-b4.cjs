@@ -65,7 +65,7 @@ const QT = [0.5, 0.6, 0.4, 0.7, 0.3];
 
 // ── 通用序列出题器（日频/月频/周频通用；k=期键，v=数值）──
 // cfg: { series:[{k,v}], gameType, layer, engine, ge, minBase, bkKeys:[], fwKeys:[], cut(key),
-//        stmt(phase,key,th,cmp), note(phase,n,th,hit,q,series), resolve(key,th,cmp), meta(key,th), slug(key) }
+//        stmt(phase,key,th,cmp), note(phase,n,th,hit,q,series,cmp), resolve(key,th,cmp), meta(key,th), slug(key) }
 function emitSeries(cfg, out) {
   const s = (cfg.series || []).filter((x) => x && isFinite(x.v));
   const minBase = cfg.minBase || 60;
@@ -81,7 +81,7 @@ function emitSeries(cfg, out) {
       slug: cfg.gameType + '|' + (cfg.slug ? cfg.slug(key) : key),
       prob: Number(hit.toFixed(4)),
       statement: cfg.stmt(phase, key, th, cmp),
-      baseRateNote: cfg.note(phase, nbase, th, hit, q, s),
+      baseRateNote: cfg.note(phase, nbase, th, hit, q, s, cmp),
       resolve: cfg.resolve(key, th, cmp),
       meta: Object.assign({ phase: phase, cutoff: phase === 'forward' ? RUN_AT : cfg.cut(key) }, cfg.meta ? cfg.meta(key, th) : {}),
       truthPreview: phase === 'backfill' && v !== undefined ? ('实测=' + v + ' -> ' + ((ge ? v >= th : v <= th) ? 'true' : 'false')) : undefined,
@@ -166,7 +166,7 @@ async function buildAQ2() {
         stmt: (ph, k, th, cmp) => '【' + ph + '】' + c.n + ' ' + k + ' 日 ' + v + ' 日均浓度 ' + cmp + ' ' + th.toFixed(1) + ' μg/m³'
           + (ph === 'backfill' ? '（cutoff=' + bkCut(k) + '，严格早于该日；真值锚=Open-Meteo air-quality hourly.' + v + ' 该日全小时均值。历史回填批次，非实时预测）'
             : '（cutoff=落库时点 ' + RUN_AT + '，该日尚未发生；真值锚=Open-Meteo air-quality hourly.' + v + ' 该日全小时均值。前瞻批次，真值未发生）'),
-        note: (ph, n, th, hit, q) => (ph === 'backfill' ? '回填·' : '前瞻·') + c.n + ' ' + v + '：cutoff 前 ' + n + ' 个日均中 ' + (cmp0(th, hit) ? '>=' : '<=')
+        note: (ph, n, th, hit, q, _s, cmp) => (ph === 'backfill' ? '回填·' : '前瞻·') + c.n + ' ' + v + '：cutoff 前 ' + n + ' 个日均中 ' + (cmp0(cmp) ? '>=' : '<=')
           + ' ' + th.toFixed(1) + ' 占 ' + pct(hit) + '（分位 q=' + q + '）',
         resolve: (k, th, cmp) => ({ kind: 'openmeteo_air_daily_mean', url_template: AQ_U(c, [v], '{date}', '{date}'), lat: c.lat, lon: c.lon, date: k, threshold: Number(th.toFixed(2)), cmp: cmp, field: 'hourly.time[] 前缀==date 的全部 hourly.' + v + '[] 算术均值' }),
         meta: (k, th) => ({ city: c.n, pollutant: v, date: k, threshold: Number(th.toFixed(2)) }),
@@ -176,7 +176,10 @@ async function buildAQ2() {
   }
   return out;
 }
-function cmp0() { return true; }
+// 该源真实比较方向：emitSeries 按 cfg.ge 推出 cmp（'>=' / '<='）。原 function cmp0() { return true; }
+// 是恒真桩，把所有 AQ 源（ge=false ⇒ '<='）的注记方向都误印成 '>='（与同函数内的命中率自相矛盾）。
+// 修复只影响后续生成的行；既有行文案不动。
+function cmp0(cmp) { return cmp === '>='; }
 
 // ═══ A2. Open-Meteo 天气：多城市 × 多变量（ERA5 再分析，滞后约 2 天）═══
 const WX_CITIES = [
