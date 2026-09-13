@@ -1,0 +1,27 @@
+{
+ "tag": "preregA-20260913",
+ "source_db": "E:\\music player\\p1a-terminal\\data\\p1a.db",
+ "source_readonly": true,
+ "artifacts": [
+  {
+   "file": "E:\\music player\\.scratch\\forecast-debate\\prereg-a\\verdicts-archive-preregA-20260913.json",
+   "kind": "verdicts-archive-json",
+   "bytes": 1044366,
+   "sha256": "4db8045fcedab37a8da033f1b4ecde62ea7c741b0a8213e2ba7e89188e999d3d",
+   "rows": 2420
+  },
+  {
+   "file": "E:\\music player\\.scratch\\forecast-debate\\prereg-a\\p1a-snapshot-preregA-20260913.db",
+   "kind": "predictions-snapshot-sqlite",
+   "bytes": 5902336,
+   "sha256": "5f30f52f8ae80345ec4d5df3617ca20ef624f23f06b6fa165acf33f3dddd83c6",
+   "readonly_reopened": true,
+   "integrity_check": {
+    "integrity_check": "ok"
+   },
+   "verdicts_rows": 2420,
+   "predictions_rows": 1923
+  }
+ ],
+ "generated_at": "2026-09-13T09:27:00.877Z"
+}

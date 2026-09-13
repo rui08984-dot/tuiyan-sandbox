@@ -35,6 +35,8 @@
  *     未接线」：loadEvidence 此前从不调用本检测器。
  *   消融开关：env `P1B_EVIDENCE_V3` ∈ {0,off,false,no,disabled} → 关；或 loadEvidence(pred,{contradictions:false})。
  *     默认开启（生产 v1_evidence 走 3.0）；开关只控制 d 段，与 a/b/c 无关。
+ *   臂模式（PREREG-命题A-3.0消融 §2 三臂）：env `P1B_EVIDENCE_V3_MODE` ∈ {on,off,sham} 或 opts.contradictionsMode。
+ *     off/缺省/非法＝现有行为（由 P1B_EVIDENCE_V3 决定）；on＝真实 d 段；sham＝**等 token 无信息占位 d 段**（C 臂）。
  *   边界：d 段输入=证据窗内 events/claims 副本；检测器真值盲（禁触 games.meta.truth）；
  *     events.actor_seat=players.id 须 JOIN players 还原座位号（acr-run.cjs L21-24 同口径）；
  *     非狼人域局（game_type 解析不出 format）不追加 d 段 → 2.0 形状。
@@ -99,6 +101,10 @@ const EVIDENCE_VERSION = '3.0';                 // 3.0 = 2.0 三段 + d 机械�
 const EVIDENCE_VERSION_2_0 = '2.0';             // 关闭开关时的形状版本（消融对照臂）
 const EVIDENCE_V3_ENV = 'P1B_EVIDENCE_V3';      // 消融开关：0/off/false/no/disabled → 关闭
 const V3_OFF_VALUES = ['0', 'off', 'false', 'no', 'disabled', 'none'];
+const EVIDENCE_V3_MODE_ENV = 'P1B_EVIDENCE_V3_MODE'; // 臂模式：on | off | sham（缺省 off＝现有行为）
+const V3_MODES = ['on', 'off', 'sham'];
+const SHAM_HEAD = '账本机械矛盾特征（占位·消融 sham 臂，无真实特征信息）：';
+const SHAM_FILLER = '占位';
 const CONTRADICTION_HEAD = '账本机械矛盾特征（W1-W6 版型无关检测器，纯代码计算零 LLM）：';
 const CONTRADICTION_DETAIL_MAX = 6;             // 明细行上限（防 prompt 膨胀；超出如实标「共 N 对」）
 
@@ -186,8 +192,8 @@ function loadEvidence(prediction, opts) {
     const grow = conn.prepare('SELECT game_type FROM games WHERE id = ?').get(prediction.game_id);
     const format = resolveContradictionFormat(grow && grow.game_type);
     if (format) {
-      blocks.push.apply(blocks, renderContradictionBlock(
-        DET.detectWerewolfContradictions({ format: format, events: evs, claims: claims })));
+      const pairs = DET.detectWerewolfContradictions({ format: format, events: evs, claims: claims });
+      blocks.push.apply(blocks, resolveV3Mode(opts) === 'sham' ? renderShamBlock(pairs) : renderContradictionBlock(pairs));
     }
   }
   return blocks.join('\n');
@@ -241,6 +247,37 @@ function renderContradictionBlock(pairs) {
   for (const p of detail) lines.push('[' + p.rule + '] ' + truncateText(p.desc, 120));
   if (list.length > detail.length) {
     lines.push('\uff08\u660e\u7ec6\u4ec5\u793a\u524d ' + detail.length + ' \u5bf9\uff0c\u5171 ' + list.length + ' \u5bf9\uff09');
+  }
+  return lines;
+}
+
+/**
+ * 3.0 臂模式解析（PREREG-命题A-3.0消融 §2 三臂）：opts.contradictionsMode 优先；否则 env P1B_EVIDENCE_V3_MODE。
+ * 缺省/非法 → 'off'（＝现有行为：是否追加真实 d 段仍由 P1B_EVIDENCE_V3 决定）；'on'＝真实 d 段；'sham'＝等 token 占位（C 臂）。
+ * @returns {'on'|'off'|'sham'}
+ */
+function resolveV3Mode(opts) {
+  const raw = (opts && typeof opts.contradictionsMode === 'string') ? opts.contradictionsMode : process.env[EVIDENCE_V3_MODE_ENV];
+  const v = String(raw === undefined || raw === null ? '' : raw).trim().toLowerCase();
+  return V3_MODES.indexOf(v) === -1 ? 'off' : v;
+}
+
+/**
+ * sham d 段（C 臂「等 token 空特征对照」）：**行数与总字符长度与真实 d 段对齐**（实现为等长；验收阈值 ±5%），
+ * 内容为中性占位（无数字/无规则名/无明细/无席位），**不含任何真实矛盾信息**。仅用于消融 C 臂。
+ * @param {Array<{rule:string,desc:string}>} pairs 与 on 臂同一入参（用于对齐长度；内容不进入输出）
+ * @returns {string[]} 行数组（行数＝真实 d 段行数）
+ */
+function renderShamBlock(pairs) {
+  const real = renderContradictionBlock(pairs);
+  const n = real.length;
+  const target = real.join('\n').length;
+  const lines = [SHAM_HEAD];
+  let remaining = target - SHAM_HEAD.length - (n - 1);
+  for (let i = 1; i < n; i++) {
+    const need = Math.max(1, Math.floor(remaining / (n - i)));
+    lines.push(SHAM_FILLER.repeat(Math.ceil(need / SHAM_FILLER.length) + 1).slice(0, need));
+    remaining -= need;
   }
   return lines;
 }
@@ -403,4 +440,6 @@ module.exports = {
   // 证据块 3.0（命题 A 接线）：d 段常量 + 消融开关解析（测试/消融复用）
   EVIDENCE_VERSION, EVIDENCE_VERSION_2_0, EVIDENCE_V3_ENV,
   CONTRADICTION_HEAD, isContradictionEnabled, resolveContradictionFormat, renderContradictionBlock,
+  // PREREG-命题A-3.0消融：C 臂（sham 等 token 空特征对照）
+  EVIDENCE_V3_MODE_ENV, V3_MODES, SHAM_HEAD, resolveV3Mode, renderShamBlock,
 };

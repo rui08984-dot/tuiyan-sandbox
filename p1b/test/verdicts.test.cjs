@@ -402,6 +402,38 @@ test('loadEvidence 消融开关：contradictions:false 与 env P1B_EVIDENCE_V3=0
   assert.equal(mod.resolveContradictionFormat('corpus:openmeteo'), null, '非狼人域 → 不追加 d 段（2.0 形状）');
 });
 
+// ── PREREG-命题A-3.0消融：C 臂 sham（等 token 空特征对照）──────
+
+test('loadEvidence 臂模式 sham（C 臂）：与 on 等长（±5%）且无真实矛盾信息；off 与既有逐字节一致', () => {
+  const mod = require('../src/routes/verdicts');
+  const { loadEvidence, CONTRADICTION_HEAD, SHAM_HEAD, EVIDENCE_V3_MODE_ENV } = mod;
+  const pred = insertContradictionFixture(9501);
+  const on = loadEvidence(pred, { contradictions: true });
+  const sh = loadEvidence(pred, { contradictions: true, contradictionsMode: 'sham' });
+  assert.ok(on.indexOf(CONTRADICTION_HEAD) !== -1, 'on 臂含真实 d 段块头');
+  assert.ok(on.indexOf('矛盾对数：1') !== -1, 'on 臂含真实对数（基准事实）');
+  assert.ok(sh.indexOf(CONTRADICTION_HEAD) === -1 && sh.indexOf(SHAM_HEAD) !== -1, 'sham 臂为占位 d 段');
+  const onD = on.slice(on.indexOf(CONTRADICTION_HEAD));
+  const shD = sh.slice(sh.indexOf(SHAM_HEAD));
+  assert.equal((shD.match(/\n/g) || []).length, (onD.match(/\n/g) || []).length, 'd 段行数对齐');
+  assert.ok(Math.abs(shD.length - onD.length) / onD.length <= 0.05, 'd 段长度差 <=5%（sham ' + shD.length + ' vs on ' + onD.length + '）');
+  assert.ok(!/[0-9]/.test(shD), 'sham 不含任何数字（无对数/席位）');
+  assert.ok(shD.indexOf('矛盾对数') === -1 && shD.indexOf('W2') === -1, 'sham 不含真实特征字段/规则名');
+  assert.ok(shD.indexOf('座位1') === -1 && shD.indexOf('is_wolf') === -1, 'sham 不含明细内容');
+  const savedMode = process.env[EVIDENCE_V3_MODE_ENV];
+  try {
+    delete process.env[EVIDENCE_V3_MODE_ENV];
+    const base = loadEvidence(pred, { contradictions: true });
+    assert.equal(loadEvidence(pred, { contradictions: true, contradictionsMode: 'off' }), base, 'mode=off 与缺省逐字节一致');
+    assert.equal(loadEvidence(pred, { contradictions: true, contradictionsMode: 'nonsense' }), base, '非法模式回退 off');
+    process.env[EVIDENCE_V3_MODE_ENV] = 'sham';
+    assert.ok(loadEvidence(pred, { contradictions: true }).indexOf(SHAM_HEAD) !== -1, 'env P1B_EVIDENCE_V3_MODE=sham 生效');
+    assert.equal(loadEvidence(pred, { contradictions: false, contradictionsMode: 'sham' }), loadEvidence(pred, { contradictions: false }), '关开关优先：无 d 段（2.0 形状）');
+  } finally {
+    if (savedMode === undefined) delete process.env[EVIDENCE_V3_MODE_ENV]; else process.env[EVIDENCE_V3_MODE_ENV] = savedMode;
+  }
+});
+
 // ── 批次2-M1（R-A 后解冻件）：verdicts runId/model API 透传 ─────────────────
 
 test('runId/model 透传（批次2-M1）：POST body 带 runId/model 落库读回；缺省 NULL（旧调用方兼容）', async () => {
