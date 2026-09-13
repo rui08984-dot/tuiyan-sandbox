@@ -1,0 +1,15 @@
+{
+ "url": "https://www.metaculus.com/api/posts/?limit=2",
+ "status": 403,
+ "statusText": "Forbidden",
+ "headers": {
+  "cf-ray": "a3a638c138d585a0-HKG",
+  "connection": "keep-alive",
+  "content-encoding": "br",
+  "content-type": "text/plain;charset=UTF-8",
+  "date": "Sun, 13 Sep 2026 09:45:54 GMT",
+  "server": "cloudflare",
+  "transfer-encoding": "chunked"
+ },
+ "body": "Permission Error: The API is only available to authenticated users. Please create an account and use your API token to access the API."
+}

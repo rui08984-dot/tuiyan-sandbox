@@ -1,0 +1,37 @@
+[
+ {
+  "url": "https://www.metaculus.com/api/schema/",
+  "status": 403,
+  "ct": "text/plain;charset=UTF-8",
+  "len": 134,
+  "head": "Permission Error: The API is only available to authenticated users. Please create an account and use your API token to access the API."
+ },
+ {
+  "url": "https://www.metaculus.com/api/schema.json",
+  "status": 403,
+  "ct": "text/plain;charset=UTF-8",
+  "len": 134,
+  "head": "Permission Error: The API is only available to authenticated users. Please create an account and use your API token to access the API."
+ },
+ {
+  "url": "https://www.metaculus.com/api/openapi.json",
+  "status": 403,
+  "ct": "text/plain;charset=UTF-8",
+  "len": 134,
+  "head": "Permission Error: The API is only available to authenticated users. Please create an account and use your API token to access the API."
+ },
+ {
+  "url": "https://www.metaculus.com/api/docs/",
+  "status": 403,
+  "ct": "text/plain;charset=UTF-8",
+  "len": 134,
+  "head": "Permission Error: The API is only available to authenticated users. Please create an account and use your API token to access the API."
+ },
+ {
+  "url": "https://www.metaculus.com/api/schema/?format=openapi",
+  "status": 403,
+  "ct": "text/plain;charset=UTF-8",
+  "len": 134,
+  "head": "Permission Error: The API is only available to authenticated users. Please create an account and use your API token to access the API."
+ }
+]

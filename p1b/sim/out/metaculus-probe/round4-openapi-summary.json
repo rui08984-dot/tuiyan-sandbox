@@ -1,0 +1,16 @@
+[
+ {
+  "url": "https://www.metaculus.com/static/openapi.6835eb50da0b.yml",
+  "status": 403,
+  "ct": "text/html; charset=UTF-8",
+  "len": 5629,
+  "head": "<!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"><meta http-equiv=\"X-UA"
+ },
+ {
+  "url": "https://www.metaculus.com/api/static/openapi.6835eb50da0b.yml",
+  "status": 403,
+  "ct": "text/plain;charset=UTF-8",
+  "len": 134,
+  "head": "Permission Error: The API is only available to authenticated users. Please create an account and use your API token to access the API."
+ }
+]

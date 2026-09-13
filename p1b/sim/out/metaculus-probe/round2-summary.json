@@ -1,0 +1,47 @@
+[
+ {
+  "name": "api2-question-detail",
+  "url": "https://www.metaculus.com/api2/questions/1/",
+  "ua": "probe",
+  "status": 403,
+  "ct": "text/plain;charset=UTF-8",
+  "len": 134,
+  "head": "Permission Error: The API is only available to authenticated users. Please create an account and use your API token to access the API."
+ },
+ {
+  "name": "api-post-detail",
+  "url": "https://www.metaculus.com/api/posts/1/",
+  "ua": "probe",
+  "status": 403,
+  "ct": "text/plain;charset=UTF-8",
+  "len": 134,
+  "head": "Permission Error: The API is only available to authenticated users. Please create an account and use your API token to access the API."
+ },
+ {
+  "name": "api-root",
+  "url": "https://www.metaculus.com/api/",
+  "ua": "probe",
+  "status": 200,
+  "ct": "text/html; charset=utf-8",
+  "len": 2593,
+  "head": " <html> <head> <title>Documentation</title> <meta charset=\"utf-8\"/> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"> <link rel=\"stylesheet\" type"
+ },
+ {
+  "name": "api2-with-browser-ua",
+  "url": "https://www.metaculus.com/api2/questions/?limit=2",
+  "ua": "browser",
+  "status": 403,
+  "ct": "text/plain;charset=UTF-8",
+  "len": 134,
+  "head": "Permission Error: The API is only available to authenticated users. Please create an account and use your API token to access the API."
+ },
+ {
+  "name": "public-questions-page",
+  "url": "https://www.metaculus.com/questions/",
+  "ua": "browser",
+  "status": 403,
+  "ct": "text/html; charset=UTF-8",
+  "len": 5736,
+  "head": "<!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content"
+ }
+]

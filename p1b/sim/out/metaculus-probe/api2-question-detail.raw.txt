@@ -1,0 +1,6 @@
+URL: https://www.metaculus.com/api2/questions/1/
+UA: probe
+HTTP 403
+CT: text/plain;charset=UTF-8
+
+Permission Error: The API is only available to authenticated users. Please create an account and use your API token to access the API.
