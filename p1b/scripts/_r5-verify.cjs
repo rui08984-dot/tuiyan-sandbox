@@ -1,0 +1,14 @@
+'use strict';
+const Database = require('E:/music player/p1a-terminal/node_modules/better-sqlite3');
+const db = new Database('E:/music player/p1a-terminal/data/p1a.db', { readonly: true });
+const one = (id) => db.prepare('SELECT id, outcome, substr(resolve_note,1,90) note, resolved_at FROM predictions WHERE id=?').get(id);
+[905, 1873, 1899, 1923, 1102, 1885].forEach((id) => console.log(JSON.stringify(one(id))));
+console.log('--- outcome 分布（本棒新写的 534 行：evidence kind 属新 kind 且已 resolve）---');
+const d = db.prepare("SELECT p.outcome o, COUNT(*) n FROM predictions p WHERE p.resolved_at >= '2026-09-13' GROUP BY o").all();
+console.log(JSON.stringify(d));
+console.log('--- 未结算行里，事件日在未来的抽样（须仍为 pending）---');
+const fut = db.prepare("SELECT p.id, json_extract(e.value,'$.resolve.date') d, json_extract(e.value,'$.resolve.month') m FROM predictions p, json_each(p.evidence_json) e WHERE p.outcome IS NULL AND json_extract(e.value,'$.resolve.kind') IS NOT NULL AND (json_extract(e.value,'$.resolve.date') >= '2026-10-01' OR json_extract(e.value,'$.resolve.month') >= '2026-10') LIMIT 8").all();
+console.log(JSON.stringify(fut));
+const c = db.prepare("SELECT COUNT(*) n FROM predictions p, json_each(p.evidence_json) e WHERE p.outcome IS NOT NULL AND (json_extract(e.value,'$.resolve.date') >= '2026-10-01' OR json_extract(e.value,'$.resolve.month') >= '2026-10')").get().n;
+console.log('已结算且事件日>=2026-10 的行数（应为 0）= ' + c);
+db.close();

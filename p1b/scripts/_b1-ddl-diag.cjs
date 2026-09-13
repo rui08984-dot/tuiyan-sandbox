@@ -1,0 +1,11 @@
+'use strict';
+const fs = require('fs');
+const S = require('/music player/p1b/src/db/predictionsStore'.replace('/music player','E:/music player'));
+const ddl = S.predictionsTableDdl('predictions');
+console.log('--- emitted DDL tail ---');
+console.log(ddl.split('\n').slice(-6).join('\n'));
+console.log('has metric_version: ' + (ddl.indexOf('metric_version') >= 0) + ' | has backtest_batch: ' + (ddl.indexOf('backtest_batch') >= 0));
+const src = fs.readFileSync('E:/music player/p1b/src/db/predictionsStore.js', 'utf8');
+const i = src.indexOf('g2_regime TEXT,');
+console.log('--- source region ---');
+console.log(JSON.stringify(src.slice(i - 4, i + 220)));

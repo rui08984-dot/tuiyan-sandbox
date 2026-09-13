@@ -1,0 +1,14 @@
+'use strict';
+const Database = require('E:/music player/p1a-terminal/node_modules/better-sqlite3');
+const db = new Database('E:/music player/p1a-terminal/data/p1a.db', { readonly: true });
+const q = (sql) => db.prepare(sql).all();
+const kinds = q("SELECT json_extract(e.value,'$.resolve.kind') k, COUNT(*) n FROM predictions p, json_each(p.evidence_json) e WHERE json_extract(e.value,'$.resolve.kind') IS NOT NULL AND p.outcome IS NULL GROUP BY k ORDER BY n DESC");
+const allKinds = q("SELECT json_extract(e.value,'$.resolve.kind') k, COUNT(*) n FROM predictions p, json_each(p.evidence_json) e WHERE json_extract(e.value,'$.resolve.kind') IS NOT NULL GROUP BY k ORDER BY n DESC");
+const tot = q("SELECT COUNT(*) n FROM predictions WHERE outcome IS NULL")[0].n;
+const corpusNull = q("SELECT COUNT(*) n FROM predictions p JOIN games g ON g.id=p.game_id WHERE g.game_type LIKE 'corpus%' AND p.outcome IS NULL")[0].n;
+console.log('unsettled_all=' + tot + ' corpus_unsettled=' + corpusNull);
+console.log('--- unsettled kinds (' + kinds.length + ') ---');
+kinds.forEach(x => console.log(x.n + '\t' + x.k));
+console.log('--- all kinds (' + allKinds.length + ') ---');
+allKinds.forEach(x => console.log(x.n + '\t' + x.k));
+db.close();

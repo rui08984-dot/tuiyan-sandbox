@@ -1,0 +1,16 @@
+'use strict';
+const Database = require('E:/music player/p1a-terminal/node_modules/better-sqlite3');
+const db = new Database('E:/music player/p1a-terminal/data/p1a.db', { readonly: true });
+const rows = db.prepare("SELECT p.id, p.layer, p.engine, p.checklist_hash, p.created_at, p.matures_at, p.statement, json_extract(p.evidence_json,'$[0].kind') ek, json_extract(p.evidence_json,'$[0].resolve.kind') rk FROM predictions p WHERE p.g2_regime='R4'").all();
+const long = rows.filter((r) => { const t1 = new Date(String(r.matures_at) + 'T00:00:00Z').getTime(); const t0 = new Date(String(r.created_at).replace(' ', 'T') + 'Z').getTime(); return isFinite(t1) && isFinite(t0) && (t1 - t0) / 86400000 > 30; });
+console.log('long_horizon(>30d)=' + long.length);
+const grp = (f) => { const o = {}; long.forEach((r) => { const k = f(r); o[k] = (o[k] || 0) + 1; }); return o; };
+console.log('by evidence kind=' + JSON.stringify(grp((r) => r.ek)));
+console.log('by resolve kind=' + JSON.stringify(grp((r) => r.rk)));
+console.log('by checklist_hash=' + JSON.stringify(grp((r) => r.checklist_hash)));
+console.log('by engine=' + JSON.stringify(grp((r) => String(r.engine).replace(/_baserate_forward|_baserate$/, ''))));
+console.log('--- 本批新增（checklist_hash=v3）---');
+for (const r of long.filter((x) => x.checklist_hash === 'v3')) console.log('  id=' + r.id + ' h=' + Math.round((new Date(String(r.matures_at) + 'T00:00:00Z') - new Date(String(r.created_at).replace(' ', 'T') + 'Z')) / 86400000) + 'd mat=' + r.matures_at + ' rk=' + r.rk + ' eng=' + r.engine);
+console.log('--- 旧来源（oct_forward）---');
+console.log('  oct_forward long=' + long.filter((x) => x.ek === 'oct_forward').length);
+db.close();

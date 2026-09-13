@@ -1,0 +1,10 @@
+'use strict';
+const Database = require('E:/music player/p1a-terminal/node_modules/better-sqlite3');
+const db = new Database('E:/music player/p1a-terminal/data/p1a.db', { readonly: true });
+console.log('total predictions=' + db.prepare('SELECT COUNT(*) n FROM predictions').get().n);
+console.log('by g2_regime=' + JSON.stringify(db.prepare("SELECT COALESCE(g2_regime,'(NULL)') g, COUNT(*) n FROM predictions GROUP BY g").all()));
+console.log('烟测点 regime=' + JSON.stringify(db.prepare("SELECT COALESCE(g2_regime,'(NULL)') g, COUNT(*) n FROM predictions WHERE statement LIKE '烟测点%' GROUP BY g").all()));
+console.log('本局狼人 regime=' + JSON.stringify(db.prepare("SELECT COALESCE(g2_regime,'(NULL)') g, COUNT(*) n FROM predictions WHERE statement LIKE '本局狼人阵营胜利' GROUP BY g").all()));
+console.log('R4 with evidence resolve=' + JSON.stringify(db.prepare("SELECT CASE WHEN json_extract(evidence_json,'$[0].resolve.kind') IS NULL THEN 'no-resolve' ELSE 'has-resolve' END k, COUNT(*) n FROM predictions WHERE g2_regime='R4' GROUP BY k").all()));
+console.log('R4 source_type=' + JSON.stringify(db.prepare("SELECT source_type, COUNT(*) n FROM predictions WHERE g2_regime='R4' GROUP BY source_type").all()));
+db.close();

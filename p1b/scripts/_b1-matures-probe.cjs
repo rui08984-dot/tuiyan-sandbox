@@ -1,0 +1,15 @@
+'use strict';
+const Database = require('E:/music player/p1a-terminal/node_modules/better-sqlite3');
+const db = new Database('E:/music player/p1a-terminal/data/p1a.db', { readonly: true });
+console.log('R4 rows=' + db.prepare("SELECT COUNT(*) n FROM predictions WHERE g2_regime='R4'").get().n);
+console.log('R4 matures_at nonnull=' + db.prepare("SELECT COUNT(*) n FROM predictions WHERE g2_regime='R4' AND matures_at IS NOT NULL AND matures_at<>''").get().n);
+const byG = db.prepare("SELECT g2_regime g, COUNT(*) n, SUM(CASE WHEN matures_at IS NOT NULL AND matures_at<>'' THEN 1 ELSE 0 END) mat FROM predictions GROUP BY g").all();
+console.log('by regime=' + JSON.stringify(byG));
+const byLayer = db.prepare("SELECT layer, COUNT(*) n, SUM(CASE WHEN matures_at IS NOT NULL AND matures_at<>'' THEN 1 ELSE 0 END) mat FROM predictions WHERE g2_regime='R4' GROUP BY layer").all();
+console.log('R4 by layer=' + JSON.stringify(byLayer));
+const smp = db.prepare("SELECT p.id, p.layer, p.engine, p.matures_at, p.statement, json_extract(p.evidence_json,'$[0].resolve.date') rd, json_extract(p.evidence_json,'$[0].meta.cutoff') mc FROM predictions p WHERE p.g2_regime='R4' AND p.matures_at IS NOT NULL AND p.matures_at<>'' LIMIT 6").all();
+for (const r of smp) console.log('  id=' + r.id + ' mat=' + r.matures_at + ' rd=' + r.rd + ' mc=' + r.mc + ' eng=' + r.engine + '\n    ' + String(r.statement).slice(0, 130));
+console.log('--- null matures_at sample ---');
+const smp2 = db.prepare("SELECT p.id, p.layer, p.engine, p.g2_regime, p.matures_at, p.statement FROM predictions p WHERE p.g2_regime='R4' AND (p.matures_at IS NULL OR p.matures_at='') LIMIT 4").all();
+for (const r of smp2) console.log('  id=' + r.id + ' g=' + r.g2_regime + ' mat=' + r.matures_at + ' eng=' + r.engine + '\n    ' + String(r.statement).slice(0, 120));
+db.close();

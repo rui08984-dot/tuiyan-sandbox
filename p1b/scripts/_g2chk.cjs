@@ -1,0 +1,3 @@
+const {DatabaseSync:D}=require('node:sqlite');const db=new D('E:/music player/p1a-terminal/data/p1a.db',{readOnly:true});
+console.log('bf:',JSON.stringify(db.prepare("SELECT layer, COUNT(*) c FROM predictions WHERE statement LIKE '%backfill%' GROUP BY layer").all()));
+console.log('rt:',JSON.stringify(db.prepare("SELECT layer, COUNT(*) c FROM predictions WHERE statement NOT LIKE '%backfill%' GROUP BY layer").all()));

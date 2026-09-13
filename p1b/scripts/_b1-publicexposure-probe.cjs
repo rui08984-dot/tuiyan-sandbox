@@ -1,0 +1,12 @@
+'use strict';
+const Database = require('E:/music player/p1a-terminal/node_modules/better-sqlite3');
+const db = new Database('E:/music player/p1a-terminal/data/p1a.db', { readonly: true });
+console.log('public_exposure NULL=' + db.prepare('SELECT COUNT(*) n FROM predictions WHERE public_exposure IS NULL').get().n);
+console.log('public_exposure by value=' + JSON.stringify(db.prepare("SELECT COALESCE(CAST(public_exposure AS TEXT),'(NULL)') v, COUNT(*) n FROM predictions GROUP BY v").all()));
+console.log('NULL by layer=' + JSON.stringify(db.prepare('SELECT layer, COUNT(*) n FROM predictions WHERE public_exposure IS NULL GROUP BY layer ORDER BY n DESC').all()));
+console.log('NULL by ev kind=' + JSON.stringify(db.prepare("SELECT COALESCE(json_extract(evidence_json,'$[0].kind'),'(none)') k, COUNT(*) n FROM predictions WHERE public_exposure IS NULL GROUP BY k ORDER BY n DESC").all()));
+console.log('NULL by batch=' + JSON.stringify(db.prepare("SELECT COALESCE(json_extract(evidence_json,'$[0].batch'),'(none)') b, COUNT(*) n FROM predictions WHERE public_exposure IS NULL GROUP BY b ORDER BY n DESC").all()));
+console.log('NULL by phase=' + JSON.stringify(db.prepare("SELECT COALESCE(json_extract(evidence_json,'$[0].phase'),'(none)') p, COUNT(*) n FROM predictions WHERE public_exposure IS NULL GROUP BY p ORDER BY n DESC").all()));
+console.log('NULL non-R4=' + db.prepare("SELECT COUNT(*) n FROM predictions WHERE public_exposure IS NULL AND (g2_regime IS NOT 'R4' OR g2_regime IS NULL)").get().n);
+console.log('all by layer=' + JSON.stringify(db.prepare('SELECT layer, COUNT(*) n FROM predictions GROUP BY layer ORDER BY n DESC').all()));
+db.close();

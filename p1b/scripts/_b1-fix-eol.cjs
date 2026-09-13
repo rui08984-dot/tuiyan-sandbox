@@ -1,0 +1,11 @@
+'use strict';
+const fs = require('fs');
+const p = 'E:/music player/p1b/src/db/predictionsStore.js';
+let s = fs.readFileSync(p, 'utf8');
+const lone = (s.match(/(?<!\r)\n/g) || []).length;
+s = s.replace(/(?<!\r)\n/g, '\r\n');
+fs.writeFileSync(p, s);
+const lone2 = (fs.readFileSync(p, 'utf8').match(/(?<!\r)\n/g) || []).length;
+console.log('loneLF_before=' + lone + ' after=' + lone2);
+const i = s.indexOf("'  metric_version TEXT,'");
+console.log('DDL block=' + JSON.stringify(s.slice(i - 90, i + 60)));

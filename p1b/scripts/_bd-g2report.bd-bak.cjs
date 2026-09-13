@@ -43,68 +43,6 @@ const db = new DatabaseSync(DB_PATH, { readOnly: true });
 const all = (s) => db.prepare(s).all();
 const one = (s) => db.prepare(s).get();
 
-// ── 口径 B（2026-09-14 · 微步 2）：date_derivations 换算器（additive；依微步 1 契约表扩展）──
-// 行为: resolve.date 存在→原样（现状不变）；缺失→按 kind 查规则换算 effective_date 入池；
-//       有规则但换算失败→仍排除＋计数 failed（不静默丢）；无规则→维持 no_resolve_date。
-const DD_FILE = path.join(ROOT, 'p1b', 'sim', 'out', 'g2-contract-frozen-r4.json');
-const DD_VERSION = '2026-09-14';
-const countsDD = { enabled: false, version: DD_VERSION, file: DD_FILE, sha256: null, previous_sha256: null, rules: 0,
-  derived_rows: 0, derived_by_kind: {}, failed_rows: 0, failed_by_kind: {}, failed_ids_sample: [] };
-function loadDateDerivations() {
-  try {
-    const buf = fs.readFileSync(DD_FILE);
-    countsDD.sha256 = require('crypto').createHash('sha256').update(buf).digest('hex');
-    const doc = JSON.parse(buf.toString('utf8'));
-    const rules = doc.date_derivations || {};
-    countsDD.enabled = Object.keys(rules).length > 0;
-    countsDD.rules = Object.keys(rules).length;
-    countsDD.previous_sha256 = doc.previous_sha256 || null;
-    return rules;
-  } catch (e) { countsDD.error = '契约表加载失败: ' + e.message; return {}; }
-}
-const DD_RULES = loadDateDerivations();
-const ddPad2 = (n) => String(n).padStart(2, '0');
-function ddAddDays(ds, n) { const t = new Date(ds + 'T00:00:00Z').getTime(); return isNaN(t) ? null : new Date(t + n * 86400000).toISOString().slice(0, 10); }
-function ddMonthlyNextEnd(s) { const m = /^([0-9]{4})-([0-9]{2})$/.exec(s); if (!m) return null;
-  const y = Number(m[1]), mo = Number(m[2]); if (mo < 1 || mo > 12) return null;
-  let ny = y, nm = mo + 1; if (nm > 12) { nm = 1; ny++; }
-  return ny + '-' + ddPad2(nm) + '-' + ddPad2(new Date(Date.UTC(ny, nm, 0)).getUTCDate()); }
-function ddEpiweek(s) { const m = /^([0-9]{4})([0-9]{2})$/.exec(s); if (!m) return null;
-  const y = Number(m[1]), n = Number(m[2]); if (n < 1 || n > 53) return null;
-  const dow = new Date(Date.UTC(y, 0, 4)).getUTCDay(); // 1月4日星期（周日=0）；MMWR 第1周=含1/4、周日起始
-  const s1 = ddAddDays(y + '-01-04', 6 - dow); return s1 ? ddAddDays(s1, (n - 1) * 7) : null; } // S1=第1周周六
-function ddBomWeek(s) { const m = /^([0-9]{4})W([0-9]{2})$/.exec(s); if (!m) return null;
-  const n = Number(m[2]); if (n < 1 || n > 53) return null;
-  return ddAddDays(m[1] + '-01-04', (n - 1) * 7); } // BOM 周末末日=年内第 NN 个周日（2026 W1 末=01-04，微步1 网页实测）
-function ddDraw(s) { // 锚期反推（仅 2026 年段有锚，跨年需新锚——微步1 收据）：7位=SSQ 日/二/四；5位=DLT 一/三/六
-  const cfg = { 7: { yl: 4, year: 2026, issue: 106, date: '2026-09-13', offs: [0, 2, 4] }, 5: { yl: 2, year: 26, issue: 105, date: '2026-09-14', offs: [0, 2, 5] } }[s.length];
-  if (!cfg) return null;
-  const y = Number(s.slice(0, cfg.yl)); if (y !== cfg.year) return null; // 7位年=2026（4位）；5位年段=26（2位）
-  const k = Number(s.slice(cfg.yl)) - cfg.issue;
-  return ddAddDays(cfg.date, Math.floor(k / 3) * 7 + cfg.offs[((k % 3) + 3) % 3]); }
-function tryDerive(r) {
-  let kind = null, resolve = null;
-  try { if (r.rj) { const o = JSON.parse(r.rj); resolve = o.resolve || null; kind = resolve ? resolve.kind : null; } }
-  catch (e) { return { ok: false, kind: null, reason: 'resolve_json_parse' }; }
-  if (!kind) return { ok: false, kind: null, reason: 'no_kind' };
-  const rule = DD_RULES[kind];
-  if (!rule) return { ok: false, kind: kind, reason: 'no_rule' };
-  const sv = resolve[rule.source_key];
-  if (sv === undefined || sv === null) return { ok: false, kind: kind, reason: 'source_key_missing:' + rule.source_key };
-  const s = String(sv); let out = null;
-  if (rule.granularity === 'daily') out = /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(s) ? s : null;
-  else if (rule.granularity === 'monthly') out = ddMonthlyNextEnd(s);
-  else if (rule.granularity === 'yearly') out = /^[0-9]{4}$/.test(s) ? (Number(s) + 1) + '-12-31' : null;
-  else if (rule.granularity === 'weekly') { // 按源值格式分流：YYYYWW=MMWR周六；YYYYWNN=BOM 周日末日；日期=窗口末日(+6)
-    if (/^[0-9]{6}$/.test(s)) out = ddEpiweek(s);
-    else if (/^[0-9]{4}W[0-9]{2}$/.test(s)) out = ddBomWeek(s);
-    else if (/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(s)) out = ddAddDays(s, 6);
-  } else if (rule.granularity === 'draw') out = ddDraw(s);
-  if (!out) return { ok: false, kind: kind, reason: 'derive_failed:' + rule.granularity + ':' + s };
-  return { ok: true, kind: kind, date: out };
-}
-
-
 // D-8.1：只读归一视图读取器——仅在 --include-intake 时调用；结果只进披露节，不参与 Q1-Q5。
 function readIntakeLayer() {
   try {
@@ -142,7 +80,6 @@ function parseBaseRate(note) {
 const ROWS_SQL = "SELECT p.id, p.g2_regime, p.layer, p.created_at, p.matures_at, p.resolved_at, "
   + "p.outcome, p.assigned_prob, p.statement, p.checklist_hash, p.tautology, "
   + "(SELECT json_extract(e.value,'$.resolve.date') FROM json_each(p.evidence_json) e WHERE json_extract(e.value,'$.resolve.date') IS NOT NULL LIMIT 1) AS rd, "
-  + "(SELECT e.value FROM json_each(p.evidence_json) e WHERE json_extract(e.value,'$.resolve.kind') IS NOT NULL LIMIT 1) AS rj, "
   + "(SELECT json_extract(e.value,'$.baseRateNote') FROM json_each(p.evidence_json) e WHERE json_extract(e.value,'$.baseRateNote') IS NOT NULL LIMIT 1) AS brn "
   + "FROM predictions p WHERE " + REGIME + " AND " + NOT_BACKTEST;
 const rows = all(ROWS_SQL);
@@ -176,29 +113,13 @@ for (const r of rows) {
   else if (hDays !== null && hDays < 0) allHorizon.past_or_negative++;
   else if (hDays !== null) allHorizon[hDays <= 7 ? 'short' : (hDays <= 30 ? 'mid' : 'long')]++;
   // 细则 B：cutoff 合规判定按题源分流（forward/realtime=created_at；backfill=matures_at-1 天）
-  let rdEff = r.rd, ddInfo = null;
-  if (!rdEff) {
-    const dd = tryDerive(r);
-    if (dd.ok) { rdEff = dd.date; ddInfo = dd; countsDD.derived_rows++; bump(countsDD.derived_by_kind, dd.kind); }
-    else if (dd.reason === 'no_rule' || dd.reason === 'no_kind' || dd.reason === 'resolve_json_parse') { bump(counts.excluded, 'no_resolve_date'); continue; }
-    else {
-      bump(counts.excluded, 'no_resolve_date');
-      countsDD.failed_rows++; bump(countsDD.failed_by_kind, dd.kind || 'unknown');
-      if (countsDD.failed_ids_sample.length < 10) countsDD.failed_ids_sample.push(r.id);
-      continue;
-    }
-  }
+  if (!r.rd) { bump(counts.excluded, 'no_resolve_date'); continue; }
   let cutoff = null, cutoffMode = null;
   if (bf) {
-    if (!hasMat) { bump(counts.excluded, 'backfill_no_forwardLooking'); continue; }
+    if (!hasMat) { bump(counts.excluded, 'backfill_no_matures_at'); continue; }
     cutoff = minusOneDay(r.matures_at); cutoffMode = 'matures_at_minus_1d';
   } else { cutoff = String(r.created_at).slice(0, 19); cutoffMode = 'created_at'; }
-  if (cutoff === null || !(String(cutoff) < String(rdEff))) { bump(counts.excluded, 'cutoff_not_before_event'); continue; }
-  if (ddInfo && r.created_at) { // 口径 B：derived 行 horizon 按发布日口径（effective_date - created_at）
-    const t1 = new Date(rdEff + 'T00:00:00Z').getTime();
-    const t0 = new Date(String(r.created_at).replace(' ', 'T') + 'Z').getTime();
-    if (!isNaN(t1) && !isNaN(t0)) hDays = (t1 - t0) / 86400000;
-  }
+  if (cutoff === null || !(String(cutoff) < String(r.rd))) { bump(counts.excluded, 'cutoff_not_before_event'); continue; }
   if (Number(r.tautology) === 1) { counts.tautology_rows++; continue; }
   const pr = parseBaseRate(r.brn);
   if (!pr) counts.b_unparsed_ids.push(r.id);
@@ -207,7 +128,7 @@ for (const r of rows) {
   const bucket = hDays === null ? 'unknown' : (hDays < 0 ? 'past_or_negative' : (hDays <= 7 ? 'short' : (hDays <= 30 ? 'mid' : 'long')));
   pool.push({ id: r.id, layer: r.layer, created_at: r.created_at, matures_at: r.matures_at, resolved_at: r.resolved_at,
     resolved: r.outcome !== null && r.outcome !== undefined, outcome: r.outcome, assigned_prob: r.assigned_prob,
-    backfill: bf, cutoff: cutoff, cutoff_mode: cutoffMode, effective_date: rdEff, rd_derived: ddInfo ? ddInfo.kind : null,
+    backfill: bf, cutoff: cutoff, cutoff_mode: cutoffMode,
     b: bb, b_pattern: pr ? pr.pattern : null,
     horizon_days: hDays === null ? null : Math.round(hDays * 1000) / 1000, bucket: bucket, hardest: hardest });
 }
@@ -233,10 +154,6 @@ const Q1 = { id: 1, name: '合格题累计', threshold: '>=60', value: eligible,
   by_layer: layerDist,
   note: '细则 B 落地：backfill 计入 ①（cutoff=matures_at-1 天）；两源分列见 qualified_realtime/qualified_backfill。' };
 Q1.verdict = Q1.pass ? 'PASS' : 'FAIL';
-Q1.date_derivation = { version: DD_VERSION, enabled: countsDD.enabled, contract_sha256: countsDD.sha256, rules: countsDD.rules,
-  derived_rows: countsDD.derived_rows, derived_by_kind: countsDD.derived_by_kind,
-  failed_rows: countsDD.failed_rows, failed_by_kind: countsDD.failed_by_kind, failed_ids_sample: countsDD.failed_ids_sample,
-  note: '口径 B（2026-09-14）：无 resolve.date 但 date_derivations[kind] 可换算的题以 effective_date（发布日口径）入池；cutoff 判定不变（细则 B）；derived 行 horizon 按发布日口径；换算失败行计入 failed_*（不静默丢）' };
 
 const Q3 = { id: 3, name: 'horizon 三层下限', threshold: { short_le_7d: 20, mid_8_30d: 20, long_gt_30d: 10 },
   basis: 'matures_at - created_at 分桶（对 ① 合格题池）；backfill 题 matures_at 在历史 ⇒ 落 past_or_negative 桶，不计入 horizon',
@@ -396,11 +313,6 @@ if (INCLUDE_INTAKE) {
 L.push('[①] 合格题累计 >=60  -> ' + Q1.verdict + '   值 ' + Q1.value + '（resolved ' + Q1.qualified_resolved + '；realtime ' + Q1.qualified_realtime + ' / backfill ' + Q1.qualified_backfill + '）');
 L.push('    排除: ' + Object.keys(counts.excluded).map((k) => k + ' ' + counts.excluded[k]).join(' | ') + ' | tautology ' + counts.tautology_rows);
 L.push('    ' + Q1.note);
-if (countsDD.enabled) {
-  L.push('    [口径B·date_derivation v' + DD_VERSION + '] 契约表 sha256=' + String(countsDD.sha256 || '').slice(0, 12) + ' | 规则 ' + countsDD.rules + ' kind');
-  L.push('    换算入池 ' + countsDD.derived_rows + ' 行 | 按 kind: ' + Object.keys(countsDD.derived_by_kind).map((k) => k + ' ' + countsDD.derived_by_kind[k]).join(' / '));
-  L.push('    换算失败 ' + countsDD.failed_rows + ' 行' + (countsDD.failed_rows ? '（' + Object.keys(countsDD.failed_by_kind).map((k) => k + ' ' + countsDD.failed_by_kind[k]).join(' / ') + '）样本id: ' + countsDD.failed_ids_sample.join(',') : ''));
-}
 L.push('[②] 抽检合格率 >=70%  -> ' + Q2.verdict + '   值 ' + (Q2.status === 'done' ? pct(Q2.rate) : 'not-yet') + '   ' + (Q2.reason || ('清单 ' + Q2.file + ' n=' + Q2.n + ' ok=' + Q2.ok)));
 if (Q2.missing) for (const m of Q2.missing) L.push('    缺: ' + m);
 L.push('    抽样（#6e 双轨统一）: 候选池＝分层随机抽样程序产出（不再单列 every-10th）；seed/分层配额/命中率见 audit meta.sampling');
@@ -454,7 +366,6 @@ const report = {
     red_team: 'docs/specs/红队R2-复核-20260913.md §2.1/§2.3', db: DB_PATH, mode: 'readonly',
     generated_at: new Date().toISOString(), regime: 'R4', gate: gate,
     verdicts: { q1: Q1.verdict, q2: Q2.verdict, q3: Q3.verdict, q4: Q4.verdict, q5: Q5.verdict },
-    date_derivation_version: DD_VERSION, contract_sha256: countsDD.sha256,
     include_intake: INCLUDE_INTAKE, intake_scope: 'intake_questions 未入账（非 G2 口径，不参与达标）' },
   counts: counts,
   R4: { q1_qualified: Q1, q2_audit: Q2, q3_horizon: Q3, q4_difficulty: Q4, q5_monthly: Q5,

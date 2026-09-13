@@ -16,6 +16,7 @@ const ROOT = path.resolve(__dirname, '..', '..');
 function arg(n, d) { const i = process.argv.indexOf('--' + n); return i >= 0 && process.argv[i + 1] && process.argv[i + 1].slice(0, 2) !== '--' ? process.argv[i + 1] : d; }
 const RUN_T = arg('run-treatment', 'f4f760aa50e1');
 const RUN_B = arg('run-baseline', 'ca1b5cdbddfc');
+const RUN_PREFIX = arg('run-prefix', null); // additive（命题A全量计分防呆）：设了就在两臂 SQL 追加 run_id LIKE 前缀闸，防烟测批次混入
 const NB = Number(arg('boot', '1000'));
 const SEED = Number(arg('seed', '987654321'));
 const BINS = Number(arg('bins', '10'));
@@ -42,9 +43,10 @@ function murphy(probs, ys, nb) {
 const SQL = 'SELECT v.prediction_id AS pid, v.prompt_variant AS variant, v.temperature AS temp, v.model AS model, '
   + 'v.implied_prob AS prob, p.outcome AS outcome, p.layer AS layer, g.source AS gsrc '
   + 'FROM verdicts v JOIN predictions p ON p.id = v.prediction_id JOIN games g ON g.id = p.game_id '
-  + "WHERE v.run_id = ? AND v.implied_prob IS NOT NULL AND p.outcome IN ('true','false')";
-const aRows = db.prepare(SQL).all(RUN_T);
-const bRows = db.prepare(SQL).all(RUN_B);
+  + "WHERE v.run_id = ? AND v.implied_prob IS NOT NULL AND p.outcome IN ('true','false')"
+  + (RUN_PREFIX ? " AND v.run_id LIKE ?" : '');
+const aRows = RUN_PREFIX ? db.prepare(SQL).all(RUN_T, RUN_PREFIX + '%') : db.prepare(SQL).all(RUN_T);
+const bRows = RUN_PREFIX ? db.prepare(SQL).all(RUN_B, RUN_PREFIX + '%') : db.prepare(SQL).all(RUN_B);
 const key = (r) => r.pid + '|' + r.variant + '|' + r.temp + '|' + r.model;
 const bMap = new Map(bRows.map((r) => [key(r), r]));
 const pairs = [];
@@ -52,20 +54,36 @@ for (const ra of aRows) {
   const rb = bMap.get(key(ra)); if (!rb) continue;
   pairs.push({ pid: ra.pid, variant: ra.variant, layer: ra.layer, gsrc: ra.gsrc, y: ra.outcome === 'true' ? 1 : 0, pa: Number(ra.prob), pb: Number(rb.prob) });
 }
-const n = pairs.length;
-const bT = n ? pairs.reduce((s, r) => s + brier(r.pa, r.y), 0) / n : null;
-const bB = n ? pairs.reduce((s, r) => s + brier(r.pb, r.y), 0) / n : null;
+function stats(sub) { // additive：抽成函数以便 L1/L6 分层复用（每次重实例化同种子=确定性）
+  const m = sub.length;
+  const bT2 = m ? sub.reduce((s, r) => s + brier(r.pa, r.y), 0) / m : null;
+  const bB2 = m ? sub.reduce((s, r) => s + brier(r.pb, r.y), 0) / m : null;
+  const dd = sub.map((r) => brier(r.pb, r.y) - brier(r.pa, r.y));
+  const dm = m ? dd.reduce((s, x) => s + x, 0) / m : null;
+  const sd = m > 1 ? Math.sqrt(dd.reduce((s, x) => s + (x - dm) * (x - dm), 0) / (m - 1)) : null;
+  const rnd = rng(SEED); const bt = [];
+  for (let i = 0; i < NB; i++) { let s = 0; for (let j = 0; j < m; j++) s += dd[Math.floor(rnd() * m)]; bt.push(m ? s / m : 0); }
+  bt.sort((x, y) => x - y);
+  const c2 = m ? { lb: qtl(bt, 0.025), ub: qtl(bt, 0.975), B: NB, seed: SEED, lb_gt_0: qtl(bt, 0.025) > 0 } : { lb: null, ub: null, B: NB, seed: SEED, lb_gt_0: false };
+  return { n: m, brier_treatment: bT2, brier_baseline: bB2, delta_brier: dm, sd_delta: sd, ci95: c2,
+    murphy_treatment: murphy(sub.map((r) => r.pa), sub.map((r) => r.y), BINS),
+    murphy_baseline: murphy(sub.map((r) => r.pb), sub.map((r) => r.y), BINS) };
+}
+const overall = stats(pairs);
+const n = overall.n;
+const bT = overall.brier_treatment;
+const bB = overall.brier_baseline;
 const deltas = pairs.map((r) => brier(r.pb, r.y) - brier(r.pa, r.y));
-const dMean = n ? deltas.reduce((s, x) => s + x, 0) / n : null;
-const rand = rng(SEED); const boot = [];
-for (let i = 0; i < NB; i++) { let s = 0; for (let j = 0; j < n; j++) s += deltas[Math.floor(rand() * n)]; boot.push(n ? s / n : 0); }
-boot.sort((x, y) => x - y);
-const ci = n ? { lb: qtl(boot, 0.025), ub: qtl(boot, 0.975), B: NB, seed: SEED, lb_gt_0: qtl(boot, 0.025) > 0 } : { lb: null, ub: null, B: NB, seed: SEED, lb_gt_0: false };
+const dMean = overall.delta_brier;
+const ci = overall.ci95;
+const layers = {}; // additive：L1/L6 分层分区报（PREREG §3「分别报、禁混算」）
+for (const lyr of Array.from(new Set(pairs.map((r) => r.layer))).sort()) layers[lyr] = stats(pairs.filter((r) => r.layer === lyr));
 const out = { script: 'p1b/scripts/prereg-a-bootstrap.cjs',
   prereg: { file: '.scratch/forecast-debate/PREREG-命题A-3.0消融-v1.md', section: '§3/§4', sha256: '5d6907d1910acab842b92a172714d44b13cadf474f33d45008ea67f0a6098845' },
   pairing_key: 'prediction_id×prompt_variant×temperature×model',
   arms: { treatment: RUN_T, baseline: RUN_B }, delta_definition: 'Brier(baseline) − Brier(treatment)（正=治疗臂更优）',
   n_pairs: n, brier_treatment: bT, brier_baseline: bB, delta_brier: dMean, ci95: ci, murphy_bins: BINS,
+  sd_delta: overall.sd_delta, run_prefix: RUN_PREFIX, layers: layers,
   murphy_treatment: murphy(pairs.map((r) => r.pa), pairs.map((r) => r.y), BINS),
   murphy_baseline: murphy(pairs.map((r) => r.pb), pairs.map((r) => r.y), BINS),
   note: 'dry 自检=在存量 R-B/R-C verdicts 上验证配对/CI/Murphy 管线（零 LLM）；非 3.0 消融结果。', generated_at: new Date().toISOString() };
@@ -75,6 +93,8 @@ L.push('  n_pairs=' + n + ' | Brier_treatment=' + (bT === null ? 'n/a' : bT.toFi
 L.push('  Δ 95% CI=[' + (ci.lb === null ? 'n/a' : ci.lb.toFixed(5)) + ',' + (ci.ub === null ? 'n/a' : ci.ub.toFixed(5)) + '] B=' + NB + ' seed=' + SEED + ' | 下界>0: ' + ci.lb_gt_0);
 L.push('  Murphy(treatment) reliability=' + out.murphy_treatment.reliability.toFixed(5) + ' resolution=' + out.murphy_treatment.resolution.toFixed(5) + ' uncertainty=' + out.murphy_treatment.uncertainty.toFixed(5));
 L.push('  Murphy(baseline)  reliability=' + out.murphy_baseline.reliability.toFixed(5) + ' resolution=' + out.murphy_baseline.resolution.toFixed(5) + ' uncertainty=' + out.murphy_baseline.uncertainty.toFixed(5));
+for (const lyr of Object.keys(layers)) { const s = layers[lyr]; const f = (x) => (x === null || x === undefined) ? 'n/a' : Number(x).toFixed(5);
+  L.push('  [' + lyr + '] n=' + s.n + ' Δ=' + f(s.delta_brier) + ' sd=' + f(s.sd_delta) + ' CI=[' + f(s.ci95.lb) + ',' + f(s.ci95.ub) + '] 下界>0:' + s.ci95.lb_gt_0 + ' resT=' + f(s.murphy_treatment.resolution) + ' resB=' + f(s.murphy_baseline.resolution)); }
 L.push('  ' + out.note);
 const text = L.join('\n');
 console.log(text);
