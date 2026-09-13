@@ -1,0 +1,4286 @@
+{
+ "meta": {
+  "regime": "R4",
+  "detail": "§4.2.1 细则 D（D-2 范围／D-3 三段式／D-4 诚实标注）",
+  "spec": "docs/specs/2026-09-11-万物可预测性审计器-design.md §4.2.1",
+  "pool_n": 1046,
+  "sample_n": 105,
+  "sample_rate": 0.10038240917782026,
+  "sampling": {
+   "method": "分层随机 layer×horizon；LCG 种子 987654321；每层 min 1；long 桶保底 ceil(10%)；层内按 id 稳定序 Fisher-Yates",
+   "strata": {
+    "L3|short": {
+     "n": 30,
+     "q": 30.200000000000003,
+     "rem": 0.20000000000000284
+    },
+    "L3|past": {
+     "n": 36,
+     "q": 36.4,
+     "rem": 0.3999999999999986
+    },
+    "L3|mid": {
+     "n": 5,
+     "q": 4.800000000000001,
+     "rem": 0.8000000000000007
+    },
+    "L2|past": {
+     "n": 16,
+     "q": 16.5,
+     "rem": 0.5
+    },
+    "L2|short": {
+     "n": 12,
+     "q": 11.700000000000001,
+     "rem": 0.7000000000000011
+    },
+    "L2|mid": {
+     "n": 3,
+     "q": 2.9000000000000004,
+     "rem": 0.9000000000000004
+    },
+    "L3|long": {
+     "n": 1,
+     "q": 1,
+     "rem": 0
+    },
+    "L2|long": {
+     "n": 2,
+     "q": 1.1,
+     "rem": 0.10000000000000009
+    }
+   },
+   "long_ids": [
+    985,
+    988,
+    1008
+   ]
+  },
+  "review_composition": {
+   "machine": 105,
+   "agent_semantic": 105,
+   "user": 0
+  },
+  "honesty": "非全人工复核：机器段 105 题（脚本逐题）+ 代理判据语义段 105 题 + 用户人类校准段 0 题（占位，待抽验≥10）。代理复核≠独立人类审计，残余风险随 ② 结论一并披露。",
+  "human_calibration_required": {
+   "min_n": 10,
+   "agree_threshold": 0.9,
+   "note": "按 D-3③：与代理语义段一致率 ≥90% 则采信 ② 段结果；否则按不一致率扩大人工比例。"
+  },
+  "machine_stats": {
+   "kind_aware_pass": 97,
+   "kind_aware_reject": 8,
+   "strict_four_fields_pass": 87,
+   "base_rate_unverifiable_ids": [
+    466,
+    476,
+    480,
+    486,
+    490,
+    524,
+    540,
+    542
+   ]
+  },
+  "generated_at": "2026-09-13T07:24:44.738Z"
+ },
+ "human_calibration": {
+  "n": null,
+  "agreed": null,
+  "rate": null
+ },
+ "summary": {
+  "n": 105,
+  "pass": 97,
+  "reject": 8,
+  "rate": 0.9238095238095239,
+  "threshold": 0.7,
+  "pass_gate": true
+ },
+ "items": [
+  {
+   "id": 466,
+   "layer": "L3",
+   "horizon": "short",
+   "kind": true,
+   "event_date": true,
+   "base_rate": null,
+   "machine": {
+    "pass": false,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": false,
+    "field_ok": false,
+    "threshold_ok": true,
+    "target_fields": [
+     "threshold_c",
+     "lat"
+    ],
+    "strict_four": false,
+    "base_in_band": false,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "基率未落带/不可核验",
+     "strict4 不全(URL/field/threshold/cmp)"
+    ]
+   },
+   "semantic": {
+    "pass": false,
+    "reason": "无 baseRateNote ⇒ Q0-3 基率不可核验"
+   },
+   "pass": false,
+   "verdict": "REJECT",
+   "reason": "机器段 REJECT[基率未落带/不可核验;strict4 不全(URL/field/threshold/cmp)]；语义段 REJECT：无 baseRateNote ⇒ Q0-3 基率不可核验"
+  },
+  {
+   "id": 476,
+   "layer": "L3",
+   "horizon": "past",
+   "kind": true,
+   "event_date": true,
+   "base_rate": null,
+   "machine": {
+    "pass": false,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": false,
+    "field_ok": false,
+    "threshold_ok": true,
+    "target_fields": [
+     "threshold_c",
+     "lat"
+    ],
+    "strict_four": false,
+    "base_in_band": false,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "基率未落带/不可核验",
+     "strict4 不全(URL/field/threshold/cmp)"
+    ]
+   },
+   "semantic": {
+    "pass": false,
+    "reason": "无 baseRateNote ⇒ Q0-3 基率不可核验"
+   },
+   "pass": false,
+   "verdict": "REJECT",
+   "reason": "机器段 REJECT[基率未落带/不可核验;strict4 不全(URL/field/threshold/cmp)]；语义段 REJECT：无 baseRateNote ⇒ Q0-3 基率不可核验"
+  },
+  {
+   "id": 480,
+   "layer": "L3",
+   "horizon": "past",
+   "kind": true,
+   "event_date": true,
+   "base_rate": null,
+   "machine": {
+    "pass": false,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": false,
+    "field_ok": false,
+    "threshold_ok": true,
+    "target_fields": [
+     "threshold_c",
+     "lat"
+    ],
+    "strict_four": false,
+    "base_in_band": false,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "基率未落带/不可核验",
+     "strict4 不全(URL/field/threshold/cmp)"
+    ]
+   },
+   "semantic": {
+    "pass": false,
+    "reason": "无 baseRateNote ⇒ Q0-3 基率不可核验"
+   },
+   "pass": false,
+   "verdict": "REJECT",
+   "reason": "机器段 REJECT[基率未落带/不可核验;strict4 不全(URL/field/threshold/cmp)]；语义段 REJECT：无 baseRateNote ⇒ Q0-3 基率不可核验"
+  },
+  {
+   "id": 486,
+   "layer": "L3",
+   "horizon": "past",
+   "kind": true,
+   "event_date": true,
+   "base_rate": null,
+   "machine": {
+    "pass": false,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": false,
+    "field_ok": false,
+    "threshold_ok": true,
+    "target_fields": [
+     "threshold_c",
+     "lat"
+    ],
+    "strict_four": false,
+    "base_in_band": false,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "基率未落带/不可核验",
+     "strict4 不全(URL/field/threshold/cmp)"
+    ]
+   },
+   "semantic": {
+    "pass": false,
+    "reason": "无 baseRateNote ⇒ Q0-3 基率不可核验"
+   },
+   "pass": false,
+   "verdict": "REJECT",
+   "reason": "机器段 REJECT[基率未落带/不可核验;strict4 不全(URL/field/threshold/cmp)]；语义段 REJECT：无 baseRateNote ⇒ Q0-3 基率不可核验"
+  },
+  {
+   "id": 490,
+   "layer": "L3",
+   "horizon": "past",
+   "kind": true,
+   "event_date": true,
+   "base_rate": null,
+   "machine": {
+    "pass": false,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": false,
+    "field_ok": false,
+    "threshold_ok": true,
+    "target_fields": [
+     "threshold_c",
+     "lat"
+    ],
+    "strict_four": false,
+    "base_in_band": false,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "基率未落带/不可核验",
+     "strict4 不全(URL/field/threshold/cmp)"
+    ]
+   },
+   "semantic": {
+    "pass": false,
+    "reason": "无 baseRateNote ⇒ Q0-3 基率不可核验"
+   },
+   "pass": false,
+   "verdict": "REJECT",
+   "reason": "机器段 REJECT[基率未落带/不可核验;strict4 不全(URL/field/threshold/cmp)]；语义段 REJECT：无 baseRateNote ⇒ Q0-3 基率不可核验"
+  },
+  {
+   "id": 524,
+   "layer": "L3",
+   "horizon": "past",
+   "kind": true,
+   "event_date": true,
+   "base_rate": null,
+   "machine": {
+    "pass": false,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": false,
+    "field_ok": false,
+    "threshold_ok": true,
+    "target_fields": [
+     "threshold_c",
+     "lat"
+    ],
+    "strict_four": false,
+    "base_in_band": false,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "基率未落带/不可核验",
+     "strict4 不全(URL/field/threshold/cmp)"
+    ]
+   },
+   "semantic": {
+    "pass": false,
+    "reason": "无 baseRateNote ⇒ Q0-3 基率不可核验"
+   },
+   "pass": false,
+   "verdict": "REJECT",
+   "reason": "机器段 REJECT[基率未落带/不可核验;strict4 不全(URL/field/threshold/cmp)]；语义段 REJECT：无 baseRateNote ⇒ Q0-3 基率不可核验"
+  },
+  {
+   "id": 540,
+   "layer": "L3",
+   "horizon": "past",
+   "kind": true,
+   "event_date": true,
+   "base_rate": null,
+   "machine": {
+    "pass": false,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": false,
+    "field_ok": false,
+    "threshold_ok": true,
+    "target_fields": [
+     "threshold_c",
+     "lat"
+    ],
+    "strict_four": false,
+    "base_in_band": false,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "基率未落带/不可核验",
+     "strict4 不全(URL/field/threshold/cmp)"
+    ]
+   },
+   "semantic": {
+    "pass": false,
+    "reason": "无 baseRateNote ⇒ Q0-3 基率不可核验"
+   },
+   "pass": false,
+   "verdict": "REJECT",
+   "reason": "机器段 REJECT[基率未落带/不可核验;strict4 不全(URL/field/threshold/cmp)]；语义段 REJECT：无 baseRateNote ⇒ Q0-3 基率不可核验"
+  },
+  {
+   "id": 542,
+   "layer": "L3",
+   "horizon": "past",
+   "kind": true,
+   "event_date": true,
+   "base_rate": null,
+   "machine": {
+    "pass": false,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": false,
+    "field_ok": false,
+    "threshold_ok": true,
+    "target_fields": [
+     "threshold_c",
+     "lat"
+    ],
+    "strict_four": false,
+    "base_in_band": false,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "基率未落带/不可核验",
+     "strict4 不全(URL/field/threshold/cmp)"
+    ]
+   },
+   "semantic": {
+    "pass": false,
+    "reason": "无 baseRateNote ⇒ Q0-3 基率不可核验"
+   },
+   "pass": false,
+   "verdict": "REJECT",
+   "reason": "机器段 REJECT[基率未落带/不可核验;strict4 不全(URL/field/threshold/cmp)]；语义段 REJECT：无 baseRateNote ⇒ Q0-3 基率不可核验"
+  },
+  {
+   "id": 632,
+   "layer": "L3",
+   "horizon": "short",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.45,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": false,
+    "field_ok": false,
+    "threshold_ok": true,
+    "target_fields": [
+     "threshold_c",
+     "lat"
+    ],
+    "strict_four": false,
+    "base_in_band": true,
+    "slug_present": false,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "strict4 不全(URL/field/threshold/cmp)"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "北京09-14最高温>27：对象/日期/阈值明确，cutoff早于事件，b=0.45在带"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：北京09-14最高温>27：对象/日期/阈值明确，cutoff早于事件，b=0.45在带"
+  },
+  {
+   "id": 639,
+   "layer": "L3",
+   "horizon": "short",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.583,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": false,
+    "field_ok": false,
+    "threshold_ok": true,
+    "target_fields": [
+     "threshold_c",
+     "lat"
+    ],
+    "strict_four": false,
+    "base_in_band": true,
+    "slug_present": false,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "strict4 不全(URL/field/threshold/cmp)"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "广州09-14>31：判据明确，cutoff早于事件，b=0.583"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：广州09-14>31：判据明确，cutoff早于事件，b=0.583"
+  },
+  {
+   "id": 643,
+   "layer": "L3",
+   "horizon": "mid",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.583,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": false,
+    "field_ok": false,
+    "threshold_ok": true,
+    "target_fields": [
+     "threshold_c",
+     "lat"
+    ],
+    "strict_four": false,
+    "base_in_band": true,
+    "slug_present": false,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "strict4 不全(URL/field/threshold/cmp)"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "广州09-21>31（中horizon）：判据明确，b=0.583"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：广州09-21>31（中horizon）：判据明确，b=0.583"
+  },
+  {
+   "id": 666,
+   "layer": "L3",
+   "horizon": "mid",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.557,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": false,
+    "field_ok": false,
+    "threshold_ok": true,
+    "target_fields": [
+     "threshold_c",
+     "lat"
+    ],
+    "strict_four": false,
+    "base_in_band": true,
+    "slug_present": false,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "strict4 不全(URL/field/threshold/cmp)"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "首尔09-27>25：判据明确，b=0.557"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：首尔09-27>25：判据明确，b=0.557"
+  },
+  {
+   "id": 667,
+   "layer": "L3",
+   "horizon": "short",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.67,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": false,
+    "field_ok": false,
+    "threshold_ok": true,
+    "target_fields": [
+     "threshold_c",
+     "lat"
+    ],
+    "strict_four": false,
+    "base_in_band": true,
+    "slug_present": false,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "strict4 不全(URL/field/threshold/cmp)"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "新加坡09-14>29：判据明确，b=0.67"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：新加坡09-14>29：判据明确，b=0.67"
+  },
+  {
+   "id": 668,
+   "layer": "L3",
+   "horizon": "short",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.67,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": false,
+    "field_ok": false,
+    "threshold_ok": true,
+    "target_fields": [
+     "threshold_c",
+     "lat"
+    ],
+    "strict_four": false,
+    "base_in_band": true,
+    "slug_present": false,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "strict4 不全(URL/field/threshold/cmp)"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "新加坡09-15>29：判据明确，b=0.67"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：新加坡09-15>29：判据明确，b=0.67"
+  },
+  {
+   "id": 685,
+   "layer": "L3",
+   "horizon": "mid",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.467,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": false,
+    "field_ok": false,
+    "threshold_ok": true,
+    "target_fields": [
+     "threshold_c",
+     "lat"
+    ],
+    "strict_four": false,
+    "base_in_band": true,
+    "slug_present": false,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "strict4 不全(URL/field/threshold/cmp)"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "伦敦09-21>20：判据明确，b=0.467"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：伦敦09-21>20：判据明确，b=0.467"
+  },
+  {
+   "id": 703,
+   "layer": "L3",
+   "horizon": "short",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.45299999999999996,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": false,
+    "field_ok": false,
+    "threshold_ok": true,
+    "target_fields": [
+     "threshold_c",
+     "lat"
+    ],
+    "strict_four": false,
+    "base_in_band": true,
+    "slug_present": false,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "strict4 不全(URL/field/threshold/cmp)"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "洛杉矶09-15>31：判据明确，b=0.453"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：洛杉矶09-15>31：判据明确，b=0.453"
+  },
+  {
+   "id": 713,
+   "layer": "L3",
+   "horizon": "mid",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.48700000000000004,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": false,
+    "field_ok": false,
+    "threshold_ok": true,
+    "target_fields": [
+     "threshold_c",
+     "lat"
+    ],
+    "strict_four": false,
+    "base_in_band": true,
+    "slug_present": false,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "strict4 不全(URL/field/threshold/cmp)"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "开罗09-21>36：判据明确，b=0.487"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：开罗09-21>36：判据明确，b=0.487"
+  },
+  {
+   "id": 718,
+   "layer": "L3",
+   "horizon": "short",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.5,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": false,
+    "field_ok": false,
+    "threshold_ok": true,
+    "target_fields": [
+     "threshold_c",
+     "lat"
+    ],
+    "strict_four": false,
+    "base_in_band": true,
+    "slug_present": false,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "strict4 不全(URL/field/threshold/cmp)"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "圣保罗09-17>27：判据明确，b=0.5"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：圣保罗09-17>27：判据明确，b=0.5"
+  },
+  {
+   "id": 880,
+   "layer": "L3",
+   "horizon": "short",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.301,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "lat"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": false,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "柏林PM10<=9.0：URL/field/threshold齐，可机检，b=0.301"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：柏林PM10<=9.0：URL/field/threshold齐，可机检，b=0.301"
+  },
+  {
+   "id": 885,
+   "layer": "L3",
+   "horizon": "past",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.302,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "lat"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": false,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "新德里PM10<=114.7：判据明确，cutoff早于事件，b=0.302"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：新德里PM10<=114.7：判据明确，cutoff早于事件，b=0.302"
+  },
+  {
+   "id": 893,
+   "layer": "L2",
+   "horizon": "past",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.301,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "symbol"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": false,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "BTC收盘>=96444.74：symbol/日/阈值明确，b=0.301"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：BTC收盘>=96444.74：symbol/日/阈值明确，b=0.301"
+  },
+  {
+   "id": 900,
+   "layer": "L2",
+   "horizon": "mid",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.3,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "symbol"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": false,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "ETH收盘>=3255.56：判据明确，b=0.3"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：ETH收盘>=3255.56：判据明确，b=0.3"
+  },
+  {
+   "id": 919,
+   "layer": "L2",
+   "horizon": "mid",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.5,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "article"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": false,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "ChatGPT浏览>=101315：article/日/阈值明确，b=0.5"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：ChatGPT浏览>=101315：article/日/阈值明确，b=0.5"
+  },
+  {
+   "id": 948,
+   "layer": "L2",
+   "horizon": "mid",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.5,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "base",
+     "quote"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": false,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "USD/EUR>=0.8603：日期窗API明确（非发布日顺延），b=0.5"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：USD/EUR>=0.8603：日期窗API明确（非发布日顺延），b=0.5"
+  },
+  {
+   "id": 981,
+   "layer": "L3",
+   "horizon": "mid",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.40299999999999997,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "lat"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "新德里PM10<=124.9：判据明确，b=0.403"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：新德里PM10<=124.9：判据明确，b=0.403"
+  },
+  {
+   "id": 985,
+   "layer": "L3",
+   "horizon": "long",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.603,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "lat"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "圣保罗PM10<=20.6（长horizon）：判据明确，b=0.603"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：圣保罗PM10<=20.6（长horizon）：判据明确，b=0.603"
+  },
+  {
+   "id": 988,
+   "layer": "L2",
+   "horizon": "long",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.4,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "symbol"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "BTC收盘>=88839.04（长）：判据明确，b=0.4"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：BTC收盘>=88839.04（长）：判据明确，b=0.4"
+  },
+  {
+   "id": 1008,
+   "layer": "L2",
+   "horizon": "long",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.501,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "article"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "AI页面浏览>=25063（长）：判据明确，b=0.501"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：AI页面浏览>=25063（长）：判据明确，b=0.501"
+  },
+  {
+   "id": 1090,
+   "layer": "L2",
+   "horizon": "past",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.602,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url",
+     "field",
+     "threshold"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "CTA总乘车>=967481：对象/日/阈值明确，b=0.602"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：CTA总乘车>=967481：对象/日/阈值明确，b=0.602"
+  },
+  {
+   "id": 1109,
+   "layer": "L3",
+   "horizon": "past",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.435,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "station"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "GHCN洛杉矶TMAX>=74F：station/日/阈值明确，b=0.435"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：GHCN洛杉矶TMAX>=74F：station/日/阈值明确，b=0.435"
+  },
+  {
+   "id": 1125,
+   "layer": "L2",
+   "horizon": "short",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.316,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "fuel"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "英国风电均值>=9306MW：fuel/日/阈值明确，b=0.316"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：英国风电均值>=9306MW：fuel/日/阈值明确，b=0.316"
+  },
+  {
+   "id": 1129,
+   "layer": "L2",
+   "horizon": "past",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.611,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "fuel"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "英国燃气均值>=4392MW：判据明确，b=0.611"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：英国燃气均值>=4392MW：判据明确，b=0.611"
+  },
+  {
+   "id": 1137,
+   "layer": "L3",
+   "horizon": "past",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.609,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "lat"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "伦敦PM2.5<=6.4：判据明确，b=0.609"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：伦敦PM2.5<=6.4：判据明确，b=0.609"
+  },
+  {
+   "id": 1139,
+   "layer": "L3",
+   "horizon": "past",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.701,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "lat"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "伦敦PM2.5<=7.5：判据明确，b=0.701"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：伦敦PM2.5<=7.5：判据明确，b=0.701"
+  },
+  {
+   "id": 1140,
+   "layer": "L3",
+   "horizon": "past",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.305,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "lat"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "伦敦PM2.5<=4.6：判据明确，b=0.305"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：伦敦PM2.5<=4.6：判据明确，b=0.305"
+  },
+  {
+   "id": 1158,
+   "layer": "L3",
+   "horizon": "past",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.504,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "lat"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "东京臭氧<=42.5：判据明确，b=0.504"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：东京臭氧<=42.5：判据明确，b=0.504"
+  },
+  {
+   "id": 1173,
+   "layer": "L3",
+   "horizon": "past",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.509,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "lat"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "悉尼臭氧<=35.3：判据明确，b=0.509"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：悉尼臭氧<=35.3：判据明确，b=0.509"
+  },
+  {
+   "id": 1177,
+   "layer": "L3",
+   "horizon": "short",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.603,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "lat"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "悉尼臭氧<=38.7：判据明确，b=0.603"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：悉尼臭氧<=38.7：判据明确，b=0.603"
+  },
+  {
+   "id": 1180,
+   "layer": "L3",
+   "horizon": "past",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.7070000000000001,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "lat"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "开普敦PM2.5<=39.3：判据明确，b=0.707"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：开普敦PM2.5<=39.3：判据明确，b=0.707"
+  },
+  {
+   "id": 1186,
+   "layer": "L3",
+   "horizon": "past",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.609,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "lat"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "开普敦臭氧<=56.3：判据明确，b=0.609"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：开普敦臭氧<=56.3：判据明确，b=0.609"
+  },
+  {
+   "id": 1189,
+   "layer": "L3",
+   "horizon": "past",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.305,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "lat"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "开普敦臭氧<=48.2：判据明确，b=0.305"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：开普敦臭氧<=48.2：判据明确，b=0.305"
+  },
+  {
+   "id": 1192,
+   "layer": "L3",
+   "horizon": "short",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.612,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "lat"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "开普敦臭氧<=56.5：判据明确，b=0.612"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：开普敦臭氧<=56.5：判据明确，b=0.612"
+  },
+  {
+   "id": 1193,
+   "layer": "L3",
+   "horizon": "past",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.609,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "lat"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "墨西哥城PM2.5<=24.9：判据明确，b=0.609"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：墨西哥城PM2.5<=24.9：判据明确，b=0.609"
+  },
+  {
+   "id": 1198,
+   "layer": "L3",
+   "horizon": "short",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.504,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "lat"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "墨西哥城PM2.5<=23.0：判据明确，b=0.504"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：墨西哥城PM2.5<=23.0：判据明确，b=0.504"
+  },
+  {
+   "id": 1201,
+   "layer": "L3",
+   "horizon": "past",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.414,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "lat"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "墨西哥城臭氧<=60.6：判据明确，b=0.414"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：墨西哥城臭氧<=60.6：判据明确，b=0.414"
+  },
+  {
+   "id": 1212,
+   "layer": "L3",
+   "horizon": "short",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.603,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "lat"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "首尔PM2.5<=24.3：判据明确，b=0.603"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：首尔PM2.5<=24.3：判据明确，b=0.603"
+  },
+  {
+   "id": 1215,
+   "layer": "L3",
+   "horizon": "past",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.603,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "lat"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "首尔臭氧<=71.6：判据明确，b=0.603"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：首尔臭氧<=71.6：判据明确，b=0.603"
+  },
+  {
+   "id": 1220,
+   "layer": "L3",
+   "horizon": "short",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.504,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "lat"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "首尔臭氧<=64.8：判据明确，b=0.504"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：首尔臭氧<=64.8：判据明确，b=0.504"
+  },
+  {
+   "id": 1224,
+   "layer": "L2",
+   "horizon": "past",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.606,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "station"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "NOAA波士顿潮位>=1.514：station/日/阈值明确，b=0.606"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：NOAA波士顿潮位>=1.514：station/日/阈值明确，b=0.606"
+  },
+  {
+   "id": 1225,
+   "layer": "L2",
+   "horizon": "short",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.3,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "station"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "NOAA波士顿潮位>=1.626：判据明确，b=0.3"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：NOAA波士顿潮位>=1.626：判据明确，b=0.3"
+  },
+  {
+   "id": 1246,
+   "layer": "L2",
+   "horizon": "short",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.5,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "station"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "NOAA迈阿密潮位>=0.385：判据明确，b=0.5"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：NOAA迈阿密潮位>=0.385：判据明确，b=0.5"
+  },
+  {
+   "id": 1254,
+   "layer": "L2",
+   "horizon": "short",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.3,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "station"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "NOAA西雅图潮位>=1.451：判据明确，b=0.3"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：NOAA西雅图潮位>=1.451：判据明确，b=0.3"
+  },
+  {
+   "id": 1255,
+   "layer": "L2",
+   "horizon": "short",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.5,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "station"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "NOAA西雅图潮位>=1.350：判据明确，b=0.5"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：NOAA西雅图潮位>=1.350：判据明确，b=0.5"
+  },
+  {
+   "id": 1274,
+   "layer": "L3",
+   "horizon": "short",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.303,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "lat"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "柏林最大风速>=18.8：判据明确，b=0.303"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：柏林最大风速>=18.8：判据明确，b=0.303"
+  },
+  {
+   "id": 1286,
+   "layer": "L3",
+   "horizon": "past",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.711,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "lat"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "巴黎降水<=0.6：判据明确，b=0.711"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：巴黎降水<=0.6：判据明确，b=0.711"
+  },
+  {
+   "id": 1296,
+   "layer": "L3",
+   "horizon": "short",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.303,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "lat"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "巴黎风速>=16.6：判据明确，b=0.303"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：巴黎风速>=16.6：判据明确，b=0.303"
+  },
+  {
+   "id": 1311,
+   "layer": "L3",
+   "horizon": "short",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.32299999999999995,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "lat"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "纽约降水<=0.1：判据明确，b=0.323"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：纽约降水<=0.1：判据明确，b=0.323"
+  },
+  {
+   "id": 1331,
+   "layer": "L3",
+   "horizon": "short",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.515,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "lat"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "圣保罗降水<=0.0：阈值取测量下限（边界题），b=0.515在带"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：圣保罗降水<=0.0：阈值取测量下限（边界题），b=0.515在带"
+  },
+  {
+   "id": 1356,
+   "layer": "L3",
+   "horizon": "past",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.515,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "lat"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "曼谷风速>=12.6：判据明确，b=0.515"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：曼谷风速>=12.6：判据明确，b=0.515"
+  },
+  {
+   "id": 1370,
+   "layer": "L3",
+   "horizon": "past",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.536,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "lat"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "开罗风速>=17.6：判据明确，b=0.536"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：开罗风速>=17.6：判据明确，b=0.536"
+  },
+  {
+   "id": 1372,
+   "layer": "L3",
+   "horizon": "short",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.505,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "lat"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "开罗风速>=17.7：判据明确，b=0.505"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：开罗风速>=17.7：判据明确，b=0.505"
+  },
+  {
+   "id": 1387,
+   "layer": "L3",
+   "horizon": "short",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.505,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "lat"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "莫斯科降水<=0.8：判据明确，b=0.505"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：莫斯科降水<=0.8：判据明确，b=0.505"
+  },
+  {
+   "id": 1391,
+   "layer": "L3",
+   "horizon": "past",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.505,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "lat"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "莫斯科风速>=12.9：判据明确，b=0.505"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：莫斯科风速>=12.9：判据明确，b=0.505"
+  },
+  {
+   "id": 1394,
+   "layer": "L3",
+   "horizon": "short",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.303,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "lat"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "莫斯科风速>=16.3：判据明确，b=0.303"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：莫斯科风速>=16.3：判据明确，b=0.303"
+  },
+  {
+   "id": 1421,
+   "layer": "L3",
+   "horizon": "short",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.40399999999999997,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "lat"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "上海日照>=42852.3s：判据明确，b=0.404"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：上海日照>=42852.3s：判据明确，b=0.404"
+  },
+  {
+   "id": 1452,
+   "layer": "L2",
+   "horizon": "past",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.409,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "country",
+     "type"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "德国Solar均值>=15919MW：判据明确，b=0.409"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：德国Solar均值>=15919MW：判据明确，b=0.409"
+  },
+  {
+   "id": 1458,
+   "layer": "L2",
+   "horizon": "short",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.3,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "country",
+     "type"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "德国Solar均值>=17154MW：判据明确，b=0.3"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：德国Solar均值>=17154MW：判据明确，b=0.3"
+  },
+  {
+   "id": 1482,
+   "layer": "L2",
+   "horizon": "past",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.5,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "pair"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "Kraken BTC>=64312.90：pair/日/阈值明确，b=0.5"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：Kraken BTC>=64312.90：pair/日/阈值明确，b=0.5"
+  },
+  {
+   "id": 1485,
+   "layer": "L2",
+   "horizon": "past",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.405,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "pair"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "Kraken BTC>=64886.10：判据明确，b=0.405"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：Kraken BTC>=64886.10：判据明确，b=0.405"
+  },
+  {
+   "id": 1490,
+   "layer": "L2",
+   "horizon": "past",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.5,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "pair"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "Kraken ETH>=1890.06：判据明确，b=0.5"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：Kraken ETH>=1890.06：判据明确，b=0.5"
+  },
+  {
+   "id": 1493,
+   "layer": "L2",
+   "horizon": "past",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.405,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "pair"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "Kraken ETH>=1915.15：判据明确，b=0.405"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：Kraken ETH>=1915.15：判据明确，b=0.405"
+  },
+  {
+   "id": 1535,
+   "layer": "L3",
+   "horizon": "short",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.603,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "lat"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "伦敦pm10<=11.9：判据明确，b=0.603"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：伦敦pm10<=11.9：判据明确，b=0.603"
+  },
+  {
+   "id": 1536,
+   "layer": "L3",
+   "horizon": "past",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.701,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "lat"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "伦敦pm10<=13.2：判据明确，b=0.701"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：伦敦pm10<=13.2：判据明确，b=0.701"
+  },
+  {
+   "id": 1560,
+   "layer": "L3",
+   "horizon": "past",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.606,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "lat"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "巴黎SO2<=2.3：判据明确，b=0.606"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：巴黎SO2<=2.3：判据明确，b=0.606"
+  },
+  {
+   "id": 1578,
+   "layer": "L3",
+   "horizon": "past",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.40299999999999997,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "lat"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "东京CO<=287.0：判据明确，b=0.403"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：东京CO<=287.0：判据明确，b=0.403"
+  },
+  {
+   "id": 1584,
+   "layer": "L3",
+   "horizon": "past",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.501,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "lat"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "洛杉矶pm10<=23.2：判据明确，b=0.501"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：洛杉矶pm10<=23.2：判据明确，b=0.501"
+  },
+  {
+   "id": 1587,
+   "layer": "L3",
+   "horizon": "short",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.703,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "lat"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "洛杉矶臭氧<=54.1：判据明确，b=0.703"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：洛杉矶臭氧<=54.1：判据明确，b=0.703"
+  },
+  {
+   "id": 1590,
+   "layer": "L3",
+   "horizon": "past",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.301,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "lat"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "洛杉矶NO2<=31.8：判据明确，b=0.301"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：洛杉矶NO2<=31.8：判据明确，b=0.301"
+  },
+  {
+   "id": 1595,
+   "layer": "L3",
+   "horizon": "short",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.41,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "lat"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "洛杉矶dust<=0.7：判据明确，b=0.41"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：洛杉矶dust<=0.7：判据明确，b=0.41"
+  },
+  {
+   "id": 1600,
+   "layer": "L3",
+   "horizon": "past",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.603,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "lat"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "开罗pm10<=37.0：判据明确，b=0.603"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：开罗pm10<=37.0：判据明确，b=0.603"
+  },
+  {
+   "id": 1612,
+   "layer": "L3",
+   "horizon": "past",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.301,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "lat"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "开罗dust<=2.3：判据明确，b=0.301"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：开罗dust<=2.3：判据明确，b=0.301"
+  },
+  {
+   "id": 1617,
+   "layer": "L3",
+   "horizon": "short",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.303,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "lat"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "悉尼pm2_5<=7.8：判据明确，b=0.303"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：悉尼pm2_5<=7.8：判据明确，b=0.303"
+  },
+  {
+   "id": 1627,
+   "layer": "L3",
+   "horizon": "short",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.725,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "lat"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "悉尼dust<=0.0：阈值取测量下限（边界题），b=0.725在带"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：悉尼dust<=0.0：阈值取测量下限（边界题），b=0.725在带"
+  },
+  {
+   "id": 1631,
+   "layer": "L3",
+   "horizon": "short",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.40299999999999997,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "lat"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "墨西哥城pm10<=25.1：判据明确，b=0.403"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：墨西哥城pm10<=25.1：判据明确，b=0.403"
+  },
+  {
+   "id": 1633,
+   "layer": "L3",
+   "horizon": "short",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.603,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "lat"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "墨西哥城pm2_5<=28.9：判据明确，b=0.603"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：墨西哥城pm2_5<=28.9：判据明确，b=0.603"
+  },
+  {
+   "id": 1642,
+   "layer": "L3",
+   "horizon": "past",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.40299999999999997,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "lat"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "墨西哥城CO<=522.5：判据明确，b=0.403"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：墨西哥城CO<=522.5：判据明确，b=0.403"
+  },
+  {
+   "id": 1654,
+   "layer": "L3",
+   "horizon": "past",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.703,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "lat"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "北京阵风>=24.1：判据明确，b=0.703"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：北京阵风>=24.1：判据明确，b=0.703"
+  },
+  {
+   "id": 1695,
+   "layer": "L3",
+   "horizon": "short",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.584,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "lat"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "悉尼降水小时>=1.0：判据明确，b=0.584"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：悉尼降水小时>=1.0：判据明确，b=0.584"
+  },
+  {
+   "id": 1698,
+   "layer": "L3",
+   "horizon": "past",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.306,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "lat"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "悉尼阵风>=49.3：判据明确，b=0.306"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：悉尼阵风>=49.3：判据明确，b=0.306"
+  },
+  {
+   "id": 1719,
+   "layer": "L2",
+   "horizon": "short",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.506,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "station"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "NOAA查尔斯顿潮位>=0.865：判据明确，b=0.506"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：NOAA查尔斯顿潮位>=0.865：判据明确，b=0.506"
+  },
+  {
+   "id": 1722,
+   "layer": "L3",
+   "horizon": "short",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.313,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "station"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "GHCN洛杉矶TMAX>=77F：判据明确，b=0.313"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：GHCN洛杉矶TMAX>=77F：判据明确，b=0.313"
+  },
+  {
+   "id": 1729,
+   "layer": "L3",
+   "horizon": "past",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.518,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "station"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "GHCN西雅图TMAX>=58F：判据明确，b=0.518"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：GHCN西雅图TMAX>=58F：判据明确，b=0.518"
+  },
+  {
+   "id": 1739,
+   "layer": "L2",
+   "horizon": "past",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.7020000000000001,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "country",
+     "type"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "法国Solar>=4149MW：判据明确，b=0.702"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：法国Solar>=4149MW：判据明确，b=0.702"
+  },
+  {
+   "id": 1753,
+   "layer": "L2",
+   "horizon": "past",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.512,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "country",
+     "type"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "西班牙Nuclear>=5118MW：判据明确，b=0.512"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：西班牙Nuclear>=5118MW：判据明确，b=0.512"
+  },
+  {
+   "id": 1755,
+   "layer": "L2",
+   "horizon": "past",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.603,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "country",
+     "type"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "西班牙HydroRoR>=1103MW：判据明确，b=0.603"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：西班牙HydroRoR>=1103MW：判据明确，b=0.603"
+  },
+  {
+   "id": 1772,
+   "layer": "L2",
+   "horizon": "short",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.502,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "country",
+     "type"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "意大利Load>=32460MW：判据明确，b=0.502"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：意大利Load>=32460MW：判据明确，b=0.502"
+  },
+  {
+   "id": 1776,
+   "layer": "L2",
+   "horizon": "short",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.40299999999999997,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "country",
+     "type"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "奥地利FossilGas>=227MW：判据明确，b=0.403"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：奥地利FossilGas>=227MW：判据明确，b=0.403"
+  },
+  {
+   "id": 1780,
+   "layer": "L2",
+   "horizon": "short",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.602,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "country",
+     "type"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "奥地利Solar>=1010MW：判据明确，b=0.602"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：奥地利Solar>=1010MW：判据明确，b=0.602"
+  },
+  {
+   "id": 1792,
+   "layer": "L2",
+   "horizon": "short",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.701,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "country",
+     "type"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "比利时Load>=8760MW：判据明确，b=0.701"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：比利时Load>=8760MW：判据明确，b=0.701"
+  },
+  {
+   "id": 1796,
+   "layer": "L2",
+   "horizon": "past",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.7,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "symbol"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "DOGE收盘>=0.1023：判据明确，b=0.7"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：DOGE收盘>=0.1023：判据明确，b=0.7"
+  },
+  {
+   "id": 1799,
+   "layer": "L2",
+   "horizon": "past",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.5,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "symbol"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "XRP收盘>=2.0909：判据明确，b=0.5"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：XRP收盘>=2.0909：判据明确，b=0.5"
+  },
+  {
+   "id": 1835,
+   "layer": "L2",
+   "horizon": "short",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.7,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "base",
+     "quote"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "USD/GBP>=0.7405：判据明确（非发布日顺延），b=0.7"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：USD/GBP>=0.7405：判据明确（非发布日顺延），b=0.7"
+  },
+  {
+   "id": 1839,
+   "layer": "L2",
+   "horizon": "past",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.3,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "base",
+     "quote"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "USD/AUD>=1.5321：判据明确，b=0.3"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：USD/AUD>=1.5321：判据明确，b=0.3"
+  },
+  {
+   "id": 1846,
+   "layer": "L2",
+   "horizon": "past",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.5,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "base",
+     "quote"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "USD/CHF>=0.7990：判据明确，b=0.5"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：USD/CHF>=0.7990：判据明确，b=0.5"
+  },
+  {
+   "id": 1882,
+   "layer": "L3",
+   "horizon": "past",
+   "kind": true,
+   "event_date": true,
+   "base_rate": 0.701,
+   "machine": {
+    "pass": true,
+    "resolve_present": true,
+    "kind_ok": true,
+    "date_ok": true,
+    "cmp_ok": true,
+    "url_ok": true,
+    "field_ok": true,
+    "threshold_ok": true,
+    "target_fields": [
+     "url_template",
+     "field",
+     "threshold",
+     "lat"
+    ],
+    "strict_four": true,
+    "base_in_band": true,
+    "slug_present": true,
+    "slug_unique": true,
+    "cutoff_ok": true,
+    "tautology_ok": true,
+    "notes": [
+     "ok"
+    ]
+   },
+   "semantic": {
+    "pass": true,
+    "reason": "日本近海SST>=17.96C：判据明确，b=0.701"
+   },
+   "pass": true,
+   "verdict": "PASS",
+   "reason": "机器段 PASS；语义段 PASS：日本近海SST>=17.96C：判据明确，b=0.701"
+  }
+ ]
+}
