@@ -9,6 +9,7 @@ import type {
   AdapterInfo,
   OracleCastResult, OracleInterpretResult, OracleReadingsResult, PendingCard, ProviderInput, ProviderListResult, ProviderTestResult, TaskStatus,
   ServerCard, ServerCardsResult, SeatRename, SeatsSaveResult,
+  IntakeClassifyResult, IntakeRejectsResult, IntakeQuestionsResult,
 } from './types';
 
 export const USE_MOCK = String(import.meta.env.VITE_USE_MOCK ?? '') === '1';
@@ -242,4 +243,30 @@ export function getAuditSummary(): Promise<AuditSummary> {
 /** GET /api/adapters：可用游戏类型登记表（含 adapters/ 目录自动登记项，如 avalon） */
 export function listAdapters(): Promise<AdapterInfo[]> {
   return USE_MOCK ? mockApi.listAdapters() : request('/adapters', 'GET');
+}
+
+// ── 阶段 3 出口件：开放接题（#/intake 接题页；只记不评，文案禁用宣称字样）──
+
+/** GET /api/intake/questions —— 接题库只读列表（最新 N 条；只读零写） */
+export function listIntakeQuestions(opts?: { limit?: number }): Promise<IntakeQuestionsResult> {
+  if (USE_MOCK) return Promise.reject(new ApiError(0, 'mock 模式未实现接题接口，请直连后端'));
+  const q = opts?.limit != null ? '?limit=' + opts.limit : '';
+  return request('/intake/questions' + q, 'GET');
+}
+
+/** POST /api/intake/classify —— 拒收门三问 + 六层判定 + 引擎位（只记不评） */
+export function classifyIntake(body: {
+  statement: string;
+  resolve_spec?: Record<string, unknown>;
+  checklist: Record<string, boolean | string | Array<boolean | string>>;
+}): Promise<IntakeClassifyResult> {
+  if (USE_MOCK) return Promise.reject(new ApiError(0, 'mock 模式未实现接题接口，请直连后端'));
+  return request('/intake/classify', 'POST', body);
+}
+
+/** GET /api/intake/rejects —— 拒收原因分布（含 0 计数） */
+export function listIntakeRejects(opts?: { limit?: number }): Promise<IntakeRejectsResult> {
+  if (USE_MOCK) return Promise.reject(new ApiError(0, 'mock 模式未实现接题接口，请直连后端'));
+  const q = opts?.limit != null ? '?limit=' + opts.limit : '';
+  return request('/intake/rejects' + q, 'GET');
 }

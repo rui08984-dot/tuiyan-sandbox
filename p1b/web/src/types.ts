@@ -463,3 +463,97 @@ export interface AuditSummary {
   generated_at: string;
   note: string;
 }
+
+// ── 阶段 3 出口件：开放接题（#/intake 接题页；只记不评）──────────────────────────
+
+/** 分层引擎位（只映射；built=false 表示引擎未接线） */
+export interface IntakeEnginePlan {
+  layer: string;
+  engine: string;
+  calibrator: string | null;
+  posture: string;
+  built: boolean;
+  predicts: boolean;
+  gate: string;
+}
+
+/** 接题分类结果（POST /api/intake/classify；拒收不是失败，ok 恒 true） */
+export interface IntakeClassifyResult {
+  ok: boolean;
+  rejected: boolean;
+  /** 拒收时：no_anchor | leak | tautology */
+  reason?: string;
+  /** 未拒收时：L1-L6 | unknown */
+  layer?: string;
+  computed_layer?: string;
+  secondary?: string | null;
+  decided_by?: string;
+  checklist_hash?: string;
+  engine?: string;
+  engine_plan?: IntakeEnginePlan;
+  gate?: string;
+  gate_reason?: string;
+  statement?: string;
+  /** gate=scored 且分层引擎接线时的参考读数；否则 null（不出数） */
+  prob?: number | null;
+  prob_ci?: [number, number] | null;
+  engine_note?: string | null;
+  intake_question_id?: number;
+  intake_ledger?: string;
+  reject_id?: number;
+  created_at?: string;
+  detail?: unknown;
+}
+
+/** 拒收原因计数行（分布含 0 计数——防 Goodhart 可见性） */
+export interface IntakeRejectReason { reason: string; n: number }
+
+export interface IntakeRejectRow {
+  id: number;
+  statement: string;
+  reason: string;
+  detail: unknown;
+  created_at: string;
+}
+
+/** GET /api/intake/rejects */
+export interface IntakeRejectsResult {
+  ok: boolean;
+  total: number;
+  by_reason: IntakeRejectReason[];
+  reasons: string[];
+  items: IntakeRejectRow[];
+  limit: number;
+  offset: number;
+  generated_at: string;
+  note: string;
+}
+
+/** 接题库列表行（GET /api/intake/questions；引擎未出数时 prob 恒 null） */
+export interface IntakeQuestionRow {
+  id: number;
+  statement: string;
+  layer: string | null;
+  secondary_layer: string | null;
+  gate: string | null;
+  checklist_hash: string | null;
+  engine: string | null;
+  prob: number | null;
+  prob_ci: [number, number] | null;
+  engine_note: string | null;
+  resolve_spec: unknown;
+  created_at: string;
+  resolved_at: string | null;
+  outcome: string | null;
+}
+
+/** GET /api/intake/questions */
+export interface IntakeQuestionsResult {
+  ok: boolean;
+  total: number;
+  items: IntakeQuestionRow[];
+  limit: number;
+  offset: number;
+  generated_at: string;
+  note: string;
+}

@@ -314,6 +314,30 @@ function register(app) {
         + '只记不评（gate=descriptive），分类与出数引擎解耦，不输出任何概率或评分。',
     };
   });
+
+  // 接题库只读列表（UI 接题页用；纯只读，不改任何既有列语义）
+  app.get('/api/intake/questions', async (req) => {
+    const q = req.query || {};
+    let limit = 20;
+    if (q.limit !== undefined && q.limit !== '') { limit = requireInt('limit', q.limit, 1); if (limit > 100) limit = 100; }
+    let offset = 0;
+    if (q.offset !== undefined && q.offset !== '') offset = requireInt('offset', q.offset, 0);
+    const page = store.listIntakeQuestions({ limit: limit, offset: offset });
+    return {
+      ok: true,
+      total: page.total,
+      items: page.items.map((r) => ({
+        id: r.id, statement: r.statement, layer: r.layer, secondary_layer: r.secondary_layer,
+        gate: r.gate, checklist_hash: r.checklist_hash, engine: r.engine,
+        prob: r.prob, prob_ci: r.prob_ci, engine_note: r.engine_note,
+        resolve_spec: r.resolve_spec, created_at: r.created_at,
+        resolved_at: r.resolved_at, outcome: r.outcome,
+      })),
+      limit: limit, offset: offset,
+      generated_at: new Date().toISOString(),
+      note: '接题库只读列表（最新 N 条，只读零写）：分层判定与 gate 状态如实透出；概率读数仅在对应层引擎接线且 gate=scored 时非空，否则如实留空（不出数）。',
+    };
+  });
 }
 
 module.exports = { register, classifyIntake, engineFor, resolveGate, ENGINE_TABLE, CHECKLIST_HASH, DECISION_ORDER, GATE_QUESTIONS, PRIMARY_LAYERS, G2, SCORABLE_LAYERS, GATE_TRANSITIONS, engineInputs, engineNoteFor };

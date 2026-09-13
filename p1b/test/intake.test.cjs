@@ -275,3 +275,23 @@ test('D-8.1：predictions_r4 视图形状 = predictions ∪ intake_questions（o
   assert.ok(pRow, 'predictions 侧在视图里');
   assert.equal(pRow.resolve_spec, null, 'predictions 行无 resolve_spec（归一 NULL）');
 });
+
+// ── 9. 只读接题库列表（UI 接题页数据源；只读零写）──────────────────────────────
+test('GET /api/intake/questions：只读列表（最新 N 条、含 prob 字段、id 降序），零写', async () => {
+  const r = await app.inject({ method: 'GET', url: '/api/intake/questions?limit=5' });
+  assert.equal(r.statusCode, 200);
+  const b = j(r);
+  assert.equal(b.ok, true);
+  assert.ok(b.total >= 3, '至少含前序 classify 通过行');
+  assert.ok(Array.isArray(b.items) && b.items.length <= 5, 'limit 生效');
+  const lim = j(await app.inject({ method: 'GET', url: '/api/intake/questions?limit=1' }));
+  assert.equal(lim.items.length, 1);
+  for (const k of ['id', 'statement', 'layer', 'gate', 'prob', 'created_at']) assert.ok(k in lim.items[0], '字段在: ' + k);
+  const all = j(await app.inject({ method: 'GET', url: '/api/intake/questions?limit=100' }));
+  for (let i = 1; i < all.items.length; i++) assert.ok(all.items[i - 1].id > all.items[i].id, 'id 降序（最新在前）');
+  const conn = db.getConnection();
+  const before = conn.prepare('SELECT COUNT(*) n FROM intake_questions').get().n;
+  await app.inject({ method: 'GET', url: '/api/intake/questions' });
+  assert.equal(conn.prepare('SELECT COUNT(*) n FROM intake_questions').get().n, before, '只读不写');
+  assert.ok(!/预测/.test(b.note), 'UI 文案禁「预测」字样');
+});

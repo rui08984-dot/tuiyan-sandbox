@@ -8,6 +8,7 @@ import ManagePage from './pages/ManagePage';
 import SettingsPage from './pages/SettingsPage';
 import MysticPage from './pages/mystic/MysticPage';
 import AuditPage from './pages/audit/AuditPage';
+import IntakePage from './pages/intake/IntakePage';
 import './styles/p1b6.css';
 
 function NavLinkCls(isActive: boolean) {
@@ -34,6 +35,9 @@ export default function App() {
               <NavLink to="/audit" className={({ isActive }) => 'appbar-link ' + (NavLinkCls(isActive) ?? '')}>
                 审计
               </NavLink>
+              <NavLink to="/intake" className={({ isActive }) => 'appbar-link ' + (NavLinkCls(isActive) ?? '')}>
+                接题
+              </NavLink>
               <NavLink to="/mystic" className={({ isActive }) => 'appbar-link ' + (NavLinkCls(isActive) ?? '')}>
                 ☯ 排盘
               </NavLink>
@@ -51,6 +55,7 @@ export default function App() {
             <Route path="/settings" element={<SettingsPage />} />
             <Route path="/mystic" element={<MysticPage />} />
             <Route path="/audit" element={<AuditPage />} />
+            <Route path="/intake" element={<IntakePage />} />
             {/* 旧四 Tab 路径重定向（书签/旧链接兼容） */}
             <Route path="/games" element={<Navigate to="/manage" replace />} />
             <Route path="/input" element={<Navigate to="/" replace />} />
