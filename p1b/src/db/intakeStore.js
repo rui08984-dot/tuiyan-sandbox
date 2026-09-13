@@ -48,6 +48,9 @@ const SCHEMA_INTAKE_QUESTIONS = [
   "  gate TEXT CHECK(gate IS NULL OR gate IN ('descriptive','scored','blocked')),",
   '  checklist_hash TEXT,',
   '  engine TEXT,',
+  '  prob REAL CHECK(prob IS NULL OR (prob >= 0 AND prob <= 1)),',
+  '  prob_ci TEXT,',
+  '  engine_note TEXT,',
   "  created_at TEXT DEFAULT (datetime('now')),",
   '  resolved_at TEXT,',
   "  outcome TEXT CHECK(outcome IS NULL OR outcome IN ('true','false','ambiguous')),",
@@ -56,6 +59,13 @@ const SCHEMA_INTAKE_QUESTIONS = [
   ');',
   'CREATE INDEX IF NOT EXISTS idx_intake_questions_layer ON intake_questions(layer, id DESC);',
 ].join('\n');
+
+// 阶段 4（2026-09-13）additive 迁移：L2/L5 引擎产出列（旧库 ALTER；新库随建表即有）
+const INTAKE_QUESTION_COLUMNS = [
+  'prob REAL CHECK(prob IS NULL OR (prob >= 0 AND prob <= 1))',
+  'prob_ci TEXT',
+  'engine_note TEXT',
+];
 
 const SCHEMA_INTAKE_REJECTS = [
   'CREATE TABLE IF NOT EXISTS intake_rejects (',
@@ -173,6 +183,14 @@ function ensureIntakeTables(conn) {
   if (!conn) throw new Error('ensureIntakeTables: 需要 better-sqlite3 连接');
   conn.exec(SCHEMA_INTAKE_REJECTS);
   conn.exec(SCHEMA_INTAKE_QUESTIONS);
+  const qcols = new Set(conn.prepare('PRAGMA table_info(intake_questions)').all().map((c) => c.name));
+  const qMissing = INTAKE_QUESTION_COLUMNS.filter((def) => !qcols.has(def.split(' ')[0]));
+  if (qMissing.length) {
+    const migrate = conn.transaction(() => {
+      for (const def of qMissing) conn.exec('ALTER TABLE intake_questions ADD COLUMN ' + def);
+    });
+    migrate();
+  }
   require('./predictionsStore').ensurePredictionsTable(conn); // 视图引用 predictions，先确保存在（幂等 additive）
   conn.exec(SCHEMA_PREDICTIONS_R4);
   ensureF4Surfaces(conn);
@@ -272,6 +290,12 @@ function rowToIntakeQuestion(row) {
     gate: row.gate === undefined ? null : row.gate,
     checklist_hash: row.checklist_hash === undefined ? null : row.checklist_hash,
     engine: row.engine === undefined ? null : row.engine,
+    prob: row.prob === undefined ? null : row.prob,
+    prob_ci: (function () {
+      if (row.prob_ci === undefined || row.prob_ci === null || row.prob_ci === '') return null;
+      try { return JSON.parse(row.prob_ci); } catch (e) { return row.prob_ci; }
+    })(),
+    engine_note: row.engine_note === undefined ? null : row.engine_note,
     created_at: row.created_at,
     resolved_at: row.resolved_at === undefined ? null : row.resolved_at,
     outcome: row.outcome === undefined ? null : row.outcome,
@@ -296,18 +320,23 @@ function assertIntakeQuestion(p) {
   if (p.gate !== undefined && p.gate !== null && GATES.indexOf(p.gate) === -1) {
     throw new Error('gate 必须是 ' + GATES.join('|') + ' 或 null');
   }
+  if (p.prob !== undefined && p.prob !== null && (typeof p.prob !== 'number' || !(p.prob >= 0 && p.prob <= 1))) {
+    throw new Error('prob 必须是 [0,1] 数字或 null，收到: ' + JSON.stringify(p.prob));
+  }
 }
 
 /** classify 通过落行（D-8.2 外部题挂载）。返回读模型行（含 id/created_at）。 */
 function insertIntakeQuestion(p) {
   assertIntakeQuestion(p);
   const conn = db.getConnection();
-  const info = conn.prepare('INSERT INTO intake_questions (statement, resolve_spec, layer, secondary_layer, gate, checklist_hash, engine, evidence, intake_reject_id)'
-    + ' VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)')
+  const info = conn.prepare('INSERT INTO intake_questions (statement, resolve_spec, layer, secondary_layer, gate, checklist_hash, engine, evidence, intake_reject_id, prob, prob_ci, engine_note)'
+    + ' VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)')
     .run(p.statement.trim(), toJsonText(p.resolveSpec), p.layer === undefined ? null : p.layer,
       p.secondaryLayer === undefined ? null : p.secondaryLayer, p.gate === undefined ? null : p.gate,
       p.checklistHash === undefined ? null : p.checklistHash, p.engine === undefined ? null : p.engine,
-      toJsonText(p.evidence === undefined ? null : p.evidence), p.intakeRejectId === undefined ? null : p.intakeRejectId);
+      toJsonText(p.evidence === undefined ? null : p.evidence), p.intakeRejectId === undefined ? null : p.intakeRejectId,
+      p.prob === undefined ? null : p.prob, toJsonText(p.probCi === undefined ? null : p.probCi),
+      p.engineNote === undefined ? null : p.engineNote);
   return getIntakeQuestion(Number(info.lastInsertRowid));
 }
 
@@ -329,6 +358,6 @@ function listIntakeQuestions(opts) {
 module.exports = {
   ensureIntakeTables, ensureIntakeTable, ensureF4Surfaces, insertReject, getReject, listRejects, rejectStats, REASONS,
   INTAKE_LAYERS, OUTCOMES, GATES, insertIntakeQuestion, getIntakeQuestion, listIntakeQuestions,
-  SCHEMA_INTAKE_QUESTIONS, SCHEMA_PREDICTIONS_R4,
+  INTAKE_QUESTION_COLUMNS, SCHEMA_INTAKE_QUESTIONS, SCHEMA_PREDICTIONS_R4,
   SCHEMA_PROCESS_ROLES, PROCESS_ROLE_SEEDS, SCHEMA_TRUTH_VAULT, PREDICTIONS_PUBLIC_SQL,
 };

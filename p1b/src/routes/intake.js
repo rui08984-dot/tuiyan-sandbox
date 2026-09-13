@@ -25,13 +25,18 @@
  *   接题层已闭环、入账层待与 F4 真值分库合并的同一次账本迁移；G2 判定仍只读 predictions 原表。
  *
  * 铁律落点：
- *   ① gate 恒 'descriptive' —— 分类与出数引擎解耦（本入口只记账/只出层，不产出任何概率或评分）；
- *   ② 本轮只做 layer→engine 映射表 + 路由骨架，不建任何引擎（engine_plan.built=false）；
+ *   ①【阶段 4 修订 2026-09-13】gate 状态机：L2/L5 在 G2(R4) PASS ∧ 引擎 built ∧ 引擎 ok 时
+ *      descriptive→scored，其余层恒 descriptive；**概率只在 scored 后出现**，未达标一律 descriptive
+ *      （原文保留为历史：gate 恒 'descriptive' —— 分类与出数引擎解耦，本入口只记账/只出层）；
+ *   ②【阶段 4 修订 2026-09-13】L2/L5 最小统计引擎已接线（engine_plan.built=true）；
+ *      L1/L3/L4/L6/unknown 仍 built=false（原文：本轮只做 layer→engine 映射表 + 路由骨架）；
  *   ③ 端点自足 ensure 表（predictions/audit 同先例），additive，零碰 p1a 既有表与 predictions 既有列。
  */
 const { db } = require('../deps');
 const { httpError, requireInt, requireNonEmptyString } = require('../util');
 const store = require('../db/intakeStore');
+const { l2Baseline } = require('../engines/l2_baseline'); // 阶段 4：L2 最小统计件（Wilson）
+const { l5Certified } = require('../engines/l5_certified'); // 阶段 4：L5 认证源公布分布
 
 /** 清单版本：v2 判据 + v3 注记（unknown 出口 + L4 后置标注），随清单文档冻结。 */
 const CHECKLIST_HASH = 'v3';
@@ -52,33 +57,95 @@ const PRIMARY_LAYERS = ['L1', 'L2', 'L3', 'L5', 'L6', 'unknown'];
 const ALL_LAYERS = ['L1', 'L2', 'L3', 'L4', 'L5', 'L6'];
 
 /**
- * 分层引擎路由骨架（只映射不建引擎）：layer→engine 位。
- *   L1 proc_calc（程序计算，计错率）/ L2 stat_baseline+Wilson / L3 stat_baseline+ACI /
- *   L5 certified_dist（认证源分布）/ L6 structural（结构推断）/ L4 与 unknown=classify-only(engine=none)。
- * gate=descriptive 时一律只记账不预测（predicts=false）——分类与预测解耦铁律的工程实现。
+ * 分层引擎映射表（阶段 4 起 L2/L5 已接线）：layer→engine 位。
+ *   L1 proc_calc（程序计算，计错率）/ L2 stat_baseline+Wilson（built）/ L3 stat_baseline+ACI /
+ *   L5 certified_dist（认证源分布，built）/ L6 structural（结构推断）/ L4 与 unknown=classify-only。
+ * gate≠scored 时一律只记账不预测（predicts=false）——分类与预测解耦铁律的工程实现。
  */
 const ENGINE_TABLE = {
-  L1: { engine: 'proc_calc', calibrator: null, posture: 'classify_only' },
-  L2: { engine: 'stat_baseline', calibrator: 'wilson', posture: 'classify_only' },
-  L3: { engine: 'stat_baseline', calibrator: 'aci', posture: 'classify_only' },
-  L4: { engine: 'none', calibrator: null, posture: 'classify_only' },
-  L5: { engine: 'certified_dist', calibrator: null, posture: 'classify_only' },
-  L6: { engine: 'structural', calibrator: null, posture: 'classify_only' },
-  unknown: { engine: 'none', calibrator: null, posture: 'classify_only' },
+  L1: { engine: 'proc_calc', calibrator: null, posture: 'classify_only', built: false },
+  L2: { engine: 'stat_baseline', calibrator: 'wilson', posture: 'score', built: true },
+  L3: { engine: 'stat_baseline', calibrator: 'aci', posture: 'classify_only', built: false },
+  L4: { engine: 'none', calibrator: null, posture: 'classify_only', built: false },
+  L5: { engine: 'certified_dist', calibrator: null, posture: 'score', built: true },
+  L6: { engine: 'structural', calibrator: null, posture: 'classify_only', built: false },
+  unknown: { engine: 'none', calibrator: null, posture: 'classify_only', built: false },
 };
 
-/** layer→引擎位读模型（built=false：本阶段不建引擎；predicts=false：gate=descriptive 只记账）。 */
-function engineFor(layer) {
+/** G2 状态（阶段 3 已转正：design §4.2 R4 五条全 PASS）——gate 状态机的唯一闸门来源。 */
+const G2 = { passed: true, regime: 'R4', decided_at: '2026-09-13', receipt: 'p1b/sim/out/g2-report-r4.out' };
+/** 可 scored 的层：本轮只有 L2/L5 建有引擎；L3 检索代码解禁仍须另行评审立项。 */
+const SCORABLE_LAYERS = ['L2', 'L5'];
+/** gate 允许转移（design §3：descriptive/scored/blocked）。blocked 预留给 G3 争议/void，本轮引擎不产生。 */
+const GATE_TRANSITIONS = [
+  { from: 'descriptive', to: 'scored', when: 'layer∈{L2,L5} ∧ G2(R4) PASS ∧ 引擎 built ∧ 引擎 ok' },
+  { from: 'descriptive', to: 'blocked', when: 'G3 结算争议/void（预留）' },
+  { from: 'scored', to: 'descriptive', when: '改判/作废后回退（预留）' },
+];
+
+/**
+ * gate 状态机（纯函数）：本题最终 gate。
+ * 铁律：概率只在 scored 后出现；非 L2/L5、G2 未过、引擎未建、引擎未达标 → 一律 descriptive。
+ */
+function resolveGate(layer, engineResult, opts) {
+  const o = opts || {};
+  const g2Passed = o.g2Passed === undefined ? G2.passed : !!o.g2Passed;
+  const built = o.built === undefined ? SCORABLE_LAYERS.indexOf(layer) !== -1 : !!o.built;
+  if (SCORABLE_LAYERS.indexOf(layer) === -1) return { gate: 'descriptive', scored: false, reason: 'layer_not_authorized' };
+  if (!g2Passed) return { gate: 'descriptive', scored: false, reason: 'g2_not_passed' };
+  if (!built) return { gate: 'descriptive', scored: false, reason: 'engine_not_built' };
+  if (!engineResult || engineResult.ok !== true) {
+    const st = engineResult && engineResult.status ? engineResult.status : 'missing';
+    return { gate: 'descriptive', scored: false, reason: 'engine_' + st };
+  }
+  return { gate: 'scored', scored: true, reason: 'g2_r4_passed+engine_ok' };
+}
+
+/** layer→引擎位读模型。built=该层引擎是否已建；predicts=本**题**是否真的出了数（gate=scored）。 */
+function engineFor(layer, gate, engineResult) {
   const row = ENGINE_TABLE[layer] || ENGINE_TABLE.unknown;
+  const gateVal = gate || 'descriptive';
+  const ok = !!(engineResult && engineResult.ok === true);
   return {
     layer: layer,
     engine: row.engine,
     calibrator: row.calibrator,
     posture: row.posture,
-    built: false,
-    predicts: false,
-    gate: 'descriptive',
+    built: !!row.built,
+    predicts: !!row.built && gateVal === 'scored' && ok,
+    gate: gateVal,
   };
+}
+
+/** 从请求体抽取引擎入参（evidence 为契约位置；顶层 history/base_rate 为便捷别名）。 */
+function engineInputs(body, resolveSpec) {
+  const b = body || {};
+  const ev = (b.evidence && typeof b.evidence === 'object' && !Array.isArray(b.evidence)) ? b.evidence : {};
+  const history = b.history !== undefined ? b.history : (ev.history !== undefined ? ev.history : ev.series);
+  const counts = b.base_rate !== undefined ? b.base_rate : (ev.baseRate !== undefined ? ev.baseRate : ev.counts);
+  return {
+    evidence: ev,
+    history: history,
+    counts: counts,
+    baseRateNote: ev.baseRateNote !== undefined ? ev.baseRateNote : b.baseRateNote,
+    certifiedSource: ev.certifiedSource !== undefined ? ev.certifiedSource
+      : (b.certified_source !== undefined ? b.certified_source : (resolveSpec && resolveSpec.certified_source)),
+  };
+}
+
+/** 引擎产出摘要落 engine_note（可追溯：方法/状态/n/k/p/区间/分布/原因/gate）。 */
+function engineNoteFor(layer, er, gateInfo) {
+  if (!er) return 'layer=' + layer + ' 无引擎位（classify-only，只记账不出数）；gate=' + gateInfo.gate;
+  const parts = ['engine=' + er.method, 'status=' + er.status];
+  if (er.n !== undefined && er.n !== null) parts.push('n=' + er.n);
+  if (er.k !== undefined && er.k !== null) parts.push('k=' + er.k);
+  if (er.p !== undefined && er.p !== null) parts.push('p=' + er.p);
+  if (er.ci) parts.push('ci=[' + er.ci[0] + ',' + er.ci[1] + ']');
+  if (er.distribution) parts.push('dist=' + JSON.stringify(er.distribution));
+  if (er.reason) parts.push('reason=' + er.reason);
+  if (er.note) parts.push(er.note);
+  parts.push('gate=' + gateInfo.gate, 'gate_reason=' + gateInfo.reason);
+  return parts.join('; ');
 }
 
 const TRUE_WORDS = ['yes', 'y', 'true', '是', '1'];
@@ -192,17 +259,31 @@ function classifyIntake(body) {
   } else if (layerGreen('L4', checklist.L4) === true) {
     secondary = 'L4';
   }
-  const plan = engineFor(layer);
-  // D-8.2：接题通过 → 落 intake_questions（外部题挂载表；本轮不自动落 predictions）
+  // 第 2 步·引擎与 gate 状态机（阶段 4：L2/L5 最小统计件；其余层恒 classify-only）
+  const eng = engineInputs(b, resolveSpec);
+  let engineResult = null;
+  if (layer === 'L2') {
+    engineResult = l2Baseline({ resolve_spec: resolveSpec, history: eng.history, counts: eng.counts, baseRateNote: eng.baseRateNote });
+  } else if (layer === 'L5') {
+    engineResult = l5Certified({ resolve_spec: resolveSpec, certifiedSource: eng.certifiedSource });
+  }
+  const gateInfo = resolveGate(layer, engineResult);
+  const plan = engineFor(layer, gateInfo.gate, engineResult);
+  // 铁律：概率只在 gate=scored 后出现；否则 prob/ci 恒 null
+  const prob = (engineResult && engineResult.ok === true && typeof engineResult.p === 'number') ? engineResult.p : null;
+  const probCi = (engineResult && engineResult.ok === true && engineResult.ci) ? engineResult.ci : null;
+  const engineNote = engineNoteFor(layer, engineResult, gateInfo);
+  const engineEvidence = Object.keys(eng.evidence).length ? [eng.evidence] : [];
   const iq = store.insertIntakeQuestion({
     statement: statement, resolveSpec: resolveSpec, layer: layer, secondaryLayer: secondary,
-    gate: 'descriptive', checklistHash: CHECKLIST_HASH, engine: plan.engine, evidence: [],
-    intakeRejectId: null,
+    gate: gateInfo.gate, checklistHash: CHECKLIST_HASH, engine: plan.engine, evidence: engineEvidence,
+    intakeRejectId: null, prob: prob, probCi: probCi, engineNote: engineNote,
   });
   return {
     ok: true, rejected: false, layer: layer, computed_layer: computed, secondary: secondary,
     decided_by: decidedBy, checklist_hash: CHECKLIST_HASH, engine: plan.engine, engine_plan: plan,
-    gate: 'descriptive', resolve_spec: resolveSpec, statement: statement,
+    gate: gateInfo.gate, gate_reason: gateInfo.reason, resolve_spec: resolveSpec, statement: statement,
+    prob: prob, prob_ci: probCi, engine_note: engineNote, engine_result: engineResult,
     intake_question_id: iq.id, intake_ledger: 'intake_questions',
   };
 }
@@ -235,4 +316,4 @@ function register(app) {
   });
 }
 
-module.exports = { register, classifyIntake, engineFor, ENGINE_TABLE, CHECKLIST_HASH, DECISION_ORDER, GATE_QUESTIONS, PRIMARY_LAYERS };
+module.exports = { register, classifyIntake, engineFor, resolveGate, ENGINE_TABLE, CHECKLIST_HASH, DECISION_ORDER, GATE_QUESTIONS, PRIMARY_LAYERS, G2, SCORABLE_LAYERS, GATE_TRANSITIONS, engineInputs, engineNoteFor };

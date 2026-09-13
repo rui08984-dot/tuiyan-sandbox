@@ -124,20 +124,20 @@ test('决策树首命中取最特殊层：L5 与 L6 皆全绿 → 归 L5', async
 
 test('分层引擎位映射：L1/L2/L3/L5/L6/unknown 各自 engine + calibrator 正确', async () => {
   const cases = [
-    { over: { L1: yes4() }, layer: 'L1', engine: 'proc_calc', cal: null },
-    { over: { L2: yes4() }, layer: 'L2', engine: 'stat_baseline', cal: 'wilson' },
-    { over: { L3: yes4() }, layer: 'L3', engine: 'stat_baseline', cal: 'aci' },
-    { over: { L5: yes3() }, layer: 'L5', engine: 'certified_dist', cal: null },
-    { over: { L6: yes4() }, layer: 'L6', engine: 'structural', cal: null },
-    { over: {}, layer: 'unknown', engine: 'none', cal: null },
+    { over: { L1: yes4() }, layer: 'L1', engine: 'proc_calc', cal: null, built: false },
+    { over: { L2: yes4() }, layer: 'L2', engine: 'stat_baseline', cal: 'wilson', built: true },
+    { over: { L3: yes4() }, layer: 'L3', engine: 'stat_baseline', cal: 'aci', built: false },
+    { over: { L5: yes3() }, layer: 'L5', engine: 'certified_dist', cal: null, built: true },
+    { over: { L6: yes4() }, layer: 'L6', engine: 'structural', cal: null, built: false },
+    { over: {}, layer: 'unknown', engine: 'none', cal: null, built: false },
   ];
   for (const c of cases) {
     const r = await classify({ statement: 'engine 映射用例 ' + c.layer, checklist: ck(c.over) });
     assert.equal(r.body.layer, c.layer, c.layer + ' 层判定');
     assert.equal(r.body.engine, c.engine, c.layer + ' engine');
     assert.equal(r.body.engine_plan.calibrator, c.cal, c.layer + ' calibrator');
-    assert.equal(r.body.engine_plan.built, false, '本轮不建引擎');
-    assert.equal(r.body.engine_plan.predicts, false, 'gate=descriptive 只记账不出数');
+    assert.equal(r.body.engine_plan.built, c.built, c.layer + ' built（阶段 4 修订：仅 L2/L5 已建引擎）');
+    assert.equal(r.body.engine_plan.predicts, false, '未供基率/认证源 ⇒ gate=descriptive 只记账不出数');
   }
 });
 

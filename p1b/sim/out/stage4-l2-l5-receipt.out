@@ -1,0 +1,146 @@
+================================================================================
+收据 · 阶段 4 起步：L2 系综 / L5 不可约 最小统计引擎 + gate 状态机接通
+生成: 2026-09-13T08:49:28Z（UTC）   项目: E:\music player   套件: p1b（node --test）
+================================================================================
+一句话结论: L2（统计基率+Wilson）/ L5（认证源公布分布）两个最小引擎已落地并接线；
+gate 状态机在 G2(R4) PASS 后**仅**对 L2/L5 开 descriptive→scored（其余层恒 descriptive）；
+三条口径护栏已用测试锁死；全量 221 pass / 0 fail（基线 204，+17 新例，零回归）；
+生产库（活动 8787 服务）零写入，快照+sha256 在案。
+
+--------------------------------------------------------------------------------
+1. 依据（只读，未改原文）
+--------------------------------------------------------------------------------
+- docs/specs/2026-09-11-万物可预测性审计器-design.md §2（L2=统计基率+Wilson；L5=认证源公布分布；
+  禁一切「模型能做得【更好】」宣称）· §5.3（L2/L5=最小统计件，各半天）· §3（gate=descriptive/
+  scored/blocked）· §7（MVP-B）· §1.3/§1.7（两层判据）
+- docs/specs/推演沙盘-终极路线图-20260913.md 阶段 4「分层预测真跑」（阶段 3 已转正后进入）
+- G2 收据: p1b/sim/out/g2-report-r4.out（§4.2 修订 R4 五条全 PASS）
+- 留痕: docs/specs/变更留痕索引-20260912.md §8（追加节，原条款未删）
+
+--------------------------------------------------------------------------------
+2. 交付产物
+--------------------------------------------------------------------------------
+新增:
+  p1b/src/engines/l2_baseline.js   L2 最小引擎（Wilson score 区间；n<30 → 数据不足，不出 p/区间）
+  p1b/src/engines/l5_certified.js  L5 最小引擎（只出认证源公布分布；无声明 → unsupported）
+  p1b/test/intake-engines.test.cjs 17 例（Wilson 手算对照 + 三条护栏 + gate 纯函数 + 端到端落库）
+修订:
+  p1b/src/routes/intake.js         engine_plan：L2/L5 built=true（余层 false）；resolveGate 状态机
+  p1b/src/db/intakeStore.js        intake_questions additive 列 prob/prob_ci/engine_note（CRLF 保形）
+  p1b/test/intake.test.cjs         engine 映射断言随新契约更新（built：L2/L5 false→true）
+契约（引擎产出形状）:
+  L2 合格: {ok:true,status:'ok',p,n,k,ci:[lo,hi],method:'stat_baseline+wilson',source,note}
+  L2 不足: {ok:false,status:'insufficient_data',p:null,ci:null,note:'数据不足…'}
+  L5 合格: {ok:true,status:'ok',method:'certified_dist',source,distribution:{outcomes,probs},p,n}
+  L5 无源: {ok:false,status:'unsupported',reason:'no_source',p:null,distribution:null}
+
+--------------------------------------------------------------------------------
+3. 测试结果（本轮新跑，命令与原始输出）
+--------------------------------------------------------------------------------
+命令: cd p1b && node --test 1> ..\.tmp\final-node-test.out 2> ..\.tmp\final-node-test.err
+ℹ tests 221
+ℹ suites 0
+ℹ pass 221
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1218.6821
+基线对照（改动前同命令，落盘 .tmp/baseline-node-test.out）: tests 204 / pass 204 / fail 0
+差异: +17 新例；既有套件逐条未回归（唯一修订=engine 映射的 built 断言，L2/L5 由 false→true 属契约变更）
+
+--------------------------------------------------------------------------------
+4. Wilson 手算对照（公式 → 手算 → 引擎实测）
+--------------------------------------------------------------------------------
+公式（Wilson score interval，z=1.96，z²=3.8416）:
+  d      = 1 + z²/n
+  center = (p + z²/(2n)) / d
+  half   = z · sqrt( p(1-p)/n + z²/(4n²) ) / d
+  CI     = [ max(0, center-half), min(1, center+half) ]
+
+样例① k=30, n=100 → p=0.3（主粮档，外生 b(1-b)=0.21）
+  d      = 1 + 3.8416/100 = 1.038416
+  center = (0.3 + 3.8416/200)/1.038416 = 0.319208/1.038416 = 0.307399
+  half   = 1.96·sqrt(0.21/100 + 3.8416/40000)/1.038416
+         = 1.96·sqrt(0.0021 + 0.00009604)/1.038416
+         = 1.96·0.0468620/1.038416 = 0.0918494/1.038416 = 0.088451
+  CI(手算) = [0.218948, 0.395850]
+  引擎实测 = [0.218948, 0.39585]      ✓ 逐位一致（测试容差 1e-4）
+
+样例② k=0, n=40 → p=0（**Wald 退化反例**：Wald 给 [0,0]）
+  d      = 1 + 3.8416/40 = 1.09604
+  center = (0 + 3.8416/80)/1.09604 = 0.04802/1.09604 = 0.0438126
+  half   = center（k=0 时 center≡half）= 0.0438126
+  CI(手算) = [0, 0.0876252]
+  引擎实测 = [0, 0.087625]，wilson(0,40).hi === 0.087625  ✓
+  对照: 线性 Wald 半宽 = 1.96·sqrt(p(1-p)/n) = 0 → [0,0]（错误宣称零不确定）
+
+样例③ k=39, n=40 → p=0.975（高命中端，clamp ≤1）
+  引擎实测 = [0.871183, 0.995573]；测试断言 ci[0]≈0.8712、ci[1]≈0.9956 且区间恒在 [0,1]
+
+基准值（wilson(k,n) 引擎实测，测试已逐位锁定）:
+  (30,100)  → p=0.3      lo=0.218948 hi=0.395850
+  (0,40)    → p=0        lo=0        hi=0.087625
+  (39,40)   → p=0.975    lo=0.871183 hi=0.995573
+  (15,50)   → p=0.3      lo=0.191034 hi=0.437506
+  (149,331) → p=0.450151 lo=0.397431 hi=0.504015
+
+--------------------------------------------------------------------------------
+5. 三条口径护栏 · 实测证据
+--------------------------------------------------------------------------------
+护栏① 同一题在 scored 前不得输出概率（未接线/未达标 → descriptive）
+  纯函数证据（test 'gate 状态机…'，全绿）:
+    resolveGate('L1'|'L3'|'L4'|'L6'|'unknown', {ok:true,status:'ok'}).gate === 'descriptive'
+    resolveGate('L2', {ok:true}, {g2Passed:false}).gate === 'descriptive'   （G2 未过）
+    resolveGate('L2', {ok:true}, {built:false}).gate   === 'descriptive'   （未接线）
+    resolveGate('L2', {ok:false,status:'insufficient_data'}).gate === 'descriptive'
+    resolveGate('L2', null).gate === 'descriptive'
+  端到端证据（test '口径护栏①（端到端批量）'）: L2 无基率 / L3 带基率 / L1 / L6 / unknown
+    五类响应 gate 全 'descriptive' 且 prob === null。
+  不变量 assertProbOnlyWhenScored 在**全部**接线用例上执行：prob≠null ⇒ gate==='scored'；
+    gate≠'scored' ⇒ prob===null（双向）。scored 正例仅 L2+基率 / L5+认证源 两例。
+
+护栏② L5 输出不得出现「更准/更好」类断言
+  黑名单 12 模式（更准/更好/更聪明/更强/更胜/优于/胜过/打败/跑赢/做得更好/
+    outperform/better than/beat the）
+  实测（test 'L5 护栏②…'）: uniform / official / unsupported 三类输出
+    · assertion_guard.hits === []（引擎自检）
+    · scanForbiddenAssertions(JSON.stringify(输出)).length === 0（全量扫描）
+    · 反向自检: scanForbiddenAssertions('本模型更准').length ≥ 1（黑名单本身有效）
+  L5 文案恒为「只给认证源的公布分布…不做任何信息优势宣称」，无比较级断言。
+
+护栏③ n<30 不得出 p
+  引擎: l2Baseline({history:29 项}) → {ok:false,status:'insufficient_data',p:null,ci:null}
+        l2Baseline({history:30 项}) → ok:true（n=30 恰过准入线，含）
+        l2Baseline({baseRateNote:'基率=0.5'}) → 无样本量 → insufficient_data，p=null
+  端到端: history=29 → prob=null、prob_ci=null、gate='descriptive'、
+          engine_result.status='insufficient_data'（engine_plan.built=true 但 predicts=false）
+
+--------------------------------------------------------------------------------
+6. 生产库状态（零写入声明 + 写前快照）
+--------------------------------------------------------------------------------
+- 目标库: p1a-terminal/data/p1a.db（活动 8787 服务 PID 71484 持有；本片**未触碰**该库与 8787）
+- 写前快照（只读源连接 + better-sqlite3 backup 一致性副本）:
+    .tmp/snapshots/p1a-2026-09-13T08-44-44-550Z.db   bytes=5,902,336
+    snapshot sha256 = 697919d3fb36cb77cfc82fdfdd3b7897d306d6194e1a79afdaf3df18c3d0c177
+- 源库写前 sha256:
+    p1a.db     = f69d2d6d20451ba804e139919b3d9d03c94f44069281557a238f1aef75375c2a
+    p1a.db-wal = 690e4c50d7fbd87974c0ac03397525406c41bfe94956ba6c544761bc338085fe
+    p1a.db-shm = ac18bcdb21393a4b31dbed4c6d8de42f84c6b2a7deb514fb3080ad2ff1c895c9
+- 本轮全部测试跑 :memory:（0 生产写入）；additive 列迁移由服务下次启动时 ensureIntakeTables 幂等执行
+- 实测生产库当前**无** intake_questions / intake_rejects 表（运行中的 8787 服务为旧构建，未含阶段 3 接题件）；
+  本片**未做生产部署/迁移**，该项不在本收据已验证范围。
+
+--------------------------------------------------------------------------------
+7. 未做 / 残余风险（如实）
+--------------------------------------------------------------------------------
+- 未做（任务明确排除）: L3/L4/L6 引擎、L3 检索代码、物理分库、predictions 表结构变更、阈值本体改动。
+- blocked 态: 状态机已声明该转移（G3 争议/void），本轮引擎**不产生**该态。
+- 生产库未迁移、8787 服务未重启：新列/接题目录待服务下次启动后生效；无生产端到端验证。
+- baseRateNote 样本量依赖语料现有写法（共 N 个 / N 个 / N 期 / k·n 分数）；无样本量一律判「数据不足」，
+  故部分历史 L2 题可能不出数（宁缺毋滥，符合护栏③）。
+- 证据文件: .tmp/final-node-test.out、.tmp/t4.out（新测试）、.tmp/baseline-node-test.out（基线）、
+  .tmp/db-snapshot.cjs + .tmp/snapshots/snapshot-*.json、本文件。
+
+（收据完 · 2026-09-13 · 阶段 4 起步 L2/L5）
+
