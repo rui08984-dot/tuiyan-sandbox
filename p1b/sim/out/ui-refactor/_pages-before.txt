@@ -1,0 +1,5 @@
+[before] live overflow=0/0/0/0 emoji=0/0/0/0 ui_cards@1440=0
+[before] intake overflow=0/0/0/0 emoji=1/1/1/1 ui_cards@1440=0
+[before] manage overflow=0/0/0/0 emoji=2/2/2/2 ui_cards@1440=0
+[before] settings overflow=0/0/0/0 emoji=1/1/1/1 ui_cards@1440=0
+[ui-pages] before -> E:\music player\p1b\sim\out\ui-refactor\before-pages-metrics.json

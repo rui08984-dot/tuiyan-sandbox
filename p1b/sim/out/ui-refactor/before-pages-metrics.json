@@ -1,0 +1,101 @@
+{
+ "label": "before",
+ "pages": {
+  "live": {
+   "widths": {
+    "375": {
+     "h_overflow": 0,
+     "emoji": 0,
+     "ui_cards": 0
+    },
+    "768": {
+     "h_overflow": 0,
+     "emoji": 0,
+     "ui_cards": 0
+    },
+    "1024": {
+     "h_overflow": 0,
+     "emoji": 0,
+     "ui_cards": 0
+    },
+    "1440": {
+     "h_overflow": 0,
+     "emoji": 0,
+     "ui_cards": 0
+    }
+   }
+  },
+  "intake": {
+   "widths": {
+    "375": {
+     "h_overflow": 0,
+     "emoji": 1,
+     "ui_cards": 0
+    },
+    "768": {
+     "h_overflow": 0,
+     "emoji": 1,
+     "ui_cards": 0
+    },
+    "1024": {
+     "h_overflow": 0,
+     "emoji": 1,
+     "ui_cards": 0
+    },
+    "1440": {
+     "h_overflow": 0,
+     "emoji": 1,
+     "ui_cards": 0
+    }
+   }
+  },
+  "manage": {
+   "widths": {
+    "375": {
+     "h_overflow": 0,
+     "emoji": 2,
+     "ui_cards": 0
+    },
+    "768": {
+     "h_overflow": 0,
+     "emoji": 2,
+     "ui_cards": 0
+    },
+    "1024": {
+     "h_overflow": 0,
+     "emoji": 2,
+     "ui_cards": 0
+    },
+    "1440": {
+     "h_overflow": 0,
+     "emoji": 2,
+     "ui_cards": 0
+    }
+   }
+  },
+  "settings": {
+   "widths": {
+    "375": {
+     "h_overflow": 0,
+     "emoji": 1,
+     "ui_cards": 0
+    },
+    "768": {
+     "h_overflow": 0,
+     "emoji": 1,
+     "ui_cards": 0
+    },
+    "1024": {
+     "h_overflow": 0,
+     "emoji": 1,
+     "ui_cards": 0
+    },
+    "1440": {
+     "h_overflow": 0,
+     "emoji": 1,
+     "ui_cards": 0
+    }
+   }
+  }
+ }
+}
