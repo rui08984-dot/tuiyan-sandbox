@@ -18,6 +18,7 @@ const path = require('path');
 const crypto = require('crypto');
 const ROOT = path.resolve(__dirname, '..', '..');
 const Database = require(path.join(ROOT, 'p1a-terminal', 'node_modules', 'better-sqlite3'));
+const { assertWritable } = require('./_sqlite-guard.cjs');   // 必须带扩展名：CJS 无扩展名解析不试 .cjs
 const PROD = path.join(ROOT, 'p1a-terminal', 'data', 'p1a.db');
 const SURFACE = path.join(ROOT, '.scratch', 'backtest', 'predictions-public-surface.db');
 const EVID = path.join(ROOT, '.scratch', 'merged-migration', 'gd2-0-evidence.json');
@@ -49,7 +50,7 @@ function buildPublicSurface(prodDb, outFile) {
   const pick = (r, c) => (r[c] === undefined ? null : r[c]);
   const payload = rows.map((r) => JSON.stringify(cols.map((c) => pick(r, c)))).join('\n') + '\n';
   const fp = crypto.createHash('sha256').update(payload).digest('hex');
-  const db = new Database(outFile);
+  const db = assertWritable(new Database(outFile), 'buildPublicSurface');
   db.pragma('busy_timeout = 15000');
   db.exec('CREATE TABLE predictions_public (' + info.map((c) => '"' + c.name + '" ' + (c.type || 'BLOB')).join(', ') + ')');
   db.exec('CREATE TABLE public_surface_meta (k TEXT PRIMARY KEY, v TEXT)');
@@ -57,13 +58,18 @@ function buildPublicSurface(prodDb, outFile) {
   db.transaction(() => { for (const r of rows) ins.run(cols.map((c) => pick(r, c))); }).exclusive();
   const put = db.prepare('INSERT INTO public_surface_meta (k, v) VALUES (?, ?)');
   put.run('source_db', prodDb);
-  put.run('generated_at', new Date().toISOString());
+  // 注意：generated_at **不写进库**——否则每次重建字节都变、sha256 不稳定，收据里的 hash 会静默失真。
+  // 生成时刻改落 sidecar JSON（<surface>.meta.json），surface 本体对同一源是**确定性**的。
   put.run('rows', String(rows.length));
   put.run('columns', JSON.stringify(cols));
   put.run('rows_fingerprint_sha256', fp);
   put.run('truth_objects', '0 (by construction: only predictions_public + public_surface_meta)');
   db.close();
-  return { file: outFile, bytes: fs.statSync(outFile).size, sha256: sha256File(outFile), rows: rows.length, columns: cols, rows_fingerprint_sha256: fp };
+  const sidecar = { file: outFile, generated_at: new Date().toISOString(), source_db: prodDb, rows: rows.length,
+    columns: cols, rows_fingerprint_sha256: fp, sha256: sha256File(outFile),
+    note: 'surface 本体不含生成时刻 ⇒ 同一源重建 sha256 稳定；生成时刻只在本 sidecar' };
+  fs.writeFileSync(outFile + '.meta.json', JSON.stringify(sidecar, null, 1));
+  return { file: outFile, bytes: fs.statSync(outFile).size, sha256: sidecar.sha256, rows: rows.length, columns: cols, rows_fingerprint_sha256: fp, sidecar: outFile + '.meta.json', generated_at: sidecar.generated_at };
 }
 /** ① 角色表存在（并如实标注契约级 / 内核级计数）。 */
 function checkRoleTable(prodDb) {

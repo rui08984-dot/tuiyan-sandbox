@@ -119,7 +119,7 @@ unchanged = 17 个对象（games/events/claims/actions/... 全部逐字未动）
 VERDICT=PASS
 ```
 
-第 ③ 步怎么做到"必须失败"：回测进程拿到的是**独立 public surface 文件** `.scratch/backtest/predictions-public-surface.db`（1,114,112 B，sha256 `36cfc2b6ee2d8ee7b58c9a170972578471f4e3069234fbabc5e0ffb5815f6af8`）——里面**只有** `predictions_public` 与 `public_surface_meta` 两张表，`truth_vault` **物理不存在**，所以是**内核级**的 no-such-table（不是靠自觉）。同一 `SELECT` 在生产库连接上**会成功**（反证行）。
+第 ③ 步怎么做到"必须失败"：回测进程拿到的是**独立 public surface 文件** `.scratch/backtest/predictions-public-surface.db`（1,114,112 B，sha256 `dae7435516f79e7d5106a9835e170ec7320d875f990b86a5eec0c7e1d364c5b0`）——里面**只有** `predictions_public` 与 `public_surface_meta` 两张表，`truth_vault` **物理不存在**，所以是**内核级**的 no-such-table（不是靠自觉）。同一 `SELECT` 在生产库连接上**会成功**（反证行）。
 
 ## 8. 隔离级别：契约级 vs 内核级（诚实说明，请勿读串）
 
@@ -173,6 +173,7 @@ ROLLBACK=PASS
 | `p1b/src/db/predictionsStore.js` | 抽出 `predictionsTableDdl(tableName)`（重建换名复用同一定义）；`layer` CHECK 放开 `'unknown'`（建表 DDL ＋ `AUDIT_COLUMNS` ALTER 路径）；新增 `PRIMARY_LAYERS`（导出 `LAYERS` **仍为 L1-L6，未变**，测试断言不受影响）；`assertAuditFields` 的 layer 用 `PRIMARY_LAYERS`、secondary 仍用 `LAYERS` |
 | `p1b/scripts/merged-migration.cjs` | **新**：`snapshot/phase1/phase2/recheck/verify/unknown-accept/master-diff/rollback-script` 八个子命令，默认 dry-run |
 | `p1b/scripts/gd2-0-accept.cjs` | **新**：G-D2-0 三点验收 + 反证 |
+| `p1b/scripts/_sqlite-guard.cjs` | **新**（复盘产物）：`assertWritable()` 写意图守卫，已接入 phase1/phase2/unknown-accept/buildPublicSurface 四处写路径（见 §18） |
 | `p1b/scripts/_rollback-template.cjs` | **新**：回滚脚本模板（生成物落 `.scratch/backup/`） |
 | `p1b/test/f4-surfaces.test.cjs` | **新**：5 个用例（角色表／truth_vault 形状／视图不泄露真值／unknown 可写入／truth_vault 对账一致） |
 | `p1b/test/predictions-audit.test.cjs` | +1 用例：unknown 可写入、secondary=unknown 与 L7 仍被拒 |
@@ -215,13 +216,14 @@ ROLLBACK=PASS
 |---|---|---|
 | `.scratch/merged-migration/phase1-evidence.json` | 3,205 | `85f4716f28b88219524de837ae72de3936f5dab517ca8e29e42b9fad86d979fc` |
 | `.scratch/merged-migration/phase2-evidence.json` | 15,965 | `2630058a6dd870d36893b41967730ed0dfabe2b265473d91a9be62d9d61c2363` |
-| `.scratch/merged-migration/gd2-0-evidence.json` | 4,081 | `0a6ddfe3c3945ff0b74abe39d9de010105fb112348169618e8887f9b507728ef` |
+| `.scratch/merged-migration/gd2-0-evidence.json` | 4,221 | `7e385b39012c83a2e9e172394d4f7689a118ce2883e0bcbd153afd9634c76140` |
 | `.scratch/merged-migration/unknown-accept-evidence.json` | 2,201 | `21cd71ef5d28d650a307e8b997d93428efc92d9596bd47fde23abe2972bfd198` |
 | `.scratch/merged-migration/master-diff.json` | 3,004 | `d0473ce7f145a97a17ebde3b1eea9ac02b260063bedb8a3ae64e74bf2016ef22` |
 | `.scratch/merged-migration/rollback-evidence-pre.json` | 938 | `cd6eefd4a896e80a5c709ae8d504d5b60fd153e99850f4a2fb7da80270163b13` |
 | `.scratch/merged-migration/predictions-before.jsonl`（= after，逐字节相同） | 1,835,622 | `4bd8f607cc299862a7e4f1dace0b9005fa5df39781c01001a9a4239b24495ce0` |
 | `.scratch/merged-migration/predictions-before.manifest`（= after） | 133,503 | `dae6579584d1e150d66f38cb1aea1b955966db876e3950b25054f3459dc10185` |
-| `.scratch/backtest/predictions-public-surface.db` | 1,114,112 | `36cfc2b6ee2d8ee7b58c9a170972578471f4e3069234fbabc5e0ffb5815f6af8` |
+| `.scratch/backtest/predictions-public-surface.db` | 1,114,112 | `dae7435516f79e7d5106a9835e170ec7320d875f990b86a5eec0c7e1d364c5b0` |
+| `.scratch/backtest/predictions-public-surface.db.meta.json` | 801 | `e13c486bf6a820d8c8bcd9117bb898b29c24cd66e85e18eef766727dd4b645f0` |
 
 （`.scratch/**` 不进 git；需要长期留档时应把上面这些 json/db 复制进 `p1b/sim/out/`。）
 
@@ -265,3 +267,56 @@ cd p1b; node --test
 
 
 
+
+## 18. 复盘：本 turn 的失败不是同一根因，且 0 次是环境问题（env-triage 标记 generic×N）
+
+env-triage 把本 turn 的失败一律归为 **generic**，恰恰说明它**不是**一个环境/依赖/权限/网络故障——分类器的桶里没有"作者自己写字面量写错"这一类，所以只能落 generic。逐条复盘如下（含收尾自检阶段）。
+
+### 18.1 失败清单与各自的根因
+
+| # | 现象（原文摘要） | 根因 | 属于 |
+|---|---|---|---|
+| 1 | `SqliteError: no such column: source` | 探测脚本**假设** `predictions` 有 `source` 列，未先看 schema | C |
+| 2 | `old_string matched 20 times` | edit 锚点用了文件尾 `  }\n}`，非唯一 | B1 |
+| 3 | `SyntaxError: Invalid string escape`（`node -e`） | pwsh→node 双层引号嵌套 | B2 |
+| 4 | `SqliteError: unable to open database … SQLITE_CANTOPEN` | **只读主连接 ATTACH 建新文件** | **A** |
+| 5 | `old_string and new_string must differ`（第 1 次） | 我提交了一次**无操作** edit | B1 |
+| 6 | `模板占位符未全部替换：@@…@@` | 模板**自身注释**里含哨兵 `@@…@@`，误判未替换 | B2 |
+| 7 | `SyntaxError: missing ) after argument list` | 单引号串里再嵌单引号 | B2 |
+| 8 | 断言失败：视图输出含 `truth_preview` | **夹具自己**把被扫描的 token 写进了 statement | C |
+| 9 | `Cannot find module './_sqlite-guard'` | CJS **无扩展名解析不试 `.cjs`**（`node --check` 查不出模块解析错） | B2 |
+| 10 | `old_string and new_string must differ`（第 2 次） | 同 #5，复盘写入时又犯一次 | B1 |
+
+**另有一项不是"失败"但同根因的缺陷**：回滚排演的事后探针跑在**只读连接**上，拿到 `SQLITE_READONLY` 被当成"CHECK 已恢复"的证据——**证据是错的**（失败原因不对）。已自检发现并改为可写连接重排，拿到真正的 `CHECK constraint failed`。
+
+### 18.2 三个根因族（不是同一个）
+
+- **A｜只读/写意图错配（2 次：#4 ＋ 那次错证据）** ← 唯一的"真技术根因"，已最小复现坐实（`probe-readonly.cjs`：`db.readonly===true` ⇒ ATTACH-create 必 `SQLITE_CANTOPEN`、INSERT 必 `SQLITE_READONLY`）。
+- **B｜手写字面量/锚点卫生（6 次：#2 #5 #6 #7 #9 #10）** ← 都是"我手打的字符串/说明符与内容撞车"；其中锚点/无操作 3 次、转义/哨兵/模块说明符 3 次。
+- **C｜未先核实数据与夹具（2 次：#1 #8）** ← 用前不查 schema / 夹具与断言自撞。
+
+**共同元因（才是真正该修的）**：一次写完就立刻跑，缺 **3 个便宜 pre-flight**。#A 是唯一有"技术含量"的，其余全是卫生问题。
+
+### 18.3 已经起作用的护栏（为什么没有变成死循环）
+
+- `node --check`：拦住 #3 #7 的语法错。
+- 逐行转储/manifest sha256 等值：**没有**掩盖任何真实数据问题（前后逐字节相同正是它证出来的）。
+- `recheck`：抓出了我第一版 DDL 比对判据太糙（`len_equal=false` 就判 fail），修正为语义级插入判据。
+- 编辑工具自身的 `old_string must differ` / 唯一性校验：拦住 #5 #10 不落盘。
+- 收尾复验：抓出 #9（新加的 `require` 解析失败）与"重跑 gd2-0-accept 会让 surface sha 变化、收据静默失真"。
+- 纪律层面：**8+2 次失败没有一次是"同一操作原样重试"**——每次都换了对策（换查询/换锚点/换脚本文件/换构建路径/修模板/修转义/修夹具/补扩展名）。
+
+### 18.4 本 turn 落地的根因修复
+
+1. **`p1b/scripts/_sqlite-guard.cjs`（新）**：`assertWritable(conn,label)` 把"我以为它是可写连接"变成**显式带原因的失败**；已接入 `phase1` / `phase2` / `unknown-accept` / `buildPublicSurface` 四处写路径。
+   已用`probe-guard.cjs`验证**发布的模块本体**：只读连接 → 抛错；可写连接 → 放行并回传连接；null → 抛错（`PASS: true`）。
+2. **surface 产物确定性化**：`generated_at` 从 `public_surface_meta` 表**移出**到 sidecar `.meta.json`，使 surface 本体对同一源**可重现**。实测连跑两次 sha256 恒为 `dae7435516f79e7d5106a9835e170ec7320d875f990b86a5eec0c7e1d364c5b0`（修之前每次重跑都变，收据里的 hash 会静默失真——这是本轮**新发现**的一类隐患）。
+3. **纪律条目（无法由代码强制于 edit 工具，写入本收据留痕）**：
+   - edit 前对 `old_string` 做唯一性 grep 计数；
+   - 禁止行内 `node -e` 处理任何带引号的字符串，一律落 `.cjs` ＋ `node --check`；
+   - 哨兵 token 必须先断言"内容里不存在"；测试夹具不得包含断言要扫的 token；
+   - **接入新 `require` 后必须跑一次该脚本最便宜的路径**（`node --check` 查不出模块解析错——#9 就是这么漏的）。
+
+### 18.5 结论
+
+**不换技术路线、不需用户裁决**：10 次失败中 0 次是环境/依赖/权限/网络问题，0 次阻塞交付，且本 turn 的交付物已被独立复验（verify `ok=true`、204/204 测试、全部 sha256 与收据逐一核对一致、活服务 HTTP 200）。修的是 **A 的代码档位 ＋ B/C 的 pre-flight 纪律**；迁移本体**已应用且冻结，不重跑**。

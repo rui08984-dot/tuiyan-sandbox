@@ -27,6 +27,7 @@ const crypto = require('crypto');
 
 const ROOT = path.resolve(__dirname, '..', '..');
 const Database = require(path.join(ROOT, 'p1a-terminal', 'node_modules', 'better-sqlite3'));
+const { assertWritable } = require('./_sqlite-guard.cjs');   // 必须带扩展名：CJS 无扩展名解析不试 .cjs
 const store = require(path.join(ROOT, 'p1b', 'src', 'db', 'predictionsStore.js'));
 const intake = require(path.join(ROOT, 'p1b', 'src', 'db', 'intakeStore.js'));
 
@@ -155,7 +156,7 @@ async function phase1(dbPath, apply) {
   if (!apply) { console.log(JSON.stringify(Object.assign({ dry_run: true }, plan), null, 1)); return plan; }
 
   plan.snapshot = await snapshot(dbPath, 'phase1');
-  const db = openRw(dbPath);
+  const db = assertWritable(openRw(dbPath), 'phase1');
   const t0 = Date.now();
   const tx = db.transaction(() => {
     db.exec(intake.SCHEMA_PROCESS_ROLES);
@@ -298,7 +299,7 @@ async function phase2(dbPath, apply) {
     return plan;
   }
   plan.snapshot = await snapshot(dbPath, 'phase2');
-  const db = openRw(dbPath);
+  const db = assertWritable(openRw(dbPath), 'phase2');
   const t0 = Date.now();
   db.pragma('foreign_keys = OFF');                       // 步骤 1（事务外）
   const oldCols = db.prepare('PRAGMA table_info(predictions)').all().map((c) => c.name);
@@ -360,7 +361,7 @@ async function unknownAccept(dbPath) {
     const s = openRo(from); await s.backup(to); s.close(); return to;
   };
   const attempt = (file, layer, sec, label) => {
-    const db = openRw(file);
+    const db = assertWritable(openRw(file), 'unknown-accept');
     db.pragma('foreign_keys = ON');
     const gid = db.prepare('SELECT id FROM games ORDER BY id LIMIT 1').get().id;
     let r;
