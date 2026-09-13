@@ -657,7 +657,7 @@ async function main() {
         insertPrediction({
           gameId: g, day: null, sourceType: '预测卡', statement: r.statement, prob: r.prob,
           evidence: [{ resolve: r.resolve, baseRateNote: r.baseRateNote, meta: r.meta, slug: r.slug, phase: r.phase, kind: 'b3_' + r.phase }],
-          layer: r.layer, engine: r.engine, gate: 'descriptive', checklist_hash: 'v2',
+          layer: r.layer, engine: r.engine, gate: 'descriptive', checklistHash: 'v2', publicExposure: 0,
         });
         ins++;
       } catch (e) { skip++; console.log('[skip] ' + String(e.message).slice(0, 110)); }

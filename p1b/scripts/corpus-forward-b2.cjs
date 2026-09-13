@@ -298,7 +298,7 @@ async function main() {
           gameId: g, day: null, sourceType: '预测卡',
           statement: r.statement, prob: r.prob,
           evidence: [{ resolve: r.resolve, baseRateNote: r.baseRateNote, meta: r.meta, kind: 'forward_batch_b2', slug: r.slug }],
-          layer: r.layer, engine: r.engine, gate: 'descriptive', checklist_hash: 'v2',
+          layer: r.layer, engine: r.engine, gate: 'descriptive', checklistHash: 'v2', publicExposure: 0,
         });
         inserted++;
       } catch (e) { skipped++; console.log('[skip] ' + String(e.message).slice(0, 120)); }
