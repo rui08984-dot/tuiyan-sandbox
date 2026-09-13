@@ -26,6 +26,18 @@
  *     「仅作背景参考」），禁任何「请据此更新」式更新指令（Schoenegger 实测更新指令劣化）。
  *   输出契约：末行 P=0.xx 不变（extractImpliedProb/judge-runner 全链兼容），其上一行新增
  *   「Range: A%-B%」区间行（区间端点=第二信号源，J2 Lu/J6；宽度入库供批次 1 消融）。
+ *
+ * 证据块 3.0（命题 A 接线；用户 2026-09-13 拍板 Q2=A）——2.0→3.0 差异（**只增不改**）：
+ *   2.0 = a 事件流 + b claims 按席位聚合 + c 机械特征卡（三段，纯代码）。
+ *   3.0 = 2.0 三段 + d 机械矛盾特征（实跑 detectors/werewolf-contradictions.js 的 W1-W6：
+ *     矛盾对数 / 涉及席位 / 类型分布 + 矛盾明细行）。差异仅在**末尾追加 d 段**，a/b/c 逐字节
+ *     不变 → 关闭开关时整块逐字节退回 2.0 形状。修复对象=R1-F10 实测的「检测器已落地但判词链
+ *     未接线」：loadEvidence 此前从不调用本检测器。
+ *   消融开关：env `P1B_EVIDENCE_V3` ∈ {0,off,false,no,disabled} → 关；或 loadEvidence(pred,{contradictions:false})。
+ *     默认开启（生产 v1_evidence 走 3.0）；开关只控制 d 段，与 a/b/c 无关。
+ *   边界：d 段输入=证据窗内 events/claims 副本；检测器真值盲（禁触 games.meta.truth）；
+ *     events.actor_seat=players.id 须 JOIN players 还原座位号（acr-run.cjs L21-24 同口径）；
+ *     非狼人域局（game_type 解析不出 format）不追加 d 段 → 2.0 形状。
  */
 const { db, llm } = require('../deps');
 const predictions = require('../db/predictionsStore');
@@ -34,6 +46,8 @@ const { chatText } = require('../lib/llmChat');
 const { resolveLlmOptions } = require('../llmOptions');
 const { getGameOr404 } = require('./games');
 const { httpError, requireInt } = require('../util');
+// 3.0 d 段：机械矛盾检测器 W1-W6（真值盲/零 LLM/零网络；avalon.js 已同源只读引用）
+const DET = require('../detectors/werewolf-contradictions');
 
 /** 3 路预注册配置（变体×温度配对=任务书降级版；provider 维度留空待补） */
 const ROUTES = [
@@ -78,6 +92,15 @@ const EVIDENCE_HEAD = '账本证据引用（截至 cutoff 的公开记录，非�
 const CLAIMS_HEAD = '账本声称记录（claims 结构化，按声称席位聚合）：';
 const STATS_HEAD = '账本机械统计（截至 cutoff，纯代码计算零 LLM）：';
 const NO_EVIDENCE_LINE = '（本条无证据引用，仅题面陈述）';
+// 【2026-09-13 修预存在 bug】corpus 型 predictions 的 evidence 是结构化快照（对象数组）而非事件 id：
+const STRUCTURED_EVIDENCE_LINE = '（本条证据为结构化快照·非事件流，判词证据块不适用）';
+// ── 证据块版本与 3.0 d 段常量 ──
+const EVIDENCE_VERSION = '3.0';                 // 3.0 = 2.0 三段 + d 机械矛盾特征
+const EVIDENCE_VERSION_2_0 = '2.0';             // 关闭开关时的形状版本（消融对照臂）
+const EVIDENCE_V3_ENV = 'P1B_EVIDENCE_V3';      // 消融开关：0/off/false/no/disabled → 关闭
+const V3_OFF_VALUES = ['0', 'off', 'false', 'no', 'disabled', 'none'];
+const CONTRADICTION_HEAD = '账本机械矛盾特征（W1-W6 版型无关检测器，纯代码计算零 LLM）：';
+const CONTRADICTION_DETAIL_MAX = 6;             // 明细行上限（防 prompt 膨胀；超出如实标「共 N 对」）
 
 /** 截断（超长加省略号） */
 function truncateText(s, n) {
@@ -95,26 +118,40 @@ function truncateText(s, n) {
  *      禁止注入任何结算信息（计票/终局/roles 不触达；夜死席位取自天亮公告文本= cutoff 前公开信息，
  *      正则取「N 号死亡」避开 events.actor_seat=players.id 坑）。
  * 空/全部悬空 → 「（本条无证据引用，仅题面陈述）」。
+ * 3.0 追加 d 段（机械矛盾特征）：仅当开关开启且 game_type 解析出狼人域 format；默认开启，
+ *   关闭→ a/b/c 逐字节等于 2.0。
+ * @param {object} prediction 预测行（需 id/game_id/evidence）
+ * @param {{contradictions?: boolean}} [opts] 消融参数（缺省读 env P1B_EVIDENCE_V3）
  * @returns {string} 多行证据块（零网络，纯查库）
  */
-function loadEvidence(prediction) {
-  const ids = (prediction && Array.isArray(prediction.evidence)) ? prediction.evidence : [];
-  if (!ids.length) return NO_EVIDENCE_LINE;
+function loadEvidence(prediction, opts) {
+  // 【2026-09-13 修预存在 bug】1053 条 corpus 型 evidence 为结构化对象数组（非事件 id）。
+  // 旧实现把元素直接当 SQL 参数绑定（下方 events 循环与 claims 的 IN 展开）→ RangeError，
+  // 生产 POST /predictions/:pid/verdicts 打到 corpus 预测即 500。此处只保留可作事件 id 的标量；
+  // 纯结构化快照走专用兜底行（与修复前基线的差异仅出现在这些原本会崩溃的行上）。
+  const raw = (prediction && Array.isArray(prediction.evidence)) ? prediction.evidence : [];
+  if (!raw.length) return NO_EVIDENCE_LINE;
+  const ids = raw.filter((v) => typeof v === 'number' || (typeof v === 'string' && v.trim() !== ''));
+  if (!ids.length) return STRUCTURED_EVIDENCE_LINE;
   const conn = db.getConnection();
   // a) 事件流
   const evs = [];
   for (const id of ids) {
-    // p14 坑位提示：events.actor_seat 存 players.id 而非座位号——本查询不取该列；夜死席位从公告文本正则取。
-    const ev = conn.prepare('SELECT id, game_id, day, phase, type, raw_text FROM events WHERE id = ? AND game_id = ?')
+    // p14 坑位提示：events.actor_seat 存 players.id 而非座位号——c 段夜死席位仍从公告文本正则取（不走该列）。
+    // 3.0：补 e.seq（W5 时序序）与还原后的座位号 p.seat（actor_seat=players.id → JOIN 还原，
+    // acr-run.cjs L21-24 同口径；game_id 并列进 JOIN 防跨局 id 撞车）。a/b/c 只读 id/day/type/raw_text，不受影响。
+    const ev = conn.prepare('SELECT e.id, e.game_id, e.day, e.phase, e.seq, e.type, p.seat AS actor_seat, e.raw_text'
+      + ' FROM events e LEFT JOIN players p ON p.id = e.actor_seat AND p.game_id = e.game_id'
+      + ' WHERE e.id = ? AND e.game_id = ?')
       .get(id, prediction.game_id);
     if (ev) evs.push(ev);
   }
   if (!evs.length) return NO_EVIDENCE_LINE; // 全部悬空
   // b) 结构化 claims（claims.seat/subject_seat=座位号——A0 差异表 L82 口径，与 events.actor_seat 不同）
-  const claims = conn.prepare('SELECT seat, subject_seat, predicate, object FROM claims WHERE event_id IN ('
-    + ids.map(() => '?').join(',') + ') ORDER BY id').all.apply(
-    conn.prepare('SELECT seat, subject_seat, predicate, object FROM claims WHERE event_id IN ('
-      + ids.map(() => '?').join(',') + ') ORDER BY id'), ids);
+  // 3.0：补 c.id/c.event_id（检测器 refs 'c<id>' 与 claim_a/claim_b 需要）；绑定方式与 2.0 等价（apply 展开）。
+  const claimStmt = conn.prepare('SELECT id, event_id, seat, subject_seat, predicate, object FROM claims WHERE event_id IN ('
+    + ids.map(() => '?').join(',') + ') ORDER BY id');
+  const claims = claimStmt.all.apply(claimStmt, ids);
   // 按声称席位聚合
   const bySeat = {};
   for (const c of claims) { (bySeat[c.seat] = bySeat[c.seat] || []).push(c.predicate + '→' + c.object); }
@@ -144,7 +181,68 @@ function loadEvidence(prediction) {
   for (const ev of evs) blocks.push('事件 #' + ev.id + '（day ' + ev.day + '/' + ev.type + '）：' + truncateText(ev.raw_text, EVIDENCE_TRUNC));
   if (claimLines.length) { blocks.push(CLAIMS_HEAD); blocks.push.apply(blocks, claimLines); }
   blocks.push(STATS_HEAD); blocks.push.apply(blocks, statLines);
+  // d) 机械矛盾特征（3.0 新增，纯代码；开关关闭或非狼人域 → 不追加 → 逐字节退回 2.0）
+  if (isContradictionEnabled(opts)) {
+    const grow = conn.prepare('SELECT game_type FROM games WHERE id = ?').get(prediction.game_id);
+    const format = resolveContradictionFormat(grow && grow.game_type);
+    if (format) {
+      blocks.push.apply(blocks, renderContradictionBlock(
+        DET.detectWerewolfContradictions({ format: format, events: evs, claims: claims })));
+    }
+  }
   return blocks.join('\n');
+}
+
+/**
+ * 3.0 消融开关：opts.contradictions 显式布尔优先；否则读 env P1B_EVIDENCE_V3。
+ * 缺省开启（3.0）；env ∈ V3_OFF_VALUES → 关闭（逐字节退回 2.0 形状）。
+ * @returns {boolean}
+ */
+function isContradictionEnabled(opts) {
+  if (opts && typeof opts.contradictions === 'boolean') return opts.contradictions;
+  const v = process.env[EVIDENCE_V3_ENV];
+  if (v === undefined || v === null) return true;
+  return V3_OFF_VALUES.indexOf(String(v).trim().toLowerCase()) === -1;
+}
+
+/**
+ * game_type → 检测器版型（未知/非狼人域 → null；null 即不追加 d 段 = 2.0 形状）。
+ * 与 werewolf-contradictions.resolveFormat 的子串口径一致（botc/blood→botc，wolf→werewolf）。
+ * @returns {string|null}
+ */
+function resolveContradictionFormat(gameType) {
+  const s = String(gameType === undefined || gameType === null ? '' : gameType).toLowerCase();
+  if (s.indexOf('botc') >= 0 || s.indexOf('blood') >= 0) return 'botc';
+  if (s.indexOf('wolf') >= 0 || s.indexOf('\u72fc\u4eba') >= 0) return 'werewolf';
+  return null;
+}
+
+/**
+ * d 段渲染（3.0）：矛盾对数 / 涉及席位 / 类型分布 + 明细（前 CONTRADICTION_DETAIL_MAX 对）。
+ * 涉及席位口径=矛盾对描述中出现的座位号（正则 座位N / N 号）去重升序——纯文本确定性，零额外查库。
+ * @returns {string[]} 行数组（空 pairs → 只出块头+零值行，仍如实呈现「矛盾对数：0」）
+ */
+function renderContradictionBlock(pairs) {
+  const list = Array.isArray(pairs) ? pairs : [];
+  const hist = DET.summarize(list);
+  const seatSet = new Set();
+  for (const p of list) {
+    const re = /\u5ea7\u4f4d(\d+)|(\d+)\s*\u53f7/g;
+    let m;
+    while ((m = re.exec(p.desc)) !== null) seatSet.add(Number(m[1] !== undefined ? m[1] : m[2]));
+  }
+  const seats = Array.from(seatSet).sort(function (a, b) { return a - b; });
+  const dist = DET.RULES.filter(function (r) { return hist[r]; })
+    .map(function (r) { return r + '\u00d7' + hist[r]; }).join('\u3001');
+  const lines = [CONTRADICTION_HEAD];
+  lines.push('\u77db\u76fe\u5bf9\u6570\uff1a' + hist.total + '\uff1b\u6d89\u53ca\u5e2d\u4f4d\uff1a'
+    + (seats.length ? seats.join('\u3001') : '\u65e0') + '\uff1b\u7c7b\u578b\u5206\u5e03\uff1a' + (dist || '\u65e0'));
+  const detail = list.slice(0, CONTRADICTION_DETAIL_MAX);
+  for (const p of detail) lines.push('[' + p.rule + '] ' + truncateText(p.desc, 120));
+  if (list.length > detail.length) {
+    lines.push('\uff08\u660e\u7ec6\u4ec5\u793a\u524d ' + detail.length + ' \u5bf9\uff0c\u5171 ' + list.length + ' \u5bf9\uff09');
+  }
+  return lines;
 }
 
 /**
@@ -302,4 +400,7 @@ module.exports = {
   register, ROUTES, extractImpliedProb, buildMockVerdict, buildSystemPrompt, buildUserPrompt,
   loadEvidence, loadBaseline, formatBaselineLine, // 批次1-M1 per-path 注入件（测试与消融复用）
   EVIDENCE_HEAD, NO_EVIDENCE_LINE, // 注入口径常量（测试断言复用，防文案漂移）
+  // 证据块 3.0（命题 A 接线）：d 段常量 + 消融开关解析（测试/消融复用）
+  EVIDENCE_VERSION, EVIDENCE_VERSION_2_0, EVIDENCE_V3_ENV,
+  CONTRADICTION_HEAD, isContradictionEnabled, resolveContradictionFormat, renderContradictionBlock,
 };

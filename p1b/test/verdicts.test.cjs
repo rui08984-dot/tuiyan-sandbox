@@ -328,7 +328,7 @@ test('loadEvidence 2.0（R-C）：三段注入——事件流+claims 按席位�
   conn.prepare("INSERT INTO claims (event_id, seat, subject_seat, predicate, object) VALUES (?, 3, 5, 'is_good', '平民')").run(evC);
   const pred = predictions.insertPrediction({ gameId: g, day: 1, sourceType: '预测卡', statement: '2.0 用例：三段注入', prob: 0.5, layer: 'L6', evidence: [Number(evA), Number(evB), Number(evC), Number(evD)] });
   const { loadEvidence } = require('../src/routes/verdicts');
-  const block = loadEvidence(pred);
+  const block = loadEvidence(pred, { contradictions: false }); // 3.0 d 段消融关闭：本测试=2.0 三段回归
   // a 段：事件流（只含 cutoff 前 4 条）
   for (const ev of [evA, evB, evC, evD]) assert.ok(block.indexOf('事件 #' + ev + '（day 1/') !== -1, 'a 段事件 #' + ev + ' 在块中');
   assert.ok(block.indexOf('计票：{"2":4}') === -1 && block.indexOf('游戏结束：狼人阵营胜利') === -1, '无泄漏：dusk 计票/system 终局原文不出现');
@@ -344,6 +344,62 @@ test('loadEvidence 2.0（R-C）：三段注入——事件流+claims 按席位�
   assert.ok(block.indexOf('声称总数：3（其中身份声称 3）') !== -1, '声称总数/身份声称');
   assert.ok(block.indexOf('指认总数（is_wolf 指认他人）：1；被指认席位数：1；单席最高被指认：1') !== -1, '指认特征（自指认不算指认他人）');
   assert.ok(block.indexOf('夜死席位：5 号') !== -1, '夜死席位从公告文本正则取（p14 坑规避）');
+});
+
+// ── 命题 A 接线：证据块 3.0（机械矛盾特征 d 段）+ 消融开关（只增不改）──────
+
+/** 造 W2 矛盾窗：subject_seat=1 同时被 is_wolf(2 号) 与 is_good(3 号) 指认 → 阵营互斥 */
+function insertContradictionFixture(seqBase) {
+  const conn = db.getConnection();
+  const ids = [];
+  const rows = [
+    [seqBase, 'statement', '1 号：我是平民。'],
+    [seqBase + 1, 'statement', '2 号：我觉得 1 号是狼人。'],
+    [seqBase + 2, 'statement', '3 号：1 号是好人。'],
+  ];
+  for (const r of rows) {
+    ids.push(Number(conn.prepare("INSERT INTO events (game_id, day, phase, seq, type, raw_text) VALUES (?, 1, 'day', ?, ?, ?)")
+      .run(gameId, r[0], r[1], r[2]).lastInsertRowid));
+  }
+  conn.prepare("INSERT INTO claims (event_id, seat, subject_seat, predicate, object) VALUES (?, 2, 1, 'is_wolf', '狼人')").run(ids[1]);
+  conn.prepare("INSERT INTO claims (event_id, seat, subject_seat, predicate, object) VALUES (?, 3, 1, 'is_good', '好人')").run(ids[2]);
+  return predictions.insertPrediction({ gameId: gameId, day: 1, sourceType: '预测卡', statement: '3.0 用例：机械矛盾特征', prob: 0.5, layer: 'L6', evidence: ids });
+}
+
+test('loadEvidence 3.0（命题 A）：d 段矛盾对数/涉及席位/类型分布+明细；2.0 三段仍逐字在', () => {
+  const { loadEvidence, CONTRADICTION_HEAD, EVIDENCE_VERSION } = require('../src/routes/verdicts');
+  assert.equal(EVIDENCE_VERSION, '3.0', '证据块版本号=3.0');
+  const block = loadEvidence(insertContradictionFixture(9301)); // 默认开启（生产接线）
+  assert.ok(block.indexOf(CONTRADICTION_HEAD) !== -1, 'd 段块头存在');
+  assert.ok(block.indexOf('矛盾对数：1；涉及席位：1；类型分布：W2×1') !== -1, 'd 段三项特征逐字（对数/席位/类型分布）');
+  assert.ok(block.indexOf('[W2] 座位1 被同时指认为 is_wolf') !== -1, 'd 段明细含规则码+人可读描述');
+  assert.ok(block.indexOf('账本证据引用') !== -1 && block.indexOf('账本声称记录') !== -1
+    && block.indexOf('账本机械统计（截至 cutoff，纯代码计算零 LLM）') !== -1, '2.0 三段头仍在（只增不改）');
+  assert.ok(block.indexOf('账本机械统计') < block.indexOf(CONTRADICTION_HEAD), 'd 段追加在 c 段之后（追加式，不改前段）');
+});
+
+test('loadEvidence 消融开关：contradictions:false 与 env P1B_EVIDENCE_V3=0 逐字节退回 2.0 形状', () => {
+  const mod = require('../src/routes/verdicts');
+  const { loadEvidence, CONTRADICTION_HEAD, EVIDENCE_V3_ENV } = mod;
+  const pred = insertContradictionFixture(9401);
+  const off = loadEvidence(pred, { contradictions: false });
+  assert.ok(off.indexOf(CONTRADICTION_HEAD) === -1 && off.indexOf('矛盾对数') === -1, '关开关：无 d 段');
+  assert.match(off, /夜死席位：[^\n]*$/, '2.0 形状：块以 c 段末行收尾，无追加段');
+  const on = loadEvidence(pred);
+  assert.ok(on.length > off.length && on.indexOf(off) === 0, '开启=在 2.0 全文之上纯追加');
+  const saved = process.env[EVIDENCE_V3_ENV];
+  try {
+    process.env[EVIDENCE_V3_ENV] = '0';
+    assert.equal(loadEvidence(pred), off, 'env=0 与参数开关逐字节同结果');
+    process.env[EVIDENCE_V3_ENV] = 'off';
+    assert.equal(loadEvidence(pred), off, 'env=off 同样关闭');
+    assert.equal(loadEvidence(pred, { contradictions: true }), on, '显式 true 覆盖 env');
+  } finally {
+    if (saved === undefined) delete process.env[EVIDENCE_V3_ENV]; else process.env[EVIDENCE_V3_ENV] = saved;
+  }
+  assert.equal(mod.resolveContradictionFormat('werewolf_sim_6p_onenight'), 'werewolf');
+  assert.equal(mod.resolveContradictionFormat('botc'), 'botc');
+  assert.equal(mod.resolveContradictionFormat('corpus:openmeteo'), null, '非狼人域 → 不追加 d 段（2.0 形状）');
 });
 
 // ── 批次2-M1（R-A 后解冻件）：verdicts runId/model API 透传 ─────────────────
@@ -395,4 +451,12 @@ test('三批 runId 隔离（批次2-RC）：同 pid 同路不同 runId 并存；
   const n1 = saveVerdict({ predictionId: pidY.id, promptVariant: 'v1_evidence', temperature: 0.2, verdictText: 'NULL 批首条。\nP=0.50', impliedProb: 0.5 });
   const n2 = saveVerdict({ predictionId: pidY.id, promptVariant: 'v1_evidence', temperature: 0.2, verdictText: 'NULL 批重发行。\nP=0.50', impliedProb: 0.5 });
   assert.equal(n2.id, n1.id, 'NULL（R-A 口径）组内幂等保首条（旧语义不回归）');
+});
+
+test('loadEvidence：corpus 型结构化 evidence（对象数组）不再抛 RangeError（2026-09-13 修 500）', () => {
+  const { loadEvidence } = require('../src/routes/verdicts');
+  const block = loadEvidence({ id: 999001, game_id: 1, evidence: [{ kind: 'cutoff_snapshot', slug: 'probe', resolve: { date: '2026-09-01' } }] });
+  assert.ok(typeof block === 'string' && block.includes('结构化快照'), '应走结构化兜底行，实得：' + block);
+  const numeric = loadEvidence({ id: 999002, game_id: 1, evidence: [38] });
+  assert.ok(typeof numeric === 'string', '数值型 evidence 仍应正常返回字符串');
 });
