@@ -73,7 +73,311 @@ const RESOLVERS = {
     }
     return { pending: 'resolve 参数未带 back_ball/front_max_ge（' + r.issue + '）' };
   },
+  // ══ B3/WIDE/B4 批：Open-Meteo 家族（air hourly 日均 / archive+forecast daily 单值）══
+  async _omHourlyMean(r) {
+    if (futureDay(r.date)) return { pending: r.date + ' 尚未到（前瞻事件未发生，不结算）' };
+    const u = subst(r.url_template || r.url, r);
+    const vn = varOf(u, 'hourly');
+    if (!vn) return { pending: 'url 未带 hourly= 变量' };
+    let j;
+    try { j = await getJson(u); } catch (e) { if (String(e.message).indexOf('HTTP 400') !== -1) return { pending: 'open-meteo 400（该日无数据）' }; throw e; }
+    const t = (j.hourly && j.hourly.time) || [], a = (j.hourly && j.hourly[vn]) || [];
+    const vals = [];
+    t.forEach((ts, i) => { if (String(ts).slice(0, 10) !== r.date) return; const v = a[i]; if (v === null || v === undefined || !isFinite(v)) return; vals.push(Number(v)); });
+    if (!vals.length) return { pending: r.date + ' ' + vn + ' 尚无小时值（未入库/未发生）' };
+    if (vals.length < 20) return { pending: r.date + ' ' + vn + ' 仅 ' + vals.length + ' 小时值（未满当日，不结算）' };
+    const m = vals.reduce((x, y) => x + y, 0) / vals.length;
+    return finish(r, m, 'Open-Meteo hourly.' + vn + ' ' + r.date + ' 日均=' + m.toFixed(4) + '（' + vals.length + ' 小时）');
+  },
+  async _omDaily(r) {
+    let tpl = r.url_template || r.url;
+    if (tpl.indexOf('api.open-meteo.com/v1/forecast') !== -1) {
+      if (futureDay(r.date)) return { pending: r.date + ' 尚未到（前瞻事件未发生，不结算）' };
+      tpl = tpl.split('api.open-meteo.com/v1/forecast').join('archive-api.open-meteo.com/v1/archive');
+    }
+    if (futureDay(r.date)) return { pending: r.date + ' 尚未到（前瞻事件未发生，不结算）' };
+    const u = subst(tpl, r);
+    const vn = varOf(u, 'daily');
+    if (!vn) return { pending: 'url 未带 daily= 变量' };
+    let j;
+    try { j = await getJson(u); } catch (e) { if (String(e.message).indexOf('HTTP 400') !== -1) return { pending: 'open-meteo 400（该日无数据）' }; throw e; }
+    const t = (j.daily && j.daily.time) || [], a = (j.daily && j.daily[vn]) || [];
+    const i = t.indexOf(r.date);
+    const v = i >= 0 ? a[i] : null;
+    if (v === null || v === undefined) return { pending: r.date + ' 的 daily.' + vn + ' 尚无值（ERA5/预报未入库）' };
+    return finish(r, v, 'Open-Meteo daily.' + vn + ' ' + r.date + '=' + v);
+  },
+  // ══ DBnomics 家族（期值 / 月均值）══
+  async _dbnPeriod(r) {
+    const j = await getJson(subst(r.url_template || r.url, r));
+    const doc = j && j.series && j.series.docs && j.series.docs[0];
+    if (!doc) return { pending: 'DBnomics 序列不存在' };
+    const key = r.period !== undefined ? String(r.period) : (r.month !== undefined ? String(r.month) : String(r.year));
+    const i = doc.period.indexOf(key);
+    if (i < 0) return { pending: 'DBnomics ' + (r.series_code || r.series) + ' ' + key + ' 观测未发布' };
+    const v = doc.value[i];
+    if (v === null || v === undefined || v === 'NA' || !isFinite(Number(v))) return { pending: key + ' 值为空/NA（不猜）' };
+    return finish(r, Number(v), 'DBnomics ' + (r.series_code || r.series) + ' ' + key + '=' + v);
+  },
+  async _dbnMonthMean(r) {
+    const j = await getJson(subst(r.url_template || r.url, r));
+    const doc = j && j.series && j.series.docs && j.series.docs[0];
+    if (!doc) return { pending: 'DBnomics 序列不存在' };
+    const vs = [];
+    doc.period.forEach((p, i) => {
+      if (String(p).slice(0, 7) !== r.month) return;
+      const v = doc.value[i];
+      if (v === null || v === undefined || v === 'NA' || !isFinite(Number(v))) return;
+      vs.push(Number(v));
+    });
+    if (!vs.length) return { pending: 'DBnomics ' + r.series + ' ' + r.month + ' 观测未发布' };
+    const m = vs.reduce((x, y) => x + y, 0) / vs.length;
+    return finish(r, m, 'DBnomics ' + r.series + ' ' + r.month + ' 月均=' + m.toFixed(4) + '（' + vs.length + ' 个日值）');
+  },
+  // ══ Eurostat 直连 JSON-stat（官方 dissemination API）══
+  async _eurostatJsonstat(r) {
+    const map = Object.assign({ last_n: '120' }, r);
+    const u = subst(r.url_template || r.url, map);
+    const j = await getJson(u);
+    const ix = j && j.dimension && j.dimension.time && j.dimension.time.category && j.dimension.time.category.index;
+    if (!ix) return { pending: 'Eurostat 返回无 time 维（参数不符）' };
+    const key = r.month !== undefined ? String(r.month) : String(r.year);
+    const ti = ix[key];
+    if (ti === undefined) return { pending: 'Eurostat ' + key + ' 未发布（time 维无该期）' };
+    const pos = (j.id || []).map((x) => (x === 'time' ? ti : 0));
+    let flat = 0;
+    for (let i = 0; i < j.size.length; i++) flat = flat * j.size[i] + pos[i];
+    const v = j.value ? j.value[flat] : undefined;
+    if (v === null || v === undefined || !isFinite(Number(v))) return { pending: 'Eurostat ' + key + ' 值为空' };
+    return finish(r, Number(v), 'Eurostat ' + (r.geo || '') + ' ' + key + '=' + v);
+  },
+  // ══ Delphi Epidata（CDC FluView 周 ILI）══
+  async _delphiFlu(r) {
+    const j = await getJsonRetry(subst(r.url_template || r.url, r));
+    const epi = (j && j.epidata) || [];
+    const hit = epi.filter((x) => String(x.epiweek) === String(r.epiweek))[0];
+    if (!hit) return { pending: 'FluView ' + r.epiweek + ' 周未发布' };
+    if (hit.num_ili === null || hit.num_ili === undefined) return { pending: 'FluView ' + r.epiweek + ' num_ili 缺失' };
+    return finish(r, Number(hit.num_ili), 'Delphi fluview ' + (r.region || 'nat') + ' ' + r.epiweek + ' num_ili=' + hit.num_ili);
+  },
+  // ══ 行情 / 汇率 ══
+  async binance_daily_close(r) {
+    const j = await getJson(subst(r.url_template || r.url, r));
+    if (!Array.isArray(j) || !j.length || !j[0] || j[0][4] === undefined) return { pending: 'Binance ' + r.date + ' 无该日 K 线' };
+    return finish(r, Number(j[0][4]), 'Binance ' + r.symbol + ' ' + r.date + ' close=' + j[0][4]);
+  },
+  async kraken_daily_close(r) {
+    const j = await getJson(subst(r.url_template || r.url, r));
+    const res = (j && j.result) || {};
+    const key = Object.keys(res).filter((k) => k !== 'last')[0];
+    if (!key) return { pending: 'Kraken 无 OHLC 数据' };
+    const row = (res[key] || []).filter((x) => new Date(Number(x[0]) * 1000).toISOString().slice(0, 10) === r.date)[0];
+    if (!row) return { pending: 'Kraken ' + r.date + ' 无该日 K 线' };
+    return finish(r, Number(row[4]), 'Kraken ' + r.pair + ' ' + r.date + ' close=' + row[4]);
+  },
+  async frankfurter_rate(r) {
+    if (futureDay(r.date)) return { pending: r.date + ' 尚未到（ECB 未发布）' };
+    let j;
+    try { j = await getJson(subst(r.url_template || r.url, r)); } catch (e) { if (String(e.message).indexOf('HTTP 404') !== -1) return { pending: r.date + ' ECB 未发布' }; throw e; }
+    if (String(j.date) !== String(r.date)) return { pending: 'Frankfurter 回退到 ' + j.date + '（非目标日 ' + r.date + '，不猜）' };
+    const v = j.rates && j.rates[r.quote];
+    return finish(r, v, 'Frankfurter ' + j.date + ' ' + r.base + '/' + r.quote + '=' + v);
+  },
+  async frankfurter_rate_range(r) {
+    if (futureDay(r.date)) return { pending: r.date + ' 尚未到（ECB 未发布）' };
+    let j;
+    try { j = await getJson(subst(r.url_template || r.url, r)); } catch (e) { if (String(e.message).indexOf('HTTP 404') !== -1) return { pending: r.date + ' 区间未发布' }; throw e; }
+    const ks = Object.keys(j.rates || {}).filter((d) => d >= r.date).sort();
+    if (!ks.length) return { pending: r.date + '..' + (r.date_plus7 || '') + ' 内无发布日' };
+    const v = j.rates[ks[0]][r.quote];
+    return finish(r, v, 'Frankfurter ' + ks[0] + ' ' + r.base + '/' + r.quote + '=' + v);
+  },
+  // ══ 潮汐 / 气温 / 河流 / CO2 ══
+  async _noaaTideDailyHigh(r) {
+    if (futureDay(r.date)) return { pending: r.date + ' 尚未到' };
+    const nod = String(r.date).replace(/-/g, '');
+    const j = await getJson(subst(r.url_template || r.url, { date: nod, date_nodash: nod }));
+    const vals = ((j && j.predictions) || []).filter((p) => String(p.t).slice(0, 10) === r.date).map((p) => Number(p.v)).filter((x) => isFinite(x));
+    if (!vals.length) return { pending: 'NOAA ' + r.station + ' 无 ' + r.date + ' 预报' };
+    const mx = Math.max.apply(null, vals);
+    return finish(r, mx, 'NOAA ' + r.station + ' ' + r.date + ' 当日最高潮位=' + mx + 'm(MSL, ' + vals.length + ' 点)');
+  },
+  async ghcn_daily_tmax(r) {
+    if (futureDay(r.date)) return { pending: r.date + ' 尚未到' };
+    const j = await getJson(subst(r.url_template || r.url, r));
+    const row = (Array.isArray(j) ? j : []).filter((x) => String(x.DATE) === r.date)[0];
+    if (!row) return { pending: 'NCEI 尚无 ' + r.date + ' 记录' };
+    return finish(r, Number(row.TMAX), 'NCEI ' + r.station + ' ' + r.date + ' TMAX=' + row.TMAX + 'F(units=standard)');
+  },
+  async usgs_nwis_daily_discharge(r) {
+    if (futureDay(r.date)) return { pending: r.date + ' 尚未到' };
+    const j = await getJson(subst(r.url_template || r.url, r));
+    const ts = j && j.value && j.value.timeSeries && j.value.timeSeries[0];
+    if (!ts) return { pending: 'USGS 无该站数据' };
+    const row = ((ts.values[0] || {}).value || []).filter((x) => String(x.dateTime).slice(0, 10) === r.date)[0];
+    if (!row) return { pending: 'USGS ' + r.site + ' 无 ' + r.date + ' 日值' };
+    return finish(r, Number(row.value), 'USGS ' + r.site + ' ' + r.date + ' discharge=' + row.value + ' ft3/s');
+  },
+  async noaa_gml_co2_daily(r) {
+    if (futureDay(r.date)) return { pending: r.date + ' 尚未到' };
+    const t = await getText(r.url);
+    const row = t.split('\n').filter((x) => x && x.charAt(0) !== '#').map((x) => x.split(','))
+      .filter((c) => c.length >= 5 && c[0] + '-' + ('0' + c[1]).slice(-2) + '-' + ('0' + c[2]).slice(-2) === r.date)[0];
+    if (!row) return { pending: 'NOAA GML 无 ' + r.date + ' 日值' };
+    return finish(r, Number(row[4]), 'NOAA GML MLO ' + r.date + ' CO2=' + row[4] + 'ppm');
+  },
+  // ══ 周窗计数 ══
+  async crossref_week_total(r) {
+    const end = plusDays(r.week_start, 6);
+    if (end >= shToday()) return { pending: '窗口 ' + r.week_start + '~' + end + ' 未结束' };
+    const j = await getJson(subst(r.url_template || r.url, { date: r.week_start, date_plus6: end }));
+    const v = j && j.message && j.message['total-results'];
+    if (v === undefined || v === null) return { pending: 'Crossref 未返回 total-results' };
+    return finish(r, Number(v), 'Crossref ' + r.week_start + '~' + end + ' 新注册 DOI=' + v);
+  },
+  async nvd_cve_week_count(r) {
+    const end = plusDays(r.week_start, 6);
+    if (end >= shToday()) return { pending: '窗口 ' + r.week_start + '~' + end + ' 未结束' };
+    const j = await getJson(subst(r.url_template || r.url, { date: r.week_start, date_plus6: end }));
+    if (j.totalResults === undefined || j.totalResults === null) return { pending: 'NVD 未返回 totalResults' };
+    return finish(r, Number(j.totalResults), 'NVD ' + r.week_start + '~' + end + ' 新发 CVE=' + j.totalResults);
+  },
+  async github_weekly_commits(r) {
+    const end = r.week_end || plusDays(r.week_start, 6);
+    if (end >= shToday()) return { pending: '周 ' + r.week_start + '~' + end + ' 未结束' };
+    const j = await getJson(r.url, { Accept: 'application/vnd.github+json' });
+    if (!Array.isArray(j)) return { pending: 'GitHub stats 未就绪（可能 202 计算中）' };
+    const row = j.filter((w) => w && w.week && new Date(w.week * 1000).toISOString().slice(0, 10) === r.week_start)[0];
+    if (!row) return { pending: 'GitHub 无 ' + r.week_start + ' 周数据' };
+    return finish(r, Number(row.total), 'GitHub ' + r.repo + ' ' + r.week_start + '~' + end + ' commits=' + row.total);
+  },
+  async openalex_works_count(r) {
+    const end = r.end || plusDays(r.start, 6);
+    if (end >= shToday()) return { pending: '窗口 ' + r.start + '~' + end + ' 未结束' };
+    const j = await getJson(subst(r.url_template || r.url, r));
+    const v = j && j.meta && j.meta.count;
+    if (v === undefined || v === null) return { pending: 'OpenAlex 未返回 meta.count' };
+    return finish(r, Number(v), 'OpenAlex ' + r.start + '~' + end + ' count=' + v);
+  },
+  async npm_downloads_window(r) {
+    if (r.end >= shToday()) return { pending: '窗口 ' + r.start + '~' + r.end + ' 未结束' };
+    const j = await getJson(subst(r.url_template || r.url, r));
+    const ds = ((j && j.downloads) || []).filter((x) => x.day >= r.start && x.day <= r.end);
+    if (ds.length < 7) return { pending: 'npm ' + r.package + ' 窗口仅 ' + ds.length + ' 天（未满 7 天，不结算）' };
+    const sum = ds.reduce((a, x) => a + Number(x.downloads || 0), 0);
+    return finish(r, sum, 'npm ' + r.package + ' ' + r.start + '~' + r.end + ' 7 日下载=' + sum);
+  },
+  async wikimedia_pageviews(r) {
+    if (futureDay(r.date)) return { pending: r.date + ' 尚未到' };
+    const nod = String(r.date).replace(/-/g, '');
+    const j = await getJsonRetry(subst(r.url_template || r.url, { date: nod }));
+    const ymd = nod;
+    const it = ((j && j.items) || []).filter((x) => String(x.timestamp).slice(0, 8) === ymd)[0];
+    if (!it) return { pending: 'Wikimedia 无 ' + r.date + ' 数据' };
+    return finish(r, Number(it.views), 'Wikimedia ' + r.article + ' ' + r.date + ' views=' + it.views);
+  },
+  // ══ 电力 / 体育 / 交通 / 票房 / 天文 ══
+  async elexon_fuelhh_daily_mean(r) {
+    if (futureDay(r.date)) return { pending: r.date + ' 尚未到' };
+    const j = await getJson(subst(r.url_template || r.url, { date: r.date, date_plus1: plusDays(r.date, 1) }));
+    const vals = ((j && j.data) || []).filter((x) => String(x.fuelType) === r.fuel && String(x.settlementDate).slice(0, 10) === r.date).map((x) => Number(x.generation)).filter((x) => isFinite(x));
+    if (vals.length < 40) return { pending: 'Elexon ' + r.fuel + ' ' + r.date + ' 仅 ' + vals.length + ' 点（<40，未满当日）' };
+    const m = vals.reduce((a, x) => a + x, 0) / vals.length;
+    return finish(r, m, 'Elexon ' + r.fuel + ' ' + r.date + ' 均值=' + m.toFixed(4) + 'MW（' + vals.length + ' 点）');
+  },
+  async energycharts_daily_mean(r) {
+    if (futureDay(r.date)) return { pending: r.date + ' 尚未到' };
+    const j = await getJsonRetry(subst(r.url_template || r.url, r));
+    const ts = j.unix_seconds || [];
+    const tp = (j.production_types || []).filter((x) => x.name === r.type)[0];
+    if (!tp) return { pending: 'Energy-Charts 无类型 ' + r.type };
+    let sum = 0, n = 0;
+    ts.forEach((sec, i) => { if (new Date(sec * 1000).toISOString().slice(0, 10) !== r.date) return; const v = tp.data[i]; if (v === null || v === undefined || !isFinite(v)) return; sum += Number(v); n++; });
+    if (n < 80) return { pending: 'Energy-Charts ' + r.date + ' 仅 ' + n + ' 点（<80，未满当日）' };
+    const m = sum / n;
+    return finish(r, m, 'Energy-Charts ' + r.country + ' ' + r.type + ' ' + r.date + ' 均值=' + m.toFixed(4) + 'MW（' + n + ' 点）');
+  },
+  async mlb_schedule_daily_total_runs(r) {
+    if (futureDay(r.date)) return { pending: r.date + ' 尚未到' };
+    const j = await getJson(subst(r.url_template || r.url, r));
+    const games = [];
+    ((j && j.dates) || []).forEach((d) => (d.games || []).forEach((g) => games.push(g)));
+    if (!games.length) return { pending: 'MLB ' + r.date + ' 无赛程' };
+    const fin = games.filter((g) => g.status && g.status.abstractGameState === 'Final');
+    if (fin.length !== games.length) return { pending: 'MLB ' + r.date + ' 有未终场（' + fin.length + '/' + games.length + '，不结算）' };
+    let tot = 0;
+    fin.forEach((g) => { tot += Number((g.teams.home.score) || 0) + Number((g.teams.away.score) || 0); });
+    return finish(r, tot, 'MLB ' + r.date + ' ' + fin.length + ' 场总得分=' + tot);
+  },
+  async cta_daily_total_rides(r) {
+    if (futureDay(r.date)) return { pending: r.date + ' 尚未到' };
+    const j = await getJson(r.url);
+    const row = (Array.isArray(j) ? j : []).filter((x) => String(x.service_date).slice(0, 10) === r.date)[0];
+    if (!row) return { pending: 'CTA 无 ' + r.date + ' 数据（真值滞后约 2.5 月）' };
+    const v = row.total_rides !== undefined ? row.total_rides : row.rides;
+    if (v === undefined || v === null) return { pending: 'CTA ' + r.date + ' total_rides 缺失' };
+    return finish(r, Number(v), 'CTA ' + r.date + ' total_rides=' + v);
+  },
+  async bom_weekend_top10_gross(r) {
+    const y = String(r.week).slice(0, 4);
+    const t = await getText('https://www.boxofficemojo.com/weekend/by-year/' + y + '/');
+    const trs = t.split('<tr').slice(1);
+    for (const row of trs) {
+      const m = row.match(/\/weekend\/(\d{4}W\d{2})\//);
+      if (!m || m[1] !== r.week) continue;
+      const ds = (row.match(/\$[\d,]+/g) || []).map((x) => Number(x.replace(/[$,]/g, '')));
+      if (!ds.length) continue;
+      return finish(r, ds[0], 'BoxOfficeMojo ' + r.week + ' Top10 Gross=$' + ds[0]);
+    }
+    return { pending: 'BOM ' + r.week + ' 未发布（页面无该期行）' };
+  },
+  async jpl_cad_monthly_count(r) {
+    if (monthEndOf(r.month) >= shToday()) return { pending: r.month + ' 月未结束' };
+    const j = await getJson(r.url);
+    const M = { Jan: '01', Feb: '02', Mar: '03', Apr: '04', May: '05', Jun: '06', Jul: '07', Aug: '08', Sep: '09', Oct: '10', Nov: '11', Dec: '12' };
+    const n = ((j && j.data) || []).filter((x) => { const p = String(x[3]).split('-'); return p[0] + '-' + M[p[1]] === r.month; }).length;
+    return finish(r, n, 'JPL CAD ' + r.month + ' 近地接近事件数=' + n);
+  },
+  async swpc_solar_cycle_monthly(r) {
+    if (monthEndOf(r.month) >= shToday()) return { pending: r.month + ' 月未结束' };
+    const j = await getJson(r.url);
+    const row = (Array.isArray(j) ? j : []).filter((x) => String(x['time-tag']) === r.month)[0];
+    if (!row) return { pending: 'SWPC ' + r.month + ' 月值未发布' };
+    const key = (r.field_name === 'f107' || r.field_name === 'f10.7') ? 'f10.7' : 'ssn';
+    const v = row[key];
+    if (v === null || v === undefined || !isFinite(Number(v)) || Number(v) < 0) return { pending: 'SWPC ' + key + ' 缺失/占位（' + v + '）' };
+    return finish(r, Number(v), 'SWPC ' + r.month + ' ' + key + '=' + v);
+  },
 };
+
+// ── 同口径 kind 别名（字段描述一致才共用；纯新增，不改既有 7 种）──
+Object.assign(RESOLVERS, {
+  openmeteo_air_daily_mean: RESOLVERS._omHourlyMean,
+  openmeteo_air_pm2_5_daily_mean: RESOLVERS._omHourlyMean,
+  openmeteo_air_pm10_daily_mean: RESOLVERS._omHourlyMean,
+  openmeteo_air_ozone_daily_mean: RESOLVERS._omHourlyMean,
+  openmeteo_marine_sst_daily: RESOLVERS._omHourlyMean,
+  openmeteo_wx_daily: RESOLVERS._omDaily,
+  openmeteo_archive_daily_precipitation_sum: RESOLVERS._omDaily,
+  openmeteo_archive_daily_sunshine_duration: RESOLVERS._omDaily,
+  openmeteo_archive_daily_wind_speed_10m_max: RESOLVERS._omDaily,
+  openmeteo_forecast_daily_precipitation_sum: RESOLVERS._omDaily,
+  openmeteo_forecast_daily_sunshine_duration: RESOLVERS._omDaily,
+  openmeteo_forecast_daily_wind_speed_10m_max: RESOLVERS._omDaily,
+  dbnomics_eurostat_tertiary_attain: RESOLVERS._dbnPeriod,
+  dbnomics_eurostat_unemployment_monthly: RESOLVERS._dbnPeriod,
+  dbnomics_wb_commodity_annual: RESOLVERS._dbnPeriod,
+  dbnomics_bis_monthly_mean: RESOLVERS._dbnMonthMean,
+  eurostat_demo_pjan_annual: RESOLVERS._eurostatJsonstat,
+  eurostat_live_tertiary_attain: RESOLVERS._eurostatJsonstat,
+  eurostat_live_unemployment_monthly: RESOLVERS._eurostatJsonstat,
+  delphi_fluview_ili: RESOLVERS._delphiFlu,
+  delphi_fluview_num_ili: RESOLVERS._delphiFlu,
+  noaa_tide_daily_high: RESOLVERS._noaaTideDailyHigh,
+  noaa_tide_daily_max: RESOLVERS._noaaTideDailyHigh,
+  energycharts_public_power_daily_mean: RESOLVERS.energycharts_daily_mean,
+  noaa_solar_cycle_ssn_monthly: RESOLVERS.swpc_solar_cycle_monthly,
+});
 
 async function cwlEval(r, predicate, what) {
   const u = 'https://www.cwl.gov.cn/cwl_admin/front/cwlkj/search/kjxx/findDrawNotice?name=ssq&issueCount=30';
@@ -83,31 +387,79 @@ async function cwlEval(r, predicate, what) {
   const ok = predicate(hit);
   return { outcome: ok ? 'true' : 'false', note: 'cwl 官方 ' + r.issue + ' 期 red=' + hit.red + ' blue=' + hit.blue + '（' + what + '，机检）' };
 }
+
+// ── B3/WIDE/B4 批新 kind 通用工具（2026-09-13 施工棒新增；既有 7 种逐字不改）──
+// 注意：本段必须位于 daemon 抽取锚点（RESOLVE-B2 注释行）之前——daemon 运行时抽取该锚点以上的全部源码复用 RESOLVERS。
+function shToday() { return new Date().toLocaleString('sv-SE', { timeZone: 'Asia/Shanghai', hour12: false }).slice(0, 10); }
+function plusDays(iso, n) { return new Date(Date.parse(iso + 'T00:00:00Z') + n * 86400000).toISOString().slice(0, 10); }
+function monthEndOf(ym) { return new Date(Date.UTC(Number(String(ym).slice(0, 4)), Number(String(ym).slice(5, 7)), 0)).toISOString().slice(0, 10); }
+function subst(tpl, map) { let s = String(tpl || ''); Object.keys(map).forEach((k) => { s = s.split('{' + k + '}').join(String(map[k])); }); return s; }
+function cmpOk(v, cmp, th) { return cmp === '<' ? v < th : cmp === '<=' ? v <= th : cmp === '>' ? v > th : v >= th; }
+function varOf(url, key) { const m = String(url).match(new RegExp('[?&]' + key + '=([a-zA-Z0-9_]+)')); return m ? m[1] : null; }
+function finish(r, v, label) {
+  if (v === null || v === undefined || !isFinite(Number(v))) return { pending: label + '（值为空，不猜）' };
+  const ok = cmpOk(Number(v), r.cmp, Number(r.threshold));
+  return { outcome: ok ? 'true' : 'false', note: label + '（阈值 ' + r.cmp + ' ' + r.threshold + '，机检）' };
+}
+function futureDay(d) { return String(d) >= shToday(); }
+// 限量宿主（Wikimedia / Energy-Charts）实测连发会 429 → 仅新 kind 使用带退避重试的取数
+async function getJsonRetry(url, headers, tries) {
+  const n = tries || 4;
+  let last = null;
+  for (let a = 0; a < n; a++) {
+    try { return await getJson(url, headers); }
+    catch (e) {
+      last = e;
+      const m = String(e && e.message || '');
+      const retriable = m.indexOf('429') !== -1 || m.indexOf('fetch failed') !== -1 || m.indexOf('abort') !== -1;
+      if (!retriable || a === n - 1) throw e;
+      await new Promise((s) => setTimeout(s, 1500 * (a + 1)));
+    }
+  }
+  throw last;
+}
+async function getText(url, headers) {
+  const ac = new AbortController();
+  const t = setTimeout(() => ac.abort(), FETCH_MS);
+  try {
+    const res = await fetch(url, { signal: ac.signal, headers: Object.assign({ 'User-Agent': 'corpus-resolve/1.1 (+node)', Accept: '*/*' }, headers || {}) });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    return await res.text();
+  } finally { clearTimeout(t); }
+}
+
 //RESOLVE-B2
 async function main() {
   db.init();
   const conn = db.getConnection();
   const rows = conn.prepare('SELECT p.id, p.evidence_json FROM predictions p JOIN games g ON g.id = p.game_id WHERE g.game_type LIKE ? AND p.outcome IS NULL ORDER BY p.id').all('corpus%');
   console.log('corpus pending rows:', rows.length, 'confirm=' + CONFIRM);
-  let resolved = 0, pending = 0, failed = 0;
+  let resolved = 0, pending = 0, failed = 0, noResolve = 0, unregistered = 0;
+  const stat = {};
+  const bump = (kind, key) => { const s = stat[kind] || (stat[kind] = { resolved: 0, pending: 0, failed: 0 }); s[key]++; };
+  const badKind = {};
   for (const row of rows) {
     let ev = null;
     try { ev = JSON.parse(row.evidence_json || '[]'); } catch (e) { ev = []; }
     const r = ev && ev[0] && ev[0].resolve;
-    if (!r || !RESOLVERS[r.kind]) { console.log('skip id=' + row.id, '（无 resolve 参数，不机械回填）'); continue; }
+    if (!r) { noResolve++; console.log('skip id=' + row.id, '（无 resolve 参数，不机械回填）'); continue; }
+    if (!RESOLVERS[r.kind]) { unregistered++; badKind[r.kind] = (badKind[r.kind] || 0) + 1; console.log('skip id=' + row.id, '（kind 未注册，需实现：' + r.kind + '）'); continue; }
     let out;
     try { out = await RESOLVERS[r.kind](r); } catch (e) { out = { error: e.message }; }
-    if (out && out.pending) { pending++; console.log('pending id=' + row.id, r.kind, '—', out.pending); continue; }
-    if (out && out.error) { failed++; console.log('fetch-fail id=' + row.id, r.kind, '—', out.error, '（跳过不写）'); continue; }
+    if (out && out.pending) { pending++; bump(r.kind, 'pending'); console.log('pending id=' + row.id, r.kind, '—', out.pending); continue; }
+    if (out && out.error) { failed++; bump(r.kind, 'failed'); console.log('fetch-fail id=' + row.id, r.kind, '—', out.error, '（跳过不写）'); continue; }
     if (CONFIRM) {
       const res = resolvePrediction(row.id, out.outcome, out.note);
-      if (res.ok) { resolved++; console.log('resolved id=' + row.id, '->', out.outcome, '|', out.note); }
+      if (res.ok) { resolved++; bump(r.kind, 'resolved'); console.log('resolved id=' + row.id, '->', out.outcome, '|', out.note); }
       else { console.log('resolve-refused id=' + row.id, res.reason); }
     } else {
+      bump(r.kind, 'resolved');
       console.log('[dry] would resolve id=' + row.id, '->', out.outcome, '|', out.note);
     }
   }
-  console.log('summary: resolved=' + resolved, 'pending=' + pending, 'fetch-fail=' + failed, 'confirm=' + CONFIRM);
+  console.log('summary: resolved=' + resolved, 'pending=' + pending, 'fetch-fail=' + failed, 'unregistered=' + unregistered, 'no-resolve=' + noResolve, 'confirm=' + CONFIRM);
+  console.log('unregistered-kinds: ' + JSON.stringify(badKind));
+  console.log('by-kind: ' + JSON.stringify(stat));
   if (!CONFIRM) console.log('DRY-RUN：未写库。加 --confirm 执行机械回填。');
 }
 main().catch((e) => { console.error('FAIL:', e.message); process.exit(1); });

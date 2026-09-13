@@ -1,0 +1,26 @@
+[2026-09-13T15:56:48+08:00] === corpus-resolve-daemon start | mode=once interval=60min due-only=true confirm=false（DRY-RUN，不写库）
+[2026-09-13T15:56:48+08:00] 复用 corpus-resolve RESOLVERS 成功：inline-extract(59 kinds)
+[2026-09-13T15:56:53+08:00] WARN dlt 日历刷新失败（沿用内置锚 26104@2026-09-12）: HTTP 567
+[2026-09-13T15:56:53+08:00] 日历锚刷新：ssq 2026105@2026-09-10 | dlt 26104@2026-09-12
+[2026-09-13T15:56:53+08:00] 参数安全门：跳过 1 条口径不符题（不写脏账）— cwl_ssq_red_contains 缺合法 ball（实测=null） @id732
+[2026-09-13T15:57:14+08:00]   pending kind=cwl_ssq_red_contains x1 due=2026-09-13 — 第 2026106 期未开奖
+[2026-09-13T15:57:14+08:00]   pending kind=cwl_ssq_blue_odd x1 due=2026-09-13 — 第 2026106 期未开奖
+[2026-09-13T15:57:14+08:00]   pending kind=cwl_ssq_red_contains x1 due=2026-09-13 — 第 2026106 期未开奖
+[2026-09-13T15:57:14+08:00]   pending kind=cwl_ssq_red_contains x1 due=2026-09-13 — 第 2026106 期未开奖
+[2026-09-13T15:57:14+08:00]   pending kind=cwl_ssq_blue_odd x1 due=2026-09-13 — 第 2026106 期未开奖
+[2026-09-13T15:57:14+08:00]   fetch-fail kind=github_weekly_commits x1 — HTTP 403（跳过不写）
+[2026-09-13T15:57:14+08:00]   fetch-fail kind=github_weekly_commits x1 — HTTP 403（跳过不写）
+[2026-09-13T15:57:14+08:00]   fetch-fail kind=github_weekly_commits x1 — HTTP 403（跳过不写）
+[2026-09-13T15:57:14+08:00]   fetch-fail kind=github_weekly_commits x1 — HTTP 403（跳过不写）
+[2026-09-13T15:57:14+08:00]   fetch-fail kind=github_weekly_commits x1 — HTTP 403（跳过不写）
+[2026-09-13T15:57:14+08:00]   fetch-fail kind=github_weekly_commits x1 — HTTP 403（跳过不写）
+[2026-09-13T15:57:14+08:00]   [dry] would resolve kind=energycharts_daily_mean x1 due=2026-06-25 -> true | Energy-Charts es Solar 2026-06-25 均值=11452.3182MW（88 点）（阈值 >= 6833，机检）
+[2026-09-13T15:57:14+08:00]   [dry] would resolve kind=energycharts_daily_mean x1 due=2026-06-25 -> true | Energy-Charts it Hydro Run-of-River 2026-06-25 均值=3330.8409MW（88 点）（阈值 >= 3077，机检）
+[2026-09-13T15:57:14+08:00]   [dry] would resolve kind=energycharts_daily_mean x1 due=2026-06-25 -> false | Energy-Charts it Wind onshore 2026-06-25 均值=821.5114MW（88 点）（阈值 >= 1579，机检）
+[2026-09-13T15:57:14+08:00]   pending kind=energycharts_daily_mean x1 due=2026-06-25 — Energy-Charts 2026-06-25 仅 22 点（<80，未满当日）
+[2026-09-13T15:57:14+08:00]   pending kind=energycharts_daily_mean x1 due=2026-06-25 — Energy-Charts 2026-06-25 仅 22 点（<80，未满当日）
+[2026-09-13T15:57:14+08:00]   pending kind=energycharts_daily_mean x1 due=2026-06-25 — Energy-Charts 2026-06-25 仅 22 点（<80，未满当日）
+[2026-09-13T15:57:14+08:00]   pending kind=energycharts_daily_mean x1 due=2026-06-25 — Energy-Charts 2026-06-25 仅 22 点（<80，未满当日）
+[2026-09-13T15:57:14+08:00]   pending kind=energycharts_daily_mean x1 due=2026-06-25 — Energy-Charts 2026-06-25 仅 22 点（<80，未满当日）
+[2026-09-13T15:57:14+08:00] round#1 用时 21.2s | 未解总数=685 到期选中=19 唯一真值请求=19（台账重复合并 0） | resolved=0 pending=10（含预筛 0） fail=6 refused=0／同结论并发=0 口径护栏=1 unsupported=0 未到期跳过=638 无法定到期=27 wouldWrite=3 实打网=10
+[2026-09-13T15:57:14+08:00]   取数失败明细 {"fetch-fail:github_weekly_commits:HTTP 403":6}
