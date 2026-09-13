@@ -1,0 +1,4 @@
+=== 现有语料源（game_type）x 题数 ===
+[{"game_type":"corpus:openmeteo","n":211},{"game_type":"corpus:dbnomics","n":123},{"game_type":"corpus:cwl","n":56},{"game_type":"corpus:dlt","n":32},{"game_type":"corpus:wikipv","n":25},{"game_type":"corpus:airqual","n":20},{"game_type":"corpus:fx","n":12},{"game_type":"corpus:crypto","n":12},{"game_type":"corpus:bis","n":12},{"game_type":"corpus:npmdl","n":9},{"game_type":"corpus:ghcommit","n":9},{"game_type":"corpus:usgs","n":0}]
+=== 各源的 resolve kind ===
+{"openmeteo_daily_max":113,"dbnomics_series_value":123,"cwl_ssq_red_contains":35,"cwl_ssq_blue_odd":21,"openmeteo_forecast_daily_max":98,"dlt_draw_result":32,"openmeteo_air_pm10_daily_mean":20,"binance_daily_close":12,"wikimedia_pageviews":25,"github_weekly_commits":9,"frankfurter_rate_range":6,"frankfurter_rate":6,"npm_downloads_window":9,"dbnomics_bis_monthly_mean":12}

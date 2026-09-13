@@ -1,0 +1,1214 @@
+[
+ {
+  "gameType": "corpus:airqual",
+  "layer": "L3",
+  "engine": "openmeteo_air_pm10_baserate_forward",
+  "phase": "forward",
+  "prob": 0.5014,
+  "slug": "corpus:airqual-oct-31.23-2026-10-01",
+  "statement": "【forward】上海 2026-10-01 日 PM10 日均浓度 <= 39.8 μg/m³（cutoff=2026-09-13T02:19:55+08:00，严格早于事件日；真值锚=Open-Meteo air-quality hourly.pm10 该日全小时均值。10 月 realtime 补量批，真值未发生）",
+  "baseRateNote": "前瞻·上海：cutoff 前 365 个 PM10 日均（2025-09-13~2026-09-12）中 <= 39.8 占 50.1%（分位 q=0.5，pre-cutoff 现算）",
+  "resolve": {
+   "kind": "openmeteo_air_pm10_daily_mean",
+   "url_template": "https://air-quality-api.open-meteo.com/v1/air-quality?latitude=31.23&longitude=121.47&hourly=pm10&timezone=GMT&start_date={date}&end_date={date}",
+   "lat": 31.23,
+   "lon": 121.47,
+   "date": "2026-10-01",
+   "threshold": 39.8,
+   "cmp": "<=",
+   "field": "hourly.time[] 前缀==date 的全部 hourly.pm10[] 算术均值"
+  },
+  "meta": {
+   "city": "上海",
+   "date": "2026-10-01",
+   "threshold": 39.8,
+   "cutoff": "2026-09-13T02:19:55+08:00",
+   "phase": "forward",
+   "month": "2026-10"
+  }
+ },
+ {
+  "gameType": "corpus:airqual",
+  "layer": "L3",
+  "engine": "openmeteo_air_pm10_baserate_forward",
+  "phase": "forward",
+  "prob": 0.5014,
+  "slug": "corpus:airqual-oct-31.23-2026-10-15",
+  "statement": "【forward】上海 2026-10-15 日 PM10 日均浓度 <= 39.8 μg/m³（cutoff=2026-09-13T02:19:55+08:00，严格早于事件日；真值锚=Open-Meteo air-quality hourly.pm10 该日全小时均值。10 月 realtime 补量批，真值未发生）",
+  "baseRateNote": "前瞻·上海：cutoff 前 365 个 PM10 日均（2025-09-13~2026-09-12）中 <= 39.8 占 50.1%（分位 q=0.5，pre-cutoff 现算）",
+  "resolve": {
+   "kind": "openmeteo_air_pm10_daily_mean",
+   "url_template": "https://air-quality-api.open-meteo.com/v1/air-quality?latitude=31.23&longitude=121.47&hourly=pm10&timezone=GMT&start_date={date}&end_date={date}",
+   "lat": 31.23,
+   "lon": 121.47,
+   "date": "2026-10-15",
+   "threshold": 39.8,
+   "cmp": "<=",
+   "field": "hourly.time[] 前缀==date 的全部 hourly.pm10[] 算术均值"
+  },
+  "meta": {
+   "city": "上海",
+   "date": "2026-10-15",
+   "threshold": 39.8,
+   "cutoff": "2026-09-13T02:19:55+08:00",
+   "phase": "forward",
+   "month": "2026-10"
+  }
+ },
+ {
+  "gameType": "corpus:airqual",
+  "layer": "L3",
+  "engine": "openmeteo_air_pm10_baserate_forward",
+  "phase": "forward",
+  "prob": 0.3014,
+  "slug": "corpus:airqual-oct-31.23-2026-10-30",
+  "statement": "【forward】上海 2026-10-30 日 PM10 日均浓度 <= 29.7 μg/m³（cutoff=2026-09-13T02:19:55+08:00，严格早于事件日；真值锚=Open-Meteo air-quality hourly.pm10 该日全小时均值。10 月 realtime 补量批，真值未发生）",
+  "baseRateNote": "前瞻·上海：cutoff 前 365 个 PM10 日均（2025-09-13~2026-09-12）中 <= 29.7 占 30.1%（分位 q=0.3，pre-cutoff 现算）",
+  "resolve": {
+   "kind": "openmeteo_air_pm10_daily_mean",
+   "url_template": "https://air-quality-api.open-meteo.com/v1/air-quality?latitude=31.23&longitude=121.47&hourly=pm10&timezone=GMT&start_date={date}&end_date={date}",
+   "lat": 31.23,
+   "lon": 121.47,
+   "date": "2026-10-30",
+   "threshold": 29.7,
+   "cmp": "<=",
+   "field": "hourly.time[] 前缀==date 的全部 hourly.pm10[] 算术均值"
+  },
+  "meta": {
+   "city": "上海",
+   "date": "2026-10-30",
+   "threshold": 29.7,
+   "cutoff": "2026-09-13T02:19:55+08:00",
+   "phase": "forward",
+   "month": "2026-10"
+  }
+ },
+ {
+  "gameType": "corpus:airqual",
+  "layer": "L3",
+  "engine": "openmeteo_air_pm10_baserate_forward",
+  "phase": "forward",
+  "prob": 0.7014,
+  "slug": "corpus:airqual-oct-52.52-2026-10-01",
+  "statement": "【forward】柏林 2026-10-01 日 PM10 日均浓度 <= 14.2 μg/m³（cutoff=2026-09-13T02:19:55+08:00，严格早于事件日；真值锚=Open-Meteo air-quality hourly.pm10 该日全小时均值。10 月 realtime 补量批，真值未发生）",
+  "baseRateNote": "前瞻·柏林：cutoff 前 365 个 PM10 日均（2025-09-13~2026-09-12）中 <= 14.2 占 70.1%（分位 q=0.7，pre-cutoff 现算）",
+  "resolve": {
+   "kind": "openmeteo_air_pm10_daily_mean",
+   "url_template": "https://air-quality-api.open-meteo.com/v1/air-quality?latitude=52.52&longitude=13.41&hourly=pm10&timezone=GMT&start_date={date}&end_date={date}",
+   "lat": 52.52,
+   "lon": 13.41,
+   "date": "2026-10-01",
+   "threshold": 14.2,
+   "cmp": "<=",
+   "field": "hourly.time[] 前缀==date 的全部 hourly.pm10[] 算术均值"
+  },
+  "meta": {
+   "city": "柏林",
+   "date": "2026-10-01",
+   "threshold": 14.2,
+   "cutoff": "2026-09-13T02:19:55+08:00",
+   "phase": "forward",
+   "month": "2026-10"
+  }
+ },
+ {
+  "gameType": "corpus:airqual",
+  "layer": "L3",
+  "engine": "openmeteo_air_pm10_baserate_forward",
+  "phase": "forward",
+  "prob": 0.7014,
+  "slug": "corpus:airqual-oct-52.52-2026-10-15",
+  "statement": "【forward】柏林 2026-10-15 日 PM10 日均浓度 <= 14.2 μg/m³（cutoff=2026-09-13T02:19:55+08:00，严格早于事件日；真值锚=Open-Meteo air-quality hourly.pm10 该日全小时均值。10 月 realtime 补量批，真值未发生）",
+  "baseRateNote": "前瞻·柏林：cutoff 前 365 个 PM10 日均（2025-09-13~2026-09-12）中 <= 14.2 占 70.1%（分位 q=0.7，pre-cutoff 现算）",
+  "resolve": {
+   "kind": "openmeteo_air_pm10_daily_mean",
+   "url_template": "https://air-quality-api.open-meteo.com/v1/air-quality?latitude=52.52&longitude=13.41&hourly=pm10&timezone=GMT&start_date={date}&end_date={date}",
+   "lat": 52.52,
+   "lon": 13.41,
+   "date": "2026-10-15",
+   "threshold": 14.2,
+   "cmp": "<=",
+   "field": "hourly.time[] 前缀==date 的全部 hourly.pm10[] 算术均值"
+  },
+  "meta": {
+   "city": "柏林",
+   "date": "2026-10-15",
+   "threshold": 14.2,
+   "cutoff": "2026-09-13T02:19:55+08:00",
+   "phase": "forward",
+   "month": "2026-10"
+  }
+ },
+ {
+  "gameType": "corpus:airqual",
+  "layer": "L3",
+  "engine": "openmeteo_air_pm10_baserate_forward",
+  "phase": "forward",
+  "prob": 0.6027,
+  "slug": "corpus:airqual-oct-52.52-2026-10-30",
+  "statement": "【forward】柏林 2026-10-30 日 PM10 日均浓度 <= 12.3 μg/m³（cutoff=2026-09-13T02:19:55+08:00，严格早于事件日；真值锚=Open-Meteo air-quality hourly.pm10 该日全小时均值。10 月 realtime 补量批，真值未发生）",
+  "baseRateNote": "前瞻·柏林：cutoff 前 365 个 PM10 日均（2025-09-13~2026-09-12）中 <= 12.3 占 60.3%（分位 q=0.6，pre-cutoff 现算）",
+  "resolve": {
+   "kind": "openmeteo_air_pm10_daily_mean",
+   "url_template": "https://air-quality-api.open-meteo.com/v1/air-quality?latitude=52.52&longitude=13.41&hourly=pm10&timezone=GMT&start_date={date}&end_date={date}",
+   "lat": 52.52,
+   "lon": 13.41,
+   "date": "2026-10-30",
+   "threshold": 12.3,
+   "cmp": "<=",
+   "field": "hourly.time[] 前缀==date 的全部 hourly.pm10[] 算术均值"
+  },
+  "meta": {
+   "city": "柏林",
+   "date": "2026-10-30",
+   "threshold": 12.3,
+   "cutoff": "2026-09-13T02:19:55+08:00",
+   "phase": "forward",
+   "month": "2026-10"
+  }
+ },
+ {
+  "gameType": "corpus:airqual",
+  "layer": "L3",
+  "engine": "openmeteo_air_pm10_baserate_forward",
+  "phase": "forward",
+  "prob": 0.6027,
+  "slug": "corpus:airqual-oct-40.71-2026-10-01",
+  "statement": "【forward】纽约 2026-10-01 日 PM10 日均浓度 <= 15.4 μg/m³（cutoff=2026-09-13T02:19:55+08:00，严格早于事件日；真值锚=Open-Meteo air-quality hourly.pm10 该日全小时均值。10 月 realtime 补量批，真值未发生）",
+  "baseRateNote": "前瞻·纽约：cutoff 前 365 个 PM10 日均（2025-09-13~2026-09-12）中 <= 15.4 占 60.3%（分位 q=0.6，pre-cutoff 现算）",
+  "resolve": {
+   "kind": "openmeteo_air_pm10_daily_mean",
+   "url_template": "https://air-quality-api.open-meteo.com/v1/air-quality?latitude=40.71&longitude=-74.01&hourly=pm10&timezone=GMT&start_date={date}&end_date={date}",
+   "lat": 40.71,
+   "lon": -74.01,
+   "date": "2026-10-01",
+   "threshold": 15.4,
+   "cmp": "<=",
+   "field": "hourly.time[] 前缀==date 的全部 hourly.pm10[] 算术均值"
+  },
+  "meta": {
+   "city": "纽约",
+   "date": "2026-10-01",
+   "threshold": 15.4,
+   "cutoff": "2026-09-13T02:19:55+08:00",
+   "phase": "forward",
+   "month": "2026-10"
+  }
+ },
+ {
+  "gameType": "corpus:airqual",
+  "layer": "L3",
+  "engine": "openmeteo_air_pm10_baserate_forward",
+  "phase": "forward",
+  "prob": 0.6027,
+  "slug": "corpus:airqual-oct-40.71-2026-10-15",
+  "statement": "【forward】纽约 2026-10-15 日 PM10 日均浓度 <= 15.4 μg/m³（cutoff=2026-09-13T02:19:55+08:00，严格早于事件日；真值锚=Open-Meteo air-quality hourly.pm10 该日全小时均值。10 月 realtime 补量批，真值未发生）",
+  "baseRateNote": "前瞻·纽约：cutoff 前 365 个 PM10 日均（2025-09-13~2026-09-12）中 <= 15.4 占 60.3%（分位 q=0.6，pre-cutoff 现算）",
+  "resolve": {
+   "kind": "openmeteo_air_pm10_daily_mean",
+   "url_template": "https://air-quality-api.open-meteo.com/v1/air-quality?latitude=40.71&longitude=-74.01&hourly=pm10&timezone=GMT&start_date={date}&end_date={date}",
+   "lat": 40.71,
+   "lon": -74.01,
+   "date": "2026-10-15",
+   "threshold": 15.4,
+   "cmp": "<=",
+   "field": "hourly.time[] 前缀==date 的全部 hourly.pm10[] 算术均值"
+  },
+  "meta": {
+   "city": "纽约",
+   "date": "2026-10-15",
+   "threshold": 15.4,
+   "cutoff": "2026-09-13T02:19:55+08:00",
+   "phase": "forward",
+   "month": "2026-10"
+  }
+ },
+ {
+  "gameType": "corpus:airqual",
+  "layer": "L3",
+  "engine": "openmeteo_air_pm10_baserate_forward",
+  "phase": "forward",
+  "prob": 0.7014,
+  "slug": "corpus:airqual-oct-40.71-2026-10-30",
+  "statement": "【forward】纽约 2026-10-30 日 PM10 日均浓度 <= 16.9 μg/m³（cutoff=2026-09-13T02:19:55+08:00，严格早于事件日；真值锚=Open-Meteo air-quality hourly.pm10 该日全小时均值。10 月 realtime 补量批，真值未发生）",
+  "baseRateNote": "前瞻·纽约：cutoff 前 365 个 PM10 日均（2025-09-13~2026-09-12）中 <= 16.9 占 70.1%（分位 q=0.7，pre-cutoff 现算）",
+  "resolve": {
+   "kind": "openmeteo_air_pm10_daily_mean",
+   "url_template": "https://air-quality-api.open-meteo.com/v1/air-quality?latitude=40.71&longitude=-74.01&hourly=pm10&timezone=GMT&start_date={date}&end_date={date}",
+   "lat": 40.71,
+   "lon": -74.01,
+   "date": "2026-10-30",
+   "threshold": 16.9,
+   "cmp": "<=",
+   "field": "hourly.time[] 前缀==date 的全部 hourly.pm10[] 算术均值"
+  },
+  "meta": {
+   "city": "纽约",
+   "date": "2026-10-30",
+   "threshold": 16.9,
+   "cutoff": "2026-09-13T02:19:55+08:00",
+   "phase": "forward",
+   "month": "2026-10"
+  }
+ },
+ {
+  "gameType": "corpus:airqual",
+  "layer": "L3",
+  "engine": "openmeteo_air_pm10_baserate_forward",
+  "phase": "forward",
+  "prob": 0.4027,
+  "slug": "corpus:airqual-oct-28.61-2026-10-01",
+  "statement": "【forward】新德里 2026-10-01 日 PM10 日均浓度 <= 124.9 μg/m³（cutoff=2026-09-13T02:19:55+08:00，严格早于事件日；真值锚=Open-Meteo air-quality hourly.pm10 该日全小时均值。10 月 realtime 补量批，真值未发生）",
+  "baseRateNote": "前瞻·新德里：cutoff 前 365 个 PM10 日均（2025-09-13~2026-09-12）中 <= 124.9 占 40.3%（分位 q=0.4，pre-cutoff 现算）",
+  "resolve": {
+   "kind": "openmeteo_air_pm10_daily_mean",
+   "url_template": "https://air-quality-api.open-meteo.com/v1/air-quality?latitude=28.61&longitude=77.21&hourly=pm10&timezone=GMT&start_date={date}&end_date={date}",
+   "lat": 28.61,
+   "lon": 77.21,
+   "date": "2026-10-01",
+   "threshold": 124.9,
+   "cmp": "<=",
+   "field": "hourly.time[] 前缀==date 的全部 hourly.pm10[] 算术均值"
+  },
+  "meta": {
+   "city": "新德里",
+   "date": "2026-10-01",
+   "threshold": 124.9,
+   "cutoff": "2026-09-13T02:19:55+08:00",
+   "phase": "forward",
+   "month": "2026-10"
+  }
+ },
+ {
+  "gameType": "corpus:airqual",
+  "layer": "L3",
+  "engine": "openmeteo_air_pm10_baserate_forward",
+  "phase": "forward",
+  "prob": 0.4027,
+  "slug": "corpus:airqual-oct-28.61-2026-10-15",
+  "statement": "【forward】新德里 2026-10-15 日 PM10 日均浓度 <= 124.9 μg/m³（cutoff=2026-09-13T02:19:55+08:00，严格早于事件日；真值锚=Open-Meteo air-quality hourly.pm10 该日全小时均值。10 月 realtime 补量批，真值未发生）",
+  "baseRateNote": "前瞻·新德里：cutoff 前 365 个 PM10 日均（2025-09-13~2026-09-12）中 <= 124.9 占 40.3%（分位 q=0.4，pre-cutoff 现算）",
+  "resolve": {
+   "kind": "openmeteo_air_pm10_daily_mean",
+   "url_template": "https://air-quality-api.open-meteo.com/v1/air-quality?latitude=28.61&longitude=77.21&hourly=pm10&timezone=GMT&start_date={date}&end_date={date}",
+   "lat": 28.61,
+   "lon": 77.21,
+   "date": "2026-10-15",
+   "threshold": 124.9,
+   "cmp": "<=",
+   "field": "hourly.time[] 前缀==date 的全部 hourly.pm10[] 算术均值"
+  },
+  "meta": {
+   "city": "新德里",
+   "date": "2026-10-15",
+   "threshold": 124.9,
+   "cutoff": "2026-09-13T02:19:55+08:00",
+   "phase": "forward",
+   "month": "2026-10"
+  }
+ },
+ {
+  "gameType": "corpus:airqual",
+  "layer": "L3",
+  "engine": "openmeteo_air_pm10_baserate_forward",
+  "phase": "forward",
+  "prob": 0.3014,
+  "slug": "corpus:airqual-oct-28.61-2026-10-30",
+  "statement": "【forward】新德里 2026-10-30 日 PM10 日均浓度 <= 103.4 μg/m³（cutoff=2026-09-13T02:19:55+08:00，严格早于事件日；真值锚=Open-Meteo air-quality hourly.pm10 该日全小时均值。10 月 realtime 补量批，真值未发生）",
+  "baseRateNote": "前瞻·新德里：cutoff 前 365 个 PM10 日均（2025-09-13~2026-09-12）中 <= 103.4 占 30.1%（分位 q=0.3，pre-cutoff 现算）",
+  "resolve": {
+   "kind": "openmeteo_air_pm10_daily_mean",
+   "url_template": "https://air-quality-api.open-meteo.com/v1/air-quality?latitude=28.61&longitude=77.21&hourly=pm10&timezone=GMT&start_date={date}&end_date={date}",
+   "lat": 28.61,
+   "lon": 77.21,
+   "date": "2026-10-30",
+   "threshold": 103.4,
+   "cmp": "<=",
+   "field": "hourly.time[] 前缀==date 的全部 hourly.pm10[] 算术均值"
+  },
+  "meta": {
+   "city": "新德里",
+   "date": "2026-10-30",
+   "threshold": 103.4,
+   "cutoff": "2026-09-13T02:19:55+08:00",
+   "phase": "forward",
+   "month": "2026-10"
+  }
+ },
+ {
+  "gameType": "corpus:airqual",
+  "layer": "L3",
+  "engine": "openmeteo_air_pm10_baserate_forward",
+  "phase": "forward",
+  "prob": 0.6027,
+  "slug": "corpus:airqual-oct--23.55-2026-10-01",
+  "statement": "【forward】圣保罗 2026-10-01 日 PM10 日均浓度 <= 20.6 μg/m³（cutoff=2026-09-13T02:19:55+08:00，严格早于事件日；真值锚=Open-Meteo air-quality hourly.pm10 该日全小时均值。10 月 realtime 补量批，真值未发生）",
+  "baseRateNote": "前瞻·圣保罗：cutoff 前 365 个 PM10 日均（2025-09-13~2026-09-12）中 <= 20.6 占 60.3%（分位 q=0.6，pre-cutoff 现算）",
+  "resolve": {
+   "kind": "openmeteo_air_pm10_daily_mean",
+   "url_template": "https://air-quality-api.open-meteo.com/v1/air-quality?latitude=-23.55&longitude=-46.63&hourly=pm10&timezone=GMT&start_date={date}&end_date={date}",
+   "lat": -23.55,
+   "lon": -46.63,
+   "date": "2026-10-01",
+   "threshold": 20.6,
+   "cmp": "<=",
+   "field": "hourly.time[] 前缀==date 的全部 hourly.pm10[] 算术均值"
+  },
+  "meta": {
+   "city": "圣保罗",
+   "date": "2026-10-01",
+   "threshold": 20.6,
+   "cutoff": "2026-09-13T02:19:55+08:00",
+   "phase": "forward",
+   "month": "2026-10"
+  }
+ },
+ {
+  "gameType": "corpus:airqual",
+  "layer": "L3",
+  "engine": "openmeteo_air_pm10_baserate_forward",
+  "phase": "forward",
+  "prob": 0.6027,
+  "slug": "corpus:airqual-oct--23.55-2026-10-15",
+  "statement": "【forward】圣保罗 2026-10-15 日 PM10 日均浓度 <= 20.6 μg/m³（cutoff=2026-09-13T02:19:55+08:00，严格早于事件日；真值锚=Open-Meteo air-quality hourly.pm10 该日全小时均值。10 月 realtime 补量批，真值未发生）",
+  "baseRateNote": "前瞻·圣保罗：cutoff 前 365 个 PM10 日均（2025-09-13~2026-09-12）中 <= 20.6 占 60.3%（分位 q=0.6，pre-cutoff 现算）",
+  "resolve": {
+   "kind": "openmeteo_air_pm10_daily_mean",
+   "url_template": "https://air-quality-api.open-meteo.com/v1/air-quality?latitude=-23.55&longitude=-46.63&hourly=pm10&timezone=GMT&start_date={date}&end_date={date}",
+   "lat": -23.55,
+   "lon": -46.63,
+   "date": "2026-10-15",
+   "threshold": 20.6,
+   "cmp": "<=",
+   "field": "hourly.time[] 前缀==date 的全部 hourly.pm10[] 算术均值"
+  },
+  "meta": {
+   "city": "圣保罗",
+   "date": "2026-10-15",
+   "threshold": 20.6,
+   "cutoff": "2026-09-13T02:19:55+08:00",
+   "phase": "forward",
+   "month": "2026-10"
+  }
+ },
+ {
+  "gameType": "corpus:airqual",
+  "layer": "L3",
+  "engine": "openmeteo_air_pm10_baserate_forward",
+  "phase": "forward",
+  "prob": 0.5014,
+  "slug": "corpus:airqual-oct--23.55-2026-10-30",
+  "statement": "【forward】圣保罗 2026-10-30 日 PM10 日均浓度 <= 18.0 μg/m³（cutoff=2026-09-13T02:19:55+08:00，严格早于事件日；真值锚=Open-Meteo air-quality hourly.pm10 该日全小时均值。10 月 realtime 补量批，真值未发生）",
+  "baseRateNote": "前瞻·圣保罗：cutoff 前 365 个 PM10 日均（2025-09-13~2026-09-12）中 <= 18.0 占 50.1%（分位 q=0.5，pre-cutoff 现算）",
+  "resolve": {
+   "kind": "openmeteo_air_pm10_daily_mean",
+   "url_template": "https://air-quality-api.open-meteo.com/v1/air-quality?latitude=-23.55&longitude=-46.63&hourly=pm10&timezone=GMT&start_date={date}&end_date={date}",
+   "lat": -23.55,
+   "lon": -46.63,
+   "date": "2026-10-30",
+   "threshold": 18,
+   "cmp": "<=",
+   "field": "hourly.time[] 前缀==date 的全部 hourly.pm10[] 算术均值"
+  },
+  "meta": {
+   "city": "圣保罗",
+   "date": "2026-10-30",
+   "threshold": 18,
+   "cutoff": "2026-09-13T02:19:55+08:00",
+   "phase": "forward",
+   "month": "2026-10"
+  }
+ },
+ {
+  "gameType": "corpus:crypto",
+  "layer": "L2",
+  "engine": "binance_daily_close_baserate_forward",
+  "phase": "forward",
+  "prob": 0.4,
+  "slug": "corpus:crypto-oct-BTCUSDT-2026-10-01",
+  "statement": "【forward】BTC/USDT 2026-10-01（UTC 日）收盘价 >= 88839.04 USDT（cutoff=落库时点 2026-09-13T02:19:55+08:00，严格早于该 UTC 日（10 月）；真值锚=Binance klines [4]=close。10 月 realtime 补量批，真值未发生）",
+  "baseRateNote": "前瞻·BTC/USDT：cutoff 前 900 个日线收盘（2024-03-26~2026-09-11）中 >= 88839.04 占 40.0%（分位 q=0.6，pre-cutoff 现算）",
+  "resolve": {
+   "kind": "binance_daily_close",
+   "url_template": "https://data-api.binance.vision/api/v3/klines?symbol={symbol}&interval=1d&limit=1000&startTime={start_ms}&endTime={end_ms}",
+   "symbol": "BTCUSDT",
+   "start_ms": 1790812800000,
+   "end_ms": 1790899199999,
+   "date": "2026-10-01",
+   "threshold": 88839.04,
+   "cmp": ">=",
+   "field": "返回数组[0][4] = close"
+  },
+  "meta": {
+   "symbol": "BTCUSDT",
+   "date": "2026-10-01",
+   "threshold": 88839.04,
+   "cutoff": "2026-09-13T02:19:55+08:00",
+   "phase": "forward",
+   "month": "2026-10"
+  }
+ },
+ {
+  "gameType": "corpus:crypto",
+  "layer": "L2",
+  "engine": "binance_daily_close_baserate_forward",
+  "phase": "forward",
+  "prob": 0.4,
+  "slug": "corpus:crypto-oct-BTCUSDT-2026-10-15",
+  "statement": "【forward】BTC/USDT 2026-10-15（UTC 日）收盘价 >= 88839.04 USDT（cutoff=落库时点 2026-09-13T02:19:55+08:00，严格早于该 UTC 日（10 月）；真值锚=Binance klines [4]=close。10 月 realtime 补量批，真值未发生）",
+  "baseRateNote": "前瞻·BTC/USDT：cutoff 前 900 个日线收盘（2024-03-26~2026-09-11）中 >= 88839.04 占 40.0%（分位 q=0.6，pre-cutoff 现算）",
+  "resolve": {
+   "kind": "binance_daily_close",
+   "url_template": "https://data-api.binance.vision/api/v3/klines?symbol={symbol}&interval=1d&limit=1000&startTime={start_ms}&endTime={end_ms}",
+   "symbol": "BTCUSDT",
+   "start_ms": 1792022400000,
+   "end_ms": 1792108799999,
+   "date": "2026-10-15",
+   "threshold": 88839.04,
+   "cmp": ">=",
+   "field": "返回数组[0][4] = close"
+  },
+  "meta": {
+   "symbol": "BTCUSDT",
+   "date": "2026-10-15",
+   "threshold": 88839.04,
+   "cutoff": "2026-09-13T02:19:55+08:00",
+   "phase": "forward",
+   "month": "2026-10"
+  }
+ },
+ {
+  "gameType": "corpus:crypto",
+  "layer": "L2",
+  "engine": "binance_daily_close_baserate_forward",
+  "phase": "forward",
+  "prob": 0.3,
+  "slug": "corpus:crypto-oct-BTCUSDT-2026-10-30",
+  "statement": "【forward】BTC/USDT 2026-10-30（UTC 日）收盘价 >= 95840.62 USDT（cutoff=落库时点 2026-09-13T02:19:55+08:00，严格早于该 UTC 日（10 月）；真值锚=Binance klines [4]=close。10 月 realtime 补量批，真值未发生）",
+  "baseRateNote": "前瞻·BTC/USDT：cutoff 前 900 个日线收盘（2024-03-26~2026-09-11）中 >= 95840.62 占 30.0%（分位 q=0.7，pre-cutoff 现算）",
+  "resolve": {
+   "kind": "binance_daily_close",
+   "url_template": "https://data-api.binance.vision/api/v3/klines?symbol={symbol}&interval=1d&limit=1000&startTime={start_ms}&endTime={end_ms}",
+   "symbol": "BTCUSDT",
+   "start_ms": 1793318400000,
+   "end_ms": 1793404799999,
+   "date": "2026-10-30",
+   "threshold": 95840.62,
+   "cmp": ">=",
+   "field": "返回数组[0][4] = close"
+  },
+  "meta": {
+   "symbol": "BTCUSDT",
+   "date": "2026-10-30",
+   "threshold": 95840.62,
+   "cutoff": "2026-09-13T02:19:55+08:00",
+   "phase": "forward",
+   "month": "2026-10"
+  }
+ },
+ {
+  "gameType": "corpus:crypto",
+  "layer": "L2",
+  "engine": "binance_daily_close_baserate_forward",
+  "phase": "forward",
+  "prob": 0.3,
+  "slug": "corpus:crypto-oct-ETHUSDT-2026-10-01",
+  "statement": "【forward】ETH/USDT 2026-10-01（UTC 日）收盘价 >= 3255.56 USDT（cutoff=落库时点 2026-09-13T02:19:55+08:00，严格早于该 UTC 日（10 月）；真值锚=Binance klines [4]=close。10 月 realtime 补量批，真值未发生）",
+  "baseRateNote": "前瞻·ETH/USDT：cutoff 前 900 个日线收盘（2024-03-26~2026-09-11）中 >= 3255.56 占 30.0%（分位 q=0.7，pre-cutoff 现算）",
+  "resolve": {
+   "kind": "binance_daily_close",
+   "url_template": "https://data-api.binance.vision/api/v3/klines?symbol={symbol}&interval=1d&limit=1000&startTime={start_ms}&endTime={end_ms}",
+   "symbol": "ETHUSDT",
+   "start_ms": 1790812800000,
+   "end_ms": 1790899199999,
+   "date": "2026-10-01",
+   "threshold": 3255.56,
+   "cmp": ">=",
+   "field": "返回数组[0][4] = close"
+  },
+  "meta": {
+   "symbol": "ETHUSDT",
+   "date": "2026-10-01",
+   "threshold": 3255.56,
+   "cutoff": "2026-09-13T02:19:55+08:00",
+   "phase": "forward",
+   "month": "2026-10"
+  }
+ },
+ {
+  "gameType": "corpus:crypto",
+  "layer": "L2",
+  "engine": "binance_daily_close_baserate_forward",
+  "phase": "forward",
+  "prob": 0.3,
+  "slug": "corpus:crypto-oct-ETHUSDT-2026-10-15",
+  "statement": "【forward】ETH/USDT 2026-10-15（UTC 日）收盘价 >= 3255.56 USDT（cutoff=落库时点 2026-09-13T02:19:55+08:00，严格早于该 UTC 日（10 月）；真值锚=Binance klines [4]=close。10 月 realtime 补量批，真值未发生）",
+  "baseRateNote": "前瞻·ETH/USDT：cutoff 前 900 个日线收盘（2024-03-26~2026-09-11）中 >= 3255.56 占 30.0%（分位 q=0.7，pre-cutoff 现算）",
+  "resolve": {
+   "kind": "binance_daily_close",
+   "url_template": "https://data-api.binance.vision/api/v3/klines?symbol={symbol}&interval=1d&limit=1000&startTime={start_ms}&endTime={end_ms}",
+   "symbol": "ETHUSDT",
+   "start_ms": 1792022400000,
+   "end_ms": 1792108799999,
+   "date": "2026-10-15",
+   "threshold": 3255.56,
+   "cmp": ">=",
+   "field": "返回数组[0][4] = close"
+  },
+  "meta": {
+   "symbol": "ETHUSDT",
+   "date": "2026-10-15",
+   "threshold": 3255.56,
+   "cutoff": "2026-09-13T02:19:55+08:00",
+   "phase": "forward",
+   "month": "2026-10"
+  }
+ },
+ {
+  "gameType": "corpus:crypto",
+  "layer": "L2",
+  "engine": "binance_daily_close_baserate_forward",
+  "phase": "forward",
+  "prob": 0.6,
+  "slug": "corpus:crypto-oct-ETHUSDT-2026-10-30",
+  "statement": "【forward】ETH/USDT 2026-10-30（UTC 日）收盘价 >= 2514.57 USDT（cutoff=落库时点 2026-09-13T02:19:55+08:00，严格早于该 UTC 日（10 月）；真值锚=Binance klines [4]=close。10 月 realtime 补量批，真值未发生）",
+  "baseRateNote": "前瞻·ETH/USDT：cutoff 前 900 个日线收盘（2024-03-26~2026-09-11）中 >= 2514.57 占 60.0%（分位 q=0.4，pre-cutoff 现算）",
+  "resolve": {
+   "kind": "binance_daily_close",
+   "url_template": "https://data-api.binance.vision/api/v3/klines?symbol={symbol}&interval=1d&limit=1000&startTime={start_ms}&endTime={end_ms}",
+   "symbol": "ETHUSDT",
+   "start_ms": 1793318400000,
+   "end_ms": 1793404799999,
+   "date": "2026-10-30",
+   "threshold": 2514.57,
+   "cmp": ">=",
+   "field": "返回数组[0][4] = close"
+  },
+  "meta": {
+   "symbol": "ETHUSDT",
+   "date": "2026-10-30",
+   "threshold": 2514.57,
+   "cutoff": "2026-09-13T02:19:55+08:00",
+   "phase": "forward",
+   "month": "2026-10"
+  }
+ },
+ {
+  "gameType": "corpus:crypto",
+  "layer": "L2",
+  "engine": "binance_daily_close_baserate_forward",
+  "phase": "forward",
+  "prob": 0.6,
+  "slug": "corpus:crypto-oct-SOLUSDT-2026-10-01",
+  "statement": "【forward】SOL/USDT 2026-10-01（UTC 日）收盘价 >= 137.58 USDT（cutoff=落库时点 2026-09-13T02:19:55+08:00，严格早于该 UTC 日（10 月）；真值锚=Binance klines [4]=close。10 月 realtime 补量批，真值未发生）",
+  "baseRateNote": "前瞻·SOL/USDT：cutoff 前 900 个日线收盘（2024-03-26~2026-09-11）中 >= 137.58 占 60.0%（分位 q=0.4，pre-cutoff 现算）",
+  "resolve": {
+   "kind": "binance_daily_close",
+   "url_template": "https://data-api.binance.vision/api/v3/klines?symbol={symbol}&interval=1d&limit=1000&startTime={start_ms}&endTime={end_ms}",
+   "symbol": "SOLUSDT",
+   "start_ms": 1790812800000,
+   "end_ms": 1790899199999,
+   "date": "2026-10-01",
+   "threshold": 137.58,
+   "cmp": ">=",
+   "field": "返回数组[0][4] = close"
+  },
+  "meta": {
+   "symbol": "SOLUSDT",
+   "date": "2026-10-01",
+   "threshold": 137.58,
+   "cutoff": "2026-09-13T02:19:55+08:00",
+   "phase": "forward",
+   "month": "2026-10"
+  }
+ },
+ {
+  "gameType": "corpus:crypto",
+  "layer": "L2",
+  "engine": "binance_daily_close_baserate_forward",
+  "phase": "forward",
+  "prob": 0.6,
+  "slug": "corpus:crypto-oct-SOLUSDT-2026-10-15",
+  "statement": "【forward】SOL/USDT 2026-10-15（UTC 日）收盘价 >= 137.58 USDT（cutoff=落库时点 2026-09-13T02:19:55+08:00，严格早于该 UTC 日（10 月）；真值锚=Binance klines [4]=close。10 月 realtime 补量批，真值未发生）",
+  "baseRateNote": "前瞻·SOL/USDT：cutoff 前 900 个日线收盘（2024-03-26~2026-09-11）中 >= 137.58 占 60.0%（分位 q=0.4，pre-cutoff 现算）",
+  "resolve": {
+   "kind": "binance_daily_close",
+   "url_template": "https://data-api.binance.vision/api/v3/klines?symbol={symbol}&interval=1d&limit=1000&startTime={start_ms}&endTime={end_ms}",
+   "symbol": "SOLUSDT",
+   "start_ms": 1792022400000,
+   "end_ms": 1792108799999,
+   "date": "2026-10-15",
+   "threshold": 137.58,
+   "cmp": ">=",
+   "field": "返回数组[0][4] = close"
+  },
+  "meta": {
+   "symbol": "SOLUSDT",
+   "date": "2026-10-15",
+   "threshold": 137.58,
+   "cutoff": "2026-09-13T02:19:55+08:00",
+   "phase": "forward",
+   "month": "2026-10"
+  }
+ },
+ {
+  "gameType": "corpus:crypto",
+  "layer": "L2",
+  "engine": "binance_daily_close_baserate_forward",
+  "phase": "forward",
+  "prob": 0.7,
+  "slug": "corpus:crypto-oct-SOLUSDT-2026-10-30",
+  "statement": "【forward】SOL/USDT 2026-10-30（UTC 日）收盘价 >= 126.90 USDT（cutoff=落库时点 2026-09-13T02:19:55+08:00，严格早于该 UTC 日（10 月）；真值锚=Binance klines [4]=close。10 月 realtime 补量批，真值未发生）",
+  "baseRateNote": "前瞻·SOL/USDT：cutoff 前 900 个日线收盘（2024-03-26~2026-09-11）中 >= 126.90 占 70.0%（分位 q=0.3，pre-cutoff 现算）",
+  "resolve": {
+   "kind": "binance_daily_close",
+   "url_template": "https://data-api.binance.vision/api/v3/klines?symbol={symbol}&interval=1d&limit=1000&startTime={start_ms}&endTime={end_ms}",
+   "symbol": "SOLUSDT",
+   "start_ms": 1793318400000,
+   "end_ms": 1793404799999,
+   "date": "2026-10-30",
+   "threshold": 126.9,
+   "cmp": ">=",
+   "field": "返回数组[0][4] = close"
+  },
+  "meta": {
+   "symbol": "SOLUSDT",
+   "date": "2026-10-30",
+   "threshold": 126.9,
+   "cutoff": "2026-09-13T02:19:55+08:00",
+   "phase": "forward",
+   "month": "2026-10"
+  }
+ },
+ {
+  "gameType": "corpus:npmdl",
+  "layer": "L2",
+  "engine": "npm_downloads_baserate_forward",
+  "phase": "forward",
+  "prob": 0.701,
+  "slug": "corpus:npmdl-oct-react-2026-10-01",
+  "statement": "【forward】npm 包 react 在 2026-09-25~2026-10-01 的 7 日下载量 >= 122367092（cutoff=落库时点 2026-09-13T02:19:55+08:00，严格早于该窗口（10 月）；真值锚=npm downloads/range downloads[].downloads 求和。10 月 realtime 补量批，真值未发生）",
+  "baseRateNote": "前瞻·react：cutoff 前 194 个 7 日滚动窗（2026-03-03~2026-09-12）中 >= 122367092 占 70.1%（分位 q=0.3，pre-cutoff 现算）",
+  "resolve": {
+   "kind": "npm_downloads_window",
+   "url_template": "https://api.npmjs.org/downloads/range/{start}:{end}/react",
+   "package": "react",
+   "start": "2026-09-25",
+   "end": "2026-10-01",
+   "threshold": 122367092,
+   "cmp": ">=",
+   "field": "body.downloads[].downloads 求和（按 .day 落在 [start,end]）"
+  },
+  "meta": {
+   "package": "react",
+   "start": "2026-09-25",
+   "end": "2026-10-01",
+   "threshold": 122367092,
+   "cutoff": "2026-09-13T02:19:55+08:00",
+   "phase": "forward",
+   "month": "2026-10"
+  }
+ },
+ {
+  "gameType": "corpus:npmdl",
+  "layer": "L2",
+  "engine": "npm_downloads_baserate_forward",
+  "phase": "forward",
+  "prob": 0.701,
+  "slug": "corpus:npmdl-oct-react-2026-10-15",
+  "statement": "【forward】npm 包 react 在 2026-10-09~2026-10-15 的 7 日下载量 >= 122367092（cutoff=落库时点 2026-09-13T02:19:55+08:00，严格早于该窗口（10 月）；真值锚=npm downloads/range downloads[].downloads 求和。10 月 realtime 补量批，真值未发生）",
+  "baseRateNote": "前瞻·react：cutoff 前 194 个 7 日滚动窗（2026-03-03~2026-09-12）中 >= 122367092 占 70.1%（分位 q=0.3，pre-cutoff 现算）",
+  "resolve": {
+   "kind": "npm_downloads_window",
+   "url_template": "https://api.npmjs.org/downloads/range/{start}:{end}/react",
+   "package": "react",
+   "start": "2026-10-09",
+   "end": "2026-10-15",
+   "threshold": 122367092,
+   "cmp": ">=",
+   "field": "body.downloads[].downloads 求和（按 .day 落在 [start,end]）"
+  },
+  "meta": {
+   "package": "react",
+   "start": "2026-10-09",
+   "end": "2026-10-15",
+   "threshold": 122367092,
+   "cutoff": "2026-09-13T02:19:55+08:00",
+   "phase": "forward",
+   "month": "2026-10"
+  }
+ },
+ {
+  "gameType": "corpus:npmdl",
+  "layer": "L2",
+  "engine": "npm_downloads_baserate_forward",
+  "phase": "forward",
+  "prob": 0.4021,
+  "slug": "corpus:npmdl-oct-react-2026-10-30",
+  "statement": "【forward】npm 包 react 在 2026-10-24~2026-10-30 的 7 日下载量 >= 141517729（cutoff=落库时点 2026-09-13T02:19:55+08:00，严格早于该窗口（10 月）；真值锚=npm downloads/range downloads[].downloads 求和。10 月 realtime 补量批，真值未发生）",
+  "baseRateNote": "前瞻·react：cutoff 前 194 个 7 日滚动窗（2026-03-03~2026-09-12）中 >= 141517729 占 40.2%（分位 q=0.6，pre-cutoff 现算）",
+  "resolve": {
+   "kind": "npm_downloads_window",
+   "url_template": "https://api.npmjs.org/downloads/range/{start}:{end}/react",
+   "package": "react",
+   "start": "2026-10-24",
+   "end": "2026-10-30",
+   "threshold": 141517729,
+   "cmp": ">=",
+   "field": "body.downloads[].downloads 求和（按 .day 落在 [start,end]）"
+  },
+  "meta": {
+   "package": "react",
+   "start": "2026-10-24",
+   "end": "2026-10-30",
+   "threshold": 141517729,
+   "cutoff": "2026-09-13T02:19:55+08:00",
+   "phase": "forward",
+   "month": "2026-10"
+  }
+ },
+ {
+  "gameType": "corpus:npmdl",
+  "layer": "L2",
+  "engine": "npm_downloads_baserate_forward",
+  "phase": "forward",
+  "prob": 0.6031,
+  "slug": "corpus:npmdl-oct-typescript-2026-10-01",
+  "statement": "【forward】npm 包 typescript 在 2026-09-25~2026-10-01 的 7 日下载量 >= 187448155（cutoff=落库时点 2026-09-13T02:19:55+08:00，严格早于该窗口（10 月）；真值锚=npm downloads/range downloads[].downloads 求和。10 月 realtime 补量批，真值未发生）",
+  "baseRateNote": "前瞻·typescript：cutoff 前 194 个 7 日滚动窗（2026-03-03~2026-09-12）中 >= 187448155 占 60.3%（分位 q=0.4，pre-cutoff 现算）",
+  "resolve": {
+   "kind": "npm_downloads_window",
+   "url_template": "https://api.npmjs.org/downloads/range/{start}:{end}/typescript",
+   "package": "typescript",
+   "start": "2026-09-25",
+   "end": "2026-10-01",
+   "threshold": 187448155,
+   "cmp": ">=",
+   "field": "body.downloads[].downloads 求和（按 .day 落在 [start,end]）"
+  },
+  "meta": {
+   "package": "typescript",
+   "start": "2026-09-25",
+   "end": "2026-10-01",
+   "threshold": 187448155,
+   "cutoff": "2026-09-13T02:19:55+08:00",
+   "phase": "forward",
+   "month": "2026-10"
+  }
+ },
+ {
+  "gameType": "corpus:npmdl",
+  "layer": "L2",
+  "engine": "npm_downloads_baserate_forward",
+  "phase": "forward",
+  "prob": 0.6031,
+  "slug": "corpus:npmdl-oct-typescript-2026-10-15",
+  "statement": "【forward】npm 包 typescript 在 2026-10-09~2026-10-15 的 7 日下载量 >= 187448155（cutoff=落库时点 2026-09-13T02:19:55+08:00，严格早于该窗口（10 月）；真值锚=npm downloads/range downloads[].downloads 求和。10 月 realtime 补量批，真值未发生）",
+  "baseRateNote": "前瞻·typescript：cutoff 前 194 个 7 日滚动窗（2026-03-03~2026-09-12）中 >= 187448155 占 60.3%（分位 q=0.4，pre-cutoff 现算）",
+  "resolve": {
+   "kind": "npm_downloads_window",
+   "url_template": "https://api.npmjs.org/downloads/range/{start}:{end}/typescript",
+   "package": "typescript",
+   "start": "2026-10-09",
+   "end": "2026-10-15",
+   "threshold": 187448155,
+   "cmp": ">=",
+   "field": "body.downloads[].downloads 求和（按 .day 落在 [start,end]）"
+  },
+  "meta": {
+   "package": "typescript",
+   "start": "2026-10-09",
+   "end": "2026-10-15",
+   "threshold": 187448155,
+   "cutoff": "2026-09-13T02:19:55+08:00",
+   "phase": "forward",
+   "month": "2026-10"
+  }
+ },
+ {
+  "gameType": "corpus:npmdl",
+  "layer": "L2",
+  "engine": "npm_downloads_baserate_forward",
+  "phase": "forward",
+  "prob": 0.5,
+  "slug": "corpus:npmdl-oct-typescript-2026-10-30",
+  "statement": "【forward】npm 包 typescript 在 2026-10-24~2026-10-30 的 7 日下载量 >= 202420346（cutoff=落库时点 2026-09-13T02:19:55+08:00，严格早于该窗口（10 月）；真值锚=npm downloads/range downloads[].downloads 求和。10 月 realtime 补量批，真值未发生）",
+  "baseRateNote": "前瞻·typescript：cutoff 前 194 个 7 日滚动窗（2026-03-03~2026-09-12）中 >= 202420346 占 50.0%（分位 q=0.5，pre-cutoff 现算）",
+  "resolve": {
+   "kind": "npm_downloads_window",
+   "url_template": "https://api.npmjs.org/downloads/range/{start}:{end}/typescript",
+   "package": "typescript",
+   "start": "2026-10-24",
+   "end": "2026-10-30",
+   "threshold": 202420346,
+   "cmp": ">=",
+   "field": "body.downloads[].downloads 求和（按 .day 落在 [start,end]）"
+  },
+  "meta": {
+   "package": "typescript",
+   "start": "2026-10-24",
+   "end": "2026-10-30",
+   "threshold": 202420346,
+   "cutoff": "2026-09-13T02:19:55+08:00",
+   "phase": "forward",
+   "month": "2026-10"
+  }
+ },
+ {
+  "gameType": "corpus:npmdl",
+  "layer": "L2",
+  "engine": "npm_downloads_baserate_forward",
+  "phase": "forward",
+  "prob": 0.6031,
+  "slug": "corpus:npmdl-oct-vite-2026-10-01",
+  "statement": "【forward】npm 包 vite 在 2026-09-25~2026-10-01 的 7 日下载量 >= 117804468（cutoff=落库时点 2026-09-13T02:19:55+08:00，严格早于该窗口（10 月）；真值锚=npm downloads/range downloads[].downloads 求和。10 月 realtime 补量批，真值未发生）",
+  "baseRateNote": "前瞻·vite：cutoff 前 194 个 7 日滚动窗（2026-03-03~2026-09-12）中 >= 117804468 占 60.3%（分位 q=0.4，pre-cutoff 现算）",
+  "resolve": {
+   "kind": "npm_downloads_window",
+   "url_template": "https://api.npmjs.org/downloads/range/{start}:{end}/vite",
+   "package": "vite",
+   "start": "2026-09-25",
+   "end": "2026-10-01",
+   "threshold": 117804468,
+   "cmp": ">=",
+   "field": "body.downloads[].downloads 求和（按 .day 落在 [start,end]）"
+  },
+  "meta": {
+   "package": "vite",
+   "start": "2026-09-25",
+   "end": "2026-10-01",
+   "threshold": 117804468,
+   "cutoff": "2026-09-13T02:19:55+08:00",
+   "phase": "forward",
+   "month": "2026-10"
+  }
+ },
+ {
+  "gameType": "corpus:npmdl",
+  "layer": "L2",
+  "engine": "npm_downloads_baserate_forward",
+  "phase": "forward",
+  "prob": 0.6031,
+  "slug": "corpus:npmdl-oct-vite-2026-10-15",
+  "statement": "【forward】npm 包 vite 在 2026-10-09~2026-10-15 的 7 日下载量 >= 117804468（cutoff=落库时点 2026-09-13T02:19:55+08:00，严格早于该窗口（10 月）；真值锚=npm downloads/range downloads[].downloads 求和。10 月 realtime 补量批，真值未发生）",
+  "baseRateNote": "前瞻·vite：cutoff 前 194 个 7 日滚动窗（2026-03-03~2026-09-12）中 >= 117804468 占 60.3%（分位 q=0.4，pre-cutoff 现算）",
+  "resolve": {
+   "kind": "npm_downloads_window",
+   "url_template": "https://api.npmjs.org/downloads/range/{start}:{end}/vite",
+   "package": "vite",
+   "start": "2026-10-09",
+   "end": "2026-10-15",
+   "threshold": 117804468,
+   "cmp": ">=",
+   "field": "body.downloads[].downloads 求和（按 .day 落在 [start,end]）"
+  },
+  "meta": {
+   "package": "vite",
+   "start": "2026-10-09",
+   "end": "2026-10-15",
+   "threshold": 117804468,
+   "cutoff": "2026-09-13T02:19:55+08:00",
+   "phase": "forward",
+   "month": "2026-10"
+  }
+ },
+ {
+  "gameType": "corpus:npmdl",
+  "layer": "L2",
+  "engine": "npm_downloads_baserate_forward",
+  "phase": "forward",
+  "prob": 0.5,
+  "slug": "corpus:npmdl-oct-vite-2026-10-30",
+  "statement": "【forward】npm 包 vite 在 2026-10-24~2026-10-30 的 7 日下载量 >= 126827024（cutoff=落库时点 2026-09-13T02:19:55+08:00，严格早于该窗口（10 月）；真值锚=npm downloads/range downloads[].downloads 求和。10 月 realtime 补量批，真值未发生）",
+  "baseRateNote": "前瞻·vite：cutoff 前 194 个 7 日滚动窗（2026-03-03~2026-09-12）中 >= 126827024 占 50.0%（分位 q=0.5，pre-cutoff 现算）",
+  "resolve": {
+   "kind": "npm_downloads_window",
+   "url_template": "https://api.npmjs.org/downloads/range/{start}:{end}/vite",
+   "package": "vite",
+   "start": "2026-10-24",
+   "end": "2026-10-30",
+   "threshold": 126827024,
+   "cmp": ">=",
+   "field": "body.downloads[].downloads 求和（按 .day 落在 [start,end]）"
+  },
+  "meta": {
+   "package": "vite",
+   "start": "2026-10-24",
+   "end": "2026-10-30",
+   "threshold": 126827024,
+   "cutoff": "2026-09-13T02:19:55+08:00",
+   "phase": "forward",
+   "month": "2026-10"
+  }
+ },
+ {
+  "gameType": "corpus:wikipv",
+  "layer": "L2",
+  "engine": "wikimedia_pageviews_baserate_forward",
+  "phase": "forward",
+  "prob": 0.401,
+  "slug": "corpus:wikipv-oct-Bitcoin-2026-10-01",
+  "statement": "【forward】en.wikipedia 「Bitcoin」 2026-10-01 页面浏览量 >= 6975 次（cutoff=落库时点 2026-09-13T02:19:55+08:00，严格早于该日（10 月）；真值锚=Wikimedia pageviews API items[].views。10 月 realtime 补量批，真值未发生）",
+  "baseRateNote": "前瞻·Bitcoin：cutoff 前 399 个日浏览量（2025-08-09~2026-09-12）中 >= 6975 占 40.1%（分位 q=0.6，pre-cutoff 现算）",
+  "resolve": {
+   "kind": "wikimedia_pageviews",
+   "url_template": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/all-agents/Bitcoin/daily/{dat}00/{dat}00",
+   "article": "Bitcoin",
+   "date": "2026-10-01",
+   "threshold": 6975,
+   "cmp": ">=",
+   "field": "items[] 中 timestamp=='YYYYMMDD00' 者 .views"
+  },
+  "meta": {
+   "article": "Bitcoin",
+   "date": "2026-10-01",
+   "threshold": 6975,
+   "cutoff": "2026-09-13T02:19:55+08:00",
+   "phase": "forward",
+   "month": "2026-10"
+  }
+ },
+ {
+  "gameType": "corpus:wikipv",
+  "layer": "L2",
+  "engine": "wikimedia_pageviews_baserate_forward",
+  "phase": "forward",
+  "prob": 0.7018,
+  "slug": "corpus:wikipv-oct-Bitcoin-2026-10-30",
+  "statement": "【forward】en.wikipedia 「Bitcoin」 2026-10-30 页面浏览量 >= 5549 次（cutoff=落库时点 2026-09-13T02:19:55+08:00，严格早于该日（10 月）；真值锚=Wikimedia pageviews API items[].views。10 月 realtime 补量批，真值未发生）",
+  "baseRateNote": "前瞻·Bitcoin：cutoff 前 399 个日浏览量（2025-08-09~2026-09-12）中 >= 5549 占 70.2%（分位 q=0.3，pre-cutoff 现算）",
+  "resolve": {
+   "kind": "wikimedia_pageviews",
+   "url_template": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/all-agents/Bitcoin/daily/{dat}00/{dat}00",
+   "article": "Bitcoin",
+   "date": "2026-10-30",
+   "threshold": 5549,
+   "cmp": ">=",
+   "field": "items[] 中 timestamp=='YYYYMMDD00' 者 .views"
+  },
+  "meta": {
+   "article": "Bitcoin",
+   "date": "2026-10-30",
+   "threshold": 5549,
+   "cutoff": "2026-09-13T02:19:55+08:00",
+   "phase": "forward",
+   "month": "2026-10"
+  }
+ },
+ {
+  "gameType": "corpus:wikipv",
+  "layer": "L2",
+  "engine": "wikimedia_pageviews_baserate_forward",
+  "phase": "forward",
+  "prob": 0.3008,
+  "slug": "corpus:wikipv-oct-Artificial_intelligence-2026-10-01",
+  "statement": "【forward】en.wikipedia 「Artificial_intelligence」 2026-10-01 页面浏览量 >= 28695 次（cutoff=落库时点 2026-09-13T02:19:55+08:00，严格早于该日（10 月）；真值锚=Wikimedia pageviews API items[].views。10 月 realtime 补量批，真值未发生）",
+  "baseRateNote": "前瞻·Artificial_intelligence：cutoff 前 399 个日浏览量（2025-08-09~2026-09-12）中 >= 28695 占 30.1%（分位 q=0.7，pre-cutoff 现算）",
+  "resolve": {
+   "kind": "wikimedia_pageviews",
+   "url_template": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/all-agents/Artificial_intelligence/daily/{dat}00/{dat}00",
+   "article": "Artificial_intelligence",
+   "date": "2026-10-01",
+   "threshold": 28695,
+   "cmp": ">=",
+   "field": "items[] 中 timestamp=='YYYYMMDD00' 者 .views"
+  },
+  "meta": {
+   "article": "Artificial_intelligence",
+   "date": "2026-10-01",
+   "threshold": 28695,
+   "cutoff": "2026-09-13T02:19:55+08:00",
+   "phase": "forward",
+   "month": "2026-10"
+  }
+ },
+ {
+  "gameType": "corpus:wikipv",
+  "layer": "L2",
+  "engine": "wikimedia_pageviews_baserate_forward",
+  "phase": "forward",
+  "prob": 0.5013,
+  "slug": "corpus:wikipv-oct-Artificial_intelligence-2026-10-30",
+  "statement": "【forward】en.wikipedia 「Artificial_intelligence」 2026-10-30 页面浏览量 >= 25063 次（cutoff=落库时点 2026-09-13T02:19:55+08:00，严格早于该日（10 月）；真值锚=Wikimedia pageviews API items[].views。10 月 realtime 补量批，真值未发生）",
+  "baseRateNote": "前瞻·Artificial_intelligence：cutoff 前 399 个日浏览量（2025-08-09~2026-09-12）中 >= 25063 占 50.1%（分位 q=0.5，pre-cutoff 现算）",
+  "resolve": {
+   "kind": "wikimedia_pageviews",
+   "url_template": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/all-agents/Artificial_intelligence/daily/{dat}00/{dat}00",
+   "article": "Artificial_intelligence",
+   "date": "2026-10-30",
+   "threshold": 25063,
+   "cmp": ">=",
+   "field": "items[] 中 timestamp=='YYYYMMDD00' 者 .views"
+  },
+  "meta": {
+   "article": "Artificial_intelligence",
+   "date": "2026-10-30",
+   "threshold": 25063,
+   "cutoff": "2026-09-13T02:19:55+08:00",
+   "phase": "forward",
+   "month": "2026-10"
+  }
+ },
+ {
+  "gameType": "corpus:wikipv",
+  "layer": "L2",
+  "engine": "wikimedia_pageviews_baserate_forward",
+  "phase": "forward",
+  "prob": 0.6015,
+  "slug": "corpus:wikipv-oct-ChatGPT-2026-10-01",
+  "statement": "【forward】en.wikipedia 「ChatGPT」 2026-10-01 页面浏览量 >= 92397 次（cutoff=落库时点 2026-09-13T02:19:55+08:00，严格早于该日（10 月）；真值锚=Wikimedia pageviews API items[].views。10 月 realtime 补量批，真值未发生）",
+  "baseRateNote": "前瞻·ChatGPT：cutoff 前 399 个日浏览量（2025-08-09~2026-09-12）中 >= 92397 占 60.2%（分位 q=0.4，pre-cutoff 现算）",
+  "resolve": {
+   "kind": "wikimedia_pageviews",
+   "url_template": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/all-agents/ChatGPT/daily/{dat}00/{dat}00",
+   "article": "ChatGPT",
+   "date": "2026-10-01",
+   "threshold": 92397,
+   "cmp": ">=",
+   "field": "items[] 中 timestamp=='YYYYMMDD00' 者 .views"
+  },
+  "meta": {
+   "article": "ChatGPT",
+   "date": "2026-10-01",
+   "threshold": 92397,
+   "cutoff": "2026-09-13T02:19:55+08:00",
+   "phase": "forward",
+   "month": "2026-10"
+  }
+ },
+ {
+  "gameType": "corpus:wikipv",
+  "layer": "L2",
+  "engine": "wikimedia_pageviews_baserate_forward",
+  "phase": "forward",
+  "prob": 0.5013,
+  "slug": "corpus:wikipv-oct-ChatGPT-2026-10-30",
+  "statement": "【forward】en.wikipedia 「ChatGPT」 2026-10-30 页面浏览量 >= 100982 次（cutoff=落库时点 2026-09-13T02:19:55+08:00，严格早于该日（10 月）；真值锚=Wikimedia pageviews API items[].views。10 月 realtime 补量批，真值未发生）",
+  "baseRateNote": "前瞻·ChatGPT：cutoff 前 399 个日浏览量（2025-08-09~2026-09-12）中 >= 100982 占 50.1%（分位 q=0.5，pre-cutoff 现算）",
+  "resolve": {
+   "kind": "wikimedia_pageviews",
+   "url_template": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/all-agents/ChatGPT/daily/{dat}00/{dat}00",
+   "article": "ChatGPT",
+   "date": "2026-10-30",
+   "threshold": 100982,
+   "cmp": ">=",
+   "field": "items[] 中 timestamp=='YYYYMMDD00' 者 .views"
+  },
+  "meta": {
+   "article": "ChatGPT",
+   "date": "2026-10-30",
+   "threshold": 100982,
+   "cutoff": "2026-09-13T02:19:55+08:00",
+   "phase": "forward",
+   "month": "2026-10"
+  }
+ },
+ {
+  "gameType": "corpus:wikipv",
+  "layer": "L2",
+  "engine": "wikimedia_pageviews_baserate_forward",
+  "phase": "forward",
+  "prob": 0.5013,
+  "slug": "corpus:wikipv-oct-Taylor_Swift-2026-10-01",
+  "statement": "【forward】en.wikipedia 「Taylor_Swift」 2026-10-01 页面浏览量 >= 25098 次（cutoff=落库时点 2026-09-13T02:19:55+08:00，严格早于该日（10 月）；真值锚=Wikimedia pageviews API items[].views。10 月 realtime 补量批，真值未发生）",
+  "baseRateNote": "前瞻·Taylor_Swift：cutoff 前 399 个日浏览量（2025-08-09~2026-09-12）中 >= 25098 占 50.1%（分位 q=0.5，pre-cutoff 现算）",
+  "resolve": {
+   "kind": "wikimedia_pageviews",
+   "url_template": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/all-agents/Taylor_Swift/daily/{dat}00/{dat}00",
+   "article": "Taylor_Swift",
+   "date": "2026-10-01",
+   "threshold": 25098,
+   "cmp": ">=",
+   "field": "items[] 中 timestamp=='YYYYMMDD00' 者 .views"
+  },
+  "meta": {
+   "article": "Taylor_Swift",
+   "date": "2026-10-01",
+   "threshold": 25098,
+   "cutoff": "2026-09-13T02:19:55+08:00",
+   "phase": "forward",
+   "month": "2026-10"
+  }
+ },
+ {
+  "gameType": "corpus:wikipv",
+  "layer": "L2",
+  "engine": "wikimedia_pageviews_baserate_forward",
+  "phase": "forward",
+  "prob": 0.3008,
+  "slug": "corpus:wikipv-oct-Taylor_Swift-2026-10-30",
+  "statement": "【forward】en.wikipedia 「Taylor_Swift」 2026-10-30 页面浏览量 >= 32496 次（cutoff=落库时点 2026-09-13T02:19:55+08:00，严格早于该日（10 月）；真值锚=Wikimedia pageviews API items[].views。10 月 realtime 补量批，真值未发生）",
+  "baseRateNote": "前瞻·Taylor_Swift：cutoff 前 399 个日浏览量（2025-08-09~2026-09-12）中 >= 32496 占 30.1%（分位 q=0.7，pre-cutoff 现算）",
+  "resolve": {
+   "kind": "wikimedia_pageviews",
+   "url_template": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/all-agents/Taylor_Swift/daily/{dat}00/{dat}00",
+   "article": "Taylor_Swift",
+   "date": "2026-10-30",
+   "threshold": 32496,
+   "cmp": ">=",
+   "field": "items[] 中 timestamp=='YYYYMMDD00' 者 .views"
+  },
+  "meta": {
+   "article": "Taylor_Swift",
+   "date": "2026-10-30",
+   "threshold": 32496,
+   "cutoff": "2026-09-13T02:19:55+08:00",
+   "phase": "forward",
+   "month": "2026-10"
+  }
+ },
+ {
+  "gameType": "corpus:wikipv",
+  "layer": "L2",
+  "engine": "wikimedia_pageviews_baserate_forward",
+  "phase": "forward",
+  "prob": 0.5013,
+  "slug": "corpus:wikipv-oct-Ethereum-2026-10-01",
+  "statement": "【forward】en.wikipedia 「Ethereum」 2026-10-01 页面浏览量 >= 1546 次（cutoff=落库时点 2026-09-13T02:19:55+08:00，严格早于该日（10 月）；真值锚=Wikimedia pageviews API items[].views。10 月 realtime 补量批，真值未发生）",
+  "baseRateNote": "前瞻·Ethereum：cutoff 前 399 个日浏览量（2025-08-09~2026-09-12）中 >= 1546 占 50.1%（分位 q=0.5，pre-cutoff 现算）",
+  "resolve": {
+   "kind": "wikimedia_pageviews",
+   "url_template": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/all-agents/Ethereum/daily/{dat}00/{dat}00",
+   "article": "Ethereum",
+   "date": "2026-10-01",
+   "threshold": 1546,
+   "cmp": ">=",
+   "field": "items[] 中 timestamp=='YYYYMMDD00' 者 .views"
+  },
+  "meta": {
+   "article": "Ethereum",
+   "date": "2026-10-01",
+   "threshold": 1546,
+   "cutoff": "2026-09-13T02:19:55+08:00",
+   "phase": "forward",
+   "month": "2026-10"
+  }
+ },
+ {
+  "gameType": "corpus:wikipv",
+  "layer": "L2",
+  "engine": "wikimedia_pageviews_baserate_forward",
+  "phase": "forward",
+  "prob": 0.3008,
+  "slug": "corpus:wikipv-oct-Ethereum-2026-10-30",
+  "statement": "【forward】en.wikipedia 「Ethereum」 2026-10-30 页面浏览量 >= 1856 次（cutoff=落库时点 2026-09-13T02:19:55+08:00，严格早于该日（10 月）；真值锚=Wikimedia pageviews API items[].views。10 月 realtime 补量批，真值未发生）",
+  "baseRateNote": "前瞻·Ethereum：cutoff 前 399 个日浏览量（2025-08-09~2026-09-12）中 >= 1856 占 30.1%（分位 q=0.7，pre-cutoff 现算）",
+  "resolve": {
+   "kind": "wikimedia_pageviews",
+   "url_template": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/all-agents/Ethereum/daily/{dat}00/{dat}00",
+   "article": "Ethereum",
+   "date": "2026-10-30",
+   "threshold": 1856,
+   "cmp": ">=",
+   "field": "items[] 中 timestamp=='YYYYMMDD00' 者 .views"
+  },
+  "meta": {
+   "article": "Ethereum",
+   "date": "2026-10-30",
+   "threshold": 1856,
+   "cutoff": "2026-09-13T02:19:55+08:00",
+   "phase": "forward",
+   "month": "2026-10"
+  }
+ }
+]

@@ -1,0 +1,8 @@
+games: 72
+predictions: 1503
+resolved: 602
+unresolved: 901
+real games: 38
+checklist_hash NULL: 0
+by layer: [{"layer":"L1","n":180},{"layer":"L2","n":433},{"layer":"L3","n":512},{"layer":"L5","n":108},{"layer":"L6","n":270}]
+corpus games: 30

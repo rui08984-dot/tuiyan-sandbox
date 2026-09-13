@@ -1,0 +1,4 @@
+total: 1040
+oct_forward: 69
+=== horizon 分层统计（关键：验证用户洞察）===
+未解题 horizon 分布: {"short":131,"mid":67,"long":111,"unknown":129}

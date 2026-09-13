@@ -1,0 +1,5 @@
+[2026-09-13T01:58:36+08:00] === corpus-resolve-daemon start | mode=once interval=60min due-only=false confirm=true
+[2026-09-13T01:58:36+08:00] 复用 corpus-resolve RESOLVERS 成功：inline-extract(7 kinds)
+[2026-09-13T01:58:41+08:00] WARN dlt 日历刷新失败（沿用内置锚 26104@2026-09-12）: HTTP 567
+[2026-09-13T01:58:41+08:00] 日历锚刷新：ssq 2026105@2026-09-10 | dlt 26104@2026-09-12
+[2026-09-13T01:58:41+08:00] 参数安全门：跳过 3 条口径不符题（不写脏账）— cwl_ssq_red_contains 缺合法 ball（实测=null） @id732 / cwl_ssq_red_contains 缺合法 ball（实测=null） @id734 / cwl_ssq_red_contains 缺合法 ball（实测=null） @id736

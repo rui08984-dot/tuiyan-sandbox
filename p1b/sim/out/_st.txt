@@ -1,0 +1,5 @@
+total: 971
+resolved: 602
+unresolved: 369
+by layer: [{"layer":"L1","n":180},{"layer":"L2","n":202},{"layer":"L3","n":231},{"layer":"L5","n":88},{"layer":"L6","n":270}]
+recent resolved (last 5): [{"id":624,"outcome":"true","n":"cwl 官方 2026089 期 red=05,18,23,24,27,33 blue=03（blu"},{"id":623,"outcome":"true","n":"cwl 官方 2026091 期 red=02,13,14,16,20,24 blue=05（blu"},{"id":622,"outcome":"true","n":"cwl 官方 2026093 期 red=05,08,15,20,21,24 blue=09（blu"},{"id":621,"outcome":"false","n":"cwl 官方 2026095 期 red=04,06,14,21,22,33 blue=16（blu"},{"id":620,"outcome":"false","n":"cwl 官方 2026097 期 red=05,16,24,26,29,30 blue=02（blu"}]

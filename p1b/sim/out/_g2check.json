@@ -1,0 +1,303 @@
+{
+ "meta": {
+  "script": "p1b/scripts/g2-report.cjs",
+  "spec": "docs/specs/2026-09-11-万物可预测性审计器-design.md §4 + §4.1 R3",
+  "db": "E:\\music player\\p1a-terminal\\data\\p1a.db",
+  "mode": "readonly",
+  "generated_at": "2026-09-12T18:06:26.864Z",
+  "verdict": {
+   "judgeable_rate": false,
+   "dispute_rate": true,
+   "throughput_2month": false
+  }
+ },
+ "M1_judgeable_rate": {
+  "total_submitted": 971,
+  "voided": 0,
+  "resolved": 602,
+  "judged_frozen": 602,
+  "judged_anchor_ok": 602,
+  "judgeable": 602,
+  "judgeable_realtime": 450,
+  "judgeable_backfill": 152,
+  "rate": 0.619979402677652,
+  "threshold": 0.7,
+  "pass": false,
+  "by_layer": [
+   {
+    "layer": "L1",
+    "resolved": 180,
+    "judgeable": 180,
+    "submitted": 180,
+    "rate": 1
+   },
+   {
+    "layer": "L2",
+    "resolved": 32,
+    "judgeable": 32,
+    "submitted": 202,
+    "rate": 0.15841584158415842
+   },
+   {
+    "layer": "L3",
+    "resolved": 96,
+    "judgeable": 96,
+    "submitted": 231,
+    "rate": 0.4155844155844156
+   },
+   {
+    "layer": "L5",
+    "resolved": 24,
+    "judgeable": 24,
+    "submitted": 88,
+    "rate": 0.2727272727272727
+   },
+   {
+    "layer": "L6",
+    "resolved": 270,
+    "judgeable": 270,
+    "submitted": 270,
+    "rate": 1
+   }
+  ],
+  "audit_sample_10pct_ids": [
+   1,
+   11,
+   21,
+   31,
+   41,
+   51,
+   61,
+   71,
+   81,
+   91,
+   101,
+   111,
+   121,
+   131,
+   141,
+   151,
+   161,
+   171,
+   181,
+   191,
+   201,
+   211,
+   221,
+   231,
+   241,
+   251,
+   261,
+   271,
+   281,
+   291,
+   301,
+   311,
+   321,
+   331,
+   341,
+   351,
+   361,
+   371,
+   381,
+   391,
+   401,
+   411,
+   421,
+   431,
+   441,
+   473,
+   483,
+   493,
+   503,
+   513,
+   523,
+   533,
+   543,
+   553,
+   563,
+   573,
+   583,
+   593,
+   603,
+   613,
+   623
+  ]
+ },
+ "M2_dispute_rate": {
+  "resolved": 602,
+  "voided": 0,
+  "rejudged": 0,
+  "revise_note_mentions": 0,
+  "dispute_count": 0,
+  "rate": 0,
+  "threshold": 0.2,
+  "pass": true,
+  "void_tables_found": [],
+  "note": "库内无 void/rejudge 记录表，voided=rejudged=0 ⇒ 争议率报 0（分母 602）",
+  "proxy_multirun_disagreement": {
+   "n": 194,
+   "denom": 360,
+   "rate": 0.5388888888888889,
+   "label": "代理观测·非设计口径：判词多路分歧（prompt 变体，非独立 provider），不计入争议率"
+  }
+ },
+ "M3_monthly_throughput": {
+  "by_month": [
+   {
+    "month": "2026-09",
+    "realtime_resolved": 450,
+    "backfill_resolved": 152,
+    "total_resolved": 602
+   }
+  ],
+  "months_observed": 1,
+  "consecutive_realtime_months_ge30": 1,
+  "threshold_months": 2,
+  "threshold_per_month": 30,
+  "pass": false,
+  "decision_basis": "realtime 列（statement 不含【backfill】）单独判定；backfill 列仅作存量池厚度",
+  "data_window_note": "库内 resolved_at 全部落在 2026-09，观测窗 <2 个自然月 ⇒ 无论读数多少都无法达成「连续 2 月」"
+ },
+ "M4_target_month_aux": {
+  "basis": "evidence_json[].resolve.date | meta.eventDate | meta.month（R3 草案，与 resolved_at 口径不同，不用于达标判定）",
+  "rows_with_target_month": 372,
+  "by_target_month": {
+   "2023-06": {
+    "n": 3,
+    "resolved": 0,
+    "backfill": 3
+   },
+   "2024-01（日粒度·取月）": {
+    "n": 16,
+    "resolved": 16,
+    "backfill": 16
+   },
+   "2024-03（日粒度·取月）": {
+    "n": 16,
+    "resolved": 16,
+    "backfill": 16
+   },
+   "2024-05": {
+    "n": 3,
+    "resolved": 0,
+    "backfill": 3
+   },
+   "2024-05（日粒度·取月）": {
+    "n": 16,
+    "resolved": 16,
+    "backfill": 16
+   },
+   "2024-07（日粒度·取月）": {
+    "n": 16,
+    "resolved": 16,
+    "backfill": 16
+   },
+   "2024-09（日粒度·取月）": {
+    "n": 16,
+    "resolved": 16,
+    "backfill": 16
+   },
+   "2024-11（日粒度·取月）": {
+    "n": 16,
+    "resolved": 16,
+    "backfill": 16
+   },
+   "2026-02（日粒度·取月）": {
+    "n": 3,
+    "resolved": 0,
+    "backfill": 3
+   },
+   "2026-05（日粒度·取月）": {
+    "n": 3,
+    "resolved": 0,
+    "backfill": 3
+   },
+   "2026-06（日粒度·取月）": {
+    "n": 5,
+    "resolved": 0,
+    "backfill": 5
+   },
+   "2026-07（日粒度·取月）": {
+    "n": 5,
+    "resolved": 0,
+    "backfill": 5
+   },
+   "2026-08（日粒度·取月）": {
+    "n": 16,
+    "resolved": 0,
+    "backfill": 16
+   },
+   "2026-09（日粒度·取月）": {
+    "n": 152,
+    "resolved": 0,
+    "backfill": 5
+   },
+   "2026-10": {
+    "n": 43,
+    "resolved": 0,
+    "backfill": 0
+   },
+   "2026-11": {
+    "n": 43,
+    "resolved": 0,
+    "backfill": 0
+   }
+  },
+  "note": "该口径按「题面目标时间」聚合，与 resolved_at 自然月不同轴；草案 meta.month 无年份（如 09/10/11），故单列标注"
+ },
+ "r3_compliance": {
+  "rule4_split_windows": {
+   "ok": true,
+   "realtime": 450,
+   "backfill": 152
+  },
+  "rule5_single_batch_cap": {
+   "batches": [
+    {
+     "b": "corpus-backfill-2026-09-12",
+     "c": 152,
+     "l": "L2"
+    }
+   ],
+   "backfill_marked_total": 204,
+   "cap_total_500": true,
+   "per_layer": [
+    {
+     "layer": "L2",
+     "c": 74,
+     "rt_cap_3x": 384,
+     "ok": true
+    },
+    {
+     "layer": "L3",
+     "c": 106,
+     "rt_cap_3x": 375,
+     "ok": true
+    },
+    {
+     "layer": "L5",
+     "c": 24,
+     "rt_cap_3x": 192,
+     "ok": true
+    }
+   ],
+   "ok": true
+  },
+  "rule6_window_quota": {
+   "realtime": {
+    "total": 767,
+    "max_layer": "L6",
+    "max_share": 0.3520208604954368
+   },
+   "backfill": {
+    "total": 204,
+    "max_layer": "L3",
+    "max_share": 0.5196078431372549
+   },
+   "cap_share": 0.6
+  },
+  "honesty_note_required": "凡引用含 backfill 样本的校准结论（ECE/Brier/分辨率），报告须恒挂「含历史回填样本，非实时预测能力」"
+ },
+ "text_report": "========================================================================\nG2 三指标月报 —— 审计器 design §4（含 §4.1 修订 R3）\n生成时间 2026-09-12T18:06:26.862Z | 库 E:\\music player\\p1a-terminal\\data\\p1a.db | 句柄只读 · 纯 SQL · 零 LLM\n========================================================================\n[指标1] 可判定率 = 判据冻结 ∧ 锚可机检 ÷ 提交总题数  达标线 ≥70%  → 未达标\n  = 602 / 971 = 62.0%   （已 resolve 602，voided 0，未解 369）\n  判据完整冻结 checklist_hash 非空: 602 (100.0% of resolved) | 真值锚可机检: 602\n  分窗: realtime 450 / backfill 152（R3: backfill 计入本指标）\n  分层(submitted/judgeable): L1 180/180=100.0%  L2 202/32=15.8%  L3 231/96=41.6%  L5 88/24=27.3%  L6 270/270=100.0%\n  抽检池(每10题取1, 防Goodhart①): 61 题 id=1..623\n[指标2] 判据争议率 = (改判 + void) ÷ 已 resolve  达标线 ≤20%  → 达标\n  = (0 + 0) / 602 = 0.0%   [库内无 void 记录，报 0]\n  说明: 库内无 void/rejudge 记录表，voided=rejudged=0 ⇒ 争议率报 0（分母 602）\n  void/rejudge 表扫描: 无 | resolve_note 含改判/复核字样: 0\n  代理观测(不计入): 多路判词分歧 194/360 = 53.9%\n[指标3] 月 resolve 吞吐（按 resolved_at 自然月）  达标线 ≥30/月 连续 2 月  → 未达标\n  月份           realtime  backfill  total\n  2026-09           450       152      602\n  连续 realtime ≥30 的月数: 1 / 2   [realtime 列（statement 不含【backfill】）单独判定；backfill 列仅作存量池厚度]\n  库内 resolved_at 全部落在 2026-09，观测窗 <2 个自然月 ⇒ 无论读数多少都无法达成「连续 2 月」\n[附] 按题面目标月（evidence.meta.month / resolve.date，R3 草案，不参与达标判定）\n  2023-06                    n=  3  resolved=  0  backfill=  3\n  2024-01（日粒度·取月）            n= 16  resolved= 16  backfill= 16\n  2024-03（日粒度·取月）            n= 16  resolved= 16  backfill= 16\n  2024-05                    n=  3  resolved=  0  backfill=  3\n  2024-05（日粒度·取月）            n= 16  resolved= 16  backfill= 16\n  2024-07（日粒度·取月）            n= 16  resolved= 16  backfill= 16\n  2024-09（日粒度·取月）            n= 16  resolved= 16  backfill= 16\n  2024-11（日粒度·取月）            n= 16  resolved= 16  backfill= 16\n  2026-02（日粒度·取月）            n=  3  resolved=  0  backfill=  3\n  2026-05（日粒度·取月）            n=  3  resolved=  0  backfill=  3\n  2026-06（日粒度·取月）            n=  5  resolved=  0  backfill=  5\n  2026-07（日粒度·取月）            n=  5  resolved=  0  backfill=  5\n  2026-08（日粒度·取月）            n= 16  resolved=  0  backfill= 16\n  2026-09（日粒度·取月）            n=152  resolved=  0  backfill=  5\n  2026-10                    n= 43  resolved=  0  backfill=  0\n  2026-11                    n= 43  resolved=  0  backfill=  0\n  该口径按「题面目标时间」聚合，与 resolved_at 自然月不同轴；草案 meta.month 无年份（如 09/10/11），故单列标注\n[R3 防 Goodhart 合规]\n  ④ 分窗: realtime 450 / backfill 152  → ok\n  ⑤ 单批上限(≤3×layer存量且总量≤500): 总量 204 ≤500 true | L2 74≤384 ok | L3 106≤375 ok | L5 24≤192 ok\n  ⑥ 分窗配额(单层占比≤60%): realtime L6 35.2% | backfill L3 52.0%\n  诚实标注: 凡引用含 backfill 样本的校准结论（ECE/Brier/分辨率），报告须恒挂「含历史回填样本，非实时预测能力」\n========================================================================"
+}

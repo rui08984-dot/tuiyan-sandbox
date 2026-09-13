@@ -1,0 +1,308 @@
+{
+  "run_at": "2026-09-13T02:19:55+08:00",
+  "today": "2026-09-13",
+  "target_month": "2026-10",
+  "confirm": true,
+  "sources": {
+    "aq": {
+      "label": "Open-Meteo PM10 日频",
+      "game_type": "corpus:airqual",
+      "total": 15,
+      "prob_min": 0.3014,
+      "prob_max": 0.7014,
+      "band_ok": true,
+      "resolve_date_first": "2026-10-01",
+      "resolve_date_last": "2026-10-30",
+      "sample": [
+        "【forward】上海 2026-10-01 日 PM10 日均浓度 <= 39.8 μg/m³（cutoff=2026-09-13T02:19:55+08:00，严格早于事件日；真值锚=Open-Meteo air-quality hourly.pm10 该日全小时均值。10 月 realtime 补量批，真值未发生）"
+      ]
+    },
+    "crypto": {
+      "label": "Binance 日线",
+      "game_type": "corpus:crypto",
+      "total": 9,
+      "prob_min": 0.3,
+      "prob_max": 0.7,
+      "band_ok": true,
+      "resolve_date_first": "2026-10-01",
+      "resolve_date_last": "2026-10-30",
+      "sample": [
+        "【forward】BTC/USDT 2026-10-01（UTC 日）收盘价 >= 88839.04 USDT（cutoff=落库时点 2026-09-13T02:19:55+08:00，严格早于该 UTC 日（10 月）；真值锚=Binance klines [4]=close。10 月 realtime 补量批，真值未发生）"
+      ]
+    },
+    "npm": {
+      "label": "npm 7日下载窗",
+      "game_type": "corpus:npmdl",
+      "total": 9,
+      "prob_min": 0.4021,
+      "prob_max": 0.701,
+      "band_ok": true,
+      "resolve_date_first": "2026-10-02",
+      "resolve_date_last": "2026-10-31",
+      "sample": [
+        "【forward】npm 包 react 在 2026-09-25~2026-10-01 的 7 日下载量 >= 122367092（cutoff=落库时点 2026-09-13T02:19:55+08:00，严格早于该窗口（10 月）；真值锚=npm downloads/range downloads[].downloads 求和。10 月 realtime 补量批，真值未发生）"
+      ]
+    },
+    "wiki": {
+      "label": "Wikimedia 日浏览",
+      "game_type": "corpus:wikipv",
+      "total": 10,
+      "prob_min": 0.3008,
+      "prob_max": 0.7018,
+      "band_ok": true,
+      "resolve_date_first": "2026-10-01",
+      "resolve_date_last": "2026-10-30",
+      "sample": [
+        "【forward】en.wikipedia 「Bitcoin」 2026-10-01 页面浏览量 >= 6975 次（cutoff=落库时点 2026-09-13T02:19:55+08:00，严格早于该日（10 月）；真值锚=Wikimedia pageviews API items[].views。10 月 realtime 补量批，真值未发生）"
+      ]
+    },
+    "gh": {
+      "label": "GitHub 周提交",
+      "game_type": "corpus:ghcommit",
+      "total": 0,
+      "prob_min": null,
+      "prob_max": null,
+      "band_ok": true,
+      "resolve_date_first": null,
+      "resolve_date_last": null,
+      "sample": []
+    },
+    "lotto": {
+      "label": "彩票（双色球+大乐透）",
+      "game_type": "corpus:cwl",
+      "total": 0,
+      "prob_min": null,
+      "prob_max": null,
+      "band_ok": true,
+      "resolve_date_first": null,
+      "resolve_date_last": null,
+      "sample": []
+    }
+  },
+  "existing_canon_keys": 232,
+  "total": 43,
+  "intra_dupes": 0,
+  "prob_min": 0.3,
+  "prob_max": 0.7018,
+  "band_violations": [],
+  "by_game_type": {
+    "corpus:airqual": 15,
+    "corpus:crypto": 9,
+    "corpus:npmdl": 9,
+    "corpus:wikipv": 10
+  },
+  "resolve_by_day": [
+    {
+      "date": "2026-10-01",
+      "n": 13
+    },
+    {
+      "date": "2026-10-02",
+      "n": 3
+    },
+    {
+      "date": "2026-10-15",
+      "n": 8
+    },
+    {
+      "date": "2026-10-16",
+      "n": 3
+    },
+    {
+      "date": "2026-10-30",
+      "n": 13
+    },
+    {
+      "date": "2026-10-31",
+      "n": 3
+    }
+  ],
+  "resolve_by_week": [
+    {
+      "week_start": "2026-09-28",
+      "n": 16
+    },
+    {
+      "week_start": "2026-10-12",
+      "n": 11
+    },
+    {
+      "week_start": "2026-10-26",
+      "n": 16
+    }
+  ],
+  "resolve_month_check": true,
+  "samples": [
+    {
+      "statement": "【forward】上海 2026-10-01 日 PM10 日均浓度 <= 39.8 μg/m³（cutoff=2026-09-13T02:19:55+08:00，严格早于事件日；真值锚=Open-Meteo air-quality hourly.pm10 该日全小时均值。10 月 realtime 补量批，真值未发生）",
+      "prob": 0.5014,
+      "resolve": {
+        "kind": "openmeteo_air_pm10_daily_mean",
+        "url_template": "https://air-quality-api.open-meteo.com/v1/air-quality?latitude=31.23&longitude=121.47&hourly=pm10&timezone=GMT&start_date={date}&end_date={date}",
+        "lat": 31.23,
+        "lon": 121.47,
+        "date": "2026-10-01",
+        "threshold": 39.8,
+        "cmp": "<=",
+        "field": "hourly.time[] 前缀==date 的全部 hourly.pm10[] 算术均值"
+      },
+      "baseRateNote": "前瞻·上海：cutoff 前 365 个 PM10 日均（2025-09-13~2026-09-12）中 <= 39.8 占 50.1%（分位 q=0.5，pre-cutoff 现算）"
+    },
+    {
+      "statement": "【forward】上海 2026-10-15 日 PM10 日均浓度 <= 39.8 μg/m³（cutoff=2026-09-13T02:19:55+08:00，严格早于事件日；真值锚=Open-Meteo air-quality hourly.pm10 该日全小时均值。10 月 realtime 补量批，真值未发生）",
+      "prob": 0.5014,
+      "resolve": {
+        "kind": "openmeteo_air_pm10_daily_mean",
+        "url_template": "https://air-quality-api.open-meteo.com/v1/air-quality?latitude=31.23&longitude=121.47&hourly=pm10&timezone=GMT&start_date={date}&end_date={date}",
+        "lat": 31.23,
+        "lon": 121.47,
+        "date": "2026-10-15",
+        "threshold": 39.8,
+        "cmp": "<=",
+        "field": "hourly.time[] 前缀==date 的全部 hourly.pm10[] 算术均值"
+      },
+      "baseRateNote": "前瞻·上海：cutoff 前 365 个 PM10 日均（2025-09-13~2026-09-12）中 <= 39.8 占 50.1%（分位 q=0.5，pre-cutoff 现算）"
+    }
+  ],
+  "games_used": {
+    "corpus:airqual": 50,
+    "corpus:crypto": 51,
+    "corpus:npmdl": 55,
+    "corpus:wikipv": 52
+  },
+  "inserted": 0,
+  "skipped": 0,
+  "duplicate_skipped": 43,
+  "l0Gate_after": {
+    "gate": "L0 只记不评：n≥30 局 ∧ 200 条前不评分，UI 数字只配「参考」；重言式题（tautology=1）不计入门禁",
+    "games": 42,
+    "records": 1040,
+    "records_valid": 1010,
+    "resolved": 602,
+    "unresolved": 438,
+    "review_unlocked": true
+  },
+  "db_batch": {
+    "rows": 69,
+    "prob_min": 0.166667,
+    "prob_max": 0.7308,
+    "in_band": true,
+    "all_forward_prefix": true,
+    "no_backfill_prefix": true,
+    "by_layer": {
+      "L3": 15,
+      "L2": 34,
+      "L5": 20
+    },
+    "by_game_type": {
+      "corpus:airqual": 15,
+      "corpus:crypto": 9,
+      "corpus:npmdl": 9,
+      "corpus:wikipv": 10,
+      "corpus:ghcommit": 6,
+      "corpus:cwl": 14,
+      "corpus:dlt": 6
+    },
+    "engine_counts": {
+      "openmeteo_air_pm10_baserate_forward": 15,
+      "binance_daily_close_baserate_forward": 9,
+      "npm_downloads_baserate_forward": 9,
+      "wikimedia_pageviews_baserate_forward": 10,
+      "github_weekly_commits_baserate_forward": 6,
+      "none_forward": 20
+    },
+    "resolve_by_day": [
+      {
+        "date": "2026-10-01",
+        "n": 13
+      },
+      {
+        "date": "2026-10-02",
+        "n": 3
+      },
+      {
+        "date": "2026-10-04",
+        "n": 3
+      },
+      {
+        "date": "2026-10-11",
+        "n": 3
+      },
+      {
+        "date": "2026-10-15",
+        "n": 10
+      },
+      {
+        "date": "2026-10-16",
+        "n": 3
+      },
+      {
+        "date": "2026-10-18",
+        "n": 2
+      },
+      {
+        "date": "2026-10-20",
+        "n": 2
+      },
+      {
+        "date": "2026-10-22",
+        "n": 2
+      },
+      {
+        "date": "2026-10-24",
+        "n": 2
+      },
+      {
+        "date": "2026-10-25",
+        "n": 2
+      },
+      {
+        "date": "2026-10-26",
+        "n": 2
+      },
+      {
+        "date": "2026-10-27",
+        "n": 2
+      },
+      {
+        "date": "2026-10-28",
+        "n": 2
+      },
+      {
+        "date": "2026-10-29",
+        "n": 2
+      },
+      {
+        "date": "2026-10-30",
+        "n": 13
+      },
+      {
+        "date": "2026-10-31",
+        "n": 3
+      }
+    ],
+    "resolve_by_week": [
+      {
+        "week_start": "2026-09-28",
+        "n": 19
+      },
+      {
+        "week_start": "2026-10-05",
+        "n": 3
+      },
+      {
+        "week_start": "2026-10-12",
+        "n": 15
+      },
+      {
+        "week_start": "2026-10-19",
+        "n": 8
+      },
+      {
+        "week_start": "2026-10-26",
+        "n": 24
+      }
+    ],
+    "resolve_month_check": true
+  }
+}
