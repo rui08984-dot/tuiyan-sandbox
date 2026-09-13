@@ -78,7 +78,7 @@ function parseBaseRate(note) {
 }
 
 const ROWS_SQL = "SELECT p.id, p.g2_regime, p.layer, p.created_at, p.matures_at, p.resolved_at, "
-  + "p.outcome, p.statement, p.checklist_hash, p.tautology, "
+  + "p.outcome, p.assigned_prob, p.statement, p.checklist_hash, p.tautology, "
   + "(SELECT json_extract(e.value,'$.resolve.date') FROM json_each(p.evidence_json) e WHERE json_extract(e.value,'$.resolve.date') IS NOT NULL LIMIT 1) AS rd, "
   + "(SELECT json_extract(e.value,'$.baseRateNote') FROM json_each(p.evidence_json) e WHERE json_extract(e.value,'$.baseRateNote') IS NOT NULL LIMIT 1) AS brn "
   + "FROM predictions p WHERE " + REGIME + " AND " + NOT_BACKTEST;
@@ -127,7 +127,8 @@ for (const r of rows) {
   const hardest = bb !== null && bb * (1 - bb) >= 0.21;
   const bucket = hDays === null ? 'unknown' : (hDays < 0 ? 'past_or_negative' : (hDays <= 7 ? 'short' : (hDays <= 30 ? 'mid' : 'long')));
   pool.push({ id: r.id, layer: r.layer, created_at: r.created_at, matures_at: r.matures_at, resolved_at: r.resolved_at,
-    resolved: r.outcome !== null && r.outcome !== undefined, backfill: bf, cutoff: cutoff, cutoff_mode: cutoffMode,
+    resolved: r.outcome !== null && r.outcome !== undefined, outcome: r.outcome, assigned_prob: r.assigned_prob,
+    backfill: bf, cutoff: cutoff, cutoff_mode: cutoffMode,
     b: bb, b_pattern: pr ? pr.pattern : null,
     horizon_days: hDays === null ? null : Math.round(hDays * 1000) / 1000, bucket: bucket, hardest: hardest });
 }
@@ -182,6 +183,43 @@ const Q4 = { id: 4, name: '难度最难档', threshold: '>=20', value: hardestPo
   b_patterns: pool.reduce((a, p) => { if (p.b_pattern) a[p.b_pattern] = (a[p.b_pattern] || 0) + 1; return a; }, {}) };
 Q4.verdict = Q4.pass ? 'PASS' : 'FAIL';
 
+// ── #7 描述性质量读数（report_only；**不参与门判定**；专家会 B-H1）──
+// 口径：① 合格题池中已解且 assigned_prob 非空者；trivial 基线=常数 b / 常数 0.5；Murphy 10 等宽桶
+const QUAL_BINS = 10;
+const fmt = (x) => (x === null || x === undefined || isNaN(x)) ? 'n/a' : Number(x).toFixed(4);
+const qualityRows = pool.filter((p) => p.resolved && p.assigned_prob !== null && p.assigned_prob !== undefined && isFinite(Number(p.assigned_prob)));
+const qp = qualityRows.map((p) => Number(p.assigned_prob));
+const qy = qualityRows.map((p) => (p.outcome === 'true' || p.outcome === 1 || p.outcome === true) ? 1 : 0);
+const qb = qualityRows.map((p) => (p.b !== null ? p.b : 0.5));
+const QN = qp.length;
+const qmean = (a) => a.length ? a.reduce((x, y) => x + y, 0) / a.length : null;
+const qbrier = (ps, ys) => QN ? ps.reduce((acc, p, i) => acc + Math.pow(p - ys[i], 2), 0) / QN : null;
+const bModel = qbrier(qp, qy);
+const bBase = qbrier(qb, qy);
+const bHalf = qbrier(qp.map(() => 0.5), qy);
+const ybar = QN ? qy.reduce((a, b) => a + b, 0) / QN : null;
+const qbins = [];
+for (let k = 0; k < QUAL_BINS; k++) qbins.push({ k: k, lo: k / 10, hi: (k + 1) / 10, n: 0, sumP: 0, sumY: 0 });
+for (let i = 0; i < QN; i++) { let k = Math.min(QUAL_BINS - 1, Math.floor(qp[i] * QUAL_BINS)); if (qp[i] >= 1) k = QUAL_BINS - 1; qbins[k].n++; qbins[k].sumP += qp[i]; qbins[k].sumY += qy[i]; }
+let qRel = 0, qRes = 0, qEce = 0;
+for (const b of qbins) { if (!b.n) continue; const pb = b.sumP / b.n, yb = b.sumY / b.n; qRel += (b.n / QN) * Math.pow(pb - yb, 2); qRes += (b.n / QN) * Math.pow(yb - ybar, 2); qEce += (b.n / QN) * Math.abs(pb - yb); }
+const qUnc = ybar === null ? null : ybar * (1 - ybar);
+const quality = {
+  report_only: true,
+  basis: '① 合格题池 ∧ 已解 ∧ assigned_prob 非空',
+  n: QN,
+  brier_model: bModel, brier_const_base: bBase, brier_const_half: bHalf,
+  delta_brier_vs_base: (bModel !== null && bBase !== null) ? bModel - bBase : null,
+  delta_brier_vs_half: (bModel !== null && bHalf !== null) ? bModel - bHalf : null,
+  murphy_bins: QUAL_BINS,
+  murphy: { reliability: QN ? qRel : null, resolution: QN ? qRes : null, uncertainty: qUnc,
+    check_reliability_minus_resolution_plus_uncertainty: (QN && qUnc !== null) ? (qRel - qRes + qUnc) : null },
+  ece_binned: QN ? qEce : null,
+  ece_annotations: ['binned ECE = 下界估计（桶内平均抹平桶内方差）', '小样本正偏（bin 数固定而 N 小时每桶样本少）'],
+  bins: qbins.map((b) => ({ k: b.k, lo: b.lo, hi: b.hi, n: b.n, p_bar: b.n ? b.sumP / b.n : null, y_bar: b.n ? b.sumY / b.n : null })),
+  qualifier: 'report_only：不参与 G2 达标判定；G2＝过程能力门，不含预测质量读数（design §4.2.2 B4）'
+};
+
 const rule7 = { policy: '§4.2.1 细则 A：⑦ 降为报告项——③ 按长题总数判定，不扣减；本节强制披露重叠',
   long_total: byBucket.long.length, long_and_hardest_overlap: longHardest.length,
   overlap_share: byBucket.long.length ? longHardest.length / byBucket.long.length : null,
@@ -206,6 +244,9 @@ function loadAudit(file) {
     return { status: 'done', file: p, n: scored.length, ok: ok, rate: rate, threshold: 0.70, pass: rate >= 0.70,
       review_composition: (j.meta && j.meta.review_composition) || null, honesty: (j.meta && j.meta.honesty) || null,
       human_calibration: j.human_calibration || null,
+      holdout: j.holdout ? { n: j.holdout.n, machine_vs_agent_agreement: j.holdout.machine_vs_agent_agreement } : null,
+      contract: (j.meta && j.meta.contract) || null,
+      acceptance_status: (j.human_calibration && j.human_calibration.acceptance_status) || null,
       human_calibration_settlement: (j.meta && j.meta.human_calibration_settlement) || null,
       detail: (j.meta && j.meta.detail) || null };
   } catch (e) { return { status: 'not-yet', reason: '抽检清单解析失败：' + e.message, missing: [AUDIT_MISSING] }; }
@@ -259,7 +300,7 @@ const bar = '='.repeat(72);
 L.push(bar);
 L.push('G2 能力门月报 -- R4 口径（审计器 design §4.2 修订 R4 · 2026-09-13）');
 L.push('生成 ' + new Date().toISOString() + ' | 库 ' + DB_PATH + ' | 句柄只读 · 纯 SQL · 零 LLM · 零写库');
-L.push('行域 g2_regime=R4 且非回测 | 门域 ' + counts.regime_rows + ' 行 / 账本 ' + counts.ledger_rows + ' 行 | 门总判定 ' + gate);
+L.push('行域 g2_regime=R4 且非回测 | 门域 ' + counts.regime_rows + ' 行 / 账本 ' + counts.ledger_rows + ' 行 | 门总判定 ' + gate + '  [G2＝过程能力门，不含预测质量读数]');
 L.push((counts.backtest_excluded_rows > 0 || counts.out_of_regime_rows > 0 ? '[!] 门域外告警' : '门域外行数')
   + ': 回测排除 ' + counts.backtest_excluded_rows + ' 行 | 不在 R4 行域 ' + counts.out_of_regime_rows + ' 行 | 合计域外 '
   + (counts.backtest_excluded_rows + counts.out_of_regime_rows) + ' 行'
@@ -274,11 +315,15 @@ L.push('    排除: ' + Object.keys(counts.excluded).map((k) => k + ' ' + counts
 L.push('    ' + Q1.note);
 L.push('[②] 抽检合格率 >=70%  -> ' + Q2.verdict + '   值 ' + (Q2.status === 'done' ? pct(Q2.rate) : 'not-yet') + '   ' + (Q2.reason || ('清单 ' + Q2.file + ' n=' + Q2.n + ' ok=' + Q2.ok)));
 if (Q2.missing) for (const m of Q2.missing) L.push('    缺: ' + m);
-L.push('    10% 抽检候选池（确定性：合格题按 id 每 10 取 1）: n=' + Q2.candidate_pool_n);
+L.push('    抽样（#6e 双轨统一）: 候选池＝分层随机抽样程序产出（不再单列 every-10th）；seed/分层配额/命中率见 audit meta.sampling');
 if (Q2.status === 'done') {
   L.push('    复核构成（D-4）: ' + JSON.stringify(Q2.review_composition) + ' — 非全人工复核，不得声称"全人工"');
   const hc = Q2.human_calibration || {};
-  L.push('    人类校准段（D-3③）: ' + JSON.stringify(hc) + ' -> 采信 ' + (typeof hc.rate === 'number' && hc.rate >= 0.90 ? 'YES' : 'NO（未达 90% 或缺失）'));
+  const acc = hc.acceptance_status || null;
+  L.push('    人类校准段（D-3③ / §4.2.3 R4.2）: ' + JSON.stringify(hc));
+  L.push('    采信状态: ' + (acc || 'n/a') + ' | 端用户抽验 ' + (hc.user_spot_check === undefined ? 'n/a' : hc.user_spot_check) + '/' + (hc.user_spot_check_required || 10) + (acc === 'pending_user' ? ' —— 待端用户抽验 >=10 题（代理不能代替端用户）' : ''));
+  if (Q2.holdout) L.push('    留出集重验（与抽检样本不重叠）: n=' + Q2.holdout.n + ' 机器段 vs 代理语义段 ' + JSON.stringify(Q2.holdout.machine_vs_agent_agreement));
+  if (Q2.contract) L.push('    契约表: ' + Q2.contract.file + ' sha256=' + String(Q2.contract.sha256 || '').slice(0, 12) + '（contracts ' + Q2.contract.contracts + ' / aliases ' + Q2.contract.aliases + '；按 resolver 源码冻结，禁观测交集）');
   if (Q2.human_calibration_settlement) L.push('    校准结账: 修正后 ' + Q2.human_calibration_settlement.post_fix_alignment + '；待办 ' + (Q2.human_calibration_settlement.pending || []).join('；'));
 }
 
@@ -287,6 +332,11 @@ L.push('    短 ' + Q3.buckets.short + ' | 中 ' + Q3.buckets.mid + ' | 长 ' + 
 L.push('    本细则读法（§4.2.1 A）：长 ' + Q3.buckets.long + ' -> ' + (Q3.long_pass ? 'PASS' : 'FAIL') + ' | 严格读法对照：独立长 ' + Q3.strict_reading_for_record.long_independent + ' -> ' + Q3.strict_reading_for_record.verdict);
 L.push('    ⑦披露（报告项）: 长∩最难 ' + Q3.rule7_disclosure.long_and_hardest_overlap + '/' + Q3.rule7_disclosure.long_total + ' = ' + pct(Q3.rule7_disclosure.overlap_share));
 L.push('[④] 难度最难档 b(1-b)>=0.21（等价于基率 [0.30, 0.70]）且 >=20  -> ' + Q4.verdict + '   值 ' + Q4.value + '（realtime ' + Q4.hardest_realtime + ' / backfill ' + Q4.hardest_backfill + '；外生解析覆盖 ' + Q4.parse_coverage.pool_with_b + '/' + (Q4.parse_coverage.pool_with_b + Q4.parse_coverage.pool_unparsed) + '；模式 ' + JSON.stringify(Q4.b_patterns) + '）');
+L.push('[质量读数·report_only·不参与门判定]（G2＝过程能力门，不含预测质量读数）');
+L.push('    n=' + quality.n + ' | Brier_model=' + fmt(quality.brier_model) + ' | 常数基率基线=' + fmt(quality.brier_const_base) + ' | 常数 0.5 基线=' + fmt(quality.brier_const_half));
+L.push('    ΔBrier(vs 常数基率)=' + fmt(quality.delta_brier_vs_base) + ' | ΔBrier(vs 0.5)=' + fmt(quality.delta_brier_vs_half) + '（<0 才有 resolution 迹象）');
+L.push('    Murphy(10 等宽桶): reliability=' + fmt(quality.murphy.reliability) + ' resolution=' + fmt(quality.murphy.resolution) + ' uncertainty=' + fmt(quality.murphy.uncertainty));
+L.push('    ECE(binned)=' + fmt(quality.ece_binned) + '  [binned ECE=下界估计 + 小样本正偏]');
 L.push('[⑤] 月节律（仅报告·不作门）');
 for (const m of Q5.months) L.push('    ' + m.m + '  realtime ' + m.realtime_resolved + ' / backfill ' + m.backfill_resolved + ' / total ' + m.total_resolved);
 L.push('[⑦] 披露（报告项·不扣减）: 长∩最难 ' + rule7.long_and_hardest_overlap + '/' + rule7.long_total + ' = ' + pct(rule7.overlap_share) + ' | 严格读法独立长 ' + rule7.long_independent_after_strict_dedup + ' -> ' + rule7.strict_reading_verdict);
@@ -307,7 +357,7 @@ if (INCLUDE_INTAKE) {
   L.push('    声明: 本节数字**不参与 G2 达标判定**；G2 主读数恒取 predictions 原表。');
 }
 L.push(bar);
-L.push('注: ② 结论=机器段+代理语义段（非全人工），采信须经 D-3③ 人类校准段 >=10 题且一致率 >=90%；③ 按细则 A 判定并披露 ⑦ 重叠；含 backfill 数字恒挂「含历史回填样本，非实时预测能力」。');
+L.push('注: ② 结论=机器段+代理语义段（非全人工）；采信按 design §4.2.3 修订 R4.2（全过 n>=35 或 Wilson 95% 下界 >=0.90）且端用户抽验 >=10 题为必要条件；G2＝过程能力门，不含预测质量读数；③ 按细则 A 判定并披露 ⑦ 重叠；含 backfill 数字恒挂「含历史回填样本，非实时预测能力」。');
 const text = L.join('\n');
 console.log(text);
 
@@ -320,6 +370,7 @@ const report = {
   counts: counts,
   R4: { q1_qualified: Q1, q2_audit: Q2, q3_horizon: Q3, q4_difficulty: Q4, q5_monthly: Q5,
     rule7_no_double_count: rule7, all_rows_horizon_buckets: allHorizon },
+  quality_report_only: quality,
   compliance_r3: compliance,
   intake_layer: intakeLayer,
   text_report: text

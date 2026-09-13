@@ -1,0 +1,42 @@
+# 批次 3 收据 · ② 采信链去循环 ＋ G2 门质量读数（专家会 #6/#7）
+生成 2026-09-13 | 依据 design §4.2.3 修订 R4.2 | 零写库（p1a.db 全程 readonly）
+
+## 0 新基线（开工第一步，只读重跑）
+门 PASS | ① 1046（resolved 623；realtime 517 / backfill 529）| ② 100%（105/105）| ③ PASS（长 21）| ④ 916（realtime 455 / backfill 461）| 域外 0 | 积压 8 | 账本 1923 | 已解 1238
+
+## 1 #6(a) 契约表（源码冻结，禁观测交集）
+件：p1b/sim/out/g2-contract-frozen-r4.json
+sha256=bafd3d389a91…（全值见 JSON meta.sampling/contract）| contracts 34 / aliases 25 = 覆盖 59 kind
+依据：corpus-resolve.cjs L17-380（r.* 取数 + subst(url_template/url) 占位 + finish()/cmpOk() 的 cmp/threshold）
+
+## 2 #6(b) 留出集重验（与 105 不重叠）
+n=35 | 独立 seed 987654322 | 分层 layer×horizon | 命中率 100% | excluded=105
+机器段 vs 代理语义段：35/35 = 100.0%，Wilson 95% CI [0.901, 1.000]
+（该结果是规则稳定性证据，非人类独立核验，不替代 #6(d)）
+
+## 3 #6(c) 判据变更（版本递进 R4.1→R4.2）
+design §4.2.3：采信规则=「全过 n>=35 或 Wilson 95% 下界 >=0.90」＋「端用户抽验 >=10 题为必要条件」
+旧 D-3③（n=14 且 rate>=0.90）作废；阈值本体未改
+
+## 4 #6(d)(e) 采信状态与抽样披露
+队长校准：n=14 agreed=14（Wilson 下界 0.785）
+端用户抽验：0/10 ⇒ acceptance_status=pending_user（代理不能代替端用户）
+抽样：候选池＝抽样程序产出（#6e 双轨统一）；seed/配额/命中率见 audit meta.sampling
+
+## 5 #7 描述性质量读数（report_only，不参与门判定）
+n=623 | Brier_model=0.2384 | 常数基率=0.2384 | 常数 0.5=0.2500
+ΔBrier(vs 常数基率)=0.0000 | ΔBrier(vs 0.5)=-0.0116
+Murphy(10 等宽桶): reliability=0.0022 resolution=0.0111 uncertainty=0.2498
+ECE(binned)=0.0313 [binned ECE=下界估计 + 小样本正偏]
+认定：以 assigned_prob 为读数时模型相对常数基率基线 Δ=0 ⇒ 无 resolution 迹象（descriptive，不作门）
+限定语：G2＝过程能力门，不含预测质量读数（报告头部/质量节/尾注恒挂）
+
+## 6 产物
+p1b/sim/out/g2-audit-r4.json（v2）| g2-audit-r4.txt | g2-contract-frozen-r4.json | g2-report-r4.out/.json | 本收据
+脚本：p1b/scripts/g2-audit-build.cjs（新）| p1b/scripts/g2-report.cjs（改）
+文档：design §4.2.3 | 变更留痕索引 §12
+
+## 7 测试与边界
+node --test：tests 222 / pass 222 / fail 0（无回归）
+node --check：g2-report.cjs / g2-audit-build.cjs 均 EXIT=0
+零写库：p1a.db 全程 {readonly:true}；未碰 key/8787/botc/checklist_hash

@@ -5,7 +5,7 @@
   "red_team": "docs/specs/红队R2-复核-20260913.md §2.1/§2.3",
   "db": "E:\\music player\\p1a-terminal\\data\\p1a.db",
   "mode": "readonly",
-  "generated_at": "2026-09-13T07:30:10.127Z",
+  "generated_at": "2026-09-13T09:17:25.447Z",
   "regime": "R4",
   "gate": "PASS",
   "verdicts": {
@@ -14,130 +14,23 @@
    "q3": "PASS",
    "q4": "PASS",
    "q5": "pending"
-  }
+  },
+  "include_intake": false,
+  "intake_scope": "intake_questions 未入账（非 G2 口径，不参与达标）"
  },
  "counts": {
+  "ledger_rows": 1923,
   "regime_rows": 1923,
+  "regime_rows_raw": 1923,
+  "backtest_excluded_rows": 0,
+  "out_of_regime_rows": 0,
+  "backtest_columns_present": true,
   "backfill_rows": 701,
   "excluded": {
    "no_resolve_date": 877
   },
   "tautology_rows": 0,
-  "b_unparsed_ids": [
-   451,
-   455,
-   456,
-   457,
-   458,
-   459,
-   460,
-   461,
-   462,
-   463,
-   464,
-   465,
-   466,
-   467,
-   468,
-   469,
-   470,
-   473,
-   474,
-   475,
-   476,
-   477,
-   478,
-   479,
-   480,
-   481,
-   482,
-   483,
-   484,
-   485,
-   486,
-   487,
-   488,
-   489,
-   490,
-   491,
-   492,
-   493,
-   494,
-   495,
-   496,
-   497,
-   498,
-   499,
-   500,
-   501,
-   502,
-   503,
-   504,
-   505,
-   506,
-   507,
-   508,
-   509,
-   510,
-   511,
-   512,
-   513,
-   514,
-   515,
-   516,
-   517,
-   518,
-   519,
-   520,
-   521,
-   522,
-   523,
-   524,
-   525,
-   526,
-   527,
-   528,
-   529,
-   530,
-   531,
-   532,
-   533,
-   534,
-   535,
-   536,
-   537,
-   538,
-   539,
-   540,
-   541,
-   542,
-   543,
-   544,
-   545,
-   546,
-   547,
-   548,
-   549,
-   550,
-   551,
-   552,
-   553,
-   554,
-   555,
-   556,
-   557,
-   558,
-   559,
-   560,
-   561,
-   562,
-   563,
-   564,
-   565,
-   566,
-   567,
-   568
-  ]
+  "b_unparsed_ids": []
  },
  "R4": {
   "q1_qualified": {
@@ -155,7 +48,7 @@
     "no_resolve_date": 877
    },
    "excluded_tautology": 0,
-   "qualified_resolved": 198,
+   "qualified_resolved": 623,
    "qualified_realtime": 517,
    "qualified_backfill": 529,
    "by_layer": {
@@ -285,38 +178,68 @@
    "rate": 1,
    "pass": true,
    "review_composition": {
-    "machine": 105,
-    "agent_semantic": 105,
+    "machine": 140,
+    "agent_semantic": 140,
     "human_calibration": 14,
-    "user": 0
+    "user_spot_check": 0,
+    "end_user": 0
    },
-   "honesty": "非全人工复核：机器段 105 题（脚本，按已注册 kind 契约）+ 代理判据语义段 105 题 + 人类校准段 14 题（队长，非端用户）+ 端用户 0 题。代理复核≠独立人类审计。",
+   "honesty": "非全人工复核：机器段（按 resolver 源码冻结契约）140 题 + 代理语义段同数 + 队长校准 14 题 + 端用户抽验 0 题。代理复核≠独立人类审计；端用户抽验未做 ⇒ 采信状态 pending_user。",
    "human_calibration": {
     "n": 14,
     "agreed": 14,
     "rate": 1,
     "reviewer": "队长（非端用户）",
-    "accepted": true,
+    "accepted": false,
     "basis": "pre_fix 一致率 5/14=0.357（未达 90%，故旧代理段不采信）→ 按校准结论修正 machine 段（改按已注册 kind 契约）后，14/14=1.0 ≥0.90 ⇒ 恢复采信",
     "recheck": "1627（悉尼 dust≤0.0）：队长原判 REJECT 存疑，经源码核实 corpus-sources-b4.cjs L179 cmp0() 为恒真桩、L169-170 用它决定打印方向、L164 ge=false ⇒ 注解措辞 bug，实为 P(dust≤0.0)=72.5% 在带非恒定 ⇒ 队长更新判断为 PASS",
     "sample_bias": "本校准样本由代理按「最可能分歧」挑选（8 假阳性 + 2 边界 + 4 顺延），偏向最易出错处，故 14/14 为偏保守证据",
     "user_spot_check": 0,
-    "disclosure": "人类校准由队长执行、端用户抽验 0 题；整体仍非全人工复核，不得声称全人工"
+    "disclosure": "人类校准由队长执行、端用户抽验 0 题；整体仍非全人工复核，不得声称全人工",
+    "user_spot_check_required": 10,
+    "acceptance_status": "pending_user",
+    "acceptance_rule": "design §4.2.3 修订 R4.2（D-3③ 新规）：采信需 ①机器+代理两段；②全过 n>=35 或 Wilson 95% 下界 >=0.90；③端用户抽验 >=10 题为必要条件。",
+    "wilson95": {
+     "k": 14,
+     "n": 14,
+     "rate": 1,
+     "lb": 0.7846829880728186,
+     "ub": 1
+    },
+    "accepted_superseded": {
+     "field": "accepted",
+     "former_value": true,
+     "note": "批次1 曾按旧 D-3③（n=14 且 rate>=0.90）记 accepted=true；批次3 按 §4.2.3 R4.2 新规重判（全过 n>=35 或 Wilson 95% 下界 >=0.90 + 端用户抽验 >=10）"
+    }
    },
-   "human_calibration_settlement": {
-    "record": "p1b/sim/out/g2-human-calibration-r4.md",
-    "pre_fix_agreement": "5/14 = 0.357",
-    "fix_applied": "机器段改为按已注册 kind 契约校验（8 条假阳性翻正）+ 语义段纠偏（缺 baseRateNote 记④覆盖缺口，不再归因 Q0-3）+ 1627 经源码证据判定",
-    "post_fix_alignment": "14/14 = 1.000：8 条假阳性翻正 + 4 条顺延一致 + 1331 一致 + 1627 经源码核实（cmp0() 恒真桩 ⇒ 注解措辞 bug）由队长改判 PASS",
-    "pending": [
-     "（可选升级）端用户抽验 ≥10 题，可把 ② 采信基础从「队长校准」升级为「含端用户校准」"
-    ],
-    "post_fix_agreement": "14/14 = 1.000",
-    "accepted": true,
-    "accepted_by": "队长",
-    "accepted_note": "修正后达 D-3③ 阈值（≥0.90）⇒ 采信 ② 段；残余风险=端用户未抽验、样本偏分歧挑选"
+   "holdout": {
+    "n": 35,
+    "machine_vs_agent_agreement": {
+     "agree": 35,
+     "n": 35,
+     "rate": 1,
+     "wilson95": {
+      "k": 35,
+      "n": 35,
+      "rate": 1,
+      "lb": 0.9010957324106112,
+      "ub": 1
+     }
+    }
    },
-   "detail": "§4.2.1 细则 D（D-2 范围／D-3 三段式／D-4 诚实标注）",
+   "contract": {
+    "file": "p1b/sim/out/g2-contract-frozen-r4.json",
+    "frozen": true,
+    "basis": "每函数的 r.* 取数 + subst(url_template/url) 占位 + finish()/cmpOk() 读取的 cmp/threshold",
+    "forbidden": "禁止用被审数据的观测键交集反推契约（批次 3 #6a）",
+    "source": "p1b/scripts/corpus-resolve.cjs L17-380（RESOLVERS 对象 + Object.assign 别名）",
+    "contracts": 34,
+    "aliases": 25,
+    "sha256": "bafd3d389a91b042d0875ad8678a260ed0636722385a8e18888550a6c6fb9808"
+   },
+   "acceptance_status": "pending_user",
+   "human_calibration_settlement": null,
+   "detail": "§4.2.1 细则 D + §4.2.3 修订 R4.2（批次 3 #6）",
    "verdict": "PASS"
   },
   "q3_horizon": {
@@ -388,44 +311,23 @@
    "id": 4,
    "name": "难度最难档",
    "threshold": ">=20",
-   "value": 808,
+   "value": 916,
    "pass": true,
-   "metric": "外生基线 Brier 下限 b(1-b) >= 0.21（等价基率 0.35–0.65）；b 解析自 evidence.baseRateNote",
+   "metric": "外生基线 Brier 下限 b(1-b) >= 0.21（等价于基率 [0.30, 0.70]；原文档误写 0.35–0.65，见 design §4.2.2 B1）；b 解析自 evidence.baseRateNote",
    "forbid": "禁用 assigned_prob / 判词输出来源（红队 R1-F7 循环度量）",
    "by_layer": {
-    "L3": 511,
+    "L3": 619,
     "L2": 297
    },
-   "hardest_realtime": 443,
-   "hardest_backfill": 365,
+   "hardest_realtime": 455,
+   "hardest_backfill": 461,
    "parse_coverage": {
-    "pool_with_b": 933,
-    "pool_unparsed": 113,
-    "unparsed_ids": [
-     451,
-     455,
-     456,
-     457,
-     458,
-     459,
-     460,
-     461,
-     462,
-     463,
-     464,
-     465,
-     466,
-     467,
-     468,
-     469,
-     470,
-     473,
-     474,
-     475
-    ]
+    "pool_with_b": 1046,
+    "pool_unparsed": 0,
+    "unparsed_ids": []
    },
    "b_patterns": {
-    "pct_share": 933
+    "pct_share": 1046
    },
    "verdict": "PASS"
   },
@@ -438,8 +340,8 @@
     {
      "m": "2026-09",
      "realtime_resolved": 552,
-     "backfill_resolved": 152,
-     "total_resolved": 704
+     "backfill_resolved": 686,
+     "total_resolved": 1238
     }
    ],
    "observed_months": 1,
@@ -453,8 +355,8 @@
    "overlap_share": 0.8571428571428571,
    "long_independent_after_strict_dedup": 3,
    "strict_reading_verdict": "FAIL",
-   "hardest_total": 808,
-   "hardest_independent_after_strict_dedup": 790,
+   "hardest_total": 916,
+   "hardest_independent_after_strict_dedup": 898,
    "report_only": true,
    "overlap_ids": [
     973,
@@ -485,10 +387,115 @@
    "no_matures": 877
   }
  },
+ "quality_report_only": {
+  "report_only": true,
+  "basis": "① 合格题池 ∧ 已解 ∧ assigned_prob 非空",
+  "n": 623,
+  "brier_model": 0.23841889897271304,
+  "brier_const_base": 0.23839507865168555,
+  "brier_const_half": 0.25,
+  "delta_brier_vs_base": 0.0000238203210274901,
+  "delta_brier_vs_half": -0.01158110102728696,
+  "murphy_bins": 10,
+  "murphy": {
+   "reliability": 0.002204756956539497,
+   "resolution": 0.0111238816833774,
+   "uncertainty": 0.24981385054968838,
+   "check_reliability_minus_resolution_plus_uncertainty": 0.2408947258228505
+  },
+  "ece_binned": 0.03132070626003185,
+  "ece_annotations": [
+   "binned ECE = 下界估计（桶内平均抹平桶内方差）",
+   "小样本正偏（bin 数固定而 N 小时每桶样本少）"
+  ],
+  "bins": [
+   {
+    "k": 0,
+    "lo": 0,
+    "hi": 0.1,
+    "n": 0,
+    "p_bar": null,
+    "y_bar": null
+   },
+   {
+    "k": 1,
+    "lo": 0.1,
+    "hi": 0.2,
+    "n": 0,
+    "p_bar": null,
+    "y_bar": null
+   },
+   {
+    "k": 2,
+    "lo": 0.2,
+    "hi": 0.3,
+    "n": 1,
+    "p_bar": 0.2,
+    "y_bar": 1
+   },
+   {
+    "k": 3,
+    "lo": 0.3,
+    "hi": 0.4,
+    "n": 99,
+    "p_bar": 0.31252222222222253,
+    "y_bar": 0.3434343434343434
+   },
+   {
+    "k": 4,
+    "lo": 0.4,
+    "hi": 0.5,
+    "n": 203,
+    "p_bar": 0.44294236453202024,
+    "y_bar": 0.4729064039408867
+   },
+   {
+    "k": 5,
+    "lo": 0.5,
+    "hi": 0.6,
+    "n": 146,
+    "p_bar": 0.5185123287671233,
+    "y_bar": 0.5136986301369864
+   },
+   {
+    "k": 6,
+    "lo": 0.6,
+    "hi": 0.7,
+    "n": 91,
+    "p_bar": 0.6111450549450556,
+    "y_bar": 0.6593406593406593
+   },
+   {
+    "k": 7,
+    "lo": 0.7,
+    "hi": 0.8,
+    "n": 83,
+    "p_bar": 0.7045927710843379,
+    "y_bar": 0.6506024096385542
+   },
+   {
+    "k": 8,
+    "lo": 0.8,
+    "hi": 0.9,
+    "n": 0,
+    "p_bar": null,
+    "y_bar": null
+   },
+   {
+    "k": 9,
+    "lo": 0.9,
+    "hi": 1,
+    "n": 0,
+    "p_bar": null,
+    "y_bar": null
+   }
+  ],
+  "qualifier": "report_only：不参与 G2 达标判定；G2＝过程能力门，不含预测质量读数（design §4.2.2 B4）"
+ },
  "compliance_r3": {
   "r3_split_windows": {
    "realtime_resolved": 552,
-   "backfill_resolved": 152,
+   "backfill_resolved": 686,
    "ok": true
   },
   "r3_batch_cap": {
@@ -568,5 +575,6 @@
    "checklist_hash_modified": false
   }
  },
- "text_report": "========================================================================\nG2 能力门月报 -- R4 口径（审计器 design §4.2 修订 R4 · 2026-09-13）\n生成 2026-09-13T07:30:10.124Z | 库 E:\\music player\\p1a-terminal\\data\\p1a.db | 句柄只读 · 纯 SQL · 零 LLM · 零写库\n行域 g2_regime=R4 | 账本 1923 行 | 门总判定 PASS\n========================================================================\n[①] 合格题累计 >=60  -> PASS   值 1046（resolved 198；realtime 517 / backfill 529）\n    排除: no_resolve_date 877 | tautology 0\n    细则 B 落地：backfill 计入 ①（cutoff=matures_at-1 天）；两源分列见 qualified_realtime/qualified_backfill。\n[②] 抽检合格率 >=70%  -> PASS   值 100.0%   清单 E:\\music player\\p1b\\sim\\out\\g2-audit-r4.json n=105 ok=105\n    10% 抽检候选池（确定性：合格题按 id 每 10 取 1）: n=105\n    复核构成（D-4）: {\"machine\":105,\"agent_semantic\":105,\"human_calibration\":14,\"user\":0} — 非全人工复核，不得声称\"全人工\"\n    人类校准段（D-3③）: {\"n\":14,\"agreed\":14,\"rate\":1,\"reviewer\":\"队长（非端用户）\",\"accepted\":true,\"basis\":\"pre_fix 一致率 5/14=0.357（未达 90%，故旧代理段不采信）→ 按校准结论修正 machine 段（改按已注册 kind 契约）后，14/14=1.0 ≥0.90 ⇒ 恢复采信\",\"recheck\":\"1627（悉尼 dust≤0.0）：队长原判 REJECT 存疑，经源码核实 corpus-sources-b4.cjs L179 cmp0() 为恒真桩、L169-170 用它决定打印方向、L164 ge=false ⇒ 注解措辞 bug，实为 P(dust≤0.0)=72.5% 在带非恒定 ⇒ 队长更新判断为 PASS\",\"sample_bias\":\"本校准样本由代理按「最可能分歧」挑选（8 假阳性 + 2 边界 + 4 顺延），偏向最易出错处，故 14/14 为偏保守证据\",\"user_spot_check\":0,\"disclosure\":\"人类校准由队长执行、端用户抽验 0 题；整体仍非全人工复核，不得声称全人工\"} -> 采信 YES\n    校准结账: 修正后 14/14 = 1.000：8 条假阳性翻正 + 4 条顺延一致 + 1331 一致 + 1627 经源码核实（cmp0() 恒真桩 ⇒ 注解措辞 bug）由队长改判 PASS；待办 （可选升级）端用户抽验 ≥10 题，可把 ② 采信基础从「队长校准」升级为「含端用户校准」\n[③] horizon 三层 短>=20 中>=20 长>=10(须 realtime)  -> PASS\n    短 419 | 中 77 | 长 21 | 未知 0 | past_or_negative(backfill) 529 | 长中 backfill 0\n    本细则读法（§4.2.1 A）：长 21 -> PASS | 严格读法对照：独立长 3 -> FAIL\n    ⑦披露（报告项）: 长∩最难 18/21 = 85.7%\n[④] 难度最难档 b(1-b)>=0.21 且 >=20  -> PASS   值 808（realtime 443 / backfill 365；外生解析覆盖 933/1046；模式 {\"pct_share\":933}）\n[⑤] 月节律（仅报告·不作门）\n    2026-09  realtime 552 / backfill 152 / total 704\n[⑦] 披露（报告项·不扣减）: 长∩最难 18/21 = 85.7% | 严格读法独立长 3 -> FAIL\n    重叠 id（全量 18 条）: 973,974,977,979,982,983,985,986,988,989,991,992,994,995,1008,1010,1012,1014\n[R3 防 Goodhart 合规]\n    分窗 resolved: realtime 552 / backfill 152\n    单批上限(细则 C·按批次): wide_backfill 280 ok | b4_backfill 217 ok | corpus-backfill-2026-09-12 152 ok | b3_backfill 52 ok -> ok | 累计 701（仅披露）\n    分层 3x 上限: L2 303<=966 ok | L3 374<=1098 ok | L5 24<=252 ok\n    分窗配额(上限 60.0%): realtime L3 30.0% | backfill L3 53.4%\n    审计列: baseline_brier 非空 0（N1 空挂；④ 改用 baseRateNote 外生解析）\n    诚实标注: 凡引用含 backfill 样本的校准结论（ECE/Brier/分辨率），报告须恒挂「含历史回填样本，非实时预测能力」\n========================================================================\n注: ② 结论=机器段+代理语义段（非全人工），采信须经 D-3③ 人类校准段 >=10 题且一致率 >=90%；③ 按细则 A 判定并披露 ⑦ 重叠；含 backfill 数字恒挂「含历史回填样本，非实时预测能力」。"
+ "intake_layer": null,
+ "text_report": "========================================================================\nG2 能力门月报 -- R4 口径（审计器 design §4.2 修订 R4 · 2026-09-13）\n生成 2026-09-13T09:17:25.444Z | 库 E:\\music player\\p1a-terminal\\data\\p1a.db | 句柄只读 · 纯 SQL · 零 LLM · 零写库\n行域 g2_regime=R4 且非回测 | 门域 1923 行 / 账本 1923 行 | 门总判定 PASS  [G2＝过程能力门，不含预测质量读数]\n门域外行数: 回测排除 0 行 | 不在 R4 行域 0 行 | 合计域外 0 行\n========================================================================\n[①] 合格题累计 >=60  -> PASS   值 1046（resolved 623；realtime 517 / backfill 529）\n    排除: no_resolve_date 877 | tautology 0\n    细则 B 落地：backfill 计入 ①（cutoff=matures_at-1 天）；两源分列见 qualified_realtime/qualified_backfill。\n[②] 抽检合格率 >=70%  -> PASS   值 100.0%   清单 E:\\music player\\p1b\\sim\\out\\g2-audit-r4.json n=105 ok=105\n    抽样（#6e 双轨统一）: 候选池＝分层随机抽样程序产出（不再单列 every-10th）；seed/分层配额/命中率见 audit meta.sampling\n    复核构成（D-4）: {\"machine\":140,\"agent_semantic\":140,\"human_calibration\":14,\"user_spot_check\":0,\"end_user\":0} — 非全人工复核，不得声称\"全人工\"\n    人类校准段（D-3③ / §4.2.3 R4.2）: {\"n\":14,\"agreed\":14,\"rate\":1,\"reviewer\":\"队长（非端用户）\",\"accepted\":false,\"basis\":\"pre_fix 一致率 5/14=0.357（未达 90%，故旧代理段不采信）→ 按校准结论修正 machine 段（改按已注册 kind 契约）后，14/14=1.0 ≥0.90 ⇒ 恢复采信\",\"recheck\":\"1627（悉尼 dust≤0.0）：队长原判 REJECT 存疑，经源码核实 corpus-sources-b4.cjs L179 cmp0() 为恒真桩、L169-170 用它决定打印方向、L164 ge=false ⇒ 注解措辞 bug，实为 P(dust≤0.0)=72.5% 在带非恒定 ⇒ 队长更新判断为 PASS\",\"sample_bias\":\"本校准样本由代理按「最可能分歧」挑选（8 假阳性 + 2 边界 + 4 顺延），偏向最易出错处，故 14/14 为偏保守证据\",\"user_spot_check\":0,\"disclosure\":\"人类校准由队长执行、端用户抽验 0 题；整体仍非全人工复核，不得声称全人工\",\"user_spot_check_required\":10,\"acceptance_status\":\"pending_user\",\"acceptance_rule\":\"design §4.2.3 修订 R4.2（D-3③ 新规）：采信需 ①机器+代理两段；②全过 n>=35 或 Wilson 95% 下界 >=0.90；③端用户抽验 >=10 题为必要条件。\",\"wilson95\":{\"k\":14,\"n\":14,\"rate\":1,\"lb\":0.7846829880728186,\"ub\":1},\"accepted_superseded\":{\"field\":\"accepted\",\"former_value\":true,\"note\":\"批次1 曾按旧 D-3③（n=14 且 rate>=0.90）记 accepted=true；批次3 按 §4.2.3 R4.2 新规重判（全过 n>=35 或 Wilson 95% 下界 >=0.90 + 端用户抽验 >=10）\"}}\n    采信状态: pending_user | 端用户抽验 0/10 —— 待端用户抽验 >=10 题（代理不能代替端用户）\n    留出集重验（与抽检样本不重叠）: n=35 机器段 vs 代理语义段 {\"agree\":35,\"n\":35,\"rate\":1,\"wilson95\":{\"k\":35,\"n\":35,\"rate\":1,\"lb\":0.9010957324106112,\"ub\":1}}\n    契约表: p1b/sim/out/g2-contract-frozen-r4.json sha256=bafd3d389a91（contracts 34 / aliases 25；按 resolver 源码冻结，禁观测交集）\n[③] horizon 三层 短>=20 中>=20 长>=10(须 realtime)  -> PASS\n    短 419 | 中 77 | 长 21 | 未知 0 | past_or_negative(backfill) 529 | 长中 backfill 0\n    本细则读法（§4.2.1 A）：长 21 -> PASS | 严格读法对照：独立长 3 -> FAIL\n    ⑦披露（报告项）: 长∩最难 18/21 = 85.7%\n[④] 难度最难档 b(1-b)>=0.21（等价于基率 [0.30, 0.70]）且 >=20  -> PASS   值 916（realtime 455 / backfill 461；外生解析覆盖 1046/1046；模式 {\"pct_share\":1046}）\n[质量读数·report_only·不参与门判定]（G2＝过程能力门，不含预测质量读数）\n    n=623 | Brier_model=0.2384 | 常数基率基线=0.2384 | 常数 0.5 基线=0.2500\n    ΔBrier(vs 常数基率)=0.0000 | ΔBrier(vs 0.5)=-0.0116（<0 才有 resolution 迹象）\n    Murphy(10 等宽桶): reliability=0.0022 resolution=0.0111 uncertainty=0.2498\n    ECE(binned)=0.0313  [binned ECE=下界估计 + 小样本正偏]\n[⑤] 月节律（仅报告·不作门）\n    2026-09  realtime 552 / backfill 686 / total 1238\n[⑦] 披露（报告项·不扣减）: 长∩最难 18/21 = 85.7% | 严格读法独立长 3 -> FAIL\n    重叠 id（全量 18 条）: 973,974,977,979,982,983,985,986,988,989,991,992,994,995,1008,1010,1012,1014\n[R3 防 Goodhart 合规]\n    分窗 resolved: realtime 552 / backfill 686\n    单批上限(细则 C·按批次): wide_backfill 280 ok | b4_backfill 217 ok | corpus-backfill-2026-09-12 152 ok | b3_backfill 52 ok -> ok | 累计 701（仅披露）\n    分层 3x 上限: L2 303<=966 ok | L3 374<=1098 ok | L5 24<=252 ok\n    分窗配额(上限 60.0%): realtime L3 30.0% | backfill L3 53.4%\n    审计列: baseline_brier 非空 0（**已废弃**：专家会盲区⑦裁决=废弃而非补齐；④ 走 baseRateNote 现算旁路，见 design §4.2.2）\n    诚实标注: 凡引用含 backfill 样本的校准结论（ECE/Brier/分辨率），报告须恒挂「含历史回填样本，非实时预测能力」\n========================================================================\n注: ② 结论=机器段+代理语义段（非全人工）；采信按 design §4.2.3 修订 R4.2（全过 n>=35 或 Wilson 95% 下界 >=0.90）且端用户抽验 >=10 题为必要条件；G2＝过程能力门，不含预测质量读数；③ 按细则 A 判定并披露 ⑦ 重叠；含 backfill 数字恒挂「含历史回填样本，非实时预测能力」。"
 }
