@@ -215,3 +215,63 @@ test('intakeStore additive 迁移：旧库无 intake_rejects → ensure 建表�
   assert.ok(rec.id > 0);
   assert.equal(store.getReject(rec.id).detail.note, 'x');
 });
+
+// ── 8. D-8.2 / D-8.1（design §8）：接题通过落 intake_questions + 只读归一视图 ─────────
+test('D-8.2：classify 通过 → 落 intake_questions（题面/resolve_spec/layer/engine/gate/checklist_hash）', async () => {
+  const r = await classify({
+    statement: 'D-8.2 落行用例：2026-09-12 北京最高气温 > 30°C',
+    resolve_spec: { kind: 'official_stat', field: 'daily_high_temp', threshold: 30, cmp: 'gt', date: '2026-09-12' },
+    checklist: ck({ L3: yes4() }),
+  });
+  assert.equal(r.status, 200);
+  assert.equal(r.body.intake_ledger, 'intake_questions', '响应标注落哪张表');
+  assert.ok(r.body.intake_question_id > 0, '返回接题行 id');
+  const q = store.getIntakeQuestion(r.body.intake_question_id);
+  assert.equal(q.layer, 'L3');
+  assert.equal(q.engine, 'stat_baseline');
+  assert.equal(q.gate, 'descriptive');
+  assert.equal(q.checklist_hash, 'v3');
+  assert.equal(q.resolve_spec.kind, 'official_stat');
+  assert.equal(q.resolve_spec.threshold, 30, 'resolve_spec JSON 往返');
+  assert.equal(q.secondary_layer, null);
+  assert.equal(q.outcome, null, '未 resolve');
+  assert.equal(q.intake_reject_id, null);
+});
+
+test('D-8.1：unknown 落 intake_questions，但**不**进 predictions（layer CHECK 未放开）', async () => {
+  const stmt = 'D-8.1 unknown 用例：一次性人类决策、五层皆非全绿';
+  const r = await classify({ statement: stmt, checklist: ck({ L4: yes3() }) });
+  assert.equal(r.body.layer, 'unknown');
+  assert.equal(r.body.secondary, 'L4');
+  assert.ok(r.body.intake_question_id > 0);
+  const q = store.getIntakeQuestion(r.body.intake_question_id);
+  assert.equal(q.layer, 'unknown', 'intake_questions 允许 unknown');
+  assert.equal(q.secondary_layer, 'L4');
+  const conn = db.getConnection();
+  assert.equal(conn.prepare('SELECT COUNT(*) n FROM predictions WHERE statement = ?').get(stmt).n, 0, 'unknown 未写入 predictions');
+  assert.equal(conn.prepare('SELECT COUNT(*) n FROM intake_questions WHERE statement = ?').get(stmt).n, 1, 'unknown 写入 intake_questions');
+});
+
+test('D-8.1：predictions_r4 视图形状 = predictions ∪ intake_questions（origin 区分，只读）', async () => {
+  const conn = db.getConnection();
+  const names = conn.prepare('PRAGMA table_info(predictions_r4)').all().map((c) => c.name);
+  assert.deepEqual(names, ['origin', 'id', 'game_id', 'statement', 'resolve_spec', 'layer', 'secondary_layer',
+    'gate', 'checklist_hash', 'engine', 'source_type', 'assigned_prob', 'evidence_json', 'g2_regime',
+    'matures_at', 'tautology', 'created_at', 'resolved_at', 'outcome', 'resolve_note', 'intake_reject_id'], '统一列形状');
+  const g = await app.inject({ method: 'POST', url: '/api/games', payload: { name: 'D-8.1 视图局', type: 'werewolf', player_count: 6 } });
+  const gid = j(g).game.id;
+  await app.inject({ method: 'POST', url: '/api/games/' + gid + '/predictions', payload: { statement: '视图 predictions 侧用例', prob: 0.5 } });
+  const byOrigin = conn.prepare('SELECT origin, COUNT(*) n FROM predictions_r4 GROUP BY origin').all();
+  const map = {}; for (const x of byOrigin) map[x.origin] = x.n;
+  assert.ok(map.predictions >= 1, 'predictions 侧在视图里');
+  assert.ok(map.intake_questions >= 2, 'intake_questions 侧在视图里');
+  const qrow = conn.prepare("SELECT origin, layer, g2_regime, tautology, resolve_spec FROM predictions_r4 WHERE origin='intake_questions' AND layer='unknown' LIMIT 1").get();
+  assert.ok(qrow, '视图里能找到 unknown 接题行');
+  assert.equal(qrow.g2_regime, null, '接题行 g2_regime 归一为 NULL（不进 G2 行域）');
+  assert.equal(qrow.tautology, 0, '接题行 tautology 归一为 0');
+  const rs = conn.prepare("SELECT resolve_spec FROM predictions_r4 WHERE origin='intake_questions' AND statement = ? LIMIT 1").get('D-8.2 落行用例：2026-09-12 北京最高气温 > 30°C');
+  assert.ok(rs && rs.resolve_spec, '接题行带 resolve_spec（D-8.2 用例行）');
+  const pRow = conn.prepare("SELECT origin, resolve_spec, intake_reject_id FROM predictions_r4 WHERE origin='predictions' LIMIT 1").get();
+  assert.ok(pRow, 'predictions 侧在视图里');
+  assert.equal(pRow.resolve_spec, null, 'predictions 行无 resolve_spec（归一 NULL）');
+});

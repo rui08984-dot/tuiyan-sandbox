@@ -12,6 +12,8 @@
  *   node p1b/scripts/g2-report.cjs --text <file>      # 另存文本
  *   node p1b/scripts/g2-report.cjs --audit <file>     # 抽检清单（人工复核结果，②用）
  *   node p1b/scripts/g2-report.cjs --db <file>        # 覆盖库路径
+ *   node p1b/scripts/g2-report.cjs --include-intake    # 额外读只读视图 predictions_r4 做**非 G2 口径**披露（默认关；不改变主读数）
+ *   D-8.1 护栏：G2 主判定恒只读 predictions 原表；视图只喂 --include-intake 的披露节，严禁悄悄改读数。
  *
  * R4 五条：
  *   ① 合格题累计 >=60（cutoff 合规按题源分流：realtime=created_at / backfill=matures_at-1天；§4.2.1 细则 B）
@@ -33,11 +35,26 @@ const DB_PATH = arg('db', path.join(ROOT, 'p1a-terminal', 'data', 'p1a.db'));
 const JSON_OUT = arg('json', null);
 const TEXT_OUT = arg('text', null);
 const AUDIT_FILE = arg('audit', null);
+// D-8.1：显式开关，默认**关**（关 = 零行为变化，绝不读视图）
+const INCLUDE_INTAKE = process.argv.indexOf('--include-intake') >= 0;
 
 const { DatabaseSync } = require('node:sqlite');
 const db = new DatabaseSync(DB_PATH, { readOnly: true });
 const all = (s) => db.prepare(s).all();
 const one = (s) => db.prepare(s).get();
+
+// D-8.1：只读归一视图读取器——仅在 --include-intake 时调用；结果只进披露节，不参与 Q1-Q5。
+function readIntakeLayer() {
+  try {
+    const hasView = one("SELECT name FROM sqlite_master WHERE type='view' AND name='predictions_r4'");
+    if (!hasView) return { view: 'predictions_r4', available: false, reason: '视图不存在（本库未执行接题 additive 迁移）' };
+    const total = one('SELECT COUNT(*) n FROM predictions_r4').n;
+    const intakeRows = one("SELECT COUNT(*) n FROM predictions_r4 WHERE origin='intake_questions'").n;
+    const byLayer = all('SELECT origin, layer, COUNT(*) n FROM predictions_r4 GROUP BY origin, layer ORDER BY origin, layer');
+    return { view: 'predictions_r4', available: true, total_rows: total, intake_rows: intakeRows, by_origin_layer: byLayer };
+  } catch (e) { return { view: 'predictions_r4', available: false, reason: '视图读取失败: ' + e.message }; }
+}
+const intakeLayer = INCLUDE_INTAKE ? readIntakeLayer() : null;
 
 const REGIME = "p.g2_regime = 'R4'";
 const BF = "p.statement LIKE '%【backfill】%'";
@@ -175,7 +192,9 @@ function loadAudit(file) {
     const rate = ok / scored.length;
     return { status: 'done', file: p, n: scored.length, ok: ok, rate: rate, threshold: 0.70, pass: rate >= 0.70,
       review_composition: (j.meta && j.meta.review_composition) || null, honesty: (j.meta && j.meta.honesty) || null,
-      human_calibration: j.human_calibration || null, detail: (j.meta && j.meta.detail) || null };
+      human_calibration: j.human_calibration || null,
+      human_calibration_settlement: (j.meta && j.meta.human_calibration_settlement) || null,
+      detail: (j.meta && j.meta.detail) || null };
   } catch (e) { return { status: 'not-yet', reason: '抽检清单解析失败：' + e.message, missing: [AUDIT_MISSING] }; }
 }
 const auditRes = loadAudit(AUDIT_FILE);
@@ -229,6 +248,10 @@ L.push('G2 能力门月报 -- R4 口径（审计器 design §4.2 修订 R4 · 20
 L.push('生成 ' + new Date().toISOString() + ' | 库 ' + DB_PATH + ' | 句柄只读 · 纯 SQL · 零 LLM · 零写库');
 L.push('行域 g2_regime=R4 | 账本 ' + counts.regime_rows + ' 行 | 门总判定 ' + gate);
 L.push(bar);
+if (INCLUDE_INTAKE) {
+  L.push('!! 含接题层未入账题，非 G2 口径（--include-intake）—— 主判定 Q1-Q5 仍只读 predictions 原表 !!');
+  L.push(bar);
+}
 L.push('[①] 合格题累计 >=60  -> ' + Q1.verdict + '   值 ' + Q1.value + '（resolved ' + Q1.qualified_resolved + '；realtime ' + Q1.qualified_realtime + ' / backfill ' + Q1.qualified_backfill + '）');
 L.push('    排除: ' + Object.keys(counts.excluded).map((k) => k + ' ' + counts.excluded[k]).join(' | ') + ' | tautology ' + counts.tautology_rows);
 L.push('    ' + Q1.note);
@@ -237,7 +260,9 @@ if (Q2.missing) for (const m of Q2.missing) L.push('    缺: ' + m);
 L.push('    10% 抽检候选池（确定性：合格题按 id 每 10 取 1）: n=' + Q2.candidate_pool_n);
 if (Q2.status === 'done') {
   L.push('    复核构成（D-4）: ' + JSON.stringify(Q2.review_composition) + ' — 非全人工复核，不得声称"全人工"');
-  L.push('    人类校准段（D-3③）: ' + JSON.stringify(Q2.human_calibration) + ' -> 采信状态 pending（需 >=10 题、一致率 >=90%）');
+  const hc = Q2.human_calibration || {};
+  L.push('    人类校准段（D-3③）: ' + JSON.stringify(hc) + ' -> 采信 ' + (typeof hc.rate === 'number' && hc.rate >= 0.90 ? 'YES' : 'NO（未达 90% 或缺失）'));
+  if (Q2.human_calibration_settlement) L.push('    校准结账: 修正后 ' + Q2.human_calibration_settlement.post_fix_alignment + '；待办 ' + (Q2.human_calibration_settlement.pending || []).join('；'));
 }
 
 L.push('[③] horizon 三层 短>=20 中>=20 长>=10(须 realtime)  -> ' + Q3.verdict);
@@ -256,6 +281,14 @@ L.push('    分层 3x 上限: ' + compliance.r3_batch_cap.per_layer.map((r) => r
 L.push('    分窗配额(上限 ' + pct(compliance.r3_window_quota.cap_share) + '): realtime ' + compliance.r3_window_quota.realtime.max_layer + ' ' + pct(compliance.r3_window_quota.realtime.max_share) + ' | backfill ' + compliance.r3_window_quota.backfill.max_layer + ' ' + pct(compliance.r3_window_quota.backfill.max_share));
 L.push('    审计列: baseline_brier 非空 ' + baselineBrierNonnull + '（N1 空挂；④ 改用 baseRateNote 外生解析）');
 L.push('    诚实标注: ' + compliance.honesty_note);
+if (INCLUDE_INTAKE) {
+  L.push('[接题层·非 G2 口径] 视图 predictions_r4（含接题层未入账题，非 G2 口径）');
+  if (intakeLayer && intakeLayer.available) {
+    L.push('    视图总行 ' + intakeLayer.total_rows + ' | 其中 intake_questions 行 ' + intakeLayer.intake_rows);
+    L.push('    origin×layer: ' + intakeLayer.by_origin_layer.map((r) => r.origin + '/' + (r.layer === null ? 'NULL' : r.layer) + ' ' + r.n).join(' | '));
+  } else { L.push('    不可用: ' + JSON.stringify(intakeLayer)); }
+  L.push('    声明: 本节数字**不参与 G2 达标判定**；G2 主读数恒取 predictions 原表。');
+}
 L.push(bar);
 L.push('注: ② 结论=机器段+代理语义段（非全人工），采信须经 D-3③ 人类校准段 >=10 题且一致率 >=90%；③ 按细则 A 判定并披露 ⑦ 重叠；含 backfill 数字恒挂「含历史回填样本，非实时预测能力」。');
 const text = L.join('\n');
@@ -265,11 +298,13 @@ const report = {
   meta: { script: 'p1b/scripts/g2-report.cjs', spec: 'docs/specs/2026-09-11-万物可预测性审计器-design.md §4.2 修订 R4',
     red_team: 'docs/specs/红队R2-复核-20260913.md §2.1/§2.3', db: DB_PATH, mode: 'readonly',
     generated_at: new Date().toISOString(), regime: 'R4', gate: gate,
-    verdicts: { q1: Q1.verdict, q2: Q2.verdict, q3: Q3.verdict, q4: Q4.verdict, q5: Q5.verdict } },
+    verdicts: { q1: Q1.verdict, q2: Q2.verdict, q3: Q3.verdict, q4: Q4.verdict, q5: Q5.verdict },
+    include_intake: INCLUDE_INTAKE, intake_scope: 'intake_questions 未入账（非 G2 口径，不参与达标）' },
   counts: counts,
   R4: { q1_qualified: Q1, q2_audit: Q2, q3_horizon: Q3, q4_difficulty: Q4, q5_monthly: Q5,
     rule7_no_double_count: rule7, all_rows_horizon_buckets: allHorizon },
   compliance_r3: compliance,
+  intake_layer: intakeLayer,
   text_report: text
 };
 if (JSON_OUT) {

@@ -151,6 +151,7 @@
 | 件 | 说明 |
 |---|---|
 | `p1b/src/routes/intake.js` + `p1b/src/db/intakeStore.js` + `p1b/test/intake.test.cjs` | **对外开放接题**：POST `/api/intake/classify`（拒收门三问 + 六层判定 + `unknown` 出口 + L4 后置叠加 + layer→引擎映射骨架，gate=descriptive 只记账不出数）＋ GET `/api/intake/rejects`（拒收原因分布含 0 计数）；additive 新表 `intake_rejects`（生产库零写，临时库验证）；`万物分类清单-v2.md` 追加 v3 注记（红队 R1-F1/R1-F13 修法）；`node --test` **193 pass**（基线 177 + 16 新） |
+| `p1b/src/db/intakeStore.js`（`predictions_r4` 视图 + `intake_questions` 表） + `p1b/scripts/g2-report.cjs`（`--include-intake`） | **D-8.1/D-8.2 落地**（design §8 用户拍板 A）：additive 新表 `intake_questions`（外部题挂载，classify 通过落行）+ 只读归一视图 `predictions_r4`（predictions ∪ intake_questions，origin 区分）；`g2-report --include-intake` 默认**关**，开关只加「含接题层未入账题，非 G2 口径」披露节，**不改变 Q1-Q5/gate 主读数**；F13=**半闭环**（入账层待与 F4 真值分库合并迁移）；`node --test` **198 pass**（基线 193 + 5 新）＋ 端到端 15 PASS |
 
 ### D2 历史回测引擎规格（2026-09-13 · 只写文档，不写实现）
 | 件 | 说明 |

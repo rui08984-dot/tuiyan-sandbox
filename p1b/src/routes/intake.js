@@ -16,7 +16,13 @@
  *      · R1-F1 修：L4 移出决策树尾节点，改「后置叠加标注」——L4 三问全绿只记 secondary='L4'，
  *        primary 恒为底层（L4 永不作 primary，否则永远不可达）；
  *      · 返回 {ok, rejected|layer, secondary, checklist_hash, engine, gate:'descriptive', ...}。
+ *        D-8.2：通过（非拒收）时另落 intake_questions（外部题挂载表，返回 intake_question_id）；
+ *        本轮**不自动落 predictions**（外部题 resolve 后的域容器规则待定义，禁沿用隐式 corpus:* 模式）。
  *   GET /api/intake/rejects   拒收原因分布（防 Goodhart：分布须可见，含 0 计数）+ 分页明细。
+ *
+ * D-8.1：unknown 的入账路径（design §8）——unknown 留在接题层，predictions.layer CHECK 不放宽；
+ *   报表侧走只读归一视图 predictions_r4（intakeStore.ensureIntakeTables 建）。**F13 = 半闭环**：
+ *   接题层已闭环、入账层待与 F4 真值分库合并的同一次账本迁移；G2 判定仍只读 predictions 原表。
  *
  * 铁律落点：
  *   ① gate 恒 'descriptive' —— 分类与出数引擎解耦（本入口只记账/只出层，不产出任何概率或评分）；
@@ -187,15 +193,22 @@ function classifyIntake(body) {
     secondary = 'L4';
   }
   const plan = engineFor(layer);
+  // D-8.2：接题通过 → 落 intake_questions（外部题挂载表；本轮不自动落 predictions）
+  const iq = store.insertIntakeQuestion({
+    statement: statement, resolveSpec: resolveSpec, layer: layer, secondaryLayer: secondary,
+    gate: 'descriptive', checklistHash: CHECKLIST_HASH, engine: plan.engine, evidence: [],
+    intakeRejectId: null,
+  });
   return {
     ok: true, rejected: false, layer: layer, computed_layer: computed, secondary: secondary,
     decided_by: decidedBy, checklist_hash: CHECKLIST_HASH, engine: plan.engine, engine_plan: plan,
     gate: 'descriptive', resolve_spec: resolveSpec, statement: statement,
+    intake_question_id: iq.id, intake_ledger: 'intake_questions',
   };
 }
 
 function register(app) {
-  store.ensureIntakeTable(db.getConnection()); // additive 私有表（幂等，零碰 p1a 既有表/predictions 既有列）
+  store.ensureIntakeTables(db.getConnection()); // additive 私有表 + predictions_r4 只读视图（幂等，零碰 p1a 既有表/predictions 既有列）
 
   app.post('/api/intake/classify', async (req) => classifyIntake(req.body || {}));
 
