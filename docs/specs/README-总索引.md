@@ -147,6 +147,11 @@
 
 > **入口提示**：唯一入口已推进至 `.scratch/handoff/推演沙盘-交接-20260913-深夜.md`（2026-09-13 03:31，覆盖本文件 §0 所列晚版）。
 
+### 阶段 3 出口件：开放接题最小闭环（2026-09-13）
+| 件 | 说明 |
+|---|---|
+| `p1b/src/routes/intake.js` + `p1b/src/db/intakeStore.js` + `p1b/test/intake.test.cjs` | **对外开放接题**：POST `/api/intake/classify`（拒收门三问 + 六层判定 + `unknown` 出口 + L4 后置叠加 + layer→引擎映射骨架，gate=descriptive 只记账不出数）＋ GET `/api/intake/rejects`（拒收原因分布含 0 计数）；additive 新表 `intake_rejects`（生产库零写，临时库验证）；`万物分类清单-v2.md` 追加 v3 注记（红队 R1-F1/R1-F13 修法）；`node --test` **193 pass**（基线 177 + 16 新） |
+
 ### D2 历史回测引擎规格（2026-09-13 · 只写文档，不写实现）
 | 件 | 说明 |
 |---|---|
