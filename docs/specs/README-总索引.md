@@ -85,7 +85,7 @@
 |---|---|
 | `p1b/src/routes/audit.js` + `AuditPage.tsx` | **审计页三层递进**（p20+p22：状态卡/分层卡/折叠明细） |
 | `p1b/src/routes/adapters.js` + `lib/useGameTypes.ts` | **游戏类型后端驱动**（p21，加游戏只改后端） |
-| `p1b/web/dist` | 最新 bundle index-BRXPntAZ.js |
+| `p1b/web/dist` | 最新 bundle index-BiMu1AXn.js（2026-09-13 重建；旧 BRXPntAZ 已被 vite 清除） |
 
 ### 真人局入库
 | 件 | 说明 |
@@ -157,6 +157,7 @@
 | 件 | 说明 |
 |---|---|
 | `docs/specs/历史回测引擎-规格D2-20260913.md` | **D2 规格 v0（10 节）**：目的/非目的 ｜ cutoff 技术强制（以「回测进程能否 SELECT 到真值」为防作弊复测判据）｜ F4 分库接口（**分库未落地不得开跑**）｜ horizon×layer×难度分层禁混算（难度用外生基线 b(1−b)）｜ 诚实标注恒挂「历史回测·非实时能力」｜ 天气 archive 单源原型验收 A1–A7 ｜ kill_test ｜ 与 R-A/R-B/R-C 关系（**禁改 checklist_hash**）。 |
+| `docs/specs/历史回测引擎-规格D2-20260913.md` **§11 修订节（2026-09-13 · 专家会批次 2）** | #3 影子题面库＋authorizer 硬验收（A2a–A2d＋故障注入；敏感名显式枚举；物理分库设触发条件）｜ #4 K2 统计容差 `max(0.01,1.96·sd/√n)` ｜ #5 K3 置换操作化（配对置换/N=1000/p<0.01/基线臂豁免）｜ #15 resolution-ECE 操作化（Murphy＋等宽 10 桶＋bin 计数＋双标注＋bootstrap CI）｜ #16 §4 部分池化（HB，先预注册）＋「首批有结论单元 ≤N_unit」｜ §8.2 `metric_version`/`backtest_batch` 升必须。**原条款未删** |
 
 ### 专家研讨会（20260913 深夜 · 红队两路+查阅两路+头脑风暴+交叉对抗 · 详目见研究档案索引）
 | 件 | 说明 |
