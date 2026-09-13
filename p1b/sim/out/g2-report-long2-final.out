@@ -1,0 +1,39 @@
+========================================================================
+G2 能力门月报 -- R4 口径（审计器 design §4.2 修订 R4 · 2026-09-13）
+生成 2026-09-13T09:29:54.405Z | 库 E:\music player\p1a-terminal\data\p1a.db | 句柄只读 · 纯 SQL · 零 LLM · 零写库
+行域 g2_regime=R4 且非回测 | 门域 1935 行 / 账本 1935 行 | 门总判定 PASS  [G2＝过程能力门，不含预测质量读数]
+门域外行数: 回测排除 0 行 | 不在 R4 行域 0 行 | 合计域外 0 行
+========================================================================
+[①] 合格题累计 >=60  -> PASS   值 1058（resolved 623；realtime 529 / backfill 529）
+    排除: no_resolve_date 877 | tautology 0
+    细则 B 落地：backfill 计入 ①（cutoff=matures_at-1 天）；两源分列见 qualified_realtime/qualified_backfill。
+[②] 抽检合格率 >=70%  -> PASS   值 100.0%   清单 E:\music player\p1b\sim\out\g2-audit-r4.json n=105 ok=105
+    抽样（#6e 双轨统一）: 候选池＝分层随机抽样程序产出（不再单列 every-10th）；seed/分层配额/命中率见 audit meta.sampling
+    复核构成（D-4）: {"machine":140,"agent_semantic":140,"human_calibration":14,"user_spot_check":0,"end_user":0} — 非全人工复核，不得声称"全人工"
+    人类校准段（D-3③ / §4.2.3 R4.2）: {"n":14,"agreed":14,"rate":1,"reviewer":"队长（非端用户）","accepted":false,"basis":"pre_fix 一致率 5/14=0.357（未达 90%，故旧代理段不采信）→ 按校准结论修正 machine 段（改按已注册 kind 契约）后，14/14=1.0 ≥0.90 ⇒ 恢复采信","recheck":"1627（悉尼 dust≤0.0）：队长原判 REJECT 存疑，经源码核实 corpus-sources-b4.cjs L179 cmp0() 为恒真桩、L169-170 用它决定打印方向、L164 ge=false ⇒ 注解措辞 bug，实为 P(dust≤0.0)=72.5% 在带非恒定 ⇒ 队长更新判断为 PASS","sample_bias":"本校准样本由代理按「最可能分歧」挑选（8 假阳性 + 2 边界 + 4 顺延），偏向最易出错处，故 14/14 为偏保守证据","user_spot_check":0,"disclosure":"人类校准由队长执行、端用户抽验 0 题；整体仍非全人工复核，不得声称全人工","user_spot_check_required":10,"acceptance_status":"pending_user","acceptance_rule":"design §4.2.3 修订 R4.2（D-3③ 新规）：采信需 ①机器+代理两段；②全过 n>=35 或 Wilson 95% 下界 >=0.90；③端用户抽验 >=10 题为必要条件。","wilson95":{"k":14,"n":14,"rate":1,"lb":0.7846829880728186,"ub":1},"accepted_superseded":{"field":"accepted","former_value":true,"note":"批次1 曾按旧 D-3③（n=14 且 rate>=0.90）记 accepted=true；批次3 按 §4.2.3 R4.2 新规重判（全过 n>=35 或 Wilson 95% 下界 >=0.90 + 端用户抽验 >=10）"}}
+    采信状态: pending_user | 端用户抽验 0/10 —— 待端用户抽验 >=10 题（代理不能代替端用户）
+    留出集重验（与抽检样本不重叠）: n=35 机器段 vs 代理语义段 {"agree":35,"n":35,"rate":1,"wilson95":{"k":35,"n":35,"rate":1,"lb":0.9010957324106112,"ub":1}}
+    契约表: p1b/sim/out/g2-contract-frozen-r4.json sha256=bafd3d389a91（contracts 34 / aliases 25；按 resolver 源码冻结，禁观测交集）
+[③] horizon 三层 短>=20 中>=20 长>=10(须 realtime)  -> PASS
+    短 419 | 中 77 | 长 33 | 未知 0 | past_or_negative(backfill) 529 | 长中 backfill 0
+    本细则读法（§4.2.1 A）：长 33 -> PASS | 严格读法对照：独立长 3 -> FAIL
+    ⑦披露（报告项）: 长∩最难 30/33 = 90.9%
+[④] 难度最难档 b(1-b)>=0.21（等价于基率 [0.30, 0.70]）且 >=20  -> PASS   值 928（realtime 467 / backfill 461；外生解析覆盖 1058/1058；模式 {"pct_share":1058}）
+[质量读数·report_only·不参与门判定]（G2＝过程能力门，不含预测质量读数）
+    n=623 | Brier_model=0.2384 | 常数基率基线=0.2384 | 常数 0.5 基线=0.2500
+    ΔBrier(vs 常数基率)=0.0000 | ΔBrier(vs 0.5)=-0.0116（<0 才有 resolution 迹象）
+    Murphy(10 等宽桶): reliability=0.0022 resolution=0.0111 uncertainty=0.2498
+    ECE(binned)=0.0313  [binned ECE=下界估计 + 小样本正偏]
+[⑤] 月节律（仅报告·不作门）
+    2026-09  realtime 552 / backfill 686 / total 1238
+[⑦] 披露（报告项·不扣减）: 长∩最难 30/33 = 90.9% | 严格读法独立长 3 -> FAIL
+    重叠 id（全量 30 条）: 973,974,977,979,982,983,985,986,988,989,991,992,994,995,1008,1010,1012,1014,1939,1940,1941,1942,1943,1944,1945,1946,1947,1948,1949,1950
+[R3 防 Goodhart 合规]
+    分窗 resolved: realtime 552 / backfill 686
+    单批上限(细则 C·按批次): wide_backfill 280 ok | b4_backfill 217 ok | corpus-backfill-2026-09-12 152 ok | b3_backfill 52 ok -> ok | 累计 701（仅披露）
+    分层 3x 上限: L2 303<=966 ok | L3 374<=1134 ok | L5 24<=252 ok
+    分窗配额(上限 60.0%): realtime L3 30.6% | backfill L3 53.4%
+    审计列: baseline_brier 非空 0（**已废弃**：专家会盲区⑦裁决=废弃而非补齐；④ 走 baseRateNote 现算旁路，见 design §4.2.2）
+    诚实标注: 凡引用含 backfill 样本的校准结论（ECE/Brier/分辨率），报告须恒挂「含历史回填样本，非实时预测能力」
+========================================================================
+注: ② 结论=机器段+代理语义段（非全人工）；采信按 design §4.2.3 修订 R4.2（全过 n>=35 或 Wilson 95% 下界 >=0.90）且端用户抽验 >=10 题为必要条件；G2＝过程能力门，不含预测质量读数；③ 按细则 A 判定并披露 ⑦ 重叠；含 backfill 数字恒挂「含历史回填样本，非实时预测能力」。

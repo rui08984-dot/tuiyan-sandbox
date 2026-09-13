@@ -1,0 +1,30 @@
+[plan] run_at=2026-09-13T17:28:30+08:00 targets=["2026-10-20","2026-11-03","2026-11-17"] questions=12 by_dom={"usgs":6,"co2":3,"ghcn":3}
+[plan] horizon(days)=[37,51,65,37,51,65,37,51,65,37,51,65] 最短=37 全部>31=true
+[plan] cutoff 2026-09-13 早于全部事件日=true
+  [usgs] corpus:long2-usgs-01646500-20261020 date=2026-10-20 h=37d th=2520 prob=0.5 | 前瞻·USGS 波托马克河：cutoff 前 400 个日流量中 >= 2520 占 50.0%（n=400，分位 q=0.5；USGS NWIS dv 实抓，pre-cutoff 窗）
+  [usgs] corpus:long2-usgs-01646500-20261103 date=2026-11-03 h=51d th=2270 prob=0.6 | 前瞻·USGS 波托马克河：cutoff 前 400 个日流量中 >= 2270 占 60.0%（n=400，分位 q=0.4；USGS NWIS dv 实抓，pre-cutoff 窗）
+  [usgs] corpus:long2-usgs-01646500-20261117 date=2026-11-17 h=65d th=2270 prob=0.6 | 前瞻·USGS 波托马克河：cutoff 前 400 个日流量中 >= 2270 占 60.0%（n=400，分位 q=0.4；USGS NWIS dv 实抓，pre-cutoff 窗）
+  [usgs] corpus:long2-usgs-09380000-20261020 date=2026-10-20 h=37d th=8690 prob=0.3008 | 前瞻·USGS 科罗拉多河 Lees Ferry：cutoff 前 399 个日流量中 >= 8690 占 30.1%（n=399，分位 q=0.7；USGS NWIS dv 实抓，pre-cutoff 窗）
+  [usgs] corpus:long2-usgs-09380000-20261103 date=2026-11-03 h=51d th=8380 prob=0.406 | 前瞻·USGS 科罗拉多河 Lees Ferry：cutoff 前 399 个日流量中 >= 8380 占 40.6%（n=399，分位 q=0.6；USGS NWIS dv 实抓，pre-cutoff 窗）
+  [usgs] corpus:long2-usgs-09380000-20261117 date=2026-11-17 h=65d th=8380 prob=0.406 | 前瞻·USGS 科罗拉多河 Lees Ferry：cutoff 前 399 个日流量中 >= 8380 占 40.6%（n=399，分位 q=0.6；USGS NWIS dv 实抓，pre-cutoff 窗）
+  [co2] corpus:long2-co2-mlo-20261020 date=2026-10-20 h=37d th=429.96 prob=0.3015 | 前瞻·MLO CO2：cutoff 前 272 个日均中 >= 429.96 占 30.1%（n=272，分位 q=0.7；NOAA GML 实抓，pre-cutoff 窗）
+  [co2] corpus:long2-co2-mlo-20261103 date=2026-11-03 h=51d th=429.23 prob=0.4007 | 前瞻·MLO CO2：cutoff 前 272 个日均中 >= 429.23 占 40.1%（n=272，分位 q=0.6；NOAA GML 实抓，pre-cutoff 窗）
+  [co2] corpus:long2-co2-mlo-20261117 date=2026-11-17 h=65d th=429.23 prob=0.4007 | 前瞻·MLO CO2：cutoff 前 272 个日均中 >= 429.23 占 40.1%（n=272，分位 q=0.6；NOAA GML 实抓，pre-cutoff 窗）
+  [ghcn] corpus:long2-ghcn-USW00094728-20261020 date=2026-10-20 h=37d th=75 prob=0.402 | 前瞻·NCEI GHCN 纽约中央公园：cutoff 前 398 天日最高气温中 >= 75 占 40.2%（n=398，分位 q=0.6；NCEI daily-summaries 实抓，pre-cutoff 窗）
+  [ghcn] corpus:long2-ghcn-USW00094728-20261103 date=2026-11-03 h=51d th=79 prob=0.3291 | 前瞻·NCEI GHCN 纽约中央公园：cutoff 前 398 天日最高气温中 >= 79 占 32.9%（n=398，分位 q=0.7；NCEI daily-summaries 实抓，pre-cutoff 窗）
+  [ghcn] corpus:long2-ghcn-USW00094728-20261117 date=2026-11-17 h=65d th=79 prob=0.3291 | 前瞻·NCEI GHCN 纽约中央公园：cutoff 前 398 天日最高气温中 >= 79 占 32.9%（n=398，分位 q=0.7；NCEI daily-summaries 实抓，pre-cutoff 窗）
+inserted id=1939 corpus:long2-usgs-01646500-20261020 h=37d
+inserted id=1940 corpus:long2-usgs-01646500-20261103 h=51d
+inserted id=1941 corpus:long2-usgs-01646500-20261117 h=65d
+inserted id=1942 corpus:long2-usgs-09380000-20261020 h=37d
+inserted id=1943 corpus:long2-usgs-09380000-20261103 h=51d
+inserted id=1944 corpus:long2-usgs-09380000-20261117 h=65d
+inserted id=1945 corpus:long2-co2-mlo-20261020 h=37d
+inserted id=1946 corpus:long2-co2-mlo-20261103 h=51d
+inserted id=1947 corpus:long2-co2-mlo-20261117 h=65d
+inserted id=1948 corpus:long2-ghcn-USW00094728-20261020 h=37d
+inserted id=1949 corpus:long2-ghcn-USW00094728-20261103 h=51d
+inserted id=1950 corpus:long2-ghcn-USW00094728-20261117 h=65d
+[summary] {"confirm":true,"questions":12,"written":12,"duplicate":0,"by_dom":{"usgs":6,"co2":3,"ghcn":3},"ids":[1939,1940,1941,1942,1943,1944,1945,1946,1947,1948,1949,1950]}
+[verify] integrity=ok
+[verify] v3 行=12 其中四契约齐=12

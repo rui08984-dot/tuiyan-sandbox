@@ -1,0 +1,332 @@
+[
+ {
+  "domain": "usgs",
+  "gid": 77,
+  "layer": "L3",
+  "engine": "usgs_nwis_daily_discharge_baserate_forward",
+  "slug": "corpus:long2-usgs-01646500-20261020",
+  "statement": "【forward】USGS 波托马克河（01646500） 2026-10-20 日流量 >= 2520 ft³/s（cutoff=2026-09-13T17:28:30+08:00，落库即前瞻，早于事件日 37 天；真值锚=USGS NWIS dv 00060。前瞻批次，真值未发生）",
+  "prob": 0.5,
+  "baseRateNote": "前瞻·USGS 波托马克河：cutoff 前 400 个日流量中 >= 2520 占 50.0%（n=400，分位 q=0.5；USGS NWIS dv 实抓，pre-cutoff 窗）",
+  "resolve": {
+   "kind": "usgs_nwis_daily_discharge",
+   "url_template": "https://waterservices.usgs.gov/nwis/dv/?format=json&sites=01646500&parameterCd=00060&startDT={date}&endDT={date}",
+   "site": "01646500",
+   "date": "2026-10-20",
+   "threshold": 2520,
+   "cmp": ">=",
+   "field": "value.timeSeries[0].values[0].value[] 中 dateTime 前缀==date 的 .value（ft³/s）"
+  },
+  "meta": {
+   "phase": "forward",
+   "dom": "hydrology",
+   "site": "01646500",
+   "name": "波托马克河",
+   "date": "2026-10-20",
+   "threshold": 2520,
+   "cutoff": "2026-09-13T17:28:30+08:00"
+  }
+ },
+ {
+  "domain": "usgs",
+  "gid": 77,
+  "layer": "L3",
+  "engine": "usgs_nwis_daily_discharge_baserate_forward",
+  "slug": "corpus:long2-usgs-01646500-20261103",
+  "statement": "【forward】USGS 波托马克河（01646500） 2026-11-03 日流量 >= 2270 ft³/s（cutoff=2026-09-13T17:28:30+08:00，落库即前瞻，早于事件日 51 天；真值锚=USGS NWIS dv 00060。前瞻批次，真值未发生）",
+  "prob": 0.6,
+  "baseRateNote": "前瞻·USGS 波托马克河：cutoff 前 400 个日流量中 >= 2270 占 60.0%（n=400，分位 q=0.4；USGS NWIS dv 实抓，pre-cutoff 窗）",
+  "resolve": {
+   "kind": "usgs_nwis_daily_discharge",
+   "url_template": "https://waterservices.usgs.gov/nwis/dv/?format=json&sites=01646500&parameterCd=00060&startDT={date}&endDT={date}",
+   "site": "01646500",
+   "date": "2026-11-03",
+   "threshold": 2270,
+   "cmp": ">=",
+   "field": "value.timeSeries[0].values[0].value[] 中 dateTime 前缀==date 的 .value（ft³/s）"
+  },
+  "meta": {
+   "phase": "forward",
+   "dom": "hydrology",
+   "site": "01646500",
+   "name": "波托马克河",
+   "date": "2026-11-03",
+   "threshold": 2270,
+   "cutoff": "2026-09-13T17:28:30+08:00"
+  }
+ },
+ {
+  "domain": "usgs",
+  "gid": 77,
+  "layer": "L3",
+  "engine": "usgs_nwis_daily_discharge_baserate_forward",
+  "slug": "corpus:long2-usgs-01646500-20261117",
+  "statement": "【forward】USGS 波托马克河（01646500） 2026-11-17 日流量 >= 2270 ft³/s（cutoff=2026-09-13T17:28:30+08:00，落库即前瞻，早于事件日 65 天；真值锚=USGS NWIS dv 00060。前瞻批次，真值未发生）",
+  "prob": 0.6,
+  "baseRateNote": "前瞻·USGS 波托马克河：cutoff 前 400 个日流量中 >= 2270 占 60.0%（n=400，分位 q=0.4；USGS NWIS dv 实抓，pre-cutoff 窗）",
+  "resolve": {
+   "kind": "usgs_nwis_daily_discharge",
+   "url_template": "https://waterservices.usgs.gov/nwis/dv/?format=json&sites=01646500&parameterCd=00060&startDT={date}&endDT={date}",
+   "site": "01646500",
+   "date": "2026-11-17",
+   "threshold": 2270,
+   "cmp": ">=",
+   "field": "value.timeSeries[0].values[0].value[] 中 dateTime 前缀==date 的 .value（ft³/s）"
+  },
+  "meta": {
+   "phase": "forward",
+   "dom": "hydrology",
+   "site": "01646500",
+   "name": "波托马克河",
+   "date": "2026-11-17",
+   "threshold": 2270,
+   "cutoff": "2026-09-13T17:28:30+08:00"
+  }
+ },
+ {
+  "domain": "usgs",
+  "gid": 77,
+  "layer": "L3",
+  "engine": "usgs_nwis_daily_discharge_baserate_forward",
+  "slug": "corpus:long2-usgs-09380000-20261020",
+  "statement": "【forward】USGS 科罗拉多河 Lees Ferry（09380000） 2026-10-20 日流量 >= 8690 ft³/s（cutoff=2026-09-13T17:28:30+08:00，落库即前瞻，早于事件日 37 天；真值锚=USGS NWIS dv 00060。前瞻批次，真值未发生）",
+  "prob": 0.3008,
+  "baseRateNote": "前瞻·USGS 科罗拉多河 Lees Ferry：cutoff 前 399 个日流量中 >= 8690 占 30.1%（n=399，分位 q=0.7；USGS NWIS dv 实抓，pre-cutoff 窗）",
+  "resolve": {
+   "kind": "usgs_nwis_daily_discharge",
+   "url_template": "https://waterservices.usgs.gov/nwis/dv/?format=json&sites=09380000&parameterCd=00060&startDT={date}&endDT={date}",
+   "site": "09380000",
+   "date": "2026-10-20",
+   "threshold": 8690,
+   "cmp": ">=",
+   "field": "value.timeSeries[0].values[0].value[] 中 dateTime 前缀==date 的 .value（ft³/s）"
+  },
+  "meta": {
+   "phase": "forward",
+   "dom": "hydrology",
+   "site": "09380000",
+   "name": "科罗拉多河 Lees Ferry",
+   "date": "2026-10-20",
+   "threshold": 8690,
+   "cutoff": "2026-09-13T17:28:30+08:00"
+  }
+ },
+ {
+  "domain": "usgs",
+  "gid": 77,
+  "layer": "L3",
+  "engine": "usgs_nwis_daily_discharge_baserate_forward",
+  "slug": "corpus:long2-usgs-09380000-20261103",
+  "statement": "【forward】USGS 科罗拉多河 Lees Ferry（09380000） 2026-11-03 日流量 >= 8380 ft³/s（cutoff=2026-09-13T17:28:30+08:00，落库即前瞻，早于事件日 51 天；真值锚=USGS NWIS dv 00060。前瞻批次，真值未发生）",
+  "prob": 0.406,
+  "baseRateNote": "前瞻·USGS 科罗拉多河 Lees Ferry：cutoff 前 399 个日流量中 >= 8380 占 40.6%（n=399，分位 q=0.6；USGS NWIS dv 实抓，pre-cutoff 窗）",
+  "resolve": {
+   "kind": "usgs_nwis_daily_discharge",
+   "url_template": "https://waterservices.usgs.gov/nwis/dv/?format=json&sites=09380000&parameterCd=00060&startDT={date}&endDT={date}",
+   "site": "09380000",
+   "date": "2026-11-03",
+   "threshold": 8380,
+   "cmp": ">=",
+   "field": "value.timeSeries[0].values[0].value[] 中 dateTime 前缀==date 的 .value（ft³/s）"
+  },
+  "meta": {
+   "phase": "forward",
+   "dom": "hydrology",
+   "site": "09380000",
+   "name": "科罗拉多河 Lees Ferry",
+   "date": "2026-11-03",
+   "threshold": 8380,
+   "cutoff": "2026-09-13T17:28:30+08:00"
+  }
+ },
+ {
+  "domain": "usgs",
+  "gid": 77,
+  "layer": "L3",
+  "engine": "usgs_nwis_daily_discharge_baserate_forward",
+  "slug": "corpus:long2-usgs-09380000-20261117",
+  "statement": "【forward】USGS 科罗拉多河 Lees Ferry（09380000） 2026-11-17 日流量 >= 8380 ft³/s（cutoff=2026-09-13T17:28:30+08:00，落库即前瞻，早于事件日 65 天；真值锚=USGS NWIS dv 00060。前瞻批次，真值未发生）",
+  "prob": 0.406,
+  "baseRateNote": "前瞻·USGS 科罗拉多河 Lees Ferry：cutoff 前 399 个日流量中 >= 8380 占 40.6%（n=399，分位 q=0.6；USGS NWIS dv 实抓，pre-cutoff 窗）",
+  "resolve": {
+   "kind": "usgs_nwis_daily_discharge",
+   "url_template": "https://waterservices.usgs.gov/nwis/dv/?format=json&sites=09380000&parameterCd=00060&startDT={date}&endDT={date}",
+   "site": "09380000",
+   "date": "2026-11-17",
+   "threshold": 8380,
+   "cmp": ">=",
+   "field": "value.timeSeries[0].values[0].value[] 中 dateTime 前缀==date 的 .value（ft³/s）"
+  },
+  "meta": {
+   "phase": "forward",
+   "dom": "hydrology",
+   "site": "09380000",
+   "name": "科罗拉多河 Lees Ferry",
+   "date": "2026-11-17",
+   "threshold": 8380,
+   "cutoff": "2026-09-13T17:28:30+08:00"
+  }
+ },
+ {
+  "domain": "co2",
+  "gid": 78,
+  "layer": "L3",
+  "engine": "noaa_gml_mlo_co2_daily_baserate_forward",
+  "slug": "corpus:long2-co2-mlo-20261020",
+  "statement": "【forward】NOAA GML 冒纳罗亚站 2026-10-20 日 CO2 干空气摩尔分数 >= 429.96 ppm（cutoff=2026-09-13T17:28:30+08:00，落库即前瞻，早于事件日 37 天；真值锚=NOAA GML co2_daily_mlo.csv 第 5 列。前瞻批次，真值未发生）",
+  "prob": 0.3015,
+  "baseRateNote": "前瞻·MLO CO2：cutoff 前 272 个日均中 >= 429.96 占 30.1%（n=272，分位 q=0.7；NOAA GML 实抓，pre-cutoff 窗）",
+  "resolve": {
+   "kind": "noaa_gml_co2_daily",
+   "url": "https://gml.noaa.gov/webdata/ccgg/trends/co2/co2_daily_mlo.csv",
+   "date": "2026-10-20",
+   "threshold": 429.96,
+   "cmp": ">=",
+   "field": "CSV 中 year,month,day == date 的行第 5 列（ppm）"
+  },
+  "meta": {
+   "phase": "forward",
+   "dom": "atmos",
+   "station": "MLO",
+   "date": "2026-10-20",
+   "threshold": 429.96,
+   "cutoff": "2026-09-13T17:28:30+08:00"
+  }
+ },
+ {
+  "domain": "co2",
+  "gid": 78,
+  "layer": "L3",
+  "engine": "noaa_gml_mlo_co2_daily_baserate_forward",
+  "slug": "corpus:long2-co2-mlo-20261103",
+  "statement": "【forward】NOAA GML 冒纳罗亚站 2026-11-03 日 CO2 干空气摩尔分数 >= 429.23 ppm（cutoff=2026-09-13T17:28:30+08:00，落库即前瞻，早于事件日 51 天；真值锚=NOAA GML co2_daily_mlo.csv 第 5 列。前瞻批次，真值未发生）",
+  "prob": 0.4007,
+  "baseRateNote": "前瞻·MLO CO2：cutoff 前 272 个日均中 >= 429.23 占 40.1%（n=272，分位 q=0.6；NOAA GML 实抓，pre-cutoff 窗）",
+  "resolve": {
+   "kind": "noaa_gml_co2_daily",
+   "url": "https://gml.noaa.gov/webdata/ccgg/trends/co2/co2_daily_mlo.csv",
+   "date": "2026-11-03",
+   "threshold": 429.23,
+   "cmp": ">=",
+   "field": "CSV 中 year,month,day == date 的行第 5 列（ppm）"
+  },
+  "meta": {
+   "phase": "forward",
+   "dom": "atmos",
+   "station": "MLO",
+   "date": "2026-11-03",
+   "threshold": 429.23,
+   "cutoff": "2026-09-13T17:28:30+08:00"
+  }
+ },
+ {
+  "domain": "co2",
+  "gid": 78,
+  "layer": "L3",
+  "engine": "noaa_gml_mlo_co2_daily_baserate_forward",
+  "slug": "corpus:long2-co2-mlo-20261117",
+  "statement": "【forward】NOAA GML 冒纳罗亚站 2026-11-17 日 CO2 干空气摩尔分数 >= 429.23 ppm（cutoff=2026-09-13T17:28:30+08:00，落库即前瞻，早于事件日 65 天；真值锚=NOAA GML co2_daily_mlo.csv 第 5 列。前瞻批次，真值未发生）",
+  "prob": 0.4007,
+  "baseRateNote": "前瞻·MLO CO2：cutoff 前 272 个日均中 >= 429.23 占 40.1%（n=272，分位 q=0.6；NOAA GML 实抓，pre-cutoff 窗）",
+  "resolve": {
+   "kind": "noaa_gml_co2_daily",
+   "url": "https://gml.noaa.gov/webdata/ccgg/trends/co2/co2_daily_mlo.csv",
+   "date": "2026-11-17",
+   "threshold": 429.23,
+   "cmp": ">=",
+   "field": "CSV 中 year,month,day == date 的行第 5 列（ppm）"
+  },
+  "meta": {
+   "phase": "forward",
+   "dom": "atmos",
+   "station": "MLO",
+   "date": "2026-11-17",
+   "threshold": 429.23,
+   "cutoff": "2026-09-13T17:28:30+08:00"
+  }
+ },
+ {
+  "domain": "ghcn",
+  "gid": 75,
+  "layer": "L3",
+  "engine": "ghcn_daily_tmax_baserate_forward",
+  "slug": "corpus:long2-ghcn-USW00094728-20261020",
+  "statement": "【forward】NCEI GHCN 纽约中央公园（USW00094728） 2026-10-20 日最高气温 >= 75 °F（cutoff=2026-09-13T17:28:30+08:00，落库即前瞻，早于事件日 37 天；真值锚=NCEI daily-summaries TMAX。前瞻批次，真值未发生）",
+  "prob": 0.402,
+  "baseRateNote": "前瞻·NCEI GHCN 纽约中央公园：cutoff 前 398 天日最高气温中 >= 75 占 40.2%（n=398，分位 q=0.6；NCEI daily-summaries 实抓，pre-cutoff 窗）",
+  "resolve": {
+   "kind": "ghcn_daily_tmax",
+   "url_template": "https://www.ncei.noaa.gov/access/services/data/v1?dataset=daily-summaries&stations=USW00094728&startDate={date}&endDate={date}&dataTypes=TMAX&format=json&units=standard",
+   "station": "USW00094728",
+   "date": "2026-10-20",
+   "threshold": 75,
+   "cmp": ">=",
+   "field": "body[0].TMAX（°F，units=standard）"
+  },
+  "meta": {
+   "phase": "forward",
+   "dom": "weather",
+   "station": "USW00094728",
+   "name": "纽约中央公园",
+   "date": "2026-10-20",
+   "threshold": 75,
+   "cutoff": "2026-09-13T17:28:30+08:00"
+  }
+ },
+ {
+  "domain": "ghcn",
+  "gid": 75,
+  "layer": "L3",
+  "engine": "ghcn_daily_tmax_baserate_forward",
+  "slug": "corpus:long2-ghcn-USW00094728-20261103",
+  "statement": "【forward】NCEI GHCN 纽约中央公园（USW00094728） 2026-11-03 日最高气温 >= 79 °F（cutoff=2026-09-13T17:28:30+08:00，落库即前瞻，早于事件日 51 天；真值锚=NCEI daily-summaries TMAX。前瞻批次，真值未发生）",
+  "prob": 0.3291,
+  "baseRateNote": "前瞻·NCEI GHCN 纽约中央公园：cutoff 前 398 天日最高气温中 >= 79 占 32.9%（n=398，分位 q=0.7；NCEI daily-summaries 实抓，pre-cutoff 窗）",
+  "resolve": {
+   "kind": "ghcn_daily_tmax",
+   "url_template": "https://www.ncei.noaa.gov/access/services/data/v1?dataset=daily-summaries&stations=USW00094728&startDate={date}&endDate={date}&dataTypes=TMAX&format=json&units=standard",
+   "station": "USW00094728",
+   "date": "2026-11-03",
+   "threshold": 79,
+   "cmp": ">=",
+   "field": "body[0].TMAX（°F，units=standard）"
+  },
+  "meta": {
+   "phase": "forward",
+   "dom": "weather",
+   "station": "USW00094728",
+   "name": "纽约中央公园",
+   "date": "2026-11-03",
+   "threshold": 79,
+   "cutoff": "2026-09-13T17:28:30+08:00"
+  }
+ },
+ {
+  "domain": "ghcn",
+  "gid": 75,
+  "layer": "L3",
+  "engine": "ghcn_daily_tmax_baserate_forward",
+  "slug": "corpus:long2-ghcn-USW00094728-20261117",
+  "statement": "【forward】NCEI GHCN 纽约中央公园（USW00094728） 2026-11-17 日最高气温 >= 79 °F（cutoff=2026-09-13T17:28:30+08:00，落库即前瞻，早于事件日 65 天；真值锚=NCEI daily-summaries TMAX。前瞻批次，真值未发生）",
+  "prob": 0.3291,
+  "baseRateNote": "前瞻·NCEI GHCN 纽约中央公园：cutoff 前 398 天日最高气温中 >= 79 占 32.9%（n=398，分位 q=0.7；NCEI daily-summaries 实抓，pre-cutoff 窗）",
+  "resolve": {
+   "kind": "ghcn_daily_tmax",
+   "url_template": "https://www.ncei.noaa.gov/access/services/data/v1?dataset=daily-summaries&stations=USW00094728&startDate={date}&endDate={date}&dataTypes=TMAX&format=json&units=standard",
+   "station": "USW00094728",
+   "date": "2026-11-17",
+   "threshold": 79,
+   "cmp": ">=",
+   "field": "body[0].TMAX（°F，units=standard）"
+  },
+  "meta": {
+   "phase": "forward",
+   "dom": "weather",
+   "station": "USW00094728",
+   "name": "纽约中央公园",
+   "date": "2026-11-17",
+   "threshold": 79,
+   "cutoff": "2026-09-13T17:28:30+08:00"
+  }
+ }
+]
