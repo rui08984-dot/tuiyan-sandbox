@@ -1,0 +1,82 @@
+{
+ "generated_at": "2026-09-13T08:37:52.170Z",
+ "production_db": "p1a-terminal/data/p1a.db",
+ "pre_snapshot": "E:\\music player\\.scratch\\backup\\p1a-pre-phase2-20260913163707.db",
+ "note": "全部 INSERT 只发生在副本库；生产库仅做只读对账",
+ "red_before_migration": {
+  "ok": false,
+  "code": "SQLITE_CONSTRAINT_CHECK",
+  "message": "CHECK constraint failed: layer IS NULL OR layer IN ('L1','L2','L3','L4','L5','L6')",
+  "label": "迁移前：primary layer=unknown",
+  "layer": "unknown",
+  "secondary_layer": null
+ },
+ "green_after_migration": {
+  "ok": true,
+  "id": 1939,
+  "cleaned_up": true,
+  "label": "迁移后：primary layer=unknown",
+  "layer": "unknown",
+  "secondary_layer": null
+ },
+ "green_secondary_L4": {
+  "ok": true,
+  "id": 1939,
+  "cleaned_up": true,
+  "label": "迁移后：unknown + secondary=L4",
+  "layer": "unknown",
+  "secondary_layer": "L4"
+ },
+ "still_rejected_secondary_unknown": {
+  "ok": false,
+  "code": "SQLITE_CONSTRAINT_CHECK",
+  "message": "CHECK constraint failed: secondary_layer IS NULL OR secondary_layer IN ('L1','L2','L3','L4','L5','L6')",
+  "label": "迁移后：secondary=unknown 仍应被拒",
+  "layer": "L1",
+  "secondary_layer": "unknown"
+ },
+ "still_rejected_L7": {
+  "ok": false,
+  "code": "SQLITE_CONSTRAINT_CHECK",
+  "message": "CHECK constraint failed: layer IS NULL OR layer IN ('L1','L2','L3','L4','L5','L6','unknown')",
+  "label": "迁移后：非法层 L7 仍应被拒",
+  "layer": "L7",
+  "secondary_layer": null
+ },
+ "info_L4_primary": {
+  "ok": true,
+  "id": 1939,
+  "cleaned_up": true,
+  "label": "信息项：DB CHECK 允许 L4 作 primary（L4 禁作 primary 是接题层规则，非 DB 约束）",
+  "layer": "L4",
+  "secondary_layer": null
+ },
+ "truth_vault_reconcile": {
+  "predictions_total": 1923,
+  "predictions_resolved": 1238,
+  "vault_rows": 1923,
+  "vault_missing": 0,
+  "vault_orphan": 0,
+  "truth_column_diff": 0,
+  "ok": true
+ },
+ "roles": [
+  {
+   "role": "backtest",
+   "enforcement": "contract"
+  },
+  {
+   "role": "participant",
+   "enforcement": "contract"
+  },
+  {
+   "role": "resolver",
+   "enforcement": "contract"
+  },
+  {
+   "role": "scorer",
+   "enforcement": "contract"
+  }
+ ],
+ "pass": true
+}

@@ -63,6 +63,17 @@ test('CHECK 兜底：绕过 store 直插非法 layer 被 SQLite 拒绝', () => {
   assert.throws(() => conn.prepare("INSERT INTO predictions (game_id, source_type, statement, layer) VALUES (1, '预测卡', '直插', 'L7')").run());
 });
 
+test('D-8.1（合并迁移 phase2）：layer=unknown 可写入；secondary=unknown 与 L7 仍被拒', () => {
+  const conn = db.getConnection();
+  const row = insertPrediction({ gameId: 1, sourceType: '预测卡', statement: 'D-8.1 unknown 入账', layer: 'unknown' });
+  assert.equal(row.layer, 'unknown', 'unknown 现可入账（已放开 layer CHECK）');
+  assert.equal(conn.prepare('SELECT layer FROM predictions WHERE id=?').get(row.id).layer, 'unknown', '库内读回一致');
+  assert.throws(() => insertPrediction({ gameId: 1, sourceType: '预测卡', statement: 'sec', secondaryLayer: 'unknown' }),
+    /secondaryLayer 枚举错/, 'secondary 仍限 L1-L6');
+  assert.throws(() => conn.prepare("INSERT INTO predictions (game_id, source_type, statement, layer) VALUES (1, '预测卡', 'x', 'L7')").run(),
+    /CHECK constraint failed/, 'L7 仍被 CHECK 拒');
+});
+
 test('updateAuditFields：补录 + 显式 null 清空 + 空对象幂等 + 不存在 id', () => {
   const row = insertPrediction({ gameId: 1, sourceType: '预测卡', statement: '补录目标行', prob: 0.5 });
   const u1 = updateAuditFields(row.id, { layer: 'L2', engine: 'stat_baseline', checklistHash: 'v1', gate: 'descriptive' });

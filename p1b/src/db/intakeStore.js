@@ -20,9 +20,13 @@
  *     关联（intake_reject_id 与未来的域容器规则）——本轮**不自动落 predictions**。
  *   predictions_r4（D-8.1）：只读归一视图，把 predictions 与 intake_questions 按统一列形状
  *     UNION ALL（origin 列区分来源）；供报表/UI 只读呈现，**不改账本、不写 predictions**。
- *   F13 现状 = **半闭环**：接题层（unknown 出口）已闭环；入账层（放开 predictions.layer CHECK
- *     的表重建）待与 F4 真值分库三步合并为同一次计划内账本迁移（design §8 D-8.1）。
- *     **不得宣称 F13 已全闭**；G2 判定仍只读 predictions 原表。
+ *   F13 现状（2026-09-13 合并迁移后）= 接题层 + **入账层均已闭环**：phase2 已放开
+ *     predictions.layer CHECK（允许 'unknown'），unknown 现可入账。物理分库（把真值列从
+ *     predictions 剥离、改造 24 脚本 + 4 处 src 读 outcome）**仍未做**——它是 D2 立项的验收前置
+ *     （design §8 D-8.1 / D2 §3.1-3.2 G-D2-0 第④步），收据里必须照写。G2 判定仍只读 predictions 原表。
+ *   process_roles / truth_vault / predictions_public（2026-09-13 合并迁移新增，F4 第一阶段）：
+ *     角色表为**契约级**声明（SQLite 单库无内核级角色）；truth_vault 承载真值副本；
+ *     predictions_public 为回测/无角色进程唯一题面入口（不含 outcome/resolved_at/resolve_note）。
  */
 const { db } = require('../deps');
 
@@ -86,6 +90,84 @@ const SCHEMA_PREDICTIONS_R4 = [
   'FROM intake_questions q;',
 ].join('\n');
 
+// ── 合并迁移（2026-09-13）· design §8 D-8.1 ＋ D2 §3.1 F4 第一阶段 ──────────────
+// 角色表：本项目 SQLite 单库单进程、无 DB 级角色 ⇒ 「角色」只能以**进程/连接契约**表达。
+// enforcement 一律 'contract'（不是内核级！唯一含内核级强制的面是独立 public surface 文件，
+// 见 scripts/gd2-0-accept.cjs。此处如实标 contract，禁把它读成内核隔离）。
+const SCHEMA_PROCESS_ROLES = [
+  'CREATE TABLE IF NOT EXISTS process_roles (',
+  '  role TEXT PRIMARY KEY,',
+  "  may_read TEXT NOT NULL DEFAULT '[]',",
+  "  may_write TEXT NOT NULL DEFAULT '[]',",
+  "  forbidden TEXT NOT NULL DEFAULT '[]',",
+  "  enforcement TEXT NOT NULL CHECK(enforcement IN ('contract','kernel')),",
+  '  note TEXT,',
+  "  created_at TEXT DEFAULT (datetime('now'))",
+  ');',
+].join('\n');
+
+const PROCESS_ROLE_SEEDS = [
+  { role: 'resolver', enforcement: 'contract',
+    may_read: ['predictions', 'truth_vault', 'intake_questions', 'evidence_json[0].resolve'],
+    may_write: ['truth_vault', 'predictions.outcome/resolved_at/resolve_note'],
+    forbidden: [],
+    note: '结算/daemon：唯一许可读写真值的角色（D2 §3.1 三分表）' },
+  { role: 'scorer', enforcement: 'contract',
+    may_read: ['predictions', 'truth_vault'], may_write: [],
+    forbidden: ['predictions.outcome 回写'],
+    note: '评分进程：可读真值算分，不得回写账本' },
+  { role: 'participant', enforcement: 'contract',
+    may_read: ['predictions_public'], may_write: [],
+    forbidden: ['truth_vault', 'predictions.outcome', 'predictions.resolved_at', 'predictions.resolve_note', 'predictions.evidence_json'],
+    note: '题面读者（含回测）：只许开 predictions_public' },
+  { role: 'backtest', enforcement: 'contract',
+    may_read: ['predictions_public'], may_write: [],
+    forbidden: ['truth_vault', 'predictions.outcome', 'predictions.resolved_at', 'predictions.resolve_note', 'predictions.evidence_json'],
+    note: 'G-D2-0 第③步验收主体：只许 ATTACH 只读题面视图运行' },
+];
+
+// 真值表（additive）：承载 outcome/resolved_at/resolve_note 的真值副本（prediction_id 主键）。
+// 列形状按本轮任务书定死；不加索引、不改 predictions 既有列。
+const SCHEMA_TRUTH_VAULT = [
+  'CREATE TABLE IF NOT EXISTS truth_vault (',
+  '  prediction_id INTEGER PRIMARY KEY,',
+  '  outcome TEXT,',
+  '  resolved_at TEXT,',
+  '  resolve_note TEXT,',
+  "  created_at TEXT DEFAULT (datetime('now')),",
+  '  source TEXT',
+  ');',
+].join('\n');
+
+// 只读题面视图（回测/无角色进程唯一入口）：题面 + 判据 + cutoff + 分层 + engine + gate。
+// 硬约束：**不含** outcome/resolved_at/resolve_note；也**不透传 evidence_json 原样**——
+// 实测 152 行 evidence_json[0] 内嵌 truth_preview（R2 §2.2 硬伤 1），故只 json_extract 出
+// 判据 resolve 与 cutoff 两个安全子字段（truth_preview 永不进入题面面）。
+const PREDICTIONS_PUBLIC_SQL = [
+  'CREATE VIEW IF NOT EXISTS predictions_public AS',
+  'SELECT',
+  '  p.id AS prediction_id,',
+  '  p.game_id AS game_id,',
+  '  p.day AS day,',
+  '  p.source_type AS source_type,',
+  '  p.statement AS statement,',
+  '  p.assigned_prob AS assigned_prob,',
+  '  p.layer AS layer,',
+  '  p.secondary_layer AS secondary_layer,',
+  '  p.engine AS engine,',
+  '  p.gate AS gate,',
+  '  p.checklist_hash AS checklist_hash,',
+  '  p.tautology AS tautology,',
+  '  p.g2_regime AS g2_regime,',
+  '  p.matures_at AS matures_at,',
+  '  p.public_exposure AS public_exposure,',
+  '  p.created_at AS created_at,',
+  "  COALESCE(json_extract(p.evidence_json,'$[0].cutoff'), json_extract(p.evidence_json,'$[0].meta.cutoff')) AS cutoff_at,",
+  "  json_extract(p.evidence_json,'$[0].resolve') AS resolve_spec,",
+  "  'predictions' AS origin",
+  'FROM predictions p;',
+].join('\n');
+
 /** p1b 启动/路由注册时调用一次：建接题层两张 additive 表 + 只读归一视图（幂等；零碰 p1a 既有表）。 */
 function ensureIntakeTables(conn) {
   if (!conn) throw new Error('ensureIntakeTables: 需要 better-sqlite3 连接');
@@ -93,6 +175,21 @@ function ensureIntakeTables(conn) {
   conn.exec(SCHEMA_INTAKE_QUESTIONS);
   require('./predictionsStore').ensurePredictionsTable(conn); // 视图引用 predictions，先确保存在（幂等 additive）
   conn.exec(SCHEMA_PREDICTIONS_R4);
+  ensureF4Surfaces(conn);
+}
+
+/** F4 第一阶段面（合并迁移后新增，幂等 additive）：
+ *  角色表（契约级声明）＋ 真值表 truth_vault ＋ 只读题面视图 predictions_public。
+ *  真值行由 scripts/merged-migration.cjs phase1 一次性填写、此后由结算侧双写（D2 立项后接管）。 */
+function ensureF4Surfaces(conn) {
+  if (!conn) throw new Error('ensureF4Surfaces: 需要 better-sqlite3 连接');
+  conn.exec(SCHEMA_PROCESS_ROLES);
+  const ins = conn.prepare('INSERT OR IGNORE INTO process_roles (role,may_read,may_write,forbidden,enforcement,note) VALUES (?,?,?,?,?,?)');
+  for (const r of PROCESS_ROLE_SEEDS) {
+    ins.run(r.role, JSON.stringify(r.may_read), JSON.stringify(r.may_write), JSON.stringify(r.forbidden), r.enforcement, r.note);
+  }
+  conn.exec(SCHEMA_TRUTH_VAULT);
+  conn.exec(PREDICTIONS_PUBLIC_SQL);
 }
 
 /** 兼容上棒调用名：语义等同 ensureIntakeTables（旧调用方无需改动）。 */
@@ -230,7 +327,8 @@ function listIntakeQuestions(opts) {
 }
 
 module.exports = {
-  ensureIntakeTables, ensureIntakeTable, insertReject, getReject, listRejects, rejectStats, REASONS,
+  ensureIntakeTables, ensureIntakeTable, ensureF4Surfaces, insertReject, getReject, listRejects, rejectStats, REASONS,
   INTAKE_LAYERS, OUTCOMES, GATES, insertIntakeQuestion, getIntakeQuestion, listIntakeQuestions,
   SCHEMA_INTAKE_QUESTIONS, SCHEMA_PREDICTIONS_R4,
+  SCHEMA_PROCESS_ROLES, PROCESS_ROLE_SEEDS, SCHEMA_TRUTH_VAULT, PREDICTIONS_PUBLIC_SQL,
 };

@@ -35,8 +35,13 @@ const { db } = require('../deps');
 const SOURCE_TYPES = ['验证点', '预测卡'];
 const OUTCOMES = ['true', 'false', 'ambiguous'];
 
-const SCHEMA_PREDICTIONS = [
-  'CREATE TABLE IF NOT EXISTS predictions (',
+/** predictions 表 DDL（按表名生成：合并迁移的标准 12 步重建需要同一定义换名 new_predictions）。
+ *  layer 允许 L1-L6 **+ 'unknown'**（D-8.1 入账层闭环，2026-09-13 合并迁移 phase2）；
+ *  secondary_layer 仍限 L1-L6——'unknown' 作 secondary 无意义，用 NULL 表达（与 intake_questions 同口径）。 */
+function predictionsTableDdl(tableName) {
+  const t = tableName || 'predictions';
+  return [
+  'CREATE TABLE IF NOT EXISTS ' + t + ' (',
   '  id INTEGER PRIMARY KEY,',
   '  game_id INTEGER NOT NULL REFERENCES games(id),',
   '  day INTEGER,',
@@ -48,7 +53,7 @@ const SCHEMA_PREDICTIONS = [
   '  resolved_at TEXT,',
   "  outcome TEXT CHECK(outcome IS NULL OR outcome IN ('true','false','ambiguous')),",
   '  resolve_note TEXT,',
-  "  layer TEXT CHECK(layer IS NULL OR layer IN ('L1','L2','L3','L4','L5','L6')),",
+  "  layer TEXT CHECK(layer IS NULL OR layer IN ('L1','L2','L3','L4','L5','L6','unknown')),",
   "  secondary_layer TEXT CHECK(secondary_layer IS NULL OR secondary_layer IN ('L1','L2','L3','L4','L5','L6')),",
   '  engine TEXT,',
   '  baseline_brier REAL CHECK(baseline_brier IS NULL OR (baseline_brier >= 0 AND baseline_brier <= 1)),',
@@ -60,6 +65,11 @@ const SCHEMA_PREDICTIONS = [
   '  g2_regime TEXT,',
   '  matures_at TEXT',
   ');',
+  ].join('\n');
+}
+const PREDICTIONS_TABLE_DDL = predictionsTableDdl('predictions');
+const SCHEMA_PREDICTIONS = [
+  PREDICTIONS_TABLE_DDL,
   'CREATE INDEX IF NOT EXISTS idx_predictions_game ON predictions(game_id, id DESC);',
   'CREATE INDEX IF NOT EXISTS idx_predictions_open ON predictions(outcome) WHERE outcome IS NULL;',
   'CREATE UNIQUE INDEX IF NOT EXISTS idx_predictions_cp_dedupe',
@@ -68,7 +78,7 @@ const SCHEMA_PREDICTIONS = [
 
 // 审计器七列的 additive 迁移定义（列名 = 定义串第一个 token）
 const AUDIT_COLUMNS = [
-  "layer TEXT CHECK(layer IS NULL OR layer IN ('L1','L2','L3','L4','L5','L6'))",
+  "layer TEXT CHECK(layer IS NULL OR layer IN ('L1','L2','L3','L4','L5','L6','unknown'))",
   "secondary_layer TEXT CHECK(secondary_layer IS NULL OR secondary_layer IN ('L1','L2','L3','L4','L5','L6'))",
   'engine TEXT',
   'baseline_brier REAL CHECK(baseline_brier IS NULL OR (baseline_brier >= 0 AND baseline_brier <= 1)),',
@@ -137,6 +147,9 @@ function assertProb(prob) {
 }
 
 const LAYERS = ['L1', 'L2', 'L3', 'L4', 'L5', 'L6'];
+// D-8.1（2026-09-13 合并迁移）：primary layer 多一个 'unknown' 出口；secondary 仍限 LAYERS
+// （'unknown' 作 secondary 无信息量 → 用 NULL 表达，与 intake_questions 的 CHECK 同口径）。
+const PRIMARY_LAYERS = LAYERS.concat(['unknown']);
 const GATES = ['descriptive', 'scored', 'blocked'];
 
 function assertAuditFields(f) {
@@ -155,7 +168,7 @@ function assertAuditFields(f) {
     if (!ok(v)) throw new Error(msg + '，收到: ' + JSON.stringify(v));
     o[key] = v;
   };
-  put('layer', src.layer, (v) => LAYERS.indexOf(v) !== -1, 'layer 必须是 ' + LAYERS.join('|') + ' 或 null');
+  put('layer', src.layer, (v) => PRIMARY_LAYERS.indexOf(v) !== -1, 'layer 必须是 ' + PRIMARY_LAYERS.join('|') + ' 或 null');
   put('secondary_layer', src.secondaryLayer, (v) => LAYERS.indexOf(v) !== -1, 'secondaryLayer 枚举错');
   put('engine', src.engine, (v) => typeof v === 'string' && v.trim() !== '', 'engine 必须是非空字符串或 null');
   put('baseline_brier', src.baselineBrier, (v) => typeof v === 'number' && Number.isFinite(v) && v >= 0 && v <= 1, 'baselineBrier 必须是 [0,1] 数值或 null');
@@ -411,6 +424,6 @@ function updateTautology(id, flag) {
 module.exports = {
   ensurePredictionsTable, insertPrediction, getPrediction, listByGame, listUnresolved,
   resolvePrediction, l0Gate, convertCheckpointsToPredictions, calibration, SOURCE_TYPES, OUTCOMES,
-  updateAuditFields, LAYERS, GATES,
+  updateAuditFields, LAYERS, PRIMARY_LAYERS, GATES, predictionsTableDdl, PREDICTIONS_TABLE_DDL,
   updateTautology,
 };
