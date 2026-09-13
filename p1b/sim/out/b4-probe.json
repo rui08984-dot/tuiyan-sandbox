@@ -1,0 +1,154 @@
+[
+ {
+  "src": "USGS-NWIS-dv",
+  "url": "https://waterservices.usgs.gov/nwis/dv/?format=json&sites=01646500&parameterCd=00060&startDT=2026-08-01&endDT=2026-09-09",
+  "http": 200,
+  "note": "series=1 pts=40 last={\"value\":\"1960\",\"qualifiers\":[\"P\"],\"dateTime\":\"2026-09-09T00:00:00.000\"}",
+  "bytes": 5483
+ },
+ {
+  "src": "OM-flood",
+  "url": "https://flood-api.open-meteo.com/v1/flood?latitude=52.52&longitude=13.41&daily=river_discharge&start_date=2026-08-01&end_date=2026-09-09",
+  "http": 200,
+  "note": "n=40 v0=0.52",
+  "bytes": 985
+ },
+ {
+  "src": "SWPC-solar-cycle",
+  "url": "https://services.swpc.noaa.gov/products/solar-cycle/observed-solar-cycle-indices.json",
+  "http": 404,
+  "note": "PARSE-FAIL len=196 head=\"<!DOCTYPE HTML PUBLIC \\\"-//IETF//DTD HTML 2.0//EN\\\">\\n<html><head>\\n<title>404 Not Found</title>\\n</head><body>\\n<h1>Not Found\"",
+  "bytes": 196
+ },
+ {
+  "src": "SWPC-kp1m",
+  "url": "https://services.swpc.noaa.gov/json/planetary_k_index_1m.json",
+  "http": 200,
+  "note": "n=358 last={\"time_tag\":\"2026-09-13T06:50:00\",\"kp_index\":1,\"estimated_kp\":0.67,\"kp\":\"1M\"}",
+  "bytes": 27925
+ },
+ {
+  "src": "JPL-CAD",
+  "url": "https://ssd-api.jpl.nasa.gov/cad.api?dist-max=0.05&date-min=2026-08-01&date-max=2026-09-30",
+  "http": 200,
+  "note": "count=162 fields=[\"des\",\"orbit_id\",\"jd\",\"cd\",\"dist\",\"dist_min\",\"dist_max\",\"v_rel\",\"v_inf\",\"t_sigma_f\",\"h\"] r0=[\"2026 PJ\",\"10\",\"2461254.315108492\",\"2026-Aug-01 19:34\",\"0.0144533640967487\",\"0.0144385032913145\",\"0.0144682243429327\",\"4.49032468621936\",\"4.449080304",
+  "bytes": 28813
+ },
+ {
+  "src": "NOAA-CO2-daily",
+  "url": "https://gml.noaa.gov/webdata/ccgg/trends/co2/co2_daily_mlo.csv",
+  "http": 200,
+  "note": "\"# --------------------------------------------------------------------\\n# USE OF NOAA GML DATA\\n#\\n# These data are made freely available to the public and the scientific\\n# community in the belief that t\"",
+  "bytes": 432121
+ },
+ {
+  "src": "ERDDAP-info",
+  "url": "https://coastwatch.pfeg.noaa.gov/erddap/info/ncdcOisst21Agg/index.json",
+  "http": 200,
+  "note": "rows=122",
+  "bytes": 13086
+ },
+ {
+  "src": "DBnomics-search",
+  "url": "https://api.db.nomics.world/v22/search?q=population%20on%201%20January&limit=3",
+  "http": 0,
+  "note": "FETCH-FAIL This operation was aborted"
+ },
+ {
+  "src": "EnergyCharts-FR",
+  "url": "https://api.energy-charts.info/public_power?country=fr&start=2026-09-01&end=2026-09-08",
+  "http": 200,
+  "note": "types=19 pts=768 type0={\"name\":\"Hydro pumped storage consumption\",\"data\":[-0.5,-0.7,-11.7,-12.6,-160.6,-246.7,-246.5,-246.4,-246.1,-247,-353.9,-419.9,-419.8,-419.8,-420,-426.1,-423.3,-422.7,-550.6,-585.5,-417.1,-186,-11.7,-1.8,-0.4,-0.5,-0.4,-0.6,-0.6,-0.5,-0.",
+  "bytes": 102205
+ },
+ {
+  "src": "EnergyCharts-NL",
+  "url": "https://api.energy-charts.info/public_power?country=nl&start=2026-09-01&end=2026-09-08",
+  "http": 200,
+  "note": "types=14 pts=768",
+  "bytes": 74296
+ },
+ {
+  "src": "Delphi-covidcast",
+  "url": "https://api.delphi.cmu.edu/epidata/covidcast/?data_source=jhu-csse&signals=confirmed_7dav_incidence_prop&time_values=20260901&geo_type=state&geo_values=ca",
+  "http": 200,
+  "note": "result=-1 msg=missing parameter: time or (time_type and time_values)",
+  "bytes": 98
+ },
+ {
+  "src": "WHO-GHO",
+  "url": "https://ghoapi.azureedge.net/api/Indicator?$top=2",
+  "http": 200,
+  "note": "n=2 r0={\"IndicatorCode\":\"ABORTION_ADMISSIONS\",\"IndicatorName\":\"Abortion admissions per 1000 women of reproductive age\",\"Language\":\"EN\"}",
+  "bytes": 321
+ },
+ {
+  "src": "NHL-score",
+  "url": "https://api-web.nhle.com/v1/score/2026-10-10",
+  "http": 200,
+  "note": "games=14",
+  "bytes": 40011
+ },
+ {
+  "src": "Crossref-count",
+  "url": "https://api.crossref.org/works?rows=0&filter=from-created-date:2026-09-01,until-created-date:2026-09-07&mailto=corpus@example.org",
+  "http": 200,
+  "note": "total=302846",
+  "bytes": 191
+ },
+ {
+  "src": "OpenAlex-count",
+  "url": "https://api.openalex.org/works?filter=from_publication_date:2026-09-01,to_publication_date:2026-09-07&per-page=1",
+  "http": 200,
+  "note": "count=401220",
+  "bytes": 9708
+ },
+ {
+  "src": "Eurostat-direct",
+  "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/demo_pjan?geo=DE&time=2024&format=JSON",
+  "http": 200,
+  "note": "vals={\"0\":83456045,\"1\":41161931,\"2\":42294114,\"3\":689834,\"4\":353628,\"5\":336206,\"6\":739396,\"7\":379274,\"8\":360122,\"9\":793110,\"10\":406562,\"11\":386548,\"12\":780001,\"13\":40 size=[1,1,103,3,1,1]",
+  "bytes": 9170
+ },
+ {
+  "src": "ONS-UK",
+  "url": "https://api.beta.ons.gov.uk/v1/datasets?limit=2",
+  "http": 200,
+  "note": "n=2 r0={\"contacts\":[{\"email\":\"qualityoflife@ons.gov.uk\",\"name\":\"Will Shufflebottom, Owain Birrell, Pavan Bains and Geeta Kerai\",\"telephone\":\"+44 30",
+  "bytes": 2966
+ },
+ {
+  "src": "BoxOfficeMojo",
+  "url": "https://www.boxofficemojo.com/weekend/2026W36/",
+  "http": 200,
+  "note": "\"<!doctype html><html class=\\\"a-no-js\\\" data-19ax5a9jf=\\\"dingo\\\"><head><script>var aPageStart = (new Date()).getTime();</script><meta charset=\\\"utf-8\\\"/>\\n<script type='text/javascript'>var ue_t0=ue_t0||+new \"",
+  "bytes": 262986
+ },
+ {
+  "src": "FAA-ASWS",
+  "url": "https://soa.smext.faa.gov/asws/api/airport/status/ORD",
+  "http": 0,
+  "note": "FETCH-FAIL fetch failed"
+ },
+ {
+  "src": "Binance-DOGE",
+  "url": "https://data-api.binance.vision/api/v3/klines?symbol=DOGEUSDT&interval=1d&limit=465",
+  "http": 200,
+  "note": "n=465 last=[1789257600000,\"0.08482000\",\"0.08521000\",\"0.08432000\",\"0.08438000\"]",
+  "bytes": 82089
+ },
+ {
+  "src": "Kraken-ADA",
+  "url": "https://api.kraken.com/0/public/OHLC?pair=ADAUSD&interval=1440",
+  "http": 200,
+  "note": "err=[] keys=[\"ADAUSD\",\"last\"]",
+  "bytes": 67120
+ },
+ {
+  "src": "NOAA-COOPS-stations",
+  "url": "https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations.json?type=tidepredictions",
+  "http": 200,
+  "note": "n=3499",
+  "bytes": 2040952
+ }
+]

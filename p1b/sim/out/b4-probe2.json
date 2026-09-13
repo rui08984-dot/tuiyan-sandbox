@@ -1,0 +1,100 @@
+[
+ {
+  "src": "NWIS-00065",
+  "url": "https://waterservices.usgs.gov/nwis/dv/?format=json&sites=01646500&parameterCd=00065&startDT=2026-08-01&endDT=2026-09-09",
+  "http": 200,
+  "note": "PARSE-FAIL len=1135 head=\"{\\\"name\\\":\\\"ns1:timeSeriesResponseType\\\",\\\"declaredType\\\":\\\"org.cuahsi.waterml.TimeSeriesResponseType\\\",\\\"scope\\\":\\\"javax.xml.bind.JAXBElement$GlobalScope\\\",\\\"valu\"",
+  "bytes": 1135
+ },
+ {
+  "src": "SWPC-ssn-json",
+  "url": "https://services.swpc.noaa.gov/json/solar-cycle/observed-solar-cycle-indices.json",
+  "http": 200,
+  "note": "rows=3332 last={\"time-tag\":\"2026-08\",\"ssn\":76,\"smoothed_ssn\":-1,\"observed_swpc_ssn\":81.32,\"smoothed_swpc_ssn\":-1,\"f10.7\":116.22,\"smoothed_f10.7\":-1}",
+  "bytes": 512287
+ },
+ {
+  "src": "SWPC-kp-prod",
+  "url": "https://services.swpc.noaa.gov/products/noaa-planetary-k-index.json",
+  "http": 200,
+  "note": "n=58 hdr={\"time_tag\":\"2026-09-06T00:00:00\",\"Kp\":1.33,\"a_running\":5,\"station_count\":8} last={\"time_tag\":\"2026-09-13T03:00:00\",\"Kp\":3,\"a_running\":15,\"station_count\":8}",
+  "bytes": 4494
+ },
+ {
+  "src": "CO2-csv",
+  "url": "https://gml.noaa.gov/webdata/ccgg/trends/co2/co2_daily_mlo.csv",
+  "http": 200,
+  "note": "\"# --------------------------------------------------------------------\\n# USE OF NOAA GML DATA\\n#\\n# These data are made freely available to the public and the scientific\\n# community in the belief that t\"",
+  "bytes": 432121
+ },
+ {
+  "src": "ERDDAP-oisst",
+  "url": "https://coastwatch.pfeg.noaa.gov/erddap/griddap/ncdcOisst21Agg.json?sst%5B(last)%5D%5B(0.0)%5D%5B(0)%5D",
+  "http": 400,
+  "note": "PARSE-FAIL len=164 head=\"Error {\\n    code=400;\\n    message=\\\"Bad Request: Query error: For variable=sst axis#3=longitude: \\\\\\\"[\\\\\\\" was expected at or after position=23, not [end o\"",
+  "bytes": 164
+ },
+ {
+  "src": "NHL-score-fields",
+  "url": "https://api-web.nhle.com/v1/score/2026-10-10",
+  "http": 200,
+  "note": "g0={\"st\":\"FUT\",\"d\":\"2026-10-10\",\"id\":2026020070}",
+  "bytes": 40011
+ },
+ {
+  "src": "Delphi-covidcast2",
+  "url": "https://api.delphi.cmu.edu/epidata/covidcast/?data_source=jhu-csse&signals=confirmed_7dav_incidence_prop&time_type=day&time_values=20260901&geo_type=state&geo_values=ca",
+  "http": 200,
+  "note": "result=-2 r0=undefined",
+  "bytes": 56
+ },
+ {
+  "src": "GHO-data",
+  "url": "https://ghoapi.azureedge.net/api/MALARIA_EST_CASES?$top=2",
+  "http": 200,
+  "note": "n=2 r0={\"Id\":2202,\"IndicatorCode\":\"MALARIA_EST_CASES\",\"SpatialDimType\":\"COUNTRY\",\"SpatialDim\":\"GNQ\",\"TimeDimType\":\"YEAR\",\"ParentLocationCode\":\"AFR\",\"ParentLocation\":\"Africa\",\"Dim1Type\":null,\"TimeDim\":2020,\"D",
+  "bytes": 1310
+ },
+ {
+  "src": "Eurostat-JSONSTAT",
+  "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/demo_pjan?geo=DE&time=2024&format=JSON",
+  "http": 200,
+  "note": "id=[\"freq\",\"unit\",\"age\",\"sex\",\"geo\",\"time\"] size=[1,1,103,3,1,1] dims=[\"freq\",\"unit\",\"age\",\"sex\",\"geo\",\"time\"]",
+  "bytes": 9170
+ },
+ {
+  "src": "BOM-weekend",
+  "url": "https://www.boxofficemojo.com/weekend/2026W36/",
+  "http": 200,
+  "note": "\"<!doctype html><html class=\\\"a-no-js\\\" data-19ax5a9jf=\\\"dingo\\\"><head><script>var aPageStart = (new Date()).getTime();</script><meta charset=\\\"utf-8\\\"/>\\n<script type='text/javascript'>var ue_t0=ue_t0||+new \"",
+  "bytes": 265080
+ },
+ {
+  "src": "OM-flood-future",
+  "url": "https://flood-api.open-meteo.com/v1/flood?latitude=52.52&longitude=13.41&daily=river_discharge&forecast_days=10",
+  "http": 200,
+  "note": "n=10 head=[0.48,0.5,0.51,0.5]",
+  "bytes": 445
+ },
+ {
+  "src": "OM-aq-multi",
+  "url": "https://air-quality-api.open-meteo.com/v1/air-quality?latitude=51.51&longitude=-0.13&hourly=pm10,pm2_5,nitrogen_dioxide,sulphur_dioxide,carbon_monoxide,dust,uv_index&timezone=GMT&start_date=2026-09-01&end_date=2026-09-08",
+  "http": 200,
+  "note": "keys=[\"time\",\"pm10\",\"pm2_5\",\"nitrogen_dioxide\",\"sulphur_dioxide\",\"carbon_monoxide\",\"dust\",\"uv_index\"] n=192",
+  "bytes": 10263
+ },
+ {
+  "src": "EnergyCharts-list",
+  "url": "https://api.energy-charts.info/public_power?country=es&start=2026-09-01&end=2026-09-08",
+  "http": 200,
+  "note": "types=[\"Hydro pumped storage consumption\",\"Battery Consumption\",\"Cross border electricity trading\",\"Nuclear\",\"Hydro Run-of-River\",\"Biomass\",\"Fossil hard coal\",\"Fossil oil\",\"Fossil gas\",\"Hydro water reservoir\",\"Hydro pumped storage\",\"Battery\",\"Others\",\"Other renewables\",\"Waste\",\"Wind onshore\",\"Solar\",\"Load\",\"Residual load\",\"Renewable share of load\",\"Renewable share of generation\"]",
+  "bytes": 107416
+ },
+ {
+  "src": "Delphi-fluview-alt",
+  "url": "https://api.delphi.cmu.edu/epidata/fluview/?regions=ca,ny,tx,fl&epiweeks=202620,202621",
+  "http": 200,
+  "note": "result=1 n=6 r0={\"release_date\":\"2026-09-11\",\"region\":\"ca\",\"issue\":202635,\"epiweek\":202620,\"lag\":15,\"num_ili\":7300,\"num_patients\":269364,\"num_providers\":193,\"num_age_0\":null,\"num_age_1\":null,\"num_age_2\":null,\"num_age_3\":null,\"num_age_4\":null,\"num_age_5\":null,\"wili\":2.71009,\"ili\":2.71009}",
+  "bytes": 1683
+ }
+]

@@ -1,0 +1,89 @@
+[
+ {
+  "kind": "usgs_nwis_daily_discharge",
+  "date": "2026-07-20",
+  "got": 2900,
+  "threshold": 3690,
+  "cmp": ">=",
+  "outcome": "false",
+  "preview": "false",
+  "agree": "MATCH",
+  "field": "value.timeSeries[0].values[0].value[] 中 dateTime 前缀==date 的 .value（ft³/s）"
+ },
+ {
+  "kind": "noaa_gml_co2_daily",
+  "date": "2026-07-05",
+  "got": 430.15,
+  "threshold": 428.72,
+  "cmp": ">=",
+  "outcome": "true",
+  "preview": "true",
+  "agree": "MATCH",
+  "field": "CSV 中 year,month,day == date 的行第 5 列（ppm）"
+ },
+ {
+  "kind": "openmeteo_marine_sst_daily",
+  "date": "2026-08-09",
+  "got": 20.195833333333336,
+  "threshold": 14.28,
+  "cmp": ">=",
+  "outcome": "true",
+  "preview": "true",
+  "agree": "MATCH",
+  "field": "hourly.time[] 前缀==date 的 hourly.sea_surface_temperature[] 算术均值"
+ },
+ {
+  "kind": "jpl_cad_monthly_count",
+  "date": "2026-06",
+  "got": 96,
+  "threshold": 97,
+  "cmp": ">=",
+  "outcome": "false",
+  "preview": "false",
+  "agree": "MATCH",
+  "field": "body.data[][3]（cd，如 2026-Aug-01 19:34）月份解析后 == month 的行数"
+ },
+ {
+  "kind": "swpc_solar_cycle_monthly",
+  "date": "2025-07",
+  "got": 125.9,
+  "threshold": 25,
+  "cmp": ">=",
+  "outcome": "true",
+  "preview": "true",
+  "agree": "MATCH",
+  "field": "rows[] 中 'time-tag'==month 的 .ssn"
+ },
+ {
+  "kind": "eurostat_demo_pjan_annual",
+  "date": "2021",
+  "got": 83155031,
+  "threshold": 82314906,
+  "cmp": ">=",
+  "outcome": "true",
+  "preview": "true",
+  "agree": "MATCH",
+  "field": "JSON-stat value（age=TOTAL,sex=T）中该年 1 月 1 日总人口"
+ },
+ {
+  "kind": "bom_weekend_top10_gross",
+  "date": "2026W31",
+  "got": 434736853,
+  "threshold": 98801587,
+  "cmp": ">=",
+  "outcome": "true",
+  "preview": "true",
+  "agree": "MATCH",
+  "field": "页面周末表中该期行的「Top 10 Gross」单元格（首列美元金额）"
+ },
+ {
+  "kind": "delphi_fluview_ili",
+  "got": 4118,
+  "threshold": 5963,
+  "cmp": ">=",
+  "outcome": "false",
+  "preview": "false",
+  "agree": "MATCH",
+  "field": "body.epidata[].num_ili（region==ca 且 epiweek==202630）"
+ }
+]

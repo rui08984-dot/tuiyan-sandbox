@@ -70,6 +70,7 @@
 | `p1b/scripts/corpus-forward-b2.cjs` | 136 | 前瞻二轮（补 10/11 月） |
 | `p1b/scripts/corpus-forward-oct.cjs` | 69 | 10 月 realtime 补量 |
 | `p1b/scripts/corpus-sources-b3.cjs` | 99 | 7 新源双出题 |
+| `p1b/scripts/corpus-sources-b4.cjs` | **420** | **再扩量**（10 同源扩量 + 8 新域出题 + 攻下 deferred 域 17 人口 / 19 票房） |
 | `p1b/scripts/corpus-resolve.cjs` | — | resolver（14 kind） |
 | `p1b/scripts/corpus-resolve-daemon.cjs` | 465 行 | **自动 resolve 调度**（--once/--loop/--due-only） |
 
@@ -99,6 +100,9 @@
 | `p1b/sim/out/sources-wide-probe.out` (35.7KB) | **广域普查探测**（20 域 / 200+ URL 实测 / 16 域可用 / 143 条原始证据） |
 | `p1b/sim/out/sources-wide-batch.out` (10.7KB) | **广域普查出题**（✅ 463 条入库 / 15 域 / backfill 280 + forward 183） |
 | `p1b/sim/out/sources-wide-probe.jsonl` | 143 条原始证据 |
+| `p1b/sim/out/corpus-sources-b4.out` | **再扩量出题**（✅ 420 条入库 = backfill 217 + forward 203 / band 越界 0 / slug 重复 0 / 全库 1503→1923） |
+| `p1b/sim/out/corpus-sources-b4.receipt.md` | 再扩量收据（19 个 game_type 分域表 + resolve 抽检 8/8 MATCH + 放弃清单 + 新增踩坑 8 条） |
+| `p1b/sim/out/b4-probe{,2,3}.json` · `b4-resolvecheck.json` | 新域探针证据（3 轮 · 40+ URL 实测）与 resolve 抽检证据 |
 
 ### 关键文档
 | 件 | 说明 |

@@ -1,0 +1,57 @@
+[
+ {
+  "src": "CO2-csv-data",
+  "url": "https://gml.noaa.gov/webdata/ccgg/trends/co2/co2_daily_mlo.csv",
+  "http": 200,
+  "note": "hdr=\"1974,5,19,1974.3781,333.46\" last=[\"2026,9,10,2026.6904,426.25\",\"2026,9,11,2026.6932,425.73\"]",
+  "bytes": 432121
+ },
+ {
+  "src": "BOM-table",
+  "url": "https://www.boxofficemojo.com/weekend/2026W36/",
+  "http": 200,
+  "note": "hasTable=true at=60973 sel=-1 frag=\"<table class=\\\"a-bordered a-horizontal-stripes a-size-base a-span12 mojo-body-table mojo-table-annotated mojo-body-table-compact\\\"><tr><th class=\\\"a-text-right mojo-field-type-rank mojo-sort-column mojo-sortable-column a-nowrap\\\"><a class=\\\"a-link-normal a-nowrap\\\" title=\\\"Rank\\\" href=\\\"?sort=rank&amp;ref_=bo_we__resort#table\\\"><span class=\\\"a-color-state\\\">Rank</span><span class=\\\"a-letter-space\\\"></span><span class=\\\"icon aok-relative\\\"><i class=\\\"a-icon a-icon-collapse\\\" role=\\\"presentation\\\"></i></span></a></th><th class=\\\"a-text-right mojo-field-type-positive_integer mojo-sortable-column a-nowrap\\\"><a class=\\\"a-link-normal a-nowrap\\\" title=\\\"Rank Last Week\\\" href=\\\"?sort=rankLastWeek&amp;ref_=bo_we__resort#table\\\"\"",
+  "bytes": 266880
+ },
+ {
+  "src": "OM-marine-sst",
+  "url": "https://marine-api.open-meteo.com/v1/marine?latitude=54.0&longitude=7.0&hourly=sea_surface_temperature&timezone=GMT&start_date=2026-09-01&end_date=2026-09-08",
+  "http": 200,
+  "note": "keys=[\"time\",\"sea_surface_temperature\"] n=192 v0=19.7",
+  "bytes": 4887
+ },
+ {
+  "src": "Eurostat-pjan-series",
+  "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/demo_pjan?geo=DE&age=TOTAL&sex=T&time=2015..2024",
+  "http": 400,
+  "note": "id=undefined size=undefined vals=0 first3=[] dimLabels=[]",
+  "bytes": 86
+ },
+ {
+  "src": "Eurostat-hicp-m",
+  "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/prc_hicp_midx?geo=DE&coicop=CP00&unit=I15&time=2025-01..2026-08",
+  "http": 400,
+  "note": "id=undefined size=undefined vals=0 first3=[] dimLabels=[]",
+  "bytes": 86
+ },
+ {
+  "src": "Eurostat-inpr-m",
+  "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/sts_inpr_m?geo=DE&s_adj=SCA&nace_r2=B-D&unit=I21&time=2025-01..2026-06",
+  "http": 400,
+  "note": "id=undefined size=undefined vals=0 first3=[] dimLabels=[]",
+  "bytes": 86
+ },
+ {
+  "src": "Eurostat-yld-d",
+  "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/irt_euryld_d?geo=DE&yld_curv=MCBY10&time=2026-07-01..2026-09-08",
+  "http": 400,
+  "note": "id=undefined size=undefined vals=0 first3=[] dimLabels=[]",
+  "bytes": 86
+ },
+ {
+  "src": "DBnomics-search2",
+  "url": "https://api.db.nomics.world/v22/search?q=population&limit=3",
+  "http": 0,
+  "note": "FETCH-FAIL This operation was aborted"
+ }
+]
