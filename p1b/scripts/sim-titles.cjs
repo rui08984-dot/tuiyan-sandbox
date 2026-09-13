@@ -32,7 +32,7 @@ for (const g of games) {
     if (dup) { stats.skipped++; continue; }
     const row = insertPrediction({
       gameId: g.id, day: 0, sourceType: '预测卡', statement: t.statement, prob: 0.5,
-      layer: t.layer, engine: t.engine, publicExposure: 0, checklistHash: 'v1', gate: 'descriptive',
+      layer: t.layer, engine: t.engine, publicExposure: 0, checklistHash: 'v1', gate: 'descriptive', g2Regime: 'R4', maturesAt: null, // botc 无日历到期日：显式 null（#2 不许省略）
       evidence: t.evidence, // p13/p15 修复（批次1-M1）：写端补传 evidence——此前漏传致库中 evidence_json 空 90/90（2026-09-12 只读实核），存量 90 条由 scripts/backfill-evidence.cjs 回填
     });
     stats.inserted++;

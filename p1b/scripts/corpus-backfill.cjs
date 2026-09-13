@@ -9,7 +9,7 @@
 //  statement 统一前缀【backfill】，evidence[0].note 写明「历史回填批次，非实时预测」。
 // 默认 dry-run；--confirm 才写库。--only=weather|fx|cwl 只跑单源。
 const { db } = require('../src/deps');
-const { insertPrediction, l0Gate, ensurePredictionsTable } = require('../src/db/predictionsStore');
+const { insertPrediction, l0Gate, ensurePredictionsTable, deriveMaturesAt } = require('../src/db/predictionsStore');
 const path = require('path');
 const fs = require('fs');
 
@@ -300,7 +300,7 @@ async function main() {
       ingested_at: RUN_AT,
     };
     if (CONFIRM) {
-      const row = insertPrediction({ gameId: gid, day: 0, sourceType: '预测卡', statement: statement, prob: q.prob, layer: q.layer, engine: q.engine, publicExposure: 0, checklistHash: 'bf1', gate: 'descriptive', evidence: [snap] });
+      const row = insertPrediction({ gameId: gid, day: 0, sourceType: '预测卡', statement: statement, prob: q.prob, g2Regime: 'R4', maturesAt: deriveMaturesAt(q.resolve, [{ meta: q.meta }, snap]), layer: q.layer, engine: q.engine, publicExposure: 0, checklistHash: 'bf1', gate: 'descriptive', evidence: [snap] });
       console.log('inserted: id=' + row.id, q.slug, '| prob=' + q.prob);
     } else {
       console.log('[dry] would insert:', q.slug, '| prob=' + q.prob, '| layer=' + q.layer);

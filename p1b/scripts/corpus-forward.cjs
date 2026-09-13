@@ -7,7 +7,7 @@
 //  prob = 该组合历史基率（脚本内现算）。statement 前缀【forward】+【slug】。
 // 默认 dry-run；--confirm 才写库。--only=weather|fx|quake|lotto 只跑单源。
 const { db } = require('../src/deps');
-const { insertPrediction, l0Gate, ensurePredictionsTable } = require('../src/db/predictionsStore');
+const { insertPrediction, l0Gate, ensurePredictionsTable, deriveMaturesAt } = require('../src/db/predictionsStore');
 const path = require('path');
 const fs = require('fs');
 
@@ -339,7 +339,7 @@ async function main() {
       try {
         insertPrediction({
           gameId: g, day: null, sourceType: '预测卡',
-          statement: r.statement, prob: r.prob,
+          statement: r.statement, prob: r.prob, g2Regime: 'R4', maturesAt: deriveMaturesAt(r.resolve, [{ meta: r.meta }]),
           evidence: [{ resolve: r.resolve, baseRateNote: r.baseRateNote, meta: r.meta, kind: 'forward_batch' }],
           layer: r.layer, engine: r.engine, gate: 'descriptive', checklistHash: 'v2', publicExposure: 0,
         });

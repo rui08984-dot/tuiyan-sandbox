@@ -6,7 +6,7 @@
 // 写库字段：驼峰 checklistHash + publicExposure:0（下划线写法会被写入口抛错并被 try/catch 吞成 inserted=0）。
 // 默认 dry-run；--confirm 写库。--only=<key>
 const { db } = require('../src/deps');
-const { insertPrediction, l0Gate, ensurePredictionsTable } = require('../src/db/predictionsStore');
+const { insertPrediction, l0Gate, ensurePredictionsTable, deriveMaturesAt } = require('../src/db/predictionsStore');
 const path = require('path');
 const fs = require('fs');
 
@@ -885,7 +885,7 @@ async function main() {
       if (existing.has(g + '||' + norm(r.statement))) { dupe++; existing.add(g + '||' + norm(r.statement)); continue; }
       try {
         insertPrediction({
-          gameId: g, day: null, sourceType: '预测卡', statement: r.statement, prob: r.prob,
+          gameId: g, day: null, sourceType: '预测卡', statement: r.statement, prob: r.prob, g2Regime: 'R4', maturesAt: deriveMaturesAt(r.resolve, [{ meta: r.meta }]),
           evidence: [{ resolve: r.resolve, baseRateNote: r.baseRateNote, meta: r.meta, slug: r.slug, phase: r.phase, kind: 'b4_' + r.phase }],
           layer: r.layer, engine: r.engine, gate: 'descriptive', checklistHash: 'v2', publicExposure: 0,
         });

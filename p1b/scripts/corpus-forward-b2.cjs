@@ -13,7 +13,7 @@
 // 用法：node scripts/corpus-forward-b2.cjs [--confirm] [--only=dbnomics|lotto]
 //       [--target-months=2026-10,2026-11] [--thresh-per=2]
 const { db } = require('../src/deps');
-const { insertPrediction, l0Gate, ensurePredictionsTable } = require('../src/db/predictionsStore');
+const { insertPrediction, l0Gate, ensurePredictionsTable, deriveMaturesAt } = require('../src/db/predictionsStore');
 const path = require('path');
 const fs = require('fs');
 
@@ -296,7 +296,7 @@ async function main() {
       try {
         insertPrediction({
           gameId: g, day: null, sourceType: '预测卡',
-          statement: r.statement, prob: r.prob,
+          statement: r.statement, prob: r.prob, g2Regime: 'R4', maturesAt: deriveMaturesAt(r.resolve, [{ meta: r.meta }]),
           evidence: [{ resolve: r.resolve, baseRateNote: r.baseRateNote, meta: r.meta, kind: 'forward_batch_b2', slug: r.slug }],
           layer: r.layer, engine: r.engine, gate: 'descriptive', checklistHash: 'v2', publicExposure: 0,
         });

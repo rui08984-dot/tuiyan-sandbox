@@ -63,7 +63,10 @@ function predictionsTableDdl(tableName) {
   '  tautology INTEGER DEFAULT 0,',
   // R4（2026-09-13）：G2 门禁世代标记 + 到期日列（design §4.2 实现前置）
   '  g2_regime TEXT,',
-  '  matures_at TEXT',
+  '  matures_at TEXT,',
+  // #1（批次1）：D2 回测题落库必写两列（D2 §8.2）；非空即被 G2 排除出 ① 池
+  '  metric_version TEXT,',
+  '  backtest_batch TEXT',
   ');',
   ].join('\n');
 }
@@ -90,6 +93,9 @@ const AUDIT_COLUMNS = [
   // R4（2026-09-13）：新增两列 additive 迁移定义（旧库 ALTER；新库随建表即有）
   'g2_regime TEXT',
   'matures_at TEXT',
+  // #1（批次1）：D2 回测题标识两列（additive 迁移）
+  'metric_version TEXT',
+  'backtest_batch TEXT',
 ];
 
 /** p1b 启动/路由注册时调用一次：建 p1b 私有表（幂等；绝不触碰 p1a 既有表）。
@@ -135,6 +141,10 @@ function rowToPrediction(row) {
     checklist_hash: row.checklist_hash === undefined ? null : row.checklist_hash,
     gate: row.gate === undefined ? null : row.gate,
     tautology: row.tautology === undefined ? null : row.tautology,
+    g2_regime: row.g2_regime === undefined ? null : row.g2_regime,
+    matures_at: row.matures_at === undefined ? null : row.matures_at,
+    metric_version: row.metric_version === undefined ? null : row.metric_version,
+    backtest_batch: row.backtest_batch === undefined ? null : row.backtest_batch,
   };
 }
 
@@ -146,21 +156,86 @@ function assertProb(prob) {
   return prob;
 }
 
+/** 'YYYY-MM-DD' 形状校验（不用正则，便于跨层引用）。 */
+function isIsoDate(v) {
+  const s = String(v);
+  return s.length === 10 && s[4] === '-' && s[7] === '-' && !isNaN(Date.parse(s));
+}
+/** 月末日（'YYYY-MM' → 'YYYY-MM-DD'）；非法返回 null。 */
+function lastDayOfMonth(ym) {
+  const p = String(ym).split('-');
+  if (p.length !== 2 || p[0].length !== 4 || p[1].length !== 2) return null;
+  const y = Number(p[0]), mo = Number(p[1]);
+  if (!isFinite(y) || !isFinite(mo) || mo < 1 || mo > 12) return null;
+  return new Date(Date.UTC(y, mo, 0)).toISOString().slice(0, 10);
+}
+/** MMWR/CDC 疫病周（'YYYYWW'）→ 该周周六（第 1 周含 1 月 4 日，周 = 周日..周六）。 */
+function epiweekEnd(yw) {
+  const s = String(yw);
+  if (s.length !== 6) return null;
+  const y = Number(s.slice(0, 4)), w = Number(s.slice(4));
+  if (!isFinite(y) || !isFinite(w) || w < 1 || w > 53) return null;
+  const jan4 = new Date(Date.UTC(y, 0, 4));
+  const sun = jan4.getTime() - jan4.getUTCDay() * 86400000;
+  return new Date(sun + (w - 1) * 7 * 86400000 + 6 * 86400000).toISOString().slice(0, 10);
+}
+/** 'YYYYWww' → 该 ISO 周的周日。 */
+function isoWeekSunday(yw) {
+  const s = String(yw), i = s.indexOf('W');
+  if (i !== 4) return null;
+  const y = Number(s.slice(0, 4)), w = Number(s.slice(5));
+  if (!isFinite(y) || !isFinite(w) || w < 1 || w > 53) return null;
+  const jan4 = new Date(Date.UTC(y, 0, 4));
+  const mon = jan4.getTime() - ((jan4.getUTCDay() + 6) % 7) * 86400000;
+  return new Date(mon + (w - 1) * 7 * 86400000 + 6 * 86400000).toISOString().slice(0, 10);
+}
+/**
+ * #2（批次1）写端到期日推导：写端不得留空；推导不出即抛错（防 A2「新行默认 g2_regime=NULL 静默出域」）。
+ * 覆盖：date / week_end / end / date_plus7 / week_start / period(月末) / month(月末) / year(年末)
+ *       / epiweek(周六) / week('YYYYWww'→周日) / evidence.meta.drawDate|expectDate。
+ */
+function deriveMaturesAt(resolve, evidence) {
+  const r = resolve || {};
+  let d = isIsoDate(r.date) ? r.date : null;
+  if (!d && isIsoDate(r.week_end)) d = r.week_end;
+  if (!d && isIsoDate(r.end)) d = r.end;
+  if (!d && isIsoDate(r.date_plus7)) d = r.date_plus7;
+  if (!d && isIsoDate(r.week_start)) d = r.week_start;
+  if (!d) d = lastDayOfMonth(r.period);
+  if (!d) d = lastDayOfMonth(r.month);
+  if (!d && String(r.year).length === 4 && isFinite(Number(r.year))) d = String(r.year) + '-12-31';
+  if (!d) d = epiweekEnd(r.epiweek);
+  if (!d) d = isoWeekSunday(r.week);
+  if (!d) {
+    for (const el of (Array.isArray(evidence) ? evidence : [])) {
+      const meta = (el && el.meta) || {};
+      if (isIsoDate(meta.drawDate)) { d = meta.drawDate; break; }
+      if (isIsoDate(meta.expectDate)) { d = meta.expectDate; break; }
+    }
+  }
+  if (!d) throw new Error('deriveMaturesAt: 无法推导到期日（#2 写端不得留空）：resolve=' + JSON.stringify(r).slice(0, 220));
+  return d;
+}
 const LAYERS = ['L1', 'L2', 'L3', 'L4', 'L5', 'L6'];
 // D-8.1（2026-09-13 合并迁移）：primary layer 多一个 'unknown' 出口；secondary 仍限 LAYERS
 // （'unknown' 作 secondary 无信息量 → 用 NULL 表达，与 intake_questions 的 CHECK 同口径）。
 const PRIMARY_LAYERS = LAYERS.concat(['unknown']);
 const GATES = ['descriptive', 'scored', 'blocked'];
 
-function assertAuditFields(f) {
+// F16 真白名单（批次1 #17b，2026-09-13）：未知键一律抛错。
+// 原实现只拦 7 个下划线名（黑名单），未知键静默落空——#2 的 g2Regime/maturesAt 正是这样被吞掉的。
+// 白名单 = audit 九键（七原键 + g2Regime/maturesAt）∪ 调用方核心键（仅 insert 路径传入）。
+const AUDIT_KEYS = ['layer','secondaryLayer','engine','baselineBrier','publicExposure','checklistHash','gate','g2Regime','maturesAt','metricVersion','backtestBatch'];
+const CORE_INSERT_KEYS = ['gameId','day','sourceType','statement','prob','evidence'];
+function assertAuditFields(f, extraAllowed) {
   const src = f || {};
   const o = {};
-  // F16 修（2026-09-13）：未知 audit 键抛错，防命名漂移静默落空
-  const KNOWN = ['layer','secondaryLayer','engine','baselineBrier','publicExposure','checklistHash','gate'];
-  const SNAKE = { layer:'layer', secondary_layer:'secondaryLayer', engine:'engine', baseline_brier:'baselineBrier', public_exposure:'publicExposure', checklist_hash:'checklistHash', gate:'gate' };
+  const allowed = AUDIT_KEYS.concat(extraAllowed || []);
+  const SNAKE = { layer:'layer', secondary_layer:'secondaryLayer', engine:'engine', baseline_brier:'baselineBrier', public_exposure:'publicExposure', checklist_hash:'checklistHash', gate:'gate', g2_regime:'g2Regime', matures_at:'maturesAt', metric_version:'metricVersion', backtest_batch:'backtestBatch' };
   for (const k of Object.keys(src)) {
-    if (KNOWN.indexOf(k) !== -1) continue;
+    if (allowed.indexOf(k) !== -1) continue;
     if (SNAKE[k]) throw new Error('audit 字段命名漂移: 收到下划线「' + k + '」，请改用驼峰「' + SNAKE[k] + '」(F16 防复发)');
+    throw new Error('未知字段「' + k + '」：不在白名单 ' + allowed.join('|') + '（F16 真白名单，未知键抛错以防静默落空）');
   }
   const put = (key, v, ok, msg) => {
     if (v === undefined) return;
@@ -175,6 +250,12 @@ function assertAuditFields(f) {
   put('public_exposure', src.publicExposure, (v) => v === 0 || v === 1, 'publicExposure 必须是 0/1 或 null');
   put('checklist_hash', src.checklistHash, (v) => typeof v === 'string' && v.trim() !== '', 'checklistHash 必须是非空字符串或 null');
   put('gate', src.gate, (v) => GATES.indexOf(v) !== -1, 'gate 必须是 ' + GATES.join('|') + ' 或 null');
+  // #2（批次1）：R4 世代标记 + 到期日两列（写端必写；旧库由 additive 迁移补列）
+  put('g2_regime', src.g2Regime, (v) => typeof v === 'string' && v.trim() !== '', 'g2Regime 必须是非空字符串或 null');
+  put('matures_at', src.maturesAt, (v) => isIsoDate(v), 'maturesAt 必须是 YYYY-MM-DD 或 null');
+  // #1（批次1）：D2 回测题标识（非空即出 G2 门域）
+  put('metric_version', src.metricVersion, (v) => typeof v === 'string' && v.trim() !== '', 'metricVersion 必须是非空字符串或 null');
+  put('backtest_batch', src.backtestBatch, (v) => typeof v === 'string' && v.trim() !== '', 'backtestBatch 必须是非空字符串或 null');
   return o;
 }
 
@@ -191,11 +272,16 @@ function insertPrediction(p) {
     throw new Error('statement 必须是非空字符串');
   }
   const prob = assertProb(p.prob);
-  const a = assertAuditFields(p);
+  const a = assertAuditFields(p, CORE_INSERT_KEYS);
+  // #2（批次1）：声明了 g2Regime 的批次写端必须**显式**给 maturesAt——有日历到期日给日期，
+  // 无日历语义者显式传 null 并注释原因。禁止省略（原实现省略即静默 NULL，正是 A2「静默出域」）。
+  if (p.g2Regime !== undefined && p.g2Regime !== null && p.maturesAt === undefined) {
+    throw new Error('批次写端必须显式提供 maturesAt（#2：不得留空；无日历到期日者显式传 null）');
+  }
   const conn = db.getConnection();
   const info = conn
-    .prepare('INSERT INTO predictions (game_id, day, source_type, statement, assigned_prob, evidence_json, layer, secondary_layer, engine, baseline_brier, public_exposure, checklist_hash, gate)'
-      + ' VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)')
+    .prepare('INSERT INTO predictions (game_id, day, source_type, statement, assigned_prob, evidence_json, layer, secondary_layer, engine, baseline_brier, public_exposure, checklist_hash, gate, g2_regime, matures_at, metric_version, backtest_batch)'
+      + ' VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)')
     .run(
       p.gameId,
       p.day === undefined ? null : p.day,
@@ -209,7 +295,11 @@ function insertPrediction(p) {
       a.baseline_brier === undefined ? null : a.baseline_brier,
       a.public_exposure === undefined ? null : a.public_exposure,
       a.checklist_hash === undefined ? null : a.checklist_hash,
-      a.gate === undefined ? null : a.gate
+      a.gate === undefined ? null : a.gate,
+      a.g2_regime === undefined ? null : a.g2_regime,
+      a.matures_at === undefined ? null : a.matures_at,
+      a.metric_version === undefined ? null : a.metric_version,
+      a.backtest_batch === undefined ? null : a.backtest_batch
     );
   return getPrediction(Number(info.lastInsertRowid));
 }
@@ -425,5 +515,5 @@ module.exports = {
   ensurePredictionsTable, insertPrediction, getPrediction, listByGame, listUnresolved,
   resolvePrediction, l0Gate, convertCheckpointsToPredictions, calibration, SOURCE_TYPES, OUTCOMES,
   updateAuditFields, LAYERS, PRIMARY_LAYERS, GATES, predictionsTableDdl, PREDICTIONS_TABLE_DDL,
-  updateTautology,
+  updateTautology, deriveMaturesAt, assertAuditFields, AUDIT_KEYS, CORE_INSERT_KEYS, epiweekEnd, isIsoDate,
 };

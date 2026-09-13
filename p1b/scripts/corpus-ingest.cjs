@@ -4,7 +4,7 @@
 // 由 scripts/corpus-resolve.cjs 机械回填。默认 dry-run；--confirm 才写库。
 // 用法：node scripts/corpus-ingest.cjs [--confirm]
 const { db } = require('../src/deps');
-const { insertPrediction, l0Gate, ensurePredictionsTable } = require('../src/db/predictionsStore');
+const { insertPrediction, l0Gate, ensurePredictionsTable, deriveMaturesAt } = require('../src/db/predictionsStore');
 
 const CONFIRM = process.argv.includes('--confirm');
 const now08 = () => new Date().toLocaleString('sv-SE', { timeZone: 'Asia/Shanghai', hour12: false }).replace(' ', 'T') + '+08:00';
@@ -89,7 +89,7 @@ async function main() {
     const live = q.live === 'forecast' ? await fetchForecast() : null;
     const ev = evidenceFor(q, i, live);
     if (CONFIRM) {
-      const row = insertPrediction({ gameId: gid, day: 0, sourceType: '预测卡', statement, prob: q.prob, layer: q.layer, engine: q.engine, publicExposure: 0, checklistHash: 'v2', gate: 'descriptive', evidence: ev });
+      const row = insertPrediction({ gameId: gid, day: 0, sourceType: '预测卡', statement, prob: q.prob, g2Regime: 'R4', maturesAt: deriveMaturesAt(q.resolve, [{ meta: q.meta }].concat(ev)), layer: q.layer, engine: q.engine, publicExposure: 0, checklistHash: 'v2', gate: 'descriptive', evidence: ev });
       console.log('inserted: prediction id=' + row.id, '| layer=' + q.layer, '| prob=' + q.prob, '| slug=' + SLUGS[i]);
     } else {
       console.log('[dry] would insert:', SLUGS[i], '| layer=' + q.layer, '| prob=' + q.prob, '| game=' + q.gameType, live ? '| forecast=' + live.temperature_2m_max_c + 'C' : '');

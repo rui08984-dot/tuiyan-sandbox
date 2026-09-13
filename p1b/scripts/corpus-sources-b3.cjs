@@ -6,7 +6,7 @@
 //       每题 resolve 给取真值的确切 URL/字段。默认 dry-run；--confirm 写库。
 //       --only=aq|crypto|wiki|gh|fx|npm|bis
 const { db } = require('../src/deps');
-const { insertPrediction, l0Gate, ensurePredictionsTable } = require('../src/db/predictionsStore');
+const { insertPrediction, l0Gate, ensurePredictionsTable, deriveMaturesAt } = require('../src/db/predictionsStore');
 const path = require('path');
 const fs = require('fs');
 
@@ -655,7 +655,7 @@ async function main() {
       if (existing.has(g + '||' + norm(r.statement))) { dupe++; continue; }
       try {
         insertPrediction({
-          gameId: g, day: null, sourceType: '预测卡', statement: r.statement, prob: r.prob,
+          gameId: g, day: null, sourceType: '预测卡', statement: r.statement, prob: r.prob, g2Regime: 'R4', maturesAt: deriveMaturesAt(r.resolve, [{ meta: r.meta }]),
           evidence: [{ resolve: r.resolve, baseRateNote: r.baseRateNote, meta: r.meta, slug: r.slug, phase: r.phase, kind: 'b3_' + r.phase }],
           layer: r.layer, engine: r.engine, gate: 'descriptive', checklistHash: 'v2', publicExposure: 0,
         });

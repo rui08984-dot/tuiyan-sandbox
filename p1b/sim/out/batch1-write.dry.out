@@ -1,0 +1,4 @@
+[plan] {"confirm":false,"missing_cols":["metric_version","backtest_batch"],"exposure_null_to_0":879}
+[plan] by_layer=[{"layer":"L2","n":398},{"layer":"L3","n":399},{"layer":"L5","n":82}]
+[plan] by_ev_kind=[{"k":"wide_backfill","n":280},{"k":"wide_forward","n":183},{"k":"forward_batch_b2","n":136},{"k":"forward_batch","n":112},{"k":"oct_forward","n":69},{"k":"b3_backfill","n":52},{"k":"b3_forward","n":47}]
+DRY-RUN：未写库。加 --confirm 执行。

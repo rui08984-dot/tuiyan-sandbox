@@ -57,6 +57,12 @@ function readIntakeLayer() {
 const intakeLayer = INCLUDE_INTAKE ? readIntakeLayer() : null;
 
 const REGIME = "p.g2_regime = 'R4'";
+// #1（批次1，专家会统一清单 #1）：D2 回测题不进 G2 门域。
+// 依据 D2 §8.2 修订 R1（2026-09-13）：回测题必写 metric_version（口径世代）/backtest_batch（批次 id），
+// 两列非空即判为回测题 → 排除出 ① 池，并计入「门域外行数」告警。两列当前全 NULL ⇒ 排除为 no-op，读数不变。
+const HAS_BACKTEST_COLS = new Set(all('PRAGMA table_info(predictions)').map((c) => c.name)).has('metric_version')
+  && new Set(all('PRAGMA table_info(predictions)').map((c) => c.name)).has('backtest_batch');
+const NOT_BACKTEST = HAS_BACKTEST_COLS ? "(p.metric_version IS NULL AND p.backtest_batch IS NULL)" : "(1=1)";
 const BF = "p.statement LIKE '%【backfill】%'";
 const isBF = (stmt) => String(stmt || '').indexOf('【backfill】') >= 0;
 
@@ -75,10 +81,17 @@ const ROWS_SQL = "SELECT p.id, p.g2_regime, p.layer, p.created_at, p.matures_at,
   + "p.outcome, p.statement, p.checklist_hash, p.tautology, "
   + "(SELECT json_extract(e.value,'$.resolve.date') FROM json_each(p.evidence_json) e WHERE json_extract(e.value,'$.resolve.date') IS NOT NULL LIMIT 1) AS rd, "
   + "(SELECT json_extract(e.value,'$.baseRateNote') FROM json_each(p.evidence_json) e WHERE json_extract(e.value,'$.baseRateNote') IS NOT NULL LIMIT 1) AS brn "
-  + "FROM predictions p WHERE " + REGIME;
+  + "FROM predictions p WHERE " + REGIME + " AND " + NOT_BACKTEST;
 const rows = all(ROWS_SQL);
 
-const counts = { regime_rows: rows.length, backfill_rows: 0, excluded: {}, tautology_rows: 0, b_unparsed_ids: [] };
+// #1（批次1）：门域外计数（账本总行 / 回测排除行 / 非 R4 行域行）——「不能让下一批再静默出域」
+const ledgerRows = one('SELECT COUNT(*) n FROM predictions').n;
+const backtestRows = one('SELECT COUNT(*) n FROM predictions p WHERE ' + REGIME + ' AND NOT ' + NOT_BACKTEST).n;
+const outOfRegimeRows = ledgerRows - rows.length - backtestRows;
+const counts = { ledger_rows: ledgerRows, regime_rows: rows.length, regime_rows_raw: rows.length + backtestRows,
+  backtest_excluded_rows: backtestRows, out_of_regime_rows: outOfRegimeRows,
+  backtest_columns_present: HAS_BACKTEST_COLS,
+  backfill_rows: 0, excluded: {}, tautology_rows: 0, b_unparsed_ids: [] };
 const pool = [];
 const allHorizon = { short: 0, mid: 0, long: 0, past_or_negative: 0, no_matures: 0 };
 function minusOneDay(ds) {
@@ -160,7 +173,7 @@ Q3.rule7_disclosure = { long_total: byBucket.long.length, long_and_hardest_overl
 const hardestByLayer = {};
 for (const p of hardestPool) hardestByLayer[p.layer] = (hardestByLayer[p.layer] || 0) + 1;
 const Q4 = { id: 4, name: '难度最难档', threshold: '>=20', value: hardestPool.length, pass: hardestPool.length >= 20,
-  metric: '外生基线 Brier 下限 b(1-b) >= 0.21（等价基率 0.35–0.65）；b 解析自 evidence.baseRateNote',
+  metric: '外生基线 Brier 下限 b(1-b) >= 0.21（等价于基率 [0.30, 0.70]；原文档误写 0.35–0.65，见 design §4.2.2 B1）；b 解析自 evidence.baseRateNote',
   forbid: '禁用 assigned_prob / 判词输出来源（红队 R1-F7 循环度量）',
   by_layer: hardestByLayer,
   hardest_realtime: hardestRt.length, hardest_backfill: hardestBf.length,
@@ -246,7 +259,11 @@ const bar = '='.repeat(72);
 L.push(bar);
 L.push('G2 能力门月报 -- R4 口径（审计器 design §4.2 修订 R4 · 2026-09-13）');
 L.push('生成 ' + new Date().toISOString() + ' | 库 ' + DB_PATH + ' | 句柄只读 · 纯 SQL · 零 LLM · 零写库');
-L.push('行域 g2_regime=R4 | 账本 ' + counts.regime_rows + ' 行 | 门总判定 ' + gate);
+L.push('行域 g2_regime=R4 且非回测 | 门域 ' + counts.regime_rows + ' 行 / 账本 ' + counts.ledger_rows + ' 行 | 门总判定 ' + gate);
+L.push((counts.backtest_excluded_rows > 0 || counts.out_of_regime_rows > 0 ? '[!] 门域外告警' : '门域外行数')
+  + ': 回测排除 ' + counts.backtest_excluded_rows + ' 行 | 不在 R4 行域 ' + counts.out_of_regime_rows + ' 行 | 合计域外 '
+  + (counts.backtest_excluded_rows + counts.out_of_regime_rows) + ' 行'
+  + (counts.backtest_columns_present ? '' : '（回测排除子句未生效：库缺 metric_version/backtest_batch 列，请先跑 additive 迁移）'));
 L.push(bar);
 if (INCLUDE_INTAKE) {
   L.push('!! 含接题层未入账题，非 G2 口径（--include-intake）—— 主判定 Q1-Q5 仍只读 predictions 原表 !!');
@@ -269,7 +286,7 @@ L.push('[③] horizon 三层 短>=20 中>=20 长>=10(须 realtime)  -> ' + Q3.ve
 L.push('    短 ' + Q3.buckets.short + ' | 中 ' + Q3.buckets.mid + ' | 长 ' + Q3.buckets.long + ' | 未知 ' + Q3.buckets.unknown_horizon + ' | past_or_negative(backfill) ' + Q3.buckets.past_or_negative + ' | 长中 backfill ' + Q3.long_must_be_realtime.long_backfill);
 L.push('    本细则读法（§4.2.1 A）：长 ' + Q3.buckets.long + ' -> ' + (Q3.long_pass ? 'PASS' : 'FAIL') + ' | 严格读法对照：独立长 ' + Q3.strict_reading_for_record.long_independent + ' -> ' + Q3.strict_reading_for_record.verdict);
 L.push('    ⑦披露（报告项）: 长∩最难 ' + Q3.rule7_disclosure.long_and_hardest_overlap + '/' + Q3.rule7_disclosure.long_total + ' = ' + pct(Q3.rule7_disclosure.overlap_share));
-L.push('[④] 难度最难档 b(1-b)>=0.21 且 >=20  -> ' + Q4.verdict + '   值 ' + Q4.value + '（realtime ' + Q4.hardest_realtime + ' / backfill ' + Q4.hardest_backfill + '；外生解析覆盖 ' + Q4.parse_coverage.pool_with_b + '/' + (Q4.parse_coverage.pool_with_b + Q4.parse_coverage.pool_unparsed) + '；模式 ' + JSON.stringify(Q4.b_patterns) + '）');
+L.push('[④] 难度最难档 b(1-b)>=0.21（等价于基率 [0.30, 0.70]）且 >=20  -> ' + Q4.verdict + '   值 ' + Q4.value + '（realtime ' + Q4.hardest_realtime + ' / backfill ' + Q4.hardest_backfill + '；外生解析覆盖 ' + Q4.parse_coverage.pool_with_b + '/' + (Q4.parse_coverage.pool_with_b + Q4.parse_coverage.pool_unparsed) + '；模式 ' + JSON.stringify(Q4.b_patterns) + '）');
 L.push('[⑤] 月节律（仅报告·不作门）');
 for (const m of Q5.months) L.push('    ' + m.m + '  realtime ' + m.realtime_resolved + ' / backfill ' + m.backfill_resolved + ' / total ' + m.total_resolved);
 L.push('[⑦] 披露（报告项·不扣减）: 长∩最难 ' + rule7.long_and_hardest_overlap + '/' + rule7.long_total + ' = ' + pct(rule7.overlap_share) + ' | 严格读法独立长 ' + rule7.long_independent_after_strict_dedup + ' -> ' + rule7.strict_reading_verdict);
@@ -279,7 +296,7 @@ L.push('    分窗 resolved: realtime ' + resolvedRt + ' / backfill ' + resolved
 L.push('    单批上限(细则 C·按批次): ' + compliance.r3_batch_cap.per_batch.map((r) => r.batch + ' ' + r.count + (r.ok ? ' ok' : ' VIOLATION')).join(' | ') + ' -> ' + (compliance.r3_batch_cap.per_batch_ok ? 'ok' : 'VIOLATION') + ' | 累计 ' + bfTotal + '（仅披露）');
 L.push('    分层 3x 上限: ' + compliance.r3_batch_cap.per_layer.map((r) => r.layer + ' ' + r.count + '<=' + r.rt_cap_3x + ' ' + (r.ok ? 'ok' : 'VIOLATION')).join(' | '));
 L.push('    分窗配额(上限 ' + pct(compliance.r3_window_quota.cap_share) + '): realtime ' + compliance.r3_window_quota.realtime.max_layer + ' ' + pct(compliance.r3_window_quota.realtime.max_share) + ' | backfill ' + compliance.r3_window_quota.backfill.max_layer + ' ' + pct(compliance.r3_window_quota.backfill.max_share));
-L.push('    审计列: baseline_brier 非空 ' + baselineBrierNonnull + '（N1 空挂；④ 改用 baseRateNote 外生解析）');
+L.push('    审计列: baseline_brier 非空 ' + baselineBrierNonnull + '（**已废弃**：专家会盲区⑦裁决=废弃而非补齐；④ 走 baseRateNote 现算旁路，见 design §4.2.2）');
 L.push('    诚实标注: ' + compliance.honesty_note);
 if (INCLUDE_INTAKE) {
   L.push('[接题层·非 G2 口径] 视图 predictions_r4（含接题层未入账题，非 G2 口径）');

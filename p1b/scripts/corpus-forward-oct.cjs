@@ -12,7 +12,7 @@
 // 幂等：slug 唯一键 + 库内 (game_id, slug) 查重；阈值由 seed(源|标的|目标日) 稳定哈希挑选 → 重跑恒定。
 // 用法：node scripts/corpus-forward-oct.cjs [--confirm] [--only=aq|crypto|npm|wiki|gh|lotto]
 const { db } = require('../src/deps');
-const { insertPrediction, l0Gate, ensurePredictionsTable } = require('../src/db/predictionsStore');
+const { insertPrediction, l0Gate, ensurePredictionsTable, deriveMaturesAt } = require('../src/db/predictionsStore');
 const path = require('path');
 const fs = require('fs');
 
@@ -493,7 +493,7 @@ async function main() {
       if ((ck && existing.has(ck)) || existing.has('S||' + norm(r.statement))) { dupe++; continue; }
       try {
         insertPrediction({
-          gameId: g, day: null, sourceType: '预测卡', statement: r.statement, prob: r.prob,
+          gameId: g, day: null, sourceType: '预测卡', statement: r.statement, prob: r.prob, g2Regime: 'R4', maturesAt: deriveMaturesAt(r.resolve, [{ meta: r.meta }]),
           evidence: [{ resolve: r.resolve, baseRateNote: r.baseRateNote, meta: r.meta, slug: r.slug, phase: 'forward', kind: 'oct_forward' }],
           layer: r.layer, engine: r.engine, gate: 'descriptive', checklistHash: 'v2', publicExposure: 0,
         });

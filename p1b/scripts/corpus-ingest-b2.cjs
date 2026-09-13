@@ -4,7 +4,7 @@
 // （2015-2024 九月日值 / 序列已发布月值，脚本内现算不留漂移）；快照含预报值与 resolve 参数。
 // 默认 dry-run；--confirm 才写库。复用第一批三局（corpus:openmeteo/corpus:dbnomics，source 已='corpus'）。
 const { db } = require('../src/deps');
-const { insertPrediction, l0Gate, ensurePredictionsTable } = require('../src/db/predictionsStore');
+const { insertPrediction, l0Gate, ensurePredictionsTable, deriveMaturesAt } = require('../src/db/predictionsStore');
 
 const CONFIRM = process.argv.includes('--confirm');
 const now08 = () => new Date().toLocaleString('sv-SE', { timeZone: 'Asia/Shanghai', hour12: false }).replace(' ', 'T') + '+08:00';
@@ -88,7 +88,7 @@ async function main() {
     const snap = { kind: 'cutoff_snapshot', slug: q.slug, ingested_at: INGEST_AT, note: q.baseRateNote, resolve: q.resolve };
     if (q.forecast) snap.forecast = q.forecast;
     if (CONFIRM) {
-      const row = insertPrediction({ gameId: gid, day: 0, sourceType: '预测卡', statement, prob: q.prob, layer: q.layer, engine: q.engine, publicExposure: 0, checklistHash: 'v2', gate: 'descriptive', evidence: [snap] });
+      const row = insertPrediction({ gameId: gid, day: 0, sourceType: '预测卡', statement, prob: q.prob, g2Regime: 'R4', maturesAt: deriveMaturesAt(q.resolve, [{ meta: q.meta }, snap]), layer: q.layer, engine: q.engine, publicExposure: 0, checklistHash: 'v2', gate: 'descriptive', evidence: [snap] });
       console.log('inserted: id=' + row.id, q.slug, '| prob=' + q.prob);
     } else {
       console.log('[dry] would insert:', q.slug, '| prob=' + q.prob, '| layer=' + q.layer);

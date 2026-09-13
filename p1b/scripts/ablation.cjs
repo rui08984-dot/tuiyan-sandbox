@@ -179,7 +179,7 @@ function runSmoke() {
     const p3 = clamp01(0.5 + (rnd() - 0.5) * 0.6);
     const pred = predictions.insertPrediction({
       gameId: game.id, day: 1, sourceType: '预测卡',
-      statement: '烟测点 #' + (i + 1) + '：合成判定标准', prob: 0.5, evidence: [],
+      statement: '烟测点 #' + (i + 1) + '：合成判定标准', prob: 0.5, g2Regime: 'R4', maturesAt: null, evidence: [],
     });
     const rr = predictions.resolvePrediction(pred.id, truth ? 'true' : 'false', '烟测合成真值注入');
     if (!rr.ok) throw new Error('烟测 resolve 失败 #' + pred.id);

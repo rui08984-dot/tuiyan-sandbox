@@ -168,7 +168,7 @@ function writeMode() {
         if (dup) { stats.skippedDup++; continue; }
         const row = predictions.insertPrediction({
           gameId: g.gid, day: 0, sourceType: '预测卡', statement: statement, prob: 0.5,
-          layer: t.layer, engine: t.engine, publicExposure: 0, checklistHash: 'v2', gate: 'descriptive',
+          layer: t.layer, engine: t.engine, publicExposure: 0, checklistHash: 'v2', gate: 'descriptive', g2Regime: 'R4', maturesAt: null, // botc 无日历到期日：显式 null（#2）
           evidence: preIds, // R-B 口径：cutoff 时点前事件 id（与 R-A 结算证据严格区分）
         });
         stats.inserted++;
