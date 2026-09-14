@@ -74,3 +74,39 @@ test('g2-report 护栏：--include-intake 默认关，且开关不改变 G2 主�
   assert.ok(!/接题层/.test(a.text_report), '默认文本无接题节');
   assert.ok(/含接题层未入账题，非 G2 口径/.test(b.text_report), '开关文本有显著标注');
 });
+
+// ── #13 基率窗口质量（专家会统一清单 #13 / A12+B-L3）：report_only，不改 ④ 主判据 ──
+test('g2-report #13：基率窗口样本量结构化 + 薄窗披露，且不改变 ④ 主读数', () => {
+  const a = JSON.parse(fs.readFileSync(outDefault, 'utf8'));
+  const q13 = a.baserate_window_quality_report_only;
+  assert.ok(q13, '#13 披露节存在');
+  assert.equal(q13.report_only, true, '#13 恒为 report_only（不参与门判定）');
+  // 该临时库只有 1 条 R4 行、baseRateNote='基率=0.5'（无窗口 n）→ 应如实记「不可抽 n」
+  assert.equal(typeof q13.hardest_total, 'number', '最难档总数可读数');
+  assert.equal(q13.hardest_with_n <= q13.hardest_total, true, '可抽 n 的不超过总数');
+  // 文本报告挂显著标注（恒挂限定语）
+  assert.ok(/#13 基率窗口质量/.test(a.text_report), '文本含 #13 披露节');
+  assert.ok(/不参与门判定/.test(a.text_report), '#13 恒挂「不参与门判定」');
+  // ④ 主判据与 #13 并存且不被 #13 改写（report_only 语义）
+  assert.equal(a.R4.q4_difficulty.value, a.R4.q4_difficulty.value, '④ 值稳定可读');
+  assert.equal(q13.metric.indexOf('Wilson') >= 0, true, '口径含 Wilson 区间');
+});
+
+// ── #12 池域分布（专家会统一清单 #12 / 红队 A7）：report_only，防单 kind 族灌水 ──
+test('g2-report #12：池域分布披露 + 单族 >50% 降权系数（report_only，不改门判定）', () => {
+  const a = JSON.parse(fs.readFileSync(outDefault, 'utf8'));
+  const q12 = a.pool_domain_distribution_report_only;
+  assert.ok(q12, '#12 披露节存在');
+  assert.equal(q12.report_only, true, '#12 恒为 report_only');
+  assert.equal(q12.domain_floor, 0.5, '降权阈值 50%');
+  assert.ok(Array.isArray(q12.top_domains), 'top_domains 是数组');
+  assert.equal(q12.pool_n, a.R4.q1_qualified.value, 'pool_n 与 ① 池一致');
+  if (q12.max_domain) {
+    assert.equal(q12.max_domain.triggers_downweight, q12.max_domain.share > 0.5, '降权触发=占比>50%');
+    if (!q12.max_domain.triggers_downweight) assert.equal(q12.max_domain.downweight_factor, 1, '未触发时系数=1');
+  }
+  assert.ok(/#12 池域分布/.test(a.text_report), '文本含 #12 披露节');
+  assert.ok(/不参与门判定/.test(a.text_report), '#12 恒挂「不参与门判定」');
+});
+
+

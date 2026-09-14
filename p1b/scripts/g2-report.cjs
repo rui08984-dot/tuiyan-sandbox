@@ -205,10 +205,13 @@ for (const r of rows) {
   const bb = pr ? pr.b : null;
   const hardest = bb !== null && bb * (1 - bb) >= 0.21;
   const bucket = hDays === null ? 'unknown' : (hDays < 0 ? 'past_or_negative' : (hDays <= 7 ? 'short' : (hDays <= 30 ? 'mid' : 'long')));
+  // #12 域维度（A7）：kind 取自题面 evidence 的 resolve.kind，缺则退 dates 派生 kind，再退占位
+  const evKind = (() => { if (r.rj) { try { const o = JSON.parse(r.rj); return (o.resolve && o.resolve.kind) || null; } catch (e) { return null; } } return null; })();
   pool.push({ id: r.id, layer: r.layer, created_at: r.created_at, matures_at: r.matures_at, resolved_at: r.resolved_at,
     resolved: r.outcome !== null && r.outcome !== undefined, outcome: r.outcome, assigned_prob: r.assigned_prob,
     backfill: bf, cutoff: cutoff, cutoff_mode: cutoffMode, effective_date: rdEff, rd_derived: ddInfo ? ddInfo.kind : null,
-    b: bb, b_pattern: pr ? pr.pattern : null,
+    kind: evKind || (ddInfo ? ddInfo.kind : null),
+    b: bb, b_pattern: pr ? pr.pattern : null, brn: r.brn || null,
     horizon_days: hDays === null ? null : Math.round(hDays * 1000) / 1000, bucket: bucket, hardest: hardest });
 }
 const eligible = pool.length;
@@ -238,6 +241,31 @@ Q1.date_derivation = { version: DD_VERSION, enabled: countsDD.enabled, contract_
   failed_rows: countsDD.failed_rows, failed_by_kind: countsDD.failed_by_kind, failed_ids_sample: countsDD.failed_ids_sample,
   note: '口径 B（2026-09-14）：无 resolve.date 但 date_derivations[kind] 可换算的题以 effective_date（发布日口径）入池；cutoff 判定不变（细则 B）；derived 行 horizon 按发布日口径；换算失败行计入 failed_*（不静默丢）' };
 
+// ── #12 域分布披露（专家会统一清单 #12 / 红队 A7；report_only，不改门判定）──
+// 问题（A7）：① 池无多样性下限、② 分层无域维度 ⇒ 单 kind 族可上百，坏题在样本中被稀释。
+// 处置：披露单 kind 族占比；单族 >50% 时 ② 样本对该族等量降权（本件只**披露**降权系数，
+//   实际重抽样由 audit 清单生成侧按 design §4.2.5 A 轴执行）。
+const DOMAIN_FLOOR = 0.5;
+const domainCount = pool.reduce((a, p) => {
+  const k = (p.kind || (p.backfill ? 'backfill_unknown' : 'forward_unknown'));
+  a[k] = (a[k] || 0) + 1; return a;
+}, {});
+const domainRows = Object.keys(domainCount).map((k) => ({ kind: k, n: domainCount[k], share: eligible ? domainCount[k] / eligible : 0 }))
+  .sort((x, y) => y.n - x.n);
+const domainMax = domainRows.length ? domainRows[0] : null;
+const Q12 = {
+  report_only: true,
+  metric: '① 池域分布（kind 族占比）+ 单族 >50% 时 ② 样本等量降权（design §4.2.5 A 轴）',
+  domain_floor: DOMAIN_FLOOR,
+  pool_n: eligible,
+  by_layer_domain_note: '② 分层维度扩为 layer × horizon × 域（design §4.2.5 A 轴第 1 条）',
+  top_domains: domainRows.slice(0, 10),
+  max_domain: domainMax ? { kind: domainMax.kind, n: domainMax.n, share: domainMax.share,
+    triggers_downweight: domainMax.share > DOMAIN_FLOOR,
+    downweight_factor: domainMax.share > DOMAIN_FLOOR ? Number((1 / domainMax.share).toFixed(4)) : 1 } : null,
+};
+
+
 const Q3 = { id: 3, name: 'horizon 三层下限', threshold: { short_le_7d: 20, mid_8_30d: 20, long_gt_30d: 10 },
   basis: 'matures_at - created_at 分桶（对 ① 合格题池）；backfill 题 matures_at 在历史 ⇒ 落 past_or_negative 桶，不计入 horizon',
   buckets: { short: byBucket.short.length, mid: byBucket.mid.length, long: byBucket.long.length, unknown_horizon: byBucket.unknown.length, past_or_negative: byBucket.past_or_negative.length },
@@ -263,8 +291,62 @@ const Q4 = { id: 4, name: '难度最难档', threshold: '>=20', value: hardestPo
   hardest_realtime: hardestRt.length, hardest_backfill: hardestBf.length,
   parse_coverage: { pool_with_b: pool.filter((p) => p.b !== null).length, pool_unparsed: pool.filter((p) => p.b === null).length,
     unparsed_ids: counts.b_unparsed_ids.slice(0, 20) },
-  b_patterns: pool.reduce((a, p) => { if (p.b_pattern) a[p.b_pattern] = (a[p.b_pattern] || 0) + 1; return a; }, {}) };
-Q4.verdict = Q4.pass ? 'PASS' : 'FAIL';
+  b_patterns: pool.reduce((a, p) => { if (p.b_pattern) a[p.b_pattern] = (a[p.b_pattern] || 0) + 1; return a; }, {}) };Q4.verdict = Q4.pass ? 'PASS' : 'FAIL';
+
+// ── #13 基率窗口质量（专家会统一清单 #13 / A12+B-L3；report_only，不参与门判定）──
+// 问题（B-L3）：④「外生基率」的 b 现算自 text（baseRateNote），但 note 里的**历史窗口样本量**未被
+//   结构化，薄窗（如 n=15 的彩票「近 15 期」）与 n=300 的天气题在 ④ 下同权；b̂ 的抽样误差未量化
+//   （n=19 时 SE≈0.105，成员资格带噪声）。
+// 处置：① 从 note 抽取样本量 n（保守：取**最小**的 n——拒绝「2015-2024 共 300 个日值」这类窗口总长
+//          误当样本量）；② 给 Wilson 95% 区间；③ 披露薄窗清单；④ 报「b̂ 取 Wilson 上界仍 ≥0.30 的
+//          最难档数」＝**b̂ 偏低估时仍守住难度资格**的保守口径（真值=完整口径，本项只作稳健性披露）。
+// 生效方式：**纯披露**，Q4 主判据一字不改（若改判即须走 R5 版本递进，见 design §4.2.2 B3）。
+function parseNoteN(note) {
+  if (!note) return null;
+  const ns = [];
+  // 三种句式（保守取最小 n，防「2015-2024 共 300 个日值」类窗口总长被放大）：
+  //   a) 共/近/前/上 + N + 个/天/月/期/条
+  //   b) N + 个/天/月/期 + 的/中/值      （「96 天 … 中」「已发布 331 个月值中」——中间可夹修饰语）
+  //   c) 已发布/已开奖 N 个/期           （dbnomics 等「pre-cutoff 已发布 331 个月值中」）
+  const res = [
+    /(?:共|近|前|上)\s*([0-9]+)\s*(?:个|天|月|期|条)/g,
+    /([0-9]+)\s*(?:个|天|月|期)[^0-9%]{0,12}?(?:的|中|值)/g,
+    /(?:已发布|已开奖|已结算)\s*([0-9]+)\s*(?:个|天|月|期|条)/g,
+  ];
+  for (const re of res) {
+    let m; while ((m = re.exec(note)) !== null) { const v = Number(m[1]); if (isFinite(v) && v > 0 && v < 100000) ns.push(v); }
+  }
+  return ns.length ? Math.min.apply(null, ns) : null;
+}
+function wilsonLower(k, n, z) {
+  if (!n) return null;
+  const z2 = z * z, ph = k / n;
+  return (ph + z2 / (2 * n) - z * Math.sqrt((ph * (1 - ph) + z2 / (4 * n)) / n)) / (1 + z2 / n);
+}
+function wilsonUpper(k, n, z) { return k === 0 ? z * z / (n + z * z) : (1 - wilsonLower(n - k, n, z)); }
+for (const p of pool) {
+  p.note_n = parseNoteN(p.brn);
+  p.b_ci_hi = (p.b !== null && p.note_n !== null && p.note_n >= 2) ? wilsonUpper(p.b * p.note_n, p.note_n, 1.96) : null;
+}
+const hardestWithN = hardestPool.filter((p) => p.note_n !== null);
+const T13_THIN = 30;
+const thinWindow = hardestWithN.filter((p) => p.note_n < T13_THIN);
+const hardestRobust = hardestWithN.filter((p) => p.b_ci_hi !== null && p.b_ci_hi >= 0.30);
+const Q13 = {
+  report_only: true,
+  metric: '基率窗口样本量结构化 + Wilson 95% 区间（A12/B-L3）',
+  pool_b_with_n: pool.filter((p) => p.note_n !== null).length,
+  pool_b_total: pool.filter((p) => p.b !== null).length,
+  n_parse_coverage: 'note_n 抽取覆盖（保守取最小 n，防窗口总长误当样本量）',
+  hardest_total: hardestPool.length,
+  hardest_with_n: hardestWithN.length,
+  thin_window_n_lt_30: thinWindow.length,
+  thin_window_ids_sample: thinWindow.slice(0, 20).map((p) => p.id),
+  conservative_robust_value: hardestRobust.length,
+  conservative_note: '最难档中 b̂ 的 Wilson 上界仍 >=0.30（即即使 b 被低估仍守住难度资格）的条数；**保守口径，仅披露**',
+  n_distribution: hardestWithN.reduce((a, p) => { const k = p.note_n < 30 ? 'lt30' : (p.note_n < 100 ? '30_99' : (p.note_n < 300 ? '100_299' : 'ge300')); a[k] = (a[k] || 0) + 1; return a; }, {}),
+};
+
 
 // ── #7 描述性质量读数（report_only；**不参与门判定**；专家会 B-H1）──
 // 口径：① 合格题池中已解且 assigned_prob 非空者；trivial 基线=常数 b / 常数 0.5；Murphy 10 等宽桶
@@ -421,6 +503,15 @@ L.push('    本细则读法（§4.2.1 A）：长 ' + Q3.buckets.long + ' -> ' + 
 L.push('    ⑦披露（报告项）: 长∩最难 ' + Q3.rule7_disclosure.long_and_hardest_overlap + '/' + Q3.rule7_disclosure.long_total + ' = ' + pct(Q3.rule7_disclosure.overlap_share));
 L.push('[④] 难度最难档 b(1-b)>=0.21（等价于基率 [0.30, 0.70]）且 >=20  -> ' + Q4.verdict + '   值 ' + Q4.value + '（realtime ' + Q4.hardest_realtime + ' / backfill ' + Q4.hardest_backfill + '；外生解析覆盖 ' + Q4.parse_coverage.pool_with_b + '/' + (Q4.parse_coverage.pool_with_b + Q4.parse_coverage.pool_unparsed) + '；模式 ' + JSON.stringify(Q4.b_patterns) + '）');
 L.push('[质量读数·report_only·不参与门判定]（G2＝过程能力门，不含预测质量读数）');
+L.push('[#13 基率窗口质量·report_only·不参与门判定]（A12/B-L3：b 的抽样误差未量化过）');
+L.push('    note_n 覆盖: ' + Q13.pool_b_with_n + '/' + Q13.pool_b_total + '（b 可解析行中能抽出样本量的比例）');
+L.push('    最难档 ' + Q13.hardest_total + ' 条中可抽 n 者 ' + Q13.hardest_with_n + '；n 分布 ' + JSON.stringify(Q13.n_distribution));
+L.push('    薄窗(n<30) 最难档 ' + Q13.thin_window_n_lt_30 + ' 条' + (Q13.thin_window_ids_sample.length ? ('（抽样 id: ' + Q13.thin_window_ids_sample.join(',') + '）') : '') + '  [b̂ 的 SE 在 n<30 时显著，成员资格有噪声]');
+L.push('    保守稳健读数: b̂ 的 Wilson 上界仍 >=0.30 的最难档 ' + Q13.conservative_robust_value + ' / ' + Q13.hardest_with_n + '（即使 b 低估仍守资格）——**仅披露，不改 ④ 判据**');
+L.push('[#12 池域分布·report_only·不参与门判定]（A7：防单 kind 族灌水稀释）');
+L.push('    top 域: ' + Q12.top_domains.slice(0, 6).map((d) => d.kind + ' ' + d.n + ' (' + pct(d.share) + ')').join(' | '));
+if (Q12.max_domain) L.push('    单族最大: ' + Q12.max_domain.kind + ' ' + Q12.max_domain.n + ' = ' + pct(Q12.max_domain.share) + (Q12.max_domain.triggers_downweight ? ('  >50% ⇒ ② 样本对该族等量降权 ×' + Q12.max_domain.downweight_factor) : '  <=50%（未触发降权）'));
+
 L.push('    n=' + quality.n + ' | Brier_model=' + fmt(quality.brier_model) + ' | 常数基率基线=' + fmt(quality.brier_const_base) + ' | 常数 0.5 基线=' + fmt(quality.brier_const_half));
 L.push('    ΔBrier(vs 常数基率)=' + fmt(quality.delta_brier_vs_base) + ' | ΔBrier(vs 0.5)=' + fmt(quality.delta_brier_vs_half) + '（<0 才有 resolution 迹象）');
 L.push('    Murphy(10 等宽桶): reliability=' + fmt(quality.murphy.reliability) + ' resolution=' + fmt(quality.murphy.resolution) + ' uncertainty=' + fmt(quality.murphy.uncertainty));
@@ -460,6 +551,8 @@ const report = {
   R4: { q1_qualified: Q1, q2_audit: Q2, q3_horizon: Q3, q4_difficulty: Q4, q5_monthly: Q5,
     rule7_no_double_count: rule7, all_rows_horizon_buckets: allHorizon },
   quality_report_only: quality,
+  baserate_window_quality_report_only: Q13,
+  pool_domain_distribution_report_only: Q12,
   compliance_r3: compliance,
   intake_layer: intakeLayer,
   text_report: text

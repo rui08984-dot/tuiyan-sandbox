@@ -1,0 +1,47 @@
+========================================================================
+G2 能力门月报 -- R4 口径（审计器 design §4.2 修订 R4 · 2026-09-13）
+生成 2026-09-14T04:09:37.673Z | 库 E:\music player\p1a-terminal\data\p1a.db | 句柄只读 · 纯 SQL · 零 LLM · 零写库
+行域 g2_regime=R4 且非回测 | 门域 1935 行 / 账本 1935 行 | 门总判定 pending  [G2＝过程能力门，不含预测质量读数]
+门域外行数: 回测排除 0 行 | 不在 R4 行域 0 行 | 合计域外 0 行
+========================================================================
+[①] 合格题累计 >=60  -> PASS   值 1312（resolved 623；realtime 783 / backfill 529）
+    排除: no_resolve_date 450 | backfill_no_forwardLooking 172 | cutoff_not_before_event 1 | tautology 0
+    细则 B 落地：backfill 计入 ①（cutoff=matures_at-1 天）；两源分列见 qualified_realtime/qualified_backfill。
+    [口径B·date_derivation v2026-09-14] 契约表 sha256=007b41188807 | 规则 22 kind
+    换算入池 427 行 | 按 kind: dbnomics_series_value 123 / cwl_ssq_red_contains 42 / cwl_ssq_blue_odd 28 / dlt_draw_result 38 / github_weekly_commits 15 / npm_downloads_window 26 / dbnomics_bis_monthly_mean 28 / dbnomics_wb_commodity_annual 24 / dbnomics_eurostat_tertiary_attain 6 / eurostat_live_tertiary_attain 3 / noaa_solar_cycle_ssn_monthly 6 / crossref_week_total 5 / delphi_fluview_num_ili 9 / nvd_cve_week_count 5 / dbnomics_eurostat_unemployment_monthly 9 / eurostat_live_unemployment_monthly 6 / jpl_cad_monthly_count 4 / swpc_solar_cycle_monthly 6 / openalex_works_count 4 / eurostat_demo_pjan_annual 24 / bom_weekend_top10_gross 4 / delphi_fluview_ili 12
+    换算失败 0 行
+[②] 抽检合格率 >=70%  -> pending   值 not-yet   未提供 --audit <file>：盘上无 10% 随机抽检清单
+    缺: p1b/sim/out/g2-audit-r4.json（10% 随机抽检清单：题 id + 人工复核结论 pass/verdict + 复核人/时间）
+    抽样（#6e 双轨统一）: 候选池＝分层随机抽样程序产出（不再单列 every-10th）；seed/分层配额/命中率见 audit meta.sampling
+[③] horizon 三层 短>=20 中>=20 长>=10(须 realtime)  -> PASS
+    短 439 | 中 147 | 长 197 | 未知 0 | past_or_negative(backfill) 529 | 长中 backfill 0
+    本细则读法（§4.2.1 A）：长 197 -> PASS | 严格读法对照：独立长 28 -> PASS
+    ⑦披露（报告项）: 长∩最难 169/197 = 85.8%
+[④] 难度最难档 b(1-b)>=0.21（等价于基率 [0.30, 0.70]）且 >=20  -> PASS   值 1120（realtime 659 / backfill 461；外生解析覆盖 1312/1312；模式 {"pct_share":1228,"base_rate_eq":84}）
+[质量读数·report_only·不参与门判定]（G2＝过程能力门，不含预测质量读数）
+[#13 基率窗口质量·report_only·不参与门判定]（A12/B-L3：b 的抽样误差未量化过）
+    note_n 覆盖: 1164/1312（b 可解析行中能抽出样本量的比例）
+    最难档 1120 条中可抽 n 者 1020；n 分布 {"ge300":538,"100_299":238,"30_99":223,"lt30":21}
+    薄窗(n<30) 最难档 21 条（抽样 id: 1082,1085,1088,1120,1121,1122,1123,1124,1125,1126,1127,1128,1129,1130,1132,1133,1134,1135,1136,1471）  [b̂ 的 SE 在 n<30 时显著，成员资格有噪声]
+    保守稳健读数: b̂ 的 Wilson 上界仍 >=0.30 的最难档 1020 / 1020（即使 b 低估仍守资格）——**仅披露，不改 ④ 判据**
+[#12 池域分布·report_only·不参与门判定]（A7：防单 kind 族灌水稀释）
+    top 域: openmeteo_air_daily_mean 128 (9.8%) | openmeteo_daily_max 113 (8.6%) | openmeteo_forecast_daily_max 98 (7.5%) | dbnomics_series_value 91 (6.9%) | energycharts_daily_mean 64 (4.9%) | openmeteo_wx_daily 60 (4.6%)
+    单族最大: openmeteo_air_daily_mean 128 = 9.8%  <=50%（未触发降权）
+    n=623 | Brier_model=0.2384 | 常数基率基线=0.2384 | 常数 0.5 基线=0.2500
+    ΔBrier(vs 常数基率)=0.0000 | ΔBrier(vs 0.5)=-0.0116（<0 才有 resolution 迹象）
+    Murphy(10 等宽桶): reliability=0.0022 resolution=0.0111 uncertainty=0.2498
+    ECE(binned)=0.0313  [binned ECE=下界估计 + 小样本正偏]
+[⑤] 月节律（仅报告·不作门）
+    2026-09  realtime 552 / backfill 686 / total 1238
+[⑦] 披露（报告项·不扣减）: 长∩最难 169/197 = 85.8% | 严格读法独立长 28 -> PASS
+    重叠 id（全量 169 条）: 452,471,723,724,725,726,727,728,729,730,737,738,739,740,741,742,743,744,745,746,747,748,749,750,751,752,753,754,755,756,757,758,759,760,761,762,763,764,765,766,767,768,769,770,771,772,773,774,775,776,777,778,779,780,781,782,783,784,785,786,787,788,789,790,791,792,793,794,795,796,797,798,799,800,801,802,803,804,805,806,807,808,809,810,811,812,813,814,815,816,870,871,872,962,963,966,967,970,971,973,974,977,979,982,983,985,986,988,989,991,992,994,995,998,1000,1001,1003,1004,1008,1010,1012,1014,1018,1029,1030,1031,1032,1033,1034,1038,1039,1040,1082,1085,1088,1100,1101,1507,1512,1513,1517,1518,1847,1848,1851,1852,1855,1856,1889,1892,1899,1902,1905,1911,1914,1917,1920,1939,1940,1941,1942,1943,1944,1945,1946,1947,1948,1949,1950
+[R3 防 Goodhart 合规]
+    分窗 resolved: realtime 552 / backfill 686
+    单批上限(细则 C·按批次): wide_backfill 280 ok | b4_backfill 217 ok | corpus-backfill-2026-09-12 152 ok | b3_backfill 52 ok -> ok | 累计 701（仅披露）
+    分层 3x 上限: L2 303<=966 ok | L3 374<=1134 ok | L5 24<=252 ok
+    分窗配额(上限 60.0%): realtime L3 30.6% | backfill L3 53.4%
+    审计列: baseline_brier 非空 0（**已废弃**：专家会盲区⑦裁决=废弃而非补齐；④ 走 baseRateNote 现算旁路，见 design §4.2.2）
+    诚实标注: 凡引用含 backfill 样本的校准结论（ECE/Brier/分辨率），报告须恒挂「含历史回填样本，非实时预测能力」
+========================================================================
+注: ② 结论=机器段+代理语义段（非全人工）；采信按 design §4.2.3 修订 R4.2（全过 n>=35 或 Wilson 95% 下界 >=0.90）且端用户抽验 >=10 题为必要条件；G2＝过程能力门，不含预测质量读数；③ 按细则 A 判定并披露 ⑦ 重叠；含 backfill 数字恒挂「含历史回填样本，非实时预测能力」。
+[g2-report] JSON -> E:\music player\.tmp\g2-full.json
