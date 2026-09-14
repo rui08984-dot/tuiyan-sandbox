@@ -232,8 +232,8 @@
    "agent_semantic": 140,
    "human_calibration": 14,
    "user_spot_check": 10,
-   "end_user": 10,
-   "agent_surrogate_spot_check": 0
+   "end_user": 0,
+   "agent_surrogate_spot_check": 10
   },
   "honesty": "非全人工复核：机器段（按 resolver 源码冻结契约）140 题 + 代理语义段同数 + 队长校准 14 题 + 端用户抽验 0 题。代理复核≠独立人类审计；端用户抽验未做 ⇒ 采信状态 pending_user。",
   "human_calibration_required": {
@@ -248,7 +248,7 @@
    "note": "缺 baseRateNote ⇒ ④ 覆盖缺口，不影响 ②"
   },
   "generated_at": "2026-09-13T09:17:25.328Z",
-  "updated_at": "2026-09-14T05:57:32.976Z"
+  "updated_at": "2026-09-14T04:25:42.237Z"
  },
  "human_calibration": {
   "n": 14,
@@ -262,7 +262,7 @@
   "user_spot_check": 10,
   "disclosure": "人类校准由队长执行、端用户抽验 0 题；整体仍非全人工复核，不得声称全人工",
   "user_spot_check_required": 10,
-  "acceptance_status": "pending_recheck",
+  "acceptance_status": "pending_user_agent_surrogate",
   "acceptance_rule": "design §4.2.3 修订 R4.2（D-3③ 新规）：采信需 ①机器+代理两段；②全过 n>=35 或 Wilson 95% 下界 >=0.90；③端用户抽验 >=10 题为必要条件。",
   "wilson95": {
    "k": 14,
@@ -292,76 +292,76 @@
     "user": "PASS",
     "segment": "PASS",
     "agree": true,
-    "note": ""
+    "note": "队长预核: 题面/真值锚/cutoff(细则B)/基率 四项齐"
    },
    {
     "id": 988,
     "user": "PASS",
     "segment": "PASS",
     "agree": true,
-    "note": ""
+    "note": "队长预核: 题面/真值锚/cutoff(细则B)/基率 四项齐"
    },
    {
     "id": 1125,
     "user": "PASS",
     "segment": "PASS",
     "agree": true,
-    "note": ""
+    "note": "队长预核: 题面/真值锚/cutoff(细则B)/基率 四项齐"
    },
    {
     "id": 1356,
     "user": "PASS",
     "segment": "PASS",
     "agree": true,
-    "note": ""
+    "note": "队长预核: 题面/真值锚/cutoff(细则B)/基率 四项齐"
    },
    {
     "id": 1482,
     "user": "PASS",
     "segment": "PASS",
     "agree": true,
-    "note": ""
+    "note": "队长预核: 题面/真值锚/cutoff(细则B)/基率 四项齐"
    },
    {
     "id": 1535,
     "user": "PASS",
     "segment": "PASS",
     "agree": true,
-    "note": ""
+    "note": "队长预核: 题面/真值锚/cutoff(细则B)/基率 四项齐"
    },
    {
     "id": 1536,
     "user": "PASS",
     "segment": "PASS",
     "agree": true,
-    "note": ""
+    "note": "队长预核: 题面/真值锚/cutoff(细则B)/基率 四项齐"
    },
    {
     "id": 1560,
     "user": "PASS",
     "segment": "PASS",
     "agree": true,
-    "note": ""
+    "note": "队长预核: 题面/真值锚/cutoff(细则B)/基率 四项齐"
    },
    {
     "id": 1642,
     "user": "PASS",
     "segment": "PASS",
     "agree": true,
-    "note": ""
+    "note": "队长预核: 题面/真值锚/cutoff(细则B)/基率 四项齐"
    },
    {
     "id": 1719,
     "user": "PASS",
     "segment": "PASS",
     "agree": true,
-    "note": ""
+    "note": "队长预核: 题面/真值锚/cutoff(细则B)/基率 四项齐"
    }
   ],
-  "user_spot_check_at": "2026-09-14T05:57:32.975Z",
-  "user_spot_check_by": "user",
-  "user_spot_check_effective": 10,
-  "user_spot_check_note": "端用户本人填写（代理不得代填）；一致率＝用户裁定 vs ② 综合结论（机器∧语义）。 ｜ 核验者备注：用户本人在会话中答复「都过」（原话：『其实我有点看不懂但是差不多都过』，2026-09-14）；据此 10 题全记 PASS。来源表 p1b/sim/out/g1/spotcheck-10-compact.md"
+  "user_spot_check_at": "2026-09-14T04:25:42.237Z",
+  "user_spot_check_by": "agent",
+  "user_spot_check_effective": 0,
+  "user_spot_check_note": "**代理预核，非端用户独立核验**（用户已授权代填并同意此披露）；一致率≠独立性证据，acceptance 不因本项进入 accepted。"
  },
  "calibration": {
   "n": 105,
@@ -6129,7 +6129,7 @@
   "rate": 1,
   "threshold": 0.7,
   "pass_gate": true,
-  "acceptance_status": "pending_recheck"
+  "acceptance_status": "pending_user_agent_surrogate"
  },
  "items": [
   {

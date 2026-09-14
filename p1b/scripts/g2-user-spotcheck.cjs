@@ -12,8 +12,11 @@
  *        → 从 ② 校准样本（calibration items）分层随机抽 n 题，生成**人可读**的抽验表
  *          （题面 + 判据 + 机器/代理段结论），每题留「你的裁定」栏。
  *   ② 记账（写回）：node p1b/scripts/g2-user-spotcheck.cjs --record <填好的.tsv> [--out <audit.json>] [--dry-run]
+ *        [--by user|agent] [--note "核验者备注"]
  *        → 读用户填写的裁定，算与 ② 段一致率，写回 g2-audit-r4.json 的 human_calibration.user_spot_check
  *          与 user_spot_check_*，并据 design 规则重算 acceptance_status。
+ *        --note：把核验者的**限定语/原话**拼进 user_spot_check_note（provenance 披露的一部分，
+ *          2026-09-14 加：端用户可能给出「都过，但我看不懂细节」这类带保留的裁定，须原样留痕）。
  *
  * 填写格式（TSV，制表符分隔；表头行以 # 开头，不改）：
  *   id<TAB>verdict<TAB>note
@@ -42,6 +45,7 @@ const USER_SPOT_REQUIRED = 10;
 //     acceptance 恒不因它进入 accepted**（user_spot_check_effective=0），并在各报告恒挂降级披露。
 const BY = String(arg('by', 'user')).toLowerCase();
 const BY_IS_USER = BY === 'user';
+const NOTE = arg('note', null); // 核验者限定语（原话），拼进披露 note——不得覆盖标准披露，只能追加
 if (['user', 'agent'].indexOf(BY) === -1) { console.error('--by 必须是 user|agent'); process.exit(2); }
 
 /** 与 g2-audit-build.cjs 同序同口径的 Wilson 下界（复算一致率下界） */
@@ -144,9 +148,10 @@ hc.user_spot_check_at = new Date().toISOString();
 // provenance：谁是核验者。只有 user 才算满足必要条件（防代理自审冒充独立性）
 hc.user_spot_check_by = BY;
 hc.user_spot_check_effective = BY_IS_USER ? considered : 0; // 参与「必要条件是否满足」判定的**有效**题数
-hc.user_spot_check_note = BY_IS_USER
+hc.user_spot_check_note = (BY_IS_USER
   ? '端用户本人填写（代理不得代填）；一致率＝用户裁定 vs ② 综合结论（机器∧语义）。'
-  : '**代理预核，非端用户独立核验**（用户已授权代填并同意此披露）；一致率≠独立性证据，acceptance 不因本项进入 accepted。';
+  : '**代理预核，非端用户独立核验**（用户已授权代填并同意此披露）；一致率≠独立性证据，acceptance 不因本项进入 accepted。')
+  + (NOTE ? ' ｜ 核验者备注：' + NOTE : '');
 
 // 重算 acceptance（照 g2-audit-build.cjs 同规则；但用**有效**端用户题数）
 const hcWilson = wilson(Number(hc.agreed || 0), Number(hc.n || 0));

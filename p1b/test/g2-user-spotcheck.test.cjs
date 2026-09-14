@@ -112,3 +112,23 @@ test('--by agent：代理预核写回但 effective=0 ⇒ 状态 pending_user_age
   assert.notEqual(b.human_calibration.acceptance_status, 'pending_user_agent_surrogate', 'user 路径不落 surrogate 状态');
 });
 
+// ── 核验者备注（2026-09-14 加）：端用户可能给带保留的裁定（「都过，但看不懂细节」），限定语须原样留痕 ──
+test('--note：核验者限定语原样拼进 user_spot_check_note（标准披露只追加、不被覆盖）', () => {
+  const src = fs.readFileSync(REAL_AUDIT, 'utf8');
+  const before = JSON.parse(src);
+  const copy = path.join(tmpDir, 'audit-note.json');
+  fs.writeFileSync(copy, src);
+  const ids = (before.items || []).slice(0, 10).map((i) => i.id);
+  const lines = ['# id\tverdict\tnote'];
+  for (const id of ids) { const it = before.items.find((x) => x.id === id); lines.push(id + '\t' + (it.pass ? 'PASS' : 'REJECT') + '\t'); }
+  const tsv = path.join(tmpDir, 'note.tsv');
+  fs.writeFileSync(tsv, lines.join('\n') + '\n');
+  const outJson = path.join(tmpDir, 'recorded-note.json');
+  execFileSync(process.execPath, [SCRIPT, '--record', tsv, '--audit', copy, '--note', '原话：看不懂但都过', '--out', outJson], { stdio: 'ignore' });
+  const a = JSON.parse(fs.readFileSync(outJson, 'utf8'));
+  const note = a.human_calibration.user_spot_check_note;
+  assert.ok(/核验者备注：原话：看不懂但都过/.test(note), '备注原文保留');
+  assert.ok(/端用户本人填写/.test(note), '标准披露仍在（只追加不覆盖）');
+  assert.equal(a.human_calibration.user_spot_check_by, 'user', '默认 by=user');
+});
+
