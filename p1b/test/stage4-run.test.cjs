@@ -29,7 +29,7 @@ test('stage4-run：产出分层读数（仅 L2/L5）、L5 读侧重建出数、�
   execFileSync(process.execPath, [SCRIPT, '--json', out], { stdio: 'ignore' });
   const r = JSON.parse(fs.readFileSync(out, 'utf8'));
   assert.ok(r.report, '有 report');
-  assert.deepEqual(Object.keys(r.report).sort(), ['L2', 'L3', 'L5'], '引擎已建的三层（禁跨层池化 ⇒ 分层独立）');
+  assert.deepEqual(Object.keys(r.report).sort(), ['L1', 'L2', 'L3', 'L5'], '引擎已建的四层（禁跨层池化 ⇒ 分层独立）');
   const l2 = r.report.L2;
   assert.ok(l2.ledger_rows > 0, 'L2 有账本行');
   assert.ok(l2.engine_ok > 0, 'L2 引擎有出数');
@@ -40,6 +40,13 @@ test('stage4-run：产出分层读数（仅 L2/L5）、L5 读侧重建出数、�
     // 防过度声称：CI 含 0（ub>=0）⇒ 不得给「优于」信号
     if (l2.delta_ci95.ub >= 0) assert.notEqual(l2.signal, 'engine_beats_half_CI_excludes_0', 'CI 含 0 不得声称优于');
   }
+  // L1（2026-09-14 接线）：程序复算。核心不变量——**复算结论必须与账本真值一致**（正确率=1）。
+  const l1 = r.report.L1;
+  assert.ok(l1.ledger_rows > 0, 'L1 有账本行');
+  assert.equal(l1.engine_ok + 0, l1.ledger_rows, 'L1 全部出数（规则族覆盖当前模板）');
+  assert.equal(l1.scored_n, l1.ledger_rows, 'L1 全部可计分（180/180 已解）');
+  assert.equal(l1.accuracy, 1, 'L1 复算正确率=1（对账：复算结论 == 账本真值）');
+  assert.equal(l1.signal, 'proc_calc_deterministic', 'L1 信号＝复算确定性（非概率对照）');
   // L3（2026-09-14 接线）：p=基率 + ACI 覆盖率披露；出数与可计分如实（不编数）
   const l3 = r.report.L3;
   assert.ok(l3.ledger_rows > 0, 'L3 有账本行');

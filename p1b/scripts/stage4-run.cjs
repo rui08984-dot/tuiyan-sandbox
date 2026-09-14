@@ -34,6 +34,7 @@ const { l2Baseline, parseBaseRateNote } = require(path.join(ROOT, 'p1b/src/engin
 const { l5Certified } = require(path.join(ROOT, 'p1b/src/engines/l5_certified'));
 const { certifiedSourceForRow } = require(path.join(ROOT, 'p1b/src/engines/l5_sources')); // 2026-09-14：L5 认证源读侧结构化（按 kind 组合数重建）
 const { l3Aci, aciReplay } = require(path.join(ROOT, 'p1b/src/engines/l3_aci')); // 2026-09-14：L3 引擎（stat_baseline + ACI）
+const { procCalc } = require(path.join(ROOT, 'p1b/src/engines/l1_proc')); // 2026-09-14：L1 引擎（proc_calc 程序复算）
 
 const db = new DatabaseSync(DB_PATH, { readOnly: true });
 const all = (s) => db.prepare(s).all();
@@ -42,9 +43,9 @@ const all = (s) => db.prepare(s).all();
 const one = (s) => db.prepare(s).get();
 
 // 只跑引擎已建的层（design §5.3：先导期只 L2/L5 有引擎；其余层 classify-only）
-// 2026-09-14：L3 引擎（stat_baseline+ACI）落地 ⇒ 加入真跑
-const ENGINED_LAYERS = ['L2', 'L3', 'L5'];
-const rows = all('SELECT p.id, p.layer, p.outcome, p.assigned_prob, p.created_at, p.matures_at, p.statement, '
+// 2026-09-14：L3 引擎（stat_baseline+ACI）＋ L1 引擎（proc_calc）落地 ⇒ 加入真跑
+const ENGINED_LAYERS = ['L1', 'L2', 'L3', 'L5'];
+const rows = all('SELECT p.id, p.game_id, p.layer, p.outcome, p.assigned_prob, p.created_at, p.matures_at, p.statement, '
   + "(SELECT json_extract(e.value,'$.baseRateNote') FROM json_each(p.evidence_json) e WHERE json_extract(e.value,'$.baseRateNote') IS NOT NULL LIMIT 1) AS brn, "
   + "(SELECT json_extract(e.value,'$.certifiedSource') FROM json_each(p.evidence_json) e WHERE json_extract(e.value,'$.certifiedSource') IS NOT NULL LIMIT 1) AS cs, "
   + "(SELECT json_extract(e.value,'$.resolve.certified_source') FROM json_each(p.evidence_json) e WHERE json_extract(e.value,'$.resolve.certified_source') IS NOT NULL LIMIT 1) AS rcs, "
@@ -71,6 +72,15 @@ for (const layer of ENGINED_LAYERS) perLayer[layer] = { total: 0, engine_ok: 0, 
   scored: 0, p_list: [], y_list: [], engine_results_sample: [] };
 // L5 认证源来源统计（2026-09-14 读侧结构化后）：structured=写端已给；read_side=读侧注册表重建；none=两路皆无
 const L5_SRC = { structured: 0, read_side: 0, none: 0, note_consistent: 0, note_mismatch: 0, note_empirical: 0, note_absent: 0, mismatch_ids: [] };
+// L1 复算所需的记录（只读；按局缓存）
+const stEv = db.prepare('SELECT seq, day, phase, type, actor_seat, raw_text FROM events WHERE game_id = ? ORDER BY seq, id');
+const stCl = db.prepare('SELECT e.day AS day, c.predicate AS predicate FROM claims c JOIN events e ON e.id = c.event_id WHERE e.game_id = ?');
+const stPc = db.prepare('SELECT player_count FROM games WHERE id = ?');
+const evCache = new Map(), clCache = new Map(), pcCache = new Map();
+function eventsOf(gid) { if (!evCache.has(gid)) evCache.set(gid, stEv.all(gid)); return evCache.get(gid); }
+function claimsOf(gid) { if (!clCache.has(gid)) clCache.set(gid, stCl.all(gid)); return clCache.get(gid); }
+function pcOf(gid) { if (!pcCache.has(gid)) { const r = stPc.get(gid); pcCache.set(gid, r ? r.player_count : null); } return pcCache.get(gid); }
+
 // L3 ACI 反馈序列（2026-09-14）：已解 L3 行按 id 时序**全局回放**（仅用于 α 适配与覆盖率披露；不影响 p/计分）
 const L3_FEEDBACK = (() => {
   const rs = all("SELECT p.id, p.outcome, "
@@ -90,7 +100,9 @@ for (const r of rows) {
   const L = perLayer[r.layer];
   L.total++;
   let out;
-  if (r.layer === 'L2') {
+  if (r.layer === 'L1') {
+    out = procCalc({ statement: r.statement, events: eventsOf(r.game_id), claims: claimsOf(r.game_id), playerCount: pcOf(r.game_id) });
+  } else if (r.layer === 'L2') {
     out = l2Baseline({ baseRateNote: r.brn });
   } else if (r.layer === 'L3') {
     out = l3Aci({ baseRateNote: r.brn, feedback: L3_FEEDBACK });
@@ -143,7 +155,13 @@ for (const layer of ENGINED_LAYERS) {
     // 判定信号（沿用项目口径：Δ<0 才有增量；但本层引擎 p **本身**就是基率 ⇒ Δ(vs 常数基率) 结构性为 0，
     //   故真正的对照是「vs 常数 0.5」——「基率比硬币好多少」）
     const ciExcludes0 = brief.delta_ci95.lb !== null && brief.delta_ci95.ub < 0;
-    if (layer === 'L5') {
+    if (layer === 'L1') {
+      // L1 决定论层（2026-09-14 接线）：引擎=程序复算（proc_calc，6 条规则族），输出 0/1 计算结论。
+      brief.signal = 'proc_calc_deterministic';
+      brief.accuracy = (brief.brier_engine === undefined || brief.brier_engine === null) ? null : Number((1 - brief.brier_engine).toFixed(6));
+      brief.note = 'L1 决定论层：**本层 Brier 语义＝计算错误率**（design §1.5），不与概率层混比；'
+        + 'vs 常数 0.5 的 Δ 在此层无概率含义（仅记录，不构成任何"更准"宣称）。accuracy = 1 − 错误率。';
+    } else if (layer === 'L5') {
       // L5 专属口径（2026-09-14）：引擎 p 即认证源公布分布，vs 0.5 的 Δ 只反映「事件基率偏离 50%」，
       //   不构成任何「更准」宣称（L5 铁律：显著优于认证源＝泄漏信号，非本事）。信号名中性化。
       brief.signal = ciExcludes0 ? 'delta_vs_half_negative_CI_excludes_0'
@@ -268,6 +286,8 @@ T.push('    与文本交叉核对：认证值声明一致 ' + L5_SRC.note_consis
 T.push('    已可计分 ' + (report.L5 && report.L5.scored_n !== undefined ? report.L5.scored_n : 0) + ' 行（开奖真值随时间到达；本修后**到达即可自动计分**）。');
 T.push('    ' + L5_GAP.gap);
 T.push('');
+T.push('[L1 复算正确率] ' + (report.L1 && report.L1.accuracy !== null && report.L1.accuracy !== undefined ? report.L1.accuracy : 'n/a')
+  + '（= 1 − Brier；本层语义＝计算错误率，design §1.5）｜ 规则族 6 条（proc_calc：首夜平安/票差≤1/无弃票/最高票≥4/day1 声称≥10/最高票唯一）');
 T.push('[L3 ACI · 全局回放] 反馈 ' + L3_ACI.feedback_n + ' 条（已解 L3 按 id 时序）｜ α*=' + L3_ACI.alpha_star + ' γ=' + L3_ACI.gamma
   + ' ⇒ α_final=' + L3_ACI.alpha_final + '｜ 实测覆盖 ' + (L3_ACI.coverage ? L3_ACI.coverage.rate : 'n/a')
   + '（名义 ' + (1 - L3_ACI.alpha_star) + '）｜ EWMA 覆盖 ' + (L3_ACI.ewma_coverage === null ? 'n/a' : L3_ACI.ewma_coverage));
