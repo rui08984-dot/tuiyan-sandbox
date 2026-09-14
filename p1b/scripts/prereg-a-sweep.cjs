@@ -8,7 +8,8 @@
  *   逐条件用 verdicts 路由的 `onlyVariants` 通道补齐——与真跑**同链同口径**（applyArm + windowOf + evidenceIds）。
  *
  * 用法：
- *   node p1b/scripts/prereg-a-sweep.cjs [--dry-run（缺省）] [--confirm] [--json <out>]
+ *   node p1b/scripts/prereg-a-sweep.cjs [--dry-run（缺省）] [--confirm] [--json <out>] [--skip-state <state.json>]
+ *   --skip-state：跳过该 state 的 retry_pending 里已列的条件（**与在跑的补漏零重叠**，可并行补"孤儿"缺口）
  *   env: P1B_LLM_REASONING_EFFORT=low、P1B_LLM_TIMEOUT_MS=600000（与续跑一致）
  *
  * 纪律：只对**缺失变体**发请求（幂等：verdicts 落库 OR IGNORE）；不写 run-state；如实打印/落 summary。
@@ -19,6 +20,7 @@ const ROOT = path.resolve(__dirname, '..', '..');
 function arg(n, d) { const i = process.argv.indexOf('--' + n); return i >= 0 && process.argv[i + 1] && process.argv[i + 1].slice(0, 2) !== '--' ? process.argv[i + 1] : d; }
 const CONFIRM = process.argv.indexOf('--confirm') >= 0;
 const JSON_OUT = arg('json', null);
+const SKIP_STATE = arg('skip-state', null); // 跳过该 state 的 retry_pending 条件（与在跑的补漏并行时用，防重复）
 const V3K = 'P1B_EVIDENCE_V3', MODEK = 'P1B_EVIDENCE_V3_MODE';
 const ARM_ENV = {
   A: { set: {} },
@@ -56,12 +58,24 @@ const LIMIT = 120;
     return { ids: view.events.map((e) => e.id) };
   }
   const stV = conn.prepare('SELECT COUNT(*) c FROM verdicts WHERE prediction_id=? AND run_id=? AND prompt_variant=?');
+  // --skip-state：与在跑的补漏零重叠（只补它队列外的孤儿条件）
+  let skipSet = null;
+  if (SKIP_STATE) {
+    try {
+      const st = JSON.parse(fs.readFileSync(path.resolve(SKIP_STATE), 'utf8'));
+      skipSet = new Set((st.retry_pending || []).map((x) => x.key));
+      console.log('[sweep] skip-state: ' + path.resolve(SKIP_STATE) + '（跳过 ' + skipSet.size + ' 个在队条件）');
+    } catch (e) { console.log('[sweep] skip-state 读取失败：' + e.message + '（不跳过）'); skipSet = null; }
+  }
   // 算缺口（按条件分组）
   const gaps = [];
   let missingTotal = 0;
+  let skipped = 0;
   for (const p of preds) {
     for (const win of WINDOWS) {
       for (const arm of ARMS) {
+        const key = p.id + '|' + win + '|' + arm;
+        if (skipSet && skipSet.has(key)) { skipped++; continue; }
         const runId = RUN_PREFIX + arm + '-' + win;
         const miss = VARIANTS.filter((v) => stV.get(p.id, runId, v).c === 0);
         if (!miss.length) continue;
@@ -70,7 +84,8 @@ const LIMIT = 120;
       }
     }
   }
-  console.log('[sweep] 全量缺口：条件 ' + gaps.length + ' 个 ｜ 缺失变体 ' + missingTotal + ' 个' + (CONFIRM ? '' : '（dry-run：不发请求）'));
+  console.log('[sweep] 全量缺口：条件 ' + gaps.length + ' 个 ｜ 缺失变体 ' + missingTotal + ' 个'
+    + (skipSet ? '（已跳过在队条件 ' + skipped + ' 个）' : '') + (CONFIRM ? '' : '（dry-run：不发请求）'));
   const results = [];
   let saved = 0, errors = 0;
   if (CONFIRM) {
