@@ -13,9 +13,37 @@
 // 超时 → AbortError → 由各调用方既有 try/catch 记录并继续（fail-fast 取代 hang-forever）。
 // 默认 120s（实测单次 ≈18.5s，6 倍余量）；P1B_LLM_TIMEOUT_MS 可覆盖；<=0 表示不超时。
 const DEFAULT_LLM_TIMEOUT_MS = Number(process.env.P1B_LLM_TIMEOUT_MS || 120000);
+
+// ── 请求体旋钮：reasoning_effort（2026-09-14 新增，additive；env 未设时零行为变化）──────
+// 背景（实测）：tokenrhythm 的 glm-5.3-flash **强制深度思考**（关思考 → HTTP 400 REASONING_REQUIRED），
+//   默认档单次补漏判词 ≈7 分钟（思考 token 占绝大多数）。实测 `reasoning_effort='low'` **有效**：
+//   思考 token 1245→562（−55%）、单次延迟 33.5s→7.8s（−77%），且正常产出可见文本；
+//   'minimal'/'none' 无效（实测与默认档无异）。
+// 为什么在此处：请求体在 p1a-terminal/src/llm.js（**禁改面**）拼装；p1b 的注入点是 fetchImpl，
+//   故在 fetch 层对 chat/completions 的 JSON body 做**显式可选**合并——env 未设 ⇒ 一字不改。
+// 口径：P1B_LLM_REASONING_EFFORT=low|minimal|none|medium|high（未设/非法值 ⇒ 不动）；**调用时读 env**（可测/可切）。
+const REASONING_EFFORT_VALUES = ['low', 'minimal', 'none', 'medium', 'high'];
+function reasoningEffort() {
+  const v = String(process.env.P1B_LLM_REASONING_EFFORT || '').trim().toLowerCase();
+  return REASONING_EFFORT_VALUES.indexOf(v) !== -1 ? v : null;
+}
+/** 只对 chat/completions 的 JSON body 合并 reasoning_effort（已显式给值不覆盖；解析失败不改）。 */
+function mergeReasoningEffort(url, init) {
+  const effort = reasoningEffort();
+  if (!effort || !init || typeof init.body !== 'string') return init;
+  if (String(url).indexOf('/chat/completions') === -1) return init;
+  try {
+    const b = JSON.parse(init.body);
+    if (!b || typeof b !== 'object' || b.reasoning_effort !== undefined) return init;
+    b.reasoning_effort = effort;
+    return Object.assign({}, init, { body: JSON.stringify(b) });
+  } catch (e) { return init; }
+}
+
 function timeoutFetch(ms) {
   return function (url, init) {
-    const opts = Object.assign({}, init || {});
+    let opts = Object.assign({}, init || {});
+    opts = mergeReasoningEffort(url, opts); // 可选旋钮（env 未设 ⇒ 原样）
     if (ms > 0 && !opts.signal) {
       const ctrl = new AbortController();
       const timer = setTimeout(function () { ctrl.abort(); }, ms);
@@ -57,6 +85,7 @@ function describeEffective({ store, llmMock, options } = {}) {
     model: mock ? null : (opts.model || process.env.LLM_MODEL || DEFAULT_CHAT_MODEL),
     key_source: keySource,
     has_key: keySource !== 'none',
+    reasoning_effort: reasoningEffort(), // 可观测性：当前是否对请求体施加降思考档（env 驱动）
   };
 }
 
@@ -82,4 +111,4 @@ function resolveLlmOptions({ store, llmMock, fetchImpl }) {
   return opts;
 }
 
-module.exports = { resolveLlmOptions, describeEffective, DEFAULT_CHAT_MODEL, timeoutFetch };
+module.exports = { resolveLlmOptions, describeEffective, DEFAULT_CHAT_MODEL, timeoutFetch, mergeReasoningEffort, reasoningEffort };

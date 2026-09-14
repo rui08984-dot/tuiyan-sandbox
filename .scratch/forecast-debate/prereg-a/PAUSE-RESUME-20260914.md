@@ -71,3 +71,42 @@ node p1b/scripts/prereg-a-run.cjs --limit=120 --tag=full1 --run-prefix=preregA-f
 - TCP 可连 ≠ HTTP 可用：探测上游必须发真实小请求（本次 4-token ping 24s，而 TCP 秒连）
 - 计划任务 13 条是历史遗留（/sc once /st 23:59 + 手动 run），**到点会自动再触发**；本次已全 Disabled
 - 12 路并发会显著抬高失败率（历史：12 并发出现 370 条 retry_pending，串行时偶发），劣化期只走串行
+
+## 5. 续跑日志（2026-09-14 下午）
+
+- **健康自检（步骤 1）**：`.tmp/prereg-a-health.cjs` → **HTTP 200 @ 1039ms**（provider=tokenrhythm / model=glm-5.3-flash；昨晚同法探测 24,353ms）⇒ 判定 **HEALTHY（<60s）**⇒ 放行续跑。
+- **断点核对**：`run-state-full1-repair.json` `retry_pending=**370**`；库内前缀行 **1055**（与暂停时一致，无漂移）。
+- **启动**：`cmd /c C:\Users\crx\AppData\Local\Temp\preregA-repair.cmd`（**串行**；`P1B_LLM_TIMEOUT_MS=600000`；`--max-calls=2300 --max-cost=25`）。
+  昨晚日志先备份为 `repair-20260913.out.log.bak` / `repair-20260913.err.log.bak`（.cmd 用 `1>` 覆写）。
+- **推进判据**：只看 **DB 行增长**（state/stdout 只在收尾写——昨晚教训；探测命令见 §0/§3）。
+- **跑完后必做**：bootstrap 计分（`--run-prefix=preregA-full1-`）→ 更新 `docs/specs/命题A-全量消融判定报告-20260914.md`
+  （现为负结果止发、基于 1055 行；补漏后**必须重算并明确是否改判**）。
+- **杂记（本次踩坑）**：首次按 §3 用 `cmd /c "...preregA-repair.cmd"` 启动**失败**——Git Bash 的 MSYS 路径转换把 `/c` 当路径吞掉，cmd 只开了个交互壳即退（零工作量、日志 0 字节、DB 零增长）。
+  改用 **node 直启**（同参数、保留 `P1B_LLM_TIMEOUT_MS=600000`）：启动后 **DB 4.5 分钟 +1 行** ⇒ 确认在跑。**cmd 脚本仅适合在原生 cmd/PowerShell 里执行**。
+- **并发分片（w0..w11）与自动计划任务（preregA-repair）继续 Disabled**（劣化期教训：只走串行）。
+
+## 6. 提速与队列修复（2026-09-14 下午 · 用户令「把思考拉低试试」）
+
+### 6.1 降思考档（实测数据）
+| 探测 | 结果 |
+|---|---|
+| 关思考 | `thinking={type:'disabled'}` / `enable_thinking=false` → **HTTP 400 `REASONING_REQUIRED`「当前模型必须开启深度思考」**（中转强制） |
+| `reasoning_effort='low'`（max_tokens=2048） | 思考 token 1245→**562**（−55%）、单次 33.5s→**7.8s**（−77%），正常出可见文本 |
+| `'minimal'` / `'none'` | 与默认档**无异**（无效） |
+| 大提示词（≈4.5k tokens，真判词量级） | low 41.7s / 默认 17.4s（**方差大**，但都可用） |
+
+- 实现：`p1b/src/llmOptions.js` additive 旋钮 `P1B_LLM_REASONING_EFFORT=low`（fetch 层合并请求体；**env 未设=零行为变化**；测试 3 例）。
+- **PREREG 纪律**：本项属生成器档位变更 ⇒ 已落 **v1.1 增补条款**（`PREREG-命题A-3.0消融-v1.1-补漏档位-addendum.md`，**不动 v1 原件**）：
+  补漏段 low 档生成、按生成期分层披露、方向不一致时以 regime A 为准（先验约定）。
+
+### 6.2 重试队列陈旧修复（本轮的第二个真发现）
+- **现象**：low 档重启后 20 分钟仍 0 新行、CPU 0.1s——一度被误判为「wedge 复发」（**更正：CPU 低不是 wedge 判据**——网络等待型循环本来就不吃 CPU；wedge 判据＝**首个请求不回包 + DB 零增长 + 日志零字节**三件套）。
+- **真因**：`retry_pending` 头部**陈旧**——370 件中 **62 件全部 3 变体早已入库**（36 件部分在库、272 件真缺）。跑批在空转重跑已完成的题：`saveVerdict` 幂等（INSERT OR IGNORE）⇒ **0 新行但照烧调用**。
+- **修复**：`retry_pending` 按 **DB 事实**裁剪（备份 `run-state-full1-repair.bak-2026-09-14T07-22-45-940Z.json`）：
+  **370 件 → 308 件**（剔除 62 件已完成；15 件 `failed` 收敛为缺失变体）⇒ **实际缺口 = 858 次调用**。
+- **修复后实测**：重启 3 分钟 **+9 行**，行间隔 **10~24s** ⇒ 全量补漏预计 **~3.5 小时**（此前估天数）。
+
+### 6.3 教训（写入交接）
+1. **判"在不在跑"不能只看 DB 增长**——还要看**队列是否陈旧**（幂等写会吞掉"零增长"）；本次差点又误判 wedge。
+2. **CPU 时间不是网络型循环的活跃判据**（0.1s/20min 也可以是在正常轮询上游）。
+3. 断点续跑前，先按 DB 事实**核对/裁剪**待办清单（幂等键 `(prediction_id, run_id, prompt_variant)`）。

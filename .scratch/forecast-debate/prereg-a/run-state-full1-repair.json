@@ -1,0 +1,8267 @@
+{
+ "tag": "full1",
+ "done": {
+  "91|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1321,
+   "window_events": 8
+  },
+  "93|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1321,
+   "window_events": 8
+  },
+  "95|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1321,
+   "window_events": 8
+  },
+  "97|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1321,
+   "window_events": 8
+  },
+  "99|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1321,
+   "window_events": 8
+  },
+  "101|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1321,
+   "window_events": 8
+  },
+  "103|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1166,
+   "window_events": 8
+  },
+  "105|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1166,
+   "window_events": 8
+  },
+  "107|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1166,
+   "window_events": 8
+  },
+  "109|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1166,
+   "window_events": 8
+  },
+  "111|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1166,
+   "window_events": 8
+  },
+  "113|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1166,
+   "window_events": 8
+  },
+  "115|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1158,
+   "window_events": 8
+  },
+  "117|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1158,
+   "window_events": 8
+  },
+  "119|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1158,
+   "window_events": 8
+  },
+  "121|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1158,
+   "window_events": 8
+  },
+  "123|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1158,
+   "window_events": 8
+  },
+  "125|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1158,
+   "window_events": 8
+  },
+  "127|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1496,
+   "window_events": 8
+  },
+  "129|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1496,
+   "window_events": 8
+  },
+  "131|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1496,
+   "window_events": 8
+  },
+  "133|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1496,
+   "window_events": 8
+  },
+  "135|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1496,
+   "window_events": 8
+  },
+  "137|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1496,
+   "window_events": 8
+  },
+  "139|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1377,
+   "window_events": 8
+  },
+  "141|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1377,
+   "window_events": 8
+  },
+  "143|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1377,
+   "window_events": 8
+  },
+  "145|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1377,
+   "window_events": 8
+  },
+  "147|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1377,
+   "window_events": 8
+  },
+  "149|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1377,
+   "window_events": 8
+  },
+  "151|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1306,
+   "window_events": 8
+  },
+  "153|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1306,
+   "window_events": 8
+  },
+  "155|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1306,
+   "window_events": 8
+  },
+  "157|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1306,
+   "window_events": 8
+  },
+  "159|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1306,
+   "window_events": 8
+  },
+  "161|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1306,
+   "window_events": 8
+  },
+  "163|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1353,
+   "window_events": 8
+  },
+  "165|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1353,
+   "window_events": 8
+  },
+  "167|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1353,
+   "window_events": 8
+  },
+  "169|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1353,
+   "window_events": 8
+  },
+  "171|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1353,
+   "window_events": 8
+  },
+  "173|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1353,
+   "window_events": 8
+  },
+  "175|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1430,
+   "window_events": 8
+  },
+  "177|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1430,
+   "window_events": 8
+  },
+  "179|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1430,
+   "window_events": 8
+  },
+  "181|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1430,
+   "window_events": 8
+  },
+  "183|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1430,
+   "window_events": 8
+  },
+  "185|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1430,
+   "window_events": 8
+  },
+  "187|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1291,
+   "window_events": 8
+  },
+  "189|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1291,
+   "window_events": 8
+  },
+  "191|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1291,
+   "window_events": 8
+  },
+  "193|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1291,
+   "window_events": 8
+  },
+  "195|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1291,
+   "window_events": 8
+  },
+  "197|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1291,
+   "window_events": 8
+  },
+  "199|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1315,
+   "window_events": 8
+  },
+  "201|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1315,
+   "window_events": 8
+  },
+  "203|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1315,
+   "window_events": 8
+  },
+  "205|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1315,
+   "window_events": 8
+  },
+  "207|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1315,
+   "window_events": 8
+  },
+  "209|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1315,
+   "window_events": 8
+  },
+  "91|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1264,
+   "window_events": 8
+  },
+  "93|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1264,
+   "window_events": 8
+  },
+  "95|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1264,
+   "window_events": 8
+  },
+  "97|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1264,
+   "window_events": 8
+  },
+  "99|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1264,
+   "window_events": 8
+  },
+  "101|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1264,
+   "window_events": 8
+  },
+  "103|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1109,
+   "window_events": 8
+  },
+  "105|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1109,
+   "window_events": 8
+  },
+  "107|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1109,
+   "window_events": 8
+  },
+  "109|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1109,
+   "window_events": 8
+  },
+  "111|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1109,
+   "window_events": 8
+  },
+  "113|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1109,
+   "window_events": 8
+  },
+  "115|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1101,
+   "window_events": 8
+  },
+  "117|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1101,
+   "window_events": 8
+  },
+  "119|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1101,
+   "window_events": 8
+  },
+  "121|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1101,
+   "window_events": 8
+  },
+  "123|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1101,
+   "window_events": 8
+  },
+  "125|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1101,
+   "window_events": 8
+  },
+  "127|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1258,
+   "window_events": 8
+  },
+  "129|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1258,
+   "window_events": 8
+  },
+  "131|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1258,
+   "window_events": 8
+  },
+  "133|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1258,
+   "window_events": 8
+  },
+  "135|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1258,
+   "window_events": 8
+  },
+  "137|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1258,
+   "window_events": 8
+  },
+  "139|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1259,
+   "window_events": 8
+  },
+  "141|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1259,
+   "window_events": 8
+  },
+  "143|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1259,
+   "window_events": 8
+  },
+  "145|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1259,
+   "window_events": 8
+  },
+  "147|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1259,
+   "window_events": 8
+  },
+  "149|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1259,
+   "window_events": 8
+  },
+  "151|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1249,
+   "window_events": 8
+  },
+  "153|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1249,
+   "window_events": 8
+  },
+  "155|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1249,
+   "window_events": 8
+  },
+  "157|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1249,
+   "window_events": 8
+  },
+  "159|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1249,
+   "window_events": 8
+  },
+  "161|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1249,
+   "window_events": 8
+  },
+  "163|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1233,
+   "window_events": 8
+  },
+  "165|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1233,
+   "window_events": 8
+  },
+  "167|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1233,
+   "window_events": 8
+  },
+  "169|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1233,
+   "window_events": 8
+  },
+  "171|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1233,
+   "window_events": 8
+  },
+  "173|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1233,
+   "window_events": 8
+  },
+  "175|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1248,
+   "window_events": 8
+  },
+  "177|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1248,
+   "window_events": 8
+  },
+  "179|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1248,
+   "window_events": 8
+  },
+  "181|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1248,
+   "window_events": 8
+  },
+  "183|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1248,
+   "window_events": 8
+  },
+  "185|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1248,
+   "window_events": 8
+  },
+  "187|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1234,
+   "window_events": 8
+  },
+  "189|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1234,
+   "window_events": 8
+  },
+  "191|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1234,
+   "window_events": 8
+  },
+  "193|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1234,
+   "window_events": 8
+  },
+  "195|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1234,
+   "window_events": 8
+  },
+  "197|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1234,
+   "window_events": 8
+  },
+  "199|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1258,
+   "window_events": 8
+  },
+  "201|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1258,
+   "window_events": 8
+  },
+  "203|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1258,
+   "window_events": 8
+  },
+  "205|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1258,
+   "window_events": 8
+  },
+  "207|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1258,
+   "window_events": 8
+  },
+  "209|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1258,
+   "window_events": 8
+  },
+  "91|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1321,
+   "window_events": 8
+  },
+  "93|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1321,
+   "window_events": 8
+  },
+  "95|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1321,
+   "window_events": 8
+  },
+  "97|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1321,
+   "window_events": 8
+  },
+  "99|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1321,
+   "window_events": 8
+  },
+  "101|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1321,
+   "window_events": 8
+  },
+  "103|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1166,
+   "window_events": 8
+  },
+  "105|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1166,
+   "window_events": 8
+  },
+  "107|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1166,
+   "window_events": 8
+  },
+  "109|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1166,
+   "window_events": 8
+  },
+  "111|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1166,
+   "window_events": 8
+  },
+  "113|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1166,
+   "window_events": 8
+  },
+  "115|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1158,
+   "window_events": 8
+  },
+  "117|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1158,
+   "window_events": 8
+  },
+  "119|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1158,
+   "window_events": 8
+  },
+  "121|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1158,
+   "window_events": 8
+  },
+  "123|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1158,
+   "window_events": 8
+  },
+  "125|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1158,
+   "window_events": 8
+  },
+  "127|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1496,
+   "window_events": 8
+  },
+  "129|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1496,
+   "window_events": 8
+  },
+  "131|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1496,
+   "window_events": 8
+  },
+  "133|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1496,
+   "window_events": 8
+  },
+  "135|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1496,
+   "window_events": 8
+  },
+  "137|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1496,
+   "window_events": 8
+  },
+  "139|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1377,
+   "window_events": 8
+  },
+  "141|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1377,
+   "window_events": 8
+  },
+  "143|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1377,
+   "window_events": 8
+  },
+  "145|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1377,
+   "window_events": 8
+  },
+  "147|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1377,
+   "window_events": 8
+  },
+  "149|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1377,
+   "window_events": 8
+  },
+  "151|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1306,
+   "window_events": 8
+  },
+  "153|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1306,
+   "window_events": 8
+  },
+  "155|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1306,
+   "window_events": 8
+  },
+  "157|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1306,
+   "window_events": 8
+  },
+  "159|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1306,
+   "window_events": 8
+  },
+  "161|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1306,
+   "window_events": 8
+  },
+  "163|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1353,
+   "window_events": 8
+  },
+  "165|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1353,
+   "window_events": 8
+  },
+  "167|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1353,
+   "window_events": 8
+  },
+  "169|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1353,
+   "window_events": 8
+  },
+  "171|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1353,
+   "window_events": 8
+  },
+  "173|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1353,
+   "window_events": 8
+  },
+  "175|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1430,
+   "window_events": 8
+  },
+  "177|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1430,
+   "window_events": 8
+  },
+  "179|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1430,
+   "window_events": 8
+  },
+  "181|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1430,
+   "window_events": 8
+  },
+  "183|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1430,
+   "window_events": 8
+  },
+  "185|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1430,
+   "window_events": 8
+  },
+  "187|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1291,
+   "window_events": 8
+  },
+  "189|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1291,
+   "window_events": 8
+  },
+  "191|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1291,
+   "window_events": 8
+  },
+  "193|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1291,
+   "window_events": 8
+  },
+  "195|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1291,
+   "window_events": 8
+  },
+  "197|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1291,
+   "window_events": 8
+  },
+  "199|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1315,
+   "window_events": 8
+  },
+  "201|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1315,
+   "window_events": 8
+  },
+  "203|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1315,
+   "window_events": 8
+  },
+  "205|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1315,
+   "window_events": 8
+  },
+  "207|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1315,
+   "window_events": 8
+  },
+  "209|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1315,
+   "window_events": 8
+  },
+  "91|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1419,
+   "window_events": 10
+  },
+  "93|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1419,
+   "window_events": 10
+  },
+  "95|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1419,
+   "window_events": 10
+  },
+  "97|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1419,
+   "window_events": 10
+  },
+  "99|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1419,
+   "window_events": 10
+  },
+  "101|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1419,
+   "window_events": 10
+  },
+  "103|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1258,
+   "window_events": 10
+  },
+  "105|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1258,
+   "window_events": 10
+  },
+  "107|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1258,
+   "window_events": 10
+  },
+  "109|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1258,
+   "window_events": 10
+  },
+  "111|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1258,
+   "window_events": 10
+  },
+  "113|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1258,
+   "window_events": 10
+  },
+  "115|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1250,
+   "window_events": 10
+  },
+  "117|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1250,
+   "window_events": 10
+  },
+  "119|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1250,
+   "window_events": 10
+  },
+  "121|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1250,
+   "window_events": 10
+  },
+  "123|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1250,
+   "window_events": 10
+  },
+  "125|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1250,
+   "window_events": 10
+  },
+  "127|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1612,
+   "window_events": 10
+  },
+  "129|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1612,
+   "window_events": 10
+  },
+  "131|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1612,
+   "window_events": 10
+  },
+  "133|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1612,
+   "window_events": 10
+  },
+  "135|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1612,
+   "window_events": 10
+  },
+  "137|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1612,
+   "window_events": 10
+  },
+  "139|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1487,
+   "window_events": 10
+  },
+  "141|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1487,
+   "window_events": 10
+  },
+  "143|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1487,
+   "window_events": 10
+  },
+  "145|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1487,
+   "window_events": 10
+  },
+  "147|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1487,
+   "window_events": 10
+  },
+  "149|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1487,
+   "window_events": 10
+  },
+  "151|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1410,
+   "window_events": 10
+  },
+  "153|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1410,
+   "window_events": 10
+  },
+  "155|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1410,
+   "window_events": 10
+  },
+  "157|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1410,
+   "window_events": 10
+  },
+  "159|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1410,
+   "window_events": 10
+  },
+  "161|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1410,
+   "window_events": 10
+  },
+  "163|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1457,
+   "window_events": 10
+  },
+  "165|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1457,
+   "window_events": 10
+  },
+  "167|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1457,
+   "window_events": 10
+  },
+  "169|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1457,
+   "window_events": 10
+  },
+  "171|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1457,
+   "window_events": 10
+  },
+  "173|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1457,
+   "window_events": 10
+  },
+  "175|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1548,
+   "window_events": 10
+  },
+  "177|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1548,
+   "window_events": 10
+  },
+  "179|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1548,
+   "window_events": 10
+  },
+  "181|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1548,
+   "window_events": 10
+  },
+  "183|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1548,
+   "window_events": 10
+  },
+  "185|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1548,
+   "window_events": 10
+  },
+  "187|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1418,
+   "window_events": 10
+  },
+  "189|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1418,
+   "window_events": 10
+  },
+  "191|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1418,
+   "window_events": 10
+  },
+  "193|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1418,
+   "window_events": 10
+  },
+  "195|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1418,
+   "window_events": 10
+  },
+  "197|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1418,
+   "window_events": 10
+  },
+  "199|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1421,
+   "window_events": 10
+  },
+  "201|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1421,
+   "window_events": 10
+  },
+  "203|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1421,
+   "window_events": 10
+  },
+  "205|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1421,
+   "window_events": 10
+  },
+  "207|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1421,
+   "window_events": 10
+  },
+  "209|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1421,
+   "window_events": 10
+  },
+  "91|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1362,
+   "window_events": 10
+  },
+  "93|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1362,
+   "window_events": 10
+  },
+  "95|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1362,
+   "window_events": 10
+  },
+  "97|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1362,
+   "window_events": 10
+  },
+  "99|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1362,
+   "window_events": 10
+  },
+  "101|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1362,
+   "window_events": 10
+  },
+  "103|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1201,
+   "window_events": 10
+  },
+  "105|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1201,
+   "window_events": 10
+  },
+  "107|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1201,
+   "window_events": 10
+  },
+  "109|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1201,
+   "window_events": 10
+  },
+  "111|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1201,
+   "window_events": 10
+  },
+  "113|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1201,
+   "window_events": 10
+  },
+  "115|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1193,
+   "window_events": 10
+  },
+  "117|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1193,
+   "window_events": 10
+  },
+  "119|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1193,
+   "window_events": 10
+  },
+  "121|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1193,
+   "window_events": 10
+  },
+  "123|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1193,
+   "window_events": 10
+  },
+  "125|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1193,
+   "window_events": 10
+  },
+  "127|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1374,
+   "window_events": 10
+  },
+  "129|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1374,
+   "window_events": 10
+  },
+  "131|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1374,
+   "window_events": 10
+  },
+  "133|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1374,
+   "window_events": 10
+  },
+  "135|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1374,
+   "window_events": 10
+  },
+  "137|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1374,
+   "window_events": 10
+  },
+  "139|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1369,
+   "window_events": 10
+  },
+  "141|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1369,
+   "window_events": 10
+  },
+  "143|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1369,
+   "window_events": 10
+  },
+  "145|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1369,
+   "window_events": 10
+  },
+  "147|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1369,
+   "window_events": 10
+  },
+  "149|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1369,
+   "window_events": 10
+  },
+  "151|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1353,
+   "window_events": 10
+  },
+  "153|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1353,
+   "window_events": 10
+  },
+  "155|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1353,
+   "window_events": 10
+  },
+  "157|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1353,
+   "window_events": 10
+  },
+  "159|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1353,
+   "window_events": 10
+  },
+  "161|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1353,
+   "window_events": 10
+  },
+  "163|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1337,
+   "window_events": 10
+  },
+  "165|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1337,
+   "window_events": 10
+  },
+  "167|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1337,
+   "window_events": 10
+  },
+  "169|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1337,
+   "window_events": 10
+  },
+  "171|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1337,
+   "window_events": 10
+  },
+  "173|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1337,
+   "window_events": 10
+  },
+  "175|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1366,
+   "window_events": 10
+  },
+  "177|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1366,
+   "window_events": 10
+  },
+  "179|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1366,
+   "window_events": 10
+  },
+  "181|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1366,
+   "window_events": 10
+  },
+  "183|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1366,
+   "window_events": 10
+  },
+  "185|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1366,
+   "window_events": 10
+  },
+  "187|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1361,
+   "window_events": 10
+  },
+  "189|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1361,
+   "window_events": 10
+  },
+  "191|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1361,
+   "window_events": 10
+  },
+  "193|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1361,
+   "window_events": 10
+  },
+  "195|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1361,
+   "window_events": 10
+  },
+  "197|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1361,
+   "window_events": 10
+  },
+  "199|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1364,
+   "window_events": 10
+  },
+  "201|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1364,
+   "window_events": 10
+  },
+  "203|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1364,
+   "window_events": 10
+  },
+  "205|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1364,
+   "window_events": 10
+  },
+  "207|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1364,
+   "window_events": 10
+  },
+  "209|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1364,
+   "window_events": 10
+  },
+  "91|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1419,
+   "window_events": 10
+  },
+  "93|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1419,
+   "window_events": 10
+  },
+  "95|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1419,
+   "window_events": 10
+  },
+  "97|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1419,
+   "window_events": 10
+  },
+  "99|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1419,
+   "window_events": 10
+  },
+  "101|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1419,
+   "window_events": 10
+  },
+  "103|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1258,
+   "window_events": 10
+  },
+  "105|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1258,
+   "window_events": 10
+  },
+  "107|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1258,
+   "window_events": 10
+  },
+  "109|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1258,
+   "window_events": 10
+  },
+  "111|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1258,
+   "window_events": 10
+  },
+  "113|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1258,
+   "window_events": 10
+  },
+  "115|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1250,
+   "window_events": 10
+  },
+  "117|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1250,
+   "window_events": 10
+  },
+  "119|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1250,
+   "window_events": 10
+  },
+  "121|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1250,
+   "window_events": 10
+  },
+  "123|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1250,
+   "window_events": 10
+  },
+  "125|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1250,
+   "window_events": 10
+  },
+  "127|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1612,
+   "window_events": 10
+  },
+  "129|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1612,
+   "window_events": 10
+  },
+  "131|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1612,
+   "window_events": 10
+  },
+  "133|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1612,
+   "window_events": 10
+  },
+  "135|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1612,
+   "window_events": 10
+  },
+  "137|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1612,
+   "window_events": 10
+  },
+  "139|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1487,
+   "window_events": 10
+  },
+  "141|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1487,
+   "window_events": 10
+  },
+  "143|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1487,
+   "window_events": 10
+  },
+  "145|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1487,
+   "window_events": 10
+  },
+  "147|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1487,
+   "window_events": 10
+  },
+  "149|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1487,
+   "window_events": 10
+  },
+  "151|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1410,
+   "window_events": 10
+  },
+  "153|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1410,
+   "window_events": 10
+  },
+  "155|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1410,
+   "window_events": 10
+  },
+  "157|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1410,
+   "window_events": 10
+  },
+  "159|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1410,
+   "window_events": 10
+  },
+  "161|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1410,
+   "window_events": 10
+  },
+  "163|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1457,
+   "window_events": 10
+  },
+  "165|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1457,
+   "window_events": 10
+  },
+  "167|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1457,
+   "window_events": 10
+  },
+  "169|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1457,
+   "window_events": 10
+  },
+  "171|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1457,
+   "window_events": 10
+  },
+  "173|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1457,
+   "window_events": 10
+  },
+  "175|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1548,
+   "window_events": 10
+  },
+  "177|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1548,
+   "window_events": 10
+  },
+  "179|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1548,
+   "window_events": 10
+  },
+  "181|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1548,
+   "window_events": 10
+  },
+  "183|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1548,
+   "window_events": 10
+  },
+  "185|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1548,
+   "window_events": 10
+  },
+  "187|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1418,
+   "window_events": 10
+  },
+  "189|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1418,
+   "window_events": 10
+  },
+  "191|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1418,
+   "window_events": 10
+  },
+  "193|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1418,
+   "window_events": 10
+  },
+  "195|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1418,
+   "window_events": 10
+  },
+  "197|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1418,
+   "window_events": 10
+  },
+  "199|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1421,
+   "window_events": 10
+  },
+  "201|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1421,
+   "window_events": 10
+  },
+  "203|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1421,
+   "window_events": 10
+  },
+  "205|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1421,
+   "window_events": 10
+  },
+  "207|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1421,
+   "window_events": 10
+  },
+  "209|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1421,
+   "window_events": 10
+  },
+  "92|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1321,
+   "window_events": 8
+  },
+  "94|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1321,
+   "window_events": 8
+  },
+  "96|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1321,
+   "window_events": 8
+  },
+  "98|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1321,
+   "window_events": 8
+  },
+  "100|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1321,
+   "window_events": 8
+  },
+  "102|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1321,
+   "window_events": 8
+  },
+  "104|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1166,
+   "window_events": 8
+  },
+  "106|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1166,
+   "window_events": 8
+  },
+  "108|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1166,
+   "window_events": 8
+  },
+  "110|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1166,
+   "window_events": 8
+  },
+  "112|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1166,
+   "window_events": 8
+  },
+  "114|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1166,
+   "window_events": 8
+  },
+  "116|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1158,
+   "window_events": 8
+  },
+  "118|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1158,
+   "window_events": 8
+  },
+  "120|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1158,
+   "window_events": 8
+  },
+  "122|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1158,
+   "window_events": 8
+  },
+  "124|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1158,
+   "window_events": 8
+  },
+  "126|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1158,
+   "window_events": 8
+  },
+  "128|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1496,
+   "window_events": 8
+  },
+  "130|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1496,
+   "window_events": 8
+  },
+  "132|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1496,
+   "window_events": 8
+  },
+  "134|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1496,
+   "window_events": 8
+  },
+  "136|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1496,
+   "window_events": 8
+  },
+  "138|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1496,
+   "window_events": 8
+  },
+  "140|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1377,
+   "window_events": 8
+  },
+  "142|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1377,
+   "window_events": 8
+  },
+  "144|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1377,
+   "window_events": 8
+  },
+  "146|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1377,
+   "window_events": 8
+  },
+  "148|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1377,
+   "window_events": 8
+  },
+  "150|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1377,
+   "window_events": 8
+  },
+  "152|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1306,
+   "window_events": 8
+  },
+  "154|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1306,
+   "window_events": 8
+  },
+  "156|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1306,
+   "window_events": 8
+  },
+  "158|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1306,
+   "window_events": 8
+  },
+  "160|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1306,
+   "window_events": 8
+  },
+  "162|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1306,
+   "window_events": 8
+  },
+  "164|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1353,
+   "window_events": 8
+  },
+  "166|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1353,
+   "window_events": 8
+  },
+  "168|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1353,
+   "window_events": 8
+  },
+  "170|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1353,
+   "window_events": 8
+  },
+  "172|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1353,
+   "window_events": 8
+  },
+  "174|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1353,
+   "window_events": 8
+  },
+  "176|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1430,
+   "window_events": 8
+  },
+  "178|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1430,
+   "window_events": 8
+  },
+  "180|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1430,
+   "window_events": 8
+  },
+  "182|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1430,
+   "window_events": 8
+  },
+  "184|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1430,
+   "window_events": 8
+  },
+  "186|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1430,
+   "window_events": 8
+  },
+  "188|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1291,
+   "window_events": 8
+  },
+  "190|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1291,
+   "window_events": 8
+  },
+  "192|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1291,
+   "window_events": 8
+  },
+  "194|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1291,
+   "window_events": 8
+  },
+  "196|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1291,
+   "window_events": 8
+  },
+  "198|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1291,
+   "window_events": 8
+  },
+  "200|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1315,
+   "window_events": 8
+  },
+  "202|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1315,
+   "window_events": 8
+  },
+  "204|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1315,
+   "window_events": 8
+  },
+  "206|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1315,
+   "window_events": 8
+  },
+  "208|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1315,
+   "window_events": 8
+  },
+  "210|cutoff|A": {
+   "run_id": "preregA-full1-A-cutoff",
+   "status": 200,
+   "evidence_len": 1315,
+   "window_events": 8
+  },
+  "92|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1264,
+   "window_events": 8
+  },
+  "94|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1264,
+   "window_events": 8
+  },
+  "96|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1264,
+   "window_events": 8
+  },
+  "98|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1264,
+   "window_events": 8
+  },
+  "100|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1264,
+   "window_events": 8
+  },
+  "102|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1264,
+   "window_events": 8
+  },
+  "104|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1109,
+   "window_events": 8
+  },
+  "106|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1109,
+   "window_events": 8
+  },
+  "108|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1109,
+   "window_events": 8
+  },
+  "110|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1109,
+   "window_events": 8
+  },
+  "112|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1109,
+   "window_events": 8
+  },
+  "114|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1109,
+   "window_events": 8
+  },
+  "116|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1101,
+   "window_events": 8
+  },
+  "118|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1101,
+   "window_events": 8
+  },
+  "120|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1101,
+   "window_events": 8
+  },
+  "122|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1101,
+   "window_events": 8
+  },
+  "124|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1101,
+   "window_events": 8
+  },
+  "126|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1101,
+   "window_events": 8
+  },
+  "128|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1258,
+   "window_events": 8
+  },
+  "130|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1258,
+   "window_events": 8
+  },
+  "132|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1258,
+   "window_events": 8
+  },
+  "134|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1258,
+   "window_events": 8
+  },
+  "136|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1258,
+   "window_events": 8
+  },
+  "138|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1258,
+   "window_events": 8
+  },
+  "140|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1259,
+   "window_events": 8
+  },
+  "142|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1259,
+   "window_events": 8
+  },
+  "144|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1259,
+   "window_events": 8
+  },
+  "146|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1259,
+   "window_events": 8
+  },
+  "148|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1259,
+   "window_events": 8
+  },
+  "150|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1259,
+   "window_events": 8
+  },
+  "152|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1249,
+   "window_events": 8
+  },
+  "154|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1249,
+   "window_events": 8
+  },
+  "156|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1249,
+   "window_events": 8
+  },
+  "158|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1249,
+   "window_events": 8
+  },
+  "160|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1249,
+   "window_events": 8
+  },
+  "162|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1249,
+   "window_events": 8
+  },
+  "164|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1233,
+   "window_events": 8
+  },
+  "166|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1233,
+   "window_events": 8
+  },
+  "168|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1233,
+   "window_events": 8
+  },
+  "170|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1233,
+   "window_events": 8
+  },
+  "172|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1233,
+   "window_events": 8
+  },
+  "174|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1233,
+   "window_events": 8
+  },
+  "176|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1248,
+   "window_events": 8
+  },
+  "178|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1248,
+   "window_events": 8
+  },
+  "180|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1248,
+   "window_events": 8
+  },
+  "182|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1248,
+   "window_events": 8
+  },
+  "184|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1248,
+   "window_events": 8
+  },
+  "186|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1248,
+   "window_events": 8
+  },
+  "188|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1234,
+   "window_events": 8
+  },
+  "190|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1234,
+   "window_events": 8
+  },
+  "192|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1234,
+   "window_events": 8
+  },
+  "194|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1234,
+   "window_events": 8
+  },
+  "196|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1234,
+   "window_events": 8
+  },
+  "198|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1234,
+   "window_events": 8
+  },
+  "200|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1258,
+   "window_events": 8
+  },
+  "202|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1258,
+   "window_events": 8
+  },
+  "204|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1258,
+   "window_events": 8
+  },
+  "206|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1258,
+   "window_events": 8
+  },
+  "208|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1258,
+   "window_events": 8
+  },
+  "210|cutoff|B": {
+   "run_id": "preregA-full1-B-cutoff",
+   "status": 200,
+   "evidence_len": 1258,
+   "window_events": 8
+  },
+  "92|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1321,
+   "window_events": 8
+  },
+  "94|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1321,
+   "window_events": 8
+  },
+  "96|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1321,
+   "window_events": 8
+  },
+  "98|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1321,
+   "window_events": 8
+  },
+  "100|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1321,
+   "window_events": 8
+  },
+  "102|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1321,
+   "window_events": 8
+  },
+  "104|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1166,
+   "window_events": 8
+  },
+  "106|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1166,
+   "window_events": 8
+  },
+  "108|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1166,
+   "window_events": 8
+  },
+  "110|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1166,
+   "window_events": 8
+  },
+  "112|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1166,
+   "window_events": 8
+  },
+  "114|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1166,
+   "window_events": 8
+  },
+  "116|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1158,
+   "window_events": 8
+  },
+  "118|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1158,
+   "window_events": 8
+  },
+  "120|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1158,
+   "window_events": 8
+  },
+  "122|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1158,
+   "window_events": 8
+  },
+  "124|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1158,
+   "window_events": 8
+  },
+  "126|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1158,
+   "window_events": 8
+  },
+  "128|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1496,
+   "window_events": 8
+  },
+  "130|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1496,
+   "window_events": 8
+  },
+  "132|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1496,
+   "window_events": 8
+  },
+  "134|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1496,
+   "window_events": 8
+  },
+  "136|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1496,
+   "window_events": 8
+  },
+  "138|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1496,
+   "window_events": 8
+  },
+  "140|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1377,
+   "window_events": 8
+  },
+  "142|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1377,
+   "window_events": 8
+  },
+  "144|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1377,
+   "window_events": 8
+  },
+  "146|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1377,
+   "window_events": 8
+  },
+  "148|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1377,
+   "window_events": 8
+  },
+  "150|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1377,
+   "window_events": 8
+  },
+  "152|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1306,
+   "window_events": 8
+  },
+  "154|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1306,
+   "window_events": 8
+  },
+  "156|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1306,
+   "window_events": 8
+  },
+  "158|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1306,
+   "window_events": 8
+  },
+  "160|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1306,
+   "window_events": 8
+  },
+  "162|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1306,
+   "window_events": 8
+  },
+  "164|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1353,
+   "window_events": 8
+  },
+  "166|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1353,
+   "window_events": 8
+  },
+  "168|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1353,
+   "window_events": 8
+  },
+  "170|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1353,
+   "window_events": 8
+  },
+  "172|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1353,
+   "window_events": 8
+  },
+  "174|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1353,
+   "window_events": 8
+  },
+  "176|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1430,
+   "window_events": 8
+  },
+  "178|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1430,
+   "window_events": 8
+  },
+  "180|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1430,
+   "window_events": 8
+  },
+  "182|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1430,
+   "window_events": 8
+  },
+  "184|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1430,
+   "window_events": 8
+  },
+  "186|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1430,
+   "window_events": 8
+  },
+  "188|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1291,
+   "window_events": 8
+  },
+  "190|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1291,
+   "window_events": 8
+  },
+  "192|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1291,
+   "window_events": 8
+  },
+  "194|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1291,
+   "window_events": 8
+  },
+  "196|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1291,
+   "window_events": 8
+  },
+  "198|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1291,
+   "window_events": 8
+  },
+  "200|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1315,
+   "window_events": 8
+  },
+  "202|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1315,
+   "window_events": 8
+  },
+  "204|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1315,
+   "window_events": 8
+  },
+  "206|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1315,
+   "window_events": 8
+  },
+  "208|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1315,
+   "window_events": 8
+  },
+  "210|cutoff|C": {
+   "run_id": "preregA-full1-C-cutoff",
+   "status": 200,
+   "evidence_len": 1315,
+   "window_events": 8
+  },
+  "92|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1419,
+   "window_events": 10
+  },
+  "94|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1419,
+   "window_events": 10
+  },
+  "96|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1419,
+   "window_events": 10
+  },
+  "98|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1419,
+   "window_events": 10
+  },
+  "100|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1419,
+   "window_events": 10
+  },
+  "102|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1419,
+   "window_events": 10
+  },
+  "104|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1258,
+   "window_events": 10
+  },
+  "106|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1258,
+   "window_events": 10
+  },
+  "108|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1258,
+   "window_events": 10
+  },
+  "110|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1258,
+   "window_events": 10
+  },
+  "112|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1258,
+   "window_events": 10
+  },
+  "114|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1258,
+   "window_events": 10
+  },
+  "116|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1250,
+   "window_events": 10
+  },
+  "118|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1250,
+   "window_events": 10
+  },
+  "120|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1250,
+   "window_events": 10
+  },
+  "122|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1250,
+   "window_events": 10
+  },
+  "124|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1250,
+   "window_events": 10
+  },
+  "126|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1250,
+   "window_events": 10
+  },
+  "128|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1612,
+   "window_events": 10
+  },
+  "130|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1612,
+   "window_events": 10
+  },
+  "132|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1612,
+   "window_events": 10
+  },
+  "134|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1612,
+   "window_events": 10
+  },
+  "136|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1612,
+   "window_events": 10
+  },
+  "138|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1612,
+   "window_events": 10
+  },
+  "140|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1487,
+   "window_events": 10
+  },
+  "142|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1487,
+   "window_events": 10
+  },
+  "144|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1487,
+   "window_events": 10
+  },
+  "146|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1487,
+   "window_events": 10
+  },
+  "148|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1487,
+   "window_events": 10
+  },
+  "150|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1487,
+   "window_events": 10
+  },
+  "152|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1410,
+   "window_events": 10
+  },
+  "154|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1410,
+   "window_events": 10
+  },
+  "156|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1410,
+   "window_events": 10
+  },
+  "158|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1410,
+   "window_events": 10
+  },
+  "160|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1410,
+   "window_events": 10
+  },
+  "162|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1410,
+   "window_events": 10
+  },
+  "164|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1457,
+   "window_events": 10
+  },
+  "166|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1457,
+   "window_events": 10
+  },
+  "168|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1457,
+   "window_events": 10
+  },
+  "170|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1457,
+   "window_events": 10
+  },
+  "172|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1457,
+   "window_events": 10
+  },
+  "174|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1457,
+   "window_events": 10
+  },
+  "176|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1548,
+   "window_events": 10
+  },
+  "178|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1548,
+   "window_events": 10
+  },
+  "180|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1548,
+   "window_events": 10
+  },
+  "182|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1548,
+   "window_events": 10
+  },
+  "184|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1548,
+   "window_events": 10
+  },
+  "186|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1548,
+   "window_events": 10
+  },
+  "188|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1418,
+   "window_events": 10
+  },
+  "190|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1418,
+   "window_events": 10
+  },
+  "192|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1418,
+   "window_events": 10
+  },
+  "194|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1418,
+   "window_events": 10
+  },
+  "196|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1418,
+   "window_events": 10
+  },
+  "198|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1418,
+   "window_events": 10
+  },
+  "200|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1421,
+   "window_events": 10
+  },
+  "202|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1421,
+   "window_events": 10
+  },
+  "204|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1421,
+   "window_events": 10
+  },
+  "206|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1421,
+   "window_events": 10
+  },
+  "208|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1421,
+   "window_events": 10
+  },
+  "210|full|A": {
+   "run_id": "preregA-full1-A-full",
+   "status": 200,
+   "evidence_len": 1421,
+   "window_events": 10
+  },
+  "92|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1362,
+   "window_events": 10
+  },
+  "94|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1362,
+   "window_events": 10
+  },
+  "96|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1362,
+   "window_events": 10
+  },
+  "98|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1362,
+   "window_events": 10
+  },
+  "100|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1362,
+   "window_events": 10
+  },
+  "102|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1362,
+   "window_events": 10
+  },
+  "104|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1201,
+   "window_events": 10
+  },
+  "106|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1201,
+   "window_events": 10
+  },
+  "108|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1201,
+   "window_events": 10
+  },
+  "110|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1201,
+   "window_events": 10
+  },
+  "112|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1201,
+   "window_events": 10
+  },
+  "114|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1201,
+   "window_events": 10
+  },
+  "116|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1193,
+   "window_events": 10
+  },
+  "118|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1193,
+   "window_events": 10
+  },
+  "120|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1193,
+   "window_events": 10
+  },
+  "122|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1193,
+   "window_events": 10
+  },
+  "124|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1193,
+   "window_events": 10
+  },
+  "126|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1193,
+   "window_events": 10
+  },
+  "128|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1374,
+   "window_events": 10
+  },
+  "130|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1374,
+   "window_events": 10
+  },
+  "132|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1374,
+   "window_events": 10
+  },
+  "134|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1374,
+   "window_events": 10
+  },
+  "136|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1374,
+   "window_events": 10
+  },
+  "138|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1374,
+   "window_events": 10
+  },
+  "140|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1369,
+   "window_events": 10
+  },
+  "142|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1369,
+   "window_events": 10
+  },
+  "144|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1369,
+   "window_events": 10
+  },
+  "146|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1369,
+   "window_events": 10
+  },
+  "148|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1369,
+   "window_events": 10
+  },
+  "150|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1369,
+   "window_events": 10
+  },
+  "152|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1353,
+   "window_events": 10
+  },
+  "154|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1353,
+   "window_events": 10
+  },
+  "156|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1353,
+   "window_events": 10
+  },
+  "158|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1353,
+   "window_events": 10
+  },
+  "160|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1353,
+   "window_events": 10
+  },
+  "162|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1353,
+   "window_events": 10
+  },
+  "164|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1337,
+   "window_events": 10
+  },
+  "166|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1337,
+   "window_events": 10
+  },
+  "168|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1337,
+   "window_events": 10
+  },
+  "170|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1337,
+   "window_events": 10
+  },
+  "172|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1337,
+   "window_events": 10
+  },
+  "174|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1337,
+   "window_events": 10
+  },
+  "176|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1366,
+   "window_events": 10
+  },
+  "178|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1366,
+   "window_events": 10
+  },
+  "180|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1366,
+   "window_events": 10
+  },
+  "182|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1366,
+   "window_events": 10
+  },
+  "184|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1366,
+   "window_events": 10
+  },
+  "186|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1366,
+   "window_events": 10
+  },
+  "188|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1361,
+   "window_events": 10
+  },
+  "190|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1361,
+   "window_events": 10
+  },
+  "192|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1361,
+   "window_events": 10
+  },
+  "194|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1361,
+   "window_events": 10
+  },
+  "196|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1361,
+   "window_events": 10
+  },
+  "198|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1361,
+   "window_events": 10
+  },
+  "200|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1364,
+   "window_events": 10
+  },
+  "202|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1364,
+   "window_events": 10
+  },
+  "204|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1364,
+   "window_events": 10
+  },
+  "206|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1364,
+   "window_events": 10
+  },
+  "208|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1364,
+   "window_events": 10
+  },
+  "210|full|B": {
+   "run_id": "preregA-full1-B-full",
+   "status": 200,
+   "evidence_len": 1364,
+   "window_events": 10
+  },
+  "92|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1419,
+   "window_events": 10
+  },
+  "94|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1419,
+   "window_events": 10
+  },
+  "96|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1419,
+   "window_events": 10
+  },
+  "98|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1419,
+   "window_events": 10
+  },
+  "100|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1419,
+   "window_events": 10
+  },
+  "102|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1419,
+   "window_events": 10
+  },
+  "104|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1258,
+   "window_events": 10
+  },
+  "106|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1258,
+   "window_events": 10
+  },
+  "108|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1258,
+   "window_events": 10
+  },
+  "110|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1258,
+   "window_events": 10
+  },
+  "112|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1258,
+   "window_events": 10
+  },
+  "114|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1258,
+   "window_events": 10
+  },
+  "116|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1250,
+   "window_events": 10
+  },
+  "118|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1250,
+   "window_events": 10
+  },
+  "120|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1250,
+   "window_events": 10
+  },
+  "122|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1250,
+   "window_events": 10
+  },
+  "124|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1250,
+   "window_events": 10
+  },
+  "126|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1250,
+   "window_events": 10
+  },
+  "128|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1612,
+   "window_events": 10
+  },
+  "130|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1612,
+   "window_events": 10
+  },
+  "132|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1612,
+   "window_events": 10
+  },
+  "134|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1612,
+   "window_events": 10
+  },
+  "136|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1612,
+   "window_events": 10
+  },
+  "138|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1612,
+   "window_events": 10
+  },
+  "140|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1487,
+   "window_events": 10
+  },
+  "142|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1487,
+   "window_events": 10
+  },
+  "144|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1487,
+   "window_events": 10
+  },
+  "146|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1487,
+   "window_events": 10
+  },
+  "148|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1487,
+   "window_events": 10
+  },
+  "150|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1487,
+   "window_events": 10
+  },
+  "152|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1410,
+   "window_events": 10
+  },
+  "154|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1410,
+   "window_events": 10
+  },
+  "156|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1410,
+   "window_events": 10
+  },
+  "158|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1410,
+   "window_events": 10
+  },
+  "160|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1410,
+   "window_events": 10
+  },
+  "162|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1410,
+   "window_events": 10
+  },
+  "164|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1457,
+   "window_events": 10
+  },
+  "166|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1457,
+   "window_events": 10
+  },
+  "168|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1457,
+   "window_events": 10
+  },
+  "170|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1457,
+   "window_events": 10
+  },
+  "172|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1457,
+   "window_events": 10
+  },
+  "174|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1457,
+   "window_events": 10
+  },
+  "176|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1548,
+   "window_events": 10
+  },
+  "178|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1548,
+   "window_events": 10
+  },
+  "180|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1548,
+   "window_events": 10
+  },
+  "182|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1548,
+   "window_events": 10
+  },
+  "184|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1548,
+   "window_events": 10
+  },
+  "186|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1548,
+   "window_events": 10
+  },
+  "188|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1418,
+   "window_events": 10
+  },
+  "190|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1418,
+   "window_events": 10
+  },
+  "192|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1418,
+   "window_events": 10
+  },
+  "194|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1418,
+   "window_events": 10
+  },
+  "196|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1418,
+   "window_events": 10
+  },
+  "198|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1418,
+   "window_events": 10
+  },
+  "200|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1421,
+   "window_events": 10
+  },
+  "202|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1421,
+   "window_events": 10
+  },
+  "204|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1421,
+   "window_events": 10
+  },
+  "206|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1421,
+   "window_events": 10
+  },
+  "208|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1421,
+   "window_events": 10
+  },
+  "210|full|C": {
+   "run_id": "preregA-full1-C-full",
+   "status": 200,
+   "evidence_len": 1421,
+   "window_events": 10
+  }
+ },
+ "retry_pending": [
+  {
+   "key": "177|cutoff|A",
+   "pid": 177,
+   "game_id": 15,
+   "window": "cutoff",
+   "arm": "A",
+   "run_id": "preregA-full1-A-cutoff",
+   "failed": [
+    "v2_skeptical"
+   ]
+  },
+  {
+   "key": "189|cutoff|A",
+   "pid": 189,
+   "game_id": 16,
+   "window": "cutoff",
+   "arm": "A",
+   "run_id": "preregA-full1-A-cutoff",
+   "failed": [
+    "v2_skeptical"
+   ]
+  },
+  {
+   "key": "203|cutoff|A",
+   "pid": 203,
+   "game_id": 17,
+   "window": "cutoff",
+   "arm": "A",
+   "run_id": "preregA-full1-A-cutoff",
+   "failed": [
+    "v1_evidence"
+   ]
+  },
+  {
+   "key": "207|cutoff|A",
+   "pid": 207,
+   "game_id": 17,
+   "window": "cutoff",
+   "arm": "A",
+   "run_id": "preregA-full1-A-cutoff",
+   "failed": [
+    "v1_evidence"
+   ]
+  },
+  {
+   "key": "137|cutoff|B",
+   "pid": 137,
+   "game_id": 11,
+   "window": "cutoff",
+   "arm": "B",
+   "run_id": "preregA-full1-B-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical"
+   ]
+  },
+  {
+   "key": "143|cutoff|B",
+   "pid": 143,
+   "game_id": 12,
+   "window": "cutoff",
+   "arm": "B",
+   "run_id": "preregA-full1-B-cutoff",
+   "failed": [
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "147|cutoff|B",
+   "pid": 147,
+   "game_id": 12,
+   "window": "cutoff",
+   "arm": "B",
+   "run_id": "preregA-full1-B-cutoff",
+   "failed": [
+    "v1_evidence"
+   ]
+  },
+  {
+   "key": "151|cutoff|B",
+   "pid": 151,
+   "game_id": 13,
+   "window": "cutoff",
+   "arm": "B",
+   "run_id": "preregA-full1-B-cutoff",
+   "failed": [
+    "v2_skeptical"
+   ]
+  },
+  {
+   "key": "165|cutoff|B",
+   "pid": 165,
+   "game_id": 14,
+   "window": "cutoff",
+   "arm": "B",
+   "run_id": "preregA-full1-B-cutoff",
+   "failed": [
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "177|cutoff|B",
+   "pid": 177,
+   "game_id": 15,
+   "window": "cutoff",
+   "arm": "B",
+   "run_id": "preregA-full1-B-cutoff",
+   "failed": [
+    "v1_evidence"
+   ]
+  },
+  {
+   "key": "179|cutoff|B",
+   "pid": 179,
+   "game_id": 15,
+   "window": "cutoff",
+   "arm": "B",
+   "run_id": "preregA-full1-B-cutoff",
+   "failed": [
+    "v2_skeptical"
+   ]
+  },
+  {
+   "key": "187|cutoff|B",
+   "pid": 187,
+   "game_id": 16,
+   "window": "cutoff",
+   "arm": "B",
+   "run_id": "preregA-full1-B-cutoff",
+   "failed": [
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "189|cutoff|B",
+   "pid": 189,
+   "game_id": 16,
+   "window": "cutoff",
+   "arm": "B",
+   "run_id": "preregA-full1-B-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "191|cutoff|B",
+   "pid": 191,
+   "game_id": 16,
+   "window": "cutoff",
+   "arm": "B",
+   "run_id": "preregA-full1-B-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "193|cutoff|B",
+   "pid": 193,
+   "game_id": 16,
+   "window": "cutoff",
+   "arm": "B",
+   "run_id": "preregA-full1-B-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "195|cutoff|B",
+   "pid": 195,
+   "game_id": 16,
+   "window": "cutoff",
+   "arm": "B",
+   "run_id": "preregA-full1-B-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "197|cutoff|B",
+   "pid": 197,
+   "game_id": 16,
+   "window": "cutoff",
+   "arm": "B",
+   "run_id": "preregA-full1-B-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "199|cutoff|B",
+   "pid": 199,
+   "game_id": 17,
+   "window": "cutoff",
+   "arm": "B",
+   "run_id": "preregA-full1-B-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "201|cutoff|B",
+   "pid": 201,
+   "game_id": 17,
+   "window": "cutoff",
+   "arm": "B",
+   "run_id": "preregA-full1-B-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "203|cutoff|B",
+   "pid": 203,
+   "game_id": 17,
+   "window": "cutoff",
+   "arm": "B",
+   "run_id": "preregA-full1-B-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "205|cutoff|B",
+   "pid": 205,
+   "game_id": 17,
+   "window": "cutoff",
+   "arm": "B",
+   "run_id": "preregA-full1-B-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "207|cutoff|B",
+   "pid": 207,
+   "game_id": 17,
+   "window": "cutoff",
+   "arm": "B",
+   "run_id": "preregA-full1-B-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "209|cutoff|B",
+   "pid": 209,
+   "game_id": 17,
+   "window": "cutoff",
+   "arm": "B",
+   "run_id": "preregA-full1-B-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "129|cutoff|C",
+   "pid": 129,
+   "game_id": 11,
+   "window": "cutoff",
+   "arm": "C",
+   "run_id": "preregA-full1-C-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "131|cutoff|C",
+   "pid": 131,
+   "game_id": 11,
+   "window": "cutoff",
+   "arm": "C",
+   "run_id": "preregA-full1-C-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "133|cutoff|C",
+   "pid": 133,
+   "game_id": 11,
+   "window": "cutoff",
+   "arm": "C",
+   "run_id": "preregA-full1-C-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "135|cutoff|C",
+   "pid": 135,
+   "game_id": 11,
+   "window": "cutoff",
+   "arm": "C",
+   "run_id": "preregA-full1-C-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "137|cutoff|C",
+   "pid": 137,
+   "game_id": 11,
+   "window": "cutoff",
+   "arm": "C",
+   "run_id": "preregA-full1-C-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "139|cutoff|C",
+   "pid": 139,
+   "game_id": 12,
+   "window": "cutoff",
+   "arm": "C",
+   "run_id": "preregA-full1-C-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "141|cutoff|C",
+   "pid": 141,
+   "game_id": 12,
+   "window": "cutoff",
+   "arm": "C",
+   "run_id": "preregA-full1-C-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "143|cutoff|C",
+   "pid": 143,
+   "game_id": 12,
+   "window": "cutoff",
+   "arm": "C",
+   "run_id": "preregA-full1-C-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "145|cutoff|C",
+   "pid": 145,
+   "game_id": 12,
+   "window": "cutoff",
+   "arm": "C",
+   "run_id": "preregA-full1-C-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "147|cutoff|C",
+   "pid": 147,
+   "game_id": 12,
+   "window": "cutoff",
+   "arm": "C",
+   "run_id": "preregA-full1-C-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "149|cutoff|C",
+   "pid": 149,
+   "game_id": 12,
+   "window": "cutoff",
+   "arm": "C",
+   "run_id": "preregA-full1-C-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "151|cutoff|C",
+   "pid": 151,
+   "game_id": 13,
+   "window": "cutoff",
+   "arm": "C",
+   "run_id": "preregA-full1-C-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "153|cutoff|C",
+   "pid": 153,
+   "game_id": 13,
+   "window": "cutoff",
+   "arm": "C",
+   "run_id": "preregA-full1-C-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "155|cutoff|C",
+   "pid": 155,
+   "game_id": 13,
+   "window": "cutoff",
+   "arm": "C",
+   "run_id": "preregA-full1-C-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "157|cutoff|C",
+   "pid": 157,
+   "game_id": 13,
+   "window": "cutoff",
+   "arm": "C",
+   "run_id": "preregA-full1-C-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "159|cutoff|C",
+   "pid": 159,
+   "game_id": 13,
+   "window": "cutoff",
+   "arm": "C",
+   "run_id": "preregA-full1-C-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "161|cutoff|C",
+   "pid": 161,
+   "game_id": 13,
+   "window": "cutoff",
+   "arm": "C",
+   "run_id": "preregA-full1-C-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "163|cutoff|C",
+   "pid": 163,
+   "game_id": 14,
+   "window": "cutoff",
+   "arm": "C",
+   "run_id": "preregA-full1-C-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "165|cutoff|C",
+   "pid": 165,
+   "game_id": 14,
+   "window": "cutoff",
+   "arm": "C",
+   "run_id": "preregA-full1-C-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "167|cutoff|C",
+   "pid": 167,
+   "game_id": 14,
+   "window": "cutoff",
+   "arm": "C",
+   "run_id": "preregA-full1-C-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "169|cutoff|C",
+   "pid": 169,
+   "game_id": 14,
+   "window": "cutoff",
+   "arm": "C",
+   "run_id": "preregA-full1-C-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "171|cutoff|C",
+   "pid": 171,
+   "game_id": 14,
+   "window": "cutoff",
+   "arm": "C",
+   "run_id": "preregA-full1-C-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "173|cutoff|C",
+   "pid": 173,
+   "game_id": 14,
+   "window": "cutoff",
+   "arm": "C",
+   "run_id": "preregA-full1-C-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "175|cutoff|C",
+   "pid": 175,
+   "game_id": 15,
+   "window": "cutoff",
+   "arm": "C",
+   "run_id": "preregA-full1-C-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "177|cutoff|C",
+   "pid": 177,
+   "game_id": 15,
+   "window": "cutoff",
+   "arm": "C",
+   "run_id": "preregA-full1-C-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "179|cutoff|C",
+   "pid": 179,
+   "game_id": 15,
+   "window": "cutoff",
+   "arm": "C",
+   "run_id": "preregA-full1-C-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "181|cutoff|C",
+   "pid": 181,
+   "game_id": 15,
+   "window": "cutoff",
+   "arm": "C",
+   "run_id": "preregA-full1-C-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "183|cutoff|C",
+   "pid": 183,
+   "game_id": 15,
+   "window": "cutoff",
+   "arm": "C",
+   "run_id": "preregA-full1-C-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "185|cutoff|C",
+   "pid": 185,
+   "game_id": 15,
+   "window": "cutoff",
+   "arm": "C",
+   "run_id": "preregA-full1-C-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "187|cutoff|C",
+   "pid": 187,
+   "game_id": 16,
+   "window": "cutoff",
+   "arm": "C",
+   "run_id": "preregA-full1-C-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "189|cutoff|C",
+   "pid": 189,
+   "game_id": 16,
+   "window": "cutoff",
+   "arm": "C",
+   "run_id": "preregA-full1-C-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "191|cutoff|C",
+   "pid": 191,
+   "game_id": 16,
+   "window": "cutoff",
+   "arm": "C",
+   "run_id": "preregA-full1-C-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "193|cutoff|C",
+   "pid": 193,
+   "game_id": 16,
+   "window": "cutoff",
+   "arm": "C",
+   "run_id": "preregA-full1-C-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "195|cutoff|C",
+   "pid": 195,
+   "game_id": 16,
+   "window": "cutoff",
+   "arm": "C",
+   "run_id": "preregA-full1-C-cutoff",
+   "failed": [
+    "v1_evidence"
+   ]
+  },
+  {
+   "key": "197|cutoff|C",
+   "pid": 197,
+   "game_id": 16,
+   "window": "cutoff",
+   "arm": "C",
+   "run_id": "preregA-full1-C-cutoff",
+   "failed": [
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "199|cutoff|C",
+   "pid": 199,
+   "game_id": 17,
+   "window": "cutoff",
+   "arm": "C",
+   "run_id": "preregA-full1-C-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "201|cutoff|C",
+   "pid": 201,
+   "game_id": 17,
+   "window": "cutoff",
+   "arm": "C",
+   "run_id": "preregA-full1-C-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "203|cutoff|C",
+   "pid": 203,
+   "game_id": 17,
+   "window": "cutoff",
+   "arm": "C",
+   "run_id": "preregA-full1-C-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "205|cutoff|C",
+   "pid": 205,
+   "game_id": 17,
+   "window": "cutoff",
+   "arm": "C",
+   "run_id": "preregA-full1-C-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "207|cutoff|C",
+   "pid": 207,
+   "game_id": 17,
+   "window": "cutoff",
+   "arm": "C",
+   "run_id": "preregA-full1-C-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "209|cutoff|C",
+   "pid": 209,
+   "game_id": 17,
+   "window": "cutoff",
+   "arm": "C",
+   "run_id": "preregA-full1-C-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "133|full|B",
+   "pid": 133,
+   "game_id": 11,
+   "window": "full",
+   "arm": "B",
+   "run_id": "preregA-full1-B-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "135|full|B",
+   "pid": 135,
+   "game_id": 11,
+   "window": "full",
+   "arm": "B",
+   "run_id": "preregA-full1-B-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "137|full|B",
+   "pid": 137,
+   "game_id": 11,
+   "window": "full",
+   "arm": "B",
+   "run_id": "preregA-full1-B-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "139|full|B",
+   "pid": 139,
+   "game_id": 12,
+   "window": "full",
+   "arm": "B",
+   "run_id": "preregA-full1-B-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "141|full|B",
+   "pid": 141,
+   "game_id": 12,
+   "window": "full",
+   "arm": "B",
+   "run_id": "preregA-full1-B-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "143|full|B",
+   "pid": 143,
+   "game_id": 12,
+   "window": "full",
+   "arm": "B",
+   "run_id": "preregA-full1-B-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "145|full|B",
+   "pid": 145,
+   "game_id": 12,
+   "window": "full",
+   "arm": "B",
+   "run_id": "preregA-full1-B-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "147|full|B",
+   "pid": 147,
+   "game_id": 12,
+   "window": "full",
+   "arm": "B",
+   "run_id": "preregA-full1-B-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "149|full|B",
+   "pid": 149,
+   "game_id": 12,
+   "window": "full",
+   "arm": "B",
+   "run_id": "preregA-full1-B-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "151|full|B",
+   "pid": 151,
+   "game_id": 13,
+   "window": "full",
+   "arm": "B",
+   "run_id": "preregA-full1-B-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "153|full|B",
+   "pid": 153,
+   "game_id": 13,
+   "window": "full",
+   "arm": "B",
+   "run_id": "preregA-full1-B-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "155|full|B",
+   "pid": 155,
+   "game_id": 13,
+   "window": "full",
+   "arm": "B",
+   "run_id": "preregA-full1-B-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "157|full|B",
+   "pid": 157,
+   "game_id": 13,
+   "window": "full",
+   "arm": "B",
+   "run_id": "preregA-full1-B-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "159|full|B",
+   "pid": 159,
+   "game_id": 13,
+   "window": "full",
+   "arm": "B",
+   "run_id": "preregA-full1-B-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "161|full|B",
+   "pid": 161,
+   "game_id": 13,
+   "window": "full",
+   "arm": "B",
+   "run_id": "preregA-full1-B-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "163|full|B",
+   "pid": 163,
+   "game_id": 14,
+   "window": "full",
+   "arm": "B",
+   "run_id": "preregA-full1-B-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "165|full|B",
+   "pid": 165,
+   "game_id": 14,
+   "window": "full",
+   "arm": "B",
+   "run_id": "preregA-full1-B-full",
+   "failed": [
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "167|full|B",
+   "pid": 167,
+   "game_id": 14,
+   "window": "full",
+   "arm": "B",
+   "run_id": "preregA-full1-B-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "169|full|B",
+   "pid": 169,
+   "game_id": 14,
+   "window": "full",
+   "arm": "B",
+   "run_id": "preregA-full1-B-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "171|full|B",
+   "pid": 171,
+   "game_id": 14,
+   "window": "full",
+   "arm": "B",
+   "run_id": "preregA-full1-B-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "173|full|B",
+   "pid": 173,
+   "game_id": 14,
+   "window": "full",
+   "arm": "B",
+   "run_id": "preregA-full1-B-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "175|full|B",
+   "pid": 175,
+   "game_id": 15,
+   "window": "full",
+   "arm": "B",
+   "run_id": "preregA-full1-B-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "177|full|B",
+   "pid": 177,
+   "game_id": 15,
+   "window": "full",
+   "arm": "B",
+   "run_id": "preregA-full1-B-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "179|full|B",
+   "pid": 179,
+   "game_id": 15,
+   "window": "full",
+   "arm": "B",
+   "run_id": "preregA-full1-B-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "181|full|B",
+   "pid": 181,
+   "game_id": 15,
+   "window": "full",
+   "arm": "B",
+   "run_id": "preregA-full1-B-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "183|full|B",
+   "pid": 183,
+   "game_id": 15,
+   "window": "full",
+   "arm": "B",
+   "run_id": "preregA-full1-B-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "185|full|B",
+   "pid": 185,
+   "game_id": 15,
+   "window": "full",
+   "arm": "B",
+   "run_id": "preregA-full1-B-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "187|full|B",
+   "pid": 187,
+   "game_id": 16,
+   "window": "full",
+   "arm": "B",
+   "run_id": "preregA-full1-B-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "189|full|B",
+   "pid": 189,
+   "game_id": 16,
+   "window": "full",
+   "arm": "B",
+   "run_id": "preregA-full1-B-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "191|full|B",
+   "pid": 191,
+   "game_id": 16,
+   "window": "full",
+   "arm": "B",
+   "run_id": "preregA-full1-B-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "193|full|B",
+   "pid": 193,
+   "game_id": 16,
+   "window": "full",
+   "arm": "B",
+   "run_id": "preregA-full1-B-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "195|full|B",
+   "pid": 195,
+   "game_id": 16,
+   "window": "full",
+   "arm": "B",
+   "run_id": "preregA-full1-B-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "197|full|B",
+   "pid": 197,
+   "game_id": 16,
+   "window": "full",
+   "arm": "B",
+   "run_id": "preregA-full1-B-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "199|full|B",
+   "pid": 199,
+   "game_id": 17,
+   "window": "full",
+   "arm": "B",
+   "run_id": "preregA-full1-B-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "201|full|B",
+   "pid": 201,
+   "game_id": 17,
+   "window": "full",
+   "arm": "B",
+   "run_id": "preregA-full1-B-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "203|full|B",
+   "pid": 203,
+   "game_id": 17,
+   "window": "full",
+   "arm": "B",
+   "run_id": "preregA-full1-B-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "205|full|B",
+   "pid": 205,
+   "game_id": 17,
+   "window": "full",
+   "arm": "B",
+   "run_id": "preregA-full1-B-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "207|full|B",
+   "pid": 207,
+   "game_id": 17,
+   "window": "full",
+   "arm": "B",
+   "run_id": "preregA-full1-B-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "209|full|B",
+   "pid": 209,
+   "game_id": 17,
+   "window": "full",
+   "arm": "B",
+   "run_id": "preregA-full1-B-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "135|full|C",
+   "pid": 135,
+   "game_id": 11,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "137|full|C",
+   "pid": 137,
+   "game_id": 11,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "139|full|C",
+   "pid": 139,
+   "game_id": 12,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "141|full|C",
+   "pid": 141,
+   "game_id": 12,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "143|full|C",
+   "pid": 143,
+   "game_id": 12,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "145|full|C",
+   "pid": 145,
+   "game_id": 12,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "147|full|C",
+   "pid": 147,
+   "game_id": 12,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "149|full|C",
+   "pid": 149,
+   "game_id": 12,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "151|full|C",
+   "pid": 151,
+   "game_id": 13,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "153|full|C",
+   "pid": 153,
+   "game_id": 13,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "155|full|C",
+   "pid": 155,
+   "game_id": 13,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "157|full|C",
+   "pid": 157,
+   "game_id": 13,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "159|full|C",
+   "pid": 159,
+   "game_id": 13,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "161|full|C",
+   "pid": 161,
+   "game_id": 13,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "163|full|C",
+   "pid": 163,
+   "game_id": 14,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "165|full|C",
+   "pid": 165,
+   "game_id": 14,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "167|full|C",
+   "pid": 167,
+   "game_id": 14,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "169|full|C",
+   "pid": 169,
+   "game_id": 14,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "171|full|C",
+   "pid": 171,
+   "game_id": 14,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "173|full|C",
+   "pid": 173,
+   "game_id": 14,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "175|full|C",
+   "pid": 175,
+   "game_id": 15,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "177|full|C",
+   "pid": 177,
+   "game_id": 15,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "179|full|C",
+   "pid": 179,
+   "game_id": 15,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "181|full|C",
+   "pid": 181,
+   "game_id": 15,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "183|full|C",
+   "pid": 183,
+   "game_id": 15,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "185|full|C",
+   "pid": 185,
+   "game_id": 15,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "187|full|C",
+   "pid": 187,
+   "game_id": 16,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "189|full|C",
+   "pid": 189,
+   "game_id": 16,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "191|full|C",
+   "pid": 191,
+   "game_id": 16,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "193|full|C",
+   "pid": 193,
+   "game_id": 16,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "195|full|C",
+   "pid": 195,
+   "game_id": 16,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "197|full|C",
+   "pid": 197,
+   "game_id": 16,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "199|full|C",
+   "pid": 199,
+   "game_id": 17,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "201|full|C",
+   "pid": 201,
+   "game_id": 17,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "203|full|C",
+   "pid": 203,
+   "game_id": 17,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "205|full|C",
+   "pid": 205,
+   "game_id": 17,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "207|full|C",
+   "pid": 207,
+   "game_id": 17,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "209|full|C",
+   "pid": 209,
+   "game_id": 17,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "116|cutoff|A",
+   "pid": 116,
+   "game_id": 10,
+   "window": "cutoff",
+   "arm": "A",
+   "run_id": "preregA-full1-A-cutoff",
+   "failed": [
+    "v1_evidence"
+   ]
+  },
+  {
+   "key": "128|cutoff|A",
+   "pid": 128,
+   "game_id": 11,
+   "window": "cutoff",
+   "arm": "A",
+   "run_id": "preregA-full1-A-cutoff",
+   "failed": [
+    "v1_evidence"
+   ]
+  },
+  {
+   "key": "130|cutoff|A",
+   "pid": 130,
+   "game_id": 11,
+   "window": "cutoff",
+   "arm": "A",
+   "run_id": "preregA-full1-A-cutoff",
+   "failed": [
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "132|cutoff|A",
+   "pid": 132,
+   "game_id": 11,
+   "window": "cutoff",
+   "arm": "A",
+   "run_id": "preregA-full1-A-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "134|cutoff|A",
+   "pid": 134,
+   "game_id": 11,
+   "window": "cutoff",
+   "arm": "A",
+   "run_id": "preregA-full1-A-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "136|cutoff|A",
+   "pid": 136,
+   "game_id": 11,
+   "window": "cutoff",
+   "arm": "A",
+   "run_id": "preregA-full1-A-cutoff",
+   "failed": [
+    "v1_evidence"
+   ]
+  },
+  {
+   "key": "152|cutoff|A",
+   "pid": 152,
+   "game_id": 13,
+   "window": "cutoff",
+   "arm": "A",
+   "run_id": "preregA-full1-A-cutoff",
+   "failed": [
+    "v1_evidence"
+   ]
+  },
+  {
+   "key": "164|cutoff|A",
+   "pid": 164,
+   "game_id": 14,
+   "window": "cutoff",
+   "arm": "A",
+   "run_id": "preregA-full1-A-cutoff",
+   "failed": [
+    "v1_evidence"
+   ]
+  },
+  {
+   "key": "172|cutoff|A",
+   "pid": 172,
+   "game_id": 14,
+   "window": "cutoff",
+   "arm": "A",
+   "run_id": "preregA-full1-A-cutoff",
+   "failed": [
+    "v1_evidence"
+   ]
+  },
+  {
+   "key": "182|cutoff|A",
+   "pid": 182,
+   "game_id": 15,
+   "window": "cutoff",
+   "arm": "A",
+   "run_id": "preregA-full1-A-cutoff",
+   "failed": [
+    "v2_skeptical"
+   ]
+  },
+  {
+   "key": "188|cutoff|A",
+   "pid": 188,
+   "game_id": 16,
+   "window": "cutoff",
+   "arm": "A",
+   "run_id": "preregA-full1-A-cutoff",
+   "failed": [
+    "v1_evidence"
+   ]
+  },
+  {
+   "key": "200|cutoff|A",
+   "pid": 200,
+   "game_id": 17,
+   "window": "cutoff",
+   "arm": "A",
+   "run_id": "preregA-full1-A-cutoff",
+   "failed": [
+    "v1_evidence"
+   ]
+  },
+  {
+   "key": "204|cutoff|A",
+   "pid": 204,
+   "game_id": 17,
+   "window": "cutoff",
+   "arm": "A",
+   "run_id": "preregA-full1-A-cutoff",
+   "failed": [
+    "v1_evidence"
+   ]
+  },
+  {
+   "key": "132|cutoff|B",
+   "pid": 132,
+   "game_id": 11,
+   "window": "cutoff",
+   "arm": "B",
+   "run_id": "preregA-full1-B-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "134|cutoff|B",
+   "pid": 134,
+   "game_id": 11,
+   "window": "cutoff",
+   "arm": "B",
+   "run_id": "preregA-full1-B-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "136|cutoff|B",
+   "pid": 136,
+   "game_id": 11,
+   "window": "cutoff",
+   "arm": "B",
+   "run_id": "preregA-full1-B-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "138|cutoff|B",
+   "pid": 138,
+   "game_id": 11,
+   "window": "cutoff",
+   "arm": "B",
+   "run_id": "preregA-full1-B-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "140|cutoff|B",
+   "pid": 140,
+   "game_id": 12,
+   "window": "cutoff",
+   "arm": "B",
+   "run_id": "preregA-full1-B-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "142|cutoff|B",
+   "pid": 142,
+   "game_id": 12,
+   "window": "cutoff",
+   "arm": "B",
+   "run_id": "preregA-full1-B-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "144|cutoff|B",
+   "pid": 144,
+   "game_id": 12,
+   "window": "cutoff",
+   "arm": "B",
+   "run_id": "preregA-full1-B-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "148|cutoff|B",
+   "pid": 148,
+   "game_id": 12,
+   "window": "cutoff",
+   "arm": "B",
+   "run_id": "preregA-full1-B-cutoff",
+   "failed": [
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "150|cutoff|B",
+   "pid": 150,
+   "game_id": 12,
+   "window": "cutoff",
+   "arm": "B",
+   "run_id": "preregA-full1-B-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "152|cutoff|B",
+   "pid": 152,
+   "game_id": 13,
+   "window": "cutoff",
+   "arm": "B",
+   "run_id": "preregA-full1-B-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "154|cutoff|B",
+   "pid": 154,
+   "game_id": 13,
+   "window": "cutoff",
+   "arm": "B",
+   "run_id": "preregA-full1-B-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "156|cutoff|B",
+   "pid": 156,
+   "game_id": 13,
+   "window": "cutoff",
+   "arm": "B",
+   "run_id": "preregA-full1-B-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "158|cutoff|B",
+   "pid": 158,
+   "game_id": 13,
+   "window": "cutoff",
+   "arm": "B",
+   "run_id": "preregA-full1-B-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "160|cutoff|B",
+   "pid": 160,
+   "game_id": 13,
+   "window": "cutoff",
+   "arm": "B",
+   "run_id": "preregA-full1-B-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "162|cutoff|B",
+   "pid": 162,
+   "game_id": 13,
+   "window": "cutoff",
+   "arm": "B",
+   "run_id": "preregA-full1-B-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "164|cutoff|B",
+   "pid": 164,
+   "game_id": 14,
+   "window": "cutoff",
+   "arm": "B",
+   "run_id": "preregA-full1-B-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "166|cutoff|B",
+   "pid": 166,
+   "game_id": 14,
+   "window": "cutoff",
+   "arm": "B",
+   "run_id": "preregA-full1-B-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "168|cutoff|B",
+   "pid": 168,
+   "game_id": 14,
+   "window": "cutoff",
+   "arm": "B",
+   "run_id": "preregA-full1-B-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "170|cutoff|B",
+   "pid": 170,
+   "game_id": 14,
+   "window": "cutoff",
+   "arm": "B",
+   "run_id": "preregA-full1-B-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "172|cutoff|B",
+   "pid": 172,
+   "game_id": 14,
+   "window": "cutoff",
+   "arm": "B",
+   "run_id": "preregA-full1-B-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "174|cutoff|B",
+   "pid": 174,
+   "game_id": 14,
+   "window": "cutoff",
+   "arm": "B",
+   "run_id": "preregA-full1-B-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "176|cutoff|B",
+   "pid": 176,
+   "game_id": 15,
+   "window": "cutoff",
+   "arm": "B",
+   "run_id": "preregA-full1-B-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "178|cutoff|B",
+   "pid": 178,
+   "game_id": 15,
+   "window": "cutoff",
+   "arm": "B",
+   "run_id": "preregA-full1-B-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "180|cutoff|B",
+   "pid": 180,
+   "game_id": 15,
+   "window": "cutoff",
+   "arm": "B",
+   "run_id": "preregA-full1-B-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "182|cutoff|B",
+   "pid": 182,
+   "game_id": 15,
+   "window": "cutoff",
+   "arm": "B",
+   "run_id": "preregA-full1-B-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "184|cutoff|B",
+   "pid": 184,
+   "game_id": 15,
+   "window": "cutoff",
+   "arm": "B",
+   "run_id": "preregA-full1-B-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "186|cutoff|B",
+   "pid": 186,
+   "game_id": 15,
+   "window": "cutoff",
+   "arm": "B",
+   "run_id": "preregA-full1-B-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "188|cutoff|B",
+   "pid": 188,
+   "game_id": 16,
+   "window": "cutoff",
+   "arm": "B",
+   "run_id": "preregA-full1-B-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "190|cutoff|B",
+   "pid": 190,
+   "game_id": 16,
+   "window": "cutoff",
+   "arm": "B",
+   "run_id": "preregA-full1-B-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "192|cutoff|B",
+   "pid": 192,
+   "game_id": 16,
+   "window": "cutoff",
+   "arm": "B",
+   "run_id": "preregA-full1-B-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "194|cutoff|B",
+   "pid": 194,
+   "game_id": 16,
+   "window": "cutoff",
+   "arm": "B",
+   "run_id": "preregA-full1-B-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "196|cutoff|B",
+   "pid": 196,
+   "game_id": 16,
+   "window": "cutoff",
+   "arm": "B",
+   "run_id": "preregA-full1-B-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "198|cutoff|B",
+   "pid": 198,
+   "game_id": 16,
+   "window": "cutoff",
+   "arm": "B",
+   "run_id": "preregA-full1-B-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "200|cutoff|B",
+   "pid": 200,
+   "game_id": 17,
+   "window": "cutoff",
+   "arm": "B",
+   "run_id": "preregA-full1-B-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "202|cutoff|B",
+   "pid": 202,
+   "game_id": 17,
+   "window": "cutoff",
+   "arm": "B",
+   "run_id": "preregA-full1-B-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "204|cutoff|B",
+   "pid": 204,
+   "game_id": 17,
+   "window": "cutoff",
+   "arm": "B",
+   "run_id": "preregA-full1-B-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "206|cutoff|B",
+   "pid": 206,
+   "game_id": 17,
+   "window": "cutoff",
+   "arm": "B",
+   "run_id": "preregA-full1-B-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "208|cutoff|B",
+   "pid": 208,
+   "game_id": 17,
+   "window": "cutoff",
+   "arm": "B",
+   "run_id": "preregA-full1-B-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "210|cutoff|B",
+   "pid": 210,
+   "game_id": 17,
+   "window": "cutoff",
+   "arm": "B",
+   "run_id": "preregA-full1-B-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "134|cutoff|C",
+   "pid": 134,
+   "game_id": 11,
+   "window": "cutoff",
+   "arm": "C",
+   "run_id": "preregA-full1-C-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "136|cutoff|C",
+   "pid": 136,
+   "game_id": 11,
+   "window": "cutoff",
+   "arm": "C",
+   "run_id": "preregA-full1-C-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "138|cutoff|C",
+   "pid": 138,
+   "game_id": 11,
+   "window": "cutoff",
+   "arm": "C",
+   "run_id": "preregA-full1-C-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "140|cutoff|C",
+   "pid": 140,
+   "game_id": 12,
+   "window": "cutoff",
+   "arm": "C",
+   "run_id": "preregA-full1-C-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "142|cutoff|C",
+   "pid": 142,
+   "game_id": 12,
+   "window": "cutoff",
+   "arm": "C",
+   "run_id": "preregA-full1-C-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "144|cutoff|C",
+   "pid": 144,
+   "game_id": 12,
+   "window": "cutoff",
+   "arm": "C",
+   "run_id": "preregA-full1-C-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "146|cutoff|C",
+   "pid": 146,
+   "game_id": 12,
+   "window": "cutoff",
+   "arm": "C",
+   "run_id": "preregA-full1-C-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "148|cutoff|C",
+   "pid": 148,
+   "game_id": 12,
+   "window": "cutoff",
+   "arm": "C",
+   "run_id": "preregA-full1-C-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "150|cutoff|C",
+   "pid": 150,
+   "game_id": 12,
+   "window": "cutoff",
+   "arm": "C",
+   "run_id": "preregA-full1-C-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "152|cutoff|C",
+   "pid": 152,
+   "game_id": 13,
+   "window": "cutoff",
+   "arm": "C",
+   "run_id": "preregA-full1-C-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "154|cutoff|C",
+   "pid": 154,
+   "game_id": 13,
+   "window": "cutoff",
+   "arm": "C",
+   "run_id": "preregA-full1-C-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "156|cutoff|C",
+   "pid": 156,
+   "game_id": 13,
+   "window": "cutoff",
+   "arm": "C",
+   "run_id": "preregA-full1-C-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "158|cutoff|C",
+   "pid": 158,
+   "game_id": 13,
+   "window": "cutoff",
+   "arm": "C",
+   "run_id": "preregA-full1-C-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "160|cutoff|C",
+   "pid": 160,
+   "game_id": 13,
+   "window": "cutoff",
+   "arm": "C",
+   "run_id": "preregA-full1-C-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "162|cutoff|C",
+   "pid": 162,
+   "game_id": 13,
+   "window": "cutoff",
+   "arm": "C",
+   "run_id": "preregA-full1-C-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "164|cutoff|C",
+   "pid": 164,
+   "game_id": 14,
+   "window": "cutoff",
+   "arm": "C",
+   "run_id": "preregA-full1-C-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "166|cutoff|C",
+   "pid": 166,
+   "game_id": 14,
+   "window": "cutoff",
+   "arm": "C",
+   "run_id": "preregA-full1-C-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "168|cutoff|C",
+   "pid": 168,
+   "game_id": 14,
+   "window": "cutoff",
+   "arm": "C",
+   "run_id": "preregA-full1-C-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "170|cutoff|C",
+   "pid": 170,
+   "game_id": 14,
+   "window": "cutoff",
+   "arm": "C",
+   "run_id": "preregA-full1-C-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "172|cutoff|C",
+   "pid": 172,
+   "game_id": 14,
+   "window": "cutoff",
+   "arm": "C",
+   "run_id": "preregA-full1-C-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "174|cutoff|C",
+   "pid": 174,
+   "game_id": 14,
+   "window": "cutoff",
+   "arm": "C",
+   "run_id": "preregA-full1-C-cutoff",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical"
+   ]
+  },
+  {
+   "key": "176|cutoff|C",
+   "pid": 176,
+   "game_id": 15,
+   "window": "cutoff",
+   "arm": "C",
+   "run_id": "preregA-full1-C-cutoff",
+   "failed": [
+    "v1_evidence"
+   ]
+  },
+  {
+   "key": "188|cutoff|C",
+   "pid": 188,
+   "game_id": 16,
+   "window": "cutoff",
+   "arm": "C",
+   "run_id": "preregA-full1-C-cutoff",
+   "failed": [
+    "v1_evidence"
+   ]
+  },
+  {
+   "key": "200|cutoff|C",
+   "pid": 200,
+   "game_id": 17,
+   "window": "cutoff",
+   "arm": "C",
+   "run_id": "preregA-full1-C-cutoff",
+   "failed": [
+    "v1_evidence"
+   ]
+  },
+  {
+   "key": "136|full|A",
+   "pid": 136,
+   "game_id": 11,
+   "window": "full",
+   "arm": "A",
+   "run_id": "preregA-full1-A-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "138|full|A",
+   "pid": 138,
+   "game_id": 11,
+   "window": "full",
+   "arm": "A",
+   "run_id": "preregA-full1-A-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "140|full|A",
+   "pid": 140,
+   "game_id": 12,
+   "window": "full",
+   "arm": "A",
+   "run_id": "preregA-full1-A-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "142|full|A",
+   "pid": 142,
+   "game_id": 12,
+   "window": "full",
+   "arm": "A",
+   "run_id": "preregA-full1-A-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "144|full|A",
+   "pid": 144,
+   "game_id": 12,
+   "window": "full",
+   "arm": "A",
+   "run_id": "preregA-full1-A-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "146|full|A",
+   "pid": 146,
+   "game_id": 12,
+   "window": "full",
+   "arm": "A",
+   "run_id": "preregA-full1-A-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "148|full|A",
+   "pid": 148,
+   "game_id": 12,
+   "window": "full",
+   "arm": "A",
+   "run_id": "preregA-full1-A-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "150|full|A",
+   "pid": 150,
+   "game_id": 12,
+   "window": "full",
+   "arm": "A",
+   "run_id": "preregA-full1-A-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "152|full|A",
+   "pid": 152,
+   "game_id": 13,
+   "window": "full",
+   "arm": "A",
+   "run_id": "preregA-full1-A-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "154|full|A",
+   "pid": 154,
+   "game_id": 13,
+   "window": "full",
+   "arm": "A",
+   "run_id": "preregA-full1-A-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "156|full|A",
+   "pid": 156,
+   "game_id": 13,
+   "window": "full",
+   "arm": "A",
+   "run_id": "preregA-full1-A-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "158|full|A",
+   "pid": 158,
+   "game_id": 13,
+   "window": "full",
+   "arm": "A",
+   "run_id": "preregA-full1-A-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "160|full|A",
+   "pid": 160,
+   "game_id": 13,
+   "window": "full",
+   "arm": "A",
+   "run_id": "preregA-full1-A-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "162|full|A",
+   "pid": 162,
+   "game_id": 13,
+   "window": "full",
+   "arm": "A",
+   "run_id": "preregA-full1-A-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "164|full|A",
+   "pid": 164,
+   "game_id": 14,
+   "window": "full",
+   "arm": "A",
+   "run_id": "preregA-full1-A-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "166|full|A",
+   "pid": 166,
+   "game_id": 14,
+   "window": "full",
+   "arm": "A",
+   "run_id": "preregA-full1-A-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "168|full|A",
+   "pid": 168,
+   "game_id": 14,
+   "window": "full",
+   "arm": "A",
+   "run_id": "preregA-full1-A-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "170|full|A",
+   "pid": 170,
+   "game_id": 14,
+   "window": "full",
+   "arm": "A",
+   "run_id": "preregA-full1-A-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "172|full|A",
+   "pid": 172,
+   "game_id": 14,
+   "window": "full",
+   "arm": "A",
+   "run_id": "preregA-full1-A-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "174|full|A",
+   "pid": 174,
+   "game_id": 14,
+   "window": "full",
+   "arm": "A",
+   "run_id": "preregA-full1-A-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "176|full|A",
+   "pid": 176,
+   "game_id": 15,
+   "window": "full",
+   "arm": "A",
+   "run_id": "preregA-full1-A-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "178|full|A",
+   "pid": 178,
+   "game_id": 15,
+   "window": "full",
+   "arm": "A",
+   "run_id": "preregA-full1-A-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "180|full|A",
+   "pid": 180,
+   "game_id": 15,
+   "window": "full",
+   "arm": "A",
+   "run_id": "preregA-full1-A-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "182|full|A",
+   "pid": 182,
+   "game_id": 15,
+   "window": "full",
+   "arm": "A",
+   "run_id": "preregA-full1-A-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "184|full|A",
+   "pid": 184,
+   "game_id": 15,
+   "window": "full",
+   "arm": "A",
+   "run_id": "preregA-full1-A-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "186|full|A",
+   "pid": 186,
+   "game_id": 15,
+   "window": "full",
+   "arm": "A",
+   "run_id": "preregA-full1-A-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "188|full|A",
+   "pid": 188,
+   "game_id": 16,
+   "window": "full",
+   "arm": "A",
+   "run_id": "preregA-full1-A-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "190|full|A",
+   "pid": 190,
+   "game_id": 16,
+   "window": "full",
+   "arm": "A",
+   "run_id": "preregA-full1-A-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "192|full|A",
+   "pid": 192,
+   "game_id": 16,
+   "window": "full",
+   "arm": "A",
+   "run_id": "preregA-full1-A-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "194|full|A",
+   "pid": 194,
+   "game_id": 16,
+   "window": "full",
+   "arm": "A",
+   "run_id": "preregA-full1-A-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "196|full|A",
+   "pid": 196,
+   "game_id": 16,
+   "window": "full",
+   "arm": "A",
+   "run_id": "preregA-full1-A-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "198|full|A",
+   "pid": 198,
+   "game_id": 16,
+   "window": "full",
+   "arm": "A",
+   "run_id": "preregA-full1-A-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "200|full|A",
+   "pid": 200,
+   "game_id": 17,
+   "window": "full",
+   "arm": "A",
+   "run_id": "preregA-full1-A-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "202|full|A",
+   "pid": 202,
+   "game_id": 17,
+   "window": "full",
+   "arm": "A",
+   "run_id": "preregA-full1-A-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "204|full|A",
+   "pid": 204,
+   "game_id": 17,
+   "window": "full",
+   "arm": "A",
+   "run_id": "preregA-full1-A-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "206|full|A",
+   "pid": 206,
+   "game_id": 17,
+   "window": "full",
+   "arm": "A",
+   "run_id": "preregA-full1-A-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "208|full|A",
+   "pid": 208,
+   "game_id": 17,
+   "window": "full",
+   "arm": "A",
+   "run_id": "preregA-full1-A-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "210|full|A",
+   "pid": 210,
+   "game_id": 17,
+   "window": "full",
+   "arm": "A",
+   "run_id": "preregA-full1-A-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "140|full|B",
+   "pid": 140,
+   "game_id": 12,
+   "window": "full",
+   "arm": "B",
+   "run_id": "preregA-full1-B-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "142|full|B",
+   "pid": 142,
+   "game_id": 12,
+   "window": "full",
+   "arm": "B",
+   "run_id": "preregA-full1-B-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "144|full|B",
+   "pid": 144,
+   "game_id": 12,
+   "window": "full",
+   "arm": "B",
+   "run_id": "preregA-full1-B-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "146|full|B",
+   "pid": 146,
+   "game_id": 12,
+   "window": "full",
+   "arm": "B",
+   "run_id": "preregA-full1-B-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "148|full|B",
+   "pid": 148,
+   "game_id": 12,
+   "window": "full",
+   "arm": "B",
+   "run_id": "preregA-full1-B-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "150|full|B",
+   "pid": 150,
+   "game_id": 12,
+   "window": "full",
+   "arm": "B",
+   "run_id": "preregA-full1-B-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "152|full|B",
+   "pid": 152,
+   "game_id": 13,
+   "window": "full",
+   "arm": "B",
+   "run_id": "preregA-full1-B-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "154|full|B",
+   "pid": 154,
+   "game_id": 13,
+   "window": "full",
+   "arm": "B",
+   "run_id": "preregA-full1-B-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "156|full|B",
+   "pid": 156,
+   "game_id": 13,
+   "window": "full",
+   "arm": "B",
+   "run_id": "preregA-full1-B-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "166|full|B",
+   "pid": 166,
+   "game_id": 14,
+   "window": "full",
+   "arm": "B",
+   "run_id": "preregA-full1-B-full",
+   "failed": [
+    "v2_skeptical"
+   ]
+  },
+  {
+   "key": "172|full|B",
+   "pid": 172,
+   "game_id": 14,
+   "window": "full",
+   "arm": "B",
+   "run_id": "preregA-full1-B-full",
+   "failed": [
+    "v2_skeptical"
+   ]
+  },
+  {
+   "key": "180|full|B",
+   "pid": 180,
+   "game_id": 15,
+   "window": "full",
+   "arm": "B",
+   "run_id": "preregA-full1-B-full",
+   "failed": [
+    "v2_skeptical"
+   ]
+  },
+  {
+   "key": "188|full|B",
+   "pid": 188,
+   "game_id": 16,
+   "window": "full",
+   "arm": "B",
+   "run_id": "preregA-full1-B-full",
+   "failed": [
+    "v2_skeptical"
+   ]
+  },
+  {
+   "key": "200|full|B",
+   "pid": 200,
+   "game_id": 17,
+   "window": "full",
+   "arm": "B",
+   "run_id": "preregA-full1-B-full",
+   "failed": [
+    "v1_evidence"
+   ]
+  },
+  {
+   "key": "134|full|C",
+   "pid": 134,
+   "game_id": 11,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "136|full|C",
+   "pid": 136,
+   "game_id": 11,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "138|full|C",
+   "pid": 138,
+   "game_id": 11,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "140|full|C",
+   "pid": 140,
+   "game_id": 12,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "142|full|C",
+   "pid": 142,
+   "game_id": 12,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "144|full|C",
+   "pid": 144,
+   "game_id": 12,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "146|full|C",
+   "pid": 146,
+   "game_id": 12,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "148|full|C",
+   "pid": 148,
+   "game_id": 12,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "150|full|C",
+   "pid": 150,
+   "game_id": 12,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "152|full|C",
+   "pid": 152,
+   "game_id": 13,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "154|full|C",
+   "pid": 154,
+   "game_id": 13,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "156|full|C",
+   "pid": 156,
+   "game_id": 13,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "158|full|C",
+   "pid": 158,
+   "game_id": 13,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "160|full|C",
+   "pid": 160,
+   "game_id": 13,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "162|full|C",
+   "pid": 162,
+   "game_id": 13,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "164|full|C",
+   "pid": 164,
+   "game_id": 14,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "166|full|C",
+   "pid": 166,
+   "game_id": 14,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "168|full|C",
+   "pid": 168,
+   "game_id": 14,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "170|full|C",
+   "pid": 170,
+   "game_id": 14,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "172|full|C",
+   "pid": 172,
+   "game_id": 14,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "174|full|C",
+   "pid": 174,
+   "game_id": 14,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "176|full|C",
+   "pid": 176,
+   "game_id": 15,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "178|full|C",
+   "pid": 178,
+   "game_id": 15,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "180|full|C",
+   "pid": 180,
+   "game_id": 15,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "182|full|C",
+   "pid": 182,
+   "game_id": 15,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "184|full|C",
+   "pid": 184,
+   "game_id": 15,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "186|full|C",
+   "pid": 186,
+   "game_id": 15,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "188|full|C",
+   "pid": 188,
+   "game_id": 16,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "190|full|C",
+   "pid": 190,
+   "game_id": 16,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "192|full|C",
+   "pid": 192,
+   "game_id": 16,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "194|full|C",
+   "pid": 194,
+   "game_id": 16,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "196|full|C",
+   "pid": 196,
+   "game_id": 16,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "198|full|C",
+   "pid": 198,
+   "game_id": 16,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "200|full|C",
+   "pid": 200,
+   "game_id": 17,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "202|full|C",
+   "pid": 202,
+   "game_id": 17,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "204|full|C",
+   "pid": 204,
+   "game_id": 17,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "206|full|C",
+   "pid": 206,
+   "game_id": 17,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "208|full|C",
+   "pid": 208,
+   "game_id": 17,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  },
+  {
+   "key": "210|full|C",
+   "pid": 210,
+   "game_id": 17,
+   "window": "full",
+   "arm": "C",
+   "run_id": "preregA-full1-C-full",
+   "failed": [
+    "v1_evidence",
+    "v2_skeptical",
+    "v3_baserate"
+   ]
+  }
+ ],
+ "pruned_at": "2026-09-14T07:22:45.964Z",
+ "pruned_note": "retry_pending 已按 DB 事实裁剪：剔除全部变体已入库的 62 件；15 件收敛 failed 为缺失变体"
+}
