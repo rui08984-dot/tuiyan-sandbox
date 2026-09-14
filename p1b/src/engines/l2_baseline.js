@@ -47,12 +47,29 @@ function parseFraction(note) {
   return { k: k, n: n };
 }
 
-/** 样本量抽取（与语料 note 写法对齐）：共 N 个 → N 个 → N 期。 */
+/**
+ * 样本量抽取（与语料 note 实际写法对齐）。
+ *
+ * 2026-09-14 修（口径一致性）：原实现只认「共 N 个 / N 个 / N 期」，**漏**了账本里大量存在的
+ *   「近 N 天」「cutoff 前 N 天」「pre-cutoff 已发布 N 个月值中」等句式 ⇒ 引擎误判「未含可解析 n」
+ *   而退回 insufficient_data（实测 L2 有 15 行如此，占比 2.4%）。
+ *   更根本的问题：`g2-report.cjs` 的解析器在同日已按 #13 加宽（支持 共/近/前/上/已发布），
+ *   两处解析器**口径分叉**——本项目明令「报表难度分档 b 与 L2 引擎 p 不出两套口径」。
+ *   故此处对齐为同一套句式（保守取最小 n，防「2015-2024 共 300 个日值」类窗口总长被放大）。
+ *
+ * ⚠ 已知局限（如实登记，未在本轮解决）：本函数与 `g2-report.cjs` 的 `parseNoteN`/`parseCount`
+ *   仍为**两份代码**；真正的单一真源应抽成共享模块（属重构，非本轮范围）。当前仅保证句式一致。
+ */
 function parseCount(note) {
-  let m = /共\s*(\d+)\s*个/.exec(note); if (m) return parseInt(m[1], 10);
-  m = /(\d+)\s*个/.exec(note);            if (m) return parseInt(m[1], 10);
-  m = /(\d+)\s*期/.exec(note);            if (m) return parseInt(m[1], 10);
-  return null;
+  if (!note || typeof note !== 'string') return null;
+  const ns = [];
+  const res = [
+    /(?:共|近|前|上)\s*(\d+)\s*(?:个|天|月|期|条)/g,
+    /(\d+)\s*(?:个|天|月|期)[^0-9%]{0,12}?(?:的|中|值)/g,
+    /(?:已发布|已开奖|已结算)\s*(\d+)\s*(?:个|天|月|期|条)/g,
+  ];
+  for (const re of res) { let m; while ((m = re.exec(note)) !== null) { const v = parseInt(m[1], 10); if (isFinite(v) && v > 0 && v < 100000) ns.push(v); } }
+  return ns.length ? Math.min.apply(null, ns) : null;
 }
 
 /**

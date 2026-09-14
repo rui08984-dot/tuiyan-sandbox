@@ -281,3 +281,35 @@ test('additive 迁移：旧库无三列 → ensureIntakeTables 自动 ALTER 补�
   assert.deepEqual(store.getIntakeQuestion(rec.id).prob_ci, [0.21, 0.39]);
   assert.equal(store.getIntakeQuestion(rec.id).engine_note, 'note-x');
 });
+
+// ── 2026-09-14 修：parseCount 句式加宽（与 g2-report 口径对齐）────────────────
+// 病象：原实现只认「共 N 个 / N 个 / N 期」，漏「近 N 天」「前 N 天」「已发布 N 个月值」⇒
+//   引擎误判「未含可解析 n」退回 insufficient_data（实测 L2 有 15 行如此）。
+// 修法：对齐 g2-report 已加宽的句式（共/近/前/上、N个/天/月/期…的/中/值、已发布/已开奖 N个）。
+test('L2 parseCount 加宽：账本真实句式的样本量均能抽出（防误判数据不足）', () => {
+  const { l2Baseline } = require('../src/engines/l2_baseline');
+  // n≥30 的句式：应出数（p + Wilson 区间）
+  const okCases = [
+    ['气候基率：上海 2015-2024 共 300 个 9 月日，max>35°C 占 1.0%', 300],
+    ['前瞻·M.USD.EUR.SP00.A：pre-cutoff 已发布 331 个月值中 <1.15 占 45.0%', 331],
+    ['回填·柏林：cutoff 前 96 天 日降水量 中 <= 0.9 占 56.3%', 96],
+    ['回填·nodejs/node：cutoff 前 51 个完整周提交数中 >= 61 占 45.1%', 51],
+  ];
+  for (const [note, wantN] of okCases) {
+    const out = l2Baseline({ baseRateNote: note });
+    assert.equal(out.ok, true, '应能出数（不再误判数据不足）：' + note.slice(0, 30));
+    assert.equal(out.n, wantN, '样本量应=' + wantN + '：' + note.slice(0, 30));
+    assert.ok(typeof out.p === 'number', '出 p');
+    assert.ok(Array.isArray(out.ci) && out.ci.length === 2, '出 Wilson 区间');
+  }
+  // n<30 的句式：n 应被**正确抽出**，但因未过 K F13 准入线而**如实不足**（不是"解析失败"）
+  const thin = l2Baseline({ baseRateNote: '前瞻·UK/风电：近 19 天（2026-08-24~2026-09-11）日均中 >= 9306 占 31.6%' });
+  assert.equal(thin.n, 19, '「近 N 天」的 n 应抽出=19（原先抽不出 → 误报"未含可解析 n"）');
+  assert.equal(thin.ok, false, 'n=19<30 ⇒ 仍如实不出数（正确行为，非解析失败）');
+  assert.equal(thin.status, 'insufficient_data');
+  assert.ok(/数据不足/.test(thin.note), '原因是数据不足（而非"未含可解析样本量"）');
+  // 保守取最小：多窗口句取最小 n（防窗口总长被放大）
+  const multi = l2Baseline({ baseRateNote: '共 300 个日值，近 20 天占 40.0%' });
+  assert.equal(multi.n, 20, '多窗口取最小 n（保守）');
+});
+
