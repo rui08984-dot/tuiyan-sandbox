@@ -1,0 +1,1327 @@
+{
+ "meta": {
+  "generated_at": "2026-09-14T15:09:16.914Z",
+  "db": "p1a-terminal/data/p1a.db",
+  "contract": "p1b/sim/out/g2-contract-frozen-r4.json",
+  "contract_sha256": "007b4118880748e802a1f70c8ed9a13795456029130edb98aa2d52dbaa260dbf",
+  "src": "p1b/scripts/corpus-resolve.cjs",
+  "src_sha256": "29cdc23604daf57c96443cc34636b9b7295f81c28007a19094760effb13e6f71",
+  "kinds_total": 52,
+  "kinds_with_ledger_rows": 51,
+  "kinds_contract_only": 1,
+  "ledger_rows_covered": 1485,
+  "ledger_resolved_covered": 813,
+  "helper_contracts": [
+   "_omHourlyMean",
+   "_omDaily",
+   "_dbnPeriod",
+   "_dbnMonthMean",
+   "_eurostatJsonstat",
+   "_delphiFlu",
+   "_noaaTideDailyHigh"
+  ]
+ },
+ "rows": [
+  {
+   "kind": "openmeteo_air_daily_mean",
+   "helper": "_omHourlyMean",
+   "contract_src": "L77-91",
+   "src_now": "L90-104（→_omHourlyMean）",
+   "required": [
+    "date",
+    "cmp",
+    "threshold"
+   ],
+   "one_of": [
+    "url_template 或 url"
+   ],
+   "hosts": [
+    "air-quality-api.open-meteo.com"
+   ],
+   "n_rows": 128,
+   "n_resolved": 64,
+   "layers": [
+    "L3:128"
+   ],
+   "engine": "L3 基率+ACI（同上准入）",
+   "has_date_derivation": false,
+   "in_ledger": true
+  },
+  {
+   "kind": "dbnomics_series_value",
+   "helper": null,
+   "contract_src": "L26-35",
+   "src_now": "L29-38",
+   "required": [
+    "provider",
+    "dataset",
+    "series",
+    "period",
+    "threshold"
+   ],
+   "one_of": [],
+   "hosts": [
+    "api.db.nomics.world"
+   ],
+   "n_rows": 123,
+   "n_resolved": 32,
+   "layers": [
+    "L2:123"
+   ],
+   "engine": "L2 基率引擎（Wilson，n≥30 且注记可解析）",
+   "has_date_derivation": true,
+   "in_ledger": true
+  },
+  {
+   "kind": "openmeteo_daily_max",
+   "helper": null,
+   "contract_src": "L18-25",
+   "src_now": "L21-28",
+   "required": [
+    "lat",
+    "lon",
+    "date",
+    "threshold_c"
+   ],
+   "one_of": [],
+   "hosts": [
+    "archive-api.open-meteo.com"
+   ],
+   "n_rows": 113,
+   "n_resolved": 105,
+   "layers": [
+    "L3:113"
+   ],
+   "engine": "L3 基率+ACI（同上准入）",
+   "has_date_derivation": false,
+   "in_ledger": true
+  },
+  {
+   "kind": "openmeteo_forecast_daily_max",
+   "helper": null,
+   "contract_src": "L39-50",
+   "src_now": "L52-63",
+   "required": [
+    "lat",
+    "lon",
+    "date",
+    "cmp",
+    "threshold_c"
+   ],
+   "one_of": [],
+   "hosts": [
+    "archive-api.open-meteo.com"
+   ],
+   "n_rows": 98,
+   "n_resolved": 98,
+   "layers": [
+    "L3:98"
+   ],
+   "engine": "L3 基率+ACI（同上准入）",
+   "has_date_derivation": false,
+   "in_ledger": true
+  },
+  {
+   "kind": "energycharts_daily_mean",
+   "helper": null,
+   "contract_src": "L288-299",
+   "src_now": "L309-329",
+   "required": [
+    "date",
+    "country",
+    "type",
+    "cmp",
+    "threshold"
+   ],
+   "one_of": [
+    "url_template 或 url"
+   ],
+   "hosts": [
+    "api.energy-charts.info"
+   ],
+   "n_rows": 64,
+   "n_resolved": 32,
+   "layers": [
+    "L2:64"
+   ],
+   "engine": "L2 基率引擎（Wilson，n≥30 且注记可解析）",
+   "has_date_derivation": false,
+   "in_ledger": true
+  },
+  {
+   "kind": "openmeteo_wx_daily",
+   "helper": "_omDaily",
+   "contract_src": "L92-109",
+   "src_now": "L105-122（→_omDaily）",
+   "required": [
+    "date",
+    "cmp",
+    "threshold"
+   ],
+   "one_of": [
+    "url_template 或 url"
+   ],
+   "hosts": [
+    "archive-api.open-meteo.com"
+   ],
+   "n_rows": 60,
+   "n_resolved": 30,
+   "layers": [
+    "L3:60"
+   ],
+   "engine": "L3 基率+ACI（同上准入）",
+   "has_date_derivation": false,
+   "in_ledger": true
+  },
+  {
+   "kind": "wikimedia_pageviews",
+   "helper": null,
+   "contract_src": "L270-278",
+   "src_now": "L283-291",
+   "required": [
+    "date",
+    "article",
+    "cmp",
+    "threshold"
+   ],
+   "one_of": [
+    "url_template 或 url"
+   ],
+   "hosts": [
+    "wikimedia.org"
+   ],
+   "n_rows": 53,
+   "n_resolved": 27,
+   "layers": [
+    "L2:53"
+   ],
+   "engine": "L2 基率引擎（Wilson，n≥30 且注记可解析）",
+   "has_date_derivation": false,
+   "in_ledger": true
+  },
+  {
+   "kind": "noaa_tide_daily_max",
+   "helper": "_noaaTideDailyHigh",
+   "contract_src": "L196-204",
+   "src_now": "L209-217（→_noaaTideDailyHigh）",
+   "required": [
+    "date",
+    "station",
+    "cmp",
+    "threshold"
+   ],
+   "one_of": [
+    "url_template 或 url"
+   ],
+   "hosts": [
+    "api.tidesandcurrents.noaa.gov"
+   ],
+   "n_rows": 42,
+   "n_resolved": 24,
+   "layers": [
+    "L2:42"
+   ],
+   "engine": "L2 基率引擎（Wilson，n≥30 且注记可解析）",
+   "has_date_derivation": false,
+   "in_ledger": true
+  },
+  {
+   "kind": "openmeteo_air_ozone_daily_mean",
+   "helper": "_omHourlyMean",
+   "contract_src": "L77-91",
+   "src_now": "L90-104（→_omHourlyMean）",
+   "required": [
+    "date",
+    "cmp",
+    "threshold"
+   ],
+   "one_of": [
+    "url_template 或 url"
+   ],
+   "hosts": [
+    "air-quality-api.open-meteo.com"
+   ],
+   "n_rows": 42,
+   "n_resolved": 24,
+   "layers": [
+    "L3:42"
+   ],
+   "engine": "L3 基率+ACI（同上准入）",
+   "has_date_derivation": false,
+   "in_ledger": true
+  },
+  {
+   "kind": "openmeteo_air_pm2_5_daily_mean",
+   "helper": "_omHourlyMean",
+   "contract_src": "L77-91",
+   "src_now": "L90-104（→_omHourlyMean）",
+   "required": [
+    "date",
+    "cmp",
+    "threshold"
+   ],
+   "one_of": [
+    "url_template 或 url"
+   ],
+   "hosts": [
+    "air-quality-api.open-meteo.com"
+   ],
+   "n_rows": 42,
+   "n_resolved": 24,
+   "layers": [
+    "L3:42"
+   ],
+   "engine": "L3 基率+ACI（同上准入）",
+   "has_date_derivation": false,
+   "in_ledger": true
+  },
+  {
+   "kind": "cwl_ssq_red_contains",
+   "helper": null,
+   "contract_src": "L36 + cwlEval L382-389",
+   "src_now": "L43-49",
+   "required": [
+    "issue",
+    "ball"
+   ],
+   "one_of": [],
+   "hosts": [
+    "www.cwl.gov.cn"
+   ],
+   "n_rows": 39,
+   "n_resolved": 19,
+   "layers": [
+    "L5:39"
+   ],
+   "engine": "L5 认证源注册表（1 变体；样本命中：中国福利彩票·双色球（33 选 6））",
+   "has_date_derivation": true,
+   "in_ledger": true
+  },
+  {
+   "kind": "dlt_draw_result",
+   "helper": null,
+   "contract_src": "L56-75",
+   "src_now": "L69-88",
+   "required": [
+    "issue"
+   ],
+   "one_of": [
+    "back_ball 或 front_max_ge"
+   ],
+   "hosts": [
+    "webapi.sporttery.cn"
+   ],
+   "n_rows": 38,
+   "n_resolved": 0,
+   "layers": [
+    "L5:38"
+   ],
+   "engine": "L5 认证源注册表（2 变体；样本命中：中国体育彩票·大乐透（后区 12 选 2））",
+   "has_date_derivation": true,
+   "in_ledger": true
+  },
+  {
+   "kind": "binance_daily_close",
+   "helper": null,
+   "contract_src": "L164-168",
+   "src_now": "L177-181",
+   "required": [
+    "date",
+    "symbol",
+    "cmp",
+    "threshold"
+   ],
+   "one_of": [
+    "url_template 或 url"
+   ],
+   "hosts": [
+    "data-api.binance.vision"
+   ],
+   "n_rows": 36,
+   "n_resolved": 11,
+   "layers": [
+    "L2:36"
+   ],
+   "engine": "L2 基率引擎（Wilson，n≥30 且注记可解析）",
+   "has_date_derivation": false,
+   "in_ledger": true
+  },
+  {
+   "kind": "energycharts_public_power_daily_mean",
+   "helper": "energycharts_daily_mean",
+   "contract_src": "L288-299",
+   "src_now": "L309-329（→energycharts_daily_mean）",
+   "required": [
+    "date",
+    "country",
+    "type",
+    "cmp",
+    "threshold"
+   ],
+   "one_of": [
+    "url_template 或 url"
+   ],
+   "hosts": [
+    "api.energy-charts.info"
+   ],
+   "n_rows": 35,
+   "n_resolved": 20,
+   "layers": [
+    "L2:35"
+   ],
+   "engine": "L2 基率引擎（Wilson，n≥30 且注记可解析）",
+   "has_date_derivation": false,
+   "in_ledger": true
+  },
+  {
+   "kind": "openmeteo_air_pm10_daily_mean",
+   "helper": "_omHourlyMean",
+   "contract_src": "L77-91",
+   "src_now": "L90-104（→_omHourlyMean）",
+   "required": [
+    "date",
+    "cmp",
+    "threshold"
+   ],
+   "one_of": [
+    "url_template 或 url"
+   ],
+   "hosts": [
+    "air-quality-api.open-meteo.com"
+   ],
+   "n_rows": 35,
+   "n_resolved": 10,
+   "layers": [
+    "L3:35"
+   ],
+   "engine": "L3 基率+ACI（同上准入）",
+   "has_date_derivation": false,
+   "in_ledger": true
+  },
+  {
+   "kind": "openmeteo_archive_daily_sunshine_duration",
+   "helper": "_omDaily",
+   "contract_src": "L92-109",
+   "src_now": "L105-122（→_omDaily）",
+   "required": [
+    "date",
+    "cmp",
+    "threshold"
+   ],
+   "one_of": [
+    "url_template 或 url"
+   ],
+   "hosts": [
+    "archive-api.open-meteo.com"
+   ],
+   "n_rows": 32,
+   "n_resolved": 32,
+   "layers": [
+    "L3:32"
+   ],
+   "engine": "L3 基率+ACI（同上准入）",
+   "has_date_derivation": false,
+   "in_ledger": true
+  },
+  {
+   "kind": "openmeteo_archive_daily_wind_speed_10m_max",
+   "helper": "_omDaily",
+   "contract_src": "L92-109",
+   "src_now": "L105-122（→_omDaily）",
+   "required": [
+    "date",
+    "cmp",
+    "threshold"
+   ],
+   "one_of": [
+    "url_template 或 url"
+   ],
+   "hosts": [
+    "archive-api.open-meteo.com"
+   ],
+   "n_rows": 32,
+   "n_resolved": 32,
+   "layers": [
+    "L3:32"
+   ],
+   "engine": "L3 基率+ACI（同上准入）",
+   "has_date_derivation": false,
+   "in_ledger": true
+  },
+  {
+   "kind": "cwl_ssq_blue_odd",
+   "helper": null,
+   "contract_src": "L37 + cwlEval L382-389",
+   "src_now": "L50-50",
+   "required": [
+    "issue"
+   ],
+   "one_of": [],
+   "hosts": [
+    "www.cwl.gov.cn"
+   ],
+   "n_rows": 31,
+   "n_resolved": 11,
+   "layers": [
+    "L5:31"
+   ],
+   "engine": "L5 认证源注册表（1 变体；样本命中：中国福利彩票·双色球（16 选 1））",
+   "has_date_derivation": true,
+   "in_ledger": true
+  },
+  {
+   "kind": "dbnomics_bis_monthly_mean",
+   "helper": "_dbnMonthMean",
+   "contract_src": "L122-136",
+   "src_now": "L135-149（→_dbnMonthMean）",
+   "required": [
+    "series",
+    "month",
+    "cmp",
+    "threshold"
+   ],
+   "one_of": [
+    "url_template 或 url"
+   ],
+   "hosts": [
+    "api.db.nomics.world"
+   ],
+   "n_rows": 28,
+   "n_resolved": 14,
+   "layers": [
+    "L2:28"
+   ],
+   "engine": "L2 基率引擎（Wilson，n≥30 且注记可解析）",
+   "has_date_derivation": true,
+   "in_ledger": true
+  },
+  {
+   "kind": "openmeteo_archive_daily_precipitation_sum",
+   "helper": "_omDaily",
+   "contract_src": "L92-109",
+   "src_now": "L105-122（→_omDaily）",
+   "required": [
+    "date",
+    "cmp",
+    "threshold"
+   ],
+   "one_of": [
+    "url_template 或 url"
+   ],
+   "hosts": [
+    "archive-api.open-meteo.com"
+   ],
+   "n_rows": 28,
+   "n_resolved": 28,
+   "layers": [
+    "L3:28"
+   ],
+   "engine": "L3 基率+ACI（同上准入）",
+   "has_date_derivation": false,
+   "in_ledger": true
+  },
+  {
+   "kind": "ghcn_daily_tmax",
+   "helper": null,
+   "contract_src": "L205-211",
+   "src_now": "L218-224",
+   "required": [
+    "date",
+    "station",
+    "cmp",
+    "threshold"
+   ],
+   "one_of": [
+    "url_template 或 url"
+   ],
+   "hosts": [
+    "www.ncei.noaa.gov"
+   ],
+   "n_rows": 26,
+   "n_resolved": 13,
+   "layers": [
+    "L3:26"
+   ],
+   "engine": "L3 基率+ACI（同上准入）",
+   "has_date_derivation": false,
+   "in_ledger": true
+  },
+  {
+   "kind": "npm_downloads_window",
+   "helper": null,
+   "contract_src": "L262-269",
+   "src_now": "L275-282",
+   "required": [
+    "start",
+    "end",
+    "package",
+    "cmp",
+    "threshold"
+   ],
+   "one_of": [
+    "url_template 或 url"
+   ],
+   "hosts": [
+    "api.npmjs.org"
+   ],
+   "n_rows": 26,
+   "n_resolved": 7,
+   "layers": [
+    "L2:26"
+   ],
+   "engine": "L2 基率引擎（Wilson，n≥30 且注记可解析）",
+   "has_date_derivation": true,
+   "in_ledger": true
+  },
+  {
+   "kind": "dbnomics_wb_commodity_annual",
+   "helper": "_dbnPeriod",
+   "contract_src": "L111-121",
+   "src_now": "L124-134（→_dbnPeriod）",
+   "required": [
+    "cmp",
+    "threshold"
+   ],
+   "one_of": [
+    "url_template 或 url",
+    "series 或 series_code",
+    "period 或 month 或 year"
+   ],
+   "hosts": [
+    "api.db.nomics.world"
+   ],
+   "n_rows": 24,
+   "n_resolved": 24,
+   "layers": [
+    "L2:24"
+   ],
+   "engine": "L2 基率引擎（Wilson，n≥30 且注记可解析）",
+   "has_date_derivation": true,
+   "in_ledger": true
+  },
+  {
+   "kind": "eurostat_demo_pjan_annual",
+   "helper": "_eurostatJsonstat",
+   "contract_src": "L138-153",
+   "src_now": "L151-166（→_eurostatJsonstat）",
+   "required": [
+    "cmp",
+    "threshold"
+   ],
+   "one_of": [
+    "url_template 或 url",
+    "month 或 year"
+   ],
+   "hosts": [
+    "ec.europa.eu"
+   ],
+   "n_rows": 24,
+   "n_resolved": 16,
+   "layers": [
+    "L2:24"
+   ],
+   "engine": "L2 基率引擎（Wilson，n≥30 且注记可解析）",
+   "has_date_derivation": true,
+   "in_ledger": true
+  },
+  {
+   "kind": "kraken_daily_close",
+   "helper": null,
+   "contract_src": "L169-177",
+   "src_now": "L182-190",
+   "required": [
+    "date",
+    "pair",
+    "cmp",
+    "threshold"
+   ],
+   "one_of": [
+    "url_template 或 url"
+   ],
+   "hosts": [
+    "api.kraken.com"
+   ],
+   "n_rows": 24,
+   "n_resolved": 15,
+   "layers": [
+    "L2:24"
+   ],
+   "engine": "L2 基率引擎（Wilson，n≥30 且注记可解析）",
+   "has_date_derivation": false,
+   "in_ledger": true
+  },
+  {
+   "kind": "openmeteo_forecast_daily_sunshine_duration",
+   "helper": "_omDaily",
+   "contract_src": "L92-109",
+   "src_now": "L105-122（→_omDaily）",
+   "required": [
+    "date",
+    "cmp",
+    "threshold"
+   ],
+   "one_of": [
+    "url_template 或 url"
+   ],
+   "hosts": [
+    "api.open-meteo.com"
+   ],
+   "n_rows": 24,
+   "n_resolved": 0,
+   "layers": [
+    "L3:24"
+   ],
+   "engine": "L3 基率+ACI（同上准入）",
+   "has_date_derivation": false,
+   "in_ledger": true
+  },
+  {
+   "kind": "openmeteo_forecast_daily_wind_speed_10m_max",
+   "helper": "_omDaily",
+   "contract_src": "L92-109",
+   "src_now": "L105-122（→_omDaily）",
+   "required": [
+    "date",
+    "cmp",
+    "threshold"
+   ],
+   "one_of": [
+    "url_template 或 url"
+   ],
+   "hosts": [
+    "api.open-meteo.com"
+   ],
+   "n_rows": 24,
+   "n_resolved": 0,
+   "layers": [
+    "L3:24"
+   ],
+   "engine": "L3 基率+ACI（同上准入）",
+   "has_date_derivation": false,
+   "in_ledger": true
+  },
+  {
+   "kind": "openmeteo_forecast_daily_precipitation_sum",
+   "helper": "_omDaily",
+   "contract_src": "L92-109",
+   "src_now": "L105-122（→_omDaily）",
+   "required": [
+    "date",
+    "cmp",
+    "threshold"
+   ],
+   "one_of": [
+    "url_template 或 url"
+   ],
+   "hosts": [
+    "api.open-meteo.com"
+   ],
+   "n_rows": 21,
+   "n_resolved": 0,
+   "layers": [
+    "L3:21"
+   ],
+   "engine": "L3 基率+ACI（同上准入）",
+   "has_date_derivation": false,
+   "in_ledger": true
+  },
+  {
+   "kind": "frankfurter_rate_range",
+   "helper": null,
+   "contract_src": "L186-194",
+   "src_now": "L199-207",
+   "required": [
+    "date",
+    "date_plus7",
+    "base",
+    "quote",
+    "cmp",
+    "threshold"
+   ],
+   "one_of": [
+    "url_template 或 url"
+   ],
+   "hosts": [
+    "api.frankfurter.app"
+   ],
+   "n_rows": 18,
+   "n_resolved": 8,
+   "layers": [
+    "L2:18"
+   ],
+   "engine": "L2 基率引擎（Wilson，n≥30 且注记可解析）",
+   "has_date_derivation": false,
+   "in_ledger": true
+  },
+  {
+   "kind": "usgs_nwis_daily_discharge",
+   "helper": null,
+   "contract_src": "L212-220",
+   "src_now": "L225-233",
+   "required": [
+    "date",
+    "site",
+    "cmp",
+    "threshold"
+   ],
+   "one_of": [
+    "url_template 或 url"
+   ],
+   "hosts": [
+    "waterservices.usgs.gov"
+   ],
+   "n_rows": 16,
+   "n_resolved": 5,
+   "layers": [
+    "L3:16"
+   ],
+   "engine": "L3 基率+ACI（同上准入）",
+   "has_date_derivation": false,
+   "in_ledger": true
+  },
+  {
+   "kind": "elexon_fuelhh_daily_mean",
+   "helper": null,
+   "contract_src": "L280-287",
+   "src_now": "L293-300",
+   "required": [
+    "date",
+    "fuel",
+    "cmp",
+    "threshold"
+   ],
+   "one_of": [
+    "url_template 或 url"
+   ],
+   "hosts": [
+    "data.elexon.co.uk"
+   ],
+   "n_rows": 15,
+   "n_resolved": 9,
+   "layers": [
+    "L2:15"
+   ],
+   "engine": "L2 基率引擎（Wilson，n≥30 且注记可解析）",
+   "has_date_derivation": false,
+   "in_ledger": true
+  },
+  {
+   "kind": "github_weekly_commits",
+   "helper": null,
+   "contract_src": "L245-253",
+   "src_now": "L258-266",
+   "required": [
+    "url",
+    "week_start",
+    "repo",
+    "cmp",
+    "threshold"
+   ],
+   "one_of": [],
+   "hosts": [
+    "api.github.com"
+   ],
+   "n_rows": 15,
+   "n_resolved": 6,
+   "layers": [
+    "L2:15"
+   ],
+   "engine": "L2 基率引擎（Wilson，n≥30 且注记可解析）",
+   "has_date_derivation": true,
+   "in_ledger": true
+  },
+  {
+   "kind": "noaa_tide_daily_high",
+   "helper": "_noaaTideDailyHigh",
+   "contract_src": "L196-204",
+   "src_now": "L209-217（→_noaaTideDailyHigh）",
+   "required": [
+    "date",
+    "station",
+    "cmp",
+    "threshold"
+   ],
+   "one_of": [
+    "url_template 或 url"
+   ],
+   "hosts": [
+    "api.tidesandcurrents.noaa.gov"
+   ],
+   "n_rows": 15,
+   "n_resolved": 5,
+   "layers": [
+    "L2:15"
+   ],
+   "engine": "L2 基率引擎（Wilson，n≥30 且注记可解析）",
+   "has_date_derivation": false,
+   "in_ledger": true
+  },
+  {
+   "kind": "delphi_fluview_ili",
+   "helper": "_delphiFlu",
+   "contract_src": "L155-162",
+   "src_now": "L168-175（→_delphiFlu）",
+   "required": [
+    "epiweek",
+    "cmp",
+    "threshold"
+   ],
+   "one_of": [
+    "url_template 或 url"
+   ],
+   "hosts": [
+    "api.delphi.cmu.edu"
+   ],
+   "n_rows": 12,
+   "n_resolved": 6,
+   "layers": [
+    "L2:12"
+   ],
+   "engine": "L2 基率引擎（Wilson，n≥30 且注记可解析）",
+   "has_date_derivation": true,
+   "in_ledger": true
+  },
+  {
+   "kind": "dbnomics_eurostat_unemployment_monthly",
+   "helper": "_dbnPeriod",
+   "contract_src": "L111-121",
+   "src_now": "L124-134（→_dbnPeriod）",
+   "required": [
+    "cmp",
+    "threshold"
+   ],
+   "one_of": [
+    "url_template 或 url",
+    "series 或 series_code",
+    "period 或 month 或 year"
+   ],
+   "hosts": [
+    "api.db.nomics.world"
+   ],
+   "n_rows": 9,
+   "n_resolved": 9,
+   "layers": [
+    "L2:9"
+   ],
+   "engine": "L2 基率引擎（Wilson，n≥30 且注记可解析）",
+   "has_date_derivation": true,
+   "in_ledger": true
+  },
+  {
+   "kind": "delphi_fluview_num_ili",
+   "helper": "_delphiFlu",
+   "contract_src": "L155-162",
+   "src_now": "L168-175（→_delphiFlu）",
+   "required": [
+    "epiweek",
+    "cmp",
+    "threshold"
+   ],
+   "one_of": [
+    "url_template 或 url"
+   ],
+   "hosts": [
+    "api.delphi.cmu.edu"
+   ],
+   "n_rows": 9,
+   "n_resolved": 6,
+   "layers": [
+    "L2:9"
+   ],
+   "engine": "L2 基率引擎（Wilson，n≥30 且注记可解析）",
+   "has_date_derivation": true,
+   "in_ledger": true
+  },
+  {
+   "kind": "openmeteo_marine_sst_daily",
+   "helper": "_omHourlyMean",
+   "contract_src": "L77-91",
+   "src_now": "L90-104（→_omHourlyMean）",
+   "required": [
+    "date",
+    "cmp",
+    "threshold"
+   ],
+   "one_of": [
+    "url_template 或 url"
+   ],
+   "hosts": [
+    "marine-api.open-meteo.com"
+   ],
+   "n_rows": 8,
+   "n_resolved": 4,
+   "layers": [
+    "L3:8"
+   ],
+   "engine": "L3 基率+ACI（同上准入）",
+   "has_date_derivation": false,
+   "in_ledger": true
+  },
+  {
+   "kind": "cta_daily_total_rides",
+   "helper": null,
+   "contract_src": "L312-320",
+   "src_now": "L342-350",
+   "required": [
+    "url",
+    "date",
+    "cmp",
+    "threshold"
+   ],
+   "one_of": [],
+   "hosts": [
+    "data.cityofchicago.org"
+   ],
+   "n_rows": 7,
+   "n_resolved": 4,
+   "layers": [
+    "L2:7"
+   ],
+   "engine": "L2 基率引擎（Wilson，n≥30 且注记可解析）",
+   "has_date_derivation": false,
+   "in_ledger": true
+  },
+  {
+   "kind": "mlb_schedule_daily_total_runs",
+   "helper": null,
+   "contract_src": "L300-311",
+   "src_now": "L330-341",
+   "required": [
+    "date",
+    "cmp",
+    "threshold"
+   ],
+   "one_of": [
+    "url_template 或 url"
+   ],
+   "hosts": [
+    "statsapi.mlb.com"
+   ],
+   "n_rows": 7,
+   "n_resolved": 4,
+   "layers": [
+    "L2:7"
+   ],
+   "engine": "L2 基率引擎（Wilson，n≥30 且注记可解析）",
+   "has_date_derivation": false,
+   "in_ledger": true
+  },
+  {
+   "kind": "noaa_gml_co2_daily",
+   "helper": null,
+   "contract_src": "L221-228",
+   "src_now": "L234-241",
+   "required": [
+    "date",
+    "cmp",
+    "threshold"
+   ],
+   "one_of": [
+    "url 或 url_template"
+   ],
+   "hosts": [
+    "gml.noaa.gov"
+   ],
+   "n_rows": 7,
+   "n_resolved": 2,
+   "layers": [
+    "L3:7"
+   ],
+   "engine": "L3 基率+ACI（同上准入）",
+   "has_date_derivation": false,
+   "in_ledger": true
+  },
+  {
+   "kind": "dbnomics_eurostat_tertiary_attain",
+   "helper": "_dbnPeriod",
+   "contract_src": "L111-121",
+   "src_now": "L124-134（→_dbnPeriod）",
+   "required": [
+    "cmp",
+    "threshold"
+   ],
+   "one_of": [
+    "url_template 或 url",
+    "series 或 series_code",
+    "period 或 month 或 year"
+   ],
+   "hosts": [
+    "api.db.nomics.world"
+   ],
+   "n_rows": 6,
+   "n_resolved": 6,
+   "layers": [
+    "L2:6"
+   ],
+   "engine": "L2 基率引擎（Wilson，n≥30 且注记可解析）",
+   "has_date_derivation": true,
+   "in_ledger": true
+  },
+  {
+   "kind": "eurostat_live_unemployment_monthly",
+   "helper": "_eurostatJsonstat",
+   "contract_src": "L138-153",
+   "src_now": "L151-166（→_eurostatJsonstat）",
+   "required": [
+    "cmp",
+    "threshold"
+   ],
+   "one_of": [
+    "url_template 或 url",
+    "month 或 year"
+   ],
+   "hosts": [
+    "ec.europa.eu"
+   ],
+   "n_rows": 6,
+   "n_resolved": 0,
+   "layers": [
+    "L2:6"
+   ],
+   "engine": "L2 基率引擎（Wilson，n≥30 且注记可解析）",
+   "has_date_derivation": true,
+   "in_ledger": true
+  },
+  {
+   "kind": "frankfurter_rate",
+   "helper": null,
+   "contract_src": "L178-185",
+   "src_now": "L191-198",
+   "required": [
+    "date",
+    "base",
+    "quote",
+    "cmp",
+    "threshold"
+   ],
+   "one_of": [
+    "url_template 或 url"
+   ],
+   "hosts": [
+    "api.frankfurter.app"
+   ],
+   "n_rows": 6,
+   "n_resolved": 6,
+   "layers": [
+    "L2:6"
+   ],
+   "engine": "L2 基率引擎（Wilson，n≥30 且注记可解析）",
+   "has_date_derivation": false,
+   "in_ledger": true
+  },
+  {
+   "kind": "noaa_solar_cycle_ssn_monthly",
+   "helper": "swpc_solar_cycle_monthly",
+   "contract_src": "L341-350",
+   "src_now": "L371-380（→swpc_solar_cycle_monthly）",
+   "required": [
+    "url",
+    "month",
+    "field_name",
+    "cmp",
+    "threshold"
+   ],
+   "one_of": [],
+   "hosts": [
+    "services.swpc.noaa.gov"
+   ],
+   "n_rows": 6,
+   "n_resolved": 4,
+   "layers": [
+    "L3:6"
+   ],
+   "engine": "L3 基率+ACI（同上准入）",
+   "has_date_derivation": true,
+   "in_ledger": true
+  },
+  {
+   "kind": "swpc_solar_cycle_monthly",
+   "helper": null,
+   "contract_src": "L341-350",
+   "src_now": "L371-380",
+   "required": [
+    "url",
+    "month",
+    "field_name",
+    "cmp",
+    "threshold"
+   ],
+   "one_of": [],
+   "hosts": [
+    "services.swpc.noaa.gov"
+   ],
+   "n_rows": 6,
+   "n_resolved": 4,
+   "layers": [
+    "L3:6"
+   ],
+   "engine": "L3 基率+ACI（同上准入）",
+   "has_date_derivation": true,
+   "in_ledger": true
+  },
+  {
+   "kind": "crossref_week_total",
+   "helper": null,
+   "contract_src": "L230-237",
+   "src_now": "L243-250",
+   "required": [
+    "week_start",
+    "cmp",
+    "threshold"
+   ],
+   "one_of": [
+    "url_template 或 url"
+   ],
+   "hosts": [
+    "api.crossref.org"
+   ],
+   "n_rows": 5,
+   "n_resolved": 2,
+   "layers": [
+    "L2:5"
+   ],
+   "engine": "L2 基率引擎（Wilson，n≥30 且注记可解析）",
+   "has_date_derivation": true,
+   "in_ledger": true
+  },
+  {
+   "kind": "nvd_cve_week_count",
+   "helper": null,
+   "contract_src": "L238-244",
+   "src_now": "L251-257",
+   "required": [
+    "week_start",
+    "cmp",
+    "threshold"
+   ],
+   "one_of": [
+    "url_template 或 url"
+   ],
+   "hosts": [
+    "services.nvd.nist.gov"
+   ],
+   "n_rows": 5,
+   "n_resolved": 3,
+   "layers": [
+    "L2:5"
+   ],
+   "engine": "L2 基率引擎（Wilson，n≥30 且注记可解析）",
+   "has_date_derivation": true,
+   "in_ledger": true
+  },
+  {
+   "kind": "bom_weekend_top10_gross",
+   "helper": null,
+   "contract_src": "L321-333",
+   "src_now": "L351-363",
+   "required": [
+    "week",
+    "cmp",
+    "threshold"
+   ],
+   "one_of": [],
+   "hosts": [
+    "www.boxofficemojo.com"
+   ],
+   "n_rows": 4,
+   "n_resolved": 2,
+   "layers": [
+    "L2:4"
+   ],
+   "engine": "L2 基率引擎（Wilson，n≥30 且注记可解析）",
+   "has_date_derivation": true,
+   "in_ledger": true
+  },
+  {
+   "kind": "jpl_cad_monthly_count",
+   "helper": null,
+   "contract_src": "L334-340",
+   "src_now": "L364-370",
+   "required": [
+    "url",
+    "month",
+    "cmp",
+    "threshold"
+   ],
+   "one_of": [],
+   "hosts": [
+    "ssd-api.jpl.nasa.gov"
+   ],
+   "n_rows": 4,
+   "n_resolved": 2,
+   "layers": [
+    "L3:4"
+   ],
+   "engine": "L3 基率+ACI（同上准入）",
+   "has_date_derivation": true,
+   "in_ledger": true
+  },
+  {
+   "kind": "openalex_works_count",
+   "helper": null,
+   "contract_src": "L254-261",
+   "src_now": "L267-274",
+   "required": [
+    "start",
+    "cmp",
+    "threshold"
+   ],
+   "one_of": [
+    "url_template 或 url"
+   ],
+   "hosts": [
+    "api.openalex.org"
+   ],
+   "n_rows": 4,
+   "n_resolved": 4,
+   "layers": [
+    "L2:4"
+   ],
+   "engine": "L2 基率引擎（Wilson，n≥30 且注记可解析）",
+   "has_date_derivation": true,
+   "in_ledger": true
+  },
+  {
+   "kind": "eurostat_live_tertiary_attain",
+   "helper": "_eurostatJsonstat",
+   "contract_src": "L138-153",
+   "src_now": "L151-166（→_eurostatJsonstat）",
+   "required": [
+    "cmp",
+    "threshold"
+   ],
+   "one_of": [
+    "url_template 或 url",
+    "month 或 year"
+   ],
+   "hosts": [
+    "ec.europa.eu"
+   ],
+   "n_rows": 3,
+   "n_resolved": 0,
+   "layers": [
+    "L2:3"
+   ],
+   "engine": "L2 基率引擎（Wilson，n≥30 且注记可解析）",
+   "has_date_derivation": true,
+   "in_ledger": true
+  },
+  {
+   "kind": "cwl_ssq_blue_odd_forward",
+   "helper": null,
+   "contract_src": "L51（this.cwl_ssq_blue_odd）",
+   "src_now": "L64-64",
+   "required": [
+    "issue"
+   ],
+   "one_of": [],
+   "hosts": [],
+   "n_rows": 0,
+   "n_resolved": 0,
+   "layers": [],
+   "engine": "—（无账本行 / 无引擎位）",
+   "has_date_derivation": false,
+   "in_ledger": false
+  }
+ ]
+}
