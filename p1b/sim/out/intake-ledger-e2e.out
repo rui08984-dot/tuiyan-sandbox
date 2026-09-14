@@ -1,7 +1,7 @@
 # 接题闭环 D-8.1/D-8.2 端到端收据（design §8，2026-09-13）
 
 - 执行：p1b/scripts/intake-ledger-e2e.cjs（app.inject 零监听端口；P1B_LLM_MOCK=1 零网络）
-- 临时库：C:\Users\crx\AppData\Local\Temp\p1b-intake-ledger-e2e-69016-1789285951257.db
+- 临时库：C:\Users\crx\AppData\Local\Temp\p1b-intake-ledger-e2e-23708-1789366576114.db
 - PASS 生产库零写（临时库 ≠ 默认库） — default=E:\music player\p1a-terminal\data\p1a.db
 
 ## 1. D-8.2：classify 通过 → intake_questions 记账
@@ -36,4 +36,4 @@
 - 断言：PASS 15 / FAIL 0
 - F13 = 半闭环：接题层已闭环（unknown 落 intake_questions）；入账层（放开 predictions.layer CHECK 的表重建）待与 F4 真值分库合并为同一次计划内账本迁移（design §8 D-8.1）。
 - 仍待定义：外部题 resolve 后并入统一账本（predictions）的域容器规则；本轮不做自动落 predictions，禁沿用隐式 corpus:* 模式。
-- 生产库 E:\music player\p1a-terminal\data\p1a.db 零写：全程只用临时库 C:\Users\crx\AppData\Local\Temp\p1b-intake-ledger-e2e-69016-1789285951257.db。
+- 生产库 E:\music player\p1a-terminal\data\p1a.db 零写：全程只用临时库 C:\Users\crx\AppData\Local\Temp\p1b-intake-ledger-e2e-23708-1789366576114.db。

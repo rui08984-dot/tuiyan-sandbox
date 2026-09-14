@@ -115,26 +115,29 @@ async function main() {
   log('');
 
   // ── 4. 引擎位映射骨架（全 6 层 + unknown）──
-  log('## 4. 分层引擎路由骨架（layer→engine 位，只映射不建引擎）');
+  // built 期望随阶段 4 接线更新（2026-09-14）：L2/L5 已接线 ⇒ built=true；L1/L3/L6/unknown 仍 classify-only。
+  // 注：predicts 还受 gate=scored 约束——本组用例不带引擎入参，故 L2/L5 predicts 仍应为 false（gate=descriptive/engine_missing）。
+  log('## 4. 分层引擎路由（layer→engine 位 + built 现状）');
   const flat = (over) => ({ Q0_1: true, Q0_2: true, Q0_3: true,
     L5: [false, false, false], L6: [false, false, false, false], L1: [false, false, false, false],
     L3: [false, false, false, false], L2: [false, false, false, false], L4: [false, false, false] });
   const cases = [
-    { layer: 'L1', over: { L1: [true, true, true, true] }, engine: 'proc_calc', cal: null },
-    { layer: 'L2', over: { L2: [true, true, true, true] }, engine: 'stat_baseline', cal: 'wilson' },
-    { layer: 'L3', over: { L3: [true, true, true, true] }, engine: 'stat_baseline', cal: 'aci' },
-    { layer: 'L5', over: { L5: [true, true, true] }, engine: 'certified_dist', cal: null },
-    { layer: 'L6', over: { L6: [true, true, true, true] }, engine: 'structural', cal: null },
-    { layer: 'unknown', over: {}, engine: 'none', cal: null },
+    { layer: 'L1', over: { L1: [true, true, true, true] }, engine: 'proc_calc', cal: null, built: false },
+    { layer: 'L2', over: { L2: [true, true, true, true] }, engine: 'stat_baseline', cal: 'wilson', built: true },
+    { layer: 'L3', over: { L3: [true, true, true, true] }, engine: 'stat_baseline', cal: 'aci', built: false },
+    { layer: 'L5', over: { L5: [true, true, true] }, engine: 'certified_dist', cal: null, built: true },
+    { layer: 'L6', over: { L6: [true, true, true, true] }, engine: 'structural', cal: null, built: false },
+    { layer: 'unknown', over: {}, engine: 'none', cal: null, built: false },
   ];
   const got = [];
   for (const c of cases) {
     const ck = Object.assign(flat(), c.over);
     const rc = await post(app, '/api/intake/classify', { statement: 'engine 位映射用例 ' + c.layer, checklist: ck });
     const bc = J(rc);
-    got.push(c.layer + ' → ' + bc.engine + (bc.engine_plan && bc.engine_plan.calibrator ? '+' + bc.engine_plan.calibrator : ''));
+    got.push(c.layer + ' → ' + bc.engine + (bc.engine_plan && bc.engine_plan.calibrator ? '+' + bc.engine_plan.calibrator : '') + (bc.engine_plan.built ? '(built)' : ''));
     check('engine 位 ' + c.layer + '=' + c.engine, bc.layer === c.layer && bc.engine === c.engine && bc.engine_plan.calibrator === c.cal, 'got ' + bc.layer + '/' + bc.engine);
-    check('engine_plan.built=false（本轮不建引擎）', bc.engine_plan.built === false && bc.engine_plan.predicts === false);
+    check('engine_plan.built=' + c.built + '（L2/L5 已接线；其余 classify-only）', bc.engine_plan.built === c.built);
+    check('engine_plan.predicts=false（本组无引擎入参 ⇒ gate≠scored，概率不得出现）', bc.engine_plan.predicts === false && bc.prob === null);
   }
   log('- 实测：' + got.join(' ｜ '));
   log('- L4=classify-only（engine=none，叠加标注维度，本轮不在决策树内）');
@@ -158,7 +161,8 @@ async function main() {
 
   log('## 结论');
   log('- 断言：PASS ' + pass + ' / FAIL ' + fail);
-  log('- 未做（本片范围外）：L4 叠加的可持久化列（predictions.layer CHECK 仍限 L1-L6，unknown/L4 只在接题入口返回，入账留待下一片）；L2/L5/L6 引擎本体；接题题面落 predictions（需 game_id）。');
+  // 范围外项随阶段 4 接线已收窄（2026-09-14）：L2/L5 引擎本体已接线（见 intake-engines.test.cjs 3.0 组）；仍缺 L6 本体与入账层。
+  log('- 未做（本片范围外）：L4 叠加的可持久化列（predictions.layer CHECK 仍限 L1-L6，unknown/L4 只在接题入口返回，入账留待 F4 同批迁移）；L6 引擎本体；接题题面落 predictions（需 game_id/域容器规则）。');
   log('- 生产库 `' + db.DEFAULT_DB_PATH + '` 零写：全程只用临时库 `' + dbPath + '`。');
 
   const text = out.join('\n') + '\n';
