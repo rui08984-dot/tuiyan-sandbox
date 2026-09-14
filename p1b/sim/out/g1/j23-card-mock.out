@@ -1,0 +1,20 @@
+== 局 87 参谋卡实测 ==
+事件数=5 claims=7
+advise 提交 status=202 task={"task_id":"adv-mu0qkf81-1-urwt3","status":"running","game_id":87,"day":1,"poll":"/api/tasks/adv-mu0qkf81-1-urwt3"}
+任务终态 status=done
+
+== 参谋卡三件套 ==
+  矛盾点 contradictions: 0 条
+  竞争思路 hypotheses: 2 套（要求>=2）
+    1) {"content":"假设A：1、2 号悍跳狼的常规局，真预言家在其余座位中","stance":{"1":"wolf_suspect","2":"wolf_suspect","3":"good_believe","4":"good_believe","5":"good_believe","6":"good_believe","suspect_ranking":[1,2]},"support_events":[536],"oppose
+    2) {"content":"假设B：无人悍跳，矛盾源于信息差与记错的误判局","stance":{"1":"good_believe","2":"good_believe","3":"good_believe","4":"good_believe","5":"good_believe","6":"good_believe"},"support_events":[536],"oppose_events":[],"tendency":"weak
+  验证点 checkpoints: 2 条
+    1) {"text":"明天白天盯 1、2 号是否继续补身份，判断悍跳链","resolves":[0]}
+    2) {"text":"核对夜里刀口与用药时序，验证信息差是否成立","resolves":[1]}
+  warnings: ["删除矛盾对 GHOST-404：pair_id 不存在于代码比对器输出（自洽校验，LY昼2 脱节）","废案 hypotheses[2]：good_believe 座位 [2,3] 出现在嫌疑排序 Top 区（自洽校验，LY昼2 修复）","废案 hypotheses[3]：stance 缺少 6 号（per-player 立场必须完整，PD1）","删除 checkpoint[2]「（废案 
+
+== 判据② 「参谋卡有感知」==
+  实质内容: true（hypotheses>=2 或 checkpoints>=1 或 contradictions>=1）⇒ 有内容
+
+== 判据③ 「>=1 条矛盾」==
+  矛盾条数: 0 ⇒ FAIL (0 条)

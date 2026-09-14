@@ -35,6 +35,14 @@ const RECORD = arg('record', null);
 const DRY = FLAG('dry-run');
 const SEED = Number(arg('seed', '20260914')) || 20260914; // 端用户抽验 seed（与校准/留出集不同，独立可复现）
 const USER_SPOT_REQUIRED = 10;
+// ── 核验者 provenance（2026-09-14 新增）──────────────────────────────────────
+// 为什么必须显式：② 采信链第③件的**全部意义**是「独立人类核验」（防 ①机器段/②代理语义段自审）。
+// 若代理代填却记为 satisf 端用户，就等于**伪造了独立性**——比不填更糟。
+// 故：--by user（默认）才算满足必要条件；--by agent（代理预核）**允许写回供追踪，但
+//     acceptance 恒不因它进入 accepted**（user_spot_check_effective=0），并在各报告恒挂降级披露。
+const BY = String(arg('by', 'user')).toLowerCase();
+const BY_IS_USER = BY === 'user';
+if (['user', 'agent'].indexOf(BY) === -1) { console.error('--by 必须是 user|agent'); process.exit(2); }
 
 /** 与 g2-audit-build.cjs 同序同口径的 Wilson 下界（复算一致率下界） */
 function wilson(k, n, z) {
@@ -133,14 +141,19 @@ hc.user_spot_check_wilson95 = hcW;
 hc.user_spot_check_seed = SEED;
 hc.user_spot_check_detail = detail;
 hc.user_spot_check_at = new Date().toISOString();
-hc.user_spot_check_note = '端用户本人填写（代理不得代填）；一致率＝用户裁定 vs ② 综合结论（机器∧语义）。';
+// provenance：谁是核验者。只有 user 才算满足必要条件（防代理自审冒充独立性）
+hc.user_spot_check_by = BY;
+hc.user_spot_check_effective = BY_IS_USER ? considered : 0; // 参与「必要条件是否满足」判定的**有效**题数
+hc.user_spot_check_note = BY_IS_USER
+  ? '端用户本人填写（代理不得代填）；一致率＝用户裁定 vs ② 综合结论（机器∧语义）。'
+  : '**代理预核，非端用户独立核验**（用户已授权代填并同意此披露）；一致率≠独立性证据，acceptance 不因本项进入 accepted。';
 
-// 重算 acceptance（照 g2-audit-build.cjs 同规则）
+// 重算 acceptance（照 g2-audit-build.cjs 同规则；但用**有效**端用户题数）
 const hcWilson = wilson(Number(hc.agreed || 0), Number(hc.n || 0));
 let acceptance;
 const calibRate = (audit.calibration && audit.calibration.rate !== undefined) ? audit.calibration.rate : null;
 if (!(calibRate !== null && calibRate >= 0.70)) acceptance = 'fail';
-else if (hc.user_spot_check < USER_SPOT_REQUIRED) acceptance = 'pending_user';
+else if (Number(hc.user_spot_check_effective || 0) < USER_SPOT_REQUIRED) acceptance = BY_IS_USER ? 'pending_user' : 'pending_user_agent_surrogate';
 else if ((Number(hc.n) >= 35 && Number(hc.agreed) === Number(hc.n)) || (hcWilson.lb !== null && hcWilson.lb >= 0.90)) acceptance = 'accepted';
 else acceptance = 'pending_recheck';
 hc.acceptance_status = acceptance;
@@ -150,7 +163,9 @@ audit.human_calibration = hc;
 if (audit.summary) audit.summary.acceptance_status = acceptance;
 if (audit.meta) {
   audit.meta.review_composition = Object.assign({}, audit.meta.review_composition, {
-    user_spot_check: considered, end_user: considered,
+    // end_user = **真端用户**核验数（agent 预核不计入，否则构成"独立性"口径污染）
+    user_spot_check: considered, end_user: BY_IS_USER ? considered : 0,
+    agent_surrogate_spot_check: BY_IS_USER ? 0 : considered,
   });
   audit.meta.updated_at = new Date().toISOString();
 }
@@ -160,8 +175,10 @@ const report = { considered: considered, agreed: agreed, rate: rate, wilson95: h
 if (DRY) { console.log('[dry-run] ' + JSON.stringify(report, null, 1)); process.exit(0); }
 const outPath = OUT ? path.resolve(OUT) : AUDIT;
 fs.writeFileSync(outPath, JSON.stringify(audit, null, 1), 'utf8');
-console.log('[g2-user-spotcheck] 端用户抽验 ' + considered + '/' + USER_SPOT_REQUIRED + ' 题；与 ② 一致 ' + agreed + '/' + considered + ' = ' + (rate === null ? 'n/a' : (rate * 100).toFixed(1) + '%'));
-console.log('  Wilson95=[' + hcW.lb.toFixed(3) + ',' + hcW.ub.toFixed(3) + '] | acceptance_status=' + acceptance);
+console.log('[g2-user-spotcheck] ' + (BY_IS_USER ? '端用户' : '代理预核（非端用户）') + '抽验 ' + considered + '/' + USER_SPOT_REQUIRED + ' 题；与 ② 一致 ' + agreed + '/' + considered + ' = ' + (rate === null ? 'n/a' : (rate * 100).toFixed(1) + '%'));
+console.log('  Wilson95=[' + hcW.lb.toFixed(3) + ',' + hcW.ub.toFixed(3) + '] | by=' + BY + ' | 有效题数=' + hc.user_spot_check_effective + ' | acceptance_status=' + acceptance);
 console.log('  -> ' + outPath);
 if (acceptance === 'pending_user') console.log('  仍 pending_user：题数不足 ' + USER_SPOT_REQUIRED + '（补足后端用户抽验方为必要条件）');
+else if (acceptance === 'pending_user_agent_surrogate') console.log('  ⚠ 代理预核**不满足**端用户独立核验的必要条件 ⇒ 状态恒待端用户（已如实标注，不得当成 accepted）');
 else if (acceptance === 'accepted') console.log('  ✅ ② 采信链三件齐备（机器段＋代理段＋端用户抽验）⇒ accepted');
+

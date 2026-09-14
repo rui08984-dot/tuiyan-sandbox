@@ -491,7 +491,10 @@ if (Q2.status === 'done') {
   const hc = Q2.human_calibration || {};
   const acc = hc.acceptance_status || null;
   L.push('    人类校准段（D-3③ / §4.2.3 R4.2）: ' + JSON.stringify(hc));
-  L.push('    采信状态: ' + (acc || 'n/a') + ' | 端用户抽验 ' + (hc.user_spot_check === undefined ? 'n/a' : hc.user_spot_check) + '/' + (hc.user_spot_check_required || 10) + (acc === 'pending_user' ? ' —— 待端用户抽验 >=10 题（代理不能代替端用户）' : ''));
+  L.push('    采信状态: ' + (acc || 'n/a') + ' | 端用户抽验 ' + (hc.user_spot_check === undefined ? 'n/a' : hc.user_spot_check) + '/' + (hc.user_spot_check_required || 10)
+    + '（核验者=' + (hc.user_spot_check_by || 'n/a') + '，有效 ' + (hc.user_spot_check_effective === undefined ? '?' : hc.user_spot_check_effective) + '）'
+    + (acc === 'pending_user' ? ' —— 待端用户抽验 >=10 题（代理不能代替端用户）' : '')
+    + (acc === 'pending_user_agent_surrogate' ? ' —— 现存为**代理预核**，不满足端用户独立核验必要条件（effective=0）' : ''));
   if (Q2.holdout) L.push('    留出集重验（与抽检样本不重叠）: n=' + Q2.holdout.n + ' 机器段 vs 代理语义段 ' + JSON.stringify(Q2.holdout.machine_vs_agent_agreement));
   if (Q2.contract) L.push('    契约表: ' + Q2.contract.file + ' sha256=' + String(Q2.contract.sha256 || '').slice(0, 12) + '（contracts ' + Q2.contract.contracts + ' / aliases ' + Q2.contract.aliases + '；按 resolver 源码冻结，禁观测交集）');
   if (Q2.human_calibration_settlement) L.push('    校准结账: 修正后 ' + Q2.human_calibration_settlement.post_fix_alignment + '；待办 ' + (Q2.human_calibration_settlement.pending || []).join('；'));

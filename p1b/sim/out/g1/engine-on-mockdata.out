@@ -1,0 +1,10 @@
+claims 输入（7 条）:
+  claim#437 seat=2 subject=2 claims_role=预言家
+  claim#438 seat=2 subject=3 is_wolf=查杀
+  claim#439 seat=2 subject=1 is_good=好人
+  claim#440 seat=4 subject=4 said=4号的发言
+  claim#441 seat=4 subject=2 claims_role=预言家
+  claim#442 seat=4 subject=3 said=3号的发言
+  claim#443 seat=5 subject=5 said=5号的发言
+
+== engine.findContradictions 输出: 0 对 ==

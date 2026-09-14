@@ -1,0 +1,11 @@
+新局 id=88
+  宏 claim_role seat=2/预言家 confirm=201
+  宏 check seat=2→3 confirm=201
+  宏 claim_role seat=4/预言家 confirm=201
+  宏 check seat=4→5 confirm=201
+advise=202
+
+== 参谋卡（纯宏路径）==
+  contradictions=1
+    1) {"pair_id":"c444:c446","underdetermination":"high","innocent_explanations":["女巫可能毒错人/救错人——毒与守是合法谎言（药剂类）","信息差：夜晚视角不同或没听到关键发言（信息差类）"],"claim_a":444,"claim_b":446,"action_a":null,"action_b":null}
+  hypotheses=2  checkpoints=2

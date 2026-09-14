@@ -231,8 +231,9 @@
    "machine": 140,
    "agent_semantic": 140,
    "human_calibration": 14,
-   "user_spot_check": 0,
-   "end_user": 0
+   "user_spot_check": 10,
+   "end_user": 0,
+   "agent_surrogate_spot_check": 10
   },
   "honesty": "非全人工复核：机器段（按 resolver 源码冻结契约）140 题 + 代理语义段同数 + 队长校准 14 题 + 端用户抽验 0 题。代理复核≠独立人类审计；端用户抽验未做 ⇒ 采信状态 pending_user。",
   "human_calibration_required": {
@@ -246,7 +247,8 @@
    "ids": [],
    "note": "缺 baseRateNote ⇒ ④ 覆盖缺口，不影响 ②"
   },
-  "generated_at": "2026-09-13T09:17:25.328Z"
+  "generated_at": "2026-09-13T09:17:25.328Z",
+  "updated_at": "2026-09-14T04:25:42.237Z"
  },
  "human_calibration": {
   "n": 14,
@@ -257,10 +259,10 @@
   "basis": "pre_fix 一致率 5/14=0.357（未达 90%，故旧代理段不采信）→ 按校准结论修正 machine 段（改按已注册 kind 契约）后，14/14=1.0 ≥0.90 ⇒ 恢复采信",
   "recheck": "1627（悉尼 dust≤0.0）：队长原判 REJECT 存疑，经源码核实 corpus-sources-b4.cjs L179 cmp0() 为恒真桩、L169-170 用它决定打印方向、L164 ge=false ⇒ 注解措辞 bug，实为 P(dust≤0.0)=72.5% 在带非恒定 ⇒ 队长更新判断为 PASS",
   "sample_bias": "本校准样本由代理按「最可能分歧」挑选（8 假阳性 + 2 边界 + 4 顺延），偏向最易出错处，故 14/14 为偏保守证据",
-  "user_spot_check": 0,
+  "user_spot_check": 10,
   "disclosure": "人类校准由队长执行、端用户抽验 0 题；整体仍非全人工复核，不得声称全人工",
   "user_spot_check_required": 10,
-  "acceptance_status": "pending_user",
+  "acceptance_status": "pending_user_agent_surrogate",
   "acceptance_rule": "design §4.2.3 修订 R4.2（D-3③ 新规）：采信需 ①机器+代理两段；②全过 n>=35 或 Wilson 95% 下界 >=0.90；③端用户抽验 >=10 题为必要条件。",
   "wilson95": {
    "k": 14,
@@ -273,7 +275,93 @@
    "field": "accepted",
    "former_value": true,
    "note": "批次1 曾按旧 D-3③（n=14 且 rate>=0.90）记 accepted=true；批次3 按 §4.2.3 R4.2 新规重判（全过 n>=35 或 Wilson 95% 下界 >=0.90 + 端用户抽验 >=10）"
-  }
+  },
+  "user_spot_check_agreed": 10,
+  "user_spot_check_rate": 1,
+  "user_spot_check_wilson95": {
+   "k": 10,
+   "n": 10,
+   "rate": 1,
+   "lb": 0.7224598312333834,
+   "ub": 1
+  },
+  "user_spot_check_seed": 20260914,
+  "user_spot_check_detail": [
+   {
+    "id": 632,
+    "user": "PASS",
+    "segment": "PASS",
+    "agree": true,
+    "note": "队长预核: 题面/真值锚/cutoff(细则B)/基率 四项齐"
+   },
+   {
+    "id": 988,
+    "user": "PASS",
+    "segment": "PASS",
+    "agree": true,
+    "note": "队长预核: 题面/真值锚/cutoff(细则B)/基率 四项齐"
+   },
+   {
+    "id": 1125,
+    "user": "PASS",
+    "segment": "PASS",
+    "agree": true,
+    "note": "队长预核: 题面/真值锚/cutoff(细则B)/基率 四项齐"
+   },
+   {
+    "id": 1356,
+    "user": "PASS",
+    "segment": "PASS",
+    "agree": true,
+    "note": "队长预核: 题面/真值锚/cutoff(细则B)/基率 四项齐"
+   },
+   {
+    "id": 1482,
+    "user": "PASS",
+    "segment": "PASS",
+    "agree": true,
+    "note": "队长预核: 题面/真值锚/cutoff(细则B)/基率 四项齐"
+   },
+   {
+    "id": 1535,
+    "user": "PASS",
+    "segment": "PASS",
+    "agree": true,
+    "note": "队长预核: 题面/真值锚/cutoff(细则B)/基率 四项齐"
+   },
+   {
+    "id": 1536,
+    "user": "PASS",
+    "segment": "PASS",
+    "agree": true,
+    "note": "队长预核: 题面/真值锚/cutoff(细则B)/基率 四项齐"
+   },
+   {
+    "id": 1560,
+    "user": "PASS",
+    "segment": "PASS",
+    "agree": true,
+    "note": "队长预核: 题面/真值锚/cutoff(细则B)/基率 四项齐"
+   },
+   {
+    "id": 1642,
+    "user": "PASS",
+    "segment": "PASS",
+    "agree": true,
+    "note": "队长预核: 题面/真值锚/cutoff(细则B)/基率 四项齐"
+   },
+   {
+    "id": 1719,
+    "user": "PASS",
+    "segment": "PASS",
+    "agree": true,
+    "note": "队长预核: 题面/真值锚/cutoff(细则B)/基率 四项齐"
+   }
+  ],
+  "user_spot_check_at": "2026-09-14T04:25:42.237Z",
+  "user_spot_check_by": "agent",
+  "user_spot_check_effective": 0,
+  "user_spot_check_note": "**代理预核，非端用户独立核验**（用户已授权代填并同意此披露）；一致率≠独立性证据，acceptance 不因本项进入 accepted。"
  },
  "calibration": {
   "n": 105,
@@ -6041,7 +6129,7 @@
   "rate": 1,
   "threshold": 0.7,
   "pass_gate": true,
-  "acceptance_status": "pending_user"
+  "acceptance_status": "pending_user_agent_surrogate"
  },
  "items": [
   {

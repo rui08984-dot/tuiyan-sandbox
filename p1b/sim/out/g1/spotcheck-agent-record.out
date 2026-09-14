@@ -1,0 +1,4 @@
+[g2-user-spotcheck] 代理预核（非端用户）抽验 10/10 题；与 ② 一致 10/10 = 100.0%
+  Wilson95=[0.722,1.000] | by=agent | 有效题数=0 | acceptance_status=pending_user_agent_surrogate
+  -> E:\music player\.tmp\audit-agent-out.json
+  ⚠ 代理预核**不满足**端用户独立核验的必要条件 ⇒ 状态恒待端用户（已如实标注，不得当成 accepted）

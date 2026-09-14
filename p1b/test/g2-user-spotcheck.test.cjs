@@ -79,3 +79,36 @@ test('--record：不足 10 题 → 仍 pending_user（必要条件不达标不�
   assert.equal(a.human_calibration.acceptance_status, 'pending_user', '不足 10 题 ⇒ pending_user');
   assert.equal(a.human_calibration.accepted, false, '不得采信');
 });
+
+// ── provenance 护栏（2026-09-14）：代理预核 ≠ 端用户独立核验，结构性不可冒充 ──
+test('--by agent：代理预核写回但 effective=0 ⇒ 状态 pending_user_agent_surrogate，绝不成 accepted', () => {
+  const src = fs.readFileSync(REAL_AUDIT, 'utf8');
+  const before = JSON.parse(src);
+  const copy = path.join(tmpDir, 'audit-agent.json');
+  fs.writeFileSync(copy, src);
+  const ids = (before.items || []).slice(0, 10).map((i) => i.id);
+  const lines = ['# id\tverdict\tnote'];
+  for (const id of ids) { const it = before.items.find((x) => x.id === id); lines.push(id + '\t' + (it.pass ? 'PASS' : 'REJECT') + '\tagent'); }
+  const tsv = path.join(tmpDir, 'agent.tsv');
+  fs.writeFileSync(tsv, lines.join('\n') + '\n');
+  const outJson = path.join(tmpDir, 'recorded-agent.json');
+  execFileSync(process.execPath, [SCRIPT, '--record', tsv, '--audit', copy, '--by', 'agent', '--out', outJson], { stdio: 'ignore' });
+  const a = JSON.parse(fs.readFileSync(outJson, 'utf8'));
+  const hc = a.human_calibration;
+  assert.equal(hc.user_spot_check_by, 'agent', 'provenance=agent');
+  assert.equal(hc.user_spot_check, 10, '写回 10 题（可追踪）');
+  assert.equal(hc.user_spot_check_effective, 0, '有效题数=0（不满足必要条件）');
+  assert.equal(hc.acceptance_status, 'pending_user_agent_surrogate', '状态恒待端用户');
+  assert.equal(hc.accepted, false, '绝不 accepted');
+  assert.ok(/代理预核/.test(hc.user_spot_check_note), 'note 显式披露代理预核');
+  // 复核构成：end_user 必须为 0（防"独立性"口径污染）
+  assert.equal(a.meta.review_composition.end_user, 0, 'end_user=0');
+  assert.equal(a.meta.review_composition.agent_surrogate_spot_check, 10, '代理预核单独计数');
+  // 对照：--by user（默认）同样 10 题 → effective=10（证明差异来自 provenance 本身）
+  const outJson2 = path.join(tmpDir, 'recorded-user.json');
+  execFileSync(process.execPath, [SCRIPT, '--record', tsv, '--audit', copy, '--by', 'user', '--out', outJson2], { stdio: 'ignore' });
+  const b = JSON.parse(fs.readFileSync(outJson2, 'utf8'));
+  assert.equal(b.human_calibration.user_spot_check_effective, 10, 'user 核验 ⇒ effective=10');
+  assert.notEqual(b.human_calibration.acceptance_status, 'pending_user_agent_surrogate', 'user 路径不落 surrogate 状态');
+});
+

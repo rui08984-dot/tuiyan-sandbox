@@ -136,11 +136,16 @@ const holdWilson = wilson(holdAgree, holdItems.length);
 const hc = Object.assign({ n: null, agreed: null, rate: null, reviewer: null }, prevAudit.human_calibration || {});
 hc.user_spot_check = Number(hc.user_spot_check || 0);
 hc.user_spot_check_required = USER_SPOT_REQUIRED;
+// provenance 透传（2026-09-14）：只有 user 核验才算满足必要条件。代理预核（by='agent'）
+// 写回的是「可追踪的线索」，effective=0 ⇒ 不得进入 accepted（防自审冒充独立性）。
+hc.user_spot_check_by = hc.user_spot_check_by || (hc.user_spot_check > 0 ? 'user' : null);
+hc.user_spot_check_effective = Number(hc.user_spot_check_effective !== undefined ? hc.user_spot_check_effective
+  : (hc.user_spot_check_by === 'user' ? hc.user_spot_check : 0));
 const hcWilson = wilson(Number(hc.agreed || 0), Number(hc.n || 0));
-const rule = 'design §4.2.3 修订 R4.2（D-3③ 新规）：采信需 ①机器+代理两段；②全过 n>=35 或 Wilson 95% 下界 >=0.90；③端用户抽验 >=10 题为必要条件。';
+const rule = 'design §4.2.3 修订 R4.2（D-3③ 新规）：采信需 ①机器+代理两段；②全过 n>=35 或 Wilson 95% 下界 >=0.90；③端用户抽验 >=10 题为必要条件（必须由端用户本人核验；代理预核 effective=0，不计入）。';
 let acceptance = 'fail';
 if (!(calibRate !== null && calibRate >= 0.70)) acceptance = 'fail';
-else if (hc.user_spot_check < USER_SPOT_REQUIRED) acceptance = 'pending_user';
+else if (hc.user_spot_check_effective < USER_SPOT_REQUIRED) acceptance = (hc.user_spot_check_by === 'agent') ? 'pending_user_agent_surrogate' : 'pending_user';
 else if ((Number(hc.n) >= 35 && Number(hc.agreed) === Number(hc.n)) || (hcWilson.lb !== null && hcWilson.lb >= 0.90)) acceptance = 'accepted';
 else acceptance = 'pending_recheck';
 hc.acceptance_status = acceptance;
