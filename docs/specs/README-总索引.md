@@ -175,6 +175,16 @@
 | 存量化补列（微步 3） | 254 行前瞻 matures_at=effective_date（1058→1312 non-null；写前快照 sha 5a72ef3f…，integrity ok）；读数不变 |
 | 读数 | ① 1058→**1312**｜③ 长 33→**197**（短 439/中 147）｜④ **1120**（覆盖 1312/1312）｜**门 PASS 不翻转**｜测试 226 绿｜收据 p1b/sim/out/g2-report-r4-dd-gated.out|.json |
 
+### 双链统一（用户 20260914 裁定 · 模型配置＝唯一真源 providers.json + 全链路可观测性）
+| 件 | 说明 |
+|---|---|
+| `docs/specs/双链统一-验收收据-20260914.md` | **验收收据**（commit 709059d）：根因更正（实测推翻「judge 走 env 绑死」——env 全未设置、verdicts.js:381 早已读 providers.json）+ 两条真实缺陷（可观测性缺口／cards.model 过期覆盖）+ 四条验收标准对照 + 遗留边界 |
+| `p1b/src/llmOptions.js` `describeEffective()` | 全链唯一事实源（mode/provider/base_url/model/key_source；env 兜底 stderr 披露）；与 p1a llm.js resolveMode 同口径 |
+| `GET /api/providers/effective` | 脱敏实时读数（无缓存）；UI「实际生效」面板数据源 |
+| `verdicts.resolved_model`（additive 加列） | 事实层，与声明层 `model`（配对键，禁改）分离；生产库已迁移（快照 sha256 `33210a1f…`，3662 行不变/integrity ok/旧行 NULL） |
+| 缺陷修复 | `providersStore` cards.model 留空覆盖 → 留空跟随抽取模型（**UI 切模型不生效的真根因**） |
+| 证据 | 测试 226→**230 全绿**；探针 4 场景 + E2E（`resolved_model: e2e-model-A → e2e-model-B`）+ Playwright 浏览器实测（临时端口 8799，8787 零接触）；截图 `p1b/sim/out/ui-refactor/settings-effective-*.png` |
+
 ## 5 · 铁律速查（违反=弃棒）
 
 ①玄学恒挂娱乐参考，绝不接研判 ②UI 禁「预测」字样（用审计/校准参考/分层账本）③无真值锚不入账本（Q0-1/2/3 拒收门）④LLM 仅四角色（聚合/基率/多路/校准）⑤key 不出服务端 ⑥预注册冻结后禁改 ⑦账本不可变 ⑧**派单并发上限 2-3 棒** ⑨8787 用户 bat 管理，代理零接触 ⑩微步回合制（先落盘再设计）
