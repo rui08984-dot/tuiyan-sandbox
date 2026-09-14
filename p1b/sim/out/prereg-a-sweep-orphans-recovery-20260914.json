@@ -1,0 +1,82 @@
+{
+ "confirm": true,
+ "conditions_with_gap": 9,
+ "missing_variants": 12,
+ "saved": 8,
+ "errors": 4,
+ "at": "2026-09-14T11:36:08.301Z",
+ "results": [
+  {
+   "pid": 116,
+   "window": "cutoff",
+   "arm": "B",
+   "requested": 2,
+   "saved": 1,
+   "errors": 1
+  },
+  {
+   "pid": 116,
+   "window": "full",
+   "arm": "C",
+   "requested": 2,
+   "saved": 2,
+   "errors": 0
+  },
+  {
+   "pid": 117,
+   "window": "cutoff",
+   "arm": "A",
+   "requested": 2,
+   "saved": 2,
+   "errors": 0
+  },
+  {
+   "pid": 117,
+   "window": "cutoff",
+   "arm": "B",
+   "requested": 1,
+   "saved": 0,
+   "errors": 1
+  },
+  {
+   "pid": 120,
+   "window": "full",
+   "arm": "C",
+   "requested": 1,
+   "saved": 1,
+   "errors": 0
+  },
+  {
+   "pid": 128,
+   "window": "cutoff",
+   "arm": "B",
+   "requested": 1,
+   "saved": 0,
+   "errors": 1
+  },
+  {
+   "pid": 128,
+   "window": "cutoff",
+   "arm": "C",
+   "requested": 1,
+   "saved": 0,
+   "errors": 1
+  },
+  {
+   "pid": 129,
+   "window": "cutoff",
+   "arm": "A",
+   "requested": 1,
+   "saved": 1,
+   "errors": 0
+  },
+  {
+   "pid": 146,
+   "window": "cutoff",
+   "arm": "B",
+   "requested": 1,
+   "saved": 1,
+   "errors": 0
+  }
+ ]
+}

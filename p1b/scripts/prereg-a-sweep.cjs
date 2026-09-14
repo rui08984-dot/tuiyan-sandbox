@@ -21,6 +21,8 @@ function arg(n, d) { const i = process.argv.indexOf('--' + n); return i >= 0 && 
 const CONFIRM = process.argv.indexOf('--confirm') >= 0;
 const JSON_OUT = arg('json', null);
 const SKIP_STATE = arg('skip-state', null); // 跳过该 state 的 retry_pending 条件（与在跑的补漏并行时用，防重复）
+const ONLY_STATE = arg('only-state', null); // 只处理该 state 的 retry_pending 条件（与在跑的补漏并行「从队尾反向填」时用）
+const REVERSE = process.argv.indexOf('--reverse') >= 0; // 反向顺序（与顺序推进的补漏迎面相遇，减少重叠窗口）
 const V3K = 'P1B_EVIDENCE_V3', MODEK = 'P1B_EVIDENCE_V3_MODE';
 const ARM_ENV = {
   A: { set: {} },
@@ -67,6 +69,15 @@ const LIMIT = 120;
       console.log('[sweep] skip-state: ' + path.resolve(SKIP_STATE) + '（跳过 ' + skipSet.size + ' 个在队条件）');
     } catch (e) { console.log('[sweep] skip-state 读取失败：' + e.message + '（不跳过）'); skipSet = null; }
   }
+  // --only-state：只处理在队条件（与补漏并行分半；配合 --reverse 从队尾迎面填）
+  let onlySet = null;
+  if (ONLY_STATE) {
+    try {
+      const st = JSON.parse(fs.readFileSync(path.resolve(ONLY_STATE), 'utf8'));
+      onlySet = new Set((st.retry_pending || []).map((x) => x.key));
+      console.log('[sweep] only-state: ' + path.resolve(ONLY_STATE) + '（只做 ' + onlySet.size + ' 个在队条件）' + (REVERSE ? ' 逆序' : ''));
+    } catch (e) { console.log('[sweep] only-state 读取失败：' + e.message + '（不做）'); onlySet = new Set(); }
+  }
   // 算缺口（按条件分组）
   const gaps = [];
   let missingTotal = 0;
@@ -76,6 +87,7 @@ const LIMIT = 120;
       for (const arm of ARMS) {
         const key = p.id + '|' + win + '|' + arm;
         if (skipSet && skipSet.has(key)) { skipped++; continue; }
+        if (onlySet && !onlySet.has(key)) { skipped++; continue; }
         const runId = RUN_PREFIX + arm + '-' + win;
         const miss = VARIANTS.filter((v) => stV.get(p.id, runId, v).c === 0);
         if (!miss.length) continue;
@@ -85,7 +97,8 @@ const LIMIT = 120;
     }
   }
   console.log('[sweep] 全量缺口：条件 ' + gaps.length + ' 个 ｜ 缺失变体 ' + missingTotal + ' 个'
-    + (skipSet ? '（已跳过在队条件 ' + skipped + ' 个）' : '') + (CONFIRM ? '' : '（dry-run：不发请求）'));
+    + (skipSet || onlySet ? '（已跳过 ' + skipped + ' 个条件）' : '') + (CONFIRM ? '' : '（dry-run：不发请求）'));
+  if (REVERSE) gaps.reverse();
   const results = [];
   let saved = 0, errors = 0;
   if (CONFIRM) {

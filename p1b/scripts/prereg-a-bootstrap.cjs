@@ -17,6 +17,8 @@ function arg(n, d) { const i = process.argv.indexOf('--' + n); return i >= 0 && 
 const RUN_T = arg('run-treatment', 'f4f760aa50e1');
 const RUN_B = arg('run-baseline', 'ca1b5cdbddfc');
 const RUN_PREFIX = arg('run-prefix', null); // additive（命题A全量计分防呆）：设了就在两臂 SQL 追加 run_id LIKE 前缀闸，防烟测批次混入
+const SINCE = arg('since', null); // additive（PREREG v1.1 生成期分层）：只计 created_at >= 的 verdicts
+const UNTIL = arg('until', null); // additive：只计 created_at <= 的 verdicts
 const NB = Number(arg('boot', '1000'));
 const SEED = Number(arg('seed', '987654321'));
 const BINS = Number(arg('bins', '10'));
@@ -44,9 +46,18 @@ const SQL = 'SELECT v.prediction_id AS pid, v.prompt_variant AS variant, v.tempe
   + 'v.implied_prob AS prob, p.outcome AS outcome, p.layer AS layer, g.source AS gsrc '
   + 'FROM verdicts v JOIN predictions p ON p.id = v.prediction_id JOIN games g ON g.id = p.game_id '
   + "WHERE v.run_id = ? AND v.implied_prob IS NOT NULL AND p.outcome IN ('true','false')"
-  + (RUN_PREFIX ? " AND v.run_id LIKE ?" : '');
-const aRows = RUN_PREFIX ? db.prepare(SQL).all(RUN_T, RUN_PREFIX + '%') : db.prepare(SQL).all(RUN_T);
-const bRows = RUN_PREFIX ? db.prepare(SQL).all(RUN_B, RUN_PREFIX + '%') : db.prepare(SQL).all(RUN_B);
+  + (RUN_PREFIX ? " AND v.run_id LIKE ?" : '')
+  // 生成期分层（2026-09-14 · PREREG v1.1）：--since/--until 按 verdicts.created_at 切（UTC 字符串比较）
+  + (SINCE ? ' AND v.created_at >= ?' : '') + (UNTIL ? ' AND v.created_at <= ?' : '');
+function bindArgs(runId) {
+  const a = [runId];
+  if (RUN_PREFIX) a.push(RUN_PREFIX + '%');
+  if (SINCE) a.push(SINCE);
+  if (UNTIL) a.push(UNTIL);
+  return a;
+}
+const aRows = db.prepare(SQL).all.apply(db.prepare(SQL), bindArgs(RUN_T));
+const bRows = db.prepare(SQL).all.apply(db.prepare(SQL), bindArgs(RUN_B));
 const key = (r) => r.pid + '|' + r.variant + '|' + r.temp + '|' + r.model;
 const bMap = new Map(bRows.map((r) => [key(r), r]));
 const pairs = [];
