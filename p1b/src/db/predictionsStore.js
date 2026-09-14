@@ -31,6 +31,7 @@
  *   （如 L1 程序结算题）置 1，供 v3 基率注入豁免（L1 一律不注入）与后续消融分层。
  */
 const { db } = require('../deps');
+const baseRateMod = require('../evidence/baseRate'); // 批次 3：证据元素随行落库结构化基率（见 insertPrediction）
 
 const SOURCE_TYPES = ['验证点', '预测卡'];
 const OUTCOMES = ['true', 'false', 'ambiguous'];
@@ -273,6 +274,10 @@ function insertPrediction(p) {
   }
   const prob = assertProb(p.prob);
   const a = assertAuditFields(p, CORE_INSERT_KEYS);
+  // 批次 3（2026-09-14）：证据元素**随行落库**结构化基率 `evidence[i].baseRate`——
+  //   只在元素含 baseRateNote 且尚无 baseRate 时物化（与 L2 读序同源 ⇒ 结构化读数与文本读数逐字相同，
+  //   零翻转由构造保证；旧行为不变：无注记/整数 id 证据原样通过）。物化是**加键**，不改任何既有键。
+  const evidence = (Array.isArray(p.evidence) ? p.evidence : []).map((e) => baseRateMod.attachBaseRate(e));
   // #2（批次1）：声明了 g2Regime 的批次写端必须**显式**给 maturesAt——有日历到期日给日期，
   // 无日历语义者显式传 null 并注释原因。禁止省略（原实现省略即静默 NULL，正是 A2「静默出域」）。
   if (p.g2Regime !== undefined && p.g2Regime !== null && p.maturesAt === undefined) {
@@ -288,7 +293,7 @@ function insertPrediction(p) {
       p.sourceType,
       p.statement.trim(),
       prob,
-      JSON.stringify(Array.isArray(p.evidence) ? p.evidence : []),
+      JSON.stringify(evidence),
       a.layer === undefined ? null : a.layer,
       a.secondary_layer === undefined ? null : a.secondary_layer,
       a.engine === undefined ? null : a.engine,

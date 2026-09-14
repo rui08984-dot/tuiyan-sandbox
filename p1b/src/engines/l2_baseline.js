@@ -38,68 +38,35 @@ function wilson(k, n, z) {
   return { p: r6(p), lo: r6(Math.max(0, center - half)), hi: r6(Math.min(1, center + half)) };
 }
 
+const baseRateMod = require('../evidence/baseRate'); // 任务 6 批次 3：解析原语与读序收敛为一份共享模块
+
 /** k/n 分数（如「共 149/331」「=6/33」）——最可靠：同时给出 k 与 n。 */
-function parseFraction(note) {
-  const m = /(\d+)\s*\/\s*(\d+)/.exec(note);
-  if (!m) return null;
-  const k = parseInt(m[1], 10), n = parseInt(m[2], 10);
-  if (!(n > 0) || k > n) return null;
-  return { k: k, n: n };
-}
+function parseFraction(note) { return baseRateMod.parseFraction(note); }
 
 /**
- * 样本量抽取（与语料 note 实际写法对齐）。
+ * 样本量抽取（保守取最小 n，防「2015-2024 共 300 个日值」类窗口总长被放大）。
  *
- * 2026-09-14 修（口径一致性）：原实现只认「共 N 个 / N 个 / N 期」，**漏**了账本里大量存在的
- *   「近 N 天」「cutoff 前 N 天」「pre-cutoff 已发布 N 个月值中」等句式 ⇒ 引擎误判「未含可解析 n」
- *   而退回 insufficient_data（实测 L2 有 15 行如此，占比 2.4%）。
- *   更根本的问题：`g2-report.cjs` 的解析器在同日已按 #13 加宽（支持 共/近/前/上/已发布），
- *   两处解析器**口径分叉**——本项目明令「报表难度分档 b 与 L2 引擎 p 不出两套口径」。
- *   故此处对齐为同一套句式（保守取最小 n，防「2015-2024 共 300 个日值」类窗口总长被放大）。
- *
- * ⚠ 已知局限（如实登记，未在本轮解决）：本函数与 `g2-report.cjs` 的 `parseNoteN`/`parseCount`
- *   仍为**两份代码**；真正的单一真源应抽成共享模块（属重构，非本轮范围）。当前仅保证句式一致。
+ * 2026-09-14 口径收敛：原实现只认「共 N 个 / N 个 / N 期」，后按 #13 加宽（共/近/前/上/已发布）；
+ * 当时与 `g2-report.cjs` 的 `parseNoteN` 是**两份代码**（注释里如实登记为已知局限）。
+ * 任务 6 批次 3：抽成共享模块 `src/evidence/baseRate.js`，本函数与 g2-report 的同名函数均改为**委托**
+ *   ⇒ 单一实现、零读数变化（由 `test/fixtures/base-rate-golden.json` 金样回放锁定）。
  */
-function parseCount(note) {
-  if (!note || typeof note !== 'string') return null;
-  const ns = [];
-  const res = [
-    /(?:共|近|前|上)\s*(\d+)\s*(?:个|天|月|期|条)/g,
-    /(\d+)\s*(?:个|天|月|期)[^0-9%]{0,12}?(?:的|中|值)/g,
-    /(?:已发布|已开奖|已结算)\s*(\d+)\s*(?:个|天|月|期|条)/g,
-  ];
-  for (const re of res) { let m; while ((m = re.exec(note)) !== null) { const v = parseInt(m[1], 10); if (isFinite(v) && v > 0 && v < 100000) ns.push(v); } }
-  return ns.length ? Math.min.apply(null, ns) : null;
-}
+function parseCount(note) { return baseRateMod.parseCount(note); }
 
 /**
- * 冻结基率文本解析（口径与 g2-report.cjs parseBaseRate 同源）：
- *   k/n 分数 > 占 X% > 基率=v > 任意 X% 兜底；样本量由 parseCount 抽。
+ * 冻结基率文本解析 —— L2 读序（委托共享模块，逐字等价）：
+ *   k/n 分数 > 占 X% > 基率=v；样本量由 parseCount 抽。
  * @returns {null|{p:number,n:number|null,k:number|null,pattern:string}}
  */
-function parseBaseRateNote(note) {
-  if (!note || typeof note !== 'string') return null;
-  const frac = parseFraction(note);
-  if (frac) return { p: r6(frac.k / frac.n), n: frac.n, k: frac.k, pattern: 'fraction' };
-  let m = /占\s*([0-9]+(?:\.[0-9]+)?)\s*%/.exec(note);
-  if (!m) m = /([0-9]+(?:\.[0-9]+)?)\s*%/.exec(note);
-  if (m) {
-    const p = parseFloat(m[1]) / 100, n = parseCount(note);
-    return { p: r6(p), n: n, k: n === null ? null : Math.round(p * n), pattern: n === null ? 'pct_share_non' : 'pct_share_n' };
-  }
-  m = /基率\s*[=:：]\s*(?:组合数理论值\s*)?([0-9]*\.?[0-9]+)/.exec(note);
-  if (m) {
-    const v = parseFloat(m[1]), p = v > 1 ? v / 100 : v, n = parseCount(note);
-    return { p: r6(p), n: n, k: n === null ? null : Math.round(p * n), pattern: 'base_rate_eq' };
-  }
-  return null;
-}
+function parseBaseRateNote(note) { return baseRateMod.parseBaseRateL2(note); }
 
 function isHit(x) { return x === true || x === 1 || x === '1'; }
 
 /**
  * L2 最小引擎主入口（纯函数）。
- * @param {{resolve_spec?:object, history?:Array, counts?:{k:number,n:number}, baseRateNote?:string, minN?:number}} input
+ * 基率来源优先级：history 序列 > counts{k,n} > **baseRate（结构化，批次 3 新增）** > baseRateNote（文本）。
+ * 结构化路径只作用于**带 evidence.baseRate 的新行**；旧行无该键 ⇒ 走文本，读数逐字不变。
+ * @param {{resolve_spec?:object, history?:Array, counts?:{k:number,n:number}, baseRate?:object, baseRateNote?:string, minN?:number}} input
  * @returns {{ok:boolean,status:string,method:string,p:number|null,n:number|null,k:number|null,ci:Array|null,source:string,note:string}}
  */
 function l2Baseline(input) {
@@ -114,6 +81,12 @@ function l2Baseline(input) {
   } else if (opt.counts && typeof opt.counts === 'object'
     && Number.isFinite(Number(opt.counts.n)) && Number.isFinite(Number(opt.counts.k))) {
     n = Number(opt.counts.n); k = Number(opt.counts.k); p0 = n > 0 ? k / n : null; source = 'counts';
+  } else if (opt.baseRate && baseRateMod.isStructured(opt.baseRate)) {
+    const s = opt.baseRate;
+    n = (s.n === undefined || s.n === null) ? null : s.n;
+    k = (s.k === undefined || s.k === null) ? null : s.k;
+    p0 = s.p;
+    source = 'baseRate:structured';
   } else if (opt.baseRateNote) {
     const parsed = parseBaseRateNote(String(opt.baseRateNote));
     if (parsed) { n = parsed.n; k = parsed.k; p0 = parsed.p; source = 'baseRateNote:' + parsed.pattern; }
@@ -122,13 +95,14 @@ function l2Baseline(input) {
   const short = (note) => ({ ok: false, status: 'insufficient_data', method: 'stat_baseline+wilson',
     p: null, n: n, k: k, ci: null, source: source, note: note });
   if (source === 'none') {
-    return short('无基率来源：需 history 序列 / counts{k,n} / evidence.baseRateNote 三者之一，本层不出 p。');
+    return short('无基率来源：需 history 序列 / counts{k,n} / evidence.baseRate（结构化）或 baseRateNote（文本），本层不出 p。');
   }
   if (source === 'baseRateNote:unparsed') {
     return short('baseRateNote 无法解析出基率（支持口径：占 X% / 基率=v / k·n 分数），本层不出 p。');
   }
   if (n === null || n === undefined) {
-    return short('baseRateNote 未含可解析样本量 n，无法过 n≥' + minN + ' 准入线（宁可缺，不可编），本层不出 p。');
+    return short((source === 'baseRate:structured' ? '结构化 baseRate 未含样本量 n' : 'baseRateNote 未含可解析样本量 n')
+      + '，无法过 n≥' + minN + ' 准入线（宁可缺，不可编），本层不出 p。');
   }
   if (!(n > 0)) return short('样本量非法：n=' + n + '，本层不出 p。');
   if (n < minN) {

@@ -67,11 +67,11 @@ function aciReplay(feedback, opt) {
 
 /**
  * L3 最小引擎主入口（纯函数）。
- * @param {{baseRateNote?:string, counts?:{k:number,n:number}, history?:Array, feedback?:Array, alphaStar?:number, gamma?:number, decay?:number, minN?:number}} input
+ * @param {{baseRate?:object, baseRateNote?:string, counts?:{k:number,n:number}, history?:Array, feedback?:Array, alphaStar?:number, gamma?:number, decay?:number, minN?:number}} input
  */
 function l3Aci(input) {
   const opt = input || {};
-  const base = l2Baseline({ counts: opt.counts, history: opt.history, baseRateNote: opt.baseRateNote, minN: opt.minN });
+  const base = l2Baseline({ counts: opt.counts, history: opt.history, baseRate: opt.baseRate, baseRateNote: opt.baseRateNote, minN: opt.minN });
   const aci = aciReplay(Array.isArray(opt.feedback) ? opt.feedback : [], opt);
   if (!base.ok) {
     return {

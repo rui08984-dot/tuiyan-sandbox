@@ -38,6 +38,7 @@ const store = require('../db/intakeStore');
 const { l2Baseline } = require('../engines/l2_baseline'); // 阶段 4：L2 最小统计件（Wilson）
 const { l5Certified } = require('../engines/l5_certified'); // 阶段 4：L5 认证源公布分布
 const { certifiedSourceForRow } = require('../engines/l5_sources'); // 2026-09-14：L5 认证源读侧重建（与 stage4-run 同源）
+const baseRateMod = require('../evidence/baseRate'); // 批次 3：基率结构化字段（形态判别与引擎入参）
 
 /** 清单版本：v2 判据 + v3 注记（unknown 出口 + L4 后置标注），随清单文档冻结。 */
 const CHECKLIST_HASH = 'v3';
@@ -118,16 +119,25 @@ function engineFor(layer, gate, engineResult) {
   };
 }
 
-/** 从请求体抽取引擎入参（evidence 为契约位置；顶层 history/base_rate 为便捷别名）。 */
+/**
+ * 从请求体抽取引擎入参（evidence 为契约位置；顶层 history/base_rate 为便捷别名）。
+ * 批次 3（2026-09-14）：`evidence.baseRate` **形态判别**——
+ *   · 结构化形态（含 p，见 src/evidence/baseRate.js isStructured）⇒ 送引擎 baseRate（优先级高于文本注记）；
+ *   · 其余形态 ⇒ 沿用旧义＝计数 {k,n}（零行为变化）。
+ */
 function engineInputs(body, resolveSpec) {
   const b = body || {};
   const ev = (b.evidence && typeof b.evidence === 'object' && !Array.isArray(b.evidence)) ? b.evidence : {};
   const history = b.history !== undefined ? b.history : (ev.history !== undefined ? ev.history : ev.series);
-  const counts = b.base_rate !== undefined ? b.base_rate : (ev.baseRate !== undefined ? ev.baseRate : ev.counts);
+  const brRaw = ev.baseRate !== undefined ? ev.baseRate : undefined;
+  const structured = baseRateMod.isStructured(brRaw) ? brRaw : null;
+  const counts = b.base_rate !== undefined ? b.base_rate
+    : (structured ? ev.counts : (brRaw !== undefined ? brRaw : ev.counts));
   return {
     evidence: ev,
     history: history,
     counts: counts,
+    baseRate: structured,
     baseRateNote: ev.baseRateNote !== undefined ? ev.baseRateNote : b.baseRateNote,
     certifiedSource: ev.certifiedSource !== undefined ? ev.certifiedSource
       : (b.certified_source !== undefined ? b.certified_source : (resolveSpec && resolveSpec.certified_source)),
@@ -265,7 +275,7 @@ function classifyIntake(body) {
   const eng = engineInputs(b, resolveSpec);
   let engineResult = null;
   if (layer === 'L2') {
-    engineResult = l2Baseline({ resolve_spec: resolveSpec, history: eng.history, counts: eng.counts, baseRateNote: eng.baseRateNote });
+    engineResult = l2Baseline({ resolve_spec: resolveSpec, history: eng.history, counts: eng.counts, baseRate: eng.baseRate, baseRateNote: eng.baseRateNote });
   } else if (layer === 'L5') {
     // 2026-09-14：L5 认证源读侧重建（与 stage4-run.cjs 同源）——
     //   声明（evidence.certifiedSource）优先；未声明时按 resolve_spec.kind 从组合数规则表重建
@@ -274,7 +284,7 @@ function classifyIntake(body) {
     let cs = eng.certifiedSource || null;
     let origin = cs ? 'declared' : null;
     if (!cs) {
-      const built = certifiedSourceForRow({ resolve: resolveSpec, baseRateNote: eng.baseRateNote });
+      const built = certifiedSourceForRow({ resolve: resolveSpec, baseRate: eng.baseRate, baseRateNote: eng.baseRateNote });
       if (built.ok) { cs = built.source; origin = 'read_side_registry'; }
     }
     engineResult = l5Certified({ resolve_spec: resolveSpec, certifiedSource: cs });

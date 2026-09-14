@@ -1,0 +1,4617 @@
+{
+ "generated_at": "2026-09-14T14:21:03.795Z",
+ "generator": "p1b/scripts/base-rate-golden.cjs",
+ "semantics": "重构前逐字实现冻结（l2=实模块 / l5=实模块 / g2=逐字复制）；重跑=重新冻结，不是校验",
+ "db": "p1a-terminal/data/p1a.db",
+ "ledger_rows_with_note": 1485,
+ "per_kind": 3,
+ "kinds": 51,
+ "samples": [
+  {
+   "kind": "binance_daily_close",
+   "id": 893,
+   "layer": "L2",
+   "note": "回填·BTC/USDT：cutoff 前 871 个日线收盘中 >= 96444.74 占 30.1%（分位 q=0.7）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.300804,
+    "n": 871,
+    "k": 262,
+    "ci": [
+     0.271276,
+     0.332081
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=262/n=871 → p=0.300804，CI=[0.271276,0.332081]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.301,
+     "pattern": "pct_share"
+    },
+    "note_n": 871
+   },
+   "l5": {
+    "p": 0.301,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "binance_daily_close",
+   "id": 894,
+   "layer": "L2",
+   "note": "回填·BTC/USDT：cutoff 前 701 个日线收盘中 >= 89855.99 占 50.1%（分位 q=0.5）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.500713,
+    "n": 701,
+    "k": 351,
+    "ci": [
+     0.463796,
+     0.537622
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=351/n=701 → p=0.500713，CI=[0.463796,0.537622]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.501,
+     "pattern": "pct_share"
+    },
+    "note_n": 701
+   },
+   "l5": {
+    "p": 0.501,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "binance_daily_close",
+   "id": 895,
+   "layer": "L2",
+   "note": "前瞻·BTC/USDT：近 900 个 UTC 日线（2024-03-26~2026-09-11）收盘价 >= 95840.62 占 30.0%（分位 q=0.7，pre-cutoff）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.3,
+    "n": 900,
+    "k": 270,
+    "ci": [
+     0.270962,
+     0.330738
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=270/n=900 → p=0.3，CI=[0.270962,0.330738]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.3,
+     "pattern": "pct_share"
+    },
+    "note_n": 900
+   },
+   "l5": {
+    "p": 0.3,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "bom_weekend_top10_gross",
+   "id": 1923,
+   "layer": "L2",
+   "note": "前瞻·BOM Top10：前 140 个周末中 >= $122,315,367 占 40.0%（分位 q=0.6）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.4,
+    "n": 140,
+    "k": 56,
+    "ci": [
+     0.322565,
+     0.482776
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=56/n=140 → p=0.4，CI=[0.322565,0.482776]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.4,
+     "pattern": "pct_share"
+    },
+    "note_n": 140
+   },
+   "l5": {
+    "p": 0.4,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "bom_weekend_top10_gross",
+   "id": 1925,
+   "layer": "L2",
+   "note": "回填·BOM Top10：前 134 个周末中 >= $98,801,587 占 50.0%（分位 q=0.5）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.5,
+    "n": 134,
+    "k": 67,
+    "ci": [
+     0.416529,
+     0.583471
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=67/n=134 → p=0.5，CI=[0.416529,0.583471]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.5,
+     "pattern": "pct_share"
+    },
+    "note_n": 134
+   },
+   "l5": {
+    "p": 0.5,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "bom_weekend_top10_gross",
+   "id": 1926,
+   "layer": "L2",
+   "note": "回填·BOM Top10：前 122 个周末中 >= $108,910,449 占 40.2%（分位 q=0.6）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.401639,
+    "n": 122,
+    "k": 49,
+    "ci": [
+     0.318936,
+     0.490348
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=49/n=122 → p=0.401639，CI=[0.318936,0.490348]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.402,
+     "pattern": "pct_share"
+    },
+    "note_n": 122
+   },
+   "l5": {
+    "p": 0.402,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "crossref_week_total",
+   "id": 1117,
+   "layer": "L2",
+   "note": "回填·Crossref：cutoff 前 5 个整周注册数中 >= 246479 占 40.0%（分位 q=0.7）",
+   "l2": {
+    "ok": false,
+    "status": "insufficient_data",
+    "method": "stat_baseline+wilson",
+    "p": null,
+    "n": 5,
+    "k": 2,
+    "ci": null,
+    "source": "baseRateNote:pct_share_n",
+    "note": "数据不足：n=5 < 30（K F13 准入线），本层不出 p 与区间。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.4,
+     "pattern": "pct_share"
+    },
+    "note_n": 5
+   },
+   "l5": {
+    "p": 0.4,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "crossref_week_total",
+   "id": 1118,
+   "layer": "L2",
+   "note": "回填·Crossref：cutoff 前 6 个整周注册数中 >= 246479 占 50.0%（分位 q=0.6）",
+   "l2": {
+    "ok": false,
+    "status": "insufficient_data",
+    "method": "stat_baseline+wilson",
+    "p": null,
+    "n": 6,
+    "k": 3,
+    "ci": null,
+    "source": "baseRateNote:pct_share_n",
+    "note": "数据不足：n=6 < 30（K F13 准入线），本层不出 p 与区间。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.5,
+     "pattern": "pct_share"
+    },
+    "note_n": 6
+   },
+   "l5": {
+    "p": 0.5,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "crossref_week_total",
+   "id": 1119,
+   "layer": "L2",
+   "note": "回填·Crossref：cutoff 前 7 个整周注册数中 >= 246479 占 57.1%（分位 q=0.5）",
+   "l2": {
+    "ok": false,
+    "status": "insufficient_data",
+    "method": "stat_baseline+wilson",
+    "p": null,
+    "n": 7,
+    "k": 4,
+    "ci": null,
+    "source": "baseRateNote:pct_share_n",
+    "note": "数据不足：n=7 < 30（K F13 准入线），本层不出 p 与区间。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.5710000000000001,
+     "pattern": "pct_share"
+    },
+    "note_n": 7
+   },
+   "l5": {
+    "p": 0.571,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "cta_daily_total_rides",
+   "id": 1089,
+   "layer": "L2",
+   "note": "回填·CTA：cutoff 前 396 个运营日总乘车量中 >= 1064991 占 40.2%（分位 q=0.6）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.401515,
+    "n": 396,
+    "k": 159,
+    "ci": [
+     0.354402,
+     0.45052
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=159/n=396 → p=0.401515，CI=[0.354402,0.45052]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.402,
+     "pattern": "pct_share"
+    },
+    "note_n": 396
+   },
+   "l5": {
+    "p": 0.402,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "cta_daily_total_rides",
+   "id": 1090,
+   "layer": "L2",
+   "note": "回填·CTA：cutoff 前 397 个运营日总乘车量中 >= 967481 占 60.2%（分位 q=0.4）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.602015,
+    "n": 397,
+    "k": 239,
+    "ci": [
+     0.553109,
+     0.648966
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=239/n=397 → p=0.602015，CI=[0.553109,0.648966]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.602,
+     "pattern": "pct_share"
+    },
+    "note_n": 397
+   },
+   "l5": {
+    "p": 0.602,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "cta_daily_total_rides",
+   "id": 1091,
+   "layer": "L2",
+   "note": "回填·CTA：cutoff 前 398 个运营日总乘车量中 >= 1088023 占 30.2%（分位 q=0.7）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.301508,
+    "n": 398,
+    "k": 120,
+    "ci": [
+     0.258495,
+     0.348315
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=120/n=398 → p=0.301508，CI=[0.258495,0.348315]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.302,
+     "pattern": "pct_share"
+    },
+    "note_n": 398
+   },
+   "l5": {
+    "p": 0.302,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "cwl_ssq_blue_odd",
+   "id": 454,
+   "layer": "L5",
+   "note": "前瞻·L5 认证随机：基率=组合数理论值 0.5000（8/16，2026106 快照未开奖，非历史拟合）",
+   "l2": {
+    "ok": false,
+    "status": "insufficient_data",
+    "method": "stat_baseline+wilson",
+    "p": null,
+    "n": 16,
+    "k": 8,
+    "ci": null,
+    "source": "baseRateNote:fraction",
+    "note": "数据不足：n=16 < 30（K F13 准入线），本层不出 p 与区间。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.5,
+     "pattern": "base_rate_eq"
+    },
+    "note_n": null
+   },
+   "l5": {
+    "p": 0.5,
+    "kind": "certified_text"
+   }
+  },
+  {
+   "kind": "cwl_ssq_blue_odd",
+   "id": 617,
+   "layer": "L5",
+   "note": "历史回填·双色球 blue 奇数：cutoff 前 27 期中占 59.3%（样本不足 n=27；cwl 官方公告实抓，pre-cutoff 窗）",
+   "l2": {
+    "ok": false,
+    "status": "insufficient_data",
+    "method": "stat_baseline+wilson",
+    "p": null,
+    "n": 27,
+    "k": 16,
+    "ci": null,
+    "source": "baseRateNote:pct_share_n",
+    "note": "数据不足：n=27 < 30（K F13 准入线），本层不出 p 与区间。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.593,
+     "pattern": "pct_share"
+    },
+    "note_n": 27
+   },
+   "l5": {
+    "p": 0.593,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "cwl_ssq_blue_odd",
+   "id": 618,
+   "layer": "L5",
+   "note": "历史回填·双色球 blue 奇数：cutoff 前 25 期中占 60.0%（样本不足 n=25；cwl 官方公告实抓，pre-cutoff 窗）",
+   "l2": {
+    "ok": false,
+    "status": "insufficient_data",
+    "method": "stat_baseline+wilson",
+    "p": null,
+    "n": 25,
+    "k": 15,
+    "ci": null,
+    "source": "baseRateNote:pct_share_n",
+    "note": "数据不足：n=25 < 30（K F13 准入线），本层不出 p 与区间。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.6,
+     "pattern": "pct_share"
+    },
+    "note_n": 25
+   },
+   "l5": {
+    "p": 0.6,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "cwl_ssq_red_contains",
+   "id": 453,
+   "layer": "L5",
+   "note": "前瞻·L5 认证随机：基率=组合数理论值 0.1818（1-C(32,6)/C(33,6)=6/33，2026106 快照未开奖，非历史拟合）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.181818,
+    "n": 33,
+    "k": 6,
+    "ci": [
+     0.086107,
+     0.343886
+    ],
+    "source": "baseRateNote:fraction",
+    "note": "统计基率+Wilson(95%)：k=6/n=33 → p=0.181818，CI=[0.086107,0.343886]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.1818,
+     "pattern": "base_rate_eq"
+    },
+    "note_n": null
+   },
+   "l5": {
+    "p": 0.1818,
+    "kind": "certified_text"
+   }
+  },
+  {
+   "kind": "cwl_ssq_red_contains",
+   "id": 601,
+   "layer": "L5",
+   "note": "历史回填·双色球 red 含 07：cutoff 前 25 期中命中 16.0%（样本不足 n=25；cwl 官方公告实抓，pre-cutoff 窗）",
+   "l2": {
+    "ok": false,
+    "status": "insufficient_data",
+    "method": "stat_baseline+wilson",
+    "p": null,
+    "n": 25,
+    "k": 4,
+    "ci": null,
+    "source": "baseRateNote:pct_share_n",
+    "note": "数据不足：n=25 < 30（K F13 准入线），本层不出 p 与区间。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.16,
+     "pattern": "pct_fallback"
+    },
+    "note_n": 25
+   },
+   "l5": {
+    "p": 0.16,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "cwl_ssq_red_contains",
+   "id": 602,
+   "layer": "L5",
+   "note": "历史回填·双色球 red 含 07：cutoff 前 23 期中命中 17.4%（样本不足 n=23；cwl 官方公告实抓，pre-cutoff 窗）",
+   "l2": {
+    "ok": false,
+    "status": "insufficient_data",
+    "method": "stat_baseline+wilson",
+    "p": null,
+    "n": 23,
+    "k": 4,
+    "ci": null,
+    "source": "baseRateNote:pct_share_n",
+    "note": "数据不足：n=23 < 30（K F13 准入线），本层不出 p 与区间。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.174,
+     "pattern": "pct_fallback"
+    },
+    "note_n": 23
+   },
+   "l5": {
+    "p": 0.174,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "dbnomics_bis_monthly_mean",
+   "id": 960,
+   "layer": "L2",
+   "note": "回填·D.N.B.US：cutoff 前 337 个月均值中 >= 96.270 占 30.3%（分位 q=0.7）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.302671,
+    "n": 337,
+    "k": 102,
+    "ci": [
+     0.256071,
+     0.353719
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=102/n=337 → p=0.302671，CI=[0.256071,0.353719]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.303,
+     "pattern": "pct_share"
+    },
+    "note_n": 337
+   },
+   "l5": {
+    "p": 0.303,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "dbnomics_bis_monthly_mean",
+   "id": 961,
+   "layer": "L2",
+   "note": "回填·D.N.B.US：cutoff 前 326 个月均值中 >= 93.442 占 40.2%（分位 q=0.6）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.40184,
+    "n": 326,
+    "k": 131,
+    "ci": [
+     0.350061,
+     0.455906
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=131/n=326 → p=0.40184，CI=[0.350061,0.455906]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.402,
+     "pattern": "pct_share"
+    },
+    "note_n": 326
+   },
+   "l5": {
+    "p": 0.402,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "dbnomics_bis_monthly_mean",
+   "id": 962,
+   "layer": "L2",
+   "note": "前瞻·D.N.B.US：已发布 352 个月均值（1996-04~2025-07）中 >= 97.217 占 30.1%（分位 q=0.7，pre-cutoff）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.301136,
+    "n": 352,
+    "k": 106,
+    "ci": [
+     0.255569,
+     0.350997
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=106/n=352 → p=0.301136，CI=[0.255569,0.350997]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.301,
+     "pattern": "pct_share"
+    },
+    "note_n": 352
+   },
+   "l5": {
+    "p": 0.301,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "dbnomics_eurostat_tertiary_attain",
+   "id": 1080,
+   "layer": "L2",
+   "note": "回填·德国：cutoff 前 9 个年度值中 >= 16.9 占 55.6%（分位 q=0.5）",
+   "l2": {
+    "ok": false,
+    "status": "insufficient_data",
+    "method": "stat_baseline+wilson",
+    "p": null,
+    "n": 9,
+    "k": 5,
+    "ci": null,
+    "source": "baseRateNote:pct_share_n",
+    "note": "数据不足：n=9 < 30（K F13 准入线），本层不出 p 与区间。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.556,
+     "pattern": "pct_share"
+    },
+    "note_n": 9
+   },
+   "l5": {
+    "p": 0.556,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "dbnomics_eurostat_tertiary_attain",
+   "id": 1081,
+   "layer": "L2",
+   "note": "回填·德国：cutoff 前 10 个年度值中 >= 20.4 占 30.0%（分位 q=0.7）",
+   "l2": {
+    "ok": false,
+    "status": "insufficient_data",
+    "method": "stat_baseline+wilson",
+    "p": null,
+    "n": 10,
+    "k": 3,
+    "ci": null,
+    "source": "baseRateNote:pct_share_n",
+    "note": "数据不足：n=10 < 30（K F13 准入线），本层不出 p 与区间。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.3,
+     "pattern": "pct_share"
+    },
+    "note_n": 10
+   },
+   "l5": {
+    "p": 0.3,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "dbnomics_eurostat_tertiary_attain",
+   "id": 1083,
+   "layer": "L2",
+   "note": "回填·法国：cutoff 前 9 个年度值中 >= 19.8 占 55.6%（分位 q=0.5）",
+   "l2": {
+    "ok": false,
+    "status": "insufficient_data",
+    "method": "stat_baseline+wilson",
+    "p": null,
+    "n": 9,
+    "k": 5,
+    "ci": null,
+    "source": "baseRateNote:pct_share_n",
+    "note": "数据不足：n=9 < 30（K F13 准入线），本层不出 p 与区间。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.556,
+     "pattern": "pct_share"
+    },
+    "note_n": 9
+   },
+   "l5": {
+    "p": 0.556,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "dbnomics_eurostat_unemployment_monthly",
+   "id": 1504,
+   "layer": "L2",
+   "note": "回填·德国：cutoff 前 224 个月失业率中 <= 3.70 占 41.1%（分位 q=0.4）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.410714,
+    "n": 224,
+    "k": 92,
+    "ci": [
+     0.348321,
+     0.476119
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=92/n=224 → p=0.410714，CI=[0.348321,0.476119]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.41100000000000003,
+     "pattern": "pct_share"
+    },
+    "note_n": 224
+   },
+   "l5": {
+    "p": 0.411,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "dbnomics_eurostat_unemployment_monthly",
+   "id": 1505,
+   "layer": "L2",
+   "note": "回填·德国：cutoff 前 225 个月失业率中 <= 5.10 占 71.6%（分位 q=0.7）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.715556,
+    "n": 225,
+    "k": 161,
+    "ci": [
+     0.653372,
+     0.770502
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=161/n=225 → p=0.715556，CI=[0.653372,0.770502]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.716,
+     "pattern": "pct_share"
+    },
+    "note_n": 225
+   },
+   "l5": {
+    "p": 0.716,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "dbnomics_eurostat_unemployment_monthly",
+   "id": 1506,
+   "layer": "L2",
+   "note": "回填·德国：cutoff 前 226 个月失业率中 <= 3.40 占 30.5%（分位 q=0.3）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.30531,
+    "n": 226,
+    "k": 69,
+    "ci": [
+     0.248935,
+     0.368193
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=69/n=226 → p=0.30531，CI=[0.248935,0.368193]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.305,
+     "pattern": "pct_share"
+    },
+    "note_n": 226
+   },
+   "l5": {
+    "p": 0.305,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "dbnomics_series_value",
+   "id": 452,
+   "layer": "L2",
+   "note": "前瞻·M.USD.EUR.SP00.A：pre-cutoff 已发布 331 个月值中 <1.15 占 45.0%（DBnomics ECB/EXR 实抓，pre-cutoff 已发布口径）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.450151,
+    "n": 331,
+    "k": 149,
+    "ci": [
+     0.397431,
+     0.504015
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=149/n=331 → p=0.450151，CI=[0.397431,0.504015]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.45,
+     "pattern": "pct_share"
+    },
+    "note_n": 331
+   },
+   "l5": {
+    "p": 0.45,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "dbnomics_series_value",
+   "id": 471,
+   "layer": "L2",
+   "note": "前瞻·M.USD.EUR.SP00.A：pre-cutoff 已发布 332 个月值中 <1.15 占 44.9%（DBnomics ECB/EXR 实抓，pre-cutoff 已发布口径）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.448795,
+    "n": 332,
+    "k": 149,
+    "ci": [
+     0.396183,
+     0.502579
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=149/n=332 → p=0.448795，CI=[0.396183,0.502579]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.449,
+     "pattern": "pct_share"
+    },
+    "note_n": 332
+   },
+   "l5": {
+    "p": 0.449,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "dbnomics_series_value",
+   "id": 472,
+   "layer": "L2",
+   "note": "前瞻·M.USD.EUR.SP00.A：pre-cutoff 已发布 332 个月值中 <1.1 占 29.5%（DBnomics ECB/EXR 实抓，pre-cutoff 已发布口径）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.295181,
+    "n": 332,
+    "k": 98,
+    "ci": [
+     0.248684,
+     0.346363
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=98/n=332 → p=0.295181，CI=[0.248684,0.346363]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.295,
+     "pattern": "pct_share"
+    },
+    "note_n": 332
+   },
+   "l5": {
+    "p": 0.295,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "dbnomics_wb_commodity_annual",
+   "id": 1041,
+   "layer": "L2",
+   "note": "回填·WB 小麦(US HRW)：cutoff 前 62 个完整年度均价中 >= 185.12 占 71.0%（分位 q=0.3）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.709677,
+    "n": 62,
+    "k": 44,
+    "ci": [
+     0.587121,
+     0.807766
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=44/n=62 → p=0.709677，CI=[0.587121,0.807766]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.71,
+     "pattern": "pct_share"
+    },
+    "note_n": 62
+   },
+   "l5": {
+    "p": 0.71,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "dbnomics_wb_commodity_annual",
+   "id": 1042,
+   "layer": "L2",
+   "note": "回填·WB 小麦(US HRW)：cutoff 前 63 个完整年度均价中 >= 267.94 占 30.2%（分位 q=0.7）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.301587,
+    "n": 63,
+    "k": 19,
+    "ci": [
+     0.202375,
+     0.423606
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=19/n=63 → p=0.301587，CI=[0.202375,0.423606]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.302,
+     "pattern": "pct_share"
+    },
+    "note_n": 63
+   },
+   "l5": {
+    "p": 0.302,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "dbnomics_wb_commodity_annual",
+   "id": 1043,
+   "layer": "L2",
+   "note": "回填·WB 小麦(US HRW)：cutoff 前 64 个完整年度均价中 >= 195.66 占 60.9%（分位 q=0.4）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.609375,
+    "n": 64,
+    "k": 39,
+    "ci": [
+     0.486917,
+     0.719446
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=39/n=64 → p=0.609375，CI=[0.486917,0.719446]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.609,
+     "pattern": "pct_share"
+    },
+    "note_n": 64
+   },
+   "l5": {
+    "p": 0.609,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "delphi_fluview_ili",
+   "id": 1927,
+   "layer": "L2",
+   "note": "前瞻·加州：前 69 个周 ILI 中 >= 5846 占 71.0%（分位 q=0.3）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.710145,
+    "n": 69,
+    "k": 49,
+    "ci": [
+     0.594283,
+     0.803841
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=49/n=69 → p=0.710145，CI=[0.594283,0.803841]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.71,
+     "pattern": "pct_share"
+    },
+    "note_n": 69
+   },
+   "l5": {
+    "p": 0.71,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "delphi_fluview_ili",
+   "id": 1929,
+   "layer": "L2",
+   "note": "回填·加州：前 63 个周 ILI 中 >= 5963 占 71.4%（分位 q=0.3）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.714286,
+    "n": 63,
+    "k": 45,
+    "ci": [
+     0.59297,
+     0.81097
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=45/n=63 → p=0.714286，CI=[0.59297,0.81097]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.7140000000000001,
+     "pattern": "pct_share"
+    },
+    "note_n": 63
+   },
+   "l5": {
+    "p": 0.714,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "delphi_fluview_ili",
+   "id": 1930,
+   "layer": "L2",
+   "note": "回填·加州：前 49 个周 ILI 中 >= 6113 占 71.4%（分位 q=0.3）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.714286,
+    "n": 49,
+    "k": 35,
+    "ci": [
+     0.575909,
+     0.821506
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=35/n=49 → p=0.714286，CI=[0.575909,0.821506]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.7140000000000001,
+     "pattern": "pct_share"
+    },
+    "note_n": 49
+   },
+   "l5": {
+    "p": 0.714,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "delphi_fluview_num_ili",
+   "id": 1459,
+   "layer": "L2",
+   "note": "回填·US nat：cutoff 前 51 个 MMWR 周 ILI 中 >= 42083 占 60.8%（分位 q=0.4）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.607843,
+    "n": 51,
+    "k": 31,
+    "ci": [
+     0.470849,
+     0.729729
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=31/n=51 → p=0.607843，CI=[0.470849,0.729729]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.608,
+     "pattern": "pct_share"
+    },
+    "note_n": 51
+   },
+   "l5": {
+    "p": 0.608,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "delphi_fluview_num_ili",
+   "id": 1460,
+   "layer": "L2",
+   "note": "回填·US nat：cutoff 前 52 个 MMWR 周 ILI 中 >= 74855 占 30.8%（分位 q=0.7）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.307692,
+    "n": 52,
+    "k": 16,
+    "ci": [
+     0.199146,
+     0.442698
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=16/n=52 → p=0.307692，CI=[0.199146,0.442698]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.308,
+     "pattern": "pct_share"
+    },
+    "note_n": 52
+   },
+   "l5": {
+    "p": 0.308,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "delphi_fluview_num_ili",
+   "id": 1461,
+   "layer": "L2",
+   "note": "回填·US nat：cutoff 前 53 个 MMWR 周 ILI 中 >= 39852 占 71.7%（分位 q=0.3）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.716981,
+    "n": 53,
+    "k": 38,
+    "ci": [
+     0.584295,
+     0.820339
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=38/n=53 → p=0.716981，CI=[0.584295,0.820339]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.7170000000000001,
+     "pattern": "pct_share"
+    },
+    "note_n": 53
+   },
+   "l5": {
+    "p": 0.717,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "dlt_draw_result",
+   "id": 841,
+   "layer": "L5",
+   "note": "前瞻·L5 认证随机：基率=0.166667（后区含 01：C(11,1)*C(35,5)/[C(35,5)*C(12,2)]=11/66，组合数精确值非历史拟合）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.166667,
+    "n": 66,
+    "k": 11,
+    "ci": [
+     0.095695,
+     0.274308
+    ],
+    "source": "baseRateNote:fraction",
+    "note": "统计基率+Wilson(95%)：k=11/n=66 → p=0.166667，CI=[0.095695,0.274308]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.166667,
+     "pattern": "base_rate_eq"
+    },
+    "note_n": null
+   },
+   "l5": {
+    "p": 0.166667,
+    "kind": "certified_text"
+   }
+  },
+  {
+   "kind": "dlt_draw_result",
+   "id": 857,
+   "layer": "L5",
+   "note": "前瞻·L5 认证随机：基率=0.634186（前区最大号>=30：1-C(29,5)/C(35,5)（枚举 324632 组合现算），组合数精确值非历史拟合）",
+   "l2": {
+    "ok": false,
+    "status": "insufficient_data",
+    "method": "stat_baseline+wilson",
+    "p": null,
+    "n": null,
+    "k": null,
+    "ci": null,
+    "source": "baseRateNote:base_rate_eq",
+    "note": "baseRateNote 未含可解析样本量 n，无法过 n≥30 准入线（宁可缺，不可编），本层不出 p。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.634186,
+     "pattern": "base_rate_eq"
+    },
+    "note_n": null
+   },
+   "l5": {
+    "p": 0.634186,
+    "kind": "certified_text"
+   }
+  },
+  {
+   "kind": "dlt_draw_result",
+   "id": 1035,
+   "layer": "L5",
+   "note": "前瞻·L5 认证随机：基率=0.166667（C(11,1)*C(35,5)/[C(35,5)*C(12,2)]=11/66，组合数精确值非历史拟合）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.166667,
+    "n": 66,
+    "k": 11,
+    "ci": [
+     0.095695,
+     0.274308
+    ],
+    "source": "baseRateNote:fraction",
+    "note": "统计基率+Wilson(95%)：k=11/n=66 → p=0.166667，CI=[0.095695,0.274308]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.166667,
+     "pattern": "base_rate_eq"
+    },
+    "note_n": null
+   },
+   "l5": {
+    "p": 0.166667,
+    "kind": "certified_text"
+   }
+  },
+  {
+   "kind": "elexon_fuelhh_daily_mean",
+   "id": 1122,
+   "layer": "L2",
+   "note": "回填·UK/风电：cutoff 前 16 个日均中 >= 9484 占 31.3%（分位 q=0.7）",
+   "l2": {
+    "ok": false,
+    "status": "insufficient_data",
+    "method": "stat_baseline+wilson",
+    "p": null,
+    "n": 16,
+    "k": 5,
+    "ci": null,
+    "source": "baseRateNote:pct_share_n",
+    "note": "数据不足：n=16 < 30（K F13 准入线），本层不出 p 与区间。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.313,
+     "pattern": "pct_share"
+    },
+    "note_n": 16
+   },
+   "l5": {
+    "p": 0.313,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "elexon_fuelhh_daily_mean",
+   "id": 1123,
+   "layer": "L2",
+   "note": "回填·UK/风电：cutoff 前 17 个日均中 >= 9143 占 41.2%（分位 q=0.6）",
+   "l2": {
+    "ok": false,
+    "status": "insufficient_data",
+    "method": "stat_baseline+wilson",
+    "p": null,
+    "n": 17,
+    "k": 7,
+    "ci": null,
+    "source": "baseRateNote:pct_share_n",
+    "note": "数据不足：n=17 < 30（K F13 准入线），本层不出 p 与区间。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.41200000000000003,
+     "pattern": "pct_share"
+    },
+    "note_n": 17
+   },
+   "l5": {
+    "p": 0.412,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "elexon_fuelhh_daily_mean",
+   "id": 1124,
+   "layer": "L2",
+   "note": "回填·UK/风电：cutoff 前 18 个日均中 >= 9038 占 50.0%（分位 q=0.5）",
+   "l2": {
+    "ok": false,
+    "status": "insufficient_data",
+    "method": "stat_baseline+wilson",
+    "p": null,
+    "n": 18,
+    "k": 9,
+    "ci": null,
+    "source": "baseRateNote:pct_share_n",
+    "note": "数据不足：n=18 < 30（K F13 准入线），本层不出 p 与区间。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.5,
+     "pattern": "pct_share"
+    },
+    "note_n": 18
+   },
+   "l5": {
+    "p": 0.5,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "energycharts_daily_mean",
+   "id": 1730,
+   "layer": "L2",
+   "note": "前瞻·法国 Nuclear：前 201 个日均中 >= 37978 占 60.2%（分位 q=0.4）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.60199,
+    "n": 201,
+    "k": 121,
+    "ci": [
+     0.533017,
+     0.667138
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=121/n=201 → p=0.60199，CI=[0.533017,0.667138]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.602,
+     "pattern": "pct_share"
+    },
+    "note_n": 201
+   },
+   "l5": {
+    "p": 0.602,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "energycharts_daily_mean",
+   "id": 1731,
+   "layer": "L2",
+   "note": "回填·法国 Nuclear：前 121 个日均中 >= 40069 占 60.3%（分位 q=0.4）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.603306,
+    "n": 121,
+    "k": 73,
+    "ci": [
+     0.514251,
+     0.686003
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=73/n=121 → p=0.603306，CI=[0.514251,0.686003]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.603,
+     "pattern": "pct_share"
+    },
+    "note_n": 121
+   },
+   "l5": {
+    "p": 0.603,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "energycharts_daily_mean",
+   "id": 1732,
+   "layer": "L2",
+   "note": "前瞻·法国 Hydro Run-of-River：前 201 个日均中 >= 3577 占 60.2%（分位 q=0.4）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.60199,
+    "n": 201,
+    "k": 121,
+    "ci": [
+     0.533017,
+     0.667138
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=121/n=201 → p=0.60199，CI=[0.533017,0.667138]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.602,
+     "pattern": "pct_share"
+    },
+    "note_n": 201
+   },
+   "l5": {
+    "p": 0.602,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "energycharts_public_power_daily_mean",
+   "id": 1424,
+   "layer": "L2",
+   "note": "回填·DE/Hydro Run-of-River：cutoff 前 66 个日均中 >= 1502 占 30.3%（分位 q=0.7）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.30303,
+    "n": 66,
+    "k": 20,
+    "ci": [
+     0.205539,
+     0.42219
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=20/n=66 → p=0.30303，CI=[0.205539,0.42219]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.303,
+     "pattern": "pct_share"
+    },
+    "note_n": 66
+   },
+   "l5": {
+    "p": 0.303,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "energycharts_public_power_daily_mean",
+   "id": 1425,
+   "layer": "L2",
+   "note": "回填·DE/Hydro Run-of-River：cutoff 前 67 个日均中 >= 1455 占 40.3%（分位 q=0.6）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.402985,
+    "n": 67,
+    "k": 27,
+    "ci": [
+     0.293903,
+     0.522589
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=27/n=67 → p=0.402985，CI=[0.293903,0.522589]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.40299999999999997,
+     "pattern": "pct_share"
+    },
+    "note_n": 67
+   },
+   "l5": {
+    "p": 0.403,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "energycharts_public_power_daily_mean",
+   "id": 1426,
+   "layer": "L2",
+   "note": "回填·DE/Hydro Run-of-River：cutoff 前 68 个日均中 >= 1414 占 50.0%（分位 q=0.5）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.5,
+    "n": 68,
+    "k": 34,
+    "ci": [
+     0.384379,
+     0.615621
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=34/n=68 → p=0.5，CI=[0.384379,0.615621]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.5,
+     "pattern": "pct_share"
+    },
+    "note_n": 68
+   },
+   "l5": {
+    "p": 0.5,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "eurostat_demo_pjan_annual",
+   "id": 1899,
+   "layer": "L2",
+   "note": "前瞻·德国：前 36 个年度人口中 >= 82,175,684 占 50.0%（分位 q=0.5）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.5,
+    "n": 36,
+    "k": 18,
+    "ci": [
+     0.344741,
+     0.655259
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=18/n=36 → p=0.5，CI=[0.344741,0.655259]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.5,
+     "pattern": "pct_share"
+    },
+    "note_n": 36
+   },
+   "l5": {
+    "p": 0.5,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "eurostat_demo_pjan_annual",
+   "id": 1900,
+   "layer": "L2",
+   "note": "回填·德国：前 31 个年度人口中 >= 82,314,906 占 32.3%（分位 q=0.7）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.322581,
+    "n": 31,
+    "k": 10,
+    "ci": [
+     0.185692,
+     0.498593
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=10/n=31 → p=0.322581，CI=[0.185692,0.498593]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.32299999999999995,
+     "pattern": "pct_share"
+    },
+    "note_n": 31
+   },
+   "l5": {
+    "p": 0.323,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "eurostat_demo_pjan_annual",
+   "id": 1901,
+   "layer": "L2",
+   "note": "回填·德国：前 34 个年度人口中 >= 82,259,540 占 41.2%（分位 q=0.6）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.411765,
+    "n": 34,
+    "k": 14,
+    "ci": [
+     0.263657,
+     0.577787
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=14/n=34 → p=0.411765，CI=[0.263657,0.577787]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.41200000000000003,
+     "pattern": "pct_share"
+    },
+    "note_n": 34
+   },
+   "l5": {
+    "p": 0.412,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "eurostat_live_tertiary_attain",
+   "id": 1082,
+   "layer": "L2",
+   "note": "前瞻·德国：已发布 11 个年度值（2014~2024，官方直连已到 2025）中 >= 20.4 占 36.4%（分位 q=0.7，pre-cutoff）",
+   "l2": {
+    "ok": false,
+    "status": "insufficient_data",
+    "method": "stat_baseline+wilson",
+    "p": null,
+    "n": 11,
+    "k": 4,
+    "ci": null,
+    "source": "baseRateNote:pct_share_n",
+    "note": "数据不足：n=11 < 30（K F13 准入线），本层不出 p 与区间。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.364,
+     "pattern": "pct_share"
+    },
+    "note_n": 11
+   },
+   "l5": {
+    "p": 0.364,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "eurostat_live_tertiary_attain",
+   "id": 1085,
+   "layer": "L2",
+   "note": "前瞻·法国：已发布 11 个年度值（2014~2024，官方直连已到 2025）中 >= 19.8 占 63.6%（分位 q=0.4，pre-cutoff）",
+   "l2": {
+    "ok": false,
+    "status": "insufficient_data",
+    "method": "stat_baseline+wilson",
+    "p": null,
+    "n": 11,
+    "k": 7,
+    "ci": null,
+    "source": "baseRateNote:pct_share_n",
+    "note": "数据不足：n=11 < 30（K F13 准入线），本层不出 p 与区间。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.636,
+     "pattern": "pct_share"
+    },
+    "note_n": 11
+   },
+   "l5": {
+    "p": 0.636,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "eurostat_live_tertiary_attain",
+   "id": 1088,
+   "layer": "L2",
+   "note": "前瞻·西班牙：已发布 11 个年度值（2014~2024，官方直连已到 2025）中 >= 12.0 占 63.6%（分位 q=0.4，pre-cutoff）",
+   "l2": {
+    "ok": false,
+    "status": "insufficient_data",
+    "method": "stat_baseline+wilson",
+    "p": null,
+    "n": 11,
+    "k": 7,
+    "ci": null,
+    "source": "baseRateNote:pct_share_n",
+    "note": "数据不足：n=11 < 30（K F13 准入线），本层不出 p 与区间。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.636,
+     "pattern": "pct_share"
+    },
+    "note_n": 11
+   },
+   "l5": {
+    "p": 0.636,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "eurostat_live_unemployment_monthly",
+   "id": 1507,
+   "layer": "L2",
+   "note": "前瞻·德国：已发布 227 个月（2007-01~2025-11，官方直连已到 2026-07）失业率中 <= 3.70 占 41.4%（分位 q=0.4，pre-cutoff）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.414097,
+    "n": 227,
+    "k": 94,
+    "ci": [
+     0.351968,
+     0.479085
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=94/n=227 → p=0.414097，CI=[0.351968,0.479085]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.414,
+     "pattern": "pct_share"
+    },
+    "note_n": 227
+   },
+   "l5": {
+    "p": 0.414,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "eurostat_live_unemployment_monthly",
+   "id": 1508,
+   "layer": "L2",
+   "note": "前瞻·德国：已发布 227 个月（2007-01~2025-11，官方直连已到 2026-07）失业率中 <= 5.10 占 71.8%（分位 q=0.7，pre-cutoff）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.718062,
+    "n": 227,
+    "k": 163,
+    "ci": [
+     0.656275,
+     0.77259
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=163/n=227 → p=0.718062，CI=[0.656275,0.77259]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.718,
+     "pattern": "pct_share"
+    },
+    "note_n": 227
+   },
+   "l5": {
+    "p": 0.718,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "eurostat_live_unemployment_monthly",
+   "id": 1512,
+   "layer": "L2",
+   "note": "前瞻·法国：已发布 275 个月（2003-01~2025-11，官方直连已到 2026-07）失业率中 <= 8.50 占 42.5%（分位 q=0.4，pre-cutoff）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.425455,
+    "n": 275,
+    "k": 117,
+    "ci": [
+     0.368441,
+     0.484522
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=117/n=275 → p=0.425455，CI=[0.368441,0.484522]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.425,
+     "pattern": "pct_share"
+    },
+    "note_n": 275
+   },
+   "l5": {
+    "p": 0.425,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "frankfurter_rate",
+   "id": 941,
+   "layer": "L2",
+   "note": "回填·USD/CNY：cutoff 前 330 个发布日汇率中 >= 6.9390 占 60.0%（分位 q=0.4）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.6,
+    "n": 330,
+    "k": 198,
+    "ci": [
+     0.546284,
+     0.651414
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=198/n=330 → p=0.6，CI=[0.546284,0.651414]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.6,
+     "pattern": "pct_share"
+    },
+    "note_n": 330
+   },
+   "l5": {
+    "p": 0.6,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "frankfurter_rate",
+   "id": 942,
+   "layer": "L2",
+   "note": "回填·USD/CNY：cutoff 前 265 个发布日汇率中 >= 7.1143 占 50.2%（分位 q=0.5）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.501887,
+    "n": 265,
+    "k": 133,
+    "ci": [
+     0.442091,
+     0.561629
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=133/n=265 → p=0.501887，CI=[0.442091,0.561629]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.502,
+     "pattern": "pct_share"
+    },
+    "note_n": 265
+   },
+   "l5": {
+    "p": 0.502,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "frankfurter_rate",
+   "id": 945,
+   "layer": "L2",
+   "note": "回填·USD/JPY：cutoff 前 330 个发布日汇率中 >= 155.3700 占 50.0%（分位 q=0.5）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.5,
+    "n": 330,
+    "k": 165,
+    "ci": [
+     0.446364,
+     0.553636
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=165/n=330 → p=0.5，CI=[0.446364,0.553636]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.5,
+     "pattern": "pct_share"
+    },
+    "note_n": 330
+   },
+   "l5": {
+    "p": 0.5,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "frankfurter_rate_range",
+   "id": 939,
+   "layer": "L2",
+   "note": "前瞻·USD/CNY：近 350 个发布日（2025-04-30~2026-09-10）汇率 >= 7.1076 占 40.0%（分位 q=0.6，pre-cutoff）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.4,
+    "n": 350,
+    "k": 140,
+    "ci": [
+     0.350029,
+     0.452143
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=140/n=350 → p=0.4，CI=[0.350029,0.452143]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.4,
+     "pattern": "pct_share"
+    },
+    "note_n": 350
+   },
+   "l5": {
+    "p": 0.4,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "frankfurter_rate_range",
+   "id": 943,
+   "layer": "L2",
+   "note": "前瞻·USD/JPY：近 350 个发布日（2025-04-30~2026-09-10）汇率 >= 155.8500 占 50.0%（分位 q=0.5，pre-cutoff）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.5,
+    "n": 350,
+    "k": 175,
+    "ci": [
+     0.447902,
+     0.552098
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=175/n=350 → p=0.5，CI=[0.447902,0.552098]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.5,
+     "pattern": "pct_share"
+    },
+    "note_n": 350
+   },
+   "l5": {
+    "p": 0.5,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "frankfurter_rate_range",
+   "id": 947,
+   "layer": "L2",
+   "note": "前瞻·USD/EUR：近 350 个发布日（2025-04-30~2026-09-10）汇率 >= 0.8603 占 50.0%（分位 q=0.5，pre-cutoff）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.5,
+    "n": 350,
+    "k": 175,
+    "ci": [
+     0.447902,
+     0.552098
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=175/n=350 → p=0.5，CI=[0.447902,0.552098]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.5,
+     "pattern": "pct_share"
+    },
+    "note_n": 350
+   },
+   "l5": {
+    "p": 0.5,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "ghcn_daily_tmax",
+   "id": 1102,
+   "layer": "L3",
+   "note": "回填·纽约中央公园：cutoff 前 373 天日最高气温中 >= 65.0 占 50.7%（分位 q=0.5）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.506702,
+    "n": 373,
+    "k": 189,
+    "ci": [
+     0.456155,
+     0.557113
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=189/n=373 → p=0.506702，CI=[0.456155,0.557113]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.507,
+     "pattern": "pct_share"
+    },
+    "note_n": 373
+   },
+   "l5": {
+    "p": 0.507,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "ghcn_daily_tmax",
+   "id": 1103,
+   "layer": "L3",
+   "note": "回填·纽约中央公园：cutoff 前 374 天日最高气温中 >= 51.0 占 70.1%（分位 q=0.3）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.700535,
+    "n": 374,
+    "k": 262,
+    "ci": [
+     0.652267,
+     0.744725
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=262/n=374 → p=0.700535，CI=[0.652267,0.744725]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.701,
+     "pattern": "pct_share"
+    },
+    "note_n": 374
+   },
+   "l5": {
+    "p": 0.701,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "ghcn_daily_tmax",
+   "id": 1104,
+   "layer": "L3",
+   "note": "回填·纽约中央公园：cutoff 前 375 天日最高气温中 >= 79.0 占 30.4%（分位 q=0.7）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.304,
+    "n": 375,
+    "k": 114,
+    "ci": [
+     0.259625,
+     0.35235
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=114/n=375 → p=0.304，CI=[0.259625,0.35235]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.304,
+     "pattern": "pct_share"
+    },
+    "note_n": 375
+   },
+   "l5": {
+    "p": 0.304,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "github_weekly_commits",
+   "id": 930,
+   "layer": "L2",
+   "note": "回填·nodejs/node：cutoff 前 51 个完整周提交数中 >= 61 占 45.1%（分位 q=0.6）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.45098,
+    "n": 51,
+    "k": 23,
+    "ci": [
+     0.322673,
+     0.586155
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=23/n=51 → p=0.45098，CI=[0.322673,0.586155]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.451,
+     "pattern": "pct_share"
+    },
+    "note_n": 51
+   },
+   "l5": {
+    "p": 0.451,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "github_weekly_commits",
+   "id": 931,
+   "layer": "L2",
+   "note": "回填·nodejs/node：cutoff 前 50 个完整周提交数中 >= 61 占 44.0%（分位 q=0.6）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.44,
+    "n": 50,
+    "k": 22,
+    "ci": [
+     0.31162,
+     0.576942
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=22/n=50 → p=0.44，CI=[0.31162,0.576942]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.44,
+     "pattern": "pct_share"
+    },
+    "note_n": 50
+   },
+   "l5": {
+    "p": 0.44,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "github_weekly_commits",
+   "id": 932,
+   "layer": "L2",
+   "note": "前瞻·nodejs/node：近 52 个完整周提交数中 >= 61 占 46.2%（分位 q=0.6，pre-cutoff）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.461538,
+    "n": 52,
+    "k": 24,
+    "ci": [
+     0.333403,
+     0.594966
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=24/n=52 → p=0.461538，CI=[0.333403,0.594966]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.462,
+     "pattern": "pct_share"
+    },
+    "note_n": 52
+   },
+   "l5": {
+    "p": 0.462,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "jpl_cad_monthly_count",
+   "id": 1885,
+   "layer": "L3",
+   "note": "前瞻·CAD：前 105 个月计数中 >= 94 占 72.4%（分位 q=0.3）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.72381,
+    "n": 105,
+    "k": 76,
+    "ci": [
+     0.63154,
+     0.80028
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=76/n=105 → p=0.72381，CI=[0.63154,0.80028]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.7240000000000001,
+     "pattern": "pct_share"
+    },
+    "note_n": 105
+   },
+   "l5": {
+    "p": 0.724,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "jpl_cad_monthly_count",
+   "id": 1887,
+   "layer": "L3",
+   "note": "回填·CAD：前 101 个月计数中 >= 97 占 70.3%（分位 q=0.3）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.70297,
+    "n": 101,
+    "k": 71,
+    "ci": [
+     0.607748,
+     0.783318
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=71/n=101 → p=0.70297，CI=[0.607748,0.783318]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.703,
+     "pattern": "pct_share"
+    },
+    "note_n": 101
+   },
+   "l5": {
+    "p": 0.703,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "jpl_cad_monthly_count",
+   "id": 1888,
+   "layer": "L3",
+   "note": "回填·CAD：前 89 个月计数中 >= 147 占 30.3%（分位 q=0.7）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.303371,
+    "n": 89,
+    "k": 27,
+    "ci": [
+     0.217641,
+     0.405373
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=27/n=89 → p=0.303371，CI=[0.217641,0.405373]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.303,
+     "pattern": "pct_share"
+    },
+    "note_n": 89
+   },
+   "l5": {
+    "p": 0.303,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "kraken_daily_close",
+   "id": 1473,
+   "layer": "L2",
+   "note": "回填·Kraken SOL/USD：cutoff 前 75 个日线收盘中 >= 75.94 占 60.0%（分位 q=0.4）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.6,
+    "n": 75,
+    "k": 45,
+    "ci": [
+     0.486878,
+     0.703377
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=45/n=75 → p=0.6，CI=[0.486878,0.703377]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.6,
+     "pattern": "pct_share"
+    },
+    "note_n": 75
+   },
+   "l5": {
+    "p": 0.6,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "kraken_daily_close",
+   "id": 1474,
+   "layer": "L2",
+   "note": "回填·Kraken SOL/USD：cutoff 前 76 个日线收盘中 >= 81.90 占 30.3%（分位 q=0.7）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.302632,
+    "n": 76,
+    "k": 23,
+    "ci": [
+     0.210912,
+     0.413344
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=23/n=76 → p=0.302632，CI=[0.210912,0.413344]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.303,
+     "pattern": "pct_share"
+    },
+    "note_n": 76
+   },
+   "l5": {
+    "p": 0.303,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "kraken_daily_close",
+   "id": 1475,
+   "layer": "L2",
+   "note": "回填·Kraken SOL/USD：cutoff 前 77 个日线收盘中 >= 76.85 占 50.6%（分位 q=0.5）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.506494,
+    "n": 77,
+    "k": 39,
+    "ci": [
+     0.397198,
+     0.615172
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=39/n=77 → p=0.506494，CI=[0.397198,0.615172]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.506,
+     "pattern": "pct_share"
+    },
+    "note_n": 77
+   },
+   "l5": {
+    "p": 0.506,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "mlb_schedule_daily_total_runs",
+   "id": 1497,
+   "layer": "L2",
+   "note": "回填·MLB：cutoff 前 45 个比赛日总得分中 >= 119 占 60.0%（分位 q=0.4）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.6,
+    "n": 45,
+    "k": 27,
+    "ci": [
+     0.454516,
+     0.729753
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=27/n=45 → p=0.6，CI=[0.454516,0.729753]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.6,
+     "pattern": "pct_share"
+    },
+    "note_n": 45
+   },
+   "l5": {
+    "p": 0.6,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "mlb_schedule_daily_total_runs",
+   "id": 1498,
+   "layer": "L2",
+   "note": "回填·MLB：cutoff 前 46 个比赛日总得分中 >= 126 占 43.5%（分位 q=0.6）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.434783,
+    "n": 46,
+    "k": 20,
+    "ci": [
+     0.30209,
+     0.577528
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=20/n=46 → p=0.434783，CI=[0.30209,0.577528]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.435,
+     "pattern": "pct_share"
+    },
+    "note_n": 46
+   },
+   "l5": {
+    "p": 0.435,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "mlb_schedule_daily_total_runs",
+   "id": 1499,
+   "layer": "L2",
+   "note": "回填·MLB：cutoff 前 47 个比赛日总得分中 >= 114 占 72.3%（分位 q=0.3）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.723404,
+    "n": 47,
+    "k": 34,
+    "ci": [
+     0.582412,
+     0.830636
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=34/n=47 → p=0.723404，CI=[0.582412,0.830636]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.723,
+     "pattern": "pct_share"
+    },
+    "note_n": 47
+   },
+   "l5": {
+    "p": 0.723,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "noaa_gml_co2_daily",
+   "id": 1873,
+   "layer": "L3",
+   "note": "前瞻·MLO CO2：前 500 个日均中 >= 428.60 占 40.2%（分位 q=0.6）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.402,
+    "n": 500,
+    "k": 201,
+    "ci": [
+     0.359928,
+     0.445566
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=201/n=500 → p=0.402，CI=[0.359928,0.445566]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.402,
+     "pattern": "pct_share"
+    },
+    "note_n": 500
+   },
+   "l5": {
+    "p": 0.402,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "noaa_gml_co2_daily",
+   "id": 1875,
+   "layer": "L3",
+   "note": "回填·MLO CO2：前 460 个日均中 >= 428.72 占 40.0%（分位 q=0.6）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.4,
+    "n": 460,
+    "k": 184,
+    "ci": [
+     0.356237,
+     0.44542
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=184/n=460 → p=0.4，CI=[0.356237,0.44542]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.4,
+     "pattern": "pct_share"
+    },
+    "note_n": 460
+   },
+   "l5": {
+    "p": 0.4,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "noaa_gml_co2_daily",
+   "id": 1876,
+   "layer": "L3",
+   "note": "回填·MLO CO2：前 380 个日均中 >= 426.18 占 70.0%（分位 q=0.3）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.7,
+    "n": 380,
+    "k": 266,
+    "ci": [
+     0.65211,
+     0.743887
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=266/n=380 → p=0.7，CI=[0.65211,0.743887]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.7,
+     "pattern": "pct_share"
+    },
+    "note_n": 380
+   },
+   "l5": {
+    "p": 0.7,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "noaa_solar_cycle_ssn_monthly",
+   "id": 1096,
+   "layer": "L3",
+   "note": "回填·SSN：cutoff 前 3328 个月值中 >= 109.9 占 30.0%（分位 q=0.7）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.29988,
+    "n": 3328,
+    "k": 998,
+    "ci": [
+     0.28455,
+     0.315671
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=998/n=3328 → p=0.29988，CI=[0.28455,0.315671]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.3,
+     "pattern": "pct_share"
+    },
+    "note_n": 3328
+   },
+   "l5": {
+    "p": 0.3,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "noaa_solar_cycle_ssn_monthly",
+   "id": 1097,
+   "layer": "L3",
+   "note": "回填·SSN：cutoff 前 3329 个月值中 >= 32.6 占 70.1%（分位 q=0.3）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.701111,
+    "n": 3329,
+    "k": 2334,
+    "ci": [
+     0.685336,
+     0.716423
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=2334/n=3329 → p=0.701111，CI=[0.685336,0.716423]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.701,
+     "pattern": "pct_share"
+    },
+    "note_n": 3329
+   },
+   "l5": {
+    "p": 0.701,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "noaa_solar_cycle_ssn_monthly",
+   "id": 1098,
+   "layer": "L3",
+   "note": "回填·SSN：cutoff 前 3330 个月值中 >= 68.6 占 50.0%（分位 q=0.5）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.5,
+    "n": 3330,
+    "k": 1665,
+    "ci": [
+     0.483027,
+     0.516973
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=1665/n=3330 → p=0.5，CI=[0.483027,0.516973]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.5,
+     "pattern": "pct_share"
+    },
+    "note_n": 3330
+   },
+   "l5": {
+    "p": 0.5,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "noaa_tide_daily_high",
+   "id": 1707,
+   "layer": "L2",
+   "note": "前瞻·纽约炮台公园：前 261 个日最高潮位中 >= 0.852 占 30.3%（分位 q=0.7）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.302682,
+    "n": 261,
+    "k": 79,
+    "ci": [
+     0.250139,
+     0.36095
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=79/n=261 → p=0.302682，CI=[0.250139,0.36095]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.303,
+     "pattern": "pct_share"
+    },
+    "note_n": 261
+   },
+   "l5": {
+    "p": 0.303,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "noaa_tide_daily_high",
+   "id": 1709,
+   "layer": "L2",
+   "note": "回填·纽约炮台公园：前 100 个日最高潮位中 >= 0.648 占 70.0%（分位 q=0.3）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.7,
+    "n": 100,
+    "k": 70,
+    "ci": [
+     0.60415,
+     0.781052
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=70/n=100 → p=0.7，CI=[0.60415,0.781052]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.7,
+     "pattern": "pct_share"
+    },
+    "note_n": 100
+   },
+   "l5": {
+    "p": 0.7,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "noaa_tide_daily_high",
+   "id": 1710,
+   "layer": "L2",
+   "note": "前瞻·旧金山金门：前 261 个日最高潮位中 >= 0.842 占 40.2%（分位 q=0.6）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.402299,
+    "n": 261,
+    "k": 105,
+    "ci": [
+     0.344641,
+     0.462791
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=105/n=261 → p=0.402299，CI=[0.344641,0.462791]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.402,
+     "pattern": "pct_share"
+    },
+    "note_n": 261
+   },
+   "l5": {
+    "p": 0.402,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "noaa_tide_daily_max",
+   "id": 1221,
+   "layer": "L2",
+   "note": "回填·波士顿：cutoff 前 30 个日均中 >= 1.467 占 70.0%（分位 q=0.3）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.7,
+    "n": 30,
+    "k": 21,
+    "ci": [
+     0.521239,
+     0.833354
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=21/n=30 → p=0.7，CI=[0.521239,0.833354]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.7,
+     "pattern": "pct_share"
+    },
+    "note_n": 30
+   },
+   "l5": {
+    "p": 0.7,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "noaa_tide_daily_max",
+   "id": 1222,
+   "layer": "L2",
+   "note": "回填·波士顿：cutoff 前 31 个日均中 >= 1.467 占 71.0%（分位 q=0.3）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.709677,
+    "n": 31,
+    "k": 22,
+    "ci": [
+     0.534073,
+     0.839044
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=22/n=31 → p=0.709677，CI=[0.534073,0.839044]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.71,
+     "pattern": "pct_share"
+    },
+    "note_n": 31
+   },
+   "l5": {
+    "p": 0.71,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "noaa_tide_daily_max",
+   "id": 1223,
+   "layer": "L2",
+   "note": "回填·波士顿：cutoff 前 32 个日均中 >= 1.592 占 40.6%（分位 q=0.6）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.40625,
+    "n": 32,
+    "k": 13,
+    "ci": [
+     0.255194,
+     0.577403
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=13/n=32 → p=0.40625，CI=[0.255194,0.577403]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.406,
+     "pattern": "pct_share"
+    },
+    "note_n": 32
+   },
+   "l5": {
+    "p": 0.406,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "npm_downloads_window",
+   "id": 951,
+   "layer": "L2",
+   "note": "前瞻·react：近 193 个 7 日滚动窗（2026-03-03~2026-09-11）中 >= 141517729 占 40.4%（分位 q=0.6，pre-cutoff）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.404145,
+    "n": 193,
+    "k": 78,
+    "ci": [
+     0.337436,
+     0.474596
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=78/n=193 → p=0.404145，CI=[0.337436,0.474596]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.40399999999999997,
+     "pattern": "pct_share"
+    },
+    "note_n": 193
+   },
+   "l5": {
+    "p": 0.404,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "npm_downloads_window",
+   "id": 953,
+   "layer": "L2",
+   "note": "回填·react：cutoff 前 158 个 7 日滚动窗中 >= 131023645 占 50.0%（分位 q=0.5）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.5,
+    "n": 158,
+    "k": 79,
+    "ci": [
+     0.422966,
+     0.577034
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=79/n=158 → p=0.5，CI=[0.422966,0.577034]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.5,
+     "pattern": "pct_share"
+    },
+    "note_n": 158
+   },
+   "l5": {
+    "p": 0.5,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "npm_downloads_window",
+   "id": 954,
+   "layer": "L2",
+   "note": "前瞻·typescript：近 193 个 7 日滚动窗（2026-03-03~2026-09-11）中 >= 202420346 占 50.3%（分位 q=0.5，pre-cutoff）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.502591,
+    "n": 193,
+    "k": 97,
+    "ci": [
+     0.432691,
+     0.572389
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=97/n=193 → p=0.502591，CI=[0.432691,0.572389]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.503,
+     "pattern": "pct_share"
+    },
+    "note_n": 193
+   },
+   "l5": {
+    "p": 0.503,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "nvd_cve_week_count",
+   "id": 1468,
+   "layer": "L2",
+   "note": "回填·NVD：cutoff 前 7 个整周 CVE 数中 >= 1852 占 71.4%（分位 q=0.4）",
+   "l2": {
+    "ok": false,
+    "status": "insufficient_data",
+    "method": "stat_baseline+wilson",
+    "p": null,
+    "n": 7,
+    "k": 5,
+    "ci": null,
+    "source": "baseRateNote:pct_share_n",
+    "note": "数据不足：n=7 < 30（K F13 准入线），本层不出 p 与区间。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.7140000000000001,
+     "pattern": "pct_share"
+    },
+    "note_n": 7
+   },
+   "l5": {
+    "p": 0.714,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "nvd_cve_week_count",
+   "id": 1469,
+   "layer": "L2",
+   "note": "回填·NVD：cutoff 前 8 个整周 CVE 数中 >= 2056 占 50.0%（分位 q=0.5）",
+   "l2": {
+    "ok": false,
+    "status": "insufficient_data",
+    "method": "stat_baseline+wilson",
+    "p": null,
+    "n": 8,
+    "k": 4,
+    "ci": null,
+    "source": "baseRateNote:pct_share_n",
+    "note": "数据不足：n=8 < 30（K F13 准入线），本层不出 p 与区间。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.5,
+     "pattern": "pct_share"
+    },
+    "note_n": 8
+   },
+   "l5": {
+    "p": 0.5,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "nvd_cve_week_count",
+   "id": 1470,
+   "layer": "L2",
+   "note": "回填·NVD：cutoff 前 9 个整周 CVE 数中 >= 1930 占 66.7%（分位 q=0.4）",
+   "l2": {
+    "ok": false,
+    "status": "insufficient_data",
+    "method": "stat_baseline+wilson",
+    "p": null,
+    "n": 9,
+    "k": 6,
+    "ci": null,
+    "source": "baseRateNote:pct_share_n",
+    "note": "数据不足：n=9 < 30（K F13 准入线），本层不出 p 与区间。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.667,
+     "pattern": "pct_share"
+    },
+    "note_n": 9
+   },
+   "l5": {
+    "p": 0.667,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "openalex_works_count",
+   "id": 1895,
+   "layer": "L2",
+   "note": "回填·OpenAlex：用同源 4 个历史窗口的中位阈值（窗口计数随索引回填而变动，故本域只用已稳定的远期窗口，不产前瞻题）",
+   "l2": {
+    "ok": false,
+    "status": "insufficient_data",
+    "method": "stat_baseline+wilson",
+    "p": null,
+    "n": null,
+    "k": null,
+    "ci": null,
+    "source": "baseRateNote:unparsed",
+    "note": "baseRateNote 无法解析出基率（支持口径：占 X% / 基率=v / k·n 分数），本层不出 p。"
+   },
+   "g2": {
+    "base": null,
+    "note_n": 4
+   },
+   "l5": null
+  },
+  {
+   "kind": "openmeteo_air_daily_mean",
+   "id": 1519,
+   "layer": "L3",
+   "note": "前瞻·北京 pm10：cutoff 前 400 个日均中 >= 110.7 占 70.3%（分位 q=0.7）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.7025,
+    "n": 400,
+    "k": 281,
+    "ci": [
+     0.655944,
+     0.745203
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=281/n=400 → p=0.7025，CI=[0.655944,0.745203]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.703,
+     "pattern": "pct_share"
+    },
+    "note_n": 400
+   },
+   "l5": {
+    "p": 0.703,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "openmeteo_air_daily_mean",
+   "id": 1520,
+   "layer": "L3",
+   "note": "回填·北京 pm10：cutoff 前 355 个日均中 >= 86.4 占 50.1%（分位 q=0.5）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.501408,
+    "n": 355,
+    "k": 178,
+    "ci": [
+     0.44966,
+     0.553127
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=178/n=355 → p=0.501408，CI=[0.44966,0.553127]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.501,
+     "pattern": "pct_share"
+    },
+    "note_n": 355
+   },
+   "l5": {
+    "p": 0.501,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "openmeteo_air_daily_mean",
+   "id": 1521,
+   "layer": "L3",
+   "note": "前瞻·北京 pm2_5：cutoff 前 400 个日均中 >= 73.5 占 50.2%（分位 q=0.5）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.5025,
+    "n": 400,
+    "k": 201,
+    "ci": [
+     0.45371,
+     0.551242
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=201/n=400 → p=0.5025，CI=[0.45371,0.551242]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.502,
+     "pattern": "pct_share"
+    },
+    "note_n": 400
+   },
+   "l5": {
+    "p": 0.502,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "openmeteo_air_ozone_daily_mean",
+   "id": 1144,
+   "layer": "L3",
+   "note": "回填·伦敦：cutoff 前 115 个 臭氧 日均中 <= 66.3 占 60.9%（分位 q=0.6）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.608696,
+    "n": 115,
+    "k": 70,
+    "ci": [
+     0.517365,
+     0.692999
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=70/n=115 → p=0.608696，CI=[0.517365,0.692999]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.609,
+     "pattern": "pct_share"
+    },
+    "note_n": 115
+   },
+   "l5": {
+    "p": 0.609,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "openmeteo_air_ozone_daily_mean",
+   "id": 1145,
+   "layer": "L3",
+   "note": "回填·伦敦：cutoff 前 116 个 臭氧 日均中 <= 57.7 占 30.2%（分位 q=0.3）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.301724,
+    "n": 116,
+    "k": 35,
+    "ci": [
+     0.225654,
+     0.390506
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=35/n=116 → p=0.301724，CI=[0.225654,0.390506]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.302,
+     "pattern": "pct_share"
+    },
+    "note_n": 116
+   },
+   "l5": {
+    "p": 0.302,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "openmeteo_air_ozone_daily_mean",
+   "id": 1146,
+   "layer": "L3",
+   "note": "回填·伦敦：cutoff 前 117 个 臭氧 日均中 <= 63.0 占 50.4%（分位 q=0.5）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.504274,
+    "n": 117,
+    "k": 59,
+    "ci": [
+     0.414992,
+     0.593284
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=59/n=117 → p=0.504274，CI=[0.414992,0.593284]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.504,
+     "pattern": "pct_share"
+    },
+    "note_n": 117
+   },
+   "l5": {
+    "p": 0.504,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "openmeteo_air_pm10_daily_mean",
+   "id": 873,
+   "layer": "L3",
+   "note": "回填·上海：cutoff 前 325 个 PM10 日均中 <= 32.5 占 30.2%（分位 q=0.3）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.301538,
+    "n": 325,
+    "k": 98,
+    "ci": [
+     0.2542,
+     0.353514
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=98/n=325 → p=0.301538，CI=[0.2542,0.353514]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.302,
+     "pattern": "pct_share"
+    },
+    "note_n": 325
+   },
+   "l5": {
+    "p": 0.302,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "openmeteo_air_pm10_daily_mean",
+   "id": 874,
+   "layer": "L3",
+   "note": "回填·上海：cutoff 前 285 个 PM10 日均中 <= 51.5 占 60.4%（分位 q=0.6）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.603509,
+    "n": 285,
+    "k": 172,
+    "ci": [
+     0.545702,
+     0.658563
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=172/n=285 → p=0.603509，CI=[0.545702,0.658563]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.604,
+     "pattern": "pct_share"
+    },
+    "note_n": 285
+   },
+   "l5": {
+    "p": 0.604,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "openmeteo_air_pm10_daily_mean",
+   "id": 875,
+   "layer": "L3",
+   "note": "前瞻·上海：过去 365 天（2025-09-13~2026-09-13）365 个 PM10 日均中 <= 29.7 占 30.1%（分位 q=0.3，pre-cutoff）",
+   "l2": {
+    "ok": false,
+    "status": "insufficient_data",
+    "method": "stat_baseline+wilson",
+    "p": null,
+    "n": null,
+    "k": null,
+    "ci": null,
+    "source": "baseRateNote:pct_share_non",
+    "note": "baseRateNote 未含可解析样本量 n，无法过 n≥30 准入线（宁可缺，不可编），本层不出 p。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.301,
+     "pattern": "pct_share"
+    },
+    "note_n": null
+   },
+   "l5": {
+    "p": 0.301,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "openmeteo_air_pm2_5_daily_mean",
+   "id": 1137,
+   "layer": "L3",
+   "note": "回填·伦敦：cutoff 前 115 个 PM2.5 日均中 <= 6.4 占 60.9%（分位 q=0.6）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.608696,
+    "n": 115,
+    "k": 70,
+    "ci": [
+     0.517365,
+     0.692999
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=70/n=115 → p=0.608696，CI=[0.517365,0.692999]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.609,
+     "pattern": "pct_share"
+    },
+    "note_n": 115
+   },
+   "l5": {
+    "p": 0.609,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "openmeteo_air_pm2_5_daily_mean",
+   "id": 1138,
+   "layer": "L3",
+   "note": "回填·伦敦：cutoff 前 116 个 PM2.5 日均中 <= 5.1 占 40.5%（分位 q=0.4）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.405172,
+    "n": 116,
+    "k": 47,
+    "ci": [
+     0.320264,
+     0.49616
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=47/n=116 → p=0.405172，CI=[0.320264,0.49616]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.405,
+     "pattern": "pct_share"
+    },
+    "note_n": 116
+   },
+   "l5": {
+    "p": 0.405,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "openmeteo_air_pm2_5_daily_mean",
+   "id": 1139,
+   "layer": "L3",
+   "note": "回填·伦敦：cutoff 前 117 个 PM2.5 日均中 <= 7.5 占 70.1%（分位 q=0.7）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.700855,
+    "n": 117,
+    "k": 82,
+    "ci": [
+     0.61258,
+     0.776359
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=82/n=117 → p=0.700855，CI=[0.61258,0.776359]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.701,
+     "pattern": "pct_share"
+    },
+    "note_n": 117
+   },
+   "l5": {
+    "p": 0.701,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "openmeteo_archive_daily_precipitation_sum",
+   "id": 1263,
+   "layer": "L3",
+   "note": "回填·柏林：cutoff 前 95 天 日降水量 中 <= 2.1 占 70.5%（分位 q=0.7）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.705263,
+    "n": 95,
+    "k": 67,
+    "ci": [
+     0.607049,
+     0.787522
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=67/n=95 → p=0.705263，CI=[0.607049,0.787522]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.705,
+     "pattern": "pct_share"
+    },
+    "note_n": 95
+   },
+   "l5": {
+    "p": 0.705,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "openmeteo_archive_daily_precipitation_sum",
+   "id": 1264,
+   "layer": "L3",
+   "note": "回填·柏林：cutoff 前 96 天 日降水量 中 <= 0.9 占 56.3%（分位 q=0.5）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.5625,
+    "n": 96,
+    "k": 54,
+    "ci": [
+     0.462757,
+     0.657433
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=54/n=96 → p=0.5625，CI=[0.462757,0.657433]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.563,
+     "pattern": "pct_share"
+    },
+    "note_n": 96
+   },
+   "l5": {
+    "p": 0.563,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "openmeteo_archive_daily_precipitation_sum",
+   "id": 1265,
+   "layer": "L3",
+   "note": "回填·柏林：cutoff 前 97 天 日降水量 中 <= 1.2 占 60.8%（分位 q=0.6）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.608247,
+    "n": 97,
+    "k": 59,
+    "ci": [
+     0.508759,
+     0.699489
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=59/n=97 → p=0.608247，CI=[0.508759,0.699489]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.608,
+     "pattern": "pct_share"
+    },
+    "note_n": 97
+   },
+   "l5": {
+    "p": 0.608,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "openmeteo_archive_daily_sunshine_duration",
+   "id": 1277,
+   "layer": "L3",
+   "note": "回填·柏林：cutoff 前 95 天 日照时数 中 >= 52304.6 占 30.5%（分位 q=0.7）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.305263,
+    "n": 95,
+    "k": 29,
+    "ci": [
+     0.221728,
+     0.403936
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=29/n=95 → p=0.305263，CI=[0.221728,0.403936]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.305,
+     "pattern": "pct_share"
+    },
+    "note_n": 95
+   },
+   "l5": {
+    "p": 0.305,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "openmeteo_archive_daily_sunshine_duration",
+   "id": 1278,
+   "layer": "L3",
+   "note": "回填·柏林：cutoff 前 96 天 日照时数 中 >= 42534.0 占 70.8%（分位 q=0.3）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.708333,
+    "n": 96,
+    "k": 68,
+    "ci": [
+     0.610799,
+     0.789835
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=68/n=96 → p=0.708333，CI=[0.610799,0.789835]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.708,
+     "pattern": "pct_share"
+    },
+    "note_n": 96
+   },
+   "l5": {
+    "p": 0.708,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "openmeteo_archive_daily_sunshine_duration",
+   "id": 1279,
+   "layer": "L3",
+   "note": "回填·柏林：cutoff 前 97 天 日照时数 中 >= 50720.8 占 40.2%（分位 q=0.6）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.402062,
+    "n": 97,
+    "k": 39,
+    "ci": [
+     0.31002,
+     0.501565
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=39/n=97 → p=0.402062，CI=[0.31002,0.501565]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.402,
+     "pattern": "pct_share"
+    },
+    "note_n": 97
+   },
+   "l5": {
+    "p": 0.402,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "openmeteo_archive_daily_wind_speed_10m_max",
+   "id": 1270,
+   "layer": "L3",
+   "note": "回填·柏林：cutoff 前 95 天 日最大风速 中 >= 17.0 占 41.1%（分位 q=0.6）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.410526,
+    "n": 95,
+    "k": 39,
+    "ci": [
+     0.31696,
+     0.511048
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=39/n=95 → p=0.410526，CI=[0.31696,0.511048]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.41100000000000003,
+     "pattern": "pct_share"
+    },
+    "note_n": 95
+   },
+   "l5": {
+    "p": 0.411,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "openmeteo_archive_daily_wind_speed_10m_max",
+   "id": 1271,
+   "layer": "L3",
+   "note": "回填·柏林：cutoff 前 96 天 日最大风速 中 >= 15.7 占 52.1%（分位 q=0.5）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.520833,
+    "n": 96,
+    "k": 50,
+    "ci": [
+     0.422036,
+     0.618028
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=50/n=96 → p=0.520833，CI=[0.422036,0.618028]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.521,
+     "pattern": "pct_share"
+    },
+    "note_n": 96
+   },
+   "l5": {
+    "p": 0.521,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "openmeteo_archive_daily_wind_speed_10m_max",
+   "id": 1272,
+   "layer": "L3",
+   "note": "回填·柏林：cutoff 前 97 天 日最大风速 中 >= 18.8 占 30.9%（分位 q=0.7）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.309278,
+    "n": 97,
+    "k": 30,
+    "ci": [
+     0.22604,
+     0.407048
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=30/n=97 → p=0.309278，CI=[0.22604,0.407048]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.309,
+     "pattern": "pct_share"
+    },
+    "note_n": 97
+   },
+   "l5": {
+    "p": 0.309,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "openmeteo_daily_max",
+   "id": 451,
+   "layer": "L3",
+   "note": "气候基率：上海 2015-2024 共 300 个 9 月日，max>35°C 占 1.0%（Open-Meteo archive 实抓，严格大于口径）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.01,
+    "n": 300,
+    "k": 3,
+    "ci": [
+     0.003407,
+     0.028984
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=3/n=300 → p=0.01，CI=[0.003407,0.028984]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.01,
+     "pattern": "pct_share"
+    },
+    "note_n": 300
+   },
+   "l5": {
+    "p": 0.01,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "openmeteo_daily_max",
+   "id": 455,
+   "layer": "L3",
+   "note": "气候基率：上海 2015-2024 共 300 个 9 月日，max>30°C 占 20.0%（Open-Meteo archive 实抓，严格大于口径）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.2,
+    "n": 300,
+    "k": 60,
+    "ci": [
+     0.158656,
+     0.24893
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=60/n=300 → p=0.2，CI=[0.158656,0.24893]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.2,
+     "pattern": "pct_share"
+    },
+    "note_n": 300
+   },
+   "l5": {
+    "p": 0.2,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "openmeteo_daily_max",
+   "id": 459,
+   "layer": "L3",
+   "note": "气候基率：北京 2015-2024 共 300 个 9 月日，max>28°C 占 33.7%（Open-Meteo archive 实抓，严格大于口径）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.336667,
+    "n": 300,
+    "k": 101,
+    "ci": [
+     0.285554,
+     0.391909
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=101/n=300 → p=0.336667，CI=[0.285554,0.391909]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.337,
+     "pattern": "pct_share"
+    },
+    "note_n": 300
+   },
+   "l5": {
+    "p": 0.337,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "openmeteo_forecast_daily_max",
+   "id": 625,
+   "layer": "L3",
+   "note": "前瞻·上海 09月：2015-2024 archive 同月 300 个日值中 max>27°C 占 56.3%（分位 q=0.4，严格大于口径）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.563333,
+    "n": 300,
+    "k": 169,
+    "ci": [
+     0.506758,
+     0.618307
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=169/n=300 → p=0.563333，CI=[0.506758,0.618307]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.563,
+     "pattern": "pct_share"
+    },
+    "note_n": 300
+   },
+   "l5": {
+    "p": 0.563,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "openmeteo_forecast_daily_max",
+   "id": 632,
+   "layer": "L3",
+   "note": "前瞻·北京 09月：2015-2024 archive 同月 300 个日值中 max>27°C 占 45.0%（分位 q=0.5，严格大于口径）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.45,
+    "n": 300,
+    "k": 135,
+    "ci": [
+     0.394689,
+     0.506575
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=135/n=300 → p=0.45，CI=[0.394689,0.506575]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.45,
+     "pattern": "pct_share"
+    },
+    "note_n": 300
+   },
+   "l5": {
+    "p": 0.45,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "openmeteo_forecast_daily_max",
+   "id": 639,
+   "layer": "L3",
+   "note": "前瞻·广州 09月：2015-2024 archive 同月 300 个日值中 max>31°C 占 58.3%（分位 q=0.5，严格大于口径）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.583333,
+    "n": 300,
+    "k": 175,
+    "ci": [
+     0.526835,
+     0.637725
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=175/n=300 → p=0.583333，CI=[0.526835,0.637725]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.583,
+     "pattern": "pct_share"
+    },
+    "note_n": 300
+   },
+   "l5": {
+    "p": 0.583,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "openmeteo_forecast_daily_precipitation_sum",
+   "id": 1267,
+   "layer": "L3",
+   "note": "前瞻·柏林：近 99 天（2026-06-05~2026-09-11）日降水量 中 <= 1.1 占 60.6%（分位 q=0.6，pre-cutoff）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.606061,
+    "n": 99,
+    "k": 60,
+    "ci": [
+     0.507578,
+     0.696619
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=60/n=99 → p=0.606061，CI=[0.507578,0.696619]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.606,
+     "pattern": "pct_share"
+    },
+    "note_n": 99
+   },
+   "l5": {
+    "p": 0.606,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "openmeteo_forecast_daily_precipitation_sum",
+   "id": 1268,
+   "layer": "L3",
+   "note": "前瞻·柏林：近 99 天（2026-06-05~2026-09-11）日降水量 中 <= 2.1 占 71.7%（分位 q=0.7，pre-cutoff）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.717172,
+    "n": 99,
+    "k": 71,
+    "ci": [
+     0.621637,
+     0.796482
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=71/n=99 → p=0.717172，CI=[0.621637,0.796482]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.7170000000000001,
+     "pattern": "pct_share"
+    },
+    "note_n": 99
+   },
+   "l5": {
+    "p": 0.717,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "openmeteo_forecast_daily_precipitation_sum",
+   "id": 1269,
+   "layer": "L3",
+   "note": "前瞻·柏林：近 99 天（2026-06-05~2026-09-11）日降水量 中 <= 0.7 占 50.5%（分位 q=0.5，pre-cutoff）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.505051,
+    "n": 99,
+    "k": 50,
+    "ci": [
+     0.40823,
+     0.601494
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=50/n=99 → p=0.505051，CI=[0.40823,0.601494]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.505,
+     "pattern": "pct_share"
+    },
+    "note_n": 99
+   },
+   "l5": {
+    "p": 0.505,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "openmeteo_forecast_daily_sunshine_duration",
+   "id": 1281,
+   "layer": "L3",
+   "note": "前瞻·柏林：近 99 天（2026-06-05~2026-09-11）日照时数 中 >= 50430.0 占 40.4%（分位 q=0.6，pre-cutoff）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.40404,
+    "n": 99,
+    "k": 40,
+    "ci": [
+     0.312717,
+     0.502533
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=40/n=99 → p=0.40404，CI=[0.312717,0.502533]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.40399999999999997,
+     "pattern": "pct_share"
+    },
+    "note_n": 99
+   },
+   "l5": {
+    "p": 0.404,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "openmeteo_forecast_daily_sunshine_duration",
+   "id": 1282,
+   "layer": "L3",
+   "note": "前瞻·柏林：近 99 天（2026-06-05~2026-09-11）日照时数 中 >= 52107.7 占 30.3%（分位 q=0.7，pre-cutoff）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.30303,
+    "n": 99,
+    "k": 30,
+    "ci": [
+     0.221262,
+     0.399514
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=30/n=99 → p=0.30303，CI=[0.221262,0.399514]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.303,
+     "pattern": "pct_share"
+    },
+    "note_n": 99
+   },
+   "l5": {
+    "p": 0.303,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "openmeteo_forecast_daily_sunshine_duration",
+   "id": 1283,
+   "layer": "L3",
+   "note": "前瞻·柏林：近 99 天（2026-06-05~2026-09-11）日照时数 中 >= 42009.3 占 70.7%（分位 q=0.3，pre-cutoff）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.707071,
+    "n": 99,
+    "k": 70,
+    "ci": [
+     0.611036,
+     0.787635
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=70/n=99 → p=0.707071，CI=[0.611036,0.787635]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.7070000000000001,
+     "pattern": "pct_share"
+    },
+    "note_n": 99
+   },
+   "l5": {
+    "p": 0.707,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "openmeteo_forecast_daily_wind_speed_10m_max",
+   "id": 1274,
+   "layer": "L3",
+   "note": "前瞻·柏林：近 99 天（2026-06-05~2026-09-11）日最大风速 中 >= 18.8 占 30.3%（分位 q=0.7，pre-cutoff）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.30303,
+    "n": 99,
+    "k": 30,
+    "ci": [
+     0.221262,
+     0.399514
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=30/n=99 → p=0.30303，CI=[0.221262,0.399514]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.303,
+     "pattern": "pct_share"
+    },
+    "note_n": 99
+   },
+   "l5": {
+    "p": 0.303,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "openmeteo_forecast_daily_wind_speed_10m_max",
+   "id": 1275,
+   "layer": "L3",
+   "note": "前瞻·柏林：近 99 天（2026-06-05~2026-09-11）日最大风速 中 >= 17.0 占 41.4%（分位 q=0.6，pre-cutoff）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.414141,
+    "n": 99,
+    "k": 41,
+    "ci": [
+     0.322093,
+     0.512604
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=41/n=99 → p=0.414141，CI=[0.322093,0.512604]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.414,
+     "pattern": "pct_share"
+    },
+    "note_n": 99
+   },
+   "l5": {
+    "p": 0.414,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "openmeteo_forecast_daily_wind_speed_10m_max",
+   "id": 1276,
+   "layer": "L3",
+   "note": "前瞻·柏林：近 99 天（2026-06-05~2026-09-11）日最大风速 中 >= 15.7 占 52.5%（分位 q=0.5，pre-cutoff）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.525253,
+    "n": 99,
+    "k": 52,
+    "ci": [
+     0.427791,
+     0.620827
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=52/n=99 → p=0.525253，CI=[0.427791,0.620827]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.525,
+     "pattern": "pct_share"
+    },
+    "note_n": 99
+   },
+   "l5": {
+    "p": 0.525,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "openmeteo_marine_sst_daily",
+   "id": 1877,
+   "layer": "L3",
+   "note": "前瞻·北海：前 400 个日均中 >= 15.51 占 40.0%（分位 q=0.6）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.4,
+    "n": 400,
+    "k": 160,
+    "ci": [
+     0.353161,
+     0.448742
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=160/n=400 → p=0.4，CI=[0.353161,0.448742]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.4,
+     "pattern": "pct_share"
+    },
+    "note_n": 400
+   },
+   "l5": {
+    "p": 0.4,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "openmeteo_marine_sst_daily",
+   "id": 1878,
+   "layer": "L3",
+   "note": "回填·北海：前 365 个日均中 >= 14.28 占 40.0%（分位 q=0.6）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.4,
+    "n": 365,
+    "k": 146,
+    "ci": [
+     0.351034,
+     0.451049
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=146/n=365 → p=0.4，CI=[0.351034,0.451049]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.4,
+     "pattern": "pct_share"
+    },
+    "note_n": 365
+   },
+   "l5": {
+    "p": 0.4,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "openmeteo_marine_sst_daily",
+   "id": 1879,
+   "layer": "L3",
+   "note": "前瞻·墨西哥湾：前 400 个日均中 >= 27.94 占 50.0%（分位 q=0.5）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.5,
+    "n": 400,
+    "k": 200,
+    "ci": [
+     0.451234,
+     0.548766
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=200/n=400 → p=0.5，CI=[0.451234,0.548766]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.5,
+     "pattern": "pct_share"
+    },
+    "note_n": 400
+   },
+   "l5": {
+    "p": 0.5,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "openmeteo_wx_daily",
+   "id": 1647,
+   "layer": "L3",
+   "note": "前瞻·北京 temperature_2m_max：cutoff 前 399 个日均中 >= 12.6 占 70.2%（分位 q=0.3）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.701754,
+    "n": 399,
+    "k": 280,
+    "ci": [
+     0.655114,
+     0.744547
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=280/n=399 → p=0.701754，CI=[0.655114,0.744547]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.7020000000000001,
+     "pattern": "pct_share"
+    },
+    "note_n": 399
+   },
+   "l5": {
+    "p": 0.702,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "openmeteo_wx_daily",
+   "id": 1648,
+   "layer": "L3",
+   "note": "回填·北京 temperature_2m_max：cutoff 前 350 个日均中 >= 24.0 占 40.0%（分位 q=0.6）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.4,
+    "n": 350,
+    "k": 140,
+    "ci": [
+     0.350029,
+     0.452143
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=140/n=350 → p=0.4，CI=[0.350029,0.452143]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.4,
+     "pattern": "pct_share"
+    },
+    "note_n": 350
+   },
+   "l5": {
+    "p": 0.4,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "openmeteo_wx_daily",
+   "id": 1649,
+   "layer": "L3",
+   "note": "前瞻·北京 temperature_2m_min：cutoff 前 399 个日均中 <= 12.7 占 50.1%（分位 q=0.5）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.501253,
+    "n": 399,
+    "k": 200,
+    "ci": [
+     0.452414,
+     0.550068
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=200/n=399 → p=0.501253，CI=[0.452414,0.550068]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.501,
+     "pattern": "pct_share"
+    },
+    "note_n": 399
+   },
+   "l5": {
+    "p": 0.501,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "swpc_solar_cycle_monthly",
+   "id": 1889,
+   "layer": "L3",
+   "note": "前瞻·ssn：前 439 个月值中 >= 107.1 占 30.1%（分位 q=0.7）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.300683,
+    "n": 439,
+    "k": 132,
+    "ci": [
+     0.259668,
+     0.345157
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=132/n=439 → p=0.300683，CI=[0.259668,0.345157]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.301,
+     "pattern": "pct_share"
+    },
+    "note_n": 439
+   },
+   "l5": {
+    "p": 0.301,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "swpc_solar_cycle_monthly",
+   "id": 1890,
+   "layer": "L3",
+   "note": "回填·ssn：前 425 个月值中 >= 25.0 占 70.1%（分位 q=0.3）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.701176,
+    "n": 425,
+    "k": 298,
+    "ci": [
+     0.656013,
+     0.742736
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=298/n=425 → p=0.701176，CI=[0.656013,0.742736]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.701,
+     "pattern": "pct_share"
+    },
+    "note_n": 425
+   },
+   "l5": {
+    "p": 0.701,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "swpc_solar_cycle_monthly",
+   "id": 1891,
+   "layer": "L3",
+   "note": "回填·ssn：前 409 个月值中 >= 98.5 占 30.1%（分位 q=0.7）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.300733,
+    "n": 409,
+    "k": 123,
+    "ci": [
+     0.258313,
+     0.346863
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=123/n=409 → p=0.300733，CI=[0.258313,0.346863]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.301,
+     "pattern": "pct_share"
+    },
+    "note_n": 409
+   },
+   "l5": {
+    "p": 0.301,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "usgs_nwis_daily_discharge",
+   "id": 1863,
+   "layer": "L3",
+   "note": "前瞻·波托马克河：前 400 个日流量中 >= 2000 占 70.0%（分位 q=0.3）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.7,
+    "n": 400,
+    "k": 280,
+    "ci": [
+     0.653362,
+     0.742833
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=280/n=400 → p=0.7，CI=[0.653362,0.742833]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.7,
+     "pattern": "pct_share"
+    },
+    "note_n": 400
+   },
+   "l5": {
+    "p": 0.7,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "usgs_nwis_daily_discharge",
+   "id": 1864,
+   "layer": "L3",
+   "note": "回填·波托马克河：前 345 个日流量中 >= 3690 占 30.7%（分位 q=0.7）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.307246,
+    "n": 345,
+    "k": 106,
+    "ci": [
+     0.260908,
+     0.35783
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=106/n=345 → p=0.307246，CI=[0.260908,0.35783]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.307,
+     "pattern": "pct_share"
+    },
+    "note_n": 345
+   },
+   "l5": {
+    "p": 0.307,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "usgs_nwis_daily_discharge",
+   "id": 1865,
+   "layer": "L3",
+   "note": "前瞻·科罗拉多河 Lees Ferry：前 398 个日流量中 >= 8380 占 40.7%（分位 q=0.6）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.407035,
+    "n": 398,
+    "k": 162,
+    "ci": [
+     0.359881,
+     0.455967
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=162/n=398 → p=0.407035，CI=[0.359881,0.455967]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.40700000000000003,
+     "pattern": "pct_share"
+    },
+    "note_n": 398
+   },
+   "l5": {
+    "p": 0.407,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "wikimedia_pageviews",
+   "id": 905,
+   "layer": "L2",
+   "note": "回填·Bitcoin：cutoff 前 395 个日浏览量中 >= 6981 占 40.0%（分位 q=0.6）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.4,
+    "n": 395,
+    "k": 158,
+    "ci": [
+     0.352874,
+     0.449053
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=158/n=395 → p=0.4，CI=[0.352874,0.449053]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.4,
+     "pattern": "pct_share"
+    },
+    "note_n": 395
+   },
+   "l5": {
+    "p": 0.4,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "wikimedia_pageviews",
+   "id": 906,
+   "layer": "L2",
+   "note": "回填·Bitcoin：cutoff 前 370 个日浏览量中 >= 7599 占 30.0%（分位 q=0.7）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.3,
+    "n": 370,
+    "k": 111,
+    "ci": [
+     0.255556,
+     0.348555
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=111/n=370 → p=0.3，CI=[0.255556,0.348555]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.3,
+     "pattern": "pct_share"
+    },
+    "note_n": 370
+   },
+   "l5": {
+    "p": 0.3,
+    "kind": "empirical_pct"
+   }
+  },
+  {
+   "kind": "wikimedia_pageviews",
+   "id": 907,
+   "layer": "L2",
+   "note": "回填·Bitcoin：cutoff 前 340 个日浏览量中 >= 6779 占 50.0%（分位 q=0.5）",
+   "l2": {
+    "ok": true,
+    "status": "ok",
+    "method": "stat_baseline+wilson",
+    "p": 0.5,
+    "n": 340,
+    "k": 170,
+    "ci": [
+     0.44715,
+     0.55285
+    ],
+    "source": "baseRateNote:pct_share_n",
+    "note": "统计基率+Wilson(95%)：k=170/n=340 → p=0.5，CI=[0.44715,0.55285]（n≥30 准入线通过）。"
+   },
+   "g2": {
+    "base": {
+     "b": 0.5,
+     "pattern": "pct_share"
+    },
+    "note_n": 340
+   },
+   "l5": {
+    "p": 0.5,
+    "kind": "empirical_pct"
+   }
+  }
+ ]
+}

@@ -36,6 +36,13 @@ const { certifiedSourceForRow } = require(path.join(ROOT, 'p1b/src/engines/l5_so
 const { l3Aci, aciReplay } = require(path.join(ROOT, 'p1b/src/engines/l3_aci')); // 2026-09-14：L3 引擎（stat_baseline + ACI）
 const { procCalc } = require(path.join(ROOT, 'p1b/src/engines/l1_proc')); // 2026-09-14：L1 引擎（proc_calc 程序复算）
 const { l6Structural } = require(path.join(ROOT, 'p1b/src/engines/l6_structural')); // 2026-09-14：L6 引擎（判词结构聚合＝狼人杀线接入）
+const baseRateMod = require(path.join(ROOT, 'p1b/src/evidence/baseRate')); // 批次 3：基率解析/结构化读数的单一真源
+
+/** 批次 3：行内结构化基率（evidence.baseRate；旧行无此键 ⇒ null ⇒ 三引擎一律退文本兜底，读数不变）。 */
+function baseRateOf(r) {
+  if (!r || !r.brs) return null;
+  try { const o = JSON.parse(r.brs); return baseRateMod.isStructured(o) ? o : null; } catch (e) { return null; }
+}
 
 const db = new DatabaseSync(DB_PATH, { readOnly: true });
 const all = (s) => db.prepare(s).all();
@@ -48,6 +55,7 @@ const one = (s) => db.prepare(s).get();
 const ENGINED_LAYERS = ['L1', 'L2', 'L3', 'L5', 'L6'];
 const rows = all('SELECT p.id, p.game_id, p.layer, p.outcome, p.assigned_prob, p.created_at, p.matures_at, p.statement, '
   + "(SELECT json_extract(e.value,'$.baseRateNote') FROM json_each(p.evidence_json) e WHERE json_extract(e.value,'$.baseRateNote') IS NOT NULL LIMIT 1) AS brn, "
+  + "(SELECT json_extract(e.value,'$.baseRate') FROM json_each(p.evidence_json) e WHERE json_extract(e.value,'$.baseRate') IS NOT NULL LIMIT 1) AS brs, "
   + "(SELECT json_extract(e.value,'$.certifiedSource') FROM json_each(p.evidence_json) e WHERE json_extract(e.value,'$.certifiedSource') IS NOT NULL LIMIT 1) AS cs, "
   + "(SELECT json_extract(e.value,'$.resolve.certified_source') FROM json_each(p.evidence_json) e WHERE json_extract(e.value,'$.resolve.certified_source') IS NOT NULL LIMIT 1) AS rcs, "
   + "(SELECT json_extract(e.value,'$.resolve') FROM json_each(p.evidence_json) e WHERE json_extract(e.value,'$.resolve') IS NOT NULL LIMIT 1) AS rj "
@@ -89,10 +97,13 @@ function verdictsOf(pid) { if (!vCache.has(pid)) vCache.set(pid, stV.all(pid)); 
 // L3 ACI 反馈序列（2026-09-14）：已解 L3 行按 id 时序**全局回放**（仅用于 α 适配与覆盖率披露；不影响 p/计分）
 const L3_FEEDBACK = (() => {
   const rs = all("SELECT p.id, p.outcome, "
-    + "(SELECT json_extract(e.value,'$.baseRateNote') FROM json_each(p.evidence_json) e WHERE json_extract(e.value,'$.baseRateNote') IS NOT NULL LIMIT 1) AS brn "
+    + "(SELECT json_extract(e.value,'$.baseRateNote') FROM json_each(p.evidence_json) e WHERE json_extract(e.value,'$.baseRateNote') IS NOT NULL LIMIT 1) AS brn, "
+    + "(SELECT json_extract(e.value,'$.baseRate') FROM json_each(p.evidence_json) e WHERE json_extract(e.value,'$.baseRate') IS NOT NULL LIMIT 1) AS brs "
     + 'FROM predictions p WHERE ' + REGIME + " AND p.layer='L3' AND p.outcome IS NOT NULL ORDER BY p.id");
   const fb = [];
   for (const r of rs) {
+    const sBr = baseRateOf(r);
+    if (sBr && sBr.n !== null && sBr.k !== null) { fb.push({ p: sBr.p, y: yOf(r.outcome) }); continue; } // 批次 3：结构化优先
     const parsed = parseBaseRateNote(String(r.brn || ''));
     if (!parsed) continue;
     fb.push({ p: parsed.p, y: yOf(r.outcome) });
@@ -108,9 +119,9 @@ for (const r of rows) {
   if (r.layer === 'L1') {
     out = procCalc({ statement: r.statement, events: eventsOf(r.game_id), claims: claimsOf(r.game_id), playerCount: pcOf(r.game_id) });
   } else if (r.layer === 'L2') {
-    out = l2Baseline({ baseRateNote: r.brn });
+    out = l2Baseline({ baseRate: baseRateOf(r), baseRateNote: r.brn });
   } else if (r.layer === 'L3') {
-    out = l3Aci({ baseRateNote: r.brn, feedback: L3_FEEDBACK });
+    out = l3Aci({ baseRate: baseRateOf(r), baseRateNote: r.brn, feedback: L3_FEEDBACK });
   } else if (r.layer === 'L6') {
     out = l6Structural({ verdicts: verdictsOf(r.id) });
   } else {
@@ -120,7 +131,7 @@ for (const r of rows) {
     else {
       let rj = null;
       try { rj = r.rj ? JSON.parse(r.rj) : null; } catch (e) { rj = null; }
-      const built = certifiedSourceForRow({ resolve: rj, baseRateNote: r.brn });
+      const built = certifiedSourceForRow({ resolve: rj, baseRate: baseRateOf(r), baseRateNote: r.brn });
       if (built.ok) {
         cs = built.source; L5_SRC.read_side++;
         const kindN = built.meta.note_kind;
@@ -317,7 +328,7 @@ T.push('[L3 ACI · 全局回放] 反馈 ' + L3_ACI.feedback_n + ' 条（已解 L
   + ' ⇒ α_final=' + L3_ACI.alpha_final + '｜ 实测覆盖 ' + (L3_ACI.coverage ? L3_ACI.coverage.rate : 'n/a')
   + '（名义 ' + (1 - L3_ACI.alpha_star) + '）｜ EWMA 覆盖 ' + (L3_ACI.ewma_coverage === null ? 'n/a' : L3_ACI.ewma_coverage));
 T.push('    ' + L3_ACI.basis + '；ACI 只影响预测集与披露，**不调 p**（L3 点估计恒为基率）。');
-T.push('注: 本报告覆盖**引擎已建**的 L2/L3/L5 三层（2026-09-14 起 L3 接线；design §5.3：其余层 classify-only，L1/L4/L6 不在本跑范围）。');
+T.push('注: 本报告覆盖**引擎已建**的 L1/L2/L3/L5/L6 五层（design §5.3：L4 为后置叠加标注层、按设计不出数，不在本跑范围）。');
 const text = T.join('\n');
 console.log(text);
 if (TEXT_OUT) { fs.writeFileSync(path.resolve(TEXT_OUT), text, 'utf8'); console.log('[stage4-run] text -> ' + path.resolve(TEXT_OUT)); }

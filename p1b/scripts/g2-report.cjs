@@ -26,6 +26,10 @@
 const fs = require('fs');
 const path = require('path');
 const ROOT = path.resolve(__dirname, '..', '..');
+const baseRateMod = require(path.join(ROOT, 'p1b', 'src', 'evidence', 'baseRate')); // 批次 3：基率解析单一真源
+
+// 批次 3 披露计数（结构化读数采用情况；只增披露、不改判据）
+const BASE_RATE_READ = { structured: 0, mismatch: 0, mismatch_ids: [] };
 
 function arg(n, d) {
   const i = process.argv.indexOf('--' + n);
@@ -128,22 +132,16 @@ const NOT_BACKTEST = HAS_BACKTEST_COLS ? "(p.metric_version IS NULL AND p.backte
 const BF = "p.statement LIKE '%【backfill】%'";
 const isBF = (stmt) => String(stmt || '').indexOf('【backfill】') >= 0;
 
-function parseBaseRate(note) {
-  if (!note) return null;
-  let m = /占\s*([0-9]+(?:\.[0-9]+)?)\s*%/.exec(note);
-  if (m) return { b: parseFloat(m[1]) / 100, pattern: 'pct_share' };
-  m = /基率\s*[=:：]\s*(?:组合数理论值\s*)?([0-9]*\.?[0-9]+)/.exec(note);
-  if (m) { const v = parseFloat(m[1]); return { b: v > 1 ? v / 100 : v, pattern: 'base_rate_eq' }; }
-  m = /([0-9]+(?:\.[0-9]+)?)\s*%/.exec(note);
-  if (m) return { b: parseFloat(m[1]) / 100, pattern: 'pct_fallback' };
-  return null;
-}
+// 2026-09-14 批次 3：解析原语收敛至共享模块 `p1b/src/evidence/baseRate.js`（本函数＝委托，逐字等价；
+// 金样回放 `p1b/test/fixtures/base-rate-golden.json` 锁定）。读序：占 X% → 基率= → 任意 X% 兜底。
+function parseBaseRate(note) { return baseRateMod.parseBaseRateG2(note); }
 
 const ROWS_SQL = "SELECT p.id, p.g2_regime, p.layer, p.created_at, p.matures_at, p.resolved_at, "
   + "p.outcome, p.assigned_prob, p.statement, p.checklist_hash, p.tautology, "
   + "(SELECT json_extract(e.value,'$.resolve.date') FROM json_each(p.evidence_json) e WHERE json_extract(e.value,'$.resolve.date') IS NOT NULL LIMIT 1) AS rd, "
   + "(SELECT e.value FROM json_each(p.evidence_json) e WHERE json_extract(e.value,'$.resolve.kind') IS NOT NULL LIMIT 1) AS rj, "
-  + "(SELECT json_extract(e.value,'$.baseRateNote') FROM json_each(p.evidence_json) e WHERE json_extract(e.value,'$.baseRateNote') IS NOT NULL LIMIT 1) AS brn "
+  + "(SELECT json_extract(e.value,'$.baseRateNote') FROM json_each(p.evidence_json) e WHERE json_extract(e.value,'$.baseRateNote') IS NOT NULL LIMIT 1) AS brn, "
+  + "(SELECT json_extract(e.value,'$.baseRate') FROM json_each(p.evidence_json) e WHERE json_extract(e.value,'$.baseRate') IS NOT NULL LIMIT 1) AS brs "
   + "FROM predictions p WHERE " + REGIME + " AND " + NOT_BACKTEST;
 const rows = all(ROWS_SQL);
 
@@ -202,7 +200,15 @@ for (const r of rows) {
   if (Number(r.tautology) === 1) { counts.tautology_rows++; continue; }
   const pr = parseBaseRate(r.brn);
   if (!pr) counts.b_unparsed_ids.push(r.id);
-  const bb = pr ? pr.b : null;
+  // 批次 3：b 优先取**结构化** evidence.baseRate（新行随行落库）；文本解析保 pattern 名（零直方图变化）
+  let sBr = null;
+  if (r.brs) { try { const o = JSON.parse(r.brs); if (baseRateMod.isStructured(o)) sBr = o; } catch (e) { sBr = null; } }
+  if (sBr) {
+    BASE_RATE_READ.structured++;
+    if (pr && Math.abs(sBr.p - pr.b) > 1e-9) { BASE_RATE_READ.mismatch++; BASE_RATE_READ.mismatch_ids.push(r.id); }
+  }
+  const bb = sBr ? sBr.p : (pr ? pr.b : null);
+  const prPattern = pr ? pr.pattern : (sBr ? 'structured' : null);
   const hardest = bb !== null && bb * (1 - bb) >= 0.21;
   const bucket = hDays === null ? 'unknown' : (hDays < 0 ? 'past_or_negative' : (hDays <= 7 ? 'short' : (hDays <= 30 ? 'mid' : 'long')));
   // #12 域维度（A7）：kind 取自题面 evidence 的 resolve.kind，缺则退 dates 派生 kind，再退占位
@@ -211,7 +217,7 @@ for (const r of rows) {
     resolved: r.outcome !== null && r.outcome !== undefined, outcome: r.outcome, assigned_prob: r.assigned_prob,
     backfill: bf, cutoff: cutoff, cutoff_mode: cutoffMode, effective_date: rdEff, rd_derived: ddInfo ? ddInfo.kind : null,
     kind: evKind || (ddInfo ? ddInfo.kind : null),
-    b: bb, b_pattern: pr ? pr.pattern : null, brn: r.brn || null,
+    b: bb, b_pattern: prPattern, brn: r.brn || null, b_structured: sBr ? 1 : 0,
     horizon_days: hDays === null ? null : Math.round(hDays * 1000) / 1000, bucket: bucket, hardest: hardest });
 }
 const eligible = pool.length;
@@ -302,21 +308,12 @@ const Q4 = { id: 4, name: '难度最难档', threshold: '>=20', value: hardestPo
 //          最难档数」＝**b̂ 偏低估时仍守住难度资格**的保守口径（真值=完整口径，本项只作稳健性披露）。
 // 生效方式：**纯披露**，Q4 主判据一字不改（若改判即须走 R5 版本递进，见 design §4.2.2 B3）。
 function parseNoteN(note) {
-  if (!note) return null;
-  const ns = [];
+  // 2026-09-14 批次 3：委托共享模块 `p1b/src/evidence/baseRate.js`（与 l2_baseline.parseCount 同一实现）。
   // 三种句式（保守取最小 n，防「2015-2024 共 300 个日值」类窗口总长被放大）：
   //   a) 共/近/前/上 + N + 个/天/月/期/条
   //   b) N + 个/天/月/期 + 的/中/值      （「96 天 … 中」「已发布 331 个月值中」——中间可夹修饰语）
   //   c) 已发布/已开奖 N 个/期           （dbnomics 等「pre-cutoff 已发布 331 个月值中」）
-  const res = [
-    /(?:共|近|前|上)\s*([0-9]+)\s*(?:个|天|月|期|条)/g,
-    /([0-9]+)\s*(?:个|天|月|期)[^0-9%]{0,12}?(?:的|中|值)/g,
-    /(?:已发布|已开奖|已结算)\s*([0-9]+)\s*(?:个|天|月|期|条)/g,
-  ];
-  for (const re of res) {
-    let m; while ((m = re.exec(note)) !== null) { const v = Number(m[1]); if (isFinite(v) && v > 0 && v < 100000) ns.push(v); }
-  }
-  return ns.length ? Math.min.apply(null, ns) : null;
+  return baseRateMod.parseNoteN(note);
 }
 function wilsonLower(k, n, z) {
   if (!n) return null;
@@ -555,6 +552,15 @@ const report = {
     rule7_no_double_count: rule7, all_rows_horizon_buckets: allHorizon },
   quality_report_only: quality,
   baserate_window_quality_report_only: Q13,
+  baserate_structured_read_report_only: {
+    report_only: true,
+    metric: 'b 读取来源（批次 3：结构化 evidence.baseRate 优先、文本兜底）',
+    rows_with_structured: BASE_RATE_READ.structured,
+    structured_vs_text_mismatch: BASE_RATE_READ.mismatch,
+    mismatch_ids_sample: BASE_RATE_READ.mismatch_ids.slice(0, 20),
+    note: '结构化字段只在**新行**存在（写端随行落库；旧行零改动 ⇒ 走文本，读数逐字不变）；'
+      + '两路不一致 ⇒ 结构化胜出并计入 mismatch（当前应为 0：写端由同一模块物化）。',
+  },
   pool_domain_distribution_report_only: Q12,
   compliance_r3: compliance,
   intake_layer: intakeLayer,
