@@ -317,6 +317,18 @@
 | **最终交接** | `.scratch/handoff/推演沙盘-交接-20260914-晚-结案.md`（最新唯一入口） |
 | **留痕** | 变更留痕索引 §30–§33 |
 
+### 2026-09-14 晚 · 任务 6 批次 3（结构化读数 ＋ kind 目录表 ＋ F4 同批账本操作 ＋ 命名归档）＋ 阶段 5 立项评审
+| 件 | 说明 |
+|---|---|
+| **结构化读数（B1-1）** | 新 `p1b/src/evidence/baseRate.js`＝基率读数**单一真源**（原三解析器 l2_baseline／g2-report／l5_sources 收敛为一份，三处改委托）；新增 `evidence.baseRate = {p,n,k,kind,window,basis,cmp,threshold}`（写端随行落库＝store 写入口物化，覆盖全部语料写手；读端结构化优先＋文本兜底，**旧行零改动**）；**零翻转实测**：stage4-run diff=0、g2-report 仅新增披露节；金样冻结 `p1b/test/fixtures/base-rate-golden.json`（151 条真实注记 × 三读序）＋回放测试 |
+| **kind 目录表（B1-2）** | `p1b/scripts/kind-table.cjs` → `docs/specs/kind-目录表.md`（52 kind：取数源＝账本真实 URL 主机／契约必需参数／层分布／引擎／题数已解／源码现位；仅契约与下划线 helper 分列） |
+| **F4 同批账本操作** | `p1b/scripts/vault-sync.cjs`：truth_vault 镜像同步 ⇒ **补 12 缺行／对齐 25 陈旧行**，vault 1923→1935 == predictions，对账 missing/orphan/diff **全 0**、integrity ok、predictions 全列 dump sha 前后一致；写前快照 `.scratch/backup/p1a-pre-vaultsync-2026-09-14T15-11-50-344Z.db`（可回滚，剧本实测） |
+| **命名整理** | 69 件零活引用探针 `git mv` → `p1b/scripts/archive/`（保历史；有活引用的留置原位）＋ `p1b/scripts/README.md` 目录索引（73 在役脚本按前缀分组；`scripts-index.cjs` 生成） |
+| **阶段 5 立项** | `docs/specs/阶段5-检索式预测-立项书-v1.1.md`（评审后修订）＋ `.scratch/forecast-debate/PREREG-检索式预测-v1-骨架.md`（未冻结）＋**独立评审** `docs/specs/阶段5-立项评审-检索式预测-20260914.md`（16 发现／8 必改，已并入 v1.1）；**待用户拍板（含铁律④裁决），拍板前不写检索代码** |
+| **测试** | 271 → **284/284 绿** |
+| **收据** | `p1b/sim/out/batch3-receipt-20260914.md` |
+| **留痕** | 变更留痕索引 §36–§37 |
+
 ## 5 · 铁律速查（违反=弃棒）
 ①玄学恒挂娱乐参考，绝不接研判 ②UI 禁「预测」字样（用审计/校准参考/分层账本）③无真值锚不入账本（Q0-1/2/3 拒收门）④LLM 仅四角色（聚合/基率/多路/校准）⑤key 不出服务端 ⑥预注册冻结后禁改 ⑦账本不可变 ⑧**派单并发上限 2-3 棒** ⑨8787 用户 bat 管理，代理零接触 ⑩微步回合制（先落盘再设计）
 
