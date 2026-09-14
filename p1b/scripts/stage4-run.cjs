@@ -35,6 +35,7 @@ const { l5Certified } = require(path.join(ROOT, 'p1b/src/engines/l5_certified'))
 const { certifiedSourceForRow } = require(path.join(ROOT, 'p1b/src/engines/l5_sources')); // 2026-09-14：L5 认证源读侧结构化（按 kind 组合数重建）
 const { l3Aci, aciReplay } = require(path.join(ROOT, 'p1b/src/engines/l3_aci')); // 2026-09-14：L3 引擎（stat_baseline + ACI）
 const { procCalc } = require(path.join(ROOT, 'p1b/src/engines/l1_proc')); // 2026-09-14：L1 引擎（proc_calc 程序复算）
+const { l6Structural } = require(path.join(ROOT, 'p1b/src/engines/l6_structural')); // 2026-09-14：L6 引擎（判词结构聚合＝狼人杀线接入）
 
 const db = new DatabaseSync(DB_PATH, { readOnly: true });
 const all = (s) => db.prepare(s).all();
@@ -44,7 +45,7 @@ const one = (s) => db.prepare(s).get();
 
 // 只跑引擎已建的层（design §5.3：先导期只 L2/L5 有引擎；其余层 classify-only）
 // 2026-09-14：L3 引擎（stat_baseline+ACI）＋ L1 引擎（proc_calc）落地 ⇒ 加入真跑
-const ENGINED_LAYERS = ['L1', 'L2', 'L3', 'L5'];
+const ENGINED_LAYERS = ['L1', 'L2', 'L3', 'L5', 'L6'];
 const rows = all('SELECT p.id, p.game_id, p.layer, p.outcome, p.assigned_prob, p.created_at, p.matures_at, p.statement, '
   + "(SELECT json_extract(e.value,'$.baseRateNote') FROM json_each(p.evidence_json) e WHERE json_extract(e.value,'$.baseRateNote') IS NOT NULL LIMIT 1) AS brn, "
   + "(SELECT json_extract(e.value,'$.certifiedSource') FROM json_each(p.evidence_json) e WHERE json_extract(e.value,'$.certifiedSource') IS NOT NULL LIMIT 1) AS cs, "
@@ -69,7 +70,7 @@ function fmt(x, d) { return (x === null || x === undefined || !isFinite(x)) ? 'n
 // ── 逐题跑引擎 ──
 const perLayer = {};
 for (const layer of ENGINED_LAYERS) perLayer[layer] = { total: 0, engine_ok: 0, engine_fail: 0, fail_reasons: {},
-  scored: 0, p_list: [], y_list: [], engine_results_sample: [] };
+  scored: 0, p_list: [], y_list: [], prior_list: [], engine_results_sample: [] };
 // L5 认证源来源统计（2026-09-14 读侧结构化后）：structured=写端已给；read_side=读侧注册表重建；none=两路皆无
 const L5_SRC = { structured: 0, read_side: 0, none: 0, note_consistent: 0, note_mismatch: 0, note_empirical: 0, note_absent: 0, mismatch_ids: [] };
 // L1 复算所需的记录（只读；按局缓存）
@@ -80,6 +81,10 @@ const evCache = new Map(), clCache = new Map(), pcCache = new Map();
 function eventsOf(gid) { if (!evCache.has(gid)) evCache.set(gid, stEv.all(gid)); return evCache.get(gid); }
 function claimsOf(gid) { if (!clCache.has(gid)) clCache.set(gid, stCl.all(gid)); return clCache.get(gid); }
 function pcOf(gid) { if (!pcCache.has(gid)) { const r = stPc.get(gid); pcCache.set(gid, r ? r.player_count : null); } return pcCache.get(gid); }
+// L6 判词供给（只读；按题缓存）
+const stV = db.prepare('SELECT id, prompt_variant, implied_prob FROM verdicts WHERE prediction_id = ? ORDER BY id');
+const vCache = new Map();
+function verdictsOf(pid) { if (!vCache.has(pid)) vCache.set(pid, stV.all(pid)); return vCache.get(pid); }
 
 // L3 ACI 反馈序列（2026-09-14）：已解 L3 行按 id 时序**全局回放**（仅用于 α 适配与覆盖率披露；不影响 p/计分）
 const L3_FEEDBACK = (() => {
@@ -106,6 +111,8 @@ for (const r of rows) {
     out = l2Baseline({ baseRateNote: r.brn });
   } else if (r.layer === 'L3') {
     out = l3Aci({ baseRateNote: r.brn, feedback: L3_FEEDBACK });
+  } else if (r.layer === 'L6') {
+    out = l6Structural({ verdicts: verdictsOf(r.id) });
   } else {
     let cs = null;
     try { cs = r.cs ? JSON.parse(r.cs) : (r.rcs ? JSON.parse(r.rcs) : null); } catch (e) { cs = null; }
@@ -132,7 +139,8 @@ for (const r of rows) {
   if (out.ok && typeof out.p === 'number') L.engine_ok++; else { L.engine_fail++; const k = out.status + (out.reason ? ':' + out.reason : ''); L.fail_reasons[k] = (L.fail_reasons[k] || 0) + 1; }
   if (L.engine_results_sample.length < 3) L.engine_results_sample.push({ id: r.id, status: out.status, p: out.p, n: out.n, source: out.source || null });
   const y = yOf(r.outcome);
-  if (out.ok && typeof out.p === 'number' && y !== null) { L.scored++; L.p_list.push(out.p); L.y_list.push(y); }
+  if (out.ok && typeof out.p === 'number' && y !== null) { L.scored++; L.p_list.push(out.p); L.y_list.push(y);
+    L.prior_list.push(Number.isFinite(Number(r.assigned_prob)) ? Number(r.assigned_prob) : null); }
 }
 
 // ── 分层计分（禁跨层池化）──
@@ -152,10 +160,23 @@ for (const layer of ENGINED_LAYERS) {
     brief.delta_ci95 = bootDeltaCI(diffs, 1000, 987654321);
     brief.obs_rate = mean(L.y_list);
     brief.mean_p = mean(L.p_list);
+    // 账本先验对照（2026-09-14）：assigned_prob＝创建时记录的先验（**非本引擎输出**）——全非空才给对照
+    if (L.prior_list.length === n && L.prior_list.every((x) => x !== null)) {
+      brief.brier_ledger_prior = mean(L.prior_list.map((q, i) => brier(q, L.y_list[i])));
+      brief.delta_vs_ledger_prior = brief.brier_engine - brief.brier_ledger_prior;
+    } else { brief.brier_ledger_prior = null; brief.delta_vs_ledger_prior = null; }
     // 判定信号（沿用项目口径：Δ<0 才有增量；但本层引擎 p **本身**就是基率 ⇒ Δ(vs 常数基率) 结构性为 0，
     //   故真正的对照是「vs 常数 0.5」——「基率比硬币好多少」）
     const ciExcludes0 = brief.delta_ci95.lb !== null && brief.delta_ci95.ub < 0;
-    if (layer === 'L1') {
+    if (layer === 'L6') {
+      // L6 对抗层（2026-09-14 接线）：p＝判词结构聚合（固定规则）。**本层是真读数**（判词含信息），
+      //   与 L1/L3/L5 的"平凡读数"不同；披露：①聚合既有判词（非新模型）②多跑/旧行 provenance。
+      brief.signal = ciExcludes0 ? 'aggregate_beats_half_CI_excludes_0'
+        : (brief.delta_vs_half < 0 ? 'aggregate_directionally_better_CI_includes_0' : 'aggregate_not_better_than_half');
+      brief.note = 'L6 对抗层＝狼人杀/对抗域**首批真读数**：p＝判词结构聚合（每变体取最新非空 implied_prob 再求均值，固定规则）。'
+        + '与 L1/L3/L5 的"平凡读数"不同，这里 vs 0.5 的 Δ 是**实际信息量**；但须披露：①聚合的是**既有判词**（不是新模型），'
+        + '②判词多跑（每变体取最新）与旧行 provenance（run_id=null）为披露项；更严的对照见「账本先验」行（assigned_prob＝创建时记录的先验）。';
+    } else if (layer === 'L1') {
       // L1 决定论层（2026-09-14 接线）：引擎=程序复算（proc_calc，6 条规则族），输出 0/1 计算结论。
       brief.signal = 'proc_calc_deterministic';
       brief.accuracy = (brief.brier_engine === undefined || brief.brier_engine === null) ? null : Number((1 - brief.brier_engine).toFixed(6));
@@ -266,6 +287,10 @@ for (const layer of ENGINED_LAYERS) {
     T.push('    Δ 的 95% 配对 bootstrap CI=[' + fmt(b.delta_ci95.lb) + ',' + fmt(b.delta_ci95.ub) + ']（B=' + b.delta_ci95.B + '，seed=' + b.delta_ci95.seed + '）⇒ **' + b.signal + '**');
     T.push('    ' + b.note);
     T.push('    观测频率=' + fmt(b.obs_rate) + ' | 引擎平均 p=' + fmt(b.mean_p) + ' | n=' + b.scored_n);
+    if (b.brier_ledger_prior !== null && b.brier_ledger_prior !== undefined) {
+      T.push('    账本先验对照: Brier(assigned_prob)=' + fmt(b.brier_ledger_prior) + ' | Δ(engine − 先验)=' + fmt(b.delta_vs_ledger_prior)
+        + '（先验＝创建时记录，非本引擎输出）');
+    }
   } else {
     T.push('    ' + b.note);
   }

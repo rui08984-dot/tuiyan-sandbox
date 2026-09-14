@@ -29,7 +29,7 @@ test('stage4-run：产出分层读数（仅 L2/L5）、L5 读侧重建出数、�
   execFileSync(process.execPath, [SCRIPT, '--json', out], { stdio: 'ignore' });
   const r = JSON.parse(fs.readFileSync(out, 'utf8'));
   assert.ok(r.report, '有 report');
-  assert.deepEqual(Object.keys(r.report).sort(), ['L1', 'L2', 'L3', 'L5'], '引擎已建的四层（禁跨层池化 ⇒ 分层独立）');
+  assert.deepEqual(Object.keys(r.report).sort(), ['L1', 'L2', 'L3', 'L5', 'L6'], '引擎已建的五层（禁跨层池化 ⇒ 分层独立）');
   const l2 = r.report.L2;
   assert.ok(l2.ledger_rows > 0, 'L2 有账本行');
   assert.ok(l2.engine_ok > 0, 'L2 引擎有出数');
@@ -40,6 +40,14 @@ test('stage4-run：产出分层读数（仅 L2/L5）、L5 读侧重建出数、�
     // 防过度声称：CI 含 0（ub>=0）⇒ 不得给「优于」信号
     if (l2.delta_ci95.ub >= 0) assert.notEqual(l2.signal, 'engine_beats_half_CI_excludes_0', 'CI 含 0 不得声称优于');
   }
+  // L6（2026-09-14 接线）：判词结构聚合＝狼人杀线接入。不变量：判词齐备⇒全出数/全可计分；p∈(0,1)；账本先验对照存在。
+  const l6 = r.report.L6;
+  assert.ok(l6.ledger_rows > 0, 'L6 有账本行');
+  assert.equal(l6.engine_ok, l6.ledger_rows, 'L6 全部出数（判词齐备）');
+  assert.equal(l6.scored_n, l6.ledger_rows, 'L6 全部可计分（270/270 已解）');
+  assert.ok(l6.brier_engine !== undefined && l6.brier_engine !== null, 'L6 有 Brier 读数');
+  assert.ok(l6.mean_p > 0 && l6.mean_p < 1, 'L6 平均 p 在 (0,1)');
+  assert.ok(l6.brier_ledger_prior !== null && typeof l6.delta_vs_ledger_prior === 'number', 'L6 含账本先验对照（assigned_prob，非引擎输出）');
   // L1（2026-09-14 接线）：程序复算。核心不变量——**复算结论必须与账本真值一致**（正确率=1）。
   const l1 = r.report.L1;
   assert.ok(l1.ledger_rows > 0, 'L1 有账本行');
