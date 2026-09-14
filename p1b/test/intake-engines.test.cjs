@@ -231,6 +231,28 @@ test('端到端：L5 认证源 → scored（分布落 note）；无声明 → un
   assertProbOnlyWhenScored(noSrc.body, 'L5 no source');
 });
 
+// ── 5b. L5 读侧重建接线（2026-09-14）：未声明 certifiedSource 但 resolve_spec 是已注册认证族 → 重建出数 ──
+test('端到端：L5 无声明但 resolve_spec 已注册 → 读侧重建（source_origin=read_side_registry）；未注册仍 unsupported', async () => {
+  const r = await classify({ statement: '端到端 L5 读侧：双色球蓝球奇数', checklist: ck({ L5: yes3() }),
+    resolve_spec: { kind: 'cwl_ssq_blue_odd' }, evidence: { baseRateNote: '前瞻·L5 认证随机：基率=组合数理论值 0.5000（8/16，非历史拟合）' } });
+  assert.equal(r.body.layer, 'L5');
+  assert.equal(r.body.gate, 'scored');
+  assert.equal(r.body.prob, 0.5, '读侧重建：蓝球奇数 = 8/16');
+  assert.equal(r.body.engine_plan.predicts, true);
+  assert.equal(r.body.engine_result.source_origin, 'read_side_registry', '来源可追溯');
+  assert.match(r.body.engine_result.source.name, /组合数精确值 8\/16/, 'source.name 带出组合数依据');
+  assert.match(r.body.engine_note, /source_origin=read_side_registry/, 'note 可追溯');
+  assert.equal(scanForbiddenAssertions(JSON.stringify(r.body.engine_result)).length, 0, 'L5 输出无断言');
+  assertProbOnlyWhenScored(r.body, 'L5 读侧 scored');
+  const q = store.getIntakeQuestion(r.body.intake_question_id);
+  assert.match(q.engine_note, /source_origin=read_side_registry/, '落库 note 亦带来源');
+  // 未注册 kind（如天气）⇒ 仍 unsupported/descriptive（宁缺毋滥）
+  const un = await classify({ statement: '端到端 L5 未注册 kind', checklist: ck({ L5: yes3() }), resolve_spec: { kind: 'openmeteo_daily_max' } });
+  assert.equal(un.body.gate, 'descriptive');
+  assert.equal(un.body.prob, null);
+  assert.equal(un.body.engine_result.status, 'unsupported');
+});
+
 test('口径护栏①（端到端批量）：未接线/未达标层不得出现概率', async () => {
   const cases = [
     { over: { L2: yes4() }, tag: 'L2 无基率' },

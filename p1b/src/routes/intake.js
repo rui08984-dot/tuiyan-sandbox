@@ -37,6 +37,7 @@ const { httpError, requireInt, requireNonEmptyString } = require('../util');
 const store = require('../db/intakeStore');
 const { l2Baseline } = require('../engines/l2_baseline'); // 阶段 4：L2 最小统计件（Wilson）
 const { l5Certified } = require('../engines/l5_certified'); // 阶段 4：L5 认证源公布分布
+const { certifiedSourceForRow } = require('../engines/l5_sources'); // 2026-09-14：L5 认证源读侧重建（与 stage4-run 同源）
 
 /** 清单版本：v2 判据 + v3 注记（unknown 出口 + L4 后置标注），随清单文档冻结。 */
 const CHECKLIST_HASH = 'v3';
@@ -142,6 +143,7 @@ function engineNoteFor(layer, er, gateInfo) {
   if (er.p !== undefined && er.p !== null) parts.push('p=' + er.p);
   if (er.ci) parts.push('ci=[' + er.ci[0] + ',' + er.ci[1] + ']');
   if (er.distribution) parts.push('dist=' + JSON.stringify(er.distribution));
+  if (er.source_origin) parts.push('source_origin=' + er.source_origin);
   if (er.reason) parts.push('reason=' + er.reason);
   if (er.note) parts.push(er.note);
   parts.push('gate=' + gateInfo.gate, 'gate_reason=' + gateInfo.reason);
@@ -265,7 +267,18 @@ function classifyIntake(body) {
   if (layer === 'L2') {
     engineResult = l2Baseline({ resolve_spec: resolveSpec, history: eng.history, counts: eng.counts, baseRateNote: eng.baseRateNote });
   } else if (layer === 'L5') {
-    engineResult = l5Certified({ resolve_spec: resolveSpec, certifiedSource: eng.certifiedSource });
+    // 2026-09-14：L5 认证源读侧重建（与 stage4-run.cjs 同源）——
+    //   声明（evidence.certifiedSource）优先；未声明时按 resolve_spec.kind 从组合数规则表重建
+    //   （仅已注册的认证随机族；未注册 kind ⇒ 仍 unsupported，宁缺毋滥）。
+    // 来源以 additive 字段 source_origin 透出（declared / read_side_registry），并进 engine_note，可追溯。
+    let cs = eng.certifiedSource || null;
+    let origin = cs ? 'declared' : null;
+    if (!cs) {
+      const built = certifiedSourceForRow({ resolve: resolveSpec, baseRateNote: eng.baseRateNote });
+      if (built.ok) { cs = built.source; origin = 'read_side_registry'; }
+    }
+    engineResult = l5Certified({ resolve_spec: resolveSpec, certifiedSource: cs });
+    if (origin) engineResult = Object.assign({}, engineResult, { source_origin: origin });
   }
   const gateInfo = resolveGate(layer, engineResult);
   const plan = engineFor(layer, gateInfo.gate, engineResult);
