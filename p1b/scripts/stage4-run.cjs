@@ -35,7 +35,9 @@ const { l5Certified } = require(path.join(ROOT, 'p1b/src/engines/l5_certified'))
 
 const db = new DatabaseSync(DB_PATH, { readOnly: true });
 const all = (s) => db.prepare(s).all();
-const one = (s) => db.prepare(s).get(s === undefined ? s : s);
+// node:sqlite 的坑（2026-09-14 实测）：无参语句调 `.get(undefined)` 会抛
+// 「Provided value cannot be bound to SQLite parameter 1」——必须真·无参调用 .get()
+const one = (s) => db.prepare(s).get();
 
 // 只跑引擎已建的层（design §5.3：先导期只 L2/L5 有引擎；其余层 classify-only）
 const ENGINED_LAYERS = ['L2', 'L5'];
@@ -104,7 +106,8 @@ for (const layer of ENGINED_LAYERS) {
     brief.signal = ciExcludes0 ? 'engine_beats_half_CI_excludes_0'
       : (brief.delta_vs_half < 0 ? 'engine_directionally_better_but_CI_includes_0' : 'engine_not_better_than_half');
     brief.note = '分层计分，禁跨层池化（design §4.3）。注：本层引擎 p 即统计基率，故 vs「常数基率」Δ 结构性=0；'
-      + '有意义的对照是 vs 常数 0.5（基率相对硬币的增量）。真正「引擎增量」需另一路模型作对照臂（属阶段 4 后续）。';
+      + '有意义的对照是 vs 常数 0.5（基率相对硬币的增量）。**该增量问题在当前数据下不可回答**——'
+      + '见下方 [L2 对照臂可得性] 检（assigned_prob 就是基率本身、L2 无判词 ⇒ 无独立第二路）。';
   } else {
     brief.note = 'n=' + n + ' < ' + MIN_N + ' ⇒ 只报方向、不出 Brier 结论（K F13 准入线）';
   }
@@ -134,6 +137,42 @@ function l5EvidenceGap() {
 }
 const L5_GAP = l5EvidenceGap();
 
+// ── L2 对照臂可得性检查（2026-09-14 落盘后追加）──────────────────────────────
+// 起因：初稿写「下一步给 L2 配对照臂」。去数据里找那个臂时发现**找不到**——
+//   ① L2 的 assigned_prob 与 baseRateNote 的基率 b **逐行相同**（同一统计基率的复写，不是第二路模型）
+//   ② L2 无任何 LLM 判词（verdicts 只覆盖 sim 域 L1/L6）
+// ⇒ 用 assigned_prob 当对照臂 = 拿基率跟基率比，Δ 恒 0，无信息量。
+// 故本函数把「有无独立对照臂」做成**可复现的检查**，附在报告里，防止后续把它当"引擎没做好"。
+function l2RivalArmCheck() {
+  const rows2 = all("SELECT p.id, p.assigned_prob AS ap, p.outcome, "
+    + "(SELECT json_extract(e.value,'$.baseRateNote') FROM json_each(p.evidence_json) e WHERE json_extract(e.value,'$.baseRateNote') IS NOT NULL LIMIT 1) AS brn "
+    + 'FROM predictions p WHERE ' + REGIME + " AND p.layer='L2'");
+  let cmp = 0, same = 0, diff = 0, maxdiff = 0;
+  for (const r of rows2) {
+    if (r.ap === null || r.ap === undefined) continue;
+    const m = /占\s*([0-9]+(?:\.[0-9]+)?)\s*%/.exec(r.brn || '');
+    if (!m) continue;
+    const b = parseFloat(m[1]) / 100;
+    const d = Math.abs(b - r.ap);
+    if (d > maxdiff) maxdiff = d;
+    cmp++; if (d < 0.001) same++; else diff++;
+  }
+  const l2Verdicts = one('SELECT COUNT(DISTINCT v.prediction_id) n FROM verdicts v JOIN predictions p ON p.id=v.prediction_id '
+    + "WHERE p.layer='L2'").n;
+  const l2Resolved = one("SELECT COUNT(*) n FROM predictions p WHERE " + REGIME + " AND p.layer='L2' AND p.outcome IS NOT NULL").n;
+  return {
+    l2_resolved: l2Resolved,
+    assigned_prob_vs_baserate: { compared: cmp, identical_within_1e_3: same, differing: diff, max_abs_diff: maxdiff },
+    l2_rows_with_verdicts: l2Verdicts,
+    rival_arm_available: (l2Verdicts > 0) || (diff > 0),
+    conclusion: 'L2 的 assigned_prob 与 baseRateNote 基率逐行相同（差值≤1e-3）＝同一统计基率的复写，不是第二路模型；'
+      + '且 L2 无任何 LLM 判词。⇒ **当前数据下不存在独立对照臂**，「L2 引擎是否优于纯基率」不可回答。'
+      + '这不是缺陷：L2 按设计就是「基率层」（统计基率+Wilson），其价值＝诚实记账与区间，非"跑赢硬币"。'
+      + '要回答增量问题须**引入新信号源**（外部模型/特征）＝新立项，非调引擎。',
+  };
+}
+const L2_RIVAL = l2RivalArmCheck();
+
 // ── 文本报告 ──
 const T = [];
 T.push('阶段 4 · 分层预测真跑（L2/L5 最小引擎 × 真实账本）');
@@ -156,6 +195,12 @@ for (const layer of ENGINED_LAYERS) {
   T.push('    引擎样例: ' + JSON.stringify(b.engine_sample));
 }
 T.push('');
+T.push('[L2 对照臂可得性 · 落盘后补检] 已 resolve ' + L2_RIVAL.l2_resolved + ' 行；'
+  + 'assigned_prob 与 baseRateNote 基率比对 ' + L2_RIVAL.assigned_prob_vs_baserate.compared + ' 行 → 一致 '
+  + L2_RIVAL.assigned_prob_vs_baserate.identical_within_1e_3 + ' / 不一致 ' + L2_RIVAL.assigned_prob_vs_baserate.differing
+  + '（最大偏差 ' + L2_RIVAL.assigned_prob_vs_baserate.max_abs_diff + '）；L2 带判词行 ' + L2_RIVAL.l2_rows_with_verdicts);
+T.push('    ⇒ rival_arm_available=' + L2_RIVAL.rival_arm_available + '（' + L2_RIVAL.conclusion + '）');
+T.push('');
 T.push('[L5 认证源形态缺口 · 如实披露] 账本 L5 行 ' + L5_GAP.l5_rows + '；其中 baseRateNote 含可解析认证值者 '
   + L5_GAP.note_text_with_certified_value + '，**但已 resolve 者 0**（彩票开奖时点未到）。');
 T.push('    ⇒ 引擎对全部 108 行如实出 unsupported（宁缺毋滥，非缺陷）；且**即便补结构化认证源，当前也没有可计分的开奖真值**。');
@@ -166,7 +211,7 @@ const text = T.join('\n');
 console.log(text);
 if (TEXT_OUT) { fs.writeFileSync(path.resolve(TEXT_OUT), text, 'utf8'); console.log('[stage4-run] text -> ' + path.resolve(TEXT_OUT)); }
 if (JSON_OUT) {
-  const out = { script: 'p1b/scripts/stage4-run.cjs', db: DB_PATH, regime: 'R4', layers: ENGINED_LAYERS, l5_evidence_gap: L5_GAP,
+  const out = { script: 'p1b/scripts/stage4-run.cjs', db: DB_PATH, regime: 'R4', layers: ENGINED_LAYERS, l2_rival_arm_check: L2_RIVAL, l5_evidence_gap: L5_GAP,
     generated_at: new Date().toISOString(), report: report, note: '分层报，禁跨层池化（design §4.3）' };
   fs.writeFileSync(path.resolve(JSON_OUT), JSON.stringify(out, null, 1), 'utf8');
   console.log('[stage4-run] json -> ' + path.resolve(JSON_OUT));

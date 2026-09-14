@@ -64,3 +64,24 @@ test('stage4-run：确定性（两次跑读数逐位一致，seed 固定）', ()
   delete A.generated_at; delete B.generated_at;
   assert.deepEqual(A.report, B.report, '两次跑分层读数一致');
 });
+
+// ── L2 对照臂可得性（2026-09-14 落盘后补检）：防把「基率层本来就等于基率」误当引擎缺陷 ──
+test('stage4-run：L2 对照臂可得性检查——assigned_prob≡基率 且无判词 ⇒ 如实报无独立臂', () => {
+  const out = path.join(tmpDir, 'rival.json');
+  execFileSync(process.execPath, [SCRIPT, '--json', out], { stdio: 'ignore' });
+  const r = JSON.parse(fs.readFileSync(out, 'utf8'));
+  assert.ok(r.l2_rival_arm_check, '对照臂检查节存在');
+  const c = r.l2_rival_arm_check;
+  assert.ok(c.assigned_prob_vs_baserate, '含 assigned_prob vs baseRate 比对');
+  const cmp = c.assigned_prob_vs_baserate;
+  // 核心事实：assigned_prob 与基率逐行相同（同一统计基率的复写）
+  if (cmp.compared > 0) {
+    assert.equal(cmp.differing, 0, 'assigned_prob 与基率无不一致（＝同一复写，不是第二路模型）');
+    assert.ok(cmp.max_abs_diff < 0.001, '最大偏差 <1e-3（仅四舍五入）');
+  }
+  // 无判词 ⇒ 无独立臂
+  assert.equal(c.l2_rows_with_verdicts, 0, 'L2 无 LLM 判词');
+  assert.equal(c.rival_arm_available, false, '如实报：无独立对照臂');
+  assert.ok(/不可回答/.test(c.conclusion) || /无.*对照臂/.test(c.conclusion), '结论如实');
+});
+

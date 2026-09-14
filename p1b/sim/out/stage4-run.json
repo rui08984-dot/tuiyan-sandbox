@@ -6,13 +6,25 @@
   "L2",
   "L5"
  ],
+ "l2_rival_arm_check": {
+  "l2_resolved": 288,
+  "assigned_prob_vs_baserate": {
+   "compared": 621,
+   "identical_within_1e_3": 621,
+   "differing": 0,
+   "max_abs_diff": 0.000500000000000056
+  },
+  "l2_rows_with_verdicts": 0,
+  "rival_arm_available": false,
+  "conclusion": "L2 的 assigned_prob 与 baseRateNote 基率逐行相同（差值≤1e-3）＝同一统计基率的复写，不是第二路模型；且 L2 无任何 LLM 判词。⇒ **当前数据下不存在独立对照臂**，「L2 引擎是否优于纯基率」不可回答。这不是缺陷：L2 按设计就是「基率层」（统计基率+Wilson），其价值＝诚实记账与区间，非\"跑赢硬币\"。要回答增量问题须**引入新信号源**（外部模型/特征）＝新立项，非调引擎。"
+ },
  "l5_evidence_gap": {
   "l5_rows": 108,
   "note_text_with_certified_value": 84,
   "of_which_resolved": 0,
   "gap": "引擎契约要结构化的 evidence.certifiedSource（{id,kind,...}）；账本里认证值是**文本**（baseRateNote「基率=组合数理论值 X」）。故引擎如实对全部 108 行出 unsupported。**这不是引擎缺陷**（宁缺毋滥是设计），也不是数据缺陷（值确实存在）；是「写端未落结构化认证源」的形态缺口。修法＝后续批次写端补 certifiedSource（属阶段 4 后续件，本跑不动数据）。"
  },
- "generated_at": "2026-09-14T04:36:27.890Z",
+ "generated_at": "2026-09-14T04:39:23.668Z",
  "report": {
   "L2": {
    "layer": "L2",
@@ -59,7 +71,7 @@
    "obs_rate": 0.5454545454545454,
    "mean_p": 0.47824267045454577,
    "signal": "engine_directionally_better_but_CI_includes_0",
-   "note": "分层计分，禁跨层池化（design §4.3）。注：本层引擎 p 即统计基率，故 vs「常数基率」Δ 结构性=0；有意义的对照是 vs 常数 0.5（基率相对硬币的增量）。真正「引擎增量」需另一路模型作对照臂（属阶段 4 后续）。"
+   "note": "分层计分，禁跨层池化（design §4.3）。注：本层引擎 p 即统计基率，故 vs「常数基率」Δ 结构性=0；有意义的对照是 vs 常数 0.5（基率相对硬币的增量）。**该增量问题在当前数据下不可回答**——见下方 [L2 对照臂可得性] 检（assigned_prob 就是基率本身、L2 无判词 ⇒ 无独立第二路）。"
   },
   "L5": {
    "layer": "L5",
