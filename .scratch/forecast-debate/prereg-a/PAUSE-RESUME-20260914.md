@@ -110,3 +110,12 @@ node p1b/scripts/prereg-a-run.cjs --limit=120 --tag=full1 --run-prefix=preregA-f
 1. **判"在不在跑"不能只看 DB 增长**——还要看**队列是否陈旧**（幂等写会吞掉"零增长"）；本次差点又误判 wedge。
 2. **CPU 时间不是网络型循环的活跃判据**（0.1s/20min 也可以是在正常轮询上游）。
 3. 断点续跑前，先按 DB 事实**核对/裁剪**待办清单（幂等键 `(prediction_id, run_id, prompt_variant)`）。
+
+## 7. 扫尾工具（2026-09-14 晚新增）
+
+- **孤儿缺口**：真跑 retry 队列只收「报了变体名」的失败项；实测另有**未入队的缺口**（整请求失败/无名错误）。
+- **工具**：`p1b/scripts/prereg-a-sweep.cjs`——按 **DB 事实**算全量缺口（120 题 × 2 窗 × 3 臂 × 3 变体）并逐条件用
+  `onlyVariants` 通道补齐（与真跑同链同口径；幂等；不写 run-state）。
+- **用法**：`node p1b/scripts/prereg-a-sweep.cjs`（dry-run 看缺口）/ `--confirm`（真补，env 同续跑：`P1B_LLM_REASONING_EFFORT=low`、`P1B_LLM_TIMEOUT_MS=600000`）。
+- **时机**：**在补漏跑批结束后**执行（补漏期间跑会对同一批条件重复发请求——幂等但浪费）。
+- **收尾顺序**：补漏跑完 → `sweep --confirm` → bootstrap 计分（`--run-prefix=preregA-full1-`）→ 按 v1.1 分层重算判定报告。
