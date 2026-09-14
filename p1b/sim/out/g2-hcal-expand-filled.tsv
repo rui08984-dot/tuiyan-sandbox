@@ -1,0 +1,25 @@
+# id	verdict	reason
+# ② 校准补样复核（2026-09-14 · 执行者=代理/ZCode 会话，非端用户；非全人工，如实披露见 audit disclosure）
+# 逐项理由（含观察项）。观察项汇总：GMT 口径未在题面显式标注 ×6（1158/1173/1198/985/1633/1535 等 air 族）；
+# 薄窗 ×2（1490/1482 各 76 样本、1129 18 个日均）；潮汐注记窗口越 cutoff ×1（1254）；cmp0 措辞 bug ×2（1633/1535，已实抓复算证实 b 方向正确）。
+1158	PASS	锚=air-quality hourly ozone（GMT 窗在 resolve 内固定）；对象（东京 ozone）/日期/阈值 ≤42.5 明确；cutoff 09-07 23:59 严格早于事件日 09-08；b=0.504（cutoff 前 115 日均=50.4%）在带非恒定。观察：题面未显式标 GMT 口径（披露可改进项，不影响可判定性）。
+1753	PASS	锚=Energy-Charts public_power 本地日窗口（bug-29 修后口径明确）；type=Nuclear/threshold=5118/cmp=≥ 明确；cutoff 06-24 23:59 严格早于 06-25；b=0.512。
+1356	PASS	锚=ERA5 archive（timezone=UTC）；风速/日期/阈值 ≥12.6 明确；cutoff 09-09 23:59 早于 09-10；b=0.515（97 天窗）。
+1198	PASS	锚=air-quality PM2.5（GMT 窗）；阈值 ≤23.0/日期明确；cutoff 09-13 02:52 早于 09-15；b=0.504（窗口 05-16~09-13 已注明 pre-cutoff）。观察：题面未标注 GMT 口径。
+1490	PASS	锚=Kraken OHLC（取 UTC 日那根 [4]=close）；阈值 ≥1890.06 明确；cutoff 09-08 23:59+08 严格早于 UTC 事件窗起点；b=0.500。观察：基率窗 76 样本偏薄（④ 报告项）。
+1387	PASS	锚=Open-Meteo 预报 precipitation_sum；阈值 ≤0.8mm/日期明确；cutoff 09-13 早于 09-18；b=0.505（99 天窗，注记已标 pre-cutoff）。
+1370	PASS	锚=ERA5（UTC）；风速/日期/阈值 ≥17.6 明确；cutoff 09-09 23:59 早于 09-10；b=0.536（97 天窗）。
+919	PASS	锚=Wikimedia pageviews API items[].views；阈值 ≥101315/日期明确；cutoff 09-13 01:46 早于 09-23；b=0.500（398 天窗截至 09-10，pre-cutoff 注明）。
+1482	PASS	锚=Kraken OHLC（UTC 日 close）；阈值 ≥64312.90 明确；cutoff 09-08 23:59+08 严格早于 UTC 事件窗；b=0.500。观察：76 样本薄窗。
+1173	PASS	锚=air-quality ozone（GMT 窗）；阈值 ≤35.3/日期明确；cutoff 09-08 23:59 早于 09-09；b=0.509。观察：GMT 口径未显式标注。
+1372	PASS	锚=Open-Meteo 预报 wind_speed_10m_max（UTC）；阈值 ≥17.7 明确；cutoff 09-13 早于 09-16；b=0.505（99 天窗）。
+1799	PASS	锚=Binance klines（UTC 日 [4]=close）；start/end_ms 与 UTC 日一致（已抽查换算）；cutoff 07-14 23:59+08 严格早于事件窗；b=0.500（440 样本）。
+988	PASS	锚=Binance klines（UTC 日 close）；阈值 ≥88839.04 明确；cutoff 09-13 严格早于 10-15；b=0.400（q=0.6，900 样本 pre-cutoff 现算）。
+985	PASS	锚=air-quality PM10（GMT 窗）；阈值 ≤20.6/日期明确；cutoff 09-13 早于 10-15；b=0.603（q=0.6，365 样本 pre-cutoff）。观察：GMT 口径。
+1633	PASS	锚=air-quality PM2.5（GMT 窗）；阈值 ≤28.9 明确；cutoff 09-13 15:10 早于 09-16。**注记方向「>=」与题面「≤」不一致＝已诊断的 cmp0 措辞 bug（b4 生成期既有行仅文案错）**；我用 API 实抓 400 天复算：P(≤28.93)=0.6025≈记录 0.603 ⇒ b 方向正确（详见 g2-hcal-expand-aq-check.log）。
+1535	PASS	同 1633 族：锚=air-quality PM10（GMT 窗）；阈值 ≤11.9 明确；cutoff 09-13 15:10 早于 09-16；实抓复算 P(≤11.88)=0.6025≈记录 0.603 ⇒ b 正确、注记方向为措辞 bug。
+1254	PASS	锚=NOAA CO-OPS predictions（天文推算，当日即出真值——题面已注明）；阈值 ≥1.451/日期明确；cutoff 09-13 02:52 早于 09-15；b=0.300（q=0.7）。观察：注记窗口「过去 40 天（08-09~09-17）」越过 cutoff 4 天且含事件日——潮汐为推算、无未来信息泄漏，但窗口未按 pre-cutoff 收口（④ 报告项，非本项判据问题）。
+1722	PASS	锚=NCEI GHCN TMAX（units=standard）；阈值 ≥77.0°F/站点/日期明确；cutoff 09-13 早于 09-16；b=0.313（q=0.7，396 日均）。
+1129	PASS	锚=Elexon FUELHH（settlementDate 窗，[40 点/日] 完成度阈在 resolver）；阈值 ≥4392 MW 明确；cutoff 09-10 23:59 早于 09-11；b=0.611。观察：基率窗仅 18 个日均＝薄窗（#13 报告项）。
+1177	PASS	锚=air-quality ozone（GMT 窗，注记方向「<=」与题面一致）；阈值 ≤38.7/日期明确；cutoff 09-13 早于 09-15；b=0.603（q=0.6）。
+703	PASS	锚=Open-Meteo forecast/archive temperature_2m_max（严格大于口径）；阈值 >31°C/日期明确；cutoff 09-13 00:47 早于 09-15；b=0.453（2015-2024 同月 300 日值，q=0.5）。

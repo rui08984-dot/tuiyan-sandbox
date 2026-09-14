@@ -230,13 +230,12 @@
   "review_composition": {
    "machine": 140,
    "agent_semantic": 140,
-   "human_calibration": 35,
+   "human_calibration": 14,
    "user_spot_check": 10,
    "end_user": 10,
-   "agent_surrogate_spot_check": 0,
-   "hcal_expand_agent": 21
+   "agent_surrogate_spot_check": 0
   },
-  "honesty": "非全人工复核：机器段（按 resolver 源码冻结契约）105 题 ＋ 代理语义段同数 ＋ 校准段 35 题（队长 14 ＋ 代理补样 21）＋ 端用户抽验 10 题（by=user）。代理复核≠独立人类审计；不得声称全人工。",
+  "honesty": "非全人工复核：机器段（按 resolver 源码冻结契约）140 题 + 代理语义段同数 + 队长校准 14 题 + 端用户抽验 0 题。代理复核≠独立人类审计；端用户抽验未做 ⇒ 采信状态 pending_user。",
   "human_calibration_required": {
    "min_n_user_spot": 10,
    "agree_threshold": 0.9,
@@ -249,27 +248,27 @@
    "note": "缺 baseRateNote ⇒ ④ 覆盖缺口，不影响 ②"
   },
   "generated_at": "2026-09-13T09:17:25.328Z",
-  "updated_at": "2026-09-14T06:07:27.059Z"
+  "updated_at": "2026-09-14T05:57:32.976Z"
  },
  "human_calibration": {
-  "n": 35,
-  "agreed": 35,
+  "n": 14,
+  "agreed": 14,
   "rate": 1,
-  "reviewer": "首轮 14＝队长（非端用户）；补样 21＝代理（ZCode 会话，非端用户）。",
-  "accepted": true,
+  "reviewer": "队长（非端用户）",
+  "accepted": false,
   "basis": "pre_fix 一致率 5/14=0.357（未达 90%，故旧代理段不采信）→ 按校准结论修正 machine 段（改按已注册 kind 契约）后，14/14=1.0 ≥0.90 ⇒ 恢复采信",
   "recheck": "1627（悉尼 dust≤0.0）：队长原判 REJECT 存疑，经源码核实 corpus-sources-b4.cjs L179 cmp0() 为恒真桩、L169-170 用它决定打印方向、L164 ge=false ⇒ 注解措辞 bug，实为 P(dust≤0.0)=72.5% 在带非恒定 ⇒ 队长更新判断为 PASS",
-  "sample_bias": "本校准样本由代理按「最可能分歧」挑选（8 假阳性 + 2 边界 + 4 顺延），偏向最易出错处，故 14/14 为偏保守证据 ｜ 补样同族纪律（最可能分歧），逐项理由见 hcal_expand.detail。",
+  "sample_bias": "本校准样本由代理按「最可能分歧」挑选（8 假阳性 + 2 边界 + 4 顺延），偏向最易出错处，故 14/14 为偏保守证据",
   "user_spot_check": 10,
-  "disclosure": "校准段构成：队长 14 项 ＋ 代理补样复核 21 项（逐项留理由；抽样＝边界基率 13 ＋ 长窗 2 ＋ 顺延 6，最可能分歧方向）；端用户抽验 10 题（by=user）。代理复核≠独立人类审计；**不得声称全人工**。",
+  "disclosure": "人类校准由队长执行、端用户抽验 0 题；整体仍非全人工复核，不得声称全人工",
   "user_spot_check_required": 10,
-  "acceptance_status": "accepted",
+  "acceptance_status": "pending_recheck",
   "acceptance_rule": "design §4.2.3 修订 R4.2（D-3③ 新规）：采信需 ①机器+代理两段；②全过 n>=35 或 Wilson 95% 下界 >=0.90；③端用户抽验 >=10 题为必要条件。",
   "wilson95": {
-   "k": 35,
-   "n": 35,
+   "k": 14,
+   "n": 14,
    "rate": 1,
-   "lb": 0.9010957324106112,
+   "lb": 0.7846829880728186,
    "ub": 1
   },
   "accepted_superseded": {
@@ -362,155 +361,7 @@
   "user_spot_check_at": "2026-09-14T05:57:32.975Z",
   "user_spot_check_by": "user",
   "user_spot_check_effective": 10,
-  "user_spot_check_note": "端用户本人填写（代理不得代填）；一致率＝用户裁定 vs ② 综合结论（机器∧语义）。 ｜ 核验者备注：用户本人在会话中答复「都过」（原话：『其实我有点看不懂但是差不多都过』，2026-09-14）；据此 10 题全记 PASS。来源表 p1b/sim/out/g1/spotcheck-10-compact.md",
-  "hcal_expand": {
-   "ids": [
-    703,
-    919,
-    985,
-    988,
-    1129,
-    1158,
-    1173,
-    1177,
-    1198,
-    1254,
-    1356,
-    1370,
-    1372,
-    1387,
-    1482,
-    1490,
-    1535,
-    1633,
-    1722,
-    1753,
-    1799
-   ],
-   "added": 21,
-   "pass": 21,
-   "reject": 0,
-   "n_before": 14,
-   "agreed_before": 14,
-   "n_after": 35,
-   "agreed_after": 35,
-   "buckets": {
-    "boundary": 13,
-    "long": 2,
-    "rest": 6
-   },
-   "seed": 20260914,
-   "by": "agent",
-   "note": "执行者=代理（ZCode 会话，非端用户）；抽样=边界基率13+长窗2+顺延6（长窗桶不足 1 项由边界桶补足；最可能分歧方向）；观察项已入逐项理由（GMT 披露×6/薄窗×2/潮汐窗×1/cmp0 措辞×2 已实抓复算）",
-   "at": "2026-09-14T06:07:27.059Z",
-   "detail": [
-    {
-     "id": 703,
-     "verdict": "PASS",
-     "reason": "锚=Open-Meteo forecast/archive temperature_2m_max（严格大于口径）；阈值 >31°C/日期明确；cutoff 09-13 00:47 早于 09-15；b=0.453（2015-2024 同月 300 日值，q=0.5）。"
-    },
-    {
-     "id": 919,
-     "verdict": "PASS",
-     "reason": "锚=Wikimedia pageviews API items[].views；阈值 ≥101315/日期明确；cutoff 09-13 01:46 早于 09-23；b=0.500（398 天窗截至 09-10，pre-cutoff 注明）。"
-    },
-    {
-     "id": 985,
-     "verdict": "PASS",
-     "reason": "锚=air-quality PM10（GMT 窗）；阈值 ≤20.6/日期明确；cutoff 09-13 早于 10-15；b=0.603（q=0.6，365 样本 pre-cutoff）。观察：GMT 口径。"
-    },
-    {
-     "id": 988,
-     "verdict": "PASS",
-     "reason": "锚=Binance klines（UTC 日 close）；阈值 ≥88839.04 明确；cutoff 09-13 严格早于 10-15；b=0.400（q=0.6，900 样本 pre-cutoff 现算）。"
-    },
-    {
-     "id": 1129,
-     "verdict": "PASS",
-     "reason": "锚=Elexon FUELHH（settlementDate 窗，[40 点/日] 完成度阈在 resolver）；阈值 ≥4392 MW 明确；cutoff 09-10 23:59 早于 09-11；b=0.611。观察：基率窗仅 18 个日均＝薄窗（#13 报告项）。"
-    },
-    {
-     "id": 1158,
-     "verdict": "PASS",
-     "reason": "锚=air-quality hourly ozone（GMT 窗在 resolve 内固定）；对象（东京 ozone）/日期/阈值 ≤42.5 明确；cutoff 09-07 23:59 严格早于事件日 09-08；b=0.504（cutoff 前 115 日均=50.4%）在带非恒定。观察：题面未显式标 GMT 口径（披露可改进项，不影响可判定性）。"
-    },
-    {
-     "id": 1173,
-     "verdict": "PASS",
-     "reason": "锚=air-quality ozone（GMT 窗）；阈值 ≤35.3/日期明确；cutoff 09-08 23:59 早于 09-09；b=0.509。观察：GMT 口径未显式标注。"
-    },
-    {
-     "id": 1177,
-     "verdict": "PASS",
-     "reason": "锚=air-quality ozone（GMT 窗，注记方向「<=」与题面一致）；阈值 ≤38.7/日期明确；cutoff 09-13 早于 09-15；b=0.603（q=0.6）。"
-    },
-    {
-     "id": 1198,
-     "verdict": "PASS",
-     "reason": "锚=air-quality PM2.5（GMT 窗）；阈值 ≤23.0/日期明确；cutoff 09-13 02:52 早于 09-15；b=0.504（窗口 05-16~09-13 已注明 pre-cutoff）。观察：题面未标注 GMT 口径。"
-    },
-    {
-     "id": 1254,
-     "verdict": "PASS",
-     "reason": "锚=NOAA CO-OPS predictions（天文推算，当日即出真值——题面已注明）；阈值 ≥1.451/日期明确；cutoff 09-13 02:52 早于 09-15；b=0.300（q=0.7）。观察：注记窗口「过去 40 天（08-09~09-17）」越过 cutoff 4 天且含事件日——潮汐为推算、无未来信息泄漏，但窗口未按 pre-cutoff 收口（④ 报告项，非本项判据问题）。"
-    },
-    {
-     "id": 1356,
-     "verdict": "PASS",
-     "reason": "锚=ERA5 archive（timezone=UTC）；风速/日期/阈值 ≥12.6 明确；cutoff 09-09 23:59 早于 09-10；b=0.515（97 天窗）。"
-    },
-    {
-     "id": 1370,
-     "verdict": "PASS",
-     "reason": "锚=ERA5（UTC）；风速/日期/阈值 ≥17.6 明确；cutoff 09-09 23:59 早于 09-10；b=0.536（97 天窗）。"
-    },
-    {
-     "id": 1372,
-     "verdict": "PASS",
-     "reason": "锚=Open-Meteo 预报 wind_speed_10m_max（UTC）；阈值 ≥17.7 明确；cutoff 09-13 早于 09-16；b=0.505（99 天窗）。"
-    },
-    {
-     "id": 1387,
-     "verdict": "PASS",
-     "reason": "锚=Open-Meteo 预报 precipitation_sum；阈值 ≤0.8mm/日期明确；cutoff 09-13 早于 09-18；b=0.505（99 天窗，注记已标 pre-cutoff）。"
-    },
-    {
-     "id": 1482,
-     "verdict": "PASS",
-     "reason": "锚=Kraken OHLC（UTC 日 close）；阈值 ≥64312.90 明确；cutoff 09-08 23:59+08 严格早于 UTC 事件窗；b=0.500。观察：76 样本薄窗。"
-    },
-    {
-     "id": 1490,
-     "verdict": "PASS",
-     "reason": "锚=Kraken OHLC（取 UTC 日那根 [4]=close）；阈值 ≥1890.06 明确；cutoff 09-08 23:59+08 严格早于 UTC 事件窗起点；b=0.500。观察：基率窗 76 样本偏薄（④ 报告项）。"
-    },
-    {
-     "id": 1535,
-     "verdict": "PASS",
-     "reason": "同 1633 族：锚=air-quality PM10（GMT 窗）；阈值 ≤11.9 明确；cutoff 09-13 15:10 早于 09-16；实抓复算 P(≤11.88)=0.6025≈记录 0.603 ⇒ b 正确、注记方向为措辞 bug。"
-    },
-    {
-     "id": 1633,
-     "verdict": "PASS",
-     "reason": "锚=air-quality PM2.5（GMT 窗）；阈值 ≤28.9 明确；cutoff 09-13 15:10 早于 09-16。**注记方向「>=」与题面「≤」不一致＝已诊断的 cmp0 措辞 bug（b4 生成期既有行仅文案错）**；我用 API 实抓 400 天复算：P(≤28.93)=0.6025≈记录 0.603 ⇒ b 方向正确（详见 g2-hcal-expand-aq-check.log）。"
-    },
-    {
-     "id": 1722,
-     "verdict": "PASS",
-     "reason": "锚=NCEI GHCN TMAX（units=standard）；阈值 ≥77.0°F/站点/日期明确；cutoff 09-13 早于 09-16；b=0.313（q=0.7，396 日均）。"
-    },
-    {
-     "id": 1753,
-     "verdict": "PASS",
-     "reason": "锚=Energy-Charts public_power 本地日窗口（bug-29 修后口径明确）；type=Nuclear/threshold=5118/cmp=≥ 明确；cutoff 06-24 23:59 严格早于 06-25；b=0.512。"
-    },
-    {
-     "id": 1799,
-     "verdict": "PASS",
-     "reason": "锚=Binance klines（UTC 日 [4]=close）；start/end_ms 与 UTC 日一致（已抽查换算）；cutoff 07-14 23:59+08 严格早于事件窗；b=0.500（440 样本）。"
-    }
-   ]
-  }
+  "user_spot_check_note": "端用户本人填写（代理不得代填）；一致率＝用户裁定 vs ② 综合结论（机器∧语义）。 ｜ 核验者备注：用户本人在会话中答复「都过」（原话：『其实我有点看不懂但是差不多都过』，2026-09-14）；据此 10 题全记 PASS。来源表 p1b/sim/out/g1/spotcheck-10-compact.md"
  },
  "calibration": {
   "n": 105,
@@ -6278,7 +6129,7 @@
   "rate": 1,
   "threshold": 0.7,
   "pass_gate": true,
-  "acceptance_status": "accepted"
+  "acceptance_status": "pending_recheck"
  },
  "items": [
   {
