@@ -1,0 +1,20 @@
+阶段 4 · 分层预测真跑（L2/L5 最小引擎 × 真实账本）
+库: E:\music player\p1a-terminal\data\p1a.db | 行域: p.g2_regime = 'R4' | 生成: 2026-09-14T04:36:27.889Z
+口径: L2=统计基率+Wilson；L5=认证源公布分布；仅对已 resolve 行计分；分层报禁跨层池化；ECE 恒挂双标注
+
+[L2] 账本行 625 | 引擎出数 554 | 未出数 71（{"insufficient_data":71}）| 可计分 264
+    Brier(engine)=0.2487 | Brier(常数0.5)=0.2500 | Δ(engine − 0.5)=-0.0013（<0 才有增量迹象）
+    Δ 的 95% 配对 bootstrap CI=[-0.0182,0.0170]（B=1000，seed=987654321）⇒ **engine_directionally_better_but_CI_includes_0**
+    分层计分，禁跨层池化（design §4.3）。注：本层引擎 p 即统计基率，故 vs「常数基率」Δ 结构性=0；有意义的对照是 vs 常数 0.5（基率相对硬币的增量）。真正「引擎增量」需另一路模型作对照臂（属阶段 4 后续）。
+    观测频率=0.5455 | 引擎平均 p=0.4782 | n=264
+    引擎样例: [{"id":452,"status":"ok","p":0.450151,"n":331,"source":"baseRateNote:pct_share_n"},{"id":471,"status":"ok","p":0.448795,"n":332,"source":"baseRateNote:pct_share_n"},{"id":472,"status":"ok","p":0.295181,"n":332,"source":"baseRateNote:pct_share_n"}]
+[L5] 账本行 108 | 引擎出数 0 | 未出数 108（{"unsupported:no_source":108}）| 可计分 0
+    n=0 < 30 ⇒ 只报方向、不出 Brier 结论（K F13 准入线）
+    引擎样例: [{"id":453,"status":"unsupported","p":null,"n":null,"source":null},{"id":454,"status":"unsupported","p":null,"n":null,"source":null},{"id":601,"status":"unsupported","p":null,"n":null,"source":null}]
+
+[L5 认证源形态缺口 · 如实披露] 账本 L5 行 108；其中 baseRateNote 含可解析认证值者 84，**但已 resolve 者 0**（彩票开奖时点未到）。
+    ⇒ 引擎对全部 108 行如实出 unsupported（宁缺毋滥，非缺陷）；且**即便补结构化认证源，当前也没有可计分的开奖真值**。
+    引擎契约要结构化的 evidence.certifiedSource（{id,kind,...}）；账本里认证值是**文本**（baseRateNote「基率=组合数理论值 X」）。故引擎如实对全部 108 行出 unsupported。**这不是引擎缺陷**（宁缺毋滥是设计），也不是数据缺陷（值确实存在）；是「写端未落结构化认证源」的形态缺口。修法＝后续批次写端补 certifiedSource（属阶段 4 后续件，本跑不动数据）。
+
+注: 本报告只覆盖**引擎已建**的 L2/L5 两层（design §5.3 先导期）；L1/L3/L4/L6 恒 classify-only，不在本跑范围。
+[stage4-run] json -> E:\music player\p1b\sim\out\stage4-run.json

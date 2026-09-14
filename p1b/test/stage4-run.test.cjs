@@ -1,0 +1,66 @@
+'use strict';
+/**
+ * p1b/test/stage4-run.test.cjs —— 阶段 4「分层预测真跑」脚本回归（2026-09-14 新增）
+ *
+ * 背景：L2/L5 引擎已建并接线到接题层，但从未对**已有账本**真跑（路线图阶段 4 的「真跑」）。
+ * 本测试锁死 stage4-run.cjs 的口径契约：
+ *   · 只跑引擎已建的 L2/L5（其余层不出现）
+ *   · 分层报、禁跨层池化（每层各自独立读数）
+ *   · 无 certifiedSource 的 L5 → 引擎如实 unsupported，且**不编数**（scored_n=0）
+ *   · Δ 带配对 bootstrap CI；CI 含 0 时**不得**给出「优于」结论（防过度声称）
+ *   · 确定性：两次跑 JSON 一致（seed 固定）
+ * 铁律：只读库（临时文件库）；零网络；子进程运行。
+ */
+const test = require('node:test');
+const assert = require('node:assert');
+const fs = require('node:fs');
+const os = require('node:os');
+const path = require('node:path');
+const { execFileSync } = require('node:child_process');
+
+const ROOT = path.resolve(__dirname, '..', '..');
+const SCRIPT = path.join(ROOT, 'p1b', 'scripts', 'stage4-run.cjs');
+const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'p1b-stage4-'));
+
+test.after(() => { try { fs.rmSync(tmpDir, { recursive: true, force: true }); } catch (e) { /* ignore */ } });
+
+test('stage4-run：产出分层读数（仅 L2/L5）、L5 如实 unsupported、Δ 带 CI 且 CI 含 0 时不声称优', () => {
+  const out = path.join(tmpDir, 's4.json');
+  execFileSync(process.execPath, [SCRIPT, '--json', out], { stdio: 'ignore' });
+  const r = JSON.parse(fs.readFileSync(out, 'utf8'));
+  assert.ok(r.report, '有 report');
+  assert.deepEqual(Object.keys(r.report).sort(), ['L2', 'L5'], '只跑引擎已建的 L2/L5（禁跨层池化 ⇒ 分层独立）');
+  const l2 = r.report.L2;
+  assert.ok(l2.ledger_rows > 0, 'L2 有账本行');
+  assert.ok(l2.engine_ok > 0, 'L2 引擎有出数');
+  if (l2.scored_n >= 30) {
+    assert.ok(l2.delta_ci95 && typeof l2.delta_ci95.lb === 'number', 'Δ 带 bootstrap CI');
+    assert.equal(l2.delta_ci95.B, 1000, '口径 B=1000');
+    assert.equal(l2.delta_ci95.seed, 987654321, '口径 seed 固定');
+    // 防过度声称：CI 含 0（ub>=0）⇒ 不得给「优于」信号
+    if (l2.delta_ci95.ub >= 0) assert.notEqual(l2.signal, 'engine_beats_half_CI_excludes_0', 'CI 含 0 不得声称优于');
+  }
+  const l5 = r.report.L5;
+  assert.equal(l5.engine_ok, 0, 'L5 无 certifiedSource ⇒ 引擎如实 0 出数（不编数）');
+  assert.equal(l5.scored_n, 0, 'L5 无可计分（不编数）');
+});
+
+test('stage4-run：L5 认证源形态缺口如实披露（有值但未结构化 / 未 resolve）', () => {
+  const out = path.join(tmpDir, 's4b.json');
+  execFileSync(process.execPath, [SCRIPT, '--json', out], { stdio: 'ignore' });
+  const r = JSON.parse(fs.readFileSync(out, 'utf8'));
+  assert.ok(r.l5_evidence_gap, 'L5 缺口披露节存在');
+  const g = r.l5_evidence_gap;
+  assert.ok(g.l5_rows >= 0, 'L5 行数');
+  assert.ok(typeof g.note_text_with_certified_value === 'number', '有多少行文本含认证值');
+  assert.ok(g.gap && /certifiedSource/.test(g.gap), '缺口说明点名契约字段');
+});
+
+test('stage4-run：确定性（两次跑读数逐位一致，seed 固定）', () => {
+  const a = path.join(tmpDir, 'a.json'); const b = path.join(tmpDir, 'b.json');
+  execFileSync(process.execPath, [SCRIPT, '--json', a], { stdio: 'ignore' });
+  execFileSync(process.execPath, [SCRIPT, '--json', b], { stdio: 'ignore' });
+  const A = JSON.parse(fs.readFileSync(a, 'utf8')); const B = JSON.parse(fs.readFileSync(b, 'utf8'));
+  delete A.generated_at; delete B.generated_at;
+  assert.deepEqual(A.report, B.report, '两次跑分层读数一致');
+});

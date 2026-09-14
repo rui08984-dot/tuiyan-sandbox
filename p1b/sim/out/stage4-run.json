@@ -1,0 +1,100 @@
+{
+ "script": "p1b/scripts/stage4-run.cjs",
+ "db": "E:\\music player\\p1a-terminal\\data\\p1a.db",
+ "regime": "R4",
+ "layers": [
+  "L2",
+  "L5"
+ ],
+ "l5_evidence_gap": {
+  "l5_rows": 108,
+  "note_text_with_certified_value": 84,
+  "of_which_resolved": 0,
+  "gap": "引擎契约要结构化的 evidence.certifiedSource（{id,kind,...}）；账本里认证值是**文本**（baseRateNote「基率=组合数理论值 X」）。故引擎如实对全部 108 行出 unsupported。**这不是引擎缺陷**（宁缺毋滥是设计），也不是数据缺陷（值确实存在）；是「写端未落结构化认证源」的形态缺口。修法＝后续批次写端补 certifiedSource（属阶段 4 后续件，本跑不动数据）。"
+ },
+ "generated_at": "2026-09-14T04:36:27.890Z",
+ "report": {
+  "L2": {
+   "layer": "L2",
+   "ledger_rows": 625,
+   "engine_ok": 554,
+   "engine_fail": 71,
+   "engine_fail_reasons": {
+    "insufficient_data": 71
+   },
+   "scored_n": 264,
+   "engine_sample": [
+    {
+     "id": 452,
+     "status": "ok",
+     "p": 0.450151,
+     "n": 331,
+     "source": "baseRateNote:pct_share_n"
+    },
+    {
+     "id": 471,
+     "status": "ok",
+     "p": 0.448795,
+     "n": 332,
+     "source": "baseRateNote:pct_share_n"
+    },
+    {
+     "id": 472,
+     "status": "ok",
+     "p": 0.295181,
+     "n": 332,
+     "source": "baseRateNote:pct_share_n"
+    }
+   ],
+   "brier_engine": 0.2486739648650794,
+   "brier_const_half": 0.25,
+   "delta_vs_half": -0.0013260351349206057,
+   "delta_ci95": {
+    "lb": -0.01816902941484468,
+    "ub": 0.016950307869318195,
+    "B": 1000,
+    "seed": 987654321,
+    "mean": -0.001326035134920453
+   },
+   "obs_rate": 0.5454545454545454,
+   "mean_p": 0.47824267045454577,
+   "signal": "engine_directionally_better_but_CI_includes_0",
+   "note": "分层计分，禁跨层池化（design §4.3）。注：本层引擎 p 即统计基率，故 vs「常数基率」Δ 结构性=0；有意义的对照是 vs 常数 0.5（基率相对硬币的增量）。真正「引擎增量」需另一路模型作对照臂（属阶段 4 后续）。"
+  },
+  "L5": {
+   "layer": "L5",
+   "ledger_rows": 108,
+   "engine_ok": 0,
+   "engine_fail": 108,
+   "engine_fail_reasons": {
+    "unsupported:no_source": 108
+   },
+   "scored_n": 0,
+   "engine_sample": [
+    {
+     "id": 453,
+     "status": "unsupported",
+     "p": null,
+     "n": null,
+     "source": null
+    },
+    {
+     "id": 454,
+     "status": "unsupported",
+     "p": null,
+     "n": null,
+     "source": null
+    },
+    {
+     "id": 601,
+     "status": "unsupported",
+     "p": null,
+     "n": null,
+     "source": null
+    }
+   ],
+   "note": "n=0 < 30 ⇒ 只报方向、不出 Brier 结论（K F13 准入线）"
+  }
+ },
+ "note": "分层报，禁跨层池化（design §4.3）"
+}
