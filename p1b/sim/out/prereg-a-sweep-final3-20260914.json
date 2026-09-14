@@ -1,0 +1,66 @@
+{
+ "confirm": true,
+ "conditions_with_gap": 7,
+ "missing_variants": 7,
+ "saved": 4,
+ "errors": 3,
+ "at": "2026-09-14T13:52:31.853Z",
+ "results": [
+  {
+   "pid": 128,
+   "window": "cutoff",
+   "arm": "B",
+   "requested": 1,
+   "saved": 0,
+   "errors": 1
+  },
+  {
+   "pid": 164,
+   "window": "cutoff",
+   "arm": "A",
+   "requested": 1,
+   "saved": 0,
+   "errors": 1
+  },
+  {
+   "pid": 164,
+   "window": "cutoff",
+   "arm": "B",
+   "requested": 1,
+   "saved": 0,
+   "errors": 1
+  },
+  {
+   "pid": 164,
+   "window": "cutoff",
+   "arm": "C",
+   "requested": 1,
+   "saved": 1,
+   "errors": 0
+  },
+  {
+   "pid": 164,
+   "window": "full",
+   "arm": "A",
+   "requested": 1,
+   "saved": 1,
+   "errors": 0
+  },
+  {
+   "pid": 200,
+   "window": "cutoff",
+   "arm": "B",
+   "requested": 1,
+   "saved": 1,
+   "errors": 0
+  },
+  {
+   "pid": 201,
+   "window": "cutoff",
+   "arm": "B",
+   "requested": 1,
+   "saved": 1,
+   "errors": 0
+  }
+ ]
+}

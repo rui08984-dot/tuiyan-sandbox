@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-09-14T13:46:12.705Z",
+ "generated_at": "2026-09-14T13:56:26.047Z",
  "g2": {
   "ok": true
  },
@@ -255,7 +255,7 @@
  "ledger": {
   "predictions": 1935,
   "resolved": 1263,
-  "verdicts": 4760,
+  "verdicts": 4765,
   "due_next7d": 377,
   "integrity": "ok"
  }

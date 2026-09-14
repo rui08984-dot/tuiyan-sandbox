@@ -1,19 +1,19 @@
 {
- "at": "2026-09-14T13:46:12.849Z",
+ "at": "2026-09-14T13:56:26.201Z",
  "prefix": "preregA-full1-",
  "processes": {
   "count": 0,
   "list": []
  },
  "growth": {
-  "total": 2153,
-  "last_10min": 0,
-  "last_60min": 25,
+  "total": 2158,
+  "last_10min": 5,
+  "last_60min": 23,
   "last_row": {
-   "id": 4760,
-   "created_at": "2026-09-14 13:24:42"
+   "id": 4765,
+   "created_at": "2026-09-14 13:55:38"
   },
-  "rows_per_min_10": 0
+  "rows_per_min_10": 0.5
  },
  "queue": {
   "state": ".scratch\\forecast-debate\\prereg-a\\run-state-full1-repair.json",
