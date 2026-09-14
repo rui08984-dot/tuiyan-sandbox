@@ -1,0 +1,92 @@
+{
+ "generated_at": "2026-09-14T15:11:50.312Z",
+ "script": "p1b/scripts/vault-sync.cjs",
+ "db": "E:\\music player\\p1a-terminal\\data\\p1a.db",
+ "confirm": true,
+ "before": {
+  "predictions_total": 1935,
+  "predictions_resolved": 1263,
+  "vault_rows": 1923,
+  "vault_missing": 12,
+  "vault_orphan": 0,
+  "truth_column_diff": 25,
+  "ok": false
+ },
+ "before_pred_dump": {
+  "sha256": "9cdd8d837c5ae10a948e78329144c4b8cf0c0a16911ecd496fc841089c69c979",
+  "rows": 1935
+ },
+ "plan": {
+  "insert_n": 12,
+  "update_n": 25,
+  "orphan_n": 0,
+  "insert_ids": [
+   1939,
+   1940,
+   1941,
+   1942,
+   1943,
+   1944,
+   1945,
+   1946,
+   1947,
+   1948,
+   1949,
+   1950
+  ],
+  "update_ids": [
+   451,
+   453,
+   454,
+   456,
+   460,
+   464,
+   468,
+   731,
+   732,
+   817,
+   829,
+   930,
+   931,
+   933,
+   934,
+   936,
+   937,
+   1761,
+   1765,
+   1769,
+   1785,
+   1787,
+   1789,
+   1791,
+   1793
+  ],
+  "orphan_ids": []
+ },
+ "snapshot": {
+  "path": ".scratch/backup/p1a-pre-vaultsync-2026-09-14T15-11-50-344Z.db",
+  "sha256": "f4b253e9ace02ed24e6a4d446e15f93bf710aac7f5b08f30ba470212165b98d6",
+  "integrity": "ok",
+  "predictions_rows": 1935
+ },
+ "write": {
+  "inserted": 12,
+  "updated": 25,
+  "ms": 6
+ },
+ "after": {
+  "predictions_total": 1935,
+  "predictions_resolved": 1263,
+  "vault_rows": 1935,
+  "vault_missing": 0,
+  "vault_orphan": 0,
+  "truth_column_diff": 0,
+  "ok": true
+ },
+ "after_pred_dump": {
+  "sha256": "9cdd8d837c5ae10a948e78329144c4b8cf0c0a16911ecd496fc841089c69c979",
+  "rows": 1935
+ },
+ "predictions_untouched": true,
+ "integrity_check": "ok"
+}
