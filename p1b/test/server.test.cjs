@@ -1103,3 +1103,35 @@ test('B7 wrapper 响应侧：原生 Response（ok/status 为原型 getter）仍�
   const claim = data.choices[0].message.content;
   assert.ok(claim.includes('__BOTC[is_demon]'), '原生 Response 路径下载体翻译仍生效');
 });
+
+// ── bug-27 回归（2026-09-14）：同日重结算**不得**重复入库（参谋卡幂等）─────────────
+// 病象：adviseRunner 每次 enqueue 都跑一遍 saveAdvisorCard，而后者纯 INSERT 无幂等
+//   ⇒ 同一 (game,day) 重复结算会把 hypotheses/contradictions 逐次累加（生产库 game1 实证 7 条）。
+// 修法：p1b 调用侧保存前先清当日旧卡（同日＝覆盖），不动禁改面 p1a-terminal/src/db.js。
+test('bug-27 回归：同日重复天结算 → 参谋卡不重复入库（覆盖语义）', async () => {
+  const captured = [];
+  const runner = makeB3Runner(captured, 6);
+  // 建局 + 录一条 day1 事件（b3SetupGame 复用既有辅助；claim=null 只录事件）
+  const gObj = await b3SetupGame('幂等回归局', 'werewolf', null, null);
+  const gid = gObj.id;
+  assert.ok(gid > 0, '建局成功');
+  const conn = db.getConnection();
+  const cntH = () => conn.prepare('SELECT COUNT(*) n FROM hypotheses WHERE game_id=? AND day=1').get(gid).n;
+  const cntC = () => conn.prepare('SELECT COUNT(*) n FROM contradictions WHERE game_id=?').get(gid).n;
+  // 第一次结算
+  const r1 = await runner(gid, 1);
+  assert.equal(r1.saved, true, '首次结算落库');
+  assert.equal(r1.replaced, null, '首次无可替换（replaced=null）');
+  const h1 = cntH(), c1 = cntC();
+  assert.ok(h1 >= 1, '首次落 ≥1 条假设');
+  // 第二次结算（同一天）—— 修复前会翻倍
+  const r2 = await runner(gid, 1);
+  assert.equal(r2.saved, true, '二次结算落库');
+  assert.ok(r2.replaced && r2.replaced.deleted_hypotheses === h1, '二次先清掉首次当日假设（replaced 上报删除数）');
+  const h2 = cntH(), c2 = cntC();
+  assert.equal(h2, h1, '同日重复结算后假设数与首次相同（不累加）');
+  assert.equal(c2, c1, '同日重复结算后矛盾数与首次相同（不累加）');
+  // 第三次再跑一遍，仍不增长（真幂等语义：同日＝覆盖）
+  await runner(gid, 1);
+  assert.equal(cntH(), h1, '三次结算仍不累加');
+});

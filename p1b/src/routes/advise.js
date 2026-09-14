@@ -71,14 +71,15 @@ async function runBotcAdvise(state, day, options) {
   const persistable = contradictions.filter((c) =>
     [c.claim_a, c.claim_b, c.action_a, c.action_b].some((v) => v !== null && v !== undefined));
   const cpPred = convertCheckpoints(gameId, day, card); // p10 W1：验证点自动落预测卡（失败不炸卡）
-  let saved = false, saveError = null;
+  let saved = false, saveError = null, replaced = null;
   try {
+    replaced = hasCardForDay(gameId, day) ? replaceSameDayCard(gameId, day) : null; // bug-27 修：同日覆盖
     db.saveAdvisorCard(gameId, day, { contradictions: persistable, hypotheses: r.hypotheses });
     saved = true;
   } catch (e) {
     saveError = (e && e.message) ? e.message : String(e); // 回存失败不影响展示（cli 同思路）
   }
-  return Object.assign({}, card, { saved, save_error: saveError, cp_predictions: cpPred });
+  return Object.assign({}, card, { saved, save_error: saveError, replaced: replaced, cp_predictions: cpPred });
 }
 
 /** p10 W1：验证点 → predictions 落卡包装（失败不炸参谋卡，error 留痕——回存失败同思路） */
@@ -121,14 +122,16 @@ function makeAdviseRunner(ctx) {
       meta: r.meta || null,
     };
     const cpPred = convertCheckpoints(gameId, day, card); // p10 W1：验证点自动落预测卡（失败不炸卡）
-    let saved = false, saveError = null;
+    let saved = false, saveError = null, replaced = null;
     try {
+      // bug-27 修：同日重结算＝覆盖（先清当日旧卡，再写新卡），防重复入库灌水
+      replaced = hasCardForDay(gameId, day) ? replaceSameDayCard(gameId, day) : null;
       db.saveAdvisorCard(gameId, day, card); // RD1 + 引用 id 存在性 + 事务原子（db 层硬校验）
       saved = true;
     } catch (e) {
       saveError = (e && e.message) ? e.message : String(e); // 回存失败不影响展示（cli 同思路）
     }
-    return Object.assign({}, card, { saved, save_error: saveError, cp_predictions: cpPred });
+    return Object.assign({}, card, { saved, save_error: saveError, replaced: replaced, cp_predictions: cpPred });
   };
 }
 
@@ -155,6 +158,50 @@ function buildCards(gameId) {
       .filter((c) => { const ed = evidenceByRowId.get(c.id); return ed !== undefined && ed !== null && ed <= day; })
       .map((c) => Object.assign({}, c, { evidence_day: evidenceByRowId.get(c.id) })),
   }));
+}
+
+/**
+ * 幂等守卫（2026-09-14 修 bug-27）：**重复天结算会导致参谋卡重复入库**。
+ *
+ * 病象（实测）：`POST /api/games/:id/day/:n/advise` 对同一 (game,day) 无防重守卫；每次 enqueue 都跑一遍
+ *   adviseRunner → `db.saveAdvisorCard` 是**纯 INSERT 无幂等** ⇒ 同一天的 hypotheses/contradictions 逐次累加。
+ *   实证：生产库 game_id=1 有 7 条 hypotheses（含 2 套重复）+ 3 条完全相同的 contradictions。
+ *
+ * 修法（**不动禁改面** p1a-terminal/src/db.js）：在 p1b 调用侧，保存**之前**先删掉该 (game,day) 的旧卡，
+ *   再写新卡 —— 语义＝「同一天重结算＝覆盖」，与「账本不可变」不冲突（参谋卡是**派生视图**，非账本事实）。
+ *
+ * 边界（写死，防误伤）：
+ *   · hypotheses 有 day 列 ⇒ 精确按 (game_id, day) 删。
+ *   · contradictions **无 day 列**（表设计如此）⇒ 其归属由「引用的 claim/action 所在事件的最大 day」反推
+ *     （与 buildCards 的 evidence_day 同口径）。只删 **day ≤ 本次 day** 的矛盾，避免误删后续天的证据对。
+ *     ⚠ 已知局限：若某矛盾引用的 claim 跨天，其反推 day 可能落在别的天 —— 故删除范围保守取 ≤ 本次 day。
+ *   · 只删 generated_by='llm' 的行（人类手工/其它来源不可被结算覆盖）。
+ */
+function replaceSameDayCard(gameId, day) {
+  const conn = db.getConnection();
+  const tx = conn.transaction(() => {
+    // 1) 当日假设：精确删
+    const delH = conn.prepare('DELETE FROM hypotheses WHERE game_id=? AND day=?');
+    const delHN = delH.run(gameId, day).changes;
+    // 2) 当日矛盾：无 day 列 ⇒ 用「引用事件的最大 day ≤ 本次 day」反推
+    const rows = conn.prepare(EVIDENCE_DAY_SQL).all(gameId);
+    const ids = rows.filter((r) => r.evidence_day !== null && r.evidence_day !== undefined && r.evidence_day <= day)
+      .map((r) => r.row_id);
+    let delCN = 0;
+    if (ids.length) {
+      const delC = conn.prepare("DELETE FROM contradictions WHERE game_id=? AND id=? AND generated_by='llm'");
+      for (const id of ids) delCN += delC.run(gameId, id).changes;
+    }
+    return { deleted_hypotheses: delHN, deleted_contradictions: delCN };
+  });
+  return tx();
+}
+
+/** 该 (game,day) 是否已有参谋卡存档（用于上报 replaced 标记，不阻断生成） */
+function hasCardForDay(gameId, day) {
+  const conn = db.getConnection();
+  const r = conn.prepare('SELECT COUNT(*) n FROM hypotheses WHERE game_id=? AND day=?').get(gameId, day);
+  return Number(r && r.n ? r.n : 0) > 0;
 }
 
 function register(app, ctx) {
