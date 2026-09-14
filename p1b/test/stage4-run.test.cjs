@@ -6,7 +6,7 @@
  * 本测试锁死 stage4-run.cjs 的口径契约：
  *   · 只跑引擎已建的 L2/L5（其余层不出现）
  *   · 分层报、禁跨层池化（每层各自独立读数）
- *   · 无 certifiedSource 的 L5 → 引擎如实 unsupported，且**不编数**（scored_n=0）
+ *   · L5 认证源：**读侧结构化后出数=账本行**（按 resolve.kind 的组合数重建）；来源分类必须覆盖全部行、**不编数**
  *   · Δ 带配对 bootstrap CI；CI 含 0 时**不得**给出「优于」结论（防过度声称）
  *   · 确定性：两次跑 JSON 一致（seed 固定）
  * 铁律：只读库（临时文件库）；零网络；子进程运行。
@@ -24,7 +24,7 @@ const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'p1b-stage4-'));
 
 test.after(() => { try { fs.rmSync(tmpDir, { recursive: true, force: true }); } catch (e) { /* ignore */ } });
 
-test('stage4-run：产出分层读数（仅 L2/L5）、L5 如实 unsupported、Δ 带 CI 且 CI 含 0 时不声称优', () => {
+test('stage4-run：产出分层读数（仅 L2/L5）、L5 读侧重建出数、Δ 带 CI 且 CI 含 0 时不声称优', () => {
   const out = path.join(tmpDir, 's4.json');
   execFileSync(process.execPath, [SCRIPT, '--json', out], { stdio: 'ignore' });
   const r = JSON.parse(fs.readFileSync(out, 'utf8'));
@@ -41,11 +41,20 @@ test('stage4-run：产出分层读数（仅 L2/L5）、L5 如实 unsupported、�
     if (l2.delta_ci95.ub >= 0) assert.notEqual(l2.signal, 'engine_beats_half_CI_excludes_0', 'CI 含 0 不得声称优于');
   }
   const l5 = r.report.L5;
-  assert.equal(l5.engine_ok, 0, 'L5 无 certifiedSource ⇒ 引擎如实 0 出数（不编数）');
-  assert.equal(l5.scored_n, 0, 'L5 无可计分（不编数）');
+  // 2026-09-14 读侧结构化后：L5 认证源按 resolve.kind 从组合数注册表重建 ⇒ 出数=账本行（不再恒 0）；
+  // 可计分数由「开奖真值到达情况」决定（当前 30 行已 resolve），但**必须 ≤ 账本行**（不编数）。
+  assert.ok(l5.ledger_rows > 0, 'L5 有账本行');
+  const src = r.l5_source_resolution;
+  assert.ok(src, '含 L5 认证源来源分类节');
+  assert.equal(l5.engine_ok + src.none, l5.ledger_rows, '出数 + 两路皆无 = 账本行（不编数）');
+  assert.ok(src.read_side > 0, '读侧注册表重建生效');
+  assert.equal(src.structured + src.read_side + src.none, l5.ledger_rows, '来源分类覆盖全部行');
+  assert.equal(src.note_mismatch, 0, '认证值声明与注册表零矛盾（若报警：人工复核该行文本）');
+  assert.ok(l5.scored_n > 0, 'L5 已可计分（开奖真值已达的行）');
+  assert.ok(l5.scored_n <= l5.ledger_rows, '可计分 ≤ 账本行');
 });
 
-test('stage4-run：L5 认证源形态缺口如实披露（有值但未结构化 / 未 resolve）', () => {
+test('stage4-run：L5 认证源缺口如实披露（写端未结构化；读侧已重建）', () => {
   const out = path.join(tmpDir, 's4b.json');
   execFileSync(process.execPath, [SCRIPT, '--json', out], { stdio: 'ignore' });
   const r = JSON.parse(fs.readFileSync(out, 'utf8'));
@@ -54,6 +63,7 @@ test('stage4-run：L5 认证源形态缺口如实披露（有值但未结构化 
   assert.ok(g.l5_rows >= 0, 'L5 行数');
   assert.ok(typeof g.note_text_with_certified_value === 'number', '有多少行文本含认证值');
   assert.ok(g.gap && /certifiedSource/.test(g.gap), '缺口说明点名契约字段');
+  assert.ok(/读侧/.test(g.gap), '缺口说明含读侧修记录（2026-09-14）');
 });
 
 test('stage4-run：确定性（两次跑读数逐位一致，seed 固定）', () => {

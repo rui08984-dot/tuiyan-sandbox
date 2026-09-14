@@ -32,6 +32,7 @@ const MIN_N = 30;
 const { DatabaseSync } = require('node:sqlite');
 const { l2Baseline } = require(path.join(ROOT, 'p1b/src/engines/l2_baseline'));
 const { l5Certified } = require(path.join(ROOT, 'p1b/src/engines/l5_certified'));
+const { certifiedSourceForRow } = require(path.join(ROOT, 'p1b/src/engines/l5_sources')); // 2026-09-14：L5 认证源读侧结构化（按 kind 组合数重建）
 
 const db = new DatabaseSync(DB_PATH, { readOnly: true });
 const all = (s) => db.prepare(s).all();
@@ -66,6 +67,8 @@ function fmt(x, d) { return (x === null || x === undefined || !isFinite(x)) ? 'n
 const perLayer = {};
 for (const layer of ENGINED_LAYERS) perLayer[layer] = { total: 0, engine_ok: 0, engine_fail: 0, fail_reasons: {},
   scored: 0, p_list: [], y_list: [], engine_results_sample: [] };
+// L5 认证源来源统计（2026-09-14 读侧结构化后）：structured=写端已给；read_side=读侧注册表重建；none=两路皆无
+const L5_SRC = { structured: 0, read_side: 0, none: 0, note_consistent: 0, note_mismatch: 0, note_empirical: 0, note_absent: 0, mismatch_ids: [] };
 for (const r of rows) {
   const L = perLayer[r.layer];
   L.total++;
@@ -75,6 +78,24 @@ for (const r of rows) {
   } else {
     let cs = null;
     try { cs = r.cs ? JSON.parse(r.cs) : (r.rcs ? JSON.parse(r.rcs) : null); } catch (e) { cs = null; }
+    if (cs) L5_SRC.structured++;
+    else {
+      let rj = null;
+      try { rj = r.rj ? JSON.parse(r.rj) : null; } catch (e) { rj = null; }
+      const built = certifiedSourceForRow({ resolve: rj, baseRateNote: r.brn });
+      if (built.ok) {
+        cs = built.source; L5_SRC.read_side++;
+        const kindN = built.meta.note_kind;
+        if (kindN === 'certified_text') {
+          if (built.meta.note_consistent) L5_SRC.note_consistent++;
+          else {
+            L5_SRC.note_mismatch++;
+            if (L5_SRC.mismatch_ids.length < 10) L5_SRC.mismatch_ids.push({ id: r.id, kind: built.meta.kind, p_registry: built.meta.p, p_note: built.meta.note_p });
+          }
+        } else if (kindN === 'empirical_pct') L5_SRC.note_empirical++;
+        else L5_SRC.note_absent++;
+      } else { L5_SRC.none++; }
+    }
     out = l5Certified({ certifiedSource: cs });
   }
   if (out.ok && typeof out.p === 'number') L.engine_ok++; else { L.engine_fail++; const k = out.status + (out.reason ? ':' + out.reason : ''); L.fail_reasons[k] = (L.fail_reasons[k] || 0) + 1; }
@@ -103,11 +124,21 @@ for (const layer of ENGINED_LAYERS) {
     // 判定信号（沿用项目口径：Δ<0 才有增量；但本层引擎 p **本身**就是基率 ⇒ Δ(vs 常数基率) 结构性为 0，
     //   故真正的对照是「vs 常数 0.5」——「基率比硬币好多少」）
     const ciExcludes0 = brief.delta_ci95.lb !== null && brief.delta_ci95.ub < 0;
-    brief.signal = ciExcludes0 ? 'engine_beats_half_CI_excludes_0'
-      : (brief.delta_vs_half < 0 ? 'engine_directionally_better_but_CI_includes_0' : 'engine_not_better_than_half');
-    brief.note = '分层计分，禁跨层池化（design §4.3）。注：本层引擎 p 即统计基率，故 vs「常数基率」Δ 结构性=0；'
-      + '有意义的对照是 vs 常数 0.5（基率相对硬币的增量）。**该增量问题在当前数据下不可回答**——'
-      + '见下方 [L2 对照臂可得性] 检（assigned_prob 就是基率本身、L2 无判词 ⇒ 无独立第二路）。';
+    if (layer === 'L5') {
+      // L5 专属口径（2026-09-14）：引擎 p 即认证源公布分布，vs 0.5 的 Δ 只反映「事件基率偏离 50%」，
+      //   不构成任何「更准」宣称（L5 铁律：显著优于认证源＝泄漏信号，非本事）。信号名中性化。
+      brief.signal = ciExcludes0 ? 'delta_vs_half_negative_CI_excludes_0'
+        : (brief.delta_vs_half < 0 ? 'delta_vs_half_negative_CI_includes_0' : 'delta_vs_half_not_negative');
+      brief.note = 'L5：引擎 p 即认证源公布分布（本层按定义「无信息优势可学」）。vs 常数 0.5 的 Δ 只反映事件基率偏离 50%'
+        + '（本批彩票事件 p≈0.17–0.63）——**不构成任何"更准/有本事"宣称**：L5 铁律，显著优于认证源＝泄漏信号，不是本事。'
+        + '本层有意义的读数＝**校准**（观测频率 vs 引擎平均 p，当前样本小、仅披露）；开奖真值持续到达后读数自然增长。';
+    } else {
+      brief.signal = ciExcludes0 ? 'engine_beats_half_CI_excludes_0'
+        : (brief.delta_vs_half < 0 ? 'engine_directionally_better_but_CI_includes_0' : 'engine_not_better_than_half');
+      brief.note = '分层计分，禁跨层池化（design §4.3）。注：本层引擎 p 即统计基率，故 vs「常数基率」Δ 结构性=0；'
+        + '有意义的对照是 vs 常数 0.5（基率相对硬币的增量）。**该增量问题在当前数据下不可回答**——'
+        + '见下方 [L2 对照臂可得性] 检（assigned_prob 就是基率本身、L2 无判词 ⇒ 无独立第二路）。';
+    }
   } else {
     brief.note = 'n=' + n + ' < ' + MIN_N + ' ⇒ 只报方向、不出 Brier 结论（K F13 准入线）';
   }
@@ -132,8 +163,9 @@ function l5EvidenceGap() {
   return { l5_rows: rows5.length, note_text_with_certified_value: parseable,
     of_which_resolved: parseableResolved,
     gap: '引擎契约要结构化的 evidence.certifiedSource（{id,kind,...}）；账本里认证值是**文本**（baseRateNote「基率=组合数理论值 X」）。'
-      + '故引擎如实对全部 108 行出 unsupported。**这不是引擎缺陷**（宁缺毋滥是设计），也不是数据缺陷（值确实存在）；'
-      + '是「写端未落结构化认证源」的形态缺口。修法＝后续批次写端补 certifiedSource（属阶段 4 后续件，本跑不动数据）。' };
+      + '**2026-09-14 修（读侧）**：新增 `p1b/src/engines/l5_sources.js` 按 resolve.kind 从**组合数精确值**重建认证分布，'
+      + '并与文本可解析数值交叉核对（不一致如实标记、不静默）；**账本零改动、写端零改动**。'
+      + '写端补结构化 certifiedSource 仍留待与 F4 真值分库同批迁移（届时本注册表自动退居兜底）。' };
 }
 const L5_GAP = l5EvidenceGap();
 
@@ -201,9 +233,12 @@ T.push('[L2 对照臂可得性 · 落盘后补检] 已 resolve ' + L2_RIVAL.l2_r
   + '（最大偏差 ' + L2_RIVAL.assigned_prob_vs_baserate.max_abs_diff + '）；L2 带判词行 ' + L2_RIVAL.l2_rows_with_verdicts);
 T.push('    ⇒ rival_arm_available=' + L2_RIVAL.rival_arm_available + '（' + L2_RIVAL.conclusion + '）');
 T.push('');
-T.push('[L5 认证源形态缺口 · 如实披露] 账本 L5 行 ' + L5_GAP.l5_rows + '；其中 baseRateNote 含可解析认证值者 '
-  + L5_GAP.note_text_with_certified_value + '，**但已 resolve 者 0**（彩票开奖时点未到）。');
-T.push('    ⇒ 引擎对全部 108 行如实出 unsupported（宁缺毋滥，非缺陷）；且**即便补结构化认证源，当前也没有可计分的开奖真值**。');
+T.push('[L5 认证源 · 读侧结构化（2026-09-14）] 账本 L5 行 ' + L5_GAP.l5_rows + '：写端结构化 certifiedSource ' + L5_SRC.structured
+  + ' 行；**读侧注册表重建 ' + L5_SRC.read_side + ' 行**（按 resolve.kind 的组合数精确值，`p1b/src/engines/l5_sources.js`）；两路皆无 ' + L5_SRC.none + ' 行。');
+T.push('    与文本交叉核对：认证值声明一致 ' + L5_SRC.note_consistent + ' ｜ **认证值声明不一致 ' + L5_SRC.note_mismatch + '**'
+  + ' ｜ 文本为历史频率 ' + L5_SRC.note_empirical + '（与认证值不同属预期，非矛盾）｜ 无文本 ' + L5_SRC.note_absent
+  + (L5_SRC.note_mismatch ? '（不一致样本 ' + JSON.stringify(L5_SRC.mismatch_ids) + '）' : ''));
+T.push('    已可计分 ' + (report.L5 && report.L5.scored_n !== undefined ? report.L5.scored_n : 0) + ' 行（开奖真值随时间到达；本修后**到达即可自动计分**）。');
 T.push('    ' + L5_GAP.gap);
 T.push('');
 T.push('注: 本报告只覆盖**引擎已建**的 L2/L5 两层（design §5.3 先导期）；L1/L3/L4/L6 恒 classify-only，不在本跑范围。');
@@ -212,6 +247,7 @@ console.log(text);
 if (TEXT_OUT) { fs.writeFileSync(path.resolve(TEXT_OUT), text, 'utf8'); console.log('[stage4-run] text -> ' + path.resolve(TEXT_OUT)); }
 if (JSON_OUT) {
   const out = { script: 'p1b/scripts/stage4-run.cjs', db: DB_PATH, regime: 'R4', layers: ENGINED_LAYERS, l2_rival_arm_check: L2_RIVAL, l5_evidence_gap: L5_GAP,
+    l5_source_resolution: JSON.parse(JSON.stringify(L5_SRC)),
     generated_at: new Date().toISOString(), report: report, note: '分层报，禁跨层池化（design §4.3）' };
   fs.writeFileSync(path.resolve(JSON_OUT), JSON.stringify(out, null, 1), 'utf8');
   console.log('[stage4-run] json -> ' + path.resolve(JSON_OUT));
