@@ -285,6 +285,13 @@ async function buildLotto() {
   for (const issue of issues) {
     for (const cb of combos) {
       if (!inBand(cb.th)) continue;
+      // bug-28 修（2026-09-14）：kind 必须**按 combo 分流**。原实现把 kind 硬编码为 cwl_ssq_red_contains，
+      // blueodd 时 ball=null ⇒ 解析器 `indexOf(null)` 恒 -1 ⇒ **恒判 false**（错误真值入库风险）。
+      // 正确形态照 corpus-forward-b2.cjs：red07→cwl_ssq_red_contains(+ball)；blueodd→cwl_ssq_blue_odd。
+      const isBlue = cb.key === 'blueodd';
+      const resolveSpec = isBlue
+        ? { kind: 'cwl_ssq_blue_odd', issue: String(issue) }
+        : { kind: 'cwl_ssq_red_contains', issue: String(issue), ball: '07' };
       out.push({
         gameType: 'corpus:cwl', layer: 'L5', engine: 'none_forward',
         prob: Number(cb.th.toFixed(4)),
@@ -292,7 +299,7 @@ async function buildLotto() {
         statement: '【forward】双色球第 ' + issue + ' 期' + cb.label
           + '（cutoff=落库时点 ' + RUN_AT + '，开奖尚未发生；真值锚=cwl 官方公告 red/blue 串。前瞻批次）',
         baseRateNote: '前瞻·L5 认证随机：基率=组合数理论值 ' + cb.th.toFixed(4) + '（6/33 与 8/16，非历史拟合）',
-        resolve: { kind: 'cwl_ssq_red_contains', issue: String(issue), ball: cb.key === 'red07' ? '07' : null, blue_odd: cb.key === 'blueodd' },
+        resolve: resolveSpec,
         meta: { issue: String(issue), combo: cb.key, cutoff: RUN_AT },
       });
     }

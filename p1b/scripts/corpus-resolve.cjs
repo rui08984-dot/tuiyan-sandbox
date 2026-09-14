@@ -2,10 +2,13 @@
 // 语料库题目机械 resolve（corpus 棒 2026-09-12）：零 LLM，按 evidence_json[0].resolve 参数
 // 拉公开源真值后回填 outcome/resolve_note。真值未到的题（预报日未入 archive/月值未发布/期未开奖）
 // 保持 unresolved 跳过；网络失败跳过不写。账本不可变：已 resolve 拒改（resolvePrediction 守卫）。
-// 用法：node scripts/corpus-resolve.cjs [--confirm]
+// 用法：node scripts/corpus-resolve.cjs [--confirm] [--db <path>]
+// 2026-09-14 补 --db（新纪律：db/路径参数须显式传，禁依赖默认值——原实现硬编码生产库，
+//   导致无法对临时库做回归测试；本条纪律见 commit 3384eba 留痕）。
 const { db } = require('../src/deps');
 const { resolvePrediction } = require('../src/db/predictionsStore');
 const CONFIRM = process.argv.includes('--confirm');
+const DB_ARG = (() => { const i = process.argv.indexOf('--db'); return i >= 0 && process.argv[i + 1] && process.argv[i + 1].slice(0, 2) !== '--' ? process.argv[i + 1] : null; })();
 const FETCH_MS = 30000;
 async function getJson(url, headers) {
   const ac = new AbortController();
@@ -33,7 +36,17 @@ const RESOLVERS = {
     if (v === null || v === undefined) return { pending: r.period + ' 观测值未发布' };
     return { outcome: v < r.threshold ? 'true' : 'false', note: 'DBnomics ' + r.series + ' ' + r.period + '=' + v + '（阈值 ' + r.threshold + '，机检）' };
   },
-  async cwl_ssq_red_contains(r) { return cwlEval(r, (d) => d.red.split(',').indexOf(r.ball) !== -1, 'red 含 ' + r.ball); },
+  // bug-28 护栏（2026-09-14）：kind 与参数不匹配时**拒判**，不得静默给出 false。
+  // 病象：cwl_ssq_red_contains 在 ball=null 时 `indexOf(null)` 恒 -1 ⇒ **恒判 false**。
+  //   实测 id=732/734/736（「蓝球为奇数」题被 v1 写入器硬编码成 red_contains + ball=null）会踩中。
+  //   若放行，会把错误真值写进账本（账本不可变 ⇒ 污染不可逆）。故此处硬拒并要求改 kind。
+  async cwl_ssq_red_contains(r) {
+    if (r.ball === null || r.ball === undefined || r.ball === '') {
+      return { reject: 'cwl_ssq_red_contains 缺 ball 参数（ball=' + JSON.stringify(r.ball) + '）——'
+        + '拒判（防 indexOf(null) 恒 -1 静默判 false）。请校验写入器是否把 kind 写错（如 blueodd 误标为 red_contains）。' };
+    }
+    return cwlEval(r, (d) => d.red.split(',').indexOf(r.ball) !== -1, 'red 含 ' + r.ball);
+  },
   async cwl_ssq_blue_odd(r) { return cwlEval(r, (d) => d.blue % 2 === 1, 'blue 为奇数'); },
   // ── forward 批专用 kind（2026-09-12 队长补：前瞻题的事件日多为未来，需 forecast/archive 双通道）──
   async openmeteo_forecast_daily_max(r) {
@@ -430,11 +443,11 @@ async function getText(url, headers) {
 
 //RESOLVE-B2
 async function main() {
-  db.init();
+  if (DB_ARG) db.init(DB_ARG); else db.init();
   const conn = db.getConnection();
   const rows = conn.prepare('SELECT p.id, p.evidence_json FROM predictions p JOIN games g ON g.id = p.game_id WHERE g.game_type LIKE ? AND p.outcome IS NULL ORDER BY p.id').all('corpus%');
   console.log('corpus pending rows:', rows.length, 'confirm=' + CONFIRM);
-  let resolved = 0, pending = 0, failed = 0, noResolve = 0, unregistered = 0;
+  let resolved = 0, pending = 0, failed = 0, noResolve = 0, unregistered = 0, rejected = 0;
   const stat = {};
   const bump = (kind, key) => { const s = stat[kind] || (stat[kind] = { resolved: 0, pending: 0, failed: 0 }); s[key]++; };
   const badKind = {};
@@ -447,6 +460,7 @@ async function main() {
     let out;
     try { out = await RESOLVERS[r.kind](r); } catch (e) { out = { error: e.message }; }
     if (out && out.pending) { pending++; bump(r.kind, 'pending'); console.log('pending id=' + row.id, r.kind, '—', out.pending); continue; }
+    if (out && out.reject) { rejected++; bump(r.kind, 'rejected'); console.log('REJECT id=' + row.id, r.kind, '—', out.reject); continue; }
     if (out && out.error) { failed++; bump(r.kind, 'failed'); console.log('fetch-fail id=' + row.id, r.kind, '—', out.error, '（跳过不写）'); continue; }
     if (CONFIRM) {
       const res = resolvePrediction(row.id, out.outcome, out.note);
@@ -457,7 +471,7 @@ async function main() {
       console.log('[dry] would resolve id=' + row.id, '->', out.outcome, '|', out.note);
     }
   }
-  console.log('summary: resolved=' + resolved, 'pending=' + pending, 'fetch-fail=' + failed, 'unregistered=' + unregistered, 'no-resolve=' + noResolve, 'confirm=' + CONFIRM);
+  console.log('summary: resolved=' + resolved, 'pending=' + pending, 'fetch-fail=' + failed, 'unregistered=' + unregistered, 'rejected=' + rejected, 'no-resolve=' + noResolve, 'confirm=' + CONFIRM);
   console.log('unregistered-kinds: ' + JSON.stringify(badKind));
   console.log('by-kind: ' + JSON.stringify(stat));
   if (!CONFIRM) console.log('DRY-RUN：未写库。加 --confirm 执行机械回填。');
