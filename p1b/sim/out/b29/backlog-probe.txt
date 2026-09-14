@@ -1,0 +1,14 @@
+id=1761  matures=2026-06-25 kind=energycharts_daily_mean    -> API 该日点数 n=88 ⇒ 可结 mean=11452.3182 | ts范围=2026-06-24~2026-06-25
+id=1765  matures=2026-06-25 kind=energycharts_daily_mean    -> API 该日点数 n=88 ⇒ 可结 mean=3330.8409 | ts范围=2026-06-24~2026-06-25
+id=1769  matures=2026-06-25 kind=energycharts_daily_mean    -> API 该日点数 n=88 ⇒ 可结 mean=821.5114 | ts范围=2026-06-24~2026-06-25
+id=1785  matures=2026-06-25 kind=energycharts_daily_mean    -> API 该日点数 n=22 ⇒ PENDING(<80) | ts范围=2026-06-24~2026-06-25
+id=1787  matures=2026-06-25 kind=energycharts_daily_mean    -> ERROR: fetch failed
+id=1789  matures=2026-06-25 kind=energycharts_daily_mean    -> API 该日点数 n=22 ⇒ PENDING(<80) | ts范围=2026-06-24~2026-06-25
+id=1791  matures=2026-06-25 kind=energycharts_daily_mean    -> API 该日点数 n=22 ⇒ PENDING(<80) | ts范围=2026-06-24~2026-06-25
+id=1793  matures=2026-06-25 kind=energycharts_daily_mean    -> API 该日点数 n=22 ⇒ PENDING(<80) | ts范围=2026-06-24~2026-06-25
+id=453   matures=2026-09-13 kind=cwl_ssq_red_contains       -> 可结：red=06,11,13,14,22,30 blue=14
+id=454   matures=2026-09-13 kind=cwl_ssq_blue_odd           -> 可结：red=06,11,13,14,22,30 blue=14
+id=731   matures=2026-09-13 kind=cwl_ssq_red_contains       -> 可结：red=06,11,13,14,22,30 blue=14
+id=732   matures=2026-09-13 kind=cwl_ssq_blue_odd           -> 可结：red=06,11,13,14,22,30 blue=14
+id=817   matures=2026-09-13 kind=cwl_ssq_red_contains       -> 可结：red=06,11,13,14,22,30 blue=14
+id=829   matures=2026-09-13 kind=cwl_ssq_blue_odd           -> 可结：red=06,11,13,14,22,30 blue=14

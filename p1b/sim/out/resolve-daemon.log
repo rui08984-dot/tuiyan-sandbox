@@ -1760,3 +1760,132 @@
 [2026-09-13T15:57:14+08:00]   pending kind=energycharts_daily_mean x1 due=2026-06-25 — Energy-Charts 2026-06-25 仅 22 点（<80，未满当日）
 [2026-09-13T15:57:14+08:00] round#1 用时 21.2s | 未解总数=685 到期选中=19 唯一真值请求=19（台账重复合并 0） | resolved=0 pending=10（含预筛 0） fail=6 refused=0／同结论并发=0 口径护栏=1 unsupported=0 未到期跳过=638 无法定到期=27 wouldWrite=3 实打网=10
 [2026-09-13T15:57:14+08:00]   取数失败明细 {"fetch-fail:github_weekly_commits:HTTP 403":6}
+[2026-09-14T13:31:39+08:00] === corpus-resolve-daemon start | mode=once interval=60min due-only=true confirm=false（DRY-RUN，不写库）
+[2026-09-14T13:31:39+08:00] 复用 corpus-resolve RESOLVERS 成功：inline-extract(59 kinds)
+[2026-09-14T13:31:44+08:00] WARN dlt 日历刷新失败（沿用内置锚 26104@2026-09-12）: HTTP 567
+[2026-09-14T13:31:44+08:00] 日历锚刷新：ssq 2026106@2026-09-13 | dlt 26104@2026-09-12
+[2026-09-14T13:32:18+08:00] 二遍补打 5 组（首遍网络失败，缓 8s 后重试一次）
+[2026-09-14T13:32:47+08:00]   [dry] would resolve kind=openmeteo_daily_max x1 due=2026-09-14 -> false | Open-Meteo archive 2026-09-14 max=30.7C（阈值 35C，机检）
+[2026-09-14T13:32:47+08:00]   [dry] would resolve kind=cwl_ssq_red_contains x1 due=2026-09-13 -> false | cwl 官方 2026106 期 red=06,11,13,14,22,30 blue=14（red 含 07，机检）
+[2026-09-14T13:32:47+08:00]   [dry] would resolve kind=cwl_ssq_blue_odd x2 due=2026-09-13 -> false | cwl 官方 2026106 期 red=06,11,13,14,22,30 blue=14（blue 为奇数，机检）
+[2026-09-14T13:32:47+08:00]   [dry] would resolve kind=openmeteo_daily_max x1 due=2026-09-14 -> true | Open-Meteo archive 2026-09-14 max=30.7C（阈值 30C，机检）
+[2026-09-14T13:32:47+08:00]   [dry] would resolve kind=openmeteo_daily_max x1 due=2026-09-14 -> false | Open-Meteo archive 2026-09-14 max=26.4C（阈值 28C，机检）
+[2026-09-14T13:32:47+08:00]   [dry] would resolve kind=openmeteo_daily_max x1 due=2026-09-14 -> false | Open-Meteo archive 2026-09-14 max=31.9C（阈值 32C，机检）
+[2026-09-14T13:32:47+08:00]   [dry] would resolve kind=openmeteo_daily_max x1 due=2026-09-14 -> false | Open-Meteo archive 2026-09-14 max=24.9C（阈值 25C，机检）
+[2026-09-14T13:32:47+08:00]   [dry] would resolve kind=cwl_ssq_red_contains x1 due=2026-09-13 -> false | cwl 官方 2026106 期 red=06,11,13,14,22,30 blue=14（red 含 07，机检）
+[2026-09-14T13:32:47+08:00]   [dry] would resolve kind=cwl_ssq_red_contains x1 due=2026-09-13 -> false | cwl 官方 2026106 期 red=06,11,13,14,22,30 blue=14（red 含 07，机检）
+[2026-09-14T13:32:47+08:00]   [dry] would resolve kind=cwl_ssq_blue_odd x1 due=2026-09-13 -> false | cwl 官方 2026106 期 red=06,11,13,14,22,30 blue=14（blue 为奇数，机检）
+[2026-09-14T13:32:47+08:00]   fetch-fail kind=dlt_draw_result x1 — HTTP 567（跳过不写）
+[2026-09-14T13:32:47+08:00]   fetch-fail kind=dlt_draw_result x1 — HTTP 567（跳过不写）
+[2026-09-14T13:32:47+08:00]   [dry] would resolve kind=github_weekly_commits x1 due=2026-09-06 -> true | GitHub nodejs/node 2026-08-30~2026-09-05 commits=122（阈值 >= 61，机检）
+[2026-09-14T13:32:47+08:00]   [dry] would resolve kind=github_weekly_commits x1 due=2026-08-30 -> true | GitHub nodejs/node 2026-08-23~2026-08-29 commits=127（阈值 >= 61，机检）
+[2026-09-14T13:32:47+08:00]   [dry] would resolve kind=github_weekly_commits x1 due=2026-09-06 -> true | GitHub microsoft/vscode 2026-08-30~2026-09-05 commits=674（阈值 >= 621，机检）
+[2026-09-14T13:32:47+08:00]   [dry] would resolve kind=github_weekly_commits x1 due=2026-08-30 -> true | GitHub microsoft/vscode 2026-08-23~2026-08-29 commits=686（阈值 >= 683，机检）
+[2026-09-14T13:32:47+08:00]   [dry] would resolve kind=github_weekly_commits x1 due=2026-09-06 -> true | GitHub facebook/react 2026-08-30~2026-09-05 commits=23（阈值 >= 15，机检）
+[2026-09-14T13:32:47+08:00]   [dry] would resolve kind=github_weekly_commits x1 due=2026-08-30 -> true | GitHub facebook/react 2026-08-23~2026-08-29 commits=25（阈值 >= 9，机检）
+[2026-09-14T13:32:47+08:00]   pending kind=cta_daily_total_rides x1 due=2026-09-14 — 2026-09-14 尚未到
+[2026-09-14T13:32:47+08:00]   pending kind=elexon_fuelhh_daily_mean x1 due=2026-09-14 — 2026-09-14 尚未到
+[2026-09-14T13:32:47+08:00]   pending kind=elexon_fuelhh_daily_mean x1 due=2026-09-14 — 2026-09-14 尚未到
+[2026-09-14T13:32:47+08:00]   pending kind=elexon_fuelhh_daily_mean x1 due=2026-09-14 — 2026-09-14 尚未到
+[2026-09-14T13:32:47+08:00]   pending kind=openmeteo_air_pm2_5_daily_mean x1 due=2026-09-14 — 2026-09-14 尚未到（前瞻事件未发生，不结算）
+[2026-09-14T13:32:47+08:00]   pending kind=openmeteo_air_ozone_daily_mean x1 due=2026-09-14 — 2026-09-14 尚未到（前瞻事件未发生，不结算）
+[2026-09-14T13:32:47+08:00]   pending kind=openmeteo_air_pm2_5_daily_mean x1 due=2026-09-14 — 2026-09-14 尚未到（前瞻事件未发生，不结算）
+[2026-09-14T13:32:47+08:00]   pending kind=openmeteo_air_ozone_daily_mean x1 due=2026-09-14 — 2026-09-14 尚未到（前瞻事件未发生，不结算）
+[2026-09-14T13:32:47+08:00]   pending kind=openmeteo_air_pm2_5_daily_mean x1 due=2026-09-14 — 2026-09-14 尚未到（前瞻事件未发生，不结算）
+[2026-09-14T13:32:47+08:00]   pending kind=openmeteo_air_ozone_daily_mean x1 due=2026-09-14 — 2026-09-14 尚未到（前瞻事件未发生，不结算）
+[2026-09-14T13:32:47+08:00]   pending kind=openmeteo_air_pm2_5_daily_mean x1 due=2026-09-14 — 2026-09-14 尚未到（前瞻事件未发生，不结算）
+[2026-09-14T13:32:47+08:00]   pending kind=openmeteo_air_ozone_daily_mean x1 due=2026-09-14 — 2026-09-14 尚未到（前瞻事件未发生，不结算）
+[2026-09-14T13:32:47+08:00]   pending kind=openmeteo_air_pm2_5_daily_mean x1 due=2026-09-14 — 2026-09-14 尚未到（前瞻事件未发生，不结算）
+[2026-09-14T13:32:47+08:00]   pending kind=openmeteo_air_ozone_daily_mean x1 due=2026-09-14 — 2026-09-14 尚未到（前瞻事件未发生，不结算）
+[2026-09-14T13:32:47+08:00]   pending kind=openmeteo_air_pm2_5_daily_mean x1 due=2026-09-14 — 2026-09-14 尚未到（前瞻事件未发生，不结算）
+[2026-09-14T13:32:47+08:00]   pending kind=openmeteo_air_ozone_daily_mean x1 due=2026-09-14 — 2026-09-14 尚未到（前瞻事件未发生，不结算）
+[2026-09-14T13:32:47+08:00]   pending kind=noaa_tide_daily_max x1 due=2026-09-14 — 2026-09-14 尚未到
+[2026-09-14T13:32:47+08:00]   pending kind=noaa_tide_daily_max x1 due=2026-09-14 — 2026-09-14 尚未到
+[2026-09-14T13:32:47+08:00]   pending kind=noaa_tide_daily_max x1 due=2026-09-14 — 2026-09-14 尚未到
+[2026-09-14T13:32:47+08:00]   pending kind=noaa_tide_daily_max x1 due=2026-09-14 — 2026-09-14 尚未到
+[2026-09-14T13:32:47+08:00]   pending kind=noaa_tide_daily_max x1 due=2026-09-14 — 2026-09-14 尚未到
+[2026-09-14T13:32:47+08:00]   pending kind=noaa_tide_daily_max x1 due=2026-09-14 — 2026-09-14 尚未到
+[2026-09-14T13:32:47+08:00]   pending kind=energycharts_public_power_daily_mean x1 due=2026-09-14 — 2026-09-14 尚未到
+[2026-09-14T13:32:47+08:00]   pending kind=energycharts_public_power_daily_mean x1 due=2026-09-14 — 2026-09-14 尚未到
+[2026-09-14T13:32:47+08:00]   pending kind=energycharts_public_power_daily_mean x1 due=2026-09-14 — 2026-09-14 尚未到
+[2026-09-14T13:32:47+08:00]   pending kind=energycharts_public_power_daily_mean x1 due=2026-09-14 — 2026-09-14 尚未到
+[2026-09-14T13:32:47+08:00]   pending kind=energycharts_public_power_daily_mean x1 due=2026-09-14 — 2026-09-14 尚未到
+[2026-09-14T13:32:47+08:00]   fetch-fail kind=kraken_daily_close x1 — fetch failed（跳过不写）
+[2026-09-14T13:32:47+08:00]   fetch-fail kind=kraken_daily_close x1 — fetch failed（跳过不写）
+[2026-09-14T13:32:47+08:00]   fetch-fail kind=kraken_daily_close x1 — fetch failed（跳过不写）
+[2026-09-14T13:32:47+08:00]   pending kind=mlb_schedule_daily_total_runs x1 due=2026-09-14 — 2026-09-14 尚未到
+[2026-09-14T13:32:47+08:00]   [dry] would resolve kind=energycharts_daily_mean x1 due=2026-06-25 -> true | Energy-Charts es Solar 2026-06-25 均值=10540.6250MW（96 点，满日 96 点·15 分粒度，本地日全窗口口径）（阈值 >= 6833，机检）
+[2026-09-14T13:32:47+08:00]   [dry] would resolve kind=energycharts_daily_mean x1 due=2026-06-25 -> true | Energy-Charts it Hydro Run-of-River 2026-06-25 均值=3343.0208MW（96 点，满日 96 点·15 分粒度，本地日全窗口口径）（阈值 >= 3077，机检）
+[2026-09-14T13:32:47+08:00]   [dry] would resolve kind=energycharts_daily_mean x1 due=2026-06-25 -> false | Energy-Charts it Wind onshore 2026-06-25 均值=800.5208MW（96 点，满日 96 点·15 分粒度，本地日全窗口口径）（阈值 >= 1579，机检）
+[2026-09-14T13:32:47+08:00]   [dry] would resolve kind=energycharts_daily_mean x1 due=2026-06-25 -> false | Energy-Charts be Hydro Run-of-River 2026-06-25 均值=5.3333MW（24 点，满日 24 点·60 分粒度，本地日全窗口口径）（阈值 >= 28，机检）
+[2026-09-14T13:32:47+08:00]   [dry] would resolve kind=energycharts_daily_mean x1 due=2026-06-25 -> true | Energy-Charts be Fossil gas 2026-06-25 均值=2477.6875MW（24 点，满日 24 点·60 分粒度，本地日全窗口口径）（阈值 >= 1775，机检）
+[2026-09-14T13:32:47+08:00]   [dry] would resolve kind=energycharts_daily_mean x1 due=2026-06-25 -> false | Energy-Charts be Wind onshore 2026-06-25 均值=399.0500MW（24 点，满日 24 点·60 分粒度，本地日全窗口口径）（阈值 >= 864，机检）
+[2026-09-14T13:32:47+08:00]   [dry] would resolve kind=energycharts_daily_mean x1 due=2026-06-25 -> true | Energy-Charts be Solar 2026-06-25 均值=2679.8125MW（24 点，满日 24 点·60 分粒度，本地日全窗口口径）（阈值 >= 1472，机检）
+[2026-09-14T13:32:47+08:00]   [dry] would resolve kind=energycharts_daily_mean x1 due=2026-06-25 -> true | Energy-Charts be Load 2026-06-25 均值=10635.0375MW（24 点，满日 24 点·60 分粒度，本地日全窗口口径）（阈值 >= 9660，机检）
+[2026-09-14T13:32:47+08:00] round#1 用时 63.4s | 未解总数=697 到期选中=58 唯一真值请求=57（台账重复合并 1） | resolved=0 pending=28（含预筛 0） fail=5 refused=0／同结论并发=0 口径护栏=0 unsupported=0 未到期跳过=612 无法定到期=27 wouldWrite=25 实打网=20
+[2026-09-14T13:32:47+08:00]   取数失败明细 {"fetch-fail:dlt_draw_result:HTTP 567":2,"fetch-fail:kraken_daily_close:fetch failed":3}
+[2026-09-14T13:33:05+08:00] === corpus-resolve-daemon start | mode=once interval=60min due-only=true confirm=true
+[2026-09-14T13:33:05+08:00] 复用 corpus-resolve RESOLVERS 成功：inline-extract(59 kinds)
+[2026-09-14T13:33:09+08:00] WARN dlt 日历刷新失败（沿用内置锚 26104@2026-09-12）: HTTP 567
+[2026-09-14T13:33:09+08:00] 日历锚刷新：ssq 2026106@2026-09-13 | dlt 26104@2026-09-12
+[2026-09-14T13:34:24+08:00] 二遍补打 7 组（首遍网络失败，缓 8s 后重试一次）
+[2026-09-14T13:34:53+08:00]   resolved id=451 kind=openmeteo_daily_max -> false | Open-Meteo archive 2026-09-14 max=30.7C（阈值 35C，机检）
+[2026-09-14T13:34:53+08:00]   resolved id=453 kind=cwl_ssq_red_contains -> false | cwl 官方 2026106 期 red=06,11,13,14,22,30 blue=14（red 含 07，机检）
+[2026-09-14T13:34:53+08:00]   resolved id=454 kind=cwl_ssq_blue_odd -> false | cwl 官方 2026106 期 red=06,11,13,14,22,30 blue=14（blue 为奇数，机检）
+[2026-09-14T13:34:53+08:00]   resolved id=732 kind=cwl_ssq_blue_odd -> false | cwl 官方 2026106 期 red=06,11,13,14,22,30 blue=14（blue 为奇数，机检）
+[2026-09-14T13:34:53+08:00]   resolved id=456 kind=openmeteo_daily_max -> true | Open-Meteo archive 2026-09-14 max=30.7C（阈值 30C，机检）
+[2026-09-14T13:34:53+08:00]   resolved id=460 kind=openmeteo_daily_max -> false | Open-Meteo archive 2026-09-14 max=26.4C（阈值 28C，机检）
+[2026-09-14T13:34:53+08:00]   resolved id=464 kind=openmeteo_daily_max -> false | Open-Meteo archive 2026-09-14 max=31.9C（阈值 32C，机检）
+[2026-09-14T13:34:53+08:00]   resolved id=468 kind=openmeteo_daily_max -> false | Open-Meteo archive 2026-09-14 max=24.9C（阈值 25C，机检）
+[2026-09-14T13:34:53+08:00]   resolved id=731 kind=cwl_ssq_red_contains -> false | cwl 官方 2026106 期 red=06,11,13,14,22,30 blue=14（red 含 07，机检）
+[2026-09-14T13:34:53+08:00]   resolved id=817 kind=cwl_ssq_red_contains -> false | cwl 官方 2026106 期 red=06,11,13,14,22,30 blue=14（red 含 07，机检）
+[2026-09-14T13:34:53+08:00]   resolved id=829 kind=cwl_ssq_blue_odd -> false | cwl 官方 2026106 期 red=06,11,13,14,22,30 blue=14（blue 为奇数，机检）
+[2026-09-14T13:34:53+08:00]   fetch-fail kind=dlt_draw_result x1 — HTTP 567（跳过不写）
+[2026-09-14T13:34:53+08:00]   fetch-fail kind=dlt_draw_result x1 — HTTP 567（跳过不写）
+[2026-09-14T13:34:53+08:00]   resolved id=930 kind=github_weekly_commits -> true | GitHub nodejs/node 2026-08-30~2026-09-05 commits=122（阈值 >= 61，机检）
+[2026-09-14T13:34:53+08:00]   resolved id=931 kind=github_weekly_commits -> true | GitHub nodejs/node 2026-08-23~2026-08-29 commits=127（阈值 >= 61，机检）
+[2026-09-14T13:34:53+08:00]   resolved id=933 kind=github_weekly_commits -> true | GitHub microsoft/vscode 2026-08-30~2026-09-05 commits=674（阈值 >= 621，机检）
+[2026-09-14T13:34:53+08:00]   resolved id=934 kind=github_weekly_commits -> true | GitHub microsoft/vscode 2026-08-23~2026-08-29 commits=686（阈值 >= 683，机检）
+[2026-09-14T13:34:53+08:00]   resolved id=936 kind=github_weekly_commits -> true | GitHub facebook/react 2026-08-30~2026-09-05 commits=23（阈值 >= 15，机检）
+[2026-09-14T13:34:53+08:00]   resolved id=937 kind=github_weekly_commits -> true | GitHub facebook/react 2026-08-23~2026-08-29 commits=25（阈值 >= 9，机检）
+[2026-09-14T13:34:53+08:00]   pending kind=cta_daily_total_rides x1 due=2026-09-14 — 2026-09-14 尚未到
+[2026-09-14T13:34:53+08:00]   pending kind=elexon_fuelhh_daily_mean x1 due=2026-09-14 — 2026-09-14 尚未到
+[2026-09-14T13:34:53+08:00]   pending kind=elexon_fuelhh_daily_mean x1 due=2026-09-14 — 2026-09-14 尚未到
+[2026-09-14T13:34:53+08:00]   pending kind=elexon_fuelhh_daily_mean x1 due=2026-09-14 — 2026-09-14 尚未到
+[2026-09-14T13:34:53+08:00]   pending kind=openmeteo_air_pm2_5_daily_mean x1 due=2026-09-14 — 2026-09-14 尚未到（前瞻事件未发生，不结算）
+[2026-09-14T13:34:53+08:00]   pending kind=openmeteo_air_ozone_daily_mean x1 due=2026-09-14 — 2026-09-14 尚未到（前瞻事件未发生，不结算）
+[2026-09-14T13:34:53+08:00]   pending kind=openmeteo_air_pm2_5_daily_mean x1 due=2026-09-14 — 2026-09-14 尚未到（前瞻事件未发生，不结算）
+[2026-09-14T13:34:53+08:00]   pending kind=openmeteo_air_ozone_daily_mean x1 due=2026-09-14 — 2026-09-14 尚未到（前瞻事件未发生，不结算）
+[2026-09-14T13:34:53+08:00]   pending kind=openmeteo_air_pm2_5_daily_mean x1 due=2026-09-14 — 2026-09-14 尚未到（前瞻事件未发生，不结算）
+[2026-09-14T13:34:53+08:00]   pending kind=openmeteo_air_ozone_daily_mean x1 due=2026-09-14 — 2026-09-14 尚未到（前瞻事件未发生，不结算）
+[2026-09-14T13:34:53+08:00]   pending kind=openmeteo_air_pm2_5_daily_mean x1 due=2026-09-14 — 2026-09-14 尚未到（前瞻事件未发生，不结算）
+[2026-09-14T13:34:53+08:00]   pending kind=openmeteo_air_ozone_daily_mean x1 due=2026-09-14 — 2026-09-14 尚未到（前瞻事件未发生，不结算）
+[2026-09-14T13:34:53+08:00]   pending kind=openmeteo_air_pm2_5_daily_mean x1 due=2026-09-14 — 2026-09-14 尚未到（前瞻事件未发生，不结算）
+[2026-09-14T13:34:53+08:00]   pending kind=openmeteo_air_ozone_daily_mean x1 due=2026-09-14 — 2026-09-14 尚未到（前瞻事件未发生，不结算）
+[2026-09-14T13:34:53+08:00]   pending kind=openmeteo_air_pm2_5_daily_mean x1 due=2026-09-14 — 2026-09-14 尚未到（前瞻事件未发生，不结算）
+[2026-09-14T13:34:53+08:00]   pending kind=openmeteo_air_ozone_daily_mean x1 due=2026-09-14 — 2026-09-14 尚未到（前瞻事件未发生，不结算）
+[2026-09-14T13:34:53+08:00]   pending kind=noaa_tide_daily_max x1 due=2026-09-14 — 2026-09-14 尚未到
+[2026-09-14T13:34:53+08:00]   pending kind=noaa_tide_daily_max x1 due=2026-09-14 — 2026-09-14 尚未到
+[2026-09-14T13:34:53+08:00]   pending kind=noaa_tide_daily_max x1 due=2026-09-14 — 2026-09-14 尚未到
+[2026-09-14T13:34:53+08:00]   pending kind=noaa_tide_daily_max x1 due=2026-09-14 — 2026-09-14 尚未到
+[2026-09-14T13:34:53+08:00]   pending kind=noaa_tide_daily_max x1 due=2026-09-14 — 2026-09-14 尚未到
+[2026-09-14T13:34:53+08:00]   pending kind=noaa_tide_daily_max x1 due=2026-09-14 — 2026-09-14 尚未到
+[2026-09-14T13:34:53+08:00]   pending kind=energycharts_public_power_daily_mean x1 due=2026-09-14 — 2026-09-14 尚未到
+[2026-09-14T13:34:53+08:00]   pending kind=energycharts_public_power_daily_mean x1 due=2026-09-14 — 2026-09-14 尚未到
+[2026-09-14T13:34:53+08:00]   pending kind=energycharts_public_power_daily_mean x1 due=2026-09-14 — 2026-09-14 尚未到
+[2026-09-14T13:34:53+08:00]   pending kind=energycharts_public_power_daily_mean x1 due=2026-09-14 — 2026-09-14 尚未到
+[2026-09-14T13:34:53+08:00]   pending kind=energycharts_public_power_daily_mean x1 due=2026-09-14 — 2026-09-14 尚未到
+[2026-09-14T13:34:53+08:00]   fetch-fail kind=kraken_daily_close x1 — fetch failed（跳过不写）
+[2026-09-14T13:34:53+08:00]   fetch-fail kind=kraken_daily_close x1 — fetch failed（跳过不写）
+[2026-09-14T13:34:53+08:00]   fetch-fail kind=kraken_daily_close x1 — fetch failed（跳过不写）
+[2026-09-14T13:34:53+08:00]   pending kind=mlb_schedule_daily_total_runs x1 due=2026-09-14 — 2026-09-14 尚未到
+[2026-09-14T13:34:53+08:00]   resolved id=1761 kind=energycharts_daily_mean -> true | Energy-Charts es Solar 2026-06-25 均值=10540.6250MW（96 点，满日 96 点·15 分粒度，本地日全窗口口径）（阈值 >= 6833，机检）
+[2026-09-14T13:34:53+08:00]   resolved id=1765 kind=energycharts_daily_mean -> true | Energy-Charts it Hydro Run-of-River 2026-06-25 均值=3343.0208MW（96 点，满日 96 点·15 分粒度，本地日全窗口口径）（阈值 >= 3077，机检）
+[2026-09-14T13:34:53+08:00]   resolved id=1769 kind=energycharts_daily_mean -> false | Energy-Charts it Wind onshore 2026-06-25 均值=800.5208MW（96 点，满日 96 点·15 分粒度，本地日全窗口口径）（阈值 >= 1579，机检）
+[2026-09-14T13:34:53+08:00]   resolved id=1785 kind=energycharts_daily_mean -> false | Energy-Charts be Hydro Run-of-River 2026-06-25 均值=5.3333MW（24 点，满日 24 点·60 分粒度，本地日全窗口口径）（阈值 >= 28，机检）
+[2026-09-14T13:34:53+08:00]   resolved id=1787 kind=energycharts_daily_mean -> true | Energy-Charts be Fossil gas 2026-06-25 均值=2477.6875MW（24 点，满日 24 点·60 分粒度，本地日全窗口口径）（阈值 >= 1775，机检）
+[2026-09-14T13:34:53+08:00]   resolved id=1789 kind=energycharts_daily_mean -> false | Energy-Charts be Wind onshore 2026-06-25 均值=399.0500MW（24 点，满日 24 点·60 分粒度，本地日全窗口口径）（阈值 >= 864，机检）
+[2026-09-14T13:34:53+08:00]   resolved id=1791 kind=energycharts_daily_mean -> true | Energy-Charts be Solar 2026-06-25 均值=2679.8125MW（24 点，满日 24 点·60 分粒度，本地日全窗口口径）（阈值 >= 1472，机检）
+[2026-09-14T13:34:53+08:00]   resolved id=1793 kind=energycharts_daily_mean -> true | Energy-Charts be Load 2026-06-25 均值=10635.0375MW（24 点，满日 24 点·60 分粒度，本地日全窗口口径）（阈值 >= 9660，机检）
+[2026-09-14T13:34:53+08:00] round#1 用时 104.0s | 未解总数=697 到期选中=58 唯一真值请求=57（台账重复合并 1） | resolved=25 pending=28（含预筛 0） fail=5 refused=0／同结论并发=0 口径护栏=0 unsupported=0 未到期跳过=612 无法定到期=27 wouldWrite=0 实打网=27
+[2026-09-14T13:34:53+08:00]   取数失败明细 {"fetch-fail:dlt_draw_result:HTTP 567":2,"fetch-fail:kraken_daily_close:fetch failed":3}

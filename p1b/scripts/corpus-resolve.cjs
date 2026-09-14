@@ -298,6 +298,14 @@ const RESOLVERS = {
     const m = vals.reduce((a, x) => a + x, 0) / vals.length;
     return finish(r, m, 'Elexon ' + r.fuel + ' ' + r.date + ' 均值=' + m.toFixed(4) + 'MW（' + vals.length + ' 点）');
   },
+  // bug-29 修（2026-09-14）：原实现有两处口径错误 ——
+  //   ① **用 UTC 日过滤**（`toISOString().slice(0,10) !== r.date`）：API 以 `start=end=<本地日>` 调用时
+  //      返回的正是**该国本地日**（实测 es：2026-06-24T22:00Z ~ 2026-06-25T21:45Z ＝ 本地 06-25 全天）。
+  //      按 UTC 日过滤会把本地 00:00–02:00 的 8 个点（15 分粒度）判到前一天而丢弃 ⇒ 均值偏差实测 **~8%**
+  //      （fr/Solar −8.33%、es/Solar −7.96%）。已核 24 条存量行**零翻转**（均值离阈值远），但口径错误必须修。
+  //   ② **完成度用硬阈值 n≥80**：该值按 15 分钟粒度标定；而部分国家（实测 Belgium）为**小时粒度**
+  //      ⇒ 满日仅 24 点，永远 <80 ⇒ 4 行被永久误判「未满当日」而卡死。
+  //   修为：直接采用 API 返回窗口（即本地日）+ **按实测步长自适应**算完成度（期望点数 = 86400/step）。
   async energycharts_daily_mean(r) {
     if (futureDay(r.date)) return { pending: r.date + ' 尚未到' };
     const j = await getJsonRetry(subst(r.url_template || r.url, r));
@@ -305,10 +313,19 @@ const RESOLVERS = {
     const tp = (j.production_types || []).filter((x) => x.name === r.type)[0];
     if (!tp) return { pending: 'Energy-Charts 无类型 ' + r.type };
     let sum = 0, n = 0;
-    ts.forEach((sec, i) => { if (new Date(sec * 1000).toISOString().slice(0, 10) !== r.date) return; const v = tp.data[i]; if (v === null || v === undefined || !isFinite(v)) return; sum += Number(v); n++; });
-    if (n < 80) return { pending: 'Energy-Charts ' + r.date + ' 仅 ' + n + ' 点（<80，未满当日）' };
+    ts.forEach((sec, i) => { const v = tp.data[i]; if (v === null || v === undefined || !isFinite(v)) return; sum += Number(v); n++; });
+    if (!n) return { pending: 'Energy-Charts ' + r.date + ' 无有效点' };
+    // 实测步长（秒）→ 期望整日点数 → 完成度（缺 10% 以上视为未满当日）
+    let step = null;
+    for (let i = 1; i < ts.length; i++) { const d = ts[i] - ts[i - 1]; if (d > 0) { step = d; break; } }
+    const expect = step ? Math.round(86400 / step) : null;
+    const ratio = expect ? n / expect : null;
+    if (expect && ratio < 0.9) {
+      return { pending: 'Energy-Charts ' + r.date + ' 仅 ' + n + '/' + expect + ' 点（' + (ratio * 100).toFixed(0) + '%，未满当日；步长 ' + (step / 60) + ' 分）' };
+    }
     const m = sum / n;
-    return finish(r, m, 'Energy-Charts ' + r.country + ' ' + r.type + ' ' + r.date + ' 均值=' + m.toFixed(4) + 'MW（' + n + ' 点）');
+    return finish(r, m, 'Energy-Charts ' + r.country + ' ' + r.type + ' ' + r.date + ' 均值=' + m.toFixed(4) + 'MW'
+      + '（' + n + ' 点' + (expect ? '，满日 ' + expect + ' 点·' + (step / 60) + ' 分粒度' : '') + '，本地日全窗口口径）');
   },
   async mlb_schedule_daily_total_runs(r) {
     if (futureDay(r.date)) return { pending: r.date + ' 尚未到' };

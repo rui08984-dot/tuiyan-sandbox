@@ -1,0 +1,19 @@
+id=453   | outcome=false | cwl 官方 2026106 期 red=06,11,13,14,22,30 blue=14（red 含 07，机检）
+id=454   | outcome=false | cwl 官方 2026106 期 red=06,11,13,14,22,30 blue=14（blue 为奇数，机检）
+id=731   | outcome=false | cwl 官方 2026106 期 red=06,11,13,14,22,30 blue=14（red 含 07，机检）
+id=732   | outcome=false | cwl 官方 2026106 期 red=06,11,13,14,22,30 blue=14（blue 为奇数，机检）
+id=817   | outcome=false | cwl 官方 2026106 期 red=06,11,13,14,22,30 blue=14（red 含 07，机检）
+id=829   | outcome=false | cwl 官方 2026106 期 red=06,11,13,14,22,30 blue=14（blue 为奇数，机检）
+id=1761  | outcome=true  | Energy-Charts es Solar 2026-06-25 均值=10540.6250MW（96 点，满日 96 点·15 分粒度，本地日全窗口口径）（阈值 >= 6833，机检）
+id=1765  | outcome=true  | Energy-Charts it Hydro Run-of-River 2026-06-25 均值=3343.0208MW（96 点，满日 96 点·15 分粒度，本地日全窗口口径）（阈值 >= 30
+id=1769  | outcome=false | Energy-Charts it Wind onshore 2026-06-25 均值=800.5208MW（96 点，满日 96 点·15 分粒度，本地日全窗口口径）（阈值 >= 1579，机检）
+id=1785  | outcome=false | Energy-Charts be Hydro Run-of-River 2026-06-25 均值=5.3333MW（24 点，满日 24 点·60 分粒度，本地日全窗口口径）（阈值 >= 28，机检
+id=1787  | outcome=true  | Energy-Charts be Fossil gas 2026-06-25 均值=2477.6875MW（24 点，满日 24 点·60 分粒度，本地日全窗口口径）（阈值 >= 1775，机检）
+id=1789  | outcome=false | Energy-Charts be Wind onshore 2026-06-25 均值=399.0500MW（24 点，满日 24 点·60 分粒度，本地日全窗口口径）（阈值 >= 864，机检）
+id=1791  | outcome=true  | Energy-Charts be Solar 2026-06-25 均值=2679.8125MW（24 点，满日 24 点·60 分粒度，本地日全窗口口径）（阈值 >= 1472，机检）
+id=1793  | outcome=true  | Energy-Charts be Load 2026-06-25 均值=10635.0375MW（24 点，满日 24 点·60 分粒度，本地日全窗口口径）（阈值 >= 9660，机检）
+----
+TOTAL=1935  RESOLVED=1263  VERDICTS=3662
+NULLBALL_NOTES=0
+INTEGRITY=[{"integrity_check":"ok"}]
+B29_FORMAT_NOTES=5
