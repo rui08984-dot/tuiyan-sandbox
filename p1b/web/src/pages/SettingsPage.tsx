@@ -7,8 +7,8 @@
  * - 后端未起时：请求失败显示可读错误 + 重试，不白屏
  */
 import { useCallback, useEffect, useState } from 'react';
-import { activateProvider, deleteProvider, listProviders, testProvider } from '../api';
-import type { Provider, ProviderListResult, ProviderTestResult } from '../types';
+import { activateProvider, deleteProvider, getEffectiveProvider, listProviders, testProvider } from '../api';
+import type { EffectiveProvider, Provider, ProviderListResult, ProviderTestResult } from '../types';
 import { Tabs, IconGear, IconCheck, IconClose } from '../components/ui';
 import {
   ProviderEditorSheet,
@@ -37,12 +37,16 @@ export default function SettingsPage() {
   const [busy, setBusy] = useState<string | null>(null); // 'test:<key>' | 'activate:<key>' | 'delete:<key>'
   const [testResults, setTestResults] = useState<Record<string, ProviderTestResult>>({});
   const [confirmDelete, setConfirmDelete] = useState<string | null>(null);
+  // 实际生效配置（2026-09-14）：证明「换模型真的生效」的浏览器内验证面（无需重启服务）
+  const [effective, setEffective] = useState<EffectiveProvider | null>(null);
 
   const reload = useCallback(async () => {
     setLoading(true);
     setLoadError(null);
     try {
-      setList(await listProviders());
+      const [l, eff] = await Promise.all([listProviders(), getEffectiveProvider().catch(() => null)]);
+      setList(l);
+      setEffective(eff);
     } catch (e) {
       setLoadError(e instanceof Error ? e.message : String(e));
     } finally {
@@ -118,6 +122,29 @@ export default function SettingsPage() {
               ? <strong>{activeProvider.label}</strong>
               : <em className="warn-text">未激活任何供应商</em>}
           </div>
+
+          {/* 实际生效读数（2026-09-14）：判词/跑批/参谋全链真正会用的模型；改完配置即刷新 */}
+          {effective && (
+            <div className="callout" data-testid="effective-provider">
+              <p>
+                <strong>实际生效（判词 / 跑批 / 参谋全链）</strong>
+                {' · '}
+                <span className={effective.mock ? 'warn-text' : 'muted'}>
+                  {effective.mock ? 'MOCK（无可用 Key，不会真实调用）' : 'LIVE'}
+                </span>
+              </p>
+              <p className="muted">
+                供应商 <code>{effective.provider ?? '（未激活）'}</code>
+                {' · '}
+                模型 <code>{effective.model ?? '—'}</code>
+              </p>
+              <p className="muted">
+                Key 来源：{effective.key_source === 'providers' ? '配置文件 providers.json' : effective.key_source === 'env' ? '环境变量兜底（非配置文件）' : '无'}
+                {' · '}
+                改配置后此处即时刷新，无需重启服务。
+              </p>
+            </div>
+          )}
 
           {actionError && (
             <div className="banner banner-error" role="alert">

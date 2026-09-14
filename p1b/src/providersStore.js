@@ -93,7 +93,12 @@ function createProvidersStore(configPath) {
       next.api_key = body.api_key.trim();
     }
     next.extraction = Object.assign({}, existing.extraction, { model });
-    next.cards = Object.assign({}, existing.cards, { model: body.cards_model || (existing.cards && existing.cards.model) || model });
+    // cards.model 的 UI 语义 =「留空 = 与抽取模型相同」（见 ProviderEditorSheet 占位文案）。
+    // 2026-09-14 修：此前留空时保留**旧值**，于是「只改抽取模型」会让过期的 cards.model 继续生效；
+    // 而 resolveLlmOptions/llm-client 的取值优先级是 cards.model → extraction.model，结果=界面显示已改、
+    // 判词链实际仍用旧模型（用户报「切换模型不生效」的真实根因之一）。改为：留空即清空，
+    // 让下游 fallback 到 extraction.model，与 UI 语义一致。
+    next.cards = Object.assign({}, existing.cards, { model: (body.cards_model && String(body.cards_model).trim()) || model });
     cfg.providers[key] = next;
     write(cfg);
     return toPublic(key, next);

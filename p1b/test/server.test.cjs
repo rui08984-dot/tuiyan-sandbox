@@ -462,6 +462,32 @@ test('PUT 非法 provider key → 400；activate 不存在 → 404', async () =>
   assert.equal(r.statusCode, 404);
 });
 
+// ── 2026-09-14：切模型不生效的真实根因（cards.model 过期覆盖）回归 ──────────────
+// 用户报「改 providers.json 调了很久没生效」。根因之一：UI「参谋卡模型」留空的语义是
+// 「同抽取模型」，但 upsert 此前在留空时**保留旧 cards.model**；而下游取值优先级是
+// cards.model → extraction.model ⇒ 只改抽取模型时，过期 cards.model 继续生效（界面已改、实际没改）。
+test('regression：只改抽取模型（cards 留空）→ 实际生效模型跟随（修 cards 过期覆盖）', async () => {
+  const { createProvidersStore } = require('../src/providersStore');
+  const { resolveLlmOptions } = require('../src/llmOptions');
+  const p = path.join(os.tmpdir(), 'p1b-cardsfix-' + process.pid + '-' + Date.now() + '.json');
+  fs.writeFileSync(p, JSON.stringify({ active: 'cf', providers: {} }));
+  const store = createProvidersStore(p);
+  try {
+    store.upsert('cf', { label: 'cf', base_url: 'https://x.example/v1', api_key: 'cf-key-1234567890', model: 'model-OLD', cards_model: 'model-OLD' });
+    assert.equal(resolveLlmOptions({ store }).model, 'model-OLD', '初始生效=model-OLD');
+    // 用户只改「抽取模型」，参谋卡模型留空（UI 的留空=同上语义）
+    store.upsert('cf', { label: 'cf', base_url: 'https://x.example/v1', model: 'model-NEW' });
+    assert.equal(store.getProvider('cf').cards.model, 'model-NEW', '留空 cards → 跟随抽取模型（不再保留旧值）');
+    assert.equal(resolveLlmOptions({ store }).model, 'model-NEW', '实际生效模型已跟随（bug 修复核心断言）');
+    // 显式指定 cards_model 时仍优先（显式 > 回落）
+    store.upsert('cf', { label: 'cf', base_url: 'https://x.example/v1', model: 'model-NEW2', cards_model: 'cards-EXPLICIT' });
+    assert.equal(resolveLlmOptions({ store }).model, 'cards-EXPLICIT', '显式 cards_model 仍优先');
+  } finally {
+    fs.unlinkSync(p);
+  }
+});
+
+
 // ── 404 ──
 test('未知路由 → 404（统一 not found 形状）', async () => {
   const r = await app.inject({ method: 'GET', url: '/api/nope' });

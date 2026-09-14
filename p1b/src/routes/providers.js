@@ -15,6 +15,25 @@ function register(app, ctx) {
 
   app.get('/api/providers', async () => store.list());
 
+  /**
+   * GET /api/providers/effective —— **当前实际生效**的 LLM 配置（脱敏），全链唯一可观测性出口
+   * （2026-09-14 用户验收②③：模型配置=唯一真源 providers.json + 全链路同步）。
+   * 回答的问题：现在判词/跑批/参谋实际会调用哪个 provider、哪个 model、key 从哪来。
+   * 每次调用**实时** store.read()（无缓存）⇒ UI/后台任一方式改配置后立即反映。
+   * 安全：绝不回 api_key；只回 label/base_url/model 与来源标记。
+   */
+  app.get('/api/providers/effective', async () => {
+    const { resolveLlmOptions, describeEffective } = require('../llmOptions');
+    const eff = describeEffective({ store, llmMock: ctx.llmMock });
+    let label = null;
+    try {
+      const cfg = store.read();
+      const p = cfg.active && cfg.providers ? cfg.providers[cfg.active] : null;
+      if (p) label = p.label || cfg.active;
+    } catch (e) { /* 配置损坏不阻断读数 */ }
+    return Object.assign({}, eff, { provider_label: label });
+  });
+
   app.put('/api/providers/:key', async (req) => {
     const body = req.body || {};
     const provider = store.upsert(String(req.params.key || ''), {

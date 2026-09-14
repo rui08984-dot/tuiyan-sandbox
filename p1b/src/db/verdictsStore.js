@@ -26,7 +26,14 @@ const PROMPT_VARIANTS = ['v1_evidence', 'v2_skeptical', 'v3_baserate'];
 const TEMPERATURES = [0.2, 0.7, 1.0];
 
 // 版本戳两列的 additive 迁移定义（列名 = 定义串第一个 token，照 predictionsStore.AUDIT_COLUMNS 先例）
-const VERSION_COLUMNS = ['model TEXT', 'run_id TEXT'];
+// resolved_model（2026-09-14 additive）：**生成该行时实际生效**的模型（由 llmOptions.describeEffective
+//   在调用点现算，与 providers.json 实时同步）。与 model 列的分工：
+//   - model          = 调用方**声明**的批次标签（如 'tokenrhythm/glm-5.3-flash'，是 prereg-a-bootstrap
+//                      配对键的组成部分——**不得改动**，改格式会把同一批次拆成两个"模型"而破坏配对）；
+//   - resolved_model = 事实层，回答"这行到底是谁生成的"。背景：2026-09-14 实测发现 model 列只是编排器
+//                      写死的标签，与真正生效的 provider/model 脱钩 ⇒ 换供应商后行标签不变、无法验收。
+//                      两列并存＝声明与事实分离，历史行 resolved_model 为 NULL（如实留空不回填）。
+const VERSION_COLUMNS = ['model TEXT', 'run_id TEXT', 'resolved_model TEXT'];
 
 const SCHEMA_VERDICTS = [
   'CREATE TABLE IF NOT EXISTS verdicts (',
@@ -38,6 +45,7 @@ const SCHEMA_VERDICTS = [
   '  implied_prob REAL CHECK(implied_prob IS NULL OR (implied_prob >= 0 AND implied_prob <= 1)),',
   '  model TEXT,',
   '  run_id TEXT,',
+  '  resolved_model TEXT,',
   "  created_at TEXT DEFAULT (datetime('now'))",
   ');',
   'CREATE INDEX IF NOT EXISTS idx_verdicts_pred ON verdicts(prediction_id, id);',
@@ -86,6 +94,7 @@ function rowToVerdict(row) {
     implied_prob: row.implied_prob === undefined ? null : row.implied_prob,
     model: row.model === undefined ? null : row.model,
     run_id: row.run_id === undefined ? null : row.run_id,
+    resolved_model: row.resolved_model === undefined ? null : row.resolved_model,
     created_at: row.created_at,
   };
 }
@@ -109,10 +118,12 @@ function saveVerdict(v) {
   // model/runId 可选版本戳：缺省 NULL=旧调用方行为不变；重跑批次由调用方显式传 runId
   const model = (v.model === undefined || v.model === null) ? null : String(v.model);
   const runId = (v.runId === undefined || v.runId === null) ? null : String(v.runId);
+  // resolved_model=实际生效模型（事实层）；缺省 NULL（旧调用方/历史行——如实留空不回填）
+  const resolvedModel = (v.resolvedModel === undefined || v.resolvedModel === null) ? null : String(v.resolvedModel);
   const conn = db.getConnection();
-  conn.prepare('INSERT OR IGNORE INTO verdicts (prediction_id, prompt_variant, temperature, verdict_text, implied_prob, model, run_id)'
-    + ' VALUES (?, ?, ?, ?, ?, ?, ?)')
-    .run(v.predictionId, v.promptVariant, v.temperature, v.verdictText.trim(), prob, model, runId);
+  conn.prepare('INSERT OR IGNORE INTO verdicts (prediction_id, prompt_variant, temperature, verdict_text, implied_prob, model, run_id, resolved_model)'
+    + ' VALUES (?, ?, ?, ?, ?, ?, ?, ?)')
+    .run(v.predictionId, v.promptVariant, v.temperature, v.verdictText.trim(), prob, model, runId, resolvedModel);
   // 返回**本批次**行（按 runId 过滤；跨批旧行不混返——批次 2-RC 烟测假象根因之二）
   return conn.prepare('SELECT * FROM verdicts WHERE prediction_id = ? AND prompt_variant = ? AND temperature = ?'
     + " AND COALESCE(run_id,'') = COALESCE(?, '')")
@@ -125,4 +136,4 @@ function listVerdictsByPrediction(pid) {
   return rows.map(rowToVerdict);
 }
 
-module.exports = { ensureVerdictsTable, saveVerdict, listVerdictsByPrediction, PROMPT_VARIANTS, TEMPERATURES };
+module.exports = { ensureVerdictsTable, saveVerdict, listVerdictsByPrediction, PROMPT_VARIANTS, TEMPERATURES, VERSION_COLUMNS };

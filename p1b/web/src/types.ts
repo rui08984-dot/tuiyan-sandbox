@@ -220,6 +220,26 @@ export interface ProviderListResult {
   active: string | null;
 }
 
+/**
+ * GET /api/providers/effective —— 当前**实际生效**的 LLM 配置（脱敏）。
+ * 2026-09-14 新增：全链唯一可观测性出口（模型配置=唯一真源 providers.json + 全链路同步）；
+ * 每次请求实时读配置，UI/后台任一方式改完立即反映。绝不回 api_key。
+ */
+export interface EffectiveProvider {
+  /** 'LIVE' | 'MOCK'（无可用 key 即 MOCK，与实际调用链 resolveMode 同口径） */
+  mode: string;
+  mock: boolean;
+  /** 激活的 provider key（无则 null） */
+  provider: string | null;
+  provider_label: string | null;
+  base_url: string | null;
+  /** 实际会用的模型（MOCK 时为 null） */
+  model: string | null;
+  /** key 来源：providers（providers.json）/ env（兜底）/ none */
+  key_source: 'providers' | 'env' | 'none';
+  has_key: boolean;
+}
+
 /** POST /api/providers/:key/test 返回（连接测试：发一条 ping 看通不通） */
 export interface ProviderTestResult {
   ok: boolean;

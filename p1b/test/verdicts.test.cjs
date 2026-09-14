@@ -492,3 +492,82 @@ test('loadEvidence：corpus 型结构化 evidence（对象数组）不再抛 Ran
   const numeric = loadEvidence({ id: 999002, game_id: 1, evidence: [38] });
   assert.ok(typeof numeric === 'string', '数值型 evidence 仍应正常返回字符串');
 });
+
+// ── 2026-09-14：双链统一可观测性（resolved_model + /api/providers/effective）────
+// 背景：model 列此前只是编排器写死的声明标签，与真正生效的 provider/model 脱钩 ⇒ 换供应商后
+// 行标签不变、"是否生效"无法验收。修法=声明（model）与事实（resolved_model）分离 + 一处实时读数。
+
+test('verdicts resolved_model（additive）：声明 model 与实际模型分离；resolvedModel 落库读回；缺省 NULL', () => {
+  const { saveVerdict, listVerdictsByPrediction } = require('../src/db/verdictsStore');
+  const pid = predictions.insertPrediction({ gameId: gameId, day: 1, sourceType: '预测卡', statement: 'resolved_model 用例', prob: 0.5, layer: 'L6', evidence: [] });
+  // 声明标签（批次口径）与实际生效模型不一致的典型情形：声明 glm，实际切到 deepseek
+  const s = saveVerdict({ predictionId: pid.id, promptVariant: 'v1_evidence', temperature: 0.2, verdictText: '声明与事实分离用例。\nP=0.60', impliedProb: 0.6, runId: 'eff-test', model: 'tokenrhythm/glm-5.3-flash', resolvedModel: 'deepseek-chat' });
+  assert.equal(s.model, 'tokenrhythm/glm-5.3-flash', 'model=声明标签（配对键组成部分，不得被覆盖）');
+  assert.equal(s.resolved_model, 'deepseek-chat', 'resolved_model=实际生效模型（事实层）');
+  const back = listVerdictsByPrediction(pid.id);
+  assert.equal(back[0].resolved_model, 'deepseek-chat', 'resolved_model 落库读回');
+  // 缺省：旧调用方不传 resolvedModel → NULL（历史行语义，如实留空不回填）
+  const bare = saveVerdict({ predictionId: pid.id, promptVariant: 'v2_skeptical', temperature: 0.7, verdictText: '缺省 resolvedModel。\nP=0.50', impliedProb: 0.5, runId: 'eff-test' });
+  assert.equal(bare.resolved_model, null, '缺省 resolved_model=NULL（旧调用方兼容）');
+});
+
+test('describeEffective：providers.json 为准 → env fallback → MOCK 三态（与实际调用链同口径）', () => {
+  const { describeEffective } = require('../src/llmOptions');
+  const { createProvidersStore } = require('../src/providersStore');
+  const p = path.join(os.tmpdir(), 'p1b-eff-unit-' + process.pid + '-' + Date.now() + '.json');
+  fs.writeFileSync(p, JSON.stringify({ active: 'x', providers: { x: { label: 'X', base_url: 'https://providers.example/v1', api_key: 'prov-key-123456', extraction: { model: 'model-from-providers' } } } }));
+  const saved = { k: process.env.LLM_API_KEY, m: process.env.LLM_MODEL };
+  try {
+    // ① providers 有 key → 以 providers 为准（env 即使设置也仅 fallback，不覆盖）
+    process.env.LLM_API_KEY = 'env-key-should-not-win';
+    process.env.LLM_MODEL = 'model-from-env';
+    let eff = describeEffective({ store: createProvidersStore(p) });
+    assert.equal(eff.provider, 'x');
+    assert.equal(eff.key_source, 'providers', 'providers 优先于 env');
+    assert.equal(eff.model, 'model-from-providers', 'model 取 providers 值（不被 env 覆盖）');
+    assert.equal(eff.mode, 'LIVE');
+    // ② providers 无 key → env 兜底，且 mode 仍 LIVE
+    fs.writeFileSync(p, JSON.stringify({ active: 'x', providers: { x: { label: 'X', base_url: 'https://providers.example/v1', extraction: { model: 'model-from-providers' } } } }));
+    eff = describeEffective({ store: createProvidersStore(p) });
+    assert.equal(eff.key_source, 'env', 'providers 无 key → env 兜底');
+    assert.equal(eff.mode, 'LIVE');
+    // ③ providers 无 key 且 env 也无 → MOCK，model=null（无真实模型）
+    delete process.env.LLM_API_KEY; delete process.env.LLM_MODEL;
+    eff = describeEffective({ store: createProvidersStore(p) });
+    assert.equal(eff.key_source, 'none');
+    assert.equal(eff.mode, 'MOCK');
+    assert.equal(eff.model, null, 'MOCK 时无真实模型');
+  } finally {
+    if (saved.k === undefined) delete process.env.LLM_API_KEY; else process.env.LLM_API_KEY = saved.k;
+    if (saved.m === undefined) delete process.env.LLM_MODEL; else process.env.LLM_MODEL = saved.m;
+    fs.unlinkSync(p);
+  }
+});
+
+test('GET /api/providers/effective：实时反映激活供应商（改 providers.json 立即跟随，无需重启）', async () => {
+  // 初始：临时配置为空 → 无 provider / 无 key
+  let b = j(await app.inject({ method: 'GET', url: '/api/providers/effective' }));
+  assert.equal(b.provider, null, '初始无激活供应商');
+  assert.equal(b.has_key, false);
+  // PUT + activate（写的是本测试的临时 providers 文件，非真实配置）
+  let r = await app.inject({ method: 'PUT', url: '/api/providers/eff', payload: { label: '生效测试', base_url: 'https://eff.example/v1', api_key: 'eff-key-abcdef123456', model: 'eff-model-1' } });
+  assert.equal(r.statusCode, 200);
+  r = await app.inject({ method: 'POST', url: '/api/providers/eff/activate' });
+  assert.equal(r.statusCode, 200);
+  b = j(await app.inject({ method: 'GET', url: '/api/providers/effective' }));
+  assert.equal(b.provider, 'eff', '实时反映激活 provider');
+  assert.equal(b.provider_label, '生效测试');
+  assert.equal(b.base_url, 'https://eff.example/v1');
+  assert.equal(b.key_source, 'providers', 'key 来自 providers.json');
+  assert.equal(b.has_key, true);
+  assert.ok(!('api_key' in b), '绝不回 api_key 明文');
+  // 改 base_url（模拟 UI 改配置）→ 下一次读数立即跟随（无缓存）
+  r = await app.inject({ method: 'PUT', url: '/api/providers/eff', payload: { label: '生效测试', base_url: 'https://eff2.example/v1', api_key: '', model: 'eff-model-2' } });
+  assert.equal(r.statusCode, 200, 'api_key 留空=保留现有，不报错');
+  b = j(await app.inject({ method: 'GET', url: '/api/providers/effective' }));
+  assert.equal(b.base_url, 'https://eff2.example/v1', '配置改动实时反映（无缓存）');
+  assert.equal(b.has_key, true, 'key 留空保留');
+  // 清理：删掉使临时配置回到空（避免影响本文件后续用例）
+  await app.inject({ method: 'DELETE', url: '/api/providers/eff' });
+});
+

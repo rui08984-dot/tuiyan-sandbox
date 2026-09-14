@@ -378,8 +378,16 @@ function register(app, ctx) {
     const bodyRun = req.body || {};
     const runId = (typeof bodyRun.runId === 'string' && bodyRun.runId.trim()) ? bodyRun.runId.trim() : null;
     const model = (typeof bodyRun.model === 'string' && bodyRun.model.trim()) ? bodyRun.model.trim() : null;
-    const options = resolveLlmOptions({ store: ctx.store, llmMock: ctx.llmMock, fetchImpl: ctx.fetchImpl });
-    const mode = llm.resolveMode(options); // mockMode/无 key → MOCK（零网络，与 extract/advise/oracle 同链）
+  const options = resolveLlmOptions({ store: ctx.store, llmMock: ctx.llmMock, fetchImpl: ctx.fetchImpl });
+  const mode = llm.resolveMode(options); // mockMode/无 key → MOCK（零网络，与 extract/advise/oracle 同链）
+  // 事实层（2026-09-14 additive）：本批次实际生效的模型（现算，实时代理 providers.json）。
+  // 与 body.model（声明标签）分离——见 verdictsStore VERSION_COLUMNS 注释。MOCK 时 null（无真实模型）。
+  const resolvedModel = (() => {
+    try {
+      const { describeEffective } = require('../llmOptions');
+      return describeEffective({ store: ctx.store, llmMock: ctx.llmMock, options }).model;
+    } catch (e) { return null; }
+  })();
     // per-path 注入件（批次1-M1）：与 variant 无关，循环外各算一次（纯查库零网络）
     // 命题 A 消融窗口覆盖（additive）：body.evidenceIds 由编排器按 prereg-a-windows 计算后传入；缺省＝现状。
     const windowIds = (req.body && Array.isArray(req.body.evidenceIds)) ? req.body.evidenceIds : undefined;
@@ -413,6 +421,7 @@ function register(app, ctx) {
           impliedProb: prob,
           runId: runId,
           model: model,
+          resolvedModel: resolvedModel,
         });
         saved.push({
           id: row.id,
@@ -423,6 +432,7 @@ function register(app, ctx) {
           created_at: row.created_at,
           run_id: row.run_id,
           model: row.model,
+          resolved_model: row.resolved_model,
         });
       } catch (e) {
         // 单路失败不落库不编造（消融数据干净优先）；如实标注

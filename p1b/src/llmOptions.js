@@ -27,6 +27,39 @@ function timeoutFetch(ms) {
   };
 }
 
+// ── 生效口径描述（2026-09-14 新增，additive）─────────────────────────────────
+// 背景：本文件此前只回答「注入了什么」，没有任何一处回答「当前实际会用什么」。
+// 结果=可观测性缺口：编排器把写死的标签（如 'tokenrhythm/glm-5.3-flash'）落进 verdicts.model，
+// 与真正生效的 provider/model 脱钩——换 provider 后行标签不变，看起来"没生效"。
+// describeEffective 给全链一个**唯一事实源**：当前 provider 是谁、key 从哪来、实际 model 是什么。
+// 判据（与 p1a-terminal/src/llm.js 的 DEFAULT_MODEL/resolveMode 逐字对齐，勿各写一套）：
+//   mode：opts.mockMode true→MOCK／false→LIVE／否则有 key→LIVE 无 key→MOCK
+//   model：MOCK 时 null（无真实模型）；LIVE 时 opts.model → env LLM_MODEL → 'deepseek-chat'
+//   key_source：providers（providers.json）> env（LLM_API_KEY/DEEPSEEK_API_KEY 兜底）> none
+const DEFAULT_CHAT_MODEL = 'deepseek-chat';
+let envFallbackWarned = false;
+function describeEffective({ store, llmMock, options } = {}) {
+  const opts = options || resolveLlmOptions({ store, llmMock });
+  const envKey = process.env.LLM_API_KEY || process.env.DEEPSEEK_API_KEY || '';
+  const keySource = opts.apiKey ? 'providers' : (envKey ? 'env' : 'none');
+  const mock = opts.mockMode === true ? true : (opts.mockMode === false ? false : !(opts.apiKey || envKey));
+  const mode = mock ? 'MOCK' : 'LIVE';
+  let provider = null;
+  try { const cfg = store.read(); provider = cfg.active || null; } catch (e) { provider = null; }
+  if (keySource === 'env' && !envFallbackWarned) {
+    envFallbackWarned = true; // 每进程告警一次（handoff 验收⑤：fallback 触发须披露）
+    process.stderr.write('[p1b] LLM key 兜底到 env（providers.json 无可用 key）——请检查激活供应商配置\n');
+  }
+  return {
+    mode, mock,
+    provider,
+    base_url: opts.baseUrl || null,
+    model: mock ? null : (opts.model || process.env.LLM_MODEL || DEFAULT_CHAT_MODEL),
+    key_source: keySource,
+    has_key: keySource !== 'none',
+  };
+}
+
 function resolveLlmOptions({ store, llmMock, fetchImpl }) {
   const opts = {};
   if (llmMock) opts.mockMode = true;
@@ -49,4 +82,4 @@ function resolveLlmOptions({ store, llmMock, fetchImpl }) {
   return opts;
 }
 
-module.exports = { resolveLlmOptions };
+module.exports = { resolveLlmOptions, describeEffective, DEFAULT_CHAT_MODEL, timeoutFetch };

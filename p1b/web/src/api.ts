@@ -6,7 +6,7 @@
  */
 import type {
   AuditSummary, BotcClaim, Claim, ConfirmPayload, CreateGameInput, EventPhase, Game, GameState, OracleResult, Player, Provider,
-  AdapterInfo,
+  EffectiveProvider, AdapterInfo,
   OracleCastResult, OracleInterpretResult, OracleReadingsResult, PendingCard, ProviderInput, ProviderListResult, ProviderTestResult, TaskStatus,
   ServerCard, ServerCardsResult, SeatRename, SeatsSaveResult,
   IntakeClassifyResult, IntakeRejectsResult, IntakeQuestionsResult,
@@ -85,6 +85,15 @@ export function activateProvider(key: string): Promise<{ ok: boolean; active: st
 
 export function testProvider(key: string): Promise<ProviderTestResult> {
   return USE_MOCK ? mockApi.testProvider(key) : request('/providers/' + encodeURIComponent(key) + '/test', 'POST');
+}
+
+/**
+ * GET /api/providers/effective —— 当前实际生效的 LLM 配置（脱敏，实时）。
+ * 2026-09-14：双链统一可观测性出口——设置页用它显示「判词链现在实际用哪个模型」，
+ * 使「换模型是否真的生效」可在浏览器里直接验证（无需重启 8787）。
+ */
+export function getEffectiveProvider(): Promise<EffectiveProvider> {
+  return USE_MOCK ? mockApi.getEffectiveProvider() : request('/providers/effective', 'GET');
 }
 
 /**

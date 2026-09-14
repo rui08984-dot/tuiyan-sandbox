@@ -8,6 +8,7 @@ import type {
   AdvisorCard, ConfirmPayload, CreateGameInput, Game, GameState, Player,
   AdapterInfo,
   PendingCard, Provider, ProviderInput, ProviderListResult, ProviderTestResult,
+  EffectiveProvider,
   ServerCard, ServerCardsResult, SeatsSaveResult, TaskStatus,
 } from './types';
 
@@ -132,6 +133,23 @@ export const mockApi = {
     const p = providerStore[key];
     if (!p) throw new Error('供应商不存在：' + key);
     return { ok: true, latency_ms: 320, model: p.model, message: '（mock）连接正常' };
+  },
+
+  /** GET /api/providers/effective（mock）：与实际调用链同口径——有 key 即 LIVE，无 key 即 MOCK */
+  async getEffectiveProvider(): Promise<EffectiveProvider> {
+    await delay();
+    const p = activeProviderKey ? providerStore[activeProviderKey] : null;
+    const hasKey = !!(p && p.api_key);
+    return {
+      mode: hasKey ? 'LIVE' : 'MOCK',
+      mock: !hasKey,
+      provider: activeProviderKey,
+      provider_label: p ? p.label : null,
+      base_url: p ? p.base_url : null,
+      model: hasKey ? (p?.model ?? null) : null,
+      key_source: hasKey ? 'providers' : 'none',
+      has_key: hasKey,
+    };
   },
 
   // ── 对局 ──
