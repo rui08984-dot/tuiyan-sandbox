@@ -163,3 +163,27 @@ test('tautology（p15）：旧库 additive 迁移——缺列表 ensure 后补�
   const again = insertPrediction({ gameId: 1, sourceType: '预测卡', statement: '迁移后新行' });
   assert.equal(again.tautology, 0, '迁移后写入链路可用');
 });
+
+// ── F16 真白名单（批次1 #17b，2026-09-14 补测试锁死）：未知键抛错（防静默落空）/ 下划线漂移给迁移提示 ──
+test('F16 白名单：assertAuditFields 未知键抛错、下划线漂移提示驼峰、合法键映射落位', () => {
+  const { assertAuditFields, AUDIT_KEYS } = require('../src/db/predictionsStore');
+  const ok = assertAuditFields({ layer: 'L2', checklistHash: 'v3', g2Regime: 'R4', maturesAt: null, metricVersion: 'm1' }, ['gameId']);
+  assert.equal(ok.layer, 'L2');
+  assert.equal(ok.checklist_hash, 'v3');
+  assert.equal(ok.g2_regime, 'R4');
+  assert.equal(ok.matures_at, null);
+  assert.equal(ok.metric_version, 'm1');
+  assert.throws(() => assertAuditFields({ watIsThis: 1 }), /不在白名单/, '未知键必须抛（防静默落空——#2 的 g2Regime/maturesAt 曾被吞）');
+  assert.throws(() => assertAuditFields({ g2_regime: 'R4' }), /命名漂移[\s\S]*g2Regime/, '下划线漂移给驼峰迁移提示');
+  assert.throws(() => assertAuditFields({ checklist_hash: 'v3' }), /命名漂移[\s\S]*checklistHash/);
+  assert.ok(AUDIT_KEYS.indexOf('g2Regime') !== -1 && AUDIT_KEYS.indexOf('maturesAt') !== -1, 'audit 白名单含 #2 两键');
+});
+
+test('F16 白名单：insertPrediction 未知 audit 键抛错（不静默落空）；g2Regime 缺 maturesAt 抛错', () => {
+  assert.throws(() => insertPrediction({ gameId: 1, sourceType: '预测卡', statement: 'F16 用例A', prob: 0.5, typoKey: 1 }), /不在白名单/);
+  assert.throws(() => insertPrediction({ gameId: 1, sourceType: '预测卡', statement: 'F16 用例B', prob: 0.5, g2Regime: 'R4' }), /必须显式提供 maturesAt/);
+  const row = insertPrediction({ gameId: 1, sourceType: '预测卡', statement: 'F16 用例C', prob: 0.5, g2Regime: 'R4', maturesAt: null, checklistHash: 'v3' });
+  assert.equal(row.checklist_hash, 'v3');
+  assert.equal(row.g2_regime, 'R4');
+  assert.equal(row.matures_at, null);
+});

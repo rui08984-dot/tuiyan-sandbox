@@ -1,0 +1,41 @@
+② 契约表源码派生复现检查（2026-09-14T06:46:31.975Z）
+源: E:\music player\p1b\scripts\corpus-resolve.cjs ｜ 冻结表: E:\music player\p1b\sim\out\g2-contract-frozen-r4.json（contracts 34 / aliases 25）
+
+[OK] _dbnMonthMean → _dbnMonthMean（required 5 ｜ 读取 6）
+[OK] _dbnPeriod → _dbnPeriod（required 5 ｜ 读取 9）
+[OK] _delphiFlu → _delphiFlu（required 4 ｜ 读取 6） ｜ 可选读(不入契约)=["region"]
+[OK] _eurostatJsonstat → _eurostatJsonstat（required 4 ｜ 读取 7） ｜ 可选读(不入契约)=["geo"]
+[OK] _noaaTideDailyHigh → _noaaTideDailyHigh（required 5 ｜ 读取 6）
+[OK] _omDaily → _omDaily（required 4 ｜ 读取 5）
+[OK] _omHourlyMean → _omHourlyMean（required 4 ｜ 读取 5）
+[OK] binance_daily_close → binance_daily_close（required 5 ｜ 读取 6）
+[OK] bom_weekend_top10_gross → bom_weekend_top10_gross（required 3 ｜ 读取 3）
+[OK] crossref_week_total → crossref_week_total（required 4 ｜ 读取 5）
+[OK] cta_daily_total_rides → cta_daily_total_rides（required 4 ｜ 读取 4）
+[OK] cwl_ssq_blue_odd → cwl_ssq_blue_odd（required 1 ｜ 读取 1）
+[OK] cwl_ssq_blue_odd_forward → cwl_ssq_blue_odd_forward（required 1 ｜ 读取 1）
+[OK] cwl_ssq_red_contains → cwl_ssq_red_contains（required 2 ｜ 读取 2）
+[OK] dbnomics_series_value → dbnomics_series_value（required 5 ｜ 读取 5）
+[OK] dlt_draw_result → dlt_draw_result（required 2 ｜ 读取 3）
+[OK] elexon_fuelhh_daily_mean → elexon_fuelhh_daily_mean（required 5 ｜ 读取 6）
+[OK] energycharts_daily_mean → energycharts_daily_mean（required 6 ｜ 读取 7）
+[OK] frankfurter_rate → frankfurter_rate（required 6 ｜ 读取 7）
+[OK] frankfurter_rate_range → frankfurter_rate_range（required 7 ｜ 读取 8）
+[OK] ghcn_daily_tmax → ghcn_daily_tmax（required 5 ｜ 读取 6）
+[OK] github_weekly_commits → github_weekly_commits（required 5 ｜ 读取 6） ｜ 可选读(不入契约)=["week_end"]
+[OK] jpl_cad_monthly_count → jpl_cad_monthly_count（required 4 ｜ 读取 4）
+[OK] kraken_daily_close → kraken_daily_close（required 5 ｜ 读取 6）
+[OK] mlb_schedule_daily_total_runs → mlb_schedule_daily_total_runs（required 4 ｜ 读取 5）
+[OK] noaa_gml_co2_daily → noaa_gml_co2_daily（required 4 ｜ 读取 4）
+[OK] npm_downloads_window → npm_downloads_window（required 6 ｜ 读取 7）
+[OK] nvd_cve_week_count → nvd_cve_week_count（required 4 ｜ 读取 5）
+[OK] openalex_works_count → openalex_works_count（required 4 ｜ 读取 6） ｜ 可选读(不入契约)=["end"]
+[OK] openmeteo_daily_max → openmeteo_daily_max（required 4 ｜ 读取 4）
+[OK] openmeteo_forecast_daily_max → openmeteo_forecast_daily_max（required 5 ｜ 读取 5）
+[OK] swpc_solar_cycle_monthly → swpc_solar_cycle_monthly（required 5 ｜ 读取 5）
+[OK] usgs_nwis_daily_discharge → usgs_nwis_daily_discharge（required 5 ｜ 读取 6）
+[OK] wikimedia_pageviews → wikimedia_pageviews（required 5 ｜ 读取 6）
+
+汇总: missing_fn=0 ｜ frozen_not_read=0 ｜ read_not_frozen=0 ｜ 可选读(不入契约)=4
+判读: frozen_not_read>0 ⇒ 冻结表要求了源码没读的键（须人工复核，**可能是观测反推痕迹**）；read_not_frozen ⇒ 契约漏项（披露/对账用）；两者都为 0 ⇒ “契约=源码派生”在抽取消歧范围内成立。可选读＝源码里以 `r.<key> || 默认值` 出现者（如 note 文案用 region/geo），契约只列必需键，属正常。
+局限（如实）: 本检查是**正则级**抽取——动态键、间接读取（如 r 整体传给 helper）不在此覆盖内；公共读取按调用出现补入（subst/finish/cmpOk/cwlEval），与冻结表 meta.basis 同口径。
