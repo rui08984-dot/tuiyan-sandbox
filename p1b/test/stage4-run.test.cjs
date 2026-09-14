@@ -29,7 +29,7 @@ test('stage4-run：产出分层读数（仅 L2/L5）、L5 读侧重建出数、�
   execFileSync(process.execPath, [SCRIPT, '--json', out], { stdio: 'ignore' });
   const r = JSON.parse(fs.readFileSync(out, 'utf8'));
   assert.ok(r.report, '有 report');
-  assert.deepEqual(Object.keys(r.report).sort(), ['L2', 'L5'], '只跑引擎已建的 L2/L5（禁跨层池化 ⇒ 分层独立）');
+  assert.deepEqual(Object.keys(r.report).sort(), ['L2', 'L3', 'L5'], '引擎已建的三层（禁跨层池化 ⇒ 分层独立）');
   const l2 = r.report.L2;
   assert.ok(l2.ledger_rows > 0, 'L2 有账本行');
   assert.ok(l2.engine_ok > 0, 'L2 引擎有出数');
@@ -40,8 +40,15 @@ test('stage4-run：产出分层读数（仅 L2/L5）、L5 读侧重建出数、�
     // 防过度声称：CI 含 0（ub>=0）⇒ 不得给「优于」信号
     if (l2.delta_ci95.ub >= 0) assert.notEqual(l2.signal, 'engine_beats_half_CI_excludes_0', 'CI 含 0 不得声称优于');
   }
-  const l5 = r.report.L5;
-  // 2026-09-14 读侧结构化后：L5 认证源按 resolve.kind 从组合数注册表重建 ⇒ 出数=账本行（不再恒 0）；
+  // L3（2026-09-14 接线）：p=基率 + ACI 覆盖率披露；出数与可计分如实（不编数）
+  const l3 = r.report.L3;
+  assert.ok(l3.ledger_rows > 0, 'L3 有账本行');
+  assert.ok(l3.engine_ok > 0, 'L3 引擎有出数');
+  assert.ok(l3.scored_n > 0, 'L3 已可计分（已解行）');
+  assert.ok(l3.scored_n <= l3.ledger_rows, 'L3 可计分 ≤ 账本行');
+  assert.ok(r.l3_aci && r.l3_aci.alpha_final !== undefined, 'L3 ACI 回放节存在');
+  assert.ok(r.l3_aci.coverage === null || r.l3_aci.coverage.n >= 0, 'ACI 覆盖率如实（含 null）');
+  const l5 = r.report.L5;  // 2026-09-14 读侧结构化后：L5 认证源按 resolve.kind 从组合数注册表重建 ⇒ 出数=账本行（不再恒 0）；
   // 可计分数由「开奖真值到达情况」决定（当前 30 行已 resolve），但**必须 ≤ 账本行**（不编数）。
   assert.ok(l5.ledger_rows > 0, 'L5 有账本行');
   const src = r.l5_source_resolution;
