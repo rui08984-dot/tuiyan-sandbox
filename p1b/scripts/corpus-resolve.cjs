@@ -175,11 +175,15 @@ const RESOLVERS = {
   },
   // ══ 行情 / 汇率 ══
   async binance_daily_close(r) {
+    // 2026-09-15 文案修：未来日应报「尚未到」（与其余 resolver 同款），不是「无该日 K 线」（听起来像数据缺失）
+    if (futureDay(r.date)) return { pending: r.date + ' 尚未到（UTC 日未收盘）' };
     const j = await getJson(subst(r.url_template || r.url, r));
     if (!Array.isArray(j) || !j.length || !j[0] || j[0][4] === undefined) return { pending: 'Binance ' + r.date + ' 无该日 K 线' };
     return finish(r, Number(j[0][4]), 'Binance ' + r.symbol + ' ' + r.date + ' close=' + j[0][4]);
   },
   async kraken_daily_close(r) {
+    // 2026-09-15 文案修：同上
+    if (futureDay(r.date)) return { pending: r.date + ' 尚未到（UTC 日未收盘）' };
     const j = await getJson(subst(r.url_template || r.url, r));
     const res = (j && j.result) || {};
     const key = Object.keys(res).filter((k) => k !== 'last')[0];
