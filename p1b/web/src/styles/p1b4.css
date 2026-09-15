@@ -1,12 +1,16 @@
 /* P1b-4 对局设置页 + 参谋卡面板 专属样式 —— 沿用 app.css 设计语言（变量/按钮/表单/抽屉/badge/chip）。 */
 
 /* ── 对局页：局列表（历史局 + 进行中标记）── */
-.game-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+/* 容器改宽 1280 后（三轮）：列表横排多列，一屏看到更多局 */
+.game-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
 .game-item {
   display: flex; align-items: center; gap: 10px;
   background: var(--panel); border: 1px solid var(--line);
   border-radius: var(--radius); padding: 12px 14px;
+  min-width: 0;
+  transition: border-color 150ms ease, background 150ms ease;
 }
+.game-item:hover { border-color: rgba(224, 168, 60, 0.45); background: var(--panel-2); }
 .game-item.is-selected { border-color: rgba(224, 168, 60, 0.55); }
 .game-item-main { flex: 1; min-width: 0; background: none; border: none; color: inherit; font: inherit; text-align: left; padding: 0; cursor: pointer; }
 .game-item-name { font-weight: 600; font-size: 15.5px; }

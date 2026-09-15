@@ -18,10 +18,14 @@ import './styles/p1b6.css';
 const linkCls = ({ isActive }: { isActive: boolean }) => 'appbar-link' + (isActive ? ' is-active' : '');
 const toolCls = ({ isActive }: { isActive: boolean }) => 'appbar-gear' + (isActive ? ' is-active' : '');
 
-/** 容器分类（治 D1：860 一刀切） */
+/** 容器分类（治 D1：860 一刀切）
+ *  2026-09-15 三轮：接题/对局改宽到 1280（与审计页同档）——
+ *  接题页＝表单＋结果左右并列，对局页＝列表可横排多列；设置页仍为表单宽（720，单列易读）。
+ */
 function containerClass(path: string): string {
   if (path === '/audit') return 'content content--wide';
-  if (path === '/intake' || path === '/settings') return 'content content--form';
+  if (path === '/intake' || path === '/manage') return 'content content--wide';
+  if (path === '/settings') return 'content content--form';
   return 'content';
 }
 

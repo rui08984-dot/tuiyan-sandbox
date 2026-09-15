@@ -86,7 +86,14 @@ export default function ManagePage() {
         </div>
       )}
       {games && games.length === 0 && (
-        <div className="callout"><p className="callout-title">还没有对局</p><p>点右上「＋ 开新局」三步引导：局名/类型/人数 → 席位名单 → 直达现场。</p></div>
+        <div className="callout" data-testid="manage-empty">
+          <p className="callout-title">还没有对局</p>
+          <p>开一局后就能在这里回看：席位名单、事件流、导出 JSON。</p>
+          {/* 空态直接给动作，不只描述（skill：空态要给下一步） */}
+          <button type="button" className="btn btn-primary" style={{ marginTop: 10 }} onClick={() => setWizardOpen(true)}>
+            ＋ 现在开一局
+          </button>
+        </div>
       )}
 
       <ul className="game-list">

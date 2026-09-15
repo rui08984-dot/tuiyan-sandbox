@@ -13,8 +13,12 @@
 .intake-sub { margin: 0; color: var(--muted); font-size: 13px; }
 
 /* 桌面双列，手机单列 */
-.intake-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 12px; margin-top: 12px; align-items: start; }
+/* 改宽后（三轮）：主区自适应（表单主导）＋ 侧区固定 360px 结果栏 —— 宽屏不再左右等分互相挤压 */
+.intake-grid { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 12px; margin-top: 12px; align-items: start; }
+@media (max-width: 1023px) { .intake-grid { grid-template-columns: minmax(0, 1fr); } }
 .intake-side { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+/* 宽屏下侧栏吸顶：填表时结果始终可见（治「填完要滚下去找结果」） */
+@media (min-width: 1024px) { .intake-side { position: sticky; top: calc(var(--header-height) + 8px); } }
 .intake-card { border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel); padding: 12px 14px; min-width: 0; }
 .intake-card-title { margin: 10px 0 6px; font-size: 15px; font-weight: 600; }
 .intake-card-title:first-child { margin-top: 0; }

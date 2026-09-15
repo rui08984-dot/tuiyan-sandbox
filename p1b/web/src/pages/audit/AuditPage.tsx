@@ -94,7 +94,20 @@ export default function AuditPage() {
           <p className="ui-note" style={{ margin: 0 }}>纯 SQL 只读 · 零 LLM · 门禁解锁前一切数字只配「参考」</p>
         </header>
 
-        <div className="ui-kpi-row" data-testid="kpi-row">
+        {/* 加载骨架：占位尺寸与真实卡一致 ⇒ 数据到达时不跳动（CLS） */}
+        {loading && (
+          <div className="ui-kpi-row" data-testid="kpi-skeleton">
+            {['总题量', '已解真值', '合格池', '最难档', '待解前瞻', '门域外'].map((lb) => (
+              <div className="ui-stat" key={lb}>
+                <span className="ui-stat-label">{lb}</span>
+                <span className="ui-skeleton" style={{ width: '62%', height: 26, marginTop: 6, display: 'block' }} />
+                <span className="ui-skeleton" style={{ width: '86%', height: 10, marginTop: 8, display: 'block' }} />
+              </div>
+            ))}
+          </div>
+        )}
+
+        <div className="ui-kpi-row" data-testid="kpi-row" style={loading ? { display: 'none' } : undefined}>
           <StatCard testId="kpi-total" label="总题量" value={l0 ? l0.records : '—'} caption="账本总条数（参考）" />
           <StatCard testId="kpi-resolved" label="已解真值" value={l0 ? l0.resolved : '—'} caption="真值已到（参考）" />
           <StatCard testId="kpi-qualified" label="合格池" value={kpi ? kpi.kpi.qualified_pool : '—'} caption={<Term id="cutoff" plain="信息截止合规·非重言" />} />
