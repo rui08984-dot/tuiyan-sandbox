@@ -1,7 +1,7 @@
 # p1b/scripts 目录索引（脚本都在干什么）
 
 > **自动生成，勿手改**——`node p1b/scripts/scripts-index.cjs`（任务 6 批次 3 / 命名整理）。
-> 生成时点：2026-09-14T16:22:32.522Z｜在役脚本 74 个｜归档件见文末。
+> 生成时点：2026-09-15T06:00:22.124Z｜在役脚本 75 个｜归档件见文末。
 > 命名约定：`corpus-*` 取数出题｜`g2-*` 门禁报表｜`stage4-*` 分层真跑｜`prereg-a-*` 命题 A｜**默认 dry-run、写库须 `--confirm`**（项目纪律）。
 
 ## 使用者友好面（先看这几个）（4）
@@ -59,7 +59,7 @@
 | `prereg-a-sweep.cjs` | 命题 A 全量补齐「扫尾」（2026-09-14） | **可写库**（`--confirm` 才写；默认 dry-run） |
 | `prereg-a-windows.cjs` | PREREG-命题A-3.0消融 · §5 双窗参数件（跑批参数显式落盘；**禁止两窗合并**） | 只读 |
 
-## 其余工具（44）
+## 其余工具（45）
 
 | 脚本 | 一句话 | 写库 |
 |---|---|---|
@@ -82,6 +82,7 @@
 | `acr-inject.cjs` | ───────────────────────────────────────────────────────────────────────────── | 只读 |
 | `acr-run-llm.cjs` | ───────────────────────────────────────────────────────────────────────────── | 只读 |
 | `acr-run.cjs` | ───────────────────────────────────────────────────────────────────────────── | 只读 |
+| `backfill-base-rate.cjs` | 老行 evidence.baseRate 物化回填（零翻转安全集）。 | **可写库**（`--confirm` 才写；默认 dry-run） |
 | `backfill-baserate-note.cjs` | G2 R4 池内缺失 evidence.baseRateNote 的补齐器（additive，只加 key） | **可写库**（`--confirm` 才写；默认 dry-run） |
 | `backfill-checklist-hash.cjs` | F16 回填：879 行 checklist_hash 空的题，按 evidence.kind 映射补上 | **可写库**（`--confirm` 才写；默认 dry-run） |
 | `backfill-evidence.cjs` | 批次1-M1（p15）· A1 三件套之二：90 条 sim 题证据链回填。 | 只读 |

@@ -17,15 +17,28 @@ const OUT = path.join(ROOT, 'p1b', 'sim', 'out');
 function readJson(p) { try { return JSON.parse(fs.readFileSync(p, 'utf8')); } catch (e) { return null; } }
 
 // ── G2 门（最新报告件；缺 → 提示）──
-const g2 = readJson(path.join(OUT, 'g2-report-latest-20260914.json'));
-const G2_HINT = 'node p1b/scripts/g2-report.cjs --audit p1b/sim/out/g2-audit-r4.json --text p1b/sim/out/g2-report-latest-20260914.out --json p1b/sim/out/g2-report-latest-20260914.json';
+// 2026-09-15：同五层件，改「自动取最新日期件」（固定名会静默陈旧）。回退历史固定名。
+function latestByPattern(re, fallback) {
+  try {
+    const cands = fs.readdirSync(OUT).filter((f) => re.test(f)).sort();
+    if (cands.length) return path.join(OUT, cands[cands.length - 1]);
+  } catch (e) { /* 目录不可读 ⇒ 回退 */ }
+  return path.join(OUT, fallback);
+}
+const G2_FILE = latestByPattern(/^g2-report-latest-\d{8}\.json$/, 'g2-report-latest-20260914.json');
+const g2 = readJson(G2_FILE);
+const G2_HINT = 'node p1b/scripts/g2-report.cjs --audit p1b/sim/out/g2-audit-r4.json --text p1b/sim/out/g2-report-latest-<YYYYMMDD>.out --json p1b/sim/out/g2-report-latest-<YYYYMMDD>.json';
 
 // ── 采信链（audit 真源）──
 const audit = readJson(path.join(OUT, 'g2-audit-r4.json'));
 const hc = (audit && audit.human_calibration) || null;
 
 // ── 五层读数（stage4 最新件）──
-const s4 = readJson(path.join(OUT, 'stage4-run-five-layers-20260914.json'));
+// 2026-09-15：由「固定日期文件名」改为「自动取最新日期件」——固定名曾在命题 A 晚间补漏后
+//   静默供出陈旧 L6 读数（0.1829 vs 实测 0.1755）。改为按 stage4-run-five-layers-YYYYMMDD.json
+//   的日期后缀取最大者；无匹配时回退历史固定名（零硬编码依赖）。只读、零写库。
+const S4_FILE = latestByPattern(/^stage4-run-five-layers-\d{8}\.json$/, 'stage4-run-five-layers-20260914.json');
+const s4 = readJson(S4_FILE);
 
 // ── 账本计数（只读库）──
 let ledger = null;
@@ -74,7 +87,7 @@ if (s4 && s4.report) {
   }
   L.push('  （分层报，禁跨层池化；读数口径见各层 note）');
 } else {
-  L.push('  n/a（缺 stage4-run-five-layers 读数件）— 生成：node p1b/scripts/stage4-run.cjs --text p1b/sim/out/stage4-run-five-layers-20260914.out --json p1b/sim/out/stage4-run-five-layers-20260914.json');
+  L.push('  n/a（缺 stage4-run-five-layers 读数件）— 生成：node p1b/scripts/stage4-run.cjs --text p1b/sim/out/stage4-run-five-layers-<YYYYMMDD>.out --json p1b/sim/out/stage4-run-five-layers-<YYYYMMDD>.json');
 }
 L.push('');
 L.push('== 账本 ==');

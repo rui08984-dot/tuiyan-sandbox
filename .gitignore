@@ -50,3 +50,15 @@ p1b/sim/out/**/*.db
 p1b/sim/out/**/*.db-shm
 p1b/sim/out/**/*.db-wal
 _p1a_backup_pre_m2.db
+
+# ===== 2026-09-15 运行产物卫生（阶段5 裁决 ＋ 老行回填批次）=====
+# .tmp/ = 临时工作目录（核验脚本/中间 diff/日志）：整目录不入库。
+#   已入库的 17 件历史正经件不受影响（git 对已跟踪文件继续跟踪）；将来确需入库者用 git add -f。
+.tmp/
+# 命题A 扫尾的运行时中间态与旧读数：run-state/log/cmd 属可重生运行态；
+#   score-*.json 为被取代的中途读数（n_pairs 64/70/133/67 << 最终件 357/360/358/359，最终件在 p1b/sim/out/prereg-a-score-*-20260914.json 已入库）。
+.scratch/forecast-debate/prereg-a/run-state-*.json
+.scratch/forecast-debate/prereg-a/*.log
+.scratch/forecast-debate/prereg-a/*.log.bak
+.scratch/forecast-debate/prereg-a/*.cmd
+.scratch/forecast-debate/prereg-a/score-*.json
