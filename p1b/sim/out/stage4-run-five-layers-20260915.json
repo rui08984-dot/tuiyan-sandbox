@@ -10,7 +10,7 @@
   "L6"
  ],
  "l2_rival_arm_check": {
-  "l2_resolved": 302,
+  "l2_resolved": 323,
   "assigned_prob_vs_baserate": {
    "compared": 621,
    "identical_within_1e_3": 621,
@@ -40,23 +40,23 @@
   "mismatch_ids": []
  },
  "l3_aci": {
-  "feedback_n": 481,
+  "feedback_n": 497,
   "basis": "已解 L3 行按 id 时序全局回放（仅披露；p 与计分不受影响）",
   "alpha_start": 0.05,
-  "alpha_final": 0.17025,
+  "alpha_final": 0.17425,
   "alpha_star": 0.05,
   "gamma": 0.005,
   "decay": 0.99,
   "alpha_min": 0.001,
   "alpha_max": 0.5,
   "coverage": {
-   "n": 481,
-   "hits": 481,
+   "n": 497,
+   "hits": 497,
    "rate": 1
   },
   "ewma_coverage": 1
  },
- "generated_at": "2026-09-15T06:52:27.043Z",
+ "generated_at": "2026-09-15T09:57:32.237Z",
  "report": {
   "L1": {
    "layer": "L1",
@@ -111,7 +111,7 @@
    "engine_fail_reasons": {
     "insufficient_data": 56
    },
-   "scored_n": 278,
+   "scored_n": 290,
    "engine_sample": [
     {
      "id": 452,
@@ -135,21 +135,21 @@
      "source": "baseRate:structured"
     }
    ],
-   "brier_engine": 0.24871725249260782,
+   "brier_engine": 0.2521379076810827,
    "brier_const_half": 0.25,
-   "delta_vs_half": -0.0012827475073921846,
+   "delta_vs_half": 0.0021379076810826847,
    "delta_ci95": {
-    "lb": -0.017915733050183447,
-    "ub": 0.016537765243899282,
+    "lb": -0.013538634265203452,
+    "ub": 0.018269078046927584,
     "B": 1000,
     "seed": 987654321,
-    "mean": -0.0012827475073920857
+    "mean": 0.002137907681082759
    },
-   "obs_rate": 0.5575539568345323,
-   "mean_p": 0.4784930035971224,
-   "brier_ledger_prior": 0.24871191442446033,
-   "delta_vs_ledger_prior": 0.0000053380681474812786,
-   "signal": "engine_directionally_better_but_CI_includes_0",
+   "obs_rate": 0.5586206896551724,
+   "mean_p": 0.47837661379310376,
+   "brier_ledger_prior": 0.25213289465517225,
+   "delta_vs_ledger_prior": 0.000005013025910438618,
+   "signal": "engine_not_better_than_half",
    "note": "分层计分，禁跨层池化（design §4.3）。注：本层引擎 p 即统计基率，故 vs「常数基率」Δ 结构性=0；有意义的对照是 vs 常数 0.5（基率相对硬币的增量）。**该增量问题在当前数据下不可回答**——见下方 [L2 对照臂可得性] 检（assigned_prob 就是基率本身、L2 无判词 ⇒ 无独立第二路）。"
   },
   "L3": {
@@ -160,7 +160,7 @@
    "engine_fail_reasons": {
     "insufficient_data": 46
    },
-   "scored_n": 383,
+   "scored_n": 387,
    "engine_sample": [
     {
      "id": 451,
@@ -184,20 +184,20 @@
      "source": "baseRate:structured"
     }
    ],
-   "brier_engine": 0.24040606422464247,
+   "brier_engine": 0.24047990280285544,
    "brier_const_half": 0.25,
-   "delta_vs_half": -0.009593935775357526,
+   "delta_vs_half": -0.009520097197144556,
    "delta_ci95": {
-    "lb": -0.020757411555986986,
-    "ub": 0.002557843508543085,
+    "lb": -0.021760363521922472,
+    "ub": 0.0028779803601033617,
     "B": 1000,
     "seed": 987654321,
-    "mean": -0.009593935775357703
+    "mean": -0.009520097197144708
    },
-   "obs_rate": 0.5091383812010444,
-   "mean_p": 0.4975624177545686,
-   "brier_ledger_prior": 0.2404082506788512,
-   "delta_vs_ledger_prior": -0.0000021864542087135508,
+   "obs_rate": 0.5064599483204134,
+   "mean_p": 0.496261170542635,
+   "brier_ledger_prior": 0.24048201209302328,
+   "delta_vs_ledger_prior": -0.0000021092901678343434,
    "signal": "delta_vs_half_negative_CI_includes_0",
    "note": "L3 短窗混沌：p=基率（与 L2 同源解析/Wilson 口径），**ACI 只调预测集与覆盖率披露、不调 p**。vs 常数 0.5 的 Δ 只反映「基率相对 50% 的贴合程度」——**若 Δ<0 且 CI 不含 0，也属边缘读数，不构成可声称的\"更准\"**（引擎 p 即基率、无第二路信号；同 L2 层结论：该增量问题须引入新信号源才算数）。本层有意义的读数＝**ACI 覆盖率 vs 名义水平**（见 [L3 ACI] 节）；短窗检验（时界）留待后续。"
   },

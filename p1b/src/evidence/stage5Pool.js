@@ -22,6 +22,29 @@ const PAIRED_N_AT_FREEZE = 93;
 const NO_VAL_N_AT_FREEZE = 12;
 
 /**
+ * **冻结名册**（105 个 id，升序）——实验唯一合法跑批集合。
+ *
+ * 为何写死名册（而非只存指纹）：谓词是**活谓词**，随账本自然增长（新题 resolve）会选到新的行。
+ * 2026-09-15 当天就发生过一次：到期例行结算把池从 105 涨到 **109**（+4 条同 kind 的当日到期题）。
+ * 那是**合法增长、非漂移**（去掉这 4 条后指纹仍精确命中锚），但 PREREG §6 明写「**不补样**」——
+ * 冻结实验的样本必须钉死在冻结那一刻。故此处落**名册**：实验只跑名册内的 id，
+ * 谓词选到名单外的行一律进 `unrostered` 披露（不参与配对、不影响判据）。
+ *
+ * 纪律：本数组**冻结后禁改**；要纳新样本 ⇒ 版本递进（v1.2+）并全量重跑。
+ */
+const POOL_ROSTER_FROZEN = [
+  451, 455, 456, 459, 460, 463, 464, 467, 468, 473, 474, 475,
+  476, 477, 478, 479, 480, 481, 482, 483, 484, 485, 486, 487,
+  488, 489, 490, 491, 492, 493, 494, 495, 496, 497, 498, 499,
+  500, 501, 502, 503, 504, 505, 506, 507, 508, 509, 510, 511,
+  512, 513, 514, 515, 516, 517, 518, 519, 520, 521, 522, 523,
+  524, 525, 526, 527, 528, 529, 530, 531, 532, 533, 534, 535,
+  536, 537, 538, 539, 540, 541, 542, 543, 544, 545, 546, 547,
+  548, 549, 550, 551, 552, 553, 554, 555, 556, 557, 558, 559,
+  560, 561, 562, 563, 564, 565, 566, 567, 568,
+];
+
+/**
  * 资格谓词（照 PREREG §3 八条）。
  * 第 7 条「非真值口径缺陷行」的 SQL 片段与 `p1b/src/evidence/truthBasis.js` 同口径（双条件防误伤）。
  * 依赖列：p.id/p.outcome/p.matures_at/p.resolved_at/p.resolve_note/p.evidence_json。
@@ -85,7 +108,21 @@ function softProb(fmax, threshold, isGt) {
   return Math.max(0.02, Math.min(0.98, raw));
 }
 
+/**
+ * 把「谓词选出的行」切分为**名册内**（可跑）与**名册外**（仅披露）。
+ * 名册外的新行**不进配对、不影响判据**（PREREG §6「不补样」）。
+ * @param {Array<{id:number}>} rows 谓词选出的行
+ * @returns {{rostered:Array, unrostered:Array<number>}}
+ */
+function splitByRoster(rows) {
+  const set = new Set(POOL_ROSTER_FROZEN);
+  const rostered = [], unrostered = [];
+  for (const r of rows) { if (set.has(r.id)) rostered.push(r); else unrostered.push(r.id); }
+  return { rostered, unrostered };
+}
+
 module.exports = {
-  POOL_WHERE_SQL, POOL_SQL, fingerprint, parseBaseRate, softProb,
+  POOL_WHERE_SQL, POOL_SQL, fingerprint, parseBaseRate, softProb, splitByRoster,
   POOL_FINGERPRINT_SHA256, POOL_N_AT_FREEZE, PAIRED_N_AT_FREEZE, NO_VAL_N_AT_FREEZE,
+  POOL_ROSTER_FROZEN,
 };

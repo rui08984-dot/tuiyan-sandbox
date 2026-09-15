@@ -39,17 +39,23 @@ const H = (u) => new Promise((res) => {
 });
 
 // ── 池（资格谓词照 PREREG §3；谓词本体在 stage5Pool.js，非内联） ──
+// ★ 2026-09-15 修正：谓词是**活谓词**，会随账本自然增长选到新行（当日就 +4）。
+//   故一切以 §5 PREREG「不补样」为准 —— 实验只跑**冻结名册**内的 id；名册外仅披露。
 const db = new DatabaseSync(DB, { readOnly: true });
-const pool = db.prepare(P.POOL_SQL()).all();
+const predicateRows = db.prepare(P.POOL_SQL()).all();
 db.close();
 
+const { rostered: pool, unrostered } = P.splitByRoster(predicateRows);
 const poolIds = pool.map((r) => r.id);
 const poolFp = P.fingerprint(poolIds);
-console.log('pool = ' + pool.length + ' | ids = ' + poolIds.length + ' | fp = ' + poolFp);
+console.log('predicate选中 = ' + predicateRows.length + ' | 名册内 = ' + pool.length + ' | 名册外(仅披露) = ' + unrostered.length);
+console.log('pool fp = ' + poolFp);
 if (pool.length !== P.POOL_N_AT_FREEZE || poolFp !== P.POOL_FINGERPRINT_SHA256) {
-  console.error('!! 池指纹/规模与冻结物不符 -> ABORT（冻结件禁止静默漂移）');
+  // 走到这里＝冻结名册本身出了问题（名册被改 / 名册内的行从谓词里消失）⇒ 必须停
+  console.error('!! 冻结名册与冻结锚不符 -> ABORT（名册禁改；池消失须查因）');
   console.error('   got fp=' + poolFp + ' n=' + pool.length);
   console.error('   want fp=' + P.POOL_FINGERPRINT_SHA256 + ' n=' + P.POOL_N_AT_FREEZE);
+  console.error('   名册内缺失 id = ' + JSON.stringify(P.POOL_ROSTER_FROZEN.filter((id) => !poolIds.includes(id))));
   process.exit(3);
 }
 
@@ -180,6 +186,9 @@ const parseBase = P.parseBaseRate;
     })()) ? 'PASS' : 'FAIL')
     + ' ④ lead 单调 ' + (d1 > d3 ? 'PASS' : 'FAIL'));
   out.push('  覆盖：' + Object.entries(coverage).map(([k, v]) => k + ' q=' + v.questions + ' slots=' + v.slots + ' paired=' + v.paired + ' noval=' + v.noval).join(' | '));
+  if (unrostered.length) {
+    out.push('  ★ 名册外新行（谓词选到但**不入实验**，PREREG §6「不补样」）：' + unrostered.length + ' 条 id=' + JSON.stringify(unrostered));
+  }
 
   fs.mkdirSync(OUTDIR, { recursive: true });
   const base = path.join(OUTDIR, 'stage5-forecast-signal-' + TAG);
@@ -191,6 +200,9 @@ const parseBase = P.parseBaseRate;
     pool_fingerprint_sha256: poolFp,
     n_pool: pool.length,
     n_pool_ids: poolIds.length,
+    n_predicate_selected: predicateRows.length,
+    unrostered_ids: unrostered,
+    unrostered_note: '谓词为活谓词，账本自然增长会选到新行；冻结实验按 PREREG §6「不补样」只跑冻结名册，名册外仅披露。',
     n_paired: nPaired,
     n_slots: rows.length,
     no_val_question_ids: noValQuestions.sort((a, b) => a - b),

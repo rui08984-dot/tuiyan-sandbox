@@ -9,3 +9,4 @@
   city 30.57,104.07: n=46 base=0.2750 signal=0.1033 Δ=0.1716 CI=[0.0988,0.2265] PASS
   判据：① Δ≥0.02 ∧ CI下界>0 PASS ② n≥30 PASS ③ 4城方向一致 PASS ④ lead 单调 PASS
   覆盖：31.23,121.47 q=27 slots=54 paired=48 noval=6 | 39.9,116.41 q=26 slots=52 paired=46 noval=6 | 23.13,113.26 q=26 slots=52 paired=46 noval=6 | 30.57,104.07 q=26 slots=52 paired=46 noval=6
+  ★ 名册外新行（谓词选到但**不入实验**，PREREG §6「不补样」）：4 条 id=[457,461,465,469]

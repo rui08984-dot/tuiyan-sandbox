@@ -2,10 +2,18 @@
  "script": "p1b/scripts/stage5-forecast-signal.cjs",
  "prereg": ".scratch/forecast-debate/PREREG-阶段5-前瞻数值信号-v1.md",
  "errata": ".scratch/forecast-debate/PREREG-阶段5-前瞻数值信号-v1.1-补充与勘误.md",
- "generated_at": "2026-09-15T09:41:55.347Z",
+ "generated_at": "2026-09-15T10:03:07.270Z",
  "pool_fingerprint_sha256": "901981a5790f6b26d5be9b264f2dbb4ddc18c33bd3f6dc9f9e57a995e2b97251",
  "n_pool": 105,
  "n_pool_ids": 105,
+ "n_predicate_selected": 109,
+ "unrostered_ids": [
+  457,
+  461,
+  465,
+  469
+ ],
+ "unrostered_note": "谓词为活谓词，账本自然增长会选到新行；冻结实验按 PREREG §6「不补样」只跑冻结名册，名册外仅披露。",
  "n_paired": 93,
  "n_slots": 186,
  "no_val_question_ids": [
