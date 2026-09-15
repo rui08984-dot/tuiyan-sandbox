@@ -21,26 +21,61 @@ import { IconPen, Term } from '../../components/ui';
 const errMsg = (e: unknown): string => (e instanceof Error ? e.message : String(e));
 
 const REASON_LABEL: Record<string, string> = {
-  no_anchor: '无真值锚', leak: '判据泄漏（cutoff 太晚）', tautology: '重言（结果恒定）', other: '其他',
+  no_anchor: '没有可校对答案的来源', leak: '信息截止太晚（答案可能已泄露）', tautology: '结果恒定不变', other: '其他',
 };
+
+/** 六层判定顺序＝后端 DECISION_ORDER（src/routes/intake.js:54）——特殊性倒序，不是编号序。
+ *  界面必须显式说明，否则用户以为排错序；首个全满足层即归属层。 */
+const DECISION_ORDER_NOTE = '按特殊性倒序排查（L5→L6→L1→L3→L2），最先全部满足的那层就是归属层；L4 只作叠加标注。';
 
 /** 拒收门三问（第 0 步；任一「否」即拒收）
  * termId：该问涉及的术语，渲染时包 <Term> 给出人话与口径（键与 testId 不变）。
  */
 const GATE_QS: { key: string; label: string; hint: string; termId?: string }[] = [
-  { key: 'Q0_1', label: 'Q0-1 存在可机检／第三方可复核的真值锚', hint: '否 → 拒收 no_anchor', termId: 'truthAnchor' },
-  { key: 'Q0_2', label: 'Q0-2 cutoff（判据冻结）早于事件决定性时点', hint: '否 → 拒收 leak', termId: 'cutoff' },
-  { key: 'Q0_3', label: 'Q0-3 结果随实例变化（恒定即拒收）', hint: '否 → 拒收 tautology' },
+  { key: 'Q0_1', label: '有地方可以查到这件事的真实结果', hint: '查不到就没法判对错', termId: 'truthAnchor' },
+  { key: 'Q0_2', label: '看答案之前，答案还没发生', hint: '否则等于提前看到答案', termId: 'cutoff' },
+  { key: 'Q0_3', label: '结果不是一成不变的', hint: '恒定的题没有判断价值', termId: 'prereg' },
 ];
 
-/** 六层问答（数量固定；条目为判据摘要，禁形容词） */
-const LAYERS: { id: string; name: string; qs: string[] }[] = [
-  { id: 'L5', name: '不可约随机', qs: ['结果由认证随机源产生（机制可查）', '不存在公开渠道的信息优势路径', '题面无统计学偏倚可利用'] },
-  { id: 'L6', name: '对抗', qs: ['结果由利益相反的智慧主体决策直接产生', '对手能观测我方历史并调整', '策略空间开放不可枚举', '存在声称与意图可分离的伪装结构'] },
-  { id: 'L1', name: '决定论', qs: ['状态空间有限且完全可枚举', '转移规则完全已知且无隐藏随机源', '任一观察者仅凭公开状态即可推演', 'resolve 可程序复算（无裁判裁量）'] },
-  { id: 'L3', name: '短窗混沌', qs: ['存在已知或可近似的演化机制', '窗口显著短于该系统的时界（v2 阈值 1.5）', '有实时观测流可在窗口内同化', 'resolve 落在窗口内'] },
-  { id: 'L2', name: '系综', qs: ['题面定义于稳定可重复总体', '存在 ≥30 条同型历史结果', '单事件不可由现有信息决定性推出', '存在外部统计源可作基率锚'] },
-  { id: 'L4', name: '自反（叠加层）', qs: ['由人类决策产生且决策者可能接触本账本', '存在反馈回路证据或机制描述', '无法归入 L1-L3／L5'] },
+/** 六层问答（数量固定；与后端 QUESTION_COUNT 一致，不可增删）
+ *  plain＝人话问句（界面显示）｜formal＝判据原句（收进 Term 浮层，供专业核对）
+ *  铁律：专业原句一个不删，只是不再糊在第一屏。
+ */
+const LAYERS: { id: string; name: string; qs: { plain: string; formal: string }[] }[] = [
+  { id: 'L5', name: '纯运气', qs: [
+    { plain: '结果来自公开的随机机制（如彩票摇号）', formal: '结果由认证随机源产生（机制可查）' },
+    { plain: '没人能靠公开信息提前知道', formal: '不存在公开渠道的信息优势路径' },
+    { plain: '题目本身没有可利用的偏倚', formal: '题面无统计学偏倚可利用' },
+  ] },
+  { id: 'L6', name: '有人跟你斗', qs: [
+    { plain: '结果由利益相关的人现场决定', formal: '结果由利益相反的智慧主体决策直接产生' },
+    { plain: '对手能看到你的历史打法并调整', formal: '对手能观测我方历史并调整' },
+    { plain: '可选策略多到数不完', formal: '策略空间开放不可枚举' },
+    { plain: '存在可以伪装、误导的空间', formal: '存在声称与意图可分离的伪装结构' },
+  ] },
+  { id: 'L1', name: '算得出来', qs: [
+    { plain: '可能的情况数得过来', formal: '状态空间有限且完全可枚举' },
+    { plain: '规则公开，没有隐藏的随机因素', formal: '转移规则完全已知且无隐藏随机源' },
+    { plain: '任何人拿到公开信息都能推出同样结果', formal: '任一观察者仅凭公开状态即可推演' },
+    { plain: '电脑能算出结果，不需要人裁决', formal: 'resolve 可程序复算（无裁判裁量）' },
+  ] },
+  { id: 'L3', name: '短期内可算', qs: [
+    { plain: '知道它大致怎么变化', formal: '存在已知或可近似的演化机制' },
+    { plain: '能算的窗口很短（v2 阈值 1.5）', formal: '窗口显著短于该系统的时界（v2 阈值 1.5）' },
+    { plain: '有实时数据可以持续修正', formal: '有实时观测流可在窗口内同化' },
+    { plain: '结果会在这个短窗口内出来', formal: 'resolve 落在窗口内' },
+  ] },
+  { id: 'L2', name: '有大量历史', qs: [
+    { plain: '这类事反复发生过，性质稳定', formal: '题面定义于稳定可重复总体' },
+    { plain: '有 30 条以上同类的历史结果', formal: '存在 ≥30 条同型历史结果' },
+    { plain: '单看这一次推不出结果', formal: '单事件不可由现有信息决定性推出' },
+    { plain: '有外部统计可以作为参照', formal: '存在外部统计源可作基率锚' },
+  ] },
+  { id: 'L4', name: '会被影响', qs: [
+    { plain: '结果由人决定，而且决策者可能看到这个记录', formal: '由人类决策产生且决策者可能接触本账本' },
+    { plain: '存在「看到结果又反过来影响结果」的回路', formal: '存在反馈回路证据或机制描述' },
+    { plain: '不属于前面任何一类', formal: '无法归入 L1-L3／L5' },
+  ] },
 ];
 type Layers = Record<string, boolean[]>;
 const emptyLayers = (): Layers => {
@@ -55,6 +90,12 @@ export default function IntakePage() {
   const [statement, setStatement] = useState('');
   const [gate, setGate] = useState<Record<string, boolean>>({ Q0_1: true, Q0_2: true, Q0_3: true });
   const [layers, setLayers] = useState<Layers>(emptyLayers);
+  /** 六层卡折叠态：默认展开决策序首层（L5），其余收起 ⇒ 一屏可见且不至于”看不到题“ */
+  const [openLayers, setOpenLayers] = useState<Record<string, boolean>>(() => {
+    const o: Record<string, boolean> = {};
+    if (LAYERS[0]) o[LAYERS[0].id] = true;
+    return o;
+  });
   const [spec, setSpec] = useState<Spec>(EMPTY_SPEC);
   const [busy, setBusy] = useState(false);
   const [formErr, setFormErr] = useState<string | null>(null);
@@ -114,49 +155,79 @@ export default function IntakePage() {
 
       <header className="intake-head">
         <h2><IconPen size={18} /> 开放接题</h2>
-        <p className="intake-sub">拒收门三问 → 六层判定 → 引擎位；本页只调用接题接口，不做任何库写。</p>
+        <p className="intake-sub">填题面 → 过三道必答关 → 挑出它算哪一类；本页只做登记，不改已有记录。</p>
       </header>
 
       <div className="intake-grid">
         {/* ── 左栏：接题表单 ── */}
         <form className="intake-card" onSubmit={submit} data-testid="intake-form">
-          <h3 className="intake-card-title">① 题面与判据</h3>
-          <label className="intake-label" htmlFor="intake-statement">题面（statement，必填）</label>
+          <h3 className="intake-card-title">① 这道题在问什么</h3>
+          <label className="intake-label" htmlFor="intake-statement">题面（必填）</label>
           <textarea id="intake-statement" className="intake-textarea" rows={3} value={statement}
-            placeholder="例：2026-09-12 上海最高气温 > 35°C（cutoff=2026-09-11 20:00，真值锚=气象台官方日最高气温）"
+            placeholder="例：2026-09-12 上海最高气温超过 35°C"
             onChange={(e) => setStatement(e.target.value)} data-testid="intake-statement" />
 
-          <h3 className="intake-card-title">② resolve_spec（真值锚参数，全部可选）</h3>
-          <div className="intake-spec-grid">
-            <label>kind<input className="intake-input" value={spec.kind} onChange={(e) => setSpecField('kind', e.target.value)} placeholder="official_stat" /></label>
-            <label>url_template<input className="intake-input" value={spec.url_template} onChange={(e) => setSpecField('url_template', e.target.value)} placeholder="https://…" /></label>
-            <label>field<input className="intake-input" value={spec.field} onChange={(e) => setSpecField('field', e.target.value)} placeholder="daily_high_temp" /></label>
-            <label>threshold<input className="intake-input" value={spec.threshold} onChange={(e) => setSpecField('threshold', e.target.value)} placeholder="35" /></label>
-            <label>cmp<input className="intake-input" value={spec.cmp} onChange={(e) => setSpecField('cmp', e.target.value)} placeholder="gt / gte / lt" /></label>
-            <label>date<input className="intake-input" value={spec.date} onChange={(e) => setSpecField('date', e.target.value)} placeholder="2026-09-12" /></label>
-          </div>
-          <p className="intake-note">resolve_spec 只在 kind 非空时随请求提交；六项皆可留空。</p>
-
-          <h3 className="intake-card-title">③ 拒收门三问（默认勾选=是）</h3>
-          {GATE_QS.map((q) => (
-            <label className="intake-check" key={q.key} data-testid={'intake-gate-' + q.key}>
-              <input type="checkbox" checked={!!gate[q.key]} onChange={() => toggleGate(q.key)} />
-              <span>{q.termId ? <Term id={q.termId} plain={q.label} /> : q.label}<i className="intake-hint">{q.hint}</i></span>
-            </label>
-          ))}
-          <h3 className="intake-card-title">④ 六层问答（勾选=是；个数固定）</h3>
-          {LAYERS.map((l) => (
-            <div className="intake-layer" key={l.id} data-testid={'intake-layer-' + l.id}>
-              <div className="intake-layer-head"><b>{l.id}</b> {l.name}<span className="intake-layer-count">{l.qs.length} 问</span></div>
-              {l.qs.map((q, i) => (
-                <label className="intake-check" key={i}>
-                  <input type="checkbox" checked={!!layers[l.id][i]} onChange={() => toggleQ(l.id, i)} data-testid={'intake-q-' + l.id + '-' + i} />
-                  <span>{q}</span>
-                </label>
-              ))}
+          <details className="intake-advanced">
+            <summary>真值锚参数（可选，多数题不用填）</summary>
+            <div className="intake-spec-grid">
+              <label>类型 kind<input className="intake-input" value={spec.kind} onChange={(e) => setSpecField('kind', e.target.value)} placeholder="official_stat" /></label>
+              <label>取数地址 url_template<input className="intake-input" value={spec.url_template} onChange={(e) => setSpecField('url_template', e.target.value)} placeholder="https://…" /></label>
+              <label>字段 field<input className="intake-input" value={spec.field} onChange={(e) => setSpecField('field', e.target.value)} placeholder="daily_high_temp" /></label>
+              <label>阈值 threshold<input className="intake-input" value={spec.threshold} onChange={(e) => setSpecField('threshold', e.target.value)} placeholder="35" /></label>
+              <label>比较 cmp<input className="intake-input" value={spec.cmp} onChange={(e) => setSpecField('cmp', e.target.value)} placeholder="gt / gte / lt" /></label>
+              <label>日期 date<input className="intake-input" value={spec.date} onChange={(e) => setSpecField('date', e.target.value)} placeholder="2026-09-12" /></label>
             </div>
-          ))}
-          <p className="intake-note">首个全绿层即归属层；五层皆非全绿 → unknown。L4 只作叠加标注（不单独作 primary）。</p>
+            <p className="intake-note">六项都可留空；填了类型才会随请求提交。</p>
+          </details>
+
+          <h3 className="intake-card-title">② 三道必过关（不满足就不收）</h3>
+          <div className="intake-gate-list">
+            {GATE_QS.map((q) => (
+              <label className={'intake-check intake-check-row' + (gate[q.key] ? ' is-on' : ' is-off')} key={q.key} data-testid={'intake-gate-' + q.key}>
+                <input type="checkbox" checked={!!gate[q.key]} onChange={() => toggleGate(q.key)} />
+                <span className="intake-check-text">
+                  {q.termId ? <Term id={q.termId} plain={q.label} /> : q.label}
+                  <i className="intake-hint">{q.hint}</i>
+                </span>
+                <span className="intake-check-mark" aria-hidden>{gate[q.key] ? '✓' : '—'}</span>
+              </label>
+            ))}
+          </div>
+
+          <h3 className="intake-card-title">③ 这道题算哪种类型</h3>
+          <p className="intake-note">{DECISION_ORDER_NOTE}</p>
+          <div className="intake-layer-grid">
+            {LAYERS.map((l) => {
+              const picked = layers[l.id].filter(Boolean).length;
+              const total = l.qs.length;
+              const full = picked === total;
+              const open = openLayers[l.id];
+              return (
+                <div className={'intake-layer-card' + (full ? ' is-full' : '') + (open ? ' is-open' : '')} key={l.id} data-testid={'intake-layer-' + l.id}>
+                  <button type="button" className="intake-layer-toggle" aria-expanded={open}
+                    onClick={() => setOpenLayers((prev) => ({ ...prev, [l.id]: !prev[l.id] }))}>
+                    <span className="intake-layer-id">{l.id}</span>
+                    <span className="intake-layer-name"><Term id="layer" plain={l.name} /></span>
+                    <span className="intake-layer-count">{picked}/{total}</span>
+                  </button>
+                  {open && (
+                    <div className="intake-layer-body">
+                      {l.qs.map((q, i) => (
+                        <label className={'intake-check intake-check-row' + (layers[l.id][i] ? ' is-on' : '')} key={i}>
+                          <input type="checkbox" checked={!!layers[l.id][i]} onChange={() => toggleQ(l.id, i)} data-testid={'intake-q-' + l.id + '-' + i} />
+                          <span className="intake-check-text">
+                            <Term id="layer" plain={q.plain} formal={q.formal} />
+                          </span>
+                          <span className="intake-check-mark" aria-hidden>{layers[l.id][i] ? '✓' : ''}</span>
+                        </label>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+          <p className="intake-note">逐个核对：最先全部勾上的那层就是归属层；五层都没勾满则记为 unknown。</p>
 
           <button type="submit" className="intake-submit" disabled={busy} data-testid="intake-submit">
             {busy ? '提交中…' : '提交分类'}
@@ -170,18 +241,22 @@ export default function IntakePage() {
             <div className={'intake-card intake-result ' + (result.rejected ? 'is-reject' : 'is-ok')} data-testid="intake-result">
               <h3 className="intake-card-title">分类结果</h3>
               {result.rejected ? (
-                <p className="intake-verdict">已拒收 · reason=<b>{result.reason}</b>（{result.reason === 'no_anchor' ? <Term id="truthAnchor" plain={REASON_LABEL[result.reason ?? ''] ?? '—'} /> : result.reason === 'leak' ? <Term id="cutoff" plain={REASON_LABEL[result.reason ?? ''] ?? '—'} /> : REASON_LABEL[result.reason ?? ''] ?? '—'}）· 留痕 reject_id={result.reject_id}</p>
+                <p className="intake-verdict">
+                  这道题没收 · 原因：<b>{result.reason === 'no_anchor' ? <Term id="truthAnchor" plain={REASON_LABEL[result.reason ?? ''] ?? '—'} /> : result.reason === 'leak' ? <Term id="cutoff" plain={REASON_LABEL[result.reason ?? ''] ?? '—'} /> : REASON_LABEL[result.reason ?? ''] ?? '—'}</b>
+                </p>
               ) : (
-                <p className="intake-verdict">通过 · layer=<b>{result.layer}</b>{result.secondary ? ' ＋ secondary=' + result.secondary : ''} · 已落接题库 id={result.intake_question_id}</p>
+                <p className="intake-verdict">
+                  已收下 · 归为 <b>{result.layer ?? '—'}</b> 类{result.secondary ? '（另有叠加标记 ' + result.secondary + '）' : ''}
+                </p>
               )}
-              <div className="intake-kv"><span>ok / rejected</span><b>{String(result.ok)} / {String(result.rejected)}</b></div>
-              <div className="intake-kv"><span>layer（computed）</span><b>{(result.layer ?? '—') + '（' + (result.computed_layer ?? '—') + '）'}</b></div>
-              <div className="intake-kv"><span>secondary</span><b>{result.secondary ?? '—'}</b></div>
-              <div className="intake-kv"><span>engine</span><b>{(result.engine ?? '—') + (result.engine_plan?.calibrator ? ' + ' + result.engine_plan.calibrator : '')}</b></div>
-              <div className="intake-kv"><span>gate</span><b>{(result.gate ?? '—') + (result.gate_reason ? '（' + result.gate_reason + '）' : '')}</b></div>
-              <div className="intake-kv"><span>checklist_hash</span><b>{result.checklist_hash ?? '—'}</b></div>
+              <div className="intake-kv"><span>判定结果</span><b>{result.rejected ? '未通过' : '通过'}</b></div>
+              <div className="intake-kv"><span>归属层（机算）</span><b>{(result.layer ?? '—') + '（' + (result.computed_layer ?? '—') + '）'}</b></div>
+              <div className="intake-kv"><span>叠加层</span><b>{result.secondary ?? '无'}</b></div>
+              <div className="intake-kv"><span>取数引擎</span><b>{(result.engine ?? '—') + (result.engine_plan?.calibrator ? ' + ' + result.engine_plan.calibrator : '')}</b></div>
+              <div className="intake-kv"><span>门读数</span><b>{(result.gate ?? '—') + (result.gate_reason ? '（' + result.gate_reason + '）' : '')}</b></div>
+              <div className="intake-kv"><span><Term id="checklistHash" plain="判据版本号" /></span><b>{result.checklist_hash ?? '—'}</b></div>
               {typeof result.prob === 'number' && (
-                <div className="intake-kv"><span>分层引擎参考读数</span><b>{result.prob}{result.prob_ci ? '（CI ' + result.prob_ci[0] + '–' + result.prob_ci[1] + '）' : ''}</b></div>
+                <div className="intake-kv"><span>参考读数</span><b>{result.prob}{result.prob_ci ? '（区间 ' + result.prob_ci[0] + '–' + result.prob_ci[1] + '）' : ''}</b></div>
               )}
               {result.engine_note && <p className="intake-note">{result.engine_note}</p>}
               <details className="intake-fold"><summary>原始返回（逐字段核验）</summary><pre className="intake-pre">{JSON.stringify(result, null, 1)}</pre></details>

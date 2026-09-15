@@ -6,13 +6,15 @@
 import { useId, useState, type ReactNode } from 'react';
 import { getTerm } from '../../lib/terms';
 
-export function Term({ id, plain, children }: { id: string; plain?: string; children?: ReactNode }) {
+export function Term({ id, plain, formal, children }: { id: string; plain?: string; formal?: string; children?: ReactNode }) {
   const [open, setOpen] = useState(false);
   const popId = useId();
   const t = getTerm(id);
   const label = children ?? plain ?? (t ? t.plain : id);
 
-  if (!t) return <span>{label}</span>;
+  // formal＝判据原句：没有对应术语条目时，仍要能显示专业原文（绝不删专业表述）
+  const hasPop = !!t || !!formal;
+  if (!hasPop) return <span>{label}</span>;
 
   return (
     <span className="ui-term-wrap" onMouseLeave={() => setOpen(false)}>
@@ -31,10 +33,11 @@ export function Term({ id, plain, children }: { id: string; plain?: string; chil
       </button>
       {open && (
         <span className="ui-term-pop" id={popId} role="tooltip">
-          <span className="ui-term-pop-term">{t.term}</span>
-          <span className="ui-term-pop-def">{t.definition}</span>
-          <span className="ui-term-pop-basis">口径 {t.basis}</span>
-          {t.caveat && <span className="ui-term-pop-caveat">⚠ {t.caveat}</span>}
+          {t && <span className="ui-term-pop-term">{t.term}</span>}
+          {t && <span className="ui-term-pop-def">{t.definition}</span>}
+          {formal && <span className="ui-term-pop-formal">判据原句 {formal}</span>}
+          {t && <span className="ui-term-pop-basis">口径 {t.basis}</span>}
+          {t?.caveat && <span className="ui-term-pop-caveat">⚠ {t.caveat}</span>}
         </span>
       )}
     </span>

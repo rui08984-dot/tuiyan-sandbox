@@ -154,3 +154,4 @@
   .ui-kpi-row { grid-template-columns: repeat(1, minmax(0, 1fr)); }
   .ui-drawer { width: 100vw; }
 }
+.ui-term-pop-formal { color: var(--text); font-family: var(--font-mono); font-size: var(--font-size-micro); word-break: break-word; padding-top: 2px; border-top: 1px solid var(--line); }

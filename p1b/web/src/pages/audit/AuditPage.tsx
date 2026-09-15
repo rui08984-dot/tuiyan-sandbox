@@ -22,19 +22,23 @@ const fmtCi = (lo: number | null, hi: number | null): string =>
   (lo === null || hi === null ? 'n<30 不出 CI' : '[' + lo.toFixed(3) + ', ' + hi.toFixed(3) + ']');
 
 /** 六层静态词表（照万物分类清单 v2 冻结版；中立词，零计算） */
-const LAYER_META: { id: string; name: string; brief: string; engine: string; tone: string }[] = [
-  { id: 'L1', name: '决定论', brief: '状态有限可枚举、规则完全已知且无隐藏随机、信息完全——程序复算即真值。', engine: 'proc_calc', tone: 'is-l1' },
-  { id: 'L2', name: '系综', brief: '稳定可重复总体上的频率问题——有 ≥30 条同型历史与外部基率锚可查。', engine: 'stat_baseline + Wilson', tone: 'is-l2' },
-  { id: 'L3', name: '短窗混沌', brief: '有演化机制与实时观测流，短窗内读数有效、窗外迅速失效（v2 阈值 1.5）。', engine: 'stat_baseline + ACI', tone: 'is-l3' },
-  { id: 'L4', name: '自反（叠加层）', brief: '由人类决策产生且决策者可能接触账本——只作叠加层记录，禁公开。', engine: 'none（classify-only）', tone: 'is-l4' },
-  { id: 'L5', name: '不可约随机', brief: '认证随机源产生、无公开信息优势路径、题面无偏倚可利用。', engine: 'certified_dist', tone: 'is-l5' },
-  { id: 'L6', name: '对抗', brief: '利益相反的智慧主体直接产生，对手可观测并适应——结构推断而非基率。', engine: 'structural', tone: 'is-l6' },
+/** 六层静态词表（照万物分类清单 v2 冻结版；中立词，零计算）
+ *  plain＝人话一句（L1 表面），brief＝专业定义（收在展开区，配 Term）
+ *  铁律：专业词一个不删，只从第一屏收进第二层。
+ */
+const LAYER_META: { id: string; name: string; plain: string; brief: string; engine: string; tone: string }[] = [
+  { id: 'L1', name: '决定论', plain: '算得出来，像算术题', brief: '状态有限可枚举、规则完全已知且无隐藏随机、信息完全——程序复算即真值。', engine: 'proc_calc', tone: 'is-l1' },
+  { id: 'L2', name: '系综', plain: '有大量同类历史可查，像查天气频率', brief: '稳定可重复总体上的频率问题——有 ≥30 条同型历史与外部基率锚可查。', engine: 'stat_baseline + Wilson', tone: 'is-l2' },
+  { id: 'L3', name: '短窗混沌', plain: '短期内能算，过几天就不准', brief: '有演化机制与实时观测流，短窗内读数有效、窗外迅速失效（v2 阈值 1.5）。', engine: 'stat_baseline + ACI', tone: 'is-l3' },
+  { id: 'L4', name: '自反（叠加层）', plain: '有人会因为看到它而改变行为', brief: '由人类决策产生且决策者可能接触账本——只作叠加层记录，禁公开。', engine: 'none（classify-only）', tone: 'is-l4' },
+  { id: 'L5', name: '不可约随机', plain: '纯运气，谁都猜不到', brief: '认证随机源产生、无公开信息优势路径、题面无偏倚可利用。', engine: 'certified_dist', tone: 'is-l5' },
+  { id: 'L6', name: '对抗', plain: '对手在跟你斗，会针对你', brief: '利益相反的智慧主体直接产生，对手可观测并适应——结构推断而非基率。', engine: 'structural', tone: 'is-l6' },
 ];
 
 const STATIC_CALIB = {
-  raLine: 'R-A 读数门：Brier 0.0008 —— 达成（结算证据读数）',
-  rbLine: 'R-B 信息价值：负结果 —— 三路判词≈分题型基率（TOST 等价达成），合并条款未达成',
-  badge: '探索性 · 判据=PREREG 冻结件',
+  raLine: 'R-A 读数门：校准分 0.0008 —— 达成（结算证据读数）',
+  rbLine: 'R-B 信息价值：负结果 —— 三路判词≈分题型基率（等价性检验达成），合并条款未达成',
+  badge: '探索性 · 判据=预注册冻结件',
 };
 export default function AuditPage() {
   const [summary, setSummary] = useState<AuditSummary | null>(null);
@@ -133,7 +137,7 @@ export default function AuditPage() {
                       {open && (
                         <tr className="is-detail" data-testid={'layer-detail-' + m.id}>
                           <td colSpan={7}>
-                            <p className="ui-note" style={{ marginTop: 0 }}>{m.brief}</p>
+                            <p className="ui-note" style={{ marginTop: 0 }}><b>{m.plain}</b>——{m.brief}</p>
                             <KVTable testId={'layer-kv-' + m.id} rows={[
                               { k: '题量 n', v: r ? r.n : 0 },
                               { k: '已解真值', v: r ? r.resolved : 0 },
