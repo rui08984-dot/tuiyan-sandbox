@@ -1,0 +1,38 @@
+{
+ "script": "p1b/scripts/effective-source-snapshot.cjs",
+ "generated_at": "2026-09-15T06:09:42.935Z",
+ "purpose": "阶段 5 开工前置 ⑤：LLM/检索实际生效源冻结快照（零 key）",
+ "llm": {
+  "mode": "LIVE",
+  "mock": false,
+  "provider": "tokenrhythm",
+  "base_url": "https://tokenrhythm.studio/v1",
+  "model": "glm-5.3-flash",
+  "key_source": "providers",
+  "has_key": true,
+  "reasoning_effort": null,
+  "note": "key 只记录来源与有无，绝不含 key 值（铁律⑤）",
+  "transport": {
+   "chat_path": "/chat/completions",
+   "timeout_default_ms": 120000,
+   "reasoning_effort_env": null,
+   "reasoning_effort_note": "tokenrhythm glm-5.3-flash 强制深度思考；P1B_LLM_REASONING_EFFORT=low 为已实测降压旋钮"
+  }
+ },
+ "retrieval": {
+  "configured": false,
+  "provider": null,
+  "base_url": null,
+  "key_source": "none",
+  "note": "阶段 5 检索 provider 尚未选定/配置；立项书 §五 前置 2 的勘察件已列**候选数据源**（29 主机/52 kind，见 docs/specs/阶段5-功能映射表与信号源勘察-20260915.md §三），但「检索用」源须与 resolve 源分离，且须在 PREREG 冻结前逐源验证「cutoff 时点可得性」。冻结件须写明 provider/query 模板/日期过滤/条数。"
+ },
+ "env": {
+  "node": "v24.19.0",
+  "platform": "win32",
+  "tz": "Asia/Shanghai"
+ },
+ "zero_key_selfcheck": {
+  "pass": true,
+  "note": "自检：序列化结果中不含常见 key 形态"
+ }
+}

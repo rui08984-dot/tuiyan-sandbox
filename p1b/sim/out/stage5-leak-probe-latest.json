@@ -1,0 +1,67 @@
+{
+ "script": "p1b/scripts/stage5-leak-probe.cjs",
+ "generated_at": "2026-09-15T06:10:05.657Z",
+ "layers": {
+  "L1_sql": {
+   "name": "进程/SQL 断言（题面库视角）",
+   "assertions": [
+    {
+     "id": "A1",
+     "sql": "SELECT outcome FROM predictions",
+     "expect": "FAIL",
+     "got": "FAIL",
+     "pass": true,
+     "detail": "no such table: predictions"
+    },
+    {
+     "id": "A2a",
+     "sql": "SELECT * FROM truth_vault",
+     "expect": "FAIL",
+     "got": "FAIL",
+     "pass": true,
+     "detail": "no such table: truth_vault"
+    },
+    {
+     "id": "A2b",
+     "sql": "SELECT outcome FROM main.predictions",
+     "expect": "FAIL",
+     "got": "FAIL",
+     "pass": true,
+     "detail": "no such table: main.predictions"
+    },
+    {
+     "id": "A2c",
+     "sql": "PRAGMA database_list + main.sqlite_master",
+     "expect": "main 内无 truth_vault",
+     "got": "absent",
+     "pass": true,
+     "detail": "main objects: predictions_public,public_surface_meta"
+    }
+   ],
+   "pass": true,
+   "db_used": "E:\\music player\\.scratch\\backtest\\predictions-public-surface.db",
+   "surface_available": true,
+   "layer_pass": true
+  },
+  "L2_source_scan": {
+   "name": "源码字面扫描",
+   "pass": true,
+   "scans": [],
+   "retrieval_pipeline_exists": false,
+   "gate": "检索管线源码（p1b/src/retrieval/**）中 truth_vault/truth_preview/resolve_note 字面命中必须 = 0",
+   "hits": 0
+  },
+  "L3_content_time": {
+   "name": "内容级时点审计（canary）",
+   "pass": true,
+   "canary": "CANARY::cutoff_after_fact::9f3c1a",
+   "clean_hits": 0,
+   "dirty_hits": 1,
+   "discriminates": true,
+   "note": "工程验证：探针在「干净集」0 命中、在「人工注入 canary 的污染集」1 命中 ⇒ 有分辨力。**主实验跑时必须**：对每题 real 检索结果 + 题面扫 canary/事后事实，命中 ⇒ 立即停跑整批作废（立项书 §四-7③）。"
+  }
+ },
+ "leak_count": 0,
+ "verdict": "PASS",
+ "note": "本件为**工程验证**（不看分数、零网络零 LLM 零写库）。层① 的 A2b/A2c 依赖影子 surface 存在——不存在则如实标 FAIL 并披露（评审 A19：A2 只在 surface 文件上成立，非物理强制）。"
+}
