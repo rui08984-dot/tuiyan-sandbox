@@ -1,0 +1,11 @@
+== 阶段 5 路线 (b) · previous-runs 存档预报 vs 历史基率（冻结实验 · 硬失败语义）==
+  池指纹=901981a5790f6b26d5be9b264f2dbb4ddc18c33bd3f6dc9f9e57a995e2b97251 pool=105 paired=93 (186 槽位) no_val题=12
+  ALL: n=186 base=0.2644 signal=0.1057 Δ=0.1587 CI=[0.1221,0.1901] PASS
+  lead=1d: n=93 base=0.2644 signal=0.0863 Δ=0.1781 CI=[0.1354,0.2167] PASS
+  lead=3d: n=93 base=0.2644 signal=0.1251 Δ=0.1393 CI=[0.0873,0.1884] PASS
+  city 31.23,121.47: n=48 base=0.2679 signal=0.1236 Δ=0.1443 CI=[0.0572,0.2143] PASS
+  city 39.9,116.41: n=46 base=0.2507 signal=0.0696 Δ=0.1811 CI=[0.1149,0.2333] PASS
+  city 23.13,113.26: n=46 base=0.2640 signal=0.1255 Δ=0.1385 CI=[0.0801,0.1885] PASS
+  city 30.57,104.07: n=46 base=0.2750 signal=0.1033 Δ=0.1716 CI=[0.0988,0.2265] PASS
+  判据：① Δ≥0.02 ∧ CI下界>0 PASS ② n≥30 PASS ③ 4城方向一致 PASS ④ lead 单调 PASS
+  覆盖：31.23,121.47 q=27 slots=54 paired=48 noval=6 | 39.9,116.41 q=26 slots=52 paired=46 noval=6 | 23.13,113.26 q=26 slots=52 paired=46 noval=6 | 30.57,104.07 q=26 slots=52 paired=46 noval=6
