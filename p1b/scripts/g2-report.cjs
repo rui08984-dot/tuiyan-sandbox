@@ -129,6 +129,12 @@ const REGIME = "p.g2_regime = 'R4'";
 const HAS_BACKTEST_COLS = new Set(all('PRAGMA table_info(predictions)').map((c) => c.name)).has('metric_version')
   && new Set(all('PRAGMA table_info(predictions)').map((c) => c.name)).has('backtest_batch');
 const NOT_BACKTEST = HAS_BACKTEST_COLS ? "(p.metric_version IS NULL AND p.backtest_batch IS NULL)" : "(1=1)";
+// 2026-09-15（用户裁定「丙：排除出池」）：**真值口径缺陷**行不进 G2 门域。
+// 依据 `docs/specs/阶段5-检索可行性勘察-20260915.md` §六：openmeteo_forecast_daily_max 98 行的
+//   resolved_at 早于事件日 ⇒ 账本「真值」取自**当时的预报值**（非实际观测）⇒ Q0-2 时点不成立。
+// 处置：**零账本写**，读取侧排除 + 披露计数（照 NOT_BACKTEST 范式）。判据＝`p1b/src/evidence/truthBasis.js`（单一真源）。
+const truthBasisMod = require(path.join(ROOT, 'p1b', 'src', 'evidence', 'truthBasis'));
+const NOT_TB_DEFECT = truthBasisMod.NOT_TRUTH_BASIS_DEFECT_SQL();
 const BF = "p.statement LIKE '%【backfill】%'";
 const isBF = (stmt) => String(stmt || '').indexOf('【backfill】') >= 0;
 
@@ -142,15 +148,17 @@ const ROWS_SQL = "SELECT p.id, p.g2_regime, p.layer, p.created_at, p.matures_at,
   + "(SELECT e.value FROM json_each(p.evidence_json) e WHERE json_extract(e.value,'$.resolve.kind') IS NOT NULL LIMIT 1) AS rj, "
   + "(SELECT json_extract(e.value,'$.baseRateNote') FROM json_each(p.evidence_json) e WHERE json_extract(e.value,'$.baseRateNote') IS NOT NULL LIMIT 1) AS brn, "
   + "(SELECT json_extract(e.value,'$.baseRate') FROM json_each(p.evidence_json) e WHERE json_extract(e.value,'$.baseRate') IS NOT NULL LIMIT 1) AS brs "
-  + "FROM predictions p WHERE " + REGIME + " AND " + NOT_BACKTEST;
+  + "FROM predictions p WHERE " + REGIME + " AND " + NOT_BACKTEST + " AND " + NOT_TB_DEFECT;
 const rows = all(ROWS_SQL);
 
 // #1（批次1）：门域外计数（账本总行 / 回测排除行 / 非 R4 行域行）——「不能让下一批再静默出域」
 const ledgerRows = one('SELECT COUNT(*) n FROM predictions').n;
 const backtestRows = one('SELECT COUNT(*) n FROM predictions p WHERE ' + REGIME + ' AND NOT ' + NOT_BACKTEST).n;
-const outOfRegimeRows = ledgerRows - rows.length - backtestRows;
-const counts = { ledger_rows: ledgerRows, regime_rows: rows.length, regime_rows_raw: rows.length + backtestRows,
-  backtest_excluded_rows: backtestRows, out_of_regime_rows: outOfRegimeRows,
+// 2026-09-15：真值口径缺陷排除计数（**披露，禁静默丢**）
+const tbDefectRows = one('SELECT COUNT(*) n FROM predictions p WHERE ' + REGIME + ' AND ' + NOT_BACKTEST + ' AND NOT ' + NOT_TB_DEFECT).n;
+const outOfRegimeRows = ledgerRows - rows.length - backtestRows - tbDefectRows;
+const counts = { ledger_rows: ledgerRows, regime_rows: rows.length, regime_rows_raw: rows.length + backtestRows + tbDefectRows,
+  backtest_excluded_rows: backtestRows, truth_basis_defect_excluded_rows: tbDefectRows, out_of_regime_rows: outOfRegimeRows,
   backtest_columns_present: HAS_BACKTEST_COLS,
   backfill_rows: 0, excluded: {}, tautology_rows: 0, b_unparsed_ids: [] };
 const pool = [];
@@ -463,10 +471,13 @@ L.push(bar);
 L.push('G2 能力门月报 -- R4 口径（审计器 design §4.2 修订 R4 · 2026-09-13）');
 L.push('生成 ' + new Date().toISOString() + ' | 库 ' + DB_PATH + ' | 句柄只读 · 纯 SQL · 零 LLM · 零写库');
 L.push('行域 g2_regime=R4 且非回测 | 门域 ' + counts.regime_rows + ' 行 / 账本 ' + counts.ledger_rows + ' 行 | 门总判定 ' + gate + '  [G2＝过程能力门，不含预测质量读数]');
-L.push((counts.backtest_excluded_rows > 0 || counts.out_of_regime_rows > 0 ? '[!] 门域外告警' : '门域外行数')
-  + ': 回测排除 ' + counts.backtest_excluded_rows + ' 行 | 不在 R4 行域 ' + counts.out_of_regime_rows + ' 行 | 合计域外 '
-  + (counts.backtest_excluded_rows + counts.out_of_regime_rows) + ' 行'
+L.push((counts.backtest_excluded_rows > 0 || counts.out_of_regime_rows > 0 || counts.truth_basis_defect_excluded_rows > 0 ? '[!] 门域外告警' : '门域外行数')
+  + ': 回测排除 ' + counts.backtest_excluded_rows + ' 行 | **真值口径缺陷排除 ' + counts.truth_basis_defect_excluded_rows + ' 行** | 不在 R4 行域 ' + counts.out_of_regime_rows + ' 行 | 合计域外 '
+  + (counts.backtest_excluded_rows + counts.truth_basis_defect_excluded_rows + counts.out_of_regime_rows) + ' 行'
   + (counts.backtest_columns_present ? '' : '（回测排除子句未生效：库缺 metric_version/backtest_batch 列，请先跑 additive 迁移）'));
+L.push('真值口径缺陷排除依据：resolved_at<事件日 ∧ resolve 含 forecast ⇒ 账本真值取自**当时预报值**（Q0-2 时点不成立）；'
+  + '零账本写，读取侧排除（用户 2026-09-15 裁定「丙」）；判据单一真源 p1b/src/evidence/truthBasis.js，指纹 '
+  + String(truthBasisMod.DEFECT_FINGERPRINT_SHA256).slice(0, 16) + '…（' + truthBasisMod.DEFECT_N_AT_FREEZE + ' 行）');
 L.push(bar);
 if (INCLUDE_INTAKE) {
   L.push('!! 含接题层未入账题，非 G2 口径（--include-intake）—— 主判定 Q1-Q5 仍只读 predictions 原表 !!');

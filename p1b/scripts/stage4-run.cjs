@@ -53,13 +53,19 @@ const one = (s) => db.prepare(s).get();
 // 只跑引擎已建的层（design §5.3：先导期只 L2/L5 有引擎；其余层 classify-only）
 // 2026-09-14：L3 引擎（stat_baseline+ACI）＋ L1 引擎（proc_calc）落地 ⇒ 加入真跑
 const ENGINED_LAYERS = ['L1', 'L2', 'L3', 'L5', 'L6'];
+// 2026-09-15（用户裁定「丙：排除出池」）：**真值口径缺陷**行（resolved_at<事件日 ∧ resolve 含 forecast）
+// 不进分层计分 —— 其「真值」取自当时预报值，非实际观测（Q0-2 时点不成立）。
+// 依据 docs/specs/阶段5-检索可行性勘察-20260915.md §六；判据单一真源 p1b/src/evidence/truthBasis.js。
+const truthBasisMod = require(path.join(ROOT, 'p1b/src/evidence/truthBasis'));
+const NOT_TB_DEFECT = truthBasisMod.NOT_TRUTH_BASIS_DEFECT_SQL();
 const rows = all('SELECT p.id, p.game_id, p.layer, p.outcome, p.assigned_prob, p.created_at, p.matures_at, p.statement, '
   + "(SELECT json_extract(e.value,'$.baseRateNote') FROM json_each(p.evidence_json) e WHERE json_extract(e.value,'$.baseRateNote') IS NOT NULL LIMIT 1) AS brn, "
   + "(SELECT json_extract(e.value,'$.baseRate') FROM json_each(p.evidence_json) e WHERE json_extract(e.value,'$.baseRate') IS NOT NULL LIMIT 1) AS brs, "
   + "(SELECT json_extract(e.value,'$.certifiedSource') FROM json_each(p.evidence_json) e WHERE json_extract(e.value,'$.certifiedSource') IS NOT NULL LIMIT 1) AS cs, "
   + "(SELECT json_extract(e.value,'$.resolve.certified_source') FROM json_each(p.evidence_json) e WHERE json_extract(e.value,'$.resolve.certified_source') IS NOT NULL LIMIT 1) AS rcs, "
   + "(SELECT json_extract(e.value,'$.resolve') FROM json_each(p.evidence_json) e WHERE json_extract(e.value,'$.resolve') IS NOT NULL LIMIT 1) AS rj "
-  + 'FROM predictions p WHERE ' + REGIME).filter((r) => ENGINED_LAYERS.indexOf(r.layer) !== -1);
+  + 'FROM predictions p WHERE ' + REGIME + ' AND ' + NOT_TB_DEFECT).filter((r) => ENGINED_LAYERS.indexOf(r.layer) !== -1);
+const TB_DEFECT_EXCLUDED = one('SELECT COUNT(*) n FROM predictions p WHERE ' + REGIME + ' AND NOT ' + NOT_TB_DEFECT).n;
 
 function yOf(outcome) { const s = String(outcome).toLowerCase(); return (s === 'true' || s === '1') ? 1 : ((s === 'false' || s === '0') ? 0 : null); }
 function brier(p, y) { return (p - y) * (p - y); }
@@ -329,13 +335,18 @@ T.push('[L3 ACI · 全局回放] 反馈 ' + L3_ACI.feedback_n + ' 条（已解 L
   + '（名义 ' + (1 - L3_ACI.alpha_star) + '）｜ EWMA 覆盖 ' + (L3_ACI.ewma_coverage === null ? 'n/a' : L3_ACI.ewma_coverage));
 T.push('    ' + L3_ACI.basis + '；ACI 只影响预测集与披露，**不调 p**（L3 点估计恒为基率）。');
 T.push('注: 本报告覆盖**引擎已建**的 L1/L2/L3/L5/L6 五层（design §5.3：L4 为后置叠加标注层、按设计不出数，不在本跑范围）。');
+T.push('注: **真值口径缺陷排除 ' + TB_DEFECT_EXCLUDED + ' 行**（resolved_at<事件日 ∧ resolve 含 forecast ⇒ 真值取自当时预报值，Q0-2 时点不成立；'
+  + '零账本写／读取侧排除，用户 2026-09-15 裁定「丙」；判据 p1b/src/evidence/truthBasis.js，指纹 '
+  + String(truthBasisMod.DEFECT_FINGERPRINT_SHA256).slice(0, 16) + '…）。');
 const text = T.join('\n');
 console.log(text);
 if (TEXT_OUT) { fs.writeFileSync(path.resolve(TEXT_OUT), text, 'utf8'); console.log('[stage4-run] text -> ' + path.resolve(TEXT_OUT)); }
 if (JSON_OUT) {
   const out = { script: 'p1b/scripts/stage4-run.cjs', db: DB_PATH, regime: 'R4', layers: ENGINED_LAYERS, l2_rival_arm_check: L2_RIVAL, l5_evidence_gap: L5_GAP,
+    truth_basis_defect_excluded_rows: TB_DEFECT_EXCLUDED,
+    truth_basis_defect_fingerprint: truthBasisMod.DEFECT_FINGERPRINT_SHA256,
     l5_source_resolution: JSON.parse(JSON.stringify(L5_SRC)), l3_aci: L3_ACI,
-    generated_at: new Date().toISOString(), report: report, note: '分层报，禁跨层池化（design §4.3）' };
+    generated_at: new Date().toISOString(), report: report, note: '分层报，禁跨层池化（design §4.3）；已排除真值口径缺陷行（见 truth_basis_defect_*）' };
   fs.writeFileSync(path.resolve(JSON_OUT), JSON.stringify(out, null, 1), 'utf8');
   console.log('[stage4-run] json -> ' + path.resolve(JSON_OUT));
 }

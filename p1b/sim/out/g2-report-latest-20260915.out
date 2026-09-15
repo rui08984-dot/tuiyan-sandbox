@@ -1,10 +1,11 @@
 ========================================================================
 G2 能力门月报 -- R4 口径（审计器 design §4.2 修订 R4 · 2026-09-13）
-生成 2026-09-15T05:53:27.545Z | 库 E:\music player\p1a-terminal\data\p1a.db | 句柄只读 · 纯 SQL · 零 LLM · 零写库
-行域 g2_regime=R4 且非回测 | 门域 1935 行 / 账本 1935 行 | 门总判定 PASS  [G2＝过程能力门，不含预测质量读数]
-门域外行数: 回测排除 0 行 | 不在 R4 行域 0 行 | 合计域外 0 行
+生成 2026-09-15T06:52:27.274Z | 库 E:\music player\p1a-terminal\data\p1a.db | 句柄只读 · 纯 SQL · 零 LLM · 零写库
+行域 g2_regime=R4 且非回测 | 门域 1837 行 / 账本 1935 行 | 门总判定 PASS  [G2＝过程能力门，不含预测质量读数]
+[!] 门域外告警: 回测排除 0 行 | **真值口径缺陷排除 98 行** | 不在 R4 行域 0 行 | 合计域外 98 行
+真值口径缺陷排除依据：resolved_at<事件日 ∧ resolve 含 forecast ⇒ 账本真值取自**当时预报值**（Q0-2 时点不成立）；零账本写，读取侧排除（用户 2026-09-15 裁定「丙」）；判据单一真源 p1b/src/evidence/truthBasis.js，指纹 78b8cedb9d37307a…（98 行）
 ========================================================================
-[①] 合格题累计 >=60  -> PASS   值 1312（resolved 642；realtime 783 / backfill 529）
+[①] 合格题累计 >=60  -> PASS   值 1214（resolved 544；realtime 685 / backfill 529）
     排除: no_resolve_date 450 | backfill_no_forwardLooking 172 | cutoff_not_before_event 1 | tautology 0
     细则 B 落地：backfill 计入 ①（cutoff=matures_at-1 天）；两源分列见 qualified_realtime/qualified_backfill。
     [口径B·date_derivation v2026-09-14] 契约表 sha256=007b41188807 | 规则 22 kind
@@ -18,23 +19,23 @@ G2 能力门月报 -- R4 口径（审计器 design §4.2 修订 R4 · 2026-09-13
     留出集重验（与抽检样本不重叠）: n=35 机器段 vs 代理语义段 {"agree":35,"n":35,"rate":1,"wilson95":{"k":35,"n":35,"rate":1,"lb":0.9010957324106112,"ub":1}}
     契约表: p1b/sim/out/g2-contract-frozen-r4.json sha256=bafd3d389a91（contracts 34 / aliases 25；按 resolver 源码冻结，禁观测交集）
 [③] horizon 三层 短>=20 中>=20 长>=10(须 realtime)  -> PASS
-    短 439 | 中 147 | 长 197 | 未知 0 | past_or_negative(backfill) 529 | 长中 backfill 0
+    短 383 | 中 105 | 长 197 | 未知 0 | past_or_negative(backfill) 529 | 长中 backfill 0
     本细则读法（§4.2.1 A）：长 197 -> PASS | 严格读法对照：独立长 28 -> PASS
     ⑦披露（报告项）: 长∩最难 169/197 = 85.8%
-[④] 难度最难档 b(1-b)>=0.21（等价于基率 [0.30, 0.70]）且 >=20  -> PASS   值 1120（realtime 659 / backfill 461；外生解析覆盖 1312/1312；模式 {"pct_share":1228,"base_rate_eq":84}）
+[④] 难度最难档 b(1-b)>=0.21（等价于基率 [0.30, 0.70]）且 >=20  -> PASS   值 1022（realtime 561 / backfill 461；外生解析覆盖 1214/1214；模式 {"pct_share":1130,"base_rate_eq":84}）
 [质量读数·report_only·不参与门判定]（G2＝过程能力门，不含预测质量读数）
 [#13 基率窗口质量·report_only·不参与门判定]（A12/B-L3：b 的抽样误差未量化过）
-    note_n 覆盖: 1164/1312（b 可解析行中能抽出样本量的比例）
-    最难档 1120 条中可抽 n 者 1020；n 分布 {"ge300":538,"100_299":238,"30_99":223,"lt30":21}
+    note_n 覆盖: 1066/1214（b 可解析行中能抽出样本量的比例）
+    最难档 1022 条中可抽 n 者 922；n 分布 {"ge300":440,"100_299":238,"30_99":223,"lt30":21}
     薄窗(n<30) 最难档 21 条（抽样 id: 1082,1085,1088,1120,1121,1122,1123,1124,1125,1126,1127,1128,1129,1130,1132,1133,1134,1135,1136,1471）  [b̂ 的 SE 在 n<30 时显著，成员资格有噪声]
-    保守稳健读数: b̂ 的 Wilson 上界仍 >=0.30 的最难档 1020 / 1020（即使 b 低估仍守资格）——**仅披露，不改 ④ 判据**
+    保守稳健读数: b̂ 的 Wilson 上界仍 >=0.30 的最难档 922 / 922（即使 b 低估仍守资格）——**仅披露，不改 ④ 判据**
 [#12 池域分布·report_only·不参与门判定]（A7：防单 kind 族灌水稀释）
-    top 域: openmeteo_air_daily_mean 128 (9.8%) | openmeteo_daily_max 113 (8.6%) | openmeteo_forecast_daily_max 98 (7.5%) | dbnomics_series_value 91 (6.9%) | energycharts_daily_mean 64 (4.9%) | openmeteo_wx_daily 60 (4.6%)
-    单族最大: openmeteo_air_daily_mean 128 = 9.8%  <=50%（未触发降权）
-    n=642 | Brier_model=0.2378 | 常数基率基线=0.2378 | 常数 0.5 基线=0.2500
-    ΔBrier(vs 常数基率)=0.0000 | ΔBrier(vs 0.5)=-0.0122（<0 才有 resolution 迹象）
-    Murphy(10 等宽桶): reliability=0.0031 resolution=0.0129 uncertainty=0.2499
-    ECE(binned)=0.0331  [binned ECE=下界估计 + 小样本正偏]
+    top 域: openmeteo_air_daily_mean 128 (10.5%) | openmeteo_daily_max 113 (9.3%) | dbnomics_series_value 91 (7.5%) | energycharts_daily_mean 64 (5.3%) | openmeteo_wx_daily 60 (4.9%) | wikimedia_pageviews 53 (4.4%)
+    单族最大: openmeteo_air_daily_mean 128 = 10.5%  <=50%（未触发降权）
+    n=544 | Brier_model=0.2386 | 常数基率基线=0.2385 | 常数 0.5 基线=0.2500
+    ΔBrier(vs 常数基率)=0.0000 | ΔBrier(vs 0.5)=-0.0114（<0 才有 resolution 迹象）
+    Murphy(10 等宽桶): reliability=0.0036 resolution=0.0137 uncertainty=0.2500
+    ECE(binned)=0.0338  [binned ECE=下界估计 + 小样本正偏]
 [⑤] 月节律（仅报告·不作门）
     2026-09  realtime 563 / backfill 700 / total 1263
 [⑦] 披露（报告项·不扣减）: 长∩最难 169/197 = 85.8% | 严格读法独立长 28 -> PASS
