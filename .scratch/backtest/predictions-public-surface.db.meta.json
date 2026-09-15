@@ -1,8 +1,8 @@
 {
  "file": "E:\\music player\\.scratch\\backtest\\predictions-public-surface.db",
- "generated_at": "2026-09-13T08:42:45.077Z",
+ "generated_at": "2026-09-15T11:23:30.239Z",
  "source_db": "E:\\music player\\p1a-terminal\\data\\p1a.db",
- "rows": 1923,
+ "rows": 1935,
  "columns": [
   "prediction_id",
   "game_id",
@@ -24,7 +24,7 @@
   "resolve_spec",
   "origin"
  ],
- "rows_fingerprint_sha256": "2ef98d65dc8152849ee4f2398e7d48832c74d7c206b869697cd9867f84247271",
- "sha256": "dae7435516f79e7d5106a9835e170ec7320d875f990b86a5eec0c7e1d364c5b0",
+ "rows_fingerprint_sha256": "eb9cf341f4083dd3f4077c32e12384e49e8546b451a523e3b23618823f1c0e2c",
+ "sha256": "5a3e6e541f58328ef079884059498fa7517c0c6513a8199b454c96f0b1846d09",
  "note": "surface 本体不含生成时刻 ⇒ 同一源重建 sha256 稳定；生成时刻只在本 sidecar"
 }
