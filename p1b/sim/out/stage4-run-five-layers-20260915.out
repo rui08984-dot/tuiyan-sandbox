@@ -1,5 +1,5 @@
 阶段 4 · 分层预测真跑（L2/L5 最小引擎 × 真实账本）
-库: E:\music player\p1a-terminal\data\p1a.db | 行域: p.g2_regime = 'R4' | 生成: 2026-09-15T11:08:36.679Z
+库: E:\music player\p1a-terminal\data\p1a.db | 行域: p.g2_regime = 'R4' | 生成: 2026-09-15T13:30:46.962Z
 口径: L2=统计基率+Wilson；L5=认证源公布分布；仅对已 resolve 行计分；分层报禁跨层池化；ECE 恒挂双标注
 
 [L1] 账本行 180 | 引擎出数 180 | 未出数 0（—）| 可计分 180
@@ -9,7 +9,7 @@
     观测频率=0.5222 | 引擎平均 p=0.5222 | n=180
     账本先验对照: Brier(assigned_prob)=0.2115 | Δ(engine − 先验)=-0.2115（先验＝创建时记录，非本引擎输出）
     引擎样例: [{"id":2,"status":"ok","p":0,"source":null},{"id":5,"status":"ok","p":0,"source":null},{"id":8,"status":"ok","p":0,"source":null}]
-[L2] 账本行 625 | 引擎出数 587 | 未出数 38（{"insufficient_data":38}）| 可计分 296
+[L2] 账本行 662 | 引擎出数 611 | 未出数 51（{"insufficient_data":51}）| 可计分 296
     Brier(engine)=0.2494 | Brier(常数0.5)=0.2500 | Δ(engine − 0.5)=-0.0006（<0 才有增量迹象）
     Δ 的 95% 配对 bootstrap CI=[-0.0179,0.0148]（B=1000，seed=987654321）⇒ **engine_directionally_better_but_CI_includes_0**
     分层计分，禁跨层池化（design §4.3）。注：本层引擎 p 即统计基率，故 vs「常数基率」Δ 结构性=0；有意义的对照是 vs 常数 0.5（基率相对硬币的增量）。**该增量问题在当前数据下不可回答**——见下方 [L2 对照臂可得性] 检（assigned_prob 就是基率本身、L2 无判词 ⇒ 无独立第二路）。
@@ -38,7 +38,7 @@
     账本先验对照: Brier(assigned_prob)=0.1941 | Δ(engine − 先验)=-0.0187（先验＝创建时记录，非本引擎输出）
     引擎样例: [{"id":1,"status":"ok","p":0.72,"source":null},{"id":3,"status":"ok","p":0.743333,"source":null},{"id":4,"status":"ok","p":0.39,"source":null}]
 
-[L2 对照臂可得性 · 落盘后补检] 已 resolve 323 行；assigned_prob 与 baseRateNote 基率比对 621 行 → 一致 621 / 不一致 0（最大偏差 0.000500000000000056）；L2 带判词行 0
+[L2 对照臂可得性 · 落盘后补检] 已 resolve 323 行；assigned_prob 与 baseRateNote 基率比对 649 行 → 一致 649 / 不一致 0（最大偏差 0.000500000000000056）；L2 带判词行 0
     ⇒ rival_arm_available=false（L2 的 assigned_prob 与 baseRateNote 基率逐行相同（差值≤1e-3）＝同一统计基率的复写，不是第二路模型；且 L2 无任何 LLM 判词。⇒ **当前数据下不存在独立对照臂**，「L2 引擎是否优于纯基率」不可回答。这不是缺陷：L2 按设计就是「基率层」（统计基率+Wilson），其价值＝诚实记账与区间，非"跑赢硬币"。要回答增量问题须**引入新信号源**（外部模型/特征）＝新立项，非调引擎。）
 
 [L5 认证源 · 读侧结构化（2026-09-14）] 账本 L5 行 108：写端结构化 certifiedSource 0 行；**读侧注册表重建 108 行**（按 resolve.kind 的组合数精确值，`p1b/src/engines/l5_sources.js`）；两路皆无 0 行。
@@ -52,7 +52,7 @@
 注: 本报告覆盖**引擎已建**的 L1/L2/L3/L5/L6 五层（design §5.3：L4 为后置叠加标注层、按设计不出数，不在本跑范围）。
 注: **真值口径缺陷排除 98 行**（resolved_at<事件日 ∧ resolve 含 forecast ⇒ 真值取自当时预报值，Q0-2 时点不成立；零账本写／读取侧排除，用户 2026-09-15 裁定「丙」；判据 p1b/src/evidence/truthBasis.js，指纹 78b8cedb9d37307a…）。
 
-[分域读数] 域规则＝题源 kind 族（前缀归一；`p1b/src/evidence/domain.js`）｜ 派生来源 {"game_type":450,"resolve_kind":1387} ⇒ 域共 28 格，其中 **n≥30 可出结论 7 格、样本不足（仅记方向）21 格
+[分域读数] 域规则＝题源 kind 族（前缀归一；`p1b/src/evidence/domain.js`）｜ 派生来源 {"game_type":450,"resolve_kind":1424} ⇒ 域共 28 格，其中 **n≥30 可出结论 7 格、样本不足（仅记方向）21 格
     ⚠ 纪律：格与格之间**禁池化**（同分层：禁跨基率比 Brier，比一律用 Δ 或 resolution）；n<30 的格**不出结论**。
     L1 · werewolf_sim       n= 180  base=0.0000  Δ(vs 0.5)=-0.2500  CI=[-0.2500,-0.2500]  观测率=0.5222
     L2 · dbnomics           n=  79  base=0.2500  Δ(vs 0.5)=-0.0000  CI=[-0.0340,0.0351]  观测率=0.6076

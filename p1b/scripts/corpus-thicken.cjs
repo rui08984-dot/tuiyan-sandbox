@@ -31,6 +31,7 @@ const PER = Number(arg('per', '12')) || 12;
 const DB_ARG = arg('db', null);
 
 const LO = 0.15, HI = 0.85;
+let dom_note_elexon = null;   // elexon 取数失败原因（如实上报）
 const UA = 'corpus-thicken/1.0 (research; +node)';
 const now08 = () => new Date().toLocaleString('sv-SE', { timeZone: 'Asia/Shanghai', hour12: false }).replace(' ', 'T') + '+08:00';
 const RUN_AT = now08();
@@ -62,6 +63,35 @@ function loadExist(conn) {
 }
 const inBand = (x) => x > LO && x < HI;
 
+/**
+ * 按主机决定是否经代理（本机 node fetch 默认**不走系统代理**；墙外源须显式设 env）。
+ * 实测（2026-09-15）：kraken 直连 fetch failed，经代理 HTTP 200。
+ * 用法：jget(url, headers, { viaProxy: true })。
+ */
+const http = require("http");
+const https = require("https");
+/**
+ * 经系统代理（127.0.0.1:2080）取 JSON —— **自建 CONNECT 隧道**，零依赖。
+ * 为何不用 env：实测 NODE_USE_ENV_PROXY 必须在**进程启动前**设置，运行时赋值无效（fetch failed）。
+ * 用法：await jgetProxied(url, headers)。
+ */
+function jgetProxied(url, headers) {
+  return new Promise((resolve, reject) => {
+    const u = new URL(url);
+    const req = http.request({ host: "127.0.0.1", port: 2080, method: "CONNECT", path: u.host + ":443" });
+    req.on("connect", (res, socket) => {
+      if (res.statusCode !== 200) { socket.destroy(); return reject(new Error("CONNECT " + res.statusCode)); }
+      const r2 = https.request({ host: u.hostname, path: u.pathname + u.search, method: "GET", socket: socket, agent: false, headers: Object.assign({ "User-Agent": UA, Accept: "application/json" }, headers || {}) }, (r3) => {
+        let b = ""; r3.on("data", (c) => { b += c; }); r3.on("end", () => { try { resolve(JSON.parse(b)); } catch (e) { reject(new Error("NON-JSON len=" + b.length)); } });
+      });
+      r2.on("error", reject); r2.end();
+    });
+    req.on("error", reject);
+    req.setTimeout(30000, () => { req.destroy(new Error("CONNECT timeout")); });
+    req.end();
+  });
+}
+
 async function jget(url, h) {
   for (let a = 0; a < 3; a++) {
     const ac = new AbortController(); const t = setTimeout(() => ac.abort(), 30000);
@@ -88,7 +118,7 @@ const RECIPES = [
       const arts = ['Main_Page', 'Wikipedia', 'Python_(programming_language)', 'Artificial_intelligence', 'ChatGPT'];
       const out = [];
       for (const art of arts) {
-        const end = addDays(targetDate, -2);
+        const end = TODAY;   // 历史窗终点＝今天（数据只到今天）
         const start = addDays(end, -60);
         const u = 'https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/'
           + encodeURIComponent(art) + '/daily/' + start.replace(/-/g, '') + '/' + end.replace(/-/g, '');
@@ -120,7 +150,8 @@ const RECIPES = [
       const out = [];
       for (const [pair, cn] of pairs) {
         // 近 90 天日收盘
-        let j; try { j = await jget('https://api.kraken.com/0/public/OHLC?pair=' + pair + '&interval=1440'); } catch (e) { continue; }
+        // ★ Kraken 是墙外源：本机直连 fetch failed ⇒ 走 CONNECT 隧道（自建，零依赖）
+        let j; try { j = await jgetProxied('https://api.kraken.com/0/public/OHLC?pair=' + pair + '&interval=1440'); } catch (e) { continue; }
         const key = Object.keys(j.result || {}).find((k) => k !== 'last');
         const rows = (j.result && key && j.result[key]) || [];
         const closes = rows.map((r) => Number(r[4])).filter((x) => isFinite(x));
@@ -148,7 +179,7 @@ const RECIPES = [
       const pairs = [['USD', 'CNY'], ['USD', 'JPY'], ['USD', 'GBP'], ['EUR', 'USD']];
       const out = [];
       for (const [a, b] of pairs) {
-        const end = addDays(targetDate, -2), start = addDays(end, -90);
+        const end = TODAY, start = addDays(end, -90);
         let j; try { j = await jget('https://api.frankfurter.app/' + start + '..' + end + '?from=' + a + '&to=' + b); } catch (e) { continue; }
         const vals = Object.values(j.rates || {}).map((r) => r[b]).filter((x) => typeof x === 'number');
         if (vals.length < 30) continue;
@@ -175,7 +206,7 @@ const RECIPES = [
     build: async (targetDate) => {
       const pkgs = ['react', 'vue', 'express', 'typescript', 'lodash'];
       const out = [];
-      const end = addDays(targetDate, -2), start = addDays(end, -27);
+      const end = TODAY, start = addDays(end, -27);
       for (const p of pkgs) {
         let j; try { j = await jget('https://api.npmjs.org/downloads/range/' + start + ':' + end + '/' + p); } catch (e) { continue; }
         const vals = (j.downloads || []).map((x) => x.downloads).filter((x) => typeof x === 'number');
@@ -203,7 +234,7 @@ const RECIPES = [
       const out = [];
       const weekEnd = addDays(targetDate, 6);   // 周窗：目标日 .. +6
       for (const r of repos) {
-        let j; try { j = await jget('https://api.github.com/repos/' + r + '/stats/participation'); } catch (e) { continue; }
+        let j; try { j = await jget('https://api.github.com/repos/' + r + '/stats/participation'); } catch (e) { continue; }   // 周历史（含至今）
         const all = (j.all || []).filter((x) => typeof x === 'number');
         if (all.length < 20) continue;
         for (const q of [0.3, 0.7]) {
@@ -228,7 +259,7 @@ const RECIPES = [
     domain: 'mlb', kind: 'mlb_schedule_daily_total_runs', layer: 'L2',
     build: async (targetDate) => {
       const out = [];
-      let j; try { j = await jget('https://statsapi.mlb.com/api/v1/schedule?sportId=1&date=' + addDays(targetDate, -1)); } catch (e) { return out; }
+      let j; try { j = await jget('https://statsapi.mlb.com/api/v1/schedule?sportId=1&date=' + addDays(TODAY, -1)); } catch (e) { return out; }
       const games = ((j.dates || [])[0] || {}).games || [];
       const total = games.reduce((s, g) => s + ((g.teams && g.teams.away && g.teams.away.score) || 0) + ((g.teams && g.teams.home && g.teams.home.score) || 0), 0);
       const nGames = games.length;
@@ -249,7 +280,7 @@ const RECIPES = [
     build: async (targetDate) => {
       const weekEnd = addDays(targetDate, 6);
       const out = [];
-      let j; try { j = await jget('https://api.crossref.org/works?rows=0&filter=from-created-date:' + addDays(targetDate, -30) + ',until-created-date:' + addDays(targetDate, -1)); } catch (e) { return out; }
+      let j; try { j = await jget('https://api.crossref.org/works?rows=0&filter=from-created-date:' + addDays(TODAY, -30) + ',until-created-date:' + addDays(TODAY, -1)); } catch (e) { return out; }
       const total = (j.message && j.message['total-results']) || 0;
       if (!total) return out;
       const th = Math.round(total / 30 * 7);
@@ -267,7 +298,7 @@ const RECIPES = [
     build: async (targetDate) => {
       const weekEnd = addDays(targetDate, 6);
       const out = [];
-      let j; try { j = await jget('https://services.nvd.nist.gov/rest/json/cves/2.0?resultsPerPage=1&pubStartDate=' + addDays(targetDate, -30) + 'T00:00:00.000&pubEndDate=' + addDays(targetDate, -1) + 'T00:00:00.000'); } catch (e) { return out; }
+      let j; try { j = await jget('https://services.nvd.nist.gov/rest/json/cves/2.0?resultsPerPage=1&pubStartDate=' + addDays(TODAY, -30) + 'T00:00:00.000&pubEndDate=' + addDays(TODAY, -1) + 'T00:00:00.000'); } catch (e) { return out; }
       const total = j.totalResults || 0;
       if (!total) return out;
       const th = Math.round(total / 30 * 7);
@@ -284,13 +315,37 @@ const RECIPES = [
     domain: 'elexon', kind: 'elexon_fuelhh_daily_mean', layer: 'L2',
     build: async (targetDate) => {
       const out = [];
-      const d = addDays(targetDate, -2);
-      let j; try { j = await jget('https://data.elexon.co.uk/bmrs/api/v1/datasets/FUELHH?settlementDateFrom=' + addDays(d, -14) + '&settlementDateTo=' + d + '&format=json'); } catch (e) { return out; }
-      const rows = Array.isArray(j) ? j : (j.data || []);
-      const byDay = {};
-      for (const r of rows) { const k = String(r.settlementDate || '').slice(0, 10); if (!k) continue; const v = Number(r.quantity); if (!isFinite(v)) continue; (byDay[k] = byDay[k] || []).push(v); }
-      const daily = Object.values(byDay).map((a) => a.reduce((s, x) => s + x, 0) / a.length).filter((x) => isFinite(x));
-      if (daily.length < 7) return out;
+      // ★ 缓存：elexon 端点对连续请求敏感 ⇒ 整个 recipe 生命周期内**只拉一次**（三档 targetDate 共用）
+      if (!global.__elexonCache) {
+        const d = TODAY;
+        // ★ 实测：该端点**跨度 >7 天返回 0 行**（5/7 天正常，10 天即 0）⇒ 窗收敛为 7 天。
+        const u = "https://data.elexon.co.uk/bmrs/api/v1/datasets/FUELHH?format=json&settlementDateFrom=" + addDays(d, -7) + "&settlementDateTo=" + d;
+        let j = null, lastErr = null;
+        for (let a = 1; a <= 4; a++) {
+          try { j = await jgetProxied(u); if (j && j.data && j.data.length) break; lastErr = new Error("data 空"); }
+          catch (e) { lastErr = e; }
+          console.log("  elexon 取数第 " + a + " 次未成，退避 " + (3 * a) + "s");
+          await sleep(3000 * a);
+        }
+        if (!j || !j.data || !j.data.length) { dom_note_elexon = String(lastErr && lastErr.message); global.__elexonCache = { daily: [] }; }
+        else {
+          const byDay = {};
+          for (const r of j.data) {
+            if (String(r.fuelType) !== "WIND") continue;
+            const k = String(r.settlementDate || "").slice(0, 10);
+            const v = Number(r.generation);
+            if (!k || !isFinite(v)) continue;
+            (byDay[k] = byDay[k] || []).push(v);
+          }
+          const daily = Object.values(byDay).map((a) => a.reduce((x, y) => x + y, 0) / a.length).filter((x) => isFinite(x));
+          global.__elexonCache = { daily: daily };
+          console.log("  elexon 缓存：" + daily.length + " 天 WIND 日均");
+        }
+      }
+      const daily = global.__elexonCache.daily;
+      if (daily.length < 5) return out;   // 7 天窗 ⇒ 最多 7 个点
+      const d = TODAY;
+      // （取数已在缓存块完成；口径＝WIND 日均 MW，照既有 resolver）
       for (const q of [0.3, 0.7]) {
         const th = quantile(daily, q);
         if (th === null) continue;
@@ -300,7 +355,8 @@ const RECIPES = [
         out.push({
           statement: '【forward】英国 Elexon 电力系统 ' + targetDate + ' 的日均发电量，是否 ' + (ge ? '>=' : '<=') + ' ' + th.toFixed(0) + ' MWh？',
           base: hit, baseNote: '前瞻·Elexon：过去 ' + daily.length + ' 天中 ' + (ge ? '>=' : '<=') + ' ' + th.toFixed(0) + ' 占 ' + (hit * 100).toFixed(1) + '%（分位 q=' + q + '，pre-cutoff）',
-          resolve: { kind: 'elexon_fuelhh_daily_mean', date: targetDate, threshold: th, cmp: ge ? '>=' : '<=' },
+          resolve: { kind: 'elexon_fuelhh_daily_mean', fuel: 'WIND', date: targetDate, threshold: th, cmp: ge ? '>=' : '<=',
+            url_template: 'https://data.elexon.co.uk/bmrs/api/v1/datasets/FUELHH?format=json&settlementDateFrom={date}&settlementDateTo={date_plus1}' },
           slug: 'corpus:thicken|elexon|' + targetDate + '|' + th.toFixed(0),
         });
       }

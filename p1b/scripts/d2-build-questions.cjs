@@ -48,7 +48,9 @@ const VAR_UNIT = {
 };
 const HIST_START = '2015-01-01', HIST_END = '2023-12-31';   // 基率标定窗（cutoff 前）
 // ★ v1.1 勘误 D2-A：cutoff 与出题日解耦 —— horizon_days = 出题日距事件日的天数
-const HORIZONS = [1, 3, 7, 14, 30];   // 短(1/3/7) 中(14) 长(30)，照规格 §4.1 三档
+// ★ v1.2 勘误 D2-E：规格 §4.1 定义「长 = >30 天」⇒ 30 属**中档**，原集合覆盖不到长档。
+//   扩为七值：短(1/3/7) / 中(14/30) / **长(45/60)**
+const HORIZONS = [1, 3, 7, 14, 30, 45, 60];
 const QUOTA_TOTAL = 400, QUOTA_HARD_CAP = 500;   // ★ v1.1 勘误 D2-B：批配额
 const SEED = 987654321;
 const EVT_START = '2024-01-01', EVT_END = '2024-12-31';     // 事件窗（真值已在库）

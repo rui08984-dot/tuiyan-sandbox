@@ -1,5 +1,5 @@
 {
- "run_at": "2026-09-15T20:45:40+08:00",
+ "run_at": "2026-09-15T21:28:05+08:00",
  "today": "2026-09-15",
  "confirm": true,
  "per_domain": 12,
@@ -14,100 +14,50 @@
    "skipped_band": 0,
    "errors": [],
    "capped": true,
-   "have": 89
+   "have": 53
   },
   {
    "domain": "kraken",
    "kind": "kraken_daily_close",
    "layer": "L2",
-   "generated": 0,
-   "inserted": 0,
+   "generated": 36,
+   "inserted": 6,
    "skipped_dup": 0,
    "skipped_band": 0,
    "errors": [],
    "have_before": 24,
    "need": 6,
-   "picked": 0
+   "picked": 6
   },
   {
    "domain": "frankfurter",
    "kind": "frankfurter_rate_range",
    "layer": "L2",
    "generated": 24,
-   "inserted": 0,
+   "inserted": 12,
    "skipped_dup": 0,
    "skipped_band": 0,
    "errors": [],
-   "capped": true,
-   "have": 42
+   "have_before": 18,
+   "need": 12,
+   "picked": 12
   },
   {
    "domain": "npm",
    "kind": "npm_downloads_window",
    "layer": "L2",
    "generated": 15,
-   "inserted": 0,
+   "inserted": 4,
    "skipped_dup": 0,
    "skipped_band": 0,
    "errors": [],
-   "capped": true,
-   "have": 41
+   "have_before": 26,
+   "need": 4,
+   "picked": 4
   },
   {
    "domain": "github",
    "kind": "github_weekly_commits",
-   "layer": "L2",
-   "generated": 30,
-   "inserted": 7,
-   "skipped_dup": 8,
-   "skipped_band": 0,
-   "errors": [],
-   "have_before": 23,
-   "need": 7,
-   "picked": 7
-  },
-  {
-   "domain": "mlb",
-   "kind": "mlb_schedule_daily_total_runs",
-   "layer": "L2",
-   "generated": 3,
-   "inserted": 0,
-   "skipped_dup": 3,
-   "skipped_band": 0,
-   "errors": [],
-   "have_before": 10,
-   "need": 12,
-   "picked": 0
-  },
-  {
-   "domain": "crossref",
-   "kind": "crossref_week_total",
-   "layer": "L2",
-   "generated": 3,
-   "inserted": 0,
-   "skipped_dup": 3,
-   "skipped_band": 0,
-   "errors": [],
-   "have_before": 8,
-   "need": 12,
-   "picked": 0
-  },
-  {
-   "domain": "nvd",
-   "kind": "nvd_cve_week_count",
-   "layer": "L2",
-   "generated": 3,
-   "inserted": 0,
-   "skipped_dup": 3,
-   "skipped_band": 0,
-   "errors": [],
-   "have_before": 8,
-   "need": 12,
-   "picked": 0
-  },
-  {
-   "domain": "elexon",
-   "kind": "elexon_fuelhh_daily_mean",
    "layer": "L2",
    "generated": 0,
    "inserted": 0,
@@ -117,9 +67,61 @@
    "have_before": 15,
    "need": 12,
    "picked": 0
+  },
+  {
+   "domain": "mlb",
+   "kind": "mlb_schedule_daily_total_runs",
+   "layer": "L2",
+   "generated": 3,
+   "inserted": 3,
+   "skipped_dup": 0,
+   "skipped_band": 0,
+   "errors": [],
+   "have_before": 7,
+   "need": 12,
+   "picked": 3
+  },
+  {
+   "domain": "crossref",
+   "kind": "crossref_week_total",
+   "layer": "L2",
+   "generated": 3,
+   "inserted": 3,
+   "skipped_dup": 0,
+   "skipped_band": 0,
+   "errors": [],
+   "have_before": 5,
+   "need": 12,
+   "picked": 3
+  },
+  {
+   "domain": "nvd",
+   "kind": "nvd_cve_week_count",
+   "layer": "L2",
+   "generated": 3,
+   "inserted": 3,
+   "skipped_dup": 0,
+   "skipped_band": 0,
+   "errors": [],
+   "have_before": 5,
+   "need": 12,
+   "picked": 3
+  },
+  {
+   "domain": "elexon",
+   "kind": "elexon_fuelhh_daily_mean",
+   "layer": "L2",
+   "generated": 6,
+   "inserted": 6,
+   "skipped_dup": 0,
+   "skipped_band": 0,
+   "errors": [],
+   "have_before": 15,
+   "need": 12,
+   "picked": 6
   }
  ],
- "total_new": 7,
- "total_skip": 17,
+ "total_new": 37,
+ "total_skip": 0,
  "dry_run": false
 }

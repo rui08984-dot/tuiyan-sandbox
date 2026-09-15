@@ -12,8 +12,8 @@
  "l2_rival_arm_check": {
   "l2_resolved": 323,
   "assigned_prob_vs_baserate": {
-   "compared": 621,
-   "identical_within_1e_3": 621,
+   "compared": 649,
+   "identical_within_1e_3": 649,
    "differing": 0,
    "max_abs_diff": 0.000500000000000056
   },
@@ -62,7 +62,7 @@
  },
  "domain_basis_counts": {
   "game_type": 450,
-  "resolve_kind": 1387
+  "resolve_kind": 1424
  },
  "domain_min_n": 30,
  "domain_cells_total": 28,
@@ -162,8 +162,8 @@
   {
    "layer": "L2",
    "domain": "kraken",
-   "ledger_rows": 24,
-   "engine_ok": 24,
+   "ledger_rows": 30,
+   "engine_ok": 30,
    "scored_n": 21,
    "obs_rate": 1,
    "conclusion_allowed": false,
@@ -182,8 +182,8 @@
   {
    "layer": "L2",
    "domain": "frankfurter",
-   "ledger_rows": 24,
-   "engine_ok": 24,
+   "ledger_rows": 36,
+   "engine_ok": 36,
    "scored_n": 14,
    "obs_rate": 0.42857142857142855,
    "conclusion_allowed": false,
@@ -212,7 +212,7 @@
   {
    "layer": "L2",
    "domain": "npm",
-   "ledger_rows": 26,
+   "ledger_rows": 30,
    "engine_ok": 26,
    "scored_n": 7,
    "obs_rate": 0.7142857142857143,
@@ -232,7 +232,7 @@
   {
    "layer": "L2",
    "domain": "mlb",
-   "ledger_rows": 7,
+   "ledger_rows": 10,
    "engine_ok": 7,
    "scored_n": 5,
    "obs_rate": 0.6,
@@ -262,8 +262,8 @@
   {
    "layer": "L2",
    "domain": "crossref",
-   "ledger_rows": 5,
-   "engine_ok": 0,
+   "ledger_rows": 8,
+   "engine_ok": 3,
    "scored_n": 0,
    "conclusion_allowed": false,
    "note": "n=0 < 30 ⇒ 样本不足·仅记方向，不出结论"
@@ -271,7 +271,7 @@
   {
    "layer": "L2",
    "domain": "elexon",
-   "ledger_rows": 15,
+   "ledger_rows": 21,
    "engine_ok": 0,
    "scored_n": 0,
    "conclusion_allowed": false,
@@ -280,8 +280,8 @@
   {
    "layer": "L2",
    "domain": "nvd",
-   "ledger_rows": 5,
-   "engine_ok": 0,
+   "ledger_rows": 8,
+   "engine_ok": 3,
    "scored_n": 0,
    "conclusion_allowed": false,
    "note": "n=0 < 30 ⇒ 样本不足·仅记方向，不出结论"
@@ -415,7 +415,7 @@
    "conclusion_allowed": true
   }
  ],
- "generated_at": "2026-09-15T11:08:36.692Z",
+ "generated_at": "2026-09-15T13:30:46.975Z",
  "report": {
   "L1": {
    "layer": "L1",
@@ -464,11 +464,11 @@
   },
   "L2": {
    "layer": "L2",
-   "ledger_rows": 625,
-   "engine_ok": 587,
-   "engine_fail": 38,
+   "ledger_rows": 662,
+   "engine_ok": 611,
+   "engine_fail": 51,
    "engine_fail_reasons": {
-    "insufficient_data": 38
+    "insufficient_data": 51
    },
    "scored_n": 296,
    "engine_sample": [
