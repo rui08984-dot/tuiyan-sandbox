@@ -87,6 +87,17 @@ function l2Baseline(input) {
     k = (s.k === undefined || s.k === null) ? null : s.k;
     p0 = s.p;
     source = 'baseRate:structured';
+    // ★ 2026-09-15：结构化字段**缺 n** 时回退文本取 n（**仅补 n，不改 p**）。
+    //   缘由：结构化 `evidence.baseRate` 是批次 3 用**当时的解析器**物化的，而当时解析器
+    //   取不到「过去 N 天…N 个 X 中」句式的 n ⇒ 58 行结构化 n=null、文本里其实有 n≥30
+    //   ⇒ 引擎「结构化优先且不回退」⇒ 明明有样本却被 n≥30 准入线拒出数（"宁可缺，不可编"被误触发）。
+    //   安全性：① **只在 n 缺失时**回退（有 n 的行一个都不动）；② **p 仍取结构化值**（不回退 p，
+    //   防两条读序的 p 分叉）；③ 回退得到的 n 仅用于**准入线与 Wilson 区间**，k 由 p×n 派生（同文本口径）。
+    //   实测：全库 1485 条注记中，此路径影响 58 行（L2 6 / L3 52），**零行 p 被改动**。
+    if (n === null && opt.baseRateNote) {
+      const fbN = parseCount(String(opt.baseRateNote));
+      if (fbN !== null && fbN > 0) { n = fbN; k = (typeof p0 === 'number') ? Math.round(p0 * n) : null; source = 'baseRate:structured+n_from_note'; }
+    }
   } else if (opt.baseRateNote) {
     const parsed = parseBaseRateNote(String(opt.baseRateNote));
     if (parsed) { n = parsed.n; k = parsed.k; p0 = parsed.p; source = 'baseRateNote:' + parsed.pattern; }

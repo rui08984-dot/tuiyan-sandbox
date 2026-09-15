@@ -1,5 +1,5 @@
 阶段 4 · 分层预测真跑（L2/L5 最小引擎 × 真实账本）
-库: E:\music player\p1a-terminal\data\p1a.db | 行域: p.g2_regime = 'R4' | 生成: 2026-09-15T10:59:54.015Z
+库: E:\music player\p1a-terminal\data\p1a.db | 行域: p.g2_regime = 'R4' | 生成: 2026-09-15T11:08:36.679Z
 口径: L2=统计基率+Wilson；L5=认证源公布分布；仅对已 resolve 行计分；分层报禁跨层池化；ECE 恒挂双标注
 
 [L1] 账本行 180 | 引擎出数 180 | 未出数 0（—）| 可计分 180
@@ -9,19 +9,19 @@
     观测频率=0.5222 | 引擎平均 p=0.5222 | n=180
     账本先验对照: Brier(assigned_prob)=0.2115 | Δ(engine − 先验)=-0.2115（先验＝创建时记录，非本引擎输出）
     引擎样例: [{"id":2,"status":"ok","p":0,"source":null},{"id":5,"status":"ok","p":0,"source":null},{"id":8,"status":"ok","p":0,"source":null}]
-[L2] 账本行 625 | 引擎出数 569 | 未出数 56（{"insufficient_data":56}）| 可计分 290
-    Brier(engine)=0.2521 | Brier(常数0.5)=0.2500 | Δ(engine − 0.5)=0.0021（<0 才有增量迹象）
-    Δ 的 95% 配对 bootstrap CI=[-0.0135,0.0183]（B=1000，seed=987654321）⇒ **engine_not_better_than_half**
+[L2] 账本行 625 | 引擎出数 587 | 未出数 38（{"insufficient_data":38}）| 可计分 296
+    Brier(engine)=0.2494 | Brier(常数0.5)=0.2500 | Δ(engine − 0.5)=-0.0006（<0 才有增量迹象）
+    Δ 的 95% 配对 bootstrap CI=[-0.0179,0.0148]（B=1000，seed=987654321）⇒ **engine_directionally_better_but_CI_includes_0**
     分层计分，禁跨层池化（design §4.3）。注：本层引擎 p 即统计基率，故 vs「常数基率」Δ 结构性=0；有意义的对照是 vs 常数 0.5（基率相对硬币的增量）。**该增量问题在当前数据下不可回答**——见下方 [L2 对照臂可得性] 检（assigned_prob 就是基率本身、L2 无判词 ⇒ 无独立第二路）。
-    观测频率=0.5586 | 引擎平均 p=0.4784 | n=290
-    账本先验对照: Brier(assigned_prob)=0.2521 | Δ(engine − 先验)=0.0000（先验＝创建时记录，非本引擎输出）
+    观测频率=0.5574 | 引擎平均 p=0.4781 | n=296
+    账本先验对照: Brier(assigned_prob)=0.2494 | Δ(engine − 先验)=0.0000（先验＝创建时记录，非本引擎输出）
     引擎样例: [{"id":452,"status":"ok","p":0.450151,"n":331,"source":"baseRate:structured"},{"id":471,"status":"ok","p":0.448795,"n":332,"source":"baseRate:structured"},{"id":472,"status":"ok","p":0.295181,"n":332,"source":"baseRate:structured"}]
-[L3] 账本行 654 | 引擎出数 608 | 未出数 46（{"insufficient_data":46}）| 可计分 387
-    Brier(engine)=0.2405 | Brier(常数0.5)=0.2500 | Δ(engine − 0.5)=-0.0095（<0 才有增量迹象）
-    Δ 的 95% 配对 bootstrap CI=[-0.0218,0.0029]（B=1000，seed=987654321）⇒ **delta_vs_half_negative_CI_includes_0**
+[L3] 账本行 654 | 引擎出数 654 | 未出数 0（—）| 可计分 399
+    Brier(engine)=0.2426 | Brier(常数0.5)=0.2500 | Δ(engine − 0.5)=-0.0074（<0 才有增量迹象）
+    Δ 的 95% 配对 bootstrap CI=[-0.0194,0.0048]（B=1000，seed=987654321）⇒ **delta_vs_half_negative_CI_includes_0**
     L3 短窗混沌：p=基率（与 L2 同源解析/Wilson 口径），**ACI 只调预测集与覆盖率披露、不调 p**。vs 常数 0.5 的 Δ 只反映「基率相对 50% 的贴合程度」——**若 Δ<0 且 CI 不含 0，也属边缘读数，不构成可声称的"更准"**（引擎 p 即基率、无第二路信号；同 L2 层结论：该增量问题须引入新信号源才算数）。本层有意义的读数＝**ACI 覆盖率 vs 名义水平**（见 [L3 ACI] 节）；短窗检验（时界）留待后续。
-    观测频率=0.5065 | 引擎平均 p=0.4963 | n=387
-    账本先验对照: Brier(assigned_prob)=0.2405 | Δ(engine − 先验)=-0.0000（先验＝创建时记录，非本引擎输出）
+    观测频率=0.5138 | 引擎平均 p=0.4945 | n=399
+    账本先验对照: Brier(assigned_prob)=0.2426 | Δ(engine − 先验)=-0.0000（先验＝创建时记录，非本引擎输出）
     引擎样例: [{"id":451,"status":"ok","p":0.01,"n":300,"source":"baseRate:structured"},{"id":455,"status":"ok","p":0.2,"n":300,"source":"baseRate:structured"},{"id":456,"status":"ok","p":0.2,"n":300,"source":"baseRate:structured"}]
 [L5] 账本行 108 | 引擎出数 108 | 未出数 0（—）| 可计分 30
     Brier(engine)=0.1338 | Brier(常数0.5)=0.2500 | Δ(engine − 0.5)=-0.1162（<0 才有增量迹象）
@@ -52,12 +52,12 @@
 注: 本报告覆盖**引擎已建**的 L1/L2/L3/L5/L6 五层（design §5.3：L4 为后置叠加标注层、按设计不出数，不在本跑范围）。
 注: **真值口径缺陷排除 98 行**（resolved_at<事件日 ∧ resolve 含 forecast ⇒ 真值取自当时预报值，Q0-2 时点不成立；零账本写／读取侧排除，用户 2026-09-15 裁定「丙」；判据 p1b/src/evidence/truthBasis.js，指纹 78b8cedb9d37307a…）。
 
-[分域读数] 域规则＝题源 kind 族（前缀归一；`p1b/src/evidence/domain.js`）｜ 派生来源 {"game_type":450,"resolve_kind":1387} ⇒ 域共 28 格，其中 **n≥30 可出结论 6 格、样本不足（仅记方向）22 格
+[分域读数] 域规则＝题源 kind 族（前缀归一；`p1b/src/evidence/domain.js`）｜ 派生来源 {"game_type":450,"resolve_kind":1387} ⇒ 域共 28 格，其中 **n≥30 可出结论 7 格、样本不足（仅记方向）21 格
     ⚠ 纪律：格与格之间**禁池化**（同分层：禁跨基率比 Brier，比一律用 Δ 或 resolution）；n<30 的格**不出结论**。
     L1 · werewolf_sim       n= 180  base=0.0000  Δ(vs 0.5)=-0.2500  CI=[-0.2500,-0.2500]  观测率=0.5222
     L2 · dbnomics           n=  79  base=0.2500  Δ(vs 0.5)=-0.0000  CI=[-0.0340,0.0351]  观测率=0.6076
     L2 · energycharts       n=  57  base=0.2469  Δ(vs 0.5)=-0.0031  CI=[-0.0394,0.0352]  观测率=0.4912
-    L2 · noaa               n=  29  （样本不足·仅记方向）
+    L2 · noaa               n=  35  base=0.2204  Δ(vs 0.5)=-0.0296  CI=[-0.0695,0.0181]  观测率=0.7143
     L2 · wikimedia          n=  27  （样本不足·仅记方向）
     L2 · kraken             n=  21  （样本不足·仅记方向）
     L2 · eurostat           n=  16  （样本不足·仅记方向）
@@ -73,7 +73,7 @@
     L2 · elexon             n=   0  （样本不足·仅记方向）
     L2 · nvd                n=   0  （样本不足·仅记方向）
     L2 · openalex           n=   0  （样本不足·仅记方向）
-    L3 · openmeteo          n= 357  base=0.2404  Δ(vs 0.5)=-0.0096  CI=[-0.0218,0.0033]  观测率=0.4818
+    L3 · openmeteo          n= 369  base=0.2427  Δ(vs 0.5)=-0.0073  CI=[-0.0200,0.0049]  观测率=0.4905
     L3 · ghcn               n=  13  （样本不足·仅记方向）
     L3 · noaa               n=   6  （样本不足·仅记方向）
     L3 · usgs               n=   5  （样本不足·仅记方向）

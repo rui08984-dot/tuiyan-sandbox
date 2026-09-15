@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-09-15T11:10:54.655Z",
+ "generated_at": "2026-09-14T14:21:03.795Z",
  "generator": "p1b/scripts/base-rate-golden.cjs",
  "semantics": "重构前逐字实现冻结（l2=实模块 / l5=实模块 / g2=逐字复制）；重跑=重新冻结，不是校验",
  "db": "p1a-terminal/data/p1a.db",
@@ -3289,25 +3289,22 @@
    "layer": "L3",
    "note": "前瞻·上海：过去 365 天（2025-09-13~2026-09-13）365 个 PM10 日均中 <= 29.7 占 30.1%（分位 q=0.3，pre-cutoff）",
    "l2": {
-    "ok": true,
-    "status": "ok",
+    "ok": false,
+    "status": "insufficient_data",
     "method": "stat_baseline+wilson",
-    "p": 0.30137,
-    "n": 365,
-    "k": 110,
-    "ci": [
-     0.256565,
-     0.350313
-    ],
-    "source": "baseRateNote:pct_share_n",
-    "note": "统计基率+Wilson(95%)：k=110/n=365 → p=0.30137，CI=[0.256565,0.350313]（n≥30 准入线通过）。"
+    "p": null,
+    "n": null,
+    "k": null,
+    "ci": null,
+    "source": "baseRateNote:pct_share_non",
+    "note": "baseRateNote 未含可解析样本量 n，无法过 n≥30 准入线（宁可缺，不可编），本层不出 p。"
    },
    "g2": {
     "base": {
      "b": 0.301,
      "pattern": "pct_share"
     },
-    "note_n": 365
+    "note_n": null
    },
    "l5": {
     "p": 0.301,
