@@ -1,7 +1,7 @@
 # p1b/scripts 目录索引（脚本都在干什么）
 
 > **自动生成，勿手改**——`node p1b/scripts/scripts-index.cjs`（任务 6 批次 3 / 命名整理）。
-> 生成时点：2026-09-15T06:00:22.124Z｜在役脚本 75 个｜归档件见文末。
+> 生成时点：2026-09-15T06:13:05.739Z｜在役脚本 77 个｜归档件见文末。
 > 命名约定：`corpus-*` 取数出题｜`g2-*` 门禁报表｜`stage4-*` 分层真跑｜`prereg-a-*` 命题 A｜**默认 dry-run、写库须 `--confirm`**（项目纪律）。
 
 ## 使用者友好面（先看这几个）（4）
@@ -59,7 +59,7 @@
 | `prereg-a-sweep.cjs` | 命题 A 全量补齐「扫尾」（2026-09-14） | **可写库**（`--confirm` 才写；默认 dry-run） |
 | `prereg-a-windows.cjs` | PREREG-命题A-3.0消融 · §5 双窗参数件（跑批参数显式落盘；**禁止两窗合并**） | 只读 |
 
-## 其余工具（45）
+## 其余工具（47）
 
 | 脚本 | 一句话 | 写库 |
 |---|---|---|
@@ -89,6 +89,7 @@
 | `base-rate-golden.cjs` | 基率解析金样冻结器（任务 6 批次 3 / B1-1 前置） | 只读 |
 | `batch1-write-window.cjs` | 批次1 门卫生写库窗口： | **可写库**（`--confirm` 才写；默认 dry-run） |
 | `cleanup-g1-dedup.cjs` | 清理局 1「集成验证局」的重复参谋卡脏数据（2026-09-14 用户拍板） | **可写库**（`--confirm` 才写；默认 dry-run） |
+| `effective-source-snapshot.cjs` | 阶段 5 开工前置 ⑤：记录并冻结「实际生效源」配置快照。 | 只读 |
 | `file-map.cjs` | 项目「文件全图」生成器（用户令 2026-09-14 深夜：项目地图要「目录一样，每个相关文件路径都在，并说是什么」） | 只读 |
 | `fix-bug28-cwl-kind.cjs` | 修正 bug-28 遗留脏数据（2026-09-14） | **可写库**（`--confirm` 才写；默认 dry-run） |
 | `gd2-0-accept.cjs` | D2 硬门 G-D2-0 三点可执行验收（规格 D2 §3.2） | 只读 |
@@ -102,6 +103,7 @@
 | `sim-templates-v2.cjs` | ───────────────────────────────────────────────────────────────────────────── | 只读 |
 | `sim-titles.cjs` | 微步 2：sim 题源接入（Q 棒）。每局 3 条 cutoff-safe 模板题→分类→落库→resolve。幂等防重。 | 只读 |
 | `snapshot-assigned-prob.cjs` | 旧 assigned_prob 快照（p13 批次0.5）。 | 只读 |
+| `stage5-leak-probe.cjs` | 阶段 5 开工前置 ④-A：**泄漏三层探针 + canary 的工程验证**。 | 只读 |
 | `ts-rebacktest.cjs` | 批次 1.5 · TS/Platt 离线回测（零 LLM，库只读）。 | 只读 |
 | `ui-pages-probe.cjs` | 四页(live/intake/manage/settings) before/after 截图 + 四断点横向溢出实测。 | 只读 |
 | `ui-refactor-evidence.cjs` | UI 重构验收证据（DOM+computed-style ＋ 色彩对比 ＋ 前后对比）。 | 只读 |

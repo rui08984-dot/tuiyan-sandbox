@@ -340,6 +340,15 @@
 | **卫生** | `.gitignore` 加「运行产物卫生」块；未跟踪 221→**13** |
 | **测试 · 收据 · 留痕** | **285/285 绿**；`p1b/sim/out/receipt-20260915.md`；变更留痕 §38；项目地图 §11 |
 
+### 2026-09-15 · 阶段 5 开工前置 ④⑤ 落地（泄漏探针 ＋ sham/聚合纯函数 ＋ 提示词附件 ＋ 生效源冻结）
+| 件 | 说明 |
+|---|---|
+| **④-A 泄漏三层探针** | `p1b/scripts/stage5-leak-probe.cjs` → `p1b/sim/out/stage5-leak-probe-latest.json`：三层全 PASS、leak=0（工程验证，不看分数） |
+| **④-B 聚合规则 / sham** | `p1b/src/retrieval/aggregate.js`（固定规则、**LLM 不出概率**）＋ `p1b/src/retrieval/sham.js`（确定性、±5%）；测试 `p1b/test/stage5-retrieval.test.cjs` |
+| **⑤ 生效源冻结** | `p1b/scripts/effective-source-snapshot.cjs`（零 key 自检）→ LLM tokenrhythm/glm-5.3-flash；retrieval 未配置（如实） |
+| **PREREG 填实（未冻）** | 谓词逐级计数＋两池指纹（F1 783／F2 627）＋**N_min=256**＋成本公式（失败系数 2.4）＋冻结清单；附件 A 提示词草案 |
+| **测试 · 留痕** | 288/288 绿；变更留痕 §39 |
+
 ## 5 · 铁律速查（违反=弃棒）
 ①玄学恒挂娱乐参考，绝不接研判 ②UI 禁「预测」字样（用审计/校准参考/分层账本）③无真值锚不入账本（Q0-1/2/3 拒收门）④LLM 仅四角色（聚合/基率/多路/校准）⑤key 不出服务端 ⑥预注册冻结后禁改 ⑦账本不可变 ⑧**派单并发上限 2-3 棒** ⑨8787 用户 bat 管理，代理零接触 ⑩微步回合制（先落盘再设计）
 

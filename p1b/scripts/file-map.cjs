@@ -33,6 +33,11 @@ const OVERRIDE = {
   'docs/specs/阶段5-立项评审-检索式预测-20260914.md': '阶段 5 独立评审（16 发现/8 必改）',
   'docs/specs/阶段5-功能映射表与信号源勘察-20260915.md': '阶段 5 裁决落盘（2026-09-15）：铁律④选(b) 实验臂声明＋功能映射表＋信号源勘察（29 主机/52 kind）',
   'p1b/scripts/backfill-base-rate.cjs': '老行 evidence.baseRate 物化回填器（零翻转安全集；dry-run 默认＋快照＋pureAdd 校验）',
+  'p1b/scripts/stage5-leak-probe.cjs': '阶段 5 泄漏三层探针（工程验证；SQL 断言＋源码扫描＋canary；leak=0 才过）',
+  'p1b/scripts/effective-source-snapshot.cjs': '阶段 5 生效源冻结快照（零 key；LLM 侧＋检索侧现状）',
+  'p1b/src/retrieval/aggregate.js': '阶段 5 retrieval 臂固定聚合规则（纯函数；LLM 不出概率）',
+  'p1b/src/retrieval/sham.js': '阶段 5 sham 臂构造器（确定性、±5% 长度预算）',
+  'p1b/test/stage5-retrieval.test.cjs': '阶段 5 工程验证测试（聚合规则/sham/泄漏探针）',
   'p1b/test/backfill-base-rate.test.cjs': '回填器单测（安全集/pureAdd/读数零翻转/快照回滚）',
   'docs/specs/命题A-全量消融判定报告-20260914.md': '命题 A 判定（负结果止发维持）',
   'docs/specs/阶段4-分层真跑报告-20260914.md': '阶段 4 分层真跑报告（含 §六 L5 追加）',
@@ -50,7 +55,8 @@ const OVERRIDE = {
   'p1b/scripts/stage4-run.cjs': '五层分层真跑（L1/L2/L3/L5/L6）',
   'p1b/test/fixtures/base-rate-golden.json': '基率解析金样（151 条真实注记×三读序；批次 3 冻结）',
   '.scratch/forecast-debate/PREREG-命题A-3.0消融-v1.md': 'PREREG 冻结件（sha 5d6907d1；改动＝版本递进）',
-  '.scratch/forecast-debate/PREREG-检索式预测-v1-骨架.md': '阶段 5 PREREG 骨架（**未冻结**；2026-09-15 已填裁决要点）',
+  '.scratch/forecast-debate/PREREG-检索式预测-v1-骨架.md': '阶段 5 PREREG 骨架（**未冻结**；2026-09-15 已填裁决要点＋谓词计数＋N_min=256）',
+  '.scratch/forecast-debate/PREREG附件A-检索式预测-提示词-v1-草案.md': '阶段 5 提示词全文附件（LLM 出证据行、不出概率；冻结时写 sha）',
   '.scratch/handoff/推演沙盘-交接-20260914-深夜-批次3.md': '**最新唯一入口**（覆盖此前全部交接链）',
 };
 const SKIP_DIRS = new Set(['node_modules', '.git', 'dist', '.tmp', '_session_extract', 'p7-chrome-profile', 'assets', '素材库', 'out', 'cache']);
