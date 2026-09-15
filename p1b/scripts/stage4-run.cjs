@@ -37,6 +37,7 @@ const { l3Aci, aciReplay } = require(path.join(ROOT, 'p1b/src/engines/l3_aci'));
 const { procCalc } = require(path.join(ROOT, 'p1b/src/engines/l1_proc')); // 2026-09-14：L1 引擎（proc_calc 程序复算）
 const { l6Structural } = require(path.join(ROOT, 'p1b/src/engines/l6_structural')); // 2026-09-14：L6 引擎（判词结构聚合＝狼人杀线接入）
 const baseRateMod = require(path.join(ROOT, 'p1b/src/evidence/baseRate')); // 批次 3：基率解析/结构化读数的单一真源
+const domainMod = require(path.join(ROOT, 'p1b/src/evidence/domain')); // 2026-09-15：域派生单一真源（design §4.2.5 A 轴；阶段 4 出口「分域读数」）
 
 /** 批次 3：行内结构化基率（evidence.baseRate；旧行无此键 ⇒ null ⇒ 三引擎一律退文本兜底，读数不变）。 */
 function baseRateOf(r) {
@@ -63,8 +64,11 @@ const rows = all('SELECT p.id, p.game_id, p.layer, p.outcome, p.assigned_prob, p
   + "(SELECT json_extract(e.value,'$.baseRate') FROM json_each(p.evidence_json) e WHERE json_extract(e.value,'$.baseRate') IS NOT NULL LIMIT 1) AS brs, "
   + "(SELECT json_extract(e.value,'$.certifiedSource') FROM json_each(p.evidence_json) e WHERE json_extract(e.value,'$.certifiedSource') IS NOT NULL LIMIT 1) AS cs, "
   + "(SELECT json_extract(e.value,'$.resolve.certified_source') FROM json_each(p.evidence_json) e WHERE json_extract(e.value,'$.resolve.certified_source') IS NOT NULL LIMIT 1) AS rcs, "
-  + "(SELECT json_extract(e.value,'$.resolve') FROM json_each(p.evidence_json) e WHERE json_extract(e.value,'$.resolve') IS NOT NULL LIMIT 1) AS rj "
-  + 'FROM predictions p WHERE ' + REGIME + ' AND ' + NOT_TB_DEFECT).filter((r) => ENGINED_LAYERS.indexOf(r.layer) !== -1);
+  + "(SELECT json_extract(e.value,'$.resolve') FROM json_each(p.evidence_json) e WHERE json_extract(e.value,'$.resolve') IS NOT NULL LIMIT 1) AS rj, "
+  // 2026-09-15 分域读数（additive）：域派生的两个兜底来源——题源批类型 evidence[0].kind ＋ 对局域 games.game_type
+  + "(SELECT json_extract(e.value,'$.kind') FROM json_each(p.evidence_json) e WHERE json_extract(e.value,'$.kind') IS NOT NULL LIMIT 1) AS evk, "
+  + 'g.game_type AS gtype '
+  + 'FROM predictions p LEFT JOIN games g ON g.id = p.game_id WHERE ' + REGIME + ' AND ' + NOT_TB_DEFECT).filter((r) => ENGINED_LAYERS.indexOf(r.layer) !== -1);
 const TB_DEFECT_EXCLUDED = one('SELECT COUNT(*) n FROM predictions p WHERE ' + REGIME + ' AND NOT ' + NOT_TB_DEFECT).n;
 
 function yOf(outcome) { const s = String(outcome).toLowerCase(); return (s === 'true' || s === '1') ? 1 : ((s === 'false' || s === '0') ? 0 : null); }
@@ -85,6 +89,15 @@ function fmt(x, d) { return (x === null || x === undefined || !isFinite(x)) ? 'n
 const perLayer = {};
 for (const layer of ENGINED_LAYERS) perLayer[layer] = { total: 0, engine_ok: 0, engine_fail: 0, fail_reasons: {},
   scored: 0, p_list: [], y_list: [], prior_list: [], engine_results_sample: [] };
+// 2026-09-15 分域读数（additive；路线图阶段 4 出口「分域带校准分数」，域规则见 p1b/src/evidence/domain.js）：
+//   按 `layer × 域` 收 p/y 对，供报告给出**每域**的 Brier/覆盖率；**不改任何既有层的数字**。
+const perDom = {};   // key = layer + '\u0000' + domain
+const domBasis = {}; // 域派生来源计数（如实披露：resolve_kind / evidence_kind / game_type / none）
+function domBucket(layer, domain) {
+  const k = layer + '\u0000' + domain;
+  if (!perDom[k]) perDom[k] = { layer: layer, domain: domain, total: 0, engine_ok: 0, scored: 0, p_list: [], y_list: [] };
+  return perDom[k];
+}
 // L5 认证源来源统计（2026-09-14 读侧结构化后）：structured=写端已给；read_side=读侧注册表重建；none=两路皆无
 const L5_SRC = { structured: 0, read_side: 0, none: 0, note_consistent: 0, note_mismatch: 0, note_empirical: 0, note_absent: 0, mismatch_ids: [] };
 // L1 复算所需的记录（只读；按局缓存）
@@ -158,6 +171,14 @@ for (const r of rows) {
   const y = yOf(r.outcome);
   if (out.ok && typeof out.p === 'number' && y !== null) { L.scored++; L.p_list.push(out.p); L.y_list.push(y);
     L.prior_list.push(Number.isFinite(Number(r.assigned_prob)) ? Number(r.assigned_prob) : null); }
+  // 2026-09-15 分域（additive）：域派生（resolve.kind → evidence.kind → game_type → (unknown)）
+  let rjObj = null; try { rjObj = r.rj ? JSON.parse(r.rj) : null; } catch (e) { rjObj = null; }
+  const dd = domainMod.deriveDomain({ resolve: rjObj, evKind: r.evk, gameType: r.gtype });
+  domBasis[dd.basis] = (domBasis[dd.basis] || 0) + 1;
+  const DB_ = domBucket(r.layer, dd.domain);
+  DB_.total++;
+  if (out.ok && typeof out.p === 'number') DB_.engine_ok++;
+  if (out.ok && typeof out.p === 'number' && y !== null) { DB_.scored++; DB_.p_list.push(out.p); DB_.y_list.push(y); }
 }
 
 // ── 分层计分（禁跨层池化）──
@@ -338,6 +359,50 @@ T.push('注: 本报告覆盖**引擎已建**的 L1/L2/L3/L5/L6 五层（design �
 T.push('注: **真值口径缺陷排除 ' + TB_DEFECT_EXCLUDED + ' 行**（resolved_at<事件日 ∧ resolve 含 forecast ⇒ 真值取自当时预报值，Q0-2 时点不成立；'
   + '零账本写／读取侧排除，用户 2026-09-15 裁定「丙」；判据 p1b/src/evidence/truthBasis.js，指纹 '
   + String(truthBasisMod.DEFECT_FINGERPRINT_SHA256).slice(0, 16) + '…）。');
+
+// ── 分域读数（2026-09-15 新增；additive，不改上层任何数字）──
+// 依据：路线图阶段 4 出口「出口＝**分域**带校准分数的预测能力，每域拿数据说话」；
+//   域规则＝design §4.2.5 A 轴「题源 kind 族，前缀归一」，单一真源 p1b/src/evidence/domain.js。
+// 纪律：与分层同款——**n<30 的格子只记方向、不下结论**（design §4.3 第 3 条）；禁跨域池化成"总体读数"。
+const DOM_MIN_N = MIN_N;
+const domRows = Object.keys(perDom).map((k) => {
+  const b = perDom[k];
+  const n = b.scored;
+  const r = { layer: b.layer, domain: b.domain, ledger_rows: b.total, engine_ok: b.engine_ok, scored_n: n };
+  if (n > 0) r.obs_rate = mean(b.y_list);
+  if (n >= DOM_MIN_N) {
+    r.brier_engine = mean(b.p_list.map((p, i) => brier(p, b.y_list[i])));
+    r.brier_const_half = mean(b.y_list.map((y) => brier(0.5, y)));
+    r.delta_vs_half = r.brier_engine - r.brier_const_half;
+    const diffs = b.p_list.map((p, i) => brier(p, b.y_list[i]) - brier(0.5, b.y_list[i]));
+    r.delta_ci95 = bootDeltaCI(diffs, 1000, 987654321);
+    r.mean_p = mean(b.p_list);
+    r.conclusion_allowed = true;
+  } else {
+    r.conclusion_allowed = false;   // n<30 ⇒ 只记方向（设计 §4.3-3）
+    r.note = 'n=' + n + ' < ' + DOM_MIN_N + ' ⇒ 样本不足·仅记方向，不出结论';
+  }
+  return r;
+}).sort((a, b) => (a.layer === b.layer ? b.scored_n - a.scored_n : (a.layer < b.layer ? -1 : 1)));
+const domWithConclusion = domRows.filter((x) => x.conclusion_allowed);
+const domThin = domRows.filter((x) => !x.conclusion_allowed);
+T.push('');
+T.push('[分域读数] 域规则＝题源 kind 族（前缀归一；`p1b/src/evidence/domain.js`）｜ 派生来源 '
+  + JSON.stringify(domBasis) + ' ⇒ 域共 ' + domRows.length + ' 格，其中 **n≥' + DOM_MIN_N + ' 可出结论 ' + domWithConclusion.length
+  + ' 格、样本不足（仅记方向）' + domThin.length + ' 格');
+T.push('    ⚠ 纪律：格与格之间**禁池化**（同分层：禁跨基率比 Brier，比一律用 Δ 或 resolution）；n<' + DOM_MIN_N + ' 的格**不出结论**。');
+for (const d of domRows) {
+  if (d.conclusion_allowed) {
+    T.push('    ' + d.layer + ' · ' + d.domain.padEnd(18) + ' n=' + String(d.scored_n).padStart(4)
+      + '  base=' + fmt(d.brier_engine) + '  Δ(vs 0.5)=' + fmt(d.delta_vs_half) + '  CI=[' + fmt(d.delta_ci95.lb) + ',' + fmt(d.delta_ci95.ub) + ']'
+      + '  观测率=' + fmt(d.obs_rate) + '');
+  } else {
+    T.push('    ' + d.layer + ' · ' + d.domain.padEnd(18) + ' n=' + String(d.scored_n).padStart(4) + '  （样本不足·仅记方向）');
+  }
+}
+T.push('    注：本表是**读数完整度**的披露——它同时说明「每个域现在能不能拿数据说话」；多数格偏薄属**数据量**而非口径问题（详见勘察结论）。');
+T.push('');
+
 const text = T.join('\n');
 console.log(text);
 if (TEXT_OUT) { fs.writeFileSync(path.resolve(TEXT_OUT), text, 'utf8'); console.log('[stage4-run] text -> ' + path.resolve(TEXT_OUT)); }
@@ -346,7 +411,15 @@ if (JSON_OUT) {
     truth_basis_defect_excluded_rows: TB_DEFECT_EXCLUDED,
     truth_basis_defect_fingerprint: truthBasisMod.DEFECT_FINGERPRINT_SHA256,
     l5_source_resolution: JSON.parse(JSON.stringify(L5_SRC)), l3_aci: L3_ACI,
-    generated_at: new Date().toISOString(), report: report, note: '分层报，禁跨层池化（design §4.3）；已排除真值口径缺陷行（见 truth_basis_defect_*）' };
+    // 2026-09-15 分域读数（additive）：域派生来源 ＋ 逐格读数（n<30 标 conclusion_allowed=false）
+    domain_rule: { source: 'p1b/src/evidence/domain.js', basis: 'resolve.kind → evidence.kind → games.game_type → (unknown)，前缀归一（design §4.2.5 A 轴）' },
+    domain_basis_counts: domBasis,
+    domain_min_n: DOM_MIN_N,
+    domain_cells_total: domRows.length,
+    domain_cells_with_conclusion: domWithConclusion.length,
+    domain_cells_thin: domThin.length,
+    by_domain: domRows,
+    generated_at: new Date().toISOString(), report: report, note: '分层报，禁跨层池化（design §4.3）；已排除真值口径缺陷行（见 truth_basis_defect_*）；分域读数见 by_domain（格间禁池化，n<30 不出结论）' };
   fs.writeFileSync(path.resolve(JSON_OUT), JSON.stringify(out, null, 1), 'utf8');
   console.log('[stage4-run] json -> ' + path.resolve(JSON_OUT));
 }
