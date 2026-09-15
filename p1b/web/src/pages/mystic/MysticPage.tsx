@@ -12,6 +12,7 @@
  */
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { castOracle, interpretOracle, listOracleReadings } from '../../api';
+import { IconCompass } from '../../components/ui';
 import type { MysticCasting, OracleCastResult, OracleGua, OracleReading } from '../../types';
 import '../../styles/mystic.css';
 
@@ -210,7 +211,7 @@ export default function MysticPage() {
       <div className="mystic-banner" role="note">娱乐参考 · 非游戏研判</div>
 
       <header className="mystic-head">
-        <h2>☯ 梅花易数排盘</h2>
+        <h2><IconCompass size={18} /> 梅花易数排盘</h2>
         <p className="mystic-sub">排盘=纯数学 · 断语=娱乐参考推断层（出卦自动请求一次，服务不可达时静态白话兜底）· 不接任何游戏研判</p>
       </header>
 
@@ -307,7 +308,7 @@ export default function MysticPage() {
         <div className="mystic-overlay" role="dialog" aria-modal="true" aria-label="排盘回看">
           <div className="mystic-drawer">
             <div className="mystic-drawer-head">
-              <h2>☯ 回看 #{drawer.id}</h2>
+              <h2><IconCompass size={18} /> 回看 #{drawer.id}</h2>
               <button type="button" className="btn btn-ghost" onClick={() => setDrawer(null)} aria-label="关闭">✕</button>
             </div>
             <p className="mystic-drawer-meta">{METHOD_LABEL[drawer.method]} · {drawer.created_at} UTC{drawer.game_id != null ? ' · 局#' + drawer.game_id : ''}</p>

@@ -16,7 +16,7 @@ import { useCallback, useEffect, useState } from 'react';
 import * as api from '../../api';
 import type { IntakeClassifyResult, IntakeRejectsResult, IntakeQuestionsResult } from '../../types';
 import '../../styles/intake.css';
-import { IconPen } from '../../components/ui';
+import { IconPen, Term } from '../../components/ui';
 
 const errMsg = (e: unknown): string => (e instanceof Error ? e.message : String(e));
 
@@ -24,10 +24,12 @@ const REASON_LABEL: Record<string, string> = {
   no_anchor: '无真值锚', leak: '判据泄漏（cutoff 太晚）', tautology: '重言（结果恒定）', other: '其他',
 };
 
-/** 拒收门三问（第 0 步；任一「否」即拒收） */
-const GATE_QS: { key: string; label: string; hint: string }[] = [
-  { key: 'Q0_1', label: 'Q0-1 存在可机检／第三方可复核的真值锚', hint: '否 → 拒收 no_anchor' },
-  { key: 'Q0_2', label: 'Q0-2 cutoff（判据冻结）早于事件决定性时点', hint: '否 → 拒收 leak' },
+/** 拒收门三问（第 0 步；任一「否」即拒收）
+ * termId：该问涉及的术语，渲染时包 <Term> 给出人话与口径（键与 testId 不变）。
+ */
+const GATE_QS: { key: string; label: string; hint: string; termId?: string }[] = [
+  { key: 'Q0_1', label: 'Q0-1 存在可机检／第三方可复核的真值锚', hint: '否 → 拒收 no_anchor', termId: 'truthAnchor' },
+  { key: 'Q0_2', label: 'Q0-2 cutoff（判据冻结）早于事件决定性时点', hint: '否 → 拒收 leak', termId: 'cutoff' },
   { key: 'Q0_3', label: 'Q0-3 结果随实例变化（恒定即拒收）', hint: '否 → 拒收 tautology' },
 ];
 
@@ -139,7 +141,7 @@ export default function IntakePage() {
           {GATE_QS.map((q) => (
             <label className="intake-check" key={q.key} data-testid={'intake-gate-' + q.key}>
               <input type="checkbox" checked={!!gate[q.key]} onChange={() => toggleGate(q.key)} />
-              <span>{q.label}<i className="intake-hint">{q.hint}</i></span>
+              <span>{q.termId ? <Term id={q.termId} plain={q.label} /> : q.label}<i className="intake-hint">{q.hint}</i></span>
             </label>
           ))}
           <h3 className="intake-card-title">④ 六层问答（勾选=是；个数固定）</h3>
@@ -168,7 +170,7 @@ export default function IntakePage() {
             <div className={'intake-card intake-result ' + (result.rejected ? 'is-reject' : 'is-ok')} data-testid="intake-result">
               <h3 className="intake-card-title">分类结果</h3>
               {result.rejected ? (
-                <p className="intake-verdict">已拒收 · reason=<b>{result.reason}</b>（{REASON_LABEL[result.reason ?? ''] ?? '—'}）· 留痕 reject_id={result.reject_id}</p>
+                <p className="intake-verdict">已拒收 · reason=<b>{result.reason}</b>（{result.reason === 'no_anchor' ? <Term id="truthAnchor" plain={REASON_LABEL[result.reason ?? ''] ?? '—'} /> : result.reason === 'leak' ? <Term id="cutoff" plain={REASON_LABEL[result.reason ?? ''] ?? '—'} /> : REASON_LABEL[result.reason ?? ''] ?? '—'}）· 留痕 reject_id={result.reject_id}</p>
               ) : (
                 <p className="intake-verdict">通过 · layer=<b>{result.layer}</b>{result.secondary ? ' ＋ secondary=' + result.secondary : ''} · 已落接题库 id={result.intake_question_id}</p>
               )}

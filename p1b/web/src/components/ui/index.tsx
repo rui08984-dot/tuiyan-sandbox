@@ -106,3 +106,6 @@ export function AlertBar({ alerts, testId }: { alerts: { tone: string; text: Rea
 export function EmptyState({ text, testId }: { text: ReactNode; testId?: string }) {
   return <div className="ui-empty" data-testid={testId}><IconInbox size={22} /><span>{text}</span></div>;
 }
+
+export { Term } from './Term';
+export { TermDrawer } from './TermDrawer';

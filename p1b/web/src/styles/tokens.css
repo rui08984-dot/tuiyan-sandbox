@@ -82,8 +82,26 @@
   --breakpoint-md: 768px;
   --breakpoint-lg: 1024px;
   --breakpoint-xl: 1440px;
+
+  /* ── 观测台语义层（2026-09-15 · 只增不改）── */
+  --grid-line: rgba(255, 255, 255, 0.04);
+  --panel-3: #2f2720;
+  --shadow-4: 0 18px 48px rgba(0, 0, 0, 0.55);
+  --space-section: 32px;
+  --font-size-micro: 11px;
 }
 
 /* 全局字体与数字对齐（本文件唯一全局规则，不涉布局） */
 body { font-family: var(--font-sans); font-variant-numeric: tabular-nums; }
 .u-mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+
+/* 观测台底纹：1px 双向细网格，语义＝沙盘坐标/观测标尺；4% 亮度，不影响 AA 对比度 */
+.app-surface {
+  background-image:
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+@media (prefers-reduced-motion: reduce) {
+  * { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+}

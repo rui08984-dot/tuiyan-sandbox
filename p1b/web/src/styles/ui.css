@@ -81,3 +81,76 @@
   .ui-matrix td { border: none; padding: 2px 0; }
   .ui-matrix td.hide-narrow { display: none; }
 }
+
+/* ── 渐进披露术语（观测台 U3）── */
+.ui-term-wrap { position: relative; display: inline-flex; }
+.ui-term {
+  appearance: none; background: transparent; border: none; padding: 0 1px;
+  color: inherit; font: inherit; cursor: help;
+  border-bottom: 1px dashed var(--muted);
+  transition: border-color 150ms ease, color 150ms ease;
+}
+.ui-term:hover { border-bottom-color: var(--accent); color: var(--accent); }
+.ui-term:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+.ui-term-pop {
+  position: absolute; bottom: calc(100% + 6px); left: 0; z-index: 60;
+  display: flex; flex-direction: column; gap: 4px;
+  min-width: 240px; max-width: 320px;
+  padding: 10px 12px;
+  background: var(--panel-3); border: 1px solid var(--line);
+  border-radius: var(--radius-sm); box-shadow: var(--shadow-4);
+  font-size: var(--font-size-small); line-height: 1.5; text-align: left;
+}
+.ui-term-pop-term { color: var(--accent); font-weight: 600; }
+.ui-term-pop-def { color: var(--text); }
+.ui-term-pop-basis { color: var(--muted); font-family: var(--font-mono); font-size: var(--font-size-micro); word-break: break-all; }
+.ui-term-pop-caveat { color: var(--warn); font-size: var(--font-size-micro); }
+
+/* ── 术语表抽屉（观测台 U4）── */
+.ui-drawer-backdrop {
+  position: fixed; inset: 0; z-index: 70;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex; justify-content: flex-end;
+}
+.ui-drawer {
+  width: min(420px, 100vw); height: 100%;
+  display: flex; flex-direction: column; gap: var(--space-2);
+  padding: var(--space-4);
+  background: var(--panel); border-left: 1px solid var(--line);
+  box-shadow: var(--shadow-4); overflow: hidden;
+}
+.ui-drawer-head { display: flex; align-items: center; justify-content: space-between; }
+.ui-drawer-title { display: inline-flex; align-items: center; gap: 6px; font-size: var(--font-size-h3); font-weight: 600; }
+.ui-drawer-close {
+  appearance: none; background: transparent; border: 1px solid var(--line);
+  border-radius: var(--radius-sm); color: var(--muted);
+  min-width: 44px; min-height: 44px; cursor: pointer;
+}
+.ui-drawer-close:hover { color: var(--text); border-color: var(--accent); }
+.ui-drawer-close:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.ui-drawer-search {
+  width: 100%; padding: 8px 10px; font: inherit; font-size: var(--font-size-base);
+  color: var(--text); background: var(--panel-2);
+  border: 1px solid var(--line); border-radius: var(--radius-sm);
+}
+.ui-drawer-search:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.ui-drawer-list { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: var(--space-3); }
+.ui-drawer-item { padding-bottom: var(--space-3); border-bottom: 1px solid var(--line); }
+.ui-drawer-item-head { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.ui-drawer-term { color: var(--accent); font-weight: 600; }
+.ui-drawer-plain { color: var(--text); font-size: var(--font-size-small); }
+.ui-drawer-def, .ui-drawer-basis, .ui-drawer-caveat { margin: 4px 0 0; font-size: var(--font-size-small); }
+.ui-drawer-basis { color: var(--muted); font-family: var(--font-mono); font-size: var(--font-size-micro); word-break: break-all; }
+.ui-drawer-caveat { color: var(--warn); }
+.ui-drawer-empty { color: var(--muted); }
+
+/* ── 可访问性收敛（观测台 U7）── */
+:where(button, a, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+@media (max-width: 374px) {
+  .ui-kpi-row { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+  .ui-drawer { width: 100vw; }
+}

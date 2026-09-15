@@ -11,7 +11,7 @@ import { Fragment, useCallback, useEffect, useState, type ReactNode } from 'reac
 import * as api from '../../api';
 import type { AuditSummary, AuditLayerCalibration, AuditG2KpiResult } from '../../types';
 import {
-  StatCard, Badge, KVTable, Tabs, Breadcrumb, AlertBar, EmptyState,
+  StatCard, Badge, KVTable, Tabs, Breadcrumb, AlertBar, EmptyState, Term,
   IconChart, IconLayers,
 } from '../../components/ui';
 
@@ -67,7 +67,7 @@ export default function AuditPage() {
 
   const alerts: { tone: string; text: ReactNode }[] = [];
   if (kpi) {
-    if (kpi.kpi.out_of_domain > 0) alerts.push({ tone: 'warn', text: '门域外 ' + kpi.kpi.out_of_domain + ' 行（g2_regime 非 R4；不参与达标判定）' });
+    if (kpi.kpi.out_of_domain > 0) alerts.push({ tone: 'warn', text: <>门域外 {kpi.kpi.out_of_domain} 行（<Term id="g2Regime" plain="不按现行规则算" />；不参与达标判定）</> });
     if (kpi.kpi.hardest < 20) alerts.push({ tone: 'warn', text: '最难档 ' + kpi.kpi.hardest + ' 条 < 20 条工程下限（b(1−b)≥0.21）' });
   }
   if (l0 && l0.unresolved > 0) alerts.push({ tone: 'info', text: '在途待回填真值 ' + l0.unresolved + ' 条（真值未发生，不结算）' });
@@ -93,10 +93,10 @@ export default function AuditPage() {
         <div className="ui-kpi-row" data-testid="kpi-row">
           <StatCard testId="kpi-total" label="总题量" value={l0 ? l0.records : '—'} caption="账本总条数（参考）" />
           <StatCard testId="kpi-resolved" label="已解真值" value={l0 ? l0.resolved : '—'} caption="真值已到（参考）" />
-          <StatCard testId="kpi-qualified" label="合格池" value={kpi ? kpi.kpi.qualified_pool : '—'} caption="R4 ① cutoff 合规·非重言" />
-          <StatCard testId="kpi-hardest" label="最难档" value={kpi ? kpi.kpi.hardest : '—'} caption="R4 ④ 外生 b(1−b)≥0.21" tone={kpi && kpi.kpi.hardest < 20 ? 'warn' : undefined} />
+          <StatCard testId="kpi-qualified" label="合格池" value={kpi ? kpi.kpi.qualified_pool : '—'} caption={<Term id="cutoff" plain="信息截止合规·非重言" />} />
+          <StatCard testId="kpi-hardest" label="最难档" value={kpi ? kpi.kpi.hardest : '—'} caption={<Term id="r4" plain="外生难度最高档" />} tone={kpi && kpi.kpi.hardest < 20 ? 'warn' : undefined} />
           <StatCard testId="kpi-pending" label="待解前瞻" value={summary ? summary.pending_forward_total : '—'} caption="真值未发生" />
-          <StatCard testId="kpi-outside" label="门域外" value={kpi ? kpi.kpi.out_of_domain : '—'} caption="g2_regime 非 R4" tone={kpi && kpi.kpi.out_of_domain > 0 ? 'accent' : undefined} />
+          <StatCard testId="kpi-outside" label="门域外" value={kpi ? kpi.kpi.out_of_domain : '—'} caption={<Term id="g2Regime" plain="不按现行规则算" />} tone={kpi && kpi.kpi.out_of_domain > 0 ? 'accent' : undefined} />
         </div>
 
         <AlertBar alerts={alerts} testId="alertbar" />
@@ -107,9 +107,9 @@ export default function AuditPage() {
             <table className="ui-matrix" data-testid="layer-matrix-table">
               <thead>
                 <tr>
-                  <th>层</th><th className="num">题量</th><th className="num hide-narrow">已解</th>
-                  <th>校准参考（CI）</th><th className="hide-narrow">基率</th>
-                  <th className="hide-narrow">引擎位</th><th className="hide-narrow">gate</th>
+                  <th><Term id="layer" plain="层" /></th><th className="num">题量</th><th className="num hide-narrow">已解</th>
+                  <th><Term id="brier" plain="校准参考（CI）" /></th><th className="hide-narrow"><Term id="baseRate" plain="基率" /></th>
+                  <th className="hide-narrow"><Term id="resolver" plain="引擎位" /></th><th className="hide-narrow">gate</th>
                 </tr>
               </thead>
               <tbody>
@@ -138,10 +138,10 @@ export default function AuditPage() {
                               { k: '题量 n', v: r ? r.n : 0 },
                               { k: '已解真值', v: r ? r.resolved : 0 },
                               { k: '无法判定', v: r ? r.ambiguous : 0 },
-                              { k: '校准参考', v: r ? tri(r.brier) : '样本不足' },
-                              { k: '参考置信区间', v: fmtCi(ci ? ci.ci_lo : null, ci ? ci.ci_hi : null) },
-                              { k: '基率', v: (r && r.base_rate_n > 0) ? pct(r.base_rate) + '（n=' + r.base_rate_n + '）' : '样本不足' },
-                              { k: '引擎位', v: m.engine },
+                              { k: <Term id="brier" plain="判得准不准" />, v: r ? tri(r.brier) : '样本不足' },
+                              { k: <Term id="wilson" plain="参考置信区间" />, v: fmtCi(ci ? ci.ci_lo : null, ci ? ci.ci_hi : null) },
+                              { k: <Term id="baseRate" plain="历史上占多少" />, v: (r && r.base_rate_n > 0) ? pct(r.base_rate) + '（n=' + r.base_rate_n + '）' : '样本不足' },
+                              { k: <Term id="resolver" plain="引擎位" />, v: m.engine },
                               { k: 'gate', v: gateByLayer[m.id] ?? '—' },
                             ]} />
                           </td>

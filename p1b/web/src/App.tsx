@@ -4,6 +4,7 @@
  * （数据页 .content--wide 1280 ／ 表单页 .content--form 720 ／ 其余 860 阅读宽）。
  * 路由全兼容：/live→/、/games→/manage、/input|/advisor→/、*→/（一个不破）。
  */
+import { useState } from 'react';
 import { HashRouter, Navigate, NavLink, Route, Routes, useLocation } from 'react-router-dom';
 import LivePage from './pages/LivePage';
 import ManagePage from './pages/ManagePage';
@@ -11,7 +12,7 @@ import SettingsPage from './pages/SettingsPage';
 import MysticPage from './pages/mystic/MysticPage';
 import AuditPage from './pages/audit/AuditPage';
 import IntakePage from './pages/intake/IntakePage';
-import { IconLayers, IconCompass, IconGear } from './components/ui';
+import { IconLayers, IconCompass, IconGear, IconBook, TermDrawer } from './components/ui';
 import './styles/p1b6.css';
 
 const linkCls = ({ isActive }: { isActive: boolean }) => 'appbar-link' + (isActive ? ' is-active' : '');
@@ -26,6 +27,7 @@ function containerClass(path: string): string {
 
 function Shell() {
   const { pathname } = useLocation();
+  const [termsOpen, setTermsOpen] = useState(false);
   return (
     <div className="app">
       <header className="appbar">
@@ -40,6 +42,9 @@ function Shell() {
             <NavLink to="/manage" className={linkCls}>对局</NavLink>
             <NavLink to="/audit" className={linkCls}>审计</NavLink>
           </nav>
+          <button type="button" className="appbar-gear" onClick={() => setTermsOpen(true)} aria-label="术语表" title="术语表">
+            <IconBook size={18} />
+          </button>
           <NavLink to="/mystic" className={toolCls} aria-label="排盘（娱乐参考）" title="排盘（娱乐参考）">
             <IconCompass size={18} />
           </NavLink>
@@ -64,6 +69,7 @@ function Shell() {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
+      <TermDrawer open={termsOpen} onClose={() => setTermsOpen(false)} />
     </div>
   );
 }
