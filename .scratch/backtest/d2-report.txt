@@ -1,0 +1,69 @@
+== D2 历史回测引擎 · 跑批 + 验收 ==
+  题源 = archive-api.open-meteo.com/v1/archive（ERA5 再分析格点；**非站点实测**）
+  PREREG = .scratch/forecast-debate/PREREG-D2-历史回测引擎-v1.md (sha 70cf9d17…)
+  题数 = 400 | 题面指纹 = bb79f057973c7748…
+
+[K1 泄漏探针] 只连影子题面库，尝试读真值
+  A1 SELECT outcome FROM predictions → FAIL: no such table: predictions  ✓
+  A2 SELECT * FROM truth_vault LIMIT 1 → FAIL: no such table: truth_vault  ✓
+  A3 SELECT truth_preview FROM predictions_public LIMIT 1 → FAIL: no such column: truth_preview  ✓
+  A4-write CREATE TABLE → FAIL: attempt to write a readonly database  ✓
+  K1 判定 = PASS（隔离有效）
+
+[全批读数]（**恒挂「历史回测·非实时能力」**）
+  n = 400 | 观测率 = 0.3975 | 模型平均 p = 0.4124
+  Brier(model) = 0.2137 | Brier(常数 0.5) = 0.2500
+  Δ(model − 0.5) = -0.0363 | CI95 = [-0.0513, -0.0210]
+  Δ(model − b(1−b)) = -0.0067（规格 §4.2 外生基线口径）
+  Murphy: reliability = 0.0028 | resolution = 0.0281 | uncertainty = 0.2395
+  ⇒ 说明：v1 的 model 臂**恒等于 base 臂**（PREREG §4：v1 验管道、不验增量）
+  ⇒ 平凡基线门（A4）：每单元须给 b(1−b)；Δ<0 才算有 resolution，否则**如实报「无增量」**
+
+[A3 分层：horizon × layer × 难度]（layer 恒 L3；**禁跨单元池化**）
+  mid|中          n=  66  b=0.3602  b(1−b)=0.2305  Brier=0.1966  Δ(vs b(1−b))=-0.0338  Δ(vs 0.5)=-0.0534  CI=[-0.0940,-0.0080]
+  mid|最难         n= 128  b=0.4225  b(1−b)=0.2440  Brier=0.2203  Δ(vs b(1−b))=-0.0237  Δ(vs 0.5)=-0.0297  CI=[-0.0497,-0.0097]
+  mid|近          n=   6  （样本不足·仅记方向）
+  short|中        n=  66  b=0.3678  b(1−b)=0.2325  Brier=0.1917  Δ(vs b(1−b))=-0.0408  Δ(vs 0.5)=-0.0583  CI=[-0.1042,-0.0141]
+  short|最难       n= 128  b=0.4119  b(1−b)=0.2422  Brier=0.2287  Δ(vs b(1−b))=-0.0135  Δ(vs 0.5)=-0.0213  CI=[-0.0426,-0.0005]
+  short|近        n=   6  （样本不足·仅记方向）
+
+[K2 平凡基线对照] 常数预测器 Brier 应 ≈ b(1−b)
+  实测 Brier(常数基率) = 0.2137 | mean b(1−b) = 0.2204 | 差 = 0.006689
+  容差 = max(0.01, 1.96·sd/√n) = 0.0480 ⇒ K2 PASS
+
+[K3 真值置换] 打乱 y 后 Brier 应显著变化（否则分数不依赖真值＝管道故障）
+  原 Brier = 0.2137 | 置换后 = 0.2671 | 差 = 0.0534
+  K3 PASS（键控正常）
+
+[A1 量] n=400（≥200 ✓／≤500 ✓） | 城 4（≥3 ✓） | 月 12（≥12 ✓） | horizon 档 mid/short（≥2 ✓）
+  按城 = {"上海":114,"北京":132,"广州":94,"成都":60}
+  按 horizon = {"mid":200,"short":200}
+  按难度 = {"最难":256,"中":132,"近":12}  ⚠「极」档恒 0（与基率域数学互斥，勘误 D2-D）
+
+[A2 泄漏自检] 泄漏率 = 0（要求 0）
+  ① K1 三层断言 = PASS
+  ② 源码扫描 = {"truth_vault_mentions":4,"note":"本脚本仅在 K1 断言中按名字探测（预期失败），非读取真值；生产库路径 p1a.db 出现 3 次"}
+  ③ cutoff 时点扫描 = {"violations":0,"pass":true}
+  ④ 题面库 schema = {"columns":19,"leaked":[],"pass":true}
+  ⑤ 10% 抽样复算 = {"sampled":40,"violations":0,"pass":true}
+  ⇒ A2 PASS
+
+[A5 样本门] 单元总数 6，其中 n<30 的 2 个只标方向 ⇒ 遵守（禁外推）
+[A6 标注] 本报告恒挂「**历史回测·非实时能力**」；前缀【回测】⇒ 机检项见下
+[A7 复现] 跑批命令 = node p1b/scripts/d2-run-backtest.cjs；题面指纹 = bb79f057973c7748…
+
+[K4 无增量即止] v1 的 model ≡ base ⇒ Δ 结构性 = 0 ⇒ **如实报「本域无增量（resolution≈0）」**，不扩量、不换口径重试（规格 §7 K4：这是**允许的负结果**）
+
+注: **本报告为历史回测，不构成实时预测能力证据**；不得计入 G2 月 resolve 吞吐；不得引用为 PREREG 判据达成证据。
+注: 本批**未做 HB 部分池化**（规格 §11.5 要求先预注册；HB 另立 `PREREG-D2-HB-v1`）；n<30 单元仅记方向。
+注: 难度覆盖 3/4 档——「极」档与基率域 (0.15,0.85) **数学互斥**（勘误 D2-D）。
+注: 本脚本**未打开生产库**（零账本写）；只读影子题面库 `predictions-public-surface.db`。
+
+[未覆盖与不可外推]（规格 §5 必含节）
+  · **horizon：未覆盖「长」档（>30 天）**——本批 horizon ∈ {1,3,7,14,30} ⇒ 落 short(≤7)/mid(8–30) 两档；
+    原因：事件窗在 2024 年、基率窗止于 2023-12-31，出题日须晚于基率窗 ⇒ 30 天以上会挤出窗；
+    影响：**不得**据此报告外推「长 horizon 表现」。
+  · **难度：未覆盖「极」档**——与基率域 (0.15,0.85) 数学互斥（勘误 D2-D，已证明）。
+  · **域：仅天气（openmeteo archive 6 变量）**——非全域；不得外推到其他域。
+  · **层：仅 L3**（短窗混沌）——本引擎 v1 不覆盖 L1/L2/L5/L6。
+  · **无增量**：model ≡ base（PREREG §4）⇒ 本批**不构成**任何「模型优于基率」的证据。
