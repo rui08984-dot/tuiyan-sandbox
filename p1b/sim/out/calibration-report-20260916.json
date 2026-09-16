@@ -1,0 +1,380 @@
+{
+ "script": "p1b/scripts/calibration-report.cjs",
+ "title": "分域格校准报告",
+ "stage4_file": "E:\\music player\\p1b\\sim\\out\\stage4-run-five-layers-20260915.json",
+ "g2_file": "E:\\music player\\p1b\\sim\\out\\g2-report-latest-20260915.json",
+ "stage4_present": true,
+ "g2_present": true,
+ "qualification_block": [
+  "重放计分（读侧）：本报告数字来自引擎重放，账本 gate=descriptive 未计分；baseline_brier 列从未写入。",
+  "过程能力门（G2）不含质量读数（门定性恒挂限定语）；对外表述一律挂限定语。",
+  "n<30 的格只记方向、不出结论；格间禁池化。"
+ ],
+ "leakage_statement": {
+  "excluded_rows": 98,
+  "fingerprint": "78b8cedb9d37307a…",
+  "text": "每题 cutoff 合规由管线与真值口径排除保证：已排除真值口径缺陷行 98（resolved_at<事件日 ∧ resolve 含 forecast；指纹 78b8cedb9d37307a…）。"
+ },
+ "bayes_semantics": {
+  "L1": null,
+  "L2": null,
+  "L3": null,
+  "L5": null,
+  "L6": null
+ },
+ "cells": [
+  {
+   "layer": "L1",
+   "domain": "werewolf_sim",
+   "scored_n": 180,
+   "conclusion_allowed": true,
+   "mean_p": 0.5222222222222223,
+   "obs_rate": 0.5222222222222223,
+   "brier_engine": 0,
+   "delta_vs_half": -0.25,
+   "delta_ci95": {
+    "lb": -0.25,
+    "ub": -0.25,
+    "B": 1000,
+    "seed": 987654321,
+    "mean": -0.25
+   }
+  },
+  {
+   "layer": "L2",
+   "domain": "dbnomics",
+   "scored_n": 79,
+   "conclusion_allowed": true,
+   "mean_p": 0.433958151898734,
+   "obs_rate": 0.6075949367088608,
+   "brier_engine": 0.2499836201244809,
+   "delta_vs_half": -0.000016379875519112463,
+   "delta_ci95": {
+    "lb": -0.03399963766516457,
+    "ub": 0.035064291017164545,
+    "B": 1000,
+    "seed": 987654321,
+    "mean": -0.000016379875518991954
+   }
+  },
+  {
+   "layer": "L2",
+   "domain": "energycharts",
+   "scored_n": 57,
+   "conclusion_allowed": true,
+   "mean_p": 0.48038245614035097,
+   "obs_rate": 0.49122807017543857,
+   "brier_engine": 0.24686006025308768,
+   "delta_vs_half": -0.003139939746912318,
+   "delta_ci95": {
+    "lb": -0.03937994450652632,
+    "ub": 0.03517522797936842,
+    "B": 1000,
+    "seed": 987654321,
+    "mean": -0.0031399397469122855
+   }
+  },
+  {
+   "layer": "L2",
+   "domain": "noaa",
+   "scored_n": 35,
+   "conclusion_allowed": true,
+   "mean_p": 0.5252137428571428,
+   "obs_rate": 0.7142857142857143,
+   "brier_engine": 0.22037300854585715,
+   "delta_vs_half": -0.029626991454142854,
+   "delta_ci95": {
+    "lb": -0.06953173415099999,
+    "ub": 0.018114745404714278,
+    "B": 1000,
+    "seed": 987654321,
+    "mean": -0.029626991454142854
+   }
+  },
+  {
+   "layer": "L2",
+   "domain": "wikimedia",
+   "scored_n": 27,
+   "conclusion_allowed": false,
+   "mean_p": null,
+   "obs_rate": 0.25925925925925924,
+   "brier_engine": null,
+   "delta_vs_half": null,
+   "delta_ci95": null
+  },
+  {
+   "layer": "L2",
+   "domain": "kraken",
+   "scored_n": 21,
+   "conclusion_allowed": false,
+   "mean_p": null,
+   "obs_rate": 1,
+   "brier_engine": null,
+   "delta_vs_half": null,
+   "delta_ci95": null
+  },
+  {
+   "layer": "L2",
+   "domain": "eurostat",
+   "scored_n": 16,
+   "conclusion_allowed": false,
+   "mean_p": null,
+   "obs_rate": 0.75,
+   "brier_engine": null,
+   "delta_vs_half": null,
+   "delta_ci95": null
+  },
+  {
+   "layer": "L2",
+   "domain": "frankfurter",
+   "scored_n": 14,
+   "conclusion_allowed": false,
+   "mean_p": null,
+   "obs_rate": 0.42857142857142855,
+   "brier_engine": null,
+   "delta_vs_half": null,
+   "delta_ci95": null
+  },
+  {
+   "layer": "L2",
+   "domain": "delphi",
+   "scored_n": 12,
+   "conclusion_allowed": false,
+   "mean_p": null,
+   "obs_rate": 0.08333333333333333,
+   "brier_engine": null,
+   "delta_vs_half": null,
+   "delta_ci95": null
+  },
+  {
+   "layer": "L2",
+   "domain": "binance",
+   "scored_n": 11,
+   "conclusion_allowed": false,
+   "mean_p": null,
+   "obs_rate": 0,
+   "brier_engine": null,
+   "delta_vs_half": null,
+   "delta_ci95": null
+  },
+  {
+   "layer": "L2",
+   "domain": "npm",
+   "scored_n": 7,
+   "conclusion_allowed": false,
+   "mean_p": null,
+   "obs_rate": 0.7142857142857143,
+   "brier_engine": null,
+   "delta_vs_half": null,
+   "delta_ci95": null
+  },
+  {
+   "layer": "L2",
+   "domain": "github",
+   "scored_n": 6,
+   "conclusion_allowed": false,
+   "mean_p": null,
+   "obs_rate": 1,
+   "brier_engine": null,
+   "delta_vs_half": null,
+   "delta_ci95": null
+  },
+  {
+   "layer": "L2",
+   "domain": "mlb",
+   "scored_n": 5,
+   "conclusion_allowed": false,
+   "mean_p": null,
+   "obs_rate": 0.6,
+   "brier_engine": null,
+   "delta_vs_half": null,
+   "delta_ci95": null
+  },
+  {
+   "layer": "L2",
+   "domain": "cta",
+   "scored_n": 4,
+   "conclusion_allowed": false,
+   "mean_p": null,
+   "obs_rate": 0.25,
+   "brier_engine": null,
+   "delta_vs_half": null,
+   "delta_ci95": null
+  },
+  {
+   "layer": "L2",
+   "domain": "bom",
+   "scored_n": 2,
+   "conclusion_allowed": false,
+   "mean_p": null,
+   "obs_rate": 1,
+   "brier_engine": null,
+   "delta_vs_half": null,
+   "delta_ci95": null
+  },
+  {
+   "layer": "L2",
+   "domain": "crossref",
+   "scored_n": 0,
+   "conclusion_allowed": false,
+   "mean_p": null,
+   "obs_rate": null,
+   "brier_engine": null,
+   "delta_vs_half": null,
+   "delta_ci95": null
+  },
+  {
+   "layer": "L2",
+   "domain": "elexon",
+   "scored_n": 0,
+   "conclusion_allowed": false,
+   "mean_p": null,
+   "obs_rate": null,
+   "brier_engine": null,
+   "delta_vs_half": null,
+   "delta_ci95": null
+  },
+  {
+   "layer": "L2",
+   "domain": "nvd",
+   "scored_n": 0,
+   "conclusion_allowed": false,
+   "mean_p": null,
+   "obs_rate": null,
+   "brier_engine": null,
+   "delta_vs_half": null,
+   "delta_ci95": null
+  },
+  {
+   "layer": "L2",
+   "domain": "openalex",
+   "scored_n": 0,
+   "conclusion_allowed": false,
+   "mean_p": null,
+   "obs_rate": null,
+   "brier_engine": null,
+   "delta_vs_half": null,
+   "delta_ci95": null
+  },
+  {
+   "layer": "L3",
+   "domain": "openmeteo",
+   "scored_n": 369,
+   "conclusion_allowed": true,
+   "mean_p": 0.49349581571815676,
+   "obs_rate": 0.4905149051490515,
+   "brier_engine": 0.24270007412958827,
+   "delta_vs_half": -0.007299925870411728,
+   "delta_ci95": {
+    "lb": -0.02000402892436315,
+    "ub": 0.004927088074219513,
+    "B": 1000,
+    "seed": 987654321,
+    "mean": -0.007299925870411933
+   }
+  },
+  {
+   "layer": "L3",
+   "domain": "ghcn",
+   "scored_n": 13,
+   "conclusion_allowed": false,
+   "mean_p": null,
+   "obs_rate": 1,
+   "brier_engine": null,
+   "delta_vs_half": null,
+   "delta_ci95": null
+  },
+  {
+   "layer": "L3",
+   "domain": "noaa",
+   "scored_n": 6,
+   "conclusion_allowed": false,
+   "mean_p": null,
+   "obs_rate": 0.6666666666666666,
+   "brier_engine": null,
+   "delta_vs_half": null,
+   "delta_ci95": null
+  },
+  {
+   "layer": "L3",
+   "domain": "usgs",
+   "scored_n": 5,
+   "conclusion_allowed": false,
+   "mean_p": null,
+   "obs_rate": 0.6,
+   "brier_engine": null,
+   "delta_vs_half": null,
+   "delta_ci95": null
+  },
+  {
+   "layer": "L3",
+   "domain": "swpc",
+   "scored_n": 4,
+   "conclusion_allowed": false,
+   "mean_p": null,
+   "obs_rate": 1,
+   "brier_engine": null,
+   "delta_vs_half": null,
+   "delta_ci95": null
+  },
+  {
+   "layer": "L3",
+   "domain": "jpl",
+   "scored_n": 2,
+   "conclusion_allowed": false,
+   "mean_p": null,
+   "obs_rate": 0,
+   "brier_engine": null,
+   "delta_vs_half": null,
+   "delta_ci95": null
+  },
+  {
+   "layer": "L5",
+   "domain": "cwl",
+   "scored_n": 30,
+   "conclusion_allowed": true,
+   "mean_p": 0.29848484859999996,
+   "obs_rate": 0.16666666666666666,
+   "brier_engine": 0.13381542702699725,
+   "delta_vs_half": -0.11618457297300275,
+   "delta_ci95": {
+    "lb": -0.15909090904242415,
+    "ub": -0.059297520660055086,
+    "B": 1000,
+    "seed": 987654321,
+    "mean": -0.11618457297300272
+   }
+  },
+  {
+   "layer": "L5",
+   "domain": "dlt",
+   "scored_n": 0,
+   "conclusion_allowed": false,
+   "mean_p": null,
+   "obs_rate": null,
+   "brier_engine": null,
+   "delta_vs_half": null,
+   "delta_ci95": null
+  },
+  {
+   "layer": "L6",
+   "domain": "werewolf_sim",
+   "scored_n": 270,
+   "conclusion_allowed": true,
+   "mean_p": 0.5817407185185183,
+   "obs_rate": 0.5777777777777777,
+   "brier_engine": 0.17545467076550367,
+   "delta_vs_half": -0.07454532923449633,
+   "delta_ci95": {
+    "lb": -0.09164804629622228,
+    "ub": -0.05755035169539631,
+    "B": 1000,
+    "seed": 987654321,
+    "mean": -0.07454532923449632
+   }
+  }
+ ],
+ "generated_at": "2026-09-16T11:43:47.904Z",
+ "cells_total": 28,
+ "cells_with_conclusion": 7
+}

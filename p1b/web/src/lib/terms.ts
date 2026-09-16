@@ -134,7 +134,7 @@ export const TERMS: Record<string, TermEntry> = {
     id: 'calibrationAci',
     term: '校准（ACI）',
     plain: '让区间随漂移调整',
-    definition: '在线校准层：只调整预测区间与披露，不改点估计；校准效果的披露随样本积累。',
+    definition: '在线校准层：只调整区间与披露，不改点估计；校准效果的披露随样本积累。',
     basis: 'l3_aci.js ACI 覆盖率披露（α/γ/EWMA；只调区间不调 p）',
     caveat: '点估计恒为基率',
   },

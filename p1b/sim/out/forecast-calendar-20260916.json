@@ -1,0 +1,822 @@
+{
+ "script": "p1b/scripts/forecast-calendar.cjs",
+ "title": "待验证队列日历",
+ "db": "E:\\music player\\p1a-terminal\\data\\p1a.db",
+ "due_json": "E:\\music player\\p1b\\sim\\out\\resolve-daemon.due.json",
+ "today": "2026-09-16",
+ "basis": "账本侧＝predictions.matures_at（只读）；证据侧＝daemon dueOf 规则同源副本（前 8 条可复制规则；infer:* 不重算如实标注）",
+ "rows": 672,
+ "buckets": {
+  "day_window": {
+   "2026-09-16": 161,
+   "2026-09-15": 43,
+   "2026-09-17": 71,
+   "2026-09-20": 11,
+   "2026-09-22": 12,
+   "2026-09-14": 3,
+   "2026-09-19": 25,
+   "2026-09-21": 5,
+   "2026-09-23": 15,
+   "2026-09-18": 49
+  },
+  "week_window": {
+   "2026-09-24": 4,
+   "2026-09-27": 4,
+   "2026-09-29": 5,
+   "2026-10-01": 18,
+   "2026-10-04": 3,
+   "2026-10-06": 2,
+   "2026-10-08": 2,
+   "2026-09-26": 8,
+   "2026-09-28": 4,
+   "2026-09-30": 2,
+   "2026-10-03": 12,
+   "2026-10-05": 2,
+   "2026-10-07": 2,
+   "2026-10-10": 6,
+   "2026-10-12": 2,
+   "2026-10-14": 2,
+   "2026-10-15": 13,
+   "2026-10-11": 2,
+   "2026-10-13": 2
+  },
+  "gt30": 180,
+  "undatable_ledger": 2
+ },
+ "conservation": {
+  "sum": 672,
+  "rows": 672
+ },
+ "undatable_ids": [
+  {
+   "id": 1119,
+   "kind": "crossref_week_total",
+   "evidence_src": "undatable"
+  },
+  {
+   "id": 1923,
+   "kind": "bom_weekend_top10_gross",
+   "evidence_src": "undatable"
+  }
+ ],
+ "dual_source_row": {
+  "agree": 416,
+  "mismatch_n": 145,
+  "mismatch_show": [
+   {
+    "id": 452,
+    "ledger": "2026-10-31",
+    "evidence": "2026-10-01",
+    "src": "period+1mo"
+   },
+   {
+    "id": 471,
+    "ledger": "2026-11-30",
+    "evidence": "2026-11-01",
+    "src": "period+1mo"
+   },
+   {
+    "id": 472,
+    "ledger": "2026-11-30",
+    "evidence": "2026-11-01",
+    "src": "period+1mo"
+   },
+   {
+    "id": 723,
+    "ledger": "2026-11-30",
+    "evidence": "2026-11-01",
+    "src": "period+1mo"
+   },
+   {
+    "id": 724,
+    "ledger": "2026-12-31",
+    "evidence": "2026-12-01",
+    "src": "period+1mo"
+   },
+   {
+    "id": 725,
+    "ledger": "2026-11-30",
+    "evidence": "2026-11-01",
+    "src": "period+1mo"
+   },
+   {
+    "id": 726,
+    "ledger": "2026-12-31",
+    "evidence": "2026-12-01",
+    "src": "period+1mo"
+   },
+   {
+    "id": 727,
+    "ledger": "2026-11-30",
+    "evidence": "2026-11-01",
+    "src": "period+1mo"
+   },
+   {
+    "id": 728,
+    "ledger": "2026-12-31",
+    "evidence": "2026-12-01",
+    "src": "period+1mo"
+   },
+   {
+    "id": 729,
+    "ledger": "2026-11-30",
+    "evidence": "2026-11-01",
+    "src": "period+1mo"
+   },
+   {
+    "id": 730,
+    "ledger": "2026-12-31",
+    "evidence": "2026-12-01",
+    "src": "period+1mo"
+   },
+   {
+    "id": 737,
+    "ledger": "2026-11-30",
+    "evidence": "2026-11-01",
+    "src": "period+1mo"
+   },
+   {
+    "id": 738,
+    "ledger": "2026-12-31",
+    "evidence": "2026-12-01",
+    "src": "period+1mo"
+   },
+   {
+    "id": 739,
+    "ledger": "2026-11-30",
+    "evidence": "2026-11-01",
+    "src": "period+1mo"
+   },
+   {
+    "id": 740,
+    "ledger": "2026-12-31",
+    "evidence": "2026-12-01",
+    "src": "period+1mo"
+   },
+   {
+    "id": 741,
+    "ledger": "2026-11-30",
+    "evidence": "2026-11-01",
+    "src": "period+1mo"
+   },
+   {
+    "id": 742,
+    "ledger": "2026-12-31",
+    "evidence": "2026-12-01",
+    "src": "period+1mo"
+   },
+   {
+    "id": 743,
+    "ledger": "2026-11-30",
+    "evidence": "2026-11-01",
+    "src": "period+1mo"
+   },
+   {
+    "id": 744,
+    "ledger": "2026-12-31",
+    "evidence": "2026-12-01",
+    "src": "period+1mo"
+   },
+   {
+    "id": 745,
+    "ledger": "2026-11-30",
+    "evidence": "2026-11-01",
+    "src": "period+1mo"
+   },
+   {
+    "id": 746,
+    "ledger": "2026-12-31",
+    "evidence": "2026-12-01",
+    "src": "period+1mo"
+   },
+   {
+    "id": 747,
+    "ledger": "2026-11-30",
+    "evidence": "2026-11-01",
+    "src": "period+1mo"
+   },
+   {
+    "id": 748,
+    "ledger": "2026-12-31",
+    "evidence": "2026-12-01",
+    "src": "period+1mo"
+   },
+   {
+    "id": 749,
+    "ledger": "2026-11-30",
+    "evidence": "2026-11-01",
+    "src": "period+1mo"
+   },
+   {
+    "id": 750,
+    "ledger": "2026-12-31",
+    "evidence": "2026-12-01",
+    "src": "period+1mo"
+   },
+   {
+    "id": 751,
+    "ledger": "2026-11-30",
+    "evidence": "2026-11-01",
+    "src": "period+1mo"
+   },
+   {
+    "id": 752,
+    "ledger": "2026-12-31",
+    "evidence": "2026-12-01",
+    "src": "period+1mo"
+   },
+   {
+    "id": 753,
+    "ledger": "2026-11-30",
+    "evidence": "2026-11-01",
+    "src": "period+1mo"
+   },
+   {
+    "id": 754,
+    "ledger": "2026-12-31",
+    "evidence": "2026-12-01",
+    "src": "period+1mo"
+   },
+   {
+    "id": 755,
+    "ledger": "2026-11-30",
+    "evidence": "2026-11-01",
+    "src": "period+1mo"
+   },
+   {
+    "id": 756,
+    "ledger": "2026-12-31",
+    "evidence": "2026-12-01",
+    "src": "period+1mo"
+   },
+   {
+    "id": 757,
+    "ledger": "2026-11-30",
+    "evidence": "2026-11-01",
+    "src": "period+1mo"
+   },
+   {
+    "id": 758,
+    "ledger": "2026-12-31",
+    "evidence": "2026-12-01",
+    "src": "period+1mo"
+   },
+   {
+    "id": 759,
+    "ledger": "2026-11-30",
+    "evidence": "2026-11-01",
+    "src": "period+1mo"
+   },
+   {
+    "id": 760,
+    "ledger": "2026-12-31",
+    "evidence": "2026-12-01",
+    "src": "period+1mo"
+   },
+   {
+    "id": 761,
+    "ledger": "2026-11-30",
+    "evidence": "2026-11-01",
+    "src": "period+1mo"
+   },
+   {
+    "id": 762,
+    "ledger": "2026-12-31",
+    "evidence": "2026-12-01",
+    "src": "period+1mo"
+   },
+   {
+    "id": 763,
+    "ledger": "2026-11-30",
+    "evidence": "2026-11-01",
+    "src": "period+1mo"
+   },
+   {
+    "id": 764,
+    "ledger": "2026-12-31",
+    "evidence": "2026-12-01",
+    "src": "period+1mo"
+   },
+   {
+    "id": 765,
+    "ledger": "2026-11-30",
+    "evidence": "2026-11-01",
+    "src": "period+1mo"
+   },
+   {
+    "id": 766,
+    "ledger": "2026-12-31",
+    "evidence": "2026-12-01",
+    "src": "period+1mo"
+   },
+   {
+    "id": 767,
+    "ledger": "2026-11-30",
+    "evidence": "2026-11-01",
+    "src": "period+1mo"
+   },
+   {
+    "id": 768,
+    "ledger": "2026-12-31",
+    "evidence": "2026-12-01",
+    "src": "period+1mo"
+   },
+   {
+    "id": 769,
+    "ledger": "2026-11-30",
+    "evidence": "2026-11-01",
+    "src": "period+1mo"
+   },
+   {
+    "id": 770,
+    "ledger": "2026-12-31",
+    "evidence": "2026-12-01",
+    "src": "period+1mo"
+   },
+   {
+    "id": 771,
+    "ledger": "2026-11-30",
+    "evidence": "2026-11-01",
+    "src": "period+1mo"
+   },
+   {
+    "id": 772,
+    "ledger": "2026-12-31",
+    "evidence": "2026-12-01",
+    "src": "period+1mo"
+   },
+   {
+    "id": 773,
+    "ledger": "2026-11-30",
+    "evidence": "2026-11-01",
+    "src": "period+1mo"
+   },
+   {
+    "id": 774,
+    "ledger": "2026-12-31",
+    "evidence": "2026-12-01",
+    "src": "period+1mo"
+   },
+   {
+    "id": 775,
+    "ledger": "2026-11-30",
+    "evidence": "2026-11-01",
+    "src": "period+1mo"
+   }
+  ],
+  "ledger_only_n": 109,
+  "ledger_only_show": [
+   {
+    "id": 733,
+    "ledger": "2026-09-15",
+    "evidence_src": "infer:*（daemon 侧推断，本脚本不重算）"
+   },
+   {
+    "id": 734,
+    "ledger": "2026-09-15",
+    "evidence_src": "infer:*（daemon 侧推断，本脚本不重算）"
+   },
+   {
+    "id": 735,
+    "ledger": "2026-09-17",
+    "evidence_src": "infer:*（daemon 侧推断，本脚本不重算）"
+   },
+   {
+    "id": 736,
+    "ledger": "2026-09-17",
+    "evidence_src": "infer:*（daemon 侧推断，本脚本不重算）"
+   },
+   {
+    "id": 818,
+    "ledger": "2026-09-15",
+    "evidence_src": "infer:*（daemon 侧推断，本脚本不重算）"
+   },
+   {
+    "id": 819,
+    "ledger": "2026-09-17",
+    "evidence_src": "infer:*（daemon 侧推断，本脚本不重算）"
+   },
+   {
+    "id": 820,
+    "ledger": "2026-09-20",
+    "evidence_src": "infer:*（daemon 侧推断，本脚本不重算）"
+   },
+   {
+    "id": 821,
+    "ledger": "2026-09-22",
+    "evidence_src": "infer:*（daemon 侧推断，本脚本不重算）"
+   },
+   {
+    "id": 822,
+    "ledger": "2026-09-24",
+    "evidence_src": "infer:*（daemon 侧推断，本脚本不重算）"
+   },
+   {
+    "id": 823,
+    "ledger": "2026-09-27",
+    "evidence_src": "infer:*（daemon 侧推断，本脚本不重算）"
+   },
+   {
+    "id": 824,
+    "ledger": "2026-09-29",
+    "evidence_src": "infer:*（daemon 侧推断，本脚本不重算）"
+   },
+   {
+    "id": 825,
+    "ledger": "2026-10-01",
+    "evidence_src": "infer:*（daemon 侧推断，本脚本不重算）"
+   },
+   {
+    "id": 826,
+    "ledger": "2026-10-04",
+    "evidence_src": "infer:*（daemon 侧推断，本脚本不重算）"
+   },
+   {
+    "id": 827,
+    "ledger": "2026-10-06",
+    "evidence_src": "infer:*（daemon 侧推断，本脚本不重算）"
+   },
+   {
+    "id": 828,
+    "ledger": "2026-10-08",
+    "evidence_src": "infer:*（daemon 侧推断，本脚本不重算）"
+   },
+   {
+    "id": 830,
+    "ledger": "2026-09-15",
+    "evidence_src": "infer:*（daemon 侧推断，本脚本不重算）"
+   },
+   {
+    "id": 831,
+    "ledger": "2026-09-17",
+    "evidence_src": "infer:*（daemon 侧推断，本脚本不重算）"
+   },
+   {
+    "id": 832,
+    "ledger": "2026-09-20",
+    "evidence_src": "infer:*（daemon 侧推断，本脚本不重算）"
+   },
+   {
+    "id": 833,
+    "ledger": "2026-09-22",
+    "evidence_src": "infer:*（daemon 侧推断，本脚本不重算）"
+   },
+   {
+    "id": 834,
+    "ledger": "2026-09-24",
+    "evidence_src": "infer:*（daemon 侧推断，本脚本不重算）"
+   },
+   {
+    "id": 835,
+    "ledger": "2026-09-27",
+    "evidence_src": "infer:*（daemon 侧推断，本脚本不重算）"
+   },
+   {
+    "id": 836,
+    "ledger": "2026-09-29",
+    "evidence_src": "infer:*（daemon 侧推断，本脚本不重算）"
+   },
+   {
+    "id": 837,
+    "ledger": "2026-10-01",
+    "evidence_src": "infer:*（daemon 侧推断，本脚本不重算）"
+   },
+   {
+    "id": 838,
+    "ledger": "2026-10-04",
+    "evidence_src": "infer:*（daemon 侧推断，本脚本不重算）"
+   },
+   {
+    "id": 839,
+    "ledger": "2026-10-06",
+    "evidence_src": "infer:*（daemon 侧推断，本脚本不重算）"
+   },
+   {
+    "id": 840,
+    "ledger": "2026-10-08",
+    "evidence_src": "infer:*（daemon 侧推断，本脚本不重算）"
+   },
+   {
+    "id": 841,
+    "ledger": "2026-09-14",
+    "evidence_src": "infer:*（daemon 侧推断，本脚本不重算）"
+   },
+   {
+    "id": 842,
+    "ledger": "2026-09-16",
+    "evidence_src": "infer:*（daemon 侧推断，本脚本不重算）"
+   },
+   {
+    "id": 843,
+    "ledger": "2026-09-19",
+    "evidence_src": "infer:*（daemon 侧推断，本脚本不重算）"
+   },
+   {
+    "id": 844,
+    "ledger": "2026-09-21",
+    "evidence_src": "infer:*（daemon 侧推断，本脚本不重算）"
+   },
+   {
+    "id": 845,
+    "ledger": "2026-09-23",
+    "evidence_src": "infer:*（daemon 侧推断，本脚本不重算）"
+   },
+   {
+    "id": 846,
+    "ledger": "2026-09-26",
+    "evidence_src": "infer:*（daemon 侧推断，本脚本不重算）"
+   },
+   {
+    "id": 847,
+    "ledger": "2026-09-28",
+    "evidence_src": "infer:*（daemon 侧推断，本脚本不重算）"
+   },
+   {
+    "id": 848,
+    "ledger": "2026-09-30",
+    "evidence_src": "infer:*（daemon 侧推断，本脚本不重算）"
+   },
+   {
+    "id": 849,
+    "ledger": "2026-10-03",
+    "evidence_src": "infer:*（daemon 侧推断，本脚本不重算）"
+   },
+   {
+    "id": 850,
+    "ledger": "2026-10-05",
+    "evidence_src": "infer:*（daemon 侧推断，本脚本不重算）"
+   },
+   {
+    "id": 851,
+    "ledger": "2026-10-07",
+    "evidence_src": "infer:*（daemon 侧推断，本脚本不重算）"
+   },
+   {
+    "id": 852,
+    "ledger": "2026-10-10",
+    "evidence_src": "infer:*（daemon 侧推断，本脚本不重算）"
+   },
+   {
+    "id": 853,
+    "ledger": "2026-10-12",
+    "evidence_src": "infer:*（daemon 侧推断，本脚本不重算）"
+   },
+   {
+    "id": 854,
+    "ledger": "2026-10-14",
+    "evidence_src": "infer:*（daemon 侧推断，本脚本不重算）"
+   },
+   {
+    "id": 855,
+    "ledger": "2026-10-17",
+    "evidence_src": "infer:*（daemon 侧推断，本脚本不重算）"
+   },
+   {
+    "id": 856,
+    "ledger": "2026-10-19",
+    "evidence_src": "infer:*（daemon 侧推断，本脚本不重算）"
+   },
+   {
+    "id": 857,
+    "ledger": "2026-09-14",
+    "evidence_src": "infer:*（daemon 侧推断，本脚本不重算）"
+   },
+   {
+    "id": 858,
+    "ledger": "2026-09-16",
+    "evidence_src": "infer:*（daemon 侧推断，本脚本不重算）"
+   },
+   {
+    "id": 859,
+    "ledger": "2026-09-19",
+    "evidence_src": "infer:*（daemon 侧推断，本脚本不重算）"
+   },
+   {
+    "id": 860,
+    "ledger": "2026-09-21",
+    "evidence_src": "infer:*（daemon 侧推断，本脚本不重算）"
+   },
+   {
+    "id": 861,
+    "ledger": "2026-09-23",
+    "evidence_src": "infer:*（daemon 侧推断，本脚本不重算）"
+   },
+   {
+    "id": 862,
+    "ledger": "2026-09-26",
+    "evidence_src": "infer:*（daemon 侧推断，本脚本不重算）"
+   },
+   {
+    "id": 863,
+    "ledger": "2026-09-28",
+    "evidence_src": "infer:*（daemon 侧推断，本脚本不重算）"
+   },
+   {
+    "id": 864,
+    "ledger": "2026-09-30",
+    "evidence_src": "infer:*（daemon 侧推断，本脚本不重算）"
+   }
+  ],
+  "evidence_only_n": 0,
+  "evidence_only_show": [],
+  "both_none": 2,
+  "rule": "只披露不裁决（对齐 daemon「refused 只记差异」语义）；差异 >10% 触发人工对账而非自动改数"
+ },
+ "dual_source_bucket": {
+  "ledger_by_day_n": 46,
+  "evidence_by_day_n": 46,
+  "diff_days": 27,
+  "diff": [
+   {
+    "day": "2026-09-20",
+    "ledger": 11,
+    "evidence_daemon": 9
+   },
+   {
+    "day": "2026-09-22",
+    "ledger": 12,
+    "evidence_daemon": 5
+   },
+   {
+    "day": "2026-09-23",
+    "ledger": 15,
+    "evidence_daemon": 22
+   },
+   {
+    "day": "2026-09-24",
+    "ledger": 4,
+    "evidence_daemon": 2
+   },
+   {
+    "day": "2026-09-26",
+    "ledger": 8,
+    "evidence_daemon": 2
+   },
+   {
+    "day": "2026-09-27",
+    "ledger": 4,
+    "evidence_daemon": 5
+   },
+   {
+    "day": "2026-09-28",
+    "ledger": 4,
+    "evidence_daemon": 2
+   },
+   {
+    "day": "2026-09-29",
+    "ledger": 5,
+    "evidence_daemon": 2
+   },
+   {
+    "day": "2026-09-30",
+    "ledger": 2,
+    "evidence_daemon": 5
+   },
+   {
+    "day": "2026-10-01",
+    "ledger": 18,
+    "evidence_daemon": 20
+   },
+   {
+    "day": "2026-10-02",
+    "ledger": 0,
+    "evidence_daemon": 3
+   },
+   {
+    "day": "2026-10-03",
+    "ledger": 12,
+    "evidence_daemon": 8
+   },
+   {
+    "day": "2026-10-04",
+    "ledger": 3,
+    "evidence_daemon": 2
+   },
+   {
+    "day": "2026-10-10",
+    "ledger": 6,
+    "evidence_daemon": 2
+   },
+   {
+    "day": "2026-10-11",
+    "ledger": 2,
+    "evidence_daemon": 5
+   },
+   {
+    "day": "2026-10-15",
+    "ledger": 13,
+    "evidence_daemon": 10
+   },
+   {
+    "day": "2026-10-16",
+    "ledger": 0,
+    "evidence_daemon": 3
+   },
+   {
+    "day": "2026-10-17",
+    "ledger": 8,
+    "evidence_daemon": 2
+   },
+   {
+    "day": "2026-10-18",
+    "ledger": 2,
+    "evidence_daemon": 5
+   },
+   {
+    "day": "2026-10-30",
+    "ledger": 16,
+    "evidence_daemon": 13
+   },
+   {
+    "day": "2026-10-31",
+    "ledger": 5,
+    "evidence_daemon": 3
+   },
+   {
+    "day": "2026-11-01",
+    "ledger": 0,
+    "evidence_daemon": 60
+   },
+   {
+    "day": "2026-11-30",
+    "ledger": 60,
+    "evidence_daemon": 0
+   },
+   {
+    "day": "2026-12-01",
+    "ledger": 0,
+    "evidence_daemon": 52
+   },
+   {
+    "day": "2026-12-31",
+    "ledger": 52,
+    "evidence_daemon": 0
+   },
+   {
+    "day": "2027-12-31",
+    "ledger": 3,
+    "evidence_daemon": 0
+   },
+   {
+    "day": "2028-12-31",
+    "ledger": 8,
+    "evidence_daemon": 0
+   }
+  ]
+ },
+ "evidence_src_counts": {
+  "period+1mo": 91,
+  "resolve.date": 416,
+  "infer:*（daemon 侧推断，本脚本不重算）": 78,
+  "week_end+1d": 9,
+  "end+1d": 19,
+  "month+1mo": 26,
+  "undatable": 33
+ },
+ "by_kind": {
+  "dbnomics_series_value": 91,
+  "openmeteo_daily_max": 4,
+  "cwl_ssq_red_contains": 20,
+  "cwl_ssq_blue_odd": 20,
+  "dlt_draw_result": 38,
+  "openmeteo_air_pm10_daily_mean": 25,
+  "binance_daily_close": 25,
+  "wikimedia_pageviews": 26,
+  "github_weekly_commits": 9,
+  "frankfurter_rate_range": 22,
+  "npm_downloads_window": 23,
+  "dbnomics_bis_monthly_mean": 14,
+  "eurostat_live_tertiary_attain": 3,
+  "cta_daily_total_rides": 3,
+  "noaa_solar_cycle_ssn_monthly": 2,
+  "ghcn_daily_tmax": 13,
+  "crossref_week_total": 6,
+  "elexon_fuelhh_daily_mean": 9,
+  "openmeteo_air_pm2_5_daily_mean": 12,
+  "openmeteo_air_ozone_daily_mean": 12,
+  "noaa_tide_daily_max": 12,
+  "openmeteo_forecast_daily_precipitation_sum": 21,
+  "openmeteo_forecast_daily_wind_speed_10m_max": 24,
+  "openmeteo_forecast_daily_sunshine_duration": 24,
+  "energycharts_public_power_daily_mean": 10,
+  "delphi_fluview_num_ili": 3,
+  "nvd_cve_week_count": 5,
+  "kraken_daily_close": 9,
+  "mlb_schedule_daily_total_runs": 5,
+  "eurostat_live_unemployment_monthly": 6,
+  "openmeteo_air_daily_mean": 64,
+  "openmeteo_wx_daily": 30,
+  "noaa_tide_daily_high": 10,
+  "energycharts_daily_mean": 32,
+  "usgs_nwis_daily_discharge": 11,
+  "noaa_gml_co2_daily": 5,
+  "openmeteo_marine_sst_daily": 4,
+  "jpl_cad_monthly_count": 2,
+  "swpc_solar_cycle_monthly": 2,
+  "eurostat_demo_pjan_annual": 8,
+  "bom_weekend_top10_gross": 2,
+  "delphi_fluview_ili": 6
+ },
+ "disclaimer": "本件为只读披露（非判据）；账本零写；数字随时间自然漂移（今日快照）",
+ "generated_at": "2026-09-16T11:43:47.774Z"
+}

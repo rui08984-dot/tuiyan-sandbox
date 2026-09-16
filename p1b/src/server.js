@@ -75,6 +75,7 @@ async function buildServer(opts) {
   require('./routes/adapters').register(app, ctx); // 通用化：GET /api/adapters 游戏类型登记（内置 werewolf/botc/script + 扫 adapters/ 目录自动登记 avalon）
   require('./routes/intake').register(app, ctx); // 阶段 3 出口件（2026-09-13）：对外开放接题 POST /api/intake/classify + GET /api/intake/rejects（拒收门三问 + 六层判定 + 拒收日志，additive 新表 intake_rejects，零碰既有列）
   require('./routes/auditKpi').register(app, ctx); // UI 重构步 2：审计页 KPI 只读端点 GET /api/audit/g2-kpi（合格池/最难档/域外计数 + 分层 Brier 置信区间；纯 SQL 只读零写，口径与 g2-report.cjs 同源，既有 /api/audit/summary 契约不变）
+  require('./routes/disclosure').register(app, ctx); // P0-U7/U8（2026-09-16）：披露件只读端点 GET /api/disclosure/calendar｜/calibration（读 sim/out 落盘件；缺件 404 带生成命令；零写库）
 
   // 静态托管前端 dist：存在则挂（挂在 /api 之后，显式路由优先），不存在静默跳过
   if (fs.existsSync(WEB_DIST)) {

@@ -12,6 +12,8 @@ import SettingsPage from './pages/SettingsPage';
 import MysticPage from './pages/mystic/MysticPage';
 import AuditPage from './pages/audit/AuditPage';
 import IntakePage from './pages/intake/IntakePage';
+import CalendarPage from './pages/disclosure/CalendarPage';           // P0-U7（2026-09-16）：待验证队列日历页
+import CalibrationReportPage from './pages/disclosure/CalibrationReportPage'; // P0-U8（2026-09-16）：分域格校准报告页
 import { IconLayers, IconCompass, IconGear, IconBook, TermDrawer } from './components/ui';
 import './styles/p1b6.css';
 
@@ -25,6 +27,7 @@ const toolCls = ({ isActive }: { isActive: boolean }) => 'appbar-gear' + (isActi
 function containerClass(path: string): string {
   if (path === '/audit') return 'content content--wide';
   if (path === '/intake' || path === '/manage') return 'content content--wide';
+  if (path === '/calendar' || path === '/calibration') return 'content content--wide'; // P0-U7/U8 披露页（表格宽档）
   if (path === '/settings') return 'content content--form';
   return 'content';
 }
@@ -45,6 +48,8 @@ function Shell() {
             <NavLink to="/intake" className={linkCls}>接题</NavLink>
             <NavLink to="/manage" className={linkCls}>对局</NavLink>
             <NavLink to="/audit" className={linkCls}>审计</NavLink>
+            <NavLink to="/calendar" className={linkCls}>日历</NavLink>
+            <NavLink to="/calibration" className={linkCls}>校准</NavLink>
           </nav>
           <button type="button" className="appbar-gear" onClick={() => setTermsOpen(true)} aria-label="术语表" title="术语表">
             <IconBook size={18} />
@@ -65,6 +70,8 @@ function Shell() {
           <Route path="/mystic" element={<MysticPage />} />
           <Route path="/audit" element={<AuditPage />} />
           <Route path="/intake" element={<IntakePage />} />
+          <Route path="/calendar" element={<CalendarPage />} />
+          <Route path="/calibration" element={<CalibrationReportPage />} />
           {/* 旧路径重定向保兼容（书签/旧链接） */}
           <Route path="/live" element={<Navigate to="/" replace />} />
           <Route path="/games" element={<Navigate to="/manage" replace />} />

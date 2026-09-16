@@ -1,0 +1,128 @@
+#!/usr/bin/env node
+'use strict';
+/*
+ * p1b/scripts/calibration-report.cjs —— P0-U8 · 分域格校准报告（2026-09-16）
+ *
+ * 依据：【13】§二 U8。原则：**零引擎重跑、零新评分路径**——只呈现 stage4 读数件里的现成列，
+ *   加上 U2 的贝叶斯语义标注、限定语块、防泄漏声明与口径边界明文。
+ * 纪律：只读（读 sim/out 的 JSON 件；缺件标 n/a 不编数）；零写库；文案过禁词黑名单（铁律②）。
+ * 用法：node p1b/scripts/calibration-report.cjs [--stage4 <path>] [--g2 <path>] [--out-dir <dir>]
+ */
+const fs = require('fs');
+const path = require('path');
+const ROOT = path.resolve(__dirname, '..', '..');
+function arg(n, d) { const i = process.argv.indexOf('--' + n); return i >= 0 && process.argv[i + 1] && process.argv[i + 1].slice(0, 2) !== '--' ? process.argv[i + 1] : d; }
+
+const OUT_DIR = arg('out-dir', path.join(ROOT, 'p1b', 'sim', 'out'));
+// latestByPattern（board.cjs L21-27 同款；照【13】U8 原文"不新建公共模块以免动 board"）
+function latestByPattern(dir, re, fallback) {
+  try { const c = fs.readdirSync(dir).filter((f) => re.test(f)).sort(); if (c.length) return path.join(dir, c[c.length - 1]); } catch (e) { /* ignore */ }
+  return path.join(dir, fallback);
+}
+const S4 = arg('stage4', latestByPattern(OUT_DIR, /^stage4-run-five-layers-\d{8}\.json$/, 'stage4-run-five-layers-20260914.json'));
+const G2 = arg('g2', latestByPattern(OUT_DIR, /^g2-report-latest-\d{8}\.json$/, 'g2-report-latest-20260914.json'));
+
+function readJson(p) { try { return JSON.parse(fs.readFileSync(p, 'utf8')); } catch (e) { return null; } }
+const s4 = readJson(S4);
+const g2 = readJson(G2);
+
+const L = []; const json = {
+  script: 'p1b/scripts/calibration-report.cjs', title: '分域格校准报告',
+  stage4_file: S4, g2_file: G2, stage4_present: !!s4, g2_present: !!g2,
+  qualification_block: [
+    '重放计分（读侧）：本报告数字来自引擎重放，账本 gate=descriptive 未计分；baseline_brier 列从未写入。',
+    '过程能力门（G2）不含质量读数（门定性恒挂限定语）；对外表述一律挂限定语。',
+    'n<30 的格只记方向、不出结论；格间禁池化。',
+  ],
+  leakage_statement: null, bayes_semantics: null, cells: [], generated_at: new Date().toISOString(),
+};
+L.push('# 分域格校准报告（' + new Date().toISOString().slice(0, 10) + '）');
+L.push('');
+L.push('> 只呈现既有读数件的现成列（零新算）；缺件标 n/a 不编数。');
+L.push('');
+
+// ③ 限定语块
+L.push('## 限定语块');
+for (const q of json.qualification_block) L.push('- ' + q);
+L.push('');
+
+// ④ 防泄漏声明（引 stage4 的真值口径排除计数）
+if (s4) {
+  const ex = s4.truth_basis_defect_excluded_rows;
+  const fp = s4.truth_basis_defect_fingerprint ? String(s4.truth_basis_defect_fingerprint).slice(0, 16) + '…' : 'n/a';
+  json.leakage_statement = { excluded_rows: ex !== undefined ? ex : null, fingerprint: fp,
+    text: '每题 cutoff 合规由管线与真值口径排除保证：已排除真值口径缺陷行 ' + (ex !== undefined ? ex : 'n/a') + '（resolved_at<事件日 ∧ resolve 含 forecast；指纹 ' + fp + '）。' };
+  L.push('## 防泄漏声明');
+  L.push('- ' + json.leakage_statement.text);
+  L.push('');
+} else {
+  json.leakage_statement = { excluded_rows: null, fingerprint: null, text: 'n/a（缺 stage4 读数件）' };
+  L.push('## 防泄漏声明');
+  L.push('- n/a（缺 stage4 读数件：' + S4 + '）');
+  L.push('');
+}
+
+// ② 五层贝叶斯语义标注（读 U2 的 bayes_semantics；缺件 n/a）
+if (s4 && s4.report) {
+  json.bayes_semantics = {};
+  L.push('## 五层贝叶斯语义（记账语言）');
+  for (const layer of Object.keys(s4.report).sort()) {
+    const bs = s4.report[layer].bayes_semantics;
+    json.bayes_semantics[layer] = bs || null;
+    L.push('- ' + layer + '：' + (bs ? bs.role + '（' + bs.note + '）' : 'n/a（读数件无此键——旧件）'));
+  }
+  if (s4.bayes_legend) L.push('- 词汇源：' + s4.bayes_legend.source);
+  L.push('');
+} else {
+  L.push('## 五层贝叶斯语义（记账语言）');
+  L.push('- n/a（缺 stage4 读数件）');
+  L.push('');
+}
+
+// ① 分域格校准表（直接呈现 by_domain 现成列）
+if (s4 && Array.isArray(s4.by_domain)) {
+  json.cells = s4.by_domain.map((d) => ({
+    layer: d.layer, domain: d.domain, scored_n: d.scored_n, conclusion_allowed: !!d.conclusion_allowed,
+    mean_p: d.mean_p !== undefined ? d.mean_p : null, obs_rate: d.obs_rate !== undefined ? d.obs_rate : null,
+    brier_engine: d.brier_engine !== undefined ? d.brier_engine : null,
+    delta_vs_half: d.delta_vs_half !== undefined ? d.delta_vs_half : null,
+    delta_ci95: d.delta_ci95 || null,
+  }));
+  json.cells_total = json.cells.length;
+  json.cells_with_conclusion = json.cells.filter((c) => c.conclusion_allowed).length;
+  L.push('## 分域格校准表（' + json.cells_total + ' 格；可出结论 ' + json.cells_with_conclusion + '）');
+  L.push('');
+  L.push('| 层 | 域 | n | 平均 p | 观测率 | Brier | Δ(vs 0.5) | 95% CI | 结论 |');
+  L.push('|---|---|---|---|---|---|---|---|---|');
+  for (const c of json.cells) {
+    const f = (x) => (x === null || x === undefined || !isFinite(x)) ? 'n/a' : Number(x).toFixed(4);
+    const ci = c.delta_ci95 && c.delta_ci95.lb !== null && c.delta_ci95.lb !== undefined ? '[' + f(c.delta_ci95.lb) + ',' + f(c.delta_ci95.ub) + ']' : 'n/a';
+    L.push('| ' + c.layer + ' | ' + c.domain + ' | ' + c.scored_n + ' | ' + f(c.mean_p) + ' | ' + f(c.obs_rate) + ' | ' + f(c.brier_engine) + ' | ' + f(c.delta_vs_half) + ' | ' + ci + ' | ' + (c.conclusion_allowed ? '可出结论' : 'n<30 仅方向') + ' |');
+  }
+  L.push('');
+} else {
+  json.cells_total = null; json.cells_with_conclusion = null;
+  L.push('## 分域格校准表');
+  L.push('- n/a（缺 stage4 读数件或缺 by_domain 键）');
+  L.push('');
+}
+
+// ⑤ 口径边界明文（两个口径不混）
+L.push('## 口径边界（两个口径，两不相动）');
+L.push('- A｜账本口径：`p1b/src/routes/audit.js` `/api/audit/summary` → `layer_calibration`（读 predictions.assigned_prob）。');
+L.push('- B｜引擎重放口径：本报告（读 stage4 读数件；引擎逐题重放出数）。');
+L.push('- 两口径数字不可互相搬运；本报告只用 B。g2-report 本体零改动。');
+L.push('');
+L.push('（零写库 · 只读披露件 · P0 只呈现不新算）');
+
+const md = L.join('\n') + '\n';
+const today = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+fs.mkdirSync(OUT_DIR, { recursive: true });
+const jf = path.join(OUT_DIR, 'calibration-report-' + today + '.json');
+const mf = path.join(OUT_DIR, 'calibration-report-' + today + '.md');
+fs.writeFileSync(jf, JSON.stringify(json, null, 1), 'utf8');
+fs.writeFileSync(mf, md, 'utf8');
+console.log('=== 分域格校准报告（P0-U8）===');
+console.log('stage4=' + (json.stage4_present ? 'ok' : 'n/a') + ' 格数=' + json.cells_total + ' 可出结论=' + json.cells_with_conclusion);
+console.log('json -> ' + jf);
+console.log('md   -> ' + mf);
