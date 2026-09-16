@@ -1,7 +1,7 @@
 # p1b/scripts 目录索引（脚本都在干什么）
 
 > **自动生成，勿手改**——`node p1b/scripts/scripts-index.cjs`（任务 6 批次 3 / 命名整理）。
-> 生成时点：2026-09-16T12:11:11.891Z｜在役脚本 90 个｜归档件见文末。
+> 生成时点：2026-09-16T12:58:44.259Z｜在役脚本 93 个｜归档件见文末。
 > 命名约定：`corpus-*` 取数出题｜`g2-*` 门禁报表｜`stage4-*` 分层真跑｜`prereg-a-*` 命题 A｜**默认 dry-run、写库须 `--confirm`**（项目纪律）。
 
 ## 使用者友好面（先看这几个）（4）
@@ -60,7 +60,7 @@
 | `prereg-a-sweep.cjs` | 命题 A 全量补齐「扫尾」（2026-09-14） | **可写库**（`--confirm` 才写；默认 dry-run） |
 | `prereg-a-windows.cjs` | PREREG-命题A-3.0消融 · §5 双窗参数件（跑批参数显式落盘；**禁止两窗合并**） | 只读 |
 
-## 其余工具（59）
+## 其余工具（62）
 
 | 脚本 | 一句话 | 写库 |
 |---|---|---|
@@ -97,6 +97,7 @@
 | `dna-s-backfill.cjs` | E1 · S 维标签回填（旁路表，INSERT-only）（2026-09-16） | **可写库**（`--confirm` 才写；默认 dry-run） |
 | `dna-s-dryrun.cjs` | DNA S 维读侧**试标**（P0-U6 · 2026-09-16） | 只读 |
 | `dna-s-judge.cjs` | E1 判据（分层配对 bootstrap）＋ 前置门守卫（2026-09-16） | 只读 |
+| `dna-s-source-snapshot.cjs` | E1 主口径 · 源数据侧快照重建（2026-09-16 · P0+） | 只读 |
 | `e2-shadow-score.cjs` | E2 影子评分与组合预检（**未冻结 · 探索性**）（2026-09-16） | 只读 |
 | `effective-source-snapshot.cjs` | 阶段 5 开工前置 ⑤：记录并冻结「实际生效源」配置快照。 | 只读 |
 | `file-map.cjs` | 项目「文件全图」生成器（用户令 2026-09-14 深夜：项目地图要「目录一样，每个相关文件路径都在，并说是什么」） | 只读 |
@@ -109,6 +110,7 @@
 | `m2-ingest-ep789.cjs` | M2 第7/8/9局（PandaKill S1E6 三局）公开层入库 | 只读 |
 | `merged-migration.cjs` | 计划内「合并迁移」执行器 | 只读 |
 | `metaculus-token-check.cjs` | Metaculus token 接入检查（任务 10 步骤 1 · 2026-09-16） | 只读 |
+| `negative-results.cjs` | I2 负结果账本 v0（对内）（2026-09-16 · P0+ · 蓝图 §2.1#8 / 15-I2） | 只读 |
 | `report-layered.cjs` | 微步 3 报表：分层 ECE（下界口径）+逐路 Brier vs 0.5 占位+相关矩阵→λ̂→γ̂。探索性（90<200 只记不评）。 | 只读 |
 | `report-murphy.cjs` | 批次 1.5 · Murphy 三分解报表（K F56，零 LLM，库只读）。 | 只读 |
 | `sim-templates-v2.cjs` | ───────────────────────────────────────────────────────────────────────────── | 只读 |
@@ -118,6 +120,7 @@
 | `stage5-forecast-signal.cjs` | 阶段 5 路线 (b)「前瞻数值信号」**冻结实验的可复现脚本**。 | 只读 |
 | `stage5-leak-probe.cjs` | 阶段 5 开工前置 ④-A：**泄漏三层探针 + canary 的工程验证**。 | 只读 |
 | `ts-rebacktest.cjs` | 批次 1.5 · TS/Platt 离线回测（零 LLM，库只读）。 | 只读 |
+| `u8-columns.cjs` | U8 加列读侧派生：KL 可预报性 / Murphy 三分解 / prequential 累计曲线（2026-09-16 · P0+） | 只读 |
 | `ui-pages-probe.cjs` | 四页(live/intake/manage/settings) before/after 截图 + 四断点横向溢出实测。 | 只读 |
 | `ui-refactor-evidence.cjs` | UI 重构验收证据（DOM+computed-style ＋ 色彩对比 ＋ 前后对比）。 | 只读 |
 | `ui-refactor-probe.cjs` | UI 重构前后对比探针（Playwright/Edge 无头，隔离端口 8791）。 | 只读 |

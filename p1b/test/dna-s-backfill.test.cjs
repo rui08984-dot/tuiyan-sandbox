@@ -60,10 +60,10 @@ test('③ judge 无 gate ⇒ GATE_PENDING 且拒绝出读数（退出码 4）', 
   assert.equal(code, 4, '退出码应为 4（GATE_PENDING）');
 });
 
-test('④ source 路由硬失败（不冒充主口径）', () => {
+test('④ 非法路由硬失败（--route 仅 ledger|source）；source 主口径已实现不再硬失败', () => {
   let code = 0, err = '';
-  try { execFileSync(process.execPath, [BACKFILL, '--db', PROD, '--route', 'source'], { stdio: 'pipe' }); }
+  try { execFileSync(process.execPath, [BACKFILL, '--db', PROD, '--route', 'bogus'], { stdio: 'pipe' }); }
   catch (e) { code = e.status; err = String(e.stderr || ''); }
   assert.equal(code, 3, '应硬失败退出 3');
-  assert.match(err, /ROUTE_UNSUPPORTED/, '应说明未实现');
+  assert.match(err, /ROUTE_UNSUPPORTED/, '应说明路由不支持');
 });
