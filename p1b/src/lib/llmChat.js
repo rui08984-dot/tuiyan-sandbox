@@ -13,16 +13,20 @@
  * 仅供 routes/oracle.js 赛后娱乐判词使用，禁止接入任何游戏研判功能。
  */
 // ── token 用量计数（additive；命题 A 消融要实测单次费用；不改变返回契约）──
-const usageStats = { calls: 0, calls_with_usage: 0, prompt_tokens: 0, completion_tokens: 0, total_tokens: 0 };
+// 2026-09-16 · P0+（蓝图 §2.1#7）：增记 prompt_tokens_details.cached_tokens——
+//   前缀缓存命中的唯一实测口径（中转透传折扣成立 ⇒ 升 P2；不成立 ⇒ 缓存线在结果预检后封盘）。
+const usageStats = { calls: 0, calls_with_usage: 0, prompt_tokens: 0, completion_tokens: 0, total_tokens: 0, cached_tokens: 0, calls_with_cached: 0 };
 function noteUsage(u) {
   if (!u) return;
   usageStats.calls_with_usage++;
   usageStats.prompt_tokens += Number(u.prompt_tokens || 0);
   usageStats.completion_tokens += Number(u.completion_tokens || 0);
   usageStats.total_tokens = usageStats.prompt_tokens + usageStats.completion_tokens;
+  const cached = u.prompt_tokens_details && u.prompt_tokens_details.cached_tokens;
+  if (cached !== undefined && cached !== null) { usageStats.cached_tokens += Number(cached || 0); usageStats.calls_with_cached++; }
 }
 function getUsageStats() { return Object.assign({}, usageStats); }
-function resetUsageStats() { usageStats.calls = 0; usageStats.calls_with_usage = 0; usageStats.prompt_tokens = 0; usageStats.completion_tokens = 0; usageStats.total_tokens = 0; }
+function resetUsageStats() { usageStats.calls = 0; usageStats.calls_with_usage = 0; usageStats.prompt_tokens = 0; usageStats.completion_tokens = 0; usageStats.total_tokens = 0; usageStats.cached_tokens = 0; usageStats.calls_with_cached = 0; }
 
 async function chatText(messages, options) {
   options = options || {};

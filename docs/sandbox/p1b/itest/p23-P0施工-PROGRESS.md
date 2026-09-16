@@ -30,6 +30,15 @@
 - [ ] 8. U9 汇收：共同验收门七项＋收据＋`scripts-index.cjs` 重生成＋归档四件套（留痕/README/锚/地图）
 - [ ] 9. 收尾：handoff 交接件＋project-atlas 地图刷新
 
+## P0+ 收尾（2026-09-16 四续）
+
+12. **cached_tokens 打点**（`p1b/src/lib/llmChat.js`；测试 3 例）
+13. **U8 三列**（`p1b/scripts/u8-columns.cjs`＋件；测试 3 例；与 stage4 逐位一致）
+14. **O7 注记＋秩检验 n/a＋负结果指针**（`calibration-report.cjs` 四新节；报告禁词 0）
+15. **I2 负结果账本 v0**（`p1b/scripts/negative-results.cjs`；实证 9＋设计 4；四要素运行时校验；测试 3 例）
+16. **A6 发布纪律**（`docs/specs/A6-校准报告发布纪律-20260916.md`）
+17. **测试 415/415 绿**＋收据 `p1b/sim/out/p0plus-receipt-20260916.md`
+
 ## 实施过程诚实记录
 
 > 踩过的坑、失败尝试、发现错误时的**更正段**（日期 + 正确口径 + 证据链）。

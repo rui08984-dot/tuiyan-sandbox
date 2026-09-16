@@ -374,7 +374,18 @@
    }
   }
  ],
- "generated_at": "2026-09-16T11:43:47.904Z",
+ "generated_at": "2026-09-16T12:38:57.151Z",
  "cells_total": 28,
- "cells_with_conclusion": 7
+ "cells_with_conclusion": 7,
+ "u8_columns_file": "E:\\music player\\p1b\\sim\\out\\u8-columns-20260916.json",
+ "u8_columns_present": true,
+ "lag_rank_test": {
+  "available": false,
+  "reason": "逐对（城×lead）数据不在现有落盘件里（stage5 信号件只存汇总/判据，无逐对 lead 序列）⇒ 本件不编数；数据到位后按 Watson 统计量补节"
+ },
+ "o7_maxent": {
+  "prior": "Beta(1,1)",
+  "statement": "无信息进入时的起点＝均匀分布 Beta(1,1)（最大熵）——引擎在无证据行时的先验不是\"拍脑袋的数\"，而是熵最大的那个选择；证据行到达后由固定规则聚合改变它。"
+ },
+ "negative_results_ledger": "E:\\music player\\p1b\\sim\\out\\negative-results-ledger-20260916.json"
 }

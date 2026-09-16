@@ -501,6 +501,17 @@
 | 任务 9/10 | `sources-wide-probe2.*`；`metaculus-token-check.cjs`；`forecastbench-baseline.json` | 13 源普查；token 403 实证；基线 pending 零编数 |
 | 门 | **测试 406/406**；vault ok=true（1972/0/0/0）；board 含图例；8787 零接触 | 锚 `p23-P0施工-PROGRESS.md`；收据 `u9-receipt-20260916.md` |
 
+### P0+ 收尾（2026-09-16 四续 · 收据 `p1b/sim/out/p0plus-receipt-20260916.md`）
+
+| 件 | 产物 | 一句话 |
+|---|---|---|
+| cached_tokens 打点 | `p1b/src/lib/llmChat.js` | 前缀缓存命中实测口径（缺失不记 0） |
+| U8 三列 | `p1b/scripts/u8-columns.cjs`＋件 | KL／Murphy／prequential；L1 按语义排除；与 stage4 逐位一致 |
+| O7 注记 | `calibration-report.cjs` 新节 | 无信息起点＝Beta(1,1)（最大熵） |
+| I2 负结果账本 v0 | `p1b/scripts/negative-results.cjs`＋件 | 实证 9＋设计 4；四要素运行时校验 |
+| A6 发布纪律 | `docs/specs/A6-校准报告发布纪律-20260916.md` | 发布面／限定语／禁词（bundle 层）／流程 |
+| 门 | **415/415**；报告禁词 0；零写库 | 留痕 §63；地图 §31 |
+
 ## 5 · 铁律速查（违反=弃棒）
 ①玄学恒挂娱乐参考，绝不接研判 ②UI 禁「预测」字样（用审计/校准参考/分层账本）③无真值锚不入账本（Q0-1/2/3 拒收门）④LLM 仅四角色（聚合/基率/多路/校准）⑤key 不出服务端 ⑥预注册冻结后禁改 ⑦账本不可变 ⑧**派单并发上限 2-3 棒** ⑨8787 用户 bat 管理，代理零接触 ⑩微步回合制（先落盘再设计）
 

@@ -107,6 +107,46 @@ if (s4 && Array.isArray(s4.by_domain)) {
   L.push('');
 }
 
+// ③b · U8 加列（读侧派生；2026-09-16 P0+）：KL 可预报性 / Murphy 三分解 / prequential
+const U8 = latestByPattern(OUT_DIR, /^u8-columns-\d{8}\.json$/, 'u8-columns-20260916.json');
+const u8 = readJson(U8);
+json.u8_columns_file = U8; json.u8_columns_present = !!u8;
+L.push('## U8 加列（读侧派生；只披露不进门控）');
+if (u8 && u8.layers) {
+  L.push('');
+  L.push('| 层 | n | Brier | KL(对基率) | REL | RES | UNC | prequential 终值 |');
+  L.push('|---|---|---|---|---|---|---|---|');
+  for (const Lk of ['L2', 'L3', 'L5', 'L6']) {
+    const r = u8.layers[Lk]; if (!r) continue;
+    const f = (x) => (x === undefined || x === null || !isFinite(x)) ? 'n/a' : Number(x).toFixed(4);
+    L.push('| ' + Lk + ' | ' + r.scored_n + ' | ' + (r.brier !== undefined ? f(r.brier) : 'n/a') + ' | ' + (r.kl_to_base !== undefined ? f(r.kl_to_base) : 'n/a')
+      + ' | ' + (r.murphy ? f(r.murphy.REL) : 'n/a') + ' | ' + (r.murphy ? f(r.murphy.RES) : 'n/a') + ' | ' + (r.murphy ? f(r.murphy.UNC) : 'n/a')
+      + ' | ' + (r.prequential ? f(r.prequential.final) : 'n/a') + ' |');
+  }
+  L.push('');
+  L.push('- 口径：' + u8.kl_definition + '；' + u8.murphy_definition + '；' + u8.prequential_definition + '。');
+  L.push('- ' + u8.l1_excluded + '；n<30 的层只报 n（见 `u8-columns-*.json`）。');
+} else {
+  L.push('- n/a（缺 u8-columns 件：node p1b/scripts/u8-columns.cjs）');
+}
+L.push('');
+// ③c · 滞后集合 3 档秩检验（Watson）——如实 n/a 并说明缺什么（不编数）
+json.lag_rank_test = { available: false, reason: '逐对（城×lead）数据不在现有落盘件里（stage5 信号件只存汇总/判据，无逐对 lead 序列）⇒ 本件不编数；数据到位后按 Watson 统计量补节' };
+L.push('## 滞后集合 3 档秩检验（Watson）');
+L.push('- n/a：' + json.lag_rank_test.reason + '。');
+L.push('');
+// ③d · O7 最大熵注记（先验透明度声明）
+json.o7_maxent = { prior: 'Beta(1,1)', statement: '无信息进入时的起点＝均匀分布 Beta(1,1)（最大熵）——引擎在无证据行时的先验不是"拍脑袋的数"，而是熵最大的那个选择；证据行到达后由固定规则聚合改变它。' };
+L.push('## O7 最大熵注记（先验透明度声明）');
+L.push('- ' + json.o7_maxent.statement);
+L.push('');
+// ③e · 负结果账本指针（I2 v0）
+const NEG = latestByPattern(OUT_DIR, /^negative-results-ledger-\d{8}\.json$/, 'negative-results-ledger-20260916.json');
+json.negative_results_ledger = fs.existsSync(NEG) ? NEG : null;
+L.push('## 负结果账本（I2 v0 · 对内）');
+L.push('- ' + (json.negative_results_ledger ? '最新件：`' + json.negative_results_ledger + '`（每条死假设挂四要素：假设／判据＋sha16／结局／复算入口）' : 'n/a（缺件：node p1b/scripts/negative-results.cjs）'));
+L.push('');
+
 // ⑤ 口径边界明文（两个口径不混）
 L.push('## 口径边界（两个口径，两不相动）');
 L.push('- A｜账本口径：`p1b/src/routes/audit.js` `/api/audit/summary` → `layer_calibration`（读 predictions.assigned_prob）。');
