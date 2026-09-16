@@ -1,0 +1,17 @@
+[fred] status=200 ok=true ms=2459 verdict=可达·免key signal=A（月度/日度宏观，基率厚） resolver=半天（CSV 直读） note=fredgraph.csv 免 key 通道；正式 API 需 key
+[ecb] status=200 ok=true ms=1581 verdict=可达·免key signal=A（汇率，dbnomics 已覆盖一半） resolver=半天 note=SDMX-JSON
+[coingecko] status=null ok=false ms=10484 verdict=不可达/受限 signal=A（加密 24h，天天有事件） resolver=半天 note=免费层限速
+[alphavantage] status=200 ok=true ms=979 verdict=可达 signal=B（股票分钟级） resolver=1 天（含 key 管理） note=demo key 可用；正式需免费 key
+[twelvedata] status=401 ok=false ms=868 verdict=要 key（申请路径见 note） signal=B resolver=1 天 note=无 key 预期 401/403
+[polygon] status=401 ok=false ms=1072 verdict=要 key（申请路径见 note） signal=B resolver=1 天 note=无 key 预期 401
+[oddsapi] status=401 ok=false ms=770 verdict=要 key（申请路径见 note） signal=A+（市场概率定价＝previous_dayN 在体育域的等价物） resolver=1–1.5 天 note=免费层 500 req/月；赔率可回溯性待实测
+[footballdata] status=200 ok=true ms=1143 verdict=可达 signal=B+（赛程/比分；无赔率） resolver=1 天 note=无 token 预期 403
+[nba] status=200 ok=true ms=1609 verdict=可达 signal=B（需 UA/头，易 403） resolver=1–2 天（反爬） note=需浏览器级头；nba_api 为 python 包
+[openaq] status=401 ok=false ms=549 verdict=要 key（申请路径见 note） signal=A（空气质量，本域已有 openmeteo） resolver=1 天 note=v3 起需 key
+[usgs] status=200 ok=true ms=1003 verdict=可达·免key signal=B+（事件型，曾空局需修） resolver=1 天 note=免 key
+[swpc] status=200 ok=true ms=953 verdict=可达·免key signal=A（官方存档，already 2 题在账） resolver=半天 note=免 key
+[gdelt] status=null ok=false ms=10029 verdict=不可达/受限 signal=C+（文本面，计数型可判定） resolver=1–2 天 note=限速 5 秒/次
+
+[代理重试 2026-09-16] NODE_USE_ENV_PROXY=1 HTTPS_PROXY=http://127.0.0.1:2080
+[coingecko] status=200 ok=true ms=694 verdict=可达·免key（直连超时，走本机代理可达）
+[gdelt] status=null ok=false ms=10300 verdict=不可达（直连与代理两路均失败——如实登记，未再试）

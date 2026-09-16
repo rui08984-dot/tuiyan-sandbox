@@ -24,7 +24,7 @@
 - [x] 2. 任务 2（U4/U5）：校准库＋A/B 协议＋报告（386/386 绿；收据见上）
 - [x] 3. 任务 3（U7/U8）：日历＋校准报告＋披露端点＋前端两页＋dist 重建（398/398 绿；收据见上）
 - [x] 4. 任务 4（U6）：dna-s-dryrun 试标（4/4 绿；收据见上）
-- [ ] 5. 任务 9：`p1b/scripts/sources-wide-probe2.cjs` 广域普查（体育赔率优先）；任务 10：Metaculus token 配置位＋ForecastBench 基线件
+- [x] 5. 任务 9＋10：广域普查（13 源实测：8 可达/4 要 key/1 两路失败）＋Metaculus token 检查器（403 实证）＋ForecastBench 基线件（pending 零编数）；收据 `p1b/sim/out/p0-task9-10-receipt-20260916.md`
 - [ ] 6. 任务 5（E1）：`p1b/scripts/dna-s-backfill.cjs`＋旁路表 `dna_s_labels`（读【12】全件，含冻结程序）
 - [ ] 7. 任务 6（E2）：`PREREG-E2-路由分配-v1.md`＋影子评分（读【10】§5/【11】§⑧）
 - [ ] 8. U9 汇收：共同验收门七项＋收据＋`scripts-index.cjs` 重生成＋归档四件套（留痕/README/锚/地图）

@@ -1,0 +1,18 @@
+{
+  "file": "p1b/sim/out/forecastbench-baseline.json",
+  "purpose": "「超过人类专家」对照读数源（任务 10 步骤 2；蓝图附录 A3 蹭数据线）",
+  "source": "ForecastBench（arXiv:2409.19839；站点 forecastbench.org；仓库 github.com/forecastingresearch/forecastbench）",
+  "status": "pending（来源已定位；机器可读人类基线分数表未在仓库顶层发现——零编数，待解析/人工确认）",
+  "probes_20260916": [
+    { "url": "https://www.forecastbench.org/", "status": 200, "note": "站点可达（Jekyll 静态站；HTML 非机器可读分数表）" },
+    { "url": "https://api.github.com/repos/forecastingresearch/forecastbench", "status": 200, "note": "仓库存在" },
+    { "url": "https://api.github.com/repos/forecastingresearch/forecastbench/contents/", "status": 200, "note": "顶层目录：experiments/ | paper/ | src/ | 配置文件若干；无 results/ 目录" }
+  ],
+  "next_steps": [
+    "① 在 repo 的 experiments/ 或 paper/ 目录内定位人类基线表（下一棒可展开目录列举）",
+    "② 或从论文（arXiv:2409.19839）附录人工抄录基线数字（需双人复核）",
+    "③ 落表后本文件填 values 字段并去掉 pending 状态；在此之前任何引用都须标 n/a"
+  ],
+  "discipline": "只读取数；零账本写；不得用未经核验的数字充当对照",
+  "generated_at": "2026-09-16"
+}
