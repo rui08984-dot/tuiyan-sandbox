@@ -68,16 +68,24 @@ function hostParserFor(url) {
   return null;   // 已排除：delphi（MMWR 周换算需专门核对）／jpl（模板无占位符）／bom（HTML 页）／crossref·nvd·elexon·openalex（n<20 按冻结规则不可判）
 }
 /** 模板占位符替换：首个 {date}/{date_nodash} → 窗口起，其余 → 窗口止；*_ms 用毫秒 */
-function buildTemplateUrl(tpl, startStr, endStr) {
+function buildTemplateUrl(tpl, startStr, endStr, rj) {
   let u = String(tpl);
   const sMs = String(Date.parse(startStr + 'T00:00:00Z'));
   const eMs = String(Date.parse(endStr + 'T23:59:59Z'));
-  u = u.replace(/\{start_ms\}/g, sMs).replace(/\{since_ms\}/g, sMs).replace(/\{end_ms\}/g, eMs);
-  u = u.replace(/\{date_plus7\}/g, endStr).replace(/\{date_plus6\}/g, endStr).replace(/\{date_plus1\}/g, endStr);
+  u = u.replace(/{start_ms}/g, sMs).replace(/{since_ms}/g, sMs).replace(/{end_ms}/g, eMs);
+  u = u.replace(/{date_plus7}/g, endStr).replace(/{date_plus6}/g, endStr).replace(/{date_plus1}/g, endStr);
+  if (rj) {
+    u = u.replace(/{symbol}/g, encodeURIComponent(String(rj.symbol || '')))
+         .replace(/{pair}/g, encodeURIComponent(String(rj.pair || '')))
+         .replace(/{station}/g, encodeURIComponent(String(rj.station || '')))
+         .replace(/{site}/g, encodeURIComponent(String(rj.site || '')))
+         .replace(/{geo}/g, encodeURIComponent(String(rj.geo || '')));
+  }
+  u = u.replace(/lastTimePeriod=[^&]*/g, 'lastTimePeriod=500');
   let firstNodash = true;
-  u = u.replace(/\{date_nodash\}/g, () => { const v = firstNodash ? startStr : endStr; firstNodash = false; return v.replace(/-/g, ''); });
+  u = u.replace(/{date_nodash}/g, () => { const v = firstNodash ? startStr : endStr; firstNodash = false; return v.replace(/-/g, ''); });
   let firstDate = true;
-  u = u.replace(/\{date\}/g, () => { const v = firstDate ? startStr : endStr; firstDate = false; return v; });
+  u = u.replace(/{date}/g, () => { const v = firstDate ? startStr : endStr; firstDate = false; return v; });
   return u;
 }
 /** 模板型解析器表：返回 [{date, value}]（date 一律 YYYY-MM-DD） */
@@ -184,7 +192,7 @@ for (const s of list) {
   } else if (s.rule.api === 'github') {
     url = 'https://api.github.com/repos/' + rj.repo + '/stats/commit_activity';
   } else if (s.rule.api === 'template') {
-    url = buildTemplateUrl(rj.url_template || rj.url, fmt(startD), fmt(endD));
+    url = buildTemplateUrl(rj.url_template || rj.url, fmt(startD), fmt(endD), rj);
   } else {
     if (s.rule.api === 'air') url = 'https://air-quality-api.open-meteo.com/v1/air-quality?latitude=' + s.lat + '&longitude=' + s.lon + '&hourly=' + s.rule.variable + '&timezone=GMT&start_date=' + fmt(startD) + '&end_date=' + fmt(endD);
     else url = 'https://archive-api.open-meteo.com/v1/archive?latitude=' + s.lat + '&longitude=' + s.lon + '&daily=' + s.rule.variable + '&timezone=auto&start_date=' + fmt(startD) + '&end_date=' + fmt(endD);

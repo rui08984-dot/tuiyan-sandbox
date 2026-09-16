@@ -21,21 +21,9 @@
   "mlb_schedule_daily_total_runs": 3
  },
  "series_total": 198,
- "series_fetched": 180,
+ "series_fetched": 1,
  "series_failed": {
-  "binance_daily_close|tpl:https://data-api.binance.vision/api/v3/klines?symbol=*&interval=1d&limit=1000&startTime=*&endTime=*": "HTTP 400 {\"code\":-1100,\"msg\":\"Illegal characters found in parameter 'symbol'; legal range is '^[\\\\w\\\\-._&&[^a-z]]{1,50}$",
-  "eurostat_live_tertiary_attain|tpl:https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/edat_lfse_03?format=JSON&geo=DE&sex=F&age=Y25-74&unit=PC&isced11=ED5-8&lastTimePeriod=*": "HTTP 400 { \"error\": [{\"status\": 400,\"id\": 400,\"label\": \"Invalid value for 'lastTimePeriod' parameter.\"}]}",
-  "eurostat_live_tertiary_attain|tpl:https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/edat_lfse_03?format=JSON&geo=FR&sex=F&age=Y25-74&unit=PC&isced11=ED5-8&lastTimePeriod=*": "HTTP 400 { \"error\": [{\"status\": 400,\"id\": 400,\"label\": \"Invalid value for 'lastTimePeriod' parameter.\"}]}",
-  "eurostat_live_tertiary_attain|tpl:https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/edat_lfse_03?format=JSON&geo=ES&sex=F&age=Y25-74&unit=PC&isced11=ED5-8&lastTimePeriod=*": "HTTP 400 { \"error\": [{\"status\": 400,\"id\": 400,\"label\": \"Invalid value for 'lastTimePeriod' parameter.\"}]}",
-  "cta_daily_total_rides|url:https://data.cityofchicago.org/resource/6iiy-9s97.json?$limit=400&$order=service_date%20DESC": "HTTP 403 <html> <head><title>403 Forbidden</title></head> <body> <center><h1>403 Forbidden</h1></center> </body> </html>",
-  "openmeteo_forecast_daily_precipitation_sum|52.52|13.41": "fetch failed",
   "energycharts_public_power_daily_mean|tpl:https://api.energy-charts.info/public_power?country=de&start=*&end=*": "The operation was aborted due to timeout",
-  "kraken_daily_close|tpl:https://api.kraken.com/0/public/OHLC?pair=SOLUSD&interval=1440&since=*": "fetch failed",
-  "kraken_daily_close|tpl:https://api.kraken.com/0/public/OHLC?pair=XBTUSD&interval=1440&since=*": "fetch failed",
-  "kraken_daily_close|tpl:https://api.kraken.com/0/public/OHLC?pair=ETHUSD&interval=1440&since=*": "fetch failed",
-  "eurostat_live_unemployment_monthly|tpl:https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/une_rt_m?format=JSON&geo=DE&s_adj=SA&unit=PC_ACT&sex=T&age=TOTAL&lastTimePeriod=*": "HTTP 400 { \"error\": [{\"status\": 400,\"id\": 400,\"label\": \"Invalid value for 'lastTimePeriod' parameter.\"}]}",
-  "eurostat_live_unemployment_monthly|tpl:https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/une_rt_m?format=JSON&geo=FR&s_adj=SA&unit=PC_ACT&sex=T&age=TOTAL&lastTimePeriod=*": "HTTP 400 { \"error\": [{\"status\": 400,\"id\": 400,\"label\": \"Invalid value for 'lastTimePeriod' parameter.\"}]}",
-  "eurostat_live_unemployment_monthly|tpl:https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/une_rt_m?format=JSON&geo=ES&s_adj=SA&unit=PC_ACT&sex=T&age=TOTAL&lastTimePeriod=*": "HTTP 400 { \"error\": [{\"status\": 400,\"id\": 400,\"label\": \"Invalid value for 'lastTimePeriod' parameter.\"}]}",
   "energycharts_daily_mean|tpl:https://api.energy-charts.info/public_power?country=fr&start=*&end=*": "The operation was aborted due to timeout",
   "energycharts_daily_mean|tpl:https://api.energy-charts.info/public_power?country=nl&start=*&end=*": "The operation was aborted due to timeout",
   "energycharts_daily_mean|tpl:https://api.energy-charts.info/public_power?country=es&start=*&end=*": "The operation was aborted due to timeout",
@@ -435113,7 +435101,7 @@
     }
    ],
    "source_url": "https://api.energy-charts.info/public_power?country=be&start=2025-07-22&end=2026-09-15",
-   "fetched_at": "2026-09-16T14:53:46.851Z",
+   "fetched_at": "2026-09-16T15:17:06.764Z",
    "question_ids": [
     1784,
     1785,
@@ -729096,8 +729084,7787 @@
     1949,
     1950
    ]
+  },
+  "binance_daily_close|tpl:https://data-api.binance.vision/api/v3/klines?symbol=*&interval=1d&limit=1000&startTime=*&endTime=*": {
+   "kind": "binance_daily_close",
+   "key_fields": "tpl:https://data-api.binance.vision/api/v3/klines?symbol=*&interval=1d&limit=1000&startTime=*&endTime=*",
+   "variable": null,
+   "window": "range",
+   "window_note": "模板型系列（binance；窗口=切点前 420 天）",
+   "ref_cutoff": "2026-09-16",
+   "days": [
+    {
+     "date": "2025-07-22",
+     "value": 119954.42
+    },
+    {
+     "date": "2025-07-23",
+     "value": 118755.99
+    },
+    {
+     "date": "2025-07-24",
+     "value": 118340.99
+    },
+    {
+     "date": "2025-07-25",
+     "value": 117614.31
+    },
+    {
+     "date": "2025-07-26",
+     "value": 117919.99
+    },
+    {
+     "date": "2025-07-27",
+     "value": 119415.55
+    },
+    {
+     "date": "2025-07-28",
+     "value": 118062.32
+    },
+    {
+     "date": "2025-07-29",
+     "value": 117950.76
+    },
+    {
+     "date": "2025-07-30",
+     "value": 117840.3
+    },
+    {
+     "date": "2025-07-31",
+     "value": 115764.08
+    },
+    {
+     "date": "2025-08-01",
+     "value": 113297.93
+    },
+    {
+     "date": "2025-08-02",
+     "value": 112546.35
+    },
+    {
+     "date": "2025-08-03",
+     "value": 114208.8
+    },
+    {
+     "date": "2025-08-04",
+     "value": 115055.03
+    },
+    {
+     "date": "2025-08-05",
+     "value": 114129.75
+    },
+    {
+     "date": "2025-08-06",
+     "value": 114992.27
+    },
+    {
+     "date": "2025-08-07",
+     "value": 117472.01
+    },
+    {
+     "date": "2025-08-08",
+     "value": 116674.74
+    },
+    {
+     "date": "2025-08-09",
+     "value": 116462.25
+    },
+    {
+     "date": "2025-08-10",
+     "value": 119294.01
+    },
+    {
+     "date": "2025-08-11",
+     "value": 118686
+    },
+    {
+     "date": "2025-08-12",
+     "value": 120134.08
+    },
+    {
+     "date": "2025-08-13",
+     "value": 123306.43
+    },
+    {
+     "date": "2025-08-14",
+     "value": 118295.09
+    },
+    {
+     "date": "2025-08-15",
+     "value": 117342.05
+    },
+    {
+     "date": "2025-08-16",
+     "value": 117380.66
+    },
+    {
+     "date": "2025-08-17",
+     "value": 117405.01
+    },
+    {
+     "date": "2025-08-18",
+     "value": 116227.05
+    },
+    {
+     "date": "2025-08-19",
+     "value": 112872.94
+    },
+    {
+     "date": "2025-08-20",
+     "value": 114271.24
+    },
+    {
+     "date": "2025-08-21",
+     "value": 112500
+    },
+    {
+     "date": "2025-08-22",
+     "value": 116935.99
+    },
+    {
+     "date": "2025-08-23",
+     "value": 115438.05
+    },
+    {
+     "date": "2025-08-24",
+     "value": 113493.59
+    },
+    {
+     "date": "2025-08-25",
+     "value": 110111.98
+    },
+    {
+     "date": "2025-08-26",
+     "value": 111763.22
+    },
+    {
+     "date": "2025-08-27",
+     "value": 111262.01
+    },
+    {
+     "date": "2025-08-28",
+     "value": 112566.9
+    },
+    {
+     "date": "2025-08-29",
+     "value": 108377.4
+    },
+    {
+     "date": "2025-08-30",
+     "value": 108816.33
+    },
+    {
+     "date": "2025-08-31",
+     "value": 108246.35
+    },
+    {
+     "date": "2025-09-01",
+     "value": 109237.42
+    },
+    {
+     "date": "2025-09-02",
+     "value": 111240.01
+    },
+    {
+     "date": "2025-09-03",
+     "value": 111705.71
+    },
+    {
+     "date": "2025-09-04",
+     "value": 110730.87
+    },
+    {
+     "date": "2025-09-05",
+     "value": 110659.99
+    },
+    {
+     "date": "2025-09-06",
+     "value": 110187.97
+    },
+    {
+     "date": "2025-09-07",
+     "value": 111137.34
+    },
+    {
+     "date": "2025-09-08",
+     "value": 112065.23
+    },
+    {
+     "date": "2025-09-09",
+     "value": 111546.39
+    },
+    {
+     "date": "2025-09-10",
+     "value": 113960
+    },
+    {
+     "date": "2025-09-11",
+     "value": 115482.69
+    },
+    {
+     "date": "2025-09-12",
+     "value": 116029.42
+    },
+    {
+     "date": "2025-09-13",
+     "value": 115918.29
+    },
+    {
+     "date": "2025-09-14",
+     "value": 115268.01
+    },
+    {
+     "date": "2025-09-15",
+     "value": 115349.71
+    },
+    {
+     "date": "2025-09-16",
+     "value": 116788.96
+    },
+    {
+     "date": "2025-09-17",
+     "value": 116447.59
+    },
+    {
+     "date": "2025-09-18",
+     "value": 117073.53
+    },
+    {
+     "date": "2025-09-19",
+     "value": 115632.38
+    },
+    {
+     "date": "2025-09-20",
+     "value": 115685.63
+    },
+    {
+     "date": "2025-09-21",
+     "value": 115232.29
+    },
+    {
+     "date": "2025-09-22",
+     "value": 112650.99
+    },
+    {
+     "date": "2025-09-23",
+     "value": 111998.8
+    },
+    {
+     "date": "2025-09-24",
+     "value": 113307
+    },
+    {
+     "date": "2025-09-25",
+     "value": 108994.49
+    },
+    {
+     "date": "2025-09-26",
+     "value": 109643.46
+    },
+    {
+     "date": "2025-09-27",
+     "value": 109635.85
+    },
+    {
+     "date": "2025-09-28",
+     "value": 112163.95
+    },
+    {
+     "date": "2025-09-29",
+     "value": 114311.96
+    },
+    {
+     "date": "2025-09-30",
+     "value": 114048.93
+    },
+    {
+     "date": "2025-10-01",
+     "value": 118594.99
+    },
+    {
+     "date": "2025-10-02",
+     "value": 120529.35
+    },
+    {
+     "date": "2025-10-03",
+     "value": 122232
+    },
+    {
+     "date": "2025-10-04",
+     "value": 122391
+    },
+    {
+     "date": "2025-10-05",
+     "value": 123482.31
+    },
+    {
+     "date": "2025-10-06",
+     "value": 124658.54
+    },
+    {
+     "date": "2025-10-07",
+     "value": 121332.95
+    },
+    {
+     "date": "2025-10-08",
+     "value": 123306
+    },
+    {
+     "date": "2025-10-09",
+     "value": 121662.4
+    },
+    {
+     "date": "2025-10-10",
+     "value": 112774.5
+    },
+    {
+     "date": "2025-10-11",
+     "value": 110644.4
+    },
+    {
+     "date": "2025-10-12",
+     "value": 114958.8
+    },
+    {
+     "date": "2025-10-13",
+     "value": 115166
+    },
+    {
+     "date": "2025-10-14",
+     "value": 113028.14
+    },
+    {
+     "date": "2025-10-15",
+     "value": 110763.28
+    },
+    {
+     "date": "2025-10-16",
+     "value": 108194.28
+    },
+    {
+     "date": "2025-10-17",
+     "value": 106431.68
+    },
+    {
+     "date": "2025-10-18",
+     "value": 107185.01
+    },
+    {
+     "date": "2025-10-19",
+     "value": 108642.78
+    },
+    {
+     "date": "2025-10-20",
+     "value": 110532.09
+    },
+    {
+     "date": "2025-10-21",
+     "value": 108297.67
+    },
+    {
+     "date": "2025-10-22",
+     "value": 107567.44
+    },
+    {
+     "date": "2025-10-23",
+     "value": 110078.18
+    },
+    {
+     "date": "2025-10-24",
+     "value": 111004.89
+    },
+    {
+     "date": "2025-10-25",
+     "value": 111646.27
+    },
+    {
+     "date": "2025-10-26",
+     "value": 114559.4
+    },
+    {
+     "date": "2025-10-27",
+     "value": 114107.65
+    },
+    {
+     "date": "2025-10-28",
+     "value": 112898.45
+    },
+    {
+     "date": "2025-10-29",
+     "value": 110021.29
+    },
+    {
+     "date": "2025-10-30",
+     "value": 108322.88
+    },
+    {
+     "date": "2025-10-31",
+     "value": 109608.01
+    },
+    {
+     "date": "2025-11-01",
+     "value": 110098.1
+    },
+    {
+     "date": "2025-11-02",
+     "value": 110540.68
+    },
+    {
+     "date": "2025-11-03",
+     "value": 106583.04
+    },
+    {
+     "date": "2025-11-04",
+     "value": 101497.22
+    },
+    {
+     "date": "2025-11-05",
+     "value": 103885.16
+    },
+    {
+     "date": "2025-11-06",
+     "value": 101346.04
+    },
+    {
+     "date": "2025-11-07",
+     "value": 103339.08
+    },
+    {
+     "date": "2025-11-08",
+     "value": 102312.94
+    },
+    {
+     "date": "2025-11-09",
+     "value": 104722.96
+    },
+    {
+     "date": "2025-11-10",
+     "value": 106011.13
+    },
+    {
+     "date": "2025-11-11",
+     "value": 103058.99
+    },
+    {
+     "date": "2025-11-12",
+     "value": 101654.37
+    },
+    {
+     "date": "2025-11-13",
+     "value": 99692.02
+    },
+    {
+     "date": "2025-11-14",
+     "value": 94594
+    },
+    {
+     "date": "2025-11-15",
+     "value": 95596.24
+    },
+    {
+     "date": "2025-11-16",
+     "value": 94261.44
+    },
+    {
+     "date": "2025-11-17",
+     "value": 92215.14
+    },
+    {
+     "date": "2025-11-18",
+     "value": 92960.83
+    },
+    {
+     "date": "2025-11-19",
+     "value": 91554.96
+    },
+    {
+     "date": "2025-11-20",
+     "value": 86637.23
+    },
+    {
+     "date": "2025-11-21",
+     "value": 85129.43
+    },
+    {
+     "date": "2025-11-22",
+     "value": 84739.74
+    },
+    {
+     "date": "2025-11-23",
+     "value": 86830
+    },
+    {
+     "date": "2025-11-24",
+     "value": 88300.01
+    },
+    {
+     "date": "2025-11-25",
+     "value": 87369.96
+    },
+    {
+     "date": "2025-11-26",
+     "value": 90484.02
+    },
+    {
+     "date": "2025-11-27",
+     "value": 91333.95
+    },
+    {
+     "date": "2025-11-28",
+     "value": 90890.7
+    },
+    {
+     "date": "2025-11-29",
+     "value": 90802.44
+    },
+    {
+     "date": "2025-11-30",
+     "value": 90360
+    },
+    {
+     "date": "2025-12-01",
+     "value": 86286.01
+    },
+    {
+     "date": "2025-12-02",
+     "value": 91277.88
+    },
+    {
+     "date": "2025-12-03",
+     "value": 93429.95
+    },
+    {
+     "date": "2025-12-04",
+     "value": 92078.06
+    },
+    {
+     "date": "2025-12-05",
+     "value": 89330.04
+    },
+    {
+     "date": "2025-12-06",
+     "value": 89236.79
+    },
+    {
+     "date": "2025-12-07",
+     "value": 90395.31
+    },
+    {
+     "date": "2025-12-08",
+     "value": 90634.34
+    },
+    {
+     "date": "2025-12-09",
+     "value": 92678.8
+    },
+    {
+     "date": "2025-12-10",
+     "value": 92015.37
+    },
+    {
+     "date": "2025-12-11",
+     "value": 92513.38
+    },
+    {
+     "date": "2025-12-12",
+     "value": 90268.42
+    },
+    {
+     "date": "2025-12-13",
+     "value": 90240.01
+    },
+    {
+     "date": "2025-12-14",
+     "value": 88172.17
+    },
+    {
+     "date": "2025-12-15",
+     "value": 86432.08
+    },
+    {
+     "date": "2025-12-16",
+     "value": 87863.42
+    },
+    {
+     "date": "2025-12-17",
+     "value": 86243.22
+    },
+    {
+     "date": "2025-12-18",
+     "value": 85516.41
+    },
+    {
+     "date": "2025-12-19",
+     "value": 88136.94
+    },
+    {
+     "date": "2025-12-20",
+     "value": 88360.9
+    },
+    {
+     "date": "2025-12-21",
+     "value": 88658.86
+    },
+    {
+     "date": "2025-12-22",
+     "value": 88620.79
+    },
+    {
+     "date": "2025-12-23",
+     "value": 87486
+    },
+    {
+     "date": "2025-12-24",
+     "value": 87669.45
+    },
+    {
+     "date": "2025-12-25",
+     "value": 87225.27
+    },
+    {
+     "date": "2025-12-26",
+     "value": 87369.56
+    },
+    {
+     "date": "2025-12-27",
+     "value": 87877.01
+    },
+    {
+     "date": "2025-12-28",
+     "value": 87952.71
+    },
+    {
+     "date": "2025-12-29",
+     "value": 87237.13
+    },
+    {
+     "date": "2025-12-30",
+     "value": 88485.49
+    },
+    {
+     "date": "2025-12-31",
+     "value": 87648.22
+    },
+    {
+     "date": "2026-01-01",
+     "value": 88839.04
+    },
+    {
+     "date": "2026-01-02",
+     "value": 89995.13
+    },
+    {
+     "date": "2026-01-03",
+     "value": 90628.01
+    },
+    {
+     "date": "2026-01-04",
+     "value": 91529.73
+    },
+    {
+     "date": "2026-01-05",
+     "value": 93859.71
+    },
+    {
+     "date": "2026-01-06",
+     "value": 93747.97
+    },
+    {
+     "date": "2026-01-07",
+     "value": 91364.16
+    },
+    {
+     "date": "2026-01-08",
+     "value": 91099.99
+    },
+    {
+     "date": "2026-01-09",
+     "value": 90641.28
+    },
+    {
+     "date": "2026-01-10",
+     "value": 90504.7
+    },
+    {
+     "date": "2026-01-11",
+     "value": 91013.65
+    },
+    {
+     "date": "2026-01-12",
+     "value": 91296.2
+    },
+    {
+     "date": "2026-01-13",
+     "value": 95414
+    },
+    {
+     "date": "2026-01-14",
+     "value": 96951.78
+    },
+    {
+     "date": "2026-01-15",
+     "value": 95604.8
+    },
+    {
+     "date": "2026-01-16",
+     "value": 95550.94
+    },
+    {
+     "date": "2026-01-17",
+     "value": 95147.77
+    },
+    {
+     "date": "2026-01-18",
+     "value": 93673.14
+    },
+    {
+     "date": "2026-01-19",
+     "value": 92631
+    },
+    {
+     "date": "2026-01-20",
+     "value": 88427.66
+    },
+    {
+     "date": "2026-01-21",
+     "value": 89454.73
+    },
+    {
+     "date": "2026-01-22",
+     "value": 89559.67
+    },
+    {
+     "date": "2026-01-23",
+     "value": 89600.26
+    },
+    {
+     "date": "2026-01-24",
+     "value": 89225.34
+    },
+    {
+     "date": "2026-01-25",
+     "value": 86670.36
+    },
+    {
+     "date": "2026-01-26",
+     "value": 88347.08
+    },
+    {
+     "date": "2026-01-27",
+     "value": 89250
+    },
+    {
+     "date": "2026-01-28",
+     "value": 89299.99
+    },
+    {
+     "date": "2026-01-29",
+     "value": 84650.16
+    },
+    {
+     "date": "2026-01-30",
+     "value": 84260.49
+    },
+    {
+     "date": "2026-01-31",
+     "value": 78741.09
+    },
+    {
+     "date": "2026-02-01",
+     "value": 76968.21
+    },
+    {
+     "date": "2026-02-02",
+     "value": 78738.61
+    },
+    {
+     "date": "2026-02-03",
+     "value": 75770.21
+    },
+    {
+     "date": "2026-02-04",
+     "value": 73165.83
+    },
+    {
+     "date": "2026-02-05",
+     "value": 62909.86
+    },
+    {
+     "date": "2026-02-06",
+     "value": 70580.26
+    },
+    {
+     "date": "2026-02-07",
+     "value": 69289.38
+    },
+    {
+     "date": "2026-02-08",
+     "value": 70330.38
+    },
+    {
+     "date": "2026-02-09",
+     "value": 70138
+    },
+    {
+     "date": "2026-02-10",
+     "value": 68841.29
+    },
+    {
+     "date": "2026-02-11",
+     "value": 67082.52
+    },
+    {
+     "date": "2026-02-12",
+     "value": 66272.17
+    },
+    {
+     "date": "2026-02-13",
+     "value": 68853.96
+    },
+    {
+     "date": "2026-02-14",
+     "value": 69822.95
+    },
+    {
+     "date": "2026-02-15",
+     "value": 68832.58
+    },
+    {
+     "date": "2026-02-16",
+     "value": 68892.43
+    },
+    {
+     "date": "2026-02-17",
+     "value": 67503.52
+    },
+    {
+     "date": "2026-02-18",
+     "value": 66461
+    },
+    {
+     "date": "2026-02-19",
+     "value": 67003.73
+    },
+    {
+     "date": "2026-02-20",
+     "value": 68020.01
+    },
+    {
+     "date": "2026-02-21",
+     "value": 67975.93
+    },
+    {
+     "date": "2026-02-22",
+     "value": 67643.4
+    },
+    {
+     "date": "2026-02-23",
+     "value": 64656.02
+    },
+    {
+     "date": "2026-02-24",
+     "value": 64058.15
+    },
+    {
+     "date": "2026-02-25",
+     "value": 67988.04
+    },
+    {
+     "date": "2026-02-26",
+     "value": 67485.18
+    },
+    {
+     "date": "2026-02-27",
+     "value": 65872.1
+    },
+    {
+     "date": "2026-02-28",
+     "value": 66973.26
+    },
+    {
+     "date": "2026-03-01",
+     "value": 65776.47
+    },
+    {
+     "date": "2026-03-02",
+     "value": 68830.06
+    },
+    {
+     "date": "2026-03-03",
+     "value": 68338
+    },
+    {
+     "date": "2026-03-04",
+     "value": 72666.77
+    },
+    {
+     "date": "2026-03-05",
+     "value": 70890.72
+    },
+    {
+     "date": "2026-03-06",
+     "value": 68114.02
+    },
+    {
+     "date": "2026-03-07",
+     "value": 67262.91
+    },
+    {
+     "date": "2026-03-08",
+     "value": 65971.2
+    },
+    {
+     "date": "2026-03-09",
+     "value": 68432.16
+    },
+    {
+     "date": "2026-03-10",
+     "value": 69948.63
+    },
+    {
+     "date": "2026-03-11",
+     "value": 70191.86
+    },
+    {
+     "date": "2026-03-12",
+     "value": 70541.34
+    },
+    {
+     "date": "2026-03-13",
+     "value": 70930
+    },
+    {
+     "date": "2026-03-14",
+     "value": 71211.95
+    },
+    {
+     "date": "2026-03-15",
+     "value": 72815.24
+    },
+    {
+     "date": "2026-03-16",
+     "value": 74884.67
+    },
+    {
+     "date": "2026-03-17",
+     "value": 73909.36
+    },
+    {
+     "date": "2026-03-18",
+     "value": 71246.54
+    },
+    {
+     "date": "2026-03-19",
+     "value": 69930
+    },
+    {
+     "date": "2026-03-20",
+     "value": 70510.73
+    },
+    {
+     "date": "2026-03-21",
+     "value": 68918.12
+    },
+    {
+     "date": "2026-03-22",
+     "value": 67859
+    },
+    {
+     "date": "2026-03-23",
+     "value": 70906.45
+    },
+    {
+     "date": "2026-03-24",
+     "value": 70556.74
+    },
+    {
+     "date": "2026-03-25",
+     "value": 71336.53
+    },
+    {
+     "date": "2026-03-26",
+     "value": 68820.31
+    },
+    {
+     "date": "2026-03-27",
+     "value": 66407.28
+    },
+    {
+     "date": "2026-03-28",
+     "value": 66377.03
+    },
+    {
+     "date": "2026-03-29",
+     "value": 66010.93
+    },
+    {
+     "date": "2026-03-30",
+     "value": 66797.37
+    },
+    {
+     "date": "2026-03-31",
+     "value": 68284.48
+    },
+    {
+     "date": "2026-04-01",
+     "value": 68113.92
+    },
+    {
+     "date": "2026-04-02",
+     "value": 66901.99
+    },
+    {
+     "date": "2026-04-03",
+     "value": 66964.3
+    },
+    {
+     "date": "2026-04-04",
+     "value": 67300.42
+    },
+    {
+     "date": "2026-04-05",
+     "value": 69034.18
+    },
+    {
+     "date": "2026-04-06",
+     "value": 68853.66
+    },
+    {
+     "date": "2026-04-07",
+     "value": 71924.22
+    },
+    {
+     "date": "2026-04-08",
+     "value": 71069.93
+    },
+    {
+     "date": "2026-04-09",
+     "value": 71787.97
+    },
+    {
+     "date": "2026-04-10",
+     "value": 72962.7
+    },
+    {
+     "date": "2026-04-11",
+     "value": 73043.16
+    },
+    {
+     "date": "2026-04-12",
+     "value": 70740.98
+    },
+    {
+     "date": "2026-04-13",
+     "value": 74417.99
+    },
+    {
+     "date": "2026-04-14",
+     "value": 74131.55
+    },
+    {
+     "date": "2026-04-15",
+     "value": 74809.99
+    },
+    {
+     "date": "2026-04-16",
+     "value": 75154.29
+    },
+    {
+     "date": "2026-04-17",
+     "value": 77072
+    },
+    {
+     "date": "2026-04-18",
+     "value": 75691.76
+    },
+    {
+     "date": "2026-04-19",
+     "value": 73801.79
+    },
+    {
+     "date": "2026-04-20",
+     "value": 75840.97
+    },
+    {
+     "date": "2026-04-21",
+     "value": 76336.15
+    },
+    {
+     "date": "2026-04-22",
+     "value": 78178.23
+    },
+    {
+     "date": "2026-04-23",
+     "value": 78257.48
+    },
+    {
+     "date": "2026-04-24",
+     "value": 77437.13
+    },
+    {
+     "date": "2026-04-25",
+     "value": 77625
+    },
+    {
+     "date": "2026-04-26",
+     "value": 78657.55
+    },
+    {
+     "date": "2026-04-27",
+     "value": 77371.32
+    },
+    {
+     "date": "2026-04-28",
+     "value": 76342.77
+    },
+    {
+     "date": "2026-04-29",
+     "value": 75780
+    },
+    {
+     "date": "2026-04-30",
+     "value": 76346.57
+    },
+    {
+     "date": "2026-05-01",
+     "value": 78231.13
+    },
+    {
+     "date": "2026-05-02",
+     "value": 78686.85
+    },
+    {
+     "date": "2026-05-03",
+     "value": 78568.57
+    },
+    {
+     "date": "2026-05-04",
+     "value": 79861.01
+    },
+    {
+     "date": "2026-05-05",
+     "value": 80905.52
+    },
+    {
+     "date": "2026-05-06",
+     "value": 81447.01
+    },
+    {
+     "date": "2026-05-07",
+     "value": 80006
+    },
+    {
+     "date": "2026-05-08",
+     "value": 80193.17
+    },
+    {
+     "date": "2026-05-09",
+     "value": 80678.4
+    },
+    {
+     "date": "2026-05-10",
+     "value": 82210.07
+    },
+    {
+     "date": "2026-05-11",
+     "value": 81745.65
+    },
+    {
+     "date": "2026-05-12",
+     "value": 80504.47
+    },
+    {
+     "date": "2026-05-13",
+     "value": 79313.61
+    },
+    {
+     "date": "2026-05-14",
+     "value": 81089.99
+    },
+    {
+     "date": "2026-05-15",
+     "value": 79113.21
+    },
+    {
+     "date": "2026-05-16",
+     "value": 78148.05
+    },
+    {
+     "date": "2026-05-17",
+     "value": 77457.67
+    },
+    {
+     "date": "2026-05-18",
+     "value": 77001.87
+    },
+    {
+     "date": "2026-05-19",
+     "value": 76834.36
+    },
+    {
+     "date": "2026-05-20",
+     "value": 77552.23
+    },
+    {
+     "date": "2026-05-21",
+     "value": 77615.52
+    },
+    {
+     "date": "2026-05-22",
+     "value": 75539.5
+    },
+    {
+     "date": "2026-05-23",
+     "value": 76752.01
+    },
+    {
+     "date": "2026-05-24",
+     "value": 77064.96
+    },
+    {
+     "date": "2026-05-25",
+     "value": 77322.01
+    },
+    {
+     "date": "2026-05-26",
+     "value": 75930.01
+    },
+    {
+     "date": "2026-05-27",
+     "value": 74449.3
+    },
+    {
+     "date": "2026-05-28",
+     "value": 73617.51
+    },
+    {
+     "date": "2026-05-29",
+     "value": 73460.78
+    },
+    {
+     "date": "2026-05-30",
+     "value": 73884.38
+    },
+    {
+     "date": "2026-05-31",
+     "value": 73674.39
+    },
+    {
+     "date": "2026-06-01",
+     "value": 71408.9
+    },
+    {
+     "date": "2026-06-02",
+     "value": 66760.83
+    },
+    {
+     "date": "2026-06-03",
+     "value": 64142.75
+    },
+    {
+     "date": "2026-06-04",
+     "value": 63885.99
+    },
+    {
+     "date": "2026-06-05",
+     "value": 61056.47
+    },
+    {
+     "date": "2026-06-06",
+     "value": 60884.62
+    },
+    {
+     "date": "2026-06-07",
+     "value": 63332.01
+    },
+    {
+     "date": "2026-06-08",
+     "value": 63085.99
+    },
+    {
+     "date": "2026-06-09",
+     "value": 61730
+    },
+    {
+     "date": "2026-06-10",
+     "value": 61510.99
+    },
+    {
+     "date": "2026-06-11",
+     "value": 63625.99
+    },
+    {
+     "date": "2026-06-12",
+     "value": 63580.01
+    },
+    {
+     "date": "2026-06-13",
+     "value": 64458.01
+    },
+    {
+     "date": "2026-06-14",
+     "value": 65746.45
+    },
+    {
+     "date": "2026-06-15",
+     "value": 66328.74
+    },
+    {
+     "date": "2026-06-16",
+     "value": 65675.01
+    },
+    {
+     "date": "2026-06-17",
+     "value": 64509.4
+    },
+    {
+     "date": "2026-06-18",
+     "value": 62958.01
+    },
+    {
+     "date": "2026-06-19",
+     "value": 63543.91
+    },
+    {
+     "date": "2026-06-20",
+     "value": 64298.01
+    },
+    {
+     "date": "2026-06-21",
+     "value": 63311.99
+    },
+    {
+     "date": "2026-06-22",
+     "value": 64020.01
+    },
+    {
+     "date": "2026-06-23",
+     "value": 62734.57
+    },
+    {
+     "date": "2026-06-24",
+     "value": 61077.99
+    },
+    {
+     "date": "2026-06-25",
+     "value": 59794
+    },
+    {
+     "date": "2026-06-26",
+     "value": 60097.27
+    },
+    {
+     "date": "2026-06-27",
+     "value": 60029
+    },
+    {
+     "date": "2026-06-28",
+     "value": 59577.01
+    },
+    {
+     "date": "2026-06-29",
+     "value": 60260.21
+    },
+    {
+     "date": "2026-06-30",
+     "value": 58624.71
+    },
+    {
+     "date": "2026-07-01",
+     "value": 60024
+    },
+    {
+     "date": "2026-07-02",
+     "value": 61560
+    },
+    {
+     "date": "2026-07-03",
+     "value": 62583.26
+    },
+    {
+     "date": "2026-07-04",
+     "value": 63144.01
+    },
+    {
+     "date": "2026-07-05",
+     "value": 63650
+    },
+    {
+     "date": "2026-07-06",
+     "value": 64042.02
+    },
+    {
+     "date": "2026-07-07",
+     "value": 63363.99
+    },
+    {
+     "date": "2026-07-08",
+     "value": 62290
+    },
+    {
+     "date": "2026-07-09",
+     "value": 63230
+    },
+    {
+     "date": "2026-07-10",
+     "value": 64161.72
+    },
+    {
+     "date": "2026-07-11",
+     "value": 63819
+    },
+    {
+     "date": "2026-07-12",
+     "value": 63780
+    },
+    {
+     "date": "2026-07-13",
+     "value": 62334.52
+    },
+    {
+     "date": "2026-07-14",
+     "value": 65043.98
+    },
+    {
+     "date": "2026-07-15",
+     "value": 64756.28
+    },
+    {
+     "date": "2026-07-16",
+     "value": 63830.2
+    },
+    {
+     "date": "2026-07-17",
+     "value": 63931.67
+    },
+    {
+     "date": "2026-07-18",
+     "value": 64834.22
+    },
+    {
+     "date": "2026-07-19",
+     "value": 64722.54
+    },
+    {
+     "date": "2026-07-20",
+     "value": 65255.51
+    },
+    {
+     "date": "2026-07-21",
+     "value": 66556.16
+    },
+    {
+     "date": "2026-07-22",
+     "value": 66114.49
+    },
+    {
+     "date": "2026-07-23",
+     "value": 65098.97
+    },
+    {
+     "date": "2026-07-24",
+     "value": 64139.99
+    },
+    {
+     "date": "2026-07-25",
+     "value": 64375
+    },
+    {
+     "date": "2026-07-26",
+     "value": 65399.99
+    },
+    {
+     "date": "2026-07-27",
+     "value": 63755.86
+    },
+    {
+     "date": "2026-07-28",
+     "value": 63915
+    },
+    {
+     "date": "2026-07-29",
+     "value": 63984.28
+    },
+    {
+     "date": "2026-07-30",
+     "value": 64780.02
+    },
+    {
+     "date": "2026-07-31",
+     "value": 62887.88
+    },
+    {
+     "date": "2026-08-01",
+     "value": 62823.64
+    },
+    {
+     "date": "2026-08-02",
+     "value": 63570
+    },
+    {
+     "date": "2026-08-03",
+     "value": 63520
+    },
+    {
+     "date": "2026-08-04",
+     "value": 64106.56
+    },
+    {
+     "date": "2026-08-05",
+     "value": 64665.23
+    },
+    {
+     "date": "2026-08-06",
+     "value": 64323.61
+    },
+    {
+     "date": "2026-08-07",
+     "value": 64923.19
+    },
+    {
+     "date": "2026-08-08",
+     "value": 64962.6
+    },
+    {
+     "date": "2026-08-09",
+     "value": 64901.59
+    },
+    {
+     "date": "2026-08-10",
+     "value": 63970.01
+    },
+    {
+     "date": "2026-08-11",
+     "value": 63600
+    },
+    {
+     "date": "2026-08-12",
+     "value": 63479.99
+    },
+    {
+     "date": "2026-08-13",
+     "value": 63490.86
+    },
+    {
+     "date": "2026-08-14",
+     "value": 63043.56
+    },
+    {
+     "date": "2026-08-15",
+     "value": 63086.01
+    },
+    {
+     "date": "2026-08-16",
+     "value": 62900
+    },
+    {
+     "date": "2026-08-17",
+     "value": 64532.1
+    },
+    {
+     "date": "2026-08-18",
+     "value": 64725.42
+    },
+    {
+     "date": "2026-08-19",
+     "value": 69334.79
+    },
+    {
+     "date": "2026-08-20",
+     "value": 73025.15
+    },
+    {
+     "date": "2026-08-21",
+     "value": 78338.03
+    },
+    {
+     "date": "2026-08-22",
+     "value": 77074.93
+    },
+    {
+     "date": "2026-08-23",
+     "value": 77734
+    },
+    {
+     "date": "2026-08-24",
+     "value": 78992.75
+    },
+    {
+     "date": "2026-08-25",
+     "value": 78539.14
+    },
+    {
+     "date": "2026-08-26",
+     "value": 79023.75
+    },
+    {
+     "date": "2026-08-27",
+     "value": 80249.58
+    },
+    {
+     "date": "2026-08-28",
+     "value": 77845.87
+    },
+    {
+     "date": "2026-08-29",
+     "value": 78230
+    },
+    {
+     "date": "2026-08-30",
+     "value": 77682
+    },
+    {
+     "date": "2026-08-31",
+     "value": 78581.29
+    },
+    {
+     "date": "2026-09-01",
+     "value": 77439
+    },
+    {
+     "date": "2026-09-02",
+     "value": 77340.01
+    },
+    {
+     "date": "2026-09-03",
+     "value": 81270.37
+    },
+    {
+     "date": "2026-09-04",
+     "value": 79660.77
+    },
+    {
+     "date": "2026-09-05",
+     "value": 79831.75
+    },
+    {
+     "date": "2026-09-06",
+     "value": 80341.83
+    },
+    {
+     "date": "2026-09-07",
+     "value": 79112.01
+    },
+    {
+     "date": "2026-09-08",
+     "value": 78455.8
+    },
+    {
+     "date": "2026-09-09",
+     "value": 78306.43
+    },
+    {
+     "date": "2026-09-10",
+     "value": 76568.72
+    },
+    {
+     "date": "2026-09-11",
+     "value": 77225.7
+    },
+    {
+     "date": "2026-09-12",
+     "value": 77278.73
+    },
+    {
+     "date": "2026-09-13",
+     "value": 76842.01
+    },
+    {
+     "date": "2026-09-14",
+     "value": 78189.21
+    },
+    {
+     "date": "2026-09-15",
+     "value": 75644.48
+    }
+   ],
+   "source_url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=1000&startTime=1753142400000&endTime=1789516799000",
+   "fetched_at": "2026-09-16T14:57:50.744Z",
+   "question_ids": [
+    893,
+    894,
+    895,
+    896,
+    897,
+    898,
+    899,
+    900,
+    901,
+    902,
+    903,
+    904,
+    987,
+    988,
+    989,
+    990,
+    991,
+    992,
+    993,
+    994,
+    995,
+    1794,
+    1795,
+    1796,
+    1797,
+    1798,
+    1799,
+    1800,
+    1801,
+    1802,
+    1803,
+    1804,
+    1805,
+    1806,
+    1807,
+    1808
+   ]
+  },
+  "eurostat_live_tertiary_attain|tpl:https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/edat_lfse_03?format=JSON&geo=DE&sex=F&age=Y25-74&unit=PC&isced11=ED5-8&lastTimePeriod=*": {
+   "kind": "eurostat_live_tertiary_attain",
+   "key_fields": "tpl:https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/edat_lfse_03?format=JSON&geo=DE&sex=F&age=Y25-74&unit=PC&isced11=ED5-8&lastTimePeriod=*",
+   "variable": null,
+   "window": "range",
+   "window_note": "模板型系列（eurostat；窗口=切点前 420 天）",
+   "ref_cutoff": "2026-09-16",
+   "days": [
+    {
+     "date": "2000-01-01",
+     "value": 16.8
+    },
+    {
+     "date": "2001-01-01",
+     "value": 16.5
+    },
+    {
+     "date": "2002-01-01",
+     "value": 16.1
+    },
+    {
+     "date": "2003-01-01",
+     "value": 17.4
+    },
+    {
+     "date": "2004-01-01",
+     "value": 18.4
+    },
+    {
+     "date": "2005-01-01",
+     "value": 18.2
+    },
+    {
+     "date": "2006-01-01",
+     "value": 18
+    },
+    {
+     "date": "2007-01-01",
+     "value": 18.6
+    },
+    {
+     "date": "2008-01-01",
+     "value": 19.6
+    },
+    {
+     "date": "2009-01-01",
+     "value": 20.8
+    },
+    {
+     "date": "2010-01-01",
+     "value": 21.2
+    },
+    {
+     "date": "2011-01-01",
+     "value": 22.7
+    },
+    {
+     "date": "2012-01-01",
+     "value": 23.5
+    },
+    {
+     "date": "2013-01-01",
+     "value": 24.3
+    },
+    {
+     "date": "2014-01-01",
+     "value": 21.9
+    },
+    {
+     "date": "2015-01-01",
+     "value": 22.7
+    },
+    {
+     "date": "2016-01-01",
+     "value": 23.6
+    },
+    {
+     "date": "2017-01-01",
+     "value": 24.2
+    },
+    {
+     "date": "2018-01-01",
+     "value": 24.9
+    },
+    {
+     "date": "2019-01-01",
+     "value": 25.7
+    },
+    {
+     "date": "2020-01-01",
+     "value": 27.2
+    },
+    {
+     "date": "2021-01-01",
+     "value": 28.1
+    },
+    {
+     "date": "2022-01-01",
+     "value": 28.4
+    },
+    {
+     "date": "2023-01-01",
+     "value": 29.3
+    },
+    {
+     "date": "2024-01-01",
+     "value": 30.1
+    },
+    {
+     "date": "2025-01-01",
+     "value": 31.9
+    }
+   ],
+   "source_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/edat_lfse_03?format=JSON&geo=DE&sex=F&age=Y25-74&unit=PC&isced11=ED5-8&lastTimePeriod=500",
+   "fetched_at": "2026-09-16T14:57:51.729Z",
+   "question_ids": [
+    1082
+   ]
+  },
+  "eurostat_live_tertiary_attain|tpl:https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/edat_lfse_03?format=JSON&geo=FR&sex=F&age=Y25-74&unit=PC&isced11=ED5-8&lastTimePeriod=*": {
+   "kind": "eurostat_live_tertiary_attain",
+   "key_fields": "tpl:https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/edat_lfse_03?format=JSON&geo=FR&sex=F&age=Y25-74&unit=PC&isced11=ED5-8&lastTimePeriod=*",
+   "variable": null,
+   "window": "range",
+   "window_note": "模板型系列（eurostat；窗口=切点前 420 天）",
+   "ref_cutoff": "2026-09-16",
+   "days": [
+    {
+     "date": "2000-01-01",
+     "value": 19.5
+    },
+    {
+     "date": "2001-01-01",
+     "value": 20.4
+    },
+    {
+     "date": "2002-01-01",
+     "value": 21.5
+    },
+    {
+     "date": "2003-01-01",
+     "value": 21.9
+    },
+    {
+     "date": "2004-01-01",
+     "value": 22.5
+    },
+    {
+     "date": "2005-01-01",
+     "value": 23.6
+    },
+    {
+     "date": "2006-01-01",
+     "value": 24.6
+    },
+    {
+     "date": "2007-01-01",
+     "value": 25.1
+    },
+    {
+     "date": "2008-01-01",
+     "value": 26
+    },
+    {
+     "date": "2009-01-01",
+     "value": 27.4
+    },
+    {
+     "date": "2010-01-01",
+     "value": 27.8
+    },
+    {
+     "date": "2011-01-01",
+     "value": 28.6
+    },
+    {
+     "date": "2012-01-01",
+     "value": 29.6
+    },
+    {
+     "date": "2013-01-01",
+     "value": 31
+    },
+    {
+     "date": "2014-01-01",
+     "value": 32.4
+    },
+    {
+     "date": "2015-01-01",
+     "value": 33.4
+    },
+    {
+     "date": "2016-01-01",
+     "value": 33.7
+    },
+    {
+     "date": "2017-01-01",
+     "value": 34.5
+    },
+    {
+     "date": "2018-01-01",
+     "value": 35.9
+    },
+    {
+     "date": "2019-01-01",
+     "value": 36.9
+    },
+    {
+     "date": "2020-01-01",
+     "value": 38.5
+    },
+    {
+     "date": "2021-01-01",
+     "value": 39.3
+    },
+    {
+     "date": "2022-01-01",
+     "value": 40.4
+    },
+    {
+     "date": "2023-01-01",
+     "value": 41.2
+    },
+    {
+     "date": "2024-01-01",
+     "value": 42.1
+    },
+    {
+     "date": "2025-01-01",
+     "value": 43.4
+    }
+   ],
+   "source_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/edat_lfse_03?format=JSON&geo=FR&sex=F&age=Y25-74&unit=PC&isced11=ED5-8&lastTimePeriod=500",
+   "fetched_at": "2026-09-16T14:57:52.263Z",
+   "question_ids": [
+    1085
+   ]
+  },
+  "eurostat_live_tertiary_attain|tpl:https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/edat_lfse_03?format=JSON&geo=ES&sex=F&age=Y25-74&unit=PC&isced11=ED5-8&lastTimePeriod=*": {
+   "kind": "eurostat_live_tertiary_attain",
+   "key_fields": "tpl:https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/edat_lfse_03?format=JSON&geo=ES&sex=F&age=Y25-74&unit=PC&isced11=ED5-8&lastTimePeriod=*",
+   "variable": null,
+   "window": "range",
+   "window_note": "模板型系列（eurostat；窗口=切点前 420 天）",
+   "ref_cutoff": "2026-09-16",
+   "days": [
+    {
+     "date": "2000-01-01",
+     "value": 18.8
+    },
+    {
+     "date": "2001-01-01",
+     "value": 19.9
+    },
+    {
+     "date": "2002-01-01",
+     "value": 21.4
+    },
+    {
+     "date": "2003-01-01",
+     "value": 22.1
+    },
+    {
+     "date": "2004-01-01",
+     "value": 23.6
+    },
+    {
+     "date": "2005-01-01",
+     "value": 25.3
+    },
+    {
+     "date": "2006-01-01",
+     "value": 25.9
+    },
+    {
+     "date": "2007-01-01",
+     "value": 26.7
+    },
+    {
+     "date": "2008-01-01",
+     "value": 27
+    },
+    {
+     "date": "2009-01-01",
+     "value": 27.9
+    },
+    {
+     "date": "2010-01-01",
+     "value": 29.1
+    },
+    {
+     "date": "2011-01-01",
+     "value": 29.9
+    },
+    {
+     "date": "2012-01-01",
+     "value": 30.7
+    },
+    {
+     "date": "2013-01-01",
+     "value": 31.6
+    },
+    {
+     "date": "2014-01-01",
+     "value": 32.7
+    },
+    {
+     "date": "2015-01-01",
+     "value": 33.4
+    },
+    {
+     "date": "2016-01-01",
+     "value": 34.3
+    },
+    {
+     "date": "2017-01-01",
+     "value": 34.6
+    },
+    {
+     "date": "2018-01-01",
+     "value": 35.5
+    },
+    {
+     "date": "2019-01-01",
+     "value": 37.1
+    },
+    {
+     "date": "2020-01-01",
+     "value": 38.3
+    },
+    {
+     "date": "2021-01-01",
+     "value": 39.3
+    },
+    {
+     "date": "2022-01-01",
+     "value": 39.9
+    },
+    {
+     "date": "2023-01-01",
+     "value": 40.5
+    },
+    {
+     "date": "2024-01-01",
+     "value": 41
+    },
+    {
+     "date": "2025-01-01",
+     "value": 41.7
+    }
+   ],
+   "source_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/edat_lfse_03?format=JSON&geo=ES&sex=F&age=Y25-74&unit=PC&isced11=ED5-8&lastTimePeriod=500",
+   "fetched_at": "2026-09-16T14:57:52.788Z",
+   "question_ids": [
+    1088
+   ]
+  },
+  "eurostat_live_unemployment_monthly|tpl:https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/une_rt_m?format=JSON&geo=DE&s_adj=SA&unit=PC_ACT&sex=T&age=TOTAL&lastTimePeriod=*": {
+   "kind": "eurostat_live_unemployment_monthly",
+   "key_fields": "tpl:https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/une_rt_m?format=JSON&geo=DE&s_adj=SA&unit=PC_ACT&sex=T&age=TOTAL&lastTimePeriod=*",
+   "variable": null,
+   "window": "range",
+   "window_note": "模板型系列（eurostat；窗口=切点前 420 天）",
+   "ref_cutoff": "2026-09-16",
+   "days": [
+    {
+     "date": "1991-01-01",
+     "value": 5.2
+    },
+    {
+     "date": "1991-02-01",
+     "value": 5.2
+    },
+    {
+     "date": "1991-03-01",
+     "value": 5.3
+    },
+    {
+     "date": "1991-04-01",
+     "value": 5.3
+    },
+    {
+     "date": "1991-05-01",
+     "value": 5.3
+    },
+    {
+     "date": "1991-06-01",
+     "value": 5.4
+    },
+    {
+     "date": "1991-07-01",
+     "value": 5.5
+    },
+    {
+     "date": "1991-08-01",
+     "value": 5.6
+    },
+    {
+     "date": "1991-09-01",
+     "value": 5.7
+    },
+    {
+     "date": "1991-10-01",
+     "value": 5.8
+    },
+    {
+     "date": "1991-11-01",
+     "value": 5.9
+    },
+    {
+     "date": "1991-12-01",
+     "value": 6
+    },
+    {
+     "date": "1992-01-01",
+     "value": 6
+    },
+    {
+     "date": "1992-02-01",
+     "value": 6.1
+    },
+    {
+     "date": "1992-03-01",
+     "value": 6.2
+    },
+    {
+     "date": "1992-04-01",
+     "value": 6.3
+    },
+    {
+     "date": "1992-05-01",
+     "value": 6.4
+    },
+    {
+     "date": "1992-06-01",
+     "value": 6.5
+    },
+    {
+     "date": "1992-07-01",
+     "value": 6.6
+    },
+    {
+     "date": "1992-08-01",
+     "value": 6.8
+    },
+    {
+     "date": "1992-09-01",
+     "value": 6.9
+    },
+    {
+     "date": "1992-10-01",
+     "value": 7
+    },
+    {
+     "date": "1992-11-01",
+     "value": 7.1
+    },
+    {
+     "date": "1992-12-01",
+     "value": 7.2
+    },
+    {
+     "date": "1993-01-01",
+     "value": 7.3
+    },
+    {
+     "date": "1993-02-01",
+     "value": 7.4
+    },
+    {
+     "date": "1993-03-01",
+     "value": 7.5
+    },
+    {
+     "date": "1993-04-01",
+     "value": 7.5
+    },
+    {
+     "date": "1993-05-01",
+     "value": 7.6
+    },
+    {
+     "date": "1993-06-01",
+     "value": 7.7
+    },
+    {
+     "date": "1993-07-01",
+     "value": 7.8
+    },
+    {
+     "date": "1993-08-01",
+     "value": 7.9
+    },
+    {
+     "date": "1993-09-01",
+     "value": 8
+    },
+    {
+     "date": "1993-10-01",
+     "value": 8.1
+    },
+    {
+     "date": "1993-11-01",
+     "value": 8.2
+    },
+    {
+     "date": "1993-12-01",
+     "value": 8.3
+    },
+    {
+     "date": "1994-01-01",
+     "value": 8.4
+    },
+    {
+     "date": "1994-02-01",
+     "value": 8.5
+    },
+    {
+     "date": "1994-03-01",
+     "value": 8.5
+    },
+    {
+     "date": "1994-04-01",
+     "value": 8.6
+    },
+    {
+     "date": "1994-05-01",
+     "value": 8.5
+    },
+    {
+     "date": "1994-06-01",
+     "value": 8.5
+    },
+    {
+     "date": "1994-07-01",
+     "value": 8.5
+    },
+    {
+     "date": "1994-08-01",
+     "value": 8.4
+    },
+    {
+     "date": "1994-09-01",
+     "value": 8.4
+    },
+    {
+     "date": "1994-10-01",
+     "value": 8.3
+    },
+    {
+     "date": "1994-11-01",
+     "value": 8.3
+    },
+    {
+     "date": "1994-12-01",
+     "value": 8.2
+    },
+    {
+     "date": "1995-01-01",
+     "value": 8.2
+    },
+    {
+     "date": "1995-02-01",
+     "value": 8.1
+    },
+    {
+     "date": "1995-03-01",
+     "value": 8.1
+    },
+    {
+     "date": "1995-04-01",
+     "value": 8.1
+    },
+    {
+     "date": "1995-05-01",
+     "value": 8.1
+    },
+    {
+     "date": "1995-06-01",
+     "value": 8.1
+    },
+    {
+     "date": "1995-07-01",
+     "value": 8.2
+    },
+    {
+     "date": "1995-08-01",
+     "value": 8.3
+    },
+    {
+     "date": "1995-09-01",
+     "value": 8.3
+    },
+    {
+     "date": "1995-10-01",
+     "value": 8.4
+    },
+    {
+     "date": "1995-11-01",
+     "value": 8.4
+    },
+    {
+     "date": "1995-12-01",
+     "value": 8.5
+    },
+    {
+     "date": "1996-01-01",
+     "value": 8.5
+    },
+    {
+     "date": "1996-02-01",
+     "value": 8.6
+    },
+    {
+     "date": "1996-03-01",
+     "value": 8.6
+    },
+    {
+     "date": "1996-04-01",
+     "value": 8.7
+    },
+    {
+     "date": "1996-05-01",
+     "value": 8.8
+    },
+    {
+     "date": "1996-06-01",
+     "value": 8.8
+    },
+    {
+     "date": "1996-07-01",
+     "value": 8.9
+    },
+    {
+     "date": "1996-08-01",
+     "value": 9
+    },
+    {
+     "date": "1996-09-01",
+     "value": 9.1
+    },
+    {
+     "date": "1996-10-01",
+     "value": 9.2
+    },
+    {
+     "date": "1996-11-01",
+     "value": 9.3
+    },
+    {
+     "date": "1996-12-01",
+     "value": 9.4
+    },
+    {
+     "date": "1997-01-01",
+     "value": 9.5
+    },
+    {
+     "date": "1997-02-01",
+     "value": 9.5
+    },
+    {
+     "date": "1997-03-01",
+     "value": 9.6
+    },
+    {
+     "date": "1997-04-01",
+     "value": 9.7
+    },
+    {
+     "date": "1997-05-01",
+     "value": 9.7
+    },
+    {
+     "date": "1997-06-01",
+     "value": 9.7
+    },
+    {
+     "date": "1997-07-01",
+     "value": 9.7
+    },
+    {
+     "date": "1997-08-01",
+     "value": 9.7
+    },
+    {
+     "date": "1997-09-01",
+     "value": 9.7
+    },
+    {
+     "date": "1997-10-01",
+     "value": 9.7
+    },
+    {
+     "date": "1997-11-01",
+     "value": 9.7
+    },
+    {
+     "date": "1997-12-01",
+     "value": 9.7
+    },
+    {
+     "date": "1998-01-01",
+     "value": 9.7
+    },
+    {
+     "date": "1998-02-01",
+     "value": 9.7
+    },
+    {
+     "date": "1998-03-01",
+     "value": 9.6
+    },
+    {
+     "date": "1998-04-01",
+     "value": 9.6
+    },
+    {
+     "date": "1998-05-01",
+     "value": 9.5
+    },
+    {
+     "date": "1998-06-01",
+     "value": 9.4
+    },
+    {
+     "date": "1998-07-01",
+     "value": 9.4
+    },
+    {
+     "date": "1998-08-01",
+     "value": 9.3
+    },
+    {
+     "date": "1998-09-01",
+     "value": 9.2
+    },
+    {
+     "date": "1998-10-01",
+     "value": 9.1
+    },
+    {
+     "date": "1998-11-01",
+     "value": 9.1
+    },
+    {
+     "date": "1998-12-01",
+     "value": 9
+    },
+    {
+     "date": "1999-01-01",
+     "value": 8.9
+    },
+    {
+     "date": "1999-02-01",
+     "value": 8.8
+    },
+    {
+     "date": "1999-03-01",
+     "value": 8.8
+    },
+    {
+     "date": "1999-04-01",
+     "value": 8.7
+    },
+    {
+     "date": "1999-05-01",
+     "value": 8.6
+    },
+    {
+     "date": "1999-06-01",
+     "value": 8.6
+    },
+    {
+     "date": "1999-07-01",
+     "value": 8.5
+    },
+    {
+     "date": "1999-08-01",
+     "value": 8.5
+    },
+    {
+     "date": "1999-09-01",
+     "value": 8.4
+    },
+    {
+     "date": "1999-10-01",
+     "value": 8.4
+    },
+    {
+     "date": "1999-11-01",
+     "value": 8.3
+    },
+    {
+     "date": "1999-12-01",
+     "value": 8.2
+    },
+    {
+     "date": "2000-01-01",
+     "value": 8.2
+    },
+    {
+     "date": "2000-02-01",
+     "value": 8.1
+    },
+    {
+     "date": "2000-03-01",
+     "value": 8.1
+    },
+    {
+     "date": "2000-04-01",
+     "value": 8
+    },
+    {
+     "date": "2000-05-01",
+     "value": 8
+    },
+    {
+     "date": "2000-06-01",
+     "value": 8
+    },
+    {
+     "date": "2000-07-01",
+     "value": 7.9
+    },
+    {
+     "date": "2000-08-01",
+     "value": 7.9
+    },
+    {
+     "date": "2000-09-01",
+     "value": 7.9
+    },
+    {
+     "date": "2000-10-01",
+     "value": 7.8
+    },
+    {
+     "date": "2000-11-01",
+     "value": 7.8
+    },
+    {
+     "date": "2000-12-01",
+     "value": 7.7
+    },
+    {
+     "date": "2001-01-01",
+     "value": 7.7
+    },
+    {
+     "date": "2001-02-01",
+     "value": 7.7
+    },
+    {
+     "date": "2001-03-01",
+     "value": 7.6
+    },
+    {
+     "date": "2001-04-01",
+     "value": 7.6
+    },
+    {
+     "date": "2001-05-01",
+     "value": 7.7
+    },
+    {
+     "date": "2001-06-01",
+     "value": 7.7
+    },
+    {
+     "date": "2001-07-01",
+     "value": 7.8
+    },
+    {
+     "date": "2001-08-01",
+     "value": 7.8
+    },
+    {
+     "date": "2001-09-01",
+     "value": 7.9
+    },
+    {
+     "date": "2001-10-01",
+     "value": 8
+    },
+    {
+     "date": "2001-11-01",
+     "value": 8
+    },
+    {
+     "date": "2001-12-01",
+     "value": 8.1
+    },
+    {
+     "date": "2002-01-01",
+     "value": 8.1
+    },
+    {
+     "date": "2002-02-01",
+     "value": 8.2
+    },
+    {
+     "date": "2002-03-01",
+     "value": 8.2
+    },
+    {
+     "date": "2002-04-01",
+     "value": 8.3
+    },
+    {
+     "date": "2002-05-01",
+     "value": 8.4
+    },
+    {
+     "date": "2002-06-01",
+     "value": 8.5
+    },
+    {
+     "date": "2002-07-01",
+     "value": 8.6
+    },
+    {
+     "date": "2002-08-01",
+     "value": 8.7
+    },
+    {
+     "date": "2002-09-01",
+     "value": 8.9
+    },
+    {
+     "date": "2002-10-01",
+     "value": 9
+    },
+    {
+     "date": "2002-11-01",
+     "value": 9.1
+    },
+    {
+     "date": "2002-12-01",
+     "value": 9.2
+    },
+    {
+     "date": "2003-01-01",
+     "value": 9.4
+    },
+    {
+     "date": "2003-02-01",
+     "value": 9.5
+    },
+    {
+     "date": "2003-03-01",
+     "value": 9.6
+    },
+    {
+     "date": "2003-04-01",
+     "value": 9.7
+    },
+    {
+     "date": "2003-05-01",
+     "value": 9.7
+    },
+    {
+     "date": "2003-06-01",
+     "value": 9.8
+    },
+    {
+     "date": "2003-07-01",
+     "value": 9.8
+    },
+    {
+     "date": "2003-08-01",
+     "value": 9.8
+    },
+    {
+     "date": "2003-09-01",
+     "value": 9.8
+    },
+    {
+     "date": "2003-10-01",
+     "value": 9.8
+    },
+    {
+     "date": "2003-11-01",
+     "value": 9.8
+    },
+    {
+     "date": "2003-12-01",
+     "value": 9.8
+    },
+    {
+     "date": "2004-01-01",
+     "value": 9.8
+    },
+    {
+     "date": "2004-02-01",
+     "value": 10.1
+    },
+    {
+     "date": "2004-03-01",
+     "value": 10.3
+    },
+    {
+     "date": "2004-04-01",
+     "value": 10.3
+    },
+    {
+     "date": "2004-05-01",
+     "value": 10.3
+    },
+    {
+     "date": "2004-06-01",
+     "value": 10.3
+    },
+    {
+     "date": "2004-07-01",
+     "value": 10.3
+    },
+    {
+     "date": "2004-08-01",
+     "value": 10.4
+    },
+    {
+     "date": "2004-09-01",
+     "value": 10.4
+    },
+    {
+     "date": "2004-10-01",
+     "value": 10.5
+    },
+    {
+     "date": "2004-11-01",
+     "value": 10.6
+    },
+    {
+     "date": "2004-12-01",
+     "value": 10.7
+    },
+    {
+     "date": "2005-01-01",
+     "value": 10.7
+    },
+    {
+     "date": "2005-02-01",
+     "value": 10.9
+    },
+    {
+     "date": "2005-03-01",
+     "value": 10.9
+    },
+    {
+     "date": "2005-04-01",
+     "value": 11.2
+    },
+    {
+     "date": "2005-05-01",
+     "value": 11.2
+    },
+    {
+     "date": "2005-06-01",
+     "value": 11.2
+    },
+    {
+     "date": "2005-07-01",
+     "value": 11.2
+    },
+    {
+     "date": "2005-08-01",
+     "value": 11.2
+    },
+    {
+     "date": "2005-09-01",
+     "value": 11.1
+    },
+    {
+     "date": "2005-10-01",
+     "value": 11
+    },
+    {
+     "date": "2005-11-01",
+     "value": 10.9
+    },
+    {
+     "date": "2005-12-01",
+     "value": 10.7
+    },
+    {
+     "date": "2006-01-01",
+     "value": 10.6
+    },
+    {
+     "date": "2006-02-01",
+     "value": 10.5
+    },
+    {
+     "date": "2006-03-01",
+     "value": 10.5
+    },
+    {
+     "date": "2006-04-01",
+     "value": 10.3
+    },
+    {
+     "date": "2006-05-01",
+     "value": 10.2
+    },
+    {
+     "date": "2006-06-01",
+     "value": 10.1
+    },
+    {
+     "date": "2006-07-01",
+     "value": 10
+    },
+    {
+     "date": "2006-08-01",
+     "value": 9.9
+    },
+    {
+     "date": "2006-09-01",
+     "value": 9.8
+    },
+    {
+     "date": "2006-10-01",
+     "value": 9.7
+    },
+    {
+     "date": "2006-11-01",
+     "value": 9.6
+    },
+    {
+     "date": "2006-12-01",
+     "value": 9.4
+    },
+    {
+     "date": "2007-01-01",
+     "value": 9.2
+    },
+    {
+     "date": "2007-02-01",
+     "value": 9.1
+    },
+    {
+     "date": "2007-03-01",
+     "value": 8.9
+    },
+    {
+     "date": "2007-04-01",
+     "value": 8.7
+    },
+    {
+     "date": "2007-05-01",
+     "value": 8.6
+    },
+    {
+     "date": "2007-06-01",
+     "value": 8.5
+    },
+    {
+     "date": "2007-07-01",
+     "value": 8.5
+    },
+    {
+     "date": "2007-08-01",
+     "value": 8.4
+    },
+    {
+     "date": "2007-09-01",
+     "value": 8.4
+    },
+    {
+     "date": "2007-10-01",
+     "value": 8.3
+    },
+    {
+     "date": "2007-11-01",
+     "value": 8.2
+    },
+    {
+     "date": "2007-12-01",
+     "value": 8.1
+    },
+    {
+     "date": "2008-01-01",
+     "value": 8
+    },
+    {
+     "date": "2008-02-01",
+     "value": 7.9
+    },
+    {
+     "date": "2008-03-01",
+     "value": 7.8
+    },
+    {
+     "date": "2008-04-01",
+     "value": 7.7
+    },
+    {
+     "date": "2008-05-01",
+     "value": 7.5
+    },
+    {
+     "date": "2008-06-01",
+     "value": 7.4
+    },
+    {
+     "date": "2008-07-01",
+     "value": 7.3
+    },
+    {
+     "date": "2008-08-01",
+     "value": 7.1
+    },
+    {
+     "date": "2008-09-01",
+     "value": 7
+    },
+    {
+     "date": "2008-10-01",
+     "value": 7
+    },
+    {
+     "date": "2008-11-01",
+     "value": 7
+    },
+    {
+     "date": "2008-12-01",
+     "value": 7.1
+    },
+    {
+     "date": "2009-01-01",
+     "value": 7.1
+    },
+    {
+     "date": "2009-02-01",
+     "value": 7.2
+    },
+    {
+     "date": "2009-03-01",
+     "value": 7.3
+    },
+    {
+     "date": "2009-04-01",
+     "value": 7.4
+    },
+    {
+     "date": "2009-05-01",
+     "value": 7.5
+    },
+    {
+     "date": "2009-06-01",
+     "value": 7.5
+    },
+    {
+     "date": "2009-07-01",
+     "value": 7.6
+    },
+    {
+     "date": "2009-08-01",
+     "value": 7.5
+    },
+    {
+     "date": "2009-09-01",
+     "value": 7.5
+    },
+    {
+     "date": "2009-10-01",
+     "value": 7.4
+    },
+    {
+     "date": "2009-11-01",
+     "value": 7.2
+    },
+    {
+     "date": "2009-12-01",
+     "value": 7.2
+    },
+    {
+     "date": "2010-01-01",
+     "value": 7.1
+    },
+    {
+     "date": "2010-02-01",
+     "value": 7
+    },
+    {
+     "date": "2010-03-01",
+     "value": 6.9
+    },
+    {
+     "date": "2010-04-01",
+     "value": 6.8
+    },
+    {
+     "date": "2010-05-01",
+     "value": 6.7
+    },
+    {
+     "date": "2010-06-01",
+     "value": 6.6
+    },
+    {
+     "date": "2010-07-01",
+     "value": 6.5
+    },
+    {
+     "date": "2010-08-01",
+     "value": 6.4
+    },
+    {
+     "date": "2010-09-01",
+     "value": 6.4
+    },
+    {
+     "date": "2010-10-01",
+     "value": 6.3
+    },
+    {
+     "date": "2010-11-01",
+     "value": 6.2
+    },
+    {
+     "date": "2010-12-01",
+     "value": 6.1
+    },
+    {
+     "date": "2011-01-01",
+     "value": 6
+    },
+    {
+     "date": "2011-02-01",
+     "value": 5.9
+    },
+    {
+     "date": "2011-03-01",
+     "value": 5.7
+    },
+    {
+     "date": "2011-04-01",
+     "value": 5.6
+    },
+    {
+     "date": "2011-05-01",
+     "value": 5.6
+    },
+    {
+     "date": "2011-06-01",
+     "value": 5.5
+    },
+    {
+     "date": "2011-07-01",
+     "value": 5.5
+    },
+    {
+     "date": "2011-08-01",
+     "value": 5.4
+    },
+    {
+     "date": "2011-09-01",
+     "value": 5.4
+    },
+    {
+     "date": "2011-10-01",
+     "value": 5.3
+    },
+    {
+     "date": "2011-11-01",
+     "value": 5.2
+    },
+    {
+     "date": "2011-12-01",
+     "value": 5.2
+    },
+    {
+     "date": "2012-01-01",
+     "value": 5.1
+    },
+    {
+     "date": "2012-02-01",
+     "value": 5.1
+    },
+    {
+     "date": "2012-03-01",
+     "value": 5.1
+    },
+    {
+     "date": "2012-04-01",
+     "value": 5.1
+    },
+    {
+     "date": "2012-05-01",
+     "value": 5.1
+    },
+    {
+     "date": "2012-06-01",
+     "value": 5.1
+    },
+    {
+     "date": "2012-07-01",
+     "value": 5.1
+    },
+    {
+     "date": "2012-08-01",
+     "value": 5
+    },
+    {
+     "date": "2012-09-01",
+     "value": 5
+    },
+    {
+     "date": "2012-10-01",
+     "value": 5
+    },
+    {
+     "date": "2012-11-01",
+     "value": 5
+    },
+    {
+     "date": "2012-12-01",
+     "value": 5
+    },
+    {
+     "date": "2013-01-01",
+     "value": 5.1
+    },
+    {
+     "date": "2013-02-01",
+     "value": 5.1
+    },
+    {
+     "date": "2013-03-01",
+     "value": 5
+    },
+    {
+     "date": "2013-04-01",
+     "value": 5
+    },
+    {
+     "date": "2013-05-01",
+     "value": 5
+    },
+    {
+     "date": "2013-06-01",
+     "value": 4.9
+    },
+    {
+     "date": "2013-07-01",
+     "value": 4.9
+    },
+    {
+     "date": "2013-08-01",
+     "value": 4.9
+    },
+    {
+     "date": "2013-09-01",
+     "value": 4.9
+    },
+    {
+     "date": "2013-10-01",
+     "value": 4.8
+    },
+    {
+     "date": "2013-11-01",
+     "value": 4.8
+    },
+    {
+     "date": "2013-12-01",
+     "value": 4.8
+    },
+    {
+     "date": "2014-01-01",
+     "value": 4.8
+    },
+    {
+     "date": "2014-02-01",
+     "value": 4.8
+    },
+    {
+     "date": "2014-03-01",
+     "value": 4.8
+    },
+    {
+     "date": "2014-04-01",
+     "value": 4.8
+    },
+    {
+     "date": "2014-05-01",
+     "value": 4.7
+    },
+    {
+     "date": "2014-06-01",
+     "value": 4.7
+    },
+    {
+     "date": "2014-07-01",
+     "value": 4.7
+    },
+    {
+     "date": "2014-08-01",
+     "value": 4.7
+    },
+    {
+     "date": "2014-09-01",
+     "value": 4.7
+    },
+    {
+     "date": "2014-10-01",
+     "value": 4.7
+    },
+    {
+     "date": "2014-11-01",
+     "value": 4.6
+    },
+    {
+     "date": "2014-12-01",
+     "value": 4.6
+    },
+    {
+     "date": "2015-01-01",
+     "value": 4.5
+    },
+    {
+     "date": "2015-02-01",
+     "value": 4.5
+    },
+    {
+     "date": "2015-03-01",
+     "value": 4.5
+    },
+    {
+     "date": "2015-04-01",
+     "value": 4.4
+    },
+    {
+     "date": "2015-05-01",
+     "value": 4.4
+    },
+    {
+     "date": "2015-06-01",
+     "value": 4.4
+    },
+    {
+     "date": "2015-07-01",
+     "value": 4.3
+    },
+    {
+     "date": "2015-08-01",
+     "value": 4.3
+    },
+    {
+     "date": "2015-09-01",
+     "value": 4.3
+    },
+    {
+     "date": "2015-10-01",
+     "value": 4.2
+    },
+    {
+     "date": "2015-11-01",
+     "value": 4.2
+    },
+    {
+     "date": "2015-12-01",
+     "value": 4.2
+    },
+    {
+     "date": "2016-01-01",
+     "value": 4.1
+    },
+    {
+     "date": "2016-02-01",
+     "value": 4.1
+    },
+    {
+     "date": "2016-03-01",
+     "value": 4
+    },
+    {
+     "date": "2016-04-01",
+     "value": 4
+    },
+    {
+     "date": "2016-05-01",
+     "value": 4
+    },
+    {
+     "date": "2016-06-01",
+     "value": 4
+    },
+    {
+     "date": "2016-07-01",
+     "value": 3.9
+    },
+    {
+     "date": "2016-08-01",
+     "value": 3.9
+    },
+    {
+     "date": "2016-09-01",
+     "value": 3.8
+    },
+    {
+     "date": "2016-10-01",
+     "value": 3.7
+    },
+    {
+     "date": "2016-11-01",
+     "value": 3.7
+    },
+    {
+     "date": "2016-12-01",
+     "value": 3.7
+    },
+    {
+     "date": "2017-01-01",
+     "value": 3.7
+    },
+    {
+     "date": "2017-02-01",
+     "value": 3.6
+    },
+    {
+     "date": "2017-03-01",
+     "value": 3.6
+    },
+    {
+     "date": "2017-04-01",
+     "value": 3.6
+    },
+    {
+     "date": "2017-05-01",
+     "value": 3.6
+    },
+    {
+     "date": "2017-06-01",
+     "value": 3.5
+    },
+    {
+     "date": "2017-07-01",
+     "value": 3.5
+    },
+    {
+     "date": "2017-08-01",
+     "value": 3.5
+    },
+    {
+     "date": "2017-09-01",
+     "value": 3.4
+    },
+    {
+     "date": "2017-10-01",
+     "value": 3.4
+    },
+    {
+     "date": "2017-11-01",
+     "value": 3.4
+    },
+    {
+     "date": "2017-12-01",
+     "value": 3.4
+    },
+    {
+     "date": "2018-01-01",
+     "value": 3.3
+    },
+    {
+     "date": "2018-02-01",
+     "value": 3.3
+    },
+    {
+     "date": "2018-03-01",
+     "value": 3.3
+    },
+    {
+     "date": "2018-04-01",
+     "value": 3.2
+    },
+    {
+     "date": "2018-05-01",
+     "value": 3.2
+    },
+    {
+     "date": "2018-06-01",
+     "value": 3.2
+    },
+    {
+     "date": "2018-07-01",
+     "value": 3.2
+    },
+    {
+     "date": "2018-08-01",
+     "value": 3.2
+    },
+    {
+     "date": "2018-09-01",
+     "value": 3.1
+    },
+    {
+     "date": "2018-10-01",
+     "value": 3.1
+    },
+    {
+     "date": "2018-11-01",
+     "value": 3.1
+    },
+    {
+     "date": "2018-12-01",
+     "value": 3.1
+    },
+    {
+     "date": "2019-01-01",
+     "value": 3
+    },
+    {
+     "date": "2019-02-01",
+     "value": 3
+    },
+    {
+     "date": "2019-03-01",
+     "value": 3
+    },
+    {
+     "date": "2019-04-01",
+     "value": 2.9
+    },
+    {
+     "date": "2019-05-01",
+     "value": 2.9
+    },
+    {
+     "date": "2019-06-01",
+     "value": 2.9
+    },
+    {
+     "date": "2019-07-01",
+     "value": 2.9
+    },
+    {
+     "date": "2019-08-01",
+     "value": 2.9
+    },
+    {
+     "date": "2019-09-01",
+     "value": 2.9
+    },
+    {
+     "date": "2019-10-01",
+     "value": 2.9
+    },
+    {
+     "date": "2019-11-01",
+     "value": 3
+    },
+    {
+     "date": "2019-12-01",
+     "value": 3.1
+    },
+    {
+     "date": "2020-01-01",
+     "value": 3.2
+    },
+    {
+     "date": "2020-02-01",
+     "value": 3.3
+    },
+    {
+     "date": "2020-03-01",
+     "value": 3.4
+    },
+    {
+     "date": "2020-04-01",
+     "value": 3.5
+    },
+    {
+     "date": "2020-05-01",
+     "value": 3.7
+    },
+    {
+     "date": "2020-06-01",
+     "value": 3.8
+    },
+    {
+     "date": "2020-07-01",
+     "value": 3.8
+    },
+    {
+     "date": "2020-08-01",
+     "value": 3.9
+    },
+    {
+     "date": "2020-09-01",
+     "value": 3.8
+    },
+    {
+     "date": "2020-10-01",
+     "value": 3.8
+    },
+    {
+     "date": "2020-11-01",
+     "value": 3.8
+    },
+    {
+     "date": "2020-12-01",
+     "value": 3.8
+    },
+    {
+     "date": "2021-01-01",
+     "value": 3.9
+    },
+    {
+     "date": "2021-02-01",
+     "value": 3.9
+    },
+    {
+     "date": "2021-03-01",
+     "value": 3.9
+    },
+    {
+     "date": "2021-04-01",
+     "value": 3.8
+    },
+    {
+     "date": "2021-05-01",
+     "value": 3.7
+    },
+    {
+     "date": "2021-06-01",
+     "value": 3.6
+    },
+    {
+     "date": "2021-07-01",
+     "value": 3.5
+    },
+    {
+     "date": "2021-08-01",
+     "value": 3.4
+    },
+    {
+     "date": "2021-09-01",
+     "value": 3.4
+    },
+    {
+     "date": "2021-10-01",
+     "value": 3.4
+    },
+    {
+     "date": "2021-11-01",
+     "value": 3.4
+    },
+    {
+     "date": "2021-12-01",
+     "value": 3.3
+    },
+    {
+     "date": "2022-01-01",
+     "value": 3.3
+    },
+    {
+     "date": "2022-02-01",
+     "value": 3.2
+    },
+    {
+     "date": "2022-03-01",
+     "value": 3.2
+    },
+    {
+     "date": "2022-04-01",
+     "value": 3.1
+    },
+    {
+     "date": "2022-05-01",
+     "value": 3.1
+    },
+    {
+     "date": "2022-06-01",
+     "value": 3.1
+    },
+    {
+     "date": "2022-07-01",
+     "value": 3.1
+    },
+    {
+     "date": "2022-08-01",
+     "value": 3.1
+    },
+    {
+     "date": "2022-09-01",
+     "value": 3.1
+    },
+    {
+     "date": "2022-10-01",
+     "value": 3.1
+    },
+    {
+     "date": "2022-11-01",
+     "value": 3.1
+    },
+    {
+     "date": "2022-12-01",
+     "value": 3.1
+    },
+    {
+     "date": "2023-01-01",
+     "value": 3.1
+    },
+    {
+     "date": "2023-02-01",
+     "value": 3
+    },
+    {
+     "date": "2023-03-01",
+     "value": 3
+    },
+    {
+     "date": "2023-04-01",
+     "value": 3
+    },
+    {
+     "date": "2023-05-01",
+     "value": 3
+    },
+    {
+     "date": "2023-06-01",
+     "value": 3
+    },
+    {
+     "date": "2023-07-01",
+     "value": 3
+    },
+    {
+     "date": "2023-08-01",
+     "value": 3.1
+    },
+    {
+     "date": "2023-09-01",
+     "value": 3.1
+    },
+    {
+     "date": "2023-10-01",
+     "value": 3.1
+    },
+    {
+     "date": "2023-11-01",
+     "value": 3.2
+    },
+    {
+     "date": "2023-12-01",
+     "value": 3.2
+    },
+    {
+     "date": "2024-01-01",
+     "value": 3.2
+    },
+    {
+     "date": "2024-02-01",
+     "value": 3.2
+    },
+    {
+     "date": "2024-03-01",
+     "value": 3.3
+    },
+    {
+     "date": "2024-04-01",
+     "value": 3.4
+    },
+    {
+     "date": "2024-05-01",
+     "value": 3.4
+    },
+    {
+     "date": "2024-06-01",
+     "value": 3.4
+    },
+    {
+     "date": "2024-07-01",
+     "value": 3.4
+    },
+    {
+     "date": "2024-08-01",
+     "value": 3.4
+    },
+    {
+     "date": "2024-09-01",
+     "value": 3.4
+    },
+    {
+     "date": "2024-10-01",
+     "value": 3.4
+    },
+    {
+     "date": "2024-11-01",
+     "value": 3.4
+    },
+    {
+     "date": "2024-12-01",
+     "value": 3.5
+    },
+    {
+     "date": "2025-01-01",
+     "value": 3.5
+    },
+    {
+     "date": "2025-02-01",
+     "value": 3.6
+    },
+    {
+     "date": "2025-03-01",
+     "value": 3.6
+    },
+    {
+     "date": "2025-04-01",
+     "value": 3.7
+    },
+    {
+     "date": "2025-05-01",
+     "value": 3.7
+    },
+    {
+     "date": "2025-06-01",
+     "value": 3.7
+    },
+    {
+     "date": "2025-07-01",
+     "value": 3.8
+    },
+    {
+     "date": "2025-08-01",
+     "value": 3.8
+    },
+    {
+     "date": "2025-09-01",
+     "value": 3.8
+    },
+    {
+     "date": "2025-10-01",
+     "value": 3.8
+    },
+    {
+     "date": "2025-11-01",
+     "value": 3.9
+    },
+    {
+     "date": "2025-12-01",
+     "value": 3.9
+    },
+    {
+     "date": "2026-01-01",
+     "value": 3.9
+    },
+    {
+     "date": "2026-02-01",
+     "value": 3.9
+    },
+    {
+     "date": "2026-03-01",
+     "value": 3.9
+    },
+    {
+     "date": "2026-04-01",
+     "value": 3.9
+    },
+    {
+     "date": "2026-05-01",
+     "value": 3.9
+    },
+    {
+     "date": "2026-06-01",
+     "value": 4
+    },
+    {
+     "date": "2026-07-01",
+     "value": 4
+    }
+   ],
+   "source_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/une_rt_m?format=JSON&geo=DE&s_adj=SA&unit=PC_ACT&sex=T&age=TOTAL&lastTimePeriod=500",
+   "fetched_at": "2026-09-16T14:57:54.106Z",
+   "question_ids": [
+    1507,
+    1508
+   ]
+  },
+  "eurostat_live_unemployment_monthly|tpl:https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/une_rt_m?format=JSON&geo=FR&s_adj=SA&unit=PC_ACT&sex=T&age=TOTAL&lastTimePeriod=*": {
+   "kind": "eurostat_live_unemployment_monthly",
+   "key_fields": "tpl:https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/une_rt_m?format=JSON&geo=FR&s_adj=SA&unit=PC_ACT&sex=T&age=TOTAL&lastTimePeriod=*",
+   "variable": null,
+   "window": "range",
+   "window_note": "模板型系列（eurostat；窗口=切点前 420 天）",
+   "ref_cutoff": "2026-09-16",
+   "days": [
+    {
+     "date": "1985-01-01",
+     "value": 8.7
+    },
+    {
+     "date": "1985-02-01",
+     "value": 8.7
+    },
+    {
+     "date": "1985-03-01",
+     "value": 8.7
+    },
+    {
+     "date": "1985-04-01",
+     "value": 8.7
+    },
+    {
+     "date": "1985-05-01",
+     "value": 8.7
+    },
+    {
+     "date": "1985-06-01",
+     "value": 8.7
+    },
+    {
+     "date": "1985-07-01",
+     "value": 8.7
+    },
+    {
+     "date": "1985-08-01",
+     "value": 8.7
+    },
+    {
+     "date": "1985-09-01",
+     "value": 8.7
+    },
+    {
+     "date": "1985-10-01",
+     "value": 8.7
+    },
+    {
+     "date": "1985-11-01",
+     "value": 8.7
+    },
+    {
+     "date": "1985-12-01",
+     "value": 8.7
+    },
+    {
+     "date": "1986-01-01",
+     "value": 8.6
+    },
+    {
+     "date": "1986-02-01",
+     "value": 8.6
+    },
+    {
+     "date": "1986-03-01",
+     "value": 8.6
+    },
+    {
+     "date": "1986-04-01",
+     "value": 8.7
+    },
+    {
+     "date": "1986-05-01",
+     "value": 8.8
+    },
+    {
+     "date": "1986-06-01",
+     "value": 8.8
+    },
+    {
+     "date": "1986-07-01",
+     "value": 8.9
+    },
+    {
+     "date": "1986-08-01",
+     "value": 8.9
+    },
+    {
+     "date": "1986-09-01",
+     "value": 9
+    },
+    {
+     "date": "1986-10-01",
+     "value": 9.2
+    },
+    {
+     "date": "1986-11-01",
+     "value": 9.2
+    },
+    {
+     "date": "1986-12-01",
+     "value": 9.2
+    },
+    {
+     "date": "1987-01-01",
+     "value": 9.3
+    },
+    {
+     "date": "1987-02-01",
+     "value": 9.3
+    },
+    {
+     "date": "1987-03-01",
+     "value": 9.2
+    },
+    {
+     "date": "1987-04-01",
+     "value": 9.2
+    },
+    {
+     "date": "1987-05-01",
+     "value": 9.2
+    },
+    {
+     "date": "1987-06-01",
+     "value": 9.1
+    },
+    {
+     "date": "1987-07-01",
+     "value": 9.1
+    },
+    {
+     "date": "1987-08-01",
+     "value": 9.1
+    },
+    {
+     "date": "1987-09-01",
+     "value": 9.1
+    },
+    {
+     "date": "1987-10-01",
+     "value": 9.1
+    },
+    {
+     "date": "1987-11-01",
+     "value": 9.1
+    },
+    {
+     "date": "1987-12-01",
+     "value": 9
+    },
+    {
+     "date": "1988-01-01",
+     "value": 9
+    },
+    {
+     "date": "1988-02-01",
+     "value": 8.9
+    },
+    {
+     "date": "1988-03-01",
+     "value": 8.8
+    },
+    {
+     "date": "1988-04-01",
+     "value": 8.9
+    },
+    {
+     "date": "1988-05-01",
+     "value": 8.8
+    },
+    {
+     "date": "1988-06-01",
+     "value": 8.8
+    },
+    {
+     "date": "1988-07-01",
+     "value": 8.8
+    },
+    {
+     "date": "1988-08-01",
+     "value": 8.8
+    },
+    {
+     "date": "1988-09-01",
+     "value": 8.8
+    },
+    {
+     "date": "1988-10-01",
+     "value": 8.9
+    },
+    {
+     "date": "1988-11-01",
+     "value": 8.8
+    },
+    {
+     "date": "1988-12-01",
+     "value": 8.8
+    },
+    {
+     "date": "1989-01-01",
+     "value": 8.8
+    },
+    {
+     "date": "1989-02-01",
+     "value": 8.7
+    },
+    {
+     "date": "1989-03-01",
+     "value": 8.7
+    },
+    {
+     "date": "1989-04-01",
+     "value": 8.7
+    },
+    {
+     "date": "1989-05-01",
+     "value": 8.7
+    },
+    {
+     "date": "1989-06-01",
+     "value": 8.7
+    },
+    {
+     "date": "1989-07-01",
+     "value": 8.7
+    },
+    {
+     "date": "1989-08-01",
+     "value": 8.7
+    },
+    {
+     "date": "1989-09-01",
+     "value": 8.7
+    },
+    {
+     "date": "1989-10-01",
+     "value": 8.7
+    },
+    {
+     "date": "1989-11-01",
+     "value": 8.7
+    },
+    {
+     "date": "1989-12-01",
+     "value": 8.6
+    },
+    {
+     "date": "1990-01-01",
+     "value": 8.6
+    },
+    {
+     "date": "1990-02-01",
+     "value": 8.5
+    },
+    {
+     "date": "1990-03-01",
+     "value": 8.5
+    },
+    {
+     "date": "1990-04-01",
+     "value": 8.5
+    },
+    {
+     "date": "1990-05-01",
+     "value": 8.4
+    },
+    {
+     "date": "1990-06-01",
+     "value": 8.4
+    },
+    {
+     "date": "1990-07-01",
+     "value": 8.4
+    },
+    {
+     "date": "1990-08-01",
+     "value": 8.3
+    },
+    {
+     "date": "1990-09-01",
+     "value": 8.3
+    },
+    {
+     "date": "1990-10-01",
+     "value": 8.3
+    },
+    {
+     "date": "1990-11-01",
+     "value": 8.3
+    },
+    {
+     "date": "1990-12-01",
+     "value": 8.3
+    },
+    {
+     "date": "1991-01-01",
+     "value": 8.3
+    },
+    {
+     "date": "1991-02-01",
+     "value": 8.3
+    },
+    {
+     "date": "1991-03-01",
+     "value": 8.3
+    },
+    {
+     "date": "1991-04-01",
+     "value": 8.4
+    },
+    {
+     "date": "1991-05-01",
+     "value": 8.5
+    },
+    {
+     "date": "1991-06-01",
+     "value": 8.5
+    },
+    {
+     "date": "1991-07-01",
+     "value": 8.6
+    },
+    {
+     "date": "1991-08-01",
+     "value": 8.7
+    },
+    {
+     "date": "1991-09-01",
+     "value": 8.8
+    },
+    {
+     "date": "1991-10-01",
+     "value": 8.9
+    },
+    {
+     "date": "1991-11-01",
+     "value": 9
+    },
+    {
+     "date": "1991-12-01",
+     "value": 9.1
+    },
+    {
+     "date": "1992-01-01",
+     "value": 9.1
+    },
+    {
+     "date": "1992-02-01",
+     "value": 9.2
+    },
+    {
+     "date": "1992-03-01",
+     "value": 9.3
+    },
+    {
+     "date": "1992-04-01",
+     "value": 9.3
+    },
+    {
+     "date": "1992-05-01",
+     "value": 9.4
+    },
+    {
+     "date": "1992-06-01",
+     "value": 9.4
+    },
+    {
+     "date": "1992-07-01",
+     "value": 9.4
+    },
+    {
+     "date": "1992-08-01",
+     "value": 9.5
+    },
+    {
+     "date": "1992-09-01",
+     "value": 9.6
+    },
+    {
+     "date": "1992-10-01",
+     "value": 9.6
+    },
+    {
+     "date": "1992-11-01",
+     "value": 9.7
+    },
+    {
+     "date": "1992-12-01",
+     "value": 9.8
+    },
+    {
+     "date": "1993-01-01",
+     "value": 9.8
+    },
+    {
+     "date": "1993-02-01",
+     "value": 9.9
+    },
+    {
+     "date": "1993-03-01",
+     "value": 9.9
+    },
+    {
+     "date": "1993-04-01",
+     "value": 10.1
+    },
+    {
+     "date": "1993-05-01",
+     "value": 10.1
+    },
+    {
+     "date": "1993-06-01",
+     "value": 10.2
+    },
+    {
+     "date": "1993-07-01",
+     "value": 10.3
+    },
+    {
+     "date": "1993-08-01",
+     "value": 10.4
+    },
+    {
+     "date": "1993-09-01",
+     "value": 10.5
+    },
+    {
+     "date": "1993-10-01",
+     "value": 10.6
+    },
+    {
+     "date": "1993-11-01",
+     "value": 10.7
+    },
+    {
+     "date": "1993-12-01",
+     "value": 10.7
+    },
+    {
+     "date": "1994-01-01",
+     "value": 10.8
+    },
+    {
+     "date": "1994-02-01",
+     "value": 10.8
+    },
+    {
+     "date": "1994-03-01",
+     "value": 10.8
+    },
+    {
+     "date": "1994-04-01",
+     "value": 10.8
+    },
+    {
+     "date": "1994-05-01",
+     "value": 10.8
+    },
+    {
+     "date": "1994-06-01",
+     "value": 10.7
+    },
+    {
+     "date": "1994-07-01",
+     "value": 10.7
+    },
+    {
+     "date": "1994-08-01",
+     "value": 10.6
+    },
+    {
+     "date": "1994-09-01",
+     "value": 10.6
+    },
+    {
+     "date": "1994-10-01",
+     "value": 10.5
+    },
+    {
+     "date": "1994-11-01",
+     "value": 10.5
+    },
+    {
+     "date": "1994-12-01",
+     "value": 10.4
+    },
+    {
+     "date": "1995-01-01",
+     "value": 10.4
+    },
+    {
+     "date": "1995-02-01",
+     "value": 10.3
+    },
+    {
+     "date": "1995-03-01",
+     "value": 10.3
+    },
+    {
+     "date": "1995-04-01",
+     "value": 10.4
+    },
+    {
+     "date": "1995-05-01",
+     "value": 10.4
+    },
+    {
+     "date": "1995-06-01",
+     "value": 10.5
+    },
+    {
+     "date": "1995-07-01",
+     "value": 10.5
+    },
+    {
+     "date": "1995-08-01",
+     "value": 10.6
+    },
+    {
+     "date": "1995-09-01",
+     "value": 10.6
+    },
+    {
+     "date": "1995-10-01",
+     "value": 10.7
+    },
+    {
+     "date": "1995-11-01",
+     "value": 10.7
+    },
+    {
+     "date": "1995-12-01",
+     "value": 10.7
+    },
+    {
+     "date": "1996-01-01",
+     "value": 10.7
+    },
+    {
+     "date": "1996-02-01",
+     "value": 10.7
+    },
+    {
+     "date": "1996-03-01",
+     "value": 10.7
+    },
+    {
+     "date": "1996-04-01",
+     "value": 10.9
+    },
+    {
+     "date": "1996-05-01",
+     "value": 10.9
+    },
+    {
+     "date": "1996-06-01",
+     "value": 10.9
+    },
+    {
+     "date": "1996-07-01",
+     "value": 10.9
+    },
+    {
+     "date": "1996-08-01",
+     "value": 10.9
+    },
+    {
+     "date": "1996-09-01",
+     "value": 10.9
+    },
+    {
+     "date": "1996-10-01",
+     "value": 10.8
+    },
+    {
+     "date": "1996-11-01",
+     "value": 10.8
+    },
+    {
+     "date": "1996-12-01",
+     "value": 10.9
+    },
+    {
+     "date": "1997-01-01",
+     "value": 10.9
+    },
+    {
+     "date": "1997-02-01",
+     "value": 10.9
+    },
+    {
+     "date": "1997-03-01",
+     "value": 10.9
+    },
+    {
+     "date": "1997-04-01",
+     "value": 11
+    },
+    {
+     "date": "1997-05-01",
+     "value": 10.9
+    },
+    {
+     "date": "1997-06-01",
+     "value": 10.9
+    },
+    {
+     "date": "1997-07-01",
+     "value": 10.9
+    },
+    {
+     "date": "1997-08-01",
+     "value": 10.9
+    },
+    {
+     "date": "1997-09-01",
+     "value": 10.9
+    },
+    {
+     "date": "1997-10-01",
+     "value": 10.9
+    },
+    {
+     "date": "1997-11-01",
+     "value": 10.8
+    },
+    {
+     "date": "1997-12-01",
+     "value": 10.8
+    },
+    {
+     "date": "1998-01-01",
+     "value": 10.8
+    },
+    {
+     "date": "1998-02-01",
+     "value": 10.7
+    },
+    {
+     "date": "1998-03-01",
+     "value": 10.7
+    },
+    {
+     "date": "1998-04-01",
+     "value": 10.7
+    },
+    {
+     "date": "1998-05-01",
+     "value": 10.7
+    },
+    {
+     "date": "1998-06-01",
+     "value": 10.7
+    },
+    {
+     "date": "1998-07-01",
+     "value": 10.7
+    },
+    {
+     "date": "1998-08-01",
+     "value": 10.6
+    },
+    {
+     "date": "1998-09-01",
+     "value": 10.6
+    },
+    {
+     "date": "1998-10-01",
+     "value": 10.7
+    },
+    {
+     "date": "1998-11-01",
+     "value": 10.7
+    },
+    {
+     "date": "1998-12-01",
+     "value": 10.7
+    },
+    {
+     "date": "1999-01-01",
+     "value": 10.7
+    },
+    {
+     "date": "1999-02-01",
+     "value": 10.8
+    },
+    {
+     "date": "1999-03-01",
+     "value": 10.7
+    },
+    {
+     "date": "1999-04-01",
+     "value": 10.8
+    },
+    {
+     "date": "1999-05-01",
+     "value": 10.7
+    },
+    {
+     "date": "1999-06-01",
+     "value": 10.6
+    },
+    {
+     "date": "1999-07-01",
+     "value": 10.5
+    },
+    {
+     "date": "1999-08-01",
+     "value": 10.4
+    },
+    {
+     "date": "1999-09-01",
+     "value": 10.2
+    },
+    {
+     "date": "1999-10-01",
+     "value": 10.1
+    },
+    {
+     "date": "1999-11-01",
+     "value": 10
+    },
+    {
+     "date": "1999-12-01",
+     "value": 9.8
+    },
+    {
+     "date": "2000-01-01",
+     "value": 9.8
+    },
+    {
+     "date": "2000-02-01",
+     "value": 9.6
+    },
+    {
+     "date": "2000-03-01",
+     "value": 9.5
+    },
+    {
+     "date": "2000-04-01",
+     "value": 9.4
+    },
+    {
+     "date": "2000-05-01",
+     "value": 9.3
+    },
+    {
+     "date": "2000-06-01",
+     "value": 9.2
+    },
+    {
+     "date": "2000-07-01",
+     "value": 9.1
+    },
+    {
+     "date": "2000-08-01",
+     "value": 9
+    },
+    {
+     "date": "2000-09-01",
+     "value": 8.9
+    },
+    {
+     "date": "2000-10-01",
+     "value": 8.8
+    },
+    {
+     "date": "2000-11-01",
+     "value": 8.8
+    },
+    {
+     "date": "2000-12-01",
+     "value": 8.7
+    },
+    {
+     "date": "2001-01-01",
+     "value": 8.6
+    },
+    {
+     "date": "2001-02-01",
+     "value": 8.6
+    },
+    {
+     "date": "2001-03-01",
+     "value": 8.5
+    },
+    {
+     "date": "2001-04-01",
+     "value": 8.5
+    },
+    {
+     "date": "2001-05-01",
+     "value": 8.5
+    },
+    {
+     "date": "2001-06-01",
+     "value": 8.5
+    },
+    {
+     "date": "2001-07-01",
+     "value": 8.4
+    },
+    {
+     "date": "2001-08-01",
+     "value": 8.4
+    },
+    {
+     "date": "2001-09-01",
+     "value": 8.4
+    },
+    {
+     "date": "2001-10-01",
+     "value": 8.4
+    },
+    {
+     "date": "2001-11-01",
+     "value": 8.4
+    },
+    {
+     "date": "2001-12-01",
+     "value": 8.3
+    },
+    {
+     "date": "2002-01-01",
+     "value": 8.2
+    },
+    {
+     "date": "2002-02-01",
+     "value": 8.2
+    },
+    {
+     "date": "2002-03-01",
+     "value": 8.2
+    },
+    {
+     "date": "2002-04-01",
+     "value": 8.2
+    },
+    {
+     "date": "2002-05-01",
+     "value": 8.2
+    },
+    {
+     "date": "2002-06-01",
+     "value": 8.2
+    },
+    {
+     "date": "2002-07-01",
+     "value": 8.3
+    },
+    {
+     "date": "2002-08-01",
+     "value": 8.3
+    },
+    {
+     "date": "2002-09-01",
+     "value": 8.3
+    },
+    {
+     "date": "2002-10-01",
+     "value": 8.3
+    },
+    {
+     "date": "2002-11-01",
+     "value": 8.4
+    },
+    {
+     "date": "2002-12-01",
+     "value": 8.5
+    },
+    {
+     "date": "2003-01-01",
+     "value": 8.1
+    },
+    {
+     "date": "2003-02-01",
+     "value": 8.3
+    },
+    {
+     "date": "2003-03-01",
+     "value": 8.4
+    },
+    {
+     "date": "2003-04-01",
+     "value": 8.5
+    },
+    {
+     "date": "2003-05-01",
+     "value": 8.5
+    },
+    {
+     "date": "2003-06-01",
+     "value": 8.5
+    },
+    {
+     "date": "2003-07-01",
+     "value": 8.5
+    },
+    {
+     "date": "2003-08-01",
+     "value": 8.3
+    },
+    {
+     "date": "2003-09-01",
+     "value": 8.5
+    },
+    {
+     "date": "2003-10-01",
+     "value": 8.7
+    },
+    {
+     "date": "2003-11-01",
+     "value": 8.8
+    },
+    {
+     "date": "2003-12-01",
+     "value": 9
+    },
+    {
+     "date": "2004-01-01",
+     "value": 8.9
+    },
+    {
+     "date": "2004-02-01",
+     "value": 8.9
+    },
+    {
+     "date": "2004-03-01",
+     "value": 8.9
+    },
+    {
+     "date": "2004-04-01",
+     "value": 8.8
+    },
+    {
+     "date": "2004-05-01",
+     "value": 8.7
+    },
+    {
+     "date": "2004-06-01",
+     "value": 8.8
+    },
+    {
+     "date": "2004-07-01",
+     "value": 8.8
+    },
+    {
+     "date": "2004-08-01",
+     "value": 8.9
+    },
+    {
+     "date": "2004-09-01",
+     "value": 8.9
+    },
+    {
+     "date": "2004-10-01",
+     "value": 9
+    },
+    {
+     "date": "2004-11-01",
+     "value": 9
+    },
+    {
+     "date": "2004-12-01",
+     "value": 8.9
+    },
+    {
+     "date": "2005-01-01",
+     "value": 8.7
+    },
+    {
+     "date": "2005-02-01",
+     "value": 8.6
+    },
+    {
+     "date": "2005-03-01",
+     "value": 8.6
+    },
+    {
+     "date": "2005-04-01",
+     "value": 8.7
+    },
+    {
+     "date": "2005-05-01",
+     "value": 8.8
+    },
+    {
+     "date": "2005-06-01",
+     "value": 8.9
+    },
+    {
+     "date": "2005-07-01",
+     "value": 8.9
+    },
+    {
+     "date": "2005-08-01",
+     "value": 9
+    },
+    {
+     "date": "2005-09-01",
+     "value": 9.1
+    },
+    {
+     "date": "2005-10-01",
+     "value": 9.1
+    },
+    {
+     "date": "2005-11-01",
+     "value": 9.1
+    },
+    {
+     "date": "2005-12-01",
+     "value": 9.1
+    },
+    {
+     "date": "2006-01-01",
+     "value": 9.2
+    },
+    {
+     "date": "2006-02-01",
+     "value": 9.2
+    },
+    {
+     "date": "2006-03-01",
+     "value": 9.1
+    },
+    {
+     "date": "2006-04-01",
+     "value": 9
+    },
+    {
+     "date": "2006-05-01",
+     "value": 8.9
+    },
+    {
+     "date": "2006-06-01",
+     "value": 8.9
+    },
+    {
+     "date": "2006-07-01",
+     "value": 9
+    },
+    {
+     "date": "2006-08-01",
+     "value": 9
+    },
+    {
+     "date": "2006-09-01",
+     "value": 8.8
+    },
+    {
+     "date": "2006-10-01",
+     "value": 8.5
+    },
+    {
+     "date": "2006-11-01",
+     "value": 8.3
+    },
+    {
+     "date": "2006-12-01",
+     "value": 8.3
+    },
+    {
+     "date": "2007-01-01",
+     "value": 8.5
+    },
+    {
+     "date": "2007-02-01",
+     "value": 8.5
+    },
+    {
+     "date": "2007-03-01",
+     "value": 8.4
+    },
+    {
+     "date": "2007-04-01",
+     "value": 8.3
+    },
+    {
+     "date": "2007-05-01",
+     "value": 8.1
+    },
+    {
+     "date": "2007-06-01",
+     "value": 8
+    },
+    {
+     "date": "2007-07-01",
+     "value": 8.1
+    },
+    {
+     "date": "2007-08-01",
+     "value": 8
+    },
+    {
+     "date": "2007-09-01",
+     "value": 7.9
+    },
+    {
+     "date": "2007-10-01",
+     "value": 7.7
+    },
+    {
+     "date": "2007-11-01",
+     "value": 7.5
+    },
+    {
+     "date": "2007-12-01",
+     "value": 7.3
+    },
+    {
+     "date": "2008-01-01",
+     "value": 7.2
+    },
+    {
+     "date": "2008-02-01",
+     "value": 7
+    },
+    {
+     "date": "2008-03-01",
+     "value": 7.1
+    },
+    {
+     "date": "2008-04-01",
+     "value": 7.3
+    },
+    {
+     "date": "2008-05-01",
+     "value": 7.3
+    },
+    {
+     "date": "2008-06-01",
+     "value": 7.4
+    },
+    {
+     "date": "2008-07-01",
+     "value": 7.5
+    },
+    {
+     "date": "2008-08-01",
+     "value": 7.5
+    },
+    {
+     "date": "2008-09-01",
+     "value": 7.5
+    },
+    {
+     "date": "2008-10-01",
+     "value": 7.6
+    },
+    {
+     "date": "2008-11-01",
+     "value": 7.8
+    },
+    {
+     "date": "2008-12-01",
+     "value": 8
+    },
+    {
+     "date": "2009-01-01",
+     "value": 8.3
+    },
+    {
+     "date": "2009-02-01",
+     "value": 8.6
+    },
+    {
+     "date": "2009-03-01",
+     "value": 8.9
+    },
+    {
+     "date": "2009-04-01",
+     "value": 9.1
+    },
+    {
+     "date": "2009-05-01",
+     "value": 9.2
+    },
+    {
+     "date": "2009-06-01",
+     "value": 9.2
+    },
+    {
+     "date": "2009-07-01",
+     "value": 9.1
+    },
+    {
+     "date": "2009-08-01",
+     "value": 9.2
+    },
+    {
+     "date": "2009-09-01",
+     "value": 9.3
+    },
+    {
+     "date": "2009-10-01",
+     "value": 9.5
+    },
+    {
+     "date": "2009-11-01",
+     "value": 9.6
+    },
+    {
+     "date": "2009-12-01",
+     "value": 9.5
+    },
+    {
+     "date": "2010-01-01",
+     "value": 9.5
+    },
+    {
+     "date": "2010-02-01",
+     "value": 9.4
+    },
+    {
+     "date": "2010-03-01",
+     "value": 9.3
+    },
+    {
+     "date": "2010-04-01",
+     "value": 9.3
+    },
+    {
+     "date": "2010-05-01",
+     "value": 9.3
+    },
+    {
+     "date": "2010-06-01",
+     "value": 9.2
+    },
+    {
+     "date": "2010-07-01",
+     "value": 9.2
+    },
+    {
+     "date": "2010-08-01",
+     "value": 9.2
+    },
+    {
+     "date": "2010-09-01",
+     "value": 9.2
+    },
+    {
+     "date": "2010-10-01",
+     "value": 9.2
+    },
+    {
+     "date": "2010-11-01",
+     "value": 9.2
+    },
+    {
+     "date": "2010-12-01",
+     "value": 9.2
+    },
+    {
+     "date": "2011-01-01",
+     "value": 9.2
+    },
+    {
+     "date": "2011-02-01",
+     "value": 9.2
+    },
+    {
+     "date": "2011-03-01",
+     "value": 9.1
+    },
+    {
+     "date": "2011-04-01",
+     "value": 9.1
+    },
+    {
+     "date": "2011-05-01",
+     "value": 9.1
+    },
+    {
+     "date": "2011-06-01",
+     "value": 9.1
+    },
+    {
+     "date": "2011-07-01",
+     "value": 9.2
+    },
+    {
+     "date": "2011-08-01",
+     "value": 9.2
+    },
+    {
+     "date": "2011-09-01",
+     "value": 9.2
+    },
+    {
+     "date": "2011-10-01",
+     "value": 9.3
+    },
+    {
+     "date": "2011-11-01",
+     "value": 9.4
+    },
+    {
+     "date": "2011-12-01",
+     "value": 9.4
+    },
+    {
+     "date": "2012-01-01",
+     "value": 9.5
+    },
+    {
+     "date": "2012-02-01",
+     "value": 9.5
+    },
+    {
+     "date": "2012-03-01",
+     "value": 9.6
+    },
+    {
+     "date": "2012-04-01",
+     "value": 9.7
+    },
+    {
+     "date": "2012-05-01",
+     "value": 9.7
+    },
+    {
+     "date": "2012-06-01",
+     "value": 9.7
+    },
+    {
+     "date": "2012-07-01",
+     "value": 9.7
+    },
+    {
+     "date": "2012-08-01",
+     "value": 9.7
+    },
+    {
+     "date": "2012-09-01",
+     "value": 9.8
+    },
+    {
+     "date": "2012-10-01",
+     "value": 10.1
+    },
+    {
+     "date": "2012-11-01",
+     "value": 10.2
+    },
+    {
+     "date": "2012-12-01",
+     "value": 10.3
+    },
+    {
+     "date": "2013-01-01",
+     "value": 10.4
+    },
+    {
+     "date": "2013-02-01",
+     "value": 10.4
+    },
+    {
+     "date": "2013-03-01",
+     "value": 10.4
+    },
+    {
+     "date": "2013-04-01",
+     "value": 10.5
+    },
+    {
+     "date": "2013-05-01",
+     "value": 10.4
+    },
+    {
+     "date": "2013-06-01",
+     "value": 10.4
+    },
+    {
+     "date": "2013-07-01",
+     "value": 10.3
+    },
+    {
+     "date": "2013-08-01",
+     "value": 10.1
+    },
+    {
+     "date": "2013-09-01",
+     "value": 10.3
+    },
+    {
+     "date": "2013-10-01",
+     "value": 10.1
+    },
+    {
+     "date": "2013-11-01",
+     "value": 10.2
+    },
+    {
+     "date": "2013-12-01",
+     "value": 10.2
+    },
+    {
+     "date": "2014-01-01",
+     "value": 10.2
+    },
+    {
+     "date": "2014-02-01",
+     "value": 10.2
+    },
+    {
+     "date": "2014-03-01",
+     "value": 10.2
+    },
+    {
+     "date": "2014-04-01",
+     "value": 10.1
+    },
+    {
+     "date": "2014-05-01",
+     "value": 10.1
+    },
+    {
+     "date": "2014-06-01",
+     "value": 10.2
+    },
+    {
+     "date": "2014-07-01",
+     "value": 10.2
+    },
+    {
+     "date": "2014-08-01",
+     "value": 10.2
+    },
+    {
+     "date": "2014-09-01",
+     "value": 10.3
+    },
+    {
+     "date": "2014-10-01",
+     "value": 10.4
+    },
+    {
+     "date": "2014-11-01",
+     "value": 10.5
+    },
+    {
+     "date": "2014-12-01",
+     "value": 10.5
+    },
+    {
+     "date": "2015-01-01",
+     "value": 10.4
+    },
+    {
+     "date": "2015-02-01",
+     "value": 10.3
+    },
+    {
+     "date": "2015-03-01",
+     "value": 10.4
+    },
+    {
+     "date": "2015-04-01",
+     "value": 10.4
+    },
+    {
+     "date": "2015-05-01",
+     "value": 10.5
+    },
+    {
+     "date": "2015-06-01",
+     "value": 10.4
+    },
+    {
+     "date": "2015-07-01",
+     "value": 10.3
+    },
+    {
+     "date": "2015-08-01",
+     "value": 10.3
+    },
+    {
+     "date": "2015-09-01",
+     "value": 10.3
+    },
+    {
+     "date": "2015-10-01",
+     "value": 10.3
+    },
+    {
+     "date": "2015-11-01",
+     "value": 10.3
+    },
+    {
+     "date": "2015-12-01",
+     "value": 10.2
+    },
+    {
+     "date": "2016-01-01",
+     "value": 10.3
+    },
+    {
+     "date": "2016-02-01",
+     "value": 10.4
+    },
+    {
+     "date": "2016-03-01",
+     "value": 10.2
+    },
+    {
+     "date": "2016-04-01",
+     "value": 10.1
+    },
+    {
+     "date": "2016-05-01",
+     "value": 10
+    },
+    {
+     "date": "2016-06-01",
+     "value": 9.9
+    },
+    {
+     "date": "2016-07-01",
+     "value": 9.8
+    },
+    {
+     "date": "2016-08-01",
+     "value": 9.9
+    },
+    {
+     "date": "2016-09-01",
+     "value": 9.9
+    },
+    {
+     "date": "2016-10-01",
+     "value": 10.1
+    },
+    {
+     "date": "2016-11-01",
+     "value": 10.1
+    },
+    {
+     "date": "2016-12-01",
+     "value": 10
+    },
+    {
+     "date": "2017-01-01",
+     "value": 9.7
+    },
+    {
+     "date": "2017-02-01",
+     "value": 9.6
+    },
+    {
+     "date": "2017-03-01",
+     "value": 9.6
+    },
+    {
+     "date": "2017-04-01",
+     "value": 9.5
+    },
+    {
+     "date": "2017-05-01",
+     "value": 9.5
+    },
+    {
+     "date": "2017-06-01",
+     "value": 9.5
+    },
+    {
+     "date": "2017-07-01",
+     "value": 9.6
+    },
+    {
+     "date": "2017-08-01",
+     "value": 9.5
+    },
+    {
+     "date": "2017-09-01",
+     "value": 9.3
+    },
+    {
+     "date": "2017-10-01",
+     "value": 9.1
+    },
+    {
+     "date": "2017-11-01",
+     "value": 9
+    },
+    {
+     "date": "2017-12-01",
+     "value": 9
+    },
+    {
+     "date": "2018-01-01",
+     "value": 9.2
+    },
+    {
+     "date": "2018-02-01",
+     "value": 9.3
+    },
+    {
+     "date": "2018-03-01",
+     "value": 9.3
+    },
+    {
+     "date": "2018-04-01",
+     "value": 9.2
+    },
+    {
+     "date": "2018-05-01",
+     "value": 9.1
+    },
+    {
+     "date": "2018-06-01",
+     "value": 9
+    },
+    {
+     "date": "2018-07-01",
+     "value": 9
+    },
+    {
+     "date": "2018-08-01",
+     "value": 8.9
+    },
+    {
+     "date": "2018-09-01",
+     "value": 8.9
+    },
+    {
+     "date": "2018-10-01",
+     "value": 8.8
+    },
+    {
+     "date": "2018-11-01",
+     "value": 8.7
+    },
+    {
+     "date": "2018-12-01",
+     "value": 8.8
+    },
+    {
+     "date": "2019-01-01",
+     "value": 8.8
+    },
+    {
+     "date": "2019-02-01",
+     "value": 8.7
+    },
+    {
+     "date": "2019-03-01",
+     "value": 8.7
+    },
+    {
+     "date": "2019-04-01",
+     "value": 8.5
+    },
+    {
+     "date": "2019-05-01",
+     "value": 8.5
+    },
+    {
+     "date": "2019-06-01",
+     "value": 8.5
+    },
+    {
+     "date": "2019-07-01",
+     "value": 8.4
+    },
+    {
+     "date": "2019-08-01",
+     "value": 8.3
+    },
+    {
+     "date": "2019-09-01",
+     "value": 8.2
+    },
+    {
+     "date": "2019-10-01",
+     "value": 8.2
+    },
+    {
+     "date": "2019-11-01",
+     "value": 8.2
+    },
+    {
+     "date": "2019-12-01",
+     "value": 8.2
+    },
+    {
+     "date": "2020-01-01",
+     "value": 8.2
+    },
+    {
+     "date": "2020-02-01",
+     "value": 7.8
+    },
+    {
+     "date": "2020-03-01",
+     "value": 7.6
+    },
+    {
+     "date": "2020-04-01",
+     "value": 7.6
+    },
+    {
+     "date": "2020-05-01",
+     "value": 6.9
+    },
+    {
+     "date": "2020-06-01",
+     "value": 7.4
+    },
+    {
+     "date": "2020-07-01",
+     "value": 8.6
+    },
+    {
+     "date": "2020-08-01",
+     "value": 9.1
+    },
+    {
+     "date": "2020-09-01",
+     "value": 9
+    },
+    {
+     "date": "2020-10-01",
+     "value": 8.3
+    },
+    {
+     "date": "2020-11-01",
+     "value": 8.1
+    },
+    {
+     "date": "2020-12-01",
+     "value": 7.9
+    },
+    {
+     "date": "2021-01-01",
+     "value": 8.1
+    },
+    {
+     "date": "2021-02-01",
+     "value": 8.2
+    },
+    {
+     "date": "2021-03-01",
+     "value": 8.2
+    },
+    {
+     "date": "2021-04-01",
+     "value": 8.2
+    },
+    {
+     "date": "2021-05-01",
+     "value": 8
+    },
+    {
+     "date": "2021-06-01",
+     "value": 7.9
+    },
+    {
+     "date": "2021-07-01",
+     "value": 8
+    },
+    {
+     "date": "2021-08-01",
+     "value": 7.9
+    },
+    {
+     "date": "2021-09-01",
+     "value": 7.7
+    },
+    {
+     "date": "2021-10-01",
+     "value": 7.5
+    },
+    {
+     "date": "2021-11-01",
+     "value": 7.4
+    },
+    {
+     "date": "2021-12-01",
+     "value": 7.4
+    },
+    {
+     "date": "2022-01-01",
+     "value": 7.3
+    },
+    {
+     "date": "2022-02-01",
+     "value": 7.3
+    },
+    {
+     "date": "2022-03-01",
+     "value": 7.4
+    },
+    {
+     "date": "2022-04-01",
+     "value": 7.5
+    },
+    {
+     "date": "2022-05-01",
+     "value": 7.5
+    },
+    {
+     "date": "2022-06-01",
+     "value": 7.5
+    },
+    {
+     "date": "2022-07-01",
+     "value": 7.4
+    },
+    {
+     "date": "2022-08-01",
+     "value": 7.2
+    },
+    {
+     "date": "2022-09-01",
+     "value": 7.1
+    },
+    {
+     "date": "2022-10-01",
+     "value": 7.2
+    },
+    {
+     "date": "2022-11-01",
+     "value": 7.1
+    },
+    {
+     "date": "2022-12-01",
+     "value": 7.2
+    },
+    {
+     "date": "2023-01-01",
+     "value": 7.1
+    },
+    {
+     "date": "2023-02-01",
+     "value": 7.1
+    },
+    {
+     "date": "2023-03-01",
+     "value": 7.1
+    },
+    {
+     "date": "2023-04-01",
+     "value": 7.3
+    },
+    {
+     "date": "2023-05-01",
+     "value": 7.3
+    },
+    {
+     "date": "2023-06-01",
+     "value": 7.3
+    },
+    {
+     "date": "2023-07-01",
+     "value": 7.4
+    },
+    {
+     "date": "2023-08-01",
+     "value": 7.4
+    },
+    {
+     "date": "2023-09-01",
+     "value": 7.4
+    },
+    {
+     "date": "2023-10-01",
+     "value": 7.5
+    },
+    {
+     "date": "2023-11-01",
+     "value": 7.6
+    },
+    {
+     "date": "2023-12-01",
+     "value": 7.6
+    },
+    {
+     "date": "2024-01-01",
+     "value": 7.6
+    },
+    {
+     "date": "2024-02-01",
+     "value": 7.5
+    },
+    {
+     "date": "2024-03-01",
+     "value": 7.4
+    },
+    {
+     "date": "2024-04-01",
+     "value": 7.3
+    },
+    {
+     "date": "2024-05-01",
+     "value": 7.4
+    },
+    {
+     "date": "2024-06-01",
+     "value": 7.5
+    },
+    {
+     "date": "2024-07-01",
+     "value": 7.5
+    },
+    {
+     "date": "2024-08-01",
+     "value": 7.5
+    },
+    {
+     "date": "2024-09-01",
+     "value": 7.5
+    },
+    {
+     "date": "2024-10-01",
+     "value": 7.4
+    },
+    {
+     "date": "2024-11-01",
+     "value": 7.4
+    },
+    {
+     "date": "2024-12-01",
+     "value": 7.3
+    },
+    {
+     "date": "2025-01-01",
+     "value": 7.3
+    },
+    {
+     "date": "2025-02-01",
+     "value": 7.5
+    },
+    {
+     "date": "2025-03-01",
+     "value": 7.6
+    },
+    {
+     "date": "2025-04-01",
+     "value": 7.5
+    },
+    {
+     "date": "2025-05-01",
+     "value": 7.6
+    },
+    {
+     "date": "2025-06-01",
+     "value": 7.7
+    },
+    {
+     "date": "2025-07-01",
+     "value": 7.7
+    },
+    {
+     "date": "2025-08-01",
+     "value": 7.8
+    },
+    {
+     "date": "2025-09-01",
+     "value": 7.9
+    },
+    {
+     "date": "2025-10-01",
+     "value": 8
+    },
+    {
+     "date": "2025-11-01",
+     "value": 8
+    },
+    {
+     "date": "2025-12-01",
+     "value": 8
+    },
+    {
+     "date": "2026-01-01",
+     "value": 8.1
+    },
+    {
+     "date": "2026-02-01",
+     "value": 8.2
+    },
+    {
+     "date": "2026-03-01",
+     "value": 8.2
+    },
+    {
+     "date": "2026-04-01",
+     "value": 8.3
+    },
+    {
+     "date": "2026-05-01",
+     "value": 8.4
+    },
+    {
+     "date": "2026-06-01",
+     "value": 8.3
+    },
+    {
+     "date": "2026-07-01",
+     "value": 8.3
+    }
+   ],
+   "source_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/une_rt_m?format=JSON&geo=FR&s_adj=SA&unit=PC_ACT&sex=T&age=TOTAL&lastTimePeriod=500",
+   "fetched_at": "2026-09-16T14:57:55.402Z",
+   "question_ids": [
+    1512,
+    1513
+   ]
+  },
+  "eurostat_live_unemployment_monthly|tpl:https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/une_rt_m?format=JSON&geo=ES&s_adj=SA&unit=PC_ACT&sex=T&age=TOTAL&lastTimePeriod=*": {
+   "kind": "eurostat_live_unemployment_monthly",
+   "key_fields": "tpl:https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/une_rt_m?format=JSON&geo=ES&s_adj=SA&unit=PC_ACT&sex=T&age=TOTAL&lastTimePeriod=*",
+   "variable": null,
+   "window": "range",
+   "window_note": "模板型系列（eurostat；窗口=切点前 420 天）",
+   "ref_cutoff": "2026-09-16",
+   "days": [
+    {
+     "date": "1986-04-01",
+     "value": 20.6
+    },
+    {
+     "date": "1986-05-01",
+     "value": 20.5
+    },
+    {
+     "date": "1986-06-01",
+     "value": 20.4
+    },
+    {
+     "date": "1986-07-01",
+     "value": 20.4
+    },
+    {
+     "date": "1986-08-01",
+     "value": 20.3
+    },
+    {
+     "date": "1986-09-01",
+     "value": 20.3
+    },
+    {
+     "date": "1986-10-01",
+     "value": 20.2
+    },
+    {
+     "date": "1986-11-01",
+     "value": 20.3
+    },
+    {
+     "date": "1986-12-01",
+     "value": 20.2
+    },
+    {
+     "date": "1987-01-01",
+     "value": 20.2
+    },
+    {
+     "date": "1987-02-01",
+     "value": 20.1
+    },
+    {
+     "date": "1987-03-01",
+     "value": 19.9
+    },
+    {
+     "date": "1987-04-01",
+     "value": 19.8
+    },
+    {
+     "date": "1987-05-01",
+     "value": 19.7
+    },
+    {
+     "date": "1987-06-01",
+     "value": 19.6
+    },
+    {
+     "date": "1987-07-01",
+     "value": 19.7
+    },
+    {
+     "date": "1987-08-01",
+     "value": 19.7
+    },
+    {
+     "date": "1987-09-01",
+     "value": 19.7
+    },
+    {
+     "date": "1987-10-01",
+     "value": 19.5
+    },
+    {
+     "date": "1987-11-01",
+     "value": 19.4
+    },
+    {
+     "date": "1987-12-01",
+     "value": 19.4
+    },
+    {
+     "date": "1988-01-01",
+     "value": 19.3
+    },
+    {
+     "date": "1988-02-01",
+     "value": 19.2
+    },
+    {
+     "date": "1988-03-01",
+     "value": 19.1
+    },
+    {
+     "date": "1988-04-01",
+     "value": 19.1
+    },
+    {
+     "date": "1988-05-01",
+     "value": 19.1
+    },
+    {
+     "date": "1988-06-01",
+     "value": 19
+    },
+    {
+     "date": "1988-07-01",
+     "value": 18.9
+    },
+    {
+     "date": "1988-08-01",
+     "value": 18.7
+    },
+    {
+     "date": "1988-09-01",
+     "value": 18.4
+    },
+    {
+     "date": "1988-10-01",
+     "value": 18
+    },
+    {
+     "date": "1988-11-01",
+     "value": 17.7
+    },
+    {
+     "date": "1988-12-01",
+     "value": 17.6
+    },
+    {
+     "date": "1989-01-01",
+     "value": 17.5
+    },
+    {
+     "date": "1989-02-01",
+     "value": 17.3
+    },
+    {
+     "date": "1989-03-01",
+     "value": 17.1
+    },
+    {
+     "date": "1989-04-01",
+     "value": 16.9
+    },
+    {
+     "date": "1989-05-01",
+     "value": 16.7
+    },
+    {
+     "date": "1989-06-01",
+     "value": 16.4
+    },
+    {
+     "date": "1989-07-01",
+     "value": 16.2
+    },
+    {
+     "date": "1989-08-01",
+     "value": 16.2
+    },
+    {
+     "date": "1989-09-01",
+     "value": 16
+    },
+    {
+     "date": "1989-10-01",
+     "value": 16.1
+    },
+    {
+     "date": "1989-11-01",
+     "value": 16.1
+    },
+    {
+     "date": "1989-12-01",
+     "value": 16.1
+    },
+    {
+     "date": "1990-01-01",
+     "value": 15.9
+    },
+    {
+     "date": "1990-02-01",
+     "value": 15.8
+    },
+    {
+     "date": "1990-03-01",
+     "value": 15.6
+    },
+    {
+     "date": "1990-04-01",
+     "value": 15.6
+    },
+    {
+     "date": "1990-05-01",
+     "value": 15.6
+    },
+    {
+     "date": "1990-06-01",
+     "value": 15.5
+    },
+    {
+     "date": "1990-07-01",
+     "value": 15.3
+    },
+    {
+     "date": "1990-08-01",
+     "value": 15.3
+    },
+    {
+     "date": "1990-09-01",
+     "value": 15.3
+    },
+    {
+     "date": "1990-10-01",
+     "value": 15.3
+    },
+    {
+     "date": "1990-11-01",
+     "value": 15.3
+    },
+    {
+     "date": "1990-12-01",
+     "value": 15.3
+    },
+    {
+     "date": "1991-01-01",
+     "value": 15.1
+    },
+    {
+     "date": "1991-02-01",
+     "value": 15.1
+    },
+    {
+     "date": "1991-03-01",
+     "value": 15.1
+    },
+    {
+     "date": "1991-04-01",
+     "value": 15.2
+    },
+    {
+     "date": "1991-05-01",
+     "value": 15.3
+    },
+    {
+     "date": "1991-06-01",
+     "value": 15.4
+    },
+    {
+     "date": "1991-07-01",
+     "value": 15.6
+    },
+    {
+     "date": "1991-08-01",
+     "value": 15.8
+    },
+    {
+     "date": "1991-09-01",
+     "value": 15.9
+    },
+    {
+     "date": "1991-10-01",
+     "value": 15.9
+    },
+    {
+     "date": "1991-11-01",
+     "value": 15.9
+    },
+    {
+     "date": "1991-12-01",
+     "value": 15.9
+    },
+    {
+     "date": "1992-01-01",
+     "value": 16
+    },
+    {
+     "date": "1992-02-01",
+     "value": 16.1
+    },
+    {
+     "date": "1992-03-01",
+     "value": 16.3
+    },
+    {
+     "date": "1992-04-01",
+     "value": 16.4
+    },
+    {
+     "date": "1992-05-01",
+     "value": 16.5
+    },
+    {
+     "date": "1992-06-01",
+     "value": 16.7
+    },
+    {
+     "date": "1992-07-01",
+     "value": 16.9
+    },
+    {
+     "date": "1992-08-01",
+     "value": 17.2
+    },
+    {
+     "date": "1992-09-01",
+     "value": 17.5
+    },
+    {
+     "date": "1992-10-01",
+     "value": 18
+    },
+    {
+     "date": "1992-11-01",
+     "value": 18.4
+    },
+    {
+     "date": "1992-12-01",
+     "value": 18.8
+    },
+    {
+     "date": "1993-01-01",
+     "value": 19.2
+    },
+    {
+     "date": "1993-02-01",
+     "value": 19.5
+    },
+    {
+     "date": "1993-03-01",
+     "value": 20
+    },
+    {
+     "date": "1993-04-01",
+     "value": 20.2
+    },
+    {
+     "date": "1993-05-01",
+     "value": 20.4
+    },
+    {
+     "date": "1993-06-01",
+     "value": 20.9
+    },
+    {
+     "date": "1993-07-01",
+     "value": 21.3
+    },
+    {
+     "date": "1993-08-01",
+     "value": 21.4
+    },
+    {
+     "date": "1993-09-01",
+     "value": 21.5
+    },
+    {
+     "date": "1993-10-01",
+     "value": 21.7
+    },
+    {
+     "date": "1993-11-01",
+     "value": 21.9
+    },
+    {
+     "date": "1993-12-01",
+     "value": 22
+    },
+    {
+     "date": "1994-01-01",
+     "value": 22.2
+    },
+    {
+     "date": "1994-02-01",
+     "value": 22.3
+    },
+    {
+     "date": "1994-03-01",
+     "value": 22.2
+    },
+    {
+     "date": "1994-04-01",
+     "value": 22.2
+    },
+    {
+     "date": "1994-05-01",
+     "value": 22.2
+    },
+    {
+     "date": "1994-06-01",
+     "value": 22.2
+    },
+    {
+     "date": "1994-07-01",
+     "value": 22.1
+    },
+    {
+     "date": "1994-08-01",
+     "value": 22
+    },
+    {
+     "date": "1994-09-01",
+     "value": 22
+    },
+    {
+     "date": "1994-10-01",
+     "value": 21.8
+    },
+    {
+     "date": "1994-11-01",
+     "value": 21.8
+    },
+    {
+     "date": "1994-12-01",
+     "value": 21.6
+    },
+    {
+     "date": "1995-01-01",
+     "value": 21.4
+    },
+    {
+     "date": "1995-02-01",
+     "value": 21.2
+    },
+    {
+     "date": "1995-03-01",
+     "value": 20.9
+    },
+    {
+     "date": "1995-04-01",
+     "value": 20.6
+    },
+    {
+     "date": "1995-05-01",
+     "value": 20.5
+    },
+    {
+     "date": "1995-06-01",
+     "value": 20.6
+    },
+    {
+     "date": "1995-07-01",
+     "value": 20.7
+    },
+    {
+     "date": "1995-08-01",
+     "value": 20.8
+    },
+    {
+     "date": "1995-09-01",
+     "value": 20.9
+    },
+    {
+     "date": "1995-10-01",
+     "value": 20.7
+    },
+    {
+     "date": "1995-11-01",
+     "value": 20.7
+    },
+    {
+     "date": "1995-12-01",
+     "value": 20.5
+    },
+    {
+     "date": "1996-01-01",
+     "value": 20.4
+    },
+    {
+     "date": "1996-02-01",
+     "value": 20.3
+    },
+    {
+     "date": "1996-03-01",
+     "value": 20.3
+    },
+    {
+     "date": "1996-04-01",
+     "value": 20.1
+    },
+    {
+     "date": "1996-05-01",
+     "value": 20.1
+    },
+    {
+     "date": "1996-06-01",
+     "value": 20.2
+    },
+    {
+     "date": "1996-07-01",
+     "value": 20.1
+    },
+    {
+     "date": "1996-08-01",
+     "value": 19.8
+    },
+    {
+     "date": "1996-09-01",
+     "value": 19.7
+    },
+    {
+     "date": "1996-10-01",
+     "value": 19.5
+    },
+    {
+     "date": "1996-11-01",
+     "value": 19.3
+    },
+    {
+     "date": "1996-12-01",
+     "value": 19.1
+    },
+    {
+     "date": "1997-01-01",
+     "value": 18.8
+    },
+    {
+     "date": "1997-02-01",
+     "value": 18.7
+    },
+    {
+     "date": "1997-03-01",
+     "value": 18.6
+    },
+    {
+     "date": "1997-04-01",
+     "value": 18.6
+    },
+    {
+     "date": "1997-05-01",
+     "value": 18.7
+    },
+    {
+     "date": "1997-06-01",
+     "value": 18.8
+    },
+    {
+     "date": "1997-07-01",
+     "value": 18.6
+    },
+    {
+     "date": "1997-08-01",
+     "value": 18.3
+    },
+    {
+     "date": "1997-09-01",
+     "value": 18.3
+    },
+    {
+     "date": "1997-10-01",
+     "value": 18
+    },
+    {
+     "date": "1997-11-01",
+     "value": 17.8
+    },
+    {
+     "date": "1997-12-01",
+     "value": 17.6
+    },
+    {
+     "date": "1998-01-01",
+     "value": 17.1
+    },
+    {
+     "date": "1998-02-01",
+     "value": 16.7
+    },
+    {
+     "date": "1998-03-01",
+     "value": 16.7
+    },
+    {
+     "date": "1998-04-01",
+     "value": 16.6
+    },
+    {
+     "date": "1998-05-01",
+     "value": 16.6
+    },
+    {
+     "date": "1998-06-01",
+     "value": 16.8
+    },
+    {
+     "date": "1998-07-01",
+     "value": 16.6
+    },
+    {
+     "date": "1998-08-01",
+     "value": 16.4
+    },
+    {
+     "date": "1998-09-01",
+     "value": 16.3
+    },
+    {
+     "date": "1998-10-01",
+     "value": 16
+    },
+    {
+     "date": "1998-11-01",
+     "value": 15.7
+    },
+    {
+     "date": "1998-12-01",
+     "value": 15.4
+    },
+    {
+     "date": "1999-01-01",
+     "value": 14.8
+    },
+    {
+     "date": "1999-02-01",
+     "value": 14.3
+    },
+    {
+     "date": "1999-03-01",
+     "value": 13.9
+    },
+    {
+     "date": "1999-04-01",
+     "value": 13.6
+    },
+    {
+     "date": "1999-05-01",
+     "value": 13.5
+    },
+    {
+     "date": "1999-06-01",
+     "value": 13.5
+    },
+    {
+     "date": "1999-07-01",
+     "value": 13.5
+    },
+    {
+     "date": "1999-08-01",
+     "value": 13.5
+    },
+    {
+     "date": "1999-09-01",
+     "value": 13.4
+    },
+    {
+     "date": "1999-10-01",
+     "value": 13.2
+    },
+    {
+     "date": "1999-11-01",
+     "value": 13.1
+    },
+    {
+     "date": "1999-12-01",
+     "value": 12.9
+    },
+    {
+     "date": "2000-01-01",
+     "value": 12.8
+    },
+    {
+     "date": "2000-02-01",
+     "value": 12.4
+    },
+    {
+     "date": "2000-03-01",
+     "value": 12.2
+    },
+    {
+     "date": "2000-04-01",
+     "value": 12
+    },
+    {
+     "date": "2000-05-01",
+     "value": 11.9
+    },
+    {
+     "date": "2000-06-01",
+     "value": 11.9
+    },
+    {
+     "date": "2000-07-01",
+     "value": 11.9
+    },
+    {
+     "date": "2000-08-01",
+     "value": 11.8
+    },
+    {
+     "date": "2000-09-01",
+     "value": 11.7
+    },
+    {
+     "date": "2000-10-01",
+     "value": 11.7
+    },
+    {
+     "date": "2000-11-01",
+     "value": 11.5
+    },
+    {
+     "date": "2000-12-01",
+     "value": 11.2
+    },
+    {
+     "date": "2001-01-01",
+     "value": 10.8
+    },
+    {
+     "date": "2001-02-01",
+     "value": 10.7
+    },
+    {
+     "date": "2001-03-01",
+     "value": 10.5
+    },
+    {
+     "date": "2001-04-01",
+     "value": 10.4
+    },
+    {
+     "date": "2001-05-01",
+     "value": 10.6
+    },
+    {
+     "date": "2001-06-01",
+     "value": 10.5
+    },
+    {
+     "date": "2001-07-01",
+     "value": 10.5
+    },
+    {
+     "date": "2001-08-01",
+     "value": 10.6
+    },
+    {
+     "date": "2001-09-01",
+     "value": 10.5
+    },
+    {
+     "date": "2001-10-01",
+     "value": 10.5
+    },
+    {
+     "date": "2001-11-01",
+     "value": 10.6
+    },
+    {
+     "date": "2001-12-01",
+     "value": 10.7
+    },
+    {
+     "date": "2002-01-01",
+     "value": 11.1
+    },
+    {
+     "date": "2002-02-01",
+     "value": 11.5
+    },
+    {
+     "date": "2002-03-01",
+     "value": 11.2
+    },
+    {
+     "date": "2002-04-01",
+     "value": 11.2
+    },
+    {
+     "date": "2002-05-01",
+     "value": 11.2
+    },
+    {
+     "date": "2002-06-01",
+     "value": 11.4
+    },
+    {
+     "date": "2002-07-01",
+     "value": 11.7
+    },
+    {
+     "date": "2002-08-01",
+     "value": 11.8
+    },
+    {
+     "date": "2002-09-01",
+     "value": 11.7
+    },
+    {
+     "date": "2002-10-01",
+     "value": 11.6
+    },
+    {
+     "date": "2002-11-01",
+     "value": 11.6
+    },
+    {
+     "date": "2002-12-01",
+     "value": 11.6
+    },
+    {
+     "date": "2003-01-01",
+     "value": 11.7
+    },
+    {
+     "date": "2003-02-01",
+     "value": 11.7
+    },
+    {
+     "date": "2003-03-01",
+     "value": 11.6
+    },
+    {
+     "date": "2003-04-01",
+     "value": 11.4
+    },
+    {
+     "date": "2003-05-01",
+     "value": 11.3
+    },
+    {
+     "date": "2003-06-01",
+     "value": 11.5
+    },
+    {
+     "date": "2003-07-01",
+     "value": 11.6
+    },
+    {
+     "date": "2003-08-01",
+     "value": 11.5
+    },
+    {
+     "date": "2003-09-01",
+     "value": 11.5
+    },
+    {
+     "date": "2003-10-01",
+     "value": 11.4
+    },
+    {
+     "date": "2003-11-01",
+     "value": 11.3
+    },
+    {
+     "date": "2003-12-01",
+     "value": 11.4
+    },
+    {
+     "date": "2004-01-01",
+     "value": 11.3
+    },
+    {
+     "date": "2004-02-01",
+     "value": 11.2
+    },
+    {
+     "date": "2004-03-01",
+     "value": 11.1
+    },
+    {
+     "date": "2004-04-01",
+     "value": 11.2
+    },
+    {
+     "date": "2004-05-01",
+     "value": 11.2
+    },
+    {
+     "date": "2004-06-01",
+     "value": 11.2
+    },
+    {
+     "date": "2004-07-01",
+     "value": 11
+    },
+    {
+     "date": "2004-08-01",
+     "value": 11
+    },
+    {
+     "date": "2004-09-01",
+     "value": 10.9
+    },
+    {
+     "date": "2004-10-01",
+     "value": 10.7
+    },
+    {
+     "date": "2004-11-01",
+     "value": 10.6
+    },
+    {
+     "date": "2004-12-01",
+     "value": 10.3
+    },
+    {
+     "date": "2005-01-01",
+     "value": 10.1
+    },
+    {
+     "date": "2005-02-01",
+     "value": 9.9
+    },
+    {
+     "date": "2005-03-01",
+     "value": 9.7
+    },
+    {
+     "date": "2005-04-01",
+     "value": 9.7
+    },
+    {
+     "date": "2005-05-01",
+     "value": 9.4
+    },
+    {
+     "date": "2005-06-01",
+     "value": 9.1
+    },
+    {
+     "date": "2005-07-01",
+     "value": 8.8
+    },
+    {
+     "date": "2005-08-01",
+     "value": 8.6
+    },
+    {
+     "date": "2005-09-01",
+     "value": 8.5
+    },
+    {
+     "date": "2005-10-01",
+     "value": 8.6
+    },
+    {
+     "date": "2005-11-01",
+     "value": 8.7
+    },
+    {
+     "date": "2005-12-01",
+     "value": 8.8
+    },
+    {
+     "date": "2006-01-01",
+     "value": 8.8
+    },
+    {
+     "date": "2006-02-01",
+     "value": 8.7
+    },
+    {
+     "date": "2006-03-01",
+     "value": 8.7
+    },
+    {
+     "date": "2006-04-01",
+     "value": 8.6
+    },
+    {
+     "date": "2006-05-01",
+     "value": 8.5
+    },
+    {
+     "date": "2006-06-01",
+     "value": 8.4
+    },
+    {
+     "date": "2006-07-01",
+     "value": 8.3
+    },
+    {
+     "date": "2006-08-01",
+     "value": 8.3
+    },
+    {
+     "date": "2006-09-01",
+     "value": 8.2
+    },
+    {
+     "date": "2006-10-01",
+     "value": 8.2
+    },
+    {
+     "date": "2006-11-01",
+     "value": 8.3
+    },
+    {
+     "date": "2006-12-01",
+     "value": 8.3
+    },
+    {
+     "date": "2007-01-01",
+     "value": 8.3
+    },
+    {
+     "date": "2007-02-01",
+     "value": 8.2
+    },
+    {
+     "date": "2007-03-01",
+     "value": 8.1
+    },
+    {
+     "date": "2007-04-01",
+     "value": 8
+    },
+    {
+     "date": "2007-05-01",
+     "value": 7.9
+    },
+    {
+     "date": "2007-06-01",
+     "value": 8
+    },
+    {
+     "date": "2007-07-01",
+     "value": 8.1
+    },
+    {
+     "date": "2007-08-01",
+     "value": 8.3
+    },
+    {
+     "date": "2007-09-01",
+     "value": 8.3
+    },
+    {
+     "date": "2007-10-01",
+     "value": 8.4
+    },
+    {
+     "date": "2007-11-01",
+     "value": 8.6
+    },
+    {
+     "date": "2007-12-01",
+     "value": 8.8
+    },
+    {
+     "date": "2008-01-01",
+     "value": 9.1
+    },
+    {
+     "date": "2008-02-01",
+     "value": 9.3
+    },
+    {
+     "date": "2008-03-01",
+     "value": 9.5
+    },
+    {
+     "date": "2008-04-01",
+     "value": 10
+    },
+    {
+     "date": "2008-05-01",
+     "value": 10.4
+    },
+    {
+     "date": "2008-06-01",
+     "value": 10.8
+    },
+    {
+     "date": "2008-07-01",
+     "value": 11.1
+    },
+    {
+     "date": "2008-08-01",
+     "value": 11.5
+    },
+    {
+     "date": "2008-09-01",
+     "value": 12
+    },
+    {
+     "date": "2008-10-01",
+     "value": 12.9
+    },
+    {
+     "date": "2008-11-01",
+     "value": 13.8
+    },
+    {
+     "date": "2008-12-01",
+     "value": 14.8
+    },
+    {
+     "date": "2009-01-01",
+     "value": 15.9
+    },
+    {
+     "date": "2009-02-01",
+     "value": 16.8
+    },
+    {
+     "date": "2009-03-01",
+     "value": 17.5
+    },
+    {
+     "date": "2009-04-01",
+     "value": 17.8
+    },
+    {
+     "date": "2009-05-01",
+     "value": 17.9
+    },
+    {
+     "date": "2009-06-01",
+     "value": 17.9
+    },
+    {
+     "date": "2009-07-01",
+     "value": 18
+    },
+    {
+     "date": "2009-08-01",
+     "value": 18.2
+    },
+    {
+     "date": "2009-09-01",
+     "value": 18.4
+    },
+    {
+     "date": "2009-10-01",
+     "value": 18.6
+    },
+    {
+     "date": "2009-11-01",
+     "value": 18.7
+    },
+    {
+     "date": "2009-12-01",
+     "value": 18.9
+    },
+    {
+     "date": "2010-01-01",
+     "value": 19.1
+    },
+    {
+     "date": "2010-02-01",
+     "value": 19.2
+    },
+    {
+     "date": "2010-03-01",
+     "value": 19.4
+    },
+    {
+     "date": "2010-04-01",
+     "value": 19.8
+    },
+    {
+     "date": "2010-05-01",
+     "value": 20
+    },
+    {
+     "date": "2010-06-01",
+     "value": 20.1
+    },
+    {
+     "date": "2010-07-01",
+     "value": 19.9
+    },
+    {
+     "date": "2010-08-01",
+     "value": 20
+    },
+    {
+     "date": "2010-09-01",
+     "value": 20.1
+    },
+    {
+     "date": "2010-10-01",
+     "value": 20.1
+    },
+    {
+     "date": "2010-11-01",
+     "value": 20.2
+    },
+    {
+     "date": "2010-12-01",
+     "value": 20.4
+    },
+    {
+     "date": "2011-01-01",
+     "value": 20.4
+    },
+    {
+     "date": "2011-02-01",
+     "value": 20.5
+    },
+    {
+     "date": "2011-03-01",
+     "value": 20.6
+    },
+    {
+     "date": "2011-04-01",
+     "value": 20.6
+    },
+    {
+     "date": "2011-05-01",
+     "value": 20.7
+    },
+    {
+     "date": "2011-06-01",
+     "value": 21
+    },
+    {
+     "date": "2011-07-01",
+     "value": 21.4
+    },
+    {
+     "date": "2011-08-01",
+     "value": 21.7
+    },
+    {
+     "date": "2011-09-01",
+     "value": 22.1
+    },
+    {
+     "date": "2011-10-01",
+     "value": 22.4
+    },
+    {
+     "date": "2011-11-01",
+     "value": 22.6
+    },
+    {
+     "date": "2011-12-01",
+     "value": 22.9
+    },
+    {
+     "date": "2012-01-01",
+     "value": 23.2
+    },
+    {
+     "date": "2012-02-01",
+     "value": 23.6
+    },
+    {
+     "date": "2012-03-01",
+     "value": 23.9
+    },
+    {
+     "date": "2012-04-01",
+     "value": 24.2
+    },
+    {
+     "date": "2012-05-01",
+     "value": 24.6
+    },
+    {
+     "date": "2012-06-01",
+     "value": 24.8
+    },
+    {
+     "date": "2012-07-01",
+     "value": 25
+    },
+    {
+     "date": "2012-08-01",
+     "value": 25.2
+    },
+    {
+     "date": "2012-09-01",
+     "value": 25.5
+    },
+    {
+     "date": "2012-10-01",
+     "value": 25.7
+    },
+    {
+     "date": "2012-11-01",
+     "value": 25.9
+    },
+    {
+     "date": "2012-12-01",
+     "value": 26
+    },
+    {
+     "date": "2013-01-01",
+     "value": 26.2
+    },
+    {
+     "date": "2013-02-01",
+     "value": 26.4
+    },
+    {
+     "date": "2013-03-01",
+     "value": 26.3
+    },
+    {
+     "date": "2013-04-01",
+     "value": 26.3
+    },
+    {
+     "date": "2013-05-01",
+     "value": 26.2
+    },
+    {
+     "date": "2013-06-01",
+     "value": 26.1
+    },
+    {
+     "date": "2013-07-01",
+     "value": 26.2
+    },
+    {
+     "date": "2013-08-01",
+     "value": 26.1
+    },
+    {
+     "date": "2013-09-01",
+     "value": 26.1
+    },
+    {
+     "date": "2013-10-01",
+     "value": 26
+    },
+    {
+     "date": "2013-11-01",
+     "value": 25.9
+    },
+    {
+     "date": "2013-12-01",
+     "value": 25.5
+    },
+    {
+     "date": "2014-01-01",
+     "value": 25.5
+    },
+    {
+     "date": "2014-02-01",
+     "value": 25.3
+    },
+    {
+     "date": "2014-03-01",
+     "value": 25.1
+    },
+    {
+     "date": "2014-04-01",
+     "value": 24.8
+    },
+    {
+     "date": "2014-05-01",
+     "value": 24.6
+    },
+    {
+     "date": "2014-06-01",
+     "value": 24.4
+    },
+    {
+     "date": "2014-07-01",
+     "value": 24.3
+    },
+    {
+     "date": "2014-08-01",
+     "value": 24.1
+    },
+    {
+     "date": "2014-09-01",
+     "value": 24
+    },
+    {
+     "date": "2014-10-01",
+     "value": 24
+    },
+    {
+     "date": "2014-11-01",
+     "value": 23.8
+    },
+    {
+     "date": "2014-12-01",
+     "value": 23.6
+    },
+    {
+     "date": "2015-01-01",
+     "value": 23.4
+    },
+    {
+     "date": "2015-02-01",
+     "value": 23.1
+    },
+    {
+     "date": "2015-03-01",
+     "value": 22.9
+    },
+    {
+     "date": "2015-04-01",
+     "value": 22.7
+    },
+    {
+     "date": "2015-05-01",
+     "value": 22.5
+    },
+    {
+     "date": "2015-06-01",
+     "value": 22.3
+    },
+    {
+     "date": "2015-07-01",
+     "value": 21.9
+    },
+    {
+     "date": "2015-08-01",
+     "value": 21.6
+    },
+    {
+     "date": "2015-09-01",
+     "value": 21.4
+    },
+    {
+     "date": "2015-10-01",
+     "value": 21.3
+    },
+    {
+     "date": "2015-11-01",
+     "value": 20.9
+    },
+    {
+     "date": "2015-12-01",
+     "value": 20.8
+    },
+    {
+     "date": "2016-01-01",
+     "value": 20.5
+    },
+    {
+     "date": "2016-02-01",
+     "value": 20.4
+    },
+    {
+     "date": "2016-03-01",
+     "value": 20.3
+    },
+    {
+     "date": "2016-04-01",
+     "value": 20.3
+    },
+    {
+     "date": "2016-05-01",
+     "value": 20.2
+    },
+    {
+     "date": "2016-06-01",
+     "value": 19.9
+    },
+    {
+     "date": "2016-07-01",
+     "value": 19.5
+    },
+    {
+     "date": "2016-08-01",
+     "value": 19.3
+    },
+    {
+     "date": "2016-09-01",
+     "value": 19.1
+    },
+    {
+     "date": "2016-10-01",
+     "value": 18.9
+    },
+    {
+     "date": "2016-11-01",
+     "value": 18.8
+    },
+    {
+     "date": "2016-12-01",
+     "value": 18.5
+    },
+    {
+     "date": "2017-01-01",
+     "value": 18.3
+    },
+    {
+     "date": "2017-02-01",
+     "value": 18.2
+    },
+    {
+     "date": "2017-03-01",
+     "value": 18
+    },
+    {
+     "date": "2017-04-01",
+     "value": 17.6
+    },
+    {
+     "date": "2017-05-01",
+     "value": 17.4
+    },
+    {
+     "date": "2017-06-01",
+     "value": 17.1
+    },
+    {
+     "date": "2017-07-01",
+     "value": 16.9
+    },
+    {
+     "date": "2017-08-01",
+     "value": 16.7
+    },
+    {
+     "date": "2017-09-01",
+     "value": 16.7
+    },
+    {
+     "date": "2017-10-01",
+     "value": 16.7
+    },
+    {
+     "date": "2017-11-01",
+     "value": 16.7
+    },
+    {
+     "date": "2017-12-01",
+     "value": 16.6
+    },
+    {
+     "date": "2018-01-01",
+     "value": 16.4
+    },
+    {
+     "date": "2018-02-01",
+     "value": 16.2
+    },
+    {
+     "date": "2018-03-01",
+     "value": 15.9
+    },
+    {
+     "date": "2018-04-01",
+     "value": 15.7
+    },
+    {
+     "date": "2018-05-01",
+     "value": 15.5
+    },
+    {
+     "date": "2018-06-01",
+     "value": 15.2
+    },
+    {
+     "date": "2018-07-01",
+     "value": 15
+    },
+    {
+     "date": "2018-08-01",
+     "value": 14.8
+    },
+    {
+     "date": "2018-09-01",
+     "value": 14.7
+    },
+    {
+     "date": "2018-10-01",
+     "value": 14.7
+    },
+    {
+     "date": "2018-11-01",
+     "value": 14.6
+    },
+    {
+     "date": "2018-12-01",
+     "value": 14.4
+    },
+    {
+     "date": "2019-01-01",
+     "value": 14.3
+    },
+    {
+     "date": "2019-02-01",
+     "value": 14.2
+    },
+    {
+     "date": "2019-03-01",
+     "value": 14.2
+    },
+    {
+     "date": "2019-04-01",
+     "value": 14.2
+    },
+    {
+     "date": "2019-05-01",
+     "value": 14.3
+    },
+    {
+     "date": "2019-06-01",
+     "value": 14.2
+    },
+    {
+     "date": "2019-07-01",
+     "value": 14.2
+    },
+    {
+     "date": "2019-08-01",
+     "value": 14.1
+    },
+    {
+     "date": "2019-09-01",
+     "value": 14
+    },
+    {
+     "date": "2019-10-01",
+     "value": 14
+    },
+    {
+     "date": "2019-11-01",
+     "value": 13.9
+    },
+    {
+     "date": "2019-12-01",
+     "value": 13.8
+    },
+    {
+     "date": "2020-01-01",
+     "value": 13.8
+    },
+    {
+     "date": "2020-02-01",
+     "value": 13.6
+    },
+    {
+     "date": "2020-03-01",
+     "value": 14.5
+    },
+    {
+     "date": "2020-04-01",
+     "value": 15.3
+    },
+    {
+     "date": "2020-05-01",
+     "value": 15.5
+    },
+    {
+     "date": "2020-06-01",
+     "value": 16
+    },
+    {
+     "date": "2020-07-01",
+     "value": 16.2
+    },
+    {
+     "date": "2020-08-01",
+     "value": 16.5
+    },
+    {
+     "date": "2020-09-01",
+     "value": 16.4
+    },
+    {
+     "date": "2020-10-01",
+     "value": 16.3
+    },
+    {
+     "date": "2020-11-01",
+     "value": 16.2
+    },
+    {
+     "date": "2020-12-01",
+     "value": 16.2
+    },
+    {
+     "date": "2021-01-01",
+     "value": 15.9
+    },
+    {
+     "date": "2021-02-01",
+     "value": 15.7
+    },
+    {
+     "date": "2021-03-01",
+     "value": 15.5
+    },
+    {
+     "date": "2021-04-01",
+     "value": 15.7
+    },
+    {
+     "date": "2021-05-01",
+     "value": 15.7
+    },
+    {
+     "date": "2021-06-01",
+     "value": 15.6
+    },
+    {
+     "date": "2021-07-01",
+     "value": 15.2
+    },
+    {
+     "date": "2021-08-01",
+     "value": 14.8
+    },
+    {
+     "date": "2021-09-01",
+     "value": 14.4
+    },
+    {
+     "date": "2021-10-01",
+     "value": 13.9
+    },
+    {
+     "date": "2021-11-01",
+     "value": 13.5
+    },
+    {
+     "date": "2021-12-01",
+     "value": 13.3
+    },
+    {
+     "date": "2022-01-01",
+     "value": 13.3
+    },
+    {
+     "date": "2022-02-01",
+     "value": 13.2
+    },
+    {
+     "date": "2022-03-01",
+     "value": 13.3
+    },
+    {
+     "date": "2022-04-01",
+     "value": 13.2
+    },
+    {
+     "date": "2022-05-01",
+     "value": 12.9
+    },
+    {
+     "date": "2022-06-01",
+     "value": 12.9
+    },
+    {
+     "date": "2022-07-01",
+     "value": 12.7
+    },
+    {
+     "date": "2022-08-01",
+     "value": 12.8
+    },
+    {
+     "date": "2022-09-01",
+     "value": 13
+    },
+    {
+     "date": "2022-10-01",
+     "value": 13.1
+    },
+    {
+     "date": "2022-11-01",
+     "value": 13.2
+    },
+    {
+     "date": "2022-12-01",
+     "value": 13.2
+    },
+    {
+     "date": "2023-01-01",
+     "value": 13.1
+    },
+    {
+     "date": "2023-02-01",
+     "value": 12.9
+    },
+    {
+     "date": "2023-03-01",
+     "value": 12.5
+    },
+    {
+     "date": "2023-04-01",
+     "value": 12.1
+    },
+    {
+     "date": "2023-05-01",
+     "value": 12
+    },
+    {
+     "date": "2023-06-01",
+     "value": 11.9
+    },
+    {
+     "date": "2023-07-01",
+     "value": 12
+    },
+    {
+     "date": "2023-08-01",
+     "value": 12
+    },
+    {
+     "date": "2023-09-01",
+     "value": 12
+    },
+    {
+     "date": "2023-10-01",
+     "value": 12
+    },
+    {
+     "date": "2023-11-01",
+     "value": 12
+    },
+    {
+     "date": "2023-12-01",
+     "value": 11.9
+    },
+    {
+     "date": "2024-01-01",
+     "value": 11.9
+    },
+    {
+     "date": "2024-02-01",
+     "value": 11.8
+    },
+    {
+     "date": "2024-03-01",
+     "value": 11.6
+    },
+    {
+     "date": "2024-04-01",
+     "value": 11.6
+    },
+    {
+     "date": "2024-05-01",
+     "value": 11.6
+    },
+    {
+     "date": "2024-06-01",
+     "value": 11.5
+    },
+    {
+     "date": "2024-07-01",
+     "value": 11.4
+    },
+    {
+     "date": "2024-08-01",
+     "value": 11.3
+    },
+    {
+     "date": "2024-09-01",
+     "value": 11.1
+    },
+    {
+     "date": "2024-10-01",
+     "value": 10.9
+    },
+    {
+     "date": "2024-11-01",
+     "value": 10.8
+    },
+    {
+     "date": "2024-12-01",
+     "value": 10.8
+    },
+    {
+     "date": "2025-01-01",
+     "value": 10.8
+    },
+    {
+     "date": "2025-02-01",
+     "value": 10.8
+    },
+    {
+     "date": "2025-03-01",
+     "value": 10.8
+    },
+    {
+     "date": "2025-04-01",
+     "value": 10.6
+    },
+    {
+     "date": "2025-05-01",
+     "value": 10.6
+    },
+    {
+     "date": "2025-06-01",
+     "value": 10.5
+    },
+    {
+     "date": "2025-07-01",
+     "value": 10.6
+    },
+    {
+     "date": "2025-08-01",
+     "value": 10.5
+    },
+    {
+     "date": "2025-09-01",
+     "value": 10.4
+    },
+    {
+     "date": "2025-10-01",
+     "value": 10.2
+    },
+    {
+     "date": "2025-11-01",
+     "value": 10.1
+    },
+    {
+     "date": "2025-12-01",
+     "value": 10.2
+    },
+    {
+     "date": "2026-01-01",
+     "value": 10.3
+    },
+    {
+     "date": "2026-02-01",
+     "value": 10.3
+    },
+    {
+     "date": "2026-03-01",
+     "value": 10.3
+    },
+    {
+     "date": "2026-04-01",
+     "value": 10.2
+    },
+    {
+     "date": "2026-05-01",
+     "value": 10.2
+    },
+    {
+     "date": "2026-06-01",
+     "value": 10.1
+    },
+    {
+     "date": "2026-07-01",
+     "value": 10
+    }
+   ],
+   "source_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/une_rt_m?format=JSON&geo=ES&s_adj=SA&unit=PC_ACT&sex=T&age=TOTAL&lastTimePeriod=500",
+   "fetched_at": "2026-09-16T14:57:56.795Z",
+   "question_ids": [
+    1517,
+    1518
+   ]
   }
  },
- "generated_at": "2026-09-16T14:54:42.508Z",
- "merge_note": "本轮 --merge：新增/覆盖 180 系列，合并后共 181"
+ "generated_at": "2026-09-16T15:17:06.764Z",
+ "merge_note": "本轮 --merge：新增/覆盖 1 系列，合并后共 188"
 }
