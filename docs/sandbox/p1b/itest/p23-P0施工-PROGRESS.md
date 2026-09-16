@@ -11,11 +11,13 @@
 3. **P0-U2 stage4 贝叶斯语义六档**（`p1b/scripts/stage4-run.cjs`：`bayesSemanticsOf` 纯函数＋分层 brief `bayes_semantics`＋文本每层 +1 行＋JSON `bayes_legend`；测试 `p1b/test/stage4-run.test.cjs` 追加 2 例：金样零 diff／六档逐字）
 4. **P0-U3 看板图例**（`p1b/scripts/board.cjs` 图例 6 行＋记账语言短注＋JSON `bayes_legend`；测试 `p1b/test/board-health.test.cjs` 追加断言）
 5. **测试 378/378 绿**（373 基线＋5 新例）＋ **收据** `p1b/sim/out/p0-u1u2u3-receipt-20260916.md`（含全部 sha256）
+6. **P0-U4 校准挑战者库**（`p1b/src/calibration/{isotonic,betaCalibration,platt,index}.js`；合成金样 4 组 `p1b/test/calibration-arms.test.cjs` 全绿；beta 公式转录核对源 arXiv:2112.10327 式(10)）
+7. **P0-U5 离线 A/B 协议**（`p1b/scripts/calab-run.cjs`＋测试 `p1b/test/calab-run.test.cjs` 4 例；正式报告 `p1b/sim/out/calab-report-20260916.{json,md}`：主口径 n=695，ΔBrier=+0.0014 CI[−0.0048,+0.0083] ⇒ **维持恒等（负结果如实）**；**测试 386/386 绿**；收据 `p1b/sim/out/p0-u4u5-receipt-20260916.md`）
 
 ## 剩余步骤（编号，可断点续做）
 
-- [x] 1. 任务 1（U1/U2/U3）收口：测试绿＋收据＋commit
-- [ ] 2. 任务 2（U4/U5）：`p1b/src/calibration/{isotonic,betaCalibration,platt,index}.js` ＋ `p1b/scripts/calab-run.cjs` ＋ 两个测试（820 主口径/450 副口径、题级块 bootstrap、B=1000/seed 987654321）
+- [x] 1. 任务 1（U1/U2/U3）收口：测试绿＋收据＋commit（`aea5b58`）
+- [x] 2. 任务 2（U4/U5）：校准库＋A/B 协议＋报告（386/386 绿；收据见上）
 - [ ] 3. 任务 3（U7/U8）：`p1b/scripts/forecast-calendar.cjs`（spawn 委托 daemon --report-due）＋ `p1b/scripts/calibration-report.cjs`（latestByPattern 只披露）＋ 前端 CalendarPage/CalibrationReportPage（U7/U8 页面化）
 - [ ] 4. 任务 4（U6）：`p1b/scripts/dna-s-dryrun.cjs`（只读 dry-run；Newcombe 区间金样；源码 grep 断言无 --confirm/INSERT）
 - [ ] 5. 任务 9：`p1b/scripts/sources-wide-probe2.cjs` 广域普查（体育赔率优先）；任务 10：Metaculus token 配置位＋ForecastBench 基线件
@@ -31,6 +33,10 @@
 
 - 2026-09-16：新建锚时仓库 git 干净、基线 373；U1 完成后 376（+3）、U2/U3 完成后 378（+5）。中间计数无异常。
 - 注意（供后续棒）：`bayes_legend` 的 board 版是 stage4 版文本的**同源副本**（【13】U3 原文要求"同源复制"），两处若分叉需同步——已登记入收据 §4。
+- 2026-09-16（U5 施工，两处自查修正）：
+  · ① `calab-run.cjs` 初稿把**末窗并入上一窗**（cur<minWindow 时 concat 进 merged 尾窗）——这会在 n=120 这类规模下把 [72,48] 变成 [120]、**吃掉一个评估窗**（测试当场报红：评估题数 0≠48）。改为「末窗保留为独立评估窗」（小窗如实披露），测试例③通过。
+  · ② U5 测试例①初稿断言 `identity.brier < 0.25` 属**断言区间写错**（p 均匀分布下 Brier 基线约 0.275 属正常），改为 (0.05, 0.5)；方向判据（Δ<0）实测通过（−0.0109）。
+  · ③ 主口径实跑 n=**695**（非【12】勘察期记的 820——722 行域中 27 题引擎 insufficient_data）；差异归因＝数据积累与真值排除口径，已写入收据 §5。
 
 ---
 
