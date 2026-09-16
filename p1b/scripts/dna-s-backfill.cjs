@@ -137,13 +137,17 @@ validateArgs();
 (async () => {
   console.log('=== E1 · S 维标签回填（' + (CONFIRM ? 'CONFIRM 实写' : 'DRY-RUN 零写') + '）===');
   console.log('db: ' + DB_PATH + ' ｜ route: ' + ROUTE + ' ｜ rule_sha: ' + RULE_SHA.slice(0, 16) + '…');
-  // 主口径（source）：读最新源快照（零 LLM 一次性拉取件）
+  // 主口径（source）：读最新源快照（零 LLM 一次性拉取件；**快照恒在默认 sim/out 查找**，与 --out-dir 解耦；可用 --snapshots 覆盖）
   let snapshots = null; let snapFile = null;
   if (ROUTE === 'source') {
-    const dir = OUT_DIR;
-    const cands = fs.existsSync(dir) ? fs.readdirSync(dir).filter((f) => /^dna-s-source-snapshots-\d{8}\.json$/.test(f)).sort() : [];
-    if (!cands.length) { console.error('ROUTE_SOURCE_NO_SNAPSHOT: 缺源快照（先跑 node p1b/scripts/dna-s-source-snapshot.cjs）'); process.exit(3); }
-    snapFile = path.join(dir, cands[cands.length - 1]);
+    const snapArg = arg('snapshots', null);
+    if (snapArg) { snapFile = path.resolve(snapArg); }
+    else {
+      const dir = path.join(ROOT, 'p1b', 'sim', 'out');
+      const cands = fs.existsSync(dir) ? fs.readdirSync(dir).filter((f) => /^dna-s-source-snapshots-\d{8}\.json$/.test(f)).sort() : [];
+      if (cands.length) snapFile = path.join(dir, cands[cands.length - 1]);
+    }
+    if (!snapFile || !fs.existsSync(snapFile)) { console.error('ROUTE_SOURCE_NO_SNAPSHOT: 缺源快照（先跑 node p1b/scripts/dna-s-source-snapshot.cjs；或 --snapshots <路径>）'); process.exit(3); }
     snapshots = JSON.parse(fs.readFileSync(snapFile, 'utf8')).snapshots || {};
   }
   const res = computeLabels(true, { route: ROUTE, snapshots: snapshots });   // 读侧计算（只读连接）

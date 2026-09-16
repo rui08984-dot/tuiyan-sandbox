@@ -57,7 +57,7 @@ test('② 快照件：结构完整（≥50 系列、每日值、source_url、窗
 
 test('③ source dry-run：主口径命中，且生产库 sha256 不变（零写库）', () => {
   const before = sha(PROD);
-  const out = execFileSync(process.execPath, [BACKFILL, '--db', PROD, '--route', 'source'], { encoding: 'utf8' });
+  const out = execFileSync(process.execPath, [BACKFILL, '--db', PROD, '--route', 'source', '--out-dir', tmpDir], { encoding: 'utf8' });
   const m = /覆盖统计: (\{[^}]*\})/.exec(out);
   assert.ok(m, '未打印覆盖统计');
   const cov = JSON.parse(m[1]);
