@@ -1,7 +1,7 @@
 # p1b/scripts 目录索引（脚本都在干什么）
 
 > **自动生成，勿手改**——`node p1b/scripts/scripts-index.cjs`（任务 6 批次 3 / 命名整理）。
-> 生成时点：2026-09-16T12:58:44.259Z｜在役脚本 93 个｜归档件见文末。
+> 生成时点：2026-09-16T13:52:54.761Z｜在役脚本 95 个｜归档件见文末。
 > 命名约定：`corpus-*` 取数出题｜`g2-*` 门禁报表｜`stage4-*` 分层真跑｜`prereg-a-*` 命题 A｜**默认 dry-run、写库须 `--confirm`**（项目纪律）。
 
 ## 使用者友好面（先看这几个）（4）
@@ -60,7 +60,7 @@
 | `prereg-a-sweep.cjs` | 命题 A 全量补齐「扫尾」（2026-09-14） | **可写库**（`--confirm` 才写；默认 dry-run） |
 | `prereg-a-windows.cjs` | PREREG-命题A-3.0消融 · §5 双窗参数件（跑批参数显式落盘；**禁止两窗合并**） | 只读 |
 
-## 其余工具（62）
+## 其余工具（64）
 
 | 脚本 | 一句话 | 写库 |
 |---|---|---|
@@ -83,6 +83,7 @@
 | `acr-inject.cjs` | ───────────────────────────────────────────────────────────────────────────── | 只读 |
 | `acr-run-llm.cjs` | ───────────────────────────────────────────────────────────────────────────── | 只读 |
 | `acr-run.cjs` | ───────────────────────────────────────────────────────────────────────────── | 只读 |
+| `assumption-recalc.cjs` | A1 假设重算器 v0（2026-09-17 · 第 3 期首选票，蓝图 §2.3-1） | 只读 |
 | `backfill-base-rate.cjs` | 老行 evidence.baseRate 物化回填（零翻转安全集）。 | **可写库**（`--confirm` 才写；默认 dry-run） |
 | `backfill-baserate-note.cjs` | G2 R4 池内缺失 evidence.baseRateNote 的补齐器（additive，只加 key） | **可写库**（`--confirm` 才写；默认 dry-run） |
 | `backfill-checklist-hash.cjs` | F16 回填：879 行 checklist_hash 空的题，按 evidence.kind 映射补上 | **可写库**（`--confirm` 才写；默认 dry-run） |
@@ -111,6 +112,7 @@
 | `merged-migration.cjs` | 计划内「合并迁移」执行器 | 只读 |
 | `metaculus-token-check.cjs` | Metaculus token 接入检查（任务 10 步骤 1 · 2026-09-16） | 只读 |
 | `negative-results.cjs` | I2 负结果账本 v0（对内）（2026-09-16 · P0+ · 蓝图 §2.1#8 / 15-I2） | 只读 |
+| `prereg-freeze.cjs` | PREREG 冻结哈希（通用）：口径显式、可复算（2026-09-16） | 只读 |
 | `report-layered.cjs` | 微步 3 报表：分层 ECE（下界口径）+逐路 Brier vs 0.5 占位+相关矩阵→λ̂→γ̂。探索性（90<200 只记不评）。 | 只读 |
 | `report-murphy.cjs` | 批次 1.5 · Murphy 三分解报表（K F56，零 LLM，库只读）。 | 只读 |
 | `sim-templates-v2.cjs` | ───────────────────────────────────────────────────────────────────────────── | 只读 |

@@ -1,0 +1,113 @@
+{
+ "script": "p1b/scripts/assumption-recalc.cjs",
+ "status": "探索性·不载判据",
+ "exploratory_notice": "本件为假设重算（探索性）——不进任何门控/判据；数字只用于「看一眼会怎样」，引用须照原读数件复核。",
+ "stage4_file": "E:\\music player\\p1b\\sim\\out\\stage4-run-five-layers-20260915.json",
+ "excludes": {
+  "domain": [],
+  "cell": []
+ },
+ "layers": {
+  "L1": {
+   "stage4_layer_brier": 0,
+   "agg_basis": "仅可出结论格（n≥30）加权聚合；薄格不计入（n 与差见 n_layer_all/thin_gap）",
+   "base": {
+    "n": 180,
+    "brier": 0
+   },
+   "excluded": {
+    "n": 180,
+    "n_dropped": 0,
+    "n_eval_all": 180,
+    "n_layer_all": 180,
+    "thin_gap": 0,
+    "brier": 0,
+    "const_half": 0.25,
+    "obs_rate": 0.5222222222222223,
+    "delta": -0.25,
+    "note": null
+   }
+  },
+  "L2": {
+   "stage4_layer_brier": 0.24939186901187158,
+   "agg_basis": "仅可出结论格（n≥30）加权聚合；薄格不计入（n 与差见 n_layer_all/thin_gap）",
+   "base": {
+    "n": 171,
+    "brier": 0.2428817820079824
+   },
+   "excluded": {
+    "n": 171,
+    "n_dropped": 0,
+    "n_eval_all": 171,
+    "n_layer_all": 296,
+    "thin_gap": 125,
+    "brier": 0.2428817820079824,
+    "const_half": 0.25,
+    "obs_rate": 0.5906432748538012,
+    "delta": -0.007118217992017589,
+    "note": null
+   }
+  },
+  "L3": {
+   "stage4_layer_brier": 0.24257389637889482,
+   "agg_basis": "仅可出结论格（n≥30）加权聚合；薄格不计入（n 与差见 n_layer_all/thin_gap）",
+   "base": {
+    "n": 369,
+    "brier": 0.24270007412958827
+   },
+   "excluded": {
+    "n": 369,
+    "n_dropped": 0,
+    "n_eval_all": 369,
+    "n_layer_all": 399,
+    "thin_gap": 30,
+    "brier": 0.24270007412958827,
+    "const_half": 0.25,
+    "obs_rate": 0.4905149051490515,
+    "delta": -0.007299925870411728,
+    "note": null
+   }
+  },
+  "L5": {
+   "stage4_layer_brier": 0.13381542702699725,
+   "agg_basis": "仅可出结论格（n≥30）加权聚合；薄格不计入（n 与差见 n_layer_all/thin_gap）",
+   "base": {
+    "n": 30,
+    "brier": 0.13381542702699725
+   },
+   "excluded": {
+    "n": 30,
+    "n_dropped": 0,
+    "n_eval_all": 30,
+    "n_layer_all": 30,
+    "thin_gap": 0,
+    "brier": 0.13381542702699725,
+    "const_half": 0.25,
+    "obs_rate": 0.16666666666666666,
+    "delta": -0.11618457297300275,
+    "note": null
+   }
+  },
+  "L6": {
+   "stage4_layer_brier": 0.17545467076550367,
+   "agg_basis": "仅可出结论格（n≥30）加权聚合；薄格不计入（n 与差见 n_layer_all/thin_gap）",
+   "base": {
+    "n": 270,
+    "brier": 0.17545467076550367
+   },
+   "excluded": {
+    "n": 270,
+    "n_dropped": 0,
+    "n_eval_all": 270,
+    "n_layer_all": 270,
+    "thin_gap": 0,
+    "brier": 0.17545467076550367,
+    "const_half": 0.25,
+    "obs_rate": 0.5777777777777777,
+    "delta": -0.07454532923449633,
+    "note": null
+   }
+  }
+ },
+ "generated_at": "2026-09-16T13:52:49.968Z"
+}
