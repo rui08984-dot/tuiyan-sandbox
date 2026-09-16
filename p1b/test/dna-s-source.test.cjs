@@ -42,17 +42,33 @@ test('① labelFromSeries：漂移/平稳/薄窗/窗尾过滤', () => {
   assert.equal(filtered.basis.window_n || filtered.basis.n, 19, '窗内应只含 cutoff 之前的日子');
 });
 
-test('② 快照件：结构完整（≥50 系列、每日值、source_url、窗口类型）', () => {
+test('② 快照件：结构完整（≥100 系列、含五族新源、期值丰富、source_url 齐）', () => {
   const dir = path.join(ROOT, 'p1b', 'sim', 'out');
   const f = fs.readdirSync(dir).filter((x) => /^dna-s-source-snapshots-\d{8}\.json$/.test(x)).sort().pop();
   assert.ok(f, '缺快照件');
   const j = JSON.parse(fs.readFileSync(path.join(dir, f), 'utf8'));
   const keys = Object.keys(j.snapshots);
-  assert.ok(keys.length >= 50, '系列数 ' + keys.length + ' < 50');
+  assert.ok(keys.length >= 100, '系列数 ' + keys.length + ' < 100');
+  const kinds = new Set(keys.map((k) => j.snapshots[k].kind));
+  for (const want of ['dbnomics_series_value', 'wikimedia_pageviews', 'frankfurter_rate_range', 'npm_downloads_window', 'github_weekly_commits', 'openmeteo_daily_max']) {
+    assert.ok(kinds.has(want), '缺族: ' + want);
+  }
   let withUrl = 0, daysTotal = 0;
-  for (const k of keys) { const s = j.snapshots[k]; assert.ok(Array.isArray(s.days) && s.days.length > 0, k + ' 无日值'); if (s.source_url) withUrl++; daysTotal += s.days.length; }
+  for (const k of keys) { const s = j.snapshots[k]; assert.ok(Array.isArray(s.days) && s.days.length > 0, k + ' 无期值'); if (s.source_url) withUrl++; daysTotal += s.days.length; }
   assert.equal(withUrl, keys.length, '每个系列须带 source_url');
-  assert.ok(daysTotal > 5000, '日值总量过少: ' + daysTotal);
+  assert.ok(daysTotal > 30000, '期值总量过少: ' + daysTotal);
+});
+
+test('②b 系列键单一真源（seriesKeyOf）：六族键形与不支持回落', () => {
+  const { seriesKeyOf } = require(path.join(ROOT, 'p1b', 'src', 'evidence', 'seriesKey.js'));
+  assert.equal(seriesKeyOf({ kind: 'openmeteo_daily_max', lat: 31.23, lon: 121.47 }), 'openmeteo_daily_max|31.23|121.47');
+  assert.equal(seriesKeyOf({ kind: 'dbnomics_series_value', provider: 'ECB', dataset: 'EXR', series: 'M.USD.EUR.SP00.A' }), 'dbnomics_series_value|ECB|EXR|M.USD.EUR.SP00.A');
+  assert.equal(seriesKeyOf({ kind: 'frankfurter_rate_range', base: 'USD', quote: 'CNY' }), 'frankfurter_rate_range|USD|CNY');
+  assert.equal(seriesKeyOf({ kind: 'wikimedia_pageviews', article: 'Bitcoin' }), 'wikimedia_pageviews|Bitcoin');
+  assert.equal(seriesKeyOf({ kind: 'npm_downloads_window', package: 'react' }), 'npm_downloads_window|react');
+  assert.equal(seriesKeyOf({ kind: 'github_weekly_commits', repo: 'nodejs/node' }), 'github_weekly_commits|nodejs/node');
+  assert.equal(seriesKeyOf({ kind: 'binance_daily_close' }), null, '未支持应回落 null');
+  assert.equal(seriesKeyOf(null), null);
 });
 
 test('③ source dry-run：主口径命中，且生产库 sha256 不变（零写库）', () => {

@@ -5,19 +5,19 @@
  "rows": 1792,
  "dist": {
   "先验:恒平稳": 378,
-  "平稳": 503,
-  "漂移": 409,
-  "不可判": 502
+  "平稳": 498,
+  "漂移": 515,
+  "不可判": 401
  },
  "coverage": {
-  "source_labeled": 587,
-  "fallback_ledger": 827,
-  "no_series": 827,
+  "source_labeled": 828,
+  "fallback_ledger": 586,
+  "no_series": 586,
   "prior": 378,
-  "undecidable": 502
+  "undecidable": 401
  },
  "snapshot_file": "E:\\music player\\p1b\\sim\\out\\dna-s-source-snapshots-20260916.json",
- "snapshot_sha16": "fac96327e2ef5b6a",
+ "snapshot_sha16": "1fbe2c716b2d89f3",
  "sample": [
   {
    "id": 1,
@@ -70,5 +70,5 @@
    }
   }
  ],
- "generated_at": "2026-09-16T12:57:58.482Z"
+ "generated_at": "2026-09-16T14:23:58.383Z"
 }

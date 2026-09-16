@@ -43,6 +43,7 @@ function validateArgs() {
 }
 
 const DRY = require(path.join(ROOT, 'p1b', 'scripts', 'dna-s-dryrun.cjs'));
+const { seriesKeyOf } = require(path.join(ROOT, 'p1b', 'src', 'evidence', 'seriesKey')); // 系列键单一真源（与快照脚本共用）
 
 /** 源快照窗口 → 标签（纯函数，供测试）：days=[{date,value}]；窗内只取 cutoff 之前；cmp ∈ > >= < <= */
 function labelFromSeries(days, cmp, threshold, cutoffDate) {
@@ -99,8 +100,8 @@ function computeLabels(readOnly, ctx) {
     const rj0 = (ev[0] || {}).resolve || {};
     // ── 主口径：源快照重建（有快照即用；窗尾=本题 cutoff，窗内不含 cutoff 后信息）──
     if (ctx.route === 'source' && ctx.snapshots) {
-      const sk = [k, rj0.lat, rj0.lon].join('|');
-      const sn = ctx.snapshots[sk];
+      const sk = seriesKeyOf(rj0);
+      const sn = sk ? ctx.snapshots[sk] : null;
       if (sn && sn.days && sn.days.length) {
         const thr = (rj0.threshold_c !== undefined && rj0.threshold_c !== null) ? rj0.threshold_c : rj0.threshold;
         const cmp = String(rj0.cmp || '>');
