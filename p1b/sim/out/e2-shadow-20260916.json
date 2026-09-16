@@ -1,0 +1,45 @@
+{
+ "script": "p1b/scripts/e2-shadow-score.cjs",
+ "status": "未冻结·探索性（PREREG-E2 尚未冻结；本件不载判据）",
+ "db": "E:\\music player\\p1a-terminal\\data\\p1a.db",
+ "cohort_rows": 1202,
+ "scored_rows": 995,
+ "engine_availability": {
+  "L6": 270,
+  "L3": 399,
+  "L5": 30,
+  "L2": 296
+ },
+ "r3_population": {
+  "items_with_multi_engines": 0,
+  "note": "跨引擎重叠人口 <30 ⇒ R3a/R3h 不可估（前置闸证据：先跑后立）"
+ },
+ "arms": {
+  "R0": 0.22310975055295365,
+  "R2": 0.2232784575348569,
+  "R4": 0.22310975055295365
+ },
+ "delta_R2_vs_R0": {
+  "mean": 0.00016870698190259555,
+  "ci95": {
+   "lb": -0.0008369500742032904,
+   "ub": 0.0012183467889046037
+  },
+  "mde": 0.0014953961164332582,
+  "mde_note": "M4 义务：非劣判定须并列 MDE；CI 宽于 ±0.01 时非劣成立但信息量极低"
+ },
+ "delta_R4_vs_R0": {
+  "mean": 0,
+  "ci95": {
+   "lb": 0,
+   "ub": 0
+  }
+ },
+ "combo_precheck_rho": {},
+ "r1_pending": "R1 语义重判未实现（需 intake 决策树读侧重判规则并先 sha 冻结——M5①）",
+ "bootstrap": {
+  "B": 1000,
+  "seed": 987654321
+ },
+ "generated_at": "2026-09-16T12:09:41.044Z"
+}
