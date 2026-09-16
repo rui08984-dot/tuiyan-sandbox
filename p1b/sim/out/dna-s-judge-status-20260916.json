@@ -1,0 +1,20 @@
+{
+ "status": "GATE_PENDING",
+ "head": {
+  "gate_present": false,
+  "gate_ok": false,
+  "gate": null,
+  "mixed_cells": 3,
+  "n_mixed": 410,
+  "drift_total": 95,
+  "concentration_max": {
+   "cell": "L3/openmeteo",
+   "n": 58,
+   "share": 0.6105263157894737
+  },
+  "concentration_gate_hit": false,
+  "insufficient_population": "否"
+ },
+ "note": "门未过 ⇒ 无判据数字输出",
+ "generated_at": "2026-09-16T12:03:51.588Z"
+}

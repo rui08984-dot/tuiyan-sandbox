@@ -1,0 +1,65 @@
+{
+ "route": "ledger",
+ "rule_sha": "1875382deddd6a5babe2466c8f48281e694ed537cbe4289a40989fd742d28000",
+ "rule_version": "e1-v1",
+ "rows": 1792,
+ "dist": {
+  "先验:恒平稳": 378,
+  "漂移": 190,
+  "不可判": 676,
+  "平稳": 548
+ },
+ "sample": [
+  {
+   "id": 1,
+   "series_key": "(对局)",
+   "period_key": "2026-09",
+   "dna_s": "先验:恒平稳",
+   "basis": {
+    "窗口来源": "先验档（12 §1）",
+    "domain": "werewolf_sim"
+   }
+  },
+  {
+   "id": 3,
+   "series_key": "(对局)",
+   "period_key": "2026-09",
+   "dna_s": "先验:恒平稳",
+   "basis": {
+    "窗口来源": "先验档（12 §1）",
+    "domain": "werewolf_sim"
+   }
+  },
+  {
+   "id": 4,
+   "series_key": "(对局)",
+   "period_key": "2026-09",
+   "dna_s": "先验:恒平稳",
+   "basis": {
+    "窗口来源": "先验档（12 §1）",
+    "domain": "werewolf_sim"
+   }
+  },
+  {
+   "id": 6,
+   "series_key": "(对局)",
+   "period_key": "2026-09",
+   "dna_s": "先验:恒平稳",
+   "basis": {
+    "窗口来源": "先验档（12 §1）",
+    "domain": "werewolf_sim"
+   }
+  },
+  {
+   "id": 7,
+   "series_key": "(对局)",
+   "period_key": "2026-09",
+   "dna_s": "先验:恒平稳",
+   "basis": {
+    "窗口来源": "先验档（12 §1）",
+    "domain": "werewolf_sim"
+   }
+  }
+ ],
+ "generated_at": "2026-09-16T12:01:20.242Z"
+}
