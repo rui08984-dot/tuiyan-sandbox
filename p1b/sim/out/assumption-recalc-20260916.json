@@ -4,7 +4,9 @@
  "exploratory_notice": "本件为假设重算（探索性）——不进任何门控/判据；数字只用于「看一眼会怎样」，引用须照原读数件复核。",
  "stage4_file": "E:\\music player\\p1b\\sim\\out\\stage4-run-five-layers-20260915.json",
  "excludes": {
-  "domain": [],
+  "domain": [
+   "openmeteo"
+  ],
   "cell": []
  },
  "layers": {
@@ -56,16 +58,16 @@
     "brier": 0.24270007412958827
    },
    "excluded": {
-    "n": 369,
-    "n_dropped": 0,
+    "n": 0,
+    "n_dropped": 369,
     "n_eval_all": 369,
     "n_layer_all": 399,
     "thin_gap": 30,
-    "brier": 0.24270007412958827,
-    "const_half": 0.25,
-    "obs_rate": 0.4905149051490515,
-    "delta": -0.007299925870411728,
-    "note": null
+    "brier": null,
+    "const_half": null,
+    "obs_rate": null,
+    "delta": null,
+    "note": "排除后评估格为空 ⇒ n/a（薄格不计入聚合，见 n_layer_all/thin_gap）"
    }
   },
   "L5": {
@@ -109,5 +111,5 @@
    }
   }
  },
- "generated_at": "2026-09-16T15:21:35.742Z"
+ "generated_at": "2026-09-16T15:34:15.035Z"
 }
