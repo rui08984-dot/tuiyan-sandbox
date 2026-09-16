@@ -16,13 +16,14 @@
 8. **P0-U7 日历**（`p1b/scripts/forecast-calendar.cjs`＋测试 4 例；正式件 `p1b/sim/out/forecast-calendar-20260916.{json,md}`：未解 672、桶守恒 OK、双源日桶差异 27 只披露）
 9. **P0-U8 校准报告**（`p1b/scripts/calibration-report.cjs`＋测试 4 例；正式件 `p1b/sim/out/calibration-report-20260916.{json,md}`：28 格/7 可结论；限定语块＋防泄漏声明＋口径边界）
 10. **U7/U8 页面化＋披露端点**（`p1b/src/routes/disclosure.js`＋server.js 注册；`p1b/web/src/pages/disclosure/{CalendarPage,CalibrationReportPage}.tsx`＋App 路由/导航`日历/校准`宽档；**dist 重建 `index-DIDo2B_H.js`、bundle 禁词扫描=0**；**测试 398/398 绿**；收据 `p1b/sim/out/p0-u7u8-receipt-20260916.md`）
+11. **P0-U6 试标**（`p1b/scripts/dna-s-dryrun.cjs`＋测试 4 例；披露件 `p1b/sim/out/dna-s-dryrun-20260916.{json,md}`：平稳548/漂移190/不可判676/先验378/L1剔除180（合计=1972）；列联 70 格、集中度警示 0；Newcombe 金样独立核验 5.6e-17；收据 `p1b/sim/out/p0-u6-receipt-20260916.md`）
 
 ## 剩余步骤（编号，可断点续做）
 
 - [x] 1. 任务 1（U1/U2/U3）收口：测试绿＋收据＋commit（`aea5b58`）
 - [x] 2. 任务 2（U4/U5）：校准库＋A/B 协议＋报告（386/386 绿；收据见上）
 - [x] 3. 任务 3（U7/U8）：日历＋校准报告＋披露端点＋前端两页＋dist 重建（398/398 绿；收据见上）
-- [ ] 4. 任务 4（U6）：`p1b/scripts/dna-s-dryrun.cjs`（只读 dry-run；Newcombe 区间金样；源码 grep 断言无 --confirm/INSERT）
+- [x] 4. 任务 4（U6）：dna-s-dryrun 试标（4/4 绿；收据见上）
 - [ ] 5. 任务 9：`p1b/scripts/sources-wide-probe2.cjs` 广域普查（体育赔率优先）；任务 10：Metaculus token 配置位＋ForecastBench 基线件
 - [ ] 6. 任务 5（E1）：`p1b/scripts/dna-s-backfill.cjs`＋旁路表 `dna_s_labels`（读【12】全件，含冻结程序）
 - [ ] 7. 任务 6（E2）：`PREREG-E2-路由分配-v1.md`＋影子评分（读【10】§5/【11】§⑧）

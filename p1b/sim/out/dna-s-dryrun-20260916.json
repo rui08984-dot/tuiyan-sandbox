@@ -1,0 +1,534 @@
+{
+ "script": "p1b/scripts/dna-s-dryrun.cjs",
+ "title": "DNA S 维试标（分布披露）",
+ "hard_notice": "本件为**分布披露，非判据**；判据须 E1 PREREG 冻结后（12 §3 弃权条款为准）",
+ "rule_source": "12-PREREG-E1-DNA加列S维-v1.md §1（已冻结 sha 1875382deddd6a5b…）",
+ "window_route": "账本结局序列回退档（P0 范围；源侧快照重建留 E1）",
+ "honest_boundary": "回退档结局可达时点晚于 cutoff，存在 look-ahead 风险 ⇒ 本件不冒充 E1 主口径读数",
+ "db": "E:\\music player\\p1a-terminal\\data\\p1a.db",
+ "rows_considered": 1972,
+ "counts": {
+  "平稳": 548,
+  "漂移": 190,
+  "不可判": 676,
+  "先验:恒平稳": 378,
+  "剔除_L1": 180
+ },
+ "cells_total": 70,
+ "cells": [
+  {
+   "dna_s": "先验:恒平稳",
+   "layer": "L6",
+   "domain": "werewolf_sim",
+   "series": "(对局)",
+   "n": 270
+  },
+  {
+   "dna_s": "平稳",
+   "layer": "L3",
+   "domain": "openmeteo",
+   "series": "openmeteo_air_daily_mean",
+   "n": 128
+  },
+  {
+   "dna_s": "漂移",
+   "layer": "L2",
+   "domain": "dbnomics",
+   "series": "dbnomics_series_value",
+   "n": 99
+  },
+  {
+   "dna_s": "先验:恒平稳",
+   "layer": "L5",
+   "domain": "cwl",
+   "series": "(认证源)",
+   "n": 70
+  },
+  {
+   "dna_s": "平稳",
+   "layer": "L3",
+   "domain": "openmeteo",
+   "series": "openmeteo_forecast_daily_max",
+   "n": 70
+  },
+  {
+   "dna_s": "平稳",
+   "layer": "L3",
+   "domain": "openmeteo",
+   "series": "openmeteo_wx_daily",
+   "n": 60
+  },
+  {
+   "dna_s": "平稳",
+   "layer": "L2",
+   "domain": "energycharts",
+   "series": "energycharts_daily_mean",
+   "n": 60
+  },
+  {
+   "dna_s": "平稳",
+   "layer": "L3",
+   "domain": "openmeteo",
+   "series": "openmeteo_daily_max",
+   "n": 48
+  },
+  {
+   "dna_s": "漂移",
+   "layer": "L3",
+   "domain": "openmeteo",
+   "series": "openmeteo_daily_max",
+   "n": 45
+  },
+  {
+   "dna_s": "先验:恒平稳",
+   "layer": "L5",
+   "domain": "dlt",
+   "series": "(认证源)",
+   "n": 38
+  },
+  {
+   "dna_s": "平稳",
+   "layer": "L2",
+   "domain": "wikimedia",
+   "series": "wikimedia_pageviews",
+   "n": 37
+  },
+  {
+   "dna_s": "不可判",
+   "layer": "L2",
+   "domain": "binance",
+   "series": "binance_daily_close",
+   "n": 36
+  },
+  {
+   "dna_s": "不可判",
+   "layer": "L3",
+   "domain": "openmeteo",
+   "series": "openmeteo_air_pm10_daily_mean",
+   "n": 35
+  },
+  {
+   "dna_s": "不可判",
+   "layer": "L2",
+   "domain": "frankfurter",
+   "series": "frankfurter_rate_range",
+   "n": 30
+  },
+  {
+   "dna_s": "不可判",
+   "layer": "L2",
+   "domain": "npm",
+   "series": "npm_downloads_window",
+   "n": 30
+  },
+  {
+   "dna_s": "不可判",
+   "layer": "L2",
+   "domain": "dbnomics",
+   "series": "dbnomics_bis_monthly_mean",
+   "n": 28
+  },
+  {
+   "dna_s": "不可判",
+   "layer": "L3",
+   "domain": "ghcn",
+   "series": "ghcn_daily_tmax",
+   "n": 26
+  },
+  {
+   "dna_s": "漂移",
+   "layer": "L2",
+   "domain": "dbnomics",
+   "series": "dbnomics_wb_commodity_annual",
+   "n": 24
+  },
+  {
+   "dna_s": "平稳",
+   "layer": "L2",
+   "domain": "noaa",
+   "series": "noaa_tide_daily_max",
+   "n": 24
+  },
+  {
+   "dna_s": "不可判",
+   "layer": "L3",
+   "domain": "openmeteo",
+   "series": "openmeteo_forecast_daily_wind_speed_10m_max",
+   "n": 24
+  },
+  {
+   "dna_s": "不可判",
+   "layer": "L3",
+   "domain": "openmeteo",
+   "series": "openmeteo_forecast_daily_sunshine_duration",
+   "n": 24
+  },
+  {
+   "dna_s": "不可判",
+   "layer": "L2",
+   "domain": "eurostat",
+   "series": "eurostat_demo_pjan_annual",
+   "n": 24
+  },
+  {
+   "dna_s": "平稳",
+   "layer": "L3",
+   "domain": "openmeteo",
+   "series": "openmeteo_air_ozone_daily_mean",
+   "n": 23
+  },
+  {
+   "dna_s": "平稳",
+   "layer": "L3",
+   "domain": "openmeteo",
+   "series": "openmeteo_air_pm2_5_daily_mean",
+   "n": 22
+  },
+  {
+   "dna_s": "不可判",
+   "layer": "L2",
+   "domain": "elexon",
+   "series": "elexon_fuelhh_daily_mean",
+   "n": 21
+  },
+  {
+   "dna_s": "不可判",
+   "layer": "L3",
+   "domain": "openmeteo",
+   "series": "openmeteo_forecast_daily_precipitation_sum",
+   "n": 21
+  },
+  {
+   "dna_s": "不可判",
+   "layer": "L3",
+   "domain": "openmeteo",
+   "series": "openmeteo_daily_max",
+   "n": 20
+  },
+  {
+   "dna_s": "不可判",
+   "layer": "L2",
+   "domain": "dbnomics",
+   "series": "dbnomics_series_value",
+   "n": 20
+  },
+  {
+   "dna_s": "不可判",
+   "layer": "L2",
+   "domain": "energycharts",
+   "series": "energycharts_public_power_daily_mean",
+   "n": 20
+  },
+  {
+   "dna_s": "不可判",
+   "layer": "L3",
+   "domain": "openmeteo",
+   "series": "openmeteo_air_pm2_5_daily_mean",
+   "n": 18
+  },
+  {
+   "dna_s": "不可判",
+   "layer": "L3",
+   "domain": "openmeteo",
+   "series": "openmeteo_air_ozone_daily_mean",
+   "n": 18
+  },
+  {
+   "dna_s": "不可判",
+   "layer": "L2",
+   "domain": "noaa",
+   "series": "noaa_tide_daily_max",
+   "n": 18
+  },
+  {
+   "dna_s": "不可判",
+   "layer": "L2",
+   "domain": "kraken",
+   "series": "kraken_daily_close",
+   "n": 18
+  },
+  {
+   "dna_s": "不可判",
+   "layer": "L2",
+   "domain": "wikimedia",
+   "series": "wikimedia_pageviews",
+   "n": 16
+  },
+  {
+   "dna_s": "不可判",
+   "layer": "L3",
+   "domain": "openmeteo",
+   "series": "openmeteo_archive_daily_wind_speed_10m_max",
+   "n": 16
+  },
+  {
+   "dna_s": "平稳",
+   "layer": "L3",
+   "domain": "openmeteo",
+   "series": "openmeteo_archive_daily_wind_speed_10m_max",
+   "n": 16
+  },
+  {
+   "dna_s": "不可判",
+   "layer": "L3",
+   "domain": "openmeteo",
+   "series": "openmeteo_archive_daily_sunshine_duration",
+   "n": 16
+  },
+  {
+   "dna_s": "平稳",
+   "layer": "L3",
+   "domain": "openmeteo",
+   "series": "openmeteo_archive_daily_sunshine_duration",
+   "n": 16
+  },
+  {
+   "dna_s": "不可判",
+   "layer": "L3",
+   "domain": "usgs",
+   "series": "usgs_nwis_daily_discharge",
+   "n": 16
+  },
+  {
+   "dna_s": "不可判",
+   "layer": "L2",
+   "domain": "github",
+   "series": "github_weekly_commits",
+   "n": 15
+  },
+  {
+   "dna_s": "不可判",
+   "layer": "L2",
+   "domain": "noaa",
+   "series": "noaa_tide_daily_high",
+   "n": 15
+  },
+  {
+   "dna_s": "不可判",
+   "layer": "L3",
+   "domain": "openmeteo",
+   "series": "openmeteo_forecast_daily_max",
+   "n": 14
+  },
+  {
+   "dna_s": "漂移",
+   "layer": "L3",
+   "domain": "openmeteo",
+   "series": "openmeteo_forecast_daily_max",
+   "n": 14
+  },
+  {
+   "dna_s": "不可判",
+   "layer": "L3",
+   "domain": "openmeteo",
+   "series": "openmeteo_archive_daily_precipitation_sum",
+   "n": 14
+  },
+  {
+   "dna_s": "平稳",
+   "layer": "L3",
+   "domain": "openmeteo",
+   "series": "openmeteo_archive_daily_precipitation_sum",
+   "n": 14
+  },
+  {
+   "dna_s": "平稳",
+   "layer": "L2",
+   "domain": "energycharts",
+   "series": "energycharts_public_power_daily_mean",
+   "n": 14
+  },
+  {
+   "dna_s": "平稳",
+   "layer": "L2",
+   "domain": "kraken",
+   "series": "kraken_daily_close",
+   "n": 12
+  },
+  {
+   "dna_s": "不可判",
+   "layer": "L2",
+   "domain": "delphi",
+   "series": "delphi_fluview_ili",
+   "n": 12
+  },
+  {
+   "dna_s": "不可判",
+   "layer": "L2",
+   "domain": "mlb",
+   "series": "mlb_schedule_daily_total_runs",
+   "n": 10
+  },
+  {
+   "dna_s": "不可判",
+   "layer": "L2",
+   "domain": "delphi",
+   "series": "delphi_fluview_num_ili",
+   "n": 9
+  },
+  {
+   "dna_s": "不可判",
+   "layer": "L2",
+   "domain": "dbnomics",
+   "series": "dbnomics_eurostat_unemployment_monthly",
+   "n": 9
+  },
+  {
+   "dna_s": "不可判",
+   "layer": "L2",
+   "domain": "crossref",
+   "series": "crossref_week_total",
+   "n": 8
+  },
+  {
+   "dna_s": "不可判",
+   "layer": "L2",
+   "domain": "nvd",
+   "series": "nvd_cve_week_count",
+   "n": 8
+  },
+  {
+   "dna_s": "不可判",
+   "layer": "L3",
+   "domain": "openmeteo",
+   "series": "openmeteo_marine_sst_daily",
+   "n": 8
+  },
+  {
+   "dna_s": "不可判",
+   "layer": "L2",
+   "domain": "cta",
+   "series": "cta_daily_total_rides",
+   "n": 7
+  },
+  {
+   "dna_s": "不可判",
+   "layer": "L3",
+   "domain": "noaa",
+   "series": "noaa_gml_co2_daily",
+   "n": 7
+  },
+  {
+   "dna_s": "不可判",
+   "layer": "L2",
+   "domain": "frankfurter",
+   "series": "frankfurter_rate",
+   "n": 6
+  },
+  {
+   "dna_s": "不可判",
+   "layer": "L2",
+   "domain": "dbnomics",
+   "series": "dbnomics_eurostat_tertiary_attain",
+   "n": 6
+  },
+  {
+   "dna_s": "不可判",
+   "layer": "L3",
+   "domain": "noaa",
+   "series": "noaa_solar_cycle_ssn_monthly",
+   "n": 6
+  },
+  {
+   "dna_s": "不可判",
+   "layer": "L2",
+   "domain": "eurostat",
+   "series": "eurostat_live_unemployment_monthly",
+   "n": 6
+  },
+  {
+   "dna_s": "不可判",
+   "layer": "L3",
+   "domain": "swpc",
+   "series": "swpc_solar_cycle_monthly",
+   "n": 6
+  },
+  {
+   "dna_s": "平稳",
+   "layer": "L2",
+   "domain": "dbnomics",
+   "series": "dbnomics_series_value",
+   "n": 4
+  },
+  {
+   "dna_s": "漂移",
+   "layer": "L2",
+   "domain": "energycharts",
+   "series": "energycharts_daily_mean",
+   "n": 4
+  },
+  {
+   "dna_s": "不可判",
+   "layer": "L3",
+   "domain": "jpl",
+   "series": "jpl_cad_monthly_count",
+   "n": 4
+  },
+  {
+   "dna_s": "不可判",
+   "layer": "L2",
+   "domain": "openalex",
+   "series": "openalex_works_count",
+   "n": 4
+  },
+  {
+   "dna_s": "不可判",
+   "layer": "L2",
+   "domain": "bom",
+   "series": "bom_weekend_top10_gross",
+   "n": 4
+  },
+  {
+   "dna_s": "不可判",
+   "layer": "L2",
+   "domain": "eurostat",
+   "series": "eurostat_live_tertiary_attain",
+   "n": 3
+  },
+  {
+   "dna_s": "漂移",
+   "layer": "L3",
+   "domain": "openmeteo",
+   "series": "openmeteo_air_pm2_5_daily_mean",
+   "n": 2
+  },
+  {
+   "dna_s": "漂移",
+   "layer": "L3",
+   "domain": "openmeteo",
+   "series": "openmeteo_air_ozone_daily_mean",
+   "n": 1
+  },
+  {
+   "dna_s": "漂移",
+   "layer": "L2",
+   "domain": "energycharts",
+   "series": "energycharts_public_power_daily_mean",
+   "n": 1
+  }
+ ],
+ "concentration": {
+  "drift_total": 190,
+  "by_domain": [
+   {
+    "cell": "L2/dbnomics",
+    "n": 123,
+    "share": 0.6473684210526316
+   },
+   {
+    "cell": "L3/openmeteo",
+    "n": 62,
+    "share": 0.3263157894736842
+   },
+   {
+    "cell": "L2/energycharts",
+    "n": 5,
+    "share": 0.02631578947368421
+   }
+  ],
+  "warnings": []
+ },
+ "labels_written": false,
+ "note_writes": "无旁路表、无 DDL、无任何写库路径（旁路表留 E1；本件源码无写库参数）",
+ "generated_at": "2026-09-16T11:53:38.953Z"
+}
