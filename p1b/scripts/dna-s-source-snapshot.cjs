@@ -125,6 +125,24 @@ async function jgetText(url) {
   }
 }
 
+
+/** 自建 CONNECT 隧道（照 corpus-thicken.cjs 先例；零依赖）——**仅墙外源**（kraken 等）使用 */
+function jgetProxied(url) {
+  const http = require('node:http'); const https = require('node:https');
+  return new Promise((resolve, reject) => {
+    const u = new URL(url);
+    const req = http.request({ host: '127.0.0.1', port: 2080, method: 'CONNECT', path: u.host + ':443' });
+    req.on('connect', (res, socket) => {
+      if (res.statusCode !== 200) { socket.destroy(); return reject(new Error('CONNECT ' + res.statusCode)); }
+      const r2 = https.request({ host: u.hostname, path: u.pathname + u.search, method: 'GET', socket: socket, agent: false, headers: { 'User-Agent': 'Mozilla/5.0 (compatible; e1-snapshot/1.0)', Accept: 'application/json' } }, (r3) => {
+        let b = ''; r3.on('data', (c) => { b += c; }); r3.on('end', () => { try { resolve(JSON.parse(b)); } catch (e) { reject(new Error('NON-JSON len=' + b.length)); } });
+      });
+      r2.on('error', reject); r2.end();
+    });
+    req.on('error', reject); req.setTimeout(30000, () => { req.destroy(new Error('CONNECT timeout')); }); req.end();
+  });
+}
+
 async function jget(url) {
   for (let attempt = 0; attempt < 3; attempt++) {
     try {
@@ -199,7 +217,8 @@ for (const s of list) {
   }
   try {
     await sleep(250);                                    // 全局限速：突发连发会被上游丢连接（wikimedia 实测）
-    const j = (s.rule.api === 'template' && s.rule.parser === 'csv_gml') ? await jgetText(url) : await jget(url);
+    const needsTunnel = /kraken.com|api.binance.com|data-api.binance.vision/.test(String(url));
+    const j = (s.rule.api === 'template' && s.rule.parser === 'csv_gml') ? await jgetText(url) : (needsTunnel ? await jgetProxied(url) : await jget(url));
     const days = [];
     if (s.rule.api === 'template') {
       const parsed = (TPL_PARSERS[s.rule.parser] || (() => []))(j, rj);

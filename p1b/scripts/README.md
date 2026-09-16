@@ -1,7 +1,7 @@
 # p1b/scripts 目录索引（脚本都在干什么）
 
 > **自动生成，勿手改**——`node p1b/scripts/scripts-index.cjs`（任务 6 批次 3 / 命名整理）。
-> 生成时点：2026-09-16T14:56:03.164Z｜在役脚本 96 个｜归档件见文末。
+> 生成时点：2026-09-16T15:22:09.059Z｜在役脚本 98 个｜归档件见文末。
 > 命名约定：`corpus-*` 取数出题｜`g2-*` 门禁报表｜`stage4-*` 分层真跑｜`prereg-a-*` 命题 A｜**默认 dry-run、写库须 `--confirm`**（项目纪律）。
 
 ## 使用者友好面（先看这几个）（4）
@@ -60,7 +60,7 @@
 | `prereg-a-sweep.cjs` | 命题 A 全量补齐「扫尾」（2026-09-14） | **可写库**（`--confirm` 才写；默认 dry-run） |
 | `prereg-a-windows.cjs` | PREREG-命题A-3.0消融 · §5 双窗参数件（跑批参数显式落盘；**禁止两窗合并**） | 只读 |
 
-## 其余工具（65）
+## 其余工具（67）
 
 | 脚本 | 一句话 | 写库 |
 |---|---|---|
@@ -93,6 +93,7 @@
 | `calab-run.cjs` | P0-U5 · 校准器离线 A/B 协议（2026-09-16） | 只读 |
 | `calibration-report.cjs` | P0-U8 · 分域格校准报告（2026-09-16） | 只读 |
 | `cleanup-g1-dedup.cjs` | 清理局 1「集成验证局」的重复参谋卡脏数据（2026-09-14 用户拍板） | **可写库**（`--confirm` 才写；默认 dry-run） |
+| `cost-ledger.cjs` | 成本台账（蓝图 §2.2#6；F7 重开判据的数据源 · 2026-09-17） | 只读 |
 | `d2-build-questions.cjs` | D2 历史回测引擎 · **出题器**（照 PREREG v1 §3/§5）。 | 只读 |
 | `d2-run-backtest.cjs` | D2 历史回测引擎 · **跑批 + A1–A7 验收 + K1–K4 kill_test**。 | 只读 |
 | `dna-s-backfill.cjs` | E1 · S 维标签回填（旁路表，INSERT-only）（2026-09-16） | **可写库**（`--confirm` 才写；默认 dry-run） |
@@ -116,6 +117,7 @@
 | `report-layered.cjs` | 微步 3 报表：分层 ECE（下界口径）+逐路 Brier vs 0.5 占位+相关矩阵→λ̂→γ̂。探索性（90<200 只记不评）。 | 只读 |
 | `report-murphy.cjs` | 批次 1.5 · Murphy 三分解报表（K F56，零 LLM，库只读）。 | 只读 |
 | `result-cache-precheck.cjs` | 结果缓存预检（蓝图 §2.1#7「唯一在建缓存件」· 2026-09-17） | 只读 |
+| `result-cache-replay.cjs` | 结果缓存本体·历史重放验证（蓝图 §2.1#7 判据「历史重跑全命中」· 2026-09-17） | 只读 |
 | `sim-templates-v2.cjs` | ───────────────────────────────────────────────────────────────────────────── | 只读 |
 | `sim-titles.cjs` | 微步 2：sim 题源接入（Q 棒）。每局 3 条 cutoff-safe 模板题→分类→落库→resolve。幂等防重。 | 只读 |
 | `snapshot-assigned-prob.cjs` | 旧 assigned_prob 快照（p13 批次0.5）。 | 只读 |

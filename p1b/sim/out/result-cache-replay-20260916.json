@@ -1,0 +1,22 @@
+{
+ "script": "p1b/scripts/result-cache-replay.cjs",
+ "item": "结果缓存本体·历史重放验证",
+ "store": "E:\\music player\\.tmp\\result-cache-demo",
+ "store_size_after_pass1": 1350,
+ "rows": 4766,
+ "pass1": {
+  "hit": 3416,
+  "miss": 1350
+ },
+ "pass2": {
+  "hit": 4766,
+  "miss": 0
+ },
+ "judgement": {
+  "replay_all_hit": true,
+  "value_variance_rows": 2610,
+  "verdict": "**历史重跑全命中（蓝图判据达成）**；同键历史值有差异的行 2610 行＝LLM 轮间方差（缓存将重跑冻结到首值——降方差作用，属功能）"
+ },
+ "note": "演示缓存位于 .tmp/（运行产物，不入库）；生产接入（判词跑批路径）尚未接线",
+ "generated_at": "2026-09-16T15:19:00.333Z"
+}

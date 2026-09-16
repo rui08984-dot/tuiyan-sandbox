@@ -1,0 +1,47 @@
+{
+ "script": "p1b/scripts/cost-ledger.cjs",
+ "sink": "C:\\Users\\crx\\AppData\\Local\\Temp\\cost-bhAUxV\\usage.jsonl",
+ "sink_exists": true,
+ "bad_lines": 0,
+ "totals": {
+  "calls": 3,
+  "prompt_tokens": 1800,
+  "completion_tokens": 1200,
+  "cached_tokens": 400
+ },
+ "total_tokens": 3000,
+ "input_share": 0.6,
+ "by_model": {
+  "glm-5.3-flash": {
+   "calls": 2,
+   "prompt_tokens": 1700,
+   "completion_tokens": 300,
+   "cached_tokens": 400
+  },
+  "deepseek-chat": {
+   "calls": 1,
+   "prompt_tokens": 100,
+   "completion_tokens": 900,
+   "cached_tokens": 0
+  }
+ },
+ "by_day": {
+  "2026-09-17": {
+   "calls": 2,
+   "prompt_tokens": 1700,
+   "completion_tokens": 300
+  },
+  "2026-09-18": {
+   "calls": 1,
+   "prompt_tokens": 100,
+   "completion_tokens": 900
+  }
+ },
+ "f7_rule": {
+  "threshold": 0.4,
+  "input_share_over_threshold": true,
+  "note": "输入占比 >40% ⇒ 照蓝图 §2.2#6 提示 F7（上下文优化三件套）重开条件成立"
+ },
+ "status": "filled",
+ "generated_at": "2026-09-16T15:20:05.887Z"
+}

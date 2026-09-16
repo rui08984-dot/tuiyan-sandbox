@@ -32,4 +32,29 @@ function cacheKey(input) {
   return crypto.createHash('sha256').update(parts.join('\u0000'), 'utf8').digest('hex');
 }
 
-module.exports = { cacheKey: cacheKey, normStatement: normStatement, KEY_SCHEMA: KEY_SCHEMA };
+module.exports = { cacheKey: cacheKey, normStatement: normStatement, KEY_SCHEMA: KEY_SCHEMA, createStore: createStore };
+
+/**
+ * 结果缓存**存**（磁盘 JSONL；append-only；键已验证跨题安全——见 result-cache-precheck 收据）。
+ * 纪律：只给「同题同 prompt 版本同温度」复用（键结构保证）；跨局/跨题复用被键排除（F3 语义缓存永不）。
+ * 用法：const st = createStore(dir); st.get(key) / st.put(key, {verdict_text, implied_prob, model, created_at}) / st.close()
+ */
+function createStore(dir) {
+  const fs = require('node:fs');
+  const path = require('node:path');
+  fs.mkdirSync(dir, { recursive: true });
+  const file = path.join(dir, 'result-cache.jsonl');
+  const index = new Map();
+  if (fs.existsSync(file)) {
+    for (const line of fs.readFileSync(file, 'utf8').split('\n')) {
+      if (!line.trim()) continue;
+      try { const o = JSON.parse(line); if (o && o.key) index.set(o.key, o.value); } catch (e) { /* 跳过坏行（不静默改文件） */ }
+    }
+  }
+  return {
+    dir: dir, file: file, size: () => index.size,
+    get: (key) => (index.has(key) ? index.get(key) : null),
+    put: (key, value) => { const rec = { key: key, value: value, at: new Date().toISOString() }; fs.appendFileSync(file, JSON.stringify(rec) + '\n', 'utf8'); index.set(key, value); return rec; },
+    close: () => { index.clear(); },
+  };
+}
