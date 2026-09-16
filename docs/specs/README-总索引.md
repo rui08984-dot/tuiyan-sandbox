@@ -488,6 +488,19 @@
 | **20 合议蓝图** | **v3.1 大升级蓝图终稿**（1.4 万字七节＋调和 5 处冲突＋终裁 6 项待用户） |
 | **同步** | 留痕 **§59**（E1 冻结）/**§60**（第三轮）｜地图 **§27**＋§10｜p19 锚｜研究档案索引 |
 
+### v3.1 第 1 期施工落地（2026-09-16 深夜续 · 收据五份在 `p1b/sim/out/`）
+
+| 件 | 产物 | 一句话 |
+|---|---|---|
+| P0 U1-U3 | `terms.ts` 16 条；`stage4-run.cjs` `bayes_semantics`＋`bayes_legend`；`board.cjs` 图例 | 记账语言三件（**金样 diff=0**） |
+| P0 U4-U5 | `p1b/src/calibration/*`；`calab-run.cjs`＋报告 | 校准 A/B：**beta 未达非劣 ⇒ 维持恒等**（负结果如实） |
+| P0 U7-U8 | `forecast-calendar.cjs`；`calibration-report.cjs`；`routes/disclosure.js`；前端两页 | 日历＋分域校准报告＋**页面化**（dist `index-DIDo2B_H.js`，禁词 0） |
+| P0 U6 | `dna-s-dryrun.cjs`＋披露件 | S 维试标（分布披露·非判据） |
+| E1 | `dna-s-backfill.cjs`（副本 1792 行）；`dna-s-judge.cjs`（**GATE_PENDING**）；复核表 34 单元 | 生产库零接触；人工门待过 |
+| E2 前置 | `PREREG-E2-路由分配-v1.md`（草案）；`e2-shadow-score.cjs` | **跨引擎重叠=0 ⇒ R3 不可估**（先跑后立出证据） |
+| 任务 9/10 | `sources-wide-probe2.*`；`metaculus-token-check.cjs`；`forecastbench-baseline.json` | 13 源普查；token 403 实证；基线 pending 零编数 |
+| 门 | **测试 406/406**；vault ok=true（1972/0/0/0）；board 含图例；8787 零接触 | 锚 `p23-P0施工-PROGRESS.md`；收据 `u9-receipt-20260916.md` |
+
 ## 5 · 铁律速查（违反=弃棒）
 ①玄学恒挂娱乐参考，绝不接研判 ②UI 禁「预测」字样（用审计/校准参考/分层账本）③无真值锚不入账本（Q0-1/2/3 拒收门）④LLM 仅四角色（聚合/基率/多路/校准）⑤key 不出服务端 ⑥预注册冻结后禁改 ⑦账本不可变 ⑧**派单并发上限 2-3 棒** ⑨8787 用户 bat 管理，代理零接触 ⑩微步回合制（先落盘再设计）
 

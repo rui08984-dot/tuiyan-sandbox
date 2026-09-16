@@ -104,7 +104,7 @@ const SECTIONS = [
   ['p1b/sim/out（收据·读数件）', null],
 ];
 const md = [];
-md.push('## §10 文件全图（2026-09-14 深夜刷新 · 由 `p1b/scripts/file-map.cjs` 生成，勿手改）');
+md.push('## §10 文件全图（' + new Date().toISOString().slice(0, 10) + ' 刷新 · 由 `p1b/scripts/file-map.cjs` 生成，勿手改）');
 md.push('');
 md.push('> 目标（用户令）：「目录一样，每个相关文件路径都在里面，还说是是什么」。');
 md.push('> 生成命令：`node p1b/scripts/file-map.cjs --out …`；跳过依赖/构建/媒体目录与 `.db` 快照体（只列目录级）。');
