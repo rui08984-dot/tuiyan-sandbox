@@ -97,7 +97,46 @@ test('stage4-run：确定性（两次跑读数逐位一致，seed 固定）', ()
   assert.deepEqual(A.report, B.report, '两次跑分层读数一致');
 });
 
-// ── L2 对照臂可得性（2026-09-14 落盘后补检）：防把「基率层本来就等于基率」误当引擎缺陷 ──
+// ── 2026-09-16 · P0-U2：贝叶斯语义标注 additive（金样零 diff ＋ 六档文本逐字）──
+const GOLDEN = path.join(ROOT, 'p1b', 'test', 'fixtures', 'stage4-golden-20260916.json');
+function stripped(obj) {
+  const o = JSON.parse(JSON.stringify(obj));
+  delete o.generated_at; delete o.bayes_legend;
+  for (const L of Object.keys(o.report || {})) delete o.report[L].bayes_semantics;
+  return o;
+}
+
+test('U2：stage4 金样零 diff（除新增 bayes_semantics/bayes_legend 键外逐字段 deep-equal）', () => {
+  assert.ok(fs.existsSync(GOLDEN), '金样夹具存在（改前存档）');
+  const out = path.join(tmpDir, 'u2.json');
+  execFileSync(process.execPath, [SCRIPT, '--json', out], { stdio: 'ignore' });
+  const now = JSON.parse(fs.readFileSync(out, 'utf8'));
+  const gold = JSON.parse(fs.readFileSync(GOLDEN, 'utf8'));
+  assert.deepEqual(stripped(now), stripped(gold), '读数零 diff（仅豁免新增键）');
+});
+
+test('U2：六档贝叶斯语义 role/note 与设计表逐字一致 ＋ JSON 含 bayes_legend', () => {
+  const out = path.join(tmpDir, 'u2b.json');
+  execFileSync(process.execPath, [SCRIPT, '--json', out], { stdio: 'ignore' });
+  const r = JSON.parse(fs.readFileSync(out, 'utf8'));
+  const WANT = {
+    L1: { role: 'deterministic_recalc', note: '概率主干豁免' },
+    L2: { role: 'prior', note: '基率+Wilson' },
+    L3: { role: 'prior+calibration', note: 'ACI 只调区间不调 p' },
+    L4: { role: 'annotation_layer', note: '不出数' },
+    L5: { role: 'certified_prior', note: '不可约随机' },
+    L6: { role: 'posterior_aggregation', note: '似然证据行→固定规则聚合' },
+  };
+  for (const L of Object.keys(r.report)) {
+    const bs = r.report[L].bayes_semantics;
+    assert.ok(bs && bs.role, L + ' 缺 bayes_semantics.role');
+    assert.deepEqual(bs, WANT[L], L + ' 语义与设计表不一致');
+  }
+  assert.ok(r.bayes_legend && r.bayes_legend.map && r.bayes_legend.map.L4, '含 bayes_legend 六档图例（含 L4）');
+  assert.match(r.bayes_legend.source, /10/, '图例注明词汇源=10 号件 §4');
+});
+
+
 test('stage4-run：L2 对照臂可得性检查——assigned_prob≡基率 且无判词 ⇒ 如实报无独立臂', () => {
   const out = path.join(tmpDir, 'rival.json');
   execFileSync(process.execPath, [SCRIPT, '--json', out], { stdio: 'ignore' });

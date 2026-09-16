@@ -106,11 +106,44 @@ export const TERMS: Record<string, TermEntry> = {
     definition: '按题型到外部源取真值的取数实现，一类题一个。',
     basis: 'p1b/scripts/corpus-resolve.cjs 内各 kind resolver',
   },
+  bayesPrior: {
+    id: 'bayesPrior',
+    term: '先验',
+    plain: '不看线索时的起点',
+    definition: '不看任何线索时的起点参照（统计基率，含 n 与窗口口径）；它只是起点，本身不构成精度宣称。',
+    basis: 'l2_baseline.js Wilson 统计基率（evidence.baseRate.p，n/window）',
+    caveat: 'L1/L5 概率主干豁免（不算先验）',
+  },
+  likelihoodEvidence: {
+    id: 'likelihoodEvidence',
+    term: '似然证据',
+    plain: '判词给出的线索',
+    definition: '多路判词提供的证据行：文字倾向经固定正则机械抽取成数值后进入聚合，属证据口径，不是概率直出。',
+    basis: 'verdictsStore 多路判词（implied_prob 末行正则机械抽取）',
+    caveat: '不是似然函数；LLM 不出概率（铁律④）',
+  },
+  posteriorAgg: {
+    id: 'posteriorAgg',
+    term: '后验聚合',
+    plain: '把线索合起来算的数',
+    definition: '把先验与证据行按固定规则合成一个数；规则冻结、可复算，属聚合口径（不是新读数）。',
+    basis: 'l6_structural.js 固定规则聚合；stage4-run 分层 Brier',
+    caveat: '禁跨层池化',
+  },
+  calibrationAci: {
+    id: 'calibrationAci',
+    term: '校准（ACI）',
+    plain: '让区间随漂移调整',
+    definition: '在线校准层：只调整预测区间与披露，不改点估计；校准效果的披露随样本积累。',
+    basis: 'l3_aci.js ACI 覆盖率披露（α/γ/EWMA；只调区间不调 p）',
+    caveat: '点估计恒为基率',
+  },
 };
 
 export const REQUIRED_TERM_IDS: string[] = [
   'baseRate', 'brier', 'cutoff', 'layer', 'g2Regime', 'r4',
   'checklistHash', 'wilson', 'aci', 'truthAnchor', 'prereg', 'resolver',
+  'bayesPrior', 'likelihoodEvidence', 'posteriorAgg', 'calibrationAci',
 ];
 
 export function getTerm(id: string): TermEntry | null {

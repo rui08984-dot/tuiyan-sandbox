@@ -29,7 +29,11 @@ test('board.cjs：输出四段（G2 门/五层/账本）＋ json 落盘；既有
   assert.match(txt, /G2 五门/);
   assert.match(txt, /五层读数/);
   assert.match(txt, /账本/);
+  assert.match(txt, /贝叶斯语义图例/, 'P0-U3：看板含贝叶斯语义图例段');
+  assert.match(txt, /记账语言 = 沟通层/, 'P0-U3：门定性旁含记账语言短注');
+  assert.match(txt, /L6 posterior_aggregation/, 'P0-U3：图例含 L6 档');
   const j = JSON.parse(fs.readFileSync(out, 'utf8'));
+  assert.ok(j.bayes_legend && j.bayes_legend.map && j.bayes_legend.map.L4, 'P0-U3：json 含 bayes_legend 六档');
   assert.ok(j.ledger && j.ledger.integrity === 'ok', 'integrity ok');
   assert.ok(typeof j.ledger.predictions === 'number' && j.ledger.predictions > 0, '账本题数');
   assert.ok(j.layers && Object.keys(j.layers).length >= 4, '至少四层读数透出');

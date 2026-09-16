@@ -72,6 +72,7 @@ if (g2) {
   }
   L.push('  ② 采信 = ' + (hc ? (hc.acceptance_status + '（校准 n=' + hc.n + '，端用户 ' + ((audit.meta.review_composition || {}).end_user || 0) + '/10）') : 'n/a'));
   L.push('  门定性 = 过程能力门（不含预测质量读数），对外表述恒挂限定语');
+  L.push('  记账语言 = 沟通层（零精度增量宣称）——门定性不变（2026-09-16 P0-U3）');
 } else {
   L.push('  n/a（缺 g2-report-latest 读数件）— 生成：' + G2_HINT);
 }
@@ -89,6 +90,16 @@ if (s4 && s4.report) {
 } else {
   L.push('  n/a（缺 stage4-run-five-layers 读数件）— 生成：node p1b/scripts/stage4-run.cjs --text p1b/sim/out/stage4-run-five-layers-<YYYYMMDD>.out --json p1b/sim/out/stage4-run-five-layers-<YYYYMMDD>.json');
 }
+// ── 2026-09-16 · P0-U3：贝叶斯语义图例（与 stage4-run.cjs bayesSemanticsOf 同源；只读文本，零数字）──
+L.push('');
+L.push('== 贝叶斯语义图例（记账语言，零精度增量宣称）==');
+L.push('  L1 deterministic_recalc（概率主干豁免）：决定论复算，Brier 语义=计算错误率');
+L.push('  L2 prior（基率+Wilson）：引擎 p 即统计基率，是先验不是新读数');
+L.push('  L3 prior+calibration（ACI 只调区间不调 p）：点估计恒为基率');
+L.push('  L4 annotation_layer（不出数）：后置叠加标注层，按设计不出概率');
+L.push('  L5 certified_prior（不可约随机）：p 即认证源公布分布，无信息优势可学');
+L.push('  L6 posterior_aggregation（似然证据行→固定规则聚合）：p=判词结构聚合');
+L.push('  词汇源＝10-算子攻坚-深度报告 §4（O1-O8）；术语详见 p1b/web/src/lib/terms.ts');
 L.push('');
 L.push('== 账本 ==');
 if (ledger) {
@@ -99,6 +110,9 @@ const text = L.join('\n');
 console.log(text);
 if (TEXT_OUT) { fs.writeFileSync(path.resolve(TEXT_OUT), text, 'utf8'); console.log('[board] text -> ' + path.resolve(TEXT_OUT)); }
 if (JSON_OUT) {
-  fs.writeFileSync(path.resolve(JSON_OUT), JSON.stringify({ generated_at: new Date().toISOString(), g2: g2 ? { ok: true } : { ok: false }, acceptance: hc ? hc.acceptance_status : null, layers: s4 ? s4.report : null, ledger: ledger }, null, 1), 'utf8');
+  fs.writeFileSync(path.resolve(JSON_OUT), JSON.stringify({ generated_at: new Date().toISOString(), g2: g2 ? { ok: true } : { ok: false }, acceptance: hc ? hc.acceptance_status : null, layers: s4 ? s4.report : null,
+    bayes_legend: { source: '10-算子攻坚-深度报告 §4（O1-O8 四元组）', note: '记账语言＝沟通层，零精度增量宣称；术语见 p1b/web/src/lib/terms.ts',
+      map: { L1: 'deterministic_recalc', L2: 'prior', L3: 'prior+calibration', L4: 'annotation_layer', L5: 'certified_prior', L6: 'posterior_aggregation' } },
+    ledger: ledger }, null, 1), 'utf8');
   console.log('[board] json -> ' + path.resolve(JSON_OUT));
 }

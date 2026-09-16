@@ -85,6 +85,23 @@ function bootDeltaCI(diffs, B, seed) {
 }
 function fmt(x, d) { return (x === null || x === undefined || !isFinite(x)) ? 'n/a' : Number(x).toFixed(d === undefined ? 4 : d); }
 
+// ── 2026-09-16 · P0-U2：贝叶斯记账语言（additive 标注，零数字改动）────────────────
+// 词汇源＝10-算子攻坚-深度报告 §4（O1-O8 四元组）：L2/L3 引擎 p=基率=**先验**；判词=**似然证据行**（非似然函数）；
+//   l6 聚合=**后验**组合；ACI=**校准**（只调区间不调 p）；L1=决定论复算、L5=认证分布，两者概率主干豁免。
+// 纪律：本函数只返回标注（role/note），**不参与任何计算**；board.cjs 图例文本与本表同源。
+const BAYES_SEMANTICS = {
+  L1: { role: 'deterministic_recalc', note: '概率主干豁免' },
+  L2: { role: 'prior', note: '基率+Wilson' },
+  L3: { role: 'prior+calibration', note: 'ACI 只调区间不调 p' },
+  L4: { role: 'annotation_layer', note: '不出数' },
+  L5: { role: 'certified_prior', note: '不可约随机' },
+  L6: { role: 'posterior_aggregation', note: '似然证据行→固定规则聚合' },
+};
+function bayesSemanticsOf(layer) {
+  const s = BAYES_SEMANTICS[layer];
+  return s ? { role: s.role, note: s.note } : { role: null, note: null };
+}
+
 // ── 逐题跑引擎 ──
 const perLayer = {};
 for (const layer of ENGINED_LAYERS) perLayer[layer] = { total: 0, engine_ok: 0, engine_fail: 0, fail_reasons: {},
@@ -246,6 +263,7 @@ for (const layer of ENGINED_LAYERS) {
   } else {
     brief.note = 'n=' + n + ' < ' + MIN_N + ' ⇒ 只报方向、不出 Brier 结论（K F13 准入线）';
   }
+  brief.bayes_semantics = bayesSemanticsOf(layer); // 2026-09-16 P0-U2（additive：只加标注，零数字改动）
   report[layer] = brief;
 }
 
@@ -332,6 +350,7 @@ for (const layer of ENGINED_LAYERS) {
   } else {
     T.push('    ' + b.note);
   }
+  T.push('    贝叶斯语义: ' + b.bayes_semantics.role + '（' + b.bayes_semantics.note + '）'); // 2026-09-16 P0-U2（每层一行）
   T.push('    引擎样例: ' + JSON.stringify(b.engine_sample));
 }
 T.push('');
@@ -419,6 +438,13 @@ if (JSON_OUT) {
     domain_cells_with_conclusion: domWithConclusion.length,
     domain_cells_thin: domThin.length,
     by_domain: domRows,
+    // 2026-09-16 · P0-U2（additive）：贝叶斯记账语言图例（词汇源＝10 号件 §4；术语详见 p1b/web/src/lib/terms.ts）
+    bayes_legend: (() => {
+      const map = {}; for (const L of ['L1', 'L2', 'L3', 'L4', 'L5', 'L6']) map[L] = bayesSemanticsOf(L);
+      return { source: '10-算子攻坚-深度报告 §4（O1-O8 四元组）',
+        note: '记账语言＝沟通层，零精度增量宣称；术语详见 p1b/web/src/lib/terms.ts（bayesPrior/likelihoodEvidence/posteriorAgg/calibrationAci）',
+        map: map };
+    })(),
     generated_at: new Date().toISOString(), report: report, note: '分层报，禁跨层池化（design §4.3）；已排除真值口径缺陷行（见 truth_basis_defect_*）；分域读数见 by_domain（格间禁池化，n<30 不出结论）' };
   fs.writeFileSync(path.resolve(JSON_OUT), JSON.stringify(out, null, 1), 'utf8');
   console.log('[stage4-run] json -> ' + path.resolve(JSON_OUT));
