@@ -29,7 +29,7 @@ const TIMEOUT = Number(arg('timeout', 25000));
 /** kind → 取数规则（窗口类型 / API / 变量）；未列入者本轮不支持（如实登记） */
 const { seriesKeyOf } = require(path.join(ROOT, 'p1b', 'src', 'evidence', 'seriesKey')); // 系列键单一真源（与 dna-s-backfill 共用）
 
-function ruleFor(kind, urlTemplate) {
+function ruleFor(kind, urlTemplate, rj) {
   const m = urlTemplate ? /(?:daily|hourly)=([a-z0-9_]+)/i.exec(urlTemplate) : null;
   const varFromTpl = m ? m[1] : null;
   if (kind === 'openmeteo_daily_max' || kind === 'openmeteo_forecast_daily_max') return { api: 'archive', variable: 'temperature_2m_max', window: 'seasonal', note: '同月历史日（前 10 年）' };
@@ -42,7 +42,79 @@ function ruleFor(kind, urlTemplate) {
   if (kind === 'wikimedia_pageviews') return { api: 'wikimedia', window: 'trailing', note: 'cutoff 前最近 N 日日浏览量' };
   if (kind === 'npm_downloads_window') return { api: 'npm7', window: 'trailing', note: 'cutoff 前近日，7 日滚动窗' };
   if (kind === 'github_weekly_commits') return { api: 'github', window: 'full_history', note: '近 ~52 周提交数（stats API 上限）' };
+  // ── 2026-09-17 扩展二：模板型家族（rj.url_template 通用取数；host→解析器）──
+  const tpl = (rj && (rj.url_template || rj.url)) || null;
+  if (tpl) {
+    const h = hostParserFor(tpl);
+    if (h) return { api: 'template', parser: h, window: 'range', note: '模板型系列（' + h + '；窗口=切点前 ' + DAYS_BACK + ' 天）' };
+  }
   return null;
+}
+/** host → 解析器名（未列入＝不支持，如实登记） */
+function hostParserFor(url) {
+  const u = String(url);
+  if (u.includes('db.nomics.world')) return 'dbnomics';
+  if (u.includes('tidesandcurrents.noaa.gov')) return 'noaa_tide';
+  if (u.includes('waterservices.usgs.gov')) return 'usgs';
+  if (u.includes('data.cityofchicago.org')) return 'socrata_cta';
+  if (u.includes('gml.noaa.gov')) return 'csv_gml';
+  if (u.includes('ncei.noaa.gov')) return 'ncei';
+  if (u.includes('binance.vision') || u.includes('api.binance.com')) return 'binance';
+  if (u.includes('kraken.com')) return 'kraken';
+  if (u.includes('energy-charts.info')) return 'energycharts';
+  if (u.includes('statsapi.mlb.com')) return 'mlb';
+  if (u.includes('swpc.noaa.gov')) return 'swpc';
+  if (u.includes('ec.europa.eu/eurostat')) return 'eurostat';
+  return null;   // 已排除：delphi（MMWR 周换算需专门核对）／jpl（模板无占位符）／bom（HTML 页）／crossref·nvd·elexon·openalex（n<20 按冻结规则不可判）
+}
+/** 模板占位符替换：首个 {date}/{date_nodash} → 窗口起，其余 → 窗口止；*_ms 用毫秒 */
+function buildTemplateUrl(tpl, startStr, endStr) {
+  let u = String(tpl);
+  const sMs = String(Date.parse(startStr + 'T00:00:00Z'));
+  const eMs = String(Date.parse(endStr + 'T23:59:59Z'));
+  u = u.replace(/\{start_ms\}/g, sMs).replace(/\{since_ms\}/g, sMs).replace(/\{end_ms\}/g, eMs);
+  u = u.replace(/\{date_plus7\}/g, endStr).replace(/\{date_plus6\}/g, endStr).replace(/\{date_plus1\}/g, endStr);
+  let firstNodash = true;
+  u = u.replace(/\{date_nodash\}/g, () => { const v = firstNodash ? startStr : endStr; firstNodash = false; return v.replace(/-/g, ''); });
+  let firstDate = true;
+  u = u.replace(/\{date\}/g, () => { const v = firstDate ? startStr : endStr; firstDate = false; return v; });
+  return u;
+}
+/** 模板型解析器表：返回 [{date, value}]（date 一律 YYYY-MM-DD） */
+const TPL_PARSERS = {
+  dbnomics: (j) => { const doc = j && j.series && j.series.docs && j.series.docs[0]; const P = (doc && doc.period) || []; const V = (doc && doc.value) || []; const out = [];
+    for (let i = 0; i < P.length; i++) { const p = String(P[i]); if (V[i] === null || V[i] === undefined) continue;
+      const d = /^\d{4}-\d{2}-\d{2}$/.test(p) ? p : /^\d{4}-\d{2}$/.test(p) ? p + '-01' : /^\d{4}$/.test(p) ? p + '-01-01' : null; if (d) out.push({ date: d, value: V[i], period: p }); }
+    return out; },
+  noaa_tide: (j) => { const by = {}; for (const it of (j.predictions || j.data || [])) { const d = String(it.t || '').slice(0, 10); if (!d) continue; const v = Number(it.v); if (!isFinite(v)) continue; if (by[d] === undefined || v > by[d]) by[d] = v; }
+    return Object.keys(by).sort().map((d) => ({ date: d, value: by[d] })); },
+  usgs: (j) => { const ts = ((j.value || {}).timeSeries || [])[0]; const vals = ts && ts.values && ts.values[0] && ts.values[0].value || []; return vals.map((x) => ({ date: String(x.dateTime || '').slice(0, 10), value: Number(x.value) })).filter((x) => x.date && isFinite(x.value)); },
+  socrata_cta: (j) => (Array.isArray(j) ? j : []).map((r) => ({ date: String(r.service_date || '').slice(0, 10), value: Number(r.total_rides) })).filter((x) => x.date && isFinite(x.value)),
+  csv_gml: (txt) => { const out = []; for (const line of String(txt).split(/\r?\n/)) { const c = line.split(','); if (c.length < 5) continue; const y = Number(c[0]), m = Number(c[1]), d = Number(c[2]), v = Number(c[4]); if (!isFinite(y) || !isFinite(m) || !isFinite(d) || !isFinite(v)) continue; out.push({ date: y + '-' + String(m).padStart(2, '0') + '-' + String(d).padStart(2, '0'), value: v }); } return out; },
+  ncei: (j) => (Array.isArray(j) ? j : []).map((r) => ({ date: String(r.DATE || '').slice(0, 10), value: Number(r.TMAX) })).filter((x) => x.date && isFinite(x.value)),
+  binance: (j) => (Array.isArray(j) ? j : []).map((k) => ({ date: new Date(Number(k[0])).toISOString().slice(0, 10), value: Number(k[4]) })).filter((x) => isFinite(x.value)),
+  kraken: (j) => { const res = (j && j.result) || {}; const key = Object.keys(res).filter((x) => x !== 'last')[0]; const arr = (res[key] || []); return arr.map((k) => ({ date: new Date(Number(k[0]) * 1000).toISOString().slice(0, 10), value: Number(k[4]) })).filter((x) => isFinite(x.value)); },
+  energycharts: (j, rj) => { const types = (j && j.production_types) || []; if (!types.length) return [];
+    const hint = String(rj.field || '');
+    const m = /name\s*==\s*「([^」]+)」|name\s*==\s*([^\s的]+)/.exec(hint);
+    const want = m ? (m[1] || m[2]) : null;
+    const pick = (want && types.find((t) => String(t.name) === want)) || types[0];
+    const secs = (j && j.unix_seconds) || []; const by = {};
+    for (let i = 0; i < (pick.data || []).length; i++) { const v = Number(pick.data[i]); if (!isFinite(v) || v === null) continue; const t = secs[i] !== undefined ? Number(secs[i]) : null; const d = t ? new Date(t * 1000).toISOString().slice(0, 10) : null; if (!d) continue; (by[d] = by[d] || []).push(v); }
+    return Object.keys(by).sort().map((d) => ({ date: d, value: by[d].reduce((a, b) => a + b, 0) / by[d].length, production_type: pick.name })); },
+  mlb: (j) => (Array.isArray(j) ? [] : [(j && j.dates) || []]).flat().map((d) => { let sum = 0, n = 0; for (const g of (d.games || [])) { if (String(((g.status || {}).abstractGameState)) !== 'Final') continue; const a = ((g.teams || {}).away || {}).score, h = ((g.teams || {}).home || {}).score; if (a === undefined || h === undefined) continue; sum += Number(a) + Number(h); n++; } return { date: String(d.date || '').slice(0, 10), value: n ? sum : null }; }).filter((x) => x.date && x.value !== null),
+  swpc: (j) => (Array.isArray(j) ? j : []).map((r) => ({ date: String(r['time-tag'] || '') + '-01', value: Number(r.ssn) })).filter((x) => /^\d{4}-\d{2}-01$/.test(x.date) && isFinite(x.value)),
+  eurostat: (j) => { const t = j && j.dimension && j.dimension.time && j.dimension.time.category && j.dimension.time.category.index; const labels = j && j.dimension && j.dimension.time && j.dimension.time.category && j.dimension.time.category.label; if (!t) return []; const out = [];
+    for (const k of Object.keys(t)) { const idx = t[k]; const v = j.value && j.value[idx]; if (v === null || v === undefined) continue; const lab = labels ? labels[k] : k; const d = /^\d{4}$/.test(String(lab)) ? lab + '-01-01' : /^\d{4}-\d{2}$/.test(String(lab)) ? lab + '-01' : null; if (d) out.push({ date: d, value: Number(v) }); } return out; },
+};
+async function jgetText(url) {
+  for (let attempt = 0; attempt < 3; attempt++) {
+    try {
+      const res = await fetch(url, { signal: AbortSignal.timeout(TIMEOUT), headers: { 'User-Agent': 'Mozilla/5.0 (compatible; e1-snapshot/1.0)' } });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      return await res.text();
+    } catch (e) { if (attempt === 2) throw e; await new Promise((r) => setTimeout(r, 900 * (attempt + 1))); }
+  }
 }
 
 async function jget(url) {
@@ -71,7 +143,7 @@ const unsupported = {};
 for (const r of rows) {
   let rj = null; try { rj = r.rj ? JSON.parse(r.rj) : null; } catch (e) { rj = null; }
   if (!rj || !rj.kind) continue;
-  const rule = ruleFor(String(rj.kind), rj.url_template);
+  const rule = ruleFor(String(rj.kind), rj.url_template, rj);
   const key = seriesKeyOf(rj);
   const keyOk = key && key.split('|').every((p) => p !== '' && p !== 'undefined' && p !== 'null');
   if (!rule || !keyOk) { unsupported[String(rj.kind)] = (unsupported[String(rj.kind)] || 0) + 1; continue; }
@@ -111,15 +183,20 @@ for (const s of list) {
     url = 'https://api.npmjs.org/downloads/range/' + fmt(startD) + ':' + fmt(endD) + '/' + encodeURIComponent(rj.package);
   } else if (s.rule.api === 'github') {
     url = 'https://api.github.com/repos/' + rj.repo + '/stats/commit_activity';
+  } else if (s.rule.api === 'template') {
+    url = buildTemplateUrl(rj.url_template || rj.url, fmt(startD), fmt(endD));
   } else {
     if (s.rule.api === 'air') url = 'https://air-quality-api.open-meteo.com/v1/air-quality?latitude=' + s.lat + '&longitude=' + s.lon + '&hourly=' + s.rule.variable + '&timezone=GMT&start_date=' + fmt(startD) + '&end_date=' + fmt(endD);
     else url = 'https://archive-api.open-meteo.com/v1/archive?latitude=' + s.lat + '&longitude=' + s.lon + '&daily=' + s.rule.variable + '&timezone=auto&start_date=' + fmt(startD) + '&end_date=' + fmt(endD);
   }
   try {
     await sleep(250);                                    // 全局限速：突发连发会被上游丢连接（wikimedia 实测）
-    const j = await jget(url);
+    const j = (s.rule.api === 'template' && s.rule.parser === 'csv_gml') ? await jgetText(url) : await jget(url);
     const days = [];
-    if (s.rule.api === 'air') {
+    if (s.rule.api === 'template') {
+      const parsed = (TPL_PARSERS[s.rule.parser] || (() => []))(j, rj);
+      for (const x of parsed) days.push(x);
+    } else if (s.rule.api === 'air') {
       const t = (j.hourly && j.hourly.time) || []; const v = (j.hourly && j.hourly[s.rule.variable]) || [];
       const byDay = {};
       for (let i = 0; i < t.length; i++) { const d = String(t[i]).slice(0, 10); if (v[i] === null || v[i] === undefined) continue; (byDay[d] = byDay[d] || []).push(v[i]); }

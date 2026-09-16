@@ -50,13 +50,14 @@ test('② 快照件：结构完整（≥100 系列、含五族新源、期值丰
   const keys = Object.keys(j.snapshots);
   assert.ok(keys.length >= 100, '系列数 ' + keys.length + ' < 100');
   const kinds = new Set(keys.map((k) => j.snapshots[k].kind));
-  for (const want of ['dbnomics_series_value', 'wikimedia_pageviews', 'frankfurter_rate_range', 'npm_downloads_window', 'github_weekly_commits', 'openmeteo_daily_max']) {
+  for (const want of ['dbnomics_series_value', 'wikimedia_pageviews', 'frankfurter_rate_range', 'npm_downloads_window', 'github_weekly_commits', 'openmeteo_daily_max',
+    'noaa_tide_daily_high', 'usgs_nwis_daily_discharge', 'dbnomics_bis_monthly_mean', 'ghcn_daily_tmax', 'eurostat_demo_pjan_annual', 'swpc_solar_cycle_monthly']) {
     assert.ok(kinds.has(want), '缺族: ' + want);
   }
   let withUrl = 0, daysTotal = 0;
   for (const k of keys) { const s = j.snapshots[k]; assert.ok(Array.isArray(s.days) && s.days.length > 0, k + ' 无期值'); if (s.source_url) withUrl++; daysTotal += s.days.length; }
   assert.equal(withUrl, keys.length, '每个系列须带 source_url');
-  assert.ok(daysTotal > 30000, '期值总量过少: ' + daysTotal);
+  assert.ok(daysTotal > 100000, '期值总量过少: ' + daysTotal);
 });
 
 test('②b 系列键单一真源（seriesKeyOf）：六族键形与不支持回落', () => {

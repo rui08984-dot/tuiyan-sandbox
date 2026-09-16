@@ -1,0 +1,37 @@
+{
+ "script": "p1b/scripts/result-cache-precheck.cjs",
+ "item": "蓝图 §2.1#7 结果缓存预检（唯一在建缓存件）",
+ "key_schema": "resultCache.v1（norm(statement)+sha256(evidence_json)+prompt 版本+温度）",
+ "prompt_version": "v1",
+ "judgement": {
+  "cross_item_safe": true,
+  "cross_item_keys": 0,
+  "cross_item_rows": 0,
+  "verdict": "跨题安全通过（同键必同题）——同题多轮异输出属预期（随机性；缓存冻结之）⇒ 可进入实现阶段"
+ },
+ "replay_note": "首跑命中率 0-10% 是正确行为（防跨局信息泄漏）；模拟命中率只作披露（同题多轮/多模型场景）",
+ "rows": 4766,
+ "distinct_keys": 1350,
+ "cross_item_keys": 0,
+ "cross_item_rows": 0,
+ "same_item_multi_output_keys": 1076,
+ "hits_simulated": 3416,
+ "misses_simulated": 1350,
+ "by_variant": {
+  "v1_evidence": 1577,
+  "v2_skeptical": 1593,
+  "v3_baserate": 1596
+ },
+ "by_temperature": {
+  "1": 1596,
+  "0.2": 1577,
+  "0.7": 1593
+ },
+ "by_model": {
+  "null": 268,
+  "tokenrhythm/glm-5.3-flash": 4498
+ },
+ "by_run": {},
+ "hit_rate_simulated": 0.7167,
+ "generated_at": "2026-09-16T14:40:35.653Z"
+}

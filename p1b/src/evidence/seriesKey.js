@@ -23,6 +23,9 @@ function seriesKeyOf(rj) {
   if (k === 'wikimedia_pageviews') return [k, rj.article].join('|');
   if (k === 'npm_downloads_window') return [k, rj.package].join('|');
   if (k === 'github_weekly_commits') return [k, rj.repo].join('|');
+  // 通用回退（2026-09-17 扩展）：模板型系列的身份＝模板去掉占位符后的串（编码 provider/dataset/station/geo/symbol 等全部身份字段）
+  if (rj.url_template) return k + '|tpl:' + String(rj.url_template).replace(/\{[^}]+\}/g, '*');
+  if (rj.url && !/\{/.test(String(rj.url))) return k + '|url:' + String(rj.url);
   return null;
 }
 module.exports = { seriesKeyOf: seriesKeyOf };
