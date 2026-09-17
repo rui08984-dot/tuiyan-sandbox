@@ -334,6 +334,11 @@ test('⑦★ 合成迷你库：矩阵接线（全引擎、真题面）＋端到�
     assert.ok(x.p === null || typeof x.p === 'number', 'p 须为数或 null（id=' + x.id + '）');
     assert.ok(Array.isArray(x.awake), 'awake 须为数组');
   }
+  // ★回归锁（2026-09-17 实测缺陷）：塌缩自检曾因字段重命名而**只在 main 的显示路径**打印 undefined
+  //   （纯函数测试覆盖不到 ⇒ 本断言锁 MD 全文）。同族纪律：改了字段名，**顺带 grep 全部引用点**。
+  const md = fs.readFileSync(path.join(out, mf), 'utf8');
+  assert.ok(!/undefined/.test(md), '★MD 不得含 undefined（显示路径回归锁）');
+  assert.ok(/权重塌缩自检/.test(md) && /有效专家数均值/.test(md), 'MD 须含塌缩自检段（新口径）');
   assert.equal(sha(mini), before, '★ 迷你库不得被改动（零账本写）');
 });
 

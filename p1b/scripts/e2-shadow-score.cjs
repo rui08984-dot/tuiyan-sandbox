@@ -446,7 +446,7 @@ function main() {
 
   // ⑤ C3 姿态指标（出概率题数/占比；own_set 与 common_set 两口径 Brier）＋ R3h 权重塌缩自检
   const collapse = weightCollapse(R.hedge.traj, items, R.hedge.weights_final);
-  const mixN = collapse.mixed_questions, differsN = collapse.differs_from_top_engine, topEngine = collapse.top_engine;
+  const mixN = collapse.mixed_questions, singleN = collapse.single_engine_questions, topEngine = collapse.top_engine;
   const c3 = {};
   const switched = { R1: 0, R2: 0, R3a: 0, R3h: 0, R4: 0 };   // 与 R0 取值不同的题数（披露「改口率」）
   const commonR0 = new Set(items.filter((it) => R.vals.R0[it.id] !== null).map((it) => it.id));
@@ -558,7 +558,8 @@ function main() {
   L.push('');
   L.push('- 主臂 η＝' + ETA + '（冻结）；预测题数 ' + R.hedge.counts.predicted + '／无 awake 引擎 ' + R.hedge.counts.no_awake + '。');
   L.push('- **权重轨迹逐题落盘**：`' + path.basename(weightsFile) + '`（每题一条：id／t／awake／权重快照／p̂）。');
-  L.push('- ★ **权重塌缩自检**（显示用，非判据）：真混合题（awake ≥2）**' + mixN + '** 道中，与「当刻最大权重引擎单独值」不同者仅 **' + differsN + '** 道');
+  L.push('- ★ **权重塌缩自检**（显示用，非判据）：真混合题（awake ≥2）**' + mixN + '** 道中，**当刻已塌缩（awake 归一后最大权重 ≥0.99）' + singleN + ' 道**；有效专家数均值 **'
+    + (collapse.effective_experts_mean === null ? 'n/a' : collapse.effective_experts_mean.toFixed(4)) + '**（2＝等权，1＝完全塌缩）');
   L.push('  ⇒ ' + (collapse.display_flag ? '**塌缩提示：终局最大权重 ' + f6(collapse.top_weight) + '（' + topEngine + '）≥0.99 ⇒ 该臂在现行账本上实为「' + topEngine + '-always」单引擎对照**'
     : '未触发塌缩显示阈值（最大权重 ' + f6(collapse.top_weight) + '）'));
   L.push('  · 机制（如实）：w ∝ exp(−η·Σℓ) 在 η=1、ℓ∈[0,1] 下按**更新次数**指数拉开；sleeping 者不吃损失 ⇒ **出现越少、失误越少者越占优**。');
@@ -608,7 +609,7 @@ function main() {
     console.log('  ' + k + '：n=' + r.n + ' 增益=' + f6(gi.mean) + ' CI[' + f6(gi.ci[0]) + ',' + f6(gi.ci[1]) + '] ⇒ ' + r.decision);
   }
   console.log('json/md -> ' + base + '.{json,md}｜权重轨迹 -> ' + weightsFile);
-  console.log('  R3h 权重塌缩自检：真混合 ' + mixN + ' 道／与「当刻最大权重引擎单独值」不同 ' + differsN + ' 道' + (collapse.display_flag ? ' ⇒ ★塌缩（' + topEngine + '=' + f6(collapse.top_weight) + '）' : ''));
+  console.log('  R3h 权重塌缩自检：真混合 ' + mixN + ' 道／当刻已塌缩 ' + singleN + ' 道／有效专家数均值 ' + (collapse.effective_experts_mean === null ? 'n/a' : collapse.effective_experts_mean.toFixed(4)) + (collapse.display_flag ? ' ⇒ ★塌缩（' + topEngine + '=' + f6(collapse.top_weight) + '）' : ''));
 }
 
 module.exports = { bootDeltaCI, bootPGreaterZero, stratDeltaCI, mdeFromSE, holm, tostFromDelta, hedgeRun, r3aRun, r4Run, runArms, pairedRows, brierMean, buildSeq, weightCollapse, ENGINE_KEYS, PRIORITY, MIN_CELL, C2_MARGIN, R4_SEED, ETA_SENS, TOST_EPS_GRID };

@@ -14,8 +14,11 @@
   · 判据 `.scratch/forecast-debate/voi-a-report-20260912.md`（sha16 `7e802839a52191b5`）｜证据 `.scratch/forecast-debate/voi-a-report-20260912.md`（sha16 `7e802839a52191b5`）｜复算：`node p1b/scripts/voi-a.cjs`
 - **H5 校准挑战者 beta calibration（离线 A/B 主口径）**：未达非劣：n=695，Δ=+0.0014 CI[−0.0048,+0.0083]、resolution 下降 ⇒ 维持恒等（现役不动）；P0 只出报告，替换动作属 P1
   · 判据 `p1b/sim/out/calab-report-20260916.json`（sha16 `5cb093a4e592d1f7`）｜证据 `p1b/sim/out/calab-report-20260916.json`（sha16 `5cb093a4e592d1f7`）｜复算：`node p1b/scripts/calab-run.cjs`
-- **H6 E2 路由 R3a/R3h（误差反馈/在线加权）**：**前置闸否决**（非跑输）：跨引擎重叠人口 = 0 ⇒ R3 双臂不可估；组合预检 ρ̂ 无 ≥10 题引擎对 ⇒ 先不要立票（先跑后立出证据）
-  · 判据 `.scratch/forecast-debate/PREREG-E2-路由分配-v1.md`（sha16 `aea1947d14ab34df`）｜证据 `p1b/sim/out/e2-shadow-20260916.json`（sha16 `077688b8b0e1b1ab`）｜复算：`node p1b/scripts/e2-shadow-score.cjs`
+- **H6 E2 路由 R3a/R3h（误差反馈 argmin／在线 Hedge 加权）**：**两次负结果，最终判死（2026-09-17 一次性开跑）**——
+  · **★前置闸更正（先说前提）**：v0 原记「跨引擎重叠人口 = 0 ⇒ R3 双臂不可估」**是该 0 系 09-16 旧预检脚本按 layer 门控引擎的构造产物**（留痕 §76；全引擎矩阵实测多引擎 **1116 题**）⇒ 前提作废；经 v1.1 版本递进改判「**可估，启动**」。
+  · **实跑读数**：R3a/R3h 相对 R0（现状）**显著更差**——增益 −0.013841 CI[−0.020862,−0.007221]／−0.015062 CI[−0.022132,−0.008282]；相对 R2（全基率对照）**TOST 等效**（ε∈{0.0025,0.005,0.01} **三档皆等效**；差 ≤0.0005，均 < MDE）⇒ 按 §5 冻结行 **路由线全灭结案**（不采纳误差反馈路由）。
+  · **强制披露**：R3h 在冻结 η=1 下**权重塌缩**（真混合 1116 中当刻塌缩 454／终局 L5=1.0）⇒ 其读数实为「**L5-always** vs 基准」；C2（R1 vs R0）**构造性 Δ≡0**（改层 0）⇒ 主判据在本账本无信息量。
+  · 判据 `PREREG-E2-路由分配-v1.md`（sha16 `5c354501378a54f3`）＋ `.scratch/forecast-debate/PREREG-E2-路由分配-v1.1-补充与勘误-20260917.md`（sha16 `e41aa45abfd521a3`）｜证据 `p1b/sim/out/e2-run-receipt-20260917.md` ＋ `p1b/sim/out/e2-shadow-score-20260917.{json,md}`｜复算：`node p1b/scripts/e2-shadow-score.cjs --arms`
 - **H7 D2 回测 model 臂（第一版模型）**：K4 如实报无增量（v1 model≡base）：Δ(vs b(1−b))=−0.0067；A1–A7/K1–K4 全 PASS 属**管线验收**非能力宣称
   · 判据 `.scratch/forecast-debate/PREREG-D2-历史回测引擎-v1.md`（sha16 `33d4927d54eec38d`）｜证据 `.scratch/forecast-debate/PREREG-D2-历史回测引擎-v1.1-补充与勘误.md`（sha16 `9b2c2b8518bb67da`）｜复算：`node p1b/scripts/d2-run-backtest.cjs`
 - **H8 阶段 5 检索式证据（路线 a）**：实证否决：跨 25 kind 抽 52 题真跑 ⇒ 证据产出率 **0/52**；论证「前瞻题要么空、要么泄」⇒ 路线 (a) 归档（(b) 前瞻数值信号另立并已达标）

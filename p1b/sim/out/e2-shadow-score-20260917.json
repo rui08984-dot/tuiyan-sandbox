@@ -1,0 +1,620 @@
+{
+ "script": "p1b/scripts/e2-shadow-score.cjs",
+ "version": "v2-20260917",
+ "basis": "PREREG-E2-路由分配-v1.md（sha 5c354501…）§1/§2/§4/§6＋10§5＋11§8＋蓝图 §2.2#2",
+ "rules_file": "E:\\music player\\.scratch\\forecast-debate\\E2-R1-规则版-v1-冻结件-20260917.md",
+ "rules_sha256": "e0331cf8e7237a8a0b6eed9f6393866d9b6008e2a64210f723fc699beeceb4bf",
+ "rules_match": true,
+ "generated_at": "2026-09-17T08:56:31.719Z",
+ "discipline": {
+  "ledger_write": false,
+  "llm": false,
+  "network": false,
+  "arms_reading_run": true,
+  "arms_authorized_by": "--arms（显式开跑令）"
+ },
+ "threshold_note": "未新造阈值：C2 边际 0.005／格 n<10／分层口径均取冻结文本；TOST ε 默认取 C2 同一把尺＝实现选择（须版本递进补记）",
+ "sign_convention": "非劣＝臂−基线（上界≤+0.005）；增益＝基线−臂（下界>0 ⇒ 有限开启）",
+ "cohort": 1385,
+ "engine_count_distribution": {
+  "0": 30,
+  "1": 239,
+  "2": 1111,
+  "3": 5
+ },
+ "r1_plan": {
+  "counts": {
+   "no-op": 1355,
+   "reassign": 0,
+   "downgrade": 30
+  },
+  "scoreable_after": {
+   "phase_a": 1355,
+   "after_b": 1213
+  },
+  "cells": 23,
+  "kept_cells": [
+   "L1/werewolf_sim",
+   "L2/dbnomics",
+   "L2/energycharts",
+   "L2/noaa",
+   "L2/wikimedia",
+   "L3/openmeteo",
+   "L5/cwl",
+   "L6/werewolf_sim"
+  ]
+ },
+ "c3_posture": {
+  "R0": {
+   "published": 1355,
+   "share_of_cohort": 0.9783393501805054,
+   "scored_nonnull": 1355,
+   "brier_own_set": 0.19275362205711036,
+   "brier_common_set": 0.19275362205711036,
+   "scored_common_set": 1355,
+   "switched_vs_r0": 0
+  },
+  "R1": {
+   "published": 1213,
+   "share_of_cohort": 0.8758122743682311,
+   "scored_nonnull": 1355,
+   "brier_own_set": 0.18492395055238356,
+   "brier_common_set": 0.19275362205711036,
+   "scored_common_set": 1355,
+   "switched_vs_r0": 0
+  },
+  "R2": {
+   "published": 876,
+   "share_of_cohort": 0.6324909747292419,
+   "scored_nonnull": 876,
+   "brier_own_set": 0.23903322738915178,
+   "brier_common_set": 0.23903322738915178,
+   "scored_common_set": 876,
+   "switched_vs_r0": 5
+  },
+  "R3a": {
+   "published": 1355,
+   "share_of_cohort": 0.9783393501805054,
+   "scored_nonnull": 1355,
+   "brier_own_set": 0.20659415087141458,
+   "brier_common_set": 0.20659415087141458,
+   "scored_common_set": 1355,
+   "switched_vs_r0": 62
+  },
+  "R3h": {
+   "published": 1355,
+   "share_of_cohort": 0.9783393501805054,
+   "scored_nonnull": 1355,
+   "brier_own_set": 0.2078152437019006,
+   "brier_common_set": 0.2078152437019006,
+   "scored_common_set": 1355,
+   "switched_vs_r0": 325
+  },
+  "R4": {
+   "published": 1355,
+   "share_of_cohort": 0.9783393501805054,
+   "scored_nonnull": 1355,
+   "brier_own_set": 0.21062482994188925,
+   "brier_common_set": 0.21062482994188925,
+   "scored_common_set": 1355,
+   "switched_vs_r0": 117
+  }
+ },
+ "c2_primary": {
+  "n": 1355,
+  "cells": 23,
+  "raw": {
+   "lb": 0,
+   "ub": 0,
+   "lo90": 0,
+   "hi90": 0,
+   "mean": 0,
+   "se": 0,
+   "B": 1000,
+   "seed": 987654321
+  },
+  "stratified": {
+   "delta": 0,
+   "lo": 0,
+   "hi": 0,
+   "lo90": 0,
+   "hi90": 0,
+   "se": 0,
+   "cells": 23,
+   "n": 1355,
+   "identity_residual": 0,
+   "B": 1000,
+   "seed": 987654321
+  },
+  "mde": 0,
+  "margin": 0.005,
+  "verdict": "非劣通过 —— ★但臂与基线**逐题同值**（Δ≡0）⇒ 判定**无信息量**，不得读作证据（M4 情形）"
+ },
+ "c4_secondary": {
+  "comparisons": {
+   "R3a_vs_R0": {
+    "arm": "R3a",
+    "base": "R0",
+    "n": 1355,
+    "cells": 23,
+    "identical_per_question": false,
+    "delta_noninf": {
+     "mean": 0.013840528814304219,
+     "ci": [
+      0.007249999421572693,
+      0.02090883892842878
+     ],
+     "strat_mean": 0.013840528814304217,
+     "strat_ci": [
+      0.007316654927792622,
+      0.020953621735355876
+     ],
+     "strat_identity_residual": 1.734723475976807e-18
+    },
+    "delta_gain_base_minus_arm": {
+     "mean": -0.013840528814304219,
+     "ci": [
+      -0.02086236509716827,
+      -0.007220971712357195
+     ],
+     "strat_ci": [
+      -0.020953621735355876,
+      -0.007316654927792622
+     ],
+     "p_gain_positive": 1
+    },
+    "mde": 0.009532296376675173,
+    "mde_note": "M4 义务：CI 含 0 时结论限定为「在该 MDE 分辨率下无增益证据」",
+    "decision": "方向为负（臂显著更差）",
+    "tost": {
+     "eps": 0.005,
+     "p_lower": 0.998,
+     "p_upper": 0,
+     "tost_p": 0.998,
+     "equivalent_at_05": false,
+     "ci90": [
+      -0.019744923647327425,
+      -0.00831277024475604
+     ],
+     "ci90_within_eps": false,
+     "n": 1355,
+     "B": 1000,
+     "seed": 987654321
+    },
+    "tost_sensitivity": {
+     "eps_0.0025": {
+      "eps": 0.0025,
+      "p_lower": 1,
+      "p_upper": 0,
+      "tost_p": 1,
+      "equivalent_at_05": false,
+      "ci90": [
+       -0.019744923647327425,
+       -0.00831277024475604
+      ],
+      "ci90_within_eps": false,
+      "n": 1355,
+      "B": 1000,
+      "seed": 987654321
+     },
+     "eps_0.005": {
+      "eps": 0.005,
+      "p_lower": 0.998,
+      "p_upper": 0,
+      "tost_p": 0.998,
+      "equivalent_at_05": false,
+      "ci90": [
+       -0.019744923647327425,
+       -0.00831277024475604
+      ],
+      "ci90_within_eps": false,
+      "n": 1355,
+      "B": 1000,
+      "seed": 987654321
+     },
+     "eps_0.01": {
+      "eps": 0.01,
+      "p_lower": 0.874,
+      "p_upper": 0,
+      "tost_p": 0.874,
+      "equivalent_at_05": false,
+      "ci90": [
+       -0.019744923647327425,
+       -0.00831277024475604
+      ],
+      "ci90_within_eps": false,
+      "n": 1355,
+      "B": 1000,
+      "seed": 987654321
+     }
+    }
+   },
+   "R3h_vs_R0": {
+    "arm": "R3h",
+    "base": "R0",
+    "n": 1355,
+    "cells": 23,
+    "identical_per_question": false,
+    "delta_noninf": {
+     "mean": 0.015061621644790227,
+     "ci": [
+      0.008306334475950283,
+      0.0221885051642323
+     ],
+     "strat_mean": 0.015061621644790224,
+     "strat_ci": [
+      0.008770593465466672,
+      0.022359505024975003
+     ],
+     "strat_identity_residual": 3.469446951953614e-18
+    },
+    "delta_gain_base_minus_arm": {
+     "mean": -0.015061621644790227,
+     "ci": [
+      -0.022132472177915603,
+      -0.008282496405808453
+     ],
+     "strat_ci": [
+      -0.022359505024975003,
+      -0.008770593465466672
+     ],
+     "p_gain_positive": 1
+    },
+    "mde": 0.009525852962259744,
+    "mde_note": "M4 义务：CI 含 0 时结论限定为「在该 MDE 分辨率下无增益证据」",
+    "decision": "方向为负（臂显著更差）",
+    "tost": {
+     "eps": 0.005,
+     "p_lower": 0.998,
+     "p_upper": 0,
+     "tost_p": 0.998,
+     "equivalent_at_05": false,
+     "ci90": [
+      -0.02091540585189704,
+      -0.009554889144905147
+     ],
+     "ci90_within_eps": false,
+     "n": 1355,
+     "B": 1000,
+     "seed": 987654321
+    },
+    "tost_sensitivity": {
+     "eps_0.0025": {
+      "eps": 0.0025,
+      "p_lower": 1,
+      "p_upper": 0,
+      "tost_p": 1,
+      "equivalent_at_05": false,
+      "ci90": [
+       -0.02091540585189704,
+       -0.009554889144905147
+      ],
+      "ci90_within_eps": false,
+      "n": 1355,
+      "B": 1000,
+      "seed": 987654321
+     },
+     "eps_0.005": {
+      "eps": 0.005,
+      "p_lower": 0.998,
+      "p_upper": 0,
+      "tost_p": 0.998,
+      "equivalent_at_05": false,
+      "ci90": [
+       -0.02091540585189704,
+       -0.009554889144905147
+      ],
+      "ci90_within_eps": false,
+      "n": 1355,
+      "B": 1000,
+      "seed": 987654321
+     },
+     "eps_0.01": {
+      "eps": 0.01,
+      "p_lower": 0.936,
+      "p_upper": 0,
+      "tost_p": 0.936,
+      "equivalent_at_05": false,
+      "ci90": [
+       -0.02091540585189704,
+       -0.009554889144905147
+      ],
+      "ci90_within_eps": false,
+      "n": 1355,
+      "B": 1000,
+      "seed": 987654321
+     }
+    }
+   },
+   "R3a_vs_R2": {
+    "arm": "R3a",
+    "base": "R2",
+    "n": 876,
+    "cells": 21,
+    "identical_per_question": false,
+    "delta_noninf": {
+     "mean": 0.0002476510813237103,
+     "ci": [
+      0,
+      0.000742953168421148
+     ],
+     "strat_mean": 0.0002476510813237103,
+     "strat_ci": [
+      7.554998301556262e-11,
+      0.0007429528662212158
+     ],
+     "strat_identity_residual": 0
+    },
+    "delta_gain_base_minus_arm": {
+     "mean": -0.0002476510813237103,
+     "ci": [
+      -0.000742953092871165,
+      0
+     ],
+     "strat_ci": [
+      -0.0007429528662212158,
+      -7.554998301556262e-11
+     ],
+     "p_gain_positive": 1
+    },
+    "mde": 0.0006393536646719391,
+    "mde_note": "M4 义务：CI 含 0 时结论限定为「在该 MDE 分辨率下无增益证据」",
+    "decision": "CI 含 0 ⇒ 无增益证据（禁写「全灭」；正面主张须 TOST）",
+    "tost": {
+     "eps": 0.005,
+     "p_lower": 0,
+     "p_upper": 0,
+     "tost_p": 0,
+     "equivalent_at_05": true,
+     "ci90": [
+      -0.0007429529417711989,
+      0
+     ],
+     "ci90_within_eps": true,
+     "n": 876,
+     "B": 1000,
+     "seed": 987654321
+    },
+    "tost_sensitivity": {
+     "eps_0.0025": {
+      "eps": 0.0025,
+      "p_lower": 0,
+      "p_upper": 0,
+      "tost_p": 0,
+      "equivalent_at_05": true,
+      "ci90": [
+       -0.0007429529417711989,
+       0
+      ],
+      "ci90_within_eps": true,
+      "n": 876,
+      "B": 1000,
+      "seed": 987654321
+     },
+     "eps_0.005": {
+      "eps": 0.005,
+      "p_lower": 0,
+      "p_upper": 0,
+      "tost_p": 0,
+      "equivalent_at_05": true,
+      "ci90": [
+       -0.0007429529417711989,
+       0
+      ],
+      "ci90_within_eps": true,
+      "n": 876,
+      "B": 1000,
+      "seed": 987654321
+     },
+     "eps_0.01": {
+      "eps": 0.01,
+      "p_lower": 0,
+      "p_upper": 0,
+      "tost_p": 0,
+      "equivalent_at_05": true,
+      "ci90": [
+       -0.0007429529417711989,
+       0
+      ],
+      "ci90_within_eps": true,
+      "n": 876,
+      "B": 1000,
+      "seed": 987654321
+     }
+    }
+   },
+   "R3h_vs_R2": {
+    "arm": "R3h",
+    "base": "R2",
+    "n": 876,
+    "cells": 21,
+    "identical_per_question": false,
+    "delta_noninf": {
+     "mean": 0.0004953020870974371,
+     "ci": [
+      7.554998328488043e-11,
+      0.0012382550288686355
+     ],
+     "strat_mean": 0.000495302087097437,
+     "strat_ci": [
+      3.7774991457086195e-10,
+      0.0009906037964449602
+     ],
+     "strat_identity_residual": 1.0842021724855044e-19
+    },
+    "delta_gain_base_minus_arm": {
+     "mean": -0.0004953020870974371,
+     "ci": [
+      -0.001238255028868635,
+      -7.554998293635151e-11
+     ],
+     "strat_ci": [
+      -0.0009906037964449602,
+      -3.7774991457086195e-10
+     ],
+     "p_gain_positive": 0.991
+    },
+    "mde": 0.0007540810326098761,
+    "mde_note": "M4 义务：CI 含 0 时结论限定为「在该 MDE 分辨率下无增益证据」",
+    "decision": "方向为负（臂显著更差）",
+    "tost": {
+     "eps": 0.005,
+     "p_lower": 0,
+     "p_upper": 0,
+     "tost_p": 0,
+     "equivalent_at_05": true,
+     "ci90": [
+      -0.0012382547266687046,
+      -1.510999659360719e-10
+     ],
+     "ci90_within_eps": true,
+     "n": 876,
+     "B": 1000,
+     "seed": 987654321
+    },
+    "tost_sensitivity": {
+     "eps_0.0025": {
+      "eps": 0.0025,
+      "p_lower": 0,
+      "p_upper": 0,
+      "tost_p": 0,
+      "equivalent_at_05": true,
+      "ci90": [
+       -0.0012382547266687046,
+       -1.510999659360719e-10
+      ],
+      "ci90_within_eps": true,
+      "n": 876,
+      "B": 1000,
+      "seed": 987654321
+     },
+     "eps_0.005": {
+      "eps": 0.005,
+      "p_lower": 0,
+      "p_upper": 0,
+      "tost_p": 0,
+      "equivalent_at_05": true,
+      "ci90": [
+       -0.0012382547266687046,
+       -1.510999659360719e-10
+      ],
+      "ci90_within_eps": true,
+      "n": 876,
+      "B": 1000,
+      "seed": 987654321
+     },
+     "eps_0.01": {
+      "eps": 0.01,
+      "p_lower": 0,
+      "p_upper": 0,
+      "tost_p": 0,
+      "equivalent_at_05": true,
+      "ci90": [
+       -0.0012382547266687046,
+       -1.510999659360719e-10
+      ],
+      "ci90_within_eps": true,
+      "n": 876,
+      "B": 1000,
+      "seed": 987654321
+     }
+    }
+   }
+  },
+  "holm_adjusted_p": {
+   "R3a_vs_R0": 1,
+   "R3h_vs_R0": 1,
+   "R3a_vs_R2": 1,
+   "R3h_vs_R2": 1
+  },
+  "holm_note": "两声明并列（Holm／仅描述性），本件不择一"
+ },
+ "r3h": {
+  "eta": 1,
+  "counts": {
+   "predicted": 1355,
+   "no_awake": 30
+  },
+  "weights_final": {
+   "L1": 1.906909610567798e-12,
+   "L2": 4.0431470492109064e-73,
+   "L3": 4.0431470492109064e-73,
+   "L5": 0.9999999999980931,
+   "L6": 4.844362884053679e-34
+  },
+  "weights_file": "e2-shadow-weights-20260917.jsonl",
+  "weight_collapse": {
+   "top_engine": "L5",
+   "top_weight": 0.9999999999980931,
+   "mixed_questions": 1116,
+   "single_engine_questions": 454,
+   "effective_experts_mean": 1.664947183757558,
+   "display_flag": true,
+   "note": "★显示用（非判据/非门控）：η=1、Brier∈[0,1] 下指数权重随更新次数塌缩；effective_experts_mean≈1（或 single_engine_questions≈混合题数）⇒ 该臂实为单引擎对照。"
+  },
+  "sensitivity": {
+   "eta_0.1": {
+    "counts": {
+     "predicted": 1355,
+     "no_awake": 30
+    },
+    "weights_final": {
+     "L1": 0.06303121586778179,
+     "L2": 5.3975245662298894e-8,
+     "L3": 5.3975245662298894e-8,
+     "L5": 0.9365321137692081,
+     "L6": 0.0004365624125188492
+    }
+   },
+   "eta_0.5": {
+    "counts": {
+     "predicted": 1355,
+     "no_awake": 30
+    },
+    "weights_final": {
+     "L1": 0.0000013809070729216824,
+     "L2": 6.358565783889975e-37,
+     "L3": 6.358565783889975e-37,
+     "L5": 0.9999986190929271,
+     "L6": 2.2009883018412845e-17
+    }
+   },
+   "eta_2": {
+    "counts": {
+     "predicted": 1355,
+     "no_awake": 30
+    },
+    "weights_final": {
+     "L1": 3.6363042628896924e-24,
+     "L2": 1.634703806160527e-145,
+     "L3": 1.634703806160527e-145,
+     "L5": 1,
+     "L6": 2.3467851752486256e-67
+    }
+   }
+  }
+ },
+ "r3a": {
+  "counts": {
+   "argmin": 1090,
+   "default_r0_thin": 295,
+   "sleeping_fallback": 158
+  }
+ },
+ "r4": {
+  "seed": 987654321,
+  "counts": {
+   "picked": 1355,
+   "no_engine": 30
+  }
+ },
+ "not_run": {
+  "c1_human_double_coding": "n/a（人工门）",
+  "s34_switch_agreement": "随实测增益另行判定"
+ },
+ "bootstrap": {
+  "B": 1000,
+  "seed": 987654321,
+  "method": "配对块 bootstrap（分层口径在 layer×domain 格内逐题重采样）·百分位法"
+ }
+}
