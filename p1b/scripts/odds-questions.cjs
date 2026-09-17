@@ -14,7 +14,8 @@
  *   · **Q0-3 基带**：入选概率须落 **(0.15, 0.85)**（照项目既有带；1X2 的平局价天然被筛掉）。
  *   · **真值锚**：每题带 `resolve{kind:'oddsapi_h2h'}`，且该 kind **有现役 resolver**（本批已加，否则题永远不结）。
  *   · **零翻转**：只 **INSERT**，不改任何既有行；**幂等**＝canonical key（resolve 规范化 JSON）＋库内查重。
- *   · **写库须 `--confirm`**；**dry-run 为默认**。
+ *   · **写库须 `--confirm`**；**dry-run 为默认**；★写入**单事务**（容器局＋全部 INSERT 同进同退，出错 ROLLBACK 不留半批）。
+ *   · ★**非空守卫**：快照 0 批次 ⇒ **硬失败 exit 2**（safe-mutation 铁律 5：「我没观测到」≠「不存在」）。
  *
  * 首版形态（实施选择，已在收据声明）：**每场 1 题＝「主队获胜」二值题**；三路口径（主/平/客）与逐家原始赔率
  *   **全部留档在 evidence.marketPrice** 与快照文件里 ⇒ 日后扩平局/客胜题**不必重取**。
@@ -123,6 +124,9 @@ function main() {
   const { insertPrediction } = require(path.join(ROOT, 'p1b/src/db/predictionsStore'));
 
   const batches = loadBatches(SNAPSHOTS);
+  // ★非空守卫（safe-mutation 铁律 5）：「我没观测到」≠「不存在」——快照文件读不到批次时**硬失败**，
+  //   禁静默报「候选 0」（那会被误读成「题都已建」）。
+  if (!batches.length) { console.error('!! 快照文件 0 批次（' + SNAPSHOTS + '）⇒ 硬失败（不猜、不写）'); process.exit(2); }
   const nowIso = new Date().toISOString();
   const { cands, skipped } = pickQuestions(batches, { nowIso: nowIso, league: LEAGUE });
   // 幂等：载入库内既有 canonical key（本 kind 全部）
@@ -144,6 +148,8 @@ function main() {
     inserted: 0, errors: [] };
 
   if (CONFIRM) {
+    // ★单事务（safe-mutation 第 3 步）：容器局 ＋ 全部 INSERT 同进同退；失败即 ROLLBACK（不留半批）。
+    conn.exec('BEGIN');
     // 语料容器局（照 corpus:<domain> 先例；player_count=1 合成局、source='corpus' 均 NOT NULL）
     let g = conn.prepare('SELECT id FROM games WHERE game_type = ?').get('corpus:oddsapi');
     let gid = g ? g.id : null;
@@ -167,6 +173,8 @@ function main() {
         report.inserted++;
       } catch (e) { report.errors.push(c.canon + ': ' + e.message); }
     }
+    if (report.errors.length) { try { conn.exec('ROLLBACK'); } catch (e2) { /* ignore */ } report.rolled_back = true; report.inserted = 0; console.error('!! 写入出现 ' + report.errors.length + ' 处错误 ⇒ 已 ROLLBACK（整批不落）'); }
+    else { conn.exec('COMMIT'); report.committed = true; }
   }
   const p = path.join(REPORT_DIR, 'odds-questions-report-' + nowIso.slice(0, 10) + '.json');
   fs.mkdirSync(path.dirname(p), { recursive: true });
