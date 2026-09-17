@@ -18,7 +18,7 @@
  *
  * 首版形态（实施选择，已在收据声明）：**每场 1 题＝「主队获胜」二值题**；三路口径（主/平/客）与逐家原始赔率
  *   **全部留档在 evidence.marketPrice** 与快照文件里 ⇒ 日后扩平局/客胜题**不必重取**。
- * 用法：node p1b/scripts/odds-questions.cjs [--confirm] [--max 24] [--cap 100] [--league soccer_epl] [--db <path>] [--snapshots <file>]
+ * 用法：node p1b/scripts/odds-questions.cjs [--confirm] [--max 24] [--cap 100] [--league soccer_epl] [--db <path>] [--snapshots <file>] [--report-dir <dir>]
  */
 const fs = require('fs');
 const path = require('path');
@@ -32,6 +32,7 @@ const LEAGUE = arg('league', 'soccer_epl');
 const SNAPSHOTS = arg('snapshots', path.join(ROOT, 'p1b', 'sim', 'out', 'odds-snapshots-' + LEAGUE + '.jsonl'));
 const DB_ARG = arg('db', null);
 const MAX_PER_RUN = Number(arg('max', '24'));
+const REPORT_DIR = arg('report-dir', path.join(ROOT, '.scratch', 'backtest'));   // ★报告目录可注入（测试须写 tmp，禁覆盖仓库产物）
 const CAP = Number(arg('cap', '100'));   // 首版上限（取自草案 §3 的配额讨论：≈100 题量级）
 const LO = 0.15, HI = 0.85;
 const KIND = 'oddsapi_h2h';
@@ -167,7 +168,7 @@ function main() {
       } catch (e) { report.errors.push(c.canon + ': ' + e.message); }
     }
   }
-  const p = path.join(ROOT, '.scratch', 'backtest', 'odds-questions-report-' + nowIso.slice(0, 10) + '.json');
+  const p = path.join(REPORT_DIR, 'odds-questions-report-' + nowIso.slice(0, 10) + '.json');
   fs.mkdirSync(path.dirname(p), { recursive: true });
   fs.writeFileSync(p, JSON.stringify(report, null, 1), 'utf8');
   console.log('=== 赔率题出题器（' + LEAGUE + ' · 首版 ' + KIND + '）===');

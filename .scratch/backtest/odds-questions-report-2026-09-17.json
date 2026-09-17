@@ -1,12 +1,12 @@
 {
- "run_at": "2026-09-17T09:44:51.094Z",
+ "run_at": "2026-09-17T09:46:34.700Z",
  "league": "soccer_epl",
- "snapshots": "C:\\Users\\crx\\AppData\\Local\\Temp\\p1b-odds-XCx8gf\\odds-snapshots-soccer_epl.jsonl",
+ "snapshots": "E:\\music player\\p1b\\sim\\out\\odds-snapshots-soccer_epl.jsonl",
  "snapshots_batches": 1,
  "confirm": false,
  "dry_run": true,
- "now": "2026-09-17T09:44:51.094Z",
- "candidates": 1,
+ "now": "2026-09-17T09:46:34.700Z",
+ "candidates": 20,
  "skipped": {
   "past_kickoff": 0,
   "snapshot_after_kickoff": 0,
@@ -14,18 +14,10 @@
   "out_of_band": 0,
   "dup_in_batch": 0
  },
- "existing_kind_rows": 0,
+ "existing_kind_rows": 20,
  "cap": 100,
  "max_per_run": 24,
- "picked": [
-  {
-   "canon": "{\"commence_utc\":\"2026-09-25T15:00:00Z\",\"kind\":\"oddsapi_h2h\",\"league\":\"soccer_epl\",\"match_id\":\"mm1\",\"pick\":\"home\",\"snapshot_utc\":\"2026-09-17T07:24:46.199Z\"}",
-   "statement": "【forward】英超 X vs Y（2026-09-25 开赛）主队获胜",
-   "prob": 0.4,
-   "lead_hours": 199.59,
-   "matures_at": "2026-09-25"
-  }
- ],
+ "picked": [],
  "inserted": 0,
  "errors": []
 }

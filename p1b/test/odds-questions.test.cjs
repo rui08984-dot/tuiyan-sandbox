@@ -96,8 +96,11 @@ test('⑤ CLI dry-run：合成迷你库零写 ＋ 报告落盘；require 零副�
   fs.writeFileSync(snap, JSON.stringify({ snapshot_utc: '2026-09-17T07:24:46.199Z', league: 'soccer_epl', matches: [
     { id: 'mm1', commence_utc: '2026-09-25T15:00:00Z', home: 'X', away: 'Y', consensus: { n_books: 3, probs_mean: [0.4, 0.3, 0.3] } }] }) + '\n', 'utf8');
 
-  const out = execFileSync(process.execPath, [SCRIPT, '--db', mini, '--snapshots', snap], { encoding: 'utf8' });
+  const out = execFileSync(process.execPath, [SCRIPT, '--db', mini, '--snapshots', snap, '--report-dir', tmpDir], { encoding: 'utf8' });
   assert.ok(/DRY-RUN/.test(out) && /候选 1/.test(out), 'dry-run 应报候选且不写库: ' + out.slice(0, 160));
+  // ★回归锁（2026-09-17 实测缺陷）：首版测试**未传 --report-dir** ⇒ 报告写到默认 .scratch/backtest/ ⇒ **覆盖仓库里的生产运行报告**
+  //   （同族：§(八) 顶层写盘＋require、§80 误打生产 —— 纪律「输入/输出目录必须解耦」）。
+  assert.ok(fs.readdirSync(tmpDir).some((x) => /^odds-questions-report-/.test(x)), '★报告须落 --report-dir（tmp），不得写仓库');
   const d2 = new DatabaseSync(mini, { readOnly: true });
   assert.equal(d2.prepare('SELECT COUNT(*) c FROM predictions').get().c, 0, 'dry-run 不得写行');
   assert.equal(d2.prepare('SELECT COUNT(*) c FROM games').get().c, 0, 'dry-run 不得建容器局');
