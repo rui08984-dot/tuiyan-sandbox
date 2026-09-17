@@ -1,0 +1,214 @@
+{
+ "script": "p1b/scripts/e2-combo-precheck.cjs",
+ "basis": "PREREG-E2-路由分配-v1.md §3（§3.1 ρ̂／§3.2 歧义分解／§3.3 RES 准入门／§3.4 一致率）",
+ "anchors": [
+  "DOI 10.1057/jors.1969.103",
+  "Krogh-Vedelsby 1995（教科书级）",
+  "DOI 10.1023/a:1022859003006",
+  "Murphy 1973"
+ ],
+ "generated_at": "2026-09-17T06:21:10.430Z",
+ "discipline": {
+  "ledger_write": false,
+  "llm": false,
+  "network": false
+ },
+ "difference_vs_old_precheck": "旧件 e2-shadow-score.cjs 按 layer 门控引擎 ⇒ 「重叠 0 题」是脚本构造产物；本件为全引擎可用性矩阵（每题试遍 5 引擎）。",
+ "does_not_change_frozen_criteria": "是否据本件改写 PREREG §3.0「R3 不启动」＝版本递进（须拍板）；本件只测量。",
+ "threshold_rho_kill": 0.95,
+ "min_pair_n": 10,
+ "cohort_rows": 1202,
+ "engine_count_distribution": {
+  "0": 27,
+  "1": 237,
+  "2": 935,
+  "3": 3
+ },
+ "multi_engine_items": 938,
+ "pair_population": {
+  "L1×L6": 240,
+  "L2×L3": 695,
+  "L2×L3×L5": 3
+ },
+ "pair_population_by_layer": {
+  "L1｜L1×L6": 180,
+  "L6｜L1×L6": 60,
+  "L3｜L2×L3": 399,
+  "L5｜L2×L3×L5": 3,
+  "L2｜L2×L3": 296
+ },
+ "domain_unknown_rows": 0,
+ "rho_precheck": [
+  {
+   "pair": "L1×L6",
+   "n": 240,
+   "rho_hat": 0.011469153108492005,
+   "ci95": {
+    "lo": -0.07533020491120246,
+    "hi": 0.10769503384897376,
+    "B": 1000,
+    "seed": 987654321
+   },
+   "identical_outputs": false,
+   "zero_variance": false,
+   "decision": "不停用（ρ̂ CI 下界 < 0.95）"
+  },
+  {
+   "pair": "L2×L3",
+   "n": 695,
+   "rho_hat": 1,
+   "ci95": {
+    "lo": 1,
+    "hi": 1,
+    "B": 1000,
+    "seed": 987654321
+   },
+   "identical_outputs": true,
+   "zero_variance": false,
+   "decision": "该域组合臂判死（ρ̂ CI 下界 ≥ 0.95）"
+  },
+  {
+   "pair": "L2×L3×L5",
+   "n": 3,
+   "rho_hat": 1,
+   "ci95": {
+    "lo": 1,
+    "hi": 1,
+    "B": 1000,
+    "seed": 987654321
+   },
+   "identical_outputs": true,
+   "zero_variance": false,
+   "decision": "该域组合臂判死（ρ̂ CI 下界 ≥ 0.95）"
+  }
+ ],
+ "res_gate": [
+  {
+   "engine": "L1",
+   "n": 240,
+   "RES": 0.14751041666666667,
+   "ci95_RES": {
+    "lo": 0.122067569870484,
+    "hi": 0.17268547661870504,
+    "B": 1000,
+    "seed": 987654321
+   },
+   "REL": 0.026694444444444444,
+   "UNC": 0.2499826388888889,
+   "brier": 0.12916666666666668,
+   "eligible": true,
+   "verdict": "进混合池（RES CI 下界 > 0）"
+  },
+  {
+   "engine": "L2",
+   "n": 698,
+   "RES": 0.008578818274344306,
+   "ci95_RES": {
+    "lo": 0.00477130177345229,
+    "hi": 0.018090506040033334,
+    "B": 1000,
+    "seed": 987654321
+   },
+   "REL": 0.004888415296285147,
+   "UNC": 0.24909483501777488,
+   "brier": 0.24456468658748579,
+   "eligible": true,
+   "verdict": "进混合池（RES CI 下界 > 0）"
+  },
+  {
+   "engine": "L3",
+   "n": 698,
+   "RES": 0.008578818274344306,
+   "ci95_RES": {
+    "lo": 0.00477130177345229,
+    "hi": 0.018090506040033334,
+    "B": 1000,
+    "seed": 987654321
+   },
+   "REL": 0.004888415296285147,
+   "UNC": 0.24909483501777488,
+   "brier": 0.24456468658748579,
+   "eligible": true,
+   "verdict": "进混合池（RES CI 下界 > 0）"
+  },
+  {
+   "engine": "L5",
+   "n": 30,
+   "RES": 0.022461456671982988,
+   "ci95_RES": {
+    "lo": 0.0003402445507708666,
+    "hi": 0.08962962962962961,
+    "B": 1000,
+    "seed": 987654321
+   },
+   "REL": 0.01738799481009133,
+   "UNC": 0.1388888888888889,
+   "brier": 0.13381542702699725,
+   "eligible": true,
+   "verdict": "进混合池（RES CI 下界 > 0）"
+  },
+  {
+   "engine": "L6",
+   "n": 450,
+   "RES": 0.08856762363300205,
+   "ci95_RES": {
+    "lo": 0.0716036536820006,
+    "hi": 0.11173010348975261,
+    "B": 1000,
+    "seed": 987654321
+   },
+   "REL": 0.02197359726500813,
+   "UNC": 0.24691358024691357,
+   "brier": 0.17938786719019778,
+   "eligible": true,
+   "verdict": "进混合池（RES CI 下界 > 0）"
+  }
+ ],
+ "ambiguity_decomposition": [
+  {
+   "pair": "L1×L6",
+   "n": 240,
+   "E_members": 0.15912691730096454,
+   "E_ensemble": 0.10732039406714897,
+   "A": 0.05180652323381561,
+   "expected_gain": 0.05180652323381557,
+   "skill_gap": 0.13423262577317707,
+   "net_gain": -0.08242610253936146,
+   "identity_residual": 1.4839113734084938e-17,
+   "read": "净增益 ≤ 0（组合不如直接挑最佳成员）"
+  },
+  {
+   "pair": "L2×L3",
+   "n": 695,
+   "E_members": 0.24456468658748579,
+   "E_ensemble": 0.24456468658748579,
+   "A": 0,
+   "expected_gain": 0,
+   "skill_gap": 0,
+   "net_gain": 0,
+   "identity_residual": 0,
+   "read": "净增益 ≤ 0（组合不如直接挑最佳成员）"
+  },
+  {
+   "pair": "L2×L3×L5",
+   "n": 3,
+   "E_members": 0.24456468658748579,
+   "E_ensemble": 0.24456468658748579,
+   "A": 0,
+   "expected_gain": 0,
+   "skill_gap": 0,
+   "net_gain": 0,
+   "identity_residual": 0,
+   "read": "净增益 ≤ 0（组合不如直接挑最佳成员）"
+  }
+ ],
+ "not_run": {
+  "s32_falsification_spearman": "须下游实测 ΔBrier ⇒ n/a",
+  "s34_agreement_70pct": "须实测增益域集合 ⇒ n/a"
+ },
+ "bootstrap": {
+  "B": 1000,
+  "seed": 987654321,
+  "method": "按题配对重采样·百分位法"
+ }
+}
