@@ -278,6 +278,17 @@
    "delta_ci95": null
   },
   {
+   "layer": "L2",
+   "domain": "oddsapi",
+   "scored_n": 0,
+   "conclusion_allowed": false,
+   "mean_p": null,
+   "obs_rate": null,
+   "brier_engine": null,
+   "delta_vs_half": null,
+   "delta_ci95": null
+  },
+  {
    "layer": "L3",
    "domain": "openmeteo",
    "scored_n": 498,
@@ -307,22 +318,22 @@
   },
   {
    "layer": "L3",
-   "domain": "noaa",
-   "scored_n": 6,
+   "domain": "usgs",
+   "scored_n": 10,
    "conclusion_allowed": false,
    "mean_p": null,
-   "obs_rate": 0.6666666666666666,
+   "obs_rate": 0.3,
    "brier_engine": null,
    "delta_vs_half": null,
    "delta_ci95": null
   },
   {
    "layer": "L3",
-   "domain": "usgs",
+   "domain": "noaa",
    "scored_n": 6,
    "conclusion_allowed": false,
    "mean_p": null,
-   "obs_rate": 0.5,
+   "obs_rate": 0.6666666666666666,
    "brier_engine": null,
    "delta_vs_half": null,
    "delta_ci95": null
@@ -395,8 +406,8 @@
    }
   }
  ],
- "generated_at": "2026-09-17T07:46:42.058Z",
- "cells_total": 28,
+ "generated_at": "2026-09-17T12:47:16.713Z",
+ "cells_total": 29,
  "cells_with_conclusion": 8,
  "u8_columns_file": "E:\\music player\\p1b\\sim\\out\\u8-columns-20260917.json",
  "u8_columns_present": true,
@@ -409,8 +420,8 @@
   },
   "L3": {
    "max_gap": 0.234031144641,
-   "gap_at_half": 0.0020198734674035934,
-   "reorder_rho": 0.973141563247954,
+   "gap_at_half": 0.0023091775751983012,
+   "reorder_rho": 0.9732055844394457,
    "months": 1
   },
   "L5": {

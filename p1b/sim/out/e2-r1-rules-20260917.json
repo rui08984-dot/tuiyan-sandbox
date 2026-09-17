@@ -4,7 +4,7 @@
  "rules_sha256": "e0331cf8e7237a8a0b6eed9f6393866d9b6008e2a64210f723fc699beeceb4bf",
  "rules_match": true,
  "basis": "PREREG-E2 §2 R1 行 ＋ 11 号件 §⑧ M5① ＋ design §1.2 优先级 ＋ 19 号件 §3 裁决三",
- "generated_at": "2026-09-17T07:56:19.166Z",
+ "generated_at": "2026-09-17T12:51:22.573Z",
  "discipline": {
   "ledger_write": false,
   "llm": false,
@@ -21,9 +21,9 @@
   "L2"
  ],
  "min_n": 30,
- "cohort": 1385,
+ "cohort": 1389,
  "r1a_counts": {
-  "no-op": 1355,
+  "no-op": 1359,
   "reassign": 0,
   "downgrade": 30
  },
@@ -145,6 +145,14 @@
    "reason": "n<30（K F13 准入线）"
   },
   {
+   "cell": "L3/usgs",
+   "n": 10,
+   "RES": null,
+   "ci95_RES_lo": null,
+   "kept": false,
+   "reason": "n<30（K F13 准入线）"
+  },
+  {
    "cell": "L2/npm",
    "n": 7,
    "RES": null,
@@ -170,14 +178,6 @@
   },
   {
    "cell": "L3/noaa",
-   "n": 6,
-   "RES": null,
-   "ci95_RES_lo": null,
-   "kept": false,
-   "reason": "n<30（K F13 准入线）"
-  },
-  {
-   "cell": "L3/usgs",
    "n": 6,
    "RES": null,
    "ci95_RES_lo": null,
@@ -217,9 +217,9 @@
    "reason": "n<30（K F13 准入线）"
   }
  ],
- "r1b_downgraded_questions": 142,
+ "r1b_downgraded_questions": 146,
  "r1_scoreable_after": {
-  "phase_a": 1355,
+  "phase_a": 1359,
   "after_b": 1213
  },
  "bootstrap": {

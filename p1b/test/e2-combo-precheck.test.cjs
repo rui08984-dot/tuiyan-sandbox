@@ -70,8 +70,9 @@ test('④ 真实件：矩阵／两对／判决自洽／RES 门／三零／零副
   execFileSync(process.execPath, [SCRIPT, '--out-dir', tmpDir, '--boot', '200'], { encoding: 'utf8' });
   assert.equal(sha(PROD), before, '生产库被改动（应零写库）');
   const j = JSON.parse(fs.readFileSync(path.join(tmpDir, 'e2-combo-precheck-20260917.json'), 'utf8'));
-  // ★ 数据标记（随账本增长更新）：2026-09-17 到期题结算 183 条 ⇒ 队列 1202 → 1385（读数前进，非口径变更）
-  assert.equal(j.cohort_rows, 1385, '队列应与 PREREG §1 池口径一致: ' + j.cohort_rows);
+  // ★ 数据标记（随账本增长更新）：2026-09-17 到期题结算 183 条 ⇒ 队列 1202 → 1385；
+  //   同日（二十）批再结 4 条（L3 USGS）⇒ 1385 → 1389（读数前进，非口径变更）
+  assert.equal(j.cohort_rows, 1389, '队列应与 PREREG §1 池口径一致: ' + j.cohort_rows);
   assert.ok(j.multi_engine_items >= 30, '多引擎题应 ≥30（R3 可估前提）: ' + j.multi_engine_items);
   const pairs = Object.keys(j.pair_population);
   assert.ok(pairs.some((k) => k.indexOf('L1') !== -1 && k.indexOf('L6') !== -1), 'L1×L6 对应在: ' + JSON.stringify(pairs));
