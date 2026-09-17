@@ -49,6 +49,70 @@ function r1aDecide(assignedLayer, keys) {
   return { action: 'downgrade', layer: null, reason: '无任何可估引擎（A(q)=∅）' };
 }
 
+/**
+ * R1 全流程（纯函数，零副作用）——★ 单一实现：影子评分臂（`e2-shadow-score.cjs`）直接 require 本函数，
+ * 禁写第二份 R1-A/R1-B（冻结件 §1-A1「同一实现」；与 `buildEngineMatrix` 同一纪律）。
+ * ① R1-A 逐题判定 ② R1-B 格审计（layer×domain；n<MIN_N 或 RES CI 下界 ≤0 ⇒ 整格降档）
+ * ③ 逐题落点（action≠downgrade 且其格保留 ⇒ 进 R1 臂计分；否则降档 ⇒ 只剩 shadow 评分）
+ * @param {Array} items 矩阵题（buildEngineMatrix().items；元素含 id/layer/domain/eng/keys/y）
+ * @param {Object} [opts] { combo：combo-precheck 模块（含 murphyRes/bootCI）；minN；B；seed }
+ */
+function r1Plan(items, opts) {
+  const o = opts || {};
+  const M = o.combo || require(path.join(ROOT, 'p1b', 'scripts', 'e2-combo-precheck.cjs'));
+  const minN = o.minN === undefined ? MIN_N : o.minN;
+  const NB = o.B === undefined ? 1000 : o.B;
+  const SEED = o.seed === undefined ? 987654321 : o.seed;
+
+  const counts = { 'no-op': 0, reassign: 0, downgrade: 0 };
+  const reassignBy = {}, noEngineByLayer = {};
+  for (const it of items) {
+    const d = r1aDecide(it.layer, it.keys);
+    counts[d.action]++;
+    if (d.action === 'reassign') { const k = it.layer + '→' + d.layer; reassignBy[k] = (reassignBy[k] || 0) + 1; }
+    if (d.action === 'downgrade') noEngineByLayer[it.layer] = (noEngineByLayer[it.layer] || 0) + 1;
+    it.r1a = d;
+  }
+  const cells = {};
+  for (const it of items) {
+    if (it.r1a.action === 'downgrade') continue;
+    const L = it.r1a.layer, k = L + '/' + it.domain;
+    if (!cells[k]) cells[k] = { layer: L, n: 0, ps: [], ys: [] };
+    const p = it.eng[L]; if (p === undefined) continue;
+    cells[k].n++; cells[k].ps.push(p); cells[k].ys.push(it.y);
+  }
+  const r1b = [];
+  let downgradeByR1B = 0;
+  for (const [k, c] of Object.entries(cells)) {
+    const enough = c.n >= minN;
+    let resLo = null, res = null;
+    if (enough) {
+      const pt = M.murphyRes(c.ps, c.ys); res = pt.res;
+      const ci = M.bootCI(c.ps.map((p, i) => ({ p: p, y: c.ys[i] })), (s) => { const m = M.murphyRes(s.map((x) => x.p), s.map((x) => x.y)); return m.res === null ? 0 : m.res; }, NB, SEED);
+      resLo = ci.lo;
+    }
+    const keep = enough && resLo !== null && resLo > 0;
+    if (!keep) downgradeByR1B += c.n;
+    r1b.push({ cell: k, n: c.n, RES: res, ci95_RES_lo: resLo, kept: keep,
+      reason: !enough ? 'n<' + minN + '（K F13 准入线）' : (resLo !== null && resLo <= 0 ? 'RES CI 下界 ≤ 0（无分辨力）' : '') });
+  }
+  const cellKept = {}; for (const r of r1b) cellKept[r.cell] = r.kept;
+  const perItem = {};
+  for (const it of items) {
+    const d = it.r1a;
+    const cell = d.layer ? d.layer + '/' + it.domain : null;
+    const kept = d.action !== 'downgrade' && cellKept[cell] === true;
+    perItem[it.id] = { action: d.action, layer: d.layer, cell: cell, kept: kept,
+      r1Layer: kept && d.layer ? d.layer : null, reason: d.reason };
+  }
+  const r1aKeep = items.length - counts.downgrade;
+  const afterB = r1b.filter((r) => r.kept).reduce((s, r) => s + r.n, 0);
+  return { counts: counts, reassignBy: reassignBy, noEngineByLayer: noEngineByLayer,
+    cells: r1b, cellKept: cellKept, perItem: perItem,
+    downgradedQuestions: downgradeByR1B, scoreableAfter: { phase_a: r1aKeep, after_b: afterB },
+    minN: minN, B: NB, seed: SEED };
+}
+
 // ── 主流程（只在 CLI 直跑；require 不写盘、不读库） ───────────────────────────
 function main() {
   // ① 冻结核验（调冻结工具，保持 sha 口径单一真源）
@@ -62,42 +126,10 @@ function main() {
   const mat = M.buildEngineMatrix(DB_PATH);
   const items = mat.items;
 
-  // ③ R1-A 逐题判定
-  const counts = { 'no-op': 0, reassign: 0, downgrade: 0 };
-  const reassignBy = {};
-  const noEngineByLayer = {};
-  for (const it of items) {
-    const d = r1aDecide(it.layer, it.keys);
-    counts[d.action]++;
-    if (d.action === 'reassign') { const k = it.layer + '→' + d.layer; reassignBy[k] = (reassignBy[k] || 0) + 1; }
-    if (d.action === 'downgrade') noEngineByLayer[it.layer] = (noEngineByLayer[it.layer] || 0) + 1;
-    it.r1a = d;
-  }
-
-  // ④ R1-B 低信号格（layer×domain；格内 n<30 或 格引擎 RES 的 CI 下界 ≤ 0）
-  const cells = {};
-  for (const it of items) {
-    if (it.r1a.action === 'downgrade') continue;
-    const L = it.r1a.layer, k = L + '/' + it.domain;
-    if (!cells[k]) cells[k] = { layer: L, n: 0, ps: [], ys: [] };
-    const p = it.eng[L]; if (p === undefined) continue;
-    cells[k].n++; cells[k].ps.push(p); cells[k].ys.push(it.y);
-  }
-  const r1b = [];
-  let downgradeByR1B = 0;
-  for (const [k, c] of Object.entries(cells)) {
-    const enough = c.n >= MIN_N;
-    let resLo = null, res = null;
-    if (enough) {
-      const pt = M.murphyRes(c.ps, c.ys); res = pt.res;
-      const ci = M.bootCI(c.ps.map((p, i) => ({ p: p, y: c.ys[i] })), (s) => { const m = M.murphyRes(s.map((x) => x.p), s.map((x) => x.y)); return m.res === null ? 0 : m.res; }, NB, SEED);
-      resLo = ci.lo;
-    }
-    const keep = enough && resLo !== null && resLo > 0;
-    if (!keep) downgradeByR1B += c.n;
-    r1b.push({ cell: k, n: c.n, RES: res, ci95_RES_lo: resLo, kept: keep,
-      reason: !enough ? 'n<' + MIN_N + '（K F13 准入线）' : (resLo !== null && resLo <= 0 ? 'RES CI 下界 ≤ 0（无分辨力）' : '') });
-  }
+  // ③＋④ R1-A 逐题判定 ＋ R1-B 低信号格降档 —— ★纯函数 r1Plan（影子评分臂直接 require 同一实现）
+  const plan = r1Plan(items, { combo: M, minN: MIN_N, B: NB, seed: SEED });
+  const counts = plan.counts, reassignBy = plan.reassignBy, noEngineByLayer = plan.noEngineByLayer;
+  const r1b = plan.cells, downgradeByR1B = plan.downgradedQuestions;
 
   const total = items.length;
   const f6 = (x) => (x === null || x === undefined || !isFinite(x)) ? 'n/a' : Number(x).toFixed(6);
@@ -133,8 +165,8 @@ function main() {
   L.push('');
   L.push('## 4. R1 后的可计分人口（描述性，非读数）');
   L.push('');
-  const r1aKeep = total - counts.downgrade;
-  const afterB = r1b.filter((r) => r.kept).reduce((s, r) => s + r.n, 0);
+  const r1aKeep = plan.scoreableAfter.phase_a;
+  const afterB = plan.scoreableAfter.after_b;
   L.push('- R1-A 后仍可估：**' + r1aKeep + '** 题（no-op ' + counts['no-op'] + ' ＋ 改层 ' + counts.reassign + '）');
   L.push('- 再经 R1-B：**保留格题数 ' + afterB + '** 题进 R1 臂计分；其余降档 descriptive（进 shadow，M5⑤）。');
   L.push('- **本件到此为止**：R1 臂 vs R0 的任何 Brier/对数分读数**未跑、也不在此件**。');
@@ -174,5 +206,5 @@ function main() {
   console.log('json/md -> ' + OUT_DIR);
 }
 
-module.exports = { r1aDecide, PRIORITY, MIN_N };
+module.exports = { r1aDecide, r1Plan, PRIORITY, MIN_N };
 if (require.main === module) { main(); }

@@ -104,7 +104,9 @@ function buildEngineMatrix(dbPath) {
   const { DatabaseSync } = require('node:sqlite');
   const db = new DatabaseSync(dbPath, { readOnly: true });
   const REGIME = "p.g2_regime='R4'", NOT_TB = truthBasis.NOT_TRUTH_BASIS_DEFECT_SQL();
-  const rows = db.prepare('SELECT p.id, p.layer, p.outcome, p.game_id, p.statement, '
+  // p.created_at / p.resolved_at：★ additive 补字段（2026-09-17，供 E2 影子评分的 R3 双臂 walk-forward 时序锚用）；
+  //   已解行 resolved_at 全非空（实测 1483/1483）⇒ 可作「t 题只用 resolved_at<t 的结局」的时序键。
+  const rows = db.prepare('SELECT p.id, p.layer, p.outcome, p.game_id, p.statement, p.created_at, p.resolved_at, '
     + "(SELECT json_extract(e.value,'$.baseRateNote') FROM json_each(p.evidence_json) e WHERE json_extract(e.value,'$.baseRateNote') IS NOT NULL LIMIT 1) AS brn, "
     + "(SELECT json_extract(e.value,'$.baseRate') FROM json_each(p.evidence_json) e WHERE json_extract(e.value,'$.baseRate') IS NOT NULL LIMIT 1) AS brs, "
     + "(SELECT json_extract(e.value,'$.certifiedSource') FROM json_each(p.evidence_json) e WHERE json_extract(e.value,'$.certifiedSource') IS NOT NULL LIMIT 1) AS cs, "
@@ -150,7 +152,8 @@ function buildEngineMatrix(dbPath) {
     const o5 = l5Certified({ certifiedSource: cs }); if (o5 && o5.ok) eng.L5 = o5.p;
     const o6 = l6Structural({ verdicts: verdictsOf(r.id) }); if (o6 && o6.ok) eng.L6 = o6.p;
     items.push({ id: r.id, layer: r.layer, y: String(r.outcome) === 'true' ? 1 : 0, eng: eng, keys: Object.keys(eng),
-      domain: domMod.domainOf ? null : null, gtype: gg.game_type, rkind: r.rkind, ekind: r.ekind });
+      domain: domMod.domainOf ? null : null, gtype: gg.game_type, rkind: r.rkind, ekind: r.ekind,
+      created_at: r.created_at, resolved_at: r.resolved_at });
   }
   // 域（照 domain.js 单一真源：resolve.kind → evidence kind → game_type → (unknown)）
   let domFailed = 0;
