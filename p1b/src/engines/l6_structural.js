@@ -16,12 +16,29 @@
  */
 const VARIANTS = ['v1_evidence', 'v2_skeptical', 'v3_baserate'];
 
+/**
+ * ★实验命名空间登记表（2026-09-17 · 第十九批 additive）：凡 `run_id` 前缀命中者，**生产聚合一律排除**。
+ *
+ * 理由（实测事故形状）：`verdicts` 表支持多批并存（唯一索引含 `run_id`），而本引擎原按「每变体取 **id 最大**」
+ *   选行 ⇒ **任何实验批的新行都会静默成为生产输入**。实测：把 9 臂解耦批（`decouple9-*`）写进表会让
+ *   **37/38 道锚题**的 L6 读数改变（平均 |Δp| 0.0753），且非对角臂（如 v1@1.0）会被当作该变体的读数。
+ *
+ * 纪律：① 登记项**只增不减**（删＝改历史口径）；② 新增登记＝**版本递进**，须在收据/留痕留痕；
+ *   ③ 调用方**必须**在 SQL 里选出 `run_id`（否则本规则无从生效）——已有**接线锁测试**钉死三处调用点。
+ */
+const EXPERIMENT_RUN_PREFIXES = ['decouple9-'];
+function isExperimentRun(runId) {
+  const s = String(runId === null || runId === undefined ? '' : runId);
+  return EXPERIMENT_RUN_PREFIXES.some((p) => s.indexOf(p) === 0);
+}
+
 function l6Structural(input) {
   const vs = Array.isArray(input && input.verdicts) ? input.verdicts : [];
   const latest = {};
-  let rows = 0;
+  let rows = 0, excluded = 0;
   for (const v of vs) {
     if (!v) continue;
+    if (isExperimentRun(v.run_id)) { excluded++; continue; }   // ★实验批不进生产聚合
     const k = String(v.prompt_variant);
     if (VARIANTS.indexOf(k) === -1) continue;
     const p = Number(v.implied_prob);
@@ -35,7 +52,7 @@ function l6Structural(input) {
   for (const k of VARIANTS) variants[k] = latest[k] ? latest[k].p : null;
   if (!avail.length) {
     return { ok: false, status: 'no_verdicts', method: 'structural', p: null, n_variants: 0,
-      variants: variants, spread: null, verdict_rows: rows,
+      variants: variants, spread: null, verdict_rows: rows, excluded_experiment_rows: excluded,
       note: '该题无任何可用判词（implied_prob 全空/无行）⇒ 本层不出数（不编）。' };
   }
   const ps = avail.map((k) => latest[k].p);
@@ -43,10 +60,12 @@ function l6Structural(input) {
   return {
     ok: true, status: 'ok', method: 'structural', p: p, n_variants: avail.length, variants: variants,
     spread: { min: Math.min.apply(null, ps), max: Math.max.apply(null, ps) }, verdict_rows: rows,
+    excluded_experiment_rows: excluded,
     note: 'L6 对抗层：p＝**判词结构聚合**（每变体取最新非空 implied_prob，再对可用变体求均值；'
-      + 'n_variants=' + avail.length + '/3，spread=[' + Math.min.apply(null, ps) + ',' + Math.max.apply(null, ps) + ']，判词行 ' + rows + '）。'
+      + 'n_variants=' + avail.length + '/3，spread=[' + Math.min.apply(null, ps) + ',' + Math.max.apply(null, ps) + ']，判词行 ' + rows
+      + (excluded ? '，**已排除实验批 ' + excluded + ' 行**（登记表：' + EXPERIMENT_RUN_PREFIXES.join('/') + '）' : '') + '）。'
       + '这是对已有判词的**固定规则聚合**，不是新模型；判词多跑/旧行 provenance 属披露项。',
   };
 }
 
-module.exports = { l6Structural, VARIANTS };
+module.exports = { l6Structural, VARIANTS, EXPERIMENT_RUN_PREFIXES, isExperimentRun };

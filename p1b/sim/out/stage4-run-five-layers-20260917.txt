@@ -1,5 +1,5 @@
 阶段 4 · 分层预测真跑（L2/L5 最小引擎 × 真实账本）
-库: E:\music player\p1a-terminal\data\p1a.db | 行域: p.g2_regime = 'R4' | 生成: 2026-09-17T12:46:49.386Z
+库: E:\music player\p1a-terminal\data\p1a.db | 行域: p.g2_regime = 'R4' | 生成: 2026-09-17T14:27:10.797Z
 口径: L2=统计基率+Wilson；L5=认证源公布分布；仅对已 resolve 行计分；分层报禁跨层池化；ECE 恒挂双标注
 
 [L1] 账本行 180 | 引擎出数 180 | 未出数 0（—）| 可计分 180

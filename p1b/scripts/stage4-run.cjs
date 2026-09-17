@@ -126,7 +126,8 @@ function eventsOf(gid) { if (!evCache.has(gid)) evCache.set(gid, stEv.all(gid));
 function claimsOf(gid) { if (!clCache.has(gid)) clCache.set(gid, stCl.all(gid)); return clCache.get(gid); }
 function pcOf(gid) { if (!pcCache.has(gid)) { const r = stPc.get(gid); pcCache.set(gid, r ? r.player_count : null); } return pcCache.get(gid); }
 // L6 判词供给（只读；按题缓存）
-const stV = db.prepare('SELECT id, prompt_variant, implied_prob FROM verdicts WHERE prediction_id = ? ORDER BY id');
+// ★必须选出 run_id（2026-09-17）：l6Structural 按「实验命名空间登记表」排除实验批——不选 run_id 该规则无从生效。
+const stV = db.prepare('SELECT id, prompt_variant, implied_prob, run_id FROM verdicts WHERE prediction_id = ? ORDER BY id');
 const vCache = new Map();
 function verdictsOf(pid) { if (!vCache.has(pid)) vCache.set(pid, stV.all(pid)); return vCache.get(pid); }
 

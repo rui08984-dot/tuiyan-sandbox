@@ -120,7 +120,7 @@ const fb = db.prepare('SELECT p.id, p.outcome, '
 const L3FB = []; for (const r of fb) { let st = null; try { st = r.brs ? JSON.parse(r.brs) : null; } catch (e) { st = null; }
   if (st && baseRateMod.isStructured(st) && st.n !== null && st.k !== null) { L3FB.push({ p: st.p, y: String(r.outcome) === 'true' ? 1 : 0 }); continue; }
   const q = parseBaseRateNote(String(r.brn || '')); if (q) L3FB.push({ p: q.p, y: String(r.outcome) === 'true' ? 1 : 0 }); }
-const stV = db.prepare('SELECT prompt_variant, implied_prob FROM verdicts WHERE prediction_id = ? ORDER BY id');
+const stV = db.prepare('SELECT prompt_variant, implied_prob, run_id FROM verdicts WHERE prediction_id = ? ORDER BY id');
 const items = { L2: [], L3: [], L5: [], L6: [] }; let failed = {};
 for (const r of rows) {
   const y = String(r.outcome) === 'true' ? 1 : 0;

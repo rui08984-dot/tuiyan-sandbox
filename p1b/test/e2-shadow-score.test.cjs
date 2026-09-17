@@ -256,7 +256,7 @@ function buildMiniDb() {
   db.exec('CREATE TABLE games (id INTEGER PRIMARY KEY, player_count INTEGER, game_type TEXT)');
   db.exec('CREATE TABLE events (id INTEGER PRIMARY KEY, game_id INTEGER, seq INTEGER, day INTEGER, phase TEXT, type TEXT, actor_seat INTEGER, raw_text TEXT)');
   db.exec('CREATE TABLE claims (id INTEGER PRIMARY KEY, event_id INTEGER, predicate TEXT)');
-  db.exec('CREATE TABLE verdicts (id INTEGER PRIMARY KEY, prediction_id INTEGER, prompt_variant TEXT, implied_prob REAL)');
+  db.exec('CREATE TABLE verdicts (id INTEGER PRIMARY KEY, prediction_id INTEGER, prompt_variant TEXT, implied_prob REAL, run_id TEXT)');
   db.exec('CREATE TABLE predictions (id INTEGER PRIMARY KEY, game_id INTEGER, day INTEGER, source_type TEXT, statement TEXT,'
     + ' assigned_prob REAL, evidence_json TEXT, created_at TEXT, resolved_at TEXT, outcome TEXT, resolve_note TEXT,'
     + ' layer TEXT, secondary_layer TEXT, engine TEXT, baseline_brier REAL, public_exposure INTEGER, checklist_hash TEXT,'
@@ -264,8 +264,8 @@ function buildMiniDb() {
   db.exec("INSERT INTO games VALUES (1, 11, 'werewolf_sim_11p_tuicheng'), (2, 11, 'werewolf_sim_11p_tuicheng'), (3, 6, 'werewolf_sim_6p_onenight')");
   db.exec("INSERT INTO events VALUES (1, 1, 1, 1, 'day', 'speech', 1, '开场'), (2, 2, 1, 1, 'day', 'death', 3, '夜里死了 3 号'), (3, 3, 1, 1, 'day', 'speech', 1, '开场')");
   db.exec("INSERT INTO claims VALUES (1, 1, 'is_good')");
-  db.exec("INSERT INTO verdicts VALUES (1, 5, 'v1_evidence', 0.7), (2, 5, 'v2_skeptical', 0.5), (3, 5, 'v3_baserate', 0.6),"
-    + " (4, 8, 'v1_evidence', 0.4), (5, 8, 'v2_skeptical', 0.4), (6, 8, 'v3_baserate', 0.4)");
+  db.exec("INSERT INTO verdicts VALUES (1, 5, 'v1_evidence', 0.7, NULL), (2, 5, 'v2_skeptical', 0.5, NULL), (3, 5, 'v3_baserate', 0.6, NULL),"
+    + " (4, 8, 'v1_evidence', 0.4, NULL), (5, 8, 'v2_skeptical', 0.4, NULL), (6, 8, 'v3_baserate', 0.4, NULL)");
   const ins = db.prepare('INSERT INTO predictions (id, game_id, day, source_type, statement, evidence_json, created_at, resolved_at, outcome, resolve_note, layer, g2_regime, matures_at)'
     + ' VALUES (?, ?, 1, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
   // ★ evidence 须含 `resolve.kind`：真值口径过滤 SQL 的三条件 OR 链在 json_extract 为 NULL 时整式为 NULL ⇒ 行被静默排除

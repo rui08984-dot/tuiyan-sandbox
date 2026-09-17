@@ -118,7 +118,7 @@ function buildEngineMatrix(dbPath) {
   const evs = db.prepare('SELECT seq, day, phase, type, actor_seat, raw_text FROM events WHERE game_id = ? ORDER BY seq, id');
   const cls = db.prepare('SELECT e.day AS day, c.predicate AS predicate FROM claims c JOIN events e ON e.id = c.event_id WHERE e.game_id = ?');
   const pcs = db.prepare('SELECT player_count, game_type FROM games WHERE id = ?');
-  const vs = db.prepare('SELECT id, prompt_variant, implied_prob FROM verdicts WHERE prediction_id = ? ORDER BY id');
+  const vs = db.prepare('SELECT id, prompt_variant, implied_prob, run_id FROM verdicts WHERE prediction_id = ? ORDER BY id');
   const evc = {}, clc = {}, pcc = {}, vc = {};
   const eventsOf = (g) => evc[g] || (evc[g] = evs.all(g));
   const claimsOf = (g) => clc[g] || (clc[g] = cls.all(g));
