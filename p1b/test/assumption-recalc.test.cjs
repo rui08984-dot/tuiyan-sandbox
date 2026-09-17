@@ -71,3 +71,12 @@ test('④ 探索性标注恒挂＋禁词 0＋口径写明', () => {
   assert.ok(md.indexOf('预测') === -1, '正文出现禁词');
   assert.match(md, /CI 不重算/, '缺 CI 不重算声明');
 });
+
+test('⑤ require 零副作用：子进程 require 本件 ⇒ sim/out 不新增/不改动任何件', () => {
+  const SIMOUT = path.join(ROOT, 'p1b', 'sim', 'out');
+  const snap = () => fs.readdirSync(SIMOUT).sort()
+    .map((f) => { const s = fs.statSync(path.join(SIMOUT, f)); return f + ':' + s.size + ':' + s.mtimeMs; }).join('\n');
+  const before = snap();
+  execFileSync(process.execPath, ['-e', 'require(' + JSON.stringify(SCRIPT) + ')'], { encoding: 'utf8' });
+  assert.equal(snap(), before, 'require 脚本产生写盘副作用（主流程应只在 CLI 直跑时执行）');
+});

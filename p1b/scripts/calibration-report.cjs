@@ -130,10 +130,38 @@ if (u8 && u8.layers) {
   L.push('- n/a（缺 u8-columns 件：node p1b/scripts/u8-columns.cjs）');
 }
 L.push('');
-// ③c · 滞后集合 3 档秩检验（Watson）——如实 n/a 并说明缺什么（不编数）
-json.lag_rank_test = { available: false, reason: '逐对（城×lead）数据不在现有落盘件里（stage5 信号件只存汇总/判据，无逐对 lead 序列）⇒ 本件不编数；数据到位后按 Watson 统计量补节' };
+// ③c · 滞后集合 3 档秩检验（Watson）——2026-09-17 解锁：逐对件落盘后由「如实 n/a」改为**实读**
+//     （源件：`node p1b/scripts/stage5-rank-diagnostic.cjs`；本件仍零引擎重跑、只呈现）
+const RANK = latestByPattern(OUT_DIR, /^stage5-rank-diagnostic-\d{8}\.json$/, 'stage5-rank-diagnostic-20260917.json');
+const rank = readJson(RANK);
+json.lag_rank_test = {
+  available: !!(rank && rank.strata), file: RANK,
+  reason_unavailable: '逐对件缺失 ⇒ 不编数（复算入口：node p1b/scripts/stage5-rank-diagnostic.cjs）',
+  not_a_gate: '体检服不是引擎：不设生死判据、不进任何门控；m=2 ⇒ 3 档秩，功效极低，不得当能力宣称。',
+  erratum: rank ? rank.erratum_20260917 : null,
+};
 L.push('## 滞后集合 3 档秩检验（Watson）');
-L.push('- n/a：' + json.lag_rank_test.reason + '。');
+if (json.lag_rank_test.available) {
+  const f4 = (x) => (x === null || x === undefined || !isFinite(x)) ? 'n/a' : Number(x).toFixed(4);
+  json.lag_rank_test.strata = rank.strata;
+  json.lag_rank_test.leading_signal = rank.leading_signal;
+  L.push('');
+  L.push('> ' + json.lag_rank_test.not_a_gate);
+  L.push('');
+  L.push('| 层 | n | 秩1 | 秩2 | 秩3 | Watson U² | p(U²) | 倾斜 T=n₃−n₁ | p(T) | p(T)<0.10 |');
+  L.push('|---|---|---|---|---|---|---|---|---|---|');
+  for (const d of rank.strata) {
+    L.push('| ' + d.label + ' | ' + d.n + ' | ' + d.hist.r1 + ' | ' + d.hist.r2 + ' | ' + d.hist.r3 + ' | ' + f4(d.watson_u2)
+      + ' | ' + f4(d.perm_p_watson) + ' | ' + d.tilt_stat + ' | ' + f4(d.perm_p_tilt) + ' | ' + (d.tilt_sig ? '是' : '否') + ' |');
+  }
+  L.push('');
+  L.push('- 两统计量各答一问：U²＝秩分布是否不平；T＝是否**向同一端**倾斜（先导判据问的那一问）。');
+  L.push('- ' + json.lag_rank_test.erratum);
+  L.push('- 先导判据（' + rank.leading_signal.rule + '）：**' + (rank.leading_signal.holds ? '成立' : '不成立') + '** ⇒ ' + rank.leading_signal.action + '。');
+  L.push('- 逐对件与复算入口：`' + path.basename(RANK) + '`／`stage5-rank-pairs-*.jsonl`／`node p1b/scripts/stage5-rank-diagnostic.cjs`（三零：零账本写／零 LLM／零网络）。');
+} else {
+  L.push('- n/a：' + json.lag_rank_test.reason_unavailable + '。');
+}
 L.push('');
 // ③d · O7 最大熵注记（先验透明度声明）
 json.o7_maxent = { prior: 'Beta(1,1)', statement: '无信息进入时的起点＝均匀分布 Beta(1,1)（最大熵）——引擎在无证据行时的先验不是"拍脑袋的数"，而是熵最大的那个选择；证据行到达后由固定规则聚合改变它。' };
