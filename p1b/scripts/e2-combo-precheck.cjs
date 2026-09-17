@@ -35,6 +35,7 @@ const SEED = Number(arg('seed', '987654321'));
 const RHO_KILL = 0.95;          // §3.1 写死
 const MIN_PAIR_N = 10;          // §3.1/§3.3「格 n<10 不参与」
 const BINS = 10;
+const ENGINE_KEYS = ['L1', 'L2', 'L3', 'L5', 'L6'];   // 参与影子矩阵与 RES 门的引擎（L4 为叠加层、按设计不出数）
 
 // ── 纯函数区（可 require，零副作用） ─────────────────────────────────────────
 const mean = (a) => (a.length ? a.reduce((x, y) => x + y, 0) / a.length : null);
@@ -89,8 +90,8 @@ function bootCI(rows, fn, B, seed) {
   return { lo: q(0.025), hi: q(0.975), B: B, seed: seed };
 }
 
-// ── 主流程（只在 CLI 直跑；require 不写盘、不读库） ───────────────────────────
-function main() {
+// ── 全引擎可用性矩阵构建（★单一实现：R1 审计件 e2-r1-rules.cjs 直接 require 本函数，禁写第二份） ──
+function buildEngineMatrix(dbPath) {
   const truthBasis = require(path.join(ROOT, 'p1b/src/evidence/truthBasis'));
   const { l2Baseline } = require(path.join(ROOT, 'p1b/src/engines/l2_baseline'));
   const { l3Aci } = require(path.join(ROOT, 'p1b/src/engines/l3_aci'));
@@ -101,7 +102,7 @@ function main() {
   const domMod = require(path.join(ROOT, 'p1b/src/evidence/domain'));
 
   const { DatabaseSync } = require('node:sqlite');
-  const db = new DatabaseSync(DB_PATH, { readOnly: true });
+  const db = new DatabaseSync(dbPath, { readOnly: true });
   const REGIME = "p.g2_regime='R4'", NOT_TB = truthBasis.NOT_TRUTH_BASIS_DEFECT_SQL();
   const rows = db.prepare('SELECT p.id, p.layer, p.outcome, p.game_id, p.statement, '
     + "(SELECT json_extract(e.value,'$.baseRateNote') FROM json_each(p.evidence_json) e WHERE json_extract(e.value,'$.baseRateNote') IS NOT NULL LIMIT 1) AS brn, "
@@ -165,6 +166,13 @@ function main() {
   db.close();   // ★ 关库必须在取数循环之后（node:sqlite：close() 后预编译语句全失效）
   const pairPop = {};
   for (const it of multi) { const k = it.keys.slice().sort().join('×'); pairPop[k] = (pairPop[k] || 0) + 1; }
+  return { cohortRows: rows.length, items: items, multi: multi, pairPop: pairPop, pairByLayer: pairByLayer, domFailed: domFailed };
+}
+
+// ── 主流程（只在 CLI 直跑；require 不写盘、不读库） ───────────────────────────
+function main() {
+  const M = buildEngineMatrix(DB_PATH);
+  const cohortRows = M.cohortRows, items = M.items, multi = M.multi, pairPop = M.pairPop, pairByLayer = M.pairByLayer, domFailed = M.domFailed;
 
   // ── §3.1 组合增益预检（ρ̂：成员两两 Brier 误差相关） ──
   const rho = [];
@@ -229,7 +237,7 @@ function main() {
   L.push('');
   L.push('## 1. 全引擎影子矩阵');
   L.push('');
-  L.push('- 队列（PREREG §1 池口径：`g2_regime=\'R4\'` ＋ 真值口径排除 ＋ 已解）⇒ **' + rows.length + ' 行**。');
+  L.push('- 队列（PREREG §1 池口径：`g2_regime=\'R4\'` ＋ 真值口径排除 ＋ 已解）⇒ **' + cohortRows + ' 行**。');
   const per = {}; for (const it of items) per[it.keys.length] = (per[it.keys.length] || 0) + 1;
   L.push('- 每题可估引擎数分布：' + Object.keys(per).sort().map((k) => k + ' 个引擎 ⇒ ' + per[k] + ' 题').join('｜'));
   L.push('- **多引擎题数（≥2）＝ ' + multi.length + '**' + (multi.length >= 30 ? '（≥30 ✓）' : '（<30）')
@@ -296,7 +304,7 @@ function main() {
     difference_vs_old_precheck: '旧件 e2-shadow-score.cjs 按 layer 门控引擎 ⇒ 「重叠 0 题」是脚本构造产物；本件为全引擎可用性矩阵（每题试遍 5 引擎）。',
     does_not_change_frozen_criteria: '是否据本件改写 PREREG §3.0「R3 不启动」＝版本递进（须拍板）；本件只测量。',
     threshold_rho_kill: RHO_KILL, min_pair_n: MIN_PAIR_N,
-    cohort_rows: rows.length, engine_count_distribution: per, multi_engine_items: multi.length, pair_population: pairPop,
+    cohort_rows: cohortRows, engine_count_distribution: per, multi_engine_items: multi.length, pair_population: pairPop,
     pair_population_by_layer: pairByLayer,
     domain_unknown_rows: domFailed,
     rho_precheck: rho, res_gate: resGate, ambiguity_decomposition: amb,
@@ -305,11 +313,11 @@ function main() {
   }, null, 1), 'utf8');
   fs.writeFileSync(base + '.md', L.join('\n') + '\n', 'utf8');
   console.log('=== E2 组合增益预检套件（16⑦7A/7B/7C）===');
-  console.log('  队列 ' + rows.length + '｜可估引擎数分布 ' + JSON.stringify(per) + '｜多引擎题 ' + multi.length);
+  console.log('  队列 ' + cohortRows + '｜可估引擎数分布 ' + JSON.stringify(per) + '｜多引擎题 ' + multi.length);
   for (const r of rho) console.log('  ρ̂ ' + r.pair + ': n=' + r.n + ' ρ̂=' + f6(r.rho_hat) + ' CI[' + f6(r.ci95.lo) + ',' + f6(r.ci95.hi) + ']' + (r.identical_outputs ? ' 输出逐位相同' : '') + ' ⇒ ' + r.decision);
   for (const r of resGate) console.log('  RES ' + r.engine + ': n=' + r.n + (r.note ? ' ' + r.note : ' RES=' + f6(r.RES) + ' CI[' + f6(r.ci95_RES.lo) + ',' + f6(r.ci95_RES.hi) + '] ⇒ ' + r.verdict));
   console.log('json/md -> ' + OUT_DIR);
 }
 
-module.exports = { pearson, spearman, murphyRes, bootCI, brier, variance };
+module.exports = { pearson, spearman, murphyRes, bootCI, brier, variance, buildEngineMatrix };
 if (require.main === module) { main(); }
