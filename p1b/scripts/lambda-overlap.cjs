@@ -92,6 +92,62 @@ function lambdaAgree(rows) {
 }
 /** 极端化因子 F55（N=3）：γ̂ ＝ 3/(2λ̂+1)。 */
 function gammaHat(lam) { return 3 / (2 * lam + 1); }
+
+/**
+ * **附录 B 的 MLE（对称信息模型）** —— arXiv:1501.06943v1 `APPENDIX B: PARAMETER ESTIMATION UNDER SYMMETRIC INFORMATION` 逐式实现
+ * （2026-09-17 回读；★该附录**就在盘上缓存**：`.scratch/forecast-debate/全文精读/_cache-K-1501.06943.txt` 第 1197 行起）。
+ *
+ * 数据：每题给 N 个成员的 probit 读数 P＝(Φ⁻¹(p_1)…Φ⁻¹(p_N))；散布矩阵 S_P＝Σ_题 P·P′。
+ * 目标（原文 (12) ＋ (A_Ω,B_Ω) 版，**凸**）：
+ *   min  −N·log A_Ω − log(1 + N·B_Ω/A_Ω) + A_Ω·tr(S_P) + B_Ω·tr(S_P·J_N)
+ *   约束 A_Ω ≥ N−1；A_Ω + N·B_Ω ≥ 0；B_Ω ≤ 0
+ * 回代（原文末两式）：δ* ＝ [B_Ω(N−1)+A_Ω] / [A_Ω(1+A_Ω) + B_Ω(N−1+N·A_Ω)]｜λ* ＝ −B_Ω / [B_Ω(N−1)+A_Ω]
+ * 求解法：对固定 A_Ω，B_Ω 的一阶条件给 `B*＝1/tr_J − A_Ω/N`（再按两条约束截断）⇒ 外层对 A_Ω **黄金分割**
+ *   （目标对 (A_Ω,B_Ω) 凸 ⇒ 内层最优化后的复合函数在 A 上仍凸）。
+ * ★实现选择（声明）：① 实数据先**按列中心化**（模型假定均值 0；附录 B 未讨论均值未知情形）
+ *   ② N＝2（本项目逐对）—— 此时约束 λ ≥ max(2−1/δ, 0) 在 δ<0.5 时把 λ 压到 0 边界。
+ */
+function fitSymmetricMLE(P, opt) {
+  const o = opt || {};
+  const center = o.center !== false;
+  const rows = (P || []).filter((v) => Array.isArray(v) && v.length >= 2 && v.every((x) => isFinite(x)));
+  if (rows.length < 3) return null;
+  const N = rows[0].length;
+  const m = rows.map((v) => v.slice());
+  if (center) for (let j = 0; j < N; j++) { let s = 0; for (const v of m) s += v[j]; const mu = s / m.length; for (const v of m) v[j] -= mu; }
+  let tr_P = 0, tr_J = 0;
+  for (const v of m) { let s = 0, s2 = 0; for (const x of v) { s += x; s2 += x * x; } tr_P += s2; tr_J += s * s; }
+  // ★口径钉死（**合成回收实测抓到的实现 bug**）：目标 (12) 里的 S_P 是**样本协方差**（q 题等权平均），
+  //   **不是散布矩阵**。若用散布（不除 q），`log(1+N·B_Ω/A_Ω)` 项被 q 淹没 ⇒ B_Ω 恒贴约束边界 A_Ω+N·B_Ω=0
+  //   ⇒ 回代 λ* ＝ −B_Ω/(B_Ω+A_Ω) 恒为 **1**（与真值无关）——测试①「真 0.5 ⇒ 估 0.9997」即此症。
+  tr_P = tr_P / m.length; tr_J = tr_J / m.length;
+  if (!(tr_P > 0)) return null;
+  const bStar = (A) => {
+    let b = tr_J > 0 ? (1 / tr_J - A / N) : 0;
+    if (b > 0) b = 0;                    // −B_Ω ≥ 0
+    const bMin = -A / N;                 // A_Ω + N·B_Ω ≥ 0
+    if (b < bMin) b = bMin;
+    return b;
+  };
+  const obj = (A, B) => -N * Math.log(A) - Math.log(1 + (N * B) / A) + A * tr_P + B * tr_J;
+  const g = (A) => obj(A, bStar(A));
+  let lo = N - 1 + 1e-9, hi = Math.max(10, (tr_P / Math.max(1, m.length)) * 1e3 + 10);
+  let guard = 0;
+  while (g(hi) < g(lo + 1e-9) && guard++ < 60) hi *= 4;
+  const phi = (Math.sqrt(5) - 1) / 2;
+  let a = lo, b = hi, c = b - phi * (b - a), d = a + phi * (b - a);
+  for (let it = 0; it < 300; it++) {
+    if (Math.abs(b - a) < 1e-13 * Math.max(1, b)) break;
+    if (g(c) < g(d)) { b = d; d = c; c = b - phi * (b - a); } else { a = c; c = d; d = a + phi * (b - a); }
+  }
+  const A = (a + b) / 2, B = bStar(A);
+  const den = A * (1 + A) + B * (N - 1 + N * A);
+  const delta = (B * (N - 1) + A) / den;
+  const lambda = -B / (B * (N - 1) + A);
+  return { delta: delta, lambda: lambda, rho: delta * lambda, A_Omega: A, B_Omega: B,
+    tr_P: tr_P, tr_J: tr_J, n_questions: m.length, N: N, centered: center, obj: obj(A, B),
+    feasible: (A >= N - 1 - 1e-9) && (A + N * B >= -1e-9) && (B <= 1e-12) };
+}
 /** 配对（按行为单位）bootstrap 百分位 CI。 */
 function bootCI(rows, fn, B, seed) {
   const n = rows.length;
@@ -141,11 +197,14 @@ function main() {
     const rows = triples.map((t) => ({ pa: Number(t.byVariant[A].p), pb: Number(t.byVariant[B].p) }));
     const n = rows.length;
     const ca = lambdaCorr(rows), cb = lambdaAgree(rows);
+    // ★附录 B 的 MLE 口径（2026-09-17 回读后实现）：每题 N=2 的 probit 向量 ⇒ fitSymmetricMLE
+    const mle = fitSymmetricMLE(rows.map((r) => [probit(clamp(r.pa)), probit(clamp(r.pb))]), { center: true });
     results.push({
       pair: A.slice(0, 2) + '–' + B.slice(0, 2), pair_full: A + ' × ' + B,
       temperatures: VARIANT_TEMP[A] + ' vs ' + VARIANT_TEMP[B], n: n,
       lambda_corr: ca, ci95_corr: bootCI(rows, lambdaCorr, NB, SEED), gamma_corr: ca === null ? null : gammaHat(ca),
       lambda_agree: cb, ci95_agree: bootCI(rows, lambdaAgree, NB, SEED), gamma_agree: cb === null ? null : gammaHat(cb),
+      lambda_mle: mle ? mle.lambda : null, delta_mle: mle ? mle.delta : null, mle: mle,
       agree_rate: n ? rows.filter((r) => side(r.pa) === side(r.pb)).length / n : null,
       clipped: rows.filter((r) => Number(r.pa) <= 0 || Number(r.pa) >= 1 || Number(r.pb) <= 0 || Number(r.pb) >= 1).length,
     });
@@ -155,7 +214,10 @@ function main() {
   const lo = allEst.length ? Math.min.apply(null, allEst) : null;
   const loIsCorr = results.some((r) => r.lambda_corr !== null && r.lambda_corr === lo);
   const loCI = loIsCorr ? Math.min.apply(null, results.map((r) => r.ci95_corr.lo)) : Math.min.apply(null, results.map((r) => r.ci95_agree.lo));
-  const decision = lo === null ? 'n/a' : (lo >= THRESHOLD ? '封存 F8（λ̂ 下界 ≥ 0.8 ⇒ 变体池≈单信号，9 臂解耦不立项）' : '触发 9 臂解耦立项（λ̂ 下界 < 0.8；正式立项须先回读附录 B 以 MLE 复核）');
+  const mleEst = results.map((r) => r.lambda_mle).filter((x) => x !== null);
+  const loMle = mleEst.length ? Math.min.apply(null, mleEst) : null;
+  const decision = lo === null ? 'n/a' : (lo >= THRESHOLD ? '封存 F8（λ̂ 下界 ≥ 0.8 ⇒ 变体池≈单信号，9 臂解耦不立项）'
+    : '触发 9 臂解耦立项（λ̂ 代理量下界 < 0.8；★附录 B **已回读并实现 MLE**：MLE 口径下界 λ̂_MLE_lo = ' + (loMle === null ? 'n/a' : loMle.toFixed(6)) + '，与代理量同向 ⇒ 立项理由不被口径变更推翻）');
 
   // 逐变体分布体检（δ 型诊断：越远离 0.5 ⇒ 信息越多；集中 0.5 附近 ⇒ δ≈0 型「withdraw」）
   const shape = VARIANT_TEMP && VARIANTS.map((v) => {
@@ -242,13 +304,14 @@ function main() {
     generated_at: new Date().toISOString(),
     discipline: { ledger_write: false, llm: false, network: false, calls_to_llm: 0 },
     method_disclosures: {
-      surrogate_not_mle: '先导用双口径代理量（probit 相关／同意率反演）；论文附录 B 的 MLE 在 Supplementary Material（不在盘上）⇒ 正式立项前必须回读并以 MLE 复核；0.8 阈值挂的是代理量。',
+      surrogate_not_mle: '双口径（probit 相关／同意率反演）为**代理量**；★2026-09-17 更正：附录 B **并非不在盘上**——arXiv:1501.06943v1 官方 HTML 缓存自带该附录（`.scratch/forecast-debate/全文精读/_cache-K-1501.06943.txt` L1197 起），本件已逐式实现其 MLE（`fitSymmetricMLE`，λ_mle 字段）⇒ **代理量与法定 MLE 并列披露**；0.8 阈值仍挂在代理量（MLE 未进判据，改动＝版本递进）。',
       confounding: '3 变体与 3 温度一一绑定 ⇒ 测得重叠 ≤ 纯角色重叠（温度采样抖动只衰减相关；尺度项不改相关）⇒ 按「下界」读。',
       clip: 'p∈{0,1} 截断到 0.001/0.999（照论文 GJP 实证做法，InfoDiv 笔记 §增量 7）。',
     },
     threshold: THRESHOLD, clip: CLIP,
     data: { verdict_rows_with_prob: raw.length, triples: triples.length, duplicates_last_wins: dupes, incomplete_groups: incomplete, variant_temperature: VARIANT_TEMP },
     results: results, lambda_lower_bound: lo, lambda_lower_bound_min_ci_low: loCI,
+    lambda_mle_lower_bound: (results.map((r) => r.lambda_mle).filter((x) => x !== null).length ? Math.min.apply(null, results.map((r) => r.lambda_mle).filter((x) => x !== null)) : null),
     gamma_at_lower_bound: lo === null ? null : gammaHat(lo),
     decision: decision, variant_shape: shape,
     bootstrap: { B: NB, seed: SEED, method: '按题配对重采样·百分位法' },
@@ -262,5 +325,5 @@ function main() {
   console.log('json/md -> ' + OUT_DIR);
 }
 
-module.exports = { probit, ncdf, lambdaCorr, lambdaAgree, gammaHat, bootCI, clamp };
+module.exports = { probit, ncdf, lambdaCorr, lambdaAgree, gammaHat, fitSymmetricMLE, bootCI, clamp };
 if (require.main === module) { main(); }

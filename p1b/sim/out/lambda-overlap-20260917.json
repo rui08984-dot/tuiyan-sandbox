@@ -2,7 +2,7 @@
  "script": "p1b/scripts/lambda-overlap.cjs",
  "basis": "蓝图 §2.2 #4（阈值 0.8）＋16 号件 §4B（双口径）＋19 号件 §3.2（零 LLM 降级版）",
  "theory": "Satopää et al. 2014 arXiv:1406.2148v5；Corr(X_i,X_j)=λ；F55 γ=N/((N−1)λ+1)",
- "generated_at": "2026-09-17T06:01:45.293Z",
+ "generated_at": "2026-09-17T09:28:42.109Z",
  "discipline": {
   "ledger_write": false,
   "llm": false,
@@ -10,7 +10,7 @@
   "calls_to_llm": 0
  },
  "method_disclosures": {
-  "surrogate_not_mle": "先导用双口径代理量（probit 相关／同意率反演）；论文附录 B 的 MLE 在 Supplementary Material（不在盘上）⇒ 正式立项前必须回读并以 MLE 复核；0.8 阈值挂的是代理量。",
+  "surrogate_not_mle": "双口径（probit 相关／同意率反演）为**代理量**；★2026-09-17 更正：附录 B **并非不在盘上**——arXiv:1501.06943v1 官方 HTML 缓存自带该附录（`.scratch/forecast-debate/全文精读/_cache-K-1501.06943.txt` L1197 起），本件已逐式实现其 MLE（`fitSymmetricMLE`，λ_mle 字段）⇒ **代理量与法定 MLE 并列披露**；0.8 阈值仍挂在代理量（MLE 未进判据，改动＝版本递进）。",
   "confounding": "3 变体与 3 温度一一绑定 ⇒ 测得重叠 ≤ 纯角色重叠（温度采样抖动只衰减相关；尺度项不改相关）⇒ 按「下界」读。",
   "clip": "p∈{0,1} 截断到 0.001/0.999（照论文 GJP 实证做法，InfoDiv 笔记 §增量 7）。"
  },
@@ -49,6 +49,22 @@
     "seed": 987654321
    },
    "gamma_agree": 1.3322141001377148,
+   "lambda_mle": 0.17726336263398212,
+   "delta_mle": 0.5096246916763788,
+   "mle": {
+    "delta": 0.5096246916763788,
+    "lambda": 0.17726336263398212,
+    "rho": 0.09033778652786127,
+    "A_Omega": 1.169545965548156,
+    "B_Omega": -0.17610133568093528,
+    "tr_P": 2.0785088015445945,
+    "tr_J": 2.4469522344232613,
+    "n_questions": 1570,
+    "N": 2,
+    "centered": true,
+    "obj": 2.045080500168186,
+    "feasible": true
+   },
    "agree_rate": 0.7152866242038216,
    "clipped": 34
   },
@@ -73,6 +89,22 @@
     "seed": 987654321
    },
    "gamma_agree": 1.6723074737523855,
+   "lambda_mle": 0.0796394961302415,
+   "delta_mle": 0.4877805650536875,
+   "mle": {
+    "delta": 0.4877805650536875,
+    "lambda": 0.0796394961302415,
+    "rho": 0.03884659842300016,
+    "A_Omega": 1.1409683227816143,
+    "B_Omega": -0.08416341070569072,
+    "tr_P": 1.9045765640796728,
+    "tr_J": 2.056256079123141,
+    "n_questions": 1570,
+    "N": 2,
+    "centered": true,
+    "obj": 1.8958624065894338,
+    "feasible": true
+   },
    "agree_rate": 0.629936305732484,
    "clipped": 34
   },
@@ -97,14 +129,31 @@
     "seed": 987654321
    },
    "gamma_agree": 1.6688917779472818,
+   "lambda_mle": 0.2035553539722381,
+   "delta_mle": 0.17610634582817583,
+   "mle": {
+    "delta": 0.17610634582817583,
+    "lambda": 0.2035553539722381,
+    "rho": 0.03584738956181171,
+    "A_Omega": 5.874089442154249,
+    "B_Omega": -0.9934751664856749,
+    "tr_P": 0.42749775422043135,
+    "tr_J": 0.514517217887891,
+    "n_questions": 1570,
+    "N": 2,
+    "centered": true,
+    "obj": -1.128224533084136,
+    "feasible": true
+   },
    "agree_rate": 0.6305732484076433,
    "clipped": 0
   }
  ],
  "lambda_lower_bound": 0.15974458420672574,
  "lambda_lower_bound_min_ci_low": 0.10117130902182436,
+ "lambda_mle_lower_bound": 0.0796394961302415,
  "gamma_at_lower_bound": 2.2736071442004997,
- "decision": "触发 9 臂解耦立项（λ̂ 下界 < 0.8；正式立项须先回读附录 B 以 MLE 复核）",
+ "decision": "触发 9 臂解耦立项（λ̂ 代理量下界 < 0.8；★附录 B **已回读并实现 MLE**：MLE 口径下界 λ̂_MLE_lo = 0.079639，与代理量同向 ⇒ 立项理由不被口径变更推翻）",
  "variant_shape": [
   {
    "variant": "v1_evidence",
