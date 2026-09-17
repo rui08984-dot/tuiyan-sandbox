@@ -1,0 +1,142 @@
+{
+ "script": "p1b/scripts/lambda-overlap.cjs",
+ "basis": "蓝图 §2.2 #4（阈值 0.8）＋16 号件 §4B（双口径）＋19 号件 §3.2（零 LLM 降级版）",
+ "theory": "Satopää et al. 2014 arXiv:1406.2148v5；Corr(X_i,X_j)=λ；F55 γ=N/((N−1)λ+1)",
+ "generated_at": "2026-09-17T06:01:45.293Z",
+ "discipline": {
+  "ledger_write": false,
+  "llm": false,
+  "network": false,
+  "calls_to_llm": 0
+ },
+ "method_disclosures": {
+  "surrogate_not_mle": "先导用双口径代理量（probit 相关／同意率反演）；论文附录 B 的 MLE 在 Supplementary Material（不在盘上）⇒ 正式立项前必须回读并以 MLE 复核；0.8 阈值挂的是代理量。",
+  "confounding": "3 变体与 3 温度一一绑定 ⇒ 测得重叠 ≤ 纯角色重叠（温度采样抖动只衰减相关；尺度项不改相关）⇒ 按「下界」读。",
+  "clip": "p∈{0,1} 截断到 0.001/0.999（照论文 GJP 实证做法，InfoDiv 笔记 §增量 7）。"
+ },
+ "threshold": 0.8,
+ "clip": 0.001,
+ "data": {
+  "verdict_rows_with_prob": 4763,
+  "triples": 1570,
+  "duplicates_last_wins": 0,
+  "incomplete_groups": 28,
+  "variant_temperature": {
+   "v1_evidence": 0.2,
+   "v2_skeptical": 0.7,
+   "v3_baserate": 1
+  }
+ },
+ "results": [
+  {
+   "pair": "v1–v2",
+   "pair_full": "v1_evidence × v2_skeptical",
+   "temperatures": "0.2 vs 0.7",
+   "n": 1570,
+   "lambda_corr": 0.25195477138991407,
+   "ci95_corr": {
+    "lo": 0.1971729149414891,
+    "hi": 0.30671695502735274,
+    "B": 1000,
+    "seed": 987654321
+   },
+   "gamma_corr": 1.9948008272191668,
+   "lambda_agree": 0.6259451463882123,
+   "ci95_agree": {
+    "lo": 0.568191417123522,
+    "hi": 0.6789843980390977,
+    "B": 1000,
+    "seed": 987654321
+   },
+   "gamma_agree": 1.3322141001377148,
+   "agree_rate": 0.7152866242038216,
+   "clipped": 34
+  },
+  {
+   "pair": "v1–v3",
+   "pair_full": "v1_evidence × v3_baserate",
+   "temperatures": "0.2 vs 1",
+   "n": 1570,
+   "lambda_corr": 0.15974458420672574,
+   "ci95_corr": {
+    "lo": 0.10117130902182436,
+    "hi": 0.21749975207632413,
+    "B": 1000,
+    "seed": 987654321
+   },
+   "gamma_corr": 2.2736071442004997,
+   "lambda_agree": 0.3969642386601576,
+   "ci95_agree": {
+    "lo": 0.32609365866842166,
+    "hi": 0.46376885077933383,
+    "B": 1000,
+    "seed": 987654321
+   },
+   "gamma_agree": 1.6723074737523855,
+   "agree_rate": 0.629936305732484,
+   "clipped": 34
+  },
+  {
+   "pair": "v2–v3",
+   "pair_full": "v2_skeptical × v3_baserate",
+   "temperatures": "0.7 vs 1",
+   "n": 1570,
+   "lambda_corr": 0.22283261944826951,
+   "ci95_corr": {
+    "lo": 0.17801069562078223,
+    "hi": 0.26566478631832613,
+    "B": 1000,
+    "seed": 987654321
+   },
+   "gamma_corr": 2.0751692157237374,
+   "lambda_agree": 0.39880004193260693,
+   "ci95_agree": {
+    "lo": 0.32987430499862563,
+    "hi": 0.4708451643315822,
+    "B": 1000,
+    "seed": 987654321
+   },
+   "gamma_agree": 1.6688917779472818,
+   "agree_rate": 0.6305732484076433,
+   "clipped": 0
+  }
+ ],
+ "lambda_lower_bound": 0.15974458420672574,
+ "lambda_lower_bound_min_ci_low": 0.10117130902182436,
+ "gamma_at_lower_bound": 2.2736071442004997,
+ "decision": "触发 9 臂解耦立项（λ̂ 下界 < 0.8；正式立项须先回读附录 B 以 MLE 复核）",
+ "variant_shape": [
+  {
+   "variant": "v1_evidence",
+   "temperature": 0.2,
+   "n": 1570,
+   "mean_p": 0.533108280254777,
+   "sd_probit": 1.3333393437913426,
+   "share_0p4_0p6": 0.10318471337579618,
+   "share_ge_0p9_or_le_0p1": 0.40573248407643314
+  },
+  {
+   "variant": "v2_skeptical",
+   "temperature": 0.7,
+   "n": 1570,
+   "mean_p": 0.5484522292993638,
+   "sd_probit": 0.548374867989657,
+   "share_0p4_0p6": 0.2910828025477707,
+   "share_ge_0p9_or_le_0p1": 0.031210191082802548
+  },
+  {
+   "variant": "v3_baserate",
+   "temperature": 1,
+   "n": 1570,
+   "mean_p": 0.585267515923576,
+   "sd_probit": 0.3560656658226951,
+   "share_0p4_0p6": 0.6579617834394904,
+   "share_ge_0p9_or_le_0p1": 0.017834394904458598
+  }
+ ],
+ "bootstrap": {
+  "B": 1000,
+  "seed": 987654321,
+  "method": "按题配对重采样·百分位法"
+ }
+}
