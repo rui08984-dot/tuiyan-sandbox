@@ -76,6 +76,12 @@ const EMPIRICAL = [
     evidence: '.scratch/forecast-debate/acr-二期报告-20260912.md',
     outcome: '负结果（口径修正）：cutoff 窗 PASS（0.0875/0.0850/0.0422）／full 窗 FAIL 0.6485 ⇒ **漂移由事件窗决定，非投毒本身**——机制结论改写（非能力宣称）',
     rerun: 'node p1b/scripts/acr-run.cjs（机械层）／acr-run-llm.cjs（LLM 层）' },
+  { id: 'H10', name: 'E1 · DNA 加列制 S 维（平稳/漂移标签）',
+    hypothesis: '控制 layer×domain 后，S 维（平稳/漂移）标签对 Brier 有可检出差异（主判据 ΔCI 不含 0）',
+    criterion: '.scratch/forecast-debate/研讨会-20260916-预测万物v3/12-PREREG-E1-DNA加列S维-v1.md',
+    evidence: 'p1b/sim/out/e1-judge-receipt-20260917.md',
+    outcome: '负结果（弃权条款逐字生效）：前置门通过（双编码 34/34＝1.0）⇒ 生产写入 1792 行 ⇒ **ΔCI 含 0（三口径一致**：§3 主口径 Δ=+0.0025 CI[−0.0187,+0.0236]／Brier(assigned_prob) Δ=−0.0000 CI[−0.0201,+0.0188]／原 y 池化 CI[−0.0248,+0.0802]）⇒ **S 维永久降为文档标签、姿态门与路由主张一并放弃、DNA 线终止**；标签已归档为文档件、旁路表/视图已 DROP；禁换维度续命、禁以功效不足复议',
+    rerun: 'node p1b/scripts/dna-s-backfill.cjs --db <副本> --route source --confirm --no-snapshot（确定性可复现）⇒ node p1b/scripts/dna-s-judge.cjs --db <副本> --gate p1b/sim/out/e1-gate-attestation-20260917.json' },
 ];
 /** 设计层拒绝（文献/分析层，非实证跑数） */
 const DESIGN = [

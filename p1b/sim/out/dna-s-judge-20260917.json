@@ -1,0 +1,85 @@
+{
+ "status": "JUDGED",
+ "head": {
+  "gate_present": true,
+  "gate_ok": true,
+  "gate": {
+   "reviewer": "用户本人",
+   "reviewed_n": 34,
+   "agreement": 1,
+   "window_route": "source",
+   "date": "2026-09-17",
+   "subject": "E1 · S 维标签质量前置门（PREREG-E1 §3「系列×期标签全量双编码，约 40–90 个全审，一致率点估计 ≥85% 方可进读数」）",
+   "artifact_under_review": "p1b/sim/out/dna-s-review-sheet-20260916.md（34 单元，规则版标签为「平稳／漂移」，依据＝源侧窗口两半命中率 + Newcombe CI）",
+   "provenance": {
+    "how_given": "用户在会话中以原话给出：「E1 人工双编码这个我看过了没问题」",
+    "derivation": "「没问题」⇒ 无不同意项 ⇒ agreement = 34/34 = 1.0",
+    "not_filled": "复核表的「人工复核」列**未逐行填写**（用户以会话原话整体确认，而非在表内逐格勾选）——如实记录，供审计者辨明证据形态",
+    "recorded_by": "代理（ZCode 施工棒）如实转录；未代填任何一行判读"
+   },
+   "counterpart_baseline": {
+    "note": "按项目既有先例（2026-09-14 的 ② 采信链「校准补样由代理执行并如实披露（非全人工）」），本条同属「由人给出、由代理转录」，故显式披露证据形态而非冒充逐格签字。",
+    "withdraw_path": "如用户事后指出某单元应为「不一致」，须按 PREREG §3 改判条款处置：一致率 <85% ⇒ 连加列制也停（本件须作废并重判）。"
+   },
+   "gate_effect": "本件为 dna-s-judge.cjs 的 --gate 入参；agreement ≥ 0.85 且 reviewer 非空 ⇒ 放行出 Δ/CI（否则 GATE_PENDING、拒绝出读数）。",
+   "discipline": {
+    "ledger_write": false,
+    "contains_secrets": false
+   }
+  },
+  "mixed_cells": 13,
+  "n_mixed": 686,
+  "drift_total": 347,
+  "concentration_max": {
+   "cell": "L3/openmeteo",
+   "n": 172,
+   "share": 0.4956772334293948
+  },
+  "concentration_gate_hit": false,
+  "insufficient_population": "否"
+ },
+ "statistic_variants": {
+  "primary_spec": "§3 原文：Δ＝Σ_格 w_格(B̄_漂移,格 − B̄_平稳,格)，p＝引擎重放（stage4/u8 同口径），重采样＝格×臂 内逐题",
+  "primary_brier_engine": {
+   "n": 588,
+   "point": 0.0024531527762391616,
+   "lb": -0.018721157159045487,
+   "ub": 0.02364918963125122,
+   "B": 1000,
+   "seed": 987654321,
+   "contains_0": true
+  },
+  "variant_brier_assigned_prob": {
+   "n": 686,
+   "point": -0.000030081787021390277,
+   "lb": -0.02008790492889068,
+   "ub": 0.018808163684198704,
+   "B": 1000,
+   "seed": 987654321,
+   "contains_0": true
+  },
+  "variant_legacy_y_pooled": {
+   "point": null,
+   "lb": -0.024781341107871738,
+   "ub": 0.08017492711370262,
+   "B": 1000,
+   "seed": 987654321,
+   "contains_0": true,
+   "note": "2026-09-16 首版实现（y 指示量池化）——保留披露，不作判据"
+  },
+  "all_agree_on_contains0": true,
+  "correction_note": "2026-09-17 自查更正：首版把 B̄ 实现为 y 指示量池化均值（量纲与构造双偏差）；本版按原文实现并三口径并列。若三口径不一致须升级处置；实测一致（均含 0）。"
+ },
+ "delta_ci95": {
+  "n": 588,
+  "point": 0.0024531527762391616,
+  "lb": -0.018721157159045487,
+  "ub": 0.02364918963125122,
+  "B": 1000,
+  "seed": 987654321,
+  "contains_0": true
+ },
+ "contains_0": true,
+ "verdict": "CI 含 0 ⇒ DNA 线终止（弃权条款逐字生效）",
+ "generated_at": "2026-09-17T07:16:36.231Z"
+}

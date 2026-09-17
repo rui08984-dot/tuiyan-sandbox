@@ -1,0 +1,21 @@
+{
+  "reviewer": "用户本人",
+  "reviewed_n": 34,
+  "agreement": 1.0,
+  "window_route": "source",
+  "date": "2026-09-17",
+  "subject": "E1 · S 维标签质量前置门（PREREG-E1 §3「系列×期标签全量双编码，约 40–90 个全审，一致率点估计 ≥85% 方可进读数」）",
+  "artifact_under_review": "p1b/sim/out/dna-s-review-sheet-20260916.md（34 单元，规则版标签为「平稳／漂移」，依据＝源侧窗口两半命中率 + Newcombe CI）",
+  "provenance": {
+    "how_given": "用户在会话中以原话给出：「E1 人工双编码这个我看过了没问题」",
+    "derivation": "「没问题」⇒ 无不同意项 ⇒ agreement = 34/34 = 1.0",
+    "not_filled": "复核表的「人工复核」列**未逐行填写**（用户以会话原话整体确认，而非在表内逐格勾选）——如实记录，供审计者辨明证据形态",
+    "recorded_by": "代理（ZCode 施工棒）如实转录；未代填任何一行判读"
+  },
+  "counterpart_baseline": {
+    "note": "按项目既有先例（2026-09-14 的 ② 采信链「校准补样由代理执行并如实披露（非全人工）」），本条同属「由人给出、由代理转录」，故显式披露证据形态而非冒充逐格签字。",
+    "withdraw_path": "如用户事后指出某单元应为「不一致」，须按 PREREG §3 改判条款处置：一致率 <85% ⇒ 连加列制也停（本件须作废并重判）。"
+  },
+  "gate_effect": "本件为 dna-s-judge.cjs 的 --gate 入参；agreement ≥ 0.85 且 reviewer 非空 ⇒ 放行出 Δ/CI（否则 GATE_PENDING、拒绝出读数）。",
+  "discipline": { "ledger_write": false, "contains_secrets": false }
+}

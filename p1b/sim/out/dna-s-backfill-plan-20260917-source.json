@@ -1,0 +1,74 @@
+{
+ "route": "source",
+ "rule_sha": "1875382deddd6a5babe2466c8f48281e694ed537cbe4289a40989fd742d28000",
+ "rule_version": "e1-v1",
+ "rows": 1792,
+ "dist": {
+  "先验:恒平稳": 378,
+  "平稳": 565,
+  "漂移": 673,
+  "不可判": 176
+ },
+ "coverage": {
+  "source_labeled": 1123,
+  "fallback_ledger": 291,
+  "no_series": 291,
+  "prior": 378,
+  "undecidable": 176
+ },
+ "snapshot_file": "E:\\music player\\p1b\\sim\\out\\dna-s-source-snapshots-20260916.json",
+ "snapshot_sha16": "3d5e78cd293466e6",
+ "sample": [
+  {
+   "id": 1,
+   "series_key": "(对局)",
+   "period_key": "2026-09",
+   "dna_s": "先验:恒平稳",
+   "basis": {
+    "窗口来源": "先验档（12 §1）",
+    "domain": "werewolf_sim"
+   }
+  },
+  {
+   "id": 3,
+   "series_key": "(对局)",
+   "period_key": "2026-09",
+   "dna_s": "先验:恒平稳",
+   "basis": {
+    "窗口来源": "先验档（12 §1）",
+    "domain": "werewolf_sim"
+   }
+  },
+  {
+   "id": 4,
+   "series_key": "(对局)",
+   "period_key": "2026-09",
+   "dna_s": "先验:恒平稳",
+   "basis": {
+    "窗口来源": "先验档（12 §1）",
+    "domain": "werewolf_sim"
+   }
+  },
+  {
+   "id": 6,
+   "series_key": "(对局)",
+   "period_key": "2026-09",
+   "dna_s": "先验:恒平稳",
+   "basis": {
+    "窗口来源": "先验档（12 §1）",
+    "domain": "werewolf_sim"
+   }
+  },
+  {
+   "id": 7,
+   "series_key": "(对局)",
+   "period_key": "2026-09",
+   "dna_s": "先验:恒平稳",
+   "basis": {
+    "窗口来源": "先验档（12 §1）",
+    "domain": "werewolf_sim"
+   }
+  }
+ ],
+ "generated_at": "2026-09-17T07:07:04.175Z"
+}
