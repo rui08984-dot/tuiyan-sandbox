@@ -62,3 +62,7 @@ _p1a_backup_pre_m2.db
 .scratch/forecast-debate/prereg-a/*.log.bak
 .scratch/forecast-debate/prereg-a/*.cmd
 .scratch/forecast-debate/prereg-a/score-*.json
+
+# 金样钉定库快照的 SQLite 边车（运行期生成，不入库）
+p1b/test/fixtures/stage4-golden-db-*.db-shm
+p1b/test/fixtures/stage4-golden-db-*.db-wal

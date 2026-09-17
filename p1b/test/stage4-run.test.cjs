@@ -98,10 +98,14 @@ test('stage4-run：确定性（两次跑读数逐位一致，seed 固定）', ()
 });
 
 // ── 2026-09-16 · P0-U2：贝叶斯语义标注 additive（金样零 diff ＋ 六档文本逐字）──
-const GOLDEN = path.join(ROOT, 'p1b', 'test', 'fixtures', 'stage4-golden-20260916.json');
+// ★ 2026-09-17 修正（金样版本递进）：金样**钉到冻结库快照** ⇒ 本测试从此只测**代码漂移**，不随账本增长变红。
+//   旧金样 archive＝stage4-golden-20260916.pre-advance.json（其非零 diff 全部归因于 183 条结算的数据前进，见收据）。
+const GOLDEN = path.join(ROOT, 'p1b', 'test', 'fixtures', 'stage4-golden-20260917.json');
+const GOLDEN_DB = path.join(ROOT, 'p1b', 'test', 'fixtures', 'stage4-golden-db-20260917.db');
 function stripped(obj) {
   const o = JSON.parse(JSON.stringify(obj));
   delete o.generated_at; delete o.bayes_legend;
+  delete o.db;   // ★ 2026-09-17：`db` 是**输入路径回显**（相对/绝对写法不同）——与读数无关，同 generated_at 一并排除
   for (const L of Object.keys(o.report || {})) delete o.report[L].bayes_semantics;
   return o;
 }
@@ -109,7 +113,7 @@ function stripped(obj) {
 test('U2：stage4 金样零 diff（除新增 bayes_semantics/bayes_legend 键外逐字段 deep-equal）', () => {
   assert.ok(fs.existsSync(GOLDEN), '金样夹具存在（改前存档）');
   const out = path.join(tmpDir, 'u2.json');
-  execFileSync(process.execPath, [SCRIPT, '--json', out], { stdio: 'ignore' });
+  execFileSync(process.execPath, [SCRIPT, '--db', GOLDEN_DB, '--json', out], { stdio: 'ignore' });
   const now = JSON.parse(fs.readFileSync(out, 'utf8'));
   const gold = JSON.parse(fs.readFileSync(GOLDEN, 'utf8'));
   assert.deepEqual(stripped(now), stripped(gold), '读数零 diff（仅豁免新增键）');

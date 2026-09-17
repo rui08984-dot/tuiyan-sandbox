@@ -1,8 +1,8 @@
 {
  "script": "p1b/scripts/calibration-report.cjs",
  "title": "分域格校准报告",
- "stage4_file": "E:\\music player\\p1b\\sim\\out\\stage4-run-five-layers-20260915.json",
- "g2_file": "E:\\music player\\p1b\\sim\\out\\g2-report-latest-20260915.json",
+ "stage4_file": "E:\\music player\\p1b\\sim\\out\\stage4-run-five-layers-20260917.json",
+ "g2_file": "E:\\music player\\p1b\\sim\\out\\g2-report-latest-20260917.json",
  "stage4_present": true,
  "g2_present": true,
  "qualification_block": [
@@ -16,11 +16,26 @@
   "text": "每题 cutoff 合规由管线与真值口径排除保证：已排除真值口径缺陷行 98（resolved_at<事件日 ∧ resolve 含 forecast；指纹 78b8cedb9d37307a…）。"
  },
  "bayes_semantics": {
-  "L1": null,
-  "L2": null,
-  "L3": null,
-  "L5": null,
-  "L6": null
+  "L1": {
+   "role": "deterministic_recalc",
+   "note": "概率主干豁免"
+  },
+  "L2": {
+   "role": "prior",
+   "note": "基率+Wilson"
+  },
+  "L3": {
+   "role": "prior+calibration",
+   "note": "ACI 只调区间不调 p"
+  },
+  "L5": {
+   "role": "certified_prior",
+   "note": "不可约随机"
+  },
+  "L6": {
+   "role": "posterior_aggregation",
+   "note": "似然证据行→固定规则聚合"
+  }
  },
  "cells": [
   {
@@ -60,55 +75,72 @@
   {
    "layer": "L2",
    "domain": "energycharts",
-   "scored_n": 57,
+   "scored_n": 67,
    "conclusion_allowed": true,
-   "mean_p": 0.48038245614035097,
-   "obs_rate": 0.49122807017543857,
-   "brier_engine": 0.24686006025308768,
-   "delta_vs_half": -0.003139939746912318,
+   "mean_p": 0.48181791044776123,
+   "obs_rate": 0.47761194029850745,
+   "brier_engine": 0.24031378260337308,
+   "delta_vs_half": -0.009686217396626923,
    "delta_ci95": {
-    "lb": -0.03937994450652632,
-    "ub": 0.03517522797936842,
+    "lb": -0.04174125014816419,
+    "ub": 0.024557167156731338,
     "B": 1000,
     "seed": 987654321,
-    "mean": -0.0031399397469122855
+    "mean": -0.009686217396626876
    }
   },
   {
    "layer": "L2",
    "domain": "noaa",
-   "scored_n": 35,
+   "scored_n": 47,
    "conclusion_allowed": true,
-   "mean_p": 0.5252137428571428,
-   "obs_rate": 0.7142857142857143,
-   "brier_engine": 0.22037300854585715,
-   "delta_vs_half": -0.029626991454142854,
+   "mean_p": 0.5134570425531915,
+   "obs_rate": 0.5957446808510638,
+   "brier_engine": 0.21902777232138299,
+   "delta_vs_half": -0.030972227678617015,
    "delta_ci95": {
-    "lb": -0.06953173415099999,
-    "ub": 0.018114745404714278,
+    "lb": -0.0658517268488298,
+    "ub": 0.00567377186563829,
     "B": 1000,
     "seed": 987654321,
-    "mean": -0.029626991454142854
+    "mean": -0.030972227678617015
    }
   },
   {
    "layer": "L2",
    "domain": "wikimedia",
-   "scored_n": 27,
+   "scored_n": 38,
+   "conclusion_allowed": true,
+   "mean_p": 0.44345173684210515,
+   "obs_rate": 0.2631578947368421,
+   "brier_engine": 0.20229975861478947,
+   "delta_vs_half": -0.047700241385210534,
+   "delta_ci95": {
+    "lb": -0.09057744856884208,
+    "ub": -0.0035864614885526237,
+    "B": 1000,
+    "seed": 987654321,
+    "mean": -0.047700241385210514
+   }
+  },
+  {
+   "layer": "L2",
+   "domain": "kraken",
+   "scored_n": 24,
    "conclusion_allowed": false,
    "mean_p": null,
-   "obs_rate": 0.25925925925925924,
+   "obs_rate": 1,
    "brier_engine": null,
    "delta_vs_half": null,
    "delta_ci95": null
   },
   {
    "layer": "L2",
-   "domain": "kraken",
-   "scored_n": 21,
+   "domain": "binance",
+   "scored_n": 19,
    "conclusion_allowed": false,
    "mean_p": null,
-   "obs_rate": 1,
+   "obs_rate": 0.05263157894736842,
    "brier_engine": null,
    "delta_vs_half": null,
    "delta_ci95": null
@@ -148,17 +180,6 @@
   },
   {
    "layer": "L2",
-   "domain": "binance",
-   "scored_n": 11,
-   "conclusion_allowed": false,
-   "mean_p": null,
-   "obs_rate": 0,
-   "brier_engine": null,
-   "delta_vs_half": null,
-   "delta_ci95": null
-  },
-  {
-   "layer": "L2",
    "domain": "npm",
    "scored_n": 7,
    "conclusion_allowed": false,
@@ -170,22 +191,22 @@
   },
   {
    "layer": "L2",
-   "domain": "github",
-   "scored_n": 6,
+   "domain": "mlb",
+   "scored_n": 7,
    "conclusion_allowed": false,
    "mean_p": null,
-   "obs_rate": 1,
+   "obs_rate": 0.5714285714285714,
    "brier_engine": null,
    "delta_vs_half": null,
    "delta_ci95": null
   },
   {
    "layer": "L2",
-   "domain": "mlb",
-   "scored_n": 5,
+   "domain": "github",
+   "scored_n": 6,
    "conclusion_allowed": false,
    "mean_p": null,
-   "obs_rate": 0.6,
+   "obs_rate": 1,
    "brier_engine": null,
    "delta_vs_half": null,
    "delta_ci95": null
@@ -259,18 +280,18 @@
   {
    "layer": "L3",
    "domain": "openmeteo",
-   "scored_n": 369,
+   "scored_n": 498,
    "conclusion_allowed": true,
-   "mean_p": 0.49349581571815676,
-   "obs_rate": 0.4905149051490515,
-   "brier_engine": 0.24270007412958827,
-   "delta_vs_half": -0.007299925870411728,
+   "mean_p": 0.4971704919678713,
+   "obs_rate": 0.5080321285140562,
+   "brier_engine": 0.238008005721299,
+   "delta_vs_half": -0.011991994278701013,
    "delta_ci95": {
-    "lb": -0.02000402892436315,
-    "ub": 0.004927088074219513,
+    "lb": -0.022891909313072296,
+    "ub": -0.0010322740849256996,
     "B": 1000,
     "seed": 987654321,
-    "mean": -0.007299925870411933
+    "mean": -0.01199199427870081
    }
   },
   {
@@ -298,10 +319,10 @@
   {
    "layer": "L3",
    "domain": "usgs",
-   "scored_n": 5,
+   "scored_n": 6,
    "conclusion_allowed": false,
    "mean_p": null,
-   "obs_rate": 0.6,
+   "obs_rate": 0.5,
    "brier_engine": null,
    "delta_vs_half": null,
    "delta_ci95": null
@@ -331,18 +352,18 @@
   {
    "layer": "L5",
    "domain": "cwl",
-   "scored_n": 30,
+   "scored_n": 34,
    "conclusion_allowed": true,
-   "mean_p": 0.29848484859999996,
-   "obs_rate": 0.16666666666666666,
-   "brier_engine": 0.13381542702699725,
-   "delta_vs_half": -0.11618457297300275,
+   "mean_p": 0.30347593594117644,
+   "obs_rate": 0.14705882352941177,
+   "brier_engine": 0.1347228974535732,
+   "delta_vs_half": -0.11527710254642681,
    "delta_ci95": {
-    "lb": -0.15909090904242415,
-    "ub": -0.059297520660055086,
+    "lb": -0.15951628580456967,
+    "ub": -0.06465726785610112,
     "B": 1000,
     "seed": 987654321,
-    "mean": -0.11618457297300272
+    "mean": -0.1152771025464268
    }
   },
   {
@@ -374,28 +395,28 @@
    }
   }
  ],
- "generated_at": "2026-09-17T05:30:59.007Z",
+ "generated_at": "2026-09-17T07:46:42.058Z",
  "cells_total": 28,
- "cells_with_conclusion": 7,
+ "cells_with_conclusion": 8,
  "u8_columns_file": "E:\\music player\\p1b\\sim\\out\\u8-columns-20260917.json",
  "u8_columns_present": true,
  "prequential_two_order": {
   "L2": {
-   "max_gap": 0.011451530236507745,
-   "gap_at_half": 0.00275002669617444,
-   "reorder_rho": 0.966215436163097,
+   "max_gap": 0.017130257077026645,
+   "gap_at_half": 0.009919431087784758,
+   "reorder_rho": 0.9772090358254859,
    "months": 1
   },
   "L3": {
    "max_gap": 0.234031144641,
-   "gap_at_half": 0.00003314981109983628,
-   "reorder_rho": 0.9517026403570928,
+   "gap_at_half": 0.0020198734674035934,
+   "reorder_rho": 0.973141563247954,
    "months": 1
   },
   "L5": {
    "max_gap": 0.10847107434710745,
-   "gap_at_half": 0.013558884293388446,
-   "reorder_rho": 0.9926738940125376,
+   "gap_at_half": 0.01205234159412305,
+   "reorder_rho": 0.9952718411247496,
    "months": 1
   },
   "L6": {
@@ -516,5 +537,5 @@
   "prior": "Beta(1,1)",
   "statement": "无信息进入时的起点＝均匀分布 Beta(1,1)（最大熵）——引擎在无证据行时的先验不是\"拍脑袋的数\"，而是熵最大的那个选择；证据行到达后由固定规则聚合改变它。"
  },
- "negative_results_ledger": "E:\\music player\\p1b\\sim\\out\\negative-results-ledger-20260916.json"
+ "negative_results_ledger": "E:\\music player\\p1b\\sim\\out\\negative-results-ledger-20260917.json"
 }

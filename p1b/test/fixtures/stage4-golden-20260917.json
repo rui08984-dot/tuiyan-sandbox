@@ -1,0 +1,726 @@
+{
+ "script": "p1b/scripts/stage4-run.cjs",
+ "db": "p1b/test/fixtures/stage4-golden-db-20260917.db",
+ "regime": "R4",
+ "layers": [
+  "L1",
+  "L2",
+  "L3",
+  "L5",
+  "L6"
+ ],
+ "l2_rival_arm_check": {
+  "l2_resolved": 372,
+  "assigned_prob_vs_baserate": {
+   "compared": 649,
+   "identical_within_1e_3": 649,
+   "differing": 0,
+   "max_abs_diff": 0.000500000000000056
+  },
+  "l2_rows_with_verdicts": 0,
+  "rival_arm_available": false,
+  "conclusion": "L2 的 assigned_prob 与 baseRateNote 基率逐行相同（差值≤1e-3）＝同一统计基率的复写，不是第二路模型；且 L2 无任何 LLM 判词。⇒ **当前数据下不存在独立对照臂**，「L2 引擎是否优于纯基率」不可回答。这不是缺陷：L2 按设计就是「基率层」（统计基率+Wilson），其价值＝诚实记账与区间，非\"跑赢硬币\"。要回答增量问题须**引入新信号源**（外部模型/特征）＝新立项，非调引擎。"
+ },
+ "l5_evidence_gap": {
+  "l5_rows": 108,
+  "note_text_with_certified_value": 84,
+  "of_which_resolved": 10,
+  "gap": "引擎契约要结构化的 evidence.certifiedSource（{id,kind,...}）；账本里认证值是**文本**（baseRateNote「基率=组合数理论值 X」）。**2026-09-14 修（读侧）**：新增 `p1b/src/engines/l5_sources.js` 按 resolve.kind 从**组合数精确值**重建认证分布，并与文本可解析数值交叉核对（不一致如实标记、不静默）；**账本零改动、写端零改动**。写端补结构化 certifiedSource 仍留待与 F4 真值分库同批迁移（届时本注册表自动退居兜底）。"
+ },
+ "truth_basis_defect_excluded_rows": 98,
+ "truth_basis_defect_fingerprint": "78b8cedb9d37307a3f2e888bcbec0bac1b1d3bc5dcf691970ba246fb5469d6fb",
+ "l5_source_resolution": {
+  "structured": 0,
+  "read_side": 108,
+  "none": 0,
+  "note_consistent": 84,
+  "note_mismatch": 0,
+  "note_empirical": 24,
+  "note_absent": 0,
+  "mismatch_ids": []
+ },
+ "l3_aci": {
+  "feedback_n": 627,
+  "basis": "已解 L3 行按 id 时序全局回放（仅披露；p 与计分不受影响）",
+  "alpha_start": 0.05,
+  "alpha_final": 0.20675,
+  "alpha_star": 0.05,
+  "gamma": 0.005,
+  "decay": 0.99,
+  "alpha_min": 0.001,
+  "alpha_max": 0.5,
+  "coverage": {
+   "n": 627,
+   "hits": 627,
+   "rate": 1
+  },
+  "ewma_coverage": 1
+ },
+ "domain_rule": {
+  "source": "p1b/src/evidence/domain.js",
+  "basis": "resolve.kind → evidence.kind → games.game_type → (unknown)，前缀归一（design §4.2.5 A 轴）"
+ },
+ "domain_basis_counts": {
+  "game_type": 450,
+  "resolve_kind": 1424
+ },
+ "domain_min_n": 30,
+ "domain_cells_total": 28,
+ "domain_cells_with_conclusion": 8,
+ "domain_cells_thin": 20,
+ "by_domain": [
+  {
+   "layer": "L1",
+   "domain": "werewolf_sim",
+   "ledger_rows": 180,
+   "engine_ok": 180,
+   "scored_n": 180,
+   "obs_rate": 0.5222222222222223,
+   "brier_engine": 0,
+   "brier_const_half": 0.25,
+   "delta_vs_half": -0.25,
+   "delta_ci95": {
+    "lb": -0.25,
+    "ub": -0.25,
+    "B": 1000,
+    "seed": 987654321,
+    "mean": -0.25
+   },
+   "mean_p": 0.5222222222222223,
+   "conclusion_allowed": true
+  },
+  {
+   "layer": "L2",
+   "domain": "dbnomics",
+   "ledger_rows": 190,
+   "engine_ok": 184,
+   "scored_n": 79,
+   "obs_rate": 0.6075949367088608,
+   "brier_engine": 0.2499836201244809,
+   "brier_const_half": 0.25,
+   "delta_vs_half": -0.000016379875519112463,
+   "delta_ci95": {
+    "lb": -0.03399963766516457,
+    "ub": 0.035064291017164545,
+    "B": 1000,
+    "seed": 987654321,
+    "mean": -0.000016379875518991954
+   },
+   "mean_p": 0.433958151898734,
+   "conclusion_allowed": true
+  },
+  {
+   "layer": "L2",
+   "domain": "energycharts",
+   "ledger_rows": 99,
+   "engine_ok": 99,
+   "scored_n": 67,
+   "obs_rate": 0.47761194029850745,
+   "brier_engine": 0.24031378260337308,
+   "brier_const_half": 0.25,
+   "delta_vs_half": -0.009686217396626923,
+   "delta_ci95": {
+    "lb": -0.04174125014816419,
+    "ub": 0.024557167156731338,
+    "B": 1000,
+    "seed": 987654321,
+    "mean": -0.009686217396626876
+   },
+   "mean_p": 0.48181791044776123,
+   "conclusion_allowed": true
+  },
+  {
+   "layer": "L2",
+   "domain": "noaa",
+   "ledger_rows": 57,
+   "engine_ok": 57,
+   "scored_n": 47,
+   "obs_rate": 0.5957446808510638,
+   "brier_engine": 0.21902777232138299,
+   "brier_const_half": 0.25,
+   "delta_vs_half": -0.030972227678617015,
+   "delta_ci95": {
+    "lb": -0.0658517268488298,
+    "ub": 0.00567377186563829,
+    "B": 1000,
+    "seed": 987654321,
+    "mean": -0.030972227678617015
+   },
+   "mean_p": 0.5134570425531915,
+   "conclusion_allowed": true
+  },
+  {
+   "layer": "L2",
+   "domain": "wikimedia",
+   "ledger_rows": 53,
+   "engine_ok": 53,
+   "scored_n": 38,
+   "obs_rate": 0.2631578947368421,
+   "brier_engine": 0.20229975861478947,
+   "brier_const_half": 0.25,
+   "delta_vs_half": -0.047700241385210534,
+   "delta_ci95": {
+    "lb": -0.09057744856884208,
+    "ub": -0.0035864614885526237,
+    "B": 1000,
+    "seed": 987654321,
+    "mean": -0.047700241385210514
+   },
+   "mean_p": 0.44345173684210515,
+   "conclusion_allowed": true
+  },
+  {
+   "layer": "L2",
+   "domain": "kraken",
+   "ledger_rows": 30,
+   "engine_ok": 30,
+   "scored_n": 24,
+   "obs_rate": 1,
+   "conclusion_allowed": false,
+   "note": "n=24 < 30 ⇒ 样本不足·仅记方向，不出结论"
+  },
+  {
+   "layer": "L2",
+   "domain": "binance",
+   "ledger_rows": 36,
+   "engine_ok": 36,
+   "scored_n": 19,
+   "obs_rate": 0.05263157894736842,
+   "conclusion_allowed": false,
+   "note": "n=19 < 30 ⇒ 样本不足·仅记方向，不出结论"
+  },
+  {
+   "layer": "L2",
+   "domain": "eurostat",
+   "ledger_rows": 33,
+   "engine_ok": 30,
+   "scored_n": 16,
+   "obs_rate": 0.75,
+   "conclusion_allowed": false,
+   "note": "n=16 < 30 ⇒ 样本不足·仅记方向，不出结论"
+  },
+  {
+   "layer": "L2",
+   "domain": "frankfurter",
+   "ledger_rows": 36,
+   "engine_ok": 36,
+   "scored_n": 14,
+   "obs_rate": 0.42857142857142855,
+   "conclusion_allowed": false,
+   "note": "n=14 < 30 ⇒ 样本不足·仅记方向，不出结论"
+  },
+  {
+   "layer": "L2",
+   "domain": "delphi",
+   "ledger_rows": 21,
+   "engine_ok": 21,
+   "scored_n": 12,
+   "obs_rate": 0.08333333333333333,
+   "conclusion_allowed": false,
+   "note": "n=12 < 30 ⇒ 样本不足·仅记方向，不出结论"
+  },
+  {
+   "layer": "L2",
+   "domain": "npm",
+   "ledger_rows": 30,
+   "engine_ok": 26,
+   "scored_n": 7,
+   "obs_rate": 0.7142857142857143,
+   "conclusion_allowed": false,
+   "note": "n=7 < 30 ⇒ 样本不足·仅记方向，不出结论"
+  },
+  {
+   "layer": "L2",
+   "domain": "mlb",
+   "ledger_rows": 10,
+   "engine_ok": 7,
+   "scored_n": 7,
+   "obs_rate": 0.5714285714285714,
+   "conclusion_allowed": false,
+   "note": "n=7 < 30 ⇒ 样本不足·仅记方向，不出结论"
+  },
+  {
+   "layer": "L2",
+   "domain": "github",
+   "ledger_rows": 15,
+   "engine_ok": 15,
+   "scored_n": 6,
+   "obs_rate": 1,
+   "conclusion_allowed": false,
+   "note": "n=6 < 30 ⇒ 样本不足·仅记方向，不出结论"
+  },
+  {
+   "layer": "L2",
+   "domain": "cta",
+   "ledger_rows": 7,
+   "engine_ok": 7,
+   "scored_n": 4,
+   "obs_rate": 0.25,
+   "conclusion_allowed": false,
+   "note": "n=4 < 30 ⇒ 样本不足·仅记方向，不出结论"
+  },
+  {
+   "layer": "L2",
+   "domain": "bom",
+   "ledger_rows": 4,
+   "engine_ok": 4,
+   "scored_n": 2,
+   "obs_rate": 1,
+   "conclusion_allowed": false,
+   "note": "n=2 < 30 ⇒ 样本不足·仅记方向，不出结论"
+  },
+  {
+   "layer": "L2",
+   "domain": "crossref",
+   "ledger_rows": 8,
+   "engine_ok": 3,
+   "scored_n": 0,
+   "conclusion_allowed": false,
+   "note": "n=0 < 30 ⇒ 样本不足·仅记方向，不出结论"
+  },
+  {
+   "layer": "L2",
+   "domain": "elexon",
+   "ledger_rows": 21,
+   "engine_ok": 0,
+   "scored_n": 0,
+   "conclusion_allowed": false,
+   "note": "n=0 < 30 ⇒ 样本不足·仅记方向，不出结论"
+  },
+  {
+   "layer": "L2",
+   "domain": "nvd",
+   "ledger_rows": 8,
+   "engine_ok": 3,
+   "scored_n": 0,
+   "conclusion_allowed": false,
+   "note": "n=0 < 30 ⇒ 样本不足·仅记方向，不出结论"
+  },
+  {
+   "layer": "L2",
+   "domain": "openalex",
+   "ledger_rows": 4,
+   "engine_ok": 0,
+   "scored_n": 0,
+   "conclusion_allowed": false,
+   "note": "n=0 < 30 ⇒ 样本不足·仅记方向，不出结论"
+  },
+  {
+   "layer": "L3",
+   "domain": "openmeteo",
+   "ledger_rows": 589,
+   "engine_ok": 589,
+   "scored_n": 498,
+   "obs_rate": 0.5080321285140562,
+   "brier_engine": 0.238008005721299,
+   "brier_const_half": 0.25,
+   "delta_vs_half": -0.011991994278701013,
+   "delta_ci95": {
+    "lb": -0.022891909313072296,
+    "ub": -0.0010322740849256996,
+    "B": 1000,
+    "seed": 987654321,
+    "mean": -0.01199199427870081
+   },
+   "mean_p": 0.4971704919678713,
+   "conclusion_allowed": true
+  },
+  {
+   "layer": "L3",
+   "domain": "ghcn",
+   "ledger_rows": 26,
+   "engine_ok": 26,
+   "scored_n": 13,
+   "obs_rate": 1,
+   "conclusion_allowed": false,
+   "note": "n=13 < 30 ⇒ 样本不足·仅记方向，不出结论"
+  },
+  {
+   "layer": "L3",
+   "domain": "noaa",
+   "ledger_rows": 13,
+   "engine_ok": 13,
+   "scored_n": 6,
+   "obs_rate": 0.6666666666666666,
+   "conclusion_allowed": false,
+   "note": "n=6 < 30 ⇒ 样本不足·仅记方向，不出结论"
+  },
+  {
+   "layer": "L3",
+   "domain": "usgs",
+   "ledger_rows": 16,
+   "engine_ok": 16,
+   "scored_n": 6,
+   "obs_rate": 0.5,
+   "conclusion_allowed": false,
+   "note": "n=6 < 30 ⇒ 样本不足·仅记方向，不出结论"
+  },
+  {
+   "layer": "L3",
+   "domain": "swpc",
+   "ledger_rows": 6,
+   "engine_ok": 6,
+   "scored_n": 4,
+   "obs_rate": 1,
+   "conclusion_allowed": false,
+   "note": "n=4 < 30 ⇒ 样本不足·仅记方向，不出结论"
+  },
+  {
+   "layer": "L3",
+   "domain": "jpl",
+   "ledger_rows": 4,
+   "engine_ok": 4,
+   "scored_n": 2,
+   "obs_rate": 0,
+   "conclusion_allowed": false,
+   "note": "n=2 < 30 ⇒ 样本不足·仅记方向，不出结论"
+  },
+  {
+   "layer": "L5",
+   "domain": "cwl",
+   "ledger_rows": 70,
+   "engine_ok": 70,
+   "scored_n": 34,
+   "obs_rate": 0.14705882352941177,
+   "brier_engine": 0.1347228974535732,
+   "brier_const_half": 0.25,
+   "delta_vs_half": -0.11527710254642681,
+   "delta_ci95": {
+    "lb": -0.15951628580456967,
+    "ub": -0.06465726785610112,
+    "B": 1000,
+    "seed": 987654321,
+    "mean": -0.1152771025464268
+   },
+   "mean_p": 0.30347593594117644,
+   "conclusion_allowed": true
+  },
+  {
+   "layer": "L5",
+   "domain": "dlt",
+   "ledger_rows": 38,
+   "engine_ok": 38,
+   "scored_n": 0,
+   "conclusion_allowed": false,
+   "note": "n=0 < 30 ⇒ 样本不足·仅记方向，不出结论"
+  },
+  {
+   "layer": "L6",
+   "domain": "werewolf_sim",
+   "ledger_rows": 270,
+   "engine_ok": 270,
+   "scored_n": 270,
+   "obs_rate": 0.5777777777777777,
+   "brier_engine": 0.17545467076550367,
+   "brier_const_half": 0.25,
+   "delta_vs_half": -0.07454532923449633,
+   "delta_ci95": {
+    "lb": -0.09164804629622228,
+    "ub": -0.05755035169539631,
+    "B": 1000,
+    "seed": 987654321,
+    "mean": -0.07454532923449632
+   },
+   "mean_p": 0.5817407185185183,
+   "conclusion_allowed": true
+  }
+ ],
+ "bayes_legend": {
+  "source": "10-算子攻坚-深度报告 §4（O1-O8 四元组）",
+  "note": "记账语言＝沟通层，零精度增量宣称；术语详见 p1b/web/src/lib/terms.ts（bayesPrior/likelihoodEvidence/posteriorAgg/calibrationAci）",
+  "map": {
+   "L1": {
+    "role": "deterministic_recalc",
+    "note": "概率主干豁免"
+   },
+   "L2": {
+    "role": "prior",
+    "note": "基率+Wilson"
+   },
+   "L3": {
+    "role": "prior+calibration",
+    "note": "ACI 只调区间不调 p"
+   },
+   "L4": {
+    "role": "annotation_layer",
+    "note": "不出数"
+   },
+   "L5": {
+    "role": "certified_prior",
+    "note": "不可约随机"
+   },
+   "L6": {
+    "role": "posterior_aggregation",
+    "note": "似然证据行→固定规则聚合"
+   }
+  }
+ },
+ "generated_at": "2026-09-17T07:52:37.948Z",
+ "report": {
+  "L1": {
+   "layer": "L1",
+   "ledger_rows": 180,
+   "engine_ok": 180,
+   "engine_fail": 0,
+   "engine_fail_reasons": {},
+   "scored_n": 180,
+   "engine_sample": [
+    {
+     "id": 2,
+     "status": "ok",
+     "p": 0,
+     "source": null
+    },
+    {
+     "id": 5,
+     "status": "ok",
+     "p": 0,
+     "source": null
+    },
+    {
+     "id": 8,
+     "status": "ok",
+     "p": 0,
+     "source": null
+    }
+   ],
+   "brier_engine": 0,
+   "brier_const_half": 0.25,
+   "delta_vs_half": -0.25,
+   "delta_ci95": {
+    "lb": -0.25,
+    "ub": -0.25,
+    "B": 1000,
+    "seed": 987654321,
+    "mean": -0.25
+   },
+   "obs_rate": 0.5222222222222223,
+   "mean_p": 0.5222222222222223,
+   "brier_ledger_prior": 0.21148222222222224,
+   "delta_vs_ledger_prior": -0.21148222222222224,
+   "signal": "proc_calc_deterministic",
+   "accuracy": 1,
+   "note": "L1 决定论层：**本层 Brier 语义＝计算错误率**（design §1.5），不与概率层混比；vs 常数 0.5 的 Δ 在此层无概率含义（仅记录，不构成任何\"更准\"宣称）。accuracy = 1 − 错误率。",
+   "bayes_semantics": {
+    "role": "deterministic_recalc",
+    "note": "概率主干豁免"
+   }
+  },
+  "L2": {
+   "layer": "L2",
+   "ledger_rows": 662,
+   "engine_ok": 611,
+   "engine_fail": 51,
+   "engine_fail_reasons": {
+    "insufficient_data": 51
+   },
+   "scored_n": 342,
+   "engine_sample": [
+    {
+     "id": 452,
+     "status": "ok",
+     "p": 0.450151,
+     "n": 331,
+     "source": "baseRate:structured"
+    },
+    {
+     "id": 471,
+     "status": "ok",
+     "p": 0.448795,
+     "n": 332,
+     "source": "baseRate:structured"
+    },
+    {
+     "id": 472,
+     "status": "ok",
+     "p": 0.295181,
+     "n": 332,
+     "source": "baseRate:structured"
+    }
+   ],
+   "brier_engine": 0.24332359025353506,
+   "brier_const_half": 0.25,
+   "delta_vs_half": -0.00667640974646494,
+   "delta_ci95": {
+    "lb": -0.021340094494783628,
+    "ub": 0.009194821054798253,
+    "B": 1000,
+    "seed": 987654321,
+    "mean": -0.006676409746464906
+   },
+   "obs_rate": 0.5263157894736842,
+   "mean_p": 0.47757393274853804,
+   "brier_ledger_prior": 0.2433193262865495,
+   "delta_vs_ledger_prior": 0.000004263966985551537,
+   "signal": "engine_directionally_better_but_CI_includes_0",
+   "note": "分层计分，禁跨层池化（design §4.3）。注：本层引擎 p 即统计基率，故 vs「常数基率」Δ 结构性=0；有意义的对照是 vs 常数 0.5（基率相对硬币的增量）。**该增量问题在当前数据下不可回答**——见下方 [L2 对照臂可得性] 检（assigned_prob 就是基率本身、L2 无判词 ⇒ 无独立第二路）。",
+   "bayes_semantics": {
+    "role": "prior",
+    "note": "基率+Wilson"
+   }
+  },
+  "L3": {
+   "layer": "L3",
+   "ledger_rows": 654,
+   "engine_ok": 654,
+   "engine_fail": 0,
+   "engine_fail_reasons": {},
+   "scored_n": 529,
+   "engine_sample": [
+    {
+     "id": 451,
+     "status": "ok",
+     "p": 0.01,
+     "n": 300,
+     "source": "baseRate:structured"
+    },
+    {
+     "id": 455,
+     "status": "ok",
+     "p": 0.2,
+     "n": 300,
+     "source": "baseRate:structured"
+    },
+    {
+     "id": 456,
+     "status": "ok",
+     "p": 0.2,
+     "n": 300,
+     "source": "baseRate:structured"
+    }
+   ],
+   "brier_engine": 0.23820633346043082,
+   "brier_const_half": 0.25,
+   "delta_vs_half": -0.011793666539569175,
+   "delta_ci95": {
+    "lb": -0.022806004805058615,
+    "ub": -0.0008838083773761793,
+    "B": 1000,
+    "seed": 987654321,
+    "mean": -0.011793666539569
+   },
+   "obs_rate": 0.5236294896030246,
+   "mean_p": 0.497736710775047,
+   "brier_ledger_prior": 0.23820815591682398,
+   "delta_vs_ledger_prior": -0.000001822456393157923,
+   "signal": "delta_vs_half_negative_CI_excludes_0",
+   "note": "L3 短窗混沌：p=基率（与 L2 同源解析/Wilson 口径），**ACI 只调预测集与覆盖率披露、不调 p**。vs 常数 0.5 的 Δ 只反映「基率相对 50% 的贴合程度」——**若 Δ<0 且 CI 不含 0，也属边缘读数，不构成可声称的\"更准\"**（引擎 p 即基率、无第二路信号；同 L2 层结论：该增量问题须引入新信号源才算数）。本层有意义的读数＝**ACI 覆盖率 vs 名义水平**（见 [L3 ACI] 节）；短窗检验（时界）留待后续。",
+   "bayes_semantics": {
+    "role": "prior+calibration",
+    "note": "ACI 只调区间不调 p"
+   }
+  },
+  "L5": {
+   "layer": "L5",
+   "ledger_rows": 108,
+   "engine_ok": 108,
+   "engine_fail": 0,
+   "engine_fail_reasons": {},
+   "scored_n": 34,
+   "engine_sample": [
+    {
+     "id": 453,
+     "status": "ok",
+     "p": 0.181818182,
+     "n": 2,
+     "source": {
+      "id": "cwl_ssq",
+      "name": "中国福利彩票·双色球（33 选 6）·红球含 07（组合数精确值 6/33）",
+      "kind": "official"
+     }
+    },
+    {
+     "id": 454,
+     "status": "ok",
+     "p": 0.5,
+     "n": 2,
+     "source": {
+      "id": "cwl_ssq",
+      "name": "中国福利彩票·双色球（16 选 1）·蓝球为奇数（组合数精确值 8/16）",
+      "kind": "official"
+     }
+    },
+    {
+     "id": 601,
+     "status": "ok",
+     "p": 0.181818182,
+     "n": 2,
+     "source": {
+      "id": "cwl_ssq",
+      "name": "中国福利彩票·双色球（33 选 6）·红球含 07（组合数精确值 6/33）",
+      "kind": "official"
+     }
+    }
+   ],
+   "brier_engine": 0.1347228974535732,
+   "brier_const_half": 0.25,
+   "delta_vs_half": -0.11527710254642681,
+   "delta_ci95": {
+    "lb": -0.15951628580456967,
+    "ub": -0.06465726785610112,
+    "B": 1000,
+    "seed": 987654321,
+    "mean": -0.1152771025464268
+   },
+   "obs_rate": 0.14705882352941177,
+   "mean_p": 0.30347593594117644,
+   "brier_ledger_prior": 0.1466873144190588,
+   "delta_vs_ledger_prior": -0.011964416965485614,
+   "signal": "delta_vs_half_negative_CI_excludes_0",
+   "note": "L5：引擎 p 即认证源公布分布（本层按定义「无信息优势可学」）。vs 常数 0.5 的 Δ 只反映事件基率偏离 50%（本批彩票事件 p≈0.17–0.63）——**不构成任何\"更准/有本事\"宣称**：L5 铁律，显著优于认证源＝泄漏信号，不是本事。本层有意义的读数＝**校准**（观测频率 vs 引擎平均 p，当前样本小、仅披露）；开奖真值持续到达后读数自然增长。",
+   "bayes_semantics": {
+    "role": "certified_prior",
+    "note": "不可约随机"
+   }
+  },
+  "L6": {
+   "layer": "L6",
+   "ledger_rows": 270,
+   "engine_ok": 270,
+   "engine_fail": 0,
+   "engine_fail_reasons": {},
+   "scored_n": 270,
+   "engine_sample": [
+    {
+     "id": 1,
+     "status": "ok",
+     "p": 0.72,
+     "source": null
+    },
+    {
+     "id": 3,
+     "status": "ok",
+     "p": 0.743333,
+     "source": null
+    },
+    {
+     "id": 4,
+     "status": "ok",
+     "p": 0.39,
+     "source": null
+    }
+   ],
+   "brier_engine": 0.17545467076550367,
+   "brier_const_half": 0.25,
+   "delta_vs_half": -0.07454532923449633,
+   "delta_ci95": {
+    "lb": -0.09164804629622228,
+    "ub": -0.05755035169539631,
+    "B": 1000,
+    "seed": 987654321,
+    "mean": -0.07454532923449632
+   },
+   "obs_rate": 0.5777777777777777,
+   "mean_p": 0.5817407185185183,
+   "brier_ledger_prior": 0.1941337962962963,
+   "delta_vs_ledger_prior": -0.018679125530792623,
+   "signal": "aggregate_beats_half_CI_excludes_0",
+   "note": "L6 对抗层＝狼人杀/对抗域**首批真读数**：p＝判词结构聚合（每变体取最新非空 implied_prob 再求均值，固定规则）。与 L1/L3/L5 的\"平凡读数\"不同，这里 vs 0.5 的 Δ 是**实际信息量**；但须披露：①聚合的是**既有判词**（不是新模型），②判词多跑（每变体取最新）与旧行 provenance（run_id=null）为披露项；更严的对照见「账本先验」行（assigned_prob＝创建时记录的先验）。",
+   "bayes_semantics": {
+    "role": "posterior_aggregation",
+    "note": "似然证据行→固定规则聚合"
+   }
+  }
+ },
+ "note": "分层报，禁跨层池化（design §4.3）；已排除真值口径缺陷行（见 truth_basis_defect_*）；分域读数见 by_domain（格间禁池化，n<30 不出结论）"
+}

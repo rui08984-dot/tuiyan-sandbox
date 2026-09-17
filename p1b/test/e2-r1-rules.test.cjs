@@ -64,8 +64,9 @@ test('③ 真实件：MATCH／人口／保留格与阶段 4 同集合／无臂�
   assert.equal(j.r1a_counts.reassign, 0, 'R1-A 改层应为 0（分配与引擎可用性一致）');
   assert.equal(j.r1a_counts['no-op'] + j.r1a_counts.reassign + j.r1a_counts.downgrade, j.cohort, '三态合计＝队列');
   const kept = j.r1b_cells.filter((c) => c.kept).map((c) => c.cell).sort();
-  assert.equal(kept.length, 7, '保留格应为 7（与阶段 4「可出结论 7 格」同集合）: ' + JSON.stringify(kept));
-  for (const c of ['L1/werewolf_sim', 'L2/dbnomics', 'L2/energycharts', 'L2/noaa', 'L3/openmeteo', 'L5/cwl', 'L6/werewolf_sim']) {
+  // ★ 数据标记（随账本增长更新）：2026-09-17 结算 183 条 ⇒ 保留格 7 → 8（新增 L2/wikimedia n=38，与阶段 4 同步）
+  assert.equal(kept.length, 8, '保留格应为 8（与阶段 4「可出结论 8 格」同集合）: ' + JSON.stringify(kept));
+  for (const c of ['L1/werewolf_sim', 'L2/dbnomics', 'L2/energycharts', 'L2/noaa', 'L2/wikimedia', 'L3/openmeteo', 'L5/cwl', 'L6/werewolf_sim']) {
     assert.ok(kept.indexOf(c) !== -1, '应含 ' + c);
   }
   // RES 条款当前非绑定：所有降档格都是因 n<30

@@ -4,7 +4,7 @@
  "rules_sha256": "e0331cf8e7237a8a0b6eed9f6393866d9b6008e2a64210f723fc699beeceb4bf",
  "rules_match": true,
  "basis": "PREREG-E2 §2 R1 行 ＋ 11 号件 §⑧ M5① ＋ design §1.2 优先级 ＋ 19 号件 §3 裁决三",
- "generated_at": "2026-09-17T06:43:27.299Z",
+ "generated_at": "2026-09-17T07:56:19.166Z",
  "discipline": {
   "ledger_write": false,
   "llm": false,
@@ -21,22 +21,22 @@
   "L2"
  ],
  "min_n": 30,
- "cohort": 1202,
+ "cohort": 1385,
  "r1a_counts": {
-  "no-op": 1175,
+  "no-op": 1355,
   "reassign": 0,
-  "downgrade": 27
+  "downgrade": 30
  },
  "reassign_detail": {},
  "no_engine_by_layer": {
-  "L2": 27
+  "L2": 30
  },
  "r1b_cells": [
   {
    "cell": "L3/openmeteo",
-   "n": 369,
-   "RES": 0.009389841472966785,
-   "ci95_RES_lo": 0.004644145055915307,
+   "n": 498,
+   "RES": 0.012561269264579046,
+   "ci95_RES_lo": 0.0067174590455508585,
    "kept": true,
    "reason": ""
   },
@@ -66,39 +66,47 @@
   },
   {
    "cell": "L2/energycharts",
-   "n": 57,
-   "RES": 0.01889793801151142,
-   "ci95_RES_lo": 0.005762145928350914,
+   "n": 67,
+   "RES": 0.021964286054283834,
+   "ci95_RES_lo": 0.007212027595186427,
    "kept": true,
    "reason": ""
   },
   {
    "cell": "L2/noaa",
-   "n": 35,
-   "RES": 0.032426303854875285,
-   "ci95_RES_lo": 0.0066666666666666645,
-   "kept": true,
-   "reason": ""
-  },
-  {
-   "cell": "L5/cwl",
-   "n": 30,
-   "RES": 0.022461456671982988,
-   "ci95_RES_lo": 0.0003402445507708666,
+   "n": 47,
+   "RES": 0.03107581016136924,
+   "ci95_RES_lo": 0.009249694774819269,
    "kept": true,
    "reason": ""
   },
   {
    "cell": "L2/wikimedia",
-   "n": 27,
+   "n": 38,
+   "RES": 0.027897045244690673,
+   "ci95_RES_lo": 0.00840791249378507,
+   "kept": true,
+   "reason": ""
+  },
+  {
+   "cell": "L5/cwl",
+   "n": 34,
+   "RES": 0.015973357668859402,
+   "ci95_RES_lo": 0.00014972052169284013,
+   "kept": true,
+   "reason": ""
+  },
+  {
+   "cell": "L2/kraken",
+   "n": 24,
    "RES": null,
    "ci95_RES_lo": null,
    "kept": false,
    "reason": "n<30（K F13 准入线）"
   },
   {
-   "cell": "L2/kraken",
-   "n": 21,
+   "cell": "L2/binance",
+   "n": 19,
    "RES": null,
    "ci95_RES_lo": null,
    "kept": false,
@@ -137,15 +145,15 @@
    "reason": "n<30（K F13 准入线）"
   },
   {
-   "cell": "L2/binance",
-   "n": 11,
+   "cell": "L2/npm",
+   "n": 7,
    "RES": null,
    "ci95_RES_lo": null,
    "kept": false,
    "reason": "n<30（K F13 准入线）"
   },
   {
-   "cell": "L2/npm",
+   "cell": "L2/mlb",
    "n": 7,
    "RES": null,
    "ci95_RES_lo": null,
@@ -169,16 +177,8 @@
    "reason": "n<30（K F13 准入线）"
   },
   {
-   "cell": "L2/mlb",
-   "n": 5,
-   "RES": null,
-   "ci95_RES_lo": null,
-   "kept": false,
-   "reason": "n<30（K F13 准入线）"
-  },
-  {
    "cell": "L3/usgs",
-   "n": 5,
+   "n": 6,
    "RES": null,
    "ci95_RES_lo": null,
    "kept": false,
@@ -217,10 +217,10 @@
    "reason": "n<30（K F13 准入线）"
   }
  ],
- "r1b_downgraded_questions": 155,
+ "r1b_downgraded_questions": 142,
  "r1_scoreable_after": {
-  "phase_a": 1175,
-  "after_b": 1020
+  "phase_a": 1355,
+  "after_b": 1213
  },
  "bootstrap": {
   "B": 1000,

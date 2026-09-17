@@ -1,8 +1,9 @@
 // ==== part p1 ====
 'use strict';
 // corpus-resolve-daemon.cjs — 到期自动 resolve 调度（2026-09-13 调度棒）
-// 用法：node p1b/scripts/corpus-resolve-daemon.cjs --once [--due-only] [--confirm]
-//      node p1b/scripts/corpus-resolve-daemon.cjs --loop --interval=60 [--due-only] [--confirm]
+// 用法：node p1b/scripts/corpus-resolve-daemon.cjs --once [--due-only] [--confirm] [--db=<path>]
+//      node p1b/scripts/corpus-resolve-daemon.cjs --loop --interval=60 [--due-only] [--confirm] [--db=<path>]
+//      --db=<path>：指向副本（safe-mutation「先副本后生产」）；不传=默认生产库，实际路径恒入日志
 // 安全四则：①不改 corpus-resolve.cjs（运行时抽取其 RESOLVERS；抽取失败退回 spawn 原脚本）
 //          ②网络失败跳过不写 ③账本不可变（resolvePrediction 拒改已 resolve）④默认 dry-run，--confirm 才写库
 // 日志：追加 p1b/sim/out/resolve-daemon.log（含时间戳与本轮 resolved/pending/fail 计数）
@@ -439,12 +440,26 @@ async function reportDue() {
 // ==== part p6c ====
 
 async function main() {
-  if (args.indexOf('--report-due') !== -1) { db.init(); return await reportDue(); }
+  // ★ 2026-09-17 加：`--db=<path>` 指向副本（safe-mutation 第 2 步「先副本后生产」的硬需求；
+  //   旧版无此参数 ⇒ 「副本演练」计划落空、`--confirm` 直接打在生产（留痕已记教训）。
+  //   不传 ⇒ 默认生产库；**无论如何都把实际库路径打出来**（防静默打生产）。
+  // ★★ 2026-09-17 事故与更正（如实）：首版写 `val('db', null)` ⇒ **永不匹配**（本文件的 val() 约定是
+  //   **字段名含 '--'**，照 `val('--interval', 60)`）⇒ `--db=<副本>` 被静默忽略、183 行 resolved 打进了生产库
+  //   （副本演练计划落空）。已改为 `val('--db', null)`，并以「日志打印实际库路径」＋真跑副本核验。
+  const DB_ARG = val('--db', null);
+  // ★★ 加固（防「参数被静默忽略 ⇒ 误打生产」再现）：命令行里出现了 --db 形式却解析不出路径 ⇒ **硬失败**。
+  if (DB_ARG === null && args.some((x) => x.indexOf('--db') === 0)) {
+    console.error('!! 检测到 --db 形式参数但未能解析（本脚本约定：`--db=<path>`，等号形式）⇒ 硬失败，绝不静默落默认库');
+    console.error('   args=' + JSON.stringify(args));
+    process.exit(2);
+  }
+  const initDb = () => { db.init(DB_ARG === null ? undefined : DB_ARG); log('db=' + (DB_ARG || db.DEFAULT_DB_PATH)); };
+  if (args.indexOf('--report-due') !== -1) { initDb(); return await reportDue(); }
   log('=== corpus-resolve-daemon start | mode=' + (LOOP ? 'loop' : 'once') + ' interval=' + INTERVAL_MIN + 'min due-only=' + DUE_ONLY + ' confirm=' + CONFIRM + (CONFIRM ? '' : '（DRY-RUN，不写库）'));
   const lm = loadBase();
   if (!BASE) log('WARN 未能内联复用 corpus-resolve 的 RESOLVERS（' + lm + '）：仅 daemon 内置的 b3 系列 kind 可解，其余记 unsupported');
   else log('复用 corpus-resolve RESOLVERS 成功：' + lm);
-  db.init();
+  initDb();
   await refreshCals();
   let n = 0;
   for (;;) {
