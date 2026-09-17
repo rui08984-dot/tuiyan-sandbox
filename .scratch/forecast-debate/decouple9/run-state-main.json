@@ -1,0 +1,930 @@
+{
+ "tag": "main",
+ "done": {
+  "91|v1_evidence@T0.2#1": {
+   "prob": 0.02,
+   "error": null,
+   "at": "2026-09-17T10:23:17.852Z"
+  },
+  "91|v1_evidence@T0.2#2": {
+   "prob": 0.01,
+   "error": null,
+   "at": "2026-09-17T10:23:27.017Z"
+  },
+  "91|v2_skeptical@T0.7#1": {
+   "prob": 0.92,
+   "error": null,
+   "at": "2026-09-17T10:23:35.498Z"
+  },
+  "91|v3_baserate@T1#1": {
+   "prob": 0.58,
+   "error": null,
+   "at": "2026-09-17T10:23:58.946Z"
+  },
+  "91|v1_evidence@T0.7#1": {
+   "prob": 0.03,
+   "error": null,
+   "at": "2026-09-17T10:24:13.349Z"
+  },
+  "91|v1_evidence@T1#1": {
+   "prob": 0.01,
+   "error": null,
+   "at": "2026-09-17T10:24:34.318Z"
+  },
+  "91|v2_skeptical@T0.2#1": {
+   "prob": 0.9,
+   "error": null,
+   "at": "2026-09-17T10:24:44.098Z"
+  },
+  "91|v2_skeptical@T1#1": {
+   "prob": 0.9,
+   "error": null,
+   "at": "2026-09-17T10:25:00.715Z"
+  },
+  "91|v3_baserate@T0.2#1": {
+   "prob": 0.58,
+   "error": null,
+   "at": "2026-09-17T10:25:25.308Z"
+  },
+  "91|v3_baserate@T0.7#1": {
+   "prob": 0.58,
+   "error": null,
+   "at": "2026-09-17T10:25:43.519Z"
+  },
+  "104|v1_evidence@T0.2#1": {
+   "prob": 0.5,
+   "error": null,
+   "at": "2026-09-17T10:26:21.304Z"
+  },
+  "104|v2_skeptical@T0.7#1": {
+   "prob": 0.3,
+   "error": null,
+   "at": "2026-09-17T10:28:18.360Z"
+  },
+  "104|v3_baserate@T1#1": {
+   "prob": 0.58,
+   "error": null,
+   "at": "2026-09-17T10:29:02.548Z"
+  },
+  "104|v1_evidence@T0.2#2": {
+   "prob": 0.58,
+   "error": null,
+   "at": "2026-09-17T10:30:56.919Z"
+  },
+  "104|v1_evidence@T0.7#1": {
+   "prob": 0.15,
+   "error": null,
+   "at": "2026-09-17T10:31:44.021Z"
+  },
+  "104|v2_skeptical@T0.2#1": {
+   "prob": 0.22,
+   "error": null,
+   "at": "2026-09-17T10:32:56.865Z"
+  },
+  "104|v2_skeptical@T1#1": {
+   "prob": 0.32,
+   "error": null,
+   "at": "2026-09-17T10:33:09.403Z"
+  },
+  "104|v3_baserate@T0.2#1": {
+   "prob": 0.58,
+   "error": null,
+   "at": "2026-09-17T10:33:52.082Z"
+  },
+  "104|v3_baserate@T0.7#1": {
+   "prob": 0.58,
+   "error": null,
+   "at": "2026-09-17T10:34:04.474Z"
+  },
+  "120|v1_evidence@T0.2#1": {
+   "prob": 0.55,
+   "error": null,
+   "at": "2026-09-17T10:34:22.938Z"
+  },
+  "120|v1_evidence@T0.2#2": {
+   "prob": 0.7,
+   "error": null,
+   "at": "2026-09-17T10:34:39.801Z"
+  },
+  "120|v2_skeptical@T0.7#1": {
+   "prob": 0.9,
+   "error": null,
+   "at": "2026-09-17T10:34:56.444Z"
+  },
+  "120|v3_baserate@T1#1": {
+   "prob": 0.58,
+   "error": null,
+   "at": "2026-09-17T10:35:16.933Z"
+  },
+  "120|v1_evidence@T0.7#1": {
+   "prob": 0.75,
+   "error": null,
+   "at": "2026-09-17T10:35:25.009Z"
+  },
+  "120|v1_evidence@T1#1": {
+   "prob": 0.7,
+   "error": null,
+   "at": "2026-09-17T10:35:42.501Z"
+  },
+  "120|v2_skeptical@T0.2#1": {
+   "prob": 0.75,
+   "error": null,
+   "at": "2026-09-17T10:35:56.907Z"
+  },
+  "120|v2_skeptical@T1#1": {
+   "prob": 0.7,
+   "error": null,
+   "at": "2026-09-17T10:36:14.212Z"
+  },
+  "120|v3_baserate@T0.2#1": {
+   "prob": 0.58,
+   "error": null,
+   "at": "2026-09-17T10:36:37.662Z"
+  },
+  "120|v3_baserate@T0.7#1": {
+   "prob": 0.58,
+   "error": null,
+   "at": "2026-09-17T10:36:47.942Z"
+  },
+  "134|v1_evidence@T0.2#1": {
+   "prob": 0.78,
+   "error": null,
+   "at": "2026-09-17T10:36:57.921Z"
+  },
+  "134|v1_evidence@T0.2#2": {
+   "prob": 0.82,
+   "error": null,
+   "at": "2026-09-17T10:37:20.881Z"
+  },
+  "134|v2_skeptical@T0.7#1": {
+   "prob": 0.72,
+   "error": null,
+   "at": "2026-09-17T10:37:35.305Z"
+  },
+  "134|v3_baserate@T1#1": {
+   "prob": 0.58,
+   "error": null,
+   "at": "2026-09-17T10:38:17.174Z"
+  },
+  "134|v1_evidence@T0.7#1": {
+   "prob": 0.78,
+   "error": null,
+   "at": "2026-09-17T10:38:26.399Z"
+  },
+  "134|v1_evidence@T1#1": {
+   "prob": 0.95,
+   "error": null,
+   "at": "2026-09-17T10:38:41.657Z"
+  },
+  "134|v2_skeptical@T1#1": {
+   "prob": 0.72,
+   "error": null,
+   "at": "2026-09-17T10:40:15.591Z"
+  },
+  "134|v3_baserate@T0.2#1": {
+   "prob": 0.58,
+   "error": null,
+   "at": "2026-09-17T10:40:57.099Z"
+  },
+  "134|v3_baserate@T0.7#1": {
+   "prob": 0.58,
+   "error": null,
+   "at": "2026-09-17T10:41:04.190Z"
+  },
+  "147|v1_evidence@T0.2#1": {
+   "prob": 0.46,
+   "error": null,
+   "at": "2026-09-17T10:41:14.815Z"
+  },
+  "147|v1_evidence@T0.2#2": {
+   "prob": 0.4,
+   "error": null,
+   "at": "2026-09-17T10:41:46.006Z"
+  },
+  "147|v2_skeptical@T0.7#1": {
+   "prob": 0.4,
+   "error": null,
+   "at": "2026-09-17T10:42:25.173Z"
+  },
+  "147|v3_baserate@T1#1": {
+   "prob": 0.58,
+   "error": null,
+   "at": "2026-09-17T10:42:37.944Z"
+  },
+  "147|v1_evidence@T0.7#1": {
+   "prob": 0.55,
+   "error": null,
+   "at": "2026-09-17T10:42:48.528Z"
+  },
+  "147|v1_evidence@T1#1": {
+   "prob": 0.45,
+   "error": null,
+   "at": "2026-09-17T10:43:21.524Z"
+  },
+  "147|v2_skeptical@T0.2#1": {
+   "prob": 0.45,
+   "error": null,
+   "at": "2026-09-17T10:43:57.532Z"
+  },
+  "147|v2_skeptical@T1#1": {
+   "prob": 0.4,
+   "error": null,
+   "at": "2026-09-17T10:44:07.896Z"
+  },
+  "147|v3_baserate@T0.2#1": {
+   "prob": 0.58,
+   "error": null,
+   "at": "2026-09-17T10:44:22.808Z"
+  },
+  "147|v3_baserate@T0.7#1": {
+   "prob": 0.58,
+   "error": null,
+   "at": "2026-09-17T10:44:31.027Z"
+  },
+  "161|v1_evidence@T0.2#1": {
+   "prob": 0.55,
+   "error": null,
+   "at": "2026-09-17T10:44:39.476Z"
+  },
+  "161|v1_evidence@T0.2#2": {
+   "prob": 0.5,
+   "error": null,
+   "at": "2026-09-17T10:44:57.728Z"
+  },
+  "161|v2_skeptical@T0.7#1": {
+   "prob": 0.3,
+   "error": null,
+   "at": "2026-09-17T10:45:16.133Z"
+  },
+  "161|v3_baserate@T1#1": {
+   "prob": 0.58,
+   "error": null,
+   "at": "2026-09-17T10:45:29.190Z"
+  },
+  "161|v1_evidence@T1#1": {
+   "prob": 0.37,
+   "error": null,
+   "at": "2026-09-17T10:46:40.917Z"
+  },
+  "161|v2_skeptical@T0.2#1": {
+   "prob": 0.28,
+   "error": null,
+   "at": "2026-09-17T10:47:10.885Z"
+  },
+  "161|v2_skeptical@T1#1": {
+   "prob": 0.42,
+   "error": null,
+   "at": "2026-09-17T10:47:19.821Z"
+  },
+  "161|v3_baserate@T0.2#1": {
+   "prob": 0.58,
+   "error": null,
+   "at": "2026-09-17T10:47:33.169Z"
+  },
+  "161|v3_baserate@T0.7#1": {
+   "prob": 0.58,
+   "error": null,
+   "at": "2026-09-17T10:47:50.672Z"
+  },
+  "174|v1_evidence@T0.2#1": {
+   "prob": 0.52,
+   "error": null,
+   "at": "2026-09-17T10:48:01.304Z"
+  },
+  "174|v1_evidence@T0.2#2": {
+   "prob": 0.27,
+   "error": null,
+   "at": "2026-09-17T10:48:25.574Z"
+  },
+  "174|v2_skeptical@T0.7#1": {
+   "prob": 0.62,
+   "error": null,
+   "at": "2026-09-17T10:48:44.913Z"
+  },
+  "174|v3_baserate@T1#1": {
+   "prob": 0.58,
+   "error": null,
+   "at": "2026-09-17T10:48:54.844Z"
+  },
+  "174|v1_evidence@T0.7#1": {
+   "prob": 0.55,
+   "error": null,
+   "at": "2026-09-17T10:49:01.857Z"
+  },
+  "174|v1_evidence@T1#1": {
+   "prob": 0.65,
+   "error": null,
+   "at": "2026-09-17T10:49:18.300Z"
+  },
+  "174|v2_skeptical@T0.2#1": {
+   "prob": 0.65,
+   "error": null,
+   "at": "2026-09-17T10:49:38.416Z"
+  },
+  "174|v2_skeptical@T1#1": {
+   "prob": 0.55,
+   "error": null,
+   "at": "2026-09-17T10:49:59.002Z"
+  },
+  "174|v3_baserate@T0.2#1": {
+   "prob": 0.58,
+   "error": null,
+   "at": "2026-09-17T10:50:26.095Z"
+  },
+  "174|v3_baserate@T0.7#1": {
+   "prob": 0.58,
+   "error": null,
+   "at": "2026-09-17T10:50:32.209Z"
+  },
+  "175|v1_evidence@T0.2#1": {
+   "prob": 0.95,
+   "error": null,
+   "at": "2026-09-17T10:50:43.237Z"
+  },
+  "175|v1_evidence@T0.2#2": {
+   "prob": 0.98,
+   "error": null,
+   "at": "2026-09-17T10:50:59.184Z"
+  },
+  "175|v2_skeptical@T0.7#1": {
+   "prob": 0.86,
+   "error": null,
+   "at": "2026-09-17T10:51:08.545Z"
+  },
+  "175|v3_baserate@T1#1": {
+   "prob": 0.58,
+   "error": null,
+   "at": "2026-09-17T10:51:21.598Z"
+  },
+  "175|v1_evidence@T0.7#1": {
+   "prob": 0.97,
+   "error": null,
+   "at": "2026-09-17T10:51:35.839Z"
+  },
+  "175|v1_evidence@T1#1": {
+   "prob": 0.98,
+   "error": null,
+   "at": "2026-09-17T10:51:46.115Z"
+  },
+  "175|v2_skeptical@T0.2#1": {
+   "prob": 0.87,
+   "error": null,
+   "at": "2026-09-17T10:51:59.061Z"
+  },
+  "175|v2_skeptical@T1#1": {
+   "prob": 0.91,
+   "error": null,
+   "at": "2026-09-17T10:52:09.715Z"
+  },
+  "175|v3_baserate@T0.2#1": {
+   "prob": 0.58,
+   "error": null,
+   "at": "2026-09-17T10:52:27.452Z"
+  },
+  "175|v3_baserate@T0.7#1": {
+   "prob": 0.58,
+   "error": null,
+   "at": "2026-09-17T10:52:39.456Z"
+  },
+  "188|v1_evidence@T0.2#2": {
+   "prob": 0.05,
+   "error": null,
+   "at": "2026-09-17T10:53:49.269Z"
+  },
+  "188|v3_baserate@T1#1": {
+   "prob": 0.58,
+   "error": null,
+   "at": "2026-09-17T10:54:59.491Z"
+  },
+  "188|v1_evidence@T0.7#1": {
+   "prob": 0.42,
+   "error": null,
+   "at": "2026-09-17T10:55:11.935Z"
+  },
+  "188|v1_evidence@T1#1": {
+   "prob": 0.5,
+   "error": null,
+   "at": "2026-09-17T10:55:58.740Z"
+  },
+  "188|v2_skeptical@T0.2#1": {
+   "prob": 0.32,
+   "error": null,
+   "at": "2026-09-17T10:56:43.677Z"
+  },
+  "188|v3_baserate@T0.2#1": {
+   "prob": 0.58,
+   "error": null,
+   "at": "2026-09-17T10:58:17.801Z"
+  },
+  "188|v3_baserate@T0.7#1": {
+   "prob": 0.58,
+   "error": null,
+   "at": "2026-09-17T10:58:39.568Z"
+  },
+  "204|v1_evidence@T0.2#1": {
+   "prob": 0.78,
+   "error": null,
+   "at": "2026-09-17T10:58:55.299Z"
+  },
+  "204|v1_evidence@T0.2#2": {
+   "prob": 0.78,
+   "error": null,
+   "at": "2026-09-17T10:59:09.582Z"
+  },
+  "204|v2_skeptical@T0.7#1": {
+   "prob": 0.7,
+   "error": null,
+   "at": "2026-09-17T10:59:24.022Z"
+  },
+  "204|v3_baserate@T1#1": {
+   "prob": 0.58,
+   "error": null,
+   "at": "2026-09-17T10:59:41.642Z"
+  },
+  "204|v1_evidence@T0.7#1": {
+   "prob": 0.85,
+   "error": null,
+   "at": "2026-09-17T10:59:51.365Z"
+  },
+  "204|v1_evidence@T1#1": {
+   "prob": 0.97,
+   "error": null,
+   "at": "2026-09-17T11:00:10.538Z"
+  },
+  "204|v2_skeptical@T0.2#1": {
+   "prob": 0.85,
+   "error": null,
+   "at": "2026-09-17T11:00:30.457Z"
+  },
+  "204|v2_skeptical@T1#1": {
+   "prob": 0.65,
+   "error": null,
+   "at": "2026-09-17T11:01:00.332Z"
+  },
+  "204|v3_baserate@T0.2#1": {
+   "prob": 0.58,
+   "error": null,
+   "at": "2026-09-17T11:01:13.040Z"
+  },
+  "204|v3_baserate@T0.7#1": {
+   "prob": 0.58,
+   "error": null,
+   "at": "2026-09-17T11:01:36.870Z"
+  },
+  "218|v1_evidence@T0.2#1": {
+   "prob": 0.68,
+   "error": null,
+   "at": "2026-09-17T11:01:46.012Z"
+  },
+  "218|v1_evidence@T0.2#2": {
+   "prob": 0.92,
+   "error": null,
+   "at": "2026-09-17T11:02:11.911Z"
+  },
+  "218|v2_skeptical@T0.7#1": {
+   "prob": 0.86,
+   "error": null,
+   "at": "2026-09-17T11:02:29.803Z"
+  },
+  "218|v3_baserate@T1#1": {
+   "prob": 0.58,
+   "error": null,
+   "at": "2026-09-17T11:03:02.821Z"
+  },
+  "218|v1_evidence@T0.7#1": {
+   "prob": 0.67,
+   "error": null,
+   "at": "2026-09-17T11:03:17.747Z"
+  },
+  "218|v1_evidence@T1#1": {
+   "prob": 0.7,
+   "error": null,
+   "at": "2026-09-17T11:03:59.318Z"
+  },
+  "218|v2_skeptical@T0.2#1": {
+   "prob": 0.75,
+   "error": null,
+   "at": "2026-09-17T11:04:23.855Z"
+  },
+  "218|v2_skeptical@T1#1": {
+   "prob": 0.65,
+   "error": null,
+   "at": "2026-09-17T11:05:03.143Z"
+  },
+  "218|v3_baserate@T0.2#1": {
+   "prob": 0.58,
+   "error": null,
+   "at": "2026-09-17T11:05:20.608Z"
+  },
+  "218|v3_baserate@T0.7#1": {
+   "prob": 0.58,
+   "error": null,
+   "at": "2026-09-17T11:05:31.706Z"
+  },
+  "231|v1_evidence@T0.2#1": {
+   "prob": 0.42,
+   "error": null,
+   "at": "2026-09-17T11:05:40.754Z"
+  },
+  "231|v1_evidence@T0.2#2": {
+   "prob": 0.5,
+   "error": null,
+   "at": "2026-09-17T11:05:59.330Z"
+  },
+  "231|v2_skeptical@T0.7#1": {
+   "prob": 0.35,
+   "error": null,
+   "at": "2026-09-17T11:06:29.135Z"
+  },
+  "231|v3_baserate@T1#1": {
+   "prob": 0.58,
+   "error": null,
+   "at": "2026-09-17T11:06:43.292Z"
+  },
+  "231|v1_evidence@T0.7#1": {
+   "prob": 0.45,
+   "error": null,
+   "at": "2026-09-17T11:06:52.107Z"
+  },
+  "231|v2_skeptical@T0.2#1": {
+   "prob": 0.33,
+   "error": null,
+   "at": "2026-09-17T11:08:38.332Z"
+  },
+  "231|v2_skeptical@T1#1": {
+   "prob": 0.4,
+   "error": null,
+   "at": "2026-09-17T11:08:45.510Z"
+  },
+  "231|v3_baserate@T0.2#1": {
+   "prob": 0.58,
+   "error": null,
+   "at": "2026-09-17T11:08:57.585Z"
+  },
+  "231|v3_baserate@T0.7#1": {
+   "prob": 0.58,
+   "error": null,
+   "at": "2026-09-17T11:09:04.947Z"
+  },
+  "245|v1_evidence@T0.2#2": {
+   "prob": 0.22,
+   "error": null,
+   "at": "2026-09-17T11:10:11.955Z"
+  },
+  "245|v2_skeptical@T0.7#1": {
+   "prob": 0.4,
+   "error": null,
+   "at": "2026-09-17T11:10:29.188Z"
+  },
+  "245|v3_baserate@T1#1": {
+   "prob": 0.58,
+   "error": null,
+   "at": "2026-09-17T11:10:38.312Z"
+  },
+  "245|v1_evidence@T0.7#1": {
+   "prob": 0.32,
+   "error": null,
+   "at": "2026-09-17T11:10:48.261Z"
+  },
+  "245|v1_evidence@T1#1": {
+   "prob": 0.3,
+   "error": null,
+   "at": "2026-09-17T11:11:08.975Z"
+  },
+  "245|v2_skeptical@T0.2#1": {
+   "prob": 0.42,
+   "error": null,
+   "at": "2026-09-17T11:11:29.596Z"
+  },
+  "245|v2_skeptical@T1#1": {
+   "prob": 0.27,
+   "error": null,
+   "at": "2026-09-17T11:11:38.770Z"
+  },
+  "245|v3_baserate@T0.2#1": {
+   "prob": 0.58,
+   "error": null,
+   "at": "2026-09-17T11:11:50.876Z"
+  },
+  "245|v3_baserate@T0.7#1": {
+   "prob": 0.58,
+   "error": null,
+   "at": "2026-09-17T11:11:58.445Z"
+  },
+  "258|v1_evidence@T0.2#1": {
+   "prob": 0.65,
+   "error": null,
+   "at": "2026-09-17T11:12:05.321Z"
+  },
+  "258|v1_evidence@T0.2#2": {
+   "prob": 0.6,
+   "error": null,
+   "at": "2026-09-17T11:12:18.797Z"
+  },
+  "258|v2_skeptical@T0.7#1": {
+   "prob": 0.8,
+   "error": null,
+   "at": "2026-09-17T11:12:33.421Z"
+  },
+  "258|v3_baserate@T1#1": {
+   "prob": 0.57,
+   "error": null,
+   "at": "2026-09-17T11:13:03.880Z"
+  },
+  "258|v1_evidence@T0.7#1": {
+   "prob": 0.72,
+   "error": null,
+   "at": "2026-09-17T11:13:17.436Z"
+  },
+  "258|v1_evidence@T1#1": {
+   "prob": 0.78,
+   "error": null,
+   "at": "2026-09-17T11:13:36.992Z"
+  },
+  "258|v2_skeptical@T0.2#1": {
+   "prob": 0.66,
+   "error": null,
+   "at": "2026-09-17T11:14:10.060Z"
+  },
+  "258|v2_skeptical@T1#1": {
+   "prob": 0.68,
+   "error": null,
+   "at": "2026-09-17T11:14:45.623Z"
+  },
+  "258|v3_baserate@T0.2#1": {
+   "prob": 0.58,
+   "error": null,
+   "at": "2026-09-17T11:14:58.104Z"
+  },
+  "258|v3_baserate@T0.7#1": {
+   "prob": 0.58,
+   "error": null,
+   "at": "2026-09-17T11:15:06.041Z"
+  },
+  "104|v1_evidence@T1#1": {
+   "prob": null,
+   "error": "LLM API HTTP 504",
+   "at": "2026-09-17T11:25:22.720Z"
+  },
+  "134|v2_skeptical@T0.2#1": {
+   "prob": 0.75,
+   "error": null,
+   "at": "2026-09-17T11:26:22.812Z"
+  },
+  "161|v1_evidence@T0.7#1": {
+   "prob": 0.52,
+   "error": null,
+   "at": "2026-09-17T11:26:40.861Z"
+  },
+  "188|v1_evidence@T0.2#1": {
+   "prob": 0.35,
+   "error": null,
+   "at": "2026-09-17T11:26:57.857Z"
+  },
+  "188|v2_skeptical@T0.7#1": {
+   "prob": 0.2,
+   "error": null,
+   "at": "2026-09-17T11:27:41.281Z"
+  },
+  "188|v2_skeptical@T1#1": {
+   "prob": 0.18,
+   "error": null,
+   "at": "2026-09-17T11:27:55.828Z"
+  },
+  "231|v1_evidence@T1#1": {
+   "prob": 0.45,
+   "error": null,
+   "at": "2026-09-17T11:28:17.539Z"
+  },
+  "245|v1_evidence@T0.2#1": {
+   "prob": 0.28,
+   "error": null,
+   "at": "2026-09-17T11:28:50.697Z"
+  },
+  "259|v1_evidence@T0.2#1": {
+   "prob": 0.98,
+   "error": null,
+   "at": "2026-09-17T11:29:18.823Z"
+  },
+  "259|v1_evidence@T0.2#2": {
+   "prob": 0.98,
+   "error": null,
+   "at": "2026-09-17T11:29:34.298Z"
+  },
+  "259|v2_skeptical@T0.7#1": {
+   "prob": 0.83,
+   "error": null,
+   "at": "2026-09-17T11:29:41.684Z"
+  },
+  "259|v3_baserate@T1#1": {
+   "prob": 0.58,
+   "error": null,
+   "at": "2026-09-17T11:30:04.014Z"
+  },
+  "259|v1_evidence@T0.7#1": {
+   "prob": 0.98,
+   "error": null,
+   "at": "2026-09-17T11:30:22.073Z"
+  },
+  "259|v1_evidence@T1#1": {
+   "prob": 0.97,
+   "error": null,
+   "at": "2026-09-17T11:30:28.731Z"
+  },
+  "259|v2_skeptical@T0.2#1": {
+   "prob": 0.72,
+   "error": null,
+   "at": "2026-09-17T11:30:37.082Z"
+  },
+  "259|v2_skeptical@T1#1": {
+   "prob": 0.9,
+   "error": null,
+   "at": "2026-09-17T11:31:21.145Z"
+  },
+  "259|v3_baserate@T0.2#1": {
+   "prob": 0.58,
+   "error": null,
+   "at": "2026-09-17T11:31:34.738Z"
+  },
+  "259|v3_baserate@T0.7#1": {
+   "prob": 0.58,
+   "error": null,
+   "at": "2026-09-17T11:31:54.322Z"
+  },
+  "272|v1_evidence@T0.2#1": {
+   "prob": null,
+   "error": "LLM API HTTP 504",
+   "at": "2026-09-17T11:32:05.663Z"
+  },
+  "272|v1_evidence@T0.2#2": {
+   "prob": 0.27,
+   "error": null,
+   "at": "2026-09-17T11:33:05.703Z"
+  },
+  "272|v2_skeptical@T0.7#1": {
+   "prob": 0.42,
+   "error": null,
+   "at": "2026-09-17T11:33:48.579Z"
+  },
+  "272|v3_baserate@T1#1": {
+   "prob": 0.58,
+   "error": null,
+   "at": "2026-09-17T11:34:23.307Z"
+  },
+  "272|v1_evidence@T0.7#1": {
+   "prob": null,
+   "error": "LLM API HTTP 504",
+   "at": "2026-09-17T11:34:39.295Z"
+  },
+  "272|v1_evidence@T1#1": {
+   "prob": null,
+   "error": "LLM API HTTP 504",
+   "at": "2026-09-17T11:35:39.322Z"
+  },
+  "272|v2_skeptical@T0.2#1": {
+   "prob": 0.3,
+   "error": null,
+   "at": "2026-09-17T11:36:39.371Z"
+  },
+  "272|v2_skeptical@T1#1": {
+   "prob": 0.22,
+   "error": null,
+   "at": "2026-09-17T11:37:03.845Z"
+  },
+  "272|v3_baserate@T0.2#1": {
+   "prob": 0.58,
+   "error": null,
+   "at": "2026-09-17T11:37:19.004Z"
+  },
+  "272|v3_baserate@T0.7#1": {
+   "prob": 0.58,
+   "error": null,
+   "at": "2026-09-17T11:37:30.742Z"
+  },
+  "288|v1_evidence@T0.2#1": {
+   "prob": 0.84,
+   "error": null,
+   "at": "2026-09-17T11:37:41.034Z"
+  },
+  "288|v1_evidence@T0.2#2": {
+   "prob": 0.82,
+   "error": null,
+   "at": "2026-09-17T11:38:17.070Z"
+  },
+  "288|v2_skeptical@T0.7#1": {
+   "prob": 0.71,
+   "error": null,
+   "at": "2026-09-17T11:38:39.468Z"
+  },
+  "288|v3_baserate@T1#1": {
+   "prob": 0.58,
+   "error": null,
+   "at": "2026-09-17T11:39:06.695Z"
+  },
+  "288|v1_evidence@T0.7#1": {
+   "prob": 0.78,
+   "error": null,
+   "at": "2026-09-17T11:39:14.243Z"
+  },
+  "288|v1_evidence@T1#1": {
+   "prob": 0.82,
+   "error": null,
+   "at": "2026-09-17T11:39:47.038Z"
+  },
+  "288|v2_skeptical@T0.2#1": {
+   "prob": 0.75,
+   "error": null,
+   "at": "2026-09-17T11:40:07.765Z"
+  },
+  "288|v2_skeptical@T1#1": {
+   "prob": 0.78,
+   "error": null,
+   "at": "2026-09-17T11:40:33.269Z"
+  },
+  "288|v3_baserate@T0.2#1": {
+   "prob": 0.58,
+   "error": null,
+   "at": "2026-09-17T11:40:49.549Z"
+  },
+  "288|v3_baserate@T0.7#1": {
+   "prob": 0.58,
+   "error": null,
+   "at": "2026-09-17T11:41:03.135Z"
+  },
+  "302|v1_evidence@T0.2#1": {
+   "prob": 0.6,
+   "error": null,
+   "at": "2026-09-17T11:41:18.090Z"
+  },
+  "302|v1_evidence@T0.2#2": {
+   "prob": 0.7,
+   "error": null,
+   "at": "2026-09-17T11:41:55.531Z"
+  }
+ },
+ "calls": 182,
+ "cost": 0.9828,
+ "failures": [
+  {
+   "key": "104|v1_evidence@T0.2#2",
+   "error": "LLM API HTTP 504"
+  },
+  {
+   "key": "104|v1_evidence@T0.7#1",
+   "error": "LLM API HTTP 504"
+  },
+  {
+   "key": "104|v1_evidence@T1#1",
+   "error": "LLM API HTTP 504"
+  },
+  {
+   "key": "134|v2_skeptical@T0.2#1",
+   "error": "LLM API HTTP 504"
+  },
+  {
+   "key": "161|v1_evidence@T0.7#1",
+   "error": "LLM API HTTP 504"
+  },
+  {
+   "key": "188|v1_evidence@T0.2#1",
+   "error": "LLM API HTTP 504"
+  },
+  {
+   "key": "188|v2_skeptical@T0.7#1",
+   "error": "LLM API HTTP 504"
+  },
+  {
+   "key": "188|v2_skeptical@T1#1",
+   "error": "LLM API HTTP 504"
+  },
+  {
+   "key": "231|v1_evidence@T1#1",
+   "error": "LLM API HTTP 504"
+  },
+  {
+   "key": "245|v1_evidence@T0.2#1",
+   "error": "LLM API HTTP 504"
+  },
+  {
+   "key": "104|v1_evidence@T1#1",
+   "error": "LLM API HTTP 504"
+  },
+  {
+   "key": "272|v1_evidence@T0.2#1",
+   "error": "LLM API HTTP 504"
+  },
+  {
+   "key": "272|v1_evidence@T0.7#1",
+   "error": "LLM API HTTP 504"
+  },
+  {
+   "key": "272|v1_evidence@T1#1",
+   "error": "LLM API HTTP 504"
+  }
+ ],
+ "stop_reason": "complete",
+ "started_at": "2026-09-17T10:30:40.560Z",
+ "updated_at": "2026-09-17T11:42:17.495Z",
+ "retry_at": "2026-09-17T11:25:22.718Z",
+ "retry_cleared": 8
+}

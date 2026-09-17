@@ -1,0 +1,386 @@
+{
+ "script": "p1b/scripts/decouple9-run.cjs",
+ "kind": "anchor-set",
+ "version": 1,
+ "frozen_at": null,
+ "rule": {
+  "pool": {
+   "layer": "L6",
+   "checklist_hash": "v2",
+   "statement_prefix": "[cutoff=",
+   "min_games": 30,
+   "first_round": 30,
+   "second_round": 10
+  },
+  "round1": "前 30 局各取 1 题（局序 j ⇒ 局内位置 j mod m_j）",
+  "round2": "前 10 局各补 1 题（局内位置 (j+1) mod m_j；单题局跳过）"
+ },
+ "derivable": "任一持有同库者按上式重算须得同一 id 集合（runner 逐题核，不符 exit 3）",
+ "pool_size": 210,
+ "pool_games": 30,
+ "n_questions": 40,
+ "questions": [
+  {
+   "id": 91,
+   "game_id": 8,
+   "outcome": "false",
+   "round": 1,
+   "pos": 0,
+   "m": 7,
+   "statement_sha16": "574b4c7d5b0851c4"
+  },
+  {
+   "id": 104,
+   "game_id": 9,
+   "outcome": "false",
+   "round": 1,
+   "pos": 1,
+   "m": 7,
+   "statement_sha16": "503a856833029bed"
+  },
+  {
+   "id": 120,
+   "game_id": 10,
+   "outcome": "true",
+   "round": 1,
+   "pos": 2,
+   "m": 7,
+   "statement_sha16": "18943535a5a07ed1"
+  },
+  {
+   "id": 134,
+   "game_id": 11,
+   "outcome": "true",
+   "round": 1,
+   "pos": 3,
+   "m": 7,
+   "statement_sha16": "a71d053769fec608"
+  },
+  {
+   "id": 147,
+   "game_id": 12,
+   "outcome": "false",
+   "round": 1,
+   "pos": 4,
+   "m": 7,
+   "statement_sha16": "287750c9a03d7cda"
+  },
+  {
+   "id": 161,
+   "game_id": 13,
+   "outcome": "false",
+   "round": 1,
+   "pos": 5,
+   "m": 7,
+   "statement_sha16": "6dae39f93c119dbe"
+  },
+  {
+   "id": 174,
+   "game_id": 14,
+   "outcome": "false",
+   "round": 1,
+   "pos": 6,
+   "m": 7,
+   "statement_sha16": "9e55073f983f1d3b"
+  },
+  {
+   "id": 175,
+   "game_id": 15,
+   "outcome": "true",
+   "round": 1,
+   "pos": 0,
+   "m": 7,
+   "statement_sha16": "d958d965d819695e"
+  },
+  {
+   "id": 188,
+   "game_id": 16,
+   "outcome": "false",
+   "round": 1,
+   "pos": 1,
+   "m": 7,
+   "statement_sha16": "503a856833029bed"
+  },
+  {
+   "id": 204,
+   "game_id": 17,
+   "outcome": "true",
+   "round": 1,
+   "pos": 2,
+   "m": 7,
+   "statement_sha16": "18943535a5a07ed1"
+  },
+  {
+   "id": 218,
+   "game_id": 18,
+   "outcome": "true",
+   "round": 1,
+   "pos": 3,
+   "m": 7,
+   "statement_sha16": "a71d053769fec608"
+  },
+  {
+   "id": 231,
+   "game_id": 19,
+   "outcome": "true",
+   "round": 1,
+   "pos": 4,
+   "m": 7,
+   "statement_sha16": "287750c9a03d7cda"
+  },
+  {
+   "id": 245,
+   "game_id": 20,
+   "outcome": "true",
+   "round": 1,
+   "pos": 5,
+   "m": 7,
+   "statement_sha16": "6dae39f93c119dbe"
+  },
+  {
+   "id": 258,
+   "game_id": 21,
+   "outcome": "true",
+   "round": 1,
+   "pos": 6,
+   "m": 7,
+   "statement_sha16": "9e55073f983f1d3b"
+  },
+  {
+   "id": 259,
+   "game_id": 22,
+   "outcome": "false",
+   "round": 1,
+   "pos": 0,
+   "m": 7,
+   "statement_sha16": "46708eb8071f63bd"
+  },
+  {
+   "id": 272,
+   "game_id": 23,
+   "outcome": "false",
+   "round": 1,
+   "pos": 1,
+   "m": 7,
+   "statement_sha16": "503a856833029bed"
+  },
+  {
+   "id": 288,
+   "game_id": 24,
+   "outcome": "true",
+   "round": 1,
+   "pos": 2,
+   "m": 7,
+   "statement_sha16": "18943535a5a07ed1"
+  },
+  {
+   "id": 302,
+   "game_id": 25,
+   "outcome": "false",
+   "round": 1,
+   "pos": 3,
+   "m": 7,
+   "statement_sha16": "a71d053769fec608"
+  },
+  {
+   "id": 315,
+   "game_id": 26,
+   "outcome": "false",
+   "round": 1,
+   "pos": 4,
+   "m": 7,
+   "statement_sha16": "287750c9a03d7cda"
+  },
+  {
+   "id": 329,
+   "game_id": 27,
+   "outcome": "false",
+   "round": 1,
+   "pos": 5,
+   "m": 7,
+   "statement_sha16": "6dae39f93c119dbe"
+  },
+  {
+   "id": 342,
+   "game_id": 28,
+   "outcome": "false",
+   "round": 1,
+   "pos": 6,
+   "m": 7,
+   "statement_sha16": "9e55073f983f1d3b"
+  },
+  {
+   "id": 343,
+   "game_id": 29,
+   "outcome": "false",
+   "round": 1,
+   "pos": 0,
+   "m": 7,
+   "statement_sha16": "928c8321b4952d2a"
+  },
+  {
+   "id": 356,
+   "game_id": 30,
+   "outcome": "true",
+   "round": 1,
+   "pos": 1,
+   "m": 7,
+   "statement_sha16": "503a856833029bed"
+  },
+  {
+   "id": 372,
+   "game_id": 31,
+   "outcome": "false",
+   "round": 1,
+   "pos": 2,
+   "m": 7,
+   "statement_sha16": "18943535a5a07ed1"
+  },
+  {
+   "id": 386,
+   "game_id": 32,
+   "outcome": "true",
+   "round": 1,
+   "pos": 3,
+   "m": 7,
+   "statement_sha16": "a71d053769fec608"
+  },
+  {
+   "id": 399,
+   "game_id": 33,
+   "outcome": "false",
+   "round": 1,
+   "pos": 4,
+   "m": 7,
+   "statement_sha16": "287750c9a03d7cda"
+  },
+  {
+   "id": 413,
+   "game_id": 34,
+   "outcome": "false",
+   "round": 1,
+   "pos": 5,
+   "m": 7,
+   "statement_sha16": "6dae39f93c119dbe"
+  },
+  {
+   "id": 426,
+   "game_id": 35,
+   "outcome": "true",
+   "round": 1,
+   "pos": 6,
+   "m": 7,
+   "statement_sha16": "9e55073f983f1d3b"
+  },
+  {
+   "id": 427,
+   "game_id": 36,
+   "outcome": "true",
+   "round": 1,
+   "pos": 0,
+   "m": 7,
+   "statement_sha16": "046fe6017db32518"
+  },
+  {
+   "id": 440,
+   "game_id": 37,
+   "outcome": "true",
+   "round": 1,
+   "pos": 1,
+   "m": 7,
+   "statement_sha16": "503a856833029bed"
+  },
+  {
+   "id": 92,
+   "game_id": 8,
+   "outcome": "true",
+   "round": 2,
+   "pos": 1,
+   "m": 7,
+   "statement_sha16": "503a856833029bed"
+  },
+  {
+   "id": 108,
+   "game_id": 9,
+   "outcome": "true",
+   "round": 2,
+   "pos": 2,
+   "m": 7,
+   "statement_sha16": "18943535a5a07ed1"
+  },
+  {
+   "id": 122,
+   "game_id": 10,
+   "outcome": "true",
+   "round": 2,
+   "pos": 3,
+   "m": 7,
+   "statement_sha16": "a71d053769fec608"
+  },
+  {
+   "id": 135,
+   "game_id": 11,
+   "outcome": "false",
+   "round": 2,
+   "pos": 4,
+   "m": 7,
+   "statement_sha16": "287750c9a03d7cda"
+  },
+  {
+   "id": 149,
+   "game_id": 12,
+   "outcome": "false",
+   "round": 2,
+   "pos": 5,
+   "m": 7,
+   "statement_sha16": "6dae39f93c119dbe"
+  },
+  {
+   "id": 162,
+   "game_id": 13,
+   "outcome": "false",
+   "round": 2,
+   "pos": 6,
+   "m": 7,
+   "statement_sha16": "9e55073f983f1d3b"
+  },
+  {
+   "id": 163,
+   "game_id": 14,
+   "outcome": "false",
+   "round": 2,
+   "pos": 0,
+   "m": 7,
+   "statement_sha16": "574b4c7d5b0851c4"
+  },
+  {
+   "id": 176,
+   "game_id": 15,
+   "outcome": "true",
+   "round": 2,
+   "pos": 1,
+   "m": 7,
+   "statement_sha16": "503a856833029bed"
+  },
+  {
+   "id": 192,
+   "game_id": 16,
+   "outcome": "false",
+   "round": 2,
+   "pos": 2,
+   "m": 7,
+   "statement_sha16": "18943535a5a07ed1"
+  },
+  {
+   "id": 206,
+   "game_id": 17,
+   "outcome": "false",
+   "round": 2,
+   "pos": 3,
+   "m": 7,
+   "statement_sha16": "a71d053769fec608"
+  }
+ ],
+ "prereg_sha256": "072e84862d5b6b7ebeb024fb715d7a905503455c388aa0c69433a9d3541b4a6c",
+ "generated_at": "2026-09-17T10:22:51.250Z"
+}

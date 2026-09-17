@@ -1,0 +1,170 @@
+{
+ "tag": "retryfix",
+ "done": {
+  "104|v1_evidence@T1#1": {
+   "prob": null,
+   "error": "LLM API HTTP 504",
+   "at": "2026-09-17T11:47:31.247Z"
+  },
+  "272|v1_evidence@T0.2#1": {
+   "prob": 0.3,
+   "error": null,
+   "at": "2026-09-17T11:48:31.371Z"
+  },
+  "272|v1_evidence@T1#1": {
+   "prob": null,
+   "error": "LLM API HTTP 504",
+   "at": "2026-09-17T11:49:16.660Z"
+  },
+  "356|v1_evidence@T0.2#2": {
+   "prob": null,
+   "error": "LLM API HTTP 504",
+   "at": "2026-09-17T11:50:16.705Z"
+  },
+  "356|v1_evidence@T0.7#1": {
+   "prob": null,
+   "error": "LLM API HTTP 504",
+   "at": "2026-09-17T11:51:16.761Z"
+  },
+  "356|v1_evidence@T1#1": {
+   "prob": null,
+   "error": "LLM API HTTP 504",
+   "at": "2026-09-17T11:52:16.837Z"
+  },
+  "386|v2_skeptical@T0.2#1": {
+   "prob": 0.84,
+   "error": null,
+   "at": "2026-09-17T11:53:17.264Z"
+  },
+  "413|v1_evidence@T0.7#1": {
+   "prob": 0.4,
+   "error": null,
+   "at": "2026-09-17T11:53:39.267Z"
+  },
+  "440|v1_evidence@T0.2#1": {
+   "prob": null,
+   "error": "LLM API HTTP 504",
+   "at": "2026-09-17T11:53:57.204Z"
+  },
+  "440|v1_evidence@T0.7#1": {
+   "prob": null,
+   "error": "LLM API HTTP 504",
+   "at": "2026-09-17T11:54:57.268Z"
+  },
+  "440|v2_skeptical@T0.2#1": {
+   "prob": null,
+   "error": "LLM API HTTP 504",
+   "at": "2026-09-17T11:55:57.339Z"
+  },
+  "92|v1_evidence@T0.2#1": {
+   "prob": null,
+   "error": "LLM API HTTP 504",
+   "at": "2026-09-17T11:56:57.385Z"
+  },
+  "92|v1_evidence@T0.2#2": {
+   "prob": null,
+   "error": "LLM API HTTP 504",
+   "at": "2026-09-17T11:57:57.430Z"
+  },
+  "92|v1_evidence@T0.7#1": {
+   "prob": null,
+   "error": "LLM API HTTP 504",
+   "at": "2026-09-17T11:58:57.482Z"
+  },
+  "108|v1_evidence@T0.2#1": {
+   "prob": 0.8,
+   "error": null,
+   "at": "2026-09-17T11:59:57.565Z"
+  },
+  "176|v1_evidence@T0.2#1": {
+   "prob": null,
+   "error": "LLM API HTTP 504",
+   "at": "2026-09-17T12:00:31.142Z"
+  },
+  "176|v1_evidence@T0.2#2": {
+   "prob": null,
+   "error": "LLM API HTTP 504",
+   "at": "2026-09-17T12:01:31.182Z"
+  },
+  "176|v1_evidence@T0.7#1": {
+   "prob": null,
+   "error": "LLM API HTTP 504",
+   "at": "2026-09-17T12:02:31.480Z"
+  },
+  "206|v1_evidence@T0.7#1": {
+   "prob": 0.84,
+   "error": null,
+   "at": "2026-09-17T12:03:31.550Z"
+  },
+  "206|v1_evidence@T1#1": {
+   "prob": 0.05,
+   "error": null,
+   "at": "2026-09-17T12:04:21.182Z"
+  }
+ },
+ "calls": 20,
+ "cost": 0.108,
+ "failures": [
+  {
+   "key": "104|v1_evidence@T1#1",
+   "error": "LLM API HTTP 504"
+  },
+  {
+   "key": "272|v1_evidence@T1#1",
+   "error": "LLM API HTTP 504"
+  },
+  {
+   "key": "356|v1_evidence@T0.2#2",
+   "error": "LLM API HTTP 504"
+  },
+  {
+   "key": "356|v1_evidence@T0.7#1",
+   "error": "LLM API HTTP 504"
+  },
+  {
+   "key": "356|v1_evidence@T1#1",
+   "error": "LLM API HTTP 504"
+  },
+  {
+   "key": "440|v1_evidence@T0.2#1",
+   "error": "LLM API HTTP 504"
+  },
+  {
+   "key": "440|v1_evidence@T0.7#1",
+   "error": "LLM API HTTP 504"
+  },
+  {
+   "key": "440|v2_skeptical@T0.2#1",
+   "error": "LLM API HTTP 504"
+  },
+  {
+   "key": "92|v1_evidence@T0.2#1",
+   "error": "LLM API HTTP 504"
+  },
+  {
+   "key": "92|v1_evidence@T0.2#2",
+   "error": "LLM API HTTP 504"
+  },
+  {
+   "key": "92|v1_evidence@T0.7#1",
+   "error": "LLM API HTTP 504"
+  },
+  {
+   "key": "176|v1_evidence@T0.2#1",
+   "error": "LLM API HTTP 504"
+  },
+  {
+   "key": "176|v1_evidence@T0.2#2",
+   "error": "LLM API HTTP 504"
+  },
+  {
+   "key": "176|v1_evidence@T0.7#1",
+   "error": "LLM API HTTP 504"
+  }
+ ],
+ "stop_reason": "complete",
+ "started_at": "2026-09-17T11:47:31.241Z",
+ "retry_at": "2026-09-17T11:47:31.245Z",
+ "retry_n": 20,
+ "updated_at": "2026-09-17T12:04:46.862Z"
+}

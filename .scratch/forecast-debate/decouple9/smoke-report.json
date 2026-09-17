@@ -1,0 +1,39 @@
+{
+ "script": "p1b/scripts/decouple9-run.cjs",
+ "mode": "REAL",
+ "tag": "main",
+ "db": "E:\\music player\\p1a-terminal\\data\\p1a.db",
+ "llm": {
+  "mode": "LIVE",
+  "model": "glm-5.3-flash",
+  "base_url": "https://tokenrhythm.studio/v1",
+  "key_source": "providers",
+  "reasoning_effort": "low"
+ },
+ "anchor_n": 40,
+ "questions_this_run": 1,
+ "conditions_total": 10,
+ "completed_this_run": 10,
+ "skipped_done": 0,
+ "calls": 10,
+ "est_cost_cny": 0.054,
+ "usage": {
+  "calls": 10,
+  "calls_with_usage": 10,
+  "prompt_tokens": 5697,
+  "completion_tokens": 10121,
+  "total_tokens": 15818,
+  "cached_tokens": 640,
+  "calls_with_cached": 10
+ },
+ "measured_cost_cny_at_3_per_m": 0.0475,
+ "elapsed_s": 155,
+ "stop_reason": "complete",
+ "stop_detail": null,
+ "failures": [],
+ "failure_n": 0,
+ "jsonl": "E:\\music player\\p1b\\sim\\out\\decouple9-verdicts-20260917.jsonl",
+ "state_file": "E:\\music player\\.scratch\\forecast-debate\\decouple9\\run-state-main.json",
+ "prereg_sha256": "072e84862d5b6b7ebeb024fb715d7a905503455c388aa0c69433a9d3541b4a6c",
+ "generated_at": "2026-09-17T10:25:53.324Z"
+}

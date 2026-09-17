@@ -1,0 +1,36 @@
+{
+ "script": "p1b/scripts/cost-ledger.cjs",
+ "sink": "E:\\music player\\p1b\\sim\\out\\llm-usage.jsonl",
+ "sink_exists": true,
+ "bad_lines": 0,
+ "totals": {
+  "calls": 534,
+  "prompt_tokens": 304498,
+  "completion_tokens": 777194,
+  "cached_tokens": 21696
+ },
+ "total_tokens": 1081692,
+ "input_share": 0.2815,
+ "by_model": {
+  "(unknown)": {
+   "calls": 534,
+   "prompt_tokens": 304498,
+   "completion_tokens": 777194,
+   "cached_tokens": 21696
+  }
+ },
+ "by_day": {
+  "2026-09-17": {
+   "calls": 534,
+   "prompt_tokens": 304498,
+   "completion_tokens": 777194
+  }
+ },
+ "f7_rule": {
+  "threshold": 0.4,
+  "input_share_over_threshold": false,
+  "note": "输入占比未过阈（F7 维持封存）"
+ },
+ "status": "filled",
+ "generated_at": "2026-09-17T12:21:34.975Z"
+}
