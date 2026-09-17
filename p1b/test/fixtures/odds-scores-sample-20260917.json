@@ -1,0 +1,22 @@
+[
+ {
+  "id": "b7a2cad26d908a943a27340b4b607068",
+  "sport_key": "soccer_epl",
+  "sport_title": "EPL",
+  "commence_time": "2026-09-14T19:00:00Z",
+  "completed": true,
+  "home_team": "Leeds United",
+  "away_team": "Newcastle United",
+  "scores": [
+   {
+    "name": "Newcastle United",
+    "score": "1"
+   },
+   {
+    "name": "Leeds United",
+    "score": "4"
+   }
+  ],
+  "last_update": "2026-09-15T02:22:36Z"
+ }
+]

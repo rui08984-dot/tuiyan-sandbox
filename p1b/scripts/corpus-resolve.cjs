@@ -382,6 +382,30 @@ const RESOLVERS = {
     if (v === null || v === undefined || !isFinite(Number(v)) || Number(v) < 0) return { pending: 'SWPC ' + key + ' 缺失/占位（' + v + '）' };
     return finish(r, Number(v), 'SWPC ' + r.month + ' ' + key + '=' + v);
   },
+  /**
+   * 英超 1X2 赔率题（**2026-09-17 新增**；依据 `docs/specs/第二期广域普查-体育赔率接入草案-20260917.md` ＋ 用户拍板「赔率题落库」）。
+   * 题面＝「主队获胜」二值题；真值源＝The Odds API `/v4/sports/<league>/scores`（**免费层可用，实测 HTTP 200**）。
+   * 1X2 判定规则＝**单一实现**（require 出题器 `odds-questions.cjs::h2hOutcome`，禁写两份）。
+   * key 读 gitignored 配置（铁律⑤：key 不出服务端；**任何输出都不回显 key**）；缺 key ⇒ pending（不崩、不写）。
+   * 配额：每结算轮 1 次请求（`daysFrom=3` 窗覆盖「开赛后 ≤3 日到期」的题；daemon 按日跑 ⇒ 必在窗内）。
+   */
+  async oddsapi_h2h(r) {
+    const fsx = require('fs'); const pathx = require('path');
+    const cfgP = pathx.resolve(__dirname, '..', '..', 'p1a-terminal', 'config', 'odds.json');
+    let key = null;
+    try { const cfg = JSON.parse(fsx.readFileSync(cfgP, 'utf8')); key = cfg.apiKey || cfg.key || Object.values(cfg).find((v) => typeof v === 'string' && v.length > 20) || null; } catch (e) { key = null; }
+    if (!key) return { pending: '缺 The Odds API key（p1a-terminal/config/odds.json，gitignored）⇒ 不结算' };
+    const lg = r.league || 'soccer_epl';
+    const j = await getJson('https://api.the-odds-api.com/v4/sports/' + lg + '/scores/?daysFrom=3&apiKey=' + key);
+    const m = (Array.isArray(j) ? j : []).filter((x) => String(x.id) === String(r.match_id))[0];
+    if (!m) return { pending: 'scores 窗内（近 3 日）未见 ' + r.match_id };
+    if (!m.completed) return { pending: '未完赛（' + String(m.commence_time) + '）' };
+    const sc = {}; for (const s of (m.scores || [])) sc[String(s.name)] = Number(s.score);
+    const { h2hOutcome } = require(pathx.join(__dirname, 'odds-questions.cjs'));
+    const v = h2hOutcome(sc[m.home_team], sc[m.away_team], r.pick);
+    if (!v) return { pending: '比分缺失/非数（' + JSON.stringify(m.scores) + '）' };
+    return { outcome: v.outcome, note: '机检:英超 ' + m.home_team + ' ' + v.detail + ' ' + m.away_team + '（The Odds API scores）' };
+  },
 };
 
 // ── 同口径 kind 别名（字段描述一致才共用；纯新增，不改既有 7 种）──
