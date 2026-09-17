@@ -1,0 +1,201 @@
+{
+ "script": "p1b/scripts/a1-whatif.cjs",
+ "version": 1,
+ "generated_at": "2026-09-17T13:19:22.343Z",
+ "label": "探索性 what-if 读数（不进校准口径、不进账本、不作任何能力宣称）",
+ "basis": "蓝图 §2.3-1／11 号件 §6（假设重算器）／19 号裁剪执行记录 §2.2（对内件也挂探索性标注）",
+ "discipline": {
+  "ledger_write": false,
+  "llm": false,
+  "network": false,
+  "into_calibration": false,
+  "world_simulation": false
+ },
+ "reading_basis": "逐题引擎读数＝e2-combo-precheck.buildEngineMatrix()（单一实现）；本层读数＝eng[layer]；参照线＝常数 0.5；CI＝配对 bootstrap（按题重采样 B=1000／seed=987654321／百分位法，复用 lambda-overlap.bootCI）",
+ "not_claiming": "本件不声称复现 stage4-run 五层读数件（口径不同）——只出同一矩阵上假设变更的相对差",
+ "cohort": 1389,
+ "assumption": {
+  "kind": "drop-baserate",
+  "keys": [
+   {
+    "kind": "cell",
+    "layer": "L2",
+    "domain": "dbnomics"
+   }
+  ]
+ },
+ "whatif_note": "移除基率锚 ⇒ 命中题在 L2/L3 侧不再出数（读数**不补** 0.5，如实记「无输出」）",
+ "drops": {
+  "dropped": 0,
+  "touched": 79
+ },
+ "baseline": {
+  "L1": {
+   "n": 180,
+   "brier": 0,
+   "brier_half": 0.25,
+   "delta_vs_half": -0.25
+  },
+  "L2": {
+   "n": 342,
+   "brier": 0.24332359025353506,
+   "brier_half": 0.25,
+   "delta_vs_half": -0.006676409746464906
+  },
+  "L3": {
+   "n": 533,
+   "brier": 0.23883105196336563,
+   "brier_half": 0.25,
+   "delta_vs_half": -0.01116894803663415
+  },
+  "L5": {
+   "n": 34,
+   "brier": 0.1347228974535732,
+   "brier_half": 0.25,
+   "delta_vs_half": -0.1152771025464268
+  },
+  "L6": {
+   "n": 270,
+   "brier": 0.17545467076550367,
+   "brier_half": 0.25,
+   "delta_vs_half": -0.07454532923449632
+  },
+  "ALL": {
+   "n": 1359,
+   "brier": 0.19313241956092017,
+   "brier_half": 0.25,
+   "delta_vs_half": -0.05686758043907998
+  }
+ },
+ "alternative": {
+  "L1": {
+   "n": 180,
+   "brier": 0,
+   "brier_half": 0.25,
+   "delta_vs_half": -0.25
+  },
+  "L2": {
+   "n": 263,
+   "brier": 0.24132304896150195,
+   "brier_half": 0.25,
+   "delta_vs_half": -0.008676951038498104
+  },
+  "L3": {
+   "n": 533,
+   "brier": 0.23883105196336563,
+   "brier_half": 0.25,
+   "delta_vs_half": -0.01116894803663415
+  },
+  "L5": {
+   "n": 34,
+   "brier": 0.1347228974535732,
+   "brier_half": 0.25,
+   "delta_vs_half": -0.1152771025464268
+  },
+  "L6": {
+   "n": 270,
+   "brier": 0.17545467076550367,
+   "brier_half": 0.25,
+   "delta_vs_half": -0.07454532923449632
+  },
+  "ALL": {
+   "n": 1280,
+   "brier": 0.18962363452613792,
+   "brier_half": 0.25,
+   "delta_vs_half": -0.06037636547386225
+  }
+ },
+ "delta": {
+  "L1": {
+   "n_base": 180,
+   "n_alt": 180,
+   "n_lost": 0,
+   "base_brier": 0,
+   "alt_brier": 0,
+   "delta": 0,
+   "ci95": {
+    "lo": 0,
+    "hi": 0,
+    "B": 1000,
+    "seed": 987654321
+   },
+   "ci_excludes_0": false
+  },
+  "L2": {
+   "n_base": 342,
+   "n_alt": 263,
+   "n_lost": 79,
+   "base_brier": 0.24332359025353506,
+   "alt_brier": 0.24132304896150195,
+   "delta": -0.0020005412920331145,
+   "ci95": {
+    "lo": -0.011523399846436938,
+    "hi": 0.006180566645878349,
+    "B": 1000,
+    "seed": 987654321
+   },
+   "ci_excludes_0": false
+  },
+  "L3": {
+   "n_base": 533,
+   "n_alt": 533,
+   "n_lost": 0,
+   "base_brier": 0.23883105196336563,
+   "alt_brier": 0.23883105196336563,
+   "delta": 0,
+   "ci95": {
+    "lo": 0,
+    "hi": 0,
+    "B": 1000,
+    "seed": 987654321
+   },
+   "ci_excludes_0": false
+  },
+  "L5": {
+   "n_base": 34,
+   "n_alt": 34,
+   "n_lost": 0,
+   "base_brier": 0.1347228974535732,
+   "alt_brier": 0.1347228974535732,
+   "delta": 0,
+   "ci95": {
+    "lo": 0,
+    "hi": 0,
+    "B": 1000,
+    "seed": 987654321
+   },
+   "ci_excludes_0": false
+  },
+  "L6": {
+   "n_base": 270,
+   "n_alt": 270,
+   "n_lost": 0,
+   "base_brier": 0.17545467076550367,
+   "alt_brier": 0.17545467076550367,
+   "delta": 0,
+   "ci95": {
+    "lo": 0,
+    "hi": 0,
+    "B": 1000,
+    "seed": 987654321
+   },
+   "ci_excludes_0": false
+  },
+  "ALL": {
+   "n_base": 1359,
+   "n_alt": 1280,
+   "n_lost": 79,
+   "base_brier": 0.19313241956092017,
+   "alt_brier": 0.18962363452613792,
+   "delta": -0.003508785034782247,
+   "ci95": {
+    "lo": -0.005757572782728815,
+    "hi": -0.0014212863056973224,
+    "B": 1000,
+    "seed": 987654321
+   },
+   "ci_excludes_0": true
+  }
+ },
+ "health_check": null
+}

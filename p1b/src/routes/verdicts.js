@@ -364,6 +364,14 @@ function buildMockVerdict(variant, temperature, statement, extras) {
 
 function register(app, ctx) {
   vstore.ensureVerdictsTable(db.getConnection()); // additive 私有表（register 内 ensure，oracleCast 先例）
+  // ── 结果缓存**生产接线**（2026-09-17 第十九批 additive；蓝图 §2.1#7 尾巴）──────────────────
+  // 默认**关闭**：env `P1B_RESULT_CACHE_DIR` 未设 ⇒ 零行为变化（不读不写缓存）。
+  // 键＝`keyOfMessages()`（**严格键**：实际 messages 逐字入哈希 ＋ 温度 ＋ 模型）——**不用**冻结的
+  //   `cacheKey()`，因为它在「证据窗覆盖」路径上会撞键（见 resultCache.js 头注）。
+  // ★禁用场景：**重复采样类实验**（同配置重跑必须重新采样；开缓存会把噪声底变成构造性的 0）。
+  const cacheDir = String(process.env.P1B_RESULT_CACHE_DIR || '').trim();
+  const cacheStore = cacheDir ? require('../lib/resultCache').createStore(cacheDir) : null;
+  const keyOfMessages = require('../lib/resultCache').keyOfMessages;
 
   app.post('/api/games/:id/predictions/:pid/verdicts', async (req) => {
     const gameId = requireInt('game id', req.params.id, 1);
@@ -401,16 +409,26 @@ function register(app, ctx) {
       if (onlyVariants && onlyVariants.indexOf(route.variant) === -1) continue; // additive：单变体重试过滤（缺省不过滤）
       try {
         let text;
+        let cacheHit = false;                                  // 结果缓存命中标记（默认 false；env 未设时恒 false）
         if (mode === 'MOCK') {
           text = buildMockVerdict(route.variant, route.temperature, pred.statement, { evidenceBlock: evidenceBlock, baseline: baseline });
         } else {
           const extras = {};
           if (route.variant === 'v1_evidence') extras.evidenceBlock = evidenceBlock;
           if (route.variant === 'v3_baserate') extras.baseline = baseline;
-          text = await chatText(
-            [{ role: 'system', content: buildSystemPrompt(route.variant) }, { role: 'user', content: buildUserPrompt(pred, game, extras) }],
-            Object.assign({}, options, { temperature: route.temperature })
-          );
+          const messages = [
+            { role: 'system', content: buildSystemPrompt(route.variant) },
+            { role: 'user', content: buildUserPrompt(pred, game, extras) },
+          ];
+          const ck = cacheStore ? keyOfMessages({ messages: messages, temperature: route.temperature, model: options.model || '' }) : null;
+          const hit = (cacheStore && ck) ? cacheStore.get(ck) : null;
+          if (hit && typeof hit.verdict_text === 'string' && hit.verdict_text) {
+            text = hit.verdict_text;                           // 命中：不调 LLM（成本省；同提示词同参数 ⇒ 结果可复用）
+            cacheHit = true;
+          } else {
+            text = await chatText(messages, Object.assign({}, options, { temperature: route.temperature }));
+            if (cacheStore && ck) cacheStore.put(ck, { verdict_text: text, model: options.model || null, at: new Date().toISOString() });
+          }
         }
         const prob = extractImpliedProb(text); // 机械抽取：数字只从文本正则来
         const row = vstore.saveVerdict({
@@ -433,6 +451,7 @@ function register(app, ctx) {
           run_id: row.run_id,
           model: row.model,
           resolved_model: row.resolved_model,
+          cache_hit: cacheHit,                                 // 结果缓存命中（env 未设时恒 false）
         });
       } catch (e) {
         // 单路失败不落库不编造（消融数据干净优先）；如实标注

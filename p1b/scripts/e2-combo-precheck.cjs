@@ -222,6 +222,66 @@ function main() {
       read: (A - gap) > 0 ? '净增益 > 0（组合优于直接挑最佳成员）' : '净增益 ≤ 0（组合不如直接挑最佳成员）' });
   }
 
+  // ── §3.2 可证伪判据（期望增益 vs **实测** ΔBrier 秩相关）＋ §3.4 开关一致率（**同一脚本**，照 PREREG §3.2「与 1 同脚本」）──
+  // ★口径声明（冻结文本未逐字给定实现 ⇒ 显式声明、可复算、**不新造阈值**）：
+  //   单元＝**(引擎对 × 域) 格**，门槛沿用 §3.1/§3.3 的同一把尺 MIN_PAIR_N（不新造）；
+  //   预测增益 P＝A（歧义度；由恒等式 A ≡ E_members − E_ensemble ＝「期望增益」本身）｜
+  //   实测增益 M＝net_gain ＝ A − skill_gap（组合 vs **挑最佳成员**的实测差）；
+  //   §3.2＝Spearman(P,M)＋按格重采样 CI（B/seed 同全局）；**退化披露**＝A≡0 的格（成员输出逐位相同）对秩相关零信息
+  //     ⇒ 并列 n_cells_A_gt0；可判格 <3 ⇒ 秩相关不成立（如实标「无信息量」，**不是「通过／未通过」**）；
+  //   §3.4＝预测增益域集合 与 实测增益域集合 的**一致率**（主口径 Jaccard，并列召回/精确两视角），阈值 0.70（§3.4 写死）。
+  const cells = {};
+  for (const it of multi) {
+    const ks = it.keys.slice().sort();
+    for (let i = 0; i < ks.length; i++) for (let j = i + 1; j < ks.length; j++) {
+      const kk = ks[i] + '×' + ks[j] + '|' + (it.domain || '(unknown)');
+      (cells[kk] = cells[kk] || []).push({ pa: it.eng[ks[i]], pb: it.eng[ks[j]], y: it.y });
+    }
+  }
+  const cellRows = [];
+  for (const kk of Object.keys(cells)) {
+    const set = cells[kk];
+    if (set.length < MIN_PAIR_N) continue;
+    const pr = set.map((it) => {
+      const ps = [it.pa, it.pb], bs = ps.map((p) => brier(p, it.y));
+      return { e_members: mean(bs), e_ensemble: brier(mean(ps), it.y), A: variance(ps), best: Math.min.apply(null, bs) };
+    });
+    const A = mean(pr.map((x) => x.A)), gap = mean(pr.map((x) => x.e_members - x.best));
+    const parts = kk.split('|');
+    cellRows.push({ cell: kk, pair: parts[0], domain: parts[1], n: set.length, A: A, skill_gap: gap, net_gain: A - gap,
+      E_members: mean(pr.map((x) => x.e_members)), E_ensemble: mean(pr.map((x) => x.e_ensemble)),
+      identical_outputs: pr.every((x) => x.A === 0) });
+  }
+  const decisiveCells = cellRows.filter((r) => r.A > 0);
+  const sp32 = (decisiveCells.length >= 3) ? spearman(cellRows.map((r) => r.A), cellRows.map((r) => r.net_gain)) : null;
+  const ci32 = (decisiveCells.length >= 3)
+    ? bootCI(cellRows, (s) => { const v = spearman(s.map((r) => r.A), s.map((r) => r.net_gain)); return v === null ? 0 : v; }, NB, SEED)
+    : { lo: null, hi: null };
+  const s32 = { unit: '(引擎对 × 域) 格，n≥' + MIN_PAIR_N, n_cells: cellRows.length, n_cells_A_gt0: decisiveCells.length,
+    spearman: sp32, ci95: ci32, decisive: decisiveCells.length >= 3,
+    read: (decisiveCells.length >= 3)
+      ? ((ci32.lo !== null && (ci32.lo > 0 || ci32.hi < 0)) ? '秩相关 CI 不含 0 ⇒ 预检有分辨力' : '秩相关 CI 含 0 ⇒ 预检对该集合无分辨力（如实用作开关须降披露）')
+      : '★无信息量：可判格（A>0）＝' + decisiveCells.length + ' <3 ⇒ 秩相关在本账本上不成立（非「通过」也非「未通过」）',
+    cells: cellRows };
+  const wmean = (arr, f) => { const s = arr.reduce((a, x) => a + x.n, 0); return s ? arr.reduce((a, x) => a + x.n * f(x), 0) / s : null; };
+  const domAgg = {};
+  for (const r of cellRows) { const d = domAgg[r.domain] = domAgg[r.domain] || { domain: r.domain, cells: [] }; d.cells.push(r.cell); }
+  for (const d of Object.keys(domAgg)) {
+    const rs = cellRows.filter((r) => r.domain === d);
+    domAgg[d].A = wmean(rs, (x) => x.A); domAgg[d].net_gain = wmean(rs, (x) => x.net_gain); domAgg[d].n = rs.reduce((a, x) => a + x.n, 0);
+  }
+  const domList = Object.values(domAgg);
+  const Pset = domList.filter((d) => d.A > 0).map((d) => d.domain);
+  const Mset = domList.filter((d) => d.net_gain > 0).map((d) => d.domain);
+  const inter = Pset.filter((d) => Mset.indexOf(d) !== -1);
+  const union = Array.from(new Set(Pset.concat(Mset)));
+  const jac = union.length ? inter.length / union.length : null;
+  const s34 = { predicted_domains: Pset, measured_gain_domains: Mset, intersection: inter, union_n: union.length,
+    agreement_jaccard: jac, recall_share: Pset.length ? inter.length / Pset.length : null,
+    precision_share: Mset.length ? inter.length / Mset.length : null, threshold: 0.70,
+    verdict: (jac !== null && jac >= 0.70) ? '保留为开关（一致率 ≥0.70）' : '降纯披露（一致率 <0.70；★边界：集合极小 ⇒ 该判定只作方向披露）',
+    degenerate: (Pset.length + Mset.length) < 3, domains: domList };
+
   // ── 输出 ──
   const f6 = (x) => (x === null || x === undefined || !isFinite(x)) ? 'n/a' : Number(x).toFixed(6);
   const L = [];
@@ -276,6 +336,26 @@ function main() {
   for (const r of amb) L.push('| ' + r.pair + ' | ' + r.n + ' | ' + f6(r.E_members) + ' | ' + f6(r.E_ensemble) + ' | ' + f6(r.A) + ' | ' + f6(r.expected_gain)
     + ' | ' + f6(r.skill_gap) + ' | **' + f6(r.net_gain) + '** | ' + (r.identity_residual === null ? 'n/a' : r.identity_residual.toExponential(1)) + ' | ' + r.read + ' |');
   L.push('');
+  L.push('## 5. ★§3.2 可证伪判据 ＋ §3.4 开关一致率（2026-09-17 补齐；原 n/a 理由＝「须实测 ΔBrier」，E2 跑完后消失）');
+  L.push('');
+  L.push('- 口径（**显式声明、不新造阈值**）：单元＝(引擎对 × 域) 格，门槛沿用 §3.1/§3.3 的 `n≥' + MIN_PAIR_N + '`；');
+  L.push('  预测增益 P＝A（歧义度；恒等式 A ≡ E_members − E_ensemble ＝「期望增益」本身）；实测增益 M＝net_gain（组合 vs **挑最佳成员**的实测差）。');
+  L.push('- 逐格读数（' + s32.n_cells + ' 格）：');
+  L.push('| 格 | n | A（预测增益） | 技巧差距 | 实测净增益 | Ē_members | Ē_ensemble | 成员输出逐位相同 |');
+  L.push('|---|---|---|---|---|---|---|---|');
+  for (const r of s32.cells) L.push('| ' + r.cell + ' | ' + r.n + ' | ' + f6(r.A) + ' | ' + f6(r.skill_gap) + ' | ' + f6(r.net_gain)
+    + ' | ' + f6(r.E_members) + ' | ' + f6(r.E_ensemble) + ' | ' + (r.identical_outputs ? '**是**' : '否') + ' |');
+  L.push('');
+  L.push('- **§3.2**：Spearman(P,M)＝' + f6(s32.spearman) + '｜CI[' + f6(s32.ci95.lo) + ', ' + f6(s32.ci95.hi) + ']｜可判格（A>0）＝**' + s32.n_cells_A_gt0 + '**／' + s32.n_cells
+    + ' ⇒ **' + s32.read + '**');
+  L.push('- **§3.4**：预测增益域集合 ' + JSON.stringify(s34.predicted_domains) + '｜实测增益域集合 ' + JSON.stringify(s34.measured_gain_domains)
+    + '｜Jaccard＝' + f6(s34.agreement_jaccard) + '（阈值 ' + s34.threshold + '；召回 ' + f6(s34.recall_share) + '／精确 ' + f6(s34.precision_share) + '）'
+    + ' ⇒ **' + s34.verdict + '**');
+  if (s34.degenerate) L.push('  · ★**边界披露**：集合基数极小（|P|+|M|＝' + (s34.predicted_domains.length + s34.measured_gain_domains.length) + ' <3）⇒ 一致率判定**只作方向披露**，不得当统计结论引用。');
+  L.push('- ★**退化事实（本账本的根因）**：' + s32.cells.filter((r) => r.identical_outputs).length + '/' + s32.n_cells
+    + ' 格的成员输出**逐位相同**（L2×L3 族：`l3_aci` 只调区间不调点估计 ⇒ 与基率引擎是同一信号两次）⇒ 其 A≡0、net_gain≡0，对秩相关**零信息**。');
+  L.push('  ⇒ **组合问题的两个前提（成员非同一信号＋逐题读数互异）在现有账本上几乎不存在**；唯一可判格（L1×L6@werewolf_sim）实测净增益为 **负**。');
+  L.push('');
   L.push('- 列义：`A`＝成员输出的（等权）方差（歧义度）｜`期望增益 ＝ Ē_members − Ē_ensemble ＝ A`（Krogh–Vedelsby 恒等，残差列即自检）；');
   L.push('  `技巧差距`＝Ē_members − 逐题最佳成员的 Brier 均值（**oracle，不可实现**，只作上界刻度）；**净增益 ＝ A − 技巧差距**（16⑦7A 原文式）。');
   L.push('');
@@ -311,7 +391,8 @@ function main() {
     pair_population_by_layer: pairByLayer,
     domain_unknown_rows: domFailed,
     rho_precheck: rho, res_gate: resGate, ambiguity_decomposition: amb,
-    not_run: { s32_falsification_spearman: '须下游实测 ΔBrier ⇒ n/a', s34_agreement_70pct: '须实测增益域集合 ⇒ n/a' },
+    s32_falsification: s32, s34_agreement: s34,
+    not_run: { note: '§3.2（期望增益 vs 实测 ΔBrier 秩相关）与 §3.4（开关一致率）**已于 2026-09-17 补齐**（原 n/a 理由＝「须下游实测 ΔBrier」，E2 跑完后该理由消失）。' },
     bootstrap: { B: NB, seed: SEED, method: '按题配对重采样·百分位法' },
   }, null, 1), 'utf8');
   fs.writeFileSync(base + '.md', L.join('\n') + '\n', 'utf8');

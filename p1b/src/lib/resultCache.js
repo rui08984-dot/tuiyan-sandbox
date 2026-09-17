@@ -19,6 +19,33 @@ function normStatement(s) { return String(s === null || s === undefined ? '' : s
 
 function sha256Hex(s) { return crypto.createHash('sha256').update(String(s === null || s === undefined ? '' : s), 'utf8').digest('hex'); }
 
+/**
+ * ★生产接线的**严格键**（2026-09-17 · 第十九批 additive）：以**实际渲染的提示词**为哈希对象（＋温度＋模型）。
+ *
+ * 为何不能直接用上面那个冻结键：冻结键 = norm(statement) + hash(evidence_json) + 变体 + 温度 + prompt 版本。
+ *   批次 1-M1 引入的**证据窗覆盖**（`body.evidenceIds`）会改变**实际提示词**，却**不改** statement/evidence_json
+ *   ⇒ 两个不同提示词（cutoff 窗 vs full 窗）会**撞同一个键** ⇒ 缓存会把 A 窗的结果喂给 B 窗（正是项目最怕的污染）。
+ *   本函数以「实际 messages ＋ 温度 ＋ 模型」为键 ⇒ **提示词有任何差异即必然不同键**（宁可 miss，不可误命中）。
+ *
+ * 纪律（三条，写死）：
+ *   ① **默认关闭**：env `P1B_RESULT_CACHE_DIR` 未设 ⇒ 零行为变化（不读不写缓存）；
+ *   ② **禁用于重复采样类实验**：同配置重跑必须**重新采样**——开着缓存会让「噪声底」变成构造性的 0
+ *      （实例：9 臂解耦的 C0 阴性对照就是靠同配置重跑差来测噪声底）；
+ *   ③ 只缓存**完全同提示词同参数**的结果；跨题/跨局复用被「prompt 逐字入键」天然排除。
+ */
+function keyOfMessages(input) {
+  const i = input || {};
+  const msgs = Array.isArray(i.messages) ? i.messages : [];
+  const parts = [
+    'resultCache.msg.v1',
+    String(i.model || ''),
+    String(i.temperature === undefined || i.temperature === null ? '' : i.temperature),
+    String(msgs.length),
+  ];
+  for (const m of msgs) parts.push(String((m && m.role) || '') + '\u0001' + String((m && m.content) || ''));
+  return crypto.createHash('sha256').update(parts.join('\u0000'), 'utf8').digest('hex');
+}
+
 function cacheKey(input) {
   const i = input || {};
   const parts = [
@@ -32,7 +59,7 @@ function cacheKey(input) {
   return crypto.createHash('sha256').update(parts.join('\u0000'), 'utf8').digest('hex');
 }
 
-module.exports = { cacheKey: cacheKey, normStatement: normStatement, KEY_SCHEMA: KEY_SCHEMA, createStore: createStore };
+module.exports = { cacheKey: cacheKey, keyOfMessages: keyOfMessages, normStatement: normStatement, KEY_SCHEMA: KEY_SCHEMA, createStore: createStore };
 
 /**
  * 结果缓存**存**（磁盘 JSONL；append-only；键已验证跨题安全——见 result-cache-precheck 收据）。
