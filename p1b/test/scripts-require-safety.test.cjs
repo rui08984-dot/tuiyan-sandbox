@@ -26,6 +26,10 @@ const SCRIPTS = path.join(ROOT, 'p1b', 'scripts');
 const TESTS = path.join(ROOT, 'p1b', 'test');
 
 const TOP_WRITE = /^(fs|fsp)\.(writeFileSync|appendFileSync|mkdirSync|createWriteStream|copyFileSync|renameSync|rmSync|unlinkSync)\s*\(/;
+/** ★ 2026-09-17 加：**顶层立即执行的副作用载体**——列 0 的 `process.exit(` 与列 0 的 IIFE（`(async () => {`）：
+ *  它们同样在 `require` 时立刻执行（实例：odds-snapshot.cjs 曾用顶层 IIFE ⇒ 测试 require 时命中冷却闸 exit 3，
+ *  而旧口径只扫 `fs.write*` ⇒ 漏检）。 */
+const TOP_SIDE_EFFECT = /^(process\.exit\s*\(|\(async\s*\(\s*\)\s*=>\s*\{|\(function\s*\(\s*\)\s*\{|\(\s*\(\s*\)\s*=>\s*\{)/;
 
 /** 测试里被**模块 require** 的脚本名（照 `const SCRIPT = path.join(ROOT,'p1b','scripts','x.cjs')` ＋ `require(SCRIPT)` 同形） */
 function requiredByTests() {
@@ -42,9 +46,9 @@ function requiredByTests() {
   return names;
 }
 
-/** 顶层（列 0）写盘行 */
+/** 顶层（列 0）写盘行 ＋ 顶层立即执行副作用行 */
 function topLevelWrites(file) {
-  return fs.readFileSync(file, 'utf8').split(/\r?\n/).filter((l) => TOP_WRITE.test(l));
+  return fs.readFileSync(file, 'utf8').split(/\r?\n/).filter((l) => TOP_WRITE.test(l) || TOP_SIDE_EFFECT.test(l));
 }
 
 test('被测试 require 的脚本必须 require 安全（顶层写盘 ⇒ 须有 require.main 守卫）', () => {
