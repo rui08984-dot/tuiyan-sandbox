@@ -126,6 +126,17 @@ if (u8 && u8.layers) {
   L.push('');
   L.push('- 口径：' + u8.kl_definition + '；' + u8.murphy_definition + '；' + u8.prequential_definition + '。');
   L.push('- ' + u8.l1_excluded + '；n<30 的层只报 n（见 `u8-columns-*.json`）。');
+  // ③b-2 · 双序分叉度（18⑥ 判据②；2026-09-17 加）：只披露
+  const t2rows = ['L2', 'L3', 'L5', 'L6'].map((Lk) => (u8.layers[Lk] && u8.layers[Lk].prequential_two_order) ? [Lk, u8.layers[Lk].prequential_two_order] : null).filter(Boolean);
+  if (t2rows.length) {
+    const f2 = (x) => (x === undefined || x === null || !isFinite(x)) ? 'n/a' : Number(x).toFixed(4);
+    json.prequential_two_order = {};
+    L.push('- **双序分叉度（结算序 vs 提交序；18⑥ 判据②）**：' + t2rows.map(([Lk, t]) => {
+      json.prequential_two_order[Lk] = { max_gap: t.max_gap, gap_at_half: t.gap_at_half, reorder_rho: t.reorder_rho, months: t.monthly.length };
+      return Lk + ' max=' + f2(t.max_gap) + '／半程=' + f2(t.gap_at_half) + '／重排ρ=' + (t.reorder_rho === null ? 'n/a' : f2(t.reorder_rho));
+    }).join('；'));
+    L.push('  （分叉只体现在**路径**——终值两序恒等＝同集合均值与顺序无关；分叉大＝延迟结算在扭曲直觉。均只披露不进门控。）');
+  }
 } else {
   L.push('- n/a（缺 u8-columns 件：node p1b/scripts/u8-columns.cjs）');
 }

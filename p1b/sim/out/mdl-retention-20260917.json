@@ -1,0 +1,809 @@
+{
+ "script": "p1b/scripts/mdl-retention.cjs",
+ "basis": ".scratch/forecast-debate/研讨会-20260916-预测万物v3/18-跨学科移植-深度报告.md §7（消费者 19 号 §1.1/§4.3）",
+ "anchors": [
+  "DOI 10.1016/0005-1098(78)90005-5",
+  "DOI 10.2307/2981683"
+ ],
+ "generated_at": "2026-09-17T05:30:58.765Z",
+ "discipline": {
+  "ledger_write": false,
+  "llm": false,
+  "network": false
+ },
+ "criterion": {
+  "deltaL_definition": "L_剪后 − L_剪前 = [Σ ln p̄_含(y) − Σ ln p̄_不含(y)] − (ln n)/2 · k",
+  "rule": "ΔL ≤ 0 ⇒ 剪（等价 A ≤ P）",
+  "unit": "nats（Brier 不参与判决）",
+  "erratum_sign": "原式第二项「+」应为「−」；按字面代入死件得 +P>0 判「不剪」，与 19 号自述判词与实际动作相反。罚项无 CI ⇒ 「|ΔL| 的 CI 含 0」按「数据部分 A 的 CI 含 0」执行。",
+  "erratum_equivalence": "「CI 含 0（不显著）」≠「ΔL ≤ 0（判剪）」——后者用点估计比罚项；本件实证一例，故引用者必须自报 k。"
+ },
+ "operationalization": {
+  "main": "增量式（治疗臂 vs 基线臂）——效度靶＝A→B（PREREG 主判据，Δ=+0.00299 那格）；其余对比为对照",
+  "secondary": "集合成员式（三臂等权均值 vs 其余两臂均值）——测集合多样性，期望不判剪（鉴别力对照）",
+  "k": "未编——报临界 k* 与 k∈{1,2,3,5,10} 表"
+ },
+ "run_prefix": "preregA-full1-",
+ "rows_raw": 2159,
+ "rows_null_prob": 2,
+ "rows_used": 2157,
+ "rows_clipped": 22,
+ "cross_check": [
+  {
+   "window": "cutoff",
+   "pair": "A→B",
+   "current": {
+    "n": 358,
+    "brier_treatment": 0.22514972067039377,
+    "brier_baseline": 0.2281321229050307,
+    "delta_brier": 0.0029824022346368645
+   },
+   "official": {
+    "file": "prereg-a-score-a-vs-b-cutoff-20260914.json",
+    "generated_at": "2026-09-14T13:55:58.178Z",
+    "n_pairs": 357,
+    "delta_brier": 0.002990756302521001,
+    "brier_treatment": 0.22574005602240899,
+    "brier_baseline": 0.22873081232492987,
+    "ci95": {
+     "lb": -0.00837254901960785,
+     "ub": 0.014485714285714274,
+     "B": 1000,
+     "seed": 987654321,
+     "lb_gt_0": false
+    }
+   },
+   "exact_match": null,
+   "reconciled_match": true,
+   "reconciled": {
+    "removed_index": 111,
+    "removed_ref": {
+     "pid": 128,
+     "variant": "v1_evidence",
+     "T_created": "2026-09-14 13:18:54",
+     "B_created": "2026-09-15 05:33:50"
+    },
+    "stats": {
+     "n": 357,
+     "brier_treatment": 0.22574005602241168,
+     "brier_baseline": 0.22873081232493275,
+     "delta_brier": 0.002990756302521001
+    },
+    "pair_max_created": "2026-09-15 05:33:50"
+   }
+  },
+  {
+   "window": "cutoff",
+   "pair": "A→C",
+   "current": {
+    "n": 358,
+    "brier_treatment": 0.22514972067039377,
+    "brier_baseline": 0.22961452513966757,
+    "delta_brier": 0.00446480446927374
+   },
+   "official": {
+    "file": "prereg-a-score-a-vs-c-cutoff-20260914.json",
+    "generated_at": "2026-09-14T13:55:58.769Z",
+    "n_pairs": 358,
+    "delta_brier": 0.0044648044692737416,
+    "brier_treatment": 0.22514972067039107,
+    "brier_baseline": 0.22961452513966488,
+    "ci95": {
+     "lb": -0.009086312849162018,
+     "ub": 0.01988324022346369,
+     "B": 1000,
+     "seed": 987654321,
+     "lb_gt_0": false
+    }
+   },
+   "exact_match": true,
+   "reconciled_match": null,
+   "reconciled": null
+  },
+  {
+   "window": "cutoff",
+   "pair": "B→C",
+   "current": {
+    "n": 360,
+    "brier_treatment": 0.22932027777778055,
+    "brier_baseline": 0.23000388888889164,
+    "delta_brier": 0.0006836111111111122
+   },
+   "official": {
+    "file": "prereg-a-score-b-vs-c-cutoff-20260914.json",
+    "generated_at": "2026-09-14T13:55:59.379Z",
+    "n_pairs": 359,
+    "delta_brier": 0.0005651810584958222,
+    "brier_treatment": 0.22991894150417838,
+    "brier_baseline": 0.23048412256267412,
+    "ci95": {
+     "lb": -0.00813426183844011,
+     "ub": 0.008899164345403906,
+     "B": 1000,
+     "seed": 987654321,
+     "lb_gt_0": false
+    }
+   },
+   "exact_match": null,
+   "reconciled_match": true,
+   "reconciled": {
+    "removed_index": 111,
+    "removed_ref": {
+     "pid": 128,
+     "variant": "v1_evidence",
+     "T_created": "2026-09-15 05:33:50",
+     "B_created": "2026-09-14 12:58:50"
+    },
+    "stats": {
+     "n": 359,
+     "brier_treatment": 0.22991894150418102,
+     "brier_baseline": 0.2304841225626769,
+     "delta_brier": 0.0005651810584958235
+    },
+    "pair_max_created": "2026-09-15 05:33:50"
+   }
+  },
+  {
+   "window": "full",
+   "pair": "A→B",
+   "current": {
+    "n": 360,
+    "brier_treatment": 0.17808527777779457,
+    "brier_baseline": 0.17463138888890845,
+    "delta_brier": -0.0034538888888861106
+   },
+   "official": {
+    "file": "prereg-a-score-a-vs-b-full-20260914.json",
+    "generated_at": "2026-09-14T13:55:58.474Z",
+    "n_pairs": 360,
+    "delta_brier": -0.003453888888888879,
+    "brier_treatment": 0.17808527777777788,
+    "brier_baseline": 0.17463138888888907,
+    "ci95": {
+     "lb": -0.017222499999999998,
+     "ub": 0.003995277777777778,
+     "B": 1000,
+     "seed": 987654321,
+     "lb_gt_0": false
+    }
+   },
+   "exact_match": true,
+   "reconciled_match": null,
+   "reconciled": null
+  },
+  {
+   "window": "full",
+   "pair": "A→C",
+   "current": {
+    "n": 359,
+    "brier_treatment": 0.1783306406685405,
+    "brier_baseline": 0.18493593314764897,
+    "delta_brier": 0.006605292479108633
+   },
+   "official": {
+    "file": "prereg-a-score-a-vs-c-full-20260914.json",
+    "generated_at": "2026-09-14T13:55:59.064Z",
+    "n_pairs": 359,
+    "delta_brier": 0.006605292479108638,
+    "brier_treatment": 0.17833064066852378,
+    "brier_baseline": 0.18493593314763246,
+    "ci95": {
+     "lb": -0.0031935933147632283,
+     "ub": 0.016269916434540385,
+     "B": 1000,
+     "seed": 987654321,
+     "lb_gt_0": false
+    }
+   },
+   "exact_match": true,
+   "reconciled_match": null,
+   "reconciled": null
+  },
+  {
+   "window": "full",
+   "pair": "B→C",
+   "current": {
+    "n": 359,
+    "brier_treatment": 0.17498300835656558,
+    "brier_baseline": 0.18493593314764897,
+    "delta_brier": 0.009952924791083565
+   },
+   "official": {
+    "file": "prereg-a-score-b-vs-c-full-20260914.json",
+    "generated_at": "2026-09-14T13:55:59.678Z",
+    "n_pairs": 359,
+    "delta_brier": 0.009952924791086346,
+    "brier_treatment": 0.17498300835654607,
+    "brier_baseline": 0.1849359331476323,
+    "ci95": {
+     "lb": 0.0026314763231197755,
+     "ub": 0.024153203342618383,
+     "B": 1000,
+     "seed": 987654321,
+     "lb_gt_0": true
+    }
+   },
+   "exact_match": true,
+   "reconciled_match": null,
+   "reconciled": null
+  }
+ ],
+ "cross_check_pass": true,
+ "replay_main": [
+  {
+   "label": "cutoff/A→B",
+   "n": 358,
+   "data_A_nats": 0.4850825402870874,
+   "data_A_bits": 0.6998261752940018,
+   "ci95_A": {
+    "lo": -11.324975866140255,
+    "hi": 12.47461969792503,
+    "B": 1000,
+    "seed": 987654321
+   },
+   "ci_contains_0": true,
+   "break_even_k": 0.16497910696492565,
+   "penalty_nats_per_k": 2.94026649320035,
+   "deltaL_by_k": {
+    "k1": {
+     "dl": -2.455183952913263,
+     "prune": true
+    },
+    "k2": {
+     "dl": -5.395450446113613,
+     "prune": true
+    },
+    "k3": {
+     "dl": -8.335716939313961,
+     "prune": true
+    },
+    "k5": {
+     "dl": -14.216249925714664,
+     "prune": true
+    },
+    "k10": {
+     "dl": -28.917582391716415,
+     "prune": true
+    }
+   },
+   "verdict_k1": "剪",
+   "brier_delta_T_minus_B": -0.0029824022346368645,
+   "official_ci95": null,
+   "official_declared": {
+    "delta_brier": 0.002990756302521001,
+    "ci95": {
+     "lb": -0.00837254901960785,
+     "ub": 0.014485714285714274,
+     "B": 1000,
+     "seed": 987654321,
+     "lb_gt_0": false
+    },
+    "lb_gt_0": false
+   },
+   "is_validity_target": true
+  },
+  {
+   "label": "cutoff/A→C",
+   "n": 358,
+   "data_A_nats": 7.58389292476985,
+   "data_A_bits": 10.941244713198358,
+   "ci95_A": {
+    "lo": -6.518903643993616,
+    "hi": 21.23297340683291,
+    "B": 1000,
+    "seed": 987654321
+   },
+   "ci_contains_0": true,
+   "break_even_k": 2.5793216166998243,
+   "penalty_nats_per_k": 2.94026649320035,
+   "deltaL_by_k": {
+    "k1": {
+     "dl": 4.6436264315694995,
+     "prune": false
+    },
+    "k2": {
+     "dl": 1.7033599383691493,
+     "prune": false
+    },
+    "k3": {
+     "dl": -1.2369065548312,
+     "prune": true
+    },
+    "k5": {
+     "dl": -7.117439541231902,
+     "prune": true
+    },
+    "k10": {
+     "dl": -21.818772007233655,
+     "prune": true
+    }
+   },
+   "verdict_k1": "留",
+   "brier_delta_T_minus_B": -0.00446480446927374,
+   "official_ci95": null,
+   "official_declared": {
+    "delta_brier": 0.0044648044692737416,
+    "ci95": {
+     "lb": -0.009086312849162018,
+     "ub": 0.01988324022346369,
+     "B": 1000,
+     "seed": 987654321,
+     "lb_gt_0": false
+    },
+    "lb_gt_0": false
+   },
+   "is_validity_target": false
+  },
+  {
+   "label": "cutoff/B→C",
+   "n": 360,
+   "data_A_nats": 6.24675100126641,
+   "data_A_bits": 9.012156691195216,
+   "ci95_A": {
+    "lo": -4.325633430431886,
+    "hi": 16.804480036913024,
+    "B": 1000,
+    "seed": 987654321
+   },
+   "ci_contains_0": true,
+   "break_even_k": 2.12254182661036,
+   "penalty_nats_per_k": 2.943052015725078,
+   "deltaL_by_k": {
+    "k1": {
+     "dl": 3.303698985541332,
+     "prune": false
+    },
+    "k2": {
+     "dl": 0.360646969816254,
+     "prune": false
+    },
+    "k3": {
+     "dl": -2.582405045908824,
+     "prune": true
+    },
+    "k5": {
+     "dl": -8.46850907735898,
+     "prune": true
+    },
+    "k10": {
+     "dl": -23.18376915598437,
+     "prune": true
+    }
+   },
+   "verdict_k1": "留",
+   "brier_delta_T_minus_B": -0.0006836111111111122,
+   "official_ci95": null,
+   "official_declared": {
+    "delta_brier": 0.0005651810584958222,
+    "ci95": {
+     "lb": -0.00813426183844011,
+     "ub": 0.008899164345403906,
+     "B": 1000,
+     "seed": 987654321,
+     "lb_gt_0": false
+    },
+    "lb_gt_0": false
+   },
+   "is_validity_target": false
+  },
+  {
+   "label": "full/A→B",
+   "n": 360,
+   "data_A_nats": -3.4297672015807206,
+   "data_A_bits": -4.948108133124124,
+   "ci95_A": {
+    "lo": -13.61533250778028,
+    "hi": 6.097514881649773,
+    "B": 1000,
+    "seed": 987654321
+   },
+   "ci_contains_0": true,
+   "break_even_k": -1.1653777042522746,
+   "penalty_nats_per_k": 2.943052015725078,
+   "deltaL_by_k": {
+    "k1": {
+     "dl": -6.372819217305798,
+     "prune": true
+    },
+    "k2": {
+     "dl": -9.315871233030876,
+     "prune": true
+    },
+    "k3": {
+     "dl": -12.258923248755954,
+     "prune": true
+    },
+    "k5": {
+     "dl": -18.14502728020611,
+     "prune": true
+    },
+    "k10": {
+     "dl": -32.8602873588315,
+     "prune": true
+    }
+   },
+   "verdict_k1": "剪",
+   "brier_delta_T_minus_B": 0.0034538888888861106,
+   "official_ci95": null,
+   "official_declared": {
+    "delta_brier": -0.003453888888888879,
+    "ci95": {
+     "lb": -0.017222499999999998,
+     "ub": 0.003995277777777778,
+     "B": 1000,
+     "seed": 987654321,
+     "lb_gt_0": false
+    },
+    "lb_gt_0": false
+   },
+   "is_validity_target": true
+  },
+  {
+   "label": "full/A→C",
+   "n": 359,
+   "data_A_nats": 7.567459842127821,
+   "data_A_bits": 10.917536786364186,
+   "ci95_A": {
+    "lo": -3.1575961765008262,
+    "hi": 18.149631944704595,
+    "B": 1000,
+    "seed": 987654321
+   },
+   "ci_contains_0": true,
+   "break_even_k": 2.5725123807374026,
+   "penalty_nats_per_k": 2.9416611942441393,
+   "deltaL_by_k": {
+    "k1": {
+     "dl": 4.625798647883682,
+     "prune": false
+    },
+    "k2": {
+     "dl": 1.6841374536395426,
+     "prune": false
+    },
+    "k3": {
+     "dl": -1.2575237406045972,
+     "prune": true
+    },
+    "k5": {
+     "dl": -7.140846129092875,
+     "prune": true
+    },
+    "k10": {
+     "dl": -21.84915210031357,
+     "prune": true
+    }
+   },
+   "verdict_k1": "留",
+   "brier_delta_T_minus_B": -0.006605292479108633,
+   "official_ci95": null,
+   "official_declared": {
+    "delta_brier": 0.006605292479108638,
+    "ci95": {
+     "lb": -0.0031935933147632283,
+     "ub": 0.016269916434540385,
+     "B": 1000,
+     "seed": 987654321,
+     "lb_gt_0": false
+    },
+    "lb_gt_0": false
+   },
+   "is_validity_target": false
+  },
+  {
+   "label": "full/B→C",
+   "n": 359,
+   "data_A_nats": 10.889013459068302,
+   "data_A_bits": 15.709525717571017,
+   "ci95_A": {
+    "lo": 0.9816398955738532,
+    "hi": 21.236536643122243,
+    "B": 1000,
+    "seed": 987654321
+   },
+   "ci_contains_0": false,
+   "break_even_k": 3.7016545210490284,
+   "penalty_nats_per_k": 2.9416611942441393,
+   "deltaL_by_k": {
+    "k1": {
+     "dl": 7.947352264824163,
+     "prune": false
+    },
+    "k2": {
+     "dl": 5.005691070580023,
+     "prune": false
+    },
+    "k3": {
+     "dl": 2.0640298763358835,
+     "prune": false
+    },
+    "k5": {
+     "dl": -3.819292512152394,
+     "prune": true
+    },
+    "k10": {
+     "dl": -18.52759848337309,
+     "prune": true
+    }
+   },
+   "verdict_k1": "留",
+   "brier_delta_T_minus_B": -0.009952924791083565,
+   "official_ci95": null,
+   "official_declared": {
+    "delta_brier": 0.009952924791086346,
+    "ci95": {
+     "lb": 0.0026314763231197755,
+     "ub": 0.024153203342618383,
+     "B": 1000,
+     "seed": 987654321,
+     "lb_gt_0": true
+    },
+    "lb_gt_0": true
+   },
+   "is_validity_target": false
+  }
+ ],
+ "validity_target": "A→B（两窗）",
+ "validity_pass": true,
+ "insignificant_but_not_pruned_at_k1": [
+  {
+   "label": "cutoff/A→C",
+   "break_even_k": 2.5793216166998243
+  },
+  {
+   "label": "cutoff/B→C",
+   "break_even_k": 2.12254182661036
+  },
+  {
+   "label": "full/A→C",
+   "break_even_k": 2.5725123807374026
+  }
+ ],
+ "replay_secondary": [
+  {
+   "label": "cutoff/剪除臂A",
+   "n": 358,
+   "data_A_nats": 3.7120243162518864,
+   "data_A_bits": 5.355319072715842,
+   "ci95_A": {
+    "lo": -1.0353879577417413,
+    "hi": 10.155471601911056,
+    "B": 1000,
+    "seed": 987654321
+   },
+   "ci_contains_0": true,
+   "break_even_k": 1.2624788687815545,
+   "penalty_nats_per_k": 2.94026649320035,
+   "deltaL_by_k": {
+    "k1": {
+     "dl": 0.7717578230515363,
+     "prune": false
+    },
+    "k2": {
+     "dl": -2.168508670148814,
+     "prune": true
+    },
+    "k3": {
+     "dl": -5.108775163349163,
+     "prune": true
+    },
+    "k5": {
+     "dl": -10.989308149749865,
+     "prune": true
+    },
+    "k10": {
+     "dl": -25.69064061575162,
+     "prune": true
+    }
+   },
+   "verdict_k1": "留",
+   "brier_delta_T_minus_B": null,
+   "official_ci95": null
+  },
+  {
+   "label": "cutoff/剪除臂B",
+   "n": 358,
+   "data_A_nats": 1.347265679914352,
+   "data_A_bits": 1.9436935151723334,
+   "ci95_A": {
+    "lo": -1.2501001933386724,
+    "hi": 4.297393272143874,
+    "B": 1000,
+    "seed": 987654321
+   },
+   "ci_contains_0": true,
+   "break_even_k": 0.4582120984713576,
+   "penalty_nats_per_k": 2.94026649320035,
+   "deltaL_by_k": {
+    "k1": {
+     "dl": -1.593000813285998,
+     "prune": true
+    },
+    "k2": {
+     "dl": -4.533267306486348,
+     "prune": true
+    },
+    "k3": {
+     "dl": -7.473533799686697,
+     "prune": true
+    },
+    "k5": {
+     "dl": -13.3540667860874,
+     "prune": true
+    },
+    "k10": {
+     "dl": -28.055399252089153,
+     "prune": true
+    }
+   },
+   "verdict_k1": "剪",
+   "brier_delta_T_minus_B": null,
+   "official_ci95": null
+  },
+  {
+   "label": "cutoff/剪除臂C",
+   "n": 358,
+   "data_A_nats": -0.6279000309056918,
+   "data_A_bits": -0.9058682607616685,
+   "ci95_A": {
+    "lo": -3.2094669037450094,
+    "hi": 2.3465214002025387,
+    "B": 1000,
+    "seed": 987654321
+   },
+   "ci_contains_0": true,
+   "break_even_k": -0.21355208188025512,
+   "penalty_nats_per_k": 2.94026649320035,
+   "deltaL_by_k": {
+    "k1": {
+     "dl": -3.568166524106042,
+     "prune": true
+    },
+    "k2": {
+     "dl": -6.508433017306392,
+     "prune": true
+    },
+    "k3": {
+     "dl": -9.448699510506742,
+     "prune": true
+    },
+    "k5": {
+     "dl": -15.329232496907444,
+     "prune": true
+    },
+    "k10": {
+     "dl": -30.030564962909196,
+     "prune": true
+    }
+   },
+   "verdict_k1": "剪",
+   "brier_delta_T_minus_B": null,
+   "official_ci95": null
+  },
+  {
+   "label": "full/剪除臂A",
+   "n": 359,
+   "data_A_nats": 1.6254330998469877,
+   "data_A_bits": 2.3450042724460247,
+   "ci95_A": {
+    "lo": -0.9486570003441583,
+    "hi": 4.401009561278738,
+    "B": 1000,
+    "seed": 987654321
+   },
+   "ci_contains_0": true,
+   "break_even_k": 0.55255618934887,
+   "penalty_nats_per_k": 2.9416611942441393,
+   "deltaL_by_k": {
+    "k1": {
+     "dl": -1.3162280943971516,
+     "prune": true
+    },
+    "k2": {
+     "dl": -4.257889288641291,
+     "prune": true
+    },
+    "k3": {
+     "dl": -7.199550482885431,
+     "prune": true
+    },
+    "k5": {
+     "dl": -13.08287287137371,
+     "prune": true
+    },
+    "k10": {
+     "dl": -27.791178842594405,
+     "prune": true
+    }
+   },
+   "verdict_k1": "剪",
+   "brier_delta_T_minus_B": null,
+   "official_ci95": null
+  },
+  {
+   "label": "full/剪除臂B",
+   "n": 359,
+   "data_A_nats": 3.197239907407176,
+   "data_A_bits": 4.6126421589486215,
+   "ci95_A": {
+    "lo": 0.23952244249060722,
+    "hi": 6.672921927358127,
+    "B": 1000,
+    "seed": 987654321
+   },
+   "ci_contains_0": false,
+   "break_even_k": 1.0868824437236755,
+   "penalty_nats_per_k": 2.9416611942441393,
+   "deltaL_by_k": {
+    "k1": {
+     "dl": 0.2555787131630365,
+     "prune": false
+    },
+    "k2": {
+     "dl": -2.686082481081103,
+     "prune": true
+    },
+    "k3": {
+     "dl": -5.627743675325243,
+     "prune": true
+    },
+    "k5": {
+     "dl": -11.51106606381352,
+     "prune": true
+    },
+    "k10": {
+     "dl": -26.219372035034215,
+     "prune": true
+    }
+   },
+   "verdict_k1": "留",
+   "brier_delta_T_minus_B": null,
+   "official_ci95": null
+  },
+  {
+   "label": "full/剪除臂C",
+   "n": 359,
+   "data_A_nats": -1.9052357802994768,
+   "data_A_bits": -2.74867421196227,
+   "ci95_A": {
+    "lo": -4.336492089843388,
+    "hi": 0.6927839779846754,
+    "B": 1000,
+    "seed": 987654321
+   },
+   "ci_contains_0": true,
+   "break_even_k": -0.6476734248075185,
+   "penalty_nats_per_k": 2.9416611942441393,
+   "deltaL_by_k": {
+    "k1": {
+     "dl": -4.846896974543617,
+     "prune": true
+    },
+    "k2": {
+     "dl": -7.788558168787755,
+     "prune": true
+    },
+    "k3": {
+     "dl": -10.730219363031896,
+     "prune": true
+    },
+    "k5": {
+     "dl": -16.613541751520174,
+     "prune": true
+    },
+    "k10": {
+     "dl": -31.32184772274087,
+     "prune": true
+    }
+   },
+   "verdict_k1": "剪",
+   "brier_delta_T_minus_B": null,
+   "official_ci95": null
+  }
+ ],
+ "bootstrap": {
+  "B": 1000,
+  "seed": 987654321,
+  "method": "按行配对重采样·百分位法"
+ }
+}

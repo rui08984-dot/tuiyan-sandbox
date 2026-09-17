@@ -374,11 +374,37 @@
    }
   }
  ],
- "generated_at": "2026-09-17T04:58:45.468Z",
+ "generated_at": "2026-09-17T05:30:59.007Z",
  "cells_total": 28,
  "cells_with_conclusion": 7,
- "u8_columns_file": "E:\\music player\\p1b\\sim\\out\\u8-columns-20260916.json",
+ "u8_columns_file": "E:\\music player\\p1b\\sim\\out\\u8-columns-20260917.json",
  "u8_columns_present": true,
+ "prequential_two_order": {
+  "L2": {
+   "max_gap": 0.011451530236507745,
+   "gap_at_half": 0.00275002669617444,
+   "reorder_rho": 0.966215436163097,
+   "months": 1
+  },
+  "L3": {
+   "max_gap": 0.234031144641,
+   "gap_at_half": 0.00003314981109983628,
+   "reorder_rho": 0.9517026403570928,
+   "months": 1
+  },
+  "L5": {
+   "max_gap": 0.10847107434710745,
+   "gap_at_half": 0.013558884293388446,
+   "reorder_rho": 0.9926738940125376,
+   "months": 1
+  },
+  "L6": {
+   "max_gap": 0,
+   "gap_at_half": 0,
+   "reorder_rho": 1,
+   "months": 1
+  }
+ },
  "lag_rank_test": {
   "available": true,
   "file": "E:\\music player\\p1b\\sim\\out\\stage5-rank-diagnostic-20260917.json",
