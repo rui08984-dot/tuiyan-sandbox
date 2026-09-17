@@ -24,7 +24,7 @@
 | **① 两份快照** | `p1a-baseline-decouple9promote.db`（**只读留档**，作写前基线）＋`p1a-drill-decouple9promote.db`（演练载体）——照「快照做两份」纪律（上一批踩过「演练吃掉基线」的坑） |
 | **② 副本演练** | 对 drill 副本 `--confirm`：inserted **390**／verdicts 4766 → 5156｜其余五表**逐位相同**｜**老行区段（id≤4766）sha 逐位相同** |
 | ③ **生产写入** | 不带 `--db`；日志首行 `db=…data\p1a.db` ✓；**单事务**（出错 ROLLBACK）；**空候选 ⇒ exit 2**（防「候选 0」被读成「已建好」） |
-| **④ 零翻转核对** | verdicts **4766 → 5156（+390）**；其余五表（predictions/truth_vault/games/events/claims）**逐位相同**；**老行区段 sha `1d9e8e98dffa54ee` 不变**（只增不改）；`integrity_check=ok` |
+| **④ 零翻转核对** | verdicts **4766 → 5156（+390）**；其余五表（predictions/truth_vault/games/events/claims）**逐位相同**；**老行区段 sha sha16=1d9e8e98dffa54ee（表指纹，非 commit） 不变**（只增不改）；`integrity_check=ok` |
 | ⑤ 留痕 | 本收据＋留痕 §87＋地图 §55＋p19 锚 §（二十二）＋交接件 §22 |
 
 ### 1.3 ★关键验证：晋升**不改任何生产读数**
