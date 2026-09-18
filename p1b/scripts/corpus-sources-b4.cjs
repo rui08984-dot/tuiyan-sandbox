@@ -63,18 +63,29 @@ function pickTh(hist, cands, ge, seed) {
 }
 const QT = [0.5, 0.6, 0.4, 0.7, 0.3];
 
+// ── 候选留痕旁路（2026-09-18 · 第 3 期票 A 步骤 2）────────────────────────────
+// 为什么：角色③／I1 两张票的前置都是「**过锚率 ≥80%**」，而该率在盘上**算不出来**——
+//   本生成器在「阈值不落基率带」时直接 `continue` ⇒ **被丢提议零留痕**；`intake_rejects` 亦 0 行。
+//   ⇒ 本旁路落「**提议全集**（含被丢的）＋丢弃原因」，让过锚率**可测**。
+// 纪律：**默认关** ⇒ 不传 `--record-candidates=<path>` 时**零行为变化**（不建数组、不写文件）。
+const REC_PATH = (() => { const a = process.argv.find((x) => x.startsWith('--record-candidates=')); return a ? a.slice(20) : null; })();
+const DROPS = [];
+const PROPOSED = { total: 0, emitted: 0 };
+function recDrop(stage, reason, info) { if (!REC_PATH) return; DROPS.push(Object.assign({ stage: stage, reason: reason }, info || {})); }
+
 // ── 通用序列出题器（日频/月频/周频通用；k=期键，v=数值）──
 // cfg: { series:[{k,v}], gameType, layer, engine, ge, minBase, bkKeys:[], fwKeys:[], cut(key),
 //        stmt(phase,key,th,cmp), note(phase,n,th,hit,q,series,cmp), resolve(key,th,cmp), meta(key,th), slug(key) }
 function emitSeries(cfg, out) {
   const s = (cfg.series || []).filter((x) => x && isFinite(x.v));
   const minBase = cfg.minBase || 60;
-  if (s.length < minBase) return;
+  if (s.length < minBase) { recDrop('series', 'series_too_short', { gameType: cfg.gameType, engine: cfg.engine, n: s.length, minBase: minBase }); return; }
   const keys = s.map((x) => x.k);
   const vals = s.map((x) => x.v);
   const ge = !!cfg.ge;
   const cmp = ge ? '>=' : '<=';
   const push = (phase, key, th, hit, q, nbase, v) => {
+    PROPOSED.total++; PROPOSED.emitted++;
     out.push({
       gameType: cfg.gameType, layer: cfg.layer, phase: phase,
       engine: cfg.engine + (phase === 'forward' ? '_forward' : ''),
@@ -88,16 +99,18 @@ function emitSeries(cfg, out) {
     });
   };
   for (const key of (cfg.fwKeys || [])) {
+    PROPOSED.total++;
     const b = pickTh(vals, QT, ge);
-    if (!b) continue;
+    if (!b) { recDrop('key', 'threshold_not_in_band', { gameType: cfg.gameType, engine: cfg.engine, phase: 'forward', key: String(key), why: 'QT 五档阈值全不落 (0.15,0.85) 基率带' }); continue; }
     push('forward', key, b.th, b.hit, b.q, vals.length, undefined);
   }
   for (const key of (cfg.bkKeys || [])) {
+    PROPOSED.total++;
     const i = keys.indexOf(key);
-    if (i < minBase) continue;
+    if (i < minBase) { recDrop('key', 'insufficient_history', { gameType: cfg.gameType, engine: cfg.engine, phase: 'backfill', key: String(key), i: i, minBase: minBase }); continue; }
     const prev = vals.slice(0, i);
     const b = pickTh(prev, QT, ge);
-    if (!b) continue;
+    if (!b) { recDrop('key', 'threshold_not_in_band', { gameType: cfg.gameType, engine: cfg.engine, phase: 'backfill', key: String(key), why: 'QT 五档阈值全不落 (0.15,0.85) 基率带' }); continue; }
     push('backfill', key, b.th, b.hit, b.q, prev.length, vals[i]);
   }
 }
@@ -840,7 +853,8 @@ async function main() {
     const cfg = SRC[k];
     if (!cfg) { report.sources[k] = { error: 'unknown source' }; continue; }
     let rows = [];
-    try { rows = await cfg.fn(); } catch (e) { rows = []; report.sources[k] = { error: String(e && e.message || e).slice(0, 200) }; console.log('[WARN] ' + k + ' ' + (e && e.message)); }
+    try { rows = await cfg.fn(); } catch (e) { rows = []; report.sources[k] = { error: String(e && e.message || e).slice(0, 200) }; console.log('[WARN] ' + k + ' ' + (e && e.message)); recDrop('builder', 'builder_threw', { gameType: cfg.gameType, source: k, msg: String(e && e.message || e).slice(0, 160) }); }
+    if (!rows.length && !report.sources[k]) recDrop('builder', 'no_rows', { gameType: cfg.gameType, source: k, why: '该源本轮未产出任何候选（多为数据点不足/接口不可用）' });
     const fw = rows.filter((r) => r.phase === 'forward'), bf = rows.filter((r) => r.phase === 'backfill');
     const probs = rows.map((r) => r.prob);
     report.sources[k] = {
@@ -896,6 +910,20 @@ async function main() {
     console.log('inserted=' + ins + ' skipped=' + skip + ' duplicate_skipped=' + dupe);
   }
   fs.writeFileSync(path.join(__dirname, '..', 'sim', 'out', 'corpus-sources-b4.rows.json'), JSON.stringify(all, null, 1), 'utf8');
+  // ── 候选留痕落盘（默认关；仅当传 --record-candidates=<path>）──
+  if (REC_PATH) {
+    const dropByReason = {};
+    for (const dz of DROPS) dropByReason[dz.reason] = (dropByReason[dz.reason] || 0) + 1;
+    fs.writeFileSync(REC_PATH, JSON.stringify({
+      run_at: RUN_AT, source: 'corpus-sources-b4.cjs', confirm: CONFIRM,
+      note: '候选留痕旁路产物（第 3 期票 A 步骤 2）：candidates＝产出 spec 的提议；drops＝被丢提议（含原因）。'
+        + '过锚率的严格分母＝candidates.length + drops.length（提议全集）。',
+      candidates: all, drops: DROPS,
+      counts: { candidates: all.length, drops: DROPS.length, proposed_total: all.length + DROPS.length, drop_by_reason: dropByReason },
+    }, null, 1), 'utf8');
+    console.log('[record] 候选留痕 -> ' + REC_PATH + '（候选 ' + all.length + ' ＋ 被丢 ' + DROPS.length + ' ＝ 提议全集 ' + (all.length + DROPS.length) + '）');
+    console.log('[record] 被丢按原因 ' + JSON.stringify(dropByReason));
+  }
   const outp = path.join(__dirname, '..', 'sim', 'out', 'corpus-sources-b4.out');
   fs.writeFileSync(outp, JSON.stringify(report, null, 2), 'utf8');
   console.log('report -> ' + outp);

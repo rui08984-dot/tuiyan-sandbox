@@ -1,0 +1,44 @@
+{
+  "script": "p1b/scripts/anchor-gate.cjs",
+  "label": "b4提议全集",
+  "source_file": "p1b/sim/out/candidate-trace-b4-20260918.json",
+  "generated_at": "2026-09-18T14:47:10.123Z",
+  "criteria_source": "docs/specs/万物分类清单-v2.md §第 0 步 拒收门三问（v2 冻结 2026-09-12）",
+  "projection_note": "Q0-1 投影＝kind 注册 ∧ 锚可达（注册≠可达；有派生层者视为可达）；Q0-2 抽不出 cutoff ⇒ unverifiable（单列）；Q0-3 只判恒定，出题器红线 (0.15,0.85) 单列 inBand",
+  "zero_write": true,
+  "zero_network": true,
+  "candidates": 416,
+  "pass": 410,
+  "anchor_rate": 0.9855769230769231,
+  "by_reason": {
+    "pass": 410,
+    "no_anchor": 0,
+    "leak": 6,
+    "leak_unverified": 0,
+    "tautology": 0,
+    "baserate_missing": 0
+  },
+  "by_phase": {
+    "backfill": {
+      "n": 213,
+      "pass": 207,
+      "anchor_rate": 0.971830985915493
+    },
+    "forward": {
+      "n": 203,
+      "pass": 203,
+      "anchor_rate": 1
+    }
+  },
+  "in_band": 416,
+  "in_band_rate": 1,
+  "resolvers_registered": 60,
+  "drops_total": 9,
+  "drops_by_reason": {
+    "threshold_not_in_band": 4,
+    "insufficient_history": 4,
+    "no_rows": 1
+  },
+  "proposed_total": 425,
+  "anchor_rate_strict": 0.9647058823529412
+}

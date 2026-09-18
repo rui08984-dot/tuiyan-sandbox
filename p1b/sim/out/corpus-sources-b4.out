@@ -1,6 +1,6 @@
 {
-  "run_at": "2026-09-13T15:10:07+08:00",
-  "confirm": true,
+  "run_at": "2026-09-18T22:44:27+08:00",
+  "confirm": false,
   "probe": [
     {
       "src": "USGS-NWIS-dv",
@@ -144,14 +144,14 @@
       "backfill": 64,
       "forward": 64,
       "prob_min": 0.3014,
-      "prob_max": 0.725,
+      "prob_max": 0.72,
       "band_ok": true,
       "resolve_missing": 0,
       "samples_backfill": [
-        "【backfill】北京 2026-07-30 日 pm10 日均浓度 <= 86.4 μg/m³（cutoff=2026-07-29T23:59:59+08:00，严格早于该日；真值锚=Open-Meteo air-quality hourly.pm10 该日全小时均值。历史回填批次，非实时预测）"
+        "【backfill】北京 2026-08-04 日 pm10 日均浓度 <= 77.2 μg/m³（cutoff=2026-08-03T23:59:59+08:00，严格早于该日；真值锚=Open-Meteo air-quality hourly.pm10 该日全小时均值。历史回填批次，非实时预测）"
       ],
       "samples_forward": [
-        "【forward】北京 2026-09-16 日 pm10 日均浓度 <= 110.7 μg/m³（cutoff=落库时点 2026-09-13T15:10:07+08:00，该日尚未发生；真值锚=Open-Meteo air-quality hourly.pm10 该日全小时均值。前瞻批次，真值未发生）"
+        "【forward】北京 2026-09-21 日 pm10 日均浓度 <= 83.7 μg/m³（cutoff=落库时点 2026-09-18T22:44:27+08:00，该日尚未发生；真值锚=Open-Meteo air-quality hourly.pm10 该日全小时均值。前瞻批次，真值未发生）"
       ],
       "resolve_examples": [
         {
@@ -173,14 +173,14 @@
       "backfill": 30,
       "forward": 30,
       "prob_min": 0.3008,
-      "prob_max": 0.7068,
+      "prob_max": 0.7093,
       "band_ok": true,
       "resolve_missing": 0,
       "samples_backfill": [
-        "【backfill】北京 2026-07-25 日 temperature_2m_max >= 24.0 °C（cutoff=2026-07-24T23:59:59+08:00，严格早于该日；真值锚=Open-Meteo archive daily.temperature_2m_max（ERA5）。历史回填批次，非实时预测）"
+        "【backfill】北京 2026-07-30 日 temperature_2m_max >= 24.0 °C（cutoff=2026-07-29T23:59:59+08:00，严格早于该日；真值锚=Open-Meteo archive daily.temperature_2m_max（ERA5）。历史回填批次，非实时预测）"
       ],
       "samples_forward": [
-        "【forward】北京 2026-09-17 日 temperature_2m_max >= 12.6 °C（cutoff=落库时点 2026-09-13T15:10:07+08:00，该日尚未发生；真值锚=Open-Meteo archive daily.temperature_2m_max。前瞻批次，真值未发生）"
+        "【forward】北京 2026-09-22 日 temperature_2m_max >= 22.9 °C（cutoff=落库时点 2026-09-18T22:44:27+08:00，该日尚未发生；真值锚=Open-Meteo archive daily.temperature_2m_max。前瞻批次，真值未发生）"
       ],
       "resolve_examples": [
         {
@@ -201,15 +201,15 @@
       "total": 15,
       "backfill": 5,
       "forward": 10,
-      "prob_min": 0.3027,
+      "prob_min": 0.3,
       "prob_max": 0.7,
       "band_ok": true,
       "resolve_missing": 0,
       "samples_backfill": [
-        "【backfill】NOAA 纽约炮台公园（8518750） 2026-06-05 当日潮位最高小时值 >= 0.648 m（MSL）（cutoff=2026-06-04T23:59:59+08:00，严格早于该日；真值锚=NOAA CO-OPS predictions。历史回填批次，非实时预测）"
+        "【backfill】NOAA 纽约炮台公园（8518750） 2026-06-10 当日潮位最高小时值 >= 0.777 m（MSL）（cutoff=2026-06-09T23:59:59+08:00，严格早于该日；真值锚=NOAA CO-OPS predictions。历史回填批次，非实时预测）"
       ],
       "samples_forward": [
-        "【forward】NOAA 纽约炮台公园（8518750） 2026-09-18 当日潮位最高小时值 >= 0.852 m（MSL）（cutoff=落库时点 2026-09-13T15:10:07+08:00，该日尚未到；潮汐为天文推算，当日即出真值。前瞻批次，真值未发生）"
+        "【forward】NOAA 纽约炮台公园（8518750） 2026-09-23 当日潮位最高小时值 >= 0.852 m（MSL）（cutoff=落库时点 2026-09-18T22:44:27+08:00，该日尚未到；潮汐为天文推算，当日即出真值。前瞻批次，真值未发生）"
       ],
       "resolve_examples": [
         {
@@ -230,15 +230,15 @@
       "total": 8,
       "backfill": 4,
       "forward": 4,
-      "prob_min": 0.3056,
-      "prob_max": 0.7265,
+      "prob_min": 0.3294,
+      "prob_max": 0.7029,
       "band_ok": true,
       "resolve_missing": 0,
       "samples_backfill": [
-        "【backfill】NCEI GHCN 洛杉矶（USW00023174） 2026-07-15 日最高气温 >= 69.0 °F（cutoff=2026-07-14T23:59:59+08:00，严格早于该日；真值锚=NCEI daily-summaries TMAX（units=standard）。历史回填批次，非实时预测）"
+        "【backfill】NCEI GHCN 洛杉矶（USW00023174） 2026-07-20 日最高气温 >= 72.0 °F（cutoff=2026-07-19T23:59:59+08:00，严格早于该日；真值锚=NCEI daily-summaries TMAX（units=standard）。历史回填批次，非实时预测）"
       ],
       "samples_forward": [
-        "【forward】NCEI GHCN 洛杉矶（USW00023174） 2026-09-16 日最高气温 >= 77.0 °F（cutoff=落库时点 2026-09-13T15:10:07+08:00，该日尚未发生；真值锚=NCEI daily-summaries TMAX。前瞻批次，真值未发生）"
+        "【forward】NCEI GHCN 洛杉矶（USW00023174） 2026-09-21 日最高气温 >= 71.0 °F（cutoff=落库时点 2026-09-18T22:44:27+08:00，该日尚未发生；真值锚=NCEI daily-summaries TMAX。前瞻批次，真值未发生）"
       ],
       "resolve_examples": [
         {
@@ -260,14 +260,14 @@
       "backfill": 32,
       "forward": 32,
       "prob_min": 0.3035,
-      "prob_max": 0.7065,
+      "prob_max": 0.7025,
       "band_ok": true,
       "resolve_missing": 0,
       "samples_backfill": [
-        "【backfill】法国电网 2026-06-25 日「Nuclear」发电均值 >= 40069 MW（Energy-Charts）（cutoff=2026-06-24T23:59:59+08:00，严格早于该日；真值锚=Energy-Charts public_power 该日 15 分钟值均值。历史回填批次，非实时预测）"
+        "【backfill】法国电网 2026-06-30 日「Nuclear」发电均值 >= 39762 MW（Energy-Charts）（cutoff=2026-06-29T23:59:59+08:00，严格早于该日；真值锚=Energy-Charts public_power 该日 15 分钟值均值。历史回填批次，非实时预测）"
       ],
       "samples_forward": [
-        "【forward】法国电网 2026-09-17 日「Nuclear」发电均值 >= 37978 MW（Energy-Charts）（cutoff=落库时点 2026-09-13T15:10:07+08:00，该日尚未到；真值锚=Energy-Charts public_power 该日 15 分钟值均值。前瞻批次，真值未发生）"
+        "【forward】法国电网 2026-09-22 日「Nuclear」发电均值 >= 38942 MW（Energy-Charts）（cutoff=落库时点 2026-09-18T22:44:27+08:00，该日尚未到；真值锚=Energy-Charts public_power 该日 15 分钟值均值。前瞻批次，真值未发生）"
       ],
       "resolve_examples": [
         {
@@ -288,15 +288,15 @@
       "total": 15,
       "backfill": 5,
       "forward": 10,
-      "prob_min": 0.3,
-      "prob_max": 0.7,
+      "prob_min": 0.4,
+      "prob_max": 0.7023,
       "band_ok": true,
       "resolve_missing": 0,
       "samples_backfill": [
-        "【backfill】DOGE/USDT 2026-07-15（UTC 日）收盘价 >= 0.1023 USDT（cutoff=2026-07-14T23:59:59+08:00，严格早于该 UTC 日；真值锚=Binance klines [4]=close。历史回填批次，非实时预测）"
+        "【backfill】DOGE/USDT 2026-07-20（UTC 日）收盘价 >= 0.1672 USDT（cutoff=2026-07-19T23:59:59+08:00，严格早于该 UTC 日；真值锚=Binance klines [4]=close。历史回填批次，非实时预测）"
       ],
       "samples_forward": [
-        "【forward】DOGE/USDT 2026-09-16（UTC 日）收盘价 >= 0.1547 USDT（cutoff=落库时点 2026-09-13T15:10:07+08:00，该 UTC 日尚未结束；真值锚=Binance klines [4]=close。前瞻批次，真值未发生）"
+        "【forward】DOGE/USDT 2026-09-21（UTC 日）收盘价 >= 0.0945 USDT（cutoff=落库时点 2026-09-18T22:44:27+08:00，该 UTC 日尚未结束；真值锚=Binance klines [4]=close。前瞻批次，真值未发生）"
       ],
       "resolve_examples": [
         {
@@ -318,14 +318,14 @@
       "backfill": 12,
       "forward": 6,
       "prob_min": 0.3008,
-      "prob_max": 0.7015,
+      "prob_max": 0.7117,
       "band_ok": true,
       "resolve_missing": 0,
       "samples_backfill": [
-        "【backfill】en.wikipedia 「Climate_change」 2026-09-05 页面浏览量 >= 3313 次（cutoff=2026-09-04T23:59:59+08:00，严格早于该日；真值锚=Wikimedia pageviews API items[].views。历史回填批次，非实时预测）"
+        "【backfill】en.wikipedia 「Climate_change」 2026-09-10 页面浏览量 >= 4561 次（cutoff=2026-09-09T23:59:59+08:00，严格早于该日；真值锚=Wikimedia pageviews API items[].views。历史回填批次，非实时预测）"
       ],
       "samples_forward": [
-        "【forward】en.wikipedia 「Climate_change」 2026-09-16 页面浏览量 >= 5474 次（cutoff=落库时点 2026-09-13T15:10:07+08:00，该日尚未发生；真值锚=Wikimedia pageviews API items[].views。前瞻批次，真值未发生）"
+        "【forward】en.wikipedia 「Climate_change」 2026-09-21 页面浏览量 >= 3303 次（cutoff=落库时点 2026-09-18T22:44:27+08:00，该日尚未发生；真值锚=Wikimedia pageviews API items[].views。前瞻批次，真值未发生）"
       ],
       "resolve_examples": [
         {
@@ -346,15 +346,15 @@
       "total": 8,
       "backfill": 4,
       "forward": 4,
-      "prob_min": 0.4038,
+      "prob_min": 0.4022,
       "prob_max": 0.7042,
       "band_ok": true,
       "resolve_missing": 0,
       "samples_backfill": [
-        "【backfill】npm 包 next 在 2026-08-03~2026-08-09 的 7 日下载量 >= 37483154（cutoff=2026-08-02T23:59:59+08:00，严格早于该窗口；真值锚=npm downloads/range downloads[].downloads 求和。历史回填批次，非实时预测）"
+        "【backfill】npm 包 next 在 2026-08-08~2026-08-14 的 7 日下载量 >= 35759840（cutoff=2026-08-07T23:59:59+08:00，严格早于该窗口；真值锚=npm downloads/range downloads[].downloads 求和。历史回填批次，非实时预测）"
       ],
       "samples_forward": [
-        "【forward】npm 包 next 在 2026-09-16~2026-09-22 的 7 日下载量 >= 35817389（cutoff=落库时点 2026-09-13T15:10:07+08:00，窗口尚未开始；真值锚=npm downloads/range。前瞻批次，真值未发生）"
+        "【forward】npm 包 next 在 2026-09-21~2026-09-27 的 7 日下载量 >= 36016187（cutoff=落库时点 2026-09-18T22:44:27+08:00，窗口尚未开始；真值锚=npm downloads/range。前瞻批次，真值未发生）"
       ],
       "resolve_examples": [
         {
@@ -380,10 +380,10 @@
       "band_ok": true,
       "resolve_missing": 0,
       "samples_backfill": [
-        "【backfill】USD/GBP 在 2026-07-31 的 ECB 参考汇率 >= 0.7484（cutoff=2026-07-30T23:59:59+08:00，严格早于该发布日；真值锚=Frankfurter API rates。历史回填批次，非实时预测）"
+        "【backfill】USD/GBP 在 2026-08-05 的 ECB 参考汇率 >= 0.7481（cutoff=2026-08-04T23:59:59+08:00，严格早于该发布日；真值锚=Frankfurter API rates。历史回填批次，非实时预测）"
       ],
       "samples_forward": [
-        "【forward】USD/GBP 在 2026-09-17 的 ECB 参考汇率 >= 0.7405（cutoff=落库时点 2026-09-13T15:10:07+08:00，该日尚未到（非发布日顺延）；真值锚=Frankfurter API rates。前瞻批次，真值未发生）"
+        "【forward】USD/GBP 在 2026-09-22 的 ECB 参考汇率 >= 0.7420（cutoff=落库时点 2026-09-18T22:44:27+08:00，该日尚未到（非发布日顺延）；真值锚=Frankfurter API rates。前瞻批次，真值未发生）"
       ],
       "resolve_examples": [
         {
@@ -412,7 +412,7 @@
         "【backfill】BIS 英镑名义有效汇率（D.N.B.GB） 2024-05 月均值 >= 102.532（cutoff=2024-04-30T23:59:59+08:00，严格早于该月；真值锚=DBnomics BIS/WS_EER series.docs[0].value 月内均值。历史回填批次，非实时预测）"
       ],
       "samples_forward": [
-        "【forward】BIS 英镑名义有效汇率（D.N.B.GB） 2026-10 月均值 >= 109.601（cutoff=落库时点 2026-09-13T15:10:07+08:00，该月尚未发生；BIS 实测发布滞后约 14 个月，resolve 需待观测发布。前瞻批次，真值未发生）"
+        "【forward】BIS 英镑名义有效汇率（D.N.B.GB） 2026-10 月均值 >= 109.601（cutoff=落库时点 2026-09-18T22:44:27+08:00，该月尚未发生；BIS 实测发布滞后约 14 个月，resolve 需待观测发布。前瞻批次，真值未发生）"
       ],
       "resolve_examples": [
         {
@@ -433,15 +433,15 @@
       "total": 10,
       "backfill": 5,
       "forward": 5,
-      "prob_min": 0.3072,
-      "prob_max": 0.7,
+      "prob_min": 0.3012,
+      "prob_max": 0.7072,
       "band_ok": true,
       "resolve_missing": 0,
       "samples_backfill": [
-        "【backfill】USGS 波托马克河（01646500） 2026-07-20 日流量 >= 3690 ft³/s（cutoff=2026-07-19T23:59:59+08:00，严格早于该日；真值锚=USGS NWIS dv 00060。历史回填批次，非实时预测）"
+        "【backfill】USGS 波托马克河（01646500） 2026-07-25 日流量 >= 2250 ft³/s（cutoff=2026-07-24T23:59:59+08:00，严格早于该日；真值锚=USGS NWIS dv 00060。历史回填批次，非实时预测）"
       ],
       "samples_forward": [
-        "【forward】USGS 波托马克河（01646500） 2026-09-16 日流量 >= 2000 ft³/s（cutoff=落库时点 2026-09-13T15:10:07+08:00，该日尚未发生；真值锚=USGS NWIS dv 00060。前瞻批次，真值未发生）"
+        "【forward】USGS 波托马克河（01646500） 2026-09-21 日流量 >= 1960 ft³/s（cutoff=落库时点 2026-09-18T22:44:27+08:00，该日尚未发生；真值锚=USGS NWIS dv 00060。前瞻批次，真值未发生）"
       ],
       "resolve_examples": [
         {
@@ -462,15 +462,15 @@
       "total": 4,
       "backfill": 2,
       "forward": 2,
-      "prob_min": 0.4,
-      "prob_max": 0.7,
+      "prob_min": 0.5,
+      "prob_max": 0.6,
       "band_ok": true,
       "resolve_missing": 0,
       "samples_backfill": [
-        "【backfill】NOAA GML 冒纳罗亚站 2026-07-05 日 CO2 干空气摩尔分数 >= 428.72 ppm（cutoff=2026-07-04T23:59:59+08:00，严格早于该日；真值锚=NOAA GML co2_daily_mlo.csv 第 5 列。历史回填批次，非实时预测）"
+        "【backfill】NOAA GML 冒纳罗亚站 2026-07-17 日 CO2 干空气摩尔分数 >= 427.39 ppm（cutoff=2026-07-16T23:59:59+08:00，严格早于该日；真值锚=NOAA GML co2_daily_mlo.csv 第 5 列。历史回填批次，非实时预测）"
       ],
       "samples_forward": [
-        "【forward】NOAA GML 冒纳罗亚站 2026-09-17 日 CO2 干空气摩尔分数 >= 428.60 ppm（cutoff=落库时点 2026-09-13T15:10:07+08:00，该日尚未发生；真值锚=NOAA GML co2_daily_mlo.csv 第 5 列。前瞻批次，真值未发生）"
+        "【forward】NOAA GML 冒纳罗亚站 2026-09-22 日 CO2 干空气摩尔分数 >= 428.04 ppm（cutoff=落库时点 2026-09-18T22:44:27+08:00，该日尚未发生；真值锚=NOAA GML co2_daily_mlo.csv 第 5 列。前瞻批次，真值未发生）"
       ],
       "resolve_examples": [
         {
@@ -491,15 +491,15 @@
       "total": 8,
       "backfill": 4,
       "forward": 4,
-      "prob_min": 0.3014,
+      "prob_min": 0.3,
       "prob_max": 0.7014,
       "band_ok": true,
       "resolve_missing": 0,
       "samples_backfill": [
-        "【backfill】北海（54,7） 2026-08-09 日海表温度日均 >= 14.28 °C（cutoff=2026-08-08T23:59:59+08:00，严格早于该日；真值锚=Open-Meteo marine hourly.sea_surface_temperature 日均。历史回填批次，非实时预测）"
+        "【backfill】北海（54,7） 2026-08-14 日海表温度日均 >= 9.60 °C（cutoff=2026-08-13T23:59:59+08:00，严格早于该日；真值锚=Open-Meteo marine hourly.sea_surface_temperature 日均。历史回填批次，非实时预测）"
       ],
       "samples_forward": [
-        "【forward】北海（54,7） 2026-09-16 日海表温度日均 >= 15.51 °C（cutoff=落库时点 2026-09-13T15:10:07+08:00，该日尚未发生；真值锚=Open-Meteo marine hourly.sea_surface_temperature 日均。前瞻批次，真值未发生）"
+        "【forward】北海（54,7） 2026-09-21 日海表温度日均 >= 17.93 °C（cutoff=落库时点 2026-09-18T22:44:27+08:00，该日尚未发生；真值锚=Open-Meteo marine hourly.sea_surface_temperature 日均。前瞻批次，真值未发生）"
       ],
       "resolve_examples": [
         {
@@ -521,14 +521,14 @@
       "backfill": 2,
       "forward": 2,
       "prob_min": 0.3034,
-      "prob_max": 0.7238,
+      "prob_max": 0.4059,
       "band_ok": true,
       "resolve_missing": 0,
       "samples_backfill": [
-        "【backfill】JPL CNEOS 2026-06 月内近地天体接近事件数（距地 <0.05 AU） >= 97 次（cutoff=2026-05-31T23:59:59+08:00，严格早于该月；真值锚=JPL CAD API count 按月切分。历史回填批次，非实时预测）"
+        "【backfill】JPL CNEOS 2026-06 月内近地天体接近事件数（距地 <0.05 AU） >= 137 次（cutoff=2026-05-31T23:59:59+08:00，严格早于该月；真值锚=JPL CAD API count 按月切分。历史回填批次，非实时预测）"
       ],
       "samples_forward": [
-        "【forward】JPL CNEOS 2026-10 月内近地天体接近事件数（距地 <0.05 AU） >= 94 次（cutoff=落库时点 2026-09-13T15:10:07+08:00，该月尚未发生；真值锚=JPL CAD API 该月 count。前瞻批次，真值未发生）"
+        "【forward】JPL CNEOS 2026-10 月内近地天体接近事件数（距地 <0.05 AU） >= 148 次（cutoff=落库时点 2026-09-18T22:44:27+08:00，该月尚未发生；真值锚=JPL CAD API 该月 count。前瞻批次，真值未发生）"
       ],
       "resolve_examples": [
         {
@@ -557,7 +557,7 @@
         "【backfill】NOAA SWPC 太阳黑子数 SSN 2025-07 月均值 >= 25.0 （cutoff=2025-06-30T23:59:59+08:00，严格早于该月；真值锚=SWPC observed-solar-cycle-indices.json。历史回填批次，非实时预测）"
       ],
       "samples_forward": [
-        "【forward】NOAA SWPC 太阳黑子数 SSN 2026-10 月均值 >= 107.1 （cutoff=落库时点 2026-09-13T15:10:07+08:00，该月尚未发生；真值锚=SWPC observed-solar-cycle-indices.json。前瞻批次，真值未发生）"
+        "【forward】NOAA SWPC 太阳黑子数 SSN 2026-10 月均值 >= 107.1 （cutoff=落库时点 2026-09-18T22:44:27+08:00，该月尚未发生；真值锚=SWPC observed-solar-cycle-indices.json。前瞻批次，真值未发生）"
       ],
       "resolve_examples": [
         {
@@ -575,29 +575,16 @@
     "openalex": {
       "label": "OpenAlex 周产出",
       "game_type": "corpus:openalex",
-      "total": 4,
-      "backfill": 4,
+      "total": 0,
+      "backfill": 0,
       "forward": 0,
-      "prob_min": 0.5,
-      "prob_max": 0.5,
+      "prob_min": null,
+      "prob_max": null,
       "band_ok": true,
       "resolve_missing": 0,
-      "samples_backfill": [
-        "【backfill】OpenAlex 2026-07-24~2026-07-30 一周新收录出版物数 >= 306097 篇（cutoff=2026-07-23T23:59:59+08:00，严格早于该窗口；真值锚=OpenAlex works meta.count。历史回填批次，非实时预测）"
-      ],
+      "samples_backfill": [],
       "samples_forward": [],
-      "resolve_examples": [
-        {
-          "kind": "openalex_works_count",
-          "url": "https://api.openalex.org/works?filter=from_publication_date:2026-07-24,to_publication_date:2026-07-30&per-page=1&mailto=corpus-b4@example.org",
-          "field": "body.meta.count"
-        },
-        {
-          "kind": "openalex_works_count",
-          "url": "https://api.openalex.org/works?filter=from_publication_date:2026-06-09,to_publication_date:2026-06-15&per-page=1&mailto=corpus-b4@example.org",
-          "field": "body.meta.count"
-        }
-      ]
+      "resolve_examples": []
     },
     "espop": {
       "label": "Eurostat 人口（域17）",
@@ -613,7 +600,7 @@
         "【backfill】Eurostat 德国（DE） 2021 年 1 月 1 日人口 >= 82,314,906 人（cutoff=2020-12-31T23:59:59+08:00，严格早于该年；真值锚=Eurostat demo_pjan（JSON-stat，按 age×sex 求和）。历史回填批次，非实时预测）"
       ],
       "samples_forward": [
-        "【forward】Eurostat 德国（DE） 2027 年 1 月 1 日人口 >= 82,175,684 人（cutoff=落库时点 2026-09-13T15:10:07+08:00，该年尚未到；真值锚=Eurostat demo_pjan。Eurostat 实测发布滞后约 12 个月，resolve 需待发布。前瞻批次，真值未发生）"
+        "【forward】Eurostat 德国（DE） 2027 年 1 月 1 日人口 >= 82,175,684 人（cutoff=落库时点 2026-09-18T22:44:27+08:00，该年尚未到；真值锚=Eurostat demo_pjan。Eurostat 实测发布滞后约 12 个月，resolve 需待发布。前瞻批次，真值未发生）"
       ],
       "resolve_examples": [
         {
@@ -635,14 +622,14 @@
       "backfill": 2,
       "forward": 2,
       "prob_min": 0.4,
-      "prob_max": 0.5,
+      "prob_max": 0.6016,
       "band_ok": true,
       "resolve_missing": 0,
       "samples_backfill": [
-        "【backfill】Box Office Mojo 周末榜 2026W31 期 Top 10 总票房 >= $98,801,587（cutoff=2026-07-30T23:59:59+08:00，严格早于该周末；真值锚=Box Office Mojo 年度周末页 Top 10 Gross 列。历史回填批次，非实时预测）"
+        "【backfill】Box Office Mojo 周末榜 2026W32 期 Top 10 总票房 >= $120,547,138（cutoff=2026-08-06T23:59:59+08:00，严格早于该周末；真值锚=Box Office Mojo 年度周末页 Top 10 Gross 列。历史回填批次，非实时预测）"
       ],
       "samples_forward": [
-        "【forward】Box Office Mojo 周末榜 2026W37 期 Top 10 总票房 >= $122,315,367（cutoff=落库时点 2026-09-13T15:10:07+08:00，该周末尚未到；真值锚=Box Office Mojo 年度周末页 Top 10 Gross 列。前瞻批次，真值未发生）"
+        "【forward】Box Office Mojo 周末榜 2026W38 期 Top 10 总票房 >= $98,801,587（cutoff=落库时点 2026-09-18T22:44:27+08:00，该周末尚未到；真值锚=Box Office Mojo 年度周末页 Top 10 Gross 列。前瞻批次，真值未发生）"
       ],
       "resolve_examples": [
         {
@@ -671,7 +658,7 @@
         "【backfill】美国 CDC FluView 202630 周（MMWR）加州 ILI 就诊量 >= 5963 人次（cutoff=该周结束后次日（严格早于真值公布日 滞后约 2 周）；真值锚=Delphi Epidata fluview num_ili。历史回填批次，非实时预测）"
       ],
       "samples_forward": [
-        "【forward】美国 CDC FluView 202639 周（MMWR）加州 ILI 就诊量 >= 5846 人次（cutoff=落库时点 2026-09-13T15:10:07+08:00，该周尚未到；真值锚=Delphi Epidata fluview num_ili。前瞻批次，真值未发生）"
+        "【forward】美国 CDC FluView 202639 周（MMWR）加州 ILI 就诊量 >= 5846 人次（cutoff=落库时点 2026-09-18T22:44:27+08:00，该周尚未到；真值锚=Delphi Epidata fluview num_ili。前瞻批次，真值未发生）"
       ],
       "resolve_examples": [
         {
@@ -687,21 +674,9 @@
       ]
     }
   },
-  "total": 420,
-  "backfill_total": 217,
+  "total": 416,
+  "backfill_total": 213,
   "forward_total": 203,
   "band_violations": [],
-  "slug_dupes": [],
-  "inserted": 420,
-  "skipped": 0,
-  "duplicate_skipped": 0,
-  "l0Gate_after": {
-    "gate": "L0 只记不评：n≥30 局 ∧ 200 条前不评分，UI 数字只配「参考」；重言式题（tautology=1）不计入门禁",
-    "games": 70,
-    "records": 1923,
-    "records_valid": 1893,
-    "resolved": 602,
-    "unresolved": 1321,
-    "review_unlocked": true
-  }
+  "slug_dupes": []
 }

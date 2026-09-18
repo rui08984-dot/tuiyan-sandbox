@@ -104,6 +104,34 @@ test('⑥ require 本件零副作用（主流程只在 CLI 直跑）', () => {
   assert.equal(snap(), s0, 'require 不得写盘');
 });
 
+test('⑧ 候选留痕件（含 drops）⇒ 给**严格分母**（提议全集）；无 drops ⇒ 只给候选口径', () => {
+  const os = require('node:os');
+  const { execFileSync } = require('node:child_process');
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'p1b-ag2-'));
+  try {
+    const cand = { statement: 'x', prob: 0.5, resolve: { kind: 'ghcn_daily_tmax', url_template: 'u/{date}', date: '2026-07-01' }, meta: { phase: 'backfill', cutoff: '2026-06-30T23:59:59+08:00' } };
+    // ① 有 drops ⇒ 严格口径 = pass / (candidates + drops)
+    const f1 = path.join(tmp, 'trace.json');
+    fs.writeFileSync(f1, JSON.stringify({ candidates: [cand], drops: [{ reason: 'threshold_not_in_band' }, { reason: 'insufficient_history' }, { reason: 'no_rows' }] }), 'utf8');
+    const o1 = path.join(tmp, 'o1.json');
+    execFileSync(process.execPath, [path.join(ROOT, 'p1b', 'scripts', 'anchor-gate.cjs'), '--candidates', f1, '--out', o1], { encoding: 'utf8' });
+    const j1 = JSON.parse(fs.readFileSync(o1, 'utf8'));
+    assert.equal(j1.candidates, 1, '候选＝含 spec 的提议');
+    assert.equal(j1.drops_total, 3, '被丢提议数');
+    assert.equal(j1.proposed_total, 4, '提议全集＝候选＋被丢');
+    assert.ok(Math.abs(j1.anchor_rate_strict - 0.25) < 1e-9, '严格口径＝1/4，实际 ' + j1.anchor_rate_strict);
+    assert.equal(j1.drops_by_reason.threshold_not_in_band, 1);
+    // ② 无 drops ⇒ 不给严格口径字段（防把候选口径当严格口径引用）
+    const f2 = path.join(tmp, 'plain.json');
+    fs.writeFileSync(f2, JSON.stringify([cand]), 'utf8');
+    const o2 = path.join(tmp, 'o2.json');
+    execFileSync(process.execPath, [path.join(ROOT, 'p1b', 'scripts', 'anchor-gate.cjs'), '--candidates', f2, '--out', o2], { encoding: 'utf8' });
+    const j2 = JSON.parse(fs.readFileSync(o2, 'utf8'));
+    assert.equal(j2.anchor_rate_strict, undefined, '无 drops 时不得伪造严格口径');
+    assert.equal(j2.anchor_rate, 1, '候选口径仍给');
+  } finally { try { fs.rmSync(tmp, { recursive: true, force: true }); } catch (e) { /* ignore */ } }
+});
+
 test('⑦ 读数件**自描述**：md 必含「不是过锚率」的口径纪律（重跑不得丢）', () => {
   // 事故背景：2026-09-18 首次把解读**手追加**在生成物后面，重跑即被覆盖 ⇒ 改为收进生成器。
   // 本测试锁住该不变量：凡由本生成器产出的 md，必须自带口径纪律段。

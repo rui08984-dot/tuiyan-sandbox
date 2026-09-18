@@ -209,19 +209,35 @@ function main() {
   if (!rows.length) { console.error('[anchor-gate] 候选 0 条 ⇒ exit 3（防「空集」被读成「通过」）'); process.exit(3); }
   const label = arg('label', path.basename(inPath));
   const s = summarize(rows, ctx);
+  // ★候选留痕件（出题器 `--record-candidates` 产物）：drops＝被丢提议 ⇒ 给出**严格分母**。
+  //   严格口径＝提议全集（candidates ＋ drops）：被丢的提议**没有 spec ⇒ 锚不可达**，计入未过。
+  const drops = Array.isArray(raw.drops) ? raw.drops : null;
+  const strict = drops ? {
+    drops_total: drops.length,
+    drops_by_reason: drops.reduce((a, d) => { a[d.reason] = (a[d.reason] || 0) + 1; return a; }, {}),
+    proposed_total: rows.length + drops.length,
+    anchor_rate_strict: (rows.length + drops.length) ? s.pass / (rows.length + drops.length) : null,
+  } : null;
   const out = {
     script: 'p1b/scripts/anchor-gate.cjs',
     label: label,
     source_file: inPath,
     generated_at: new Date().toISOString(),
     criteria_source: 'docs/specs/万物分类清单-v2.md §第 0 步 拒收门三问（v2 冻结 2026-09-12）',
-    projection_note: 'Q0-1 投影＝kind 注册 ∧ 锚可达（注册≠可达）；Q0-2 抽不出 cutoff ⇒ unverifiable（单列）；Q0-3 只判恒定，出题器红线 (0.15,0.85) 单列 inBand',
+    projection_note: 'Q0-1 投影＝kind 注册 ∧ 锚可达（注册≠可达；有派生层者视为可达）；Q0-2 抽不出 cutoff ⇒ unverifiable（单列）；Q0-3 只判恒定，出题器红线 (0.15,0.85) 单列 inBand',
     zero_write: true, zero_network: true,
     ...s,
+    ...(strict || {}),
   };
   const perReason = s.by_reason;
   console.log('=== Q0 拒收门 · 过锚率（' + label + '）===');
-  console.log('  候选（全集）=' + s.candidates + '｜**通过=' + s.pass + '**｜过锚率=' + (s.anchor_rate * 100).toFixed(2) + '%');
+  console.log('  候选（含 spec 的提议）=' + s.candidates + '｜**通过=' + s.pass + '**｜过锚率（候选口径）=' + (s.anchor_rate * 100).toFixed(2) + '%');
+  if (strict) {
+    console.log('  ★提议全集（＋被丢 ' + strict.drops_total + '：' + JSON.stringify(strict.drops_by_reason) + '）=' + strict.proposed_total
+      + '｜**过锚率（严格口径／提议全集）=' + (strict.anchor_rate_strict * 100).toFixed(2) + '%**');
+  } else {
+    console.log('  （未提供 drops ⇒ **只能给候选口径**；严格口径需出题器 `--record-candidates` 产物）');
+  }
   console.log('  未过按原因：no_anchor=' + (perReason.no_anchor || 0) + '｜leak=' + (perReason.leak || 0) + '｜leak_unverified=' + (perReason.leak_unverified || 0) + '｜tautology=' + (perReason.tautology || 0) + '｜baserate_missing=' + (perReason.baserate_missing || 0));
   console.log('  按 phase：' + Object.keys(s.by_phase).map((k) => k + ' n=' + s.by_phase[k].n + ' 过锚率=' + (s.by_phase[k].anchor_rate * 100).toFixed(1) + '%').join(' ｜ '));
   console.log('  （并列披露·非判据）出题器红线 (0.15,0.85) 命中率=' + (s.in_band_rate * 100).toFixed(2) + '%｜现役解析器注册 ' + s.resolvers_registered + ' 种');

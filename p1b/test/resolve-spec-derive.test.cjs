@@ -87,3 +87,15 @@ test('⑤ 派生不依赖网络（本测试零网络的可证性）', () => {
   assert.ok(!/\bfetch\s*\(/.test(deriveSeg), '派生段不得含 fetch');
   assert.ok(!/\bawait\b/.test(deriveSeg), '派生段不得含 await（须为纯函数）');
 });
+
+test('⑥ 候选留痕旁路**默认关**（不传 --record-candidates ⇒ 零行为变化）', () => {
+  // 静态不变量（照 scripts-require-safety 范式）：不为测它去跑联网生成器。
+  const G = path.join(ROOT, 'p1b', 'scripts', 'corpus-sources-b4.cjs');
+  const g = fs.readFileSync(G, 'utf8');
+  assert.ok(/--record-candidates=/.test(g), '须支持 --record-candidates=<path>');
+  assert.ok(/function recDrop\([^)]*\)\s*\{\s*if \(!REC_PATH\) return;/.test(g), 'recDrop 须在未开旁路时立即返回（不建数组）');
+  assert.ok(/\n  if \(REC_PATH\) \{/.test(g), '落盘须由 `if (REC_PATH)` 守卫');
+  // 反向锚：写盘调用只应出现在守卫块内（本测试只证「有守卫」，不解析块范围——解析式检查易脆）
+  const writes = (g.match(/fs\.writeFileSync\(REC_PATH/g) || []).length;
+  assert.equal(writes, 1, 'REC_PATH 写盘点应恰为 1 处，实际 ' + writes);
+});
