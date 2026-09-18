@@ -118,7 +118,7 @@
 > 触发＝用户令「可以继续吧」。收据 **`p1b/sim/out/anchor-rate-receipt-20260918.md`**｜留痕 §91｜地图 §59｜p19 锚 §（二十八）｜交接件 §27。
 
 **落地**（两件，均 additive；**零账本写**）：
-1. **出题器候选留痕旁路**（`p1b/scripts/corpus-sources-b4.cjs`）：新 flag **`--record-candidates=<path>`**，**默认关**（不传 ⇒ `recDrop` 立即返回、不建数组、不写文件 ⇒ **零行为变化**）。埋点＝`emitSeries` **每条提议**（forward/backfill 两循环）＋ 系列级（`series_too_short`）＋ 构建器级（`builder_threw`／`no_rows`）。产出 `{candidates, drops[{stage,reason}], counts{...}}`；`candidates` 与既有 `.rows.json` 同形状 ⇒ 直接被 `anchor-gate.cjs` 消费。
+1. **出题器候选留痕旁路**（`p1b/scripts/corpus-sources-b4.cjs`）：新 flag **`--record-candidates=<path>`**，**默认关**（不传 ⇒ `recDrop` 立即返回、不建数组、不写文件 ⇒ **零行为变化**）。埋点＝`emitSeries` **每条提议**（forward/backfill 两循环）＋ 系列级（`series_too_short`）＋ 构建器级（`builder_threw`／`no_rows`）。产出 `{candidates, drops[{stage,reason}], counts{...}}`；`candidates` 与既有候选池件（corpus-sources-b4 的 rows 件）同形状 ⇒ 直接被 `anchor-gate.cjs` 消费。
 2. **`anchor-gate.cjs` 增严格分母**：输入含 `drops` ⇒ 给 `anchor_rate_strict`（＝通过 ÷ **提议全集**）；**无 `drops` 则不输出该字段**（防把候选口径当严格口径引用）。
 
 **首份真·过锚率**（生成器实跑一次，dry-run 不写库）：
