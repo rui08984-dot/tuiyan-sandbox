@@ -1,0 +1,154 @@
+{
+  "script": "p1b/scripts/thickcell-replay.cjs",
+  "basis": {
+    "prereg": "PREREG-厚格基建总票-v1.md",
+    "sha_hint": "e12c9db67ab2f5dd…（完整 sha 见冻结件）",
+    "sections": "§1 池/§2 骨架/§3 判据/§6 MDE"
+  },
+  "generated_at": "2026-09-18T15:04:26.410Z",
+  "zero_write_ledger": true,
+  "zero_llm": true,
+  "zero_network": true,
+  "arms_requested": [
+    "identity",
+    "const_half"
+  ],
+  "selftest_only": true,
+  "pool": {
+    "domains": [
+      "openmeteo",
+      "dbnomics"
+    ],
+    "layers": [
+      "L2",
+      "L3"
+    ],
+    "min_n": 30,
+    "n": 607
+  },
+  "cells": [
+    {
+      "cell": "L2/dbnomics",
+      "n": 79
+    },
+    {
+      "cell": "L3/openmeteo",
+      "n": 528
+    }
+  ],
+  "metrics": {
+    "identity@L2/dbnomics": {
+      "n": 79,
+      "brier_arm": 0.2499836201244809,
+      "brier_base": 0.2499836201244809,
+      "delta": 0,
+      "ci95": {
+        "lb": 0,
+        "ub": 0,
+        "B": 1000,
+        "seed": 987654321,
+        "mean": 0
+      },
+      "sd_d": 0,
+      "mde": 0,
+      "resolution_arm": 0.026788266803802217,
+      "resolution_base": 0.026788266803802217,
+      "c1_pass": true,
+      "c2_pass": true
+    },
+    "identity@L3/openmeteo": {
+      "n": 528,
+      "brier_arm": 0.23779246493563455,
+      "brier_base": 0.23779246493563455,
+      "delta": 0,
+      "ci95": {
+        "lb": 0,
+        "ub": 0,
+        "B": 1000,
+        "seed": 987654321,
+        "mean": 0
+      },
+      "sd_d": 0,
+      "mde": 0,
+      "resolution_arm": 0.012908469748289311,
+      "resolution_base": 0.012908469748289311,
+      "c1_pass": true,
+      "c2_pass": true
+    },
+    "const_half@L2/dbnomics": {
+      "n": 79,
+      "brier_arm": 0.25,
+      "brier_base": 0.2499836201244809,
+      "delta": 0.06604184810126579,
+      "ci95": {
+        "lb": 0.03394505063291138,
+        "ub": 0.09492994936708858,
+        "B": 1000,
+        "seed": 987654321,
+        "mean": 0.06604184810126579
+      },
+      "sd_d": 0.1478965967381272,
+      "mde": 0.046591068041896604,
+      "resolution_arm": 0,
+      "resolution_base": 0.026788266803802217,
+      "c1_pass": false,
+      "c2_pass": false
+    },
+    "const_half@L3/openmeteo": {
+      "n": 528,
+      "brier_arm": 0.25,
+      "brier_base": 0.23779246493563455,
+      "delta": 0.0030579678030302994,
+      "ci95": {
+        "lb": -0.008834301136363637,
+        "ub": 0.014485738636363646,
+        "B": 1000,
+        "seed": 987654321,
+        "mean": 0.0030579678030302994
+      },
+      "sd_d": 0.13218157161409744,
+      "mde": 0.0161069007029856,
+      "resolution_arm": 0,
+      "resolution_base": 0.012908469748289311,
+      "c1_pass": false,
+      "c2_pass": false
+    }
+  },
+  "selftest": [
+    {
+      "name": "identity@L2/dbnomics",
+      "pass": true,
+      "delta": 0,
+      "sd_d": 0,
+      "n": 79
+    },
+    {
+      "name": "identity@L3/openmeteo",
+      "pass": true,
+      "delta": 0,
+      "sd_d": 0,
+      "n": 528
+    },
+    {
+      "name": "const_half@L2/dbnomics",
+      "pass": true,
+      "delta": 0.06604184810126579,
+      "sd_d": 0.1478965967381272,
+      "n": 79
+    },
+    {
+      "name": "const_half@L3/openmeteo",
+      "pass": true,
+      "delta": 0.0030579678030302994,
+      "sd_d": 0.13218157161409744,
+      "n": 528
+    },
+    {
+      "name": "walkforward-leak@L2/dbnomics",
+      "pass": true,
+      "hist_leak": 0,
+      "monotonic": true
+    }
+  ],
+  "selftest_pass": true
+}
