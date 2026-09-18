@@ -58,7 +58,7 @@
 - `docs/specs/阶段5-检索式预测-立项书-v1.1.md` —— 阶段 5 立项书（评审后修订；待用户拍板）
 - `docs/specs/阶段5-立项评审-检索式预测-20260914.md` —— 阶段 5 独立评审（16 发现/8 必改）
 
-### docs/plans 与 docs/sandbox/p1b/itest（计划与进度锚）（178）
+### docs/plans 与 docs/sandbox/p1b/itest（计划与进度锚）（179）
 
 - `docs/sandbox/p1b/itest/`（154 件）—— 代表件 `_p7_fixer.cjs`：const fs = require("fs");；进度锚 p7–p22 为长项目锚（**最新 p19/p20+** 见本目录）
 - `docs/plans/2026-09-14-通往最终目标-分步实施计划.md` —— 三幕七任务实施计划（任务 6 批次 3 ✅）
@@ -72,7 +72,7 @@
 - `docs/sandbox/p1b/itest/p16-PROGRESS.md` —— p16-PROGRESS · 批次 2 门禁与流程口径（施工棒）
 - `docs/sandbox/p1b/itest/p17-PROGRESS.md` —— p17-PROGRESS · 判词修复 2.0 + R-C 实验 M1（施工棒）
 - `docs/sandbox/p1b/itest/p18-PROGRESS.md` —— p18-PROGRESS · G1 反馈施工棒：排盘解读 + 卡详情修复 + 审计器仪表盘（微步 M1/M2）
-- `docs/sandbox/p1b/itest/p19-ANCHOR-INDEX.md` —— p19-PROGRESS · 索引（倒序：**最新在前** · 生成 2026-09-17）
+- `docs/sandbox/p1b/itest/p19-ANCHOR-INDEX.md` —— p19-PROGRESS · 索引（倒序：**最新在前** · 生成 2026-09-18）
 - `docs/sandbox/p1b/itest/p19-PROGRESS.md` —— 阶段 2 开工 · 施工台账（2026-09-13 晚 · 队长自营）
 - `docs/sandbox/p1b/itest/p20-PROGRESS.md` —— p20-PROGRESS · 审计页补「预测画面」雏形（待解前瞻 + 分层校准）
 - `docs/sandbox/p1b/itest/p21-PROGRESS.md` —— p21 进度锚 —— UI 通用化改造：游戏类型动态化（后端驱动）
@@ -80,6 +80,7 @@
 - `docs/sandbox/p1b/itest/p23-P0施工-PROGRESS.md` —— p23-P0施工 · 进度锚（2026-09-16）
 - `docs/sandbox/p1b/itest/p24-蓝图推进-PROGRESS.md` —— p24 · 蓝图推进 · 进度锚（2026-09-17 立）
 - `docs/sandbox/p1b/itest/p25-例行结算-20260918-PROGRESS.md` —— p25 · 到期题例行结算（2026-09-18）· 进度锚
+- `docs/sandbox/p1b/itest/p26-第3期开工-过锚率与厚格PREREG-PROGRESS.md` —— p26 · 第 3 期开工（两票并发滚动）· 进度锚（2026-09-18 立）
 - `docs/sandbox/p1b/itest/p5-integration-report.md` —— P1b-5 集成实测报告（2026-09-08 · 收尾棒）
 - `docs/sandbox/p1b/itest/p5-手机实测指引.md` —— 手机实测指引（P1b-5 · 2026-09-08）
 - `docs/sandbox/p1b/itest/p7-PROGRESS.md` —— P7 收尾进度锚（第四棒）
@@ -107,7 +108,7 @@
 - `.scratch/handoff/推演沙盘-日结-20260911.md` —— 推演沙盘 · 日结 2026-09-11（预测线全链闭合日）
 - `.scratch/handoff/推演沙盘-日结-20260913-晨.md` —— 推演沙盘 · 夜间日结（2026-09-13 晨 · 队长亲笔 · 用户睡眠期自主推进）
 
-### .scratch/forecast-debate（研究档案/PREREG/实验报告）（252）
+### .scratch/forecast-debate（研究档案/PREREG/实验报告）（255）
 
 - `.scratch/forecast-debate/`（51 件）—— 代表件 `_acr2-cachekeys.cjs`：const fs = require('fs');
 - `.scratch/forecast-debate/prereg-a/`（76 件）—— 代表件 `manifest-preregA-20260913.json`："tag": "preregA-20260913",
@@ -133,6 +134,9 @@
 - `.scratch/forecast-debate/PREREG-RB-v1-待确认.md` —— PREREG-RB · 信息价值实验 v1（**已冻结** 2026-09-12 深夜 · 队长亲读批准：分题型 b(1−b) 下限对照方向保守、L1 carve-out=0.5 采纳裁定、合并条款对齐 T1 通道、…
 - `.scratch/forecast-debate/PREREG-RC-v1-待确认.md` —— PREREG-RC · 判词修复 2.0 实验 v1（**已冻结** 2026-09-13 · 队长亲读批准：单变量声明干净/proc_calc 剥离正确/配对锚与禁混宣称条款到位 · 冻结 commit 时按协议重…
 - `.scratch/forecast-debate/PREREG-判词重跑-v1.md` —— PREREG · 判词重跑 v1（**已冻结** 2026-09-12 · 授权=用户令「推进施行吧」对 R-A/R-B 拆分的拍板 · 全文透明出示无异议 · 冻结 commit 时按下方协议重算 sha256 并…
+- `.scratch/forecast-debate/PREREG-厚格基建总票-v1.1-补充与勘误-20260918.md` —— PREREG · 厚格基建总票 **v1.1 补充与勘误**（2026-09-18 · **不修改 v1 原件**）
+- `.scratch/forecast-debate/PREREG-厚格基建总票-v1.2-补充-kNN预注册-20260918.md` —— PREREG · 厚格基建总票 **v1.2 补充**（kNN 待冻结项落地：同变量对名单 ＋ κ ＋ 特征向量）
+- `.scratch/forecast-debate/PREREG-厚格基建总票-v1.md` —— PREREG · 厚格基建总票 v1（**判据冻结件** · 2026-09-18 · 第 3 期票 B）
 - `.scratch/forecast-debate/PREREG-命题A-3.0消融-v1.1-补漏档位-addendum.md` —— PREREG-命题A-3.0消融 · v1.1 增补条款（补漏档位＋敏感性核对）
 - `.scratch/forecast-debate/PREREG-命题A-3.0消融-v1.md` —— PREREG 冻结件（sha 5d6907d1；改动＝版本递进）
 - `.scratch/forecast-debate/PREREG-检索式预测-v1-骨架.md` —— 阶段 5 PREREG 骨架（**未冻结**；2026-09-15 已填裁决要点＋谓词计数＋N_min=256）
@@ -282,9 +286,9 @@
 - `p1b/src/taskQueue.js` —— p1b/src/taskQueue.js —— 内存异步任务队列（P1B-SPEC §0 拍板 #4：天结算后台跑，录入不被阻塞）。
 - `p1b/src/util.js` —— p1b/src/util.js —— 小工具：HTTP 错误构造 / 整数与枚举校验。
 
-### p1b/scripts（脚本；归档区见 archive/README.md）（198）
+### p1b/scripts（脚本；归档区见 archive/README.md）（201）
 
-- `p1b/scripts/`（111 件）—— 代表件 `_b1-eol.cjs`：const fs = require('fs');；逐件索引：`p1b/scripts/README.md`（`scripts-index.cjs` 生成）
+- `p1b/scripts/`（114 件）—— 代表件 `_b1-eol.cjs`：const fs = require('fs');；逐件索引：`p1b/scripts/README.md`（`scripts-index.cjs` 生成）
 - `p1b/scripts/_dparts/`（16 件）—— 代表件 `p1.cjs`：corpus-resolve-daemon.cjs — 到期自动 resolve 调度（2026-09-13 调度棒）
 - `p1b/scripts/archive/`（64 件）—— 代表件 `_b1-backlog.cjs`：const Database = require('E:/music player/p1a-terminal/node_modules/better-sqlite3');；归档说明与路径映射：`p1b/scripts/archive/README.md`
 - `p1b/scripts/README.md` —— 在役脚本目录（按前缀分组＋写库标记；权威计数＝`scripts-index.cjs` 输出，勿手数）
@@ -295,9 +299,9 @@
 - `p1b/scripts/archive/_bd-frag-readme.md` —— G2 口径修订 R4.3 与契约表 date_derivation（2026-09-14）
 - `p1b/scripts/archive/_bd-frag-s16.md` —— §16 追加 · 2026-09-14：R4.2 → R4.3 版本递进（① 池入池判定扩展——date_derivation 周期题换算；口径 B 四微步收口）
 
-### p1b/test（测试）（72）
+### p1b/test（测试）（76）
 
-- `p1b/test/`（66 件）—— 代表件 `a1-whatif.test.cjs`：p1b/test/a1-whatif.test.cjs —— A1 假设重算器（完整版 v1）· 测试（2026-09-17）
+- `p1b/test/`（70 件）—— 代表件 `a1-whatif.test.cjs`：p1b/test/a1-whatif.test.cjs —— A1 假设重算器（完整版 v1）· 测试（2026-09-17）
 - `p1b/test/fixtures/base-rate-golden.json` —— 基率解析金样（151 条真实注记×三读序；批次 3 冻结）
 - `p1b/test/fixtures/base-rate-golden.pre-nfix-20260915.json` —— "generated_at": "2026-09-14T14:21:03.795Z",
 - `p1b/test/fixtures/odds-scores-sample-20260917.json` —— "id": "b7a2cad26d908a943a27340b4b607068",
@@ -305,10 +309,10 @@
 - `p1b/test/fixtures/stage4-golden-20260917.json` —— "script": "p1b/scripts/stage4-run.cjs",
 - `p1b/test/fixtures/stage4-golden-db-20260917.db` —— （二进制体：不抽句；随目录级列出）
 
-### p1b/sim/out（收据与读数件；大件 .db/截图不入列）（499）
+### p1b/sim/out（收据与读数件；大件 .db/截图不入列）（515）
 
-- `p1b/sim/out/`（201 件）—— 代表件 `_audit.txt`：=== 1) 重复/空局检查 ===；收据为 `.md`（上面已逐件列）；其余为各轮读数件（可用对应脚本重跑生成）
-- `p1b/sim/out/`（91 件 .md）—— 代表件 `a1-assumption-recalc-receipt-20260917.md`：A1 收据 · 假设重算器 v0（2026-09-17）；收据为 `.md`（上面已逐件列）；其余为各轮读数件（可用对应脚本重跑生成）
+- `p1b/sim/out/`（208 件）—— 代表件 `_audit.txt`：=== 1) 重复/空局检查 ===；收据为 `.md`（上面已逐件列）；其余为各轮读数件（可用对应脚本重跑生成）
+- `p1b/sim/out/`（100 件 .md）—— 代表件 `a1-assumption-recalc-receipt-20260917.md`：A1 收据 · 假设重算器 v0（2026-09-17）；收据为 `.md`（上面已逐件列）；其余为各轮读数件（可用对应脚本重跑生成）
 - `p1b/sim/out/batch/`（72 件）—— 代表件 `_counts-err.txt`：（无一句话可抽）
 - `p1b/sim/out/batch/`（61 件 .md）—— 代表件 `m1-ai-sample.md`：M1 AI 腔抽检清单（每局 1 条=该局第一条发言，供 aidetect 集成打分；30 条）
 - `p1b/sim/out/merged-migration/`（20 件）—— 代表件 `baseline-test.exit.txt`：EXIT=0
@@ -361,4 +365,4 @@
 - `p1a-terminal/data/p1a.db` —— **生产账本**（predictions/verdicts/truth_vault…）；`p1a-terminal/**` 为 p1a 线（含禁改面）
 - `p1b/web/`（前端源码与 dist 构建）、`tools/`、`scripts/` —— 见各自 README/索引
 
-（§10 完 · 2026-09-14 深夜 · 生成器 `p1b/scripts/file-map.cjs` · 计数：共 1317 件在列）
+（§10 完 · 2026-09-14 深夜 · 生成器 `p1b/scripts/file-map.cjs` · 计数：共 1344 件在列）
