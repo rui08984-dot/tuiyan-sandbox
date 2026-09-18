@@ -1,0 +1,2204 @@
+{
+  "ok": [
+    {
+      "id": 452,
+      "k": "dbnomics_series_value",
+      "m": "2026-10-31"
+    },
+    {
+      "id": 471,
+      "k": "dbnomics_series_value",
+      "m": "2026-11-30"
+    },
+    {
+      "id": 472,
+      "k": "dbnomics_series_value",
+      "m": "2026-11-30"
+    },
+    {
+      "id": 723,
+      "k": "dbnomics_series_value",
+      "m": "2026-11-30"
+    },
+    {
+      "id": 724,
+      "k": "dbnomics_series_value",
+      "m": "2026-12-31"
+    },
+    {
+      "id": 725,
+      "k": "dbnomics_series_value",
+      "m": "2026-11-30"
+    },
+    {
+      "id": 726,
+      "k": "dbnomics_series_value",
+      "m": "2026-12-31"
+    },
+    {
+      "id": 727,
+      "k": "dbnomics_series_value",
+      "m": "2026-11-30"
+    },
+    {
+      "id": 728,
+      "k": "dbnomics_series_value",
+      "m": "2026-12-31"
+    },
+    {
+      "id": 729,
+      "k": "dbnomics_series_value",
+      "m": "2026-11-30"
+    },
+    {
+      "id": 730,
+      "k": "dbnomics_series_value",
+      "m": "2026-12-31"
+    },
+    {
+      "id": 737,
+      "k": "dbnomics_series_value",
+      "m": "2026-11-30"
+    },
+    {
+      "id": 738,
+      "k": "dbnomics_series_value",
+      "m": "2026-12-31"
+    },
+    {
+      "id": 739,
+      "k": "dbnomics_series_value",
+      "m": "2026-11-30"
+    },
+    {
+      "id": 740,
+      "k": "dbnomics_series_value",
+      "m": "2026-12-31"
+    },
+    {
+      "id": 741,
+      "k": "dbnomics_series_value",
+      "m": "2026-11-30"
+    },
+    {
+      "id": 742,
+      "k": "dbnomics_series_value",
+      "m": "2026-12-31"
+    },
+    {
+      "id": 743,
+      "k": "dbnomics_series_value",
+      "m": "2026-11-30"
+    },
+    {
+      "id": 744,
+      "k": "dbnomics_series_value",
+      "m": "2026-12-31"
+    },
+    {
+      "id": 745,
+      "k": "dbnomics_series_value",
+      "m": "2026-11-30"
+    },
+    {
+      "id": 746,
+      "k": "dbnomics_series_value",
+      "m": "2026-12-31"
+    },
+    {
+      "id": 747,
+      "k": "dbnomics_series_value",
+      "m": "2026-11-30"
+    },
+    {
+      "id": 748,
+      "k": "dbnomics_series_value",
+      "m": "2026-12-31"
+    },
+    {
+      "id": 749,
+      "k": "dbnomics_series_value",
+      "m": "2026-11-30"
+    },
+    {
+      "id": 750,
+      "k": "dbnomics_series_value",
+      "m": "2026-12-31"
+    },
+    {
+      "id": 751,
+      "k": "dbnomics_series_value",
+      "m": "2026-11-30"
+    },
+    {
+      "id": 752,
+      "k": "dbnomics_series_value",
+      "m": "2026-12-31"
+    },
+    {
+      "id": 753,
+      "k": "dbnomics_series_value",
+      "m": "2026-11-30"
+    },
+    {
+      "id": 754,
+      "k": "dbnomics_series_value",
+      "m": "2026-12-31"
+    },
+    {
+      "id": 755,
+      "k": "dbnomics_series_value",
+      "m": "2026-11-30"
+    },
+    {
+      "id": 756,
+      "k": "dbnomics_series_value",
+      "m": "2026-12-31"
+    },
+    {
+      "id": 757,
+      "k": "dbnomics_series_value",
+      "m": "2026-11-30"
+    },
+    {
+      "id": 758,
+      "k": "dbnomics_series_value",
+      "m": "2026-12-31"
+    },
+    {
+      "id": 759,
+      "k": "dbnomics_series_value",
+      "m": "2026-11-30"
+    },
+    {
+      "id": 760,
+      "k": "dbnomics_series_value",
+      "m": "2026-12-31"
+    },
+    {
+      "id": 761,
+      "k": "dbnomics_series_value",
+      "m": "2026-11-30"
+    },
+    {
+      "id": 762,
+      "k": "dbnomics_series_value",
+      "m": "2026-12-31"
+    },
+    {
+      "id": 763,
+      "k": "dbnomics_series_value",
+      "m": "2026-11-30"
+    },
+    {
+      "id": 764,
+      "k": "dbnomics_series_value",
+      "m": "2026-12-31"
+    },
+    {
+      "id": 765,
+      "k": "dbnomics_series_value",
+      "m": "2026-11-30"
+    },
+    {
+      "id": 766,
+      "k": "dbnomics_series_value",
+      "m": "2026-12-31"
+    },
+    {
+      "id": 767,
+      "k": "dbnomics_series_value",
+      "m": "2026-11-30"
+    },
+    {
+      "id": 768,
+      "k": "dbnomics_series_value",
+      "m": "2026-12-31"
+    },
+    {
+      "id": 769,
+      "k": "dbnomics_series_value",
+      "m": "2026-11-30"
+    },
+    {
+      "id": 770,
+      "k": "dbnomics_series_value",
+      "m": "2026-12-31"
+    },
+    {
+      "id": 771,
+      "k": "dbnomics_series_value",
+      "m": "2026-11-30"
+    },
+    {
+      "id": 772,
+      "k": "dbnomics_series_value",
+      "m": "2026-12-31"
+    },
+    {
+      "id": 773,
+      "k": "dbnomics_series_value",
+      "m": "2026-11-30"
+    },
+    {
+      "id": 774,
+      "k": "dbnomics_series_value",
+      "m": "2026-12-31"
+    },
+    {
+      "id": 775,
+      "k": "dbnomics_series_value",
+      "m": "2026-11-30"
+    },
+    {
+      "id": 776,
+      "k": "dbnomics_series_value",
+      "m": "2026-12-31"
+    },
+    {
+      "id": 777,
+      "k": "dbnomics_series_value",
+      "m": "2026-11-30"
+    },
+    {
+      "id": 778,
+      "k": "dbnomics_series_value",
+      "m": "2026-12-31"
+    },
+    {
+      "id": 779,
+      "k": "dbnomics_series_value",
+      "m": "2026-11-30"
+    },
+    {
+      "id": 780,
+      "k": "dbnomics_series_value",
+      "m": "2026-12-31"
+    },
+    {
+      "id": 781,
+      "k": "dbnomics_series_value",
+      "m": "2026-11-30"
+    },
+    {
+      "id": 782,
+      "k": "dbnomics_series_value",
+      "m": "2026-12-31"
+    },
+    {
+      "id": 783,
+      "k": "dbnomics_series_value",
+      "m": "2026-11-30"
+    },
+    {
+      "id": 784,
+      "k": "dbnomics_series_value",
+      "m": "2026-12-31"
+    },
+    {
+      "id": 785,
+      "k": "dbnomics_series_value",
+      "m": "2026-11-30"
+    },
+    {
+      "id": 786,
+      "k": "dbnomics_series_value",
+      "m": "2026-12-31"
+    },
+    {
+      "id": 787,
+      "k": "dbnomics_series_value",
+      "m": "2026-11-30"
+    },
+    {
+      "id": 788,
+      "k": "dbnomics_series_value",
+      "m": "2026-12-31"
+    },
+    {
+      "id": 789,
+      "k": "dbnomics_series_value",
+      "m": "2026-11-30"
+    },
+    {
+      "id": 790,
+      "k": "dbnomics_series_value",
+      "m": "2026-12-31"
+    },
+    {
+      "id": 791,
+      "k": "dbnomics_series_value",
+      "m": "2026-11-30"
+    },
+    {
+      "id": 792,
+      "k": "dbnomics_series_value",
+      "m": "2026-12-31"
+    },
+    {
+      "id": 793,
+      "k": "dbnomics_series_value",
+      "m": "2026-11-30"
+    },
+    {
+      "id": 794,
+      "k": "dbnomics_series_value",
+      "m": "2026-12-31"
+    },
+    {
+      "id": 795,
+      "k": "dbnomics_series_value",
+      "m": "2026-11-30"
+    },
+    {
+      "id": 796,
+      "k": "dbnomics_series_value",
+      "m": "2026-12-31"
+    },
+    {
+      "id": 797,
+      "k": "dbnomics_series_value",
+      "m": "2026-11-30"
+    },
+    {
+      "id": 798,
+      "k": "dbnomics_series_value",
+      "m": "2026-12-31"
+    },
+    {
+      "id": 799,
+      "k": "dbnomics_series_value",
+      "m": "2026-11-30"
+    },
+    {
+      "id": 800,
+      "k": "dbnomics_series_value",
+      "m": "2026-12-31"
+    },
+    {
+      "id": 801,
+      "k": "dbnomics_series_value",
+      "m": "2026-11-30"
+    },
+    {
+      "id": 802,
+      "k": "dbnomics_series_value",
+      "m": "2026-12-31"
+    },
+    {
+      "id": 803,
+      "k": "dbnomics_series_value",
+      "m": "2026-11-30"
+    },
+    {
+      "id": 804,
+      "k": "dbnomics_series_value",
+      "m": "2026-12-31"
+    },
+    {
+      "id": 805,
+      "k": "dbnomics_series_value",
+      "m": "2026-11-30"
+    },
+    {
+      "id": 806,
+      "k": "dbnomics_series_value",
+      "m": "2026-12-31"
+    },
+    {
+      "id": 807,
+      "k": "dbnomics_series_value",
+      "m": "2026-11-30"
+    },
+    {
+      "id": 808,
+      "k": "dbnomics_series_value",
+      "m": "2026-12-31"
+    },
+    {
+      "id": 809,
+      "k": "dbnomics_series_value",
+      "m": "2026-11-30"
+    },
+    {
+      "id": 810,
+      "k": "dbnomics_series_value",
+      "m": "2026-12-31"
+    },
+    {
+      "id": 811,
+      "k": "dbnomics_series_value",
+      "m": "2026-11-30"
+    },
+    {
+      "id": 812,
+      "k": "dbnomics_series_value",
+      "m": "2026-12-31"
+    },
+    {
+      "id": 813,
+      "k": "dbnomics_series_value",
+      "m": "2026-11-30"
+    },
+    {
+      "id": 814,
+      "k": "dbnomics_series_value",
+      "m": "2026-12-31"
+    },
+    {
+      "id": 815,
+      "k": "dbnomics_series_value",
+      "m": "2026-11-30"
+    },
+    {
+      "id": 816,
+      "k": "dbnomics_series_value",
+      "m": "2026-12-31"
+    },
+    {
+      "id": 820,
+      "k": "cwl_ssq_red_contains",
+      "m": "2026-09-20"
+    },
+    {
+      "id": 821,
+      "k": "cwl_ssq_red_contains",
+      "m": "2026-09-22"
+    },
+    {
+      "id": 822,
+      "k": "cwl_ssq_red_contains",
+      "m": "2026-09-24"
+    },
+    {
+      "id": 823,
+      "k": "cwl_ssq_red_contains",
+      "m": "2026-09-27"
+    },
+    {
+      "id": 824,
+      "k": "cwl_ssq_red_contains",
+      "m": "2026-09-29"
+    },
+    {
+      "id": 825,
+      "k": "cwl_ssq_red_contains",
+      "m": "2026-10-01"
+    },
+    {
+      "id": 826,
+      "k": "cwl_ssq_red_contains",
+      "m": "2026-10-04"
+    },
+    {
+      "id": 827,
+      "k": "cwl_ssq_red_contains",
+      "m": "2026-10-06"
+    },
+    {
+      "id": 828,
+      "k": "cwl_ssq_red_contains",
+      "m": "2026-10-08"
+    },
+    {
+      "id": 832,
+      "k": "cwl_ssq_blue_odd",
+      "m": "2026-09-20"
+    },
+    {
+      "id": 833,
+      "k": "cwl_ssq_blue_odd",
+      "m": "2026-09-22"
+    },
+    {
+      "id": 834,
+      "k": "cwl_ssq_blue_odd",
+      "m": "2026-09-24"
+    },
+    {
+      "id": 835,
+      "k": "cwl_ssq_blue_odd",
+      "m": "2026-09-27"
+    },
+    {
+      "id": 836,
+      "k": "cwl_ssq_blue_odd",
+      "m": "2026-09-29"
+    },
+    {
+      "id": 837,
+      "k": "cwl_ssq_blue_odd",
+      "m": "2026-10-01"
+    },
+    {
+      "id": 838,
+      "k": "cwl_ssq_blue_odd",
+      "m": "2026-10-04"
+    },
+    {
+      "id": 839,
+      "k": "cwl_ssq_blue_odd",
+      "m": "2026-10-06"
+    },
+    {
+      "id": 840,
+      "k": "cwl_ssq_blue_odd",
+      "m": "2026-10-08"
+    },
+    {
+      "id": 841,
+      "k": "dlt_draw_result",
+      "m": "2026-09-14"
+    },
+    {
+      "id": 842,
+      "k": "dlt_draw_result",
+      "m": "2026-09-16"
+    },
+    {
+      "id": 843,
+      "k": "dlt_draw_result",
+      "m": "2026-09-19"
+    },
+    {
+      "id": 844,
+      "k": "dlt_draw_result",
+      "m": "2026-09-21"
+    },
+    {
+      "id": 845,
+      "k": "dlt_draw_result",
+      "m": "2026-09-23"
+    },
+    {
+      "id": 846,
+      "k": "dlt_draw_result",
+      "m": "2026-09-26"
+    },
+    {
+      "id": 847,
+      "k": "dlt_draw_result",
+      "m": "2026-09-28"
+    },
+    {
+      "id": 848,
+      "k": "dlt_draw_result",
+      "m": "2026-09-30"
+    },
+    {
+      "id": 849,
+      "k": "dlt_draw_result",
+      "m": "2026-10-03"
+    },
+    {
+      "id": 850,
+      "k": "dlt_draw_result",
+      "m": "2026-10-05"
+    },
+    {
+      "id": 851,
+      "k": "dlt_draw_result",
+      "m": "2026-10-07"
+    },
+    {
+      "id": 852,
+      "k": "dlt_draw_result",
+      "m": "2026-10-10"
+    },
+    {
+      "id": 853,
+      "k": "dlt_draw_result",
+      "m": "2026-10-12"
+    },
+    {
+      "id": 854,
+      "k": "dlt_draw_result",
+      "m": "2026-10-14"
+    },
+    {
+      "id": 855,
+      "k": "dlt_draw_result",
+      "m": "2026-10-17"
+    },
+    {
+      "id": 856,
+      "k": "dlt_draw_result",
+      "m": "2026-10-19"
+    },
+    {
+      "id": 857,
+      "k": "dlt_draw_result",
+      "m": "2026-09-14"
+    },
+    {
+      "id": 858,
+      "k": "dlt_draw_result",
+      "m": "2026-09-16"
+    },
+    {
+      "id": 859,
+      "k": "dlt_draw_result",
+      "m": "2026-09-19"
+    },
+    {
+      "id": 860,
+      "k": "dlt_draw_result",
+      "m": "2026-09-21"
+    },
+    {
+      "id": 861,
+      "k": "dlt_draw_result",
+      "m": "2026-09-23"
+    },
+    {
+      "id": 862,
+      "k": "dlt_draw_result",
+      "m": "2026-09-26"
+    },
+    {
+      "id": 863,
+      "k": "dlt_draw_result",
+      "m": "2026-09-28"
+    },
+    {
+      "id": 864,
+      "k": "dlt_draw_result",
+      "m": "2026-09-30"
+    },
+    {
+      "id": 865,
+      "k": "dlt_draw_result",
+      "m": "2026-10-03"
+    },
+    {
+      "id": 866,
+      "k": "dlt_draw_result",
+      "m": "2026-10-05"
+    },
+    {
+      "id": 867,
+      "k": "dlt_draw_result",
+      "m": "2026-10-07"
+    },
+    {
+      "id": 868,
+      "k": "dlt_draw_result",
+      "m": "2026-10-10"
+    },
+    {
+      "id": 869,
+      "k": "dlt_draw_result",
+      "m": "2026-10-12"
+    },
+    {
+      "id": 870,
+      "k": "dlt_draw_result",
+      "m": "2026-10-14"
+    },
+    {
+      "id": 871,
+      "k": "dlt_draw_result",
+      "m": "2026-10-17"
+    },
+    {
+      "id": 872,
+      "k": "dlt_draw_result",
+      "m": "2026-10-19"
+    },
+    {
+      "id": 896,
+      "k": "binance_daily_close",
+      "m": "2026-09-21"
+    },
+    {
+      "id": 900,
+      "k": "binance_daily_close",
+      "m": "2026-09-21"
+    },
+    {
+      "id": 904,
+      "k": "binance_daily_close",
+      "m": "2026-09-21"
+    },
+    {
+      "id": 909,
+      "k": "wikimedia_pageviews",
+      "m": "2026-09-23"
+    },
+    {
+      "id": 914,
+      "k": "wikimedia_pageviews",
+      "m": "2026-09-23"
+    },
+    {
+      "id": 919,
+      "k": "wikimedia_pageviews",
+      "m": "2026-09-23"
+    },
+    {
+      "id": 924,
+      "k": "wikimedia_pageviews",
+      "m": "2026-09-23"
+    },
+    {
+      "id": 929,
+      "k": "wikimedia_pageviews",
+      "m": "2026-09-23"
+    },
+    {
+      "id": 932,
+      "k": "github_weekly_commits",
+      "m": "2026-09-26"
+    },
+    {
+      "id": 935,
+      "k": "github_weekly_commits",
+      "m": "2026-09-26"
+    },
+    {
+      "id": 938,
+      "k": "github_weekly_commits",
+      "m": "2026-09-26"
+    },
+    {
+      "id": 939,
+      "k": "frankfurter_rate_range",
+      "m": "2026-09-16"
+    },
+    {
+      "id": 940,
+      "k": "frankfurter_rate_range",
+      "m": "2026-09-23"
+    },
+    {
+      "id": 943,
+      "k": "frankfurter_rate_range",
+      "m": "2026-09-16"
+    },
+    {
+      "id": 944,
+      "k": "frankfurter_rate_range",
+      "m": "2026-09-23"
+    },
+    {
+      "id": 947,
+      "k": "frankfurter_rate_range",
+      "m": "2026-09-16"
+    },
+    {
+      "id": 948,
+      "k": "frankfurter_rate_range",
+      "m": "2026-09-23"
+    },
+    {
+      "id": 951,
+      "k": "npm_downloads_window",
+      "m": "2026-09-22"
+    },
+    {
+      "id": 952,
+      "k": "npm_downloads_window",
+      "m": "2026-09-29"
+    },
+    {
+      "id": 954,
+      "k": "npm_downloads_window",
+      "m": "2026-09-22"
+    },
+    {
+      "id": 955,
+      "k": "npm_downloads_window",
+      "m": "2026-09-29"
+    },
+    {
+      "id": 957,
+      "k": "npm_downloads_window",
+      "m": "2026-09-22"
+    },
+    {
+      "id": 958,
+      "k": "npm_downloads_window",
+      "m": "2026-09-29"
+    },
+    {
+      "id": 987,
+      "k": "binance_daily_close",
+      "m": "2026-10-01"
+    },
+    {
+      "id": 988,
+      "k": "binance_daily_close",
+      "m": "2026-10-15"
+    },
+    {
+      "id": 989,
+      "k": "binance_daily_close",
+      "m": "2026-10-30"
+    },
+    {
+      "id": 990,
+      "k": "binance_daily_close",
+      "m": "2026-10-01"
+    },
+    {
+      "id": 991,
+      "k": "binance_daily_close",
+      "m": "2026-10-15"
+    },
+    {
+      "id": 992,
+      "k": "binance_daily_close",
+      "m": "2026-10-30"
+    },
+    {
+      "id": 993,
+      "k": "binance_daily_close",
+      "m": "2026-10-01"
+    },
+    {
+      "id": 994,
+      "k": "binance_daily_close",
+      "m": "2026-10-15"
+    },
+    {
+      "id": 995,
+      "k": "binance_daily_close",
+      "m": "2026-10-30"
+    },
+    {
+      "id": 996,
+      "k": "npm_downloads_window",
+      "m": "2026-10-01"
+    },
+    {
+      "id": 997,
+      "k": "npm_downloads_window",
+      "m": "2026-10-15"
+    },
+    {
+      "id": 998,
+      "k": "npm_downloads_window",
+      "m": "2026-10-30"
+    },
+    {
+      "id": 999,
+      "k": "npm_downloads_window",
+      "m": "2026-10-01"
+    },
+    {
+      "id": 1000,
+      "k": "npm_downloads_window",
+      "m": "2026-10-15"
+    },
+    {
+      "id": 1001,
+      "k": "npm_downloads_window",
+      "m": "2026-10-30"
+    },
+    {
+      "id": 1002,
+      "k": "npm_downloads_window",
+      "m": "2026-10-01"
+    },
+    {
+      "id": 1003,
+      "k": "npm_downloads_window",
+      "m": "2026-10-15"
+    },
+    {
+      "id": 1004,
+      "k": "npm_downloads_window",
+      "m": "2026-10-30"
+    },
+    {
+      "id": 1005,
+      "k": "wikimedia_pageviews",
+      "m": "2026-10-01"
+    },
+    {
+      "id": 1006,
+      "k": "wikimedia_pageviews",
+      "m": "2026-10-30"
+    },
+    {
+      "id": 1007,
+      "k": "wikimedia_pageviews",
+      "m": "2026-10-01"
+    },
+    {
+      "id": 1008,
+      "k": "wikimedia_pageviews",
+      "m": "2026-10-30"
+    },
+    {
+      "id": 1009,
+      "k": "wikimedia_pageviews",
+      "m": "2026-10-01"
+    },
+    {
+      "id": 1010,
+      "k": "wikimedia_pageviews",
+      "m": "2026-10-30"
+    },
+    {
+      "id": 1011,
+      "k": "wikimedia_pageviews",
+      "m": "2026-10-01"
+    },
+    {
+      "id": 1012,
+      "k": "wikimedia_pageviews",
+      "m": "2026-10-30"
+    },
+    {
+      "id": 1013,
+      "k": "wikimedia_pageviews",
+      "m": "2026-10-01"
+    },
+    {
+      "id": 1014,
+      "k": "wikimedia_pageviews",
+      "m": "2026-10-30"
+    },
+    {
+      "id": 1015,
+      "k": "github_weekly_commits",
+      "m": "2026-10-10"
+    },
+    {
+      "id": 1016,
+      "k": "github_weekly_commits",
+      "m": "2026-10-17"
+    },
+    {
+      "id": 1017,
+      "k": "github_weekly_commits",
+      "m": "2026-10-10"
+    },
+    {
+      "id": 1018,
+      "k": "github_weekly_commits",
+      "m": "2026-10-17"
+    },
+    {
+      "id": 1019,
+      "k": "github_weekly_commits",
+      "m": "2026-10-10"
+    },
+    {
+      "id": 1020,
+      "k": "github_weekly_commits",
+      "m": "2026-10-17"
+    },
+    {
+      "id": 1021,
+      "k": "cwl_ssq_red_contains",
+      "m": "2026-10-11"
+    },
+    {
+      "id": 1022,
+      "k": "cwl_ssq_red_contains",
+      "m": "2026-10-13"
+    },
+    {
+      "id": 1023,
+      "k": "cwl_ssq_red_contains",
+      "m": "2026-10-15"
+    },
+    {
+      "id": 1024,
+      "k": "cwl_ssq_red_contains",
+      "m": "2026-10-18"
+    },
+    {
+      "id": 1025,
+      "k": "cwl_ssq_red_contains",
+      "m": "2026-10-20"
+    },
+    {
+      "id": 1026,
+      "k": "cwl_ssq_red_contains",
+      "m": "2026-10-22"
+    },
+    {
+      "id": 1027,
+      "k": "cwl_ssq_red_contains",
+      "m": "2026-10-25"
+    },
+    {
+      "id": 1028,
+      "k": "cwl_ssq_blue_odd",
+      "m": "2026-10-11"
+    },
+    {
+      "id": 1029,
+      "k": "cwl_ssq_blue_odd",
+      "m": "2026-10-13"
+    },
+    {
+      "id": 1030,
+      "k": "cwl_ssq_blue_odd",
+      "m": "2026-10-15"
+    },
+    {
+      "id": 1031,
+      "k": "cwl_ssq_blue_odd",
+      "m": "2026-10-18"
+    },
+    {
+      "id": 1032,
+      "k": "cwl_ssq_blue_odd",
+      "m": "2026-10-20"
+    },
+    {
+      "id": 1033,
+      "k": "cwl_ssq_blue_odd",
+      "m": "2026-10-22"
+    },
+    {
+      "id": 1034,
+      "k": "cwl_ssq_blue_odd",
+      "m": "2026-10-25"
+    },
+    {
+      "id": 1035,
+      "k": "dlt_draw_result",
+      "m": "2026-10-21"
+    },
+    {
+      "id": 1036,
+      "k": "dlt_draw_result",
+      "m": "2026-10-24"
+    },
+    {
+      "id": 1037,
+      "k": "dlt_draw_result",
+      "m": "2026-10-26"
+    },
+    {
+      "id": 1038,
+      "k": "dlt_draw_result",
+      "m": "2026-10-21"
+    },
+    {
+      "id": 1039,
+      "k": "dlt_draw_result",
+      "m": "2026-10-24"
+    },
+    {
+      "id": 1040,
+      "k": "dlt_draw_result",
+      "m": "2026-10-26"
+    },
+    {
+      "id": 1093,
+      "k": "cta_daily_total_rides",
+      "m": "2026-09-14"
+    },
+    {
+      "id": 1094,
+      "k": "cta_daily_total_rides",
+      "m": "2026-09-15"
+    },
+    {
+      "id": 1095,
+      "k": "cta_daily_total_rides",
+      "m": "2026-09-16"
+    },
+    {
+      "id": 1105,
+      "k": "ghcn_daily_tmax",
+      "m": "2026-09-15"
+    },
+    {
+      "id": 1106,
+      "k": "ghcn_daily_tmax",
+      "m": "2026-09-16"
+    },
+    {
+      "id": 1110,
+      "k": "ghcn_daily_tmax",
+      "m": "2026-09-15"
+    },
+    {
+      "id": 1111,
+      "k": "ghcn_daily_tmax",
+      "m": "2026-09-16"
+    },
+    {
+      "id": 1115,
+      "k": "ghcn_daily_tmax",
+      "m": "2026-09-15"
+    },
+    {
+      "id": 1116,
+      "k": "ghcn_daily_tmax",
+      "m": "2026-09-16"
+    },
+    {
+      "id": 1119,
+      "k": "crossref_week_total",
+      "m": null
+    },
+    {
+      "id": 1120,
+      "k": "crossref_week_total",
+      "m": "2026-09-20"
+    },
+    {
+      "id": 1121,
+      "k": "crossref_week_total",
+      "m": "2026-09-27"
+    },
+    {
+      "id": 1471,
+      "k": "nvd_cve_week_count",
+      "m": "2026-09-20"
+    },
+    {
+      "id": 1472,
+      "k": "nvd_cve_week_count",
+      "m": "2026-09-27"
+    },
+    {
+      "id": 1722,
+      "k": "ghcn_daily_tmax",
+      "m": "2026-09-16"
+    },
+    {
+      "id": 1724,
+      "k": "ghcn_daily_tmax",
+      "m": "2026-09-16"
+    },
+    {
+      "id": 1726,
+      "k": "ghcn_daily_tmax",
+      "m": "2026-09-16"
+    },
+    {
+      "id": 1728,
+      "k": "ghcn_daily_tmax",
+      "m": "2026-09-16"
+    },
+    {
+      "id": 1795,
+      "k": "binance_daily_close",
+      "m": "2026-09-23"
+    },
+    {
+      "id": 1798,
+      "k": "binance_daily_close",
+      "m": "2026-09-23"
+    },
+    {
+      "id": 1801,
+      "k": "binance_daily_close",
+      "m": "2026-09-23"
+    },
+    {
+      "id": 1804,
+      "k": "binance_daily_close",
+      "m": "2026-09-23"
+    },
+    {
+      "id": 1807,
+      "k": "binance_daily_close",
+      "m": "2026-09-23"
+    },
+    {
+      "id": 1827,
+      "k": "npm_downloads_window",
+      "m": "2026-09-22"
+    },
+    {
+      "id": 1829,
+      "k": "npm_downloads_window",
+      "m": "2026-09-22"
+    },
+    {
+      "id": 1831,
+      "k": "npm_downloads_window",
+      "m": "2026-09-22"
+    },
+    {
+      "id": 1833,
+      "k": "npm_downloads_window",
+      "m": "2026-09-22"
+    },
+    {
+      "id": 1835,
+      "k": "frankfurter_rate_range",
+      "m": "2026-09-17"
+    },
+    {
+      "id": 1838,
+      "k": "frankfurter_rate_range",
+      "m": "2026-09-17"
+    },
+    {
+      "id": 1841,
+      "k": "frankfurter_rate_range",
+      "m": "2026-09-17"
+    },
+    {
+      "id": 1844,
+      "k": "frankfurter_rate_range",
+      "m": "2026-09-17"
+    },
+    {
+      "id": 1873,
+      "k": "noaa_gml_co2_daily",
+      "m": "2026-09-17"
+    },
+    {
+      "id": 1874,
+      "k": "noaa_gml_co2_daily",
+      "m": "2026-10-03"
+    },
+    {
+      "id": 1885,
+      "k": "jpl_cad_monthly_count",
+      "m": "2026-11-30"
+    },
+    {
+      "id": 1886,
+      "k": "jpl_cad_monthly_count",
+      "m": "2026-12-31"
+    },
+    {
+      "id": 1889,
+      "k": "swpc_solar_cycle_monthly",
+      "m": "2026-11-30"
+    },
+    {
+      "id": 1892,
+      "k": "swpc_solar_cycle_monthly",
+      "m": "2026-11-30"
+    },
+    {
+      "id": 1923,
+      "k": "bom_weekend_top10_gross",
+      "m": null
+    },
+    {
+      "id": 1924,
+      "k": "bom_weekend_top10_gross",
+      "m": "2026-10-04"
+    },
+    {
+      "id": 1939,
+      "k": "usgs_nwis_daily_discharge",
+      "m": "2026-10-20"
+    },
+    {
+      "id": 1940,
+      "k": "usgs_nwis_daily_discharge",
+      "m": "2026-11-03"
+    },
+    {
+      "id": 1941,
+      "k": "usgs_nwis_daily_discharge",
+      "m": "2026-11-17"
+    },
+    {
+      "id": 1942,
+      "k": "usgs_nwis_daily_discharge",
+      "m": "2026-10-20"
+    },
+    {
+      "id": 1943,
+      "k": "usgs_nwis_daily_discharge",
+      "m": "2026-11-03"
+    },
+    {
+      "id": 1944,
+      "k": "usgs_nwis_daily_discharge",
+      "m": "2026-11-17"
+    },
+    {
+      "id": 1945,
+      "k": "noaa_gml_co2_daily",
+      "m": "2026-10-20"
+    },
+    {
+      "id": 1946,
+      "k": "noaa_gml_co2_daily",
+      "m": "2026-11-03"
+    },
+    {
+      "id": 1947,
+      "k": "noaa_gml_co2_daily",
+      "m": "2026-11-17"
+    },
+    {
+      "id": 1948,
+      "k": "ghcn_daily_tmax",
+      "m": "2026-10-20"
+    },
+    {
+      "id": 1949,
+      "k": "ghcn_daily_tmax",
+      "m": "2026-11-03"
+    },
+    {
+      "id": 1950,
+      "k": "ghcn_daily_tmax",
+      "m": "2026-11-17"
+    },
+    {
+      "id": 1982,
+      "k": "elexon_fuelhh_daily_mean",
+      "m": "2026-09-18"
+    },
+    {
+      "id": 1983,
+      "k": "elexon_fuelhh_daily_mean",
+      "m": "2026-09-18"
+    },
+    {
+      "id": 1984,
+      "k": "elexon_fuelhh_daily_mean",
+      "m": "2026-09-20"
+    },
+    {
+      "id": 1985,
+      "k": "elexon_fuelhh_daily_mean",
+      "m": "2026-09-20"
+    },
+    {
+      "id": 1986,
+      "k": "elexon_fuelhh_daily_mean",
+      "m": "2026-09-22"
+    },
+    {
+      "id": 1987,
+      "k": "elexon_fuelhh_daily_mean",
+      "m": "2026-09-22"
+    },
+    {
+      "id": 1988,
+      "k": "oddsapi_h2h",
+      "m": "2026-09-18"
+    },
+    {
+      "id": 1989,
+      "k": "oddsapi_h2h",
+      "m": "2026-09-19"
+    },
+    {
+      "id": 1990,
+      "k": "oddsapi_h2h",
+      "m": "2026-09-19"
+    },
+    {
+      "id": 1991,
+      "k": "oddsapi_h2h",
+      "m": "2026-09-19"
+    },
+    {
+      "id": 1992,
+      "k": "oddsapi_h2h",
+      "m": "2026-09-19"
+    },
+    {
+      "id": 1993,
+      "k": "oddsapi_h2h",
+      "m": "2026-09-19"
+    },
+    {
+      "id": 1994,
+      "k": "oddsapi_h2h",
+      "m": "2026-09-20"
+    },
+    {
+      "id": 1995,
+      "k": "oddsapi_h2h",
+      "m": "2026-09-20"
+    },
+    {
+      "id": 1996,
+      "k": "oddsapi_h2h",
+      "m": "2026-09-20"
+    },
+    {
+      "id": 1997,
+      "k": "oddsapi_h2h",
+      "m": "2026-09-20"
+    },
+    {
+      "id": 1998,
+      "k": "oddsapi_h2h",
+      "m": "2026-10-10"
+    },
+    {
+      "id": 1999,
+      "k": "oddsapi_h2h",
+      "m": "2026-10-10"
+    },
+    {
+      "id": 2000,
+      "k": "oddsapi_h2h",
+      "m": "2026-10-10"
+    },
+    {
+      "id": 2001,
+      "k": "oddsapi_h2h",
+      "m": "2026-10-10"
+    },
+    {
+      "id": 2002,
+      "k": "oddsapi_h2h",
+      "m": "2026-10-10"
+    },
+    {
+      "id": 2003,
+      "k": "oddsapi_h2h",
+      "m": "2026-10-10"
+    },
+    {
+      "id": 2004,
+      "k": "oddsapi_h2h",
+      "m": "2026-10-11"
+    },
+    {
+      "id": 2005,
+      "k": "oddsapi_h2h",
+      "m": "2026-10-11"
+    },
+    {
+      "id": 2006,
+      "k": "oddsapi_h2h",
+      "m": "2026-10-11"
+    },
+    {
+      "id": 2007,
+      "k": "oddsapi_h2h",
+      "m": "2026-10-12"
+    }
+  ],
+  "missUrl": [
+    {
+      "id": 1951,
+      "k": "kraken_daily_close",
+      "m": "2026-09-18"
+    },
+    {
+      "id": 1952,
+      "k": "kraken_daily_close",
+      "m": "2026-09-18"
+    },
+    {
+      "id": 1953,
+      "k": "kraken_daily_close",
+      "m": "2026-09-18"
+    },
+    {
+      "id": 1954,
+      "k": "kraken_daily_close",
+      "m": "2026-09-18"
+    },
+    {
+      "id": 1955,
+      "k": "kraken_daily_close",
+      "m": "2026-09-18"
+    },
+    {
+      "id": 1956,
+      "k": "kraken_daily_close",
+      "m": "2026-09-18"
+    },
+    {
+      "id": 1957,
+      "k": "frankfurter_rate_range",
+      "m": "2026-09-18"
+    },
+    {
+      "id": 1958,
+      "k": "frankfurter_rate_range",
+      "m": "2026-09-18"
+    },
+    {
+      "id": 1959,
+      "k": "frankfurter_rate_range",
+      "m": "2026-09-18"
+    },
+    {
+      "id": 1960,
+      "k": "frankfurter_rate_range",
+      "m": "2026-09-18"
+    },
+    {
+      "id": 1961,
+      "k": "frankfurter_rate_range",
+      "m": "2026-09-18"
+    },
+    {
+      "id": 1962,
+      "k": "frankfurter_rate_range",
+      "m": "2026-09-18"
+    },
+    {
+      "id": 1963,
+      "k": "frankfurter_rate_range",
+      "m": "2026-09-18"
+    },
+    {
+      "id": 1964,
+      "k": "frankfurter_rate_range",
+      "m": "2026-09-18"
+    },
+    {
+      "id": 1965,
+      "k": "frankfurter_rate_range",
+      "m": "2026-09-20"
+    },
+    {
+      "id": 1966,
+      "k": "frankfurter_rate_range",
+      "m": "2026-09-20"
+    },
+    {
+      "id": 1967,
+      "k": "frankfurter_rate_range",
+      "m": "2026-09-20"
+    },
+    {
+      "id": 1968,
+      "k": "frankfurter_rate_range",
+      "m": "2026-09-20"
+    },
+    {
+      "id": 1969,
+      "k": "npm_downloads_window",
+      "m": "2026-09-18"
+    },
+    {
+      "id": 1970,
+      "k": "npm_downloads_window",
+      "m": "2026-09-18"
+    },
+    {
+      "id": 1971,
+      "k": "npm_downloads_window",
+      "m": "2026-09-18"
+    },
+    {
+      "id": 1972,
+      "k": "npm_downloads_window",
+      "m": "2026-09-18"
+    },
+    {
+      "id": 1973,
+      "k": "mlb_schedule_daily_total_runs",
+      "m": "2026-09-18"
+    },
+    {
+      "id": 1974,
+      "k": "mlb_schedule_daily_total_runs",
+      "m": "2026-09-20"
+    },
+    {
+      "id": 1975,
+      "k": "mlb_schedule_daily_total_runs",
+      "m": "2026-09-22"
+    },
+    {
+      "id": 1976,
+      "k": "crossref_week_total",
+      "m": "2026-09-24"
+    },
+    {
+      "id": 1977,
+      "k": "crossref_week_total",
+      "m": "2026-09-26"
+    },
+    {
+      "id": 1978,
+      "k": "crossref_week_total",
+      "m": "2026-09-28"
+    },
+    {
+      "id": 1979,
+      "k": "nvd_cve_week_count",
+      "m": "2026-09-24"
+    },
+    {
+      "id": 1980,
+      "k": "nvd_cve_week_count",
+      "m": "2026-09-26"
+    },
+    {
+      "id": 1981,
+      "k": "nvd_cve_week_count",
+      "m": "2026-09-28"
+    }
+  ],
+  "unknown": [
+    {
+      "id": 962,
+      "k": "dbnomics_bis_monthly_mean",
+      "m": "2026-11-30"
+    },
+    {
+      "id": 963,
+      "k": "dbnomics_bis_monthly_mean",
+      "m": "2026-12-31"
+    },
+    {
+      "id": 966,
+      "k": "dbnomics_bis_monthly_mean",
+      "m": "2026-11-30"
+    },
+    {
+      "id": 967,
+      "k": "dbnomics_bis_monthly_mean",
+      "m": "2026-12-31"
+    },
+    {
+      "id": 970,
+      "k": "dbnomics_bis_monthly_mean",
+      "m": "2026-11-30"
+    },
+    {
+      "id": 971,
+      "k": "dbnomics_bis_monthly_mean",
+      "m": "2026-12-31"
+    },
+    {
+      "id": 972,
+      "k": "openmeteo_air_pm10_daily_mean",
+      "m": "2026-10-01"
+    },
+    {
+      "id": 973,
+      "k": "openmeteo_air_pm10_daily_mean",
+      "m": "2026-10-15"
+    },
+    {
+      "id": 974,
+      "k": "openmeteo_air_pm10_daily_mean",
+      "m": "2026-10-30"
+    },
+    {
+      "id": 975,
+      "k": "openmeteo_air_pm10_daily_mean",
+      "m": "2026-10-01"
+    },
+    {
+      "id": 976,
+      "k": "openmeteo_air_pm10_daily_mean",
+      "m": "2026-10-15"
+    },
+    {
+      "id": 977,
+      "k": "openmeteo_air_pm10_daily_mean",
+      "m": "2026-10-30"
+    },
+    {
+      "id": 978,
+      "k": "openmeteo_air_pm10_daily_mean",
+      "m": "2026-10-01"
+    },
+    {
+      "id": 979,
+      "k": "openmeteo_air_pm10_daily_mean",
+      "m": "2026-10-15"
+    },
+    {
+      "id": 980,
+      "k": "openmeteo_air_pm10_daily_mean",
+      "m": "2026-10-30"
+    },
+    {
+      "id": 981,
+      "k": "openmeteo_air_pm10_daily_mean",
+      "m": "2026-10-01"
+    },
+    {
+      "id": 982,
+      "k": "openmeteo_air_pm10_daily_mean",
+      "m": "2026-10-15"
+    },
+    {
+      "id": 983,
+      "k": "openmeteo_air_pm10_daily_mean",
+      "m": "2026-10-30"
+    },
+    {
+      "id": 984,
+      "k": "openmeteo_air_pm10_daily_mean",
+      "m": "2026-10-01"
+    },
+    {
+      "id": 985,
+      "k": "openmeteo_air_pm10_daily_mean",
+      "m": "2026-10-15"
+    },
+    {
+      "id": 986,
+      "k": "openmeteo_air_pm10_daily_mean",
+      "m": "2026-10-30"
+    },
+    {
+      "id": 1082,
+      "k": "eurostat_live_tertiary_attain",
+      "m": "2027-12-31"
+    },
+    {
+      "id": 1085,
+      "k": "eurostat_live_tertiary_attain",
+      "m": "2027-12-31"
+    },
+    {
+      "id": 1088,
+      "k": "eurostat_live_tertiary_attain",
+      "m": "2027-12-31"
+    },
+    {
+      "id": 1100,
+      "k": "noaa_solar_cycle_ssn_monthly",
+      "m": "2026-10-31"
+    },
+    {
+      "id": 1101,
+      "k": "noaa_solar_cycle_ssn_monthly",
+      "m": "2026-11-30"
+    },
+    {
+      "id": 1268,
+      "k": "openmeteo_forecast_daily_precipitation_sum",
+      "m": "2026-09-18"
+    },
+    {
+      "id": 1269,
+      "k": "openmeteo_forecast_daily_precipitation_sum",
+      "m": "2026-09-19"
+    },
+    {
+      "id": 1275,
+      "k": "openmeteo_forecast_daily_wind_speed_10m_max",
+      "m": "2026-09-18"
+    },
+    {
+      "id": 1276,
+      "k": "openmeteo_forecast_daily_wind_speed_10m_max",
+      "m": "2026-09-19"
+    },
+    {
+      "id": 1282,
+      "k": "openmeteo_forecast_daily_sunshine_duration",
+      "m": "2026-09-18"
+    },
+    {
+      "id": 1283,
+      "k": "openmeteo_forecast_daily_sunshine_duration",
+      "m": "2026-09-19"
+    },
+    {
+      "id": 1289,
+      "k": "openmeteo_forecast_daily_precipitation_sum",
+      "m": "2026-09-18"
+    },
+    {
+      "id": 1290,
+      "k": "openmeteo_forecast_daily_precipitation_sum",
+      "m": "2026-09-19"
+    },
+    {
+      "id": 1296,
+      "k": "openmeteo_forecast_daily_wind_speed_10m_max",
+      "m": "2026-09-18"
+    },
+    {
+      "id": 1297,
+      "k": "openmeteo_forecast_daily_wind_speed_10m_max",
+      "m": "2026-09-19"
+    },
+    {
+      "id": 1303,
+      "k": "openmeteo_forecast_daily_sunshine_duration",
+      "m": "2026-09-18"
+    },
+    {
+      "id": 1304,
+      "k": "openmeteo_forecast_daily_sunshine_duration",
+      "m": "2026-09-19"
+    },
+    {
+      "id": 1310,
+      "k": "openmeteo_forecast_daily_precipitation_sum",
+      "m": "2026-09-18"
+    },
+    {
+      "id": 1311,
+      "k": "openmeteo_forecast_daily_precipitation_sum",
+      "m": "2026-09-19"
+    },
+    {
+      "id": 1317,
+      "k": "openmeteo_forecast_daily_wind_speed_10m_max",
+      "m": "2026-09-18"
+    },
+    {
+      "id": 1318,
+      "k": "openmeteo_forecast_daily_wind_speed_10m_max",
+      "m": "2026-09-19"
+    },
+    {
+      "id": 1324,
+      "k": "openmeteo_forecast_daily_sunshine_duration",
+      "m": "2026-09-18"
+    },
+    {
+      "id": 1325,
+      "k": "openmeteo_forecast_daily_sunshine_duration",
+      "m": "2026-09-19"
+    },
+    {
+      "id": 1331,
+      "k": "openmeteo_forecast_daily_precipitation_sum",
+      "m": "2026-09-18"
+    },
+    {
+      "id": 1332,
+      "k": "openmeteo_forecast_daily_precipitation_sum",
+      "m": "2026-09-19"
+    },
+    {
+      "id": 1338,
+      "k": "openmeteo_forecast_daily_wind_speed_10m_max",
+      "m": "2026-09-18"
+    },
+    {
+      "id": 1339,
+      "k": "openmeteo_forecast_daily_wind_speed_10m_max",
+      "m": "2026-09-19"
+    },
+    {
+      "id": 1345,
+      "k": "openmeteo_forecast_daily_sunshine_duration",
+      "m": "2026-09-18"
+    },
+    {
+      "id": 1346,
+      "k": "openmeteo_forecast_daily_sunshine_duration",
+      "m": "2026-09-19"
+    },
+    {
+      "id": 1352,
+      "k": "openmeteo_forecast_daily_precipitation_sum",
+      "m": "2026-09-18"
+    },
+    {
+      "id": 1353,
+      "k": "openmeteo_forecast_daily_precipitation_sum",
+      "m": "2026-09-19"
+    },
+    {
+      "id": 1359,
+      "k": "openmeteo_forecast_daily_wind_speed_10m_max",
+      "m": "2026-09-18"
+    },
+    {
+      "id": 1360,
+      "k": "openmeteo_forecast_daily_wind_speed_10m_max",
+      "m": "2026-09-19"
+    },
+    {
+      "id": 1366,
+      "k": "openmeteo_forecast_daily_sunshine_duration",
+      "m": "2026-09-18"
+    },
+    {
+      "id": 1367,
+      "k": "openmeteo_forecast_daily_sunshine_duration",
+      "m": "2026-09-19"
+    },
+    {
+      "id": 1373,
+      "k": "openmeteo_forecast_daily_wind_speed_10m_max",
+      "m": "2026-09-18"
+    },
+    {
+      "id": 1374,
+      "k": "openmeteo_forecast_daily_wind_speed_10m_max",
+      "m": "2026-09-19"
+    },
+    {
+      "id": 1380,
+      "k": "openmeteo_forecast_daily_sunshine_duration",
+      "m": "2026-09-18"
+    },
+    {
+      "id": 1381,
+      "k": "openmeteo_forecast_daily_sunshine_duration",
+      "m": "2026-09-19"
+    },
+    {
+      "id": 1387,
+      "k": "openmeteo_forecast_daily_precipitation_sum",
+      "m": "2026-09-18"
+    },
+    {
+      "id": 1388,
+      "k": "openmeteo_forecast_daily_precipitation_sum",
+      "m": "2026-09-19"
+    },
+    {
+      "id": 1394,
+      "k": "openmeteo_forecast_daily_wind_speed_10m_max",
+      "m": "2026-09-18"
+    },
+    {
+      "id": 1395,
+      "k": "openmeteo_forecast_daily_wind_speed_10m_max",
+      "m": "2026-09-19"
+    },
+    {
+      "id": 1401,
+      "k": "openmeteo_forecast_daily_sunshine_duration",
+      "m": "2026-09-18"
+    },
+    {
+      "id": 1402,
+      "k": "openmeteo_forecast_daily_sunshine_duration",
+      "m": "2026-09-19"
+    },
+    {
+      "id": 1408,
+      "k": "openmeteo_forecast_daily_precipitation_sum",
+      "m": "2026-09-18"
+    },
+    {
+      "id": 1409,
+      "k": "openmeteo_forecast_daily_precipitation_sum",
+      "m": "2026-09-19"
+    },
+    {
+      "id": 1415,
+      "k": "openmeteo_forecast_daily_wind_speed_10m_max",
+      "m": "2026-09-18"
+    },
+    {
+      "id": 1416,
+      "k": "openmeteo_forecast_daily_wind_speed_10m_max",
+      "m": "2026-09-19"
+    },
+    {
+      "id": 1422,
+      "k": "openmeteo_forecast_daily_sunshine_duration",
+      "m": "2026-09-18"
+    },
+    {
+      "id": 1423,
+      "k": "openmeteo_forecast_daily_sunshine_duration",
+      "m": "2026-09-19"
+    },
+    {
+      "id": 1465,
+      "k": "delphi_fluview_num_ili",
+      "m": "2026-09-26"
+    },
+    {
+      "id": 1466,
+      "k": "delphi_fluview_num_ili",
+      "m": "2026-10-03"
+    },
+    {
+      "id": 1467,
+      "k": "delphi_fluview_num_ili",
+      "m": "2026-10-10"
+    },
+    {
+      "id": 1507,
+      "k": "eurostat_live_unemployment_monthly",
+      "m": "2026-10-31"
+    },
+    {
+      "id": 1508,
+      "k": "eurostat_live_unemployment_monthly",
+      "m": "2026-11-30"
+    },
+    {
+      "id": 1512,
+      "k": "eurostat_live_unemployment_monthly",
+      "m": "2026-10-31"
+    },
+    {
+      "id": 1513,
+      "k": "eurostat_live_unemployment_monthly",
+      "m": "2026-11-30"
+    },
+    {
+      "id": 1517,
+      "k": "eurostat_live_unemployment_monthly",
+      "m": "2026-10-31"
+    },
+    {
+      "id": 1518,
+      "k": "eurostat_live_unemployment_monthly",
+      "m": "2026-11-30"
+    },
+    {
+      "id": 1707,
+      "k": "noaa_tide_daily_high",
+      "m": "2026-09-18"
+    },
+    {
+      "id": 1708,
+      "k": "noaa_tide_daily_high",
+      "m": "2026-10-03"
+    },
+    {
+      "id": 1710,
+      "k": "noaa_tide_daily_high",
+      "m": "2026-09-18"
+    },
+    {
+      "id": 1711,
+      "k": "noaa_tide_daily_high",
+      "m": "2026-10-03"
+    },
+    {
+      "id": 1713,
+      "k": "noaa_tide_daily_high",
+      "m": "2026-09-18"
+    },
+    {
+      "id": 1714,
+      "k": "noaa_tide_daily_high",
+      "m": "2026-10-03"
+    },
+    {
+      "id": 1716,
+      "k": "noaa_tide_daily_high",
+      "m": "2026-09-18"
+    },
+    {
+      "id": 1717,
+      "k": "noaa_tide_daily_high",
+      "m": "2026-10-03"
+    },
+    {
+      "id": 1719,
+      "k": "noaa_tide_daily_high",
+      "m": "2026-09-18"
+    },
+    {
+      "id": 1720,
+      "k": "noaa_tide_daily_high",
+      "m": "2026-10-03"
+    },
+    {
+      "id": 1847,
+      "k": "dbnomics_bis_monthly_mean",
+      "m": "2026-11-30"
+    },
+    {
+      "id": 1848,
+      "k": "dbnomics_bis_monthly_mean",
+      "m": "2026-12-31"
+    },
+    {
+      "id": 1851,
+      "k": "dbnomics_bis_monthly_mean",
+      "m": "2026-11-30"
+    },
+    {
+      "id": 1852,
+      "k": "dbnomics_bis_monthly_mean",
+      "m": "2026-12-31"
+    },
+    {
+      "id": 1855,
+      "k": "dbnomics_bis_monthly_mean",
+      "m": "2026-11-30"
+    },
+    {
+      "id": 1856,
+      "k": "dbnomics_bis_monthly_mean",
+      "m": "2026-12-31"
+    },
+    {
+      "id": 1859,
+      "k": "dbnomics_bis_monthly_mean",
+      "m": "2026-11-30"
+    },
+    {
+      "id": 1860,
+      "k": "dbnomics_bis_monthly_mean",
+      "m": "2026-12-31"
+    },
+    {
+      "id": 1899,
+      "k": "eurostat_demo_pjan_annual",
+      "m": "2028-12-31"
+    },
+    {
+      "id": 1902,
+      "k": "eurostat_demo_pjan_annual",
+      "m": "2028-12-31"
+    },
+    {
+      "id": 1905,
+      "k": "eurostat_demo_pjan_annual",
+      "m": "2028-12-31"
+    },
+    {
+      "id": 1908,
+      "k": "eurostat_demo_pjan_annual",
+      "m": "2028-12-31"
+    },
+    {
+      "id": 1911,
+      "k": "eurostat_demo_pjan_annual",
+      "m": "2028-12-31"
+    },
+    {
+      "id": 1914,
+      "k": "eurostat_demo_pjan_annual",
+      "m": "2028-12-31"
+    },
+    {
+      "id": 1917,
+      "k": "eurostat_demo_pjan_annual",
+      "m": "2028-12-31"
+    },
+    {
+      "id": 1920,
+      "k": "eurostat_demo_pjan_annual",
+      "m": "2028-12-31"
+    },
+    {
+      "id": 1927,
+      "k": "delphi_fluview_ili",
+      "m": "2026-10-03"
+    },
+    {
+      "id": 1928,
+      "k": "delphi_fluview_ili",
+      "m": "2026-10-17"
+    },
+    {
+      "id": 1931,
+      "k": "delphi_fluview_ili",
+      "m": "2026-10-03"
+    },
+    {
+      "id": 1932,
+      "k": "delphi_fluview_ili",
+      "m": "2026-10-17"
+    },
+    {
+      "id": 1935,
+      "k": "delphi_fluview_ili",
+      "m": "2026-10-03"
+    },
+    {
+      "id": 1936,
+      "k": "delphi_fluview_ili",
+      "m": "2026-10-17"
+    }
+  ],
+  "noResolve": []
+}
