@@ -184,7 +184,7 @@ const RESOLVERS = {
   async kraken_daily_close(r) {
     // 2026-09-15 文案修：同上
     if (futureDay(r.date)) return { pending: r.date + ' 尚未到（UTC 日未收盘）' };
-    const j = await getJson(subst(r.url_template || r.url, r));
+    const j = await getJson(subst(specUrl(r), r));
     const res = (j && j.result) || {};
     const key = Object.keys(res).filter((k) => k !== 'last')[0];
     if (!key) return { pending: 'Kraken 无 OHLC 数据' };
@@ -201,9 +201,12 @@ const RESOLVERS = {
     return finish(r, v, 'Frankfurter ' + j.date + ' ' + r.base + '/' + r.quote + '=' + v);
   },
   async frankfurter_rate_range(r) {
+    // 新形态字段改名归一（from/to → base/quote）：解析器体与标签读的是 base/quote
+    if (!r.base && r.from) r.base = r.from;
+    if (!r.quote && r.to) r.quote = r.to;
     if (futureDay(r.date)) return { pending: r.date + ' 尚未到（ECB 未发布）' };
     let j;
-    try { j = await getJson(subst(r.url_template || r.url, r)); } catch (e) { if (String(e.message).indexOf('HTTP 404') !== -1) return { pending: r.date + ' 区间未发布' }; throw e; }
+    try { j = await getJson(subst(specUrl(r), r)); } catch (e) { if (String(e.message).indexOf('HTTP 404') !== -1) return { pending: r.date + ' 区间未发布' }; throw e; }
     const ks = Object.keys(j.rates || {}).filter((d) => d >= r.date).sort();
     if (!ks.length) return { pending: r.date + '..' + (r.date_plus7 || '') + ' 内无发布日' };
     const v = j.rates[ks[0]][r.quote];
@@ -247,7 +250,7 @@ const RESOLVERS = {
   async crossref_week_total(r) {
     const end = plusDays(r.week_start, 6);
     if (end >= shToday()) return { pending: '窗口 ' + r.week_start + '~' + end + ' 未结束' };
-    const j = await getJson(subst(r.url_template || r.url, { date: r.week_start, date_plus6: end }));
+    const j = await getJson(subst(specUrl(r), { date: r.week_start, date_plus6: end }));
     const v = j && j.message && j.message['total-results'];
     if (v === undefined || v === null) return { pending: 'Crossref 未返回 total-results' };
     return finish(r, Number(v), 'Crossref ' + r.week_start + '~' + end + ' 新注册 DOI=' + v);
@@ -255,7 +258,7 @@ const RESOLVERS = {
   async nvd_cve_week_count(r) {
     const end = plusDays(r.week_start, 6);
     if (end >= shToday()) return { pending: '窗口 ' + r.week_start + '~' + end + ' 未结束' };
-    const j = await getJson(subst(r.url_template || r.url, { date: r.week_start, date_plus6: end }));
+    const j = await getJson(subst(specUrl(r), { date: r.week_start, date_plus6: end }));
     if (j.totalResults === undefined || j.totalResults === null) return { pending: 'NVD 未返回 totalResults' };
     return finish(r, Number(j.totalResults), 'NVD ' + r.week_start + '~' + end + ' 新发 CVE=' + j.totalResults);
   },
@@ -277,12 +280,14 @@ const RESOLVERS = {
     return finish(r, Number(v), 'OpenAlex ' + r.start + '~' + end + ' count=' + v);
   },
   async npm_downloads_window(r) {
-    if (r.end >= shToday()) return { pending: '窗口 ' + r.start + '~' + r.end + ' 未结束' };
-    const j = await getJson(subst(r.url_template || r.url, r));
-    const ds = ((j && j.downloads) || []).filter((x) => x.day >= r.start && x.day <= r.end);
-    if (ds.length < 7) return { pending: 'npm ' + r.package + ' 窗口仅 ' + ds.length + ' 天（未满 7 天，不结算）' };
+    const wEnd = r.end || r.date, wStart = r.start || r.date;
+    if (!wEnd || !wStart) return { pending: '窗口字段缺失（start/end 与 date 都没有）' };
+    if (String(wEnd) >= shToday()) return { pending: '窗口 ' + wStart + '~' + wEnd + ' 未结束' };
+    const j = await getJson(subst(specUrl(r), r));
+    const ds = ((j && j.downloads) || []).filter((x) => x.day >= wStart && x.day <= wEnd);
+    if (ds.length < windowDays(r)) return { pending: 'npm ' + (r.package || r.pkg) + ' 窗口仅 ' + ds.length + ' 天（需 ' + windowDays(r) + ' 天，不结算）' };
     const sum = ds.reduce((a, x) => a + Number(x.downloads || 0), 0);
-    return finish(r, sum, 'npm ' + r.package + ' ' + r.start + '~' + r.end + ' 7 日下载=' + sum);
+    return finish(r, sum, 'npm ' + (r.package || r.pkg) + ' ' + wStart + '~' + wEnd + ' 下载=' + sum);
   },
   async wikimedia_pageviews(r) {
     if (futureDay(r.date)) return { pending: r.date + ' 尚未到' };
@@ -333,7 +338,7 @@ const RESOLVERS = {
   },
   async mlb_schedule_daily_total_runs(r) {
     if (futureDay(r.date)) return { pending: r.date + ' 尚未到' };
-    const j = await getJson(subst(r.url_template || r.url, r));
+    const j = await getJson(subst(specUrl(r), r));
     const games = [];
     ((j && j.dates) || []).forEach((d) => (d.games || []).forEach((g) => games.push(g)));
     if (!games.length) return { pending: 'MLB ' + r.date + ' 无赛程' };
@@ -452,6 +457,33 @@ function shToday() { return new Date().toLocaleString('sv-SE', { timeZone: 'Asia
 function plusDays(iso, n) { return new Date(Date.parse(iso + 'T00:00:00Z') + n * 86400000).toISOString().slice(0, 10); }
 function monthEndOf(ym) { return new Date(Date.UTC(Number(String(ym).slice(0, 4)), Number(String(ym).slice(5, 7)), 0)).toISOString().slice(0, 10); }
 function subst(tpl, map) { let s = String(tpl || ''); Object.keys(map).forEach((k) => { s = s.split('{' + k + '}').join(String(map[k])); }); return s; }
+
+// ── 规格归一化（2026-09-18）：出题器**新形态** spec 缺 url_template（个别字段还改名）⇒ 就地派生。
+//    为什么需要：账本里同一 kind 存了**两代 spec**，而解析器一律读 `url_template || r.url` ⇒ 新形态
+//    一路走到网络层才失败（`fetch('')` 抛 "Failed to parse URL"），且**每日复跑再 fail 一次、永久不可结**。
+//    实测受影响 6 个 kind 共 31 条（详见 p1b/sim/out/resolve-routine-receipt-20260918.md §6.2-更正）。
+//    ★本函数只补「取数地址」与「阅读位置」，**不触碰 threshold／cmp 语义** ⇒ 不改任何判据/口径。
+//    旧形态原样返回（`url_template || url` 直通）⇒ 对既有行为零影响。
+const URL_DERIVE = {
+  kraken_daily_close: (r) => 'https://api.kraken.com/0/public/OHLC?pair=' + r.pair + '&interval=1440&since=' + (Date.parse(r.date + 'T00:00:00Z') - 86400000),
+  frankfurter_rate_range: (r) => 'https://api.frankfurter.app/' + r.date + '..' + plusDays(r.date, 7) + '?from=' + (r.base || r.from) + '&to=' + (r.quote || r.to),
+  npm_downloads_window: (r) => 'https://api.npmjs.org/downloads/range/' + (r.start || r.date) + ':' + (r.end || r.date) + '/' + (r.package || r.pkg),
+  mlb_schedule_daily_total_runs: (r) => 'https://statsapi.mlb.com/api/v1/schedule?sportId=1&startDate=' + r.date + '&endDate=' + r.date,
+  crossref_week_total: (r) => 'https://api.crossref.org/works?filter=from-created-date:' + r.week_start + ',until-created-date:' + plusDays(r.week_start, 6) + '&rows=0',
+  nvd_cve_week_count: (r) => 'https://services.nvd.nist.gov/rest/json/cves/2.0?pubStartDate=' + r.week_start + 'T00:00:00.000&pubEndDate=' + plusDays(r.week_start, 6) + 'T23:59:59.999&resultsPerPage=1',
+};
+/** 取数地址：旧形态直通；新形态（缺 URL）按 kind 派生；两者都无 ⇒ 返回空串（调用方照旧失败，但**不再有静默空 URL**）。 */
+function specUrl(r) {
+  const u = r.url_template || r.url;
+  if (u) return u;
+  const d = URL_DERIVE[r.kind];
+  return d ? d(r) : '';
+}
+/** 窗口题的天数（npm 用；旧形态 7 天窗口 ⇒ 需 7 天；新形态单日 ⇒ 需 1 天）。 */
+function windowDays(r) {
+  const s = r.start || r.date, e = r.end || r.date;
+  return Math.round((Date.parse(e + 'T00:00:00Z') - Date.parse(s + 'T00:00:00Z')) / 86400000) + 1;
+}
 function cmpOk(v, cmp, th) { return cmp === '<' ? v < th : cmp === '<=' ? v <= th : cmp === '>' ? v > th : v >= th; }
 function varOf(url, key) { const m = String(url).match(new RegExp('[?&]' + key + '=([a-zA-Z0-9_]+)')); return m ? m[1] : null; }
 function finish(r, v, label) {

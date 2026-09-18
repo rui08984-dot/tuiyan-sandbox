@@ -3632,3 +3632,228 @@
 [2026-09-18T13:07:29+08:00]   pending kind=elexon_fuelhh_daily_mean x1 due=2026-09-18 — 2026-09-18 尚未到
 [2026-09-18T13:07:29+08:00] round#1 用时 32.1s | 未解总数=505 到期选中=132 唯一真值请求=132（台账重复合并 0） | resolved=66 pending=58（含预筛 7） fail=8 refused=0／同结论并发=0 口径护栏=8 unsupported=0 未到期跳过=312 无法定到期=53 wouldWrite=0 实打网=55
 [2026-09-18T13:07:29+08:00]   取数失败明细 {"fetch-fail:dlt_draw_result:HTTP 567":4,"fetch-fail:npm_downloads_window:Failed to parse URL from ":4}
+[2026-09-18T22:30:27+08:00] === corpus-resolve-daemon start | mode=once interval=60min due-only=true confirm=false（DRY-RUN，不写库）
+[2026-09-18T22:30:27+08:00] 复用 corpus-resolve RESOLVERS 成功：inline-extract(60 kinds)
+[2026-09-18T22:30:27+08:00] db=E:\music player\p1a-terminal\data\p1a.db
+[2026-09-18T22:30:32+08:00] WARN dlt 日历刷新失败（沿用内置锚 26104@2026-09-12）: HTTP 567
+[2026-09-18T22:30:32+08:00] 日历锚刷新：ssq 2026108@2026-09-17 | dlt 26104@2026-09-12
+[2026-09-18T22:30:32+08:00] 参数安全门：跳过 8 条口径不符题（不写脏账）— base/quote 缺失 @id1957 / base/quote 缺失 @id1958 / base/quote 缺失 @id1959 / base/quote 缺失 @id1960 / base/quote 缺失 @id1961 / base/quote 缺失 @id1962
+[2026-09-18T22:30:48+08:00] 二遍补打 9 组（首遍网络失败，缓 8s 后重试一次）
+[2026-09-18T22:31:00+08:00]   fetch-fail kind=dlt_draw_result x1 — HTTP 567（跳过不写）
+[2026-09-18T22:31:00+08:00]   fetch-fail kind=dlt_draw_result x1 — HTTP 567（跳过不写）
+[2026-09-18T22:31:00+08:00]   fetch-fail kind=dlt_draw_result x1 — HTTP 567（跳过不写）
+[2026-09-18T22:31:00+08:00]   fetch-fail kind=dlt_draw_result x1 — HTTP 567（跳过不写）
+[2026-09-18T22:31:00+08:00]   pending(预筛) kind=frankfurter_rate_range x1 due=2026-09-16 — ECB 发布窗口 2026-09-16~2026-09-23 尚未走完（接口对未来区间 404）
+[2026-09-18T22:31:00+08:00]   pending(预筛) kind=frankfurter_rate_range x1 due=2026-09-16 — ECB 发布窗口 2026-09-16~2026-09-23 尚未走完（接口对未来区间 404）
+[2026-09-18T22:31:00+08:00]   pending(预筛) kind=frankfurter_rate_range x1 due=2026-09-16 — ECB 发布窗口 2026-09-16~2026-09-23 尚未走完（接口对未来区间 404）
+[2026-09-18T22:31:00+08:00]   pending kind=cta_daily_total_rides x1 due=2026-09-14 — CTA 无 2026-09-14 数据（真值滞后约 2.5 月）
+[2026-09-18T22:31:00+08:00]   pending kind=cta_daily_total_rides x1 due=2026-09-15 — CTA 无 2026-09-15 数据（真值滞后约 2.5 月）
+[2026-09-18T22:31:00+08:00]   pending kind=cta_daily_total_rides x1 due=2026-09-16 — CTA 无 2026-09-16 数据（真值滞后约 2.5 月）
+[2026-09-18T22:31:00+08:00]   [dry] would resolve kind=ghcn_daily_tmax x1 due=2026-09-15 -> false | NCEI USW00094728 2026-09-15 TMAX=72F(units=standard)（阈值 >= 73，机检）
+[2026-09-18T22:31:00+08:00]   pending kind=ghcn_daily_tmax x1 due=2026-09-16 — NCEI 尚无 2026-09-16 记录
+[2026-09-18T22:31:00+08:00]   pending kind=ghcn_daily_tmax x1 due=2026-09-15 — NCEI 尚无 2026-09-15 记录
+[2026-09-18T22:31:00+08:00]   pending kind=ghcn_daily_tmax x1 due=2026-09-16 — NCEI 尚无 2026-09-16 记录
+[2026-09-18T22:31:00+08:00]   [dry] would resolve kind=ghcn_daily_tmax x1 due=2026-09-15 -> true | NCEI USW00094846 2026-09-15 TMAX=85F(units=standard)（阈值 >= 78，机检）
+[2026-09-18T22:31:00+08:00]   pending kind=ghcn_daily_tmax x1 due=2026-09-16 — NCEI 尚无 2026-09-16 记录
+[2026-09-18T22:31:00+08:00]   pending kind=openmeteo_forecast_daily_precipitation_sum x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:31:00+08:00]   pending kind=openmeteo_forecast_daily_wind_speed_10m_max x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:31:00+08:00]   pending kind=openmeteo_forecast_daily_sunshine_duration x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:31:00+08:00]   pending kind=openmeteo_forecast_daily_precipitation_sum x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:31:00+08:00]   pending kind=openmeteo_forecast_daily_wind_speed_10m_max x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:31:00+08:00]   pending kind=openmeteo_forecast_daily_sunshine_duration x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:31:00+08:00]   pending kind=openmeteo_forecast_daily_precipitation_sum x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:31:00+08:00]   pending kind=openmeteo_forecast_daily_wind_speed_10m_max x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:31:00+08:00]   pending kind=openmeteo_forecast_daily_sunshine_duration x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:31:00+08:00]   pending kind=openmeteo_forecast_daily_precipitation_sum x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:31:00+08:00]   pending kind=openmeteo_forecast_daily_wind_speed_10m_max x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:31:00+08:00]   pending kind=openmeteo_forecast_daily_sunshine_duration x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:31:00+08:00]   pending kind=openmeteo_forecast_daily_precipitation_sum x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:31:00+08:00]   pending kind=openmeteo_forecast_daily_wind_speed_10m_max x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:31:00+08:00]   pending kind=openmeteo_forecast_daily_sunshine_duration x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:31:00+08:00]   pending kind=openmeteo_forecast_daily_wind_speed_10m_max x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:31:00+08:00]   pending kind=openmeteo_forecast_daily_sunshine_duration x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:31:00+08:00]   pending kind=openmeteo_forecast_daily_precipitation_sum x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:31:00+08:00]   pending kind=openmeteo_forecast_daily_wind_speed_10m_max x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:31:00+08:00]   pending kind=openmeteo_forecast_daily_sunshine_duration x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:31:00+08:00]   pending kind=openmeteo_forecast_daily_precipitation_sum x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:31:00+08:00]   pending kind=openmeteo_forecast_daily_wind_speed_10m_max x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:31:00+08:00]   pending kind=openmeteo_forecast_daily_sunshine_duration x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:31:00+08:00]   pending kind=noaa_tide_daily_high x1 due=2026-09-18 — 2026-09-18 尚未到
+[2026-09-18T22:31:00+08:00]   pending kind=noaa_tide_daily_high x1 due=2026-09-18 — 2026-09-18 尚未到
+[2026-09-18T22:31:00+08:00]   pending kind=noaa_tide_daily_high x1 due=2026-09-18 — 2026-09-18 尚未到
+[2026-09-18T22:31:00+08:00]   pending kind=noaa_tide_daily_high x1 due=2026-09-18 — 2026-09-18 尚未到
+[2026-09-18T22:31:00+08:00]   pending kind=noaa_tide_daily_high x1 due=2026-09-18 — 2026-09-18 尚未到
+[2026-09-18T22:31:00+08:00]   pending kind=ghcn_daily_tmax x1 due=2026-09-16 — NCEI 尚无 2026-09-16 记录
+[2026-09-18T22:31:00+08:00]   pending kind=ghcn_daily_tmax x1 due=2026-09-16 — NCEI 尚无 2026-09-16 记录
+[2026-09-18T22:31:00+08:00]   pending kind=ghcn_daily_tmax x1 due=2026-09-16 — NCEI 尚无 2026-09-16 记录
+[2026-09-18T22:31:00+08:00]   pending kind=ghcn_daily_tmax x1 due=2026-09-16 — NCEI 尚无 2026-09-16 记录
+[2026-09-18T22:31:00+08:00]   pending(预筛) kind=frankfurter_rate_range x1 due=2026-09-17 — ECB 发布窗口 2026-09-17~2026-09-24 尚未走完（接口对未来区间 404）
+[2026-09-18T22:31:00+08:00]   pending(预筛) kind=frankfurter_rate_range x1 due=2026-09-17 — ECB 发布窗口 2026-09-17~2026-09-24 尚未走完（接口对未来区间 404）
+[2026-09-18T22:31:00+08:00]   pending(预筛) kind=frankfurter_rate_range x1 due=2026-09-17 — ECB 发布窗口 2026-09-17~2026-09-24 尚未走完（接口对未来区间 404）
+[2026-09-18T22:31:00+08:00]   pending(预筛) kind=frankfurter_rate_range x1 due=2026-09-17 — ECB 发布窗口 2026-09-17~2026-09-24 尚未走完（接口对未来区间 404）
+[2026-09-18T22:31:00+08:00]   [dry] would resolve kind=noaa_gml_co2_daily x1 due=2026-09-17 -> false | NOAA GML MLO 2026-09-17 CO2=426.53ppm（阈值 >= 428.6，机检）
+[2026-09-18T22:31:00+08:00]   pending kind=kraken_daily_close x1 due=2026-09-18 — 2026-09-18 尚未到（UTC 日未收盘）
+[2026-09-18T22:31:00+08:00]   pending kind=kraken_daily_close x1 due=2026-09-18 — 2026-09-18 尚未到（UTC 日未收盘）
+[2026-09-18T22:31:00+08:00]   pending kind=kraken_daily_close x1 due=2026-09-18 — 2026-09-18 尚未到（UTC 日未收盘）
+[2026-09-18T22:31:00+08:00]   pending kind=kraken_daily_close x1 due=2026-09-18 — 2026-09-18 尚未到（UTC 日未收盘）
+[2026-09-18T22:31:00+08:00]   pending kind=kraken_daily_close x1 due=2026-09-18 — 2026-09-18 尚未到（UTC 日未收盘）
+[2026-09-18T22:31:00+08:00]   pending kind=kraken_daily_close x1 due=2026-09-18 — 2026-09-18 尚未到（UTC 日未收盘）
+[2026-09-18T22:31:00+08:00]   pending kind=npm_downloads_window x1 due=2026-09-18 — 窗口 2026-09-18~2026-09-18 未结束
+[2026-09-18T22:31:00+08:00]   pending kind=npm_downloads_window x1 due=2026-09-18 — 窗口 2026-09-18~2026-09-18 未结束
+[2026-09-18T22:31:00+08:00]   pending kind=npm_downloads_window x1 due=2026-09-18 — 窗口 2026-09-18~2026-09-18 未结束
+[2026-09-18T22:31:00+08:00]   pending kind=npm_downloads_window x1 due=2026-09-18 — 窗口 2026-09-18~2026-09-18 未结束
+[2026-09-18T22:31:00+08:00]   pending kind=mlb_schedule_daily_total_runs x1 due=2026-09-18 — 2026-09-18 尚未到
+[2026-09-18T22:31:00+08:00]   pending kind=elexon_fuelhh_daily_mean x1 due=2026-09-18 — 2026-09-18 尚未到
+[2026-09-18T22:31:00+08:00]   pending kind=elexon_fuelhh_daily_mean x1 due=2026-09-18 — 2026-09-18 尚未到
+[2026-09-18T22:31:00+08:00] round#1 用时 27.7s | 未解总数=439 到期选中=66 唯一真值请求=66（台账重复合并 0） | resolved=0 pending=59（含预筛 7） fail=4 refused=0／同结论并发=0 口径护栏=8 unsupported=0 未到期跳过=312 无法定到期=53 wouldWrite=3 实打网=19
+[2026-09-18T22:31:00+08:00]   取数失败明细 {"fetch-fail:dlt_draw_result:HTTP 567":4}
+[2026-09-18T22:31:10+08:00] === corpus-resolve-daemon start | mode=once interval=60min due-only=true confirm=false（DRY-RUN，不写库）
+[2026-09-18T22:31:10+08:00] 复用 corpus-resolve RESOLVERS 成功：inline-extract(60 kinds)
+[2026-09-18T22:31:10+08:00] db=E:\music player\p1a-terminal\data\p1a.db
+[2026-09-18T22:31:15+08:00] WARN dlt 日历刷新失败（沿用内置锚 26104@2026-09-12）: HTTP 567
+[2026-09-18T22:31:15+08:00] 日历锚刷新：ssq 2026108@2026-09-17 | dlt 26104@2026-09-12
+[2026-09-18T22:31:15+08:00] 参数安全门：跳过 8 条口径不符题（不写脏账）— base/quote 缺失 @id1957 / base/quote 缺失 @id1958 / base/quote 缺失 @id1959 / base/quote 缺失 @id1960 / base/quote 缺失 @id1961 / base/quote 缺失 @id1962
+[2026-09-18T22:31:30+08:00] 二遍补打 10 组（首遍网络失败，缓 8s 后重试一次）
+[2026-09-18T22:31:45+08:00]   fetch-fail kind=dlt_draw_result x1 — HTTP 567（跳过不写）
+[2026-09-18T22:31:45+08:00]   fetch-fail kind=dlt_draw_result x1 — HTTP 567（跳过不写）
+[2026-09-18T22:31:45+08:00]   fetch-fail kind=dlt_draw_result x1 — HTTP 567（跳过不写）
+[2026-09-18T22:31:45+08:00]   fetch-fail kind=dlt_draw_result x1 — HTTP 567（跳过不写）
+[2026-09-18T22:31:45+08:00]   pending(预筛) kind=frankfurter_rate_range x1 due=2026-09-16 — ECB 发布窗口 2026-09-16~2026-09-23 尚未走完（接口对未来区间 404）
+[2026-09-18T22:31:45+08:00]   pending(预筛) kind=frankfurter_rate_range x1 due=2026-09-16 — ECB 发布窗口 2026-09-16~2026-09-23 尚未走完（接口对未来区间 404）
+[2026-09-18T22:31:45+08:00]   pending(预筛) kind=frankfurter_rate_range x1 due=2026-09-16 — ECB 发布窗口 2026-09-16~2026-09-23 尚未走完（接口对未来区间 404）
+[2026-09-18T22:31:45+08:00]   pending kind=cta_daily_total_rides x1 due=2026-09-14 — CTA 无 2026-09-14 数据（真值滞后约 2.5 月）
+[2026-09-18T22:31:45+08:00]   pending kind=cta_daily_total_rides x1 due=2026-09-15 — CTA 无 2026-09-15 数据（真值滞后约 2.5 月）
+[2026-09-18T22:31:45+08:00]   pending kind=cta_daily_total_rides x1 due=2026-09-16 — CTA 无 2026-09-16 数据（真值滞后约 2.5 月）
+[2026-09-18T22:31:45+08:00]   [dry] would resolve kind=ghcn_daily_tmax x1 due=2026-09-15 -> false | NCEI USW00094728 2026-09-15 TMAX=72F(units=standard)（阈值 >= 73，机检）
+[2026-09-18T22:31:45+08:00]   pending kind=ghcn_daily_tmax x1 due=2026-09-16 — NCEI 尚无 2026-09-16 记录
+[2026-09-18T22:31:45+08:00]   pending kind=ghcn_daily_tmax x1 due=2026-09-15 — NCEI 尚无 2026-09-15 记录
+[2026-09-18T22:31:45+08:00]   pending kind=ghcn_daily_tmax x1 due=2026-09-16 — NCEI 尚无 2026-09-16 记录
+[2026-09-18T22:31:45+08:00]   [dry] would resolve kind=ghcn_daily_tmax x1 due=2026-09-15 -> true | NCEI USW00094846 2026-09-15 TMAX=85F(units=standard)（阈值 >= 78，机检）
+[2026-09-18T22:31:45+08:00]   pending kind=ghcn_daily_tmax x1 due=2026-09-16 — NCEI 尚无 2026-09-16 记录
+[2026-09-18T22:31:45+08:00]   pending kind=openmeteo_forecast_daily_precipitation_sum x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:31:45+08:00]   pending kind=openmeteo_forecast_daily_wind_speed_10m_max x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:31:45+08:00]   pending kind=openmeteo_forecast_daily_sunshine_duration x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:31:45+08:00]   pending kind=openmeteo_forecast_daily_precipitation_sum x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:31:45+08:00]   pending kind=openmeteo_forecast_daily_wind_speed_10m_max x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:31:45+08:00]   pending kind=openmeteo_forecast_daily_sunshine_duration x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:31:45+08:00]   pending kind=openmeteo_forecast_daily_precipitation_sum x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:31:45+08:00]   pending kind=openmeteo_forecast_daily_wind_speed_10m_max x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:31:45+08:00]   pending kind=openmeteo_forecast_daily_sunshine_duration x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:31:45+08:00]   pending kind=openmeteo_forecast_daily_precipitation_sum x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:31:45+08:00]   pending kind=openmeteo_forecast_daily_wind_speed_10m_max x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:31:45+08:00]   pending kind=openmeteo_forecast_daily_sunshine_duration x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:31:45+08:00]   pending kind=openmeteo_forecast_daily_precipitation_sum x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:31:45+08:00]   pending kind=openmeteo_forecast_daily_wind_speed_10m_max x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:31:45+08:00]   pending kind=openmeteo_forecast_daily_sunshine_duration x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:31:45+08:00]   pending kind=openmeteo_forecast_daily_wind_speed_10m_max x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:31:45+08:00]   pending kind=openmeteo_forecast_daily_sunshine_duration x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:31:45+08:00]   pending kind=openmeteo_forecast_daily_precipitation_sum x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:31:45+08:00]   pending kind=openmeteo_forecast_daily_wind_speed_10m_max x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:31:45+08:00]   pending kind=openmeteo_forecast_daily_sunshine_duration x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:31:45+08:00]   pending kind=openmeteo_forecast_daily_precipitation_sum x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:31:45+08:00]   pending kind=openmeteo_forecast_daily_wind_speed_10m_max x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:31:45+08:00]   pending kind=openmeteo_forecast_daily_sunshine_duration x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:31:45+08:00]   pending kind=noaa_tide_daily_high x1 due=2026-09-18 — 2026-09-18 尚未到
+[2026-09-18T22:31:45+08:00]   pending kind=noaa_tide_daily_high x1 due=2026-09-18 — 2026-09-18 尚未到
+[2026-09-18T22:31:45+08:00]   pending kind=noaa_tide_daily_high x1 due=2026-09-18 — 2026-09-18 尚未到
+[2026-09-18T22:31:45+08:00]   pending kind=noaa_tide_daily_high x1 due=2026-09-18 — 2026-09-18 尚未到
+[2026-09-18T22:31:45+08:00]   pending kind=noaa_tide_daily_high x1 due=2026-09-18 — 2026-09-18 尚未到
+[2026-09-18T22:31:45+08:00]   pending kind=ghcn_daily_tmax x1 due=2026-09-16 — NCEI 尚无 2026-09-16 记录
+[2026-09-18T22:31:45+08:00]   pending kind=ghcn_daily_tmax x1 due=2026-09-16 — NCEI 尚无 2026-09-16 记录
+[2026-09-18T22:31:45+08:00]   pending kind=ghcn_daily_tmax x1 due=2026-09-16 — NCEI 尚无 2026-09-16 记录
+[2026-09-18T22:31:45+08:00]   pending kind=ghcn_daily_tmax x1 due=2026-09-16 — NCEI 尚无 2026-09-16 记录
+[2026-09-18T22:31:45+08:00]   pending(预筛) kind=frankfurter_rate_range x1 due=2026-09-17 — ECB 发布窗口 2026-09-17~2026-09-24 尚未走完（接口对未来区间 404）
+[2026-09-18T22:31:45+08:00]   pending(预筛) kind=frankfurter_rate_range x1 due=2026-09-17 — ECB 发布窗口 2026-09-17~2026-09-24 尚未走完（接口对未来区间 404）
+[2026-09-18T22:31:45+08:00]   pending(预筛) kind=frankfurter_rate_range x1 due=2026-09-17 — ECB 发布窗口 2026-09-17~2026-09-24 尚未走完（接口对未来区间 404）
+[2026-09-18T22:31:45+08:00]   pending(预筛) kind=frankfurter_rate_range x1 due=2026-09-17 — ECB 发布窗口 2026-09-17~2026-09-24 尚未走完（接口对未来区间 404）
+[2026-09-18T22:31:45+08:00]   fetch-fail kind=noaa_gml_co2_daily x1 — fetch failed（跳过不写）
+[2026-09-18T22:31:45+08:00]   pending kind=kraken_daily_close x1 due=2026-09-18 — 2026-09-18 尚未到（UTC 日未收盘）
+[2026-09-18T22:31:45+08:00]   pending kind=kraken_daily_close x1 due=2026-09-18 — 2026-09-18 尚未到（UTC 日未收盘）
+[2026-09-18T22:31:45+08:00]   pending kind=kraken_daily_close x1 due=2026-09-18 — 2026-09-18 尚未到（UTC 日未收盘）
+[2026-09-18T22:31:45+08:00]   pending kind=kraken_daily_close x1 due=2026-09-18 — 2026-09-18 尚未到（UTC 日未收盘）
+[2026-09-18T22:31:45+08:00]   pending kind=kraken_daily_close x1 due=2026-09-18 — 2026-09-18 尚未到（UTC 日未收盘）
+[2026-09-18T22:31:45+08:00]   pending kind=kraken_daily_close x1 due=2026-09-18 — 2026-09-18 尚未到（UTC 日未收盘）
+[2026-09-18T22:31:45+08:00]   pending kind=npm_downloads_window x1 due=2026-09-18 — 窗口 2026-09-18~2026-09-18 未结束
+[2026-09-18T22:31:45+08:00]   pending kind=npm_downloads_window x1 due=2026-09-18 — 窗口 2026-09-18~2026-09-18 未结束
+[2026-09-18T22:31:45+08:00]   pending kind=npm_downloads_window x1 due=2026-09-18 — 窗口 2026-09-18~2026-09-18 未结束
+[2026-09-18T22:31:45+08:00]   pending kind=npm_downloads_window x1 due=2026-09-18 — 窗口 2026-09-18~2026-09-18 未结束
+[2026-09-18T22:31:45+08:00]   pending kind=mlb_schedule_daily_total_runs x1 due=2026-09-18 — 2026-09-18 尚未到
+[2026-09-18T22:31:45+08:00]   pending kind=elexon_fuelhh_daily_mean x1 due=2026-09-18 — 2026-09-18 尚未到
+[2026-09-18T22:31:45+08:00]   pending kind=elexon_fuelhh_daily_mean x1 due=2026-09-18 — 2026-09-18 尚未到
+[2026-09-18T22:31:45+08:00] round#1 用时 29.6s | 未解总数=439 到期选中=66 唯一真值请求=66（台账重复合并 0） | resolved=0 pending=59（含预筛 7） fail=5 refused=0／同结论并发=0 口径护栏=8 unsupported=0 未到期跳过=312 无法定到期=53 wouldWrite=2 实打网=22
+[2026-09-18T22:31:45+08:00]   取数失败明细 {"fetch-fail:dlt_draw_result:HTTP 567":4,"fetch-fail:noaa_gml_co2_daily:fetch failed":1}
+[2026-09-18T22:34:59+08:00] === corpus-resolve-daemon start | mode=once interval=60min due-only=true confirm=false（DRY-RUN，不写库）
+[2026-09-18T22:34:59+08:00] 复用 corpus-resolve RESOLVERS 成功：inline-extract(60 kinds)
+[2026-09-18T22:34:59+08:00] db=E:\music player\p1a-terminal\data\p1a.db
+[2026-09-18T22:35:04+08:00] WARN dlt 日历刷新失败（沿用内置锚 26104@2026-09-12）: HTTP 567
+[2026-09-18T22:35:04+08:00] 日历锚刷新：ssq 2026108@2026-09-17 | dlt 26104@2026-09-12
+[2026-09-18T22:35:05+08:00] 参数安全门：跳过 8 条口径不符题（不写脏账）— base/quote 缺失 @id1957 / base/quote 缺失 @id1958 / base/quote 缺失 @id1959 / base/quote 缺失 @id1960 / base/quote 缺失 @id1961 / base/quote 缺失 @id1962
+[2026-09-18T22:35:16+08:00] 二遍补打 4 组（首遍网络失败，缓 8s 后重试一次）
+[2026-09-18T22:35:24+08:00]   fetch-fail kind=dlt_draw_result x1 — HTTP 567（跳过不写）
+[2026-09-18T22:35:24+08:00]   fetch-fail kind=dlt_draw_result x1 — HTTP 567（跳过不写）
+[2026-09-18T22:35:24+08:00]   fetch-fail kind=dlt_draw_result x1 — HTTP 567（跳过不写）
+[2026-09-18T22:35:24+08:00]   fetch-fail kind=dlt_draw_result x1 — HTTP 567（跳过不写）
+[2026-09-18T22:35:24+08:00]   pending(预筛) kind=frankfurter_rate_range x1 due=2026-09-16 — ECB 发布窗口 2026-09-16~2026-09-23 尚未走完（接口对未来区间 404）
+[2026-09-18T22:35:24+08:00]   pending(预筛) kind=frankfurter_rate_range x1 due=2026-09-16 — ECB 发布窗口 2026-09-16~2026-09-23 尚未走完（接口对未来区间 404）
+[2026-09-18T22:35:24+08:00]   pending(预筛) kind=frankfurter_rate_range x1 due=2026-09-16 — ECB 发布窗口 2026-09-16~2026-09-23 尚未走完（接口对未来区间 404）
+[2026-09-18T22:35:24+08:00]   pending kind=cta_daily_total_rides x1 due=2026-09-14 — CTA 无 2026-09-14 数据（真值滞后约 2.5 月）
+[2026-09-18T22:35:24+08:00]   pending kind=cta_daily_total_rides x1 due=2026-09-15 — CTA 无 2026-09-15 数据（真值滞后约 2.5 月）
+[2026-09-18T22:35:24+08:00]   pending kind=cta_daily_total_rides x1 due=2026-09-16 — CTA 无 2026-09-16 数据（真值滞后约 2.5 月）
+[2026-09-18T22:35:24+08:00]   [dry] would resolve kind=ghcn_daily_tmax x1 due=2026-09-15 -> false | NCEI USW00094728 2026-09-15 TMAX=72F(units=standard)（阈值 >= 73，机检）
+[2026-09-18T22:35:24+08:00]   pending kind=ghcn_daily_tmax x1 due=2026-09-16 — NCEI 尚无 2026-09-16 记录
+[2026-09-18T22:35:24+08:00]   pending kind=ghcn_daily_tmax x1 due=2026-09-15 — NCEI 尚无 2026-09-15 记录
+[2026-09-18T22:35:24+08:00]   pending kind=ghcn_daily_tmax x1 due=2026-09-16 — NCEI 尚无 2026-09-16 记录
+[2026-09-18T22:35:24+08:00]   [dry] would resolve kind=ghcn_daily_tmax x1 due=2026-09-15 -> true | NCEI USW00094846 2026-09-15 TMAX=85F(units=standard)（阈值 >= 78，机检）
+[2026-09-18T22:35:24+08:00]   pending kind=ghcn_daily_tmax x1 due=2026-09-16 — NCEI 尚无 2026-09-16 记录
+[2026-09-18T22:35:24+08:00]   pending kind=openmeteo_forecast_daily_precipitation_sum x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:35:24+08:00]   pending kind=openmeteo_forecast_daily_wind_speed_10m_max x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:35:24+08:00]   pending kind=openmeteo_forecast_daily_sunshine_duration x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:35:24+08:00]   pending kind=openmeteo_forecast_daily_precipitation_sum x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:35:24+08:00]   pending kind=openmeteo_forecast_daily_wind_speed_10m_max x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:35:24+08:00]   pending kind=openmeteo_forecast_daily_sunshine_duration x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:35:24+08:00]   pending kind=openmeteo_forecast_daily_precipitation_sum x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:35:24+08:00]   pending kind=openmeteo_forecast_daily_wind_speed_10m_max x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:35:24+08:00]   pending kind=openmeteo_forecast_daily_sunshine_duration x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:35:24+08:00]   pending kind=openmeteo_forecast_daily_precipitation_sum x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:35:24+08:00]   pending kind=openmeteo_forecast_daily_wind_speed_10m_max x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:35:24+08:00]   pending kind=openmeteo_forecast_daily_sunshine_duration x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:35:24+08:00]   pending kind=openmeteo_forecast_daily_precipitation_sum x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:35:24+08:00]   pending kind=openmeteo_forecast_daily_wind_speed_10m_max x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:35:24+08:00]   pending kind=openmeteo_forecast_daily_sunshine_duration x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:35:24+08:00]   pending kind=openmeteo_forecast_daily_wind_speed_10m_max x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:35:24+08:00]   pending kind=openmeteo_forecast_daily_sunshine_duration x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:35:24+08:00]   pending kind=openmeteo_forecast_daily_precipitation_sum x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:35:24+08:00]   pending kind=openmeteo_forecast_daily_wind_speed_10m_max x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:35:24+08:00]   pending kind=openmeteo_forecast_daily_sunshine_duration x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:35:24+08:00]   pending kind=openmeteo_forecast_daily_precipitation_sum x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:35:24+08:00]   pending kind=openmeteo_forecast_daily_wind_speed_10m_max x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:35:24+08:00]   pending kind=openmeteo_forecast_daily_sunshine_duration x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T22:35:24+08:00]   pending kind=noaa_tide_daily_high x1 due=2026-09-18 — 2026-09-18 尚未到
+[2026-09-18T22:35:24+08:00]   pending kind=noaa_tide_daily_high x1 due=2026-09-18 — 2026-09-18 尚未到
+[2026-09-18T22:35:24+08:00]   pending kind=noaa_tide_daily_high x1 due=2026-09-18 — 2026-09-18 尚未到
+[2026-09-18T22:35:24+08:00]   pending kind=noaa_tide_daily_high x1 due=2026-09-18 — 2026-09-18 尚未到
+[2026-09-18T22:35:24+08:00]   pending kind=noaa_tide_daily_high x1 due=2026-09-18 — 2026-09-18 尚未到
+[2026-09-18T22:35:24+08:00]   pending kind=ghcn_daily_tmax x1 due=2026-09-16 — NCEI 尚无 2026-09-16 记录
+[2026-09-18T22:35:24+08:00]   pending kind=ghcn_daily_tmax x1 due=2026-09-16 — NCEI 尚无 2026-09-16 记录
+[2026-09-18T22:35:24+08:00]   pending kind=ghcn_daily_tmax x1 due=2026-09-16 — NCEI 尚无 2026-09-16 记录
+[2026-09-18T22:35:24+08:00]   pending kind=ghcn_daily_tmax x1 due=2026-09-16 — NCEI 尚无 2026-09-16 记录
+[2026-09-18T22:35:24+08:00]   pending(预筛) kind=frankfurter_rate_range x1 due=2026-09-17 — ECB 发布窗口 2026-09-17~2026-09-24 尚未走完（接口对未来区间 404）
+[2026-09-18T22:35:24+08:00]   pending(预筛) kind=frankfurter_rate_range x1 due=2026-09-17 — ECB 发布窗口 2026-09-17~2026-09-24 尚未走完（接口对未来区间 404）
+[2026-09-18T22:35:24+08:00]   pending(预筛) kind=frankfurter_rate_range x1 due=2026-09-17 — ECB 发布窗口 2026-09-17~2026-09-24 尚未走完（接口对未来区间 404）
+[2026-09-18T22:35:24+08:00]   pending(预筛) kind=frankfurter_rate_range x1 due=2026-09-17 — ECB 发布窗口 2026-09-17~2026-09-24 尚未走完（接口对未来区间 404）
+[2026-09-18T22:35:24+08:00]   [dry] would resolve kind=noaa_gml_co2_daily x1 due=2026-09-17 -> false | NOAA GML MLO 2026-09-17 CO2=426.53ppm（阈值 >= 428.6，机检）
+[2026-09-18T22:35:24+08:00]   pending kind=kraken_daily_close x1 due=2026-09-18 — 2026-09-18 尚未到（UTC 日未收盘）
+[2026-09-18T22:35:24+08:00]   pending kind=kraken_daily_close x1 due=2026-09-18 — 2026-09-18 尚未到（UTC 日未收盘）
+[2026-09-18T22:35:24+08:00]   pending kind=kraken_daily_close x1 due=2026-09-18 — 2026-09-18 尚未到（UTC 日未收盘）
+[2026-09-18T22:35:24+08:00]   pending kind=kraken_daily_close x1 due=2026-09-18 — 2026-09-18 尚未到（UTC 日未收盘）
+[2026-09-18T22:35:24+08:00]   pending kind=kraken_daily_close x1 due=2026-09-18 — 2026-09-18 尚未到（UTC 日未收盘）
+[2026-09-18T22:35:24+08:00]   pending kind=kraken_daily_close x1 due=2026-09-18 — 2026-09-18 尚未到（UTC 日未收盘）
+[2026-09-18T22:35:24+08:00]   pending kind=npm_downloads_window x1 due=2026-09-18 — 窗口 2026-09-18~2026-09-18 未结束
+[2026-09-18T22:35:24+08:00]   pending kind=npm_downloads_window x1 due=2026-09-18 — 窗口 2026-09-18~2026-09-18 未结束
+[2026-09-18T22:35:24+08:00]   pending kind=npm_downloads_window x1 due=2026-09-18 — 窗口 2026-09-18~2026-09-18 未结束
+[2026-09-18T22:35:24+08:00]   pending kind=npm_downloads_window x1 due=2026-09-18 — 窗口 2026-09-18~2026-09-18 未结束
+[2026-09-18T22:35:24+08:00]   pending kind=mlb_schedule_daily_total_runs x1 due=2026-09-18 — 2026-09-18 尚未到
+[2026-09-18T22:35:24+08:00]   pending kind=elexon_fuelhh_daily_mean x1 due=2026-09-18 — 2026-09-18 尚未到
+[2026-09-18T22:35:24+08:00]   pending kind=elexon_fuelhh_daily_mean x1 due=2026-09-18 — 2026-09-18 尚未到
+[2026-09-18T22:35:24+08:00] round#1 用时 19.4s | 未解总数=439 到期选中=66 唯一真值请求=66（台账重复合并 0） | resolved=0 pending=59（含预筛 7） fail=4 refused=0／同结论并发=0 口径护栏=8 unsupported=0 未到期跳过=312 无法定到期=53 wouldWrite=3 实打网=17
+[2026-09-18T22:35:24+08:00]   取数失败明细 {"fetch-fail:dlt_draw_result:HTTP 567":4}

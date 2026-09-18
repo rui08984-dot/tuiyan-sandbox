@@ -2,7 +2,7 @@
   "script": "p1b/scripts/anchor-gate.cjs",
   "label": "b4候选池",
   "source_file": "p1b/sim/out/corpus-sources-b4.rows.json",
-  "generated_at": "2026-09-18T14:08:06.261Z",
+  "generated_at": "2026-09-18T14:38:01.128Z",
   "criteria_source": "docs/specs/万物分类清单-v2.md §第 0 步 拒收门三问（v2 冻结 2026-09-12）",
   "projection_note": "Q0-1 投影＝kind 注册 ∧ 锚可达（注册≠可达）；Q0-2 抽不出 cutoff ⇒ unverifiable（单列）；Q0-3 只判恒定，出题器红线 (0.15,0.85) 单列 inBand",
   "zero_write": true,

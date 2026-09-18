@@ -44,19 +44,25 @@ function loadResolvers(srcPath) {
   const src = fs.readFileSync(srcPath || RESOLVE_SRC, 'utf8');
   const i = src.indexOf('//RESOLVE-B2');           // 与 corpus-resolve-daemon.cjs 同一锚点
   if (i < 0) throw new Error('抽取锚点 //RESOLVE-B2 缺失（抽取失败须硬失败，禁降级）');
-  const body = src.slice(0, i) + '\nmodule.exports = { RESOLVERS: RESOLVERS };';
+  const head = src.slice(0, i);
+  const body = head + '\nmodule.exports = { RESOLVERS: RESOLVERS };';
   const mod = { exports: {} };
   // eslint-disable-next-line no-new-func
   new Function('module', 'exports', 'require', '__dirname', '__GETJSON_CACHE', body)(mod, mod.exports, require, __dirname, null);
   const R = mod.exports.RESOLVERS;
   if (!R || typeof R !== 'object') throw new Error('抽取结果形状非法（RESOLVERS 缺失）');
   const kinds = Object.keys(R);
+  // 「取数需要 URL」的判据：① 直读 spec 的 url/url_template ② 走 specUrl(r)（派生层）
   const needsUrl = new Set();
   for (const k of kinds) {
     const s = typeof R[k] === 'function' ? R[k].toString() : '';
-    if (/url_template\s*\|\|\s*r\.url|subst\(\s*r\.url/.test(s)) needsUrl.add(k);
+    if (/url_template\s*\|\|\s*r\.url|subst\(\s*r\.url|subst\(\s*specUrl\(/.test(s)) needsUrl.add(k);
   }
-  return { kinds: new Set(kinds), needsUrl, count: kinds.length };
+  // 「有派生层」的 kind：spec 缺 URL 时也能取数（★修好 31 条空 URL 缺陷后新增的第三类）
+  const derives = new Set();
+  const di = head.indexOf('const URL_DERIVE');
+  if (di >= 0) { for (const m of head.slice(di).matchAll(/^\s{2}([a-z_0-9]+):\s*\(r\)\s*=>/gm)) derives.add(m[1]); }
+  return { kinds: new Set(kinds), needsUrl, derives, count: kinds.length };
 }
 
 // ── Q0-1 真值锚可达 ──
@@ -67,10 +73,12 @@ function q01(resolve, ctx) {
   if (!kind) return { verdict: 'no_anchor', why: '无 resolve.kind（无可机检锚）' };
   if (!ctx.R.kinds.has(kind)) return { verdict: 'no_anchor', why: 'kind 未在现役 RESOLVERS 注册：' + kind };
   const hasUrl = !!(rz.url || rz.url_template);
-  if (ctx.R.needsUrl.has(kind) && !hasUrl) {
-    return { verdict: 'no_anchor', why: 'kind **已注册但锚不可达**（解析器需 URL 而 spec 未给）：' + kind };
+  if (hasUrl) return { verdict: 'pass', why: 'spec 自带 URL' };
+  if (ctx.R.derives && ctx.R.derives.has(kind)) return { verdict: 'pass', why: '缺 URL 但解析器有**派生层**（specUrl 就地派生）' };
+  if (ctx.R.needsUrl.has(kind)) {
+    return { verdict: 'no_anchor', why: 'kind **已注册但锚不可达**（解析器需 URL 而 spec 未给、且无派生层）：' + kind };
   }
-  return { verdict: 'pass', why: (ctx.R.needsUrl.has(kind) ? '注册＋spec 提供 URL' : '注册＋解析器自建 URL') };
+  return { verdict: 'pass', why: '注册＋解析器自建 URL' };
 }
 
 // ── 事件窗口起点（Q0-2 的参照点）──
@@ -236,6 +244,22 @@ function main() {
     L.push('| phase | 候选 | 通过 | 过锚率 |');
     L.push('|---|---|---|---|');
     for (const k of Object.keys(s.by_phase)) L.push('| ' + k + ' | ' + s.by_phase[k].n + ' | ' + s.by_phase[k].pass + ' | ' + (s.by_phase[k].anchor_rate * 100).toFixed(1) + '% |');
+    L.push('');
+    // ★口径纪律（**由生成器自带** ⇒ 重跑不丢；2026-09-18 首次手追加时被重跑覆盖过 ⇒ 收进生成器）
+    L.push('## ★读数解读（必读：这个数**不是**过锚率）');
+    L.push('');
+    L.push('**本件测的是「已入账候选的 Q0 符合率（conformance）」，不是「生成器的过锚率（pass rate）」。** 分母不同：');
+    L.push('');
+    L.push('| 口径 | 分母 | 本件可否给 |');
+    L.push('|---|---|---|');
+    L.push('| **符合率**（本件） | **已入账**候选 | ✅ |');
+    L.push('| **过锚率**（角色③／I1 两张票的前置要的） | **生成器产出的候选全集**（含被丢的） | ❌ **给不了**——被丢候选零留痕 |');
+    L.push('');
+    L.push('**为何给不了**：出题器在 Q0-2／Q0-3 不过时直接 `continue`，**被丢候选不落盘**；p1b 私有表 `intake_rejects`／`intake_questions` **均 0 行**（拒收门在生产从未留痕）。');
+    L.push('⇒ 拿现成候选池算「过锚率」在数学上恒等于「符合率」，且**结构上偏高**（被拒的已不在池里）。');
+    L.push('⇒ **要让「过锚率 ≥80%」这张前置真正可测，必须给测出题器加旁路**，落「候选全集＋Q0 判定」（第 3 期票 A 步骤 2，**未做**）。');
+    L.push('');
+    L.push('**投影声明**（判据本体未改）：Q0-1＝kind 注册 ∧ **锚可达**（注册≠可达；有派生层者视为可达）；Q0-2 参照点＝**事件窗口起点**，抽不出 cutoff ⇒ `unverifiable` **单列、不计通过**；Q0-3 只判恒定，出题器红线 (0.15,0.85) **单列 `inBand`、不混判据**。');
     L.push('');
     L.push('（读数件完 · 生成器 `p1b/scripts/anchor-gate.cjs` · 候选源 `' + inPath + '`）');
     fs.writeFileSync(arg('md'), L.join('\n') + '\n', 'utf8'); console.log('  md   -> ' + arg('md'));

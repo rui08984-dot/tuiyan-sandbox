@@ -32,12 +32,18 @@ test('① MMWR 周首日：对照手算已知值（含「含 ≥4 天新年」�
 });
 
 test('② Q0-1：注册 ≠ 可达（承 31 条空 URL 教训）', () => {
-  // 已注册且解析器需要 URL、spec 未给 ⇒ no_anchor（不是 pass）
-  const g = M.gate(mk({ resolve: { kind: 'npm_downloads_window', pkg: 'react', date: '2026-09-20', threshold: 1, cmp: '>=' }, meta: { cutoff: '2026-09-01T00:00:00+08:00' } }), ctx);
-  assert.equal(g.q01.verdict, 'no_anchor', '需 URL 而无 URL ⇒ 锚不可达');
+  // 已注册、解析器需要 URL、spec 未给、**且无派生层** ⇒ no_anchor（不是 pass）
+  // ★用 ghcn_daily_tmax（需要 spec URL，且不在派生表里）——不用 npm：npm 自 2026-09-18 起**有派生层**，
+  //   其新形态已可达（见下第三段与 resolve-spec-derive.test.cjs）。
+  const g = M.gate(mk({ resolve: { kind: 'ghcn_daily_tmax', station: 'X', date: '2026-09-20', threshold: 1, cmp: '>=' }, meta: { cutoff: '2026-09-01T00:00:00+08:00' } }), ctx);
+  assert.equal(g.q01.verdict, 'no_anchor', '需 URL 而无 URL 且无派生层 ⇒ 锚不可达');
   assert.equal(g.pass, false);
   // 同 kind 给了 URL ⇒ pass
-  assert.equal(M.gate(mk({ resolve: { kind: 'npm_downloads_window', url_template: 'https://x/{start}:{end}', start: '2026-09-01', end: '2026-09-07' }, meta: { cutoff: '2026-08-01T00:00:00+08:00' } }), ctx).q01.verdict, 'pass');
+  assert.equal(M.gate(mk({ resolve: { kind: 'ghcn_daily_tmax', url_template: 'https://x/{date}', date: '2026-09-20' }, meta: { cutoff: '2026-08-01T00:00:00+08:00' } }), ctx).q01.verdict, 'pass');
+  // ★派生层（2026-09-18 修好 31 条空 URL 后）：npm 新形态**缺 URL 但可达** ⇒ pass
+  const npm = M.gate(mk({ resolve: { kind: 'npm_downloads_window', pkg: 'react', date: '2026-09-20', threshold: 1, cmp: '>=' }, meta: { cutoff: '2026-09-01T00:00:00+08:00' } }), ctx);
+  assert.equal(npm.q01.verdict, 'pass', 'npm 新形态有派生层 ⇒ 可达');
+  assert.ok(/派生层/.test(npm.q01.why), '理由应标注派生层: ' + npm.q01.why);
   // 未注册 kind ⇒ no_anchor
   assert.equal(M.gate(mk({ resolve: { kind: 'no_such_kind_xyz' } }), ctx).q01.verdict, 'no_anchor');
   // 无 resolve ⇒ no_anchor
@@ -96,4 +102,24 @@ test('⑥ require 本件零副作用（主流程只在 CLI 直跑）', () => {
   delete require.cache[require.resolve(path.join(ROOT, 'p1b', 'scripts', 'anchor-gate.cjs'))];
   require(path.join(ROOT, 'p1b', 'scripts', 'anchor-gate.cjs'));
   assert.equal(snap(), s0, 'require 不得写盘');
+});
+
+test('⑦ 读数件**自描述**：md 必含「不是过锚率」的口径纪律（重跑不得丢）', () => {
+  // 事故背景：2026-09-18 首次把解读**手追加**在生成物后面，重跑即被覆盖 ⇒ 改为收进生成器。
+  // 本测试锁住该不变量：凡由本生成器产出的 md，必须自带口径纪律段。
+  const os = require('node:os');
+  const { execFileSync } = require('node:child_process');
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'p1b-ag-'));
+  try {
+    const cands = path.join(tmp, 'cands.json');
+    fs.writeFileSync(cands, JSON.stringify([
+      { statement: 'x', prob: 0.5, resolve: { kind: 'ghcn_daily_tmax', url_template: 'u/{date}', date: '2026-07-01' }, meta: { phase: 'backfill', cutoff: '2026-06-30T23:59:59+08:00' } },
+    ]), 'utf8');
+    const md = path.join(tmp, 'out.md');
+    execFileSync(process.execPath, [path.join(ROOT, 'p1b', 'scripts', 'anchor-gate.cjs'), '--candidates', cands, '--md', md], { encoding: 'utf8' });
+    const t = fs.readFileSync(md, 'utf8');
+    assert.ok(t.includes('不是') && t.includes('过锚率'), 'md 必含「不是过锚率」的口径纪律');
+    assert.ok(t.includes('intake_rejects'), 'md 必申明「被丢候选零留痕」的证据');
+    assert.ok(t.includes('分母'), 'md 必申明分母差异');
+  } finally { try { fs.rmSync(tmp, { recursive: true, force: true }); } catch (e) { /* ignore */ } }
 });
