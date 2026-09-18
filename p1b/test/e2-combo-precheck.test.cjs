@@ -69,10 +69,14 @@ test('④ 真实件：矩阵／两对／判决自洽／RES 门／三零／零副
   const before = sha(PROD);
   execFileSync(process.execPath, [SCRIPT, '--out-dir', tmpDir, '--boot', '200'], { encoding: 'utf8' });
   assert.equal(sha(PROD), before, '生产库被改动（应零写库）');
-  const j = JSON.parse(fs.readFileSync(path.join(tmpDir, 'e2-combo-precheck-20260917.json'), 'utf8'));
+  // ★ 文件名带**当天**日期（脚本用 UTC 日期命名）⇒ 测试**不得写死日期**，否则跨日即红（2026-09-18 实测）。
+  const arts = fs.readdirSync(tmpDir).filter((f) => /^e2-combo-precheck-\d{8}\.json$/.test(f));
+  assert.equal(arts.length, 1, '应恰好产出一份读数件: ' + JSON.stringify(arts));
+  const j = JSON.parse(fs.readFileSync(path.join(tmpDir, arts[0]), 'utf8'));
   // ★ 数据标记（随账本增长更新）：2026-09-17 到期题结算 183 条 ⇒ 队列 1202 → 1385；
-  //   同日（二十）批再结 4 条（L3 USGS）⇒ 1385 → 1389（读数前进，非口径变更）
-  assert.equal(j.cohort_rows, 1389, '队列应与 PREREG §1 池口径一致: ' + j.cohort_rows);
+  //   同日（二十）批再结 4 条（L3 USGS）⇒ 1385 → 1389（读数前进，非口径变更）；
+  //   09-18（二十五）批再结 66 条 ⇒ 1389 → 1455（同上，读数前进）
+  assert.equal(j.cohort_rows, 1455, '队列应与 PREREG §1 池口径一致: ' + j.cohort_rows);
   assert.ok(j.multi_engine_items >= 30, '多引擎题应 ≥30（R3 可估前提）: ' + j.multi_engine_items);
   const pairs = Object.keys(j.pair_population);
   assert.ok(pairs.some((k) => k.indexOf('L1') !== -1 && k.indexOf('L6') !== -1), 'L1×L6 对应在: ' + JSON.stringify(pairs));

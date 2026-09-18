@@ -1,0 +1,1381 @@
+{
+  "before": ".scratch/p25/p1a-baseline-resolve-20260918.db",
+  "after": "p1a-terminal/data/p1a.db",
+  "key": "id",
+  "tables": {
+    "predictions": {
+      "key": "id",
+      "rows_before": 1992,
+      "rows_after": 1992,
+      "added": 0,
+      "removed": 0,
+      "changed": 66,
+      "added_ids": [],
+      "removed_ids": [],
+      "changed_ids": [
+        "735",
+        "736",
+        "819",
+        "831",
+        "1647",
+        "1649",
+        "1651",
+        "1653",
+        "1655",
+        "1657",
+        "1659",
+        "1661",
+        "1663",
+        "1665",
+        "1667",
+        "1669",
+        "1671",
+        "1673",
+        "1675",
+        "1677",
+        "1679",
+        "1681",
+        "1683",
+        "1685",
+        "1687",
+        "1689",
+        "1691",
+        "1693",
+        "1695",
+        "1697",
+        "1699",
+        "1701",
+        "1703",
+        "1705",
+        "1730",
+        "1732",
+        "1734",
+        "1736",
+        "1738",
+        "1740",
+        "1742",
+        "1744",
+        "1746",
+        "1748",
+        "1750",
+        "1752",
+        "1754",
+        "1756",
+        "1758",
+        "1760"
+      ],
+      "changed_detail": [
+        {
+          "key": "735",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-18 05:07:29"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "false"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "cwl 官方 2026108 期 red=06,11,13,14,20,28 blue=16（red 含 07，机检）"
+            }
+          ]
+        },
+        {
+          "key": "736",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-18 05:07:29"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "false"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "cwl 官方 2026108 期 red=06,11,13,14,20,28 blue=16（blue 为奇数，机检）"
+            }
+          ]
+        },
+        {
+          "key": "819",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-18 05:07:29"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "false"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "cwl 官方 2026108 期 red=06,11,13,14,20,28 blue=16（red 含 07，机检）"
+            }
+          ]
+        },
+        {
+          "key": "831",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-18 05:07:29"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "false"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "cwl 官方 2026108 期 red=06,11,13,14,20,28 blue=16（blue 为奇数，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1647",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-18 05:07:29"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "true"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Open-Meteo daily.temperature_2m_max 2026-09-17=31.1（阈值 >= 12.6，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1649",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-18 05:07:29"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "false"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Open-Meteo daily.temperature_2m_min 2026-09-17=21.2（阈值 <= 12.7，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1651",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-18 05:07:29"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "true"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Open-Meteo daily.precipitation_hours 2026-09-17=3（阈值 >= 2，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1653",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-18 05:07:29"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "true"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Open-Meteo daily.wind_gusts_10m_max 2026-09-17=32.8（阈值 >= 28.8，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1655",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-18 05:07:29"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "true"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Open-Meteo daily.temperature_2m_max 2026-09-17=20.5（阈值 >= 12.7，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1657",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-18 05:07:29"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "false"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Open-Meteo daily.temperature_2m_min 2026-09-17=13（阈值 <= 6.7，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1659",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-18 05:07:29"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "true"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Open-Meteo daily.precipitation_hours 2026-09-17=7（阈值 >= 1，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1661",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-18 05:07:29"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "true"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Open-Meteo daily.wind_gusts_10m_max 2026-09-17=46.4（阈值 >= 42.1，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1663",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-18 05:07:29"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "false"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Open-Meteo daily.temperature_2m_max 2026-09-17=22.2（阈值 >= 23.7，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1665",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-18 05:07:29"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "false"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Open-Meteo daily.temperature_2m_min 2026-09-17=12.9（阈值 <= 9.7，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1667",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-18 05:07:29"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "false"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Open-Meteo daily.precipitation_hours 2026-09-17=0（阈值 >= 1，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1669",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-18 05:07:29"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "true"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Open-Meteo daily.wind_gusts_10m_max 2026-09-17=43.9（阈值 >= 35.6，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1671",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-18 05:07:29"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "false"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Open-Meteo daily.temperature_2m_max 2026-09-17=24.7（阈值 >= 24.8，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1673",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-18 05:07:29"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "false"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Open-Meteo daily.temperature_2m_min 2026-09-17=18.8（阈值 <= 8.1，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1675",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-18 05:07:29"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "false"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Open-Meteo daily.precipitation_hours 2026-09-17=0（阈值 >= 4，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1677",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-18 05:07:29"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "true"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Open-Meteo daily.wind_gusts_10m_max 2026-09-17=34.6（阈值 >= 32，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1679",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-18 05:07:29"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "true"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Open-Meteo daily.temperature_2m_max 2026-09-17=27.3（阈值 >= 23.8，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1681",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-18 05:07:29"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "false"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Open-Meteo daily.temperature_2m_min 2026-09-17=19.7（阈值 <= 15.7，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1683",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-18 05:07:29"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "true"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Open-Meteo daily.wind_gusts_10m_max 2026-09-17=36（阈值 >= 34.6，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1685",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-18 05:07:29"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "true"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Open-Meteo daily.temperature_2m_max 2026-09-17=39.2（阈值 >= 34.8，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1687",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-18 05:07:29"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "false"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Open-Meteo daily.temperature_2m_min 2026-09-17=23.1（阈值 <= 16.6，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1689",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-18 05:07:29"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "true"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Open-Meteo daily.wind_gusts_10m_max 2026-09-17=42.5（阈值 >= 39.2，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1691",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-18 05:07:29"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "false"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Open-Meteo daily.temperature_2m_max 2026-09-17=17（阈值 >= 19.3，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1693",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-18 05:07:29"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "true"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Open-Meteo daily.temperature_2m_min 2026-09-17=7.9（阈值 <= 17.3，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1695",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-18 05:07:29"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "false"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Open-Meteo daily.precipitation_hours 2026-09-17=0（阈值 >= 1，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1697",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-18 05:07:29"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "false"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Open-Meteo daily.wind_gusts_10m_max 2026-09-17=41（阈值 >= 45.7，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1699",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-18 05:07:29"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "true"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Open-Meteo daily.temperature_2m_max 2026-09-17=24（阈值 >= 22.7，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1701",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-18 05:07:29"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "false"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Open-Meteo daily.temperature_2m_min 2026-09-17=13.7（阈值 <= 11.9，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1703",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-18 05:07:29"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "true"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Open-Meteo daily.precipitation_hours 2026-09-17=8（阈值 >= 6，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1705",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-18 05:07:29"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "true"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Open-Meteo daily.wind_gusts_10m_max 2026-09-17=42.5（阈值 >= 37.4，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1730",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-18 05:07:29"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "false"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Energy-Charts fr Nuclear 2026-09-17 均值=37360.2823MW（96 点，满日 96 点·15 分粒度，本地日全窗口口径）（阈值 >= 37978，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1732",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-18 05:07:29"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "false"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Energy-Charts fr Hydro Run-of-River 2026-09-17 均值=1722.2271MW（96 点，满日 96 点·15 分粒度，本地日全窗口口径）（阈值 >= 3577，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1734",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-18 05:07:29"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "false"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Energy-Charts fr Fossil gas 2026-09-17 均值=765.3958MW（96 点，满日 96 点·15 分粒度，本地日全窗口口径）（阈值 >= 1345，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1736",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-18 05:07:29"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "true"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Energy-Charts fr Wind onshore 2026-09-17 均值=5319.6812MW（96 点，满日 96 点·15 分粒度，本地日全窗口口径）（阈值 >= 2824，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1738",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-18 05:07:29"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "true"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Energy-Charts fr Solar 2026-09-17 均值=5070.2698MW（96 点，满日 96 点·15 分粒度，本地日全窗口口径）（阈值 >= 4635，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1740",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-18 05:07:29"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "true"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Energy-Charts fr Load 2026-09-17 均值=43884.9479MW（96 点，满日 96 点·15 分粒度，本地日全窗口口径）（阈值 >= 43151，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1742",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-18 05:07:29"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "true"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Energy-Charts nl Nuclear 2026-09-17 均值=470.2032MW（95 点，满日 96 点·15 分粒度，本地日全窗口口径）（阈值 >= 466，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1744",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-18 05:07:29"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "false"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Energy-Charts nl Fossil gas 2026-09-17 均值=1856.9063MW（95 点，满日 96 点·15 分粒度，本地日全窗口口径）（阈值 >= 3634，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1746",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-18 05:07:29"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "false"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Energy-Charts nl Wind onshore 2026-09-17 均值=499.0463MW（95 点，满日 96 点·15 分粒度，本地日全窗口口径）（阈值 >= 504，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1748",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-18 05:07:29"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "false"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Energy-Charts nl Solar 2026-09-17 均值=22.4053MW（95 点，满日 96 点·15 分粒度，本地日全窗口口径）（阈值 >= 102，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1750",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-18 05:07:29"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "false"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Energy-Charts nl Load 2026-09-17 均值=10547.1396MW（96 点，满日 96 点·15 分粒度，本地日全窗口口径）（阈值 >= 13248，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1752",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-18 05:07:29"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "true"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Energy-Charts es Nuclear 2026-09-17 均值=6974.5000MW（96 点，满日 96 点·15 分粒度，本地日全窗口口径）（阈值 >= 5118，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1754",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-18 05:07:29"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "false"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Energy-Charts es Hydro Run-of-River 2026-09-17 均值=340.2083MW（96 点，满日 96 点·15 分粒度，本地日全窗口口径）（阈值 >= 831，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1756",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-18 05:07:29"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "true"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Energy-Charts es Fossil gas 2026-09-17 均值=5287.6250MW（96 点，满日 96 点·15 分粒度，本地日全窗口口径）（阈值 >= 4757，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1758",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-18 05:07:29"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "true"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Energy-Charts es Wind onshore 2026-09-17 均值=6704.2917MW（96 点，满日 96 点·15 分粒度，本地日全窗口口径）（阈值 >= 3511，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1760",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-18 05:07:29"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "true"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Energy-Charts es Solar 2026-09-17 均值=9021.8333MW（96 点，满日 96 点·15 分粒度，本地日全窗口口径）（阈值 >= 8958，机检）"
+            }
+          ]
+        }
+      ]
+    },
+    "verdicts": {
+      "key": "id",
+      "rows_before": 5156,
+      "rows_after": 5156,
+      "added": 0,
+      "removed": 0,
+      "changed": 0,
+      "added_ids": [],
+      "removed_ids": [],
+      "changed_ids": [],
+      "changed_detail": []
+    },
+    "truth_vault": {
+      "key": "prediction_id",
+      "rows_before": 1992,
+      "rows_after": 1992,
+      "added": 0,
+      "removed": 0,
+      "changed": 0,
+      "added_ids": [],
+      "removed_ids": [],
+      "changed_ids": [],
+      "changed_detail": []
+    },
+    "games": {
+      "key": "id",
+      "rows_before": 88,
+      "rows_after": 88,
+      "added": 0,
+      "removed": 0,
+      "changed": 0,
+      "added_ids": [],
+      "removed_ids": [],
+      "changed_ids": [],
+      "changed_detail": []
+    },
+    "events": {
+      "key": "id",
+      "rows_before": 556,
+      "rows_after": 556,
+      "added": 0,
+      "removed": 0,
+      "changed": 0,
+      "added_ids": [],
+      "removed_ids": [],
+      "changed_ids": [],
+      "changed_detail": []
+    },
+    "claims": {
+      "key": "id",
+      "rows_before": 447,
+      "rows_after": 447,
+      "added": 0,
+      "removed": 0,
+      "changed": 0,
+      "added_ids": [],
+      "removed_ids": [],
+      "changed_ids": [],
+      "changed_detail": []
+    }
+  }
+}

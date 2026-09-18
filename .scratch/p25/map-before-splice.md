@@ -541,7 +541,7 @@
 - **待拍板 4 项**：① v3.1 总路线确认 ② P0 开工（砍不砍 U6）③ E1 冻结程序 ④ E2 立票。
 
 （§26 完 · 2026-09-16 · 两轮研讨会＋v3.1 推进计划 · 零代码/零账本/零跑批）
-## §10 文件全图（2026-09-18 刷新 · 由 `p1b/scripts/file-map.cjs` 生成，勿手改）
+## §10 文件全图（2026-09-17 刷新 · 由 `p1b/scripts/file-map.cjs` 生成，勿手改）
 
 > 目标（用户令）：「目录一样，每个相关文件路径都在里面，还说是是什么」。
 > 生成命令：`node p1b/scripts/file-map.cjs --out …`；跳过依赖/构建/媒体目录与 `.db` 快照体（只列目录级）。
@@ -601,7 +601,7 @@
 - `docs/specs/阶段5-检索式预测-立项书-v1.1.md` —— 阶段 5 立项书（评审后修订；待用户拍板）
 - `docs/specs/阶段5-立项评审-检索式预测-20260914.md` —— 阶段 5 独立评审（16 发现/8 必改）
 
-### docs/plans 与 docs/sandbox/p1b/itest（计划与进度锚）（178）
+### docs/plans 与 docs/sandbox/p1b/itest（计划与进度锚）（177）
 
 - `docs/sandbox/p1b/itest/`（154 件）—— 代表件 `_p7_fixer.cjs`：const fs = require("fs");；进度锚 p7–p22 为长项目锚（**最新 p19/p20+** 见本目录）
 - `docs/plans/2026-09-14-通往最终目标-分步实施计划.md` —— 三幕七任务实施计划（任务 6 批次 3 ✅）
@@ -622,7 +622,6 @@
 - `docs/sandbox/p1b/itest/p22-PROGRESS.md` —— p22-PROGRESS —— 审计页交互改造：数据堆砌 → 三层递进（p1b/web / #/audit）
 - `docs/sandbox/p1b/itest/p23-P0施工-PROGRESS.md` —— p23-P0施工 · 进度锚（2026-09-16）
 - `docs/sandbox/p1b/itest/p24-蓝图推进-PROGRESS.md` —— p24 · 蓝图推进 · 进度锚（2026-09-17 立）
-- `docs/sandbox/p1b/itest/p25-例行结算-20260918-PROGRESS.md` —— p25 · 到期题例行结算（2026-09-18）· 进度锚
 - `docs/sandbox/p1b/itest/p5-integration-report.md` —— P1b-5 集成实测报告（2026-09-08 · 收尾棒）
 - `docs/sandbox/p1b/itest/p5-手机实测指引.md` —— 手机实测指引（P1b-5 · 2026-09-08）
 - `docs/sandbox/p1b/itest/p7-PROGRESS.md` —— P7 收尾进度锚（第四棒）
@@ -650,9 +649,10 @@
 - `.scratch/handoff/推演沙盘-日结-20260911.md` —— 推演沙盘 · 日结 2026-09-11（预测线全链闭合日）
 - `.scratch/handoff/推演沙盘-日结-20260913-晨.md` —— 推演沙盘 · 夜间日结（2026-09-13 晨 · 队长亲笔 · 用户睡眠期自主推进）
 
-### .scratch/forecast-debate（研究档案/PREREG/实验报告）（252）
+### .scratch/forecast-debate（研究档案/PREREG/实验报告）（255）
 
 - `.scratch/forecast-debate/`（51 件）—— 代表件 `_acr2-cachekeys.cjs`：const fs = require('fs');
+- `.scratch/forecast-debate/decouple9/`（15 件）—— 代表件 `_fix-anchors.cjs`：交接件锚点卫生修复（只改本批新增文本；历史锚原文零改动）
 - `.scratch/forecast-debate/prereg-a/`（76 件）—— 代表件 `manifest-preregA-20260913.json`："tag": "preregA-20260913",
 - `.scratch/forecast-debate/A-学术调研.md` —— A-学术调研（A 棒）· 预测科学三回合微步
 - `.scratch/forecast-debate/B-泼冷水.md` —— B · 泼冷水报告：对「AI/LLM 通用预测未来」的最强反方论证
@@ -688,18 +688,6 @@
 - `.scratch/forecast-debate/S2续集-Gemini增量设计.md` —— S2 续集 · Gemini 增量转可证伪设计（设计棒 · 2026-09-12）
 - `.scratch/forecast-debate/acr-一期报告-20260912.md` —— ACR 抗投毒鲁棒性实验 · 一期报告（机械层 · 零 LLM）
 - `.scratch/forecast-debate/acr-二期报告-20260912.md` —— ACR 抗投毒鲁棒性实验 · 二期报告（LLM 层 · 参谋卡 P_win/P_vote 漂移）
-- `.scratch/forecast-debate/decouple9/_patch-handoff.cjs` —— 一次性维护脚本：交接件原位更新（追加 §19 ＋ 同步 §1 指针 / §0 全局行 / 尾行）
-- `.scratch/forecast-debate/decouple9/_patch-index.cjs` —— 一次性维护脚本（修正版）：把（十九）批块登记进 p19 倒序索引
-- `.scratch/forecast-debate/decouple9/db-fingerprint-after-run.json` —— "predictions": {
-- `.scratch/forecast-debate/decouple9/db-fingerprint-during-run.json` —— "predictions": {
-- `.scratch/forecast-debate/decouple9/fp-resolve-before.json` —— "predictions": {
-- `.scratch/forecast-debate/decouple9/p1a-baseline-decouple9promote.db` —— （二进制体：不抽句；随目录级列出）
-- `.scratch/forecast-debate/decouple9/run-state-main.json` —— "tag": "main",
-- `.scratch/forecast-debate/decouple9/run-state-main1.json` —— "tag": "main1",
-- `.scratch/forecast-debate/decouple9/run-state-main2.json` —— "tag": "main2",
-- `.scratch/forecast-debate/decouple9/run-state-retryfix.json` —— "tag": "retryfix",
-- `.scratch/forecast-debate/decouple9/run-state-retryfix2.json` —— "tag": "retryfix2",
-- `.scratch/forecast-debate/decouple9/smoke-report.json` —— "script": "p1b/scripts/decouple9-run.cjs",
 - `.scratch/forecast-debate/p12-PROGRESS.md` —— P12 · 万物审计器 MVP-A · 微步 1 进度（2026-09-11）
 - `.scratch/forecast-debate/p14-PROGRESS.md` —— P14 · sim 模板库 v2 扩建 + R-B 题源设计（设计棒 · 微步1 · 2026-09-12）
 - `.scratch/forecast-debate/prereg-a/PAUSE-RESUME-20260914.md` —— 补漏跑批 · 暂停与续跑交接（2026-09-14 凌晨 · 用户令暂停，剩余明天跑）
@@ -846,12 +834,12 @@
 - `p1b/test/fixtures/odds-scores-sample-20260917.json` —— "id": "b7a2cad26d908a943a27340b4b607068",
 - `p1b/test/fixtures/stage4-golden-20260916.pre-advance.json` —— "script": "p1b/scripts/stage4-run.cjs",
 - `p1b/test/fixtures/stage4-golden-20260917.json` —— "script": "p1b/scripts/stage4-run.cjs",
-- `p1b/test/fixtures/stage4-golden-db-20260917.db` —— （二进制体：不抽句；随目录级列出）
+- `p1b/test/fixtures/stage4-golden-db-20260917.db` —— SQLite format 3   @       7  �   �                                                     .��   � …
 
-### p1b/sim/out（收据与读数件；大件 .db/截图不入列）（499）
+### p1b/sim/out（收据与读数件；大件 .db/截图不入列）（488）
 
-- `p1b/sim/out/`（201 件）—— 代表件 `_audit.txt`：=== 1) 重复/空局检查 ===；收据为 `.md`（上面已逐件列）；其余为各轮读数件（可用对应脚本重跑生成）
-- `p1b/sim/out/`（91 件 .md）—— 代表件 `a1-assumption-recalc-receipt-20260917.md`：A1 收据 · 假设重算器 v0（2026-09-17）；收据为 `.md`（上面已逐件列）；其余为各轮读数件（可用对应脚本重跑生成）
+- `p1b/sim/out/`（195 件）—— 代表件 `_audit.txt`：=== 1) 重复/空局检查 ===；收据为 `.md`（上面已逐件列）；其余为各轮读数件（可用对应脚本重跑生成）
+- `p1b/sim/out/`（86 件 .md）—— 代表件 `a1-assumption-recalc-receipt-20260917.md`：A1 收据 · 假设重算器 v0（2026-09-17）；收据为 `.md`（上面已逐件列）；其余为各轮读数件（可用对应脚本重跑生成）
 - `p1b/sim/out/batch/`（72 件）—— 代表件 `_counts-err.txt`：（无一句话可抽）
 - `p1b/sim/out/batch/`（61 件 .md）—— 代表件 `m1-ai-sample.md`：M1 AI 腔抽检清单（每局 1 条=该局第一条发言，供 aidetect 集成打分；30 条）
 - `p1b/sim/out/merged-migration/`（20 件）—— 代表件 `baseline-test.exit.txt`：EXIT=0
@@ -904,7 +892,8 @@
 - `p1a-terminal/data/p1a.db` —— **生产账本**（predictions/verdicts/truth_vault…）；`p1a-terminal/**` 为 p1a 线（含禁改面）
 - `p1b/web/`（前端源码与 dist 构建）、`tools/`、`scripts/` —— 见各自 README/索引
 
-（§10 完 · 2026-09-14 深夜 · 生成器 `p1b/scripts/file-map.cjs` · 计数：共 1317 件在列）
+（§10 完 · 2026-09-14 深夜 · 生成器 `p1b/scripts/file-map.cjs` · 计数：共 1308 件在列）
+
 ## §27 2026-09-16 深夜 · **第三轮研讨会收官 ＋ E1 冻结 ＋ v3.1 大升级蓝图**（**最新；以本节为准**）
 
 - **阶段 0 拍板（拷问技能三问）**：② **保留 U6**｜③ **E1 现在冻结** ⇒ `12-PREREG-E1-DNA加列S维-v1.md`（sha `1875382d…`、commit `fa5cdcd`、复算 MATCH；弃权条款生效）｜①④ 待蓝图终裁。
@@ -1480,28 +1469,3 @@
 **卡在哪／下一步**：第 3 期票制菜单的闸门未变（A5/O6 须先解决前置口径；A2/O1b 须新 PREREG）；**09-18 复跑例行结算**（91 条 pending 自然收敛＋C 线新题到期）。
 
 （§55 完 · 2026-09-17 · 测试 513/513 · 判词 +390 · 零翻转）
-
-
-## §56 2026-09-18（二十五）批 · 到期题例行结算（66 条）＋ 读数刷新 ＋ ★三处缺陷（跨日测试／npm 空 URL／地图二进制泄漏）（最新；以本节为准；§55 为更早快照，冲突处按本节）
-
-**关键指标**：测试 **513/513**｜账本 题 **1992**／已解 **1487 → 1553**／判词 **5156**（本批零判词写）｜vault ok｜**分域 29 格（可出结论 8）**｜脚本在役 **110**（未变）。
-
-**触发**：交接件 §22／§23「下一步（a）」＝**09-18 复跑例行结算**（例行通道，**非拍板项**）。
-
-| 项 | 内容 | 证据 |
-|---|---|---|
-| **① 到期面（写前只读）** | **141**（L2 69／L3 64／L5 8）；到期日 09-14:3／09-15:4／09-16:13／09-17:71／**09-18:50** ⇒ 与（二十）批末「91」的关系＝**141 − 今日新成熟 50**，昨日 pending **自然收敛成立** | `.scratch/p25/fp-before.json` |
-| **② 结算（safe-mutation 五步）** | **两份快照**（baseline 留存＋drill 演练载体；sha256 逐位相同 `33b899258ff26901…`）／副本演练／生产写入（日志首行 `db=…p1a.db`）／零翻转／留痕 ⇒ **resolved 66／pending 58（含预筛 7）／fail 8**，**演练与生产逐项同数** | 收据 `p1b/sim/out/resolve-routine-receipt-20260918.md` |
-| **③ 零翻转** | predictions **1992 行不变**、**恰 66 行不同**且字段**恰为** `resolved_at`／`outcome`／`resolve_note`；**其余五表逐位相同**；★**确定性旁证**＝drill vs prod 的 outcome／resolve_note **0 处不同**（仅时间戳差 2 分钟） | `.scratch/p25/diff-baseline-vs-prod.json` |
-| **④ vault-sync** | dry-run `diff=66` ⇒ `--confirm` ⇒ **diff 0／ok=true／predictions 零改动=true** | 快照 `.scratch/backup/p1a-pre-vaultsync-2026-09-18T05-08-37-830Z.db` |
-| **⑤ 读数刷新（前进，非口径变更）** | L2 342→**374**（0.2433→**0.2418**）｜L3 533→**563**（0.2388→**0.2386**）｜L5 34→**38**（0.1347→**0.1354**）｜L1／L6 不变｜**分域 29 格／可出结论 8（不变；第 4 期放行门仍 8<10）** | `stage4-run-five-layers-20260918.*`／`u8-columns-20260918.*`／`calibration-report-20260918.*` |
-| **⑥ 稳定性自证** | **R1-A 改层仍 0**｜**L1×L6 ρ̂=0.011469（n=240）逐位相同**｜**L2×L3 ρ̂≡1（n 875→937）判死不变**｜R1-B **保留 8 格不变** ⇒ **三条 E2 结论未被数据前进改变** | `e2-combo-precheck-20260918.*`／`e2-r1-rules-20260918.*` |
-| **★⑦ 缺陷一：测试跨日必红（已修）** | 4 例「真实件」测试把产物文件名**写死成 `…-20260917.json`**，而脚本按**当天 UTC 日期**命名 ⇒ **每跨一天必红**（潜伏缺陷，非本批引入）。修法＝在专属 tmpDir 内**按前缀取唯一产出件**＋「恰好一份」断言 ⇒ **513/513** | `p1b/test/{e2-combo-precheck,e2-r1-rules,lambda-overlap,mdl-retention}.test.cjs` |
-| **★⑧ 缺陷二：`npm_downloads_window` 空 URL（未修，交裁决）** | 受影响**恰 4 条**（id **1969–1972**，game 87，L2，今日到期）。**根因＝两代 spec 混存＋守卫字段错配**：新形态只有 `pkg`/`date`，而 resolver 守卫是 `if (r.end >= shToday())` ⇒ `undefined >= "…"` 为 false ⇒ **守卫被绕过** ⇒ 空 URL ⇒ `fetch('')` 抛错；其余 resolver 用 `futureDay(r.date)` 故不受影响。**影响**＝每日复跑持续 fail（**不自愈**）且**永久不可结**。**不自行修**（改 resolver＝口径变更／改题＝动既有行 ⇒ 均须拍板） | 收据 §6.2；`corpus-resolve.cjs` 的 `npm_downloads_window` |
-| **★⑨ 缺陷三：地图 §10 **二进制泄漏**（已修）** | 地图文件里 `.db` 一行的「一句话摘要」**是 SQLite 原始头字节**（含 NUL）⇒ 文件对 grep／编辑器／Edit 类工具变「二进制」（**已在 HEAD 中**，承 §23 的 A 类重刷）。**根因**＝`file-map.cjs` 的 `headline()` 用 `readFileSync(p,'utf8')` **对二进制不抛错**（非法字节静默→U+FFFD）⇒ 原 `catch { return '（不可读/二进制）' }` 守卫**从不触发**。**修法**＝判据下移到**字节层**（前 8KB 出现 NUL 即二进制，不抽句）＋出口 **sanitize**（去 C0 控制字符）＋**写盘前自检**（含 NUL ⇒ exit 3 硬失败）；随后按 A 类**原位替换 §10**（节编号集合 56→56 **零丢**；产物 NUL **0**） | `p1b/scripts/file-map.cjs`；`.scratch/p25/splice-section10.cjs`；备份 `.scratch/p25/map-before-splice.md` |
-
-**卡在哪／待办**：① **npm 空 URL 缺陷是否修、怎么修**（改 resolver 新增解析路径／重生成 4 条题）② 第 3 期票制菜单闸门未变（A5/O6 须先解决前置口径；A2/O1b 须新 PREREG）③ 第 4 期放行门仍 **8 < 10** ④ 承前待拍板（9 臂已晋升、五项已代理裁决）。
-
-**本节点同步的索引**：留痕 **§88**｜README §4.5｜p19 锚 §（二十五）＋倒序索引块｜p23 锚｜交接件 §24｜**新锚 p25**（`docs/sandbox/p1b/itest/p25-例行结算-20260918-PROGRESS.md`）｜脚本索引 110（未变；本批修 2 脚本、未新增件）。
-
-（§56 完 · 2026-09-18 · 测试 513/513 · 已解 1553 · vault ok · 分域 29 格）

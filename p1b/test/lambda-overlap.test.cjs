@@ -78,7 +78,10 @@ test('⑤ 真实件：三元组／三对／下界／三零／零副作用', () =
   const before = sha(PROD);
   execFileSync(process.execPath, [SCRIPT, '--out-dir', tmpDir, '--boot', '200'], { encoding: 'utf8' });
   assert.equal(sha(PROD), before, '生产库被改动（应零写库）');
-  const j = JSON.parse(fs.readFileSync(path.join(tmpDir, 'lambda-overlap-20260917.json'), 'utf8'));
+  // ★ 文件名带**当天**日期（脚本用 UTC 日期命名）⇒ 测试**不得写死日期**，否则跨日即红（2026-09-18 实测）。
+  const arts = fs.readdirSync(tmpDir).filter((f) => /^lambda-overlap-\d{8}\.json$/.test(f));
+  assert.equal(arts.length, 1, '应恰好产出一份读数件: ' + JSON.stringify(arts));
+  const j = JSON.parse(fs.readFileSync(path.join(tmpDir, arts[0]), 'utf8'));
   assert.ok(j.data.triples > 1000, '三元组数应 >1000: ' + j.data.triples);
   assert.equal(j.results.length, 3, '三对全在');
   const est = [];

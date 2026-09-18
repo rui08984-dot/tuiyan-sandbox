@@ -1,0 +1,141 @@
+[2026-09-18T13:06:52+08:00] === corpus-resolve-daemon start | mode=once interval=60min due-only=true confirm=true
+[2026-09-18T13:06:52+08:00] 复用 corpus-resolve RESOLVERS 成功：inline-extract(60 kinds)
+[2026-09-18T13:06:52+08:00] db=E:\music player\p1a-terminal\data\p1a.db
+[2026-09-18T13:06:57+08:00] WARN dlt 日历刷新失败（沿用内置锚 26104@2026-09-12）: HTTP 567
+[2026-09-18T13:06:57+08:00] 日历锚刷新：ssq 2026108@2026-09-17 | dlt 26104@2026-09-12
+[2026-09-18T13:06:57+08:00] 参数安全门：跳过 8 条口径不符题（不写脏账）— base/quote 缺失 @id1957 / base/quote 缺失 @id1958 / base/quote 缺失 @id1959 / base/quote 缺失 @id1960 / base/quote 缺失 @id1961 / base/quote 缺失 @id1962
+[2026-09-18T13:07:21+08:00] 二遍补打 4 组（首遍网络失败，缓 8s 后重试一次）
+[2026-09-18T13:07:29+08:00]   resolved id=735 kind=cwl_ssq_red_contains -> false | cwl 官方 2026108 期 red=06,11,13,14,20,28 blue=16（red 含 07，机检）
+[2026-09-18T13:07:29+08:00]   resolved id=736 kind=cwl_ssq_blue_odd -> false | cwl 官方 2026108 期 red=06,11,13,14,20,28 blue=16（blue 为奇数，机检）
+[2026-09-18T13:07:29+08:00]   resolved id=819 kind=cwl_ssq_red_contains -> false | cwl 官方 2026108 期 red=06,11,13,14,20,28 blue=16（red 含 07，机检）
+[2026-09-18T13:07:29+08:00]   resolved id=831 kind=cwl_ssq_blue_odd -> false | cwl 官方 2026108 期 red=06,11,13,14,20,28 blue=16（blue 为奇数，机检）
+[2026-09-18T13:07:29+08:00]   fetch-fail kind=dlt_draw_result x1 — HTTP 567（跳过不写）
+[2026-09-18T13:07:29+08:00]   fetch-fail kind=dlt_draw_result x1 — HTTP 567（跳过不写）
+[2026-09-18T13:07:29+08:00]   fetch-fail kind=dlt_draw_result x1 — HTTP 567（跳过不写）
+[2026-09-18T13:07:29+08:00]   fetch-fail kind=dlt_draw_result x1 — HTTP 567（跳过不写）
+[2026-09-18T13:07:29+08:00]   pending(预筛) kind=frankfurter_rate_range x1 due=2026-09-16 — ECB 发布窗口 2026-09-16~2026-09-23 尚未走完（接口对未来区间 404）
+[2026-09-18T13:07:29+08:00]   pending(预筛) kind=frankfurter_rate_range x1 due=2026-09-16 — ECB 发布窗口 2026-09-16~2026-09-23 尚未走完（接口对未来区间 404）
+[2026-09-18T13:07:29+08:00]   pending(预筛) kind=frankfurter_rate_range x1 due=2026-09-16 — ECB 发布窗口 2026-09-16~2026-09-23 尚未走完（接口对未来区间 404）
+[2026-09-18T13:07:29+08:00]   pending kind=cta_daily_total_rides x1 due=2026-09-14 — CTA 无 2026-09-14 数据（真值滞后约 2.5 月）
+[2026-09-18T13:07:29+08:00]   pending kind=cta_daily_total_rides x1 due=2026-09-15 — CTA 无 2026-09-15 数据（真值滞后约 2.5 月）
+[2026-09-18T13:07:29+08:00]   pending kind=cta_daily_total_rides x1 due=2026-09-16 — CTA 无 2026-09-16 数据（真值滞后约 2.5 月）
+[2026-09-18T13:07:29+08:00]   pending kind=ghcn_daily_tmax x1 due=2026-09-15 — NCEI 尚无 2026-09-15 记录
+[2026-09-18T13:07:29+08:00]   pending kind=ghcn_daily_tmax x1 due=2026-09-16 — NCEI 尚无 2026-09-16 记录
+[2026-09-18T13:07:29+08:00]   pending kind=ghcn_daily_tmax x1 due=2026-09-15 — NCEI 尚无 2026-09-15 记录
+[2026-09-18T13:07:29+08:00]   pending kind=ghcn_daily_tmax x1 due=2026-09-16 — NCEI 尚无 2026-09-16 记录
+[2026-09-18T13:07:29+08:00]   pending kind=ghcn_daily_tmax x1 due=2026-09-15 — NCEI 尚无 2026-09-15 记录
+[2026-09-18T13:07:29+08:00]   pending kind=ghcn_daily_tmax x1 due=2026-09-16 — NCEI 尚无 2026-09-16 记录
+[2026-09-18T13:07:29+08:00]   pending kind=openmeteo_forecast_daily_precipitation_sum x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T13:07:29+08:00]   pending kind=openmeteo_forecast_daily_wind_speed_10m_max x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T13:07:29+08:00]   pending kind=openmeteo_forecast_daily_sunshine_duration x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T13:07:29+08:00]   pending kind=openmeteo_forecast_daily_precipitation_sum x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T13:07:29+08:00]   pending kind=openmeteo_forecast_daily_wind_speed_10m_max x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T13:07:29+08:00]   pending kind=openmeteo_forecast_daily_sunshine_duration x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T13:07:29+08:00]   pending kind=openmeteo_forecast_daily_precipitation_sum x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T13:07:29+08:00]   pending kind=openmeteo_forecast_daily_wind_speed_10m_max x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T13:07:29+08:00]   pending kind=openmeteo_forecast_daily_sunshine_duration x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T13:07:29+08:00]   pending kind=openmeteo_forecast_daily_precipitation_sum x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T13:07:29+08:00]   pending kind=openmeteo_forecast_daily_wind_speed_10m_max x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T13:07:29+08:00]   pending kind=openmeteo_forecast_daily_sunshine_duration x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T13:07:29+08:00]   pending kind=openmeteo_forecast_daily_precipitation_sum x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T13:07:29+08:00]   pending kind=openmeteo_forecast_daily_wind_speed_10m_max x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T13:07:29+08:00]   pending kind=openmeteo_forecast_daily_sunshine_duration x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T13:07:29+08:00]   pending kind=openmeteo_forecast_daily_wind_speed_10m_max x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T13:07:29+08:00]   pending kind=openmeteo_forecast_daily_sunshine_duration x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T13:07:29+08:00]   pending kind=openmeteo_forecast_daily_precipitation_sum x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T13:07:29+08:00]   pending kind=openmeteo_forecast_daily_wind_speed_10m_max x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T13:07:29+08:00]   pending kind=openmeteo_forecast_daily_sunshine_duration x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T13:07:29+08:00]   pending kind=openmeteo_forecast_daily_precipitation_sum x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T13:07:29+08:00]   pending kind=openmeteo_forecast_daily_wind_speed_10m_max x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T13:07:29+08:00]   pending kind=openmeteo_forecast_daily_sunshine_duration x1 due=2026-09-18 — 2026-09-18 尚未到（前瞻事件未发生，不结算）
+[2026-09-18T13:07:29+08:00]   resolved id=1647 kind=openmeteo_wx_daily -> true | Open-Meteo daily.temperature_2m_max 2026-09-17=31.1（阈值 >= 12.6，机检）
+[2026-09-18T13:07:29+08:00]   resolved id=1649 kind=openmeteo_wx_daily -> false | Open-Meteo daily.temperature_2m_min 2026-09-17=21.2（阈值 <= 12.7，机检）
+[2026-09-18T13:07:29+08:00]   resolved id=1651 kind=openmeteo_wx_daily -> true | Open-Meteo daily.precipitation_hours 2026-09-17=3（阈值 >= 2，机检）
+[2026-09-18T13:07:29+08:00]   resolved id=1653 kind=openmeteo_wx_daily -> true | Open-Meteo daily.wind_gusts_10m_max 2026-09-17=32.8（阈值 >= 28.8，机检）
+[2026-09-18T13:07:29+08:00]   resolved id=1655 kind=openmeteo_wx_daily -> true | Open-Meteo daily.temperature_2m_max 2026-09-17=20.5（阈值 >= 12.7，机检）
+[2026-09-18T13:07:29+08:00]   resolved id=1657 kind=openmeteo_wx_daily -> false | Open-Meteo daily.temperature_2m_min 2026-09-17=13（阈值 <= 6.7，机检）
+[2026-09-18T13:07:29+08:00]   resolved id=1659 kind=openmeteo_wx_daily -> true | Open-Meteo daily.precipitation_hours 2026-09-17=7（阈值 >= 1，机检）
+[2026-09-18T13:07:29+08:00]   resolved id=1661 kind=openmeteo_wx_daily -> true | Open-Meteo daily.wind_gusts_10m_max 2026-09-17=46.4（阈值 >= 42.1，机检）
+[2026-09-18T13:07:29+08:00]   resolved id=1663 kind=openmeteo_wx_daily -> false | Open-Meteo daily.temperature_2m_max 2026-09-17=22.2（阈值 >= 23.7，机检）
+[2026-09-18T13:07:29+08:00]   resolved id=1665 kind=openmeteo_wx_daily -> false | Open-Meteo daily.temperature_2m_min 2026-09-17=12.9（阈值 <= 9.7，机检）
+[2026-09-18T13:07:29+08:00]   resolved id=1667 kind=openmeteo_wx_daily -> false | Open-Meteo daily.precipitation_hours 2026-09-17=0（阈值 >= 1，机检）
+[2026-09-18T13:07:29+08:00]   resolved id=1669 kind=openmeteo_wx_daily -> true | Open-Meteo daily.wind_gusts_10m_max 2026-09-17=43.9（阈值 >= 35.6，机检）
+[2026-09-18T13:07:29+08:00]   resolved id=1671 kind=openmeteo_wx_daily -> false | Open-Meteo daily.temperature_2m_max 2026-09-17=24.7（阈值 >= 24.8，机检）
+[2026-09-18T13:07:29+08:00]   resolved id=1673 kind=openmeteo_wx_daily -> false | Open-Meteo daily.temperature_2m_min 2026-09-17=18.8（阈值 <= 8.1，机检）
+[2026-09-18T13:07:29+08:00]   resolved id=1675 kind=openmeteo_wx_daily -> false | Open-Meteo daily.precipitation_hours 2026-09-17=0（阈值 >= 4，机检）
+[2026-09-18T13:07:29+08:00]   resolved id=1677 kind=openmeteo_wx_daily -> true | Open-Meteo daily.wind_gusts_10m_max 2026-09-17=34.6（阈值 >= 32，机检）
+[2026-09-18T13:07:29+08:00]   resolved id=1679 kind=openmeteo_wx_daily -> true | Open-Meteo daily.temperature_2m_max 2026-09-17=27.3（阈值 >= 23.8，机检）
+[2026-09-18T13:07:29+08:00]   resolved id=1681 kind=openmeteo_wx_daily -> false | Open-Meteo daily.temperature_2m_min 2026-09-17=19.7（阈值 <= 15.7，机检）
+[2026-09-18T13:07:29+08:00]   resolved id=1683 kind=openmeteo_wx_daily -> true | Open-Meteo daily.wind_gusts_10m_max 2026-09-17=36（阈值 >= 34.6，机检）
+[2026-09-18T13:07:29+08:00]   resolved id=1685 kind=openmeteo_wx_daily -> true | Open-Meteo daily.temperature_2m_max 2026-09-17=39.2（阈值 >= 34.8，机检）
+[2026-09-18T13:07:29+08:00]   resolved id=1687 kind=openmeteo_wx_daily -> false | Open-Meteo daily.temperature_2m_min 2026-09-17=23.1（阈值 <= 16.6，机检）
+[2026-09-18T13:07:29+08:00]   resolved id=1689 kind=openmeteo_wx_daily -> true | Open-Meteo daily.wind_gusts_10m_max 2026-09-17=42.5（阈值 >= 39.2，机检）
+[2026-09-18T13:07:29+08:00]   resolved id=1691 kind=openmeteo_wx_daily -> false | Open-Meteo daily.temperature_2m_max 2026-09-17=17（阈值 >= 19.3，机检）
+[2026-09-18T13:07:29+08:00]   resolved id=1693 kind=openmeteo_wx_daily -> true | Open-Meteo daily.temperature_2m_min 2026-09-17=7.9（阈值 <= 17.3，机检）
+[2026-09-18T13:07:29+08:00]   resolved id=1695 kind=openmeteo_wx_daily -> false | Open-Meteo daily.precipitation_hours 2026-09-17=0（阈值 >= 1，机检）
+[2026-09-18T13:07:29+08:00]   resolved id=1697 kind=openmeteo_wx_daily -> false | Open-Meteo daily.wind_gusts_10m_max 2026-09-17=41（阈值 >= 45.7，机检）
+[2026-09-18T13:07:29+08:00]   resolved id=1699 kind=openmeteo_wx_daily -> true | Open-Meteo daily.temperature_2m_max 2026-09-17=24（阈值 >= 22.7，机检）
+[2026-09-18T13:07:29+08:00]   resolved id=1701 kind=openmeteo_wx_daily -> false | Open-Meteo daily.temperature_2m_min 2026-09-17=13.7（阈值 <= 11.9，机检）
+[2026-09-18T13:07:29+08:00]   resolved id=1703 kind=openmeteo_wx_daily -> true | Open-Meteo daily.precipitation_hours 2026-09-17=8（阈值 >= 6，机检）
+[2026-09-18T13:07:29+08:00]   resolved id=1705 kind=openmeteo_wx_daily -> true | Open-Meteo daily.wind_gusts_10m_max 2026-09-17=42.5（阈值 >= 37.4，机检）
+[2026-09-18T13:07:29+08:00]   pending kind=noaa_tide_daily_high x1 due=2026-09-18 — 2026-09-18 尚未到
+[2026-09-18T13:07:29+08:00]   pending kind=noaa_tide_daily_high x1 due=2026-09-18 — 2026-09-18 尚未到
+[2026-09-18T13:07:29+08:00]   pending kind=noaa_tide_daily_high x1 due=2026-09-18 — 2026-09-18 尚未到
+[2026-09-18T13:07:29+08:00]   pending kind=noaa_tide_daily_high x1 due=2026-09-18 — 2026-09-18 尚未到
+[2026-09-18T13:07:29+08:00]   pending kind=noaa_tide_daily_high x1 due=2026-09-18 — 2026-09-18 尚未到
+[2026-09-18T13:07:29+08:00]   pending kind=ghcn_daily_tmax x1 due=2026-09-16 — NCEI 尚无 2026-09-16 记录
+[2026-09-18T13:07:29+08:00]   pending kind=ghcn_daily_tmax x1 due=2026-09-16 — NCEI 尚无 2026-09-16 记录
+[2026-09-18T13:07:29+08:00]   pending kind=ghcn_daily_tmax x1 due=2026-09-16 — NCEI 尚无 2026-09-16 记录
+[2026-09-18T13:07:29+08:00]   pending kind=ghcn_daily_tmax x1 due=2026-09-16 — NCEI 尚无 2026-09-16 记录
+[2026-09-18T13:07:29+08:00]   resolved id=1730 kind=energycharts_daily_mean -> false | Energy-Charts fr Nuclear 2026-09-17 均值=37360.2823MW（96 点，满日 96 点·15 分粒度，本地日全窗口口径）（阈值 >= 37978，机检）
+[2026-09-18T13:07:29+08:00]   resolved id=1732 kind=energycharts_daily_mean -> false | Energy-Charts fr Hydro Run-of-River 2026-09-17 均值=1722.2271MW（96 点，满日 96 点·15 分粒度，本地日全窗口口径）（阈值 >= 3577，机检）
+[2026-09-18T13:07:29+08:00]   resolved id=1734 kind=energycharts_daily_mean -> false | Energy-Charts fr Fossil gas 2026-09-17 均值=765.3958MW（96 点，满日 96 点·15 分粒度，本地日全窗口口径）（阈值 >= 1345，机检）
+[2026-09-18T13:07:29+08:00]   resolved id=1736 kind=energycharts_daily_mean -> true | Energy-Charts fr Wind onshore 2026-09-17 均值=5319.6812MW（96 点，满日 96 点·15 分粒度，本地日全窗口口径）（阈值 >= 2824，机检）
+[2026-09-18T13:07:29+08:00]   resolved id=1738 kind=energycharts_daily_mean -> true | Energy-Charts fr Solar 2026-09-17 均值=5070.2698MW（96 点，满日 96 点·15 分粒度，本地日全窗口口径）（阈值 >= 4635，机检）
+[2026-09-18T13:07:29+08:00]   resolved id=1740 kind=energycharts_daily_mean -> true | Energy-Charts fr Load 2026-09-17 均值=43884.9479MW（96 点，满日 96 点·15 分粒度，本地日全窗口口径）（阈值 >= 43151，机检）
+[2026-09-18T13:07:29+08:00]   resolved id=1742 kind=energycharts_daily_mean -> true | Energy-Charts nl Nuclear 2026-09-17 均值=470.2032MW（95 点，满日 96 点·15 分粒度，本地日全窗口口径）（阈值 >= 466，机检）
+[2026-09-18T13:07:29+08:00]   resolved id=1744 kind=energycharts_daily_mean -> false | Energy-Charts nl Fossil gas 2026-09-17 均值=1856.9063MW（95 点，满日 96 点·15 分粒度，本地日全窗口口径）（阈值 >= 3634，机检）
+[2026-09-18T13:07:29+08:00]   resolved id=1746 kind=energycharts_daily_mean -> false | Energy-Charts nl Wind onshore 2026-09-17 均值=499.0463MW（95 点，满日 96 点·15 分粒度，本地日全窗口口径）（阈值 >= 504，机检）
+[2026-09-18T13:07:29+08:00]   resolved id=1748 kind=energycharts_daily_mean -> false | Energy-Charts nl Solar 2026-09-17 均值=22.4053MW（95 点，满日 96 点·15 分粒度，本地日全窗口口径）（阈值 >= 102，机检）
+[2026-09-18T13:07:29+08:00]   resolved id=1750 kind=energycharts_daily_mean -> false | Energy-Charts nl Load 2026-09-17 均值=10547.1396MW（96 点，满日 96 点·15 分粒度，本地日全窗口口径）（阈值 >= 13248，机检）
+[2026-09-18T13:07:29+08:00]   resolved id=1752 kind=energycharts_daily_mean -> true | Energy-Charts es Nuclear 2026-09-17 均值=6974.5000MW（96 点，满日 96 点·15 分粒度，本地日全窗口口径）（阈值 >= 5118，机检）
+[2026-09-18T13:07:29+08:00]   resolved id=1754 kind=energycharts_daily_mean -> false | Energy-Charts es Hydro Run-of-River 2026-09-17 均值=340.2083MW（96 点，满日 96 点·15 分粒度，本地日全窗口口径）（阈值 >= 831，机检）
+[2026-09-18T13:07:29+08:00]   resolved id=1756 kind=energycharts_daily_mean -> true | Energy-Charts es Fossil gas 2026-09-17 均值=5287.6250MW（96 点，满日 96 点·15 分粒度，本地日全窗口口径）（阈值 >= 4757，机检）
+[2026-09-18T13:07:29+08:00]   resolved id=1758 kind=energycharts_daily_mean -> true | Energy-Charts es Wind onshore 2026-09-17 均值=6704.2917MW（96 点，满日 96 点·15 分粒度，本地日全窗口口径）（阈值 >= 3511，机检）
+[2026-09-18T13:07:29+08:00]   resolved id=1760 kind=energycharts_daily_mean -> true | Energy-Charts es Solar 2026-09-17 均值=9021.8333MW（96 点，满日 96 点·15 分粒度，本地日全窗口口径）（阈值 >= 8958，机检）
+[2026-09-18T13:07:29+08:00]   resolved id=1762 kind=energycharts_daily_mean -> false | Energy-Charts es Load 2026-09-17 均值=28465.0417MW（96 点，满日 96 点·15 分粒度，本地日全窗口口径）（阈值 >= 28502，机检）
+[2026-09-18T13:07:29+08:00]   resolved id=1764 kind=energycharts_daily_mean -> false | Energy-Charts it Hydro Run-of-River 2026-09-17 均值=2384.4896MW（96 点，满日 96 点·15 分粒度，本地日全窗口口径）（阈值 >= 2707，机检）
+[2026-09-18T13:07:29+08:00]   resolved id=1766 kind=energycharts_daily_mean -> true | Energy-Charts it Fossil gas 2026-09-17 均值=15439.5208MW（96 点，满日 96 点·15 分粒度，本地日全窗口口径）（阈值 >= 13940，机检）
+[2026-09-18T13:07:29+08:00]   resolved id=1768 kind=energycharts_daily_mean -> true | Energy-Charts it Wind onshore 2026-09-17 均值=2191.6458MW（96 点，满日 96 点·15 分粒度，本地日全窗口口径）（阈值 >= 1423，机检）
+[2026-09-18T13:07:29+08:00]   resolved id=1770 kind=energycharts_daily_mean -> false | Energy-Charts it Solar 2026-09-17 均值=4251.8750MW（96 点，满日 96 点·15 分粒度，本地日全窗口口径）（阈值 >= 5634，机检）
+[2026-09-18T13:07:29+08:00]   resolved id=1772 kind=energycharts_daily_mean -> true | Energy-Charts it Load 2026-09-17 均值=34875.7368MW（95 点，满日 96 点·15 分粒度，本地日全窗口口径）（阈值 >= 32460，机检）
+[2026-09-18T13:07:29+08:00]   resolved id=1774 kind=energycharts_daily_mean -> false | Energy-Charts at Hydro Run-of-River 2026-09-17 均值=2314.7167MW（96 点，满日 96 点·15 分粒度，本地日全窗口口径）（阈值 >= 2754，机检）
+[2026-09-18T13:07:29+08:00]   resolved id=1776 kind=energycharts_daily_mean -> true | Energy-Charts at Fossil gas 2026-09-17 均值=304.5875MW（96 点，满日 96 点·15 分粒度，本地日全窗口口径）（阈值 >= 227，机检）
+[2026-09-18T13:07:29+08:00]   resolved id=1778 kind=energycharts_daily_mean -> true | Energy-Charts at Wind onshore 2026-09-17 均值=800.3333MW（96 点，满日 96 点·15 分粒度，本地日全窗口口径）（阈值 >= 646，机检）
+[2026-09-18T13:07:29+08:00]   resolved id=1780 kind=energycharts_daily_mean -> false | Energy-Charts at Solar 2026-09-17 均值=499.8750MW（96 点，满日 96 点·15 分粒度，本地日全窗口口径）（阈值 >= 1010，机检）
+[2026-09-18T13:07:29+08:00]   resolved id=1782 kind=energycharts_daily_mean -> true | Energy-Charts at Load 2026-09-17 均值=6763.6958MW（96 点，满日 96 点·15 分粒度，本地日全窗口口径）（阈值 >= 6391，机检）
+[2026-09-18T13:07:29+08:00]   resolved id=1784 kind=energycharts_daily_mean -> false | Energy-Charts be Hydro Run-of-River 2026-09-17 均值=0.0000MW（24 点，满日 24 点·60 分粒度，本地日全窗口口径）（阈值 >= 13，机检）
+[2026-09-18T13:07:29+08:00]   resolved id=1786 kind=energycharts_daily_mean -> false | Energy-Charts be Fossil gas 2026-09-17 均值=1184.1750MW（24 点，满日 24 点·60 分粒度，本地日全窗口口径）（阈值 >= 1313，机检）
+[2026-09-18T13:07:29+08:00]   resolved id=1788 kind=energycharts_daily_mean -> true | Energy-Charts be Wind onshore 2026-09-17 均值=1146.4958MW（24 点，满日 24 点·60 分粒度，本地日全窗口口径）（阈值 >= 361，机检）
+[2026-09-18T13:07:29+08:00]   resolved id=1790 kind=energycharts_daily_mean -> false | Energy-Charts be Solar 2026-09-17 均值=941.6708MW（24 点，满日 24 点·60 分粒度，本地日全窗口口径）（阈值 >= 1690，机检）
+[2026-09-18T13:07:29+08:00]   resolved id=1792 kind=energycharts_daily_mean -> true | Energy-Charts be Load 2026-09-17 均值=9370.6917MW（24 点，满日 24 点·60 分粒度，本地日全窗口口径）（阈值 >= 8760，机检）
+[2026-09-18T13:07:29+08:00]   pending(预筛) kind=frankfurter_rate_range x1 due=2026-09-17 — ECB 发布窗口 2026-09-17~2026-09-24 尚未走完（接口对未来区间 404）
+[2026-09-18T13:07:29+08:00]   pending(预筛) kind=frankfurter_rate_range x1 due=2026-09-17 — ECB 发布窗口 2026-09-17~2026-09-24 尚未走完（接口对未来区间 404）
+[2026-09-18T13:07:29+08:00]   pending(预筛) kind=frankfurter_rate_range x1 due=2026-09-17 — ECB 发布窗口 2026-09-17~2026-09-24 尚未走完（接口对未来区间 404）
+[2026-09-18T13:07:29+08:00]   pending(预筛) kind=frankfurter_rate_range x1 due=2026-09-17 — ECB 发布窗口 2026-09-17~2026-09-24 尚未走完（接口对未来区间 404）
+[2026-09-18T13:07:29+08:00]   pending kind=noaa_gml_co2_daily x1 due=2026-09-17 — NOAA GML 无 2026-09-17 日值
+[2026-09-18T13:07:29+08:00]   pending kind=kraken_daily_close x1 due=2026-09-18 — 2026-09-18 尚未到（UTC 日未收盘）
+[2026-09-18T13:07:29+08:00]   pending kind=kraken_daily_close x1 due=2026-09-18 — 2026-09-18 尚未到（UTC 日未收盘）
+[2026-09-18T13:07:29+08:00]   pending kind=kraken_daily_close x1 due=2026-09-18 — 2026-09-18 尚未到（UTC 日未收盘）
+[2026-09-18T13:07:29+08:00]   pending kind=kraken_daily_close x1 due=2026-09-18 — 2026-09-18 尚未到（UTC 日未收盘）
+[2026-09-18T13:07:29+08:00]   pending kind=kraken_daily_close x1 due=2026-09-18 — 2026-09-18 尚未到（UTC 日未收盘）
+[2026-09-18T13:07:29+08:00]   pending kind=kraken_daily_close x1 due=2026-09-18 — 2026-09-18 尚未到（UTC 日未收盘）
+[2026-09-18T13:07:29+08:00]   fetch-fail kind=npm_downloads_window x1 — Failed to parse URL from （跳过不写）
+[2026-09-18T13:07:29+08:00]   fetch-fail kind=npm_downloads_window x1 — Failed to parse URL from （跳过不写）
+[2026-09-18T13:07:29+08:00]   fetch-fail kind=npm_downloads_window x1 — Failed to parse URL from （跳过不写）
+[2026-09-18T13:07:29+08:00]   fetch-fail kind=npm_downloads_window x1 — Failed to parse URL from （跳过不写）
+[2026-09-18T13:07:29+08:00]   pending kind=mlb_schedule_daily_total_runs x1 due=2026-09-18 — 2026-09-18 尚未到
+[2026-09-18T13:07:29+08:00]   pending kind=elexon_fuelhh_daily_mean x1 due=2026-09-18 — 2026-09-18 尚未到
+[2026-09-18T13:07:29+08:00]   pending kind=elexon_fuelhh_daily_mean x1 due=2026-09-18 — 2026-09-18 尚未到
+[2026-09-18T13:07:29+08:00] round#1 用时 32.1s | 未解总数=505 到期选中=132 唯一真值请求=132（台账重复合并 0） | resolved=66 pending=58（含预筛 7） fail=8 refused=0／同结论并发=0 口径护栏=8 unsupported=0 未到期跳过=312 无法定到期=53 wouldWrite=0 实打网=55
+[2026-09-18T13:07:29+08:00]   取数失败明细 {"fetch-fail:dlt_draw_result:HTTP 567":4,"fetch-fail:npm_downloads_window:Failed to parse URL from ":4}

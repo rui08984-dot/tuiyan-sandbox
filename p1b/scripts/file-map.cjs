@@ -63,12 +63,26 @@ const SKIP_DIRS = new Set(['node_modules', '.git', 'dist', '.tmp', '_session_ext
 const EXT_OK = /\.(md|json|cjs|mjs|js|txt|log|out|db|bat|cmd|ps1)$/i;
 const SKIP_FILE = /^(p1a-bd3-backup|p1a-multidev|package-lock\.json)/;
 
+// ★二进制守卫（2026-09-18 修）：`readFileSync(p,'utf8')` 对二进制**不抛错**——非法字节被静默替换成 U+FFFD，
+//   于是 `.db` 的 SQLite 头（含 NUL）被当成「一句话」写进地图 ⇒ 生成物含 NUL/控制字符
+//   （实测：`p1b/test/fixtures/stage4-golden-db-20260917.db` 那一行 ⇒ 文件对 grep/编辑器/Edit 类工具变「二进制」）。
+//   ⇒ 判据下移到**字节层**：前 8KB 出现 NUL 即视为二进制，不抽句。
+function isBinary(buf) {
+  const n = Math.min(buf.length, 8192);
+  for (let i = 0; i < n; i++) if (buf[i] === 0) return true;
+  return false;
+}
+// ★出口兜底：任何进入地图的文本行都不得含 C0 控制字符（NUL 等）——防未来再有二进制/异常字节泄漏。
+function sanitize(s) {
+  return String(s).replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, '�');
+}
 function headline(p) {
   if (OVERRIDE[p]) return OVERRIDE[p];
   let t = '';
   try {
-    const raw = fs.readFileSync(path.join(ROOT, p), 'utf8');
-    t = raw.split(/\r?\n/).slice(0, 30).join('\n');
+    const buf = fs.readFileSync(path.join(ROOT, p));
+    if (isBinary(buf)) return '（二进制体：不抽句；随目录级列出）';
+    t = buf.toString('utf8').split(/\r?\n/).slice(0, 30).join('\n');
   } catch (e) { return '（不可读/二进制）'; }
   const lines = t.split('\n');
   for (let s of lines) {
@@ -166,6 +180,8 @@ md.push('- `p1b/web/`（前端源码与 dist 构建）、`tools/`、`scripts/` �
 md.push('');
 md.push('（§10 完 · 2026-09-14 深夜 · 生成器 `p1b/scripts/file-map.cjs` · 计数：共 ' + (all.length + plans.length + ho.length + fd.length + src.length + sc.length + te.length + so.length) + ' 件在列）');
 
-const text = md.join('\n');
+const text = md.map(sanitize).join('\n');
+// ★自检（写盘前）：生成物不得含 NUL —— 违反即硬失败，禁把二进制泄漏写进仓库文件。
+if (/\u0000/.test(text)) { console.error('[file-map] 生成物含 NUL ⇒ exit 3（防二进制泄漏；见 headline 的 isBinary 守卫）'); process.exit(3); }
 if (STDOUT || !OUT) console.log(text);
 else { fs.writeFileSync(path.resolve(OUT), text + '\n', 'utf8'); console.log('[file-map] -> ' + OUT + ' (' + text.split('\n').length + ' 行)'); }

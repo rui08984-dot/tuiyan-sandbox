@@ -1,0 +1,7 @@
+[snap] src=E:\music player\p1a-terminal\data\p1a.db
+[snap] out=.scratch/p25/p1a-baseline-resolve-20260918.db
+[snap] bytes=6033408｜sha256=33b899258ff26901…
+[snap] rows(src)={"predictions":1992,"verdicts":5156,"truth_vault":1992,"games":88,"events":556,"claims":447}
+[snap] rows(snap)={"predictions":1992,"verdicts":5156,"truth_vault":1992,"games":88,"events":556,"claims":447}
+[snap] integrity=ok｜row_counts_match=true
+[snap] full sha256=33b899258ff269010286269c927582b60fc0af8457dc64e9571c6a384d1aaa85

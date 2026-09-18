@@ -1,0 +1,364 @@
+## §10 文件全图（2026-09-18 刷新 · 由 `p1b/scripts/file-map.cjs` 生成，勿手改）
+
+> 目标（用户令）：「目录一样，每个相关文件路径都在里面，还说是是什么」。
+> 生成命令：`node p1b/scripts/file-map.cjs --out …`；跳过依赖/构建/媒体目录与 `.db` 快照体（只列目录级）。
+
+### 根目录（4）
+
+- `AGENTS.md` —— 工作区指令＋代码地图（dsh-openwolf 生成）
+- `项目全资源地图-20260914.md` —— **本文件**：项目总索引（§0 一分钟现状 → 各期现状节〔顺序追加；最新＝最大编号节，以该节为准〕→ 末节 §10 文件全图）
+- `AI音乐电台账号调研与执行方案.md` —— 私人 AI 音乐电台：账号调研与 30 天执行方案
+- `电台执行手册-整理版.md` —— AI 音乐电台 · 一页执行手册（整理版 2026-09-03）
+
+### docs/specs（规格·报告·判据）（45）
+
+- `docs/specs/19号裁剪授权-执行记录-20260916.md` —— ⑤ 19 号裁剪授权 · 执行记录（2026-09-16 · 照单执行）
+- `docs/specs/2026-09-07-P0盲测协议.md` —— P0 回放盲测协议 v1
+- `docs/specs/2026-09-07-推演沙盘-design.md` —— AI 推演沙盘 — 需求与设计方案 v3.0（对抗审查修订版·整理版）
+- `docs/specs/2026-09-11-万物可预测性审计器-design.md` —— 权威设计：六层分类＋G2 门禁（R4 系列）＋接题层 §8
+- `docs/specs/2026-09-11-全拟真模拟-design.md` —— 全拟真对局模拟 · 设计文档 v1.0（2026-09-11）
+- `docs/specs/2026-09-12-多日局模拟-design.md` —— 多日局模拟 · 设计文档 v1.0（2026-09-12）
+- `docs/specs/2026-09-15-前端观测台重构-design.md` —— 推演沙盘 · 前端「观测台」重构设计 v1（2026-09-15）
+- `docs/specs/A6-校准报告发布纪律-20260916.md` —— A6 · 校准报告发布纪律（v1 · 2026-09-16）
+- `docs/specs/A7-经济副线-nowcast立项-brief-v1-20260916.md` —— A7 · 经济副线（nowcast 桥接式）立项 brief v1（2026-09-16 稿 · **2026-09-17 冻结**）
+- `docs/specs/D2立项-brief-v1-20260915.md` —— D2 历史回测引擎 · 立项 brief（v1 · 2026-09-15）
+- `docs/specs/G1实测报告-20260914.md` —— G1 实测报告（2026-09-14 · 代理代跑 · 用户授权）
+- `docs/specs/G1实测清单-20260914.md` —— G1 本机实测清单（2026-09-14 · 队长起草 · 用户本人执行）
+- `docs/specs/Metaculus对表方案-20260914.md` —— Metaculus 对表方案（2026-09-14 · P4）
+- `docs/specs/README-总索引.md` —— 文档总导航（权威层级＋§4.5 施工产物）
+- `docs/specs/UI重构方案-20260914.md` —— P1b 界面重构方案 v1（2026-09-14）
+- `docs/specs/kind-目录表.md` —— **kind 目录表**（生成件；`p1b/scripts/kind-table.cjs`；权威计数＝该表表头所列）
+- `docs/specs/sim-templates-v2-题源设计.md` —— sim 模板库 v2 · R-B 题源设计（设计棒微步1 · 2026-09-12）
+- `docs/specs/万物分类清单-v1.md` —— 万物分类清单 v1（checklist_hash=v1 · 冻结 2026-09-11）
+- `docs/specs/万物分类清单-v2.md` —— 万物分类清单 v2（checklist_hash=v2 · 冻结 2026-09-12）
+- `docs/specs/专家会阅读包-文件清单-20260913.md` —— 专家会阅读包 · 文件清单（2026-09-13）
+- `docs/specs/决策brief-月度年度resolve.date口径-20260914.md` —— 决策 brief · 月度/年度题的 `resolve.date` 口径（2026-09-14 · 队长拟，待用户拍板）
+- `docs/specs/前瞻多点铺量-冲刺计划-20260912.md` —— 前瞻多点铺量 · 10-15 天冲刺计划（2026-09-12 晚 · 队长亲笔）
+- `docs/specs/历史回测引擎-规格D2-20260913.md` —— D2 回测引擎规格（F4/防泄漏判据）
+- `docs/specs/参数表-人话版-v1.md` —— 环境变量/CLI 参数表（批次 2）
+- `docs/specs/双链统一-验收收据-20260914.md` —— 双链统一 · 验收收据（2026-09-14）
+- `docs/specs/变更留痕索引-20260912.md` —— 变更留痕（每批一节，含 commit；节号连续递增，权威＝文内末节）
+- `docs/specs/命题A-全量消融判定报告-20260914.md` —— 命题 A 判定（负结果止发维持）
+- `docs/specs/待办队列与派单排程-20260912.md` —— 待办队列与派单排程（2026-09-12 晚 · 队长亲笔）
+- `docs/specs/推演沙盘-终极路线图-20260913.md` —— 阶段 0–5 全图（宏观）
+- `docs/specs/施工路径与耗时-最终版-20260913.md` —— 施工路径与耗时 · 最终版（2026-09-13 深夜）
+- `docs/specs/第二期广域普查-体育赔率接入草案-20260917.md` —— 第二期广域普查 · 体育赔率接入草案 v1（2026-09-17 · 终裁⑦优先项）
+- `docs/specs/简化重构方案-v1.md` —— 任务 6 清单（B1-1…B1-6）
+- `docs/specs/红队R1-框架审查-20260913.md` —— 红队 R1 · 整体框架与研究方向审查（2026-09-13）
+- `docs/specs/红队R2-复核-20260913.md` —— 红队 R2 · 对抗复核报告（2026-09-13）
+- `docs/specs/红队R3-复盘与决策清单-20260913.md` —— 红队 R3 · 复盘与决策清单（2026-09-13 · 用户确认改为「清单式复盘」）
+- `docs/specs/讨论汇总与实施路线-20260913.md` —— 讨论汇总与实施路线（2026-09-12/13 对话全记录）
+- `docs/specs/语料库历史回填-加速计划-20260912.md` —— 语料库历史回填 · 加速计划（2026-09-12 晚 · 队长亲笔）
+- `docs/specs/语料库扩展-公开数据源勘察-20260913.md` —— 语料库扩展 · 公开数据源勘察（非对局题源 · 2026-09-13）
+- `docs/specs/通俗说明-这套干什么怎么用-v1.md` —— 任务 5 交付件（用户已验收）
+- `docs/specs/阶段4-分层真跑报告-20260914.md` —— 阶段 4 分层真跑报告（含 §六 L5 追加）
+- `docs/specs/阶段4-增量问题-决策brief-v1.md` —— 阶段 4 增量问题 · 决策 brief v1（2026-09-14 · 待用户拍板）
+- `docs/specs/阶段5-功能映射表与信号源勘察-20260915.md` —— 阶段 5 裁决落盘（2026-09-15）：铁律④选(b) 实验臂声明＋功能映射表＋信号源勘察（29 主机/52 kind）
+- `docs/specs/阶段5-检索可行性勘察-20260915.md` —— 阶段 5 · 检索可行性勘察（2026-09-15 · **v2 更正版**）
+- `docs/specs/阶段5-检索式预测-立项书-v1.1.md` —— 阶段 5 立项书（评审后修订；待用户拍板）
+- `docs/specs/阶段5-立项评审-检索式预测-20260914.md` —— 阶段 5 独立评审（16 发现/8 必改）
+
+### docs/plans 与 docs/sandbox/p1b/itest（计划与进度锚）（178）
+
+- `docs/sandbox/p1b/itest/`（154 件）—— 代表件 `_p7_fixer.cjs`：const fs = require("fs");；进度锚 p7–p22 为长项目锚（**最新 p19/p20+** 见本目录）
+- `docs/plans/2026-09-14-通往最终目标-分步实施计划.md` —— 三幕七任务实施计划（任务 6 批次 3 ✅）
+- `docs/plans/2026-09-15-前端观测台重构.md` —— 前端「观测台」重构 · 实施计划
+- `docs/plans/2026-09-16-预测万物v3.1-推进计划.md` —— 预测万物 v3.1 · 推进计划（2026-09-16）
+- `docs/sandbox/p1b/itest/itest-log.md` —— P1b-3 录入页集成实测 2026-09-08 15:16:01  (backend :8787, P1B_LLM_MOCK=1)
+- `docs/sandbox/p1b/itest/p10-PROGRESS.md` —— p10-PROGRESS · 第十棒 W1：预测卡 L0 基建（②类校准线首件）
+- `docs/sandbox/p1b/itest/p11-PROGRESS.md` —— p11-PROGRESS（N 棒 · 自对局 loop 冒烟 M0）｜ 2026-09-11
+- `docs/sandbox/p1b/itest/p13-PROGRESS.md` —— p13-PROGRESS · P0 修复 批次0+批次0.5（施工棒 · 微步1）
+- `docs/sandbox/p1b/itest/p15-PROGRESS.md` —— p15-PROGRESS · 批次1-M1+M2 · A1 三件套收口（施工棒）
+- `docs/sandbox/p1b/itest/p16-PROGRESS.md` —— p16-PROGRESS · 批次 2 门禁与流程口径（施工棒）
+- `docs/sandbox/p1b/itest/p17-PROGRESS.md` —— p17-PROGRESS · 判词修复 2.0 + R-C 实验 M1（施工棒）
+- `docs/sandbox/p1b/itest/p18-PROGRESS.md` —— p18-PROGRESS · G1 反馈施工棒：排盘解读 + 卡详情修复 + 审计器仪表盘（微步 M1/M2）
+- `docs/sandbox/p1b/itest/p19-ANCHOR-INDEX.md` —— p19-PROGRESS · 索引（倒序：**最新在前** · 生成 2026-09-17）
+- `docs/sandbox/p1b/itest/p19-PROGRESS.md` —— 阶段 2 开工 · 施工台账（2026-09-13 晚 · 队长自营）
+- `docs/sandbox/p1b/itest/p20-PROGRESS.md` —— p20-PROGRESS · 审计页补「预测画面」雏形（待解前瞻 + 分层校准）
+- `docs/sandbox/p1b/itest/p21-PROGRESS.md` —— p21 进度锚 —— UI 通用化改造：游戏类型动态化（后端驱动）
+- `docs/sandbox/p1b/itest/p22-PROGRESS.md` —— p22-PROGRESS —— 审计页交互改造：数据堆砌 → 三层递进（p1b/web / #/audit）
+- `docs/sandbox/p1b/itest/p23-P0施工-PROGRESS.md` —— p23-P0施工 · 进度锚（2026-09-16）
+- `docs/sandbox/p1b/itest/p24-蓝图推进-PROGRESS.md` —— p24 · 蓝图推进 · 进度锚（2026-09-17 立）
+- `docs/sandbox/p1b/itest/p25-例行结算-20260918-PROGRESS.md` —— p25 · 到期题例行结算（2026-09-18）· 进度锚
+- `docs/sandbox/p1b/itest/p5-integration-report.md` —— P1b-5 集成实测报告（2026-09-08 · 收尾棒）
+- `docs/sandbox/p1b/itest/p5-手机实测指引.md` —— 手机实测指引（P1b-5 · 2026-09-08）
+- `docs/sandbox/p1b/itest/p7-PROGRESS.md` —— P7 收尾进度锚（第四棒）
+- `docs/sandbox/p1b/itest/p8-PROGRESS.md` —— P8 玄学化判词·进度锚（第七棒 W1 后端）
+- `docs/sandbox/p1b/itest/p9-PROGRESS.md` —— P9 玄学排盘正经化·进度锚（第八棒 W1 后端扩展，已收口 2026-09-10）
+
+### *.scratch/handoff（交接链，最新入口在末行）（18）
+
+- `.scratch/handoff/推演沙盘-2026-09-07.md` —— 交接文档：AI 推演沙盘（2026-09-07）
+- `.scratch/handoff/推演沙盘-P1b-2026-09-08.md` —— 推演沙盘 P1b 施工交接（2026-09-08 深夜 · 会话崩溃后）
+- `.scratch/handoff/推演沙盘-交接-20260911-新会话续作.md` —— 推演沙盘 · 新会话续作交接（2026-09-11 上午，DSH 后台代理系统故障→开新对话）
+- `.scratch/handoff/推演沙盘-交接-20260911-晚.md` —— 推演沙盘 · 交接（2026-09-11 晚 · 全景版）
+- `.scratch/handoff/推演沙盘-交接-20260913-晚.md` —— 推演沙盘 · 交接（2026-09-13 · ZCode 续作会话收官 · 阶段 1 判词路终判收口）
+- `.scratch/handoff/推演沙盘-交接-20260913-深夜.md` —— 推演沙盘 · 交接（2026-09-13 深夜 · 主动换班 · 新对话续作入口）
+- `.scratch/handoff/推演沙盘-交接-20260913.md` —— 推演沙盘 · 交接（2026-09-13 · 新对话续作入口 · 队长亲笔）
+- `.scratch/handoff/推演沙盘-交接-20260914-凌晨.md` —— 推演沙盘 · 交接（2026-09-14 凌晨 · 主动换班·跑批跨夜续作 · 新对话续作入口）
+- `.scratch/handoff/推演沙盘-交接-20260914-晚-结案.md` —— 推演沙盘 · 交接（2026-09-14 晚 · **结案版**）
+- `.scratch/handoff/推演沙盘-交接-20260914-深夜-批次3.md` —— **最新唯一入口**（覆盖此前全部交接链）
+- `.scratch/handoff/推演沙盘-交接-20260915-晚.md` —— 推演沙盘 · 交接（2026-09-15 晚 · 阶段 5 (b) 达标 ＋ D2 全链落地 ＋ C 线补量 ＋ 阶段 2 跨天数 · **新对话续作入口**）
+- `.scratch/handoff/推演沙盘-交接-20260916-深夜-施工落地.md` —— 推演沙盘 · 交接（2026-09-16 深夜 · 施工落地棒收口 · 新对话续作入口）
+- `.scratch/handoff/推演沙盘-交接-20260916-深夜.md` —— 推演沙盘 · 交接（2026-09-16 深夜 · 第三轮研讨会收官＋v3.1 大升级蓝图待终裁 · 新对话续作入口）
+- `.scratch/handoff/推演沙盘-交接-20260917-终态.md` —— 推演沙盘 · 交接（2026-09-17 · v3.1 第 1 期施工终态 ＋ E1/E2 前置全景 · 新对话续作入口）
+- `.scratch/handoff/推演沙盘-总交接-20260909.md` —— 推演沙盘 · 总交接（2026-09-09 傍晚，本会话装不下→换新会话）
+- `.scratch/handoff/推演沙盘-日结-20260910-晚.md` —— 推演沙盘 · 日结交接（2026-09-10 晚，用户关机前落盘）
+- `.scratch/handoff/推演沙盘-日结-20260911.md` —— 推演沙盘 · 日结 2026-09-11（预测线全链闭合日）
+- `.scratch/handoff/推演沙盘-日结-20260913-晨.md` —— 推演沙盘 · 夜间日结（2026-09-13 晨 · 队长亲笔 · 用户睡眠期自主推进）
+
+### .scratch/forecast-debate（研究档案/PREREG/实验报告）（252）
+
+- `.scratch/forecast-debate/`（51 件）—— 代表件 `_acr2-cachekeys.cjs`：const fs = require('fs');
+- `.scratch/forecast-debate/prereg-a/`（76 件）—— 代表件 `manifest-preregA-20260913.json`："tag": "preregA-20260913",
+- `.scratch/forecast-debate/A-学术调研.md` —— A-学术调研（A 棒）· 预测科学三回合微步
+- `.scratch/forecast-debate/B-泼冷水.md` —— B · 泼冷水报告：对「AI/LLM 通用预测未来」的最强反方论证
+- `.scratch/forecast-debate/C-创新.md` —— C 棒产出：锚定家底的「可验证预测能力」开放创新
+- `.scratch/forecast-debate/D-裁决.md` —— D·对撞裁决（认知探索小队收官 · 2026-09-10）
+- `.scratch/forecast-debate/E-算法工具箱.md` —— E·算法结构工具箱（E 棒产出 · 2026-09-11）
+- `.scratch/forecast-debate/E2-R1-规则版-v1-冻结件-20260917.md` —— E2 · R1 规则版 v1（**冻结件**）
+- `.scratch/forecast-debate/F-算法陷阱清单.md` —— F·预测算法通用陷阱与失效模式清单（F 棒产出）
+- `.scratch/forecast-debate/G-合并.md` —— G·预测线算法总装（G 合并 · 队长亲笔 2026-09-11）
+- `.scratch/forecast-debate/H-发散收敛架构.md` —— H·发散-收敛架构（H2 棒产出 · 预测卡 L0 线）
+- `.scratch/forecast-debate/I-T1复测-2026.md` —— I · T1 观察窗 2026 复测（I 棒 · ②类校准线年度复测件）
+- `.scratch/forecast-debate/L-真实对局数据源清单.md` —— L · 真实对局数据源勘察清单（L 棒 · L0 校准线弹药库）
+- `.scratch/forecast-debate/M-全拟真模拟方案.md` —— M-全拟真模拟方案（M 棒 · 单回合设计 · 2026-09-11）
+- `.scratch/forecast-debate/PREREG-9臂解耦-v1.md` —— PREREG · 9 臂解耦实验（3 变体 × 3 温度 ＋ 同批重复对照臂）· v1
+- `.scratch/forecast-debate/PREREG-D2-HB-v1.1-补充与勘误.md` —— PREREG · D2-HB 层级贝叶斯部分池化 · v1.1 补充与勘误
+- `.scratch/forecast-debate/PREREG-D2-HB-v1.md` —— PREREG · D2-HB 层级贝叶斯部分池化 · v1（**待冻结**）
+- `.scratch/forecast-debate/PREREG-D2-历史回测引擎-v1.1-补充与勘误.md` —— PREREG · D2 历史回测引擎 · v1.1 补充与勘误
+- `.scratch/forecast-debate/PREREG-D2-历史回测引擎-v1.md` —— PREREG · D2 历史回测引擎 · v1（**待冻结**）
+- `.scratch/forecast-debate/PREREG-E2-路由分配-v1.1-补充与勘误-20260917.md` —— PREREG · E2 路由分配 v1.1 补充与勘误（2026-09-17 · **已冻结**）
+- `.scratch/forecast-debate/PREREG-E2-路由分配-v1.md` —— PREREG · E2 路由分配 v1（**已冻结** · 2026-09-16 · 用户终裁④「按推荐」＝立项）
+- `.scratch/forecast-debate/PREREG-RB-v1-待确认.md` —— PREREG-RB · 信息价值实验 v1（**已冻结** 2026-09-12 深夜 · 队长亲读批准：分题型 b(1−b) 下限对照方向保守、L1 carve-out=0.5 采纳裁定、合并条款对齐 T1 通道、…
+- `.scratch/forecast-debate/PREREG-RC-v1-待确认.md` —— PREREG-RC · 判词修复 2.0 实验 v1（**已冻结** 2026-09-13 · 队长亲读批准：单变量声明干净/proc_calc 剥离正确/配对锚与禁混宣称条款到位 · 冻结 commit 时按协议重…
+- `.scratch/forecast-debate/PREREG-判词重跑-v1.md` —— PREREG · 判词重跑 v1（**已冻结** 2026-09-12 · 授权=用户令「推进施行吧」对 R-A/R-B 拆分的拍板 · 全文透明出示无异议 · 冻结 commit 时按下方协议重算 sha256 并…
+- `.scratch/forecast-debate/PREREG-命题A-3.0消融-v1.1-补漏档位-addendum.md` —— PREREG-命题A-3.0消融 · v1.1 增补条款（补漏档位＋敏感性核对）
+- `.scratch/forecast-debate/PREREG-命题A-3.0消融-v1.md` —— PREREG 冻结件（sha 5d6907d1；改动＝版本递进）
+- `.scratch/forecast-debate/PREREG-检索式预测-v1-骨架.md` —— 阶段 5 PREREG 骨架（**未冻结**；2026-09-15 已填裁决要点＋谓词计数＋N_min=256）
+- `.scratch/forecast-debate/PREREG-阶段5-前瞻数值信号-v1.1-补充与勘误.md` —— PREREG-阶段5-前瞻数值信号 · v1.1 补充与勘误
+- `.scratch/forecast-debate/PREREG-阶段5-前瞻数值信号-v1.md` —— PREREG · 阶段 5 路线 (b)「前瞻数值信号」 · v1
+- `.scratch/forecast-debate/PREREG附件A-检索式预测-提示词-v1-草案.md` —— 阶段 5 提示词全文附件（LLM 出证据行、不出概率；冻结时写 sha）
+- `.scratch/forecast-debate/README-研究档案索引.md` —— 研究档案索引（.scratch/forecast-debate/）
+- `.scratch/forecast-debate/S1-消毒修复规划.md` —— S1 · 消毒修复规划（红队 A/B 11 发现 → 可拍板方案）
+- `.scratch/forecast-debate/S2-泛化创新想法集.md` —— S2·泛化创新想法集（S2 棒 · 2026-09-11）
+- `.scratch/forecast-debate/S2续集-Gemini增量设计.md` —— S2 续集 · Gemini 增量转可证伪设计（设计棒 · 2026-09-12）
+- `.scratch/forecast-debate/acr-一期报告-20260912.md` —— ACR 抗投毒鲁棒性实验 · 一期报告（机械层 · 零 LLM）
+- `.scratch/forecast-debate/acr-二期报告-20260912.md` —— ACR 抗投毒鲁棒性实验 · 二期报告（LLM 层 · 参谋卡 P_win/P_vote 漂移）
+- `.scratch/forecast-debate/decouple9/_patch-handoff.cjs` —— 一次性维护脚本：交接件原位更新（追加 §19 ＋ 同步 §1 指针 / §0 全局行 / 尾行）
+- `.scratch/forecast-debate/decouple9/_patch-index.cjs` —— 一次性维护脚本（修正版）：把（十九）批块登记进 p19 倒序索引
+- `.scratch/forecast-debate/decouple9/db-fingerprint-after-run.json` —— "predictions": {
+- `.scratch/forecast-debate/decouple9/db-fingerprint-during-run.json` —— "predictions": {
+- `.scratch/forecast-debate/decouple9/fp-resolve-before.json` —— "predictions": {
+- `.scratch/forecast-debate/decouple9/p1a-baseline-decouple9promote.db` —— （二进制体：不抽句；随目录级列出）
+- `.scratch/forecast-debate/decouple9/run-state-main.json` —— "tag": "main",
+- `.scratch/forecast-debate/decouple9/run-state-main1.json` —— "tag": "main1",
+- `.scratch/forecast-debate/decouple9/run-state-main2.json` —— "tag": "main2",
+- `.scratch/forecast-debate/decouple9/run-state-retryfix.json` —— "tag": "retryfix",
+- `.scratch/forecast-debate/decouple9/run-state-retryfix2.json` —— "tag": "retryfix2",
+- `.scratch/forecast-debate/decouple9/smoke-report.json` —— "script": "p1b/scripts/decouple9-run.cjs",
+- `.scratch/forecast-debate/p12-PROGRESS.md` —— P12 · 万物审计器 MVP-A · 微步 1 进度（2026-09-11）
+- `.scratch/forecast-debate/p14-PROGRESS.md` —— P14 · sim 模板库 v2 扩建 + R-B 题源设计（设计棒 · 微步1 · 2026-09-12）
+- `.scratch/forecast-debate/prereg-a/PAUSE-RESUME-20260914.md` —— 补漏跑批 · 暂停与续跑交接（2026-09-14 凌晨 · 用户令暂停，剩余明天跑）
+- `.scratch/forecast-debate/prereg-a/RUN-HARNESS-GAP.md` —— 命题 A 消融 · 跑批 harness 缺口登记（2026-09-13 · 批次 4 第三步开工侦察）
+- `.scratch/forecast-debate/prereg-a/SHUTDOWN-HANDOFF.md` —— 命题 A 全量跑批 · 关机交接与续跑指令（2026-09-14 晚）
+- `.scratch/forecast-debate/rb-attribution-诊断-20260913.md` —— R-B 负结果归因诊断 · C2 账本证据信号检验（零 LLM · 只读 · 探索性 · 2026-09-13）
+- `.scratch/forecast-debate/voi-a-report-20260912.md` —— PREREG-VoI-a · 弱口径离线验证报告（S2续集设计③ · 2026-09-12）
+- `.scratch/forecast-debate/任务书-第十棒-预测卡L0.md` —— 任务：预测卡 L0 基建 + 多路判词消融装置 W1-W3 微步（第十棒 · ②类校准线首件）
+- `.scratch/forecast-debate/全文精读/INDEX-论文档案.md` —— 论文档案索引（INDEX · 2026-09-11 · 一期精读线 12 条【v1.2 更正：J1-J6+K1-K6 计 12，原「11 篇」系 K2 WRONGID 替换后未同步总数——深夜评审漏报补抓】；二期档案…
+- `.scratch/forecast-debate/全文精读/J-预测系统精读.md` —— J-预测系统精读（J 棒 · 全文精读笔记 · 长活微步制）
+- `.scratch/forecast-debate/全文精读/JK-公式顾问摘要.md` —— JK-公式顾问摘要（判词修复→重跑→TS 校准→λ̂/γ̂ 极端化 专项）
+- `.scratch/forecast-debate/全文精读/K-公式精读.md` —— K-公式精读（K 棒 · 数学/公式层 · 长活微步制）
+- `.scratch/forecast-debate/全文精读/_WRONGID-2106.00144.txt` —— Risk-Aware Dimensioning and Procurementof Contingency Reserve
+- `.scratch/forecast-debate/全文精读/_cache-2511.07678-v1.txt` —— AIA Forecaster: Technical Report
+- `.scratch/forecast-debate/全文精读/_cache-K-1501.06943.txt` —— Modeling Probability Forecasts via Information Diversity
+- `.scratch/forecast-debate/全文精读/_cache-K-1706.04599.txt` —— Supplementary Materials for:On Calibration of Modern Neural Networks
+- `.scratch/forecast-debate/全文精读/_cache-K-1909.10155.txt` —— Verified Uncertainty Calibration
+- `.scratch/forecast-debate/全文精读/_cache-K-2106.00170.txt` —— Adaptive Conformal InferenceUnder Distribution Shift
+- `.scratch/forecast-debate/全文精读/_cache-K-2107.07511.txt` —— A Gentle Introduction to Conformal Prediction and Distribution-Free Uncertainty Quantification
+- `.scratch/forecast-debate/全文精读/_cache-K-2602.01285.txt` —— Multi-LLM Adaptive Conformal Inference for Reliable LLM Responses
+- `.scratch/forecast-debate/全文精读/_extract-html.cjs` —— arXiv HTML -> text 提取（保留公式 alttext 为 $...$）
+- `.scratch/forecast-debate/全文精读/二期/PREREAD-二期任务清单.md` —— PREREAD · 论文精读二期任务清单（长活爬虫棒 · 2026-09-12 建立）
+- `.scratch/forecast-debate/全文精读/二期/二期-PROGRESS.md` —— 二期-PROGRESS · 论文精读二期（长活爬虫棒）
+- `.scratch/forecast-debate/全文精读/二期/二期笔记-A0三篇总差异表.md` —— A0 三篇总差异表 · 合并版（微步A0 收官件 · 2026-09-12）
+- `.scratch/forecast-debate/全文精读/二期/二期笔记-AIAug.md` —— 二期笔记 · AI-Augmented Predictions（Schoenegger）· 微步B10
+- `.scratch/forecast-debate/全文精读/二期/二期笔记-Auditing.md` —— 二期笔记 · Auditing Belief-Conditioned LLM Agents · 微步A0-2
+- `.scratch/forecast-debate/全文精读/二期/二期笔记-Autocast.md` —— 二期笔记 · Autocast（Zou et al. 2022）· 微步B14
+- `.scratch/forecast-debate/全文精读/二期/二期笔记-BLF.md` —— 二期笔记 · BLF（Bayesian Linguistic Forecaster）· 微步A1
+- `.scratch/forecast-debate/全文精读/二期/二期笔记-Confident.md` —— 二期笔记 · Confident at the moment of action · 微步A0-3
+- `.scratch/forecast-debate/全文精读/二期/二期笔记-Consistency.md` —— 二期笔记 · Consistency Checks for LM Forecasters · 微步B12
+- `.scratch/forecast-debate/全文精读/二期/二期笔记-Cooke.md` —— 二期笔记 · Cooke 2026（Wisdom/Madness of Crowds）· 微步A4
+- `.scratch/forecast-debate/全文精读/二期/二期笔记-ExtremVal.md` —— 二期笔记 · Combining and Extremizing Real-Valued Forecasts · 微步B8
+- `.scratch/forecast-debate/全文精读/二期/二期笔记-FBSim.md` —— 二期笔记 · ForecastBench-Sim · 微步A2
+- `.scratch/forecast-debate/全文精读/二期/二期笔记-InfoDiv.md` —— 二期笔记 · Information Diversity（Satopää NIPS 2014）· 微步B7
+- `.scratch/forecast-debate/全文精读/二期/二期笔记-InverseScaling.md` —— 二期笔记 · Is Capability a Liability?（反向缩放）· 微步A3
+- `.scratch/forecast-debate/全文精读/二期/二期笔记-KK516.md` —— 二期笔记 · König-Kersting 2026（516 聚合算法 many-designs）· 微步A5
+- `.scratch/forecast-debate/全文精读/二期/二期笔记-MafiaScope.md` —— 二期笔记 · MafiaScope · 微步A0-1
+- `.scratch/forecast-debate/全文精读/二期/二期笔记-PSR.md` —— 二期笔记 · How Proper Scoring Rules Shape LLM Forecasting · 微步B6
+- `.scratch/forecast-debate/全文精读/二期/二期笔记-Pitfalls.md` —— 二期笔记 · Pitfalls in Evaluating LM Forecasters · 微步B11
+- `.scratch/forecast-debate/全文精读/二期/二期笔记-Substitutes.md` —— 二期笔记 · Robust Aggregation of Substitutable Signals · 微步B9
+- `.scratch/forecast-debate/全文精读/二期/二期笔记-Turtel.md` —— 二期笔记 · Turtel 前作候选 · 微步B13（候选锁定级，未全文精读）
+- `.scratch/forecast-debate/全文精读/二期/二期笔记-非arXiv三经典收官.md` —— 二期笔记 · 非 arXiv 三经典收官汇编 · 微步B15-17（2026-09-12）
+- `.scratch/forecast-debate/勘误-噪声带与b4注记方向-20260913.md` —— 勘误件 · 噪声带与 b4 批注记方向（2026-09-13 · 专家会 #22＋#19b）
+- `.scratch/forecast-debate/推演沙盘-三路调查与对抗审-20260911深夜.md` —— 推演沙盘 · 三路调查与对抗审报告（2026-09-11 深夜）
+- `.scratch/forecast-debate/研讨会-20260913/00-专家会纪要与裁决.md` —— 专家研讨会 · 纪要与主持人裁决（2026-09-13 深夜）
+- `.scratch/forecast-debate/研讨会-20260913/交叉对抗-合议纪要.md` —— 交叉对抗 · 合议纪要（2026-09-13 · 专家研讨会第二环节）
+- `.scratch/forecast-debate/研讨会-20260913/头脑风暴-新想法.md` —— 头脑风暴 · 新想法（2026-09-13 · 专家研讨会③棒）
+- `.scratch/forecast-debate/研讨会-20260913/查阅A-外部对标.md` —— 查阅A · 外部对标（推演沙盘项目专家研讨会 · 2026-09-13）
+- `.scratch/forecast-debate/研讨会-20260913/查阅B-盘上实证.md` —— 查阅 B · 盘上实证报告（2026-09-13 15:2x–15:5x 快照）
+- `.scratch/forecast-debate/研讨会-20260913/红队A-方案审查.md` —— 红队 A · 方案审查报告（2026-09-13 · 专家研讨会②①棒）
+- `.scratch/forecast-debate/研讨会-20260913/红队B-科学性审查.md` —— 红队 B · 科学性审查报告（推演沙盘专家研讨会 · 2026-09-13）
+- `.scratch/forecast-debate/研讨会-20260916-预测万物v3/00-纪要与裁决.md` —— 专家研讨会 · 纪要与裁决（2026-09-16 · 预测万物 v3.0「贝叶斯预测流形」）
+- `.scratch/forecast-debate/研讨会-20260916-预测万物v3/01-反面-事前验尸.md` —— 01 反面棒 · 事前验尸（Pre-Mortem）
+- `.scratch/forecast-debate/研讨会-20260916-预测万物v3/02-红队-反编造审查.md` —— 02 · 红队棒 · 反编造审查报告（预测万物 v3.0）
+- `.scratch/forecast-debate/研讨会-20260916-预测万物v3/03-科学性-方法学审查.md` —— 03 · 科学性棒（方法学审查）· 预测万物 v3.0
+- `.scratch/forecast-debate/研讨会-20260916-预测万物v3/04-外部对标.md` —— 04 · 外部对标棒 · 机制与先例调研报告（预测万物 v3.0）
+- `.scratch/forecast-debate/研讨会-20260916-预测万物v3/05-调研A-可行性实现地图.md` —— 05 · 调研棒 A · 可行性与代码实现地图（预测万物 v3.0）
+- `.scratch/forecast-debate/研讨会-20260916-预测万物v3/06-调研B-框架兼容性.md` —— 06 · 调研棒 B（与现有论文及整体框架的兼容性）· 预测万物 v3.0
+- `.scratch/forecast-debate/研讨会-20260916-预测万物v3/07-对抗-正方立论.md` —— 07 · 对抗棒 · 正方立论（Steel-Man：v3.0 最强辩护）
+- `.scratch/forecast-debate/研讨会-20260916-预测万物v3/08-对抗-反方驳论.md` —— 08 · 对抗棒 · 反方驳论（渐进派）
+- `.scratch/forecast-debate/研讨会-20260916-预测万物v3/09-头脑风暴-收敛裁决.md` —— 09 · 头脑风暴棒 · 收敛裁决（预测万物 v3.0）
+- `.scratch/forecast-debate/研讨会-20260916-预测万物v3/10-算子攻坚-深度报告.md` —— 10 · 算子攻坚棒 · 深度报告（预测万物 v3.0 第二轮）
+- `.scratch/forecast-debate/研讨会-20260916-预测万物v3/11-拒绝项救援-深度报告.md` —— 11 · 拒绝项救援棒 · 深度报告（预测万物 v3.0 第二轮）
+- `.scratch/forecast-debate/研讨会-20260916-预测万物v3/12-PREREG-E1-DNA加列S维-v1.md` —— 12 · PREREG · DNA 加列制首列（S 维·平稳性）· E1 预注册 v1
+- `.scratch/forecast-debate/研讨会-20260916-预测万物v3/13-P0施工计划-v1.md` —— 13 · P0 施工计划 v1（第 1 周零风险 additive 四件 · 施工级细化）
+- `.scratch/forecast-debate/研讨会-20260916-预测万物v3/14-第二轮深化-汇总与v3.1修订.md` —— 第二轮深化评审 · 汇总与 v3.1 修订（2026-09-16 · 4 棒串行深跑）
+- `.scratch/forecast-debate/研讨会-20260916-预测万物v3/15-对比裁决-v3.0优化与最小采纳.md` —— 15 · 对比裁决 · v3.0 优化与最小采纳（第三轮 · 对比裁决棒）
+- `.scratch/forecast-debate/研讨会-20260916-预测万物v3/16-化劣转优-深度报告.md` —— 16 · 化劣转优棒（炼金术士）· 深度报告（预测万物 v3.0 第三轮）
+- `.scratch/forecast-debate/研讨会-20260916-预测万物v3/17-AI角色重定位-深度报告.md` —— 17 · AI 角色重定位棒 · 深度报告（预测万物 v3.0 第三轮）
+- `.scratch/forecast-debate/研讨会-20260916-预测万物v3/18-跨学科移植-深度报告.md` —— 18 · 跨学科移植棒 · 深度报告（预测万物 v3.0 第三轮）
+- `.scratch/forecast-debate/研讨会-20260916-预测万物v3/19-骨架裁剪-深度报告.md` —— 19 · 骨架裁剪棒（奥卡姆剃刀）· 深度报告（预测万物 v3.0 第三轮）
+- `.scratch/forecast-debate/研讨会-20260916-预测万物v3/20-合议-v3.1大升级蓝图.md` —— 20 · 合议棒（收官）· v3.1 大升级蓝图（终稿）
+- `.scratch/forecast-debate/研讨会-20260916-预测万物v3/21-外部路径核验报告.md` —— 21 · 外部路径核验报告（2026-09-16 · 第三方代理全量核验，用户会话转贴落盘）
+- `.scratch/forecast-debate/研讨会-20260916-预测万物v3/输入-方案v3.0全文.md` —— 评审输入 · 预测万物：完整方案 v3.0（用户 2026-09-16 提交）
+- `.scratch/forecast-debate/红队报告-A-工程数据线.md` —— 红队报告-A · 工程与数据线内容审查（2026-09-11）
+- `.scratch/forecast-debate/红队报告-B-研究设计线.md` —— 红队报告 B · 研究与设计线内容审查（红队 B 棒，2026-09-11）
+- `.scratch/forecast-debate/蓝图红队评估-Gemini-20260912.md` —— Gemini 技术蓝图 · 红队评估（内容自检 · 2026-09-12）
+- `.scratch/forecast-debate/队长规划-论文落地与重跑设计-20260912.md` —— 队长规划 · 论文亲读落地与重跑设计修正（2026-09-12 · 队长亲笔）
+- `.scratch/forecast-debate/预测科学2026复测-队长速记.md` —— 预测科学 2026 复测 · 队长速记（2026-09-11）
+
+### p1b/src（产品代码）（55）
+
+- `p1b/src/routes/`（14 件）—— 代表件 `adapters.js`：p1b/src/routes/adapters.js —— 游戏类型登记表：GET /api/adapters
+- `p1b/src/adapters/avalon.js` —— avalon.js — 阿瓦隆（Avalon）第二场景适配器 · 五方法契约（S2 §1.2）· 2026-09-13
+- `p1b/src/botc/advisePrompt.js` —— p1b/src/botc/advisePrompt.js —— BOTC 局参谋卡 prompt 剧本上下文注入（B3 棒）。
+- `p1b/src/botc/claims.js` —— p1b/src/botc/claims.js —— BOTC 局声称校验/归一化 + p1b 私有存储（B2 棒）。
+- `p1b/src/botc/contradictions.js` —— p1b/src/botc/contradictions.js —— 剧本数据驱动的 BOTC 矛盾比对器（B2 棒）。
+- `p1b/src/botc/extractPrompt.js` —— p1b/src/botc/extractPrompt.js —— BOTC 局抽取 prompt 上下文注入（B7 棒）。
+- `p1b/src/botc/roles.js` —— p1b/src/botc/roles.js —— BOTC（血染钟楼）角色数据层访问器（B2 棒）。
+- `p1b/src/calibration/betaCalibration.js` —— p1b/src/calibration/betaCalibration.js —— beta calibration 三参数族（主挑战者），纯函数，零 npm 依赖。
+- `p1b/src/calibration/index.js` —— p1b/src/calibration/index.js —— 校准挑战者库汇出入口（2026-09-16 · P0-U4）。
+- `p1b/src/calibration/isotonic.js` —— p1b/src/calibration/isotonic.js —— 等渗校准（PAVA），纯函数，零 npm 依赖。
+- `p1b/src/calibration/platt.js` —— p1b/src/calibration/platt.js —— Platt 一维 logistic 校准（参照臂），纯函数，零 npm 依赖。
+- `p1b/src/db/intakeStore.js` —— p1b/src/db/intakeStore.js —— 开放接题·拒收日志（第十一步·阶段 3 出口件，p1b 私有表 intake_rejects）。
+- `p1b/src/db/oracleStore.js` —— p1b/src/db/oracleStore.js —— 独立玄学排盘历史档案（p9 W1，p1b 私有表 oracle_readings）。
+- `p1b/src/db/predictionsStore.js` —— p1b/src/db/predictionsStore.js —— 预测卡 L0 账本（第十棒 W1，p1b 私有表 predictions）。
+- `p1b/src/db/verdictsStore.js` —— p1b/src/db/verdictsStore.js —— 多路判词全量落库（第十棒 W2，p1b 私有表 verdicts）。
+- `p1b/src/deps.js` —— p1b/src/deps.js —— 引擎复用唯一入口（施工铁律：require p1a-terminal 模块，零复制零修改）。
+- `p1b/src/detectors/werewolf-contradictions.js` —— werewolf-contradictions.js — 版型无关矛盾检测层 W1-W6（可用实现，2026-09-12）
+- `p1b/src/engines/l1_proc.js` —— p1b/src/engines/l1_proc.js —— L1 决定论层最小引擎：proc_calc（程序复算）（2026-09-14）
+- `p1b/src/engines/l2_baseline.js` —— p1b/src/engines/l2_baseline.js —— L2 系综层最小统计引擎（阶段 4 起步，2026-09-13）。
+- `p1b/src/engines/l3_aci.js` —— p1b/src/engines/l3_aci.js —— L3 短窗混沌层最小引擎（stat_baseline + ACI 在线校准）（2026-09-14）
+- `p1b/src/engines/l5_certified.js` —— p1b/src/engines/l5_certified.js —— L5 不可约层最小引擎（阶段 4 起步，2026-09-13）。
+- `p1b/src/engines/l5_sources.js` —— p1b/src/engines/l5_sources.js —— L5 认证源「读侧」结构化（2026-09-14）。
+- `p1b/src/engines/l6_structural.js` —— p1b/src/engines/l6_structural.js —— L6 对抗层最小引擎：判词**结构聚合**（structural）（2026-09-14）
+- `p1b/src/evidence/baseRate.js` —— **基率读数单一真源**（批次 3；三读序＋结构化字段）
+- `p1b/src/evidence/domain.js` —— p1b/src/evidence/domain.js —— **域（domain）派生的单一真源**。
+- `p1b/src/evidence/seriesKey.js` —— p1b/src/evidence/seriesKey.js —— E1 源系列键的**单一真源**（2026-09-17）
+- `p1b/src/evidence/stage5Pool.js` —— p1b/src/evidence/stage5Pool.js —— **阶段 5 路线 (b) 冻结池谓词与指纹的单一真源**。
+- `p1b/src/evidence/truthBasis.js` —— p1b/src/evidence/truthBasis.js —— **真值口径排除谓词**（2026-09-15 · 用户裁定「丙：排除出池」）。
+- `p1b/src/lib/llmChat.js` —— p1b/src/lib/llmChat.js —— 玄学判词专用最小文本 chat 通道（P2 线 W1）。
+- `p1b/src/lib/meihua.js` —— meihua.js — 梅花易数「确定层」起卦模块（AI 推演沙盘 P2 · 易经）
+- `p1b/src/lib/oracle.js` —— p1b/src/lib/oracle.js —— 对局玄学化判词「确定性起卦派生」（P2 线 W1）。
+- `p1b/src/lib/oracleCast.js` —— p1b/src/lib/oracleCast.js —— 独立玄学排盘「起卦三法」（p9 W1：时间起卦 + 随机起卦 + 数字起卦 wrapper）。
+- `p1b/src/lib/resultCache.js` —— p1b/src/lib/resultCache.js —— 结果缓存键（**唯一在建缓存件**；蓝图 §2.1#7 · 2026-09-17）
+- `p1b/src/lib/usageSink.js` —— p1b/src/lib/usageSink.js —— LLM 用量落盘（成本台账的数据源；蓝图 §2.2#6 · 2026-09-17）
+- `p1b/src/llmOptions.js` —— p1b/src/llmOptions.js —— 把「激活供应商配置」翻译成 p1a llm.js 的 options 注入。
+- `p1b/src/macros.js` —— p1b/src/macros.js —— P1B-SPEC §4 三宏（跳身份/查杀/金水）。
+- `p1b/src/providersStore.js` —— p1b/src/providersStore.js —— 供应商配置读写（P1B-SPEC §1/§2.4）。
+- `p1b/src/retrieval/aggregate.js` —— 阶段 5 retrieval 臂固定聚合规则（纯函数；LLM 不出概率）
+- `p1b/src/retrieval/sham.js` —— 阶段 5 sham 臂构造器（确定性、±5% 长度预算）
+- `p1b/src/server.js` —— p1b/src/server.js —— 推演沙盘 P1b 网页工作台 · 后端入口（P1B-SPEC §1/§3/§5，P1b-1）。
+- `p1b/src/taskQueue.js` —— p1b/src/taskQueue.js —— 内存异步任务队列（P1B-SPEC §0 拍板 #4：天结算后台跑，录入不被阻塞）。
+- `p1b/src/util.js` —— p1b/src/util.js —— 小工具：HTTP 错误构造 / 整数与枚举校验。
+
+### p1b/scripts（脚本；归档区见 archive/README.md）（198）
+
+- `p1b/scripts/`（111 件）—— 代表件 `_b1-eol.cjs`：const fs = require('fs');；逐件索引：`p1b/scripts/README.md`（`scripts-index.cjs` 生成）
+- `p1b/scripts/_dparts/`（16 件）—— 代表件 `p1.cjs`：corpus-resolve-daemon.cjs — 到期自动 resolve 调度（2026-09-13 调度棒）
+- `p1b/scripts/archive/`（64 件）—— 代表件 `_b1-backlog.cjs`：const Database = require('E:/music player/p1a-terminal/node_modules/better-sqlite3');；归档说明与路径映射：`p1b/scripts/archive/README.md`
+- `p1b/scripts/README.md` —— 在役脚本目录（按前缀分组＋写库标记；权威计数＝`scripts-index.cjs` 输出，勿手数）
+- `p1b/scripts/archive/README.md` —— 归档区说明（69 件历史探针的路径映射）
+- `p1b/scripts/archive/_bd-frag-design1.md` —— §4.2.4 修订 R4.3：① 池入池判定扩展——date_derivation 周期题换算【2026-09-14 · 用户已批口径 B · 版本递进】
+- `p1b/scripts/archive/_bd-frag-design2.md` —— *D3 · backfill 排除不因补列放行**
+- `p1b/scripts/archive/_bd-frag-p19.md` —— 【2026-09-14 断点更新 · 口径B微步4完成（R4.3 文档化三件）】
+- `p1b/scripts/archive/_bd-frag-readme.md` —— G2 口径修订 R4.3 与契约表 date_derivation（2026-09-14）
+- `p1b/scripts/archive/_bd-frag-s16.md` —— §16 追加 · 2026-09-14：R4.2 → R4.3 版本递进（① 池入池判定扩展——date_derivation 周期题换算；口径 B 四微步收口）
+
+### p1b/test（测试）（72）
+
+- `p1b/test/`（66 件）—— 代表件 `a1-whatif.test.cjs`：p1b/test/a1-whatif.test.cjs —— A1 假设重算器（完整版 v1）· 测试（2026-09-17）
+- `p1b/test/fixtures/base-rate-golden.json` —— 基率解析金样（151 条真实注记×三读序；批次 3 冻结）
+- `p1b/test/fixtures/base-rate-golden.pre-nfix-20260915.json` —— "generated_at": "2026-09-14T14:21:03.795Z",
+- `p1b/test/fixtures/odds-scores-sample-20260917.json` —— "id": "b7a2cad26d908a943a27340b4b607068",
+- `p1b/test/fixtures/stage4-golden-20260916.pre-advance.json` —— "script": "p1b/scripts/stage4-run.cjs",
+- `p1b/test/fixtures/stage4-golden-20260917.json` —— "script": "p1b/scripts/stage4-run.cjs",
+- `p1b/test/fixtures/stage4-golden-db-20260917.db` —— （二进制体：不抽句；随目录级列出）
+
+### p1b/sim/out（收据与读数件；大件 .db/截图不入列）（499）
+
+- `p1b/sim/out/`（201 件）—— 代表件 `_audit.txt`：=== 1) 重复/空局检查 ===；收据为 `.md`（上面已逐件列）；其余为各轮读数件（可用对应脚本重跑生成）
+- `p1b/sim/out/`（91 件 .md）—— 代表件 `a1-assumption-recalc-receipt-20260917.md`：A1 收据 · 假设重算器 v0（2026-09-17）；收据为 `.md`（上面已逐件列）；其余为各轮读数件（可用对应脚本重跑生成）
+- `p1b/sim/out/batch/`（72 件）—— 代表件 `_counts-err.txt`：（无一句话可抽）
+- `p1b/sim/out/batch/`（61 件 .md）—— 代表件 `m1-ai-sample.md`：M1 AI 腔抽检清单（每局 1 条=该局第一条发言，供 aidetect 集成打分；30 条）
+- `p1b/sim/out/merged-migration/`（20 件）—— 代表件 `baseline-test.exit.txt`：EXIT=0
+- `p1b/sim/out/metaculus-probe/`（14 件）—— 代表件 `api-post-detail.raw.txt`：URL: https://www.metaculus.com/api/posts/1/
+- `p1b/sim/out/b29/b29-verify.cjs` —— bug-29 收尾核验：14 条过期未结清单的终态 + 全库计数 + integrity
+- `p1b/sim/out/b29/b29-verify.out` —— id=453   | outcome=false | cwl 官方 2026106 期 red=06,11,13,14,22,30 blue=14（red 含 07，机检）
+- `p1b/sim/out/b29/backlog-probe.cjs` —— 针对积压 14 条做定点探测：直接调解析器逻辑，看每条到底卡在哪
+- `p1b/sim/out/b29/backlog-probe.txt` —— id=1761  matures=2026-06-25 kind=energycharts_daily_mean    -> API 该日点数 n=88 ⇒ 可结 mean=11452.3182 | ts范围=202…
+- `p1b/sim/out/b29/daemon-confirm.log` —— [2026-09-14T13:33:05+08:00] === corpus-resolve-daemon start | mode=once interval=60min due-only=true confirm…
+- `p1b/sim/out/b29/ec-bias.cjs` —— 量化 UTC 日过滤造成的偏差：对 fr/es 各取一 type，比较「UTC日过滤（现行）」vs「全窗口（本地日全量）」
+- `p1b/sim/out/b29/ec-bias.log` —— fr Solar: 现行(UTC过滤) n=88 mean=7974.0773  |  全窗口 n=96 mean=7309.5708  |  差=-664.5064 (-8.33%)
+- `p1b/sim/out/b29/ec-flip.cjs` —— 关键核查：24 条已 resolve 的 energycharts 行，若改用「本地日全窗口」口径，结论会不会翻转？
+- `p1b/sim/out/b29/ec-flip.log` —— 已 resolve energycharts 行=24 | 不翻转=24 | **翻转=0** | 取数失败=0
+- `p1b/sim/out/g1/card-full.md` —— 参谋卡全文（局 88 · day1）—— 供你判断「有没有给你新思路」
+- `p1b/sim/out/g1/card-real.md` —— 真实参谋卡全文（供你判断「有没有给你新思路」）
+- `p1b/sim/out/g1/engine-on-correctdata.out` —— 正确数据(2号/4号都对跳预言家) -> 1 对
+- `p1b/sim/out/g1/engine-on-mockdata.out` —— claims 输入（7 条）:
+- `p1b/sim/out/g1/j1-entry-timing.out` —— 建局 id=87 席位数=6
+- `p1b/sim/out/g1/j23-card-mock.out` —— == 局 87 参谋卡实测 ==
+- `p1b/sim/out/g1/j3-contradiction-macro.out` —— 新局 id=88
+- `p1b/sim/out/g1/spotcheck-10-compact.md` —— 10 题抽验 · 一屏版（你只需扫一眼，回「都过」或指出哪题有问题）
+- `p1b/sim/out/g1/spotcheck-agent-record.out` —— [g2-user-spotcheck] 代理预核（非端用户）抽验 10/10 题；与 ② 一致 10/10 = 100.0%
+- `p1b/sim/out/g1/spotcheck-precheck.out` —— 10 道抽验题 · 队长预核查（供你快速确认）
+- `p1b/sim/out/metaculus-probe/PROBE-RECEIPT.md` —— P4 · Metaculus 公共 API 探测收据（2026-09-13 只读）
+- `p1b/sim/out/metaculus-probe/manifold/RECEIPT.md` —— P4-B' · Manifold Markets 探测收据（2026-09-13 · 只读）
+- `p1b/sim/out/metaculus-probe/manifold/sample-1-temp-global-avg.json` —— "_probe": {
+- `p1b/sim/out/metaculus-probe/manifold/sample-2-cpi-yoy.json` —— "_probe": {
+- `p1b/sim/out/metaculus-probe/manifold/sample-3-co2-monthly-ppm.json` —— "_probe": {
+- `p1b/sim/out/metaculus-probe/window-mapping.md` —— P4 · 窗口口径对齐方案（我方 cutoff/full 双窗 ↔ Metaculus question timeline）
+- `p1b/sim/out/prereg-a/manifest-preregA-20260913.json` —— "tag": "preregA-20260913",
+- `p1b/sim/out/prereg-a/verdicts-archive-preregA-20260913.json` —— "meta": {
+- `p1b/sim/out/ui-refactor/_pages-before.txt` —— [before] live overflow=0/0/0/0 emoji=0/0/0/0 ui_cards@1440=0
+- `p1b/sim/out/ui-refactor/_tools/emoji_scan.mjs` —— import { readFileSync, readdirSync, statSync } from "node:fs";
+- `p1b/sim/out/ui-refactor/_tools/package.json` —— "name": "_tools",
+- `p1b/sim/out/ui-refactor/_tools/probe-live.mjs` —— import { chromium } from "playwright-core";
+- `p1b/sim/out/ui-refactor/_tools/shoot.mjs` —— import { writeFileSync, mkdirSync } from "node:fs";
+- `p1b/sim/out/ui-refactor/_tools/shoot2.mjs` —— import { chromium } from "playwright-core";
+- `p1b/sim/out/ui-refactor/after-metrics.json` —— "label": "after",
+- `p1b/sim/out/ui-refactor/after-pages-metrics.json` —— "file": "after-live-375.png",
+- `p1b/sim/out/ui-refactor/before-metrics.json` —— "label": "before",
+- `p1b/sim/out/ui-refactor/before-pages-metrics.json` —— "label": "before",
+- `p1b/sim/out/ui-refactor/emoji-audit.md` —— 步 3 收尾 · emoji 码点级甄别清单（2026-09-13）
+- `p1b/sim/out/ui-refactor/evidence.json` —— "generated_at": "2026-09-13T09:32:53.985Z",
+- `p1b/sim/out/ui-refactor/receipt.md` —— UI 重构（步 1+2）验收收据
+
+### 其它（目录级）
+
+- `.scratch/backup/` —— 迁移/修复前的 SQLite 快照（sha256 记在各收据；本目录不逐件列）
+- `.scratch/merged-migration/`、`.scratch/backtest/` —— F4/迁移排练件与只读题面库
+- `p1a-terminal/data/p1a.db` —— **生产账本**（predictions/verdicts/truth_vault…）；`p1a-terminal/**` 为 p1a 线（含禁改面）
+- `p1b/web/`（前端源码与 dist 构建）、`tools/`、`scripts/` —— 见各自 README/索引
+
+（§10 完 · 2026-09-14 深夜 · 生成器 `p1b/scripts/file-map.cjs` · 计数：共 1317 件在列）

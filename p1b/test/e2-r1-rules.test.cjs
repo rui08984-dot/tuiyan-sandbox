@@ -58,7 +58,11 @@ test('③ 真实件：MATCH／人口／保留格与阶段 4 同集合／无臂�
   const before = sha(PROD);
   execFileSync(process.execPath, [SCRIPT, '--out-dir', tmpDir, '--boot', '200'], { encoding: 'utf8' });
   assert.equal(sha(PROD), before, '生产库被改动（应零写库）');
-  const j = JSON.parse(fs.readFileSync(path.join(tmpDir, 'e2-r1-rules-20260917.json'), 'utf8'));
+  // ★ 文件名带**当天**日期（脚本用 UTC 日期命名）⇒ 测试**不得写死日期**，否则跨日即红（2026-09-18 实测）。
+  //   改法：在本次专属 tmpDir 里按前缀取唯一产出件（同文件 ② 的既有写法）。
+  const arts = fs.readdirSync(tmpDir).filter((f) => /^e2-r1-rules-\d{8}\.json$/.test(f));
+  assert.equal(arts.length, 1, '应恰好产出一份读数件: ' + JSON.stringify(arts));
+  const j = JSON.parse(fs.readFileSync(path.join(tmpDir, arts[0]), 'utf8'));
   assert.equal(j.rules_match, true, '冻结核验须 MATCH');
   assert.equal(j.rules_sha256, 'e0331cf8e7237a8a0b6eed9f6393866d9b6008e2a64210f723fc699beeceb4bf', '冻结 sha 锁死');
   assert.equal(j.r1a_counts.reassign, 0, 'R1-A 改层应为 0（分配与引擎可用性一致）');
