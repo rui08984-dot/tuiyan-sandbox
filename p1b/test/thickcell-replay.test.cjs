@@ -87,17 +87,18 @@ test('④ bootstrap 确定性：同 seed ⇒ 逐位同；不同 seed 允许不�
   assert.ok(a.lb <= a.ub, 'CI 下界 ≤ 上界');
 });
 
-test('⑤ 开跑令闸：无 --arms ⇒ exit 3；未知臂 ⇒ exit 4；已登记未实现的真臂 ⇒ exit 4（禁静默）', () => {
+test('⑤ 开跑令闸：无 --arms ⇒ exit 3；未知臂 ⇒ exit 4；**已登记未实现**的真臂 ⇒ exit 4（禁静默）', () => {
   const run = (args) => { try { const o = execFileSync(process.execPath, [SCRIPT].concat(args), { encoding: 'utf8' }); return { code: 0, out: o }; } catch (e) { return { code: e.status, out: String(e.stdout || '') + String(e.stderr || '') }; } };
   const g0 = run([]);
   assert.equal(g0.code, 3, '无 --arms 须 exit 3（零写盘）');
   assert.ok(/开跑前提状态|开跑令/.test(g0.out), '应打印开跑前提状态');
-  assert.ok(/未实现/.test(g0.out), '应如实报真臂未实现');
   const g1 = run(['--arms', 'no_such_arm_xyz']);
   assert.equal(g1.code, 4, '未知臂 ⇒ exit 4');
-  const g2 = run(['--arms', 'knn']);            // 已在 PREREG §4 登记但未实现
+  // ★本测试用 `mos`：它**已登记但实现为 null**（knn 已于 v1.2 后实现 ⇒ 不再适用于本条断言）
+  const g2 = run(['--arms', 'mos']);
   assert.equal(g2.code, 4, '已登记未实现的真臂 ⇒ exit 4（禁把「未实现」静默成「跑了没差异」）');
   assert.ok(/尚未实现/.test(g2.out), '应说明未实现');
+  assert.ok(/前置不足|2\.8%/.test(g2.out), 'MOS 的备注应带上「前提不足」的依据');
 });
 
 test('⑥ require 本件零副作用（主流程只在 CLI 直跑）', () => {
@@ -140,20 +141,85 @@ test('⑦ 特征可得性审计：四臂判定与「账本根本不存在」的�
   } finally { try { fs.rmSync(tmp, { recursive: true, force: true }); } catch (e) { /* ignore */ } }
 });
 
-test('⑧ PREREG v1.1 勘误件：冻结自检 MATCH=true，且**v1 原件未被改动**', () => {
+test('⑨ kNN 臂（预注册参数）：只在四对内取参照类、零泄漏、κ 是活参数', () => {
+  // 冻结常量（预注册；改动＝版本递进）
+  assert.equal(M.KNN_K, 30, 'k 冻结 = 30');
+  assert.equal(M.KNN_KAPPA, 2.903, '主口径 κ 冻结 = 2.903');
+  assert.equal(Object.keys(M.PAIR_KINDS).length, 4, '同变量对应为 4 对');
+  assert.equal(M.KNN_SENS_KAPPA.length, 4, '敏感性 κ 应 4 档');
+  // 参照类限定：只有四对内的 kind 有 fam；别的 kind 一律 null（11 号件①：跨物理过程禁入）
+  assert.equal(M.KIND2PAIR['openmeteo_daily_max'], 'OPEN_daily_max');
+  assert.equal(M.KIND2PAIR['openmeteo_air_pm2_5_daily_mean'], undefined, '空气类不得入参照类');
+  assert.equal(M.KIND2PAIR['dbnomics_series_value'], undefined, 'dbnomics 族不得入参照类');
+
+  // 零泄漏：臂只看 ctx.history（resolved_at < t）。用合成历史验证「改未来题不影响过去题的读数」
+  const mkRows = (extra) => [
+    { id: 1, layer: 'L3', domain: 'openmeteo', y: 1, base: 0.5, resolved_at: '2026-09-01 00:00:00', fam: 'OPEN_daily_wind_speed_10m_max', lat: 1, lon: 2, month: 5 },
+    { id: 2, layer: 'L3', domain: 'openmeteo', y: 0, base: 0.5, resolved_at: '2026-09-02 00:00:00', fam: 'OPEN_daily_wind_speed_10m_max', lat: 1, lon: 2, month: 6 },
+    { id: 3, layer: 'L3', domain: 'openmeteo', y: (extra ? 1 : 0), base: 0.5, resolved_at: '2026-09-03 00:00:00', fam: 'OPEN_daily_wind_speed_10m_max', lat: 1, lon: 2, month: 7 },
+    { id: 4, layer: 'L3', domain: 'openmeteo', y: 1, base: 0.5, resolved_at: '2026-09-04 00:00:00', fam: 'OPEN_daily_wind_speed_10m_max', lat: 1, lon: 2, month: 8 },
+  ];
+  const a = M.replayCell(mkRows(false), M.DECLARED_ARMS.knn.impl);
+  const b = M.replayCell(mkRows(true), M.DECLARED_ARMS.knn.impl);
+  // 题 1/2/3 的历史里不含题 3（它是自己的历史之外）——把题 3 的 y 改掉只应影响题 4
+  assert.equal(a[0].p, b[0].p, '题 1 读数不受后续题影响');
+  assert.equal(a[1].p, b[1].p, '题 2 读数不受后续题影响');
+  assert.equal(a[2].p, b[2].p, '题 3 读数不受后续题影响');
+  assert.notEqual(a[3].p, b[3].p, '题 4 应看到题 3 的结局（否则臂没在用历史）');
+
+  // κ 是活参数：κ→∞ ⇒ w→0 ⇒ 臂退化为静态格基率
+  const degenerate = M.replayCellWithKappa(mkRows(false), 1e12);
+  for (let i = 1; i < degenerate.length; i++) {
+    assert.ok(Math.abs(degenerate[i].p - mkRows(false)[i].base) < 1e-6, 'κ→∞ 应退化为格基率');
+  }
+  // 不同 κ ⇒ 读数不同（证明敏感性分析动的是同一个臂）
+  const k1 = M.replayCellWithKappa(mkRows(false), 1.0);
+  const k2 = M.replayCellWithKappa(mkRows(false), 6.0);
+  assert.notDeepEqual(k1.map((r) => r.p), k2.map((r) => r.p), 'κ 变了读数须变');
+});
+
+test('⑩ kNN 臂：无历史时退静态格基率（不猜）；四维缺一者不入池', () => {
+  const rows = [{ id: 1, layer: 'L3', domain: 'openmeteo', y: 1, base: 0.37, resolved_at: '2026-09-01 00:00:00', fam: 'OPEN_daily_max', lat: 1, lon: 2, month: 5 }];
+  const out = M.replayCell(rows, M.DECLARED_ARMS.knn.impl);
+  assert.equal(out[0].p, 0.37, '首题无历史 ⇒ 应原样返回格基率（不猜）');
+  // 缺维（fam 为空 / lat 缺失）⇒ knnPool 不得收
+  const { pool } = M.buildPool(path.join(ROOT, 'p1a-terminal', 'data', 'p1a.db'));
+  const feat = M.attachFeatures(pool, path.join(ROOT, 'p1a-terminal', 'data', 'p1a.db'));
+  const kp = M.knnPool(feat);
+  for (const q of kp.rows) {
+    assert.ok(q.fam && q.lat !== null && q.lon !== null && q.month !== null, '入池者四维须齐：' + JSON.stringify(q));
+    assert.ok(M.PAIR_KINDS[q.fam], '入池者须属四对之一：' + q.fam);
+  }
+  // ★已知口径事实（防回归：这半边的缺席是**池过滤器**造成的，不是臂的 bug）
+  //   ① 该 kind 在**账本**里确实存在（直接查库，不经 buildPool——它已被池过滤器排除）
+  const { DatabaseSync } = require('node:sqlite');
+  const db = new DatabaseSync(path.join(ROOT, 'p1a-terminal', 'data', 'p1a.db'), { readOnly: true });
+  const n = db.prepare("SELECT COUNT(*) c FROM predictions WHERE outcome IS NOT NULL AND evidence_json LIKE ?").get('%"kind":"openmeteo_forecast_daily_max"%').c;
+  db.close();
+  assert.ok(n > 0, '该 kind 在账本里存在（实测 98）');
+  //   ② 它有 fam 映射（属对 1），但**一条都不在可用池**（真值口径缺陷集被池过滤器排除）
+  assert.equal(M.KIND2PAIR['openmeteo_forecast_daily_max'], 'OPEN_daily_max', '它名义上属对 1');
+  assert.equal(feat.filter((q) => q.kind === 'openmeteo_forecast_daily_max').length, 0, '但它**全部**不在池（buildPool 要求引擎读数，缺陷集无读数）');
+});
+
+test('⑧ PREREG v1／v1.1／v1.2 三件冻结自检：各自 MATCH=true，且上游件未被改动', () => {
   const { freezeSha } = require(path.join(ROOT, 'p1b', 'scripts', 'prereg-freeze.cjs'));
   const v1 = path.join(ROOT, '.scratch', 'forecast-debate', 'PREREG-厚格基建总票-v1.md');
   const v11 = path.join(ROOT, '.scratch', 'forecast-debate', 'PREREG-厚格基建总票-v1.1-补充与勘误-20260918.md');
-  assert.ok(fs.existsSync(v1) && fs.existsSync(v11), '两件须都在盘');
+  const v12 = path.join(ROOT, '.scratch', 'forecast-debate', 'PREREG-厚格基建总票-v1.2-补充-kNN预注册-20260918.md');
+  assert.ok(fs.existsSync(v1) && fs.existsSync(v11) && fs.existsSync(v12), '三件须都在盘');
   assert.equal(freezeSha(v1).match, true, 'v1 原件须仍 MATCH（版本递进＝原件一字不动）');
   assert.equal(freezeSha(v11).match, true, 'v1.1 须 MATCH');
-  assert.notEqual(freezeSha(v1).sha256, freezeSha(v11).sha256, 'v1.1 是新件，sha 必不同');
+  assert.equal(freezeSha(v12).match, true, 'v1.2 须 MATCH');
+  const shas = new Set([freezeSha(v1).sha256, freezeSha(v11).sha256, freezeSha(v12).sha256]);
+  assert.equal(shas.size, 3, '三件 sha 必互不相同');
   // ★防回归（已登记的坑）：冻结工具的 `recorded` 取的是**文件里第一个**被反引号包的 64 位 hex
   //   ⇒ 若正文先引了别的件的完整 sha，recorded 就会取错 ⇒ **引用一律截断**。
-  //   精确不变量＝「第一个反引号 64 位 hex 必须就是本件自己的登记值」。
-  const t = fs.readFileSync(v11, 'utf8');
-  const first = (t.match(/`([0-9a-f]{64})`/) || [])[1];
-  assert.equal(first, freezeSha(v11).sha256, '第一个反引号 64 位 hex 须＝本件登记的 sha（否则是引了别件的完整 sha ⇒ recorded 取错）');
-  // 且它必须处于 `sha256：` 槽位（登记块内）
-  assert.ok(/sha256：`[0-9a-f]{64}`/.test(t), 'sha 须写在 sha256：槽位');
+  //   精确不变量＝「第一个反引号 64 位 hex 必须就是本件自己的登记值」，且写在 `sha256：` 槽位。
+  for (const [p, name] of [[v11, 'v1.1'], [v12, 'v1.2']]) {
+    const t = fs.readFileSync(p, 'utf8');
+    const first = (t.match(/`([0-9a-f]{64})`/) || [])[1];
+    assert.equal(first, freezeSha(p).sha256, name + '：第一个反引号 64 位 hex 须＝本件登记的 sha');
+    assert.ok(/sha256：`[0-9a-f]{64}`/.test(t), name + '：sha 须写在 sha256：槽位');
+  }
 });

@@ -51,13 +51,59 @@ const MIN_N = 30;                 // 照 stage4-run 的 DOM_MIN_N（不新造阈
 // PREREG §3（判据阈值，写死）
 const NONINF_MARGIN = 0.005;      // C1：CI 上界 ≤ +0.005
 
-// ── 四臂登记表（PREREG §4）：★尚未实现 ⇒ 给真臂名 exit 4（禁「静默当没这回事」）──
-const DECLARED_ARMS = {
-  mos: { impl: null, note: 'MOS 统计订正（PREREG §4；附加 4 城一致 ≥3/4＋城市×季度 16 格）' },
-  nowcast: { impl: null, note: 'nowcast（PREREG §4；P1/P2/P3 三件套，⚠ P2 空窗层样本量未测）' },
-  granger_lag: { impl: null, note: 'Granger 滞后（PREREG §4；滞后阶数与筛选规则须预注册）' },
-  knn: { impl: null, note: 'kNN 基率（PREREG §4；k=30 冻结＋标准化欧氏＋格 n<30 不启用）' },
+// ── 四臂登记表（PREREG §4）：★实现状态如实反映（未实现者给名字 ⇒ exit 4，禁「静默当没这回事」）──
+// kNN：参数**已预注册**于 `PREREG-厚格基建总票-v1.2-补充-kNN预注册-20260918.md`（sha `7d2015d2…`）
+const KNN_K = 30;                 // v1 §4「k 冻结（建议 k=30）」
+const KNN_KAPPA = 2.903;          // v1.2 §2 主口径（合并 37 格）；敏感性 {4.469, 1.687, 2.223, 4.038} 只披露
+const KNN_SENS_KAPPA = [4.469, 1.687, 2.223, 4.038];
+// v1.2 §1 冻结的「同变量异获取模式」对（**只有这四对**；其余 kind 禁入参照类）
+const PAIR_KINDS = {
+  OPEN_daily_max: ['openmeteo_daily_max', 'openmeteo_forecast_daily_max'],
+  OPEN_daily_precipitation_sum: ['openmeteo_archive_daily_precipitation_sum', 'openmeteo_forecast_daily_precipitation_sum'],
+  OPEN_daily_sunshine_duration: ['openmeteo_archive_daily_sunshine_duration', 'openmeteo_forecast_daily_sunshine_duration'],
+  OPEN_daily_wind_speed_10m_max: ['openmeteo_archive_daily_wind_speed_10m_max', 'openmeteo_forecast_daily_wind_speed_10m_max'],
 };
+const KIND2PAIR = (() => { const m = {}; for (const f of Object.keys(PAIR_KINDS)) for (const k of PAIR_KINDS[f]) m[k] = f; return m; })();
+
+const DECLARED_ARMS = {
+  mos: { impl: null, note: 'MOS 统计订正（PREREG §4；附加 4 城一致 ≥3/4＋城市×季度 16 格）—★前置不足：已发布高频观测仅 2.8% 覆盖（特征审计 §2）' },
+  nowcast: { impl: null, note: 'nowcast（PREREG §4；P1/P2/P3）—★开跑前须先测 P2 空窗层覆盖率（v1 §9④）' },
+  granger_lag: { impl: null, note: 'Granger 滞后（PREREG §4）—★实现前提不成立：账本不存序列值（v1.1 §2；须先定「联网重取数／封存」路径）' },
+  knn: { impl: null, note: 'kNN 基率（PREREG §4；k=30＋标准化欧氏＋格 n<30 不启用）—参数已预注册（v1.2）' },
+};
+// kNN 臂的实现（参数已预注册于 v1.2；臂签名与其它臂一致＝(ctx, q) → p）
+// 做成**工厂**：κ 是唯一可换的参数（敏感性披露用），其余（k／距离／向量）一律冻结。
+function makeKnnArm(kappa) {
+  return function knnArm(ctx, q) {
+    const fam = q.fam;
+    const hist = ctx.history.filter((h) => h.fam === fam);
+    if (!hist.length) return q.base;                       // 无历史 ⇒ 退静态格基率（不猜）
+    const D = 4;
+    const vec = (r) => [Math.sin(2 * Math.PI * r.month / 12), Math.cos(2 * Math.PI * r.month / 12), r.lat, r.lon];
+    const qv = vec(q);
+    const mat = hist.map(vec);
+    // 标准化：均值/标准差**只用历史题**（同一条防泄漏线，照 PREREG §2）
+    const mu = [], sd = [];
+    for (let d = 0; d < D; d++) {
+      const col = mat.map((v) => v[d]);
+      const m = col.reduce((a, b) => a + b, 0) / col.length;
+      const v = col.length > 1 ? col.reduce((s, x) => s + (x - m) * (x - m), 0) / (col.length - 1) : 0;
+      mu.push(m); sd.push(Math.sqrt(v) || 1);
+    }
+    const z = (v) => v.map((x, d) => (x - mu[d]) / sd[d]);
+    const qz = z(qv);
+    const dists = hist.map((h, i) => ({ i: i, d2: z(mat[i]).reduce((s, x, d) => s + (x - qz[d]) * (x - qz[d]), 0) }))
+      .sort((a, b) => (a.d2 === b.d2 ? a.i - b.i : a.d2 - b.d2));
+    const k = Math.min(KNN_K, dists.length);                // ★近邻不足 k ⇒ 用可得全部
+    const nb = dists.slice(0, k).map((x) => hist[x.i].y);
+    const thetaKnn = nb.reduce((a, b) => a + b, 0) / nb.length;
+    const w = k / (k + kappa);                              // v1.2 §2：w = n/(n+κ)，n＝近邻数
+    return w * thetaKnn + (1 - w) * q.base;                 // θ̂ = w·θ̂_kNN + (1−w)·θ̂_格
+  };
+}
+DECLARED_ARMS.knn.impl = makeKnnArm(KNN_KAPPA);
+/** 敏感性用：同一条臂、只换 κ（**只披露，不据以判生死**——v1.2 §2）。 */
+function replayCellWithKappa(rows, kappa) { return replayCell(rows, makeKnnArm(kappa)); }
 // ── 自检臂（**非能力读数**；不入判读，只证机器）──
 const SELFTEST_ARMS = {
   identity: { impl: (ctx, q) => q.base, note: '金样：臂≡基线 ⇒ Δ≡0、σ̂_d=0' },
@@ -94,6 +140,40 @@ function cellsOf(pool) {
     const [layer, domain] = k.split('/');
     return { cell: k, layer, domain, rows, n: rows.length, eligible: rows.length >= MIN_N };
   }).sort((a, b) => (a.layer === b.layer ? a.n - b.n : (a.layer < b.layer ? -1 : 1)));
+}
+
+// ── kNN 臂所需特征的装配（PREREG v1.2 §3：实际向量＝[sin,cos,lat,lon]；滞后维**缺席**）──
+// 特征来源：`resolve.lat/lon`（站点坐标）＋ `resolve.date`/`period`（→事件月）＋ `resolve.kind`（→族）。
+function attachFeatures(pool, dbPath) {
+  const { DatabaseSync } = require('node:sqlite');
+  const db = new DatabaseSync(dbPath, { readOnly: true });
+  const ev = new Map();
+  for (const r of db.prepare('SELECT id, evidence_json FROM predictions').all()) {
+    let a = []; try { a = JSON.parse(r.evidence_json || '[]'); } catch (e) { a = []; }
+    ev.set(r.id, a[0] || {});
+  }
+  db.close();
+  return pool.map((q) => {
+    const e0 = ev.get(q.id) || {};
+    const rz = e0.resolve || {};
+    const kind = rz.kind || null;
+    const dstr = rz.date || rz.period || null;
+    const month = dstr ? Number(String(dstr).slice(5, 7)) : null;
+    return Object.assign({}, q, {
+      kind: kind,
+      fam: kind ? (KIND2PAIR[kind] || null) : null,            // 只认 v1.2 §1 的四对；其余 null（禁入参照类）
+      lat: isFinite(rz.lat) ? Number(rz.lat) : null,
+      lon: isFinite(rz.lon) ? Number(rz.lon) : null,
+      month: (month >= 1 && month <= 12) ? month : null,
+    });
+  });
+}
+/** kNN 的可用池：**只含 v1.2 §1 的四对**，且四维特征齐备（否则该题不入臂——禁「缺维硬算」）。 */
+function knnPool(featured) {
+  const rows = featured.filter((q) => q.fam && q.lat !== null && q.lon !== null && q.month !== null);
+  const byPair = {};
+  for (const f of Object.keys(PAIR_KINDS)) byPair[f] = rows.filter((q) => q.fam === f);
+  return { rows: rows, byPair: byPair };
 }
 
 // ── 重放（PREREG §2）：逐题推进游标；**题 t 只看 resolved_at < t**；同刻批量零信息流 ──
@@ -217,14 +297,72 @@ function main() {
     process.exit(3);
   }
 
-  // 真臂名 ⇒ 明确 exit 4（禁静默）
+  // 未知臂 ⇒ 明确 exit 4（禁静默）
   const unknown = ARMS.filter((a) => !SELFTEST_ARMS[a] && !DECLARED_ARMS[a]);
   if (unknown.length) { console.error('★未知臂名：' + unknown.join(', ') + ' ⇒ exit 4'); process.exit(4); }
-  const real = ARMS.filter((a) => DECLARED_ARMS[a]);
-  if (real.length) {
-    console.error('★以下臂**已在 PREREG §4 登记但尚未实现**：' + real.map((r) => r + '（' + DECLARED_ARMS[r].note + '）').join('；'));
+  // **已登记但实现为 null** 的真臂 ⇒ exit 4（禁把「未实现」静默成「跑了没差异」）
+  const notImpl = ARMS.filter((a) => DECLARED_ARMS[a] && !DECLARED_ARMS[a].impl);
+  if (notImpl.length) {
+    console.error('★以下臂**已在 PREREG §4 登记但尚未实现**：');
+    for (const r of notImpl) console.error('    ' + r + '：' + DECLARED_ARMS[r].note);
     console.error('  ⇒ exit 4（禁把「未实现」静默成「跑了没差异」）');
     process.exit(4);
+  }
+  const realArms = ARMS.filter((a) => DECLARED_ARMS[a]);
+
+  // ★真臂跑批：库里**只在预注册的池与格上**跑；读数落盘（含 κ 敏感性并列披露）
+  if (realArms.length) {
+    const featured = attachFeatures(pool, DB_PATH);
+    const out = {
+      script: 'p1b/scripts/thickcell-replay.cjs',
+      generated_at: new Date().toISOString(),
+      zero_write_ledger: true, zero_llm: true, zero_network: true,
+      arms: realArms, bootstrap: { B: BOOT, seed: SEED },
+      prereg: {
+        v1: 'PREREG-厚格基建总票-v1.md',
+        v12: 'PREREG-厚格基建总票-v1.2-补充-kNN预注册-20260918.md（sha 7d2015d2…）',
+        k: KNN_K, kappa_main: KNN_KAPPA, kappa_sensitivity: KNN_SENS_KAPPA,
+        pairs: Object.keys(PAIR_KINDS),
+        feature_vector: '[sin(2πm/12), cos(2πm/12), lat, lon]（滞后维缺席，v1.1 §2）',
+      },
+      cells: [], sensitivity: [],
+    };
+    for (const armName of realArms) {
+      if (armName !== 'knn') continue;                    // 目前只有 kNN 实现
+      const kp = knnPool(featured);
+      console.log('=== kNN 臂（PREREG v1.2 预注册）===');
+      console.log('  可用池：' + kp.rows.length + ' 题／' + Object.keys(PAIR_KINDS).length + ' 对');
+      for (const f of Object.keys(PAIR_KINDS)) {
+        const rows = kp.byPair[f];
+        if (!rows.length) { console.log('    ' + f + '：0 题 ⇒ 跳过'); continue; }
+        const played = replayCell(rows, DECLARED_ARMS.knn.impl);
+        const m = metricsOf(played, BOOT, SEED);
+        out.cells.push({ pair: f, n: m.n, delta: m.delta, ci95: m.ci95, sd_d: m.sd_d, mde: m.mde, brier_arm: m.brier_arm, brier_base: m.brier_base, resolution_arm: m.resolution_arm, resolution_base: m.resolution_base, c1_pass: m.c1_pass, c2_pass: m.c2_pass });
+        console.log('    ' + f.padEnd(34) + ' n=' + String(m.n).padStart(4)
+          + ' Δ=' + fmt(m.delta) + ' σ̂_d=' + fmt(m.sd_d) + ' MDE=' + fmt(m.mde)
+          + ' CI=[' + fmt(m.ci95 && m.ci95.lb) + ',' + fmt(m.ci95 && m.ci95.ub) + ']'
+          + ' C1=' + (m.c1_pass ? '过' : '未过') + ' C2=' + (m.c2_pass === null ? 'n/a' : (m.c2_pass ? '不降' : '降')));
+        // κ 敏感性（v1.2 §2：**只披露，不据以判生死**）
+        for (const kap of KNN_SENS_KAPPA) {
+          const alt = metricsOf(replayCellWithKappa(rows, kap), BOOT, SEED);
+          out.sensitivity.push({ pair: f, kappa: kap, delta: alt.delta, ci95: alt.ci95, c1_pass: alt.c1_pass });
+        }
+      }
+      // 合并（四对并成一行，仅作**方向披露**——不是判读单元）
+      if (kp.rows.length) {
+        const all = replayCell(kp.rows, DECLARED_ARMS.knn.impl);
+        const m = metricsOf(all, BOOT, SEED);
+        out.pooled = { n: m.n, delta: m.delta, ci95: m.ci95, sd_d: m.sd_d, mde: m.mde, c1_pass: m.c1_pass, c2_pass: m.c2_pass };
+        console.log('    ' + '【合并（仅方向披露，非判读单元）】'.padEnd(20) + ' n=' + String(m.n).padStart(4) + ' Δ=' + fmt(m.delta)
+          + ' CI=[' + fmt(m.ci95 && m.ci95.lb) + ',' + fmt(m.ci95 && m.ci95.ub) + ']');
+      }
+    }
+    console.log('  ★读法（PREREG §6）：Δ 与 CI **必须与 σ̂_d／MDE 同报**；κ 敏感性**只披露不判生死**（v1.2 §2）。');
+    fs.mkdirSync(OUT_DIR, { recursive: true });
+    const jp = path.join(OUT_DIR, 'thickcell-knn-20260918.json');
+    fs.writeFileSync(jp, JSON.stringify(out, null, 2), 'utf8');
+    console.log('  json -> ' + jp);
+    return;
   }
 
   // 自检臂：只在**可判读格**上跑
@@ -268,4 +406,4 @@ function main() {
 function fmt(v) { return (v === null || v === undefined) ? 'n/a' : Number(v).toFixed(6); }
 
 if (require.main === module) main();
-module.exports = { buildPool, cellsOf, replayCell, metricsOf, bootCI, SELFTEST_ARMS, DECLARED_ARMS, DOMAINS, LAYERS, MIN_N, NONINF_MARGIN };
+module.exports = { buildPool, cellsOf, replayCell, metricsOf, bootCI, SELFTEST_ARMS, DECLARED_ARMS, DOMAINS, LAYERS, MIN_N, NONINF_MARGIN, attachFeatures, knnPool, makeKnnArm, replayCellWithKappa, KNN_K, KNN_KAPPA, KNN_SENS_KAPPA, PAIR_KINDS, KIND2PAIR };
