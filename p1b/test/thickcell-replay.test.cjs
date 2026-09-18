@@ -107,3 +107,53 @@ test('⑥ require 本件零副作用（主流程只在 CLI 直跑）', () => {
   require(SCRIPT);
   assert.equal(snap(), s0, 'require 不得写盘');
 });
+
+test('⑦ 特征可得性审计：四臂判定与「账本根本不存在」的字段分开列（防 0% 被读成「罕见」）', () => {
+  const F = require(path.join(ROOT, 'p1b', 'scripts', 'thickcell-features.cjs'));
+  assert.ok(Array.isArray(F.FEATURES) && F.FEATURES.length >= 8, '特征表非空');
+  assert.ok(Array.isArray(F.ARM_PREREQ) && F.ARM_PREREQ.length === 4, '四臂前置表应为 4 条');
+  for (const a of F.ARM_PREREQ) {
+    assert.ok(a.arm && a.features.length > 0, '每臂须列约束特征：' + JSON.stringify(a));
+    for (const k of a.features) {
+      assert.ok(F.FEATURES.some((f) => f.key === k), '约束特征须在特征表内：' + k);
+    }
+  }
+  // 跑一次（读库只读）并断言关键读数：池=607；forecast 覆盖极低；Granger 的序列 ID 覆盖低
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'p1b-feat-'));
+  try {
+    const jp = path.join(tmp, 'f.json');
+    execFileSync(process.execPath, [path.join(ROOT, 'p1b', 'scripts', 'thickcell-features.cjs'), '--json', jp], { encoding: 'utf8' });
+    const j = JSON.parse(fs.readFileSync(jp, 'utf8'));
+    assert.equal(j.pool_n, 607, '池应为 607（与 PREREG §1 冻结时记录一致）');
+    assert.ok(j.features.forecastVal.pct < 0.10, 'MOS 的已发布高频观测覆盖应 <10%（实测 2.8%）');
+    assert.ok(j.features.seriesID.pct < 0.10, 'Granger 的序列 ID 覆盖应 <10%（实测 7.6%）');
+    assert.ok(j.features.baseRate_nk.pct > 0.80, 'kNN 的 baseRate n/k 覆盖应 >80%（实测 83.4%）');
+    assert.ok(Array.isArray(j.absent) && j.absent.length >= 1, '须单列「账本根本不存在」的字段');
+    assert.ok(j.absent.some((x) => /序列/.test(x.label)), '须含「序列的历史值」缺失项');
+    // 四臂判定：knn/nowcast 可行；mos/granger 前提不足
+    const byArm = {}; for (const a of j.arms) byArm[a.arm] = a.verdict;
+    assert.equal(byArm.knn, 'feasible');
+    assert.equal(byArm.nowcast, 'feasible');
+    assert.notEqual(byArm.mos, 'feasible', 'MOS 不应判 feasible（forecast 覆盖 2.8%）');
+    assert.notEqual(byArm.granger_lag, 'feasible', 'Granger 不应判 feasible（序列未入库）');
+    assert.ok(/不是判据/.test(j.gate_note), '门槛须声明「非判据」');
+  } finally { try { fs.rmSync(tmp, { recursive: true, force: true }); } catch (e) { /* ignore */ } }
+});
+
+test('⑧ PREREG v1.1 勘误件：冻结自检 MATCH=true，且**v1 原件未被改动**', () => {
+  const { freezeSha } = require(path.join(ROOT, 'p1b', 'scripts', 'prereg-freeze.cjs'));
+  const v1 = path.join(ROOT, '.scratch', 'forecast-debate', 'PREREG-厚格基建总票-v1.md');
+  const v11 = path.join(ROOT, '.scratch', 'forecast-debate', 'PREREG-厚格基建总票-v1.1-补充与勘误-20260918.md');
+  assert.ok(fs.existsSync(v1) && fs.existsSync(v11), '两件须都在盘');
+  assert.equal(freezeSha(v1).match, true, 'v1 原件须仍 MATCH（版本递进＝原件一字不动）');
+  assert.equal(freezeSha(v11).match, true, 'v1.1 须 MATCH');
+  assert.notEqual(freezeSha(v1).sha256, freezeSha(v11).sha256, 'v1.1 是新件，sha 必不同');
+  // ★防回归（已登记的坑）：冻结工具的 `recorded` 取的是**文件里第一个**被反引号包的 64 位 hex
+  //   ⇒ 若正文先引了别的件的完整 sha，recorded 就会取错 ⇒ **引用一律截断**。
+  //   精确不变量＝「第一个反引号 64 位 hex 必须就是本件自己的登记值」。
+  const t = fs.readFileSync(v11, 'utf8');
+  const first = (t.match(/`([0-9a-f]{64})`/) || [])[1];
+  assert.equal(first, freezeSha(v11).sha256, '第一个反引号 64 位 hex 须＝本件登记的 sha（否则是引了别件的完整 sha ⇒ recorded 取错）');
+  // 且它必须处于 `sha256：` 槽位（登记块内）
+  assert.ok(/sha256：`[0-9a-f]{64}`/.test(t), 'sha 须写在 sha256：槽位');
+});

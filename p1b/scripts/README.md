@@ -1,7 +1,7 @@
 # p1b/scripts 目录索引（脚本都在干什么）
 
 > **自动生成，勿手改**——`node p1b/scripts/scripts-index.cjs`（任务 6 批次 3 / 命名整理）。
-> 生成时点：2026-09-18T15:05:46.816Z｜在役脚本 112 个｜归档件见文末。
+> 生成时点：2026-09-18T15:13:51.756Z｜在役脚本 113 个｜归档件见文末。
 > 命名约定：`corpus-*` 取数出题｜`g2-*` 门禁报表｜`stage4-*` 分层真跑｜`prereg-a-*` 命题 A｜**默认 dry-run、写库须 `--confirm`**（项目纪律）。
 
 ## 使用者友好面（先看这几个）（4）
@@ -60,7 +60,7 @@
 | `prereg-a-sweep.cjs` | 命题 A 全量补齐「扫尾」（2026-09-14） | **可写库**（`--confirm` 才写；默认 dry-run） |
 | `prereg-a-windows.cjs` | PREREG-命题A-3.0消融 · §5 双窗参数件（跑批参数显式落盘；**禁止两窗合并**） | 只读 |
 
-## 其余工具（81）
+## 其余工具（82）
 
 | 脚本 | 一句话 | 写库 |
 |---|---|---|
@@ -137,6 +137,7 @@
 | `stage5-forecast-signal.cjs` | 阶段 5 路线 (b)「前瞻数值信号」**冻结实验的可复现脚本**。 | 只读 |
 | `stage5-leak-probe.cjs` | 阶段 5 开工前置 ④-A：**泄漏三层探针 + canary 的工程验证**。 | 只读 |
 | `stage5-rank-diagnostic.cjs` | 滞后集合 3 档秩检验（Watson）· **逐对件**（2026-09-17） | 只读 |
+| `thickcell-features.cjs` | **厚格四臂·特征可得性审计**（2026-09-18 · 第 3 期票 B 实现前置） | 只读 |
 | `thickcell-replay.cjs` | **厚格基建总票·共享 walk-forward 重放骨架**（2026-09-18 · 第 3 期票 B 的实现件） | 只读 |
 | `ts-rebacktest.cjs` | 批次 1.5 · TS/Platt 离线回测（零 LLM，库只读）。 | 只读 |
 | `u8-columns.cjs` | U8 加列读侧派生：KL 可预报性 / Murphy 三分解 / prequential 累计曲线（2026-09-16 · P0+） | 只读 |
