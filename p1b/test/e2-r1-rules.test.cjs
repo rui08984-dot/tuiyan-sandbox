@@ -68,13 +68,16 @@ test('③ 真实件：MATCH／人口／保留格与阶段 4 同集合／无臂�
   assert.equal(j.r1a_counts.reassign, 0, 'R1-A 改层应为 0（分配与引擎可用性一致）');
   assert.equal(j.r1a_counts['no-op'] + j.r1a_counts.reassign + j.r1a_counts.downgrade, j.cohort, '三态合计＝队列');
   const kept = j.r1b_cells.filter((c) => c.kept).map((c) => c.cell).sort();
-  // ★ 数据标记（随账本增长更新）：2026-09-17 结算 183 条 ⇒ 保留格 7 → 8（新增 L2/wikimedia n=38，与阶段 4 同步）
-  assert.equal(kept.length, 8, '保留格应为 8（与阶段 4「可出结论 8 格」同集合）: ' + JSON.stringify(kept));
+  // ★ 数据标记（随账本增长更新）：2026-09-17 结算 183 条 ⇒ 保留格 7 → 8（新增 L2/wikimedia n=38）；
+  //   09-19（二十六）批结算 44 条 ⇒ 阶段 4 可出结论 8 → 9（L2/kraken n=30 过线），但 R1-B 保留格仍 8：
+  //   kraken 30 条 outcome 全 true ⇒ 落入 RES 条款（无分辨力）被降档 ⇒ 与阶段 4 集合首次出现分歧（9 vs 8）。
+  //   这是冻结规则（E2 R1 rules v1，sha 前 8 位 e0331cf8）按设计首次绑定，非口径变更。
+  assert.equal(kept.length, 8, '保留格应为 8（kraken 被 RES 条款降档 ⇒ 与阶段 4「可出结论 9 格」差一格）: ' + JSON.stringify(kept));
   for (const c of ['L1/werewolf_sim', 'L2/dbnomics', 'L2/energycharts', 'L2/noaa', 'L2/wikimedia', 'L3/openmeteo', 'L5/cwl', 'L6/werewolf_sim']) {
     assert.ok(kept.indexOf(c) !== -1, '应含 ' + c);
   }
-  // RES 条款当前非绑定：所有降档格都是因 n<30
-  for (const c of j.r1b_cells.filter((x) => !x.kept)) assert.ok(/n<30/.test(c.reason), c.cell + ' 降档理由应为 n<30: ' + c.reason);
+  // 降档理由两类：n<30（样本不足）或 RES CI 下界 ≤ 0（无分辨力）——09-19 起 RES 条款首次绑定（L2/kraken）
+  for (const c of j.r1b_cells.filter((x) => !x.kept)) assert.ok(/n<30|RES/.test(c.reason), c.cell + ' 降档理由应为 n<30 或 RES 无分辨力: ' + c.reason);
   assert.equal(j.discipline.arms_reading_run, false, '不得跑臂读数');
   assert.equal(j.discipline.ledger_write, false);
   assert.equal(j.discipline.network, false);

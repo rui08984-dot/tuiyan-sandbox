@@ -73,6 +73,9 @@ const ARM_PREREQ = [
 function main() {
   const DB = arg('db', path.join(ROOT, 'p1a-terminal', 'data', 'p1a.db'));
   const OUT_DIR = arg('out-dir', path.join(ROOT, 'p1b', 'sim', 'out'));
+  // ★默认输出名按**运行时** UTC 日期戳（2026-09-19 修复：原写死 20260918 ⇒ 任何一次跑都会用当天数据
+  //   覆盖「昨日命名」的留档件，文件名与内容错位；同 thickcell-replay.cjs 的 knn/selftest 两处一并修）。
+  const DATE_STAMP = new Date().toISOString().slice(0, 10).replace(/-/g, '');
   const { pool } = require(path.join(__dirname, 'thickcell-replay.cjs')).buildPool(DB);
 
   // 逐题取 evidence[0]（域/层/可计分已由 buildPool 把关）
@@ -119,7 +122,7 @@ function main() {
     arms: arms,
   };
   fs.mkdirSync(OUT_DIR, { recursive: true });
-  const jp = arg('json', path.join(OUT_DIR, 'thickcell-features-20260918.json'));
+  const jp = arg('json', path.join(OUT_DIR, 'thickcell-features-' + DATE_STAMP + '.json'));
   fs.writeFileSync(jp, JSON.stringify(j, null, 2), 'utf8');
 
   const L = [];
@@ -163,7 +166,7 @@ function main() {
   }
   L.push('');
   L.push('（审计件完 · 2026-09-18 · 零账本写／零 LLM／零网络）');
-  const mp = arg('md', path.join(OUT_DIR, 'thickcell-features-20260918.md'));
+  const mp = arg('md', path.join(OUT_DIR, 'thickcell-features-' + DATE_STAMP + '.md'));
   fs.writeFileSync(mp, L.join('\n') + '\n', 'utf8');
 
   console.log('=== 厚格四臂 · 特征可得性（池 ' + N + '）===');

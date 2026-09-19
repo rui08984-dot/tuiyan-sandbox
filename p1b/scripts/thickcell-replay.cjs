@@ -359,7 +359,9 @@ function main() {
     }
     console.log('  ★读法（PREREG §6）：Δ 与 CI **必须与 σ̂_d／MDE 同报**；κ 敏感性**只披露不判生死**（v1.2 §2）。');
     fs.mkdirSync(OUT_DIR, { recursive: true });
-    const jp = path.join(OUT_DIR, 'thickcell-knn-20260918.json');
+    // ★默认输出名按**运行时** UTC 日期戳（2026-09-19 修复：原写死 20260918 ⇒ 会覆写「昨日命名」的留档件）
+    const DATE_STAMP = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+    const jp = path.join(OUT_DIR, 'thickcell-knn-' + DATE_STAMP + '.json');
     fs.writeFileSync(jp, JSON.stringify(out, null, 2), 'utf8');
     console.log('  json -> ' + jp);
     return;
@@ -399,7 +401,9 @@ function main() {
 
   if (!out.selftest_pass) { console.error('★自检未过 ⇒ exit 6（不落盘）'); process.exit(6); }
   fs.mkdirSync(OUT_DIR, { recursive: true });
-  const jp = path.join(OUT_DIR, 'thickcell-replay-selftest-20260918.json');
+  // ★默认输出名按**运行时** UTC 日期戳（2026-09-19 修复：原写死 20260918 ⇒ 会覆写「昨日命名」的留档件）
+  const DATE_STAMP2 = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+  const jp = path.join(OUT_DIR, 'thickcell-replay-selftest-' + DATE_STAMP2 + '.json');
   fs.writeFileSync(jp, JSON.stringify(out, null, 2), 'utf8');
   console.log('  json -> ' + jp);
 }

@@ -1,0 +1,270 @@
+{
+  "script": "p1b/scripts/thickcell-features.cjs",
+  "generated_at": "2026-09-19T14:01:27.950Z",
+  "zero_write_ledger": true,
+  "zero_llm": true,
+  "zero_network": true,
+  "basis": "PREREG-厚格基建总票-v1.md §4（四臂读数定义）＋ §9（已知限制）",
+  "gate_note": "本件的 feasible/insufficient/blocked 门槛 60% 是**实现前置的操作化门槛**，**不是判据**（判据在 PREREG §3）。",
+  "pool_n": 630,
+  "features": {
+    "kind": {
+      "label": "resolve.kind（题类型）",
+      "n": 630,
+      "pct": 1
+    },
+    "latlon": {
+      "label": "resolve.lat/lon（站点坐标＝城市气候协变量代理）",
+      "n": 551,
+      "pct": 0.8746031746031746
+    },
+    "date": {
+      "label": "resolve.date（日序→可派生月序）",
+      "n": 551,
+      "pct": 0.8746031746031746
+    },
+    "period": {
+      "label": "resolve.period（月/期键）",
+      "n": 32,
+      "pct": 0.050793650793650794
+    },
+    "threshold": {
+      "label": "resolve.threshold（题面阈值）",
+      "n": 517,
+      "pct": 0.8206349206349206
+    },
+    "baseRate": {
+      "label": "baseRate 对象",
+      "n": 523,
+      "pct": 0.8301587301587302
+    },
+    "baseRate_nk": {
+      "label": "baseRate 含 n 与 k（格基率＋样本量）",
+      "n": 523,
+      "pct": 0.8301587301587302
+    },
+    "forecastVal": {
+      "label": "forecast 带数值（**已发布高频观测**；MOS 所需）",
+      "n": 17,
+      "pct": 0.026984126984126985
+    },
+    "seriesID": {
+      "label": "resolve.series（dbnomics 序列 ID）",
+      "n": 46,
+      "pct": 0.07301587301587302
+    },
+    "phase": {
+      "label": "meta.phase（forward/backfill）",
+      "n": 485,
+      "pct": 0.7698412698412699
+    }
+  },
+  "absent": [
+    {
+      "key": "series_values",
+      "label": "同源序列的历史值（VAR 滞后项 / kNN 滞后维所需）",
+      "why": "账本 evidence 只存**基率汇总**（`baseRate{p,n,k}`）与**阈值**，**不存序列本身**；resolve 只存取数参数（provider/dataset/series/period/threshold）。⇒ 任何需要「序列里前 k 期数值」的读数**无法在账本内复算**，只能**联网重取数**。",
+      "consumers": [
+        "granger_lag（VAR 滞后选择）",
+        "knn（PREREG §4 的「可用的滞后值」维）"
+      ]
+    },
+    {
+      "key": "published_hifreq",
+      "label": "已发布高频观测（MOS 订正输入）",
+      "why": "`forecast` 字段仅 **2.8%** 覆盖（且只出现在带 cutoff 快照的题上）⇒ 不足以支撑 MOS 的订正对照。",
+      "consumers": [
+        "mos"
+      ]
+    }
+  ],
+  "by_kind": {
+    "openmeteo_daily_max": {
+      "n": 113,
+      "layer": {
+        "L3": 113
+      },
+      "domain": {
+        "openmeteo": 113
+      }
+    },
+    "dbnomics_series_value": {
+      "n": 32,
+      "layer": {
+        "L2": 32
+      },
+      "domain": {
+        "dbnomics": 32
+      }
+    },
+    "openmeteo_air_pm10_daily_mean": {
+      "n": 20,
+      "layer": {
+        "L3": 20
+      },
+      "domain": {
+        "openmeteo": 20
+      }
+    },
+    "dbnomics_bis_monthly_mean": {
+      "n": 14,
+      "layer": {
+        "L2": 14
+      },
+      "domain": {
+        "dbnomics": 14
+      }
+    },
+    "dbnomics_wb_commodity_annual": {
+      "n": 24,
+      "layer": {
+        "L2": 24
+      },
+      "domain": {
+        "dbnomics": 24
+      }
+    },
+    "openmeteo_air_pm2_5_daily_mean": {
+      "n": 42,
+      "layer": {
+        "L3": 42
+      },
+      "domain": {
+        "openmeteo": 42
+      }
+    },
+    "openmeteo_air_ozone_daily_mean": {
+      "n": 42,
+      "layer": {
+        "L3": 42
+      },
+      "domain": {
+        "openmeteo": 42
+      }
+    },
+    "openmeteo_archive_daily_precipitation_sum": {
+      "n": 28,
+      "layer": {
+        "L3": 28
+      },
+      "domain": {
+        "openmeteo": 28
+      }
+    },
+    "openmeteo_archive_daily_wind_speed_10m_max": {
+      "n": 32,
+      "layer": {
+        "L3": 32
+      },
+      "domain": {
+        "openmeteo": 32
+      }
+    },
+    "openmeteo_archive_daily_sunshine_duration": {
+      "n": 32,
+      "layer": {
+        "L3": 32
+      },
+      "domain": {
+        "openmeteo": 32
+      }
+    },
+    "dbnomics_eurostat_unemployment_monthly": {
+      "n": 9,
+      "layer": {
+        "L2": 9
+      },
+      "domain": {
+        "dbnomics": 9
+      }
+    },
+    "openmeteo_air_daily_mean": {
+      "n": 128,
+      "layer": {
+        "L3": 128
+      },
+      "domain": {
+        "openmeteo": 128
+      }
+    },
+    "openmeteo_wx_daily": {
+      "n": 60,
+      "layer": {
+        "L3": 60
+      },
+      "domain": {
+        "openmeteo": 60
+      }
+    },
+    "openmeteo_marine_sst_daily": {
+      "n": 8,
+      "layer": {
+        "L3": 8
+      },
+      "domain": {
+        "openmeteo": 8
+      }
+    },
+    "openmeteo_forecast_daily_precipitation_sum": {
+      "n": 14,
+      "layer": {
+        "L3": 14
+      },
+      "domain": {
+        "openmeteo": 14
+      }
+    },
+    "openmeteo_forecast_daily_wind_speed_10m_max": {
+      "n": 16,
+      "layer": {
+        "L3": 16
+      },
+      "domain": {
+        "openmeteo": 16
+      }
+    },
+    "openmeteo_forecast_daily_sunshine_duration": {
+      "n": 16,
+      "layer": {
+        "L3": 16
+      },
+      "domain": {
+        "openmeteo": 16
+      }
+    }
+  },
+  "arms": [
+    {
+      "arm": "knn",
+      "label": "kNN 基率（§4）",
+      "binding_feature": "baseRate 含 n 与 k（格基率＋样本量）",
+      "binding_pct": 0.8301587301587302,
+      "verdict": "feasible",
+      "extra": "★PREREG §4 原文的「**(可用的)滞后值**」维：**账本不存序列值** ⇒ 该维**缺席**（须显式声明）"
+    },
+    {
+      "arm": "mos",
+      "label": "MOS 统计订正（§4，附加 4 城一致 ≥3/4）",
+      "binding_feature": "forecast 带数值（**已发布高频观测**；MOS 所需）",
+      "binding_pct": 0.026984126984126985,
+      "verdict": "insufficient",
+      "extra": "★所用**已发布高频观测**（`forecast` 数值）覆盖率极低 ⇒ 见下判定"
+    },
+    {
+      "arm": "granger_lag",
+      "label": "Granger 滞后（§4，不产因果图）",
+      "binding_feature": "resolve.series（dbnomics 序列 ID）",
+      "binding_pct": 0.07301587301587302,
+      "verdict": "insufficient",
+      "extra": "★★**根本缺口**：VAR 需要**同源序列的历史值**，而账本**只存基率汇总（p/n/k）与阈值，不存序列** ⇒ 零覆盖"
+    },
+    {
+      "arm": "nowcast",
+      "label": "nowcast（§4；P1/P2/P3）",
+      "binding_feature": "meta.phase（forward/backfill）",
+      "binding_pct": 0.7698412698412699,
+      "verdict": "feasible",
+      "extra": "★P2「空窗层」＝真值未发布且桥接窗口非空 ⇒ 需**先测覆盖率**（PREREG §9④ 已登记未测）"
+    }
+  ]
+}

@@ -1,0 +1,230 @@
+{
+ "script": "p1b/scripts/e2-r1-rules.cjs",
+ "rules_file": "E:\\music player\\.scratch\\forecast-debate\\E2-R1-规则版-v1-冻结件-20260917.md",
+ "rules_sha256": "e0331cf8e7237a8a0b6eed9f6393866d9b6008e2a64210f723fc699beeceb4bf",
+ "rules_match": true,
+ "basis": "PREREG-E2 §2 R1 行 ＋ 11 号件 §⑧ M5① ＋ design §1.2 优先级 ＋ 19 号件 §3 裁决三",
+ "generated_at": "2026-09-19T13:43:15.059Z",
+ "discipline": {
+  "ledger_write": false,
+  "llm": false,
+  "network": false,
+  "arms_reading_run": false
+ },
+ "not_run": "R1-vs-R0 读数未跑（M5①＋E2 §3.0：须待冻结＋覆盖补齐后一次性跑）；本件只做描述性计数。",
+ "single_implementation": "可估引擎集 A(q) require e2-combo-precheck.cjs::buildEngineMatrix（冻结件 §1-A1 要求「同一实现」）",
+ "priority": [
+  "L5",
+  "L6",
+  "L1",
+  "L3",
+  "L2"
+ ],
+ "min_n": 30,
+ "cohort": 1499,
+ "r1a_counts": {
+  "no-op": 1462,
+  "reassign": 0,
+  "downgrade": 37
+ },
+ "reassign_detail": {},
+ "no_engine_by_layer": {
+  "L2": 37
+ },
+ "r1b_cells": [
+  {
+   "cell": "L3/openmeteo",
+   "n": 551,
+   "RES": 0.013215692627640212,
+   "ci95_RES_lo": 0.0077025991274532035,
+   "kept": true,
+   "reason": ""
+  },
+  {
+   "cell": "L6/werewolf_sim",
+   "n": 270,
+   "RES": 0.09431372094027447,
+   "ci95_RES_lo": 0.07058756444848957,
+   "kept": true,
+   "reason": ""
+  },
+  {
+   "cell": "L1/werewolf_sim",
+   "n": 180,
+   "RES": 0.24950617283950619,
+   "ci95_RES_lo": 0.24,
+   "kept": true,
+   "reason": ""
+  },
+  {
+   "cell": "L2/energycharts",
+   "n": 99,
+   "RES": 0.02769856996332276,
+   "ci95_RES_lo": 0.010686732472363722,
+   "kept": true,
+   "reason": ""
+  },
+  {
+   "cell": "L2/dbnomics",
+   "n": 79,
+   "RES": 0.026788266803802217,
+   "ci95_RES_lo": 0.016756690020102376,
+   "kept": true,
+   "reason": ""
+  },
+  {
+   "cell": "L2/noaa",
+   "n": 52,
+   "RES": 0.04135287789133943,
+   "ci95_RES_lo": 0.013966237382526977,
+   "kept": true,
+   "reason": ""
+  },
+  {
+   "cell": "L5/cwl",
+   "n": 38,
+   "RES": 0.011901320807740173,
+   "ci95_RES_lo": 0.00006925207756232685,
+   "kept": true,
+   "reason": ""
+  },
+  {
+   "cell": "L2/wikimedia",
+   "n": 38,
+   "RES": 0.027897045244690673,
+   "ci95_RES_lo": 0.00840791249378507,
+   "kept": true,
+   "reason": ""
+  },
+  {
+   "cell": "L2/kraken",
+   "n": 30,
+   "RES": 0.010833333333333332,
+   "ci95_RES_lo": 0,
+   "kept": false,
+   "reason": "RES CI 下界 ≤ 0（无分辨力）"
+  },
+  {
+   "cell": "L2/binance",
+   "n": 19,
+   "RES": null,
+   "ci95_RES_lo": null,
+   "kept": false,
+   "reason": "n<30（K F13 准入线）"
+  },
+  {
+   "cell": "L2/eurostat",
+   "n": 16,
+   "RES": null,
+   "ci95_RES_lo": null,
+   "kept": false,
+   "reason": "n<30（K F13 准入线）"
+  },
+  {
+   "cell": "L3/ghcn",
+   "n": 15,
+   "RES": null,
+   "ci95_RES_lo": null,
+   "kept": false,
+   "reason": "n<30（K F13 准入线）"
+  },
+  {
+   "cell": "L2/frankfurter",
+   "n": 14,
+   "RES": null,
+   "ci95_RES_lo": null,
+   "kept": false,
+   "reason": "n<30（K F13 准入线）"
+  },
+  {
+   "cell": "L2/delphi",
+   "n": 12,
+   "RES": null,
+   "ci95_RES_lo": null,
+   "kept": false,
+   "reason": "n<30（K F13 准入线）"
+  },
+  {
+   "cell": "L3/usgs",
+   "n": 10,
+   "RES": null,
+   "ci95_RES_lo": null,
+   "kept": false,
+   "reason": "n<30（K F13 准入线）"
+  },
+  {
+   "cell": "L2/npm",
+   "n": 7,
+   "RES": null,
+   "ci95_RES_lo": null,
+   "kept": false,
+   "reason": "n<30（K F13 准入线）"
+  },
+  {
+   "cell": "L3/noaa",
+   "n": 7,
+   "RES": null,
+   "ci95_RES_lo": null,
+   "kept": false,
+   "reason": "n<30（K F13 准入线）"
+  },
+  {
+   "cell": "L2/mlb",
+   "n": 7,
+   "RES": null,
+   "ci95_RES_lo": null,
+   "kept": false,
+   "reason": "n<30（K F13 准入线）"
+  },
+  {
+   "cell": "L2/github",
+   "n": 6,
+   "RES": null,
+   "ci95_RES_lo": null,
+   "kept": false,
+   "reason": "n<30（K F13 准入线）"
+  },
+  {
+   "cell": "L2/cta",
+   "n": 4,
+   "RES": null,
+   "ci95_RES_lo": null,
+   "kept": false,
+   "reason": "n<30（K F13 准入线）"
+  },
+  {
+   "cell": "L3/swpc",
+   "n": 4,
+   "RES": null,
+   "ci95_RES_lo": null,
+   "kept": false,
+   "reason": "n<30（K F13 准入线）"
+  },
+  {
+   "cell": "L3/jpl",
+   "n": 2,
+   "RES": null,
+   "ci95_RES_lo": null,
+   "kept": false,
+   "reason": "n<30（K F13 准入线）"
+  },
+  {
+   "cell": "L2/bom",
+   "n": 2,
+   "RES": null,
+   "ci95_RES_lo": null,
+   "kept": false,
+   "reason": "n<30（K F13 准入线）"
+  }
+ ],
+ "r1b_downgraded_questions": 155,
+ "r1_scoreable_after": {
+  "phase_a": 1462,
+  "after_b": 1307
+ },
+ "bootstrap": {
+  "B": 1000,
+  "seed": 987654321,
+  "method": "按题配对重采样·百分位法"
+ }
+}

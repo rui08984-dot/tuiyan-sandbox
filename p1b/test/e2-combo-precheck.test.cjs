@@ -75,8 +75,9 @@ test('④ 真实件：矩阵／两对／判决自洽／RES 门／三零／零副
   const j = JSON.parse(fs.readFileSync(path.join(tmpDir, arts[0]), 'utf8'));
   // ★ 数据标记（随账本增长更新）：2026-09-17 到期题结算 183 条 ⇒ 队列 1202 → 1385；
   //   同日（二十）批再结 4 条（L3 USGS）⇒ 1385 → 1389（读数前进，非口径变更）；
-  //   09-18（二十五）批再结 66 条 ⇒ 1389 → 1455（同上，读数前进）
-  assert.equal(j.cohort_rows, 1455, '队列应与 PREREG §1 池口径一致: ' + j.cohort_rows);
+  //   09-18（二十五）批再结 66 条 ⇒ 1389 → 1455（同上，读数前进）；
+  //   09-19（二十六）批再结 44 条（含空 URL 修复件首验：kraken 6/npm 4/mlb 1）⇒ 1455 → 1499（同上）
+  assert.equal(j.cohort_rows, 1499, '队列应与 PREREG §1 池口径一致: ' + j.cohort_rows);
   assert.ok(j.multi_engine_items >= 30, '多引擎题应 ≥30（R3 可估前提）: ' + j.multi_engine_items);
   const pairs = Object.keys(j.pair_population);
   assert.ok(pairs.some((k) => k.indexOf('L1') !== -1 && k.indexOf('L6') !== -1), 'L1×L6 对应在: ' + JSON.stringify(pairs));

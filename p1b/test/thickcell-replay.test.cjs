@@ -119,13 +119,16 @@ test('⑦ 特征可得性审计：四臂判定与「账本根本不存在」的�
       assert.ok(F.FEATURES.some((f) => f.key === k), '约束特征须在特征表内：' + k);
     }
   }
-  // 跑一次（读库只读）并断言关键读数：池=607；forecast 覆盖极低；Granger 的序列 ID 覆盖低
+  // 跑一次（读库只读）并断言关键读数：池=630；forecast 覆盖极低；Granger 的序列 ID 覆盖低
   const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'p1b-feat-'));
   try {
     const jp = path.join(tmp, 'f.json');
     execFileSync(process.execPath, [path.join(ROOT, 'p1b', 'scripts', 'thickcell-features.cjs'), '--json', jp], { encoding: 'utf8' });
     const j = JSON.parse(fs.readFileSync(jp, 'utf8'));
-    assert.equal(j.pool_n, 607, '池应为 607（与 PREREG §1 冻结时记录一致）');
+    // ★ 数据标记（随账本增长更新）：PREREG v1.2 冻结时点（09-18）池=607；
+    //   09-19（二十六）批结算 ⇒ L3 openmeteo 三 kind 新解 23 条（wind 8/sunshine 8/precip 7）⇒ 607 → 630
+    //   （walk-forward 时间前进，非口径变更；kraken 等非厚格注册域不入池）
+    assert.equal(j.pool_n, 630, '池应为 630（冻结时点 607 ＋ 09-19 批前进 23，见上注）: ' + j.pool_n);
     assert.ok(j.features.forecastVal.pct < 0.10, 'MOS 的已发布高频观测覆盖应 <10%（实测 2.8%）');
     assert.ok(j.features.seriesID.pct < 0.10, 'Granger 的序列 ID 覆盖应 <10%（实测 7.6%）');
     assert.ok(j.features.baseRate_nk.pct > 0.80, 'kNN 的 baseRate n/k 覆盖应 >80%（实测 83.4%）');
