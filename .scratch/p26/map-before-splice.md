@@ -601,7 +601,7 @@
 - `docs/specs/阶段5-检索式预测-立项书-v1.1.md` —— 阶段 5 立项书（评审后修订；待用户拍板）
 - `docs/specs/阶段5-立项评审-检索式预测-20260914.md` —— 阶段 5 独立评审（16 发现/8 必改）
 
-### docs/plans 与 docs/sandbox/p1b/itest（计划与进度锚）（180）
+### docs/plans 与 docs/sandbox/p1b/itest（计划与进度锚）（181）
 
 - `docs/sandbox/p1b/itest/`（154 件）—— 代表件 `_p7_fixer.cjs`：const fs = require("fs");；进度锚 p7–p22 为长项目锚（**最新 p19/p20+** 见本目录）
 - `docs/plans/2026-09-14-通往最终目标-分步实施计划.md` —— 三幕七任务实施计划（任务 6 批次 3 ✅）
@@ -625,6 +625,7 @@
 - `docs/sandbox/p1b/itest/p25-例行结算-20260918-PROGRESS.md` —— p25 · 到期题例行结算（2026-09-18）· 进度锚
 - `docs/sandbox/p1b/itest/p26-第3期开工-过锚率与厚格PREREG-PROGRESS.md` —— p26 · 第 3 期开工（两票并发滚动）· 进度锚（2026-09-18 立）
 - `docs/sandbox/p1b/itest/p27-例行结算-20260919-PROGRESS.md` —— p27 · 到期题例行结算（2026-09-19）· 进度锚
+- `docs/sandbox/p1b/itest/p28-裁决与结算-20260920-PROGRESS.md` —— p28 · 两项裁决落地 ＋ 09-20 例行结算（2026-09-20）· 进度锚
 - `docs/sandbox/p1b/itest/p5-integration-report.md` —— P1b-5 集成实测报告（2026-09-08 · 收尾棒）
 - `docs/sandbox/p1b/itest/p5-手机实测指引.md` —— 手机实测指引（P1b-5 · 2026-09-08）
 - `docs/sandbox/p1b/itest/p7-PROGRESS.md` —— P7 收尾进度锚（第四棒）
@@ -653,7 +654,7 @@
 - `.scratch/handoff/推演沙盘-日结-20260911.md` —— 推演沙盘 · 日结 2026-09-11（预测线全链闭合日）
 - `.scratch/handoff/推演沙盘-日结-20260913-晨.md` —— 推演沙盘 · 夜间日结（2026-09-13 晨 · 队长亲笔 · 用户睡眠期自主推进）
 
-### .scratch/forecast-debate（研究档案/PREREG/实验报告）（255）
+### .scratch/forecast-debate（研究档案/PREREG/实验报告）（256）
 
 - `.scratch/forecast-debate/`（51 件）—— 代表件 `_acr2-cachekeys.cjs`：const fs = require('fs');
 - `.scratch/forecast-debate/prereg-a/`（76 件）—— 代表件 `manifest-preregA-20260913.json`："tag": "preregA-20260913",
@@ -681,6 +682,7 @@
 - `.scratch/forecast-debate/PREREG-判词重跑-v1.md` —— PREREG · 判词重跑 v1（**已冻结** 2026-09-12 · 授权=用户令「推进施行吧」对 R-A/R-B 拆分的拍板 · 全文透明出示无异议 · 冻结 commit 时按下方协议重算 sha256 并…
 - `.scratch/forecast-debate/PREREG-厚格基建总票-v1.1-补充与勘误-20260918.md` —— PREREG · 厚格基建总票 **v1.1 补充与勘误**（2026-09-18 · **不修改 v1 原件**）
 - `.scratch/forecast-debate/PREREG-厚格基建总票-v1.2-补充-kNN预注册-20260918.md` —— PREREG · 厚格基建总票 **v1.2 补充**（kNN 待冻结项落地：同变量对名单 ＋ κ ＋ 特征向量）
+- `.scratch/forecast-debate/PREREG-厚格基建总票-v1.3-裁决补充-20260920.md` —— PREREG · 厚格基建总票 v1.3 · 裁决补充（2026-09-20）
 - `.scratch/forecast-debate/PREREG-厚格基建总票-v1.md` —— PREREG · 厚格基建总票 v1（**判据冻结件** · 2026-09-18 · 第 3 期票 B）
 - `.scratch/forecast-debate/PREREG-命题A-3.0消融-v1.1-补漏档位-addendum.md` —— PREREG-命题A-3.0消融 · v1.1 增补条款（补漏档位＋敏感性核对）
 - `.scratch/forecast-debate/PREREG-命题A-3.0消融-v1.md` —— PREREG 冻结件（sha 5d6907d1；改动＝版本递进）
@@ -854,10 +856,10 @@
 - `p1b/test/fixtures/stage4-golden-20260917.json` —— "script": "p1b/scripts/stage4-run.cjs",
 - `p1b/test/fixtures/stage4-golden-db-20260917.db` —— （二进制体：不抽句；随目录级列出）
 
-### p1b/sim/out（收据与读数件；大件 .db/截图不入列）（536）
+### p1b/sim/out（收据与读数件；大件 .db/截图不入列）（549）
 
-- `p1b/sim/out/`（219 件）—— 代表件 `_audit.txt`：=== 1) 重复/空局检查 ===；收据为 `.md`（上面已逐件列）；其余为各轮读数件（可用对应脚本重跑生成）
-- `p1b/sim/out/`（110 件 .md）—— 代表件 `a1-assumption-recalc-receipt-20260917.md`：A1 收据 · 假设重算器 v0（2026-09-17）；收据为 `.md`（上面已逐件列）；其余为各轮读数件（可用对应脚本重跑生成）
+- `p1b/sim/out/`（226 件）—— 代表件 `_audit.txt`：=== 1) 重复/空局检查 ===；收据为 `.md`（上面已逐件列）；其余为各轮读数件（可用对应脚本重跑生成）
+- `p1b/sim/out/`（116 件 .md）—— 代表件 `a1-assumption-recalc-receipt-20260917.md`：A1 收据 · 假设重算器 v0（2026-09-17）；收据为 `.md`（上面已逐件列）；其余为各轮读数件（可用对应脚本重跑生成）
 - `p1b/sim/out/batch/`（72 件）—— 代表件 `_counts-err.txt`：（无一句话可抽）
 - `p1b/sim/out/batch/`（61 件 .md）—— 代表件 `m1-ai-sample.md`：M1 AI 腔抽检清单（每局 1 条=该局第一条发言，供 aidetect 集成打分；30 条）
 - `p1b/sim/out/merged-migration/`（20 件）—— 代表件 `baseline-test.exit.txt`：EXIT=0
@@ -910,7 +912,7 @@
 - `p1a-terminal/data/p1a.db` —— **生产账本**（predictions/verdicts/truth_vault…）；`p1a-terminal/**` 为 p1a 线（含禁改面）
 - `p1b/web/`（前端源码与 dist 构建）、`tools/`、`scripts/` —— 见各自 README/索引
 
-（§10 完 · 2026-09-14 深夜 · 生成器 `p1b/scripts/file-map.cjs` · 计数：共 1369 件在列）
+（§10 完 · 2026-09-14 深夜 · 生成器 `p1b/scripts/file-map.cjs` · 计数：共 1384 件在列）
 ## §27 2026-09-16 深夜 · **第三轮研讨会收官 ＋ E1 冻结 ＋ v3.1 大升级蓝图**（**最新；以本节为准**）
 
 - **阶段 0 拍板（拷问技能三问）**：② **保留 U6**｜③ **E1 现在冻结** ⇒ `12-PREREG-E1-DNA加列S维-v1.md`（sha `1875382d…`、commit `fa5cdcd`、复算 MATCH；弃权条款生效）｜①④ 待蓝图终裁。
@@ -1724,3 +1726,20 @@
 **本节点同步的索引**：留痕 **§98**｜p19 锚 §（二十七）＋索引 **136 块**｜README §4.5｜锚 p26（追加块）｜脚本索引 **115**｜地图 §10 A 类重刷（计数 203，折叠规则下新件以计数入图）。
 
 （§66 完 · 2026-09-19（二十七）批 · P2 in-gap 0/队列 117/桥接 59 · 角色③ 100% 先决 PASS · 零账本写 · 测试 541/541）
+
+
+## §67 2026-09-20（二十八）批 · 两项裁决落地（v1.3 冻结）＋ Granger H11 ＋ 例行结算 33 条（最新；以本节为准；§65/§66 为 09-19 快照）
+
+**关键指标**：测试 **541/541**｜账本 题 1992／已解 1597→**1630**／判词 5156｜vault **ok**｜**分域 29 格/可出结论 9（不变）**｜脚本在役 **115**（未变）。
+
+| 件 | 一句话 | 证据 |
+|---|---|---|
+| **★裁决（v1.3 冻结 `49a381db…` MATCH=true）** | ①kNN 对 1＝**C 暂不判读**（4 对名单一字不改；重启＝缺陷集处置另行立项＋拍板）②Granger＝**封存**（重启条件写死两条）③P2 覆盖率已测登记；上游三件逐件复算未动 | `PREREG-厚格基建总票-v1.3-裁决补充-20260920.md` |
+| H11 入账 | Granger 封存入负结果账本 ⇒ **实证 11/设计 4**（四要素全过） | `negative-results-ledger-20260920.{json,md}` |
+| 结算 33 条 | 写前指纹自查（误拿演练 sha 当基准 ⇒ diff 证实无第三方写入）→ 演练=生产同数 → 零翻转恰 33 行三字段；已解 **1630** | `adjudication-and-resolve-receipt-20260920.md` |
+| 读数前进 | L3 620/**0.2386**｜L5 40/**0.1357**｜L2/L1/L6 不变；**分域 9 不变**（frankfurter 窗口 ~09-23 ⇒ 第 4 期门差 1，打开顺延 ~09-23 或 10-01） | `stage4-run-five-layers-20260920.*` |
+| 测试 | 标记更新（combo 1532／池 653）＋ truth-basis 活库前提改条件式（未解 forecast 行清零）⇒ **541/541** | 同上 §5 |
+
+**本节点同步的索引**：留痕 **§99**｜p19 锚 §（二十八）＋索引 **137 块**｜README §4.5｜锚 **p28**｜§10 A 类重刷｜冻结件回归锁 **7** 件。
+
+（§67 完 · 2026-09-20（二十八）批 · v1.3 冻结/H11/已解 1630 · 分域 9 · 测试 541/541）
