@@ -541,7 +541,7 @@
 - **待拍板 4 项**：① v3.1 总路线确认 ② P0 开工（砍不砍 U6）③ E1 冻结程序 ④ E2 立票。
 
 （§26 完 · 2026-09-16 · 两轮研讨会＋v3.1 推进计划 · 零代码/零账本/零跑批）
-## §10 文件全图（2026-09-19 刷新 · 由 `p1b/scripts/file-map.cjs` 生成，勿手改）
+## §10 文件全图（2026-09-20 刷新 · 由 `p1b/scripts/file-map.cjs` 生成，勿手改）
 
 > 目标（用户令）：「目录一样，每个相关文件路径都在里面，还说是是什么」。
 > 生成命令：`node p1b/scripts/file-map.cjs --out …`；跳过依赖/构建/媒体目录与 `.db` 快照体（只列目录级）。
@@ -615,7 +615,7 @@
 - `docs/sandbox/p1b/itest/p16-PROGRESS.md` —— p16-PROGRESS · 批次 2 门禁与流程口径（施工棒）
 - `docs/sandbox/p1b/itest/p17-PROGRESS.md` —— p17-PROGRESS · 判词修复 2.0 + R-C 实验 M1（施工棒）
 - `docs/sandbox/p1b/itest/p18-PROGRESS.md` —— p18-PROGRESS · G1 反馈施工棒：排盘解读 + 卡详情修复 + 审计器仪表盘（微步 M1/M2）
-- `docs/sandbox/p1b/itest/p19-ANCHOR-INDEX.md` —— p19-PROGRESS · 索引（倒序：**最新在前** · 生成 2026-09-18）
+- `docs/sandbox/p1b/itest/p19-ANCHOR-INDEX.md` —— p19-PROGRESS · 索引（倒序：**最新在前** · 生成 2026-09-18 · 最近刷新 2026-09-19）
 - `docs/sandbox/p1b/itest/p19-PROGRESS.md` —— 阶段 2 开工 · 施工台账（2026-09-13 晚 · 队长自营）
 - `docs/sandbox/p1b/itest/p20-PROGRESS.md` —— p20-PROGRESS · 审计页补「预测画面」雏形（待解前瞻 + 分层校准）
 - `docs/sandbox/p1b/itest/p21-PROGRESS.md` —— p21 进度锚 —— UI 通用化改造：游戏类型动态化（后端驱动）
@@ -831,9 +831,9 @@
 - `p1b/src/taskQueue.js` —— p1b/src/taskQueue.js —— 内存异步任务队列（P1B-SPEC §0 拍板 #4：天结算后台跑，录入不被阻塞）。
 - `p1b/src/util.js` —— p1b/src/util.js —— 小工具：HTTP 错误构造 / 整数与枚举校验。
 
-### p1b/scripts（脚本；归档区见 archive/README.md）（201）
+### p1b/scripts（脚本；归档区见 archive/README.md）（203）
 
-- `p1b/scripts/`（114 件）—— 代表件 `_b1-eol.cjs`：const fs = require('fs');；逐件索引：`p1b/scripts/README.md`（`scripts-index.cjs` 生成）
+- `p1b/scripts/`（116 件）—— 代表件 `_b1-eol.cjs`：const fs = require('fs');；逐件索引：`p1b/scripts/README.md`（`scripts-index.cjs` 生成）
 - `p1b/scripts/_dparts/`（16 件）—— 代表件 `p1.cjs`：corpus-resolve-daemon.cjs — 到期自动 resolve 调度（2026-09-13 调度棒）
 - `p1b/scripts/archive/`（64 件）—— 代表件 `_b1-backlog.cjs`：const Database = require('E:/music player/p1a-terminal/node_modules/better-sqlite3');；归档说明与路径映射：`p1b/scripts/archive/README.md`
 - `p1b/scripts/README.md` —— 在役脚本目录（按前缀分组＋写库标记；权威计数＝`scripts-index.cjs` 输出，勿手数）
@@ -854,10 +854,10 @@
 - `p1b/test/fixtures/stage4-golden-20260917.json` —— "script": "p1b/scripts/stage4-run.cjs",
 - `p1b/test/fixtures/stage4-golden-db-20260917.db` —— （二进制体：不抽句；随目录级列出）
 
-### p1b/sim/out（收据与读数件；大件 .db/截图不入列）（526）
+### p1b/sim/out（收据与读数件；大件 .db/截图不入列）（536）
 
-- `p1b/sim/out/`（214 件）—— 代表件 `_audit.txt`：=== 1) 重复/空局检查 ===；收据为 `.md`（上面已逐件列）；其余为各轮读数件（可用对应脚本重跑生成）
-- `p1b/sim/out/`（105 件 .md）—— 代表件 `a1-assumption-recalc-receipt-20260917.md`：A1 收据 · 假设重算器 v0（2026-09-17）；收据为 `.md`（上面已逐件列）；其余为各轮读数件（可用对应脚本重跑生成）
+- `p1b/sim/out/`（219 件）—— 代表件 `_audit.txt`：=== 1) 重复/空局检查 ===；收据为 `.md`（上面已逐件列）；其余为各轮读数件（可用对应脚本重跑生成）
+- `p1b/sim/out/`（110 件 .md）—— 代表件 `a1-assumption-recalc-receipt-20260917.md`：A1 收据 · 假设重算器 v0（2026-09-17）；收据为 `.md`（上面已逐件列）；其余为各轮读数件（可用对应脚本重跑生成）
 - `p1b/sim/out/batch/`（72 件）—— 代表件 `_counts-err.txt`：（无一句话可抽）
 - `p1b/sim/out/batch/`（61 件 .md）—— 代表件 `m1-ai-sample.md`：M1 AI 腔抽检清单（每局 1 条=该局第一条发言，供 aidetect 集成打分；30 条）
 - `p1b/sim/out/merged-migration/`（20 件）—— 代表件 `baseline-test.exit.txt`：EXIT=0
@@ -910,7 +910,7 @@
 - `p1a-terminal/data/p1a.db` —— **生产账本**（predictions/verdicts/truth_vault…）；`p1a-terminal/**` 为 p1a 线（含禁改面）
 - `p1b/web/`（前端源码与 dist 构建）、`tools/`、`scripts/` —— 见各自 README/索引
 
-（§10 完 · 2026-09-14 深夜 · 生成器 `p1b/scripts/file-map.cjs` · 计数：共 1357 件在列）
+（§10 完 · 2026-09-14 深夜 · 生成器 `p1b/scripts/file-map.cjs` · 计数：共 1369 件在列）
 ## §27 2026-09-16 深夜 · **第三轮研讨会收官 ＋ E1 冻结 ＋ v3.1 大升级蓝图**（**最新；以本节为准**）
 
 - **阶段 0 拍板（拷问技能三问）**：② **保留 U6**｜③ **E1 现在冻结** ⇒ `12-PREREG-E1-DNA加列S维-v1.md`（sha `1875382d…`、commit `fa5cdcd`、复算 MATCH；弃权条款生效）｜①④ 待蓝图终裁。
@@ -1707,3 +1707,20 @@
 **本节点同步的索引**：留痕 **§97**｜p19 锚 §（二十六）＋索引 **135 块**｜README §4.5（9 节）｜交接件（第 19 件 §0/§5 已刷新）｜锚 **p27**｜地图 §10 **A 类已重刷**（368→370 行，节集合 65→65 零丢）。
 
 （§65 完 · 2026-09-19（二十六）批 · 例行结算 44 条＋空 URL 首验 PASS · 分域 8→9 · 已解 1597 · vault ok · 测试 541/541 · 工作区干净）
+
+
+## §66 2026-09-19（二十七）批 · nowcast P2 覆盖率测量 ＋ 角色③ LLM 分解小批 ★先决 100% 达标（最新；以本节为准；§65 为同日结算批快照）
+
+**关键指标**：测试 **541/541**｜账本 **零写**（1992/1597/5156）｜LLM 调用 14 次 ≈1.5 万 token ≈¥0.04｜脚本在役 **113→115**（+`nowcast-p2-coverage.cjs`／`role3-pilot.cjs`）。
+
+| 件 | 一句话 | 证据 |
+|---|---|---|
+| nowcast P2 覆盖率 | **当前空窗层样本＝0**（月值族 239 题无「过去到期未解」⇒ 按当前账本 P2 无法判读只能披露）｜未来 12 个月队列 **117 题**｜**桥接在库 59（50.4%）＝P2 可判读人口上限**（FX 族为主：ECB/BIS 月率 ← frankfurter 同源；失业率线无同域桥接）| `nowcast-p2-coverage-20260919.{json,md}` |
+| **★角色③ 先决判定** | 父题池＝开赛>今日UTC 的 **14 场英超**（池约束如实披露：账本唯一「未来事件＋已注册 kind＋可分解」族）；LLM 只出结构禁出概率 ⇒ 提议 42 分支（14×完整 1X2，0 解析失败 0 违约）⇒ **anchor-gate 42/42＝100.00% ≥ 80% ⇒ 先决 PASS**；inBand 95.24% 并列披露 | `anchor-gate-role3-20260919.{json,md}` |
+| 票面含义 | 角色③ 从「卡在仪器」转「**可开工**」；全实现（分支冻结 run_id 先于子题结算＋合成读数 vs 父题判词 ΔBrier 对打）**须另立 PREREG** | 收据 `role3-and-p2-receipt-20260919.md` |
+
+**诚实边界**：①测「有解析器契约时」的落锚率，不外推无契约自由域 ②cutoff 无泄漏是构造保证 ③42 中 14 支 home 与既有题同构、新增面 28 支（同 100%）。
+
+**本节点同步的索引**：留痕 **§98**｜p19 锚 §（二十七）＋索引 **136 块**｜README §4.5｜锚 p26（追加块）｜脚本索引 **115**｜地图 §10 A 类重刷（计数 203，折叠规则下新件以计数入图）。
+
+（§66 完 · 2026-09-19（二十七）批 · P2 in-gap 0/队列 117/桥接 59 · 角色③ 100% 先决 PASS · 零账本写 · 测试 541/541）

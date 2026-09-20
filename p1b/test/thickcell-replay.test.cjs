@@ -127,8 +127,9 @@ test('⑦ 特征可得性审计：四臂判定与「账本根本不存在」的�
     const j = JSON.parse(fs.readFileSync(jp, 'utf8'));
     // ★ 数据标记（随账本增长更新）：PREREG v1.2 冻结时点（09-18）池=607；
     //   09-19（二十六）批结算 ⇒ L3 openmeteo 三 kind 新解 23 条（wind 8/sunshine 8/precip 7）⇒ 607 → 630
-    //   （walk-forward 时间前进，非口径变更；kraken 等非厚格注册域不入池）
-    assert.equal(j.pool_n, 630, '池应为 630（冻结时点 607 ＋ 09-19 批前进 23，见上注）: ' + j.pool_n);
+    //   （walk-forward 时间前进，非口径变更；kraken 等非厚格注册域不入池）；
+    //   09-20（二十八）批结算 ⇒ L3 openmeteo 再解 23 条（同三 kind）⇒ 630 → 653（ghcn 8 条不入厚格域）
+    assert.equal(j.pool_n, 653, '池应为 653（冻结时点 607 ＋ 09-19/20 批前进 23+23，见上注）: ' + j.pool_n);
     assert.ok(j.features.forecastVal.pct < 0.10, 'MOS 的已发布高频观测覆盖应 <10%（实测 2.8%）');
     assert.ok(j.features.seriesID.pct < 0.10, 'Granger 的序列 ID 覆盖应 <10%（实测 7.6%）');
     assert.ok(j.features.baseRate_nk.pct > 0.80, 'kNN 的 baseRate n/k 覆盖应 >80%（实测 83.4%）');

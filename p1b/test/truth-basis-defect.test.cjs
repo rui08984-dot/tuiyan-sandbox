@@ -34,9 +34,16 @@ test('truthBasis：SQL 谓词 ≡ JS 判定，且排除集指纹与冻结锚一�
 test('truthBasis：live 判定——未结算 forecast 行与正常行均不被误伤', () => {
   const db = new DatabaseSync(DB, { readOnly: true });
   // 未结算的 forecast 行（outcome/resolved_at 为 null）⇒ 保留
+  // ★ 2026-09-20 起活库可能出现「未解 forecast 行＝0」（最后一批前瞻行已自然结算）⇒ 该段改条件式：
+  //   为 0 时如实断言状态并跳过逐行检查（谓词语义由下方「构造行」用例覆盖，含「未结算 ⇒ 非缺陷」）；
+  //   未来新前瞻题入库后本段自动恢复逐行检查。
   const nullRows = db.prepare("SELECT p.id, p.resolved_at, p.matures_at, p.resolve_note, p.evidence_json FROM predictions p WHERE p.resolved_at IS NULL AND json_extract(p.evidence_json,'$[0].resolve.kind') LIKE '%forecast%' LIMIT 5").all();
-  assert.ok(nullRows.length > 0, '夹具前提：存在未结算的 forecast 行');
-  for (const r of nullRows) assert.equal(T.isTruthBasisDefect(r), false, 'id=' + r.id + ' 未结算 ⇒ 不判缺陷');
+  if (nullRows.length === 0) {
+    const unresolvedForecast = db.prepare("SELECT COUNT(*) c FROM predictions p WHERE p.resolved_at IS NULL AND json_extract(p.evidence_json,'$[0].resolve.kind') LIKE '%forecast%'").get().c;
+    assert.equal(unresolvedForecast, 0, '无未解 forecast 行（状态断言，防查询口径漂移）');
+  } else {
+    for (const r of nullRows) assert.equal(T.isTruthBasisDefect(r), false, 'id=' + r.id + ' 未结算 ⇒ 不判缺陷');
+  }
   // 正常已解行（resolved_at >= matures_at）⇒ 保留
   const okRows = db.prepare("SELECT p.id, p.resolved_at, p.matures_at, p.resolve_note, p.evidence_json FROM predictions p WHERE p.resolved_at IS NOT NULL AND p.matures_at IS NOT NULL AND p.resolved_at >= p.matures_at AND json_extract(p.evidence_json,'$[0].resolve.kind') IS NOT NULL LIMIT 5").all();
   for (const r of okRows) assert.equal(T.isTruthBasisDefect(r), false, 'id=' + r.id + ' 正常结算 ⇒ 不判缺陷');

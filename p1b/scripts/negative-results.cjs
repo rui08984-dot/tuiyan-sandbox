@@ -82,6 +82,12 @@ const EMPIRICAL = [
     evidence: 'p1b/sim/out/e1-judge-receipt-20260917.md',
     outcome: '负结果（弃权条款逐字生效）：前置门通过（双编码 34/34＝1.0）⇒ 生产写入 1792 行 ⇒ **ΔCI 含 0（三口径一致**：§3 主口径 Δ=+0.0025 CI[−0.0187,+0.0236]／Brier(assigned_prob) Δ=−0.0000 CI[−0.0201,+0.0188]／原 y 池化 CI[−0.0248,+0.0802]）⇒ **S 维永久降为文档标签、姿态门与路由主张一并放弃、DNA 线终止**；标签已归档为文档件、旁路表/视图已 DROP；禁换维度续命、禁以功效不足复议',
     rerun: 'node p1b/scripts/dna-s-backfill.cjs --db <副本> --route source --confirm --no-snapshot（确定性可复现）⇒ node p1b/scripts/dna-s-judge.cjs --db <副本> --gate p1b/sim/out/e1-gate-attestation-20260917.json' },
+  { id: 'H11', name: '厚格 Granger 滞后臂（序列历史值不可得）',
+    hypothesis: 'Granger 滞后臂能在账本内实现并产出对基线非劣的读数（判据照厚格 PREREG v1 §3 C1-C2）',
+    criterion: '.scratch/forecast-debate/PREREG-厚格基建总票-v1.md',
+    evidence: 'p1b/sim/out/thickcell-features-and-v11-receipt-20260918.md',
+    outcome: '负结果（封存，2026-09-20 v1.3 裁决）：实现前置审计实证**账本根本不存序列历史值**（evidence 只存基率汇总 p/n/k 与阈值；序列 ID 覆盖 7.3%，属「账本根本不存在」字段）⇒ VAR 滞后项现数据结构下无法复算 ⇒ **封存不实现**（thickcell-replay 维持「已登记未实现 ⇒ exit 4」）；重启条件写死＝**序列历史值入库**（联网重取数＝新增数据依赖须另行立项＋用户拍板）**且**厚格队出现「过 C1+C2 的格需要滞后维解释」的证据需求，两条同时满足方可重开',
+    rerun: '重启前置：先立项序列存储并拍板 ⇒ 重跑 p1b/scripts/thickcell-features.cjs 核 seriesID 覆盖 ≥60% 后按 PREREG v1.1 §3 待冻结项 3 重开（v1.3 sha256 前 8 位 49a381db）' },
 ];
 /** 设计层拒绝（文献/分析层，非实证跑数） */
 const DESIGN = [

@@ -1,0 +1,61 @@
+[2026-09-20T22:06:33+08:00] === corpus-resolve-daemon start | mode=once interval=60min due-only=true confirm=true
+[2026-09-20T22:06:33+08:00] 复用 corpus-resolve RESOLVERS 成功：inline-extract(60 kinds)
+[2026-09-20T22:06:33+08:00] db=E:\music player\.scratch\p26\p1a-drill-resolve-20260920.db
+[2026-09-20T22:06:38+08:00] WARN dlt 日历刷新失败（沿用内置锚 26104@2026-09-12）: HTTP 567
+[2026-09-20T22:06:38+08:00] 日历锚刷新：ssq 2026109@2026-09-20 | dlt 26104@2026-09-12
+[2026-09-20T22:06:38+08:00] 参数安全门：跳过 12 条口径不符题（不写脏账）— base/quote 缺失 @id1957 / base/quote 缺失 @id1958 / base/quote 缺失 @id1959 / base/quote 缺失 @id1960 / base/quote 缺失 @id1961 / base/quote 缺失 @id1962
+[2026-09-20T22:06:57+08:00] 二遍补打 6 组（首遍网络失败，缓 8s 后重试一次）
+[2026-09-20T22:07:05+08:00]   resolved id=820 kind=cwl_ssq_red_contains -> false | cwl 官方 2026109 期 red=09,12,15,26,30,33 blue=06（red 含 07，机检）
+[2026-09-20T22:07:05+08:00]   resolved id=832 kind=cwl_ssq_blue_odd -> false | cwl 官方 2026109 期 red=09,12,15,26,30,33 blue=06（blue 为奇数，机检）
+[2026-09-20T22:07:05+08:00]   fetch-fail kind=dlt_draw_result x1 — HTTP 567（跳过不写）
+[2026-09-20T22:07:05+08:00]   fetch-fail kind=dlt_draw_result x1 — HTTP 567（跳过不写）
+[2026-09-20T22:07:05+08:00]   fetch-fail kind=dlt_draw_result x1 — HTTP 567（跳过不写）
+[2026-09-20T22:07:05+08:00]   fetch-fail kind=dlt_draw_result x1 — HTTP 567（跳过不写）
+[2026-09-20T22:07:05+08:00]   fetch-fail kind=dlt_draw_result x1 — HTTP 567（跳过不写）
+[2026-09-20T22:07:05+08:00]   fetch-fail kind=dlt_draw_result x1 — HTTP 567（跳过不写）
+[2026-09-20T22:07:05+08:00]   pending(预筛) kind=frankfurter_rate_range x1 due=2026-09-16 — ECB 发布窗口 2026-09-16~2026-09-23 尚未走完（接口对未来区间 404）
+[2026-09-20T22:07:05+08:00]   pending(预筛) kind=frankfurter_rate_range x1 due=2026-09-16 — ECB 发布窗口 2026-09-16~2026-09-23 尚未走完（接口对未来区间 404）
+[2026-09-20T22:07:05+08:00]   pending(预筛) kind=frankfurter_rate_range x1 due=2026-09-16 — ECB 发布窗口 2026-09-16~2026-09-23 尚未走完（接口对未来区间 404）
+[2026-09-20T22:07:05+08:00]   pending kind=cta_daily_total_rides x1 due=2026-09-14 — CTA 无 2026-09-14 数据（真值滞后约 2.5 月）
+[2026-09-20T22:07:05+08:00]   pending kind=cta_daily_total_rides x1 due=2026-09-15 — CTA 无 2026-09-15 数据（真值滞后约 2.5 月）
+[2026-09-20T22:07:05+08:00]   pending kind=cta_daily_total_rides x1 due=2026-09-16 — CTA 无 2026-09-16 数据（真值滞后约 2.5 月）
+[2026-09-20T22:07:05+08:00]   resolved id=1106 kind=ghcn_daily_tmax -> true | NCEI USW00094728 2026-09-16 TMAX=77F(units=standard)（阈值 >= 65，机检）
+[2026-09-20T22:07:05+08:00]   resolved id=1110 kind=ghcn_daily_tmax -> true | NCEI USW00023174 2026-09-15 TMAX=81F(units=standard)（阈值 >= 77，机检）
+[2026-09-20T22:07:05+08:00]   resolved id=1111 kind=ghcn_daily_tmax -> true | NCEI USW00023174 2026-09-16 TMAX=79F(units=standard)（阈值 >= 69，机检）
+[2026-09-20T22:07:05+08:00]   resolved id=1116 kind=ghcn_daily_tmax -> true | NCEI USW00094846 2026-09-16 TMAX=76F(units=standard)（阈值 >= 50，机检）
+[2026-09-20T22:07:05+08:00]   resolved id=1269 kind=openmeteo_forecast_daily_precipitation_sum -> true | Open-Meteo daily.precipitation_sum 2026-09-19=0.5（阈值 <= 0.7，机检）
+[2026-09-20T22:07:05+08:00]   resolved id=1276 kind=openmeteo_forecast_daily_wind_speed_10m_max -> true | Open-Meteo daily.wind_speed_10m_max 2026-09-19=19.1（阈值 >= 15.7，机检）
+[2026-09-20T22:07:05+08:00]   resolved id=1283 kind=openmeteo_forecast_daily_sunshine_duration -> false | Open-Meteo daily.sunshine_duration 2026-09-19=39668.31（阈值 >= 42009.3，机检）
+[2026-09-20T22:07:05+08:00]   resolved id=1290 kind=openmeteo_forecast_daily_precipitation_sum -> true | Open-Meteo daily.precipitation_sum 2026-09-19=0（阈值 <= 0，机检）
+[2026-09-20T22:07:05+08:00]   resolved id=1297 kind=openmeteo_forecast_daily_wind_speed_10m_max -> false | Open-Meteo daily.wind_speed_10m_max 2026-09-19=12.1（阈值 >= 14.1，机检）
+[2026-09-20T22:07:05+08:00]   resolved id=1304 kind=openmeteo_forecast_daily_sunshine_duration -> false | Open-Meteo daily.sunshine_duration 2026-09-19=42659.92（阈值 >= 47415.9，机检）
+[2026-09-20T22:07:05+08:00]   resolved id=1311 kind=openmeteo_forecast_daily_precipitation_sum -> true | Open-Meteo daily.precipitation_sum 2026-09-19=0（阈值 <= 0.1，机检）
+[2026-09-20T22:07:05+08:00]   resolved id=1318 kind=openmeteo_forecast_daily_wind_speed_10m_max -> true | Open-Meteo daily.wind_speed_10m_max 2026-09-19=12.6（阈值 >= 12.4，机检）
+[2026-09-20T22:07:05+08:00]   resolved id=1325 kind=openmeteo_forecast_daily_sunshine_duration -> false | Open-Meteo daily.sunshine_duration 2026-09-19=28731.01（阈值 >= 43348.4，机检）
+[2026-09-20T22:07:05+08:00]   resolved id=1332 kind=openmeteo_forecast_daily_precipitation_sum -> false | Open-Meteo daily.precipitation_sum 2026-09-19=1（阈值 <= 0，机检）
+[2026-09-20T22:07:05+08:00]   resolved id=1339 kind=openmeteo_forecast_daily_wind_speed_10m_max -> true | Open-Meteo daily.wind_speed_10m_max 2026-09-19=11.8（阈值 >= 10.8，机检）
+[2026-09-20T22:07:05+08:00]   resolved id=1346 kind=openmeteo_forecast_daily_sunshine_duration -> true | Open-Meteo daily.sunshine_duration 2026-09-19=32330.42（阈值 >= 27425.7，机检）
+[2026-09-20T22:07:05+08:00]   resolved id=1353 kind=openmeteo_forecast_daily_precipitation_sum -> false | Open-Meteo daily.precipitation_sum 2026-09-19=23.4（阈值 <= 3.6，机检）
+[2026-09-20T22:07:05+08:00]   resolved id=1360 kind=openmeteo_forecast_daily_wind_speed_10m_max -> false | Open-Meteo daily.wind_speed_10m_max 2026-09-19=11.9（阈值 >= 14.1，机检）
+[2026-09-20T22:07:05+08:00]   resolved id=1367 kind=openmeteo_forecast_daily_sunshine_duration -> true | Open-Meteo daily.sunshine_duration 2026-09-19=31355.54（阈值 >= 25092.4，机检）
+[2026-09-20T22:07:05+08:00]   resolved id=1374 kind=openmeteo_forecast_daily_wind_speed_10m_max -> false | Open-Meteo daily.wind_speed_10m_max 2026-09-19=15（阈值 >= 17.2，机检）
+[2026-09-20T22:07:05+08:00]   resolved id=1381 kind=openmeteo_forecast_daily_sunshine_duration -> false | Open-Meteo daily.sunshine_duration 2026-09-19=42719.46（阈值 >= 43409.9，机检）
+[2026-09-20T22:07:05+08:00]   resolved id=1388 kind=openmeteo_forecast_daily_precipitation_sum -> true | Open-Meteo daily.precipitation_sum 2026-09-19=0（阈值 <= 0.3，机检）
+[2026-09-20T22:07:05+08:00]   resolved id=1395 kind=openmeteo_forecast_daily_wind_speed_10m_max -> true | Open-Meteo daily.wind_speed_10m_max 2026-09-19=14.9（阈值 >= 12.2，机检）
+[2026-09-20T22:07:05+08:00]   resolved id=1402 kind=openmeteo_forecast_daily_sunshine_duration -> false | Open-Meteo daily.sunshine_duration 2026-09-19=42647.14（阈值 >= 46832.1，机检）
+[2026-09-20T22:07:05+08:00]   resolved id=1409 kind=openmeteo_forecast_daily_precipitation_sum -> false | Open-Meteo daily.precipitation_sum 2026-09-19=9.4（阈值 <= 4.2，机检）
+[2026-09-20T22:07:05+08:00]   resolved id=1416 kind=openmeteo_forecast_daily_wind_speed_10m_max -> false | Open-Meteo daily.wind_speed_10m_max 2026-09-19=10.7（阈值 >= 14.8，机检）
+[2026-09-20T22:07:05+08:00]   resolved id=1423 kind=openmeteo_forecast_daily_sunshine_duration -> false | Open-Meteo daily.sunshine_duration 2026-09-19=19550.86（阈值 >= 43200，机检）
+[2026-09-20T22:07:05+08:00]   resolved id=1722 kind=ghcn_daily_tmax -> true | NCEI USW00023174 2026-09-16 TMAX=79F(units=standard)（阈值 >= 77，机检）
+[2026-09-20T22:07:05+08:00]   resolved id=1724 kind=ghcn_daily_tmax -> true | NCEI USW00014922 2026-09-16 TMAX=75F(units=standard)（阈值 >= 46，机检）
+[2026-09-20T22:07:05+08:00]   resolved id=1726 kind=ghcn_daily_tmax -> true | NCEI USW00013874 2026-09-16 TMAX=89F(units=standard)（阈值 >= 87，机检）
+[2026-09-20T22:07:05+08:00]   resolved id=1728 kind=ghcn_daily_tmax -> true | NCEI USW00024233 2026-09-16 TMAX=74F(units=standard)（阈值 >= 57，机检）
+[2026-09-20T22:07:05+08:00]   pending(预筛) kind=frankfurter_rate_range x1 due=2026-09-17 — ECB 发布窗口 2026-09-17~2026-09-24 尚未走完（接口对未来区间 404）
+[2026-09-20T22:07:05+08:00]   pending(预筛) kind=frankfurter_rate_range x1 due=2026-09-17 — ECB 发布窗口 2026-09-17~2026-09-24 尚未走完（接口对未来区间 404）
+[2026-09-20T22:07:05+08:00]   pending(预筛) kind=frankfurter_rate_range x1 due=2026-09-17 — ECB 发布窗口 2026-09-17~2026-09-24 尚未走完（接口对未来区间 404）
+[2026-09-20T22:07:05+08:00]   pending(预筛) kind=frankfurter_rate_range x1 due=2026-09-17 — ECB 发布窗口 2026-09-17~2026-09-24 尚未走完（接口对未来区间 404）
+[2026-09-20T22:07:05+08:00]   pending kind=mlb_schedule_daily_total_runs x1 due=2026-09-20 — 2026-09-20 尚未到
+[2026-09-20T22:07:05+08:00]   pending kind=elexon_fuelhh_daily_mean x1 due=2026-09-20 — 2026-09-20 尚未到
+[2026-09-20T22:07:05+08:00]   pending kind=elexon_fuelhh_daily_mean x1 due=2026-09-20 — 2026-09-20 尚未到
+[2026-09-20T22:07:05+08:00] round#1 用时 27.4s | 未解总数=395 到期选中=52 唯一真值请求=52（台账重复合并 0） | resolved=33 pending=13（含预筛 7） fail=6 refused=0／同结论并发=0 口径护栏=12 unsupported=0 未到期跳过=278 无法定到期=53 wouldWrite=0 实打网=42
+[2026-09-20T22:07:05+08:00]   取数失败明细 {"fetch-fail:dlt_draw_result:HTTP 567":6}

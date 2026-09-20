@@ -1,0 +1,939 @@
+{
+  "before": ".scratch/p26/p1a-baseline-resolve-20260920.db",
+  "after": "p1a-terminal/data/p1a.db",
+  "key": "id",
+  "tables": {
+    "predictions": {
+      "key": "id",
+      "rows_before": 1992,
+      "rows_after": 1992,
+      "added": 0,
+      "removed": 0,
+      "changed": 33,
+      "added_ids": [],
+      "removed_ids": [],
+      "changed_ids": [
+        "820",
+        "832",
+        "1106",
+        "1110",
+        "1111",
+        "1116",
+        "1269",
+        "1276",
+        "1283",
+        "1290",
+        "1297",
+        "1304",
+        "1311",
+        "1318",
+        "1325",
+        "1332",
+        "1339",
+        "1346",
+        "1353",
+        "1360",
+        "1367",
+        "1374",
+        "1381",
+        "1388",
+        "1395",
+        "1402",
+        "1409",
+        "1416",
+        "1423",
+        "1722",
+        "1724",
+        "1726",
+        "1728"
+      ],
+      "changed_detail": [
+        {
+          "key": "820",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-20 14:08:36"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "false"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "cwl 官方 2026109 期 red=09,12,15,26,30,33 blue=06（red 含 07，机检）"
+            }
+          ]
+        },
+        {
+          "key": "832",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-20 14:08:36"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "false"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "cwl 官方 2026109 期 red=09,12,15,26,30,33 blue=06（blue 为奇数，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1106",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-20 14:08:36"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "true"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "NCEI USW00094728 2026-09-16 TMAX=77F(units=standard)（阈值 >= 65，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1110",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-20 14:08:36"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "true"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "NCEI USW00023174 2026-09-15 TMAX=81F(units=standard)（阈值 >= 77，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1111",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-20 14:08:36"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "true"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "NCEI USW00023174 2026-09-16 TMAX=79F(units=standard)（阈值 >= 69，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1116",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-20 14:08:36"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "true"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "NCEI USW00094846 2026-09-16 TMAX=76F(units=standard)（阈值 >= 50，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1269",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-20 14:08:36"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "true"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Open-Meteo daily.precipitation_sum 2026-09-19=0.5（阈值 <= 0.7，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1276",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-20 14:08:36"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "true"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Open-Meteo daily.wind_speed_10m_max 2026-09-19=19.1（阈值 >= 15.7，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1283",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-20 14:08:36"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "false"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Open-Meteo daily.sunshine_duration 2026-09-19=39668.31（阈值 >= 42009.3，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1290",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-20 14:08:36"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "true"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Open-Meteo daily.precipitation_sum 2026-09-19=0（阈值 <= 0，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1297",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-20 14:08:36"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "false"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Open-Meteo daily.wind_speed_10m_max 2026-09-19=12.1（阈值 >= 14.1，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1304",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-20 14:08:36"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "false"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Open-Meteo daily.sunshine_duration 2026-09-19=42659.92（阈值 >= 47415.9，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1311",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-20 14:08:36"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "true"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Open-Meteo daily.precipitation_sum 2026-09-19=0（阈值 <= 0.1，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1318",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-20 14:08:36"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "true"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Open-Meteo daily.wind_speed_10m_max 2026-09-19=12.6（阈值 >= 12.4，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1325",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-20 14:08:36"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "false"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Open-Meteo daily.sunshine_duration 2026-09-19=28731.01（阈值 >= 43348.4，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1332",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-20 14:08:36"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "false"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Open-Meteo daily.precipitation_sum 2026-09-19=1（阈值 <= 0，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1339",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-20 14:08:36"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "true"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Open-Meteo daily.wind_speed_10m_max 2026-09-19=11.8（阈值 >= 10.8，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1346",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-20 14:08:36"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "true"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Open-Meteo daily.sunshine_duration 2026-09-19=32330.42（阈值 >= 27425.7，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1353",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-20 14:08:36"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "false"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Open-Meteo daily.precipitation_sum 2026-09-19=23.4（阈值 <= 3.6，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1360",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-20 14:08:36"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "false"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Open-Meteo daily.wind_speed_10m_max 2026-09-19=11.9（阈值 >= 14.1，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1367",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-20 14:08:36"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "true"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Open-Meteo daily.sunshine_duration 2026-09-19=31355.54（阈值 >= 25092.4，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1374",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-20 14:08:36"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "false"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Open-Meteo daily.wind_speed_10m_max 2026-09-19=15（阈值 >= 17.2，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1381",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-20 14:08:36"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "false"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Open-Meteo daily.sunshine_duration 2026-09-19=42719.46（阈值 >= 43409.9，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1388",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-20 14:08:36"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "true"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Open-Meteo daily.precipitation_sum 2026-09-19=0（阈值 <= 0.3，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1395",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-20 14:08:36"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "true"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Open-Meteo daily.wind_speed_10m_max 2026-09-19=14.9（阈值 >= 12.2，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1402",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-20 14:08:36"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "false"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Open-Meteo daily.sunshine_duration 2026-09-19=42647.14（阈值 >= 46832.1，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1409",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-20 14:08:36"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "false"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Open-Meteo daily.precipitation_sum 2026-09-19=9.4（阈值 <= 4.2，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1416",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-20 14:08:36"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "false"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Open-Meteo daily.wind_speed_10m_max 2026-09-19=10.7（阈值 >= 14.8，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1423",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-20 14:08:36"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "false"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "Open-Meteo daily.sunshine_duration 2026-09-19=19550.86（阈值 >= 43200，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1722",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-20 14:08:36"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "true"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "NCEI USW00023174 2026-09-16 TMAX=79F(units=standard)（阈值 >= 77，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1724",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-20 14:08:36"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "true"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "NCEI USW00014922 2026-09-16 TMAX=75F(units=standard)（阈值 >= 46，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1726",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-20 14:08:36"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "true"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "NCEI USW00013874 2026-09-16 TMAX=89F(units=standard)（阈值 >= 87，机检）"
+            }
+          ]
+        },
+        {
+          "key": "1728",
+          "fields": [
+            "resolved_at",
+            "outcome",
+            "resolve_note"
+          ],
+          "diffs": [
+            {
+              "field": "resolved_at",
+              "before": null,
+              "after": "2026-09-20 14:08:36"
+            },
+            {
+              "field": "outcome",
+              "before": null,
+              "after": "true"
+            },
+            {
+              "field": "resolve_note",
+              "before": null,
+              "after": "NCEI USW00024233 2026-09-16 TMAX=74F(units=standard)（阈值 >= 57，机检）"
+            }
+          ]
+        }
+      ]
+    },
+    "verdicts": {
+      "key": "id",
+      "rows_before": 5156,
+      "rows_after": 5156,
+      "added": 0,
+      "removed": 0,
+      "changed": 0,
+      "added_ids": [],
+      "removed_ids": [],
+      "changed_ids": [],
+      "changed_detail": []
+    },
+    "truth_vault": {
+      "key": "prediction_id",
+      "rows_before": 1992,
+      "rows_after": 1992,
+      "added": 0,
+      "removed": 0,
+      "changed": 0,
+      "added_ids": [],
+      "removed_ids": [],
+      "changed_ids": [],
+      "changed_detail": []
+    },
+    "games": {
+      "key": "id",
+      "rows_before": 88,
+      "rows_after": 88,
+      "added": 0,
+      "removed": 0,
+      "changed": 0,
+      "added_ids": [],
+      "removed_ids": [],
+      "changed_ids": [],
+      "changed_detail": []
+    },
+    "events": {
+      "key": "id",
+      "rows_before": 556,
+      "rows_after": 556,
+      "added": 0,
+      "removed": 0,
+      "changed": 0,
+      "added_ids": [],
+      "removed_ids": [],
+      "changed_ids": [],
+      "changed_detail": []
+    },
+    "claims": {
+      "key": "id",
+      "rows_before": 447,
+      "rows_after": 447,
+      "added": 0,
+      "removed": 0,
+      "changed": 0,
+      "added_ids": [],
+      "removed_ids": [],
+      "changed_ids": [],
+      "changed_detail": []
+    }
+  }
+}

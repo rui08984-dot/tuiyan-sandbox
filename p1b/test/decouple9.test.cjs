@@ -156,11 +156,16 @@ test('⑧ 冻结守卫：PREREG 冻结件复算 MATCH=true；被篡改 ⇒ 复�
   fs.rmSync(tmp, { recursive: true, force: true });
 });
 
-test('⑨ prereg-freeze 重构零行为变化：四份既有冻结件复算全部 MATCH（回归锁）', () => {
+test('⑨ prereg-freeze 重构零行为变化：既有冻结件复算全部 MATCH（回归锁）', () => {
   const files = [
     ['PREREG-E2-路由分配-v1.md', '5c354501'],
     ['PREREG-E2-路由分配-v1.1-补充与勘误-20260917.md', 'e41aa45a'],
     ['PREREG-9臂解耦-v1.md', '072e8486'],
+    // 厚格四件（v1.3＝2026-09-20 裁决补充：对 1=C／Granger 封存／P2 已测）
+    ['PREREG-厚格基建总票-v1.md', 'e12c9db6'],
+    ['PREREG-厚格基建总票-v1.1-补充与勘误-20260918.md', '8db2fff5'],
+    ['PREREG-厚格基建总票-v1.2-补充-kNN预注册-20260918.md', '7d2015d2'],
+    ['PREREG-厚格基建总票-v1.3-裁决补充-20260920.md', '49a381db'],
   ];
   for (const [name, prefix] of files) {
     const p = path.join(ROOT, '.scratch', 'forecast-debate', name);

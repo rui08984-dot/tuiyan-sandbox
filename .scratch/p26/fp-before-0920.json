@@ -1,0 +1,40 @@
+{
+  "db": "E:\\music player\\p1a-terminal\\data\\p1a.db",
+  "due_date": "2026-09-20",
+  "tables": {
+    "predictions": {
+      "rows": 1992,
+      "sha16": "4fada2ca53da9f62"
+    },
+    "verdicts": {
+      "rows": 5156,
+      "sha16": "d18ba8758d2601fb"
+    },
+    "truth_vault": {
+      "rows": 1992,
+      "sha16": "39d7aa9d06072784"
+    },
+    "games": {
+      "rows": 88,
+      "sha16": "0650ef60ace0e385"
+    },
+    "events": {
+      "rows": 556,
+      "sha16": "9a3c4c3b882dff81"
+    },
+    "claims": {
+      "rows": 447,
+      "sha16": "d37b8be0566cf1d0"
+    }
+  },
+  "predictions_max_id": 2007,
+  "resolved": 1597,
+  "unresolved": 395,
+  "due": 76,
+  "due_by_layer": {
+    "L2": 37,
+    "L3": 31,
+    "L5": 8
+  },
+  "integrity": "ok"
+}
