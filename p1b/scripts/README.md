@@ -1,7 +1,7 @@
 # p1b/scripts 目录索引（脚本都在干什么）
 
 > **自动生成，勿手改**——`node p1b/scripts/scripts-index.cjs`（任务 6 批次 3 / 命名整理）。
-> 生成时点：2026-09-18T15:13:51.756Z｜在役脚本 113 个｜归档件见文末。
+> 生成时点：2026-09-20T13:50:10.015Z｜在役脚本 115 个｜归档件见文末。
 > 命名约定：`corpus-*` 取数出题｜`g2-*` 门禁报表｜`stage4-*` 分层真跑｜`prereg-a-*` 命题 A｜**默认 dry-run、写库须 `--confirm`**（项目纪律）。
 
 ## 使用者友好面（先看这几个）（4）
@@ -60,7 +60,7 @@
 | `prereg-a-sweep.cjs` | 命题 A 全量补齐「扫尾」（2026-09-14） | **可写库**（`--confirm` 才写；默认 dry-run） |
 | `prereg-a-windows.cjs` | PREREG-命题A-3.0消融 · §5 双窗参数件（跑批参数显式落盘；**禁止两窗合并**） | 只读 |
 
-## 其余工具（82）
+## 其余工具（84）
 
 | 脚本 | 一句话 | 写库 |
 |---|---|---|
@@ -122,6 +122,7 @@
 | `merged-migration.cjs` | 计划内「合并迁移」执行器 | 只读 |
 | `metaculus-token-check.cjs` | Metaculus token 接入检查（任务 10 步骤 1 · 2026-09-16） | 只读 |
 | `negative-results.cjs` | I2 负结果账本 v0（对内）（2026-09-16 · P0+ · 蓝图 §2.1#8 / 15-I2） | 只读 |
+| `nowcast-p2-coverage.cjs` | nowcast P2「空窗层」覆盖率测量（2026-09-19） | 只读 |
 | `odds-probe.cjs` | The Odds API 探活 ＋ 历史可得性实测（2026-09-17） | 只读 |
 | `odds-questions.cjs` | 英超 1X2 赔率题出题器（首版 · 2026-09-17） | **可写库**（`--confirm` 才写；默认 dry-run） |
 | `odds-snapshot.cjs` | 体育赔率·前瞻快照采集（2026-09-17） | 只读 |
@@ -130,6 +131,7 @@
 | `report-murphy.cjs` | 批次 1.5 · Murphy 三分解报表（K F56，零 LLM，库只读）。 | 只读 |
 | `result-cache-precheck.cjs` | 结果缓存预检（蓝图 §2.1#7「唯一在建缓存件」· 2026-09-17） | 只读 |
 | `result-cache-replay.cjs` | 结果缓存本体·历史重放验证（蓝图 §2.1#7 判据「历史重跑全命中」· 2026-09-17） | 只读 |
+| `role3-pilot.cjs` | 角色③「情景分支生成器」· LLM 分解小批（2026-09-19） | 只读 |
 | `sim-templates-v2.cjs` | ───────────────────────────────────────────────────────────────────────────── | 只读 |
 | `sim-titles.cjs` | 微步 2：sim 题源接入（Q 棒）。每局 3 条 cutoff-safe 模板题→分类→落库→resolve。幂等防重。 | 只读 |
 | `snapshot-assigned-prob.cjs` | 旧 assigned_prob 快照（p13 批次0.5）。 | 只读 |

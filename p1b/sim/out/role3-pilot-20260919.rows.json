@@ -1,0 +1,932 @@
+{
+ "label": "role3-分解小批-main",
+ "generated_at": "2026-09-19T14:25:28.457Z",
+ "cutoff_note": "子题 cutoff＝提议时刻（ runner 注入），事件日=开赛日 ⇒ 未来事件无泄漏",
+ "rows": [
+  {
+   "statement": "【forward】英超 Bournemouth vs Liverpool（2026-09-20 开赛）主队获胜",
+   "resolve": {
+    "kind": "oddsapi_h2h",
+    "league": "soccer_epl",
+    "match_id": "784f777f5181e1efdad7a6ecb2cfde15",
+    "pick": "home"
+   },
+   "meta": {
+    "phase": "role3_pilot",
+    "cutoff": "2026-09-19T22:22:59+08:00",
+    "eventDate": "2026-09-20",
+    "parent_prediction_id": 1994,
+    "branch_text": "伯恩茅斯主场获胜",
+    "rationale": "完赛比分若主队进球数大于客队，即可由机检源独立判定该分支为真。"
+   },
+   "prob": 0.3058896507618311,
+   "prob_source": "parent.marketPrice.p_home（去水共识；仅本测量用，零账本写）",
+   "_parent_id": 1994,
+   "_valid": true,
+   "_invalid_reason": null
+  },
+  {
+   "statement": "【forward】英超 Bournemouth vs Liverpool（2026-09-20 开赛）平局",
+   "resolve": {
+    "kind": "oddsapi_h2h",
+    "league": "soccer_epl",
+    "match_id": "784f777f5181e1efdad7a6ecb2cfde15",
+    "pick": "draw"
+   },
+   "meta": {
+    "phase": "role3_pilot",
+    "cutoff": "2026-09-19T22:22:59+08:00",
+    "eventDate": "2026-09-20",
+    "parent_prediction_id": 1994,
+    "branch_text": "两队战平",
+    "rationale": "完赛比分若双方进球数相等，即可由机检源独立判定该分支为真。"
+   },
+   "prob": 0.25124989240671025,
+   "prob_source": "parent.marketPrice.p_draw（去水共识；仅本测量用，零账本写）",
+   "_parent_id": 1994,
+   "_valid": true,
+   "_invalid_reason": null
+  },
+  {
+   "statement": "【forward】英超 Bournemouth vs Liverpool（2026-09-20 开赛）客队获胜",
+   "resolve": {
+    "kind": "oddsapi_h2h",
+    "league": "soccer_epl",
+    "match_id": "784f777f5181e1efdad7a6ecb2cfde15",
+    "pick": "away"
+   },
+   "meta": {
+    "phase": "role3_pilot",
+    "cutoff": "2026-09-19T22:22:59+08:00",
+    "eventDate": "2026-09-20",
+    "parent_prediction_id": 1994,
+    "branch_text": "利物浦客场取胜",
+    "rationale": "完赛比分若客队进球数大于主队，即可由机检源独立判定该分支为真。"
+   },
+   "prob": 0.44286045683145875,
+   "prob_source": "parent.marketPrice.p_away（去水共识；仅本测量用，零账本写）",
+   "_parent_id": 1994,
+   "_valid": true,
+   "_invalid_reason": null
+  },
+  {
+   "statement": "【forward】英超 Leeds United vs Crystal Palace（2026-09-20 开赛）主队获胜",
+   "resolve": {
+    "kind": "oddsapi_h2h",
+    "league": "soccer_epl",
+    "match_id": "b63aef4291a066e32644e591c19a235a",
+    "pick": "home"
+   },
+   "meta": {
+    "phase": "role3_pilot",
+    "cutoff": "2026-09-19T22:23:27+08:00",
+    "eventDate": "2026-09-20",
+    "parent_prediction_id": 1995,
+    "branch_text": "利兹联主场取胜",
+    "rationale": "完赛比分若主队进球多于客队，该子命题即被 The Odds API 比分数据独立判定为真。"
+   },
+   "prob": 0.5314163691103002,
+   "prob_source": "parent.marketPrice.p_home（去水共识；仅本测量用，零账本写）",
+   "_parent_id": 1995,
+   "_valid": true,
+   "_invalid_reason": null
+  },
+  {
+   "statement": "【forward】英超 Leeds United vs Crystal Palace（2026-09-20 开赛）平局",
+   "resolve": {
+    "kind": "oddsapi_h2h",
+    "league": "soccer_epl",
+    "match_id": "b63aef4291a066e32644e591c19a235a",
+    "pick": "draw"
+   },
+   "meta": {
+    "phase": "role3_pilot",
+    "cutoff": "2026-09-19T22:23:27+08:00",
+    "eventDate": "2026-09-20",
+    "parent_prediction_id": 1995,
+    "branch_text": "双方战平",
+    "rationale": "完赛比分若两队进球相等，该子命题可由同一比分源单独判定为真，与前两个分支互斥。"
+   },
+   "prob": 0.25119440469626364,
+   "prob_source": "parent.marketPrice.p_draw（去水共识；仅本测量用，零账本写）",
+   "_parent_id": 1995,
+   "_valid": true,
+   "_invalid_reason": null
+  },
+  {
+   "statement": "【forward】英超 Leeds United vs Crystal Palace（2026-09-20 开赛）客队获胜",
+   "resolve": {
+    "kind": "oddsapi_h2h",
+    "league": "soccer_epl",
+    "match_id": "b63aef4291a066e32644e591c19a235a",
+    "pick": "away"
+   },
+   "meta": {
+    "phase": "role3_pilot",
+    "cutoff": "2026-09-19T22:23:27+08:00",
+    "eventDate": "2026-09-20",
+    "parent_prediction_id": 1995,
+    "branch_text": "水晶宫客场取胜",
+    "rationale": "完赛比分若客队进球多于主队，该子命题同样可由比分数据独立判定为真，三个分支穷尽90分钟结局。"
+   },
+   "prob": 0.21738922619343615,
+   "prob_source": "parent.marketPrice.p_away（去水共识；仅本测量用，零账本写）",
+   "_parent_id": 1995,
+   "_valid": true,
+   "_invalid_reason": null
+  },
+  {
+   "statement": "【forward】英超 Manchester City vs Sunderland（2026-09-20 开赛）主队获胜",
+   "resolve": {
+    "kind": "oddsapi_h2h",
+    "league": "soccer_epl",
+    "match_id": "f923236e69ed946fdc55163494ee88db",
+    "pick": "home"
+   },
+   "meta": {
+    "phase": "role3_pilot",
+    "cutoff": "2026-09-19T22:23:27+08:00",
+    "eventDate": "2026-09-20",
+    "parent_prediction_id": 1996,
+    "branch_text": "曼城主场取胜",
+    "rationale": "完赛比分主队进球多于客队即可由机检源独立判定为真。"
+   },
+   "prob": 0.7342943284749355,
+   "prob_source": "parent.marketPrice.p_home（去水共识；仅本测量用，零账本写）",
+   "_parent_id": 1996,
+   "_valid": true,
+   "_invalid_reason": null
+  },
+  {
+   "statement": "【forward】英超 Manchester City vs Sunderland（2026-09-20 开赛）平局",
+   "resolve": {
+    "kind": "oddsapi_h2h",
+    "league": "soccer_epl",
+    "match_id": "f923236e69ed946fdc55163494ee88db",
+    "pick": "draw"
+   },
+   "meta": {
+    "phase": "role3_pilot",
+    "cutoff": "2026-09-19T22:23:27+08:00",
+    "eventDate": "2026-09-20",
+    "parent_prediction_id": 1996,
+    "branch_text": "双方战成平局",
+    "rationale": "完赛比分两队进球相等即可由机检源独立判定为真。"
+   },
+   "prob": 0.16636942258821424,
+   "prob_source": "parent.marketPrice.p_draw（去水共识；仅本测量用，零账本写）",
+   "_parent_id": 1996,
+   "_valid": true,
+   "_invalid_reason": null
+  },
+  {
+   "statement": "【forward】英超 Manchester City vs Sunderland（2026-09-20 开赛）客队获胜",
+   "resolve": {
+    "kind": "oddsapi_h2h",
+    "league": "soccer_epl",
+    "match_id": "f923236e69ed946fdc55163494ee88db",
+    "pick": "away"
+   },
+   "meta": {
+    "phase": "role3_pilot",
+    "cutoff": "2026-09-19T22:23:27+08:00",
+    "eventDate": "2026-09-20",
+    "parent_prediction_id": 1996,
+    "branch_text": "桑德兰客胜爆冷",
+    "rationale": "完赛比分客队进球多于主队即可由机检源独立判定为真。"
+   },
+   "prob": 0.09933624893685039,
+   "prob_source": "parent.marketPrice.p_away（去水共识；仅本测量用，零账本写）",
+   "_parent_id": 1996,
+   "_valid": true,
+   "_invalid_reason": null
+  },
+  {
+   "statement": "【forward】英超 Fulham vs Manchester United（2026-09-20 开赛）主队获胜",
+   "resolve": {
+    "kind": "oddsapi_h2h",
+    "league": "soccer_epl",
+    "match_id": "182b81a9e220b2347235107c42802fd8",
+    "pick": "home"
+   },
+   "meta": {
+    "phase": "role3_pilot",
+    "cutoff": "2026-09-19T22:23:27+08:00",
+    "eventDate": "2026-09-20",
+    "parent_prediction_id": 1997,
+    "branch_text": "富勒姆获胜",
+    "rationale": "完赛比分若主队进球多于客队，即可由 The Odds API 比分独立判定为真。"
+   },
+   "prob": 0.27445168346609744,
+   "prob_source": "parent.marketPrice.p_home（去水共识；仅本测量用，零账本写）",
+   "_parent_id": 1997,
+   "_valid": true,
+   "_invalid_reason": null
+  },
+  {
+   "statement": "【forward】英超 Fulham vs Manchester United（2026-09-20 开赛）平局",
+   "resolve": {
+    "kind": "oddsapi_h2h",
+    "league": "soccer_epl",
+    "match_id": "182b81a9e220b2347235107c42802fd8",
+    "pick": "draw"
+   },
+   "meta": {
+    "phase": "role3_pilot",
+    "cutoff": "2026-09-19T22:23:27+08:00",
+    "eventDate": "2026-09-20",
+    "parent_prediction_id": 1997,
+    "branch_text": "双方战平",
+    "rationale": "完赛比分若两队进球相等，即可由 The Odds API 比分独立判定为真。"
+   },
+   "prob": 0.2530272041293642,
+   "prob_source": "parent.marketPrice.p_draw（去水共识；仅本测量用，零账本写）",
+   "_parent_id": 1997,
+   "_valid": true,
+   "_invalid_reason": null
+  },
+  {
+   "statement": "【forward】英超 Fulham vs Manchester United（2026-09-20 开赛）客队获胜",
+   "resolve": {
+    "kind": "oddsapi_h2h",
+    "league": "soccer_epl",
+    "match_id": "182b81a9e220b2347235107c42802fd8",
+    "pick": "away"
+   },
+   "meta": {
+    "phase": "role3_pilot",
+    "cutoff": "2026-09-19T22:23:27+08:00",
+    "eventDate": "2026-09-20",
+    "parent_prediction_id": 1997,
+    "branch_text": "曼联获胜",
+    "rationale": "完赛比分若客队进球多于主队，即可由 The Odds API 比分独立判定为真。"
+   },
+   "prob": 0.47252111240453826,
+   "prob_source": "parent.marketPrice.p_away（去水共识；仅本测量用，零账本写）",
+   "_parent_id": 1997,
+   "_valid": true,
+   "_invalid_reason": null
+  },
+  {
+   "statement": "【forward】英超 Arsenal vs Leeds United（2026-10-10 开赛）主队获胜",
+   "resolve": {
+    "kind": "oddsapi_h2h",
+    "league": "soccer_epl",
+    "match_id": "b870dcfba5e5920d3f1551a3aa1ea435",
+    "pick": "home"
+   },
+   "meta": {
+    "phase": "role3_pilot",
+    "cutoff": "2026-09-19T22:23:27+08:00",
+    "eventDate": "2026-10-10",
+    "parent_prediction_id": 1998,
+    "branch_text": "阿森纳获胜",
+    "rationale": "完赛比分中主队进球数多于客队即可独立判定为真，与平局及客胜分支互斥。"
+   },
+   "prob": 0.7241566411772521,
+   "prob_source": "parent.marketPrice.p_home（去水共识；仅本测量用，零账本写）",
+   "_parent_id": 1998,
+   "_valid": true,
+   "_invalid_reason": null
+  },
+  {
+   "statement": "【forward】英超 Arsenal vs Leeds United（2026-10-10 开赛）平局",
+   "resolve": {
+    "kind": "oddsapi_h2h",
+    "league": "soccer_epl",
+    "match_id": "b870dcfba5e5920d3f1551a3aa1ea435",
+    "pick": "draw"
+   },
+   "meta": {
+    "phase": "role3_pilot",
+    "cutoff": "2026-09-19T22:23:27+08:00",
+    "eventDate": "2026-10-10",
+    "parent_prediction_id": 1998,
+    "branch_text": "双方战平",
+    "rationale": "完赛比分中两队进球数相等即可独立判定为真，不依赖其他分支的取数。"
+   },
+   "prob": 0.17638198526700774,
+   "prob_source": "parent.marketPrice.p_draw（去水共识；仅本测量用，零账本写）",
+   "_parent_id": 1998,
+   "_valid": true,
+   "_invalid_reason": null
+  },
+  {
+   "statement": "【forward】英超 Arsenal vs Leeds United（2026-10-10 开赛）客队获胜",
+   "resolve": {
+    "kind": "oddsapi_h2h",
+    "league": "soccer_epl",
+    "match_id": "b870dcfba5e5920d3f1551a3aa1ea435",
+    "pick": "away"
+   },
+   "meta": {
+    "phase": "role3_pilot",
+    "cutoff": "2026-09-19T22:23:27+08:00",
+    "eventDate": "2026-10-10",
+    "parent_prediction_id": 1998,
+    "branch_text": "利兹联获胜",
+    "rationale": "完赛比分中客队进球数多于主队即可独立判定为真，与主胜及平局分支互斥。"
+   },
+   "prob": 0.09946137355574032,
+   "prob_source": "parent.marketPrice.p_away（去水共识；仅本测量用，零账本写）",
+   "_parent_id": 1998,
+   "_valid": true,
+   "_invalid_reason": null
+  },
+  {
+   "statement": "【forward】英超 Aston Villa vs Brentford（2026-10-10 开赛）主队获胜",
+   "resolve": {
+    "kind": "oddsapi_h2h",
+    "league": "soccer_epl",
+    "match_id": "02e6c0ccb11bb7ce78989ce49d67110b",
+    "pick": "home"
+   },
+   "meta": {
+    "phase": "role3_pilot",
+    "cutoff": "2026-09-19T22:23:27+08:00",
+    "eventDate": "2026-10-10",
+    "parent_prediction_id": 1999,
+    "branch_text": "维拉主场取胜",
+    "rationale": "完赛比分可直接判定主队是否获胜，独立机检。"
+   },
+   "prob": 0.3880980511609693,
+   "prob_source": "parent.marketPrice.p_home（去水共识；仅本测量用，零账本写）",
+   "_parent_id": 1999,
+   "_valid": true,
+   "_invalid_reason": null
+  },
+  {
+   "statement": "【forward】英超 Aston Villa vs Brentford（2026-10-10 开赛）平局",
+   "resolve": {
+    "kind": "oddsapi_h2h",
+    "league": "soccer_epl",
+    "match_id": "02e6c0ccb11bb7ce78989ce49d67110b",
+    "pick": "draw"
+   },
+   "meta": {
+    "phase": "role3_pilot",
+    "cutoff": "2026-09-19T22:23:27+08:00",
+    "eventDate": "2026-10-10",
+    "parent_prediction_id": 1999,
+    "branch_text": "双方战成平局",
+    "rationale": "完赛比分相等即为平局，可独立判定真伪。"
+   },
+   "prob": 0.26663408708381664,
+   "prob_source": "parent.marketPrice.p_draw（去水共识；仅本测量用，零账本写）",
+   "_parent_id": 1999,
+   "_valid": true,
+   "_invalid_reason": null
+  },
+  {
+   "statement": "【forward】英超 Aston Villa vs Brentford（2026-10-10 开赛）客队获胜",
+   "resolve": {
+    "kind": "oddsapi_h2h",
+    "league": "soccer_epl",
+    "match_id": "02e6c0ccb11bb7ce78989ce49d67110b",
+    "pick": "away"
+   },
+   "meta": {
+    "phase": "role3_pilot",
+    "cutoff": "2026-09-19T22:23:27+08:00",
+    "eventDate": "2026-10-10",
+    "parent_prediction_id": 1999,
+    "branch_text": "布伦特福德客胜",
+    "rationale": "完赛比分可直接判定客队是否获胜，独立机检。"
+   },
+   "prob": 0.34526786175521396,
+   "prob_source": "parent.marketPrice.p_away（去水共识；仅本测量用，零账本写）",
+   "_parent_id": 1999,
+   "_valid": true,
+   "_invalid_reason": null
+  },
+  {
+   "statement": "【forward】英超 Chelsea vs Bournemouth（2026-10-10 开赛）主队获胜",
+   "resolve": {
+    "kind": "oddsapi_h2h",
+    "league": "soccer_epl",
+    "match_id": "45d4a466e32cd2b4ea535207923ceaf5",
+    "pick": "home"
+   },
+   "meta": {
+    "phase": "role3_pilot",
+    "cutoff": "2026-09-19T22:23:27+08:00",
+    "eventDate": "2026-10-10",
+    "parent_prediction_id": 2000,
+    "branch_text": "切尔西主场取胜",
+    "rationale": "该分支对应主胜结局，可由 The Odds API 完赛比分按 pick=home 单独判定真伪。"
+   },
+   "prob": 0.5292983399600136,
+   "prob_source": "parent.marketPrice.p_home（去水共识；仅本测量用，零账本写）",
+   "_parent_id": 2000,
+   "_valid": true,
+   "_invalid_reason": null
+  },
+  {
+   "statement": "【forward】英超 Chelsea vs Bournemouth（2026-10-10 开赛）平局",
+   "resolve": {
+    "kind": "oddsapi_h2h",
+    "league": "soccer_epl",
+    "match_id": "45d4a466e32cd2b4ea535207923ceaf5",
+    "pick": "draw"
+   },
+   "meta": {
+    "phase": "role3_pilot",
+    "cutoff": "2026-09-19T22:23:27+08:00",
+    "eventDate": "2026-10-10",
+    "parent_prediction_id": 2000,
+    "branch_text": "双方九十分钟战平",
+    "rationale": "该分支对应平局结局，可由完赛比分按 pick=draw 独立机械判定。"
+   },
+   "prob": 0.22921982484427186,
+   "prob_source": "parent.marketPrice.p_draw（去水共识；仅本测量用，零账本写）",
+   "_parent_id": 2000,
+   "_valid": true,
+   "_invalid_reason": null
+  },
+  {
+   "statement": "【forward】英超 Chelsea vs Bournemouth（2026-10-10 开赛）客队获胜",
+   "resolve": {
+    "kind": "oddsapi_h2h",
+    "league": "soccer_epl",
+    "match_id": "45d4a466e32cd2b4ea535207923ceaf5",
+    "pick": "away"
+   },
+   "meta": {
+    "phase": "role3_pilot",
+    "cutoff": "2026-09-19T22:23:27+08:00",
+    "eventDate": "2026-10-10",
+    "parent_prediction_id": 2000,
+    "branch_text": "伯恩茅斯客场取胜",
+    "rationale": "该分支对应客胜结局，可由完赛比分按 pick=away 独立机械判定。"
+   },
+   "prob": 0.24148183519571442,
+   "prob_source": "parent.marketPrice.p_away（去水共识；仅本测量用，零账本写）",
+   "_parent_id": 2000,
+   "_valid": true,
+   "_invalid_reason": null
+  },
+  {
+   "statement": "【forward】英超 Sunderland vs Brighton and Hove Albion（2026-10-10 开赛）主队获胜",
+   "resolve": {
+    "kind": "oddsapi_h2h",
+    "league": "soccer_epl",
+    "match_id": "380b8f24ec5430fb545a7490c1017285",
+    "pick": "home"
+   },
+   "meta": {
+    "phase": "role3_pilot",
+    "cutoff": "2026-09-19T22:23:27+08:00",
+    "eventDate": "2026-10-10",
+    "parent_prediction_id": 2001,
+    "branch_text": "桑德兰主场取胜",
+    "rationale": "完赛比分可直接判定主队是否获胜，独立机检。"
+   },
+   "prob": 0.32215033042880675,
+   "prob_source": "parent.marketPrice.p_home（去水共识；仅本测量用，零账本写）",
+   "_parent_id": 2001,
+   "_valid": true,
+   "_invalid_reason": null
+  },
+  {
+   "statement": "【forward】英超 Sunderland vs Brighton and Hove Albion（2026-10-10 开赛）平局",
+   "resolve": {
+    "kind": "oddsapi_h2h",
+    "league": "soccer_epl",
+    "match_id": "380b8f24ec5430fb545a7490c1017285",
+    "pick": "draw"
+   },
+   "meta": {
+    "phase": "role3_pilot",
+    "cutoff": "2026-09-19T22:23:27+08:00",
+    "eventDate": "2026-10-10",
+    "parent_prediction_id": 2001,
+    "branch_text": "双方战成平局",
+    "rationale": "完赛比分相等即为平局，可独立判定。"
+   },
+   "prob": 0.2789272847775183,
+   "prob_source": "parent.marketPrice.p_draw（去水共识；仅本测量用，零账本写）",
+   "_parent_id": 2001,
+   "_valid": true,
+   "_invalid_reason": null
+  },
+  {
+   "statement": "【forward】英超 Sunderland vs Brighton and Hove Albion（2026-10-10 开赛）客队获胜",
+   "resolve": {
+    "kind": "oddsapi_h2h",
+    "league": "soccer_epl",
+    "match_id": "380b8f24ec5430fb545a7490c1017285",
+    "pick": "away"
+   },
+   "meta": {
+    "phase": "role3_pilot",
+    "cutoff": "2026-09-19T22:23:27+08:00",
+    "eventDate": "2026-10-10",
+    "parent_prediction_id": 2001,
+    "branch_text": "布莱顿客场取胜",
+    "rationale": "完赛比分可直接判定客队是否获胜，独立机检。"
+   },
+   "prob": 0.3989223847936749,
+   "prob_source": "parent.marketPrice.p_away（去水共识；仅本测量用，零账本写）",
+   "_parent_id": 2001,
+   "_valid": true,
+   "_invalid_reason": null
+  },
+  {
+   "statement": "【forward】英超 Ipswich Town vs Fulham（2026-10-10 开赛）主队获胜",
+   "resolve": {
+    "kind": "oddsapi_h2h",
+    "league": "soccer_epl",
+    "match_id": "288b4ff00c79daa712c911c564fe1be7",
+    "pick": "home"
+   },
+   "meta": {
+    "phase": "role3_pilot",
+    "cutoff": "2026-09-19T22:23:27+08:00",
+    "eventDate": "2026-10-10",
+    "parent_prediction_id": 2002,
+    "branch_text": "伊普斯维奇主场取胜",
+    "rationale": "完赛比分来自 The Odds API /v4/scores，主胜仅需比较两队最终进球数即可独立判定。"
+   },
+   "prob": 0.35459178157622606,
+   "prob_source": "parent.marketPrice.p_home（去水共识；仅本测量用，零账本写）",
+   "_parent_id": 2002,
+   "_valid": true,
+   "_invalid_reason": null
+  },
+  {
+   "statement": "【forward】英超 Ipswich Town vs Fulham（2026-10-10 开赛）平局",
+   "resolve": {
+    "kind": "oddsapi_h2h",
+    "league": "soccer_epl",
+    "match_id": "288b4ff00c79daa712c911c564fe1be7",
+    "pick": "draw"
+   },
+   "meta": {
+    "phase": "role3_pilot",
+    "cutoff": "2026-09-19T22:23:27+08:00",
+    "eventDate": "2026-10-10",
+    "parent_prediction_id": 2002,
+    "branch_text": "双方90分钟战平",
+    "rationale": "平局对应完赛比分相等的单一事实，同一接口数据可直接机械判定且与胜负分支互斥。"
+   },
+   "prob": 0.27093604981131497,
+   "prob_source": "parent.marketPrice.p_draw（去水共识；仅本测量用，零账本写）",
+   "_parent_id": 2002,
+   "_valid": true,
+   "_invalid_reason": null
+  },
+  {
+   "statement": "【forward】英超 Ipswich Town vs Fulham（2026-10-10 开赛）客队获胜",
+   "resolve": {
+    "kind": "oddsapi_h2h",
+    "league": "soccer_epl",
+    "match_id": "288b4ff00c79daa712c911c564fe1be7",
+    "pick": "away"
+   },
+   "meta": {
+    "phase": "role3_pilot",
+    "cutoff": "2026-09-19T22:23:27+08:00",
+    "eventDate": "2026-10-10",
+    "parent_prediction_id": 2002,
+    "branch_text": "富勒姆客场取胜",
+    "rationale": "客胜由同一完赛比分反向比较判定，三支分支合起来完整覆盖90分钟结局空间。"
+   },
+   "prob": 0.374472168612459,
+   "prob_source": "parent.marketPrice.p_away（去水共识；仅本测量用，零账本写）",
+   "_parent_id": 2002,
+   "_valid": true,
+   "_invalid_reason": null
+  },
+  {
+   "statement": "【forward】英超 Manchester United vs Tottenham Hotspur（2026-10-10 开赛）主队获胜",
+   "resolve": {
+    "kind": "oddsapi_h2h",
+    "league": "soccer_epl",
+    "match_id": "22c9b2c43cbe1334381269550dab78e6",
+    "pick": "home"
+   },
+   "meta": {
+    "phase": "role3_pilot",
+    "cutoff": "2026-09-19T22:23:27+08:00",
+    "eventDate": "2026-10-10",
+    "parent_prediction_id": 2003,
+    "branch_text": "曼联获胜",
+    "rationale": "完赛比分中主队进球多于客队即可由 The Odds API 独立判定为真。"
+   },
+   "prob": 0.5653589693342038,
+   "prob_source": "parent.marketPrice.p_home（去水共识；仅本测量用，零账本写）",
+   "_parent_id": 2003,
+   "_valid": true,
+   "_invalid_reason": null
+  },
+  {
+   "statement": "【forward】英超 Manchester United vs Tottenham Hotspur（2026-10-10 开赛）平局",
+   "resolve": {
+    "kind": "oddsapi_h2h",
+    "league": "soccer_epl",
+    "match_id": "22c9b2c43cbe1334381269550dab78e6",
+    "pick": "draw"
+   },
+   "meta": {
+    "phase": "role3_pilot",
+    "cutoff": "2026-09-19T22:23:27+08:00",
+    "eventDate": "2026-10-10",
+    "parent_prediction_id": 2003,
+    "branch_text": "双方战平",
+    "rationale": "完赛比分中双方进球相等即可由 The Odds API 独立判定为真。"
+   },
+   "prob": 0.22817400091678597,
+   "prob_source": "parent.marketPrice.p_draw（去水共识；仅本测量用，零账本写）",
+   "_parent_id": 2003,
+   "_valid": true,
+   "_invalid_reason": null
+  },
+  {
+   "statement": "【forward】英超 Manchester United vs Tottenham Hotspur（2026-10-10 开赛）客队获胜",
+   "resolve": {
+    "kind": "oddsapi_h2h",
+    "league": "soccer_epl",
+    "match_id": "22c9b2c43cbe1334381269550dab78e6",
+    "pick": "away"
+   },
+   "meta": {
+    "phase": "role3_pilot",
+    "cutoff": "2026-09-19T22:23:27+08:00",
+    "eventDate": "2026-10-10",
+    "parent_prediction_id": 2003,
+    "branch_text": "热刺获胜",
+    "rationale": "完赛比分中客队进球多于主队即可由 The Odds API 独立判定为真。"
+   },
+   "prob": 0.20646702974901027,
+   "prob_source": "parent.marketPrice.p_away（去水共识；仅本测量用，零账本写）",
+   "_parent_id": 2003,
+   "_valid": true,
+   "_invalid_reason": null
+  },
+  {
+   "statement": "【forward】英超 Crystal Palace vs Nottingham Forest（2026-10-11 开赛）主队获胜",
+   "resolve": {
+    "kind": "oddsapi_h2h",
+    "league": "soccer_epl",
+    "match_id": "86effab5c6e7bfd58c8e88b1fb7c6ba9",
+    "pick": "home"
+   },
+   "meta": {
+    "phase": "role3_pilot",
+    "cutoff": "2026-09-19T22:23:27+08:00",
+    "eventDate": "2026-10-11",
+    "parent_prediction_id": 2004,
+    "branch_text": "水晶宫主场取胜",
+    "rationale": "完赛比分中主队进球多于客队即可独立判定为真，与其他结局互斥。"
+   },
+   "prob": 0.35503176446892826,
+   "prob_source": "parent.marketPrice.p_home（去水共识；仅本测量用，零账本写）",
+   "_parent_id": 2004,
+   "_valid": true,
+   "_invalid_reason": null
+  },
+  {
+   "statement": "【forward】英超 Crystal Palace vs Nottingham Forest（2026-10-11 开赛）平局",
+   "resolve": {
+    "kind": "oddsapi_h2h",
+    "league": "soccer_epl",
+    "match_id": "86effab5c6e7bfd58c8e88b1fb7c6ba9",
+    "pick": "draw"
+   },
+   "meta": {
+    "phase": "role3_pilot",
+    "cutoff": "2026-09-19T22:23:27+08:00",
+    "eventDate": "2026-10-11",
+    "parent_prediction_id": 2004,
+    "branch_text": "双方战平",
+    "rationale": "完赛比分两队进球相等即可独立判定为真，与其他结局互斥。"
+   },
+   "prob": 0.2891982127767967,
+   "prob_source": "parent.marketPrice.p_draw（去水共识；仅本测量用，零账本写）",
+   "_parent_id": 2004,
+   "_valid": true,
+   "_invalid_reason": null
+  },
+  {
+   "statement": "【forward】英超 Crystal Palace vs Nottingham Forest（2026-10-11 开赛）客队获胜",
+   "resolve": {
+    "kind": "oddsapi_h2h",
+    "league": "soccer_epl",
+    "match_id": "86effab5c6e7bfd58c8e88b1fb7c6ba9",
+    "pick": "away"
+   },
+   "meta": {
+    "phase": "role3_pilot",
+    "cutoff": "2026-09-19T22:23:27+08:00",
+    "eventDate": "2026-10-11",
+    "parent_prediction_id": 2004,
+    "branch_text": "森林客场取胜",
+    "rationale": "完赛比分中客队进球多于主队即可独立判定为真，与其他结局互斥。"
+   },
+   "prob": 0.35577002275427516,
+   "prob_source": "parent.marketPrice.p_away（去水共识；仅本测量用，零账本写）",
+   "_parent_id": 2004,
+   "_valid": true,
+   "_invalid_reason": null
+  },
+  {
+   "statement": "【forward】英超 Hull City vs Everton（2026-10-11 开赛）主队获胜",
+   "resolve": {
+    "kind": "oddsapi_h2h",
+    "league": "soccer_epl",
+    "match_id": "0bdae4d304810578e47386606bff7106",
+    "pick": "home"
+   },
+   "meta": {
+    "phase": "role3_pilot",
+    "cutoff": "2026-09-19T22:23:27+08:00",
+    "eventDate": "2026-10-11",
+    "parent_prediction_id": 2005,
+    "branch_text": "赫尔城主场取胜",
+    "rationale": "完赛比分中主队进球多于客队即可由 The Odds API /v4/scores 独立判定为真。"
+   },
+   "prob": 0.2574234508586142,
+   "prob_source": "parent.marketPrice.p_home（去水共识；仅本测量用，零账本写）",
+   "_parent_id": 2005,
+   "_valid": true,
+   "_invalid_reason": null
+  },
+  {
+   "statement": "【forward】英超 Hull City vs Everton（2026-10-11 开赛）平局",
+   "resolve": {
+    "kind": "oddsapi_h2h",
+    "league": "soccer_epl",
+    "match_id": "0bdae4d304810578e47386606bff7106",
+    "pick": "draw"
+   },
+   "meta": {
+    "phase": "role3_pilot",
+    "cutoff": "2026-09-19T22:23:27+08:00",
+    "eventDate": "2026-10-11",
+    "parent_prediction_id": 2005,
+    "branch_text": "双方战成平局",
+    "rationale": "完赛比分中双方进球相等即可由机检源独立判定为真，与前两分支互斥。"
+   },
+   "prob": 0.2905411297359845,
+   "prob_source": "parent.marketPrice.p_draw（去水共识；仅本测量用，零账本写）",
+   "_parent_id": 2005,
+   "_valid": true,
+   "_invalid_reason": null
+  },
+  {
+   "statement": "【forward】英超 Hull City vs Everton（2026-10-11 开赛）客队获胜",
+   "resolve": {
+    "kind": "oddsapi_h2h",
+    "league": "soccer_epl",
+    "match_id": "0bdae4d304810578e47386606bff7106",
+    "pick": "away"
+   },
+   "meta": {
+    "phase": "role3_pilot",
+    "cutoff": "2026-09-19T22:23:27+08:00",
+    "eventDate": "2026-10-11",
+    "parent_prediction_id": 2005,
+    "branch_text": "埃弗顿客场取胜",
+    "rationale": "完赛比分中客队进球多于主队即可由机检源独立判定为真，三分支穷尽90分钟结局。"
+   },
+   "prob": 0.4520354194054013,
+   "prob_source": "parent.marketPrice.p_away（去水共识；仅本测量用，零账本写）",
+   "_parent_id": 2005,
+   "_valid": true,
+   "_invalid_reason": null
+  },
+  {
+   "statement": "【forward】英超 Liverpool vs Manchester City（2026-10-11 开赛）主队获胜",
+   "resolve": {
+    "kind": "oddsapi_h2h",
+    "league": "soccer_epl",
+    "match_id": "6dbab232dd8d2aed0cb1d6f7978fb7b1",
+    "pick": "home"
+   },
+   "meta": {
+    "phase": "role3_pilot",
+    "cutoff": "2026-09-19T22:23:27+08:00",
+    "eventDate": "2026-10-11",
+    "parent_prediction_id": 2006,
+    "branch_text": "利物浦主场取胜",
+    "rationale": "完赛比分主队进球多于客队即可由机检源独立判定为真"
+   },
+   "prob": 0.3063348266667485,
+   "prob_source": "parent.marketPrice.p_home（去水共识；仅本测量用，零账本写）",
+   "_parent_id": 2006,
+   "_valid": true,
+   "_invalid_reason": null
+  },
+  {
+   "statement": "【forward】英超 Liverpool vs Manchester City（2026-10-11 开赛）平局",
+   "resolve": {
+    "kind": "oddsapi_h2h",
+    "league": "soccer_epl",
+    "match_id": "6dbab232dd8d2aed0cb1d6f7978fb7b1",
+    "pick": "draw"
+   },
+   "meta": {
+    "phase": "role3_pilot",
+    "cutoff": "2026-09-19T22:23:27+08:00",
+    "eventDate": "2026-10-11",
+    "parent_prediction_id": 2006,
+    "branch_text": "双方战成平局",
+    "rationale": "完赛比分双方进球相等即可由机检源独立判定为真"
+   },
+   "prob": 0.2556558531745814,
+   "prob_source": "parent.marketPrice.p_draw（去水共识；仅本测量用，零账本写）",
+   "_parent_id": 2006,
+   "_valid": true,
+   "_invalid_reason": null
+  },
+  {
+   "statement": "【forward】英超 Liverpool vs Manchester City（2026-10-11 开赛）客队获胜",
+   "resolve": {
+    "kind": "oddsapi_h2h",
+    "league": "soccer_epl",
+    "match_id": "6dbab232dd8d2aed0cb1d6f7978fb7b1",
+    "pick": "away"
+   },
+   "meta": {
+    "phase": "role3_pilot",
+    "cutoff": "2026-09-19T22:23:27+08:00",
+    "eventDate": "2026-10-11",
+    "parent_prediction_id": 2006,
+    "branch_text": "曼城客场取胜",
+    "rationale": "完赛比分客队进球多于主队即可由机检源独立判定为真"
+   },
+   "prob": 0.4380093201586702,
+   "prob_source": "parent.marketPrice.p_away（去水共识；仅本测量用，零账本写）",
+   "_parent_id": 2006,
+   "_valid": true,
+   "_invalid_reason": null
+  },
+  {
+   "statement": "【forward】英超 Coventry City vs Newcastle United（2026-10-12 开赛）主队获胜",
+   "resolve": {
+    "kind": "oddsapi_h2h",
+    "league": "soccer_epl",
+    "match_id": "acd5bd945dd953ad1e300df5bfe696f9",
+    "pick": "home"
+   },
+   "meta": {
+    "phase": "role3_pilot",
+    "cutoff": "2026-09-19T22:23:27+08:00",
+    "eventDate": "2026-10-12",
+    "parent_prediction_id": 2007,
+    "branch_text": "主队考文垂获胜",
+    "rationale": "完赛比分主队进球多于客队即可独立判定为真"
+   },
+   "prob": 0.2765322493579656,
+   "prob_source": "parent.marketPrice.p_home（去水共识；仅本测量用，零账本写）",
+   "_parent_id": 2007,
+   "_valid": true,
+   "_invalid_reason": null
+  },
+  {
+   "statement": "【forward】英超 Coventry City vs Newcastle United（2026-10-12 开赛）平局",
+   "resolve": {
+    "kind": "oddsapi_h2h",
+    "league": "soccer_epl",
+    "match_id": "acd5bd945dd953ad1e300df5bfe696f9",
+    "pick": "draw"
+   },
+   "meta": {
+    "phase": "role3_pilot",
+    "cutoff": "2026-09-19T22:23:27+08:00",
+    "eventDate": "2026-10-12",
+    "parent_prediction_id": 2007,
+    "branch_text": "双方战平",
+    "rationale": "完赛比分双方进球相等即可独立判定为真"
+   },
+   "prob": 0.2614647685203699,
+   "prob_source": "parent.marketPrice.p_draw（去水共识；仅本测量用，零账本写）",
+   "_parent_id": 2007,
+   "_valid": true,
+   "_invalid_reason": null
+  },
+  {
+   "statement": "【forward】英超 Coventry City vs Newcastle United（2026-10-12 开赛）客队获胜",
+   "resolve": {
+    "kind": "oddsapi_h2h",
+    "league": "soccer_epl",
+    "match_id": "acd5bd945dd953ad1e300df5bfe696f9",
+    "pick": "away"
+   },
+   "meta": {
+    "phase": "role3_pilot",
+    "cutoff": "2026-09-19T22:23:27+08:00",
+    "eventDate": "2026-10-12",
+    "parent_prediction_id": 2007,
+    "branch_text": "客队纽卡获胜",
+    "rationale": "完赛比分客队进球多于主队即可独立判定为真"
+   },
+   "prob": 0.4620029821216646,
+   "prob_source": "parent.marketPrice.p_away（去水共识；仅本测量用，零账本写）",
+   "_parent_id": 2007,
+   "_valid": true,
+   "_invalid_reason": null
+  }
+ ],
+ "dedupe_note": "smoke(tag=smoke)与全量(tag=main)各跑一次 pid=1994 ⇒ 同一 (parent,pick) 重复 3 行已去重（保留首见）；分母=去重后的提议全集"
+}

@@ -1,0 +1,64 @@
+{
+ "script": "p1b/scripts/role3-pilot.cjs",
+ "mode": "REAL",
+ "tag": "main",
+ "db": "E:\\music player\\p1a-terminal\\data\\p1a.db",
+ "llm": {
+  "mode": "LIVE",
+  "model": "glm-5.3-flash",
+  "reasoning_effort": "low",
+  "temperature": 0.2
+ },
+ "parents_total": 14,
+ "excluded": [
+  {
+   "id": 1988,
+   "why": "开赛日 ≤ 今日(UTC) ⇒ 子题 cutoff 构造性 leak，不入父题池",
+   "commence_day": "2026-09-18"
+  },
+  {
+   "id": 1989,
+   "why": "开赛日 ≤ 今日(UTC) ⇒ 子题 cutoff 构造性 leak，不入父题池",
+   "commence_day": "2026-09-19"
+  },
+  {
+   "id": 1990,
+   "why": "开赛日 ≤ 今日(UTC) ⇒ 子题 cutoff 构造性 leak，不入父题池",
+   "commence_day": "2026-09-19"
+  },
+  {
+   "id": 1991,
+   "why": "开赛日 ≤ 今日(UTC) ⇒ 子题 cutoff 构造性 leak，不入父题池",
+   "commence_day": "2026-09-19"
+  },
+  {
+   "id": 1992,
+   "why": "开赛日 ≤ 今日(UTC) ⇒ 子题 cutoff 构造性 leak，不入父题池",
+   "commence_day": "2026-09-19"
+  },
+  {
+   "id": 1993,
+   "why": "开赛日 ≤ 今日(UTC) ⇒ 子题 cutoff 构造性 leak，不入父题池",
+   "commence_day": "2026-09-19"
+  }
+ ],
+ "this_run": 14,
+ "calls_this_run": 14,
+ "state_calls_total": 14,
+ "branches_proposed": 45,
+ "branches_valid": 45,
+ "usage": {
+  "calls": 14,
+  "calls_with_usage": 14,
+  "prompt_tokens": 7213,
+  "completion_tokens": 7485,
+  "total_tokens": 14698,
+  "cached_tokens": 0,
+  "calls_with_cached": 14
+ },
+ "elapsed_s": 121,
+ "stop_reason": "complete",
+ "jsonl": "E:\\music player\\p1b\\sim\\out\\role3-pilot-20260919.jsonl",
+ "rows_json": "E:\\music player\\p1b\\sim\\out\\role3-pilot-20260919.rows.json",
+ "generated_at": "2026-09-19T14:25:28.458Z"
+}

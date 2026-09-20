@@ -1,0 +1,1547 @@
+{
+ "script": "p1b/scripts/nowcast-p2-coverage.cjs",
+ "generated_at": "2026-09-19T14:20:37.897Z",
+ "as_of": "2026-09-19",
+ "db": "E:\\music player\\p1a-terminal\\data\\p1a.db",
+ "criteria_source": "PREREG-厚格基建总票-v1 §9④ ＋ v1.1 §3 待冻结项 4 ＋ A7 brief §3/§4（引用不新造）",
+ "operationalization": "空窗层＝resolved_at IS NULL ∧ matures_at ≤ as-of（事件期已结束真值未发布）；桥接窗口非空＝源域在账本内有同域高频 kind（桥接登记表写死于本件）；账本外桥接不视为非空",
+ "zero_write": true,
+ "zero_network": true,
+ "zero_llm": true,
+ "population": {
+  "monthly_total": 191,
+  "annual_excluded": 48,
+  "monthly_resolved": 71,
+  "monthly_unresolved": 120
+ },
+ "readings": {
+  "in_gap_now": {
+   "n": 0,
+   "note": "★当前空窗层样本 = 0（PREREG v1 §9④ 的担忧成立：按「当前账本」P2 无法判读，只能披露）"
+  },
+  "future_queue_12m": {
+   "n": 117,
+   "by_month": {
+    "2026-10": {
+     "n": 5,
+     "bridge_nonempty": 1
+    },
+    "2026-11": {
+     "n": 60,
+     "bridge_nonempty": 30
+    },
+    "2026-12": {
+     "n": 52,
+     "bridge_nonempty": 28
+    }
+   }
+  },
+  "p2_judgeable_population": {
+   "n": 59,
+   "rate_of_queue": 0.5042735042735043,
+   "note": "P2 可判读人口上限＝队列中桥接窗口非空者（FX 族为主）；实现期若新增数据依赖（失业金/利率日频）须另行立项"
+  }
+ },
+ "by_kind": {
+  "dbnomics_series_value": {
+   "total": 123,
+   "resolved": 32,
+   "unresolved": 91,
+   "unresolved_past_due": 0,
+   "future_queue_12m": 91,
+   "bridge_nonempty": 59
+  },
+  "dbnomics_bis_monthly_mean": {
+   "total": 28,
+   "resolved": 14,
+   "unresolved": 14,
+   "unresolved_past_due": 0,
+   "future_queue_12m": 14,
+   "bridge_nonempty": 0
+  },
+  "dbnomics_eurostat_tertiary_attain": {
+   "total": 6,
+   "resolved": 6,
+   "unresolved": 0,
+   "unresolved_past_due": 0,
+   "future_queue_12m": 0,
+   "bridge_nonempty": 0
+  },
+  "eurostat_live_tertiary_attain": {
+   "total": 3,
+   "resolved": 0,
+   "unresolved": 3,
+   "unresolved_past_due": 0,
+   "future_queue_12m": 0,
+   "bridge_nonempty": 0
+  },
+  "noaa_solar_cycle_ssn_monthly": {
+   "total": 6,
+   "resolved": 4,
+   "unresolved": 2,
+   "unresolved_past_due": 0,
+   "future_queue_12m": 2,
+   "bridge_nonempty": 0
+  },
+  "dbnomics_eurostat_unemployment_monthly": {
+   "total": 9,
+   "resolved": 9,
+   "unresolved": 0,
+   "unresolved_past_due": 0,
+   "future_queue_12m": 0,
+   "bridge_nonempty": 0
+  },
+  "eurostat_live_unemployment_monthly": {
+   "total": 6,
+   "resolved": 0,
+   "unresolved": 6,
+   "unresolved_past_due": 0,
+   "future_queue_12m": 6,
+   "bridge_nonempty": 0
+  },
+  "jpl_cad_monthly_count": {
+   "total": 4,
+   "resolved": 2,
+   "unresolved": 2,
+   "unresolved_past_due": 0,
+   "future_queue_12m": 2,
+   "bridge_nonempty": 0
+  },
+  "swpc_solar_cycle_monthly": {
+   "total": 6,
+   "resolved": 4,
+   "unresolved": 2,
+   "unresolved_past_due": 0,
+   "future_queue_12m": 2,
+   "bridge_nonempty": 0
+  }
+ },
+ "queue_detail": [
+  {
+   "id": 452,
+   "kind": "dbnomics_series_value",
+   "series": "M.USD.EUR.SP00.A",
+   "matures_at": "2026-10-31",
+   "bridge": {
+    "domain": "fx_ecb_bis",
+    "bridge_kind": "frankfurter_rate_range",
+    "why": "同域：ECB/BIS 月度参考汇率 ← frankfurter 日频汇率（同为官方汇率族，frankfurter 即 ECB 数据源）",
+    "nonempty": true
+   }
+  },
+  {
+   "id": 471,
+   "kind": "dbnomics_series_value",
+   "series": "M.USD.EUR.SP00.A",
+   "matures_at": "2026-11-30",
+   "bridge": {
+    "domain": "fx_ecb_bis",
+    "bridge_kind": "frankfurter_rate_range",
+    "why": "同域：ECB/BIS 月度参考汇率 ← frankfurter 日频汇率（同为官方汇率族，frankfurter 即 ECB 数据源）",
+    "nonempty": true
+   }
+  },
+  {
+   "id": 472,
+   "kind": "dbnomics_series_value",
+   "series": "M.USD.EUR.SP00.A",
+   "matures_at": "2026-11-30",
+   "bridge": {
+    "domain": "fx_ecb_bis",
+    "bridge_kind": "frankfurter_rate_range",
+    "why": "同域：ECB/BIS 月度参考汇率 ← frankfurter 日频汇率（同为官方汇率族，frankfurter 即 ECB 数据源）",
+    "nonempty": true
+   }
+  },
+  {
+   "id": 723,
+   "kind": "dbnomics_series_value",
+   "series": "M.USD.EUR.SP00.A",
+   "matures_at": "2026-11-30",
+   "bridge": {
+    "domain": "fx_ecb_bis",
+    "bridge_kind": "frankfurter_rate_range",
+    "why": "同域：ECB/BIS 月度参考汇率 ← frankfurter 日频汇率（同为官方汇率族，frankfurter 即 ECB 数据源）",
+    "nonempty": true
+   }
+  },
+  {
+   "id": 724,
+   "kind": "dbnomics_series_value",
+   "series": "M.USD.EUR.SP00.A",
+   "matures_at": "2026-12-31",
+   "bridge": {
+    "domain": "fx_ecb_bis",
+    "bridge_kind": "frankfurter_rate_range",
+    "why": "同域：ECB/BIS 月度参考汇率 ← frankfurter 日频汇率（同为官方汇率族，frankfurter 即 ECB 数据源）",
+    "nonempty": true
+   }
+  },
+  {
+   "id": 725,
+   "kind": "dbnomics_series_value",
+   "series": "M.JPY.EUR.SP00.A",
+   "matures_at": "2026-11-30",
+   "bridge": {
+    "domain": "fx_ecb_bis",
+    "bridge_kind": "frankfurter_rate_range",
+    "why": "同域：ECB/BIS 月度参考汇率 ← frankfurter 日频汇率（同为官方汇率族，frankfurter 即 ECB 数据源）",
+    "nonempty": true
+   }
+  },
+  {
+   "id": 726,
+   "kind": "dbnomics_series_value",
+   "series": "M.JPY.EUR.SP00.A",
+   "matures_at": "2026-12-31",
+   "bridge": {
+    "domain": "fx_ecb_bis",
+    "bridge_kind": "frankfurter_rate_range",
+    "why": "同域：ECB/BIS 月度参考汇率 ← frankfurter 日频汇率（同为官方汇率族，frankfurter 即 ECB 数据源）",
+    "nonempty": true
+   }
+  },
+  {
+   "id": 727,
+   "kind": "dbnomics_series_value",
+   "series": "M.GBP.EUR.SP00.A",
+   "matures_at": "2026-11-30",
+   "bridge": {
+    "domain": "fx_ecb_bis",
+    "bridge_kind": "frankfurter_rate_range",
+    "why": "同域：ECB/BIS 月度参考汇率 ← frankfurter 日频汇率（同为官方汇率族，frankfurter 即 ECB 数据源）",
+    "nonempty": true
+   }
+  },
+  {
+   "id": 728,
+   "kind": "dbnomics_series_value",
+   "series": "M.GBP.EUR.SP00.A",
+   "matures_at": "2026-12-31",
+   "bridge": {
+    "domain": "fx_ecb_bis",
+    "bridge_kind": "frankfurter_rate_range",
+    "why": "同域：ECB/BIS 月度参考汇率 ← frankfurter 日频汇率（同为官方汇率族，frankfurter 即 ECB 数据源）",
+    "nonempty": true
+   }
+  },
+  {
+   "id": 729,
+   "kind": "dbnomics_series_value",
+   "series": "M.CHF.EUR.SP00.A",
+   "matures_at": "2026-11-30",
+   "bridge": {
+    "domain": "fx_ecb_bis",
+    "bridge_kind": "frankfurter_rate_range",
+    "why": "同域：ECB/BIS 月度参考汇率 ← frankfurter 日频汇率（同为官方汇率族，frankfurter 即 ECB 数据源）",
+    "nonempty": true
+   }
+  },
+  {
+   "id": 730,
+   "kind": "dbnomics_series_value",
+   "series": "M.CHF.EUR.SP00.A",
+   "matures_at": "2026-12-31",
+   "bridge": {
+    "domain": "fx_ecb_bis",
+    "bridge_kind": "frankfurter_rate_range",
+    "why": "同域：ECB/BIS 月度参考汇率 ← frankfurter 日频汇率（同为官方汇率族，frankfurter 即 ECB 数据源）",
+    "nonempty": true
+   }
+  },
+  {
+   "id": 737,
+   "kind": "dbnomics_series_value",
+   "series": "M.USD.EUR.SP00.A",
+   "matures_at": "2026-11-30",
+   "bridge": {
+    "domain": "fx_ecb_bis",
+    "bridge_kind": "frankfurter_rate_range",
+    "why": "同域：ECB/BIS 月度参考汇率 ← frankfurter 日频汇率（同为官方汇率族，frankfurter 即 ECB 数据源）",
+    "nonempty": true
+   }
+  },
+  {
+   "id": 738,
+   "kind": "dbnomics_series_value",
+   "series": "M.USD.EUR.SP00.A",
+   "matures_at": "2026-12-31",
+   "bridge": {
+    "domain": "fx_ecb_bis",
+    "bridge_kind": "frankfurter_rate_range",
+    "why": "同域：ECB/BIS 月度参考汇率 ← frankfurter 日频汇率（同为官方汇率族，frankfurter 即 ECB 数据源）",
+    "nonempty": true
+   }
+  },
+  {
+   "id": 739,
+   "kind": "dbnomics_series_value",
+   "series": "M.USD.EUR.SP00.A",
+   "matures_at": "2026-11-30",
+   "bridge": {
+    "domain": "fx_ecb_bis",
+    "bridge_kind": "frankfurter_rate_range",
+    "why": "同域：ECB/BIS 月度参考汇率 ← frankfurter 日频汇率（同为官方汇率族，frankfurter 即 ECB 数据源）",
+    "nonempty": true
+   }
+  },
+  {
+   "id": 740,
+   "kind": "dbnomics_series_value",
+   "series": "M.USD.EUR.SP00.A",
+   "matures_at": "2026-12-31",
+   "bridge": {
+    "domain": "fx_ecb_bis",
+    "bridge_kind": "frankfurter_rate_range",
+    "why": "同域：ECB/BIS 月度参考汇率 ← frankfurter 日频汇率（同为官方汇率族，frankfurter 即 ECB 数据源）",
+    "nonempty": true
+   }
+  },
+  {
+   "id": 741,
+   "kind": "dbnomics_series_value",
+   "series": "M.JPY.EUR.SP00.A",
+   "matures_at": "2026-11-30",
+   "bridge": {
+    "domain": "fx_ecb_bis",
+    "bridge_kind": "frankfurter_rate_range",
+    "why": "同域：ECB/BIS 月度参考汇率 ← frankfurter 日频汇率（同为官方汇率族，frankfurter 即 ECB 数据源）",
+    "nonempty": true
+   }
+  },
+  {
+   "id": 742,
+   "kind": "dbnomics_series_value",
+   "series": "M.JPY.EUR.SP00.A",
+   "matures_at": "2026-12-31",
+   "bridge": {
+    "domain": "fx_ecb_bis",
+    "bridge_kind": "frankfurter_rate_range",
+    "why": "同域：ECB/BIS 月度参考汇率 ← frankfurter 日频汇率（同为官方汇率族，frankfurter 即 ECB 数据源）",
+    "nonempty": true
+   }
+  },
+  {
+   "id": 743,
+   "kind": "dbnomics_series_value",
+   "series": "M.JPY.EUR.SP00.A",
+   "matures_at": "2026-11-30",
+   "bridge": {
+    "domain": "fx_ecb_bis",
+    "bridge_kind": "frankfurter_rate_range",
+    "why": "同域：ECB/BIS 月度参考汇率 ← frankfurter 日频汇率（同为官方汇率族，frankfurter 即 ECB 数据源）",
+    "nonempty": true
+   }
+  },
+  {
+   "id": 744,
+   "kind": "dbnomics_series_value",
+   "series": "M.JPY.EUR.SP00.A",
+   "matures_at": "2026-12-31",
+   "bridge": {
+    "domain": "fx_ecb_bis",
+    "bridge_kind": "frankfurter_rate_range",
+    "why": "同域：ECB/BIS 月度参考汇率 ← frankfurter 日频汇率（同为官方汇率族，frankfurter 即 ECB 数据源）",
+    "nonempty": true
+   }
+  },
+  {
+   "id": 745,
+   "kind": "dbnomics_series_value",
+   "series": "M.GBP.EUR.SP00.A",
+   "matures_at": "2026-11-30",
+   "bridge": {
+    "domain": "fx_ecb_bis",
+    "bridge_kind": "frankfurter_rate_range",
+    "why": "同域：ECB/BIS 月度参考汇率 ← frankfurter 日频汇率（同为官方汇率族，frankfurter 即 ECB 数据源）",
+    "nonempty": true
+   }
+  },
+  {
+   "id": 746,
+   "kind": "dbnomics_series_value",
+   "series": "M.GBP.EUR.SP00.A",
+   "matures_at": "2026-12-31",
+   "bridge": {
+    "domain": "fx_ecb_bis",
+    "bridge_kind": "frankfurter_rate_range",
+    "why": "同域：ECB/BIS 月度参考汇率 ← frankfurter 日频汇率（同为官方汇率族，frankfurter 即 ECB 数据源）",
+    "nonempty": true
+   }
+  },
+  {
+   "id": 747,
+   "kind": "dbnomics_series_value",
+   "series": "M.GBP.EUR.SP00.A",
+   "matures_at": "2026-11-30",
+   "bridge": {
+    "domain": "fx_ecb_bis",
+    "bridge_kind": "frankfurter_rate_range",
+    "why": "同域：ECB/BIS 月度参考汇率 ← frankfurter 日频汇率（同为官方汇率族，frankfurter 即 ECB 数据源）",
+    "nonempty": true
+   }
+  },
+  {
+   "id": 748,
+   "kind": "dbnomics_series_value",
+   "series": "M.GBP.EUR.SP00.A",
+   "matures_at": "2026-12-31",
+   "bridge": {
+    "domain": "fx_ecb_bis",
+    "bridge_kind": "frankfurter_rate_range",
+    "why": "同域：ECB/BIS 月度参考汇率 ← frankfurter 日频汇率（同为官方汇率族，frankfurter 即 ECB 数据源）",
+    "nonempty": true
+   }
+  },
+  {
+   "id": 749,
+   "kind": "dbnomics_series_value",
+   "series": "M.CHF.EUR.SP00.A",
+   "matures_at": "2026-11-30",
+   "bridge": {
+    "domain": "fx_ecb_bis",
+    "bridge_kind": "frankfurter_rate_range",
+    "why": "同域：ECB/BIS 月度参考汇率 ← frankfurter 日频汇率（同为官方汇率族，frankfurter 即 ECB 数据源）",
+    "nonempty": true
+   }
+  },
+  {
+   "id": 750,
+   "kind": "dbnomics_series_value",
+   "series": "M.CHF.EUR.SP00.A",
+   "matures_at": "2026-12-31",
+   "bridge": {
+    "domain": "fx_ecb_bis",
+    "bridge_kind": "frankfurter_rate_range",
+    "why": "同域：ECB/BIS 月度参考汇率 ← frankfurter 日频汇率（同为官方汇率族，frankfurter 即 ECB 数据源）",
+    "nonempty": true
+   }
+  },
+  {
+   "id": 751,
+   "kind": "dbnomics_series_value",
+   "series": "M.CHF.EUR.SP00.A",
+   "matures_at": "2026-11-30",
+   "bridge": {
+    "domain": "fx_ecb_bis",
+    "bridge_kind": "frankfurter_rate_range",
+    "why": "同域：ECB/BIS 月度参考汇率 ← frankfurter 日频汇率（同为官方汇率族，frankfurter 即 ECB 数据源）",
+    "nonempty": true
+   }
+  },
+  {
+   "id": 752,
+   "kind": "dbnomics_series_value",
+   "series": "M.CHF.EUR.SP00.A",
+   "matures_at": "2026-12-31",
+   "bridge": {
+    "domain": "fx_ecb_bis",
+    "bridge_kind": "frankfurter_rate_range",
+    "why": "同域：ECB/BIS 月度参考汇率 ← frankfurter 日频汇率（同为官方汇率族，frankfurter 即 ECB 数据源）",
+    "nonempty": true
+   }
+  },
+  {
+   "id": 753,
+   "kind": "dbnomics_series_value",
+   "series": "M.CNY.EUR.SP00.A",
+   "matures_at": "2026-11-30",
+   "bridge": {
+    "domain": "fx_ecb_bis",
+    "bridge_kind": "frankfurter_rate_range",
+    "why": "同域：ECB/BIS 月度参考汇率 ← frankfurter 日频汇率（同为官方汇率族，frankfurter 即 ECB 数据源）",
+    "nonempty": true
+   }
+  },
+  {
+   "id": 754,
+   "kind": "dbnomics_series_value",
+   "series": "M.CNY.EUR.SP00.A",
+   "matures_at": "2026-12-31",
+   "bridge": {
+    "domain": "fx_ecb_bis",
+    "bridge_kind": "frankfurter_rate_range",
+    "why": "同域：ECB/BIS 月度参考汇率 ← frankfurter 日频汇率（同为官方汇率族，frankfurter 即 ECB 数据源）",
+    "nonempty": true
+   }
+  },
+  {
+   "id": 755,
+   "kind": "dbnomics_series_value",
+   "series": "M.CNY.EUR.SP00.A",
+   "matures_at": "2026-11-30",
+   "bridge": {
+    "domain": "fx_ecb_bis",
+    "bridge_kind": "frankfurter_rate_range",
+    "why": "同域：ECB/BIS 月度参考汇率 ← frankfurter 日频汇率（同为官方汇率族，frankfurter 即 ECB 数据源）",
+    "nonempty": true
+   }
+  },
+  {
+   "id": 756,
+   "kind": "dbnomics_series_value",
+   "series": "M.CNY.EUR.SP00.A",
+   "matures_at": "2026-12-31",
+   "bridge": {
+    "domain": "fx_ecb_bis",
+    "bridge_kind": "frankfurter_rate_range",
+    "why": "同域：ECB/BIS 月度参考汇率 ← frankfurter 日频汇率（同为官方汇率族，frankfurter 即 ECB 数据源）",
+    "nonempty": true
+   }
+  },
+  {
+   "id": 757,
+   "kind": "dbnomics_series_value",
+   "series": "M.AUD.EUR.SP00.A",
+   "matures_at": "2026-11-30",
+   "bridge": {
+    "domain": "fx_ecb_bis",
+    "bridge_kind": "frankfurter_rate_range",
+    "why": "同域：ECB/BIS 月度参考汇率 ← frankfurter 日频汇率（同为官方汇率族，frankfurter 即 ECB 数据源）",
+    "nonempty": true
+   }
+  },
+  {
+   "id": 758,
+   "kind": "dbnomics_series_value",
+   "series": "M.AUD.EUR.SP00.A",
+   "matures_at": "2026-12-31",
+   "bridge": {
+    "domain": "fx_ecb_bis",
+    "bridge_kind": "frankfurter_rate_range",
+    "why": "同域：ECB/BIS 月度参考汇率 ← frankfurter 日频汇率（同为官方汇率族，frankfurter 即 ECB 数据源）",
+    "nonempty": true
+   }
+  },
+  {
+   "id": 759,
+   "kind": "dbnomics_series_value",
+   "series": "M.AUD.EUR.SP00.A",
+   "matures_at": "2026-11-30",
+   "bridge": {
+    "domain": "fx_ecb_bis",
+    "bridge_kind": "frankfurter_rate_range",
+    "why": "同域：ECB/BIS 月度参考汇率 ← frankfurter 日频汇率（同为官方汇率族，frankfurter 即 ECB 数据源）",
+    "nonempty": true
+   }
+  },
+  {
+   "id": 760,
+   "kind": "dbnomics_series_value",
+   "series": "M.AUD.EUR.SP00.A",
+   "matures_at": "2026-12-31",
+   "bridge": {
+    "domain": "fx_ecb_bis",
+    "bridge_kind": "frankfurter_rate_range",
+    "why": "同域：ECB/BIS 月度参考汇率 ← frankfurter 日频汇率（同为官方汇率族，frankfurter 即 ECB 数据源）",
+    "nonempty": true
+   }
+  },
+  {
+   "id": 761,
+   "kind": "dbnomics_series_value",
+   "series": "M.CAD.EUR.SP00.A",
+   "matures_at": "2026-11-30",
+   "bridge": {
+    "domain": "fx_ecb_bis",
+    "bridge_kind": "frankfurter_rate_range",
+    "why": "同域：ECB/BIS 月度参考汇率 ← frankfurter 日频汇率（同为官方汇率族，frankfurter 即 ECB 数据源）",
+    "nonempty": true
+   }
+  },
+  {
+   "id": 762,
+   "kind": "dbnomics_series_value",
+   "series": "M.CAD.EUR.SP00.A",
+   "matures_at": "2026-12-31",
+   "bridge": {
+    "domain": "fx_ecb_bis",
+    "bridge_kind": "frankfurter_rate_range",
+    "why": "同域：ECB/BIS 月度参考汇率 ← frankfurter 日频汇率（同为官方汇率族，frankfurter 即 ECB 数据源）",
+    "nonempty": true
+   }
+  },
+  {
+   "id": 763,
+   "kind": "dbnomics_series_value",
+   "series": "M.CAD.EUR.SP00.A",
+   "matures_at": "2026-11-30",
+   "bridge": {
+    "domain": "fx_ecb_bis",
+    "bridge_kind": "frankfurter_rate_range",
+    "why": "同域：ECB/BIS 月度参考汇率 ← frankfurter 日频汇率（同为官方汇率族，frankfurter 即 ECB 数据源）",
+    "nonempty": true
+   }
+  },
+  {
+   "id": 764,
+   "kind": "dbnomics_series_value",
+   "series": "M.CAD.EUR.SP00.A",
+   "matures_at": "2026-12-31",
+   "bridge": {
+    "domain": "fx_ecb_bis",
+    "bridge_kind": "frankfurter_rate_range",
+    "why": "同域：ECB/BIS 月度参考汇率 ← frankfurter 日频汇率（同为官方汇率族，frankfurter 即 ECB 数据源）",
+    "nonempty": true
+   }
+  },
+  {
+   "id": 765,
+   "kind": "dbnomics_series_value",
+   "series": "M.SEK.EUR.SP00.A",
+   "matures_at": "2026-11-30",
+   "bridge": {
+    "domain": "fx_ecb_bis",
+    "bridge_kind": "frankfurter_rate_range",
+    "why": "同域：ECB/BIS 月度参考汇率 ← frankfurter 日频汇率（同为官方汇率族，frankfurter 即 ECB 数据源）",
+    "nonempty": true
+   }
+  },
+  {
+   "id": 766,
+   "kind": "dbnomics_series_value",
+   "series": "M.SEK.EUR.SP00.A",
+   "matures_at": "2026-12-31",
+   "bridge": {
+    "domain": "fx_ecb_bis",
+    "bridge_kind": "frankfurter_rate_range",
+    "why": "同域：ECB/BIS 月度参考汇率 ← frankfurter 日频汇率（同为官方汇率族，frankfurter 即 ECB 数据源）",
+    "nonempty": true
+   }
+  },
+  {
+   "id": 767,
+   "kind": "dbnomics_series_value",
+   "series": "M.SEK.EUR.SP00.A",
+   "matures_at": "2026-11-30",
+   "bridge": {
+    "domain": "fx_ecb_bis",
+    "bridge_kind": "frankfurter_rate_range",
+    "why": "同域：ECB/BIS 月度参考汇率 ← frankfurter 日频汇率（同为官方汇率族，frankfurter 即 ECB 数据源）",
+    "nonempty": true
+   }
+  },
+  {
+   "id": 768,
+   "kind": "dbnomics_series_value",
+   "series": "M.SEK.EUR.SP00.A",
+   "matures_at": "2026-12-31",
+   "bridge": {
+    "domain": "fx_ecb_bis",
+    "bridge_kind": "frankfurter_rate_range",
+    "why": "同域：ECB/BIS 月度参考汇率 ← frankfurter 日频汇率（同为官方汇率族，frankfurter 即 ECB 数据源）",
+    "nonempty": true
+   }
+  },
+  {
+   "id": 769,
+   "kind": "dbnomics_series_value",
+   "series": "M.NOK.EUR.SP00.A",
+   "matures_at": "2026-11-30",
+   "bridge": {
+    "domain": "fx_ecb_bis",
+    "bridge_kind": "frankfurter_rate_range",
+    "why": "同域：ECB/BIS 月度参考汇率 ← frankfurter 日频汇率（同为官方汇率族，frankfurter 即 ECB 数据源）",
+    "nonempty": true
+   }
+  },
+  {
+   "id": 770,
+   "kind": "dbnomics_series_value",
+   "series": "M.NOK.EUR.SP00.A",
+   "matures_at": "2026-12-31",
+   "bridge": {
+    "domain": "fx_ecb_bis",
+    "bridge_kind": "frankfurter_rate_range",
+    "why": "同域：ECB/BIS 月度参考汇率 ← frankfurter 日频汇率（同为官方汇率族，frankfurter 即 ECB 数据源）",
+    "nonempty": true
+   }
+  },
+  {
+   "id": 771,
+   "kind": "dbnomics_series_value",
+   "series": "M.NOK.EUR.SP00.A",
+   "matures_at": "2026-11-30",
+   "bridge": {
+    "domain": "fx_ecb_bis",
+    "bridge_kind": "frankfurter_rate_range",
+    "why": "同域：ECB/BIS 月度参考汇率 ← frankfurter 日频汇率（同为官方汇率族，frankfurter 即 ECB 数据源）",
+    "nonempty": true
+   }
+  },
+  {
+   "id": 772,
+   "kind": "dbnomics_series_value",
+   "series": "M.NOK.EUR.SP00.A",
+   "matures_at": "2026-12-31",
+   "bridge": {
+    "domain": "fx_ecb_bis",
+    "bridge_kind": "frankfurter_rate_range",
+    "why": "同域：ECB/BIS 月度参考汇率 ← frankfurter 日频汇率（同为官方汇率族，frankfurter 即 ECB 数据源）",
+    "nonempty": true
+   }
+  },
+  {
+   "id": 773,
+   "kind": "dbnomics_series_value",
+   "series": "M.KRW.EUR.SP00.A",
+   "matures_at": "2026-11-30",
+   "bridge": {
+    "domain": "fx_ecb_bis",
+    "bridge_kind": "frankfurter_rate_range",
+    "why": "同域：ECB/BIS 月度参考汇率 ← frankfurter 日频汇率（同为官方汇率族，frankfurter 即 ECB 数据源）",
+    "nonempty": true
+   }
+  },
+  {
+   "id": 774,
+   "kind": "dbnomics_series_value",
+   "series": "M.KRW.EUR.SP00.A",
+   "matures_at": "2026-12-31",
+   "bridge": {
+    "domain": "fx_ecb_bis",
+    "bridge_kind": "frankfurter_rate_range",
+    "why": "同域：ECB/BIS 月度参考汇率 ← frankfurter 日频汇率（同为官方汇率族，frankfurter 即 ECB 数据源）",
+    "nonempty": true
+   }
+  },
+  {
+   "id": 775,
+   "kind": "dbnomics_series_value",
+   "series": "M.KRW.EUR.SP00.A",
+   "matures_at": "2026-11-30",
+   "bridge": {
+    "domain": "fx_ecb_bis",
+    "bridge_kind": "frankfurter_rate_range",
+    "why": "同域：ECB/BIS 月度参考汇率 ← frankfurter 日频汇率（同为官方汇率族，frankfurter 即 ECB 数据源）",
+    "nonempty": true
+   }
+  },
+  {
+   "id": 776,
+   "kind": "dbnomics_series_value",
+   "series": "M.KRW.EUR.SP00.A",
+   "matures_at": "2026-12-31",
+   "bridge": {
+    "domain": "fx_ecb_bis",
+    "bridge_kind": "frankfurter_rate_range",
+    "why": "同域：ECB/BIS 月度参考汇率 ← frankfurter 日频汇率（同为官方汇率族，frankfurter 即 ECB 数据源）",
+    "nonempty": true
+   }
+  },
+  {
+   "id": 777,
+   "kind": "dbnomics_series_value",
+   "series": "M.SGD.EUR.SP00.A",
+   "matures_at": "2026-11-30",
+   "bridge": {
+    "domain": "fx_ecb_bis",
+    "bridge_kind": "frankfurter_rate_range",
+    "why": "同域：ECB/BIS 月度参考汇率 ← frankfurter 日频汇率（同为官方汇率族，frankfurter 即 ECB 数据源）",
+    "nonempty": true
+   }
+  },
+  {
+   "id": 778,
+   "kind": "dbnomics_series_value",
+   "series": "M.SGD.EUR.SP00.A",
+   "matures_at": "2026-12-31",
+   "bridge": {
+    "domain": "fx_ecb_bis",
+    "bridge_kind": "frankfurter_rate_range",
+    "why": "同域：ECB/BIS 月度参考汇率 ← frankfurter 日频汇率（同为官方汇率族，frankfurter 即 ECB 数据源）",
+    "nonempty": true
+   }
+  },
+  {
+   "id": 779,
+   "kind": "dbnomics_series_value",
+   "series": "M.SGD.EUR.SP00.A",
+   "matures_at": "2026-11-30",
+   "bridge": {
+    "domain": "fx_ecb_bis",
+    "bridge_kind": "frankfurter_rate_range",
+    "why": "同域：ECB/BIS 月度参考汇率 ← frankfurter 日频汇率（同为官方汇率族，frankfurter 即 ECB 数据源）",
+    "nonempty": true
+   }
+  },
+  {
+   "id": 780,
+   "kind": "dbnomics_series_value",
+   "series": "M.SGD.EUR.SP00.A",
+   "matures_at": "2026-12-31",
+   "bridge": {
+    "domain": "fx_ecb_bis",
+    "bridge_kind": "frankfurter_rate_range",
+    "why": "同域：ECB/BIS 月度参考汇率 ← frankfurter 日频汇率（同为官方汇率族，frankfurter 即 ECB 数据源）",
+    "nonempty": true
+   }
+  },
+  {
+   "id": 781,
+   "kind": "dbnomics_series_value",
+   "series": "M.MXN.EUR.SP00.A",
+   "matures_at": "2026-11-30",
+   "bridge": {
+    "domain": "fx_ecb_bis",
+    "bridge_kind": "frankfurter_rate_range",
+    "why": "同域：ECB/BIS 月度参考汇率 ← frankfurter 日频汇率（同为官方汇率族，frankfurter 即 ECB 数据源）",
+    "nonempty": true
+   }
+  },
+  {
+   "id": 782,
+   "kind": "dbnomics_series_value",
+   "series": "M.MXN.EUR.SP00.A",
+   "matures_at": "2026-12-31",
+   "bridge": {
+    "domain": "fx_ecb_bis",
+    "bridge_kind": "frankfurter_rate_range",
+    "why": "同域：ECB/BIS 月度参考汇率 ← frankfurter 日频汇率（同为官方汇率族，frankfurter 即 ECB 数据源）",
+    "nonempty": true
+   }
+  },
+  {
+   "id": 783,
+   "kind": "dbnomics_series_value",
+   "series": "M.MXN.EUR.SP00.A",
+   "matures_at": "2026-11-30",
+   "bridge": {
+    "domain": "fx_ecb_bis",
+    "bridge_kind": "frankfurter_rate_range",
+    "why": "同域：ECB/BIS 月度参考汇率 ← frankfurter 日频汇率（同为官方汇率族，frankfurter 即 ECB 数据源）",
+    "nonempty": true
+   }
+  },
+  {
+   "id": 784,
+   "kind": "dbnomics_series_value",
+   "series": "M.MXN.EUR.SP00.A",
+   "matures_at": "2026-12-31",
+   "bridge": {
+    "domain": "fx_ecb_bis",
+    "bridge_kind": "frankfurter_rate_range",
+    "why": "同域：ECB/BIS 月度参考汇率 ← frankfurter 日频汇率（同为官方汇率族，frankfurter 即 ECB 数据源）",
+    "nonempty": true
+   }
+  },
+  {
+   "id": 785,
+   "kind": "dbnomics_series_value",
+   "series": "M.DE.L.L40.CI.0000.EUR.N.Z",
+   "matures_at": "2026-11-30",
+   "bridge": {
+    "domain": "(未登记)",
+    "bridge_kind": null,
+    "why": "无登记桥接",
+    "nonempty": false
+   }
+  },
+  {
+   "id": 786,
+   "kind": "dbnomics_series_value",
+   "series": "M.DE.L.L40.CI.0000.EUR.N.Z",
+   "matures_at": "2026-12-31",
+   "bridge": {
+    "domain": "(未登记)",
+    "bridge_kind": null,
+    "why": "无登记桥接",
+    "nonempty": false
+   }
+  },
+  {
+   "id": 787,
+   "kind": "dbnomics_series_value",
+   "series": "M.DE.L.L40.CI.0000.EUR.N.Z",
+   "matures_at": "2026-11-30",
+   "bridge": {
+    "domain": "(未登记)",
+    "bridge_kind": null,
+    "why": "无登记桥接",
+    "nonempty": false
+   }
+  },
+  {
+   "id": 788,
+   "kind": "dbnomics_series_value",
+   "series": "M.DE.L.L40.CI.0000.EUR.N.Z",
+   "matures_at": "2026-12-31",
+   "bridge": {
+    "domain": "(未登记)",
+    "bridge_kind": null,
+    "why": "无登记桥接",
+    "nonempty": false
+   }
+  },
+  {
+   "id": 789,
+   "kind": "dbnomics_series_value",
+   "series": "M.FR.L.L40.CI.0000.EUR.N.Z",
+   "matures_at": "2026-11-30",
+   "bridge": {
+    "domain": "(未登记)",
+    "bridge_kind": null,
+    "why": "无登记桥接",
+    "nonempty": false
+   }
+  },
+  {
+   "id": 790,
+   "kind": "dbnomics_series_value",
+   "series": "M.FR.L.L40.CI.0000.EUR.N.Z",
+   "matures_at": "2026-12-31",
+   "bridge": {
+    "domain": "(未登记)",
+    "bridge_kind": null,
+    "why": "无登记桥接",
+    "nonempty": false
+   }
+  },
+  {
+   "id": 791,
+   "kind": "dbnomics_series_value",
+   "series": "M.FR.L.L40.CI.0000.EUR.N.Z",
+   "matures_at": "2026-11-30",
+   "bridge": {
+    "domain": "(未登记)",
+    "bridge_kind": null,
+    "why": "无登记桥接",
+    "nonempty": false
+   }
+  },
+  {
+   "id": 792,
+   "kind": "dbnomics_series_value",
+   "series": "M.FR.L.L40.CI.0000.EUR.N.Z",
+   "matures_at": "2026-12-31",
+   "bridge": {
+    "domain": "(未登记)",
+    "bridge_kind": null,
+    "why": "无登记桥接",
+    "nonempty": false
+   }
+  },
+  {
+   "id": 793,
+   "kind": "dbnomics_series_value",
+   "series": "M.IT.L.L40.CI.0000.EUR.N.Z",
+   "matures_at": "2026-11-30",
+   "bridge": {
+    "domain": "(未登记)",
+    "bridge_kind": null,
+    "why": "无登记桥接",
+    "nonempty": false
+   }
+  },
+  {
+   "id": 794,
+   "kind": "dbnomics_series_value",
+   "series": "M.IT.L.L40.CI.0000.EUR.N.Z",
+   "matures_at": "2026-12-31",
+   "bridge": {
+    "domain": "(未登记)",
+    "bridge_kind": null,
+    "why": "无登记桥接",
+    "nonempty": false
+   }
+  },
+  {
+   "id": 795,
+   "kind": "dbnomics_series_value",
+   "series": "M.IT.L.L40.CI.0000.EUR.N.Z",
+   "matures_at": "2026-11-30",
+   "bridge": {
+    "domain": "(未登记)",
+    "bridge_kind": null,
+    "why": "无登记桥接",
+    "nonempty": false
+   }
+  },
+  {
+   "id": 796,
+   "kind": "dbnomics_series_value",
+   "series": "M.IT.L.L40.CI.0000.EUR.N.Z",
+   "matures_at": "2026-12-31",
+   "bridge": {
+    "domain": "(未登记)",
+    "bridge_kind": null,
+    "why": "无登记桥接",
+    "nonempty": false
+   }
+  },
+  {
+   "id": 797,
+   "kind": "dbnomics_series_value",
+   "series": "M.ES.L.L40.CI.0000.EUR.N.Z",
+   "matures_at": "2026-11-30",
+   "bridge": {
+    "domain": "(未登记)",
+    "bridge_kind": null,
+    "why": "无登记桥接",
+    "nonempty": false
+   }
+  },
+  {
+   "id": 798,
+   "kind": "dbnomics_series_value",
+   "series": "M.ES.L.L40.CI.0000.EUR.N.Z",
+   "matures_at": "2026-12-31",
+   "bridge": {
+    "domain": "(未登记)",
+    "bridge_kind": null,
+    "why": "无登记桥接",
+    "nonempty": false
+   }
+  },
+  {
+   "id": 799,
+   "kind": "dbnomics_series_value",
+   "series": "M.ES.L.L40.CI.0000.EUR.N.Z",
+   "matures_at": "2026-11-30",
+   "bridge": {
+    "domain": "(未登记)",
+    "bridge_kind": null,
+    "why": "无登记桥接",
+    "nonempty": false
+   }
+  },
+  {
+   "id": 800,
+   "kind": "dbnomics_series_value",
+   "series": "M.ES.L.L40.CI.0000.EUR.N.Z",
+   "matures_at": "2026-12-31",
+   "bridge": {
+    "domain": "(未登记)",
+    "bridge_kind": null,
+    "why": "无登记桥接",
+    "nonempty": false
+   }
+  },
+  {
+   "id": 801,
+   "kind": "dbnomics_series_value",
+   "series": "M.NL.L.L40.CI.0000.EUR.N.Z",
+   "matures_at": "2026-11-30",
+   "bridge": {
+    "domain": "(未登记)",
+    "bridge_kind": null,
+    "why": "无登记桥接",
+    "nonempty": false
+   }
+  },
+  {
+   "id": 802,
+   "kind": "dbnomics_series_value",
+   "series": "M.NL.L.L40.CI.0000.EUR.N.Z",
+   "matures_at": "2026-12-31",
+   "bridge": {
+    "domain": "(未登记)",
+    "bridge_kind": null,
+    "why": "无登记桥接",
+    "nonempty": false
+   }
+  },
+  {
+   "id": 803,
+   "kind": "dbnomics_series_value",
+   "series": "M.NL.L.L40.CI.0000.EUR.N.Z",
+   "matures_at": "2026-11-30",
+   "bridge": {
+    "domain": "(未登记)",
+    "bridge_kind": null,
+    "why": "无登记桥接",
+    "nonempty": false
+   }
+  },
+  {
+   "id": 804,
+   "kind": "dbnomics_series_value",
+   "series": "M.NL.L.L40.CI.0000.EUR.N.Z",
+   "matures_at": "2026-12-31",
+   "bridge": {
+    "domain": "(未登记)",
+    "bridge_kind": null,
+    "why": "无登记桥接",
+    "nonempty": false
+   }
+  },
+  {
+   "id": 805,
+   "kind": "dbnomics_series_value",
+   "series": "M.BE.L.L40.CI.0000.EUR.N.Z",
+   "matures_at": "2026-11-30",
+   "bridge": {
+    "domain": "(未登记)",
+    "bridge_kind": null,
+    "why": "无登记桥接",
+    "nonempty": false
+   }
+  },
+  {
+   "id": 806,
+   "kind": "dbnomics_series_value",
+   "series": "M.BE.L.L40.CI.0000.EUR.N.Z",
+   "matures_at": "2026-12-31",
+   "bridge": {
+    "domain": "(未登记)",
+    "bridge_kind": null,
+    "why": "无登记桥接",
+    "nonempty": false
+   }
+  },
+  {
+   "id": 807,
+   "kind": "dbnomics_series_value",
+   "series": "M.BE.L.L40.CI.0000.EUR.N.Z",
+   "matures_at": "2026-11-30",
+   "bridge": {
+    "domain": "(未登记)",
+    "bridge_kind": null,
+    "why": "无登记桥接",
+    "nonempty": false
+   }
+  },
+  {
+   "id": 808,
+   "kind": "dbnomics_series_value",
+   "series": "M.BE.L.L40.CI.0000.EUR.N.Z",
+   "matures_at": "2026-12-31",
+   "bridge": {
+    "domain": "(未登记)",
+    "bridge_kind": null,
+    "why": "无登记桥接",
+    "nonempty": false
+   }
+  },
+  {
+   "id": 809,
+   "kind": "dbnomics_series_value",
+   "series": "M.AT.L.L40.CI.0000.EUR.N.Z",
+   "matures_at": "2026-11-30",
+   "bridge": {
+    "domain": "(未登记)",
+    "bridge_kind": null,
+    "why": "无登记桥接",
+    "nonempty": false
+   }
+  },
+  {
+   "id": 810,
+   "kind": "dbnomics_series_value",
+   "series": "M.AT.L.L40.CI.0000.EUR.N.Z",
+   "matures_at": "2026-12-31",
+   "bridge": {
+    "domain": "(未登记)",
+    "bridge_kind": null,
+    "why": "无登记桥接",
+    "nonempty": false
+   }
+  },
+  {
+   "id": 811,
+   "kind": "dbnomics_series_value",
+   "series": "M.AT.L.L40.CI.0000.EUR.N.Z",
+   "matures_at": "2026-11-30",
+   "bridge": {
+    "domain": "(未登记)",
+    "bridge_kind": null,
+    "why": "无登记桥接",
+    "nonempty": false
+   }
+  },
+  {
+   "id": 812,
+   "kind": "dbnomics_series_value",
+   "series": "M.AT.L.L40.CI.0000.EUR.N.Z",
+   "matures_at": "2026-12-31",
+   "bridge": {
+    "domain": "(未登记)",
+    "bridge_kind": null,
+    "why": "无登记桥接",
+    "nonempty": false
+   }
+  },
+  {
+   "id": 813,
+   "kind": "dbnomics_series_value",
+   "series": "M.PT.L.L40.CI.0000.EUR.N.Z",
+   "matures_at": "2026-11-30",
+   "bridge": {
+    "domain": "(未登记)",
+    "bridge_kind": null,
+    "why": "无登记桥接",
+    "nonempty": false
+   }
+  },
+  {
+   "id": 814,
+   "kind": "dbnomics_series_value",
+   "series": "M.PT.L.L40.CI.0000.EUR.N.Z",
+   "matures_at": "2026-12-31",
+   "bridge": {
+    "domain": "(未登记)",
+    "bridge_kind": null,
+    "why": "无登记桥接",
+    "nonempty": false
+   }
+  },
+  {
+   "id": 815,
+   "kind": "dbnomics_series_value",
+   "series": "M.PT.L.L40.CI.0000.EUR.N.Z",
+   "matures_at": "2026-11-30",
+   "bridge": {
+    "domain": "(未登记)",
+    "bridge_kind": null,
+    "why": "无登记桥接",
+    "nonempty": false
+   }
+  },
+  {
+   "id": 816,
+   "kind": "dbnomics_series_value",
+   "series": "M.PT.L.L40.CI.0000.EUR.N.Z",
+   "matures_at": "2026-12-31",
+   "bridge": {
+    "domain": "(未登记)",
+    "bridge_kind": null,
+    "why": "无登记桥接",
+    "nonempty": false
+   }
+  },
+  {
+   "id": 962,
+   "kind": "dbnomics_bis_monthly_mean",
+   "series": "D.N.B.US",
+   "matures_at": "2026-11-30",
+   "bridge": {
+    "domain": "bis_daily_named",
+    "bridge_kind": "(同序列高频形态)",
+    "why": "序列名前缀 D.（daily 形态命名）⇒ 同源存在更高频形态；★非独立桥接变量，单列披露",
+    "nonempty": false
+   }
+  },
+  {
+   "id": 963,
+   "kind": "dbnomics_bis_monthly_mean",
+   "series": "D.N.B.US",
+   "matures_at": "2026-12-31",
+   "bridge": {
+    "domain": "bis_daily_named",
+    "bridge_kind": "(同序列高频形态)",
+    "why": "序列名前缀 D.（daily 形态命名）⇒ 同源存在更高频形态；★非独立桥接变量，单列披露",
+    "nonempty": false
+   }
+  },
+  {
+   "id": 966,
+   "kind": "dbnomics_bis_monthly_mean",
+   "series": "D.N.B.CN",
+   "matures_at": "2026-11-30",
+   "bridge": {
+    "domain": "bis_daily_named",
+    "bridge_kind": "(同序列高频形态)",
+    "why": "序列名前缀 D.（daily 形态命名）⇒ 同源存在更高频形态；★非独立桥接变量，单列披露",
+    "nonempty": false
+   }
+  },
+  {
+   "id": 967,
+   "kind": "dbnomics_bis_monthly_mean",
+   "series": "D.N.B.CN",
+   "matures_at": "2026-12-31",
+   "bridge": {
+    "domain": "bis_daily_named",
+    "bridge_kind": "(同序列高频形态)",
+    "why": "序列名前缀 D.（daily 形态命名）⇒ 同源存在更高频形态；★非独立桥接变量，单列披露",
+    "nonempty": false
+   }
+  },
+  {
+   "id": 970,
+   "kind": "dbnomics_bis_monthly_mean",
+   "series": "D.N.B.JP",
+   "matures_at": "2026-11-30",
+   "bridge": {
+    "domain": "bis_daily_named",
+    "bridge_kind": "(同序列高频形态)",
+    "why": "序列名前缀 D.（daily 形态命名）⇒ 同源存在更高频形态；★非独立桥接变量，单列披露",
+    "nonempty": false
+   }
+  },
+  {
+   "id": 971,
+   "kind": "dbnomics_bis_monthly_mean",
+   "series": "D.N.B.JP",
+   "matures_at": "2026-12-31",
+   "bridge": {
+    "domain": "bis_daily_named",
+    "bridge_kind": "(同序列高频形态)",
+    "why": "序列名前缀 D.（daily 形态命名）⇒ 同源存在更高频形态；★非独立桥接变量，单列披露",
+    "nonempty": false
+   }
+  },
+  {
+   "id": 1100,
+   "kind": "noaa_solar_cycle_ssn_monthly",
+   "series": null,
+   "matures_at": "2026-10-31",
+   "bridge": {
+    "domain": "space_weather",
+    "bridge_kind": null,
+    "why": "空间天气日频产品在库（L3/swpc），但与月值（太阳黑子数/小行星接近次数）同源性弱 ⇒ **从紧记「窗口空」**（若实现期论证可用须另行立项）",
+    "nonempty": null
+   }
+  },
+  {
+   "id": 1101,
+   "kind": "noaa_solar_cycle_ssn_monthly",
+   "series": null,
+   "matures_at": "2026-11-30",
+   "bridge": {
+    "domain": "space_weather",
+    "bridge_kind": null,
+    "why": "空间天气日频产品在库（L3/swpc），但与月值（太阳黑子数/小行星接近次数）同源性弱 ⇒ **从紧记「窗口空」**（若实现期论证可用须另行立项）",
+    "nonempty": null
+   }
+  },
+  {
+   "id": 1507,
+   "kind": "eurostat_live_unemployment_monthly",
+   "series": null,
+   "matures_at": "2026-10-31",
+   "bridge": {
+    "domain": "unemployment",
+    "bridge_kind": null,
+    "why": "账本内无同域高频就业变量（初请失业金类未接入）⇒ 桥接窗口**空**",
+    "nonempty": null
+   }
+  },
+  {
+   "id": 1508,
+   "kind": "eurostat_live_unemployment_monthly",
+   "series": null,
+   "matures_at": "2026-11-30",
+   "bridge": {
+    "domain": "unemployment",
+    "bridge_kind": null,
+    "why": "账本内无同域高频就业变量（初请失业金类未接入）⇒ 桥接窗口**空**",
+    "nonempty": null
+   }
+  },
+  {
+   "id": 1512,
+   "kind": "eurostat_live_unemployment_monthly",
+   "series": null,
+   "matures_at": "2026-10-31",
+   "bridge": {
+    "domain": "unemployment",
+    "bridge_kind": null,
+    "why": "账本内无同域高频就业变量（初请失业金类未接入）⇒ 桥接窗口**空**",
+    "nonempty": null
+   }
+  },
+  {
+   "id": 1513,
+   "kind": "eurostat_live_unemployment_monthly",
+   "series": null,
+   "matures_at": "2026-11-30",
+   "bridge": {
+    "domain": "unemployment",
+    "bridge_kind": null,
+    "why": "账本内无同域高频就业变量（初请失业金类未接入）⇒ 桥接窗口**空**",
+    "nonempty": null
+   }
+  },
+  {
+   "id": 1517,
+   "kind": "eurostat_live_unemployment_monthly",
+   "series": null,
+   "matures_at": "2026-10-31",
+   "bridge": {
+    "domain": "unemployment",
+    "bridge_kind": null,
+    "why": "账本内无同域高频就业变量（初请失业金类未接入）⇒ 桥接窗口**空**",
+    "nonempty": null
+   }
+  },
+  {
+   "id": 1518,
+   "kind": "eurostat_live_unemployment_monthly",
+   "series": null,
+   "matures_at": "2026-11-30",
+   "bridge": {
+    "domain": "unemployment",
+    "bridge_kind": null,
+    "why": "账本内无同域高频就业变量（初请失业金类未接入）⇒ 桥接窗口**空**",
+    "nonempty": null
+   }
+  },
+  {
+   "id": 1847,
+   "kind": "dbnomics_bis_monthly_mean",
+   "series": "D.N.B.GB",
+   "matures_at": "2026-11-30",
+   "bridge": {
+    "domain": "bis_daily_named",
+    "bridge_kind": "(同序列高频形态)",
+    "why": "序列名前缀 D.（daily 形态命名）⇒ 同源存在更高频形态；★非独立桥接变量，单列披露",
+    "nonempty": false
+   }
+  },
+  {
+   "id": 1848,
+   "kind": "dbnomics_bis_monthly_mean",
+   "series": "D.N.B.GB",
+   "matures_at": "2026-12-31",
+   "bridge": {
+    "domain": "bis_daily_named",
+    "bridge_kind": "(同序列高频形态)",
+    "why": "序列名前缀 D.（daily 形态命名）⇒ 同源存在更高频形态；★非独立桥接变量，单列披露",
+    "nonempty": false
+   }
+  },
+  {
+   "id": 1851,
+   "kind": "dbnomics_bis_monthly_mean",
+   "series": "D.N.B.KR",
+   "matures_at": "2026-11-30",
+   "bridge": {
+    "domain": "bis_daily_named",
+    "bridge_kind": "(同序列高频形态)",
+    "why": "序列名前缀 D.（daily 形态命名）⇒ 同源存在更高频形态；★非独立桥接变量，单列披露",
+    "nonempty": false
+   }
+  },
+  {
+   "id": 1852,
+   "kind": "dbnomics_bis_monthly_mean",
+   "series": "D.N.B.KR",
+   "matures_at": "2026-12-31",
+   "bridge": {
+    "domain": "bis_daily_named",
+    "bridge_kind": "(同序列高频形态)",
+    "why": "序列名前缀 D.（daily 形态命名）⇒ 同源存在更高频形态；★非独立桥接变量，单列披露",
+    "nonempty": false
+   }
+  },
+  {
+   "id": 1855,
+   "kind": "dbnomics_bis_monthly_mean",
+   "series": "D.N.B.IN",
+   "matures_at": "2026-11-30",
+   "bridge": {
+    "domain": "bis_daily_named",
+    "bridge_kind": "(同序列高频形态)",
+    "why": "序列名前缀 D.（daily 形态命名）⇒ 同源存在更高频形态；★非独立桥接变量，单列披露",
+    "nonempty": false
+   }
+  },
+  {
+   "id": 1856,
+   "kind": "dbnomics_bis_monthly_mean",
+   "series": "D.N.B.IN",
+   "matures_at": "2026-12-31",
+   "bridge": {
+    "domain": "bis_daily_named",
+    "bridge_kind": "(同序列高频形态)",
+    "why": "序列名前缀 D.（daily 形态命名）⇒ 同源存在更高频形态；★非独立桥接变量，单列披露",
+    "nonempty": false
+   }
+  },
+  {
+   "id": 1859,
+   "kind": "dbnomics_bis_monthly_mean",
+   "series": "D.N.B.BR",
+   "matures_at": "2026-11-30",
+   "bridge": {
+    "domain": "bis_daily_named",
+    "bridge_kind": "(同序列高频形态)",
+    "why": "序列名前缀 D.（daily 形态命名）⇒ 同源存在更高频形态；★非独立桥接变量，单列披露",
+    "nonempty": false
+   }
+  },
+  {
+   "id": 1860,
+   "kind": "dbnomics_bis_monthly_mean",
+   "series": "D.N.B.BR",
+   "matures_at": "2026-12-31",
+   "bridge": {
+    "domain": "bis_daily_named",
+    "bridge_kind": "(同序列高频形态)",
+    "why": "序列名前缀 D.（daily 形态命名）⇒ 同源存在更高频形态；★非独立桥接变量，单列披露",
+    "nonempty": false
+   }
+  },
+  {
+   "id": 1885,
+   "kind": "jpl_cad_monthly_count",
+   "series": null,
+   "matures_at": "2026-11-30",
+   "bridge": {
+    "domain": "space_weather",
+    "bridge_kind": null,
+    "why": "空间天气日频产品在库（L3/swpc），但与月值（太阳黑子数/小行星接近次数）同源性弱 ⇒ **从紧记「窗口空」**（若实现期论证可用须另行立项）",
+    "nonempty": null
+   }
+  },
+  {
+   "id": 1886,
+   "kind": "jpl_cad_monthly_count",
+   "series": null,
+   "matures_at": "2026-12-31",
+   "bridge": {
+    "domain": "space_weather",
+    "bridge_kind": null,
+    "why": "空间天气日频产品在库（L3/swpc），但与月值（太阳黑子数/小行星接近次数）同源性弱 ⇒ **从紧记「窗口空」**（若实现期论证可用须另行立项）",
+    "nonempty": null
+   }
+  },
+  {
+   "id": 1889,
+   "kind": "swpc_solar_cycle_monthly",
+   "series": null,
+   "matures_at": "2026-11-30",
+   "bridge": {
+    "domain": "space_weather",
+    "bridge_kind": null,
+    "why": "空间天气日频产品在库（L3/swpc），但与月值（太阳黑子数/小行星接近次数）同源性弱 ⇒ **从紧记「窗口空」**（若实现期论证可用须另行立项）",
+    "nonempty": null
+   }
+  },
+  {
+   "id": 1892,
+   "kind": "swpc_solar_cycle_monthly",
+   "series": null,
+   "matures_at": "2026-11-30",
+   "bridge": {
+    "domain": "space_weather",
+    "bridge_kind": null,
+    "why": "空间天气日频产品在库（L3/swpc），但与月值（太阳黑子数/小行星接近次数）同源性弱 ⇒ **从紧记「窗口空」**（若实现期论证可用须另行立项）",
+    "nonempty": null
+   }
+  }
+ ],
+ "bridge_registry": [
+  {
+   "domain": "fx_ecb_bis",
+   "bridge_kind": "frankfurter_rate_range",
+   "why": "同域：ECB/BIS 月度参考汇率 ← frankfurter 日频汇率（同为官方汇率族，frankfurter 即 ECB 数据源）"
+  },
+  {
+   "domain": "bis_daily_named",
+   "bridge_kind": "(同序列高频形态)",
+   "why": "序列名前缀 D.（daily 形态命名）⇒ 同源存在更高频形态；★非独立桥接变量，单列披露"
+  },
+  {
+   "domain": "space_weather",
+   "bridge_kind": null,
+   "why": "空间天气日频产品在库（L3/swpc），但与月值（太阳黑子数/小行星接近次数）同源性弱 ⇒ **从紧记「窗口空」**（若实现期论证可用须另行立项）"
+  },
+  {
+   "domain": "unemployment",
+   "bridge_kind": null,
+   "why": "账本内无同域高频就业变量（初请失业金类未接入）⇒ 桥接窗口**空**"
+  }
+ ]
+}

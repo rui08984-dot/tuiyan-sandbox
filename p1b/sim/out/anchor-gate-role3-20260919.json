@@ -1,0 +1,31 @@
+{
+  "script": "p1b/scripts/anchor-gate.cjs",
+  "label": "role3-分解小批",
+  "source_file": "p1b/sim/out/role3-pilot-20260919.rows.json",
+  "generated_at": "2026-09-19T14:26:15.087Z",
+  "criteria_source": "docs/specs/万物分类清单-v2.md §第 0 步 拒收门三问（v2 冻结 2026-09-12）",
+  "projection_note": "Q0-1 投影＝kind 注册 ∧ 锚可达（注册≠可达；有派生层者视为可达）；Q0-2 抽不出 cutoff ⇒ unverifiable（单列）；Q0-3 只判恒定，出题器红线 (0.15,0.85) 单列 inBand",
+  "zero_write": true,
+  "zero_network": true,
+  "candidates": 42,
+  "pass": 42,
+  "anchor_rate": 1,
+  "by_reason": {
+    "pass": 42,
+    "no_anchor": 0,
+    "leak": 0,
+    "leak_unverified": 0,
+    "tautology": 0,
+    "baserate_missing": 0
+  },
+  "by_phase": {
+    "role3_pilot": {
+      "n": 42,
+      "pass": 42,
+      "anchor_rate": 1
+    }
+  },
+  "in_band": 40,
+  "in_band_rate": 0.9523809523809523,
+  "resolvers_registered": 60
+}
