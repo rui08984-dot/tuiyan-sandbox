@@ -1,0 +1,65 @@
+{
+ "metrics": {
+  "n": 60,
+  "n_missing": 0,
+  "delta": -0.00878667562658333,
+  "sd_d": 0.12247027095551667,
+  "mde": 0.04427036318284776,
+  "ci": {
+   "lb": -0.03921850351505,
+   "ub": 0.021386271242466653
+  },
+  "rel_synth": 0.03564408324098792,
+  "rel_direct": 0.01866175812037296,
+  "rel_a": 0.0399406082792537,
+  "rel_b": 0.08679204891140468,
+  "rel_diff_ci": {
+   "a": {
+    "lb": -0.05385732815411698,
+    "ub": 0.052818943551738724,
+    "point": -0.004296525038265782
+   },
+   "b": {
+    "lb": -0.07952109776053687,
+    "ub": -0.0020599665950243456,
+    "point": -0.05114796567041677
+   },
+   "direct": {
+    "lb": -0.03374109309539282,
+    "ub": 0.06514932530135326,
+    "point": 0.01698232512061496
+   }
+  },
+  "C1_noninf": false,
+  "C2_better": false,
+  "C3_blueprint_branches": true,
+  "C3_v1_text_direct": false,
+  "structural_6c_mean": 0.10196585000000005,
+  "brier_synth": 0.21762141833644996,
+  "brier_direct": 0.22640809396303338,
+  "all_pass": false
+ },
+ "families": {
+  "T9": {
+   "units": 30,
+   "missing": 0
+  },
+  "T10": {
+   "units": 30,
+   "missing": 0
+  }
+ },
+ "prereg": {
+  "v1": {
+   "file": ".scratch\\forecast-debate\\PREREG-角色③情景分支合成器-v1-20260920.md",
+   "sha256": "44acb87286a202fa31b22ef7a1486beb37ba8d801d9f90218523c3fc91881a14",
+   "match": true
+  },
+  "v11": {
+   "file": ".scratch\\forecast-debate\\PREREG-角色③情景分支合成器-v1.1-勘误-20260920.md",
+   "sha256": "0ec2d987f28c9a027639ea57c5b67ea2c6fe18652d70b6e6bade37fa71a93500",
+   "match": true
+  }
+ },
+ "branch_set_sha16": "9b3082f43447bbe8"
+}

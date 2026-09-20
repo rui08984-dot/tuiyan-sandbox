@@ -1,0 +1,1610 @@
+{
+ "script": "p1b/scripts/role3-replay.cjs",
+ "generated_at": "2026-09-20T15:45:40.125Z",
+ "db": "E:\\music player\\p1a-terminal\\data\\p1a.db",
+ "prereg": {
+  "v1": {
+   "file": ".scratch\\forecast-debate\\PREREG-角色③情景分支合成器-v1-20260920.md",
+   "sha256": "44acb87286a202fa31b22ef7a1486beb37ba8d801d9f90218523c3fc91881a14",
+   "match": true
+  },
+  "v11": {
+   "file": ".scratch\\forecast-debate\\PREREG-角色③情景分支合成器-v1.1-勘误-20260920.md",
+   "sha256": "0ec2d987f28c9a027639ea57c5b67ea2c6fe18652d70b6e6bade37fa71a93500",
+   "match": true
+  }
+ },
+ "basis": {
+  "run_id": "ca1b5cdbddfc",
+  "bootstrap": {
+   "B": 1000,
+   "seed": 987654321
+  },
+  "noninf_margin": 0.005,
+  "mode": "conjunction",
+  "judgement_face": "N 型合取族（T9/T10）"
+ },
+ "branch_set": {
+  "families": [
+   {
+    "id": "T9",
+    "parent_sql": "statement LIKE '%] 本局被放逐者是狼人，且其最高票唯一%'",
+    "children": [
+     "T9a",
+     "T9b"
+    ]
+   },
+   {
+    "id": "T10",
+    "parent_sql": "statement LIKE '%] 本局第一条公开发言的玩家未被放逐，且投票无弃票%'",
+    "children": [
+     "T6",
+     "T4"
+    ]
+   }
+  ],
+  "child_sql": {
+   "T9a": "statement LIKE '%] 本局被放逐者是狼人' AND statement NOT LIKE '%且%'",
+   "T9b": "statement LIKE '%] 本局放逐计票最高票唯一%'",
+   "T6": "statement LIKE '%] 本局第一条公开发言的玩家未被放逐' AND statement NOT LIKE '%且%'",
+   "T4": "statement LIKE '%] 本局放逐投票无弃票%'"
+  },
+  "unit_count": 60,
+  "selection": "全集纳入（无筛选、无剔除）；缺读数单元计入分母披露",
+  "freeze_note": "分支集由 PREREG §2 冻结（本批复用既有族；「分支冻结 run_id 先于子题结算」在新产分支时适用——见 v1 §2/收据披露）",
+  "sha16": "9b3082f43447bbe8"
+ },
+ "families": {
+  "T9": {
+   "units": 30,
+   "missing": 0
+  },
+  "T10": {
+   "units": 30,
+   "missing": 0
+  }
+ },
+ "metrics": {
+  "n": 60,
+  "n_missing": 0,
+  "delta": -0.00878667562658333,
+  "sd_d": 0.12247027095551667,
+  "mde": 0.04427036318284776,
+  "ci": {
+   "lb": -0.03921850351505,
+   "ub": 0.021386271242466653
+  },
+  "rel_synth": 0.03564408324098792,
+  "rel_direct": 0.01866175812037296,
+  "rel_a": 0.0399406082792537,
+  "rel_b": 0.08679204891140468,
+  "rel_diff_ci": {
+   "a": {
+    "lb": -0.05385732815411698,
+    "ub": 0.052818943551738724,
+    "point": -0.004296525038265782
+   },
+   "b": {
+    "lb": -0.07952109776053687,
+    "ub": -0.0020599665950243456,
+    "point": -0.05114796567041677
+   },
+   "direct": {
+    "lb": -0.03374109309539282,
+    "ub": 0.06514932530135326,
+    "point": 0.01698232512061496
+   }
+  },
+  "C1_noninf": false,
+  "C2_better": false,
+  "C3_blueprint_branches": true,
+  "C3_v1_text_direct": false,
+  "structural_6c_mean": 0.10196585000000005,
+  "brier_synth": 0.21762141833644996,
+  "brier_direct": 0.22640809396303338,
+  "all_pass": false
+ },
+ "units": [
+  {
+   "family": "T9",
+   "game_id": 8,
+   "parent_id": 101,
+   "child_ids": [
+    99,
+    100
+   ],
+   "y": 0,
+   "outcome_raw": "false",
+   "direct": 0.393333,
+   "synth": 0.327956,
+   "missing": null,
+   "ya": 0,
+   "yb": 1,
+   "readings": {
+    "pa": 0.523333,
+    "pb": 0.626667,
+    "direct": 0.393333,
+    "pa_ok": true,
+    "pb_ok": true,
+    "direct_ok": true
+   },
+   "structural_6c": 0.097964
+  },
+  {
+   "family": "T9",
+   "game_id": 9,
+   "parent_id": 113,
+   "child_ids": [
+    111,
+    112
+   ],
+   "y": 1,
+   "outcome_raw": "true",
+   "direct": 0.413333,
+   "synth": 0.299777,
+   "missing": null,
+   "ya": 1,
+   "yb": 1,
+   "readings": {
+    "pa": 0.473333,
+    "pb": 0.633333,
+    "direct": 0.413333,
+    "pa_ok": true,
+    "pb_ok": true,
+    "direct_ok": true
+   },
+   "structural_6c": 0.099992
+  },
+  {
+   "family": "T9",
+   "game_id": 10,
+   "parent_id": 125,
+   "child_ids": [
+    123,
+    124
+   ],
+   "y": 1,
+   "outcome_raw": "true",
+   "direct": 0.393333,
+   "synth": 0.250356,
+   "missing": null,
+   "ya": 1,
+   "yb": 1,
+   "readings": {
+    "pa": 0.436667,
+    "pb": 0.573333,
+    "direct": 0.393333,
+    "pa_ok": true,
+    "pb_ok": true,
+    "direct_ok": true
+   },
+   "structural_6c": 0.080859
+  },
+  {
+   "family": "T9",
+   "game_id": 11,
+   "parent_id": 137,
+   "child_ids": [
+    135,
+    136
+   ],
+   "y": 0,
+   "outcome_raw": "false",
+   "direct": 0.38,
+   "synth": 0.333822,
+   "missing": null,
+   "ya": 0,
+   "yb": 1,
+   "readings": {
+    "pa": 0.493333,
+    "pb": 0.676667,
+    "direct": 0.38,
+    "pa_ok": true,
+    "pb_ok": true,
+    "direct_ok": true
+   },
+   "structural_6c": 0.114449
+  },
+  {
+   "family": "T9",
+   "game_id": 12,
+   "parent_id": 149,
+   "child_ids": [
+    147,
+    148
+   ],
+   "y": 0,
+   "outcome_raw": "false",
+   "direct": 0.41,
+   "synth": 0.324778,
+   "missing": null,
+   "ya": 0,
+   "yb": 1,
+   "readings": {
+    "pa": 0.526667,
+    "pb": 0.616667,
+    "direct": 0.41,
+    "pa_ok": true,
+    "pb_ok": true,
+    "direct_ok": true
+   },
+   "structural_6c": 0.094799
+  },
+  {
+   "family": "T9",
+   "game_id": 13,
+   "parent_id": 161,
+   "child_ids": [
+    159,
+    160
+   ],
+   "y": 0,
+   "outcome_raw": "false",
+   "direct": 0.503333,
+   "synth": 0.335267,
+   "missing": null,
+   "ya": 0,
+   "yb": 1,
+   "readings": {
+    "pa": 0.47,
+    "pb": 0.713333,
+    "direct": 0.503333,
+    "pa_ok": true,
+    "pb_ok": true,
+    "direct_ok": true
+   },
+   "structural_6c": 0.126753
+  },
+  {
+   "family": "T9",
+   "game_id": 14,
+   "parent_id": 173,
+   "child_ids": [
+    171,
+    172
+   ],
+   "y": 0,
+   "outcome_raw": "false",
+   "direct": 0.42,
+   "synth": 0.2574,
+   "missing": null,
+   "ya": 0,
+   "yb": 1,
+   "readings": {
+    "pa": 0.476667,
+    "pb": 0.54,
+    "direct": 0.42,
+    "pa_ok": true,
+    "pb_ok": true,
+    "direct_ok": true
+   },
+   "structural_6c": 0.072741
+  },
+  {
+   "family": "T9",
+   "game_id": 15,
+   "parent_id": 185,
+   "child_ids": [
+    183,
+    184
+   ],
+   "y": 0,
+   "outcome_raw": "false",
+   "direct": 0.383333,
+   "synth": 0.256667,
+   "missing": null,
+   "ya": 0,
+   "yb": 1,
+   "readings": {
+    "pa": 0.466667,
+    "pb": 0.55,
+    "direct": 0.383333,
+    "pa_ok": true,
+    "pb_ok": true,
+    "direct_ok": true
+   },
+   "structural_6c": 0.075289
+  },
+  {
+   "family": "T9",
+   "game_id": 16,
+   "parent_id": 197,
+   "child_ids": [
+    195,
+    196
+   ],
+   "y": 0,
+   "outcome_raw": "false",
+   "direct": 0.393333,
+   "synth": 0.262533,
+   "missing": null,
+   "ya": 0,
+   "yb": 0,
+   "readings": {
+    "pa": 0.44,
+    "pb": 0.596667,
+    "direct": 0.393333,
+    "pa_ok": true,
+    "pb_ok": true,
+    "direct_ok": true
+   },
+   "structural_6c": 0.087721
+  },
+  {
+   "family": "T9",
+   "game_id": 17,
+   "parent_id": 209,
+   "child_ids": [
+    207,
+    208
+   ],
+   "y": 0,
+   "outcome_raw": "false",
+   "direct": 0.42,
+   "synth": 0.2793,
+   "missing": null,
+   "ya": 0,
+   "yb": 1,
+   "readings": {
+    "pa": 0.443333,
+    "pb": 0.63,
+    "direct": 0.42,
+    "pa_ok": true,
+    "pb_ok": true,
+    "direct_ok": true
+   },
+   "structural_6c": 0.09795
+  },
+  {
+   "family": "T9",
+   "game_id": 18,
+   "parent_id": 221,
+   "child_ids": [
+    219,
+    220
+   ],
+   "y": 0,
+   "outcome_raw": "false",
+   "direct": 0.386667,
+   "synth": 0.279,
+   "missing": null,
+   "ya": 0,
+   "yb": 1,
+   "readings": {
+    "pa": 0.45,
+    "pb": 0.62,
+    "direct": 0.386667,
+    "pa_ok": true,
+    "pb_ok": true,
+    "direct_ok": true
+   },
+   "structural_6c": 0.095139
+  },
+  {
+   "family": "T9",
+   "game_id": 19,
+   "parent_id": 233,
+   "child_ids": [
+    231,
+    232
+   ],
+   "y": 1,
+   "outcome_raw": "true",
+   "direct": 0.42,
+   "synth": 0.291611,
+   "missing": null,
+   "ya": 1,
+   "yb": 1,
+   "readings": {
+    "pa": 0.483333,
+    "pb": 0.603333,
+    "direct": 0.42,
+    "pa_ok": true,
+    "pb_ok": true,
+    "direct_ok": true
+   },
+   "structural_6c": 0.090902
+  },
+  {
+   "family": "T9",
+   "game_id": 20,
+   "parent_id": 245,
+   "child_ids": [
+    243,
+    244
+   ],
+   "y": 1,
+   "outcome_raw": "true",
+   "direct": 0.493333,
+   "synth": 0.28,
+   "missing": null,
+   "ya": 1,
+   "yb": 1,
+   "readings": {
+    "pa": 0.48,
+    "pb": 0.583333,
+    "direct": 0.493333,
+    "pa_ok": true,
+    "pb_ok": true,
+    "direct_ok": true
+   },
+   "structural_6c": 0.084933
+  },
+  {
+   "family": "T9",
+   "game_id": 21,
+   "parent_id": 257,
+   "child_ids": [
+    255,
+    256
+   ],
+   "y": 0,
+   "outcome_raw": "false",
+   "direct": 0.443333,
+   "synth": 0.270433,
+   "missing": null,
+   "ya": 0,
+   "yb": 1,
+   "readings": {
+    "pa": 0.443333,
+    "pb": 0.61,
+    "direct": 0.443333,
+    "pa_ok": true,
+    "pb_ok": true,
+    "direct_ok": true
+   },
+   "structural_6c": 0.09183
+  },
+  {
+   "family": "T9",
+   "game_id": 22,
+   "parent_id": 269,
+   "child_ids": [
+    267,
+    268
+   ],
+   "y": 1,
+   "outcome_raw": "true",
+   "direct": 0.41,
+   "synth": 0.278056,
+   "missing": null,
+   "ya": 1,
+   "yb": 1,
+   "readings": {
+    "pa": 0.476667,
+    "pb": 0.583333,
+    "direct": 0.41,
+    "pa_ok": true,
+    "pb_ok": true,
+    "direct_ok": true
+   },
+   "structural_6c": 0.084884
+  },
+  {
+   "family": "T9",
+   "game_id": 23,
+   "parent_id": 281,
+   "child_ids": [
+    279,
+    280
+   ],
+   "y": 0,
+   "outcome_raw": "false",
+   "direct": 0.373333,
+   "synth": 0.239822,
+   "missing": null,
+   "ya": 0,
+   "yb": 1,
+   "readings": {
+    "pa": 0.473333,
+    "pb": 0.506667,
+    "direct": 0.373333,
+    "pa_ok": true,
+    "pb_ok": true,
+    "direct_ok": true
+   },
+   "structural_6c": 0.063995
+  },
+  {
+   "family": "T9",
+   "game_id": 24,
+   "parent_id": 293,
+   "child_ids": [
+    291,
+    292
+   ],
+   "y": 1,
+   "outcome_raw": "true",
+   "direct": 0.366667,
+   "synth": 0.283834,
+   "missing": null,
+   "ya": 1,
+   "yb": 1,
+   "readings": {
+    "pa": 0.436667,
+    "pb": 0.65,
+    "direct": 0.366667,
+    "pa_ok": true,
+    "pb_ok": true,
+    "direct_ok": true
+   },
+   "structural_6c": 0.10393
+  },
+  {
+   "family": "T9",
+   "game_id": 25,
+   "parent_id": 305,
+   "child_ids": [
+    303,
+    304
+   ],
+   "y": 0,
+   "outcome_raw": "false",
+   "direct": 0.43,
+   "synth": 0.256667,
+   "missing": null,
+   "ya": 0,
+   "yb": 1,
+   "readings": {
+    "pa": 0.44,
+    "pb": 0.583333,
+    "direct": 0.43,
+    "pa_ok": true,
+    "pb_ok": true,
+    "direct_ok": true
+   },
+   "structural_6c": 0.083844
+  },
+  {
+   "family": "T9",
+   "game_id": 26,
+   "parent_id": 317,
+   "child_ids": [
+    315,
+    316
+   ],
+   "y": 0,
+   "outcome_raw": "false",
+   "direct": 0.373333,
+   "synth": 0.245333,
+   "missing": null,
+   "ya": 0,
+   "yb": 1,
+   "readings": {
+    "pa": 0.46,
+    "pb": 0.533333,
+    "direct": 0.373333,
+    "pa_ok": true,
+    "pb_ok": true,
+    "direct_ok": true
+   },
+   "structural_6c": 0.070656
+  },
+  {
+   "family": "T9",
+   "game_id": 27,
+   "parent_id": 329,
+   "child_ids": [
+    327,
+    328
+   ],
+   "y": 0,
+   "outcome_raw": "false",
+   "direct": 0.42,
+   "synth": 0.3043,
+   "missing": null,
+   "ya": 0,
+   "yb": 1,
+   "readings": {
+    "pa": 0.51,
+    "pb": 0.596667,
+    "direct": 0.42,
+    "pa_ok": true,
+    "pb_ok": true,
+    "direct_ok": true
+   },
+   "structural_6c": 0.088967
+  },
+  {
+   "family": "T9",
+   "game_id": 28,
+   "parent_id": 341,
+   "child_ids": [
+    339,
+    340
+   ],
+   "y": 1,
+   "outcome_raw": "true",
+   "direct": 0.376667,
+   "synth": 0.249,
+   "missing": null,
+   "ya": 1,
+   "yb": 1,
+   "readings": {
+    "pa": 0.45,
+    "pb": 0.553333,
+    "direct": 0.376667,
+    "pa_ok": true,
+    "pb_ok": true,
+    "direct_ok": true
+   },
+   "structural_6c": 0.075779
+  },
+  {
+   "family": "T9",
+   "game_id": 29,
+   "parent_id": 353,
+   "child_ids": [
+    351,
+    352
+   ],
+   "y": 0,
+   "outcome_raw": "false",
+   "direct": 0.386667,
+   "synth": 0.260867,
+   "missing": null,
+   "ya": 0,
+   "yb": 1,
+   "readings": {
+    "pa": 0.43,
+    "pb": 0.606667,
+    "direct": 0.386667,
+    "pa_ok": true,
+    "pb_ok": true,
+    "direct_ok": true
+   },
+   "structural_6c": 0.090208
+  },
+  {
+   "family": "T9",
+   "game_id": 30,
+   "parent_id": 365,
+   "child_ids": [
+    363,
+    364
+   ],
+   "y": 0,
+   "outcome_raw": "false",
+   "direct": 0.43,
+   "synth": 0.270433,
+   "missing": null,
+   "ya": 0,
+   "yb": 1,
+   "readings": {
+    "pa": 0.443333,
+    "pb": 0.61,
+    "direct": 0.43,
+    "pa_ok": true,
+    "pb_ok": true,
+    "direct_ok": true
+   },
+   "structural_6c": 0.09183
+  },
+  {
+   "family": "T9",
+   "game_id": 31,
+   "parent_id": 377,
+   "child_ids": [
+    375,
+    376
+   ],
+   "y": 1,
+   "outcome_raw": "true",
+   "direct": 0.343333,
+   "synth": 0.229056,
+   "missing": null,
+   "ya": 1,
+   "yb": 1,
+   "readings": {
+    "pa": 0.443333,
+    "pb": 0.516667,
+    "direct": 0.343333,
+    "pa_ok": true,
+    "pb_ok": true,
+    "direct_ok": true
+   },
+   "structural_6c": 0.065879
+  },
+  {
+   "family": "T9",
+   "game_id": 32,
+   "parent_id": 389,
+   "child_ids": [
+    387,
+    388
+   ],
+   "y": 1,
+   "outcome_raw": "true",
+   "direct": 0.386667,
+   "synth": 0.251222,
+   "missing": null,
+   "ya": 1,
+   "yb": 1,
+   "readings": {
+    "pa": 0.443333,
+    "pb": 0.566667,
+    "direct": 0.386667,
+    "pa_ok": true,
+    "pb_ok": true,
+    "direct_ok": true
+   },
+   "structural_6c": 0.079247
+  },
+  {
+   "family": "T9",
+   "game_id": 33,
+   "parent_id": 401,
+   "child_ids": [
+    399,
+    400
+   ],
+   "y": 0,
+   "outcome_raw": "false",
+   "direct": 0.41,
+   "synth": 0.322545,
+   "missing": null,
+   "ya": 0,
+   "yb": 1,
+   "readings": {
+    "pa": 0.476667,
+    "pb": 0.676667,
+    "direct": 0.41,
+    "pa_ok": true,
+    "pb_ok": true,
+    "direct_ok": true
+   },
+   "structural_6c": 0.11422
+  },
+  {
+   "family": "T9",
+   "game_id": 34,
+   "parent_id": 413,
+   "child_ids": [
+    411,
+    412
+   ],
+   "y": 0,
+   "outcome_raw": "false",
+   "direct": 0.4,
+   "synth": 0.241511,
+   "missing": null,
+   "ya": 0,
+   "yb": 1,
+   "readings": {
+    "pa": 0.476667,
+    "pb": 0.506667,
+    "direct": 0.4,
+    "pa_ok": true,
+    "pb_ok": true,
+    "direct_ok": true
+   },
+   "structural_6c": 0.064038
+  },
+  {
+   "family": "T9",
+   "game_id": 35,
+   "parent_id": 425,
+   "child_ids": [
+    423,
+    424
+   ],
+   "y": 0,
+   "outcome_raw": "false",
+   "direct": 0.423333,
+   "synth": 0.282577,
+   "missing": null,
+   "ya": 0,
+   "yb": 1,
+   "readings": {
+    "pa": 0.453333,
+    "pb": 0.623333,
+    "direct": 0.423333,
+    "pa_ok": true,
+    "pb_ok": true,
+    "direct_ok": true
+   },
+   "structural_6c": 0.09629
+  },
+  {
+   "family": "T9",
+   "game_id": 36,
+   "parent_id": 437,
+   "child_ids": [
+    435,
+    436
+   ],
+   "y": 0,
+   "outcome_raw": "false",
+   "direct": 0.493333,
+   "synth": 0.265022,
+   "missing": null,
+   "ya": 0,
+   "yb": 1,
+   "readings": {
+    "pa": 0.446667,
+    "pb": 0.593333,
+    "direct": 0.493333,
+    "pa_ok": true,
+    "pb_ok": true,
+    "direct_ok": true
+   },
+   "structural_6c": 0.08701
+  },
+  {
+   "family": "T9",
+   "game_id": 37,
+   "parent_id": 449,
+   "child_ids": [
+    447,
+    448
+   ],
+   "y": 0,
+   "outcome_raw": "false",
+   "direct": 0.383333,
+   "synth": 0.255377,
+   "missing": null,
+   "ya": 0,
+   "yb": 1,
+   "readings": {
+    "pa": 0.453333,
+    "pb": 0.563333,
+    "direct": 0.383333,
+    "pa_ok": true,
+    "pb_ok": true,
+    "direct_ok": true
+   },
+   "structural_6c": 0.078645
+  },
+  {
+   "family": "T10",
+   "game_id": 8,
+   "parent_id": 102,
+   "child_ids": [
+    96,
+    94
+   ],
+   "y": 0,
+   "outcome_raw": "false",
+   "direct": 0.603333,
+   "synth": 0.5688,
+   "missing": null,
+   "ya": 1,
+   "yb": 0,
+   "readings": {
+    "pa": 0.72,
+    "pb": 0.79,
+    "direct": 0.603333,
+    "pa_ok": true,
+    "pb_ok": true,
+    "direct_ok": true
+   },
+   "structural_6c": 0.125819
+  },
+  {
+   "family": "T10",
+   "game_id": 9,
+   "parent_id": 114,
+   "child_ids": [
+    108,
+    106
+   ],
+   "y": 1,
+   "outcome_raw": "true",
+   "direct": 0.606667,
+   "synth": 0.525289,
+   "missing": null,
+   "ya": 1,
+   "yb": 1,
+   "readings": {
+    "pa": 0.706667,
+    "pb": 0.743333,
+    "direct": 0.606667,
+    "pa_ok": true,
+    "pb_ok": true,
+    "direct_ok": true
+   },
+   "structural_6c": 0.114536
+  },
+  {
+   "family": "T10",
+   "game_id": 10,
+   "parent_id": 126,
+   "child_ids": [
+    120,
+    118
+   ],
+   "y": 0,
+   "outcome_raw": "false",
+   "direct": 0.516667,
+   "synth": 0.5208,
+   "missing": null,
+   "ya": 1,
+   "yb": 0,
+   "readings": {
+    "pa": 0.723333,
+    "pb": 0.72,
+    "direct": 0.516667,
+    "pa_ok": true,
+    "pb_ok": true,
+    "direct_ok": true
+   },
+   "structural_6c": 0.103743
+  },
+  {
+   "family": "T10",
+   "game_id": 11,
+   "parent_id": 138,
+   "child_ids": [
+    132,
+    130
+   ],
+   "y": 1,
+   "outcome_raw": "true",
+   "direct": 0.66,
+   "synth": 0.584889,
+   "missing": null,
+   "ya": 1,
+   "yb": 1,
+   "readings": {
+    "pa": 0.783333,
+    "pb": 0.746667,
+    "direct": 0.66,
+    "pa_ok": true,
+    "pb_ok": true,
+    "direct_ok": true
+   },
+   "structural_6c": 0.094622
+  },
+  {
+   "family": "T10",
+   "game_id": 12,
+   "parent_id": 150,
+   "child_ids": [
+    144,
+    142
+   ],
+   "y": 0,
+   "outcome_raw": "false",
+   "direct": 0.533333,
+   "synth": 0.411356,
+   "missing": null,
+   "ya": 0,
+   "yb": 1,
+   "readings": {
+    "pa": 0.576667,
+    "pb": 0.713333,
+    "direct": 0.533333,
+    "pa_ok": true,
+    "pb_ok": true,
+    "direct_ok": true
+   },
+   "structural_6c": 0.12422
+  },
+  {
+   "family": "T10",
+   "game_id": 13,
+   "parent_id": 162,
+   "child_ids": [
+    156,
+    154
+   ],
+   "y": 0,
+   "outcome_raw": "false",
+   "direct": 0.41,
+   "synth": 0.394666,
+   "missing": null,
+   "ya": 0,
+   "yb": 1,
+   "readings": {
+    "pa": 0.493333,
+    "pb": 0.8,
+    "direct": 0.41,
+    "pa_ok": true,
+    "pb_ok": true,
+    "direct_ok": true
+   },
+   "structural_6c": 0.159972
+  },
+  {
+   "family": "T10",
+   "game_id": 14,
+   "parent_id": 174,
+   "child_ids": [
+    168,
+    166
+   ],
+   "y": 0,
+   "outcome_raw": "false",
+   "direct": 0.643333,
+   "synth": 0.427777,
+   "missing": null,
+   "ya": 0,
+   "yb": 1,
+   "readings": {
+    "pa": 0.583333,
+    "pb": 0.733333,
+    "direct": 0.643333,
+    "pa_ok": true,
+    "pb_ok": true,
+    "direct_ok": true
+   },
+   "structural_6c": 0.13071
+  },
+  {
+   "family": "T10",
+   "game_id": 15,
+   "parent_id": 186,
+   "child_ids": [
+    180,
+    178
+   ],
+   "y": 1,
+   "outcome_raw": "true",
+   "direct": 0.56,
+   "synth": 0.535112,
+   "missing": null,
+   "ya": 1,
+   "yb": 1,
+   "readings": {
+    "pa": 0.746667,
+    "pb": 0.716667,
+    "direct": 0.56,
+    "pa_ok": true,
+    "pb_ok": true,
+    "direct_ok": true
+   },
+   "structural_6c": 0.097152
+  },
+  {
+   "family": "T10",
+   "game_id": 16,
+   "parent_id": 198,
+   "child_ids": [
+    192,
+    190
+   ],
+   "y": 0,
+   "outcome_raw": "false",
+   "direct": 0.593333,
+   "synth": 0.500734,
+   "missing": null,
+   "ya": 0,
+   "yb": 1,
+   "readings": {
+    "pa": 0.676667,
+    "pb": 0.74,
+    "direct": 0.593333,
+    "pa_ok": true,
+    "pb_ok": true,
+    "direct_ok": true
+   },
+   "structural_6c": 0.119809
+  },
+  {
+   "family": "T10",
+   "game_id": 17,
+   "parent_id": 210,
+   "child_ids": [
+    204,
+    202
+   ],
+   "y": 1,
+   "outcome_raw": "true",
+   "direct": 0.646667,
+   "synth": 0.582577,
+   "missing": null,
+   "ya": 1,
+   "yb": 1,
+   "readings": {
+    "pa": 0.753333,
+    "pb": 0.773333,
+    "direct": 0.646667,
+    "pa_ok": true,
+    "pb_ok": true,
+    "direct_ok": true
+   },
+   "structural_6c": 0.11113
+  },
+  {
+   "family": "T10",
+   "game_id": 18,
+   "parent_id": 222,
+   "child_ids": [
+    216,
+    214
+   ],
+   "y": 0,
+   "outcome_raw": "false",
+   "direct": 0.62,
+   "synth": 0.424533,
+   "missing": null,
+   "ya": 0,
+   "yb": 1,
+   "readings": {
+    "pa": 0.663333,
+    "pb": 0.64,
+    "direct": 0.62,
+    "pa_ok": true,
+    "pb_ok": true,
+    "direct_ok": true
+   },
+   "structural_6c": 0.091473
+  },
+  {
+   "family": "T10",
+   "game_id": 19,
+   "parent_id": 234,
+   "child_ids": [
+    228,
+    226
+   ],
+   "y": 1,
+   "outcome_raw": "true",
+   "direct": 0.63,
+   "synth": 0.5425,
+   "missing": null,
+   "ya": 1,
+   "yb": 1,
+   "readings": {
+    "pa": 0.75,
+    "pb": 0.723333,
+    "direct": 0.63,
+    "pa_ok": true,
+    "pb_ok": true,
+    "direct_ok": true
+   },
+   "structural_6c": 0.098102
+  },
+  {
+   "family": "T10",
+   "game_id": 20,
+   "parent_id": 246,
+   "child_ids": [
+    240,
+    238
+   ],
+   "y": 0,
+   "outcome_raw": "false",
+   "direct": 0.643333,
+   "synth": 0.526244,
+   "missing": null,
+   "ya": 1,
+   "yb": 0,
+   "readings": {
+    "pa": 0.663333,
+    "pb": 0.793333,
+    "direct": 0.643333,
+    "pa_ok": true,
+    "pb_ok": true,
+    "direct_ok": true
+   },
+   "structural_6c": 0.140554
+  },
+  {
+   "family": "T10",
+   "game_id": 21,
+   "parent_id": 258,
+   "child_ids": [
+    252,
+    250
+   ],
+   "y": 1,
+   "outcome_raw": "true",
+   "direct": 0.633333,
+   "synth": 0.569889,
+   "missing": null,
+   "ya": 1,
+   "yb": 1,
+   "readings": {
+    "pa": 0.743333,
+    "pb": 0.766667,
+    "direct": 0.633333,
+    "pa_ok": true,
+    "pb_ok": true,
+    "direct_ok": true
+   },
+   "structural_6c": 0.112142
+  },
+  {
+   "family": "T10",
+   "game_id": 22,
+   "parent_id": 270,
+   "child_ids": [
+    264,
+    262
+   ],
+   "y": 1,
+   "outcome_raw": "true",
+   "direct": 0.526667,
+   "synth": 0.575,
+   "missing": null,
+   "ya": 1,
+   "yb": 1,
+   "readings": {
+    "pa": 0.766667,
+    "pb": 0.75,
+    "direct": 0.526667,
+    "pa_ok": true,
+    "pb_ok": true,
+    "direct_ok": true
+   },
+   "structural_6c": 0.100625
+  },
+  {
+   "family": "T10",
+   "game_id": 23,
+   "parent_id": 282,
+   "child_ids": [
+    276,
+    274
+   ],
+   "y": 1,
+   "outcome_raw": "true",
+   "direct": 0.663333,
+   "synth": 0.488933,
+   "missing": null,
+   "ya": 1,
+   "yb": 1,
+   "readings": {
+    "pa": 0.76,
+    "pb": 0.643333,
+    "direct": 0.663333,
+    "pa_ok": true,
+    "pb_ok": true,
+    "direct_ok": true
+   },
+   "structural_6c": 0.075491
+  },
+  {
+   "family": "T10",
+   "game_id": 24,
+   "parent_id": 294,
+   "child_ids": [
+    288,
+    286
+   ],
+   "y": 1,
+   "outcome_raw": "true",
+   "direct": 0.733333,
+   "synth": 0.550066,
+   "missing": null,
+   "ya": 1,
+   "yb": 1,
+   "readings": {
+    "pa": 0.74,
+    "pb": 0.743333,
+    "direct": 0.733333,
+    "pa_ok": true,
+    "pb_ok": true,
+    "direct_ok": true
+   },
+   "structural_6c": 0.106309
+  },
+  {
+   "family": "T10",
+   "game_id": 25,
+   "parent_id": 306,
+   "child_ids": [
+    300,
+    298
+   ],
+   "y": 0,
+   "outcome_raw": "false",
+   "direct": 0.55,
+   "synth": 0.465067,
+   "missing": null,
+   "ya": 0,
+   "yb": 1,
+   "readings": {
+    "pa": 0.64,
+    "pb": 0.726667,
+    "direct": 0.55,
+    "pa_ok": true,
+    "pb_ok": true,
+    "direct_ok": true
+   },
+   "structural_6c": 0.121662
+  },
+  {
+   "family": "T10",
+   "game_id": 26,
+   "parent_id": 318,
+   "child_ids": [
+    312,
+    310
+   ],
+   "y": 1,
+   "outcome_raw": "true",
+   "direct": 0.6,
+   "synth": 0.450666,
+   "missing": null,
+   "ya": 1,
+   "yb": 1,
+   "readings": {
+    "pa": 0.693333,
+    "pb": 0.65,
+    "direct": 0.6,
+    "pa_ok": true,
+    "pb_ok": true,
+    "direct_ok": true
+   },
+   "structural_6c": 0.089833
+  },
+  {
+   "family": "T10",
+   "game_id": 27,
+   "parent_id": 330,
+   "child_ids": [
+    324,
+    322
+   ],
+   "y": 1,
+   "outcome_raw": "true",
+   "direct": 0.52,
+   "synth": 0.552356,
+   "missing": null,
+   "ya": 1,
+   "yb": 1,
+   "readings": {
+    "pa": 0.693333,
+    "pb": 0.796667,
+    "direct": 0.52,
+    "pa_ok": true,
+    "pb_ok": true,
+    "direct_ok": true
+   },
+   "structural_6c": 0.134947
+  },
+  {
+   "family": "T10",
+   "game_id": 28,
+   "parent_id": 342,
+   "child_ids": [
+    336,
+    334
+   ],
+   "y": 0,
+   "outcome_raw": "false",
+   "direct": 0.603333,
+   "synth": 0.553556,
+   "missing": null,
+   "ya": 0,
+   "yb": 1,
+   "readings": {
+    "pa": 0.706667,
+    "pb": 0.783333,
+    "direct": 0.603333,
+    "pa_ok": true,
+    "pb_ok": true,
+    "direct_ok": true
+   },
+   "structural_6c": 0.127195
+  },
+  {
+   "family": "T10",
+   "game_id": 29,
+   "parent_id": 354,
+   "child_ids": [
+    348,
+    346
+   ],
+   "y": 1,
+   "outcome_raw": "true",
+   "direct": 0.61,
+   "synth": 0.579089,
+   "missing": null,
+   "ya": 1,
+   "yb": 1,
+   "readings": {
+    "pa": 0.686667,
+    "pb": 0.843333,
+    "direct": 0.61,
+    "pa_ok": true,
+    "pb_ok": true,
+    "direct_ok": true
+   },
+   "structural_6c": 0.153021
+  },
+  {
+   "family": "T10",
+   "game_id": 30,
+   "parent_id": 366,
+   "child_ids": [
+    360,
+    358
+   ],
+   "y": 0,
+   "outcome_raw": "false",
+   "direct": 0.436667,
+   "synth": 0.3944,
+   "missing": null,
+   "ya": 0,
+   "yb": 1,
+   "readings": {
+    "pa": 0.51,
+    "pb": 0.773333,
+    "direct": 0.436667,
+    "pa_ok": true,
+    "pb_ok": true,
+    "direct_ok": true
+   },
+   "structural_6c": 0.149451
+  },
+  {
+   "family": "T10",
+   "game_id": 31,
+   "parent_id": 378,
+   "child_ids": [
+    372,
+    370
+   ],
+   "y": 0,
+   "outcome_raw": "false",
+   "direct": 0.636667,
+   "synth": 0.394333,
+   "missing": null,
+   "ya": 0,
+   "yb": 1,
+   "readings": {
+    "pa": 0.563333,
+    "pb": 0.7,
+    "direct": 0.636667,
+    "pa_ok": true,
+    "pb_ok": true,
+    "direct_ok": true
+   },
+   "structural_6c": 0.120535
+  },
+  {
+   "family": "T10",
+   "game_id": 32,
+   "parent_id": 390,
+   "child_ids": [
+    384,
+    382
+   ],
+   "y": 1,
+   "outcome_raw": "true",
+   "direct": 0.55,
+   "synth": 0.403244,
+   "missing": null,
+   "ya": 1,
+   "yb": 1,
+   "readings": {
+    "pa": 0.573333,
+    "pb": 0.703333,
+    "direct": 0.55,
+    "pa_ok": true,
+    "pb_ok": true,
+    "direct_ok": true
+   },
+   "structural_6c": 0.121009
+  },
+  {
+   "family": "T10",
+   "game_id": 33,
+   "parent_id": 402,
+   "child_ids": [
+    396,
+    394
+   ],
+   "y": 0,
+   "outcome_raw": "false",
+   "direct": 0.426667,
+   "synth": 0.380855,
+   "missing": null,
+   "ya": 0,
+   "yb": 1,
+   "readings": {
+    "pa": 0.503333,
+    "pb": 0.756667,
+    "direct": 0.426667,
+    "pa_ok": true,
+    "pb_ok": true,
+    "direct_ok": true
+   },
+   "structural_6c": 0.14313
+  },
+  {
+   "family": "T10",
+   "game_id": 34,
+   "parent_id": 414,
+   "child_ids": [
+    408,
+    406
+   ],
+   "y": 0,
+   "outcome_raw": "false",
+   "direct": 0.546667,
+   "synth": 0.392866,
+   "missing": null,
+   "ya": 0,
+   "yb": 1,
+   "readings": {
+    "pa": 0.71,
+    "pb": 0.553333,
+    "direct": 0.546667,
+    "pa_ok": true,
+    "pb_ok": true,
+    "direct_ok": true
+   },
+   "structural_6c": 0.063042
+  },
+  {
+   "family": "T10",
+   "game_id": 35,
+   "parent_id": 426,
+   "child_ids": [
+    420,
+    418
+   ],
+   "y": 1,
+   "outcome_raw": "true",
+   "direct": 0.716667,
+   "synth": 0.506133,
+   "missing": null,
+   "ya": 1,
+   "yb": 1,
+   "readings": {
+    "pa": 0.693333,
+    "pb": 0.73,
+    "direct": 0.716667,
+    "pa_ok": true,
+    "pb_ok": true,
+    "direct_ok": true
+   },
+   "structural_6c": 0.113306
+  },
+  {
+   "family": "T10",
+   "game_id": 36,
+   "parent_id": 438,
+   "child_ids": [
+    432,
+    430
+   ],
+   "y": 1,
+   "outcome_raw": "true",
+   "direct": 0.67,
+   "synth": 0.530134,
+   "missing": null,
+   "ya": 1,
+   "yb": 1,
+   "readings": {
+    "pa": 0.71,
+    "pb": 0.746667,
+    "direct": 0.67,
+    "pa_ok": true,
+    "pb_ok": true,
+    "direct_ok": true
+   },
+   "structural_6c": 0.114792
+  },
+  {
+   "family": "T10",
+   "game_id": 37,
+   "parent_id": 450,
+   "child_ids": [
+    444,
+    442
+   ],
+   "y": 1,
+   "outcome_raw": "true",
+   "direct": 0.616667,
+   "synth": 0.452977,
+   "missing": null,
+   "ya": 1,
+   "yb": 1,
+   "readings": {
+    "pa": 0.653333,
+    "pb": 0.693333,
+    "direct": 0.616667,
+    "pa_ok": true,
+    "pb_ok": true,
+    "direct_ok": true
+   },
+   "structural_6c": 0.108876
+  }
+ ],
+ "verdicts_note": "C1 非劣（CI 上界 ≤ +0.005）／C2 方向（CI 上界 < 0 ⇒ 显著更好，只披露）／C3 校准传播双口径（v1.1 主＝不劣于各分支；并列＝v1 §4 文本 vs 直接）；σ̂_d 与 MDE 必须与 Δ/CI 同报（PREREG §4）。"
+}
