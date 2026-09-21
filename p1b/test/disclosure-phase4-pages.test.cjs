@@ -142,3 +142,59 @@ test('⑥ ★A9 三行对比榜：口径纪律锁（禁跨题集直接比较）'
   const src = fs.readFileSync(path.join(ROOT, 'p1b/web/src/pages/disclosure/ArenaPage.tsx'), 'utf8');
   assert.equal((src.match(/预测/g) || []).length, 0, 'ArenaPage 不得含禁词');
 });
+
+test('⑦ ★编译器门面：kind→层自动推断（只读历史，不出概率）', async () => {
+  const { register } = require(path.join(ROOT, 'p1b/src/routes/disclosure.js'));
+  const routes = {};
+  register({ get: (p, h) => { routes[p] = h; } });
+  assert.ok(routes['/api/disclosure/compiler'], '缺 compiler 端点');
+
+  // ① 首屏（无 kind）：给可选 kind 目录 + 使用说明
+  const cat = await routes['/api/disclosure/compiler']({ query: {} }, mkReply());
+  assert.equal(cat.mode, 'catalog');
+  assert.ok(cat.kinds.length >= 20, 'kind 目录应 ≥20（实测 ' + cat.kinds.length + '）');
+  assert.equal(cat.how_it_works.length, 3, '应给三步说明');
+  // ★内部别名（下划线开头）不得出现在用户可选列表
+  const internal = cat.kinds.filter((k) => k.kind.charAt(0) === '_');
+  assert.deepEqual(internal, [], '内部别名不应出现在 kind 目录：' + JSON.stringify(internal.map((x) => x.kind)));
+
+  // ② 查已知 kind：给层 + 引擎 + 样本量
+  const r = await routes['/api/disclosure/compiler']({ query: { kind: 'openmeteo_daily_max' } }, mkReply());
+  assert.equal(r.known, true);
+  assert.ok(r.suggestion && r.suggestion.layer, '应给建议层');
+  assert.ok(r.evidence && r.evidence.total_n > 0, '应给样本量');
+  assert.equal(typeof r.evidence.sample_ok, 'boolean');
+  assert.ok(r.suggestion.layer_unanimous === true, 'openmeteo_daily_max 历史应单层（实测）');
+  assert.ok(Array.isArray(r.next_steps) && r.next_steps.length >= 2, '应给下一步');
+  // ★纪律：不得出概率（门面只给参考建议）
+  assert.ok(JSON.stringify(r).indexOf('"p":') < 0, '门面不得返回概率字段');
+  assert.ok(/不出概率/.test(JSON.stringify(r.next_steps) + r.discipline_note), '须声明不出概率');
+
+  // ③ 未知 kind：如实报「无历史」，不编
+  const u = await routes['/api/disclosure/compiler']({ query: { kind: 'nonexistent_xyz_kind' } }, mkReply());
+  assert.equal(u.known, false);
+  assert.ok(u.reason && /无此 kind/.test(u.reason), '未知 kind 须如实说明');
+});
+
+test('⑧ ★kind→层单层性（门面自动推断的前提，本会话实测 52/52）', () => {
+  const { DatabaseSync } = require('node:sqlite');
+  const db = new DatabaseSync(path.join(ROOT, 'p1a-terminal/data/p1a.db'), { readOnly: true });
+  const rows = db.prepare(
+    "SELECT json_extract(evidence_json,'$[0].resolve.kind') k, layer, COUNT(*) n FROM predictions" +
+    " WHERE json_extract(evidence_json,'$[0].resolve.kind') IS NOT NULL GROUP BY k, layer"
+  ).all();
+  db.close();
+  const byK = {};
+  for (const r of rows) { (byK[r.k] = byK[r.k] || new Set()).add(r.layer); }
+  const mixed = Object.keys(byK).filter((k) => byK[k].size > 1);
+  assert.deepEqual(mixed, [], '★出现跨层 kind ⇒ 门面的「自动推断」前提被破坏，须改为人工确认：\n' + mixed.map((k) => k + ' → ' + [...byK[k]].join('/')).join('\n'));
+  assert.ok(Object.keys(byK).length >= 40, 'kind 数应 ≥40（实测 ' + Object.keys(byK).length + '）');
+});
+
+test('⑨ 第 4 期五页接线齐（含编译器）', () => {
+  const src = fs.readFileSync(path.join(ROOT, 'p1b/web/src/App.tsx'), 'utf8');
+  for (const p of ['negative-results', 'bayes-lens', 'arena', 'compiler']) {
+    assert.ok(new RegExp('<Route path="/' + p + '"').test(src), '缺 Route: ' + p);
+    assert.ok(new RegExp('<NavLink to="/' + p + '"').test(src), '缺 NavLink: ' + p);
+  }
+});

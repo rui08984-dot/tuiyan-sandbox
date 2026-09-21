@@ -131,6 +131,84 @@ function register(app) {
       discipline_note: '本榜**不做跨题集 Brier 直接比较**；三行各自标注口径与状态，可比性逐对声明。',
     };
   });
+
+  // ── 第 4 期「编译器门面」（蓝图 §2.4；04 号件：最小版＝把六层管线包成「问题→层+配方+概率」入口）──
+  // ★设计要点（本门面的全部价值＝**降低接题门槛**）：
+  //   既有 `/api/intake/classify` 要求用户填 **九组 checklist 二元问答**（Q0×3 + L5/L6/L1/L3/L2）
+  //   —— 普通用户答不上来。本门面改为：用户只给 `kind`（真值锚类型），后端**查账本历史**自动给出
+  //   「层 + 引擎配方 + 参考读数」，用户可**覆盖**（覆盖即视为人工判定，仍走既有 classify 通道）。
+  // ★依据（本会话实测）：52 个 kind **全部单层**（0 个跨层）⇒ kind→layer 可 100% 自动推断。
+  // ★纪律：①**只读**（查账本历史，零写库）②给的是**参考**不是判定（判定仍须走 classify 的 checklist）
+  //   ③层与引擎均带**样本量**（n<30 如实标注「样本不足」）④不得声称「自动出概率」。
+  app.get('/api/disclosure/compiler', async (req, reply) => {
+    const q = (req && req.query) || {};
+    const kind = typeof q.kind === 'string' ? q.kind.trim() : '';
+    // 契约表：列出可用 kind（用户从中选，避免自由输入错 kind）
+    const cp = path.join(OUT, 'g2-contract-frozen-r4.json');
+    let contracts = null;
+    try { contracts = JSON.parse(fs.readFileSync(cp, 'utf8')).contracts || null; } catch (e) { contracts = null; }
+
+    // 无 kind ⇒ 返回「可选项 + 说明」（门面首屏）
+    if (!kind) {
+      return {
+        mode: 'catalog',
+        contract_source: contracts ? 'g2-contract-frozen-r4.json' : null,
+        kinds: contracts ? Object.keys(contracts).sort().filter((k) => k.charAt(0) !== '_').map((k) => ({ kind: k, required: contracts[k].required || [], one_of: contracts[k].one_of || [] })) : [],
+        how_it_works: [
+          '第一步：选一个真值锚类型（kind）——它决定这道题「能不能机检」。',
+          '第二步：门面查账本历史，给出这类题**通常属于哪一层**、用**哪个引擎**、**有多少同类样本**。',
+          '第三步：这是**参考建议**，不是判定。正式接题仍须走接题页的三问核对（拒收门）。',
+        ],
+        discipline_note: '本门面**只读账本历史**（零写库）；给出的是参考建议，不替代接题页的拒收门与 checklist 判定。',
+      };
+    }
+
+    // 有 kind ⇒ 查历史，给「层 + 配方 + 样本量」
+    const dbm = require('../deps').db;
+    const conn = dbm.getConnection();
+    const rows = conn.prepare(
+      "SELECT layer, engine, COUNT(*) n," +
+      " SUM(CASE WHEN resolved_at IS NOT NULL THEN 1 ELSE 0 END) resolved" +
+      " FROM predictions WHERE json_extract(evidence_json,'$[0].resolve.kind') = ?" +
+      " GROUP BY layer, engine ORDER BY n DESC"
+    ).all(kind);
+    if (!rows.length) {
+      return {
+        mode: 'lookup', kind,
+        known: false,
+        reason: '账本历史中无此 kind 的题 ⇒ 无法给出参考（本门面只据历史推断，不编）',
+        hint: '若这是新 kind：请先在接题页手工填写 checklist（新 kind 无历史可依，须人工判定）。',
+      };
+    }
+    const totalN = rows.reduce((s, r) => s + r.n, 0);
+    const resolvedN = rows.reduce((s, r) => s + r.resolved, 0);
+    const top = rows[0];
+    const layers = [...new Set(rows.map((r) => r.layer))];
+    return {
+      mode: 'lookup', kind,
+      known: true,
+      suggestion: {
+        layer: top.layer,
+        layer_unanimous: layers.length === 1,     // 历史是否单一层
+        all_layers_seen: layers,
+        engine: top.engine,
+        engine_note: top.engine && /_baserate|baserate_forward/.test(String(top.engine)) ? '基率配方（stat_baseline 族）' : (top.engine === 'proc_calc' ? '程序复算' : (top.engine === 'structural' ? '判词结构聚合' : (top.engine === 'aci' ? 'ACI 在线校准' : (top.engine === 'none' || top.engine === 'none_forward' ? '认证源分布（无模型）' : String(top.engine || 'n/a'))))),
+      },
+      evidence: {
+        total_n: totalN,
+        resolved_n: resolvedN,
+        sample_ok: totalN >= 30,
+        sample_note: totalN >= 30 ? ('同类样本 ' + totalN + ' 条，达 n≥30 线') : ('同类样本仅 ' + totalN + ' 条（<30）⇒ 参考强度弱，如实标注'),
+        breakdown: rows.map((r) => ({ layer: r.layer, engine: r.engine, n: r.n, resolved: r.resolved })),
+      },
+      next_steps: [
+        '带这个参考去接题页：填真值锚（kind + 参数）+ 核对拒收门三问。',
+        '★门面给的是**建议**；正式判定以接题页 checklist 为准（不一致时以 checklist 为准）。',
+        '★本门面不出概率（概率只在引擎计分后出现，且须过 G2 限定语）。',
+      ],
+      discipline_note: '只读账本历史；不写库、不出概率、不替代 checklist 判定。',
+    };
+  });
 }
 
 module.exports = { register };

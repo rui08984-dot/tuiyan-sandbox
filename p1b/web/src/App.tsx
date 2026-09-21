@@ -17,6 +17,7 @@ import CalibrationReportPage from './pages/disclosure/CalibrationReportPage'; //
 import NegativeResultsPage from './pages/disclosure/NegativeResultsPage';   // 第 4 期 I2（2026-09-21）：负结果账本对外页
 import BayesLensPage from './pages/disclosure/BayesLensPage';               // 第 4 期 I6（2026-09-21）：贝叶斯语义透镜页
 import ArenaPage from './pages/disclosure/ArenaPage';                       // 第 4 期 A9（2026-09-21）：三行对比榜
+import CompilerPage from './pages/disclosure/CompilerPage';                 // 第 4 期（2026-09-21）：编译器门面
 import { IconLayers, IconCompass, IconGear, IconBook, TermDrawer } from './components/ui';
 import './styles/p1b6.css';
 
@@ -31,7 +32,7 @@ function containerClass(path: string): string {
   if (path === '/audit') return 'content content--wide';
   if (path === '/intake' || path === '/manage') return 'content content--wide';
   if (path === '/calendar' || path === '/calibration') return 'content content--wide'; // P0-U7/U8 披露页（表格宽档）
-  if (path === '/negative-results' || path === '/bayes-lens' || path === '/arena') return 'content content--wide'; // 第 4 期 I2/I6 披露页（宽档）
+  if (path === '/negative-results' || path === '/bayes-lens' || path === '/arena' || path === '/compiler') return 'content content--wide'; // 第 4 期 I2/I6 披露页（宽档）
   if (path === '/settings') return 'content content--form';
   return 'content';
 }
@@ -57,6 +58,7 @@ function Shell() {
             <NavLink to="/negative-results" className={linkCls}>负结果</NavLink>
             <NavLink to="/bayes-lens" className={linkCls}>语义透镜</NavLink>
             <NavLink to="/arena" className={linkCls}>对比榜</NavLink>
+            <NavLink to="/compiler" className={linkCls}>编译器</NavLink>
           </nav>
           <button type="button" className="appbar-gear" onClick={() => setTermsOpen(true)} aria-label="术语表" title="术语表">
             <IconBook size={18} />
@@ -82,6 +84,7 @@ function Shell() {
           <Route path="/negative-results" element={<NegativeResultsPage />} />
           <Route path="/bayes-lens" element={<BayesLensPage />} />
           <Route path="/arena" element={<ArenaPage />} />
+          <Route path="/compiler" element={<CompilerPage />} />
           {/* 旧路径重定向保兼容（书签/旧链接） */}
           <Route path="/live" element={<Navigate to="/" replace />} />
           <Route path="/games" element={<Navigate to="/manage" replace />} />
