@@ -1,4 +1,16 @@
 flowchart TB
+    subgraph GEN1["第一代阶段（P0-P4 · 起点设计 0907）"]
+        direction LR
+        P0X["P0 纸面实验<br/>三档之二"]
+        P1A["P1a 终端研判<br/>缩水交付"]
+        P1B["P1b 网页工作台<br/>→ 观测台"]
+        P2X["P2 玄学引擎<br/>17/17 娱乐挂"]
+        P3X["P3 小说推演<br/>冻结"]
+        P4X["P4 FPS 页<br/>冻结"]
+        P0X --> P1A --> P1B
+        P1B --> P2X
+    end
+
     subgraph MAIN["推演沙盘主项目 · 预测万物分层平台"]
         direction TB
         LEDGER[("p1a.db<br/>账本 1992/1630/5156")]
@@ -16,7 +28,17 @@ flowchart TB
         STAGE4 --> BOARD
     end
 
-    subgraph PHASE["阶段路线（0-5 + 第1-4期）"]
+    subgraph LAYERS["六层分类体系（L1-L6）"]
+        direction LR
+        L1X["L1 决定论<br/>proc_calc"]
+        L2X["L2 系综<br/>stat_baseline"]
+        L3X["L3 短窗混沌<br/>+ACI"]
+        L4X["L4 自反<br/>后置标注"]
+        L5X["L5 不可约<br/>certified_dist"]
+        L6X["L6 对抗<br/>structural"]
+    end
+
+    subgraph PHASE["阶段路线（0-5 第二代）"]
         direction LR
         P0["阶段0 可信账本<br/>完成"]
         P1["阶段1 判词路<br/>完成 三负结果"]
@@ -28,7 +50,7 @@ flowchart TB
         P2 --> P5
     end
 
-    subgraph TICKET["第 3 期票制菜单"]
+    subgraph TICKET["第 3 期票制菜单（第三代）"]
         direction LR
         A1["票A A1 重算器<br/>完成"]
         TB["票B 厚格基建<br/>完成 负结果归档"]
@@ -66,6 +88,8 @@ flowchart TB
 
     ENGINES -.->|"判词"| VERD[("verdicts 5156")]
     VERD -.-> STAGE4
+    GEN1 -.->|"演化"| PHASE
+    LAYERS -.->|"引擎落位"| ENGINES
     PREREG -.->|"冻结判据"| R3
     R3 -.->|"只披露"| BOARD
     TB -.->|"等数据"| P4
@@ -77,6 +101,7 @@ flowchart TB
     classDef blocked fill:#c62828,color:#fff
     classDef notstarted fill:#546e7a,color:#fff
 
-    class P0,P1,P2,P3,P5,A1,TB,R3,LEDGER,VAULT,INTAKE,ENGINES,CAL,BOARD,PREREG,TEST,SCRIPTS,UI,HANDOFF,PLAN,SONG,POLISH,LRC,COVER,EP1 done
+    class P0X,P1A,P1B,P2X,P0,P1,P2,P3,P5,A1,TB,R3,LEDGER,VAULT,INTAKE,ENGINES,CAL,BOARD,PREREG,TEST,SCRIPTS,UI,HANDOFF,PLAN,SONG,POLISH,LRC,COVER,EP1,L1X,L2X,L3X,L5X,L6X done
     class P4,STAGE4,EP2 doing
     class A3,A5,I1,PUB,VIDEO notstarted
+    class P3X,P4X,L4X blocked
