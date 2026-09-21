@@ -143,6 +143,12 @@ async function pool(items, limit, fn) {
 
 // ── 数据可得性预筛（省 API 调用 + 避免拿 400/404 白打网）──
 // 只对「物理上此刻不可能有真值」的情形提前判 pending，判据全部写在注释里，可随源行为调整。
+/** 从 iso 起的首个工作日（ECB 发布日节奏；周六/周日顺延）。入参缺失/非法 ⇒ ''（调用方据此放行，与旧行为一致）。 */
+function firstWorkday(iso) {
+  let d = dateOf(iso); if (!d) return '';
+  let g = 0; while ((dow(d) === 0 || dow(d) === 6) && g++ < 10) d = addDays(d, 1);
+  return d;
+}
 function preScreen(r) {
   const k = String(r.kind || ''), t = today();
   const d10 = (x) => dateOf(x);
@@ -153,7 +159,17 @@ function preScreen(r) {
   if (k === 'wikimedia_pageviews') { if (d10(r.date) >= t) return 'Wikimedia ' + r.date + ' 数据 T+1 才发布'; }
   if (k === 'github_weekly_commits') { if (d10(r.week_end) >= t) return 'GitHub 周 ' + r.week_start + '~' + r.week_end + ' 尚未结束（stats 亦需 T+1）'; }
   if (k === 'frankfurter_rate') { if (d10(r.date) > t) return 'ECB 参考汇率发布日 ' + r.date + ' 未到'; }
-  if (k === 'frankfurter_rate_range') { if (d10(r.date_plus7) > t) return 'ECB 发布窗口 ' + r.date + '~' + r.date_plus7 + ' 尚未走完（接口对未来区间 404）'; }
+  // ★2026-09-21 修（缺陷①，原判据＝「窗口终点 date+7 已过」⇒ 过度保守）：
+  //   题面判据（field）＝「rates 键中 >= date 的最早一日」的值 ⇒ 只要**窗口内首个 ECB 发布日**已发布即可判。
+  //   实测（2026-09-21）：`2026-09-16..2026-09-23` ⇒ HTTP 200（返回 09-16/17/18 三天）；
+  //   `2026-09-23..2026-09-30` ⇒ HTTP 404（**起点**在未来）。⇒「接口对未来区间 404」只对「起点在未来」成立，
+  //   对「终点在未来但起点已过」不成立（原注释的理由是错的）。故判据改为「窗口内首个发布日 ≤ 今天」。
+  //   ★用 r.date（而非 r.date_plus7）算：date_plus7 缺字段时 dateOf(undefined)='' ⇒ 旧代码静默不拦，
+  //   若改用它算会反转该行为（12 条无 date_plus7 的题会被误拦）。
+  if (k === 'frankfurter_rate_range') {
+    const fp = firstWorkday(r.date);
+    if (fp && fp > t) return 'ECB 发布窗口 ' + r.date + '~' + (r.date_plus7 || '') + ' 首个发布日 ' + fp + ' 未到';
+  }
   if (k === 'openmeteo_air_pm10_daily_mean') { if (d10(r.date) >= t) return '空气质量 ' + r.date + ' 小时序列未出齐（需 T+1）'; }
   if (k === 'dbnomics_bis_monthly_mean') { if (String(r.month) >= t.slice(0, 7)) return 'BIS ' + r.month + ' 月值未发布（BIS 滞后约 1 个月，实测最新 2025-07）'; }
   if (k === 'npm_downloads_window') { if (d10(r.end) >= t) return 'npm ' + r.package + ' 窗口 ' + r.start + '~' + r.end + ' 未走完（接口对未来区间 400）'; }
@@ -322,7 +338,19 @@ function paramGuard(r) {
     const b = r.back_ball !== undefined && r.back_ball !== null, f = r.front_max_ge !== undefined && r.front_max_ge !== null;
     return b === f ? 'dlt_draw_result 需恰好一个 back_ball/front_max_ge（实测 back=' + JSON.stringify(r.back_ball) + ' front=' + JSON.stringify(r.front_max_ge) + '）' : null;
   }
-  if (k === 'frankfurter_rate' || k === 'frankfurter_rate_range') { const a = thr('threshold'); if (a) return a; if (!r.base || !r.quote) return 'base/quote 缺失'; return ok(['>=', '<=', '>', '<']) ? null : 'cmp 非法=' + r.cmp; }
+  if (k === 'frankfurter_rate' || k === 'frankfurter_rate_range') {
+    // ★2026-09-21 修（缺陷②，原判据直接查 r.base/r.quote ⇒ 误拦旧字段名 from/to）：
+    //   账本同 kind 存**两代 spec**（实测 frankfurter_rate_range 30 条：18 条 base/quote ＋ 12 条 from/to，
+    //   后者 id=1957-1968）。resolver（corpus-resolve.cjs:205-206）**自己会归一化** from/to → base/quote，
+    //   而本安全门跑在归一化**之前** ⇒ 12 条本可结的题被当「base/quote 缺失」拦死（属误拦，非口径不符）。
+    //   修法：在此先做**同样的**归一化再检查（resolver 不改；它的归一化是对的）。
+    //   归一化后 r.base/r.quote 就位 ⇒ 解析器与标签读到的字段与取数地址一致（B3 兜底路径同样受益）。
+    if (!r.base && r.from) r.base = r.from;
+    if (!r.quote && r.to) r.quote = r.to;
+    const a = thr('threshold'); if (a) return a;
+    if (!r.base || !r.quote) return 'base/quote 缺失（from/to 亦缺）=' + JSON.stringify({ base: r.base, quote: r.quote, from: r.from, to: r.to });
+    return ok(['>=', '<=', '>', '<']) ? null : 'cmp 非法=' + r.cmp;
+  }
   if (B3[k]) { const a = thr('threshold'); if (a) return a; return ok(['>=', '<=', '>', '<']) ? null : 'cmp 非法=' + r.cmp; }
   return null;
 }

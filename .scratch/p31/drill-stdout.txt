@@ -1,0 +1,43 @@
+[2026-09-21T19:36:45+08:00] === corpus-resolve-daemon start | mode=once interval=60min due-only=true confirm=true
+[2026-09-21T19:36:45+08:00] 复用 corpus-resolve RESOLVERS 成功：inline-extract(60 kinds)
+[2026-09-21T19:36:45+08:00] db=.scratch/p31/snap-drill.db
+[2026-09-21T19:36:50+08:00] WARN dlt 日历刷新失败（沿用内置锚 26104@2026-09-12）: HTTP 567
+[2026-09-21T19:36:50+08:00] 日历锚刷新：ssq 2026109@2026-09-20 | dlt 26104@2026-09-12
+[2026-09-21T19:37:59+08:00] 二遍补打 8 组（首遍网络失败，缓 8s 后重试一次）
+[2026-09-21T19:38:07+08:00]   fetch-fail kind=dlt_draw_result x1 — HTTP 567（跳过不写）
+[2026-09-21T19:38:07+08:00]   fetch-fail kind=dlt_draw_result x1 — HTTP 567（跳过不写）
+[2026-09-21T19:38:07+08:00]   fetch-fail kind=dlt_draw_result x1 — HTTP 567（跳过不写）
+[2026-09-21T19:38:07+08:00]   fetch-fail kind=dlt_draw_result x1 — HTTP 567（跳过不写）
+[2026-09-21T19:38:07+08:00]   fetch-fail kind=dlt_draw_result x1 — HTTP 567（跳过不写）
+[2026-09-21T19:38:07+08:00]   fetch-fail kind=dlt_draw_result x1 — HTTP 567（跳过不写）
+[2026-09-21T19:38:07+08:00]   fetch-fail kind=dlt_draw_result x1 — HTTP 567（跳过不写）
+[2026-09-21T19:38:07+08:00]   fetch-fail kind=dlt_draw_result x1 — HTTP 567（跳过不写）
+[2026-09-21T19:38:07+08:00]   pending(预筛) kind=binance_daily_close x1 due=2026-09-21 — UTC 日 2026-09-21 尚未收盘
+[2026-09-21T19:38:07+08:00]   pending(预筛) kind=binance_daily_close x1 due=2026-09-21 — UTC 日 2026-09-21 尚未收盘
+[2026-09-21T19:38:07+08:00]   pending(预筛) kind=binance_daily_close x1 due=2026-09-21 — UTC 日 2026-09-21 尚未收盘
+[2026-09-21T19:38:07+08:00]   resolved id=939 kind=frankfurter_rate_range -> false | Frankfurter 2026-09-16 USD/CNY=6.7071（阈值 >= 7.1076，机检）
+[2026-09-21T19:38:07+08:00]   resolved id=943 kind=frankfurter_rate_range -> false | Frankfurter 2026-09-16 USD/JPY=155.05（阈值 >= 155.85，机检）
+[2026-09-21T19:38:07+08:00]   resolved id=947 kind=frankfurter_rate_range -> true | Frankfurter 2026-09-16 USD/EUR=0.86678（阈值 >= 0.8603，机检）
+[2026-09-21T19:38:07+08:00]   fetch-fail kind=cta_daily_total_rides x1 — HTTP 403（跳过不写）
+[2026-09-21T19:38:07+08:00]   fetch-fail kind=cta_daily_total_rides x1 — HTTP 403（跳过不写）
+[2026-09-21T19:38:07+08:00]   fetch-fail kind=cta_daily_total_rides x1 — HTTP 403（跳过不写）
+[2026-09-21T19:38:07+08:00]   resolved id=1835 kind=frankfurter_rate_range -> true | Frankfurter 2026-09-17 USD/GBP=0.74758（阈值 >= 0.7405，机检）
+[2026-09-21T19:38:07+08:00]   resolved id=1838 kind=frankfurter_rate_range -> false | Frankfurter 2026-09-17 USD/AUD=1.4057（阈值 >= 1.5152，机检）
+[2026-09-21T19:38:07+08:00]   resolved id=1841 kind=frankfurter_rate_range -> true | Frankfurter 2026-09-17 USD/CAD=1.3995（阈值 >= 1.3784，机检）
+[2026-09-21T19:38:07+08:00]   resolved id=1844 kind=frankfurter_rate_range -> true | Frankfurter 2026-09-17 USD/CHF=0.82449（阈值 >= 0.8069，机检）
+[2026-09-21T19:38:07+08:00]   resolved id=1957 kind=frankfurter_rate_range -> true | Frankfurter 2026-09-18 USD/CNY=6.6976（阈值 <= 6.7394，机检）
+[2026-09-21T19:38:07+08:00]   resolved id=1958 kind=frankfurter_rate_range -> false | Frankfurter 2026-09-18 USD/CNY=6.6976（阈值 >= 6.773，机检）
+[2026-09-21T19:38:07+08:00]   resolved id=1959 kind=frankfurter_rate_range -> true | Frankfurter 2026-09-18 USD/JPY=157.89（阈值 <= 159.09，机检）
+[2026-09-21T19:38:07+08:00]   resolved id=1960 kind=frankfurter_rate_range -> false | Frankfurter 2026-09-18 USD/JPY=157.89（阈值 >= 161.89，机检）
+[2026-09-21T19:38:07+08:00]   resolved id=1961 kind=frankfurter_rate_range -> false | Frankfurter 2026-09-18 USD/GBP=0.74939（阈值 <= 0.74015，机检）
+[2026-09-21T19:38:07+08:00]   resolved id=1962 kind=frankfurter_rate_range -> true | Frankfurter 2026-09-18 USD/GBP=0.74939（阈值 >= 0.74807，机检）
+[2026-09-21T19:38:07+08:00]   resolved id=1963 kind=frankfurter_rate_range -> false | Frankfurter 2026-09-18 EUR/USD=1.146（阈值 <= 1.1424，机检）
+[2026-09-21T19:38:07+08:00]   resolved id=1964 kind=frankfurter_rate_range -> false | Frankfurter 2026-09-18 EUR/USD=1.146（阈值 >= 1.1578，机检）
+[2026-09-21T19:38:07+08:00]   pending kind=frankfurter_rate_range x1 due=2026-09-20 — 2026-09-20.. 内无发布日
+[2026-09-21T19:38:07+08:00]   pending kind=frankfurter_rate_range x1 due=2026-09-20 — 2026-09-20.. 内无发布日
+[2026-09-21T19:38:07+08:00]   pending kind=frankfurter_rate_range x1 due=2026-09-20 — 2026-09-20.. 内无发布日
+[2026-09-21T19:38:07+08:00]   pending kind=frankfurter_rate_range x1 due=2026-09-20 — 2026-09-20.. 内无发布日
+[2026-09-21T19:38:07+08:00]   fetch-fail kind=elexon_fuelhh_daily_mean x1 — HTTP 403（跳过不写）
+[2026-09-21T19:38:07+08:00]   fetch-fail kind=elexon_fuelhh_daily_mean x1 — HTTP 403（跳过不写）
+[2026-09-21T19:38:07+08:00] round#1 用时 77.4s | 未解总数=361 到期选中=35 唯一真值请求=35（台账重复合并 0） | resolved=15 pending=7（含预筛 3） fail=13 refused=0／同结论并发=0 口径护栏=0 unsupported=0 未到期跳过=273 无法定到期=53 wouldWrite=0 实打网=27
+[2026-09-21T19:38:07+08:00]   取数失败明细 {"fetch-fail:dlt_draw_result:HTTP 567":8,"fetch-fail:cta_daily_total_rides:HTTP 403":3,"fetch-fail:elexon_fuelhh_daily_mean:HTTP 403":2}

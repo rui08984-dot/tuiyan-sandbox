@@ -1,0 +1,33 @@
+{
+ "db": "E:\\music player\\p1a-terminal\\data\\p1a.db",
+ "generated_at": "2026-09-21T19:32:18+08:00",
+ "tables": {
+  "predictions": {
+   "n": 1992,
+   "sha16": "a35a236a1268a657"
+  },
+  "games": {
+   "n": 88,
+   "sha16": "0650ef60ace0e385"
+  },
+  "verdicts": {
+   "n": 5156,
+   "sha16": "d18ba8758d2601fb"
+  },
+  "events": {
+   "n": 556,
+   "sha16": "9a3c4c3b882dff81"
+  },
+  "claims": {
+   "n": 447,
+   "sha16": "d37b8be0566cf1d0"
+  },
+  "players": {
+   "n": 334,
+   "sha16": "aaf589b21585a150"
+  }
+ },
+ "predictions_max_id": 2007,
+ "resolved": 1631,
+ "integrity": "ok"
+}
