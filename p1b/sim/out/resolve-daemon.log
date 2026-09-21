@@ -4468,3 +4468,52 @@
 [2026-09-21T22:10:39+08:00]   fetch-fail kind=elexon_fuelhh_daily_mean x1 — HTTP 403（跳过不写）
 [2026-09-21T22:10:39+08:00] round#1 用时 29.2s | 未解总数=346 到期选中=20 唯一真值请求=20（台账重复合并 0） | resolved=4 pending=3（含预筛 3） fail=13 refused=0／同结论并发=0 口径护栏=0 unsupported=0 未到期跳过=273 无法定到期=53 wouldWrite=0 实打网=16
 [2026-09-21T22:10:39+08:00]   取数失败明细 {"fetch-fail:dlt_draw_result:HTTP 567":8,"fetch-fail:cta_daily_total_rides:HTTP 403":3,"fetch-fail:elexon_fuelhh_daily_mean:HTTP 403":2}
+[2026-09-21T23:25:14+08:00] === corpus-resolve-daemon start | mode=once interval=60min due-only=true confirm=true
+[2026-09-21T23:25:14+08:00] 复用 corpus-resolve RESOLVERS 成功：inline-extract(61 kinds)
+[2026-09-21T23:25:14+08:00] db=.scratch/p36/drill-work.db
+[2026-09-21T23:25:18+08:00] WARN cwl 日历刷新失败（沿用内置锚 2026105@2026-09-10）: fetch failed
+[2026-09-21T23:25:23+08:00] WARN dlt 日历刷新失败（沿用内置锚 26104@2026-09-12）: fetch failed
+[2026-09-21T23:25:23+08:00] 日历锚刷新：ssq 2026105@2026-09-10 | dlt 26104@2026-09-12
+[2026-09-21T23:25:35+08:00] 二遍补打 13 组（首遍网络失败，缓 8s 后重试一次）
+[2026-09-21T23:25:43+08:00]   fetch-fail kind=dlt_draw_result x1 — fetch failed（跳过不写）
+[2026-09-21T23:25:43+08:00]   fetch-fail kind=dlt_draw_result x1 — fetch failed（跳过不写）
+[2026-09-21T23:25:43+08:00]   fetch-fail kind=dlt_draw_result x1 — fetch failed（跳过不写）
+[2026-09-21T23:25:43+08:00]   fetch-fail kind=dlt_draw_result x1 — fetch failed（跳过不写）
+[2026-09-21T23:25:43+08:00]   fetch-fail kind=dlt_draw_result x1 — fetch failed（跳过不写）
+[2026-09-21T23:25:43+08:00]   fetch-fail kind=dlt_draw_result x1 — fetch failed（跳过不写）
+[2026-09-21T23:25:43+08:00]   fetch-fail kind=dlt_draw_result x1 — fetch failed（跳过不写）
+[2026-09-21T23:25:43+08:00]   fetch-fail kind=dlt_draw_result x1 — fetch failed（跳过不写）
+[2026-09-21T23:25:43+08:00]   pending(预筛) kind=binance_daily_close x1 due=2026-09-21 — UTC 日 2026-09-21 尚未收盘
+[2026-09-21T23:25:43+08:00]   pending(预筛) kind=binance_daily_close x1 due=2026-09-21 — UTC 日 2026-09-21 尚未收盘
+[2026-09-21T23:25:43+08:00]   pending(预筛) kind=binance_daily_close x1 due=2026-09-21 — UTC 日 2026-09-21 尚未收盘
+[2026-09-21T23:25:43+08:00]   fetch-fail kind=cta_daily_total_rides x1 — fetch failed（跳过不写）
+[2026-09-21T23:25:43+08:00]   fetch-fail kind=cta_daily_total_rides x1 — fetch failed（跳过不写）
+[2026-09-21T23:25:43+08:00]   fetch-fail kind=cta_daily_total_rides x1 — fetch failed（跳过不写）
+[2026-09-21T23:25:43+08:00]   fetch-fail kind=elexon_fuelhh_daily_mean x1 — fetch failed（跳过不写）
+[2026-09-21T23:25:43+08:00]   fetch-fail kind=elexon_fuelhh_daily_mean x1 — fetch failed（跳过不写）
+[2026-09-21T23:25:43+08:00] round#1 用时 20.1s | 未解总数=342 到期选中=16 唯一真值请求=16（台账重复合并 0） | resolved=0 pending=3（含预筛 3） fail=13 refused=0／同结论并发=0 口径护栏=0 unsupported=0 未到期跳过=273 无法定到期=53 wouldWrite=0 实打网=17
+[2026-09-21T23:25:43+08:00]   取数失败明细 {"fetch-fail:dlt_draw_result:fetch failed":8,"fetch-fail:cta_daily_total_rides:fetch failed":3,"fetch-fail:elexon_fuelhh_daily_mean:fetch failed":2}
+[2026-09-21T23:26:28+08:00] === corpus-resolve-daemon start | mode=once interval=60min due-only=true confirm=true
+[2026-09-21T23:26:29+08:00] 复用 corpus-resolve RESOLVERS 成功：inline-extract(61 kinds)
+[2026-09-21T23:26:29+08:00] db=.scratch/p36/drill-work.db
+[2026-09-21T23:26:33+08:00] WARN dlt 日历刷新失败（沿用内置锚 26104@2026-09-12）: HTTP 567
+[2026-09-21T23:26:33+08:00] 日历锚刷新：ssq 2026109@2026-09-20 | dlt 26104@2026-09-12
+[2026-09-21T23:26:48+08:00] 二遍补打 8 组（首遍网络失败，缓 8s 后重试一次）
+[2026-09-21T23:26:56+08:00]   fetch-fail kind=dlt_draw_result x1 — HTTP 567（跳过不写）
+[2026-09-21T23:26:56+08:00]   fetch-fail kind=dlt_draw_result x1 — HTTP 567（跳过不写）
+[2026-09-21T23:26:56+08:00]   fetch-fail kind=dlt_draw_result x1 — HTTP 567（跳过不写）
+[2026-09-21T23:26:56+08:00]   fetch-fail kind=dlt_draw_result x1 — HTTP 567（跳过不写）
+[2026-09-21T23:26:56+08:00]   fetch-fail kind=dlt_draw_result x1 — HTTP 567（跳过不写）
+[2026-09-21T23:26:56+08:00]   fetch-fail kind=dlt_draw_result x1 — HTTP 567（跳过不写）
+[2026-09-21T23:26:56+08:00]   fetch-fail kind=dlt_draw_result x1 — HTTP 567（跳过不写）
+[2026-09-21T23:26:56+08:00]   fetch-fail kind=dlt_draw_result x1 — HTTP 567（跳过不写）
+[2026-09-21T23:26:56+08:00]   pending(预筛) kind=binance_daily_close x1 due=2026-09-21 — UTC 日 2026-09-21 尚未收盘
+[2026-09-21T23:26:56+08:00]   pending(预筛) kind=binance_daily_close x1 due=2026-09-21 — UTC 日 2026-09-21 尚未收盘
+[2026-09-21T23:26:56+08:00]   pending(预筛) kind=binance_daily_close x1 due=2026-09-21 — UTC 日 2026-09-21 尚未收盘
+[2026-09-21T23:26:56+08:00]   fetch-fail kind=cta_daily_total_rides x1 — HTTP 403（跳过不写）
+[2026-09-21T23:26:56+08:00]   fetch-fail kind=cta_daily_total_rides x1 — HTTP 403（跳过不写）
+[2026-09-21T23:26:56+08:00]   fetch-fail kind=cta_daily_total_rides x1 — HTTP 403（跳过不写）
+[2026-09-21T23:26:56+08:00]   fetch-fail kind=elexon_fuelhh_daily_mean x1 — HTTP 403（跳过不写）
+[2026-09-21T23:26:56+08:00]   fetch-fail kind=elexon_fuelhh_daily_mean x1 — HTTP 403（跳过不写）
+[2026-09-21T23:26:56+08:00] round#1 用时 23.0s | 未解总数=342 到期选中=16 唯一真值请求=16（台账重复合并 0） | resolved=0 pending=3（含预筛 3） fail=13 refused=0／同结论并发=0 口径护栏=0 unsupported=0 未到期跳过=273 无法定到期=53 wouldWrite=0 实打网=14
+[2026-09-21T23:26:56+08:00]   取数失败明细 {"fetch-fail:dlt_draw_result:HTTP 567":8,"fetch-fail:cta_daily_total_rides:HTTP 403":3,"fetch-fail:elexon_fuelhh_daily_mean:HTTP 403":2}
