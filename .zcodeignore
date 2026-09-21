@@ -1,0 +1,99 @@
+# ===== p13 微步1 批次0 .gitignore =====
+# —— key 保护（硬约束，最高违规：p1a-terminal/config/ 含 providers.json 真 key）——
+p1a-terminal/config/
+
+# —— 依赖 / 构建产物 ——
+node_modules/
+p1b/web/dist/
+tools/pdfenv/
+
+# —— SQLite 运行时伴生文件（p1a.db 本体入库，wal/shm 不入）——
+*.db-wal
+*.db-shm
+
+# —— 运行时提取 / 会话状态 ——
+.dshwolf/
+/_session_extract/
+.scratch/_session_extract/
+
+# —— 论文精读：档案 .md/.cjs 入库，cache 大件不入 ——
+.scratch/forecast-debate/全文精读/**/cache/
+
+# —— DSH 运行时会话/视觉产物（追加项：240MB+ jsonl 会话原始记录，见 p13-PROGRESS）——
+.scratch/session-*/
+.dsh-session-import/
+.dsh-vision-router/
+docs/sandbox/p1b/itest/p7-chrome-profile/
+
+# —— 大件媒体资产（音视频/成品/字体/压图；git 不收媒体，.gitignore 追加项见 p13-PROGRESS）——
+*.zip
+*.wav
+*.mp3
+*.mp4
+*.m4a
+assets/bg_video/
+assets/covers/
+assets/fonts/
+/out/
+/素材库/
+botc_acl2026.pdf
+# ===== p19 阶段2 多日局施工（2026-09-12 晚）=====
+# B1 自测临时库副本：禁入库（生产库 p1a.db 本体仍入库，二者分离）
+p1a-terminal/data/p1a-multidev.db
+p1a-terminal/data/p1a-multidev.db-wal
+p1a-terminal/data/p1a-multidev.db-shm
+# 多日局自测产物目录（未冻结前的试跑件，冻结后按批另议）
+p1b/sim/out/multidev/
+
+# 大型 DB 快照/备份不入库（sha256 在 manifest/收据中留痕）
+p1b/sim/out/**/*.db
+p1b/sim/out/**/*.db-shm
+p1b/sim/out/**/*.db-wal
+_p1a_backup_pre_m2.db
+
+# ===== 2026-09-15 运行产物卫生（阶段5 裁决 ＋ 老行回填批次）=====
+# .tmp/ = 临时工作目录（核验脚本/中间 diff/日志）：整目录不入库。
+#   已入库的 17 件历史正经件不受影响（git 对已跟踪文件继续跟踪）；将来确需入库者用 git add -f。
+.tmp/
+# 命题A 扫尾的运行时中间态与旧读数：run-state/log/cmd 属可重生运行态；
+#   score-*.json 为被取代的中途读数（n_pairs 64/70/133/67 << 最终件 357/360/358/359，最终件在 p1b/sim/out/prereg-a-score-*-20260914.json 已入库）。
+.scratch/forecast-debate/prereg-a/run-state-*.json
+.scratch/forecast-debate/prereg-a/*.log
+.scratch/forecast-debate/prereg-a/*.log.bak
+.scratch/forecast-debate/prereg-a/*.cmd
+.scratch/forecast-debate/prereg-a/score-*.json
+
+# 金样钉定库快照的 SQLite 边车（运行期生成，不入库）
+p1b/test/fixtures/stage4-golden-db-*.db-shm
+p1b/test/fixtures/stage4-golden-db-*.db-wal
+
+# ===== ↑ 以上同步自 .gitignore（「从 .gitignore 同步」只重写以上部分）=====
+.git/
+.hg/
+.svn/
+bower_components/
+jspm_packages/
+__pycache__/
+site-packages/
+venv/
+coverage/
+htmlcov/
+lcov-report/
+cmakefiles/
+cmake-build-*/
+bazel-*/
+pods/
+deriveddata/
+storybook-static/
+playwright-report/
+test-results/
+allure-results/
+allure-report/
+cdk.out/
+*.egg-info/
+*.dist-info/
+eggs/
+pip-wheel-metadata/
+wheels/
+# ----- ↑ 以上为 ZCode 默认排除规则（自定义规则请写在本行下方，不会被同步/恢复改动）-----
+# 自定义规则写在下方（本行提示可删除）

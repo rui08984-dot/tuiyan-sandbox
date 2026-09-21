@@ -1,0 +1,1657 @@
+TITLE: Top 100 Jev Projects — Jev Users
+
+Jev Users
+
+Top 100
+Demos
+All Apps
+New
+Submit
+About
+
+Join Waitlist
+
+The Jev ecosystem, ranked
+
+Every open-source project built on Jev, TypeSafe AI's System One
+model for fast typed decisions — discovered from GitHub, filtered, and re-ranked
+every day. 1299 more are indexed from the
+community's curated lists.
+
+Projects tracked400
+
+Combined stars43.7k
+
+Shipped this week390
+
+Last refreshed2026-09-21
+
+Getting access to Jev
+
+Three routes, as of 2026-09-21. Verify before you build on any of them.
+
+Official
+TypeSafe waitlist →
+Official access. Builders report invites arriving the same day, though that is anecdotal and not a commitment.
+
+No waitlist
+OpenRouter →
+Listed as typesafe/jev-1.13, 32K context, $0.042 per million input tokens and $0 output. Not yet in OpenRouter's public model list, so treat availability as unconfirmed.
+
+No waitlist
+Vercel AI Gateway →
+Reachable with a Vercel AI Gateway key, no separate signup. Community reports a free window; check current pricing before you depend on it.
+
+StarsMost likedNewest
+
+All
+Other 127Coding Agent 77Eval & Align 39SDK & Runtime 28Search 28Browser 27Awesome List 23Routing 21Computer Use 16Data 7Home & IoT 6Mobile 1
+
+#1
+demo
+
+Jev Ultrafast
+
+browser-use/jev-ultrafast
+
+Jev picks the action and the DOM element directly, leaving a small model to fill in text only. The Google Flights demo finishes in about 7…
+
+▲1
+
+↗
+Browser
+12.3k★
+
+fast-jev-compaction
+tamaratran
+
+#2
+
+fast-jev-compaction
+
+tamaratran/fast-jev-compaction
+
+Jev decides which tool calls and results have gone stale and deletes them rather than re-summarising the originals — less context without the…
+
+▲1
+
+↗
+Coding Agent
+5.3k★
+
+#3
+demo
+
+SemIf
+
+TheoLeeCJ/SemIf
+
+Semantic ifs from open models, on a 3090 at home. Independent; not affiliated with Jev or TypeSafe.
+
+▲0
+
+↗
+Search
+2.5k★
+
+jev-trader
+jarrodwatts
+
+#4
+
+jev-trader
+
+jarrodwatts/jev-trader
+
+One AI trade decision every Monad block. Jev on Kuru MON-USDC.
+
+▲0
+
+↗
+Other
+1.6k★
+
+#5
+demo
+
+NanoJev
+
+TianyuCodings/NanoJev
+
+A nano replica of Jev: parallel decisions, dynamic candidates, and an end-to-end training pipeline.
+
+▲0
+
+↗
+Other
+1.5k★
+
+#6
+
+kev
+
+jaredpalmer/kev
+
+tiny Jev-like family of decision models built on top of Qwen3.5 you can train and run on your own
+
+▲0
+
+↗
+Other
+1.1k★
+
+#7
+
+jevlike
+
+vinnylarouge/jevlike
+
+Python · MIT · updated 4d ago
+
+▲0
+
+↗
+Other
+1.1k★
+
+#8
+
+reticle
+
+reticlehq/reticle
+
+AI agents can generate code, but still struggle to understand what they build. Reticle brings Jev-style machine-native runtime perception to…
+
+▲0
+
+↗
+Browser
+777★
+
+#9
+
+awesome-jev-by-typesafe
+
+Anil-matcha/awesome-jev-by-typesafe
+
+Evidence-backed use cases, patterns, prompts, and starter code for TypeSafe Jev — a System One model for fast, typed, confidence-aware…
+
+▲0
+
+↗
+Search
+717★
+
+awesome-jev
+yibie
+
+#10
+
+awesome-jev
+
+yibie/awesome-jev
+
+A curated list of public projects, integrations, and discussions built on Jev — TypeSafe AI's System One model for typed decisions.
+
+▲0
+
+↗
+Awesome List
+651★
+
+awesome-jev-tools
+v-modal
+
+#11
+
+awesome-jev-tools
+
+v-modal/awesome-jev-tools
+
+A curated list of tools built for Jev — TypeSafe AI's System One model for typed decisions.
+
+▲0
+
+↗
+Awesome List
+561★
+
+Jev-cu
+Sac-Y
+
+#12
+
+TypeSafe Computer Use
+
+Sac-Y/Jev-cu
+
+OCRs the screen, then has Jev choose the click target from a fixed action set. Roughly $0.0002 per step, which is what makes high-frequency…
+
+▲0
+
+↗
+Computer Use
+487★
+
+foreman
+thruwire
+
+#13
+
+Foreman
+
+thruwire/foreman
+
+Independently watches Codex/OpenCode for drift, stalls, missing tests or premature exits, then decides whether to continue, verify, retry, or…
+
+▲0
+
+↗
+Coding Agent
+441★
+
+#14
+
+vexjoy-agent
+
+notque/vexjoy-agent
+
+VexJoy AI Agent with Jev Intelligent Routing - /do routes plain-English requests to the right specialist agent and gates the work with…
+
+▲0
+
+↗
+Coding Agent
+421★
+
+#15
+
+Jev Review
+
+devagrawal09/jev-review
+
+Reviews a git diff or a whole codebase for correctness, security, compatibility and test coverage, with a local dashboard.
+
+▲0
+
+↗
+Coding Agent
+416★
+
+awesome-typesafe
+AbdelStark
+
+#16
+
+awesome-typesafe
+
+AbdelStark/awesome-typesafe
+
+A curated list of official resources and community projects for TypeSafe, System One models, and Jev.
+
+▲0
+
+↗
+Awesome List
+400★
+
+simple-jev
+featherless-ai
+
+#17
+
+simple-jev
+
+featherless-ai/simple-jev
+
+Turn any open model into a classifier/jev endpoint
+
+▲0
+
+↗
+Other
+400★
+
+#18
+
+jev-experiments
+
+dabit3/jev-experiments
+
+TypeScript · updated today
+
+▲0
+
+↗
+Other
+343★
+
+#19
+
+Jev Search
+
+superagents-lab/jev-search
+
+Jev chooses the sources, time range and keywords, then ranks results from Google, Reddit, GitHub, HN and YouTube by relevance.
+
+▲0
+
+↗
+Search
+317★
+
+minecraft-agent
+rmalde
+
+#20
+
+minecraft-agent
+
+rmalde/minecraft-agent
+
+Astra planner and JEV controller for Minecraft, with native recording, tested routes, and run verification.
+
+▲0
+
+↗
+Routing
+309★
+
+tax-doc-classifier
+kyotofin
+
+#21
+
+tax-doc-classifier
+
+kyotofin/tax-doc-classifier
+
+Tax document page classifier built on Jev decisions. 100% strict accuracy across 261 IRS forms, ~$0.001 per page.
+
+▲0
+
+↗
+Eval & Align
+301★
+
+typesafe-mario
+fhshaik
+
+#22
+
+typesafe-mario
+
+fhshaik/typesafe-mario
+
+A TypeSafe/Jev agent that plays Super Mario Bros. from structured emulator state.
+
+▲0
+
+↗
+Other
+299★
+
+#23
+demo
+
+mobile-jev
+
+droidrun/mobile-jev
+
+Jev decides every step of phone operation, with a React control console and an Uber demo. The most direct application of Jev on mobile.
+
+▲0
+
+↗
+Mobile
+279★
+
+#24
+
+hermes-jev-skills
+
+kerpopule/hermes-jev-skills
+
+Jev-powered model routing, memory, compaction, skill selection, computer and browser use for Hermes agents (also Claude Code and Codex)
+
+▲0
+
+↗
+Browser
+278★
+
+awesome-jev
+cobanov
+
+#25
+
+awesome-jev
+
+cobanov/awesome-jev
+
+A curated, source-backed list of projects built with Jev, TypeSafe AI's System One model for typed decisions.
+
+▲0
+
+↗
+Routing
+271★
+
+#26
+
+jev-browser-use
+
+wy-coliney/jev-browser-use
+
+5–10x faster browser operations: Jev clicks, Codex thinks and verifies. Built at EZCollegeApp.
+
+▲0
+
+↗
+Browser
+263★
+
+#27
+
+jev-router
+
+gargpratyush/jev-router
+
+Picks a cheaper or a stronger model inside Claude Code based on task complexity, aiming to cut agent inference cost.
+
+▲0
+
+↗
+Routing
+262★
+
+pg-jev
+realZachi
+
+#28
+
+pg-jev
+
+realZachi/pg-jev
+
+Ask your rows questions directly — "does this record look like a fraudulent transaction?", "which class does this user fall into?"
+
+▲0
+
+↗
+Data
+249★
+
+jev-align
+sutro-sh
+
+#29
+
+jev-align
+
+sutro-sh/jev-align
+
+Build calibrated AI Functions from human feedback using Jev and GEPA.
+
+▲0
+
+↗
+Eval & Align
+241★
+
+#30
+demo
+
+openjev-sglang
+
+ekzhang/openjev-sglang
+
+Jev-compatible API endpoint based on open models (prefill-only)
+
+▲0
+
+↗
+SDK & Runtime
+234★
+
+#31
+
+von
+
+wfzyx/von
+
+The open-source System One decision model. Sub-15ms, non-autoregressive, local drop-in alternative to TypeSafe Jev.
+
+▲0
+
+↗
+SDK & Runtime
+231★
+
+awesome-jev-projects
+logicrw
+
+#32
+
+awesome-jev-projects
+
+logicrw/awesome-jev-projects
+
+Awesome Jev: source-backed open-source ecosystem radar, plain-language project discovery, and automatic GitHub sync
+
+▲0
+
+↗
+Awesome List
+227★
+
+#33
+demo
+
+quackd
+
+rokbenko/quackd
+
+One CLI for all your robots. Connect them, command them, and let them work together, each with an LLM for a brain, Jev for cheaper steps…
+
+▲0
+
+↗
+Coding Agent
+220★
+
+skillbox
+kitze
+
+#34
+
+skillbox
+
+kitze/skillbox
+
+Self-hosted, versioned skills library for AI agents. MCP, scoped clients, and optional Jev recommendations.
+
+▲0
+
+↗
+Coding Agent
+216★
+
+openjev
+razorback16
+
+#35
+
+openjev
+
+razorback16/openjev
+
+Open, Jev-compatible System One decision server on DiffusionGemma
+
+▲0
+
+↗
+SDK & Runtime
+212★
+
+#36
+
+openJev-verdict-2.0
+
+Heman10x-NGU/openJev-verdict-2.0
+
+Calibrated 151M Non-Autoregressive Decision Engine beating TypeSafe Jev & Laya on LocalLLaMA/typed-decisions (77.10% acc, 0.0636 Brier…
+
+▲0
+
+↗
+Eval & Align
+200★
+
+#37
+demo
+
+jev-browser
+
+jkudish/jev-browser
+
+Browser use using Typesafe's Jev model
+
+▲0
+
+↗
+Browser
+187★
+
+jev-review
+NiazMorshed2007
+
+#38
+
+jev-review
+
+NiazMorshed2007/jev-review
+
+Local-first MCP plugin for continuous software-quality review by AI coding agents, powered by Jev.
+
+▲0
+
+↗
+Coding Agent
+186★
+
+awesome-jev
+fatwang2
+
+#39
+
+awesome-jev
+
+fatwang2/awesome-jev
+
+A source-backed Jev project directory with a reusable Jev-only GitHub review workflow.
+
+▲0
+
+↗
+Awesome List
+180★
+
+#40
+demo
+
+jev-skill
+
+wuyoscar/jev-skill
+
+An awesome collection of Jev use cases, workflows, and agent skills.
+
+▲0
+
+↗
+Coding Agent
+179★
+
+#41
+
+jev-visual
+
+hr98w/jev-visual
+
+An educational Jev-like visual inference experiment on Apple Silicon: shared context, direct candidate scoring, and local visual demos.
+
+▲0
+
+↗
+SDK & Runtime
+175★
+
+jeff
+logan-markewich
+
+#42
+
+jeff
+
+logan-markewich/jeff
+
+A self-hosted drop-in replacement for TypeSafe's jev, powered by GliFormer.
+
+▲0
+
+↗
+Other
+172★
+
+jev-voice-browser
+moritzkremb
+
+#43
+
+jev-voice-browser
+
+moritzkremb/jev-voice-browser
+
+Control a real browser by voice. Jev (TypeSafe System One) decides intent + target in ~300 ms per spoken word; Playwright acts — often before…
+
+▲0
+
+↗
+Browser
+170★
+
+jev-mcp
+jkudish
+
+#44
+
+jev-mcp
+
+jkudish/jev-mcp
+
+Fast, cheap, typed judgments from TypeSafe's Jev model, as MCP tools.
+
+▲0
+
+↗
+Coding Agent
+167★
+
+#45
+
+perch
+
+lakeday-org/perch
+
+Semantic code linting with Jev
+
+▲0
+
+↗
+Coding Agent
+165★
+
+unclutter
+kitze
+
+#46
+
+unclutter
+
+kitze/unclutter
+
+WXT browser extension: Jev-powered page clutter removal with reusable template rules.
+
+▲0
+
+↗
+Browser
+147★
+
+typesafe-mcp
+itsmostafa
+
+#47
+
+typesafe-mcp
+
+itsmostafa/typesafe-mcp
+
+mcp connector to give your AI agent direct access to typesafe ai's jev model
+
+▲0
+
+↗
+Coding Agent
+142★
+
+#48
+
+Jev-X-Sentiment-Analysis
+
+brainstormity/Jev-X-Sentiment-Analysis
+
+Python · updated yesterday
+
+▲0
+
+↗
+Other
+138★
+
+neurolink
+juspay
+
+#49
+
+neurolink
+
+juspay/neurolink
+
+One TypeScript interface for 40 AI providers across three inference types — generate, stream, and decide. Decide returns typed, calibrated…
+
+▲0
+
+↗
+Coding Agent
+134★
+
+jev-pruner
+tamaratran
+
+#50
+
+jev-pruner
+
+tamaratran/jev-pruner
+
+Claude Code plugin: trim long Bash output with TypeSafe Jev before the model sees it
+
+▲0
+
+↗
+Coding Agent
+128★
+
+#51
+
+jevpilot
+
+standardagents/jevpilot
+
+A playable Three.js driving simulator with Jev-powered autopilot
+
+▲0
+
+↗
+Other
+128★
+
+awesome-jev
+AnotiaWang
+
+#52
+
+awesome-jev
+
+AnotiaWang/awesome-jev
+
+A curated list of awesome Jev / TypeSafe System One applications, libraries, and resources.
+
+▲0
+
+↗
+Awesome List
+128★
+
+building-with-jev-skill
+dbreunig
+
+#53
+
+building-with-jev-skill
+
+dbreunig/building-with-jev-skill
+
+A skill for writing and improving programs that call Jev, TypeSafe's System One model
+
+▲0
+
+↗
+Coding Agent
+127★
+
+pi-jev
+y0usaf
+
+#54
+
+pi-jev
+
+y0usaf/pi-jev
+
+TypeSafe Jev as a decision layer for the Pi coding agent: a measured tool-call gate plus jev_ask for typed, calibrated answers
+
+▲0
+
+↗
+Coding Agent
+123★
+
+#55
+
+JevRouter
+
+BillionsBobby/JevRouter
+
+A lightweight Jev-powered router for models, tools, and subagents
+
+▲1
+
+↗
+Routing
+118★
+
+#56
+
+jev-semgrep
+
+uehaj/jev-semgrep
+
+grep by meaning, across languages. TypeSafe Jev scores every line against a meaning; combine meanings with AND/OR/NOT. 意味で探す…
+
+▲0
+
+↗
+Search
+117★
+
+#57
+demo
+
+awesome-jev-typesafe
+
+valentynkit/awesome-jev-typesafe
+
+Typed decisions with TypeSafe's Jev, the first System One model
+
+▲0
+
+↗
+Coding Agent
+110★
+
+#58
+
+pi-warden
+
+DevMortimer/pi-warden
+
+Guardrails for Pi built on pi-typesafe that steer the agent instead of interrupting you: Jev judges irreversible and off-task tool calls…
+
+▲0
+
+↗
+Other
+108★
+
+#59
+demo
+
+embodied-jev
+
+FBddcz/embodied-jev
+
+EmbodiedJev: MuJoCo robot decision workbench with MiniCPM5-2B, Jev and compatible model APIs
+
+▲0
+
+↗
+Home & IoT
+108★
+
+#60
+
+awesome-jev-gallery
+
+OmniJev/awesome-jev-gallery
+
+🔥🔥 Papers, open reproductions and independent evaluations behind System One models and Jev.
+
+▲0
+
+↗
+Eval & Align
+108★
+
+stanley-code
+devagrawal09
+
+#61
+
+stanley-code
+
+devagrawal09/stanley-code
+
+Bounded TypeSafe Jev workflows for coding agents.
+
+▲0
+
+↗
+Other
+101★
+
+awesome-jev
+hellogumbo
+
+#62
+
+awesome-jev
+
+hellogumbo/awesome-jev
+
+A community directory of projects built on Jev, TypeSafe AI's System One model.
+
+▲0
+
+↗
+Awesome List
+100★
+
+jev-eval-agent
+vinilana
+
+#63
+
+jev-eval-agent
+
+vinilana/jev-eval-agent
+
+HTML · updated 3d ago
+
+▲0
+
+↗
+Eval & Align
+99★
+
+skillranker
+Dicklesworthstone
+
+#64
+
+skillranker
+
+Dicklesworthstone/skillranker
+
+Rust CLI powered by Jev from TypeSafe.ai that ranks agent skills for the next step using live session context. Includes Claude Code hooks…
+
+▲0
+
+↗
+Coding Agent
+98★
+
+jev-codex-router
+0xNatoshi
+
+#65
+
+jev-codex-router
+
+0xNatoshi/jev-codex-router
+
+Per-turn model & reasoning routing for Codex, driven by Jev (TypeSafe System One): picks the model, thinking depth and speed mode for every…
+
+▲0
+
+↗
+Computer Use
+94★
+
+#66
+
+LLM2Jev
+
+Yinsongxu/LLM2Jev
+
+Adapt local language models into Jev-compatible structured decision engines with Choice, Score, and Noul outputs powered by prefill-only…
+
+▲0
+
+↗
+SDK & Runtime
+90★
+
+advocaat
+pithings
+
+#67
+
+advocaat
+
+pithings/advocaat
+
+A small, type-safe client for asking AI questions about your data, powered by TypeSafe Jev.
+
+▲0
+
+↗
+SDK & Runtime
+87★
+
+#68
+
+jev-drone
+
+RomanSlack/jev-drone
+
+Camera-only autonomous drone in MuJoCo with a small judgment model (TypeSafe Jev) in the loop at 2.5Hz
+
+▲0
+
+↗
+Home & IoT
+87★
+
+reflex
+kshetrajna12
+
+#69
+
+reflex
+
+kshetrajna12/reflex
+
+A small open decision model: state + typed questions -> calibrated probabilities. A Jev / System One re-creation on Qwen3.5.
+
+▲0
+
+↗
+Eval & Align
+87★
+
+pg_typesafe
+giuliosmall
+
+#70
+
+pg_typesafe
+
+giuliosmall/pg_typesafe
+
+Pre-alpha PostgreSQL extension for TypeSafe AI (Jev) categorical classification
+
+▲0
+
+↗
+Data
+80★
+
+#71
+
+youtube-sponsor-detection
+
+trungdq88/youtube-sponsor-detection
+
+Detect youtube sponsor segment with live audio and transcript powered by Jev
+
+▲0
+
+↗
+Other
+80★
+
+#72
+demo
+
+jevmeter
+
+ChetasLua/jevmeter
+
+Put a live Jev (TypeSafe) meter on any video: every sentence scored, rendered as a 16:9 edit
+
+▲0
+
+↗
+Other
+76★
+
+jev-use
+savka777
+
+#73
+
+jev-use
+
+savka777/jev-use
+
+Say it, and your Mac does it. A computer-use harness on Jev that reads the screen through Accessibility. Fast, no vision model
+
+▲0
+
+↗
+Browser
+74★
+
+jev-gateway
+vinilana
+
+#74
+
+jev-gateway
+
+vinilana/jev-gateway
+
+An easy way to use jev with your coding agent for tool calling reasoning
+
+▲0
+
+↗
+Coding Agent
+73★
+
+#75
+demo
+
+jev-shell-history
+
+mrnugget/jev-shell-history
+
+Fish-style zsh history autosuggestions ranked by Jev (TypeSafe)
+
+▲0
+
+↗
+Search
+72★
+
+#76
+demo
+
+open-jev
+
+daseinlabs/open-jev
+
+Open Jev implementation with custom finetuning
+
+▲0
+
+↗
+Other
+70★
+
+#77
+
+awesome-jev
+
+kraayenjon/awesome-jev
+
+A curated list of Jev use cases, projects, SDKs, and resources. Jev is TypeSafe AI's System One model for fast, typed decisions in software —…
+
+▲0
+
+↗
+Coding Agent
+70★
+
+#78
+
+jev-chat
+
+w3cj/jev-chat
+
+A tool calling chat bot built with Jev and no LLM.
+
+▲0
+
+↗
+Other
+66★
+
+awesome-jev
+AppitStudio
+
+#79
+
+awesome-jev
+
+AppitStudio/awesome-jev
+
+Curated Jev resources and runnable examples for typed AI decisions.
+
+▲0
+
+↗
+Awesome List
+65★
+
+#80
+
+grok-bot-jev
+
+Bodila51/grok-bot-jev
+
+Connect TypeSafe Jev to Grok Bot as a cheap decision layer - usage gates, skill template, examples
+
+▲0
+
+↗
+Coding Agent
+64★
+
+typesafe-adblock
+realZachi
+
+#81
+
+typesafe-adblock
+
+realZachi/typesafe-adblock
+
+🧹 Fun project: a Chrome extension that asks a tiny AI decision model (TypeSafe Jev) "is this DOM element an ad?" and pops it off the page…
+
+▲0
+
+↗
+Browser
+62★
+
+save-token-jev-clean
+IAmUnbounded
+
+#82
+
+save-token-jev-clean
+
+IAmUnbounded/save-token-jev-clean
+
+TypeScript · MIT · updated 3d ago
+
+▲0
+
+↗
+Other
+60★
+
+jevcache
+hyperspaceai
+
+#83
+
+jevcache
+
+hyperspaceai/jevcache
+
+A decision cache for TypeSafe Jev-class models — memoize decisions so repeats are free, deterministic, and shareable. One 2 MB binary.
+
+▲0
+
+↗
+Other
+59★
+
+#84
+
+agent-router
+
+nidhi-singh02/agent-router
+
+CLI that picks Cursor, Claude Code, Codex, or OpenCode + model/effort for a task, then launches it. Powered by Jev and Herdr
+
+▲0
+
+↗
+Coding Agent
+57★
+
+jegrep
+can1357
+
+#85
+
+jegrep
+
+can1357/jegrep
+
+Semantic grep: find code by describing what you're looking for, powered by Jev.
+
+▲0
+
+↗
+Search
+54★
+
+jev-browser
+Ying-Kai-Liao
+
+#86
+
+jev-browser
+
+Ying-Kai-Liao/jev-browser
+
+Browser automation where an LLM plans and Jev (Typesafe System One) decides. Library, CLI and MCP server.
+
+▲0
+
+↗
+Browser
+54★
+
+#87
+
+jev-trade
+
+aowang-ai/jev-trade
+
+Live Jev trader on Hyperliquid
+
+▲0
+
+↗
+Other
+54★
+
+dasheng
+wquguru
+
+#88
+
+dasheng
+
+wquguru/dasheng
+
+大声读 — R2T2 流式 ASR 听，Jev 逐词判，英文朗读评分
+
+▲0
+
+↗
+Other
+52★
+
+neo4jev
+jexp
+
+#89
+
+neo4jev
+
+jexp/neo4jev
+
+Typesafe.ai System One Model Jev navigating a Neo4j graph by using a classifier over neighbouring relationships
+
+▲0
+
+↗
+Other
+50★
+
+ruby_decision_model
+obie
+
+#90
+
+ruby_decision_model
+
+obie/ruby_decision_model
+
+Ruby client for decision models such as Typesafe Jev
+
+▲0
+
+↗
+SDK & Runtime
+47★
+
+jevmlx
+bnsd55
+
+#91
+
+jevmlx
+
+bnsd55/jevmlx
+
+Jev-style parallel constrained decisions for any MLX model on Apple Silicon. Typed, schema-valid JSON in one forward pass.
+
+▲0
+
+↗
+SDK & Runtime
+47★
+
+#92
+
+Verdict-open-jev
+
+Heman10x-NGU/Verdict-open-jev
+
+Non-autoregressive decision engine on ModernBERT (151M) with calibrated uncertainty (RLCD), TypeSafe AI Jev benchmark audit, and in-browser…
+
+▲0
+
+↗
+Browser
+46★
+
+jev-sift
+kbhuw
+
+#93
+
+jev-sift
+
+kbhuw/jev-sift
+
+Classify first. Read selectively. A portable agent plugin and MCP tool for batch text classification.
+
+▲0
+
+↗
+Coding Agent
+45★
+
+vibecheck
+RafalWilinski
+
+#94
+
+vibecheck
+
+RafalWilinski/vibecheck
+
+Chrome extension: vibe-check your X posts with TypeSafe's Jev before you hit Post
+
+▲0
+
+↗
+Browser
+45★
+
+jev-desktop
+yikangy873-gif
+
+#95
+
+jev-desktop
+
+yikangy873-gif/jev-desktop
+
+TypeSafe Jev action selection inside Codex Computer Use
+
+▲0
+
+↗
+Computer Use
+45★
+
+#96
+demo
+
+jev-rules
+
+EliaAlberti/jev-rules
+
+Jev picks which of your rules apply to each prompt, so Claude only sees the ones that matter.
+
+▲0
+
+↗
+Other
+44★
+
+oxlint-plugin-jev
+wobsoriano
+
+#97
+
+oxlint-plugin-jev
+
+wobsoriano/oxlint-plugin-jev
+
+TypeScript · MIT · updated today
+
+▲0
+
+↗
+Other
+44★
+
+jev-lint
+mizchi
+
+#98
+
+jev-lint
+
+mizchi/jev-lint
+
+TypeScript · MIT · updated today
+
+▲0
+
+↗
+Other
+43★
+
+jev-paint
+achimala
+
+#99
+
+jev-paint
+
+achimala/jev-paint
+
+Use Jev to make art!
+
+▲0
+
+↗
+Other
+42★
+
+hono-jev-router
+yusukebe
+
+#100
+
+hono-jev-router
+
+yusukebe/hono-jev-router
+
+Route HTTP requests by meaning. A semantic router for Hono powered by Jev.
+
+▲0
+
+↗
+Search
+42★
+
+No project matches that filter.
+
+Ranked by GitHub stars. Would rather watch than read?
+See them running. Missing something?
+Submit a project — or read
+how this list is built.
+
+Jev Users — an unofficial, community-run directory.
+Not affiliated with, endorsed by, or operated by TypeSafe AI.
+
+About & methodology
+Submit a project
+JSON API
+Awesome Jev
+Follow on X
+
+x
+
+Join the waitlist
+
+Get told when the directory adds something worth knowing about — new tools,
+movers, and the occasional round-up. No noise.
+
+Email
+
+Request access

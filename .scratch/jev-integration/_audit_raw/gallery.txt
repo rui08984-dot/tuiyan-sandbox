@@ -1,0 +1,703 @@
+TITLE: GitHub - OmniJev/awesome-jev-gallery: 🔥🔥 Papers, open reproductions and independent evaluations behind System One models and Jev. · GitHub
+
+Skip to content
+
+Navigation Menu
+
+Sign in
+Appearance settings
+
+Platform
+
+AI CODE CREATION
+
+GitHub CopilotWrite better code with AI
+
+GitHub Copilot appDirect agents from issue to merge
+
+MCP RegistryIntegrate external tools
+
+DEVELOPER WORKFLOWS
+
+ActionsAutomate any workflow
+
+CodespacesInstant dev environments
+
+IssuesPlan and track work
+
+Code ReviewManage code changes
+
+Code QualityEnforce quality at merge
+
+APPLICATION SECURITY
+
+GitHub Advanced SecurityFind and fix vulnerabilities
+
+Code securitySecure your code as you build
+
+Secret protectionStop leaks before they start
+
+EXPLORE
+
+Why GitHub
+
+Documentation
+
+Blog
+
+Changelog
+
+Marketplace
+
+View all features
+
+Solutions
+
+BY COMPANY SIZE
+
+Enterprises
+
+Small and medium teams
+
+Startups
+
+Nonprofits
+
+BY USE CASE
+
+App Modernization
+
+DevSecOps
+
+DevOps
+
+CI/CD
+
+View all use cases
+
+BY INDUSTRY
+
+Healthcare
+
+Financial services
+
+Manufacturing
+
+Government
+
+View all industries
+
+View all solutions
+
+Resources
+
+EXPLORE BY TOPIC
+
+AI
+
+Software Development
+
+DevOps
+
+Security
+
+View all topics
+
+EXPLORE BY TYPE
+
+Customer stories
+
+Events & webinars
+
+Ebooks & reports
+
+Business insights
+
+GitHub Skills
+
+SUPPORT & SERVICES
+
+Documentation
+
+Customer support
+
+Community forum
+
+Trust center
+
+Partners
+
+View all resources
+
+Open Source
+
+COMMUNITY
+
+GitHub SponsorsFund open source developers
+
+PROGRAMS
+
+Security Lab
+
+Maintainer Community
+
+GitHub Stars
+
+Archive Program
+
+REPOSITORIES
+
+Topics
+
+Trending
+
+Collections
+
+Enterprise
+
+ENTERPRISE SOLUTIONS
+
+Enterprise platformAI-powered developer platform
+
+AVAILABLE ADD-ONS
+
+GitHub Advanced SecurityEnterprise-grade security features
+
+Copilot for BusinessEnterprise-grade AI features
+
+Premium SupportEnterprise-grade 24/7 support
+
+Pricing
+
+Search/
+
+Sign in
+Sign up
+Appearance settings
+
+You signed in with another tab or window. Reload to refresh your session.
+You signed out in another tab or window. Reload to refresh your session.
+You switched accounts on another tab or window. Reload to refresh your session.
+
+Dismiss alert
+
+OmniJev
+
+/
+
+awesome-jev-gallery
+
+Public
+
+Notifications
+You must be signed in to change notification settings
+
+Fork
+6
+
+Star
+128
+
+Code
+
+Issues
+0
+
+Pull requests
+0
+
+Actions
+
+Projects
+
+Security and quality
+0
+
+Insights
+
+Additional navigation options
+
+Code
+
+Issues
+
+Pull requests
+
+Actions
+
+Projects
+
+Security and quality
+
+Insights
+
+main
+
+BranchesTags
+
+Go to file
+
+Code
+Open more actions menu
+
+Latest commit
+
+History
+32 Commits
+
+32 Commits
+
+Folders and files
+
+Name
+
+Name
+
+Last commit message
+
+Last commit date
+
+.github/workflows
+
+.github/workflows
+
+assets
+
+assets
+
+scripts
+
+scripts
+
+site
+
+site
+
+.gitignore
+
+.gitignore
+
+CONTRIBUTING.md
+
+CONTRIBUTING.md
+
+LICENSE
+
+LICENSE
+
+README.md
+
+README.md
+
+package.json
+
+package.json
+
+View all files
+
+Repository files navigation
+
+README
+
+Contributing
+
+License
+
+More items
+
+Awesome JEV
+
+Papers, open models and evaluations behind System One models and Jev.
+
+⚡ System One & Jev · 🧪 Open Source · 📊 Evaluations · 📰 Commentary · 🧬 Lineage
+
+Contents
+
+🔥 News
+
+⚡ System One & Jev (8)
+
+🧪 Open Source (28)
+
+🔧 Built with Jev (28)
+
+📊 Independent Evaluations (18)
+
+📰 Commentary & Analysis (8)
+
+🧬 The Shape Before Jev (15)
+
+🧱 What Jev Is Sold Against (9)
+
+🧠 Where the Name Comes From (5)
+
+🔗 Related Lists (2)
+
+🔥 News
+
+🚀 2026-09 · Repository launch. 119 entries in 8 sections. PRs welcome.
+
+🧪 2026-09 · Open source and evaluations. 28 open models and codebases rebuild the System One shape, and 17 independent evaluations of Jev are collected under Independent Evaluations.
+
+⚡ System One & Jev
+
+What TypeSafe has published, kept to the load-bearing pages: the launch post, the contract, the failure modes it admits to, and the code it ships.
+
+Introducing System One Models and Jev, The launch post: state in, typed probabilistic decisions out, RLCD training, 70 to 500 ms, $0.042 per MTok.
+
+Primitives: Choice, Score, Noul, The three typed question shapes and the probability-per-option answers they return.
+
+Jev 1.13 jaggedness, TypeSafe's documented failure modes: literal reading, counting, dates, indirection, distractor state, adversarial content.
+
+System One Adapter, Official drop-in that serves the same typed interface from OpenAI or Anthropic models, the baseline for every comparison.
+
+Hacker News launch thread, 1,850 points and 485 comments; the CEO confirms the zero-shot classifier reading and the encoder-with-heads shape.
+
+TypeSafe Agent Skills, Skill files that teach Claude Code, Codex and similar agents to design System One workflows.
+
+Jev on Vercel AI SDK, The first third-party surface: Jev-latest as an evaluation model behind experimental_evaluate, no waitlist.
+
+Founder launch thread on X, Diogo Almeida's thread arguing RLCD decision models reach economic value before chat models do.
+
+🧪 Open Source
+
+Open weights and code that rebuild the System One shape from encoders, small decoders and constrained decoding.
+
+SemIf, Semantic ifs from open models on a 3090 at home; open baseline for direct typed option scoring, renamed from openjev.
+
+Jevlike, From-scratch model with Jev's exact shape: text plus N options in, one probability per option out, option-attention head, Doom and chess demos.
+
+PlayJev, Qwen3.5-0.8B-Base fine-tuned to play ten browser games from raw pixels, one frame in, one typed move out.
+
+Qwen-2.5-1B-RLCD, Qwen2.5-1.5B fine-tune plus parallel constrained decoding; all schema fields scored in one broadcast prefill, 5.6x to 7x faster on Apple Silicon.
+
+NanoJev, 0.6B parallel decision model with a public dataset and a side-by-side maze and Snake demo against Jev and untuned Qwen.
+
+Bespoke Nimble, Data, model and recipe for an open Jev: Qwen3.5-9B plus LoRA on contrastive examples, with a 13-subset public evaluation suite scored against Jev 1.13.
+
+kev, LoRA adapter and a small readout head on Qwen (0.5B to 8B) that answers many typed questions from one prefill, following the Jev architecture write-up.
+
+LocalJev, Local Jev-compatible POST /v1/systemone in TypeScript for Bun, backed by DiffusionGemma through an OpenAI-compatible endpoint.
+
+Laya-MLX, Native MLX runtime for Laya typed decisions on Apple Silicon, 13.4 ms median for a short decision, with a live Snake demo.
+
+Simple Jev, Turns any open Hugging Face model into a classifier and scoring endpoint by reading next-token logits per question, with a public demo API.
+
+openjev-sglang, Jev-compatible API endpoint served from open models with prefill-only inference.
+
+decider, Qwen3.5-2B fine-tune that emits typed decisions with calibrated probabilities in one pass.
+
+open-jev (Dasein Labs), One-pass option scoring with a local Gemma 3 4B on Apple silicon: prefill the context once, expand the KV cache across the options, softmax the option log-probs; Doom demo.
+
+typesafe-ai-benchmark (imposter Jev), LLM gateway that mimics the TypeSafe structured-output contract, used for Qwen-on-Cerebras side-by-sides.
+
+rlcd-modernbert-151m, Encoder-side reproduction: GLiClass ModernBERT base retrained for calibrated label probabilities.
+
+LLM2Jev, Adapts local language models into Jev-compatible decision endpoints.
+
+LitJev, Jev's decision layer on off-the-shelf Qwen checkpoints: one shared prefill, then option logits read per question, no training.
+
+Jev on a laptop, Unofficial study of Jev-style parallel typed decisions on stock 1.5B to 8B models on Apple Silicon, with benchmarks.
+
+open-jev (JoshuaSP), Typed JSON inference with DiffusionGemma: fixed JSON, parallel decisions.
+
+openjev (zhihz), Local bilingual probability decisions from context, questions and candidate answers.
+
+jevbetter, One-pass scorer over a variable option list: hashed n-gram encoder, rival-aware attention, gated head, temperature scaling.
+
+qwen-rlcd, Choice, Score and Noul on Qwen3.5-0.8B, the smallest decoder-based reproduction.
+
+Laya, ModernBERT-large with RLCD-trained decision heads: Choice, Score and Noul in one 38 ms pass.
+
+Parallel Constrained Decision Engine, Live demo of the Qwen-2.5-1B-RLCD approach: KV-cache broadcast, logit slicing per candidate, 100 percent schema validity.
+
+LFM2.5-350M-RLCD, 350M-parameter RLCD-style decision model, the smallest open attempt.
+
+LFM2.5-2.6B-RLCD, RLCD-style fine-tune of Liquid AI's LFM2.5-2.6B, the largest open attempt so far.
+
+system-one-qwen3.5-4b-scorer, Qwen3.5-4B base trained as a Score-style rubric rater.
+
+system-one-mini, DistilBERT-sized System One shape, a floor for how small the idea can go.
+
+🔧 Built with Jev
+
+Open, licensed software that puts Jev inside something that runs: routers, agents, games and integrations. Each entry links code you can read and numbers its authors measured themselves.
+
+QuantDinger, Open-source AI trading OS with Jev System One decisions inside its agent and vibe trading loops.
+
+Jev Ultrafast, Browser agent whose every step is one Jev choice over an indexed element table, a small LLM types only when the action is TYPE_TEXT; Zürich to London on Google Flights in 7.1 seconds.
+
+fast-jev-compaction, Claude Code plugin that replaces the compaction summary with Jev decisions: every tool call and result scored in one request, stale ones dropped, everything kept verbatim.
+
+jev-trader, One Jev decision every Monad block: buy or sell on the Kuru MON-USDC order book every 300 ms, each answer posted as a real limit order.
+
+Distill, Lightweight coding-agent harness and TUI that routes its small decisions through Jev.
+
+TipTour, Menu-bar companion for macOS where Jev picks the next click from locally detected controls and TipTour executes and validates it.
+
+typesafe-computer-use, Drives a Mac from a plain-English goal at about a fiftieth of a cent per step: OCR the screen, Jev classifies the next action, a writing model only for free text.
+
+jev-review, Staged code-review workflow with a local dashboard, each stage a Jev decision.
+
+Jev Search, Plain-language web search where Jev picks sources, time ranges and terms, then ranks the results streamed from Search1API.
+
+Mobile Jev, Standalone Android agent: one goal, a real phone, Jev makes every decision; opens Uber and books a route to the Golden Gate Bridge in the demo.
+
+pg-jev, PostgreSQL extension that filters, ranks and classifies rows with plain-language conditions, every row judged by Jev; no index, no embeddings.
+
+Jev Browser Use, Codex skill where Jev handles navigation, clicks, toggles and scrolling and Codex keeps text input and the final check; 5 to 10x faster browser operations in the authors' workflows.
+
+quackd, One CLI for open-source robots such as LeRobot arms and Open Duck, with Jev choosing which taught move comes next.
+
+Abide, Enforces the rules in AGENTS.md and CLAUDE.md that no linter can check: one Jev question per rule on every edit, about 300 ms each.
+
+JevRouter, Routes models, subagents, Skills and MCP tools through one typed Jev question, with its own permission and confirmation rules around the answer; 44 percent first-five tool-call hits on 10 Toolathlon tasks against 24 percent for DeepSeek V4.1 Flash.
+
+jev-drone, Quadrotor flies a five-station MuJoCo obstacle course from its onboard camera, Jev at 2.5 Hz deciding what the situation means while the controller stays in code.
+
+YouTube sponsor detection, Detects sponsor segments from live audio and skips them, one Jev read per segment.
+
+jevmeter, Puts a live Jev score meter on any video, installed in three steps.
+
+Supercov, Code quality and coverage for coding agents: Jev scores the source, the usual test command runs, uncovered paths become small queries.
+
+dspy-typesafeify, Decorator that routes DSPy typed Signatures to Jev where the signature is a pure decision.
+
+Embodied Jev, MuJoCo robot decision workbench where Jev picks the next manipulation step.
+
+Grok Bot + Jev, Connects TypeSafe Jev to Grok Bot as a cheap decision layer.
+
+RefGarden, Spatial reference explorer over The Met, NASA and Cosmos, with Jev choosing search phrases and highlighting references from titles alone.
+
+SmartMoney-Cub, Read-only trading journal and review harness with Jev judging entries against the evidence.
+
+typesafe-mcp, MCP adapter that exposes Jev decisions as tools.
+
+Jev × LIBERO, Fine-grained robot control on LIBERO with Jev deciding and physics-grounded execution.
+
+jev-robot-control, Same task, different decisions: Jev against GPT-4.1 and GPT-4o mini on a robot arm, with cost and time per episode.
+
+tsai-sc, TypeSafe Jev controls the original StarCraft, one typed decision per game tick.
+
+📊 Independent Evaluations
+
+Every independent test of Jev published so far, with the headline number where the source gives one. TypeSafe's own dashboard is listed and marked official.
+
+jev-benchmarks (probability-aware), Jev versus GLiNER2.5 on 300 BTZSC examples with calibration and selective risk: 0.910 AG News, 0.870 Banking77, worse on emotion.
+
+jev-rerank-bench, Jev as reranker over 8 datasets and 1,617 questions: nDCG@10 0.692 versus Cohere Rerank 4 Pro 0.691, at 422ms.
+
+jev-sec-bench, Blind prompt-injection run on 662 deepset messages: 96.5% accuracy, 0.9927 ROC-AUC, ECE 0.0588, p50 325ms.
+
+TypeSafe Jev evals dashboard, TypeSafe's own four-workflow dashboard, Jev at 61.7 to 76.0% accuracy and 0.3 to 0.5s per case against frontier baselines.
+
+jev-eval-agent, Jev routes 100 mocked tools behind a confidence gate, measuring steps, tool calls, tokens and cost against the LLM choosing directly.
+
+jev-use benchmarks, 454 judgments against a Claude Opus 5 reference: 82.2% agreement, 89.5% among non-escalated verdicts, over a 68.7% majority baseline; context compaction 56.3%, below a constant answerer.
+
+LegalForecastBench, Claim-level Brier scoring of federal motion-to-dismiss outcomes, a fixed binary with one probability per unit; no Jev row published yet.
+
+jev-research-eval, Reproducible harness scoring Jev ultrafast research-browser runs over 11 baseline cases plus 18 human and quant stress cases with QC grades.
+
+jev-benchmark (chess and NPC addressee), Jev no better than random picking chess moves from a FEN, but F1 0.96 on NPC addressee detection, 0.2s median.
+
+padflow-jev-evals, Three production SaaS decisions published as schemas with auto-post confidence thresholds; LLM baseline rows filled, Jev row still empty.
+
+jev-spam-eval, Zero-shot spam Noul on 18,514 emails reaching 0.9833 accuracy, matching a TF-IDF classifier trained on 14,800 labels.
+
+jev-secret-detection, 100 balanced secret-detection cases as single Noul questions scored by accuracy, AUC and Brier; server p50 75 to 90ms.
+
+jev-playground, Tic-tac-toe and connect four pitting Jev against four frontier models on identical legal-move choice options; no aggregate results published yet.
+
+jev-benchmarks (frontier comparison harness), Harness asking Jev and frontier LLMs identical typed questions, scoring accuracy, calibration, latency and schema validity; no measured run published yet.
+
+Near Here event validation, 50-case event validation: Jev 96% at 0.59s and $0.043 per 1,000, Mistral small 4 84%, Gemini Flash-Lite 86%.
+
+Every: Mini-Vibe Check, 777 judgments over 37 articles in 0.7s for a quarter of a cent; caught six of seven planted defects, Fable seven.
+
+Jev is the fish at the poker table, Poker probe finding 15 to 30 point swings from relabelling the same hand, and 16 of 16 bets against a made flush.
+
+Jev judge call vs dimension scores, One direct Jev question per row against 12 to 14 Jev-scored dimensions with fitted weights on three tasks: 0.9076 vs 0.8373 on Japanese NLI, but 25x the hard-benign false positives, 37.2% vs 1.5%.
+
+📰 Commentary & Analysis
+
+Reporting and technical commentary that checks the launch claims against the evidence.
+
+AINews: Jev, a System One Model that only decides, Latent Space roundup of the launch and the HN mapping onto encoders, GLiNER, constrained decoding and DSPy.
+
+Agentpedia claim-vs-evidence guide, Claim-by-claim audit separating verified Jev pricing and latency from unproven calibration; puts aggregate accuracy at 67.8% versus Opus 5's 73.1%.
+
+The Register: TypeSafe AI debuts model for machines, Press account of the $40M raise, the Doom demo and the caveat that structured output is a different error type, not correctness.
+
+Jev vs auto-regressive LLMs vs MDLM, Technical comparison of Jev's single-pass sampler with token-by-token decoding and masked diffusion.
+
+Three days after Jev, someone built the open demo, Walkthrough of SemIf's browser demo running direct logit readout against token-by-token JSON on the reader's own GPU, and why its softmax scores are not Jev's calibrated confidence.
+
+How does Jev work? RLCD and parallel inference, Explainer reconstructing the RLCD objective and the parallel sampler from public statements.
+
+MrJev: what each Jev tool sends, and where, Hands-on reviews of 72 community projects, 66 run in a container with a real key to record what leaves your machine; a password in a database URL and world-readable prompt logs, fixed upstream.
+
+Typed Decisions, Not Chat, Secondary analysis of TypeSafe's dashboard putting Jev at about 67.8% mean agreement against 74.1% for the best comparator.
+
+🧬 The Shape Before Jev
+
+Earlier work with the same input and output shape: a fixed answer set, one probability per option, no generated text. Label-conditioned encoders, scalar reward heads, reinforcement learning for calibrated confidence, and the single-pass inference TypeSafe's own forks point at.
+
+Zero-shot Classification as Entailment, "Benchmarking Zero-shot Text Classification: Datasets, Evaluation and Entailment Approach". Label set given at inference, an entailment model returns one probability per label, no text generated.
+
+InstructGPT reward model, "Training language models to follow instructions with human feedback". A Bradley-Terry head emits one scalar per response in a single pass, no text, co-authored by Jev's founder.
+
+ProtectAI prompt-injection DeBERTa v2, 184M DeBERTa returning a binary injection probability, the BERT-style encoder guardrail HN engineers mapped Jev onto.
+
+RLCR, "Beyond Binary Rewards: Training LMs to Reason About Their Uncertainty". Adds a Brier-score reward to RLVR so the model emits calibrated confidence, the closest published relative of TypeSafe's RLCD.
+
+LLaDA, "Large Language Diffusion Models". The typesafe-ai GitHub org forked this masked diffusion LM, the strongest public hint at how Jev fills every answer slot in one pass.
+
+GLiNER, "Generalist Model for Named Entity Recognition using Bidirectional Transformer". The span-and-label encoder family HN mapped Jev onto, types supplied at inference and scored in one bidirectional pass.
+
+GLiClass, "Generalist Lightweight Model for Sequence Classification Tasks". The open analogue HN pointed at: labels and text in one encoder pass, one probability per label, no decoding.
+
+monoBERT, "Passage Re-ranking with BERT". Landmark cross-encoder: pair in, one scalar relevance probability out, no generation, the ancestor of Jev's Score primitive.
+
+Generative or Discriminative?, "Revisiting Text Classification in the Era of Transformers". Controlled comparison of encoder, autoregressive and diffusion classifiers over fixed label sets on accuracy, calibration and ordinality.
+
+Llama Guard, "LLM-based Input-Output Safeguard for Human-AI Conversations". Fixed safety taxonomy with the verdict read off one safe/unsafe token probability, the guardrail classifier Noul replaces.
+
+GPT-4 Technical Report. Reports that RLHF destroys the base model's calibration, the finding RLCD is positioned against.
+
+Rewarding Doubt, "A Reinforcement Learning Approach to Calibrated Confidence Expression of Large Language Models". Trains confidence expression by RL on the logarithmic scoring rule, an independent rediscovery of the proper-scoring-rule reward RLCD uses.
+
+Calibration-Aware RL for Decision-Making LLMs, "Balancing Classification and Calibration Performance in Decision-Making LLMs via Calibration Aware Reinforcement Learning". RL that adjusts decision-token probabilities directly, keeping RLVR accuracy while cutting ECE, the closest public analogue of Jev's typed decision heads.
+
+vLLM, "Efficient Memory Management for Large Language Model Serving with PagedAttention". The typesafe-ai GitHub org forked this engine; paged KV cache plus prefix caching is what makes extra questions over one shared state nearly free.
+
+Mercury, "Ultra-Fast Language Models Based on Diffusion". HN read Jev as a stripped down text diffusion model, and Mercury is that idea shipped commercially with parallel refinement.
+
+🧱 What Jev Is Sold Against
+
+The tools TypeSafe and the launch discussion named as what Jev replaces: constrained decoding, structured outputs, typed prompt programming, LLM judges, routers and guard classifiers.
+
+Outlines, "Efficient Guided Generation for Large Language Models". The finite-state-machine guided decoding HN named as the incumbent way to get typed values, which Jev claims to replace.
+
+DSPy, "Compiling Declarative Language Model Calls into Self-Improving Pipelines". Typed signatures compiled into prompts, named on the HN thread as the fair comparison for Jev's typed question interface.
+
+RouteLLM, "Learning to Route LLMs with Preference Data". Router scores a fixed two model set and returns win probability per option before any text is generated.
+
+Guidance, Constrained generation library named on the HN launch thread as what Jev's typed outputs get compared against.
+
+OpenAI Structured Outputs, The provider-side JSON-schema guarantee the CEO named on HN as what Jev replaces, shape enforced but no probability returned.
+
+Let Me Speak Freely?, "A Study on the Impact of Format Restrictions on Performance of Large Language Models". Measures the accuracy format restrictions cost, the study behind the CEO's HN claim that constrained decoding makes models dumber.
+
+JSONSchemaBench, "A Rigorous Benchmark of Structured Outputs for Language Models". 10k real schemas scored on validity, coverage and latency, the constrained-decoding route Jev's 0% type errors claim competes against.
+
+MT-Bench, "Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena". The landmark LLM-as-a-judge paper, named on the launch thread as the layer Jev's score and Noul primitives replace.
+
+Constitutional Classifiers, "Defending against Universal Jailbreaks across Thousands of Hours of Red Teaming". Input and output classifiers gating a frontier model on a fixed policy, the deployed slot Noul targets.
+
+🧠 Where the Name Comes From
+
+System 1 in Kahneman's sense, the bitter lesson TypeSafe argues with, and the Jevons paradox the model is named after.
+
+Thinking, Fast and Slow, The source TypeSafe cites for naming Jev after System 1, fast intuitive judgement with no deliberation.
+
+Maps of Bounded Rationality (Kahneman Nobel lecture), Kahneman's two-system account, intuition returning an answer directly while reasoning deliberates, the split Jev's design copies.
+
+Thinking Fast and Slow in AI. The AI charter for System 1 components that answer from experience without search, what System One Models productizes.
+
+The Bitter Lesson, The essay TypeSafe's own Bitterest Lesson argues against, named in TypeSafe's materials as its starting point.
+
+Jevons' paradox (Alcott 2005), The rebound effect Jev is named for, where cheaper decisions raise total decision volume.
+
+🔗 Related Lists
+
+The two sibling lists.
+
+Awesome AI Scientist, Sibling list, AI systems that do science.
+
+Awesome RSI, Sibling list, systems whose improvement loop modifies itself.
+
+Contributing
+
+Open a pull request. Link the paper or the primary page, add the code repository or Hugging Face path if there is one, and say in one line which of the three tests above the entry passes. See CONTRIBUTING.md for the entry format.
+
+Footnotes
+
+@misc{awesome_jev,
+title = {Awesome JEV},
+year = {2026},
+howpublished = {\url{https://github.com/OmniJev/awesome-jev-gallery}},
+note = {Papers, open models and evaluations behind System One models and typed decisions}
+}
+
+About
+
+🔥🔥 Papers, open reproductions and independent evaluations behind System One models and Jev.
+
+omnijev.github.io/awesome-jev-gallery/
+
+Topics
+
+awesomeawesome-listcalibrated-probabilitiescalibrationdecision-modelsjevllmllm-evaluationrlcdstructured-outputssystem-onesystem-one-modelstyped-decisionstypesafezero-shot-classification
+
+Resources
+
+Readme
+
+License
+
+Contributing
+
+Contributing
+
+Activity
+
+Custom properties
+
+Stars
+
+128 stars
+
+Watchers
+
+1 watching
+
+Forks
+
+6 forks
+
+Report repository
+
+Releases
+
+Packages
+
+Contributors
+
+Languages
+
+Footer
+
+© 2026 GitHub, Inc.
+
+Footer navigation
+
+Terms
+
+Privacy
+
+Security
+
+Status
+
+Community
+
+Docs
+
+Contact
+
+Manage cookies
+
+Do not share my personal information
+
+You can’t perform that action at this time.

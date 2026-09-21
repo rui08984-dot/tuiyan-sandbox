@@ -1,0 +1,94 @@
+Typesafe API and Models | OpenRouter 
+
+Skip to content 
+
+Search ⌘ K 
+
+Models Benchmarks Chat Rankings Apps Ori Pricing Docs 
+Models 
+
+Rankings 
+
+Ori 
+
+Benchmarks Chat Pricing Docs 
+
+Sign Up 
+
+Sign Up 
+
+© 2026 OpenRouter, Inc
+
+Product
+Chat 
+Rankings 
+Benchmarks 
+Apps 
+Discover 
+Models 
+Collections 
+Providers 
+Pricing 
+Business 
+Enterprise 
+Labs 
+
+Company
+About 
+Blog 
+Careers Hiring
+
+Privacy 
+Terms of Service 
+Trust Center 
+Support 
+Works With OR 
+Data 
+Brand 
+
+Developer
+Documentation 
+API Reference 
+Developer Platform 
+Status 
+
+Connect
+Discord 
+GitHub 
+LinkedIn 
+X 
+YouTube 
+
+Typesafe
+
+Access 2 Typesafe models through the OpenRouter unified API including Jev Latest and Jev 1.13 . Compare pricing, context windows, benchmarks, and capabilities between different Typesafe models. 
+
+Typesafe tokens processed on OpenRouter
+
+TypeSafe: Jev Latest Jev Latest 
+
+This model always redirects to the latest model in the Jev family.
+
+by typesafe Sep 18, 2026 32K context 
+
+TypeSafe: Jev 1.13 Jev 1.13 
+
+538B tokens 
+
+Jev is a structured decision model from TypeSafe, and the first of its System One models. System One models make fast, structured decisions for software, returning a typed choice rather than free-form text. It is suited for routing, classification, and other decision points inside an application where a fast, predictable answer matters more than generated prose. Learn more in TypeSafe's docs: https://docs.typesafe.ai/concepts/system-one 
+
+by typesafe Sep 18, 2026 32K context $0.042 /M input tokens $0 /M output tokens 
+
+Frequently asked questions
+
+How do I use Typesafe models through the OpenRouter API?
+
+OpenRouter serves 2 Typesafe models behind one OpenAI-compatible API. Create an OpenRouter API key, point your client at https://openrouter.ai/api/v1 , and set the model to an ID such as ~typesafe/jev-latest . The quickstart has request examples for every supported SDK.
+
+Which Typesafe model has the largest context window?
+
+Jev Latest has the largest context window of any Typesafe model on OpenRouter, accepting up to 32,000 tokens per request.
+
+What is the newest Typesafe model on OpenRouter?
+
+Jev Latest is the most recently added Typesafe model on OpenRouter, listed on September 18, 2026.

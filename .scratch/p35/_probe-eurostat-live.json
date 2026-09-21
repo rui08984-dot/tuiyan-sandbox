@@ -1,0 +1,218 @@
+[
+ {
+  "statement": "【forward】Eurostat 德国 2026 年 25-74 岁高等教育人口占比（%） >= 20.4",
+  "resolve": {
+   "kind": "eurostat_live_tertiary_attain",
+   "url_template": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/edat_lfse_03?format=JSON&geo=DE&sex=F&age=Y25-74&unit=PC&isced11=ED5-8&lastTimePeriod={last_n}",
+   "geo": "DE",
+   "year": "2026",
+   "threshold": 20.4,
+   "cmp": ">=",
+   "field": "官方直连 body.dimension.time.category.index 反查 year → body.value[该索引]（%）"
+  },
+  "meta": {
+   "dom": "18edu",
+   "geo": "DE",
+   "year": "2026",
+   "threshold": 20.4,
+   "cutoff": "2026-09-13T02:52:45+08:00",
+   "phase": "forward",
+   "pub_lag_months": 12,
+   "anchor_live_last": "2025"
+  },
+  "prob": 0.5,
+  "_id": 1082
+ },
+ {
+  "statement": "【forward】Eurostat 法国 2026 年 25-74 岁高等教育人口占比（%） >= 19.8",
+  "resolve": {
+   "kind": "eurostat_live_tertiary_attain",
+   "url_template": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/edat_lfse_03?format=JSON&geo=FR&sex=F&age=Y25-74&unit=PC&isced11=ED5-8&lastTimePeriod={last_n}",
+   "geo": "FR",
+   "year": "2026",
+   "threshold": 19.8,
+   "cmp": ">=",
+   "field": "官方直连 body.dimension.time.category.index 反查 year → body.value[该索引]（%）"
+  },
+  "meta": {
+   "dom": "18edu",
+   "geo": "FR",
+   "year": "2026",
+   "threshold": 19.8,
+   "cutoff": "2026-09-13T02:52:45+08:00",
+   "phase": "forward",
+   "pub_lag_months": 12,
+   "anchor_live_last": "2025"
+  },
+  "prob": 0.5,
+  "_id": 1085
+ },
+ {
+  "statement": "【forward】Eurostat 西班牙 2026 年 25-74 岁高等教育人口占比（%） >= 12.0",
+  "resolve": {
+   "kind": "eurostat_live_tertiary_attain",
+   "url_template": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/edat_lfse_03?format=JSON&geo=ES&sex=F&age=Y25-74&unit=PC&isced11=ED5-8&lastTimePeriod={last_n}",
+   "geo": "ES",
+   "year": "2026",
+   "threshold": 12,
+   "cmp": ">=",
+   "field": "官方直连 body.dimension.time.category.index 反查 year → body.value[该索引]（%）"
+  },
+  "meta": {
+   "dom": "18edu",
+   "geo": "ES",
+   "year": "2026",
+   "threshold": 12,
+   "cutoff": "2026-09-13T02:52:45+08:00",
+   "phase": "forward",
+   "pub_lag_months": 12,
+   "anchor_live_last": "2025"
+  },
+  "prob": 0.5,
+  "_id": 1088
+ },
+ {
+  "statement": "【forward】Eurostat 德国 2026-09 月失业率（%） <= 3.70",
+  "resolve": {
+   "kind": "eurostat_live_unemployment_monthly",
+   "url_template": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/une_rt_m?format=JSON&geo=DE&s_adj=SA&unit=PC_ACT&sex=T&age=TOTAL&lastTimePeriod={last_n}",
+   "geo": "DE",
+   "month": "2026-09",
+   "threshold": 3.7,
+   "cmp": "<=",
+   "field": "官方直连 body.dimension.time.category.index 反查 month → body.value[该索引]（%）"
+  },
+  "meta": {
+   "dom": "11econ",
+   "geo": "DE",
+   "month": "2026-09",
+   "threshold": 3.7,
+   "cutoff": "2026-09-13T02:55:58+08:00",
+   "phase": "forward",
+   "pub_lag_months": 1,
+   "anchor_live_last": "2026-07"
+  },
+  "prob": 0.5,
+  "_id": 1507
+ },
+ {
+  "statement": "【forward】Eurostat 德国 2026-10 月失业率（%） <= 5.10",
+  "resolve": {
+   "kind": "eurostat_live_unemployment_monthly",
+   "url_template": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/une_rt_m?format=JSON&geo=DE&s_adj=SA&unit=PC_ACT&sex=T&age=TOTAL&lastTimePeriod={last_n}",
+   "geo": "DE",
+   "month": "2026-10",
+   "threshold": 5.1,
+   "cmp": "<=",
+   "field": "官方直连 body.dimension.time.category.index 反查 month → body.value[该索引]（%）"
+  },
+  "meta": {
+   "dom": "11econ",
+   "geo": "DE",
+   "month": "2026-10",
+   "threshold": 5.1,
+   "cutoff": "2026-09-13T02:55:58+08:00",
+   "phase": "forward",
+   "pub_lag_months": 1,
+   "anchor_live_last": "2026-07"
+  },
+  "prob": 0.5,
+  "_id": 1508
+ },
+ {
+  "statement": "【forward】Eurostat 法国 2026-09 月失业率（%） <= 8.50",
+  "resolve": {
+   "kind": "eurostat_live_unemployment_monthly",
+   "url_template": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/une_rt_m?format=JSON&geo=FR&s_adj=SA&unit=PC_ACT&sex=T&age=TOTAL&lastTimePeriod={last_n}",
+   "geo": "FR",
+   "month": "2026-09",
+   "threshold": 8.5,
+   "cmp": "<=",
+   "field": "官方直连 body.dimension.time.category.index 反查 month → body.value[该索引]（%）"
+  },
+  "meta": {
+   "dom": "11econ",
+   "geo": "FR",
+   "month": "2026-09",
+   "threshold": 8.5,
+   "cutoff": "2026-09-13T02:55:58+08:00",
+   "phase": "forward",
+   "pub_lag_months": 1,
+   "anchor_live_last": "2026-07"
+  },
+  "prob": 0.5,
+  "_id": 1512
+ },
+ {
+  "statement": "【forward】Eurostat 法国 2026-10 月失业率（%） <= 8.10",
+  "resolve": {
+   "kind": "eurostat_live_unemployment_monthly",
+   "url_template": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/une_rt_m?format=JSON&geo=FR&s_adj=SA&unit=PC_ACT&sex=T&age=TOTAL&lastTimePeriod={last_n}",
+   "geo": "FR",
+   "month": "2026-10",
+   "threshold": 8.1,
+   "cmp": "<=",
+   "field": "官方直连 body.dimension.time.category.index 反查 month → body.value[该索引]（%）"
+  },
+  "meta": {
+   "dom": "11econ",
+   "geo": "FR",
+   "month": "2026-10",
+   "threshold": 8.1,
+   "cutoff": "2026-09-13T02:55:58+08:00",
+   "phase": "forward",
+   "pub_lag_months": 1,
+   "anchor_live_last": "2026-07"
+  },
+  "prob": 0.5,
+  "_id": 1513
+ },
+ {
+  "statement": "【forward】Eurostat 西班牙 2026-09 月失业率（%） <= 17.70",
+  "resolve": {
+   "kind": "eurostat_live_unemployment_monthly",
+   "url_template": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/une_rt_m?format=JSON&geo=ES&s_adj=SA&unit=PC_ACT&sex=T&age=TOTAL&lastTimePeriod={last_n}",
+   "geo": "ES",
+   "month": "2026-09",
+   "threshold": 17.7,
+   "cmp": "<=",
+   "field": "官方直连 body.dimension.time.category.index 反查 month → body.value[该索引]（%）"
+  },
+  "meta": {
+   "dom": "11econ",
+   "geo": "ES",
+   "month": "2026-09",
+   "threshold": 17.7,
+   "cutoff": "2026-09-13T02:55:58+08:00",
+   "phase": "forward",
+   "pub_lag_months": 1,
+   "anchor_live_last": "2026-07"
+  },
+  "prob": 0.5,
+  "_id": 1517
+ },
+ {
+  "statement": "【forward】Eurostat 西班牙 2026-10 月失业率（%） <= 16.10",
+  "resolve": {
+   "kind": "eurostat_live_unemployment_monthly",
+   "url_template": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/une_rt_m?format=JSON&geo=ES&s_adj=SA&unit=PC_ACT&sex=T&age=TOTAL&lastTimePeriod={last_n}",
+   "geo": "ES",
+   "month": "2026-10",
+   "threshold": 16.1,
+   "cmp": "<=",
+   "field": "官方直连 body.dimension.time.category.index 反查 month → body.value[该索引]（%）"
+  },
+  "meta": {
+   "dom": "11econ",
+   "geo": "ES",
+   "month": "2026-10",
+   "threshold": 16.1,
+   "cutoff": "2026-09-13T02:55:58+08:00",
+   "phase": "forward",
+   "pub_lag_months": 1,
+   "anchor_live_last": "2026-07"
+  },
+  "prob": 0.5,
+  "_id": 1518
+ }
+]

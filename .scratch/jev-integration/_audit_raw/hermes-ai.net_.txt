@@ -1,0 +1,270 @@
+TITLE: Hermes Agent Docs — Installation, Desktop & Multilingual Guide | hermes-ai.net
+
+hermes-ai.netis an unofficial, independent community guide to Hermes Agent, with localized docs, release notes, desktop notes, and practical setup paths.
+Read docs →
+
+Hermes Agent Docs
+FeaturesDesktopDocsSkillsNewsChangelogGitHub
+
+NewsLight
+EN
+English中文日本語한국어EspañolFrançaisDeutschРусскийItalianoPortuguêsالعربيةहिन्दीTürkçeTiếng ViệtไทยBahasa IndonesiaPolskiNederlandsSvenskaУкраїнська
+
+Get Started→
+
+// Open Source · MIT · Nous Research
+
+The Self-
+Improving AI Agent
+
+Built by Nous Research The only agent with a built-in learning loop — it creates skills from experience, improves them during use, and builds a deepening model of who you are across sessions.
+
+Get Started→Star on GitHub
+
+101K+
+
+GitHub Stars
+
+15+
+
+Messaging Platforms
+
+47
+
+Built-in Tools
+
+6
+
+Terminal Backends
+
+// Capabilities
+
+Why Hermes Agent?
+
+Not a coding copilot. Not a chatbot wrapper. An autonomous agent that gets smarter the longer it runs.
+
+01 — Memory
+
+Self-Improving Learning Loop
+
+Agent-curated memory with periodic nudges, autonomous skill creation, skill self-improvement during use, FTS5 cross-session recall, and Honcho dialectic user modeling.
+
+02 — Reach
+
+15+ Messaging Platforms
+
+Telegram, Discord, Slack, WhatsApp, Signal, Matrix, Mattermost, Email, SMS, DingTalk, Feishu, WeCom, BlueBubbles, Home Assistant — all from one gateway.
+
+03 — Skills
+
+Skills System
+
+Compatible with agentskills.io. Skills are portable, shareable, community-contributed. Procedural memory the agent creates and reuses autonomously.
+
+04 — MCP
+
+MCP Integration
+
+Connect to any MCP server for extended tool capabilities. Filter tools, extend Hermes safely, integrate with the growing MCP ecosystem.
+
+05 — Cron
+
+Scheduled Automations
+
+Built-in cron system with delivery to any platform. Set it and forget it — Hermes handles scheduled tasks autonomously.
+
+06 — Runtime
+
+Runs Anywhere
+
+6 terminal backends: local, Docker, SSH, Daytona, Singularity, Modal. Serverless persistence — hibernates when idle.
+
+// Quickstart
+
+Up and Running in 60 Seconds
+
+# Install on Linux, macOS, or WSL2
+$ curl -fsSLO https://raw.githubusercontent.com/NousResearch/hermes-agent/main/scripts/install.sh
+$ less install.sh
+$ bash install.sh
+
+# Configure your LLM provider
+$ hermes setup
+
+# Start Hermes
+$ hermes
+
+# Start chatting
+> Hello! I'm Hermes, your self-improving AI agent.
+> I learn from every interaction and get better over time.
+
+// i18n
+
+20 Locales · 20 Fully Translated
+
+EN
+
+English
+
+ZH
+
+中文
+
+JA
+
+日本語
+
+KO
+
+한국어
+
+ES
+
+Español
+
+FR
+
+Français
+
+DE
+
+Deutsch
+
+RU
+
+Русский
+
+IT
+
+Italiano
+
+PT
+
+Português
+
+AR
+
+العربية
+
+HI
+
+हिन्दी
+
+TR
+
+Türkçe
+
+VI
+
+Tiếng Việt
+
+TH
+
+ไทย
+
+ID
+
+Bahasa Indonesia
+
+PL
+
+Polski
+
+NL
+
+Nederlands
+
+SV
+
+Svenska
+
+UK
+
+Українська
+
+Ready to Meet Your
+
+Self-Improving Agent?
+
+Install in 60 seconds. Watch it learn. Forever free, forever open source.
+
+Get Started Now→Official Docs ↗
+
+Hermes Agent
+The self-improving AI agent by Nous Research
+
+Documentation
+
+Quick Start
+
+Installation
+
+Features
+
+FAQ
+
+Community
+
+GitHub
+
+Discord
+
+Skills
+
+Jev
+
+News
+
+Changelog
+
+Discussions
+
+Language
+
+English
+
+中文
+
+日本語
+
+한국어
+
+Español
+
+Français
+
+Deutsch
+
+Русский
+
+Italiano
+
+Português
+
+العربية
+
+हिन्दी
+
+Türkçe
+
+Tiếng Việt
+
+ไทย
+
+Bahasa Indonesia
+
+Polski
+
+Nederlands
+
+Svenska
+
+Українська
+
+Disclaimer: hermes-ai.net is an unofficial community site and is not affiliated with Nous Research. Hermes Agent is an MIT-licensed open-source project by Nous Research; names, logos, and code belong to their respective owners.
+
+Hermes Agent resources and docs · Nous Research
+
+hermes-ai.net ·Read docs
+
+MIT License · 2026

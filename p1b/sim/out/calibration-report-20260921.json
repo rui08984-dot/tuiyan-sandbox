@@ -1,7 +1,7 @@
 {
  "script": "p1b/scripts/calibration-report.cjs",
  "title": "分域格校准报告",
- "stage4_file": "E:\\music player\\p1b\\sim\\out\\stage4-run-five-layers-20260921c.json",
+ "stage4_file": "E:\\music player\\p1b\\sim\\out\\stage4-run-five-layers-20260921d.json",
  "g2_file": "E:\\music player\\p1b\\sim\\out\\g2-report-latest-20260917.json",
  "stage4_present": true,
  "g2_present": true,
@@ -392,10 +392,10 @@
   {
    "layer": "L5",
    "domain": "dlt",
-   "scored_n": 0,
+   "scored_n": 8,
    "conclusion_allowed": false,
    "mean_p": null,
-   "obs_rate": null,
+   "obs_rate": 0.375,
    "brier_engine": null,
    "delta_vs_half": null,
    "delta_ci95": null
@@ -418,7 +418,7 @@
    }
   }
  ],
- "generated_at": "2026-09-21T14:27:10.043Z",
+ "generated_at": "2026-09-21T15:34:14.705Z",
  "cells_total": 29,
  "cells_with_conclusion": 10,
  "u8_columns_file": "E:\\music player\\p1b\\sim\\out\\u8-columns-20260920.json",

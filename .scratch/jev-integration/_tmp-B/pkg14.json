@@ -1,0 +1,47 @@
+{
+  "name": "typesafe-ai-benchmark",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Benchmark LLM-native structured output from Qwen 3.8 on Cerebras against TypeSafe Jev.",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=22.15.0 <23",
+    "npm": ">=10 <11"
+  },
+  "packageManager": "npm@10.9.2",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "setup:needle": "node packages/demos/scripts/setup-needle.mjs",
+    "setup:rlcd": "node packages/demos/scripts/setup-rlcd.mjs",
+    "dev": "npm run build -w @decision/api && npm run dev -w @decision/demos",
+    "dev:live": "npm run build -w @decision/api && npm run dev:live -w @decision/demos",
+    "dev:api": "npm run dev -w @decision/api",
+    "start": "npm run start -w @decision/api",
+    "start:demos": "npm run start -w @decision/demos",
+    "typecheck": "npm run typecheck -w @decision/api && npm run build -w @decision/api && npm run typecheck -w @decision/demos",
+    "lint": "eslint . --max-warnings 0",
+    "test": "npm run build -w @decision/api && npm run test --workspaces",
+    "build": "npm run build -w @decision/api && npm run build -w @decision/demos",
+    "check": "npm run typecheck && npm run lint && npm test && npm run build",
+    "examples": "npm run examples -w @decision/api --",
+    "examples:live": "npm run examples:live -w @decision/api --",
+    "benchmark": "npm run benchmark -w @decision/api --",
+    "benchmark:live": "npm run benchmark:live -w @decision/api --",
+    "benchmark:rlcd": "node --import tsx scripts/benchmark-rlcd.mjs",
+    "summarize:rlcd": "node --import tsx scripts/summarize-rlcd.mjs",
+    "showcase": "npm run dev",
+    "showcase:live": "npm run dev:live",
+    "start:demos:live": "npm run start:live -w @decision/demos"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "@types/node": "22.20.3",
+    "eslint": "10.10.0",
+    "tsx": "4.23.13",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.70.0"
+  }
+}

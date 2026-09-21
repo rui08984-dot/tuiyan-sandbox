@@ -1,0 +1,175 @@
+TITLE: 503 Jev AI Projects, SDKs & Tools | bestjev
+
+All projects503About JevGitHub
+
+Categories
+
+Official6SDKs & clients43Frameworks & integrations31Agent tooling120Browser & computer use42Applications57Games & simulations53Demos & playgrounds46Benchmarks & research93Other lists12
+
+Submit & collaborate
+
+SubmitGitHub issueX@heyjunpennEmail[email protected]
+
+Promote your project[email protected]
+
+English
+English简体中文日本語한국어EspañolPortuguês (Brasil)
+
+Best Jev Projects
+
+Search 503 verified repositories across 10 categories and 25 languages.
+
+Last updatedSeptember 20, 2026
+
+All languages
+All languagesCC#CSSDartElixirGoHaskellHTMLJavaJavaScriptJupyter NotebookLuaMakefileMoonBitPHPPowerShellPythonRubyRustScalaShellSwiftTeXTypeScriptZig
+
+/Submit project
+
+All503
+Official6SDKs & clients43Frameworks & integrations31Agent tooling120Browser & computer use42Applications57Games & simulations53Demos & playgrounds46Benchmarks & research93Other lists12
+
+ProjectStarsLanguageDescription
+
+different-ai/openwork
+Agent tooling23,654TypeScript
+Open-source Claude Cowork alternative whose eval testkit can use Jev as a typed verification judge for agent-produced work.
+
+browser-use/jev-ultrafast
+Browser & computer use9,291Python
+Browser Use's ultrafast agent: Jev picks the operation and DOM element in one request; a small LLM only writes text when typing is needed.
+
+vercel/eve
+Frameworks & integrations5,274TypeScript
+Vercel's open agent framework, which ships Jev as the default evaluation model in its experimental evaluate path.
+
+tamaratran/fast-jev-compaction
+Agent tooling4,427TypeScript
+Claude Code plugin that replaces the compaction summary with Jev decisions: every tool call and result is scored in one fast request, stale ones are dropped or truncated, everything kept stays verbatim.
+
+TheoLeeCJ/SemIf
+Benchmarks & research2,023Python
+Semantic ifs from open models, on a 3090 at home. Independent; not affiliated with Jev or TypeSafe.
+
+jarrodwatts/jev-trader
+Applications1,349TypeScript
+One AI trade decision every Monad block. Jev on Kuru MON-USDC.
+
+TianyuCodings/NanoJev
+Benchmarks & research1,074Python
+Open 0.6B Jev replica with parallel decisions, complete probability distributions, training pipeline, weights, dataset, and live demos.
+
+vinnylarouge/jevlike
+Benchmarks & research1,008Python
+Train a small model that chooses among a changing list of text options, one probability per option in a single pass. Includes Doom, chess, and Wikispeedia demos.
+
+vercel-labs/ai-cli
+Frameworks & integrations807TypeScript
+Vercel Labs terminal CLI that can run Jev as the evaluation model for its evaluate command.
+
+typesafe-ai/skills
+Official765—
+Official agent skill for Claude Code, Codex, and compatible agents: primitives, patterns, and how to structure evaluations.
+
+Anil-matcha/awesome-jev-by-typesafe
+Other lists641Python
+Evidence-backed Jev use cases, patterns, prompts, and starter code.
+
+awlevin/typesafe-computer-use
+Browser & computer use537Python
+Computer use for about $0.0002 a step: OCR the screen, classify the next action with TypeSafe, click. macOS.
+
+smithersai/smithers
+Frameworks & integrations417TypeScript
+Agentic TypeScript workflow framework with a Jev session checker wired into its workflows.
+
+yibie/awesome-jev
+Other lists411Python
+A curated list of public projects, integrations, and discussions built on Jev — TypeSafe AI's System One model for typed decisions.
+
+thruwire/foreman
+Agent tooling406Python
+Software Factory Foreman: an agent supervisor that uses Jev decisions to keep coding agents on task.
+
+devagrawal09/jev-review
+Agent tooling366TypeScript
+A staged code-review workflow and local dashboard built with TypeSafe Jev.
+
+No matching projectsTry another keyword or category.
+Show more projects↓
+
+About the catalog
+What is bestjev?
+
+bestjev is an independent, community-maintained directory of open-source projects built around Jev, TypeSafe AI's System One model for typed decisions.
+
+Each listing links to its original repository and records its category, primary language, GitHub star snapshot, and a localized description, helping developers find verifiable Jev SDKs, agents, integrations, applications, research, and tools.
+
+bestjev is not affiliated with or endorsed by TypeSafe AI.
+
+What is Jev?
+
+Jev is TypeSafe AI's System One model for decisions that software needs to consume. Instead of generating free-form prose, it accepts a state and one or more typed questions, then returns structured answers with calibrated probabilities.
+
+It fits workflows where the option space or scoring rubric is known in advance: routing an agent, validating a tool call, ranking candidates, checking a policy, or deciding whether an action should proceed.
+
+Operational advantage
+Applications can set deterministic thresholds, inspect uncertainty, and route low-confidence cases to a person or a larger model.
+
+CHOICE
+Pick one option
+
+Select from a known set and return probabilities with confidence.
+
+SCORE
+Rate on a rubric
+
+Place an input on an ordered scale with a full distribution.
+
+NOUL
+Estimate truth
+
+Return the probability that a statement is true, from zero to one.
+
+How is this catalog verified?
+
+Each entry is checked against public evidence: the upstream repository, project-authored documentation, and visible Jev usage. Stars are a dated discovery snapshot, not a quality ranking.
+
+Curated by heyjunpenn
+
+“Think of Jev as a frontier-intelligence function call: unstructured state in, typed probabilistic decisions out.”— TypeSafe AI, introducing Jev
+
+Which sources does bestjev use?
+
+Official Jev documentation for product concepts and primitives.
+
+Public GitHub repositories for implementation evidence and metadata.
+
+Machine-readable catalog data for reproducible project records.
+
+Contribute
+How to submit a new project
+
+Know a public project that uses Jev? Send us its repository and the evidence needed to verify it. Submissions are reviewed before they appear in the catalog.
+Submit a projectOpens a pre-filled GitHub issue.
+
+01
+
+Share the repository
+
+Provide the public GitHub URL and a concise description of what the project does.
+
+02
+
+Show how it uses Jev
+
+Link to code, documentation, a demo, or another public source that makes the Jev integration verifiable.
+
+03
+
+We review and publish
+
+We verify the evidence, choose the right category, and add accepted projects in a future catalog update.
+
+bestjev / 2026
+About bestjevContact bestjevPrivacy policyTerms of useJev documentation ↗

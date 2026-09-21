@@ -1,0 +1,274 @@
+[
+  {
+    "name": ".gitignore",
+    "path": ".gitignore",
+    "sha": "2991547885b29abbbe1f1fd87c96ca0ded3b7e57",
+    "size": 482,
+    "url": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/contents/.gitignore?ref=main",
+    "html_url": "https://github.com/Heman10x-NGU/Verdict-open-jev/blob/main/.gitignore",
+    "git_url": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/git/blobs/2991547885b29abbbe1f1fd87c96ca0ded3b7e57",
+    "download_url": "https://raw.githubusercontent.com/Heman10x-NGU/Verdict-open-jev/main/.gitignore",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/contents/.gitignore?ref=main",
+      "git": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/git/blobs/2991547885b29abbbe1f1fd87c96ca0ded3b7e57",
+      "html": "https://github.com/Heman10x-NGU/Verdict-open-jev/blob/main/.gitignore"
+    }
+  },
+  {
+    "name": "LICENSE",
+    "path": "LICENSE",
+    "sha": "84d35485d24c8a57b620fbf91ebb61406bee3ee1",
+    "size": 3027,
+    "url": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/contents/LICENSE?ref=main",
+    "html_url": "https://github.com/Heman10x-NGU/Verdict-open-jev/blob/main/LICENSE",
+    "git_url": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/git/blobs/84d35485d24c8a57b620fbf91ebb61406bee3ee1",
+    "download_url": "https://raw.githubusercontent.com/Heman10x-NGU/Verdict-open-jev/main/LICENSE",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/contents/LICENSE?ref=main",
+      "git": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/git/blobs/84d35485d24c8a57b620fbf91ebb61406bee3ee1",
+      "html": "https://github.com/Heman10x-NGU/Verdict-open-jev/blob/main/LICENSE"
+    }
+  },
+  {
+    "name": "README.md",
+    "path": "README.md",
+    "sha": "c6f317aebc9c58f220390abeafe22df1d0c4c7aa",
+    "size": 30689,
+    "url": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/contents/README.md?ref=main",
+    "html_url": "https://github.com/Heman10x-NGU/Verdict-open-jev/blob/main/README.md",
+    "git_url": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/git/blobs/c6f317aebc9c58f220390abeafe22df1d0c4c7aa",
+    "download_url": "https://raw.githubusercontent.com/Heman10x-NGU/Verdict-open-jev/main/README.md",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/contents/README.md?ref=main",
+      "git": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/git/blobs/c6f317aebc9c58f220390abeafe22df1d0c4c7aa",
+      "html": "https://github.com/Heman10x-NGU/Verdict-open-jev/blob/main/README.md"
+    }
+  },
+  {
+    "name": "WALKTHROUGH.md",
+    "path": "WALKTHROUGH.md",
+    "sha": "d544b914bc3be058ae05f5a41bc64d7fb4a7b6d3",
+    "size": 10575,
+    "url": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/contents/WALKTHROUGH.md?ref=main",
+    "html_url": "https://github.com/Heman10x-NGU/Verdict-open-jev/blob/main/WALKTHROUGH.md",
+    "git_url": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/git/blobs/d544b914bc3be058ae05f5a41bc64d7fb4a7b6d3",
+    "download_url": "https://raw.githubusercontent.com/Heman10x-NGU/Verdict-open-jev/main/WALKTHROUGH.md",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/contents/WALKTHROUGH.md?ref=main",
+      "git": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/git/blobs/d544b914bc3be058ae05f5a41bc64d7fb4a7b6d3",
+      "html": "https://github.com/Heman10x-NGU/Verdict-open-jev/blob/main/WALKTHROUGH.md"
+    }
+  },
+  {
+    "name": "artifacts",
+    "path": "artifacts",
+    "sha": "bf31faedd881c535e27434ce3c7280c6de8ceef0",
+    "size": 0,
+    "url": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/contents/artifacts?ref=main",
+    "html_url": "https://github.com/Heman10x-NGU/Verdict-open-jev/tree/main/artifacts",
+    "git_url": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/git/trees/bf31faedd881c535e27434ce3c7280c6de8ceef0",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/contents/artifacts?ref=main",
+      "git": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/git/trees/bf31faedd881c535e27434ce3c7280c6de8ceef0",
+      "html": "https://github.com/Heman10x-NGU/Verdict-open-jev/tree/main/artifacts"
+    }
+  },
+  {
+    "name": "assets",
+    "path": "assets",
+    "sha": "c61b3ae3134ef5f729c95dbcf266a524385a9eb6",
+    "size": 0,
+    "url": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/contents/assets?ref=main",
+    "html_url": "https://github.com/Heman10x-NGU/Verdict-open-jev/tree/main/assets",
+    "git_url": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/git/trees/c61b3ae3134ef5f729c95dbcf266a524385a9eb6",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/contents/assets?ref=main",
+      "git": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/git/trees/c61b3ae3134ef5f729c95dbcf266a524385a9eb6",
+      "html": "https://github.com/Heman10x-NGU/Verdict-open-jev/tree/main/assets"
+    }
+  },
+  {
+    "name": "core",
+    "path": "core",
+    "sha": "7c3e16089ea52cba0b4f63bbff5f8926744936e0",
+    "size": 0,
+    "url": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/contents/core?ref=main",
+    "html_url": "https://github.com/Heman10x-NGU/Verdict-open-jev/tree/main/core",
+    "git_url": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/git/trees/7c3e16089ea52cba0b4f63bbff5f8926744936e0",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/contents/core?ref=main",
+      "git": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/git/trees/7c3e16089ea52cba0b4f63bbff5f8926744936e0",
+      "html": "https://github.com/Heman10x-NGU/Verdict-open-jev/tree/main/core"
+    }
+  },
+  {
+    "name": "data",
+    "path": "data",
+    "sha": "1d2c66b928bf1ee1985143c6a0f5f4d70962c8ff",
+    "size": 0,
+    "url": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/contents/data?ref=main",
+    "html_url": "https://github.com/Heman10x-NGU/Verdict-open-jev/tree/main/data",
+    "git_url": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/git/trees/1d2c66b928bf1ee1985143c6a0f5f4d70962c8ff",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/contents/data?ref=main",
+      "git": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/git/trees/1d2c66b928bf1ee1985143c6a0f5f4d70962c8ff",
+      "html": "https://github.com/Heman10x-NGU/Verdict-open-jev/tree/main/data"
+    }
+  },
+  {
+    "name": "examples",
+    "path": "examples",
+    "sha": "b61f6d2b170290ae7a73e8f860c2d0d776c7a561",
+    "size": 0,
+    "url": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/contents/examples?ref=main",
+    "html_url": "https://github.com/Heman10x-NGU/Verdict-open-jev/tree/main/examples",
+    "git_url": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/git/trees/b61f6d2b170290ae7a73e8f860c2d0d776c7a561",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/contents/examples?ref=main",
+      "git": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/git/trees/b61f6d2b170290ae7a73e8f860c2d0d776c7a561",
+      "html": "https://github.com/Heman10x-NGU/Verdict-open-jev/tree/main/examples"
+    }
+  },
+  {
+    "name": "export",
+    "path": "export",
+    "sha": "171fcdd3c35afeeb4f93e7c5be400358b9b6352c",
+    "size": 0,
+    "url": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/contents/export?ref=main",
+    "html_url": "https://github.com/Heman10x-NGU/Verdict-open-jev/tree/main/export",
+    "git_url": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/git/trees/171fcdd3c35afeeb4f93e7c5be400358b9b6352c",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/contents/export?ref=main",
+      "git": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/git/trees/171fcdd3c35afeeb4f93e7c5be400358b9b6352c",
+      "html": "https://github.com/Heman10x-NGU/Verdict-open-jev/tree/main/export"
+    }
+  },
+  {
+    "name": "openjev",
+    "path": "openjev",
+    "sha": "dea42ed3f26afd82f1105afb1b73782e24376733",
+    "size": 0,
+    "url": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/contents/openjev?ref=main",
+    "html_url": "https://github.com/Heman10x-NGU/Verdict-open-jev/tree/main/openjev",
+    "git_url": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/git/trees/dea42ed3f26afd82f1105afb1b73782e24376733",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/contents/openjev?ref=main",
+      "git": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/git/trees/dea42ed3f26afd82f1105afb1b73782e24376733",
+      "html": "https://github.com/Heman10x-NGU/Verdict-open-jev/tree/main/openjev"
+    }
+  },
+  {
+    "name": "pyproject.toml",
+    "path": "pyproject.toml",
+    "sha": "ac8f453d5f2c1a42282e96282f569947c8381945",
+    "size": 778,
+    "url": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/contents/pyproject.toml?ref=main",
+    "html_url": "https://github.com/Heman10x-NGU/Verdict-open-jev/blob/main/pyproject.toml",
+    "git_url": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/git/blobs/ac8f453d5f2c1a42282e96282f569947c8381945",
+    "download_url": "https://raw.githubusercontent.com/Heman10x-NGU/Verdict-open-jev/main/pyproject.toml",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/contents/pyproject.toml?ref=main",
+      "git": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/git/blobs/ac8f453d5f2c1a42282e96282f569947c8381945",
+      "html": "https://github.com/Heman10x-NGU/Verdict-open-jev/blob/main/pyproject.toml"
+    }
+  },
+  {
+    "name": "reports",
+    "path": "reports",
+    "sha": "3f3fb65c4a19c0a777531b495f46df70f027b392",
+    "size": 0,
+    "url": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/contents/reports?ref=main",
+    "html_url": "https://github.com/Heman10x-NGU/Verdict-open-jev/tree/main/reports",
+    "git_url": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/git/trees/3f3fb65c4a19c0a777531b495f46df70f027b392",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/contents/reports?ref=main",
+      "git": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/git/trees/3f3fb65c4a19c0a777531b495f46df70f027b392",
+      "html": "https://github.com/Heman10x-NGU/Verdict-open-jev/tree/main/reports"
+    }
+  },
+  {
+    "name": "rlcd",
+    "path": "rlcd",
+    "sha": "e2fa20f0e7b804d0afa2c80196afa2452823ce72",
+    "size": 0,
+    "url": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/contents/rlcd?ref=main",
+    "html_url": "https://github.com/Heman10x-NGU/Verdict-open-jev/tree/main/rlcd",
+    "git_url": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/git/trees/e2fa20f0e7b804d0afa2c80196afa2452823ce72",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/contents/rlcd?ref=main",
+      "git": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/git/trees/e2fa20f0e7b804d0afa2c80196afa2452823ce72",
+      "html": "https://github.com/Heman10x-NGU/Verdict-open-jev/tree/main/rlcd"
+    }
+  },
+  {
+    "name": "scripts",
+    "path": "scripts",
+    "sha": "4d0220162b2288134f305f099dbb2ef33c47a201",
+    "size": 0,
+    "url": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/contents/scripts?ref=main",
+    "html_url": "https://github.com/Heman10x-NGU/Verdict-open-jev/tree/main/scripts",
+    "git_url": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/git/trees/4d0220162b2288134f305f099dbb2ef33c47a201",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/contents/scripts?ref=main",
+      "git": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/git/trees/4d0220162b2288134f305f099dbb2ef33c47a201",
+      "html": "https://github.com/Heman10x-NGU/Verdict-open-jev/tree/main/scripts"
+    }
+  },
+  {
+    "name": "tests",
+    "path": "tests",
+    "sha": "46b02c03bce1df7502b2e47fb199511702074aaf",
+    "size": 0,
+    "url": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/contents/tests?ref=main",
+    "html_url": "https://github.com/Heman10x-NGU/Verdict-open-jev/tree/main/tests",
+    "git_url": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/git/trees/46b02c03bce1df7502b2e47fb199511702074aaf",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/contents/tests?ref=main",
+      "git": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/git/trees/46b02c03bce1df7502b2e47fb199511702074aaf",
+      "html": "https://github.com/Heman10x-NGU/Verdict-open-jev/tree/main/tests"
+    }
+  },
+  {
+    "name": "webgpu-demo",
+    "path": "webgpu-demo",
+    "sha": "3e34714e10449c5b0640514b4defdf6452f35c29",
+    "size": 0,
+    "url": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/contents/webgpu-demo?ref=main",
+    "html_url": "https://github.com/Heman10x-NGU/Verdict-open-jev/tree/main/webgpu-demo",
+    "git_url": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/git/trees/3e34714e10449c5b0640514b4defdf6452f35c29",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/contents/webgpu-demo?ref=main",
+      "git": "https://api.github.com/repos/Heman10x-NGU/Verdict-open-jev/git/trees/3e34714e10449c5b0640514b4defdf6452f35c29",
+      "html": "https://github.com/Heman10x-NGU/Verdict-open-jev/tree/main/webgpu-demo"
+    }
+  }
+]

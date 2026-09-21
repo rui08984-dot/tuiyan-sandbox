@@ -1,0 +1,226 @@
+[
+  {
+    "name": ".gitignore",
+    "path": ".gitignore",
+    "sha": "c7e6982c51a08cb1cd491370e4c9d2d1396721c5",
+    "size": 262,
+    "url": "https://api.github.com/repos/rorshopping/jev-on-a-laptop/contents/.gitignore?ref=main",
+    "html_url": "https://github.com/rorshopping/jev-on-a-laptop/blob/main/.gitignore",
+    "git_url": "https://api.github.com/repos/rorshopping/jev-on-a-laptop/git/blobs/c7e6982c51a08cb1cd491370e4c9d2d1396721c5",
+    "download_url": "https://raw.githubusercontent.com/rorshopping/jev-on-a-laptop/main/.gitignore",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/rorshopping/jev-on-a-laptop/contents/.gitignore?ref=main",
+      "git": "https://api.github.com/repos/rorshopping/jev-on-a-laptop/git/blobs/c7e6982c51a08cb1cd491370e4c9d2d1396721c5",
+      "html": "https://github.com/rorshopping/jev-on-a-laptop/blob/main/.gitignore"
+    }
+  },
+  {
+    "name": "LICENSE",
+    "path": "LICENSE",
+    "sha": "0e4c2b1ab46377c67ea5516123efe2b8a129c985",
+    "size": 1289,
+    "url": "https://api.github.com/repos/rorshopping/jev-on-a-laptop/contents/LICENSE?ref=main",
+    "html_url": "https://github.com/rorshopping/jev-on-a-laptop/blob/main/LICENSE",
+    "git_url": "https://api.github.com/repos/rorshopping/jev-on-a-laptop/git/blobs/0e4c2b1ab46377c67ea5516123efe2b8a129c985",
+    "download_url": "https://raw.githubusercontent.com/rorshopping/jev-on-a-laptop/main/LICENSE",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/rorshopping/jev-on-a-laptop/contents/LICENSE?ref=main",
+      "git": "https://api.github.com/repos/rorshopping/jev-on-a-laptop/git/blobs/0e4c2b1ab46377c67ea5516123efe2b8a129c985",
+      "html": "https://github.com/rorshopping/jev-on-a-laptop/blob/main/LICENSE"
+    }
+  },
+  {
+    "name": "README.md",
+    "path": "README.md",
+    "sha": "81e81888eca1b613921da725631741972c0cdcd3",
+    "size": 9345,
+    "url": "https://api.github.com/repos/rorshopping/jev-on-a-laptop/contents/README.md?ref=main",
+    "html_url": "https://github.com/rorshopping/jev-on-a-laptop/blob/main/README.md",
+    "git_url": "https://api.github.com/repos/rorshopping/jev-on-a-laptop/git/blobs/81e81888eca1b613921da725631741972c0cdcd3",
+    "download_url": "https://raw.githubusercontent.com/rorshopping/jev-on-a-laptop/main/README.md",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/rorshopping/jev-on-a-laptop/contents/README.md?ref=main",
+      "git": "https://api.github.com/repos/rorshopping/jev-on-a-laptop/git/blobs/81e81888eca1b613921da725631741972c0cdcd3",
+      "html": "https://github.com/rorshopping/jev-on-a-laptop/blob/main/README.md"
+    }
+  },
+  {
+    "name": "ROADMAP.md",
+    "path": "ROADMAP.md",
+    "sha": "50bd7b90706890e14fc8856fb033b82897c4aeab",
+    "size": 13265,
+    "url": "https://api.github.com/repos/rorshopping/jev-on-a-laptop/contents/ROADMAP.md?ref=main",
+    "html_url": "https://github.com/rorshopping/jev-on-a-laptop/blob/main/ROADMAP.md",
+    "git_url": "https://api.github.com/repos/rorshopping/jev-on-a-laptop/git/blobs/50bd7b90706890e14fc8856fb033b82897c4aeab",
+    "download_url": "https://raw.githubusercontent.com/rorshopping/jev-on-a-laptop/main/ROADMAP.md",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/rorshopping/jev-on-a-laptop/contents/ROADMAP.md?ref=main",
+      "git": "https://api.github.com/repos/rorshopping/jev-on-a-laptop/git/blobs/50bd7b90706890e14fc8856fb033b82897c4aeab",
+      "html": "https://github.com/rorshopping/jev-on-a-laptop/blob/main/ROADMAP.md"
+    }
+  },
+  {
+    "name": "docs",
+    "path": "docs",
+    "sha": "b76d55f9198d4e4efe915ea025eee71c96382470",
+    "size": 0,
+    "url": "https://api.github.com/repos/rorshopping/jev-on-a-laptop/contents/docs?ref=main",
+    "html_url": "https://github.com/rorshopping/jev-on-a-laptop/tree/main/docs",
+    "git_url": "https://api.github.com/repos/rorshopping/jev-on-a-laptop/git/trees/b76d55f9198d4e4efe915ea025eee71c96382470",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/rorshopping/jev-on-a-laptop/contents/docs?ref=main",
+      "git": "https://api.github.com/repos/rorshopping/jev-on-a-laptop/git/trees/b76d55f9198d4e4efe915ea025eee71c96382470",
+      "html": "https://github.com/rorshopping/jev-on-a-laptop/tree/main/docs"
+    }
+  },
+  {
+    "name": "evals",
+    "path": "evals",
+    "sha": "e8c8c4576283133d4f973780a750d46ad8b674af",
+    "size": 0,
+    "url": "https://api.github.com/repos/rorshopping/jev-on-a-laptop/contents/evals?ref=main",
+    "html_url": "https://github.com/rorshopping/jev-on-a-laptop/tree/main/evals",
+    "git_url": "https://api.github.com/repos/rorshopping/jev-on-a-laptop/git/trees/e8c8c4576283133d4f973780a750d46ad8b674af",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/rorshopping/jev-on-a-laptop/contents/evals?ref=main",
+      "git": "https://api.github.com/repos/rorshopping/jev-on-a-laptop/git/trees/e8c8c4576283133d4f973780a750d46ad8b674af",
+      "html": "https://github.com/rorshopping/jev-on-a-laptop/tree/main/evals"
+    }
+  },
+  {
+    "name": "hf-space-static",
+    "path": "hf-space-static",
+    "sha": "56e9249233bf3aa0a810eb3861cfb69db007e4da",
+    "size": 0,
+    "url": "https://api.github.com/repos/rorshopping/jev-on-a-laptop/contents/hf-space-static?ref=main",
+    "html_url": "https://github.com/rorshopping/jev-on-a-laptop/tree/main/hf-space-static",
+    "git_url": "https://api.github.com/repos/rorshopping/jev-on-a-laptop/git/trees/56e9249233bf3aa0a810eb3861cfb69db007e4da",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/rorshopping/jev-on-a-laptop/contents/hf-space-static?ref=main",
+      "git": "https://api.github.com/repos/rorshopping/jev-on-a-laptop/git/trees/56e9249233bf3aa0a810eb3861cfb69db007e4da",
+      "html": "https://github.com/rorshopping/jev-on-a-laptop/tree/main/hf-space-static"
+    }
+  },
+  {
+    "name": "hf-space",
+    "path": "hf-space",
+    "sha": "6ba8a619d670a2110a30cd3269aa589f3d33aa41",
+    "size": 0,
+    "url": "https://api.github.com/repos/rorshopping/jev-on-a-laptop/contents/hf-space?ref=main",
+    "html_url": "https://github.com/rorshopping/jev-on-a-laptop/tree/main/hf-space",
+    "git_url": "https://api.github.com/repos/rorshopping/jev-on-a-laptop/git/trees/6ba8a619d670a2110a30cd3269aa589f3d33aa41",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/rorshopping/jev-on-a-laptop/contents/hf-space?ref=main",
+      "git": "https://api.github.com/repos/rorshopping/jev-on-a-laptop/git/trees/6ba8a619d670a2110a30cd3269aa589f3d33aa41",
+      "html": "https://github.com/rorshopping/jev-on-a-laptop/tree/main/hf-space"
+    }
+  },
+  {
+    "name": "quality-eval",
+    "path": "quality-eval",
+    "sha": "507fd51ec310d21b5c1921c89e1daa20f28ee51d",
+    "size": 0,
+    "url": "https://api.github.com/repos/rorshopping/jev-on-a-laptop/contents/quality-eval?ref=main",
+    "html_url": "https://github.com/rorshopping/jev-on-a-laptop/tree/main/quality-eval",
+    "git_url": "https://api.github.com/repos/rorshopping/jev-on-a-laptop/git/trees/507fd51ec310d21b5c1921c89e1daa20f28ee51d",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/rorshopping/jev-on-a-laptop/contents/quality-eval?ref=main",
+      "git": "https://api.github.com/repos/rorshopping/jev-on-a-laptop/git/trees/507fd51ec310d21b5c1921c89e1daa20f28ee51d",
+      "html": "https://github.com/rorshopping/jev-on-a-laptop/tree/main/quality-eval"
+    }
+  },
+  {
+    "name": "results",
+    "path": "results",
+    "sha": "4c530f07230234284839990ce69c78c441db0f9e",
+    "size": 0,
+    "url": "https://api.github.com/repos/rorshopping/jev-on-a-laptop/contents/results?ref=main",
+    "html_url": "https://github.com/rorshopping/jev-on-a-laptop/tree/main/results",
+    "git_url": "https://api.github.com/repos/rorshopping/jev-on-a-laptop/git/trees/4c530f07230234284839990ce69c78c441db0f9e",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/rorshopping/jev-on-a-laptop/contents/results?ref=main",
+      "git": "https://api.github.com/repos/rorshopping/jev-on-a-laptop/git/trees/4c530f07230234284839990ce69c78c441db0f9e",
+      "html": "https://github.com/rorshopping/jev-on-a-laptop/tree/main/results"
+    }
+  },
+  {
+    "name": "run_benchmark.sh",
+    "path": "run_benchmark.sh",
+    "sha": "45763eb729939c4318f638753a168b70157f7f6a",
+    "size": 351,
+    "url": "https://api.github.com/repos/rorshopping/jev-on-a-laptop/contents/run_benchmark.sh?ref=main",
+    "html_url": "https://github.com/rorshopping/jev-on-a-laptop/blob/main/run_benchmark.sh",
+    "git_url": "https://api.github.com/repos/rorshopping/jev-on-a-laptop/git/blobs/45763eb729939c4318f638753a168b70157f7f6a",
+    "download_url": "https://raw.githubusercontent.com/rorshopping/jev-on-a-laptop/main/run_benchmark.sh",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/rorshopping/jev-on-a-laptop/contents/run_benchmark.sh?ref=main",
+      "git": "https://api.github.com/repos/rorshopping/jev-on-a-laptop/git/blobs/45763eb729939c4318f638753a168b70157f7f6a",
+      "html": "https://github.com/rorshopping/jev-on-a-laptop/blob/main/run_benchmark.sh"
+    }
+  },
+  {
+    "name": "setup.sh",
+    "path": "setup.sh",
+    "sha": "927149074c4d468f81ad00de2457cde6759dcdae",
+    "size": 1310,
+    "url": "https://api.github.com/repos/rorshopping/jev-on-a-laptop/contents/setup.sh?ref=main",
+    "html_url": "https://github.com/rorshopping/jev-on-a-laptop/blob/main/setup.sh",
+    "git_url": "https://api.github.com/repos/rorshopping/jev-on-a-laptop/git/blobs/927149074c4d468f81ad00de2457cde6759dcdae",
+    "download_url": "https://raw.githubusercontent.com/rorshopping/jev-on-a-laptop/main/setup.sh",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/rorshopping/jev-on-a-laptop/contents/setup.sh?ref=main",
+      "git": "https://api.github.com/repos/rorshopping/jev-on-a-laptop/git/blobs/927149074c4d468f81ad00de2457cde6759dcdae",
+      "html": "https://github.com/rorshopping/jev-on-a-laptop/blob/main/setup.sh"
+    }
+  },
+  {
+    "name": "tools",
+    "path": "tools",
+    "sha": "19c26afecaca9ae2037e8be7cfdb315870e90200",
+    "size": 0,
+    "url": "https://api.github.com/repos/rorshopping/jev-on-a-laptop/contents/tools?ref=main",
+    "html_url": "https://github.com/rorshopping/jev-on-a-laptop/tree/main/tools",
+    "git_url": "https://api.github.com/repos/rorshopping/jev-on-a-laptop/git/trees/19c26afecaca9ae2037e8be7cfdb315870e90200",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/rorshopping/jev-on-a-laptop/contents/tools?ref=main",
+      "git": "https://api.github.com/repos/rorshopping/jev-on-a-laptop/git/trees/19c26afecaca9ae2037e8be7cfdb315870e90200",
+      "html": "https://github.com/rorshopping/jev-on-a-laptop/tree/main/tools"
+    }
+  },
+  {
+    "name": "x-posts",
+    "path": "x-posts",
+    "sha": "7278df1dba0c8190b867e56075f2d21c39f5cfdd",
+    "size": 0,
+    "url": "https://api.github.com/repos/rorshopping/jev-on-a-laptop/contents/x-posts?ref=main",
+    "html_url": "https://github.com/rorshopping/jev-on-a-laptop/tree/main/x-posts",
+    "git_url": "https://api.github.com/repos/rorshopping/jev-on-a-laptop/git/trees/7278df1dba0c8190b867e56075f2d21c39f5cfdd",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/rorshopping/jev-on-a-laptop/contents/x-posts?ref=main",
+      "git": "https://api.github.com/repos/rorshopping/jev-on-a-laptop/git/trees/7278df1dba0c8190b867e56075f2d21c39f5cfdd",
+      "html": "https://github.com/rorshopping/jev-on-a-laptop/tree/main/x-posts"
+    }
+  }
+]

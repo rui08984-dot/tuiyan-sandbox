@@ -1,0 +1,9015 @@
+TITLE: What Are People Building with Jev? 499 Real Use Cases
+
+hermes-ai.netis an unofficial, independent community guide to Hermes Agent, with localized docs, release notes, desktop notes, and practical setup paths.
+Read docs →
+
+Hermes Agent Docs
+FeaturesDesktopDocsSkillsNewsChangelogGitHub
+
+NewsLight
+EN
+English中文日本語한국어EspañolFrançaisDeutschРусскийItalianoPortuguêsالعربيةहिन्दीTürkçeTiếng ViệtไทยBahasa IndonesiaPolskiNederlandsSvenskaУкраїнська
+
+Get Started→
+
+Independent community field notes
+
+What are people building with Jev?
+
+A source-linked collection of public experiments showing how people use Jev for fast, typed decisions—from browser loops and agent routing to classification, coding and research.
+
+Browse the case library ↓
+
+499cases
+
+7Use-case groups
+
+Jev, in one paragraph
+
+Jev is TypeSafe AI’s System One model for structured decisions rather than long-form generation. Builders commonly pair its Choice, Score and Noul-style judgments with deterministic code or a larger generative model.
+
+Browse the case library
+
+24 of 499 cases
+
+Search cases, authors or use cases…
+
+All · 499Automation · 99Coding · 109Research · 41Creative & media · 35Commerce · 31Data & evaluation · 10Other · 174
+
+Video / Open case →
+
+Matthew Berman
+
+@TheMattBerman
+
+Commerce
+
+jev is INSANE.
+
+in 40 seconds it broke down 724 live ads from 37 brands.
+
+every hook. every format. offer. cta. awareness stage. landing page mismatch. used 9 cents of tokens.
+(will be avail in @stealads + mcp) https://t.co/II1T9hy5tg
+
+63.5万 views · 5.5k likes · 7.5k saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Sarvagya Kulshreshtha
+
+@sarvagya_kul
+
+Data & evaluation
+
+JEV is INSANE.
+
+We gave it 400 companies and one candidate profile.
+
+In 12 seconds, it predicted which jobs the candidate had the highest chance of getting, assigned a confidence score and detected job-candidate mismatches.
+
+All for just $0.0005 It can also score companies, analyse your experience, match you with the right roles and identify the opportunities you’re most likely to get based on your profile.
+
+Coming soon to @textbackdoor
+
+Comment “JEV” for early access.
+
+3.7万 views · 553 likes · 543 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Max Blade
+
+@_MaxBlade
+
+Other
+
+jev is insane 🤯
+
+Here is Jev playing subway surfers at super human speed, and also playing 50 games at once.
+
+cost less than a cent to do this run.
+
+Jev does not replace llms like astra or fable, but opens up an entirely new world of capabilities. https://t.co/T9QrLKmUcG
+
+24.3万 views · 3.4k likes · 1.6k saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Moritz Kremb
+
+@moritzkremb
+
+Automation
+
+whoa this actually worked! Jev lets me control my browser in real time with my voice now
+
+> i talk
+> transcript sent to Jev
+> jev returns probabilities in ~300ms
+> browser clicks
+
+costs: $0.0002 per decision
+
+i'm stunned how fast this is. when i asked it to "go back", it even finished the request before i finished my sentence 😂
+
+25.8万 views · 3.3k likes · 2.5k saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Tony Dinh
+
+@tdinh_me
+
+Creative & media
+
+Just trying out Jev, I made a Chrome extension that:
+
+- Listens to your YouTube audio (optional)
+- Detects if it gets to a sponsor segment
+- Skips it ➡️➡️➡️
+- All in real-time while costing ~$0.005 per video
+
+Prototype project, BYOK, open-source:
+
+https://t.co/g4sPXR5kML https://t.co/nH6c1LhU3C
+
+5.5万 views · 897 likes · 589 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Sydney Runkle
+
+@sydneyrunkle
+
+Research
+
+instead of generating text, jev from @typesafeai generates structured output
+
+this makes it great for classification tasks like model routing, tool selection/search, and guardrails of many forms!
+
+it's also ridiculously fast and cheap compared to LLMs doing the same tasks https://t.co/59a8PxBuQ6
+
+1.6万 views · 95 likes · 68 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Vinny
+
+@hot_town
+
+Other
+
+Jev is here.
+
+- how is different from an LLM?
+- how does it work under-the-hood?
+- what are some real life examples?
+- when should I use it?
+
+I answer all that below: https://t.co/HLfPVp51h6
+
+4.7万 views · 899 likes · 994 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+atomic.chat
+
+@atomic_chat_hq
+
+Other
+
+Jev v1.13 dodges rockets with probability calculation 🚀
+
+@typesafeai's new non-LLM model returns decisions instead of text so we had it calculate a safe tile every 330 ms while rockets fell and it survived 25 of 26 for under a cent
+
+Run Jev via API -> https://t.co/RbcCOIgVkj https://t.co/f2VmOEPFnO
+
+5.1万 views · 503 likes · 263 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Paolo Rosson
+
+@redp314
+
+Other
+
+I got a rubik's cube to solve itself with @typesafeai 's Jev and it solves it like a person does, 94 moves, not the 22 move optimal solution.
+
+Jev isn't an LLM, it just answers one question in ~250ms with a probability. so I put the beginner method in code (the one you'd learn on youtube: white cross, corners, middle layer, yellow layer) and at every step Jev just looks at the cube and picks which case it's in. code checks every pick.
+
+~4 seconds of model time total. video is slowed down so you can read it!
+
+20.2万 views · 692 likes · 299 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Haoran | 公众号：独立开发
+
+@hr98w
+
+Other
+
+视觉版 Jev 来了
+
+https://t.co/x0kzeE3hdx
+
+仿照着社区的思路，把候选结果映射成固定标签，prefill 完直接采样，限制输出 token，采用多模态的 qwen-3.5-0.8B 4bit 量化部署在本地，16g m4 mbp 顺利运行
+
+叠甲：这只是在 infer 层小小的复现一下 jev 的形式，肯定不如各种成熟推理框架效率高，也肯定不是 jev 的正在原理，但是作为 inference 的小入门仍旧是不错的
+
+demo 如下 200ms 实现《三色货品分拣》
+
+2.9万 views · 293 likes · 330 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Kai
+
+@hqmank
+
+Research
+
+I rebuilt my job crawler with Jev.
+
+The task: start at a company's official homepage, find Careers, and identify jobs that match my profile.
+
+Before, with an LLM: ~5 minutes.
+After, with Jev: just over 20 seconds in my test.
+
+Every company organizes its website differently. Jev identifies the Careers entry point, chooses which links to follow, recognizes job pages, and scores each role against my profile.
+
+This is where Jev makes sense to me: automation that needs lots of small decisions, with faster responses and lower costs than calling an LLM at each step.
+
+Packaged it as a skill: jev-job-hunter. Demo below.
+
+1.4万 views · 35 likes · 45 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Remek Kinas
+
+@KinasRemek
+
+Coding
+
+jav @typesafeai - jestem pod wrażeniem 🤩 Cool. Napisałem kolejne demo. Myślę, że teraz to widać potęgę modelu ... i o co chodzi i widać prawdziwą wartość biznesową.
+
+Akt I - X-ray: „jedno zapytanie, wszystkie pytania naraz" - dla przykładowej, krótkiej notatki prasowej to 67 osądów w ~1 s za $0.0002; dla dłuższego RAPORTU może być i 145 osądów w 1,5 s za $0.0005. Skoro nie ma tokenów wyjściowych, to dorzucenie kolejnego pytania kosztuje tylko tokeny samego pytania. Zobaczcie jak można dynamicznie klasyfikować i jednocześnie pytać o wiele wymiarów. Akt I odpowiada na pytanie „ile" osądów naraz i za ile. 🥳😍😍😍
+
+Akt II - Firehose: „AI jako zależność w pętli czasu rzeczywistego" - podłączyłem się do publicznego strumienia SSE Wikimedia (stream_wikimedia_org). Filtruję: angielska Wikipedia, przestrzeń główna, człowiek (nie bot). Dla każdej pobieram prawdziwy diff przez REST compare, który zwraca strukturę zamiast HTML-a. Potem 8 pytań o tę edycję: wandalizm, spam promocyjny, atak na osobę, edycja testowa, usuwanie treści, twierdzenie bez źródła, Score „ile szkody" (0–3) i Choice „co zrobić". 71 edycji w 75 sekund, 1,0 decyzji/s, mediana 306 ms, $0,19 za godzinę oceniania całej Wikipedii. Rozkład: 49 zostaw / 20 do człowieka / 2 cofnij. Akt II to „gdzie", że to może siedzieć w pętli czasu rzeczywistego, w rdzeniu systemu.
+
+Akt III - autonomia. TypeSafe nie publikuje benchmarków „poziomu inteligencji". Publikuje prędkość i cenę, czyli dokładnie to, co i tak łatwo zweryfikować. Czy zatem model wie, kiedy ma rację zostaje do zmierzenia użytkownikowi. No to zmierzyłem. 300 zapytań do asystenta głosowego, 150 możliwych intencji, a jedna piąta z nich prosi o coś, czego asystent w ogóle nie obsługuje. Jeden przebieg.
+Przy progu 0.90 z dodatkowym pytaniem o zakres:
+- 62% ruchu obsługuje się samo, bez człowieka
+- 99% z tego jest poprawne -> konkretnie 2 błędne odpowiedzi na 186
+- 100% zapytań spoza zakresu zatrzymanych
+- pozostałe 114 ląduje w kolejce do człowieka
+
+Wykres po prawej jest ważniejszy niż te liczby. Oś X jakie prawdopodobieństwo model zadeklarował. Oś Y jak często faktycznie miał rację. Przekątna to uczciwość. Gdy mówił 0.99 trafiał w 99%. Rzecz, o której się nie mówi: sama pewność NIE wyłapuje zapytań spoza zakresu. Choice jest relatywny zawsze musi kogoś wskazać, więc wysoka pewność znaczy „ta opcja wygrała z resztą", a nie „ta opcja jest dobra". Dane: CLINC150, publiczny zbiór. Całość: ~20 sekund i 4 centy.
+
+Akt III na „czy można na tym polegać" i jak to działa (pomiar jakości).
+
+6.7k views · 84 likes · 83 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Misbah Syed
+
+@MisbahSy
+
+Research
+
+Doc-OCR router using Jev @typesafeai
+
+A Jev-powered router that looks at a PDF page by page, decides which pages actually need OCR, extracts the rest locally.
+
+Result: save cost on # OCR pages + speed https://t.co/ZjXqHSjSGh
+
+3.3k views · 66 likes · 88 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Jon Yongfook
+
+@yongfook
+
+Coding
+
+First Jev use case published live on Bannerbear!
+
+Instant field mapping between template and source, when names are slightly different eg
+
+template
+- photo
+- name
+- company_name
+
+data source (eg Airtable)
+- avatar
+- full_name
+- business
+
+Jev figures it out in one click. https://t.co/2fxRQJ2qEh
+
+1.2万 views · 118 likes · 94 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Niaz Morshed
+
+@niazmorshed_
+
+Coding
+
+built `jev-review` @typesafeai
+
+it's an experimental, local-first MCP plugin that gives coding agents a score quality feedback loop across different metrics.
+
+agents call jev while they work, get scored, make improvements, and repeat the loop
+
+try below 👇 https://t.co/qHP5JSUSvw
+
+4.4万 views · 490 likes · 568 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+EP
+
+@eptwts
+
+Creative & media
+
+i used Jev to classify a youtubers last 100 videos based on how likely it is to sell me something...
+
+it analyzed & assigned a sales intent score to each video within 12 seconds & cost about $0.02
+
+i haven't done a deep dive into how accurate the score is yet, but from a quick glance it looks like a super promising classifier model
+
+1.2万 views · 183 likes · 152 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Bewinxed
+
+@Bewinxed
+
+Research
+
+I made @typesafeai 's new ultra fast model, Jev, generate text, even though it shouldn't, that's fine because I can't read, and it can't write**
+
+** up to 20 words for 0.5$, what a steal https://t.co/fWmGQhefTw
+
+6.1万 views · 284 likes · 132 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Raghav
+
+@RaghavPunnam
+
+Other
+
+For those trying to understand the difference between Jev and LLMs + how to use it https://t.co/55o5WEq3Va
+
+6.1万 views · 575 likes · 673 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Vlad Terin
+
+@VladTerin
+
+Coding
+
+I talk. Codex clicks. Watch the browser go⚡
+This video is 1× !!! speed.
+Built Jev Browser: an open-source adapter for your existing Codex browser tools. Say the task naturally; Codex plans, Jev selects, the browser moves.
+@sama @OpenAI make this native? @DarioAmodei @hackgoofer https://t.co/xzvUPFBbGa
+
+5.7万 views · 103 likes · 144 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Chizi
+
+@chiziaruhoma
+
+Other
+
+I gave an evolution simulation to Jev, a small model from @typesafeai that answers typed questions with odds instead of writing text.
+
+Two species with opposite DNA. 14 generations. An ice age. 432 creatures.
+
+Jev decided who survived, who mated, and what killed each one. https://t.co/Law8fyfy6d
+
+3.1k views · 73 likes · 26 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+joogie
+
+@princecaarlo
+
+Automation
+
+okay so browser use is a legitimate use case
+
+agent-browser <> Jev loop
+
+goal: wiki race from 'Coffee' to 'Artificial Intelligence' https://t.co/565VqWYgoJ
+
+1.9万 views · 191 likes · 137 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Aria
+
+@Entelic_Aria
+
+Automation
+
+Every model wants the job.
+The fast one says, “I’ve got this.”
+The reasoning model asks for more context.
+The safety model says, “Absolutely not.”
+Jev steps in and sends each task where it belongs.
+Jev decisions cost $0.04 per 1M input tokens on Aria — with no markup. @CompleteSkeptic
+The right task. The right model. The right decision.
+
+3.1k views · 21 likes · 0 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Yuntian Deng
+
+@yuntiandeng
+
+Coding
+
+I increasingly think future software will combine code for control flow with small neural programs for "fuzzy" judgments.
+
+That's what I've been exploring with ProgramAsWeights, which answers the question of where those neural programs come from: they are "compiled" from English descriptions.
+
+For example, I combined 30 neural programs with a decision tree to build a course website helper that looks like a chatbot but runs locally. Each small program handles a question like "Which specialist answerer should this be routed to", and code controls the overall flow.
+
+You can try building with it here:
+https://t.co/Bwgcn362bc
+
+1.3万 views · 171 likes · 140 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Sam Enoka
+
+@maybe_im_sam
+
+Other
+
+Woke up with early access to @typesafeai and was super excited to try. Got a demo cooking before work this morning where typesafe drives an AI co-op partner in my @threejs action game. Can see the log on the right tracking the AI decision making in realtime.
+
+Typesafe is reading game state and choosing intent for the bot: When to engage, regroup, survive, or escape.
+
+Obviously a bit primitive right now but this is like ~1hr worth of work. I need to run to work, but holy shit super excited to build on this 😄
+
+The total spend for about 10mins play testing this morning was about $0.02. Let's fucking go 😂
+
+6.0k views · 27 likes · 8 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+tamara
+
+@tamarajtran
+
+Other
+
+found the perfect use case for @typesafeai Jev:
+
+instant compaction
+
+in 2026, why is compaction still a summarization prompt?
+
+Jev can make it instant by scoring every tool call and dropping what’s irrelevant https://t.co/h6NzKzNpCg
+
+265.9万 views · 9.2k likes · 6.8k saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Romàn
+
+@romanbuildsaas
+
+Commerce
+
+JEV is INSANE.
+
+We gave it 700 high-intent leads and personalised outreach messages.
+
+In 40 seconds, it predicted how each message would perform, assigned a confidence score and detected lead-message mismatches.
+
+All for just $0.09.
+
+JEV can also score leads, analyse buying signals, match each prospect with the best message and identify the campaigns most likely to perform based on data.
+
+Coming soon to @GojiberryAI+ MCP.
+
+Comment “JEV” for early access.
+
+22.8万 views · 2.1k likes · 2.7k saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Rafal Wilinski
+
+@rafalwilinski
+
+Automation
+
+thanks to @typesafeai's Jev we now have massively parallel browser-based adversarial testing suite that tries to break each release.
+
+and it costs pennies. https://t.co/WoIlqGjjNB
+
+17.8万 views · 3.6k likes · 2.8k saves
+
+Open case →X ↗
+
+Video / Open case →
+
+OpenRouter
+
+@OpenRouter
+
+Coding
+
+Jev by @typesafeai is now on OpenRouter, in beta.
+
+Jev is a System One model. Instead of generating text, it takes your app's state plus a typed question and returns a typed decision with a probability attached. There is no JSON prompting, parsing layer, and nothing to validate against.
+
+41.5万 views · 3.1k likes · 1.4k saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Nakshatra Saxena
+
+@nedwize
+
+Research
+
+Built a tax document classifier with Jev.
+
+We ingest thousands of tax documents using an LLM pipeline I built last tax season.
+
+I read multiple articles as late as April this year claiming AI fails at tax document classification. Wasn't the case back then, and it's proved wrong again now.
+
+Jev classifies 100% of our tax document corpus at $0.001 per page.
+
+34x cheaper and 6x faster than the LLM setup.
+
+Open sourcing it: https://t.co/gInVHudFRn
+
+4.9万 views · 903 likes · 983 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Sac
+
+@Saccc_c
+
+Coding
+
+卧槽，居然真有比Codex内置computer use更快的操作电脑的方式
+
+我尝试用Codex+Jev打造了一个加强版computer use，我称之为「Jev Use」。比内置的更快更丝滑，token消耗却差不多
+
+下面是我用「添加Mac日历事件」做了一个对比视频，同样的内容，明显可以看到Jev版本整体过程几乎无任何停顿😆 https://t.co/UCpLInByeE
+
+14.5万 views · 819 likes · 1.0k saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Alex
+
+@The_Alex
+
+Other
+
+I trust Jev with my life https://t.co/GN3KpzrvRC
+
+96.1万 views · 4.5k likes · 879 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Mau Baron
+
+@maubaron
+
+Automation
+
+jev is insane 🤯
+
+here is jev playing smash bros against itself
+he is controlling all 4 different characters.
+
+and literally deciding whats the best
+move to play against itself
+
+all within a fraction of a second
+
+i used over 22 million tokens to play this match
+and it only cost me a couple of cents...
+
+jev does not replace gpt6 astra
+but the possibilities with its instant response time
+
+are endless
+
+18.7万 views · 2.4k likes · 1.1k saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Marcel Pociot 🧪
+
+@marcelpociot
+
+Coding
+
+Jev unlocks SO many awesome new ideas.
+
+I built a macOS app that monitors my Downloads folder along with a customisable set of rules.
+
+Is the downloaded file an invoice? Move it to a special folder with the correct filename.
+
+No other LLM calls involved - just Jev! https://t.co/iCiIJ9RvlB
+
+7.8万 views · 766 likes · 607 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Stav Zilbershtein
+
+@mightyking
+
+Research
+
+JEV is insane for competitor research!
+
+We gave it Resilia's ad library
+
+It classified 1,891 ads in 19 seconds for $0.12
+
+costumer journey step + Ad style
+
+And a complete deep analysis of the account
+
+Coming soon to maxfusion MCP https://t.co/tRfDerHGBs
+
+15.6万 views · 165 likes · 159 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Gregor Zunic
+
+@gregpr07
+
+Research
+
+Breaking: Browser Use + Jev = Ultrafast ⚡
+
+Findings flights took 7s and cost only $0.0039 🤯
+
+> new action space every step
+> DOM state space
+> small LLM fallback to type
+
+(this video is at 1x speed btw)
+
+Built a tiny open source browser agent. try it below ↓ https://t.co/AplCBRYC5o
+
+248.9万 views · 8.2k likes · 8.9k saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Moritz Kremb
+
+@moritzkremb
+
+Coding
+
+Full Jev Tutorial
+
+What it is, how you can build with it and what new applications it can unlock
+
+→ 0:00 Intro
+→ 0:34 Jev explained
+→ 4:06 API setup
+→ 5:59 Demo 1: Voice-controlled browser
+→ 11:33 Demo 2: AI memory
+→ 17:27 Demo 3: YouTube predictor https://t.co/V7iK3jZTLZ
+
+11.0万 views · 1.9k likes · 3.5k saves
+
+Open case →X ↗
+
+Video / Open case →
+
+nader dabit
+
+@dabit3
+
+Research
+
+Another crazy @typesafeai Jev example:
+
+Predictive spreadsheets
+
+Spreadsheets recalculate numbers, not meaning. Jev reads intent.
+
+Type "Urgency" at the top of a column and, as you type, it figures out you want each row rated from "no follow-up needed" to "urgent" in ~100 ms. https://t.co/M6REgq4Q8S
+
+15.8万 views · 982 likes · 733 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Rob Hallam
+
+@robj3d3
+
+Other
+
+Jev + SuperX = virality solved ✅
+
+Every post gets 61 questions in ~1s for $0.0004 🤯
+
+> fitted on 9,481 real posts from 207 creators
+> picks the viral post 2 in 3 times
+> never rewards reply bait
+
+So: write, score, rewrite, stop when it peaks.
+
+Free, no signup. try it below ↓ https://t.co/57KJBgkoiv
+
+17.0万 views · 1.1k likes · 1.7k saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Virat Singh
+
+@virattt
+
+Other
+
+I added Jev to the AI Hedge Fund.
+
+We now get frontier-level trading decisions, 100x faster and cheaper than an LLM.
+
+How it works:
+1 • set strategy
+2 • pick tickers
+3 • backtest with Jev
+
+System now runs in seconds, not minutes.
+
+3.0万 views · 438 likes · 535 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Max Blade
+
+@_MaxBlade
+
+Automation
+
+Ai is evolving.
+
+Jev can be armed at all times.
+
+I can speak freely and it knows ( from probabilities ) if im asking my computer to do something or blaberring away at something else.
+
+no wake word.
+
+speed + affordability + intelligence is getting to the point where an always on ambient jarvis style assistant is possible.
+
+Im loving where we are going.
+
+CNVS is still the future of vibecoding.
+
+2.2万 views · 560 likes · 427 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Paolo Rosson
+
+@redp314
+
+Creative & media
+
+got Jev to review my PRs. ~200x cheaper than Claude and it answers in half a second
+
+6 real PRs in the video. $0.00007 each. 1,000 PRs = 7 cents vs ~$14.50 on Opus 5
+
+paste a diff → ONE call to @typesafeai → 14 typed checks come back as probabilities:
+hardcoded secret, sql injection, touches auth, deletes tests, breaks api, migration, debug leftovers, does the description actually match the diff, blast radius, reviewer effort…
+
+code turns that into a verdict: BLOCK / security review / nits / merge. anything a critical check isn't sure about (0.35–0.65) gets escalated to a human or a big model instead of guessed
+
+33.1万 views · 2.7k likes · 2.5k saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Indra
+
+@IndraVahan
+
+Research
+
+i gave jev ₹1,00,000 to trade nifty intraday at 5x leverage.
+
+this isn't paper trading but real money on my real kotak account put to use.
+
+we hit our ₹1,000 hard stop today after a pretty green morning. will keep tuning the strategy next week and keep y’all posted https://t.co/cCftNveZ31
+
+3.9万 views · 590 likes · 367 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Max Rovensky
+
+@MaxRovensky
+
+Automation
+
+jev decided to sacrifice a human to save robots when solving trolley problems https://t.co/vLBwgLYduk
+
+20.7万 views · 1.3k likes · 307 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Rafal Wilinski
+
+@rafalwilinski
+
+Other
+
+Jev is now in charge of this account's humor https://t.co/ojSOHeMFT2
+
+2.8万 views · 544 likes · 173 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Oskar
+
+@o_kwasniewski
+
+Automation
+
+e2e + jev from @typesafeai ⚡
+
+I'm building an open-source framework for running e2e tests with agents. supports web, mobile (and more!)
+
+available soon: https://t.co/G3XB2L8tiC https://t.co/LvJgAbgvBb
+
+1.7万 views · 351 likes · 313 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Milind S
+
+@milindlabs
+
+Research
+
+Okay so Jev can actually do computer use really well
+
+Without any screenshots, or LLMs and no Pixels leave my mac
+
+I dont even read the Dom elements
+
+A local CoreML model segments every button and UI element on screen.
+
+On-device OCR reads the labels. That text is all Jev gets.
+
+It returns a probability across those elements and tells me the best one to click.
+
+Then it clicks, re-runs detection, and decides again. In a loop until the goal is done.
+
+~90ms per decision. Faster than any LLM computer use I've tried.
+
+Blazing fast computer use, without any latency
+
+@typesafeai is building something really interesting
+
+11.2万 views · 1.6k likes · 1.4k saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Jarrod Watts
+
+@jarrodwatts
+
+Commerce
+
+I built a trading bot with Jev!
+
+Jev decides if it should "buy" or "sell", given the price feed of an asset pair, and executes real trades.
+
+It uses Monad to place the orders on Kuru's on-chain order book in every 300ms block.
+
+Demo link → https://t.co/vwl2SUu4jm https://t.co/Sda1G5tXKI
+
+104.6万 views · 4.8k likes · 6.4k saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Aaron Levie
+
+@levie
+
+Data & evaluation
+
+Jev will be super helpful for agents to make split second decisions in workflows, data classification, judgment calls, and hundreds of other use-cases in the enterprise.
+
+Here's a quick demo with Box and Jev to make that real. The demo pulls an incident report from Box, asks whether it's customer-facing and how severe it is, moves the file into escalate, monitor, or review folders, and sets a metadata template instance with the result. This all happens nearly instantly and at almost no cost.
+
+You can imagine this in insurance claims, contract management, loan processing, security reviews, customer log analysis, and so on. Definitely a great new class of AI use-case.
+
+1.7万 views · 167 likes · 151 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Andy Gao
+
+@instantricecook
+
+Coding
+
+I built a voice controlled computer-use for my mac using @typesafeai's Jev and it's INSANE how fast it is!
+
+I can dictate "open the notes app and create..." and the app opens before I even finish my sentence. https://t.co/n3B7GizUWQ
+
+3.2万 views · 649 likes · 598 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+ego
+
+@ego_agent
+
+Commerce
+
+ego lite + Jev + DeepSeek Flash = stupid fast. ⚡
+
+3.71s for 20 Amazon product decisions.
+
+GPT-5.6 Sol: 54.45s
+
+Same task. Same result.
+10/10 on both.
+
+Less reasoning. Faster decisions.
+1× speed. https://t.co/iJlCVbXSJ8
+
+1.7万 views · 256 likes · 196 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+camsoft2000
+
+@camsoft2000
+
+Automation
+
+Now we're cooking. Got @typesafeai's Jev + AXe controlling the iOS simulator now ultra fast at a fraction of the cost of using an LLM. This is game changing! https://t.co/JK5r23ySoI
+
+9.7万 views · 1.2k likes · 995 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+比特币橙子Trader
+
+@oragnes
+
+Commerce
+
+卧槽，JEV 的出现很可能就是自动智能交易的起点。
+
+昨天JEV在AI 圈刷屏，今天 Monad 工程师就用JEV做了一个自动交易机器人。
+
+实时读取 MON/USDC 价格，JEV 不负责写分析报告，也不跟你解释一堆逻辑，它只做最核心的事，判断 Buy 还是 Sell，再给出置信度，然后直接把交易发到 Kuru 的链上订单簿执行。
+
+这一下我突然明白 JEV 为什么要做成一个不会说话的模型了。
+
+交易根本不需要 AI 每 300ms 给你写一篇小作文，它需要的是：
+
+行情进来→判断→下单→新行情→重新判断，而且这一整套循环必须足够快、足够便宜。
+
+而 Monad 现在刚好每 300ms 出一个区块，Kuru 又是链上订单簿。高性能链负责执行，JEV 负责决策，两个东西拼起来，已经有点AI 原生交易系统的味道了。
+
+未来的交易 Agent，不一定需要一个会写研报的超级大模型，它更需要一个能在极低延迟下连续做几百万次判断的大脑。
+
+昨天我 提交的WL今天也通过了，接下来我先尝尝咸淡，看看到底怎么个事。
+
+63.5万 views · 3.1k likes · 3.7k saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Eric Zhang
+
+@ekzhang1
+
+Coding
+
+Inspired by @typesafeai , here is a Jev-compatible public API to play with
+
+It runs a comparable open model (Qwen3.6-35B-A3B), and just uses SGLang radix cache to preserve the prefill reuse / really fast parallel systemone generation - 64 tasks in <1s.
+
+https://t.co/bbRh4yAPAB https://t.co/misKQE8n8f
+
+11.0万 views · 873 likes · 821 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+あきらパパ【生成AI活用エンジニア&３児のパパ】
+
+@akira_papa_IT
+
+Other
+
+Jevで次の文章予測判断させるロジック作って、
+判断特化AIのJevで、AIチャットできるアプリ作ったんだけど、まず爆速だし、入力は$0.042 / 1Mトークンだけど、出力が無制限で無料でした。
+出力無料のAIチャットってなんだこれw
+「え？これ作れちゃっていいん？」ってなってる。。。
+#Jev https://t.co/h5LDG2tPpN
+
+14.8万 views · 1.1k likes · 1.0k saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Diogo Almeida
+
+@CompleteSkeptic
+
+Other
+
+After co-inventing ChatGPT, I kept asking myself: why have superhuman chat models not led to AGI?
+
+I’ve spent the last 2 years in stealth building a new way to train models (RLCD), and a new type of frontier AI model that we are releasing today: Jev
+
+• 20-200x faster
+• 40-400x cheaper (w/ output tokens free)
+• Frontier composable intelligence optimized for decisions
+
+AFAICT the shortest path to AI-based economic revolution
+
+3460.4万 views · 6.9万 likes · 5.6万 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+paulwei
+
+@coolish
+
+Other
+
+昨天出的 https://t.co/6eiMFaJTrj Jev 模型
+适合高频决策，那岂不又是适合打游戏？
+
+之前用 GPT-6 Astra 代打杀戮尖塔2
+能力强但速度慢。
+
+我刚实测用 Jev 打，行动思考只需 0.7秒，
+画面我都没看清它就操作完了。
+这超人类游戏速度，
+着实又让我震惊瘫坐了😅
+
+语言很难描述这感觉，看视频⬇️ https://t.co/y9Nu78Hnv4
+
+22.5万 views · 1.1k likes · 771 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Nikunj Kothari
+
+@nikunj
+
+Other
+
+Jev scoring 3000 kid snacks with multiple criteria on https://t.co/KSiodPdZHT in 28 seconds for $0.11 🤯 https://t.co/c9O6uTyiUK
+
+1.6万 views · 132 likes · 103 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Justin Schroeder
+
+@jpschroeder
+
+Other
+
+I rebuilt Tesla Full Self Driving with Jev in less than an hour.
+
+This model is a total unlock. https://t.co/mUrvaFrlQ7
+
+55.6万 views · 4.5k likes · 1.8k saves
+
+Open case →X ↗
+
+Video / Open case →
+
+かねこつよし
+
+@tsuyoshi_osiire
+
+Other
+
+Jevで、会話をリアルタイムに観測するセンサーを試作しました。
+発言のたびに
+・探索 ↔ 収束
+・解消 ↔ 未決
+・未合意 ↔ 合意
+を更新し、会議の状況を可視化します
+
+ユーザーインタビューのリアルタイム解析などにも使えそう。 https://t.co/cO21f4AK99
+
+5.1万 views · 366 likes · 304 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Konrad Reczko
+
+@reczko_konrad
+
+Other
+
+TypeGPU + ruNNtime + Jev @typesafeai is a very fun combo :D
+
+ruNNtime gives me efficient local inference, TypeGPU lets inference and rendering share GPU resources directly with zero copy. That’s 3 separate NN inferences plus rendering, all happening in realtime
+
+Since we control the pipeline, Jev can just sit in the middle and add the semantic bit.
+
+camera + mic → Moonshine + YOLO26 + DepthART → Jev → lights, shadows and bloom
+
+7.1万 views · 662 likes · 489 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Rinte
+
+@rinte0321
+
+Other
+
+jevデモ②
+発話内容に応じたスライドの自動表示。
+
+喋った内容にマッチしたスライドを自動で表示してくれます。PCやポインターを触らずにページを表示できるので、これで誰でもジョブズになれるかも？？
+
+速い・安いだけでできることがこれだけ広がるのかと感動している。 https://t.co/3UO6DQcbJ2
+
+4.7万 views · 343 likes · 254 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Matija Sosic
+
+@MatijaSosic
+
+Research
+
+Here's a 45-second TL;DR on Jev.
+
+I find the core idea beautifully simple, but the video made it really hard to understand.
+
+Hope you find it helpful. https://t.co/KtSKlEMVL3
+
+140.9万 views · 8.7k likes · 7.6k saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Isaac Tai 🧇
+
+@hi_im_isaac_
+
+Other
+
+"jev can't generate text"
+
+But jev has a lot to say!
+
+I gave him a couple hundred common english words to choose from + punctuation https://t.co/WmDkTyiG9u
+
+32.8万 views · 3.4k likes · 708 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+石川陽太 Yota Ishikawa
+
+@ytiskw
+
+Coding
+
+話題のJevで架空のペルソナ150人に製品の導入意向を聞く仕組みを作ってみた。150人ごとに12個の質問をAPIで投げる。
+
+実際にかかった費用は、1.8円でかかった時間は約5秒。十分爆速だけど日本↔︎アメリカのレイテンシが含まれているので本来はもっと早いはず https://t.co/6lbFXY9jjH
+
+23.1万 views · 1.0k likes · 875 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Hassan
+
+@nutlope
+
+Creative & media
+
+Jev + Kimi K3 for fraud detection!
+
+TLDR: Jev classified 100 emails in 1.42 seconds, then I routed the uncertain cases to Kimi K3. The full pipeline got 96/100 correct for only ~$0.07.
+
+Video is not sped up, check out the live run!
+
+Here was my process:
+
+I gave Jev 100 emails to classify (a mix of 50 legit & 50 fraudelent emails). It classified all of them in 1.42 seconds.
+
+An underrated feature about Jev is it will give you the confidence score for a classification, so I routed any prediction under 95% confidence to Kimi K3 to be fully sure.
+
+31 emails fell below that threshold. After routing those to Kimi K3, the combined pipeline reached 96% accuracy.
+
+The full run took 16 seconds & ~$0.07 in inference costs:
+
+- $0.068 from Kimi K3 on @togethercompute
+- $0.003 (1/3 of a cent) from Jev on @typesafeai.
+
+I think this is a really interesting pattern: use a fast specialized model like Jev for the narrow task, then route the uncertain cases to a larger LLM.
+
+I feel like this kind of approach could be a game changer for use cases like fraud or anything realtime. You can use the speed & low cost of Jev while having a larger LLM as a fallback to ensure high accuracy.
+
+5.3万 views · 843 likes · 739 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+AI/ML API
+
+@aimlapi
+
+Coding
+
+Jev VS Fable 5.1 VS GPT-6 Astra: chess
+
+typesafe's new Jev V13 isn't an LLM. it doesn't chat, doesn't explain, doesn't write code — it only makes decisions. so we made it play blitz against frontier LLMs.
+
+the test: 5+0 blitz. every move is one API call.
+
+Jev V13 vs Fable 5.1:
+• fable outplayed it. by move 29 it was +16 in material and even promoted a second queen
+• but it kept burning 6-15 seconds per move on analysis. jev answered in ~2.6s
+• so fable didn't have enough time and lost
+
+Jev V13 vs Astra:
+• astra didn't bother winning on material. it mated jev in 18 moves. Qe1#, with 2:27 to spare
+
+52.6万 views · 2.2k likes · 749 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+sav
+
+@savboj
+
+Automation
+
+If you blink you might miss it
+
+Jev + Computer use = 100x faster than any LLM
+
+@typesafeai https://t.co/JG09Wx7UCo
+
+8.6万 views · 1.2k likes · 830 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Hassan
+
+@nutlope
+
+Research
+
+I used Jev to classify 1,018 AI research papers.
+
+The result: $0.08 total cost and 256ms median end-to-end latency per paper.
+
+The pipeline was:
+
+1. Summarize each paper with DeepSeek V4 Flash
+2. Send the title + summary + 24 possible topics to Jev
+3. Use Jev to classify each paper
+4. Visualize everything on https://t.co/hs63SlHxjw
+
+The summaries cost $3.99 on @togethercompute. The classifications cost $0.08 on @typesafeai.
+
+So for just over $4 of inference, I ended up with a pretty useful way to explore the top AI research papers from the past year.
+
+I think this is where things are heading: different models for different parts of the workflow, instead of using one model for everything.
+
+I’m running evals on the Jev classifications before replacing the current ones, but the site is already live: https://t.co/hs63SlHxjw
+
+15.9万 views · 1.9k likes · 1.9k saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Jon Taylor
+
+@JonPTaylor
+
+Other
+
+Wow, @typesafeai Jev is a game changer for voice-driven UI. Responsiveness really matters for an experience to 'feel' right, and this certainly does the job!
+
+Latency here is not optimal given I'm in London and calling out to us-west. But still, super snappy.
+
+In this video, Jamcat is using Pipecat to orchestrate a real-time handover between a command agent (Jev) that drives the UI, and voice agent (PhoneLLM) for handling generations and (not in the video) discussing ideas and session setup with the user.
+
+2.6万 views · 341 likes · 337 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Alan Daitch
+
+@AlanDaitch
+
+Other
+
+Claude me integró Jev con Playwright para buscar usados. Lee unos 26 artículos por minuto y decide qué hacer con cada uno en 406 milisegundos
+
+Descartó los que no encajaban con lo que busco, ofertó por los que sí y hasta les mandó un mensaje a los vendedores cuando faltaba algún dato en la publicación.
+
+Toda la búsqueda salió USD 0,00085. O sea: con un dólar revisás unas 26.000 publicaciones.
+
+Una IA que por fin puede navegar por internet más rápido que nosotros es un game changer
+
+2.2万 views · 356 likes · 356 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Wuyang Zhou
+
+@wuyang_zhou
+
+Other
+
+btw this is what you get if you ask Jev to play Minecraft with GPT-6 Astra.
+
+I still can’t believe it
+https://t.co/ERDnsVWPLZ
+
+4.0万 views · 319 likes · 109 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+梭哈.AI
+
+@SUOHA_AI
+
+Other
+
+很多人没看懂爆火的JEV是什么？
+
+所以我做了一个 50 秒的演示视频，带大家把海外刷屏的 JEV 以及它背后的底层架构看透👇（见下方视频）
+
+JEV 是前 OpenAI、参与 ChatGPT / RLHF 的 @CompleteSkeptic（Diogo Almeida）创办 @typesafeai 后的第一款模型
+
+他在 OpenAI 时发现了一个致命矛盾：
+通过人类偏好微调（RLHF）训练出来的自回归大模型，存在严重的模式崩溃（Mode-dropping）、过度自信与幻觉，且串行逐字生成的延迟极大，根本无法胜任严肃的机器自动化生产
+
+为此，他们花了两年研发了专为自动化设计的 System 1 基础模型 JEV，核心架构创新非常激进：
+
+• 单次并行计算（One Parallel Pass）：
+如同当年 Transformer 取代 RNN 一样，JEV 彻底抛弃了逐 Token 串行吐字的自回归机制，采用全新的模型架构与采样器，一次性并行击发所有预设选项
+
+• 强化学习校准决策（RL for Calibrated Decisions）：
+引入全新的训练算法，输出媒介不再是自然语言文本，而是直接输出经过置信度校准的概率分布
+
+• 代码级可靠（TypeSafe）：
+彻底根除幻觉，输出自一致、确定性高，可作为强类型对象直接被程序调用
+
+• 100 倍提速与极端降本：
+延迟降至 0.1 秒以内（快到能直接插入 60 FPS 游戏循环）；输入每 10 亿 Token 仅 42 美元，输出 Token 彻底免费
+
+视频里我把传统自回归的 8.5 秒延迟瓶颈、JEV 的并行矩阵运算，以及实时控制小游戏实测，全拉通做了可视化, demo参考 @MatijaSosic
+
+聊天需要慢推理，自动化需要快直觉，Building Prod, not God 确实不是一句空话🫡
+
+4.5万 views · 70 likes · 92 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Marcel Pociot 🧪
+
+@marcelpociot
+
+Research
+
+Will Jev @typesafeai turn $10.000 into profit?
+Let's find out!
+
+Running decisions for paper trades via https://t.co/28WVX50sv3 https://t.co/2XglDmGTNM
+
+10.2万 views · 447 likes · 412 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Neel Patel
+
+@Neel490
+
+Other
+
+I think the implications of jev on self-driving could be huge https://t.co/advoRDSOz7
+
+32.4万 views · 1.5k likes · 593 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Duncan
+
+@ephraimduncan
+
+Other
+
+Built a model router with Jev by @typesafeai.
+
+Jev decides what model fits your request best and the request is sent to that model. https://t.co/HHlmjOE66u
+
+10.9万 views · 1.9k likes · 1.1k saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Chetaslua
+
+@chetaslua
+
+Automation
+
+🚨 I gave the Trump vs Kamala debate a live BS meter using Jev
+
+every sentence, both candidates, 5 yes/no questions each
+
+1,191 Jev calls / 1.18M tokens / 415 ms median
+total cost : $0.0497
+
+same questions for both, clips picked by one fixed rule, not a fact-check https://t.co/m8u4ALl6Me
+
+16.6万 views · 1.2k likes · 489 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+trou
+
+@_trou3
+
+Research
+
+For those who still didn't understand what Jev from @typesafeai can do, here is the example.
+
+Jev can read dozens of structured trading signals and then show intelligent decisions.
+
+It's time to make your system actually alive.
+
+What a time! https://t.co/r9cfanXcNI
+
+11.6万 views · 966 likes · 1.0k saves
+
+Open case →X ↗
+
+Video / Open case →
+
+阿蔺A-Lin
+
+@alin_zone
+
+Coding
+
+🔥 卧槽了，jev 简直太适合 codex 用户了，强烈建议 codex 用户去尝试下 jev
+
+因为 jev 非常适合需要快速进行复杂决策和评估的场景，所以和 codex 的 computer use 功能简直是绝配。
+
+直接把 jev 用作判官，指导 codex 快速操作你的电脑，既准确又节省 token。
+
+要使用的话需要去官网申请👇，如何申请我已经录制好视频了，跟着操作即可
+
+2.1万 views · 64 likes · 116 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Marcel Pociot 🧪
+
+@marcelpociot
+
+Automation
+
+I built a browser extension with Jev @typesafeai that can hide/collapse posts on X based on natural language.
+
+It's so fast that it's not noticeable and insanely cheap...this must be the future of "ad blockers" and content firewalls. https://t.co/EPIJ4rzeIp
+
+6.7万 views · 1.1k likes · 558 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+TypeSafe AI
+
+@typesafeai
+
+Creative & media
+
+Behind the scenes of our launch video… chief of staff @justKDeng keeping our CEO @CompleteSkeptic on track https://t.co/81HHtsj4eK
+
+4.8万 views · 358 likes · 42 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Eugene Cheah - AI builder @ 🇸🇬|🇺🇸
+
+@picocreator
+
+Other
+
+love jev, but upset it
+- isn't open source?
+- it lack vision capability?
+
+We fixed all of that, introducing https://t.co/DlNeKo2k5e
+
+A fully open source library which takes any HF model and Jev-ify it, with an API endpoint
+
+Now on github, and live in production at @FeatherlessAI https://t.co/dFKBbR411y
+
+4.7k views · 60 likes · 90 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Utkarsh Agrawal
+
+@uttkarsh_42
+
+Coding
+
+so I gave jev full control of the falcon-9 class rocket
+
+full launch to landing
+
+no autopilot, no scripted trajectories, no safety veto in the code
+
+every decision was made by jev ( you can see decisions at the bottom of the video)
+
+and yeah it was able to land the booster
+
+and all this with just 245 calls and and $0.04 in API calls
+
+for sim I used mujoco
+
+and the configurations were 42m booster, 425 tonnes, 9 engines, real atmosphere, mach dependent drag, wind and propellent depletion
+
+the vehicle was going ubstable every .8 secs, and jev's decesion making takes place at ~1Hz and output in ~0.4 sec
+
+so I gave jev these controls
+
+> launch or hold
+>engine count for every burn( it chose 5 for landing by itself !)
+> when to light that burn
+>ascent cutoff, coast, entry, legs, touchdown
+
+so after giving all these controls to jev the experiments begun
+
+and after 12 runs and tweaking multiple things it managed to land by itself
+
+I will write a full article about it
+
+and what I did with experiments and whet I tweaks I made
+
+but for some final thoughts
+
+people are saying it's just a classifier
+
+yes, but it's a very good and effective classifier, and its speed and decision making, open up a whole new work for real life tasks and implementationa
+
+I will also open source the whole repo for this after cleaning up the clutter in my code
+
+so this is the short demo
+
+I hope you like it
+
+7.5万 views · 109 likes · 49 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+aaron
+
+@awlevin
+
+Research
+
+i built computer use using @typesafeai ! it is 155x cheaper than opus 5, ~20x faster, and generalizes across OS's
+
+more on how it works in the vid & thread below: https://t.co/K0ZaRRnEX5
+
+26.9万 views · 2.3k likes · 2.0k saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Filip
+
+@Neriousy
+
+Coding
+
+Testing apps with @typesafeai jev & @opencode will be soooo fast
+
+small demo: https://t.co/WLSkpe9OZn
+
+50.9万 views · 1.2k likes · 755 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Wayne Sutton
+
+@waynesutton
+
+Other
+
+Ask Jev anything. Give it a try at https://t.co/P9QMfdDc0r
+
+It won't answer. It will judge.
+
+Let's see if we can get to 1 million questions.
+
+@typesafeai 🤝 @convex work great together.
+
+@hmartenjoyer @CompleteSkeptic @justKDeng @mikeysee https://t.co/3efLDDGKqN
+
+9.2万 views · 510 likes · 446 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Remek Kinas
+
+@KinasRemek
+
+Other
+
+Takie modele jak JEV (System-1) zmienią moim zdaniem bardzo dużo. Obecne modele LLM symulują System-2. Dla mnie implementacja jev to jedna z najświeższych koncepcji ostatnich miesięcy.
+
+Niby nic szczególnego (dynamiczny klasyfikator) a dziwi, że tak długo trzeba było czekać na taki model. Uniwersalny klasyfikator, inteligentny "if". W swoich poprzednich wpisach objaśniłem jak to działa. Mam dostęp do API @typesafeai @CompleteSkeptic więc zrobiłem self-play w moim pac-man.
+
+To "zabawkowy" przykład ponieważ schemat zapytań jest stały ale ... w wielu systemach np. agentowych schemat jak i stan zmienia się w czasie (w pac-man tylko stan się zmienia). W bardziej zaawansowanych, złożonych systemach struktura stanu, jak i wartości atrybutów stanu są zmienne w czasie, kontrakt klasyfikatora (liczba klas jak i ich semantyka) również. I tutaj mamy system-1 jev - podejmuje decyzje.
+
+Oczywiście można to zrobić na LLM ale będzie wolniejsze, droższe, sekwencyjne (wzajemnie zależne - w kontekście widać odpowiedzi). Można wykorzystać dyfuzyję z blokiem odpowiedzi wypełnionym nie na szum a na szablon odpowiedzi (będzie szybko) - generować tylko proby. Możliwości są chodzi natomiast o samą koncepcję Systemu-1. Widzę szerokie zastosowanie - inteligentne aplikacje, systemy agentowe, w klientach do kodowania -> obniżenie kosztów, zwiększenie szybkości działania, jakości rozwiązania itd.
+
+1.1万 views · 95 likes · 62 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Moritz Kremb
+
+@moritzkremb
+
+Other
+
+This is cool. I used Jev to improve my custom memory system.
+
+Results:
+→ 94% fewer tokens used
+→ 2–3× faster memory retrieval
+
+This was just a quick test, but I believe it opens up so many new opportunities. https://t.co/Xppb20drpY
+
+3.1万 views · 468 likes · 540 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Yoshiki Miura
+
+@miiura
+
+Other
+
+Function calling without waiting for Enter. Answers only when needed.
+@typesafeai Jev understands intent and arguments as you type, then executes ahead of time once everything is in place. https://t.co/n4m9lGGf8S
+
+3.5万 views · 313 likes · 282 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Michael
+
+@michaeltefula
+
+Other
+
+You can use Jev to assemble interfaces on the fly.
+
+Here’s an example I hacked together with Astra.
+
+In this demo, Jev turns natural language requests into UI plans in roughly 1 second or less.
+
+It’s 6x faster than Gemini 3.8 Flash and GPT 5.6 Luna. Cheaper, too. https://t.co/SQwcvB3HKh
+
+1.3万 views · 216 likes · 241 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Sawyer Hood
+
+@sawyerhood
+
+Coding
+
+thanks to @typesafeai jev I no longer have fill out all of those fields on prompt boxes. It picks the agent / model / computer / folder for me.
+- For a major rewrite it uses Fable + Claude Code.
+- Changes to an ios app run on one of my macs https://t.co/3yiKL5EO2w
+
+4.6k views · 97 likes · 55 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Justin Schroeder
+
+@jpschroeder
+
+Other
+
+Silicon Valley predicted Jev a decade ago. https://t.co/ZfSjPYWsTn
+
+32.2万 views · 4.0k likes · 486 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+marcus
+
+@marcusyul
+
+Other
+
+UN TÍO ACABA DE LEERSE LOS 1.891 ANUNCIOS DE SU COMPETENCIA POR 12 CÉNTIMOS
+
+Bueno, leérselos no. Se lo pidió a JEV, el modelo nuevo de TypeSafe
+
+→ 1.891 anuncios
+→ 19 segundos
+→ 0,12 $
+
+Y no es un resumen. Es cada anuncio etiquetado por dónde ataca en el funnel y con qué estilo, más la radiografía completa de la cuenta: en qué invierte, qué repite y dónde tiene huecos
+
+Saber exactamente cómo vende tu competencia costaba una agencia entera. Ahora cuesta menos que un café
+
+Llega pronto al MCP de maxfusion
+
+6.5k views · 77 likes · 31 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Yohei
+
+@yoheinakajima
+
+Data & evaluation
+
+had to try something with jev so i tried what you'd expect from me: graph extraction
+
+- score every word with semantic significance (1-5)
+- also tag relevant words with ID
+- unique list of high scoring words
+- graph of high scoring words https://t.co/oJtI6py84H
+
+2.0万 views · 229 likes · 237 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+jaffa
+
+@dsqjaffa
+
+Research
+
+jev is INSANE.
+
+we gave it a library of 11 million+ videos on tiktok & ig and asked it to find viral "bloom nutrition" content.
+
+in 20 seconds, it gave us over 384 videos, breaking down the hook, format & angle that made each one go viral.
+
+(only costed $0.09 in token usage)
+
+jev also finds, watches, analyzes and breaks down viral videos and creators, then writes briefs and scripts for you, based on proven data.
+
+currently available in @virlomain + MCP.
+
+comment "JEV" for access.
+
+6.6k views · 64 likes · 127 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Cloudflare
+
+@Cloudflare
+
+Other
+
+📣 Speaker announcement: @CompleteSkeptic CEO, @typesafeai at Cloudflare Connect
+
+Register today: https://t.co/YCwgnPlLDj https://t.co/TwT5kMw5bT
+
+1.1万 views · 71 likes · 2 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Cris Lenta
+
+@crislenta
+
+Data & evaluation
+
+Jev is actually insane.
+
+We benchmarked it, and the results completely change the game for us:
+
+> 500 real-time agents
+> running in parallel
+> in a 3D environment
+
+The preliminary results are crazy:
+
+> 500ms average latency
+> 35 API calls/s
+> all with a naive implementation
+
+We did 0 optimizations!
+
+The bottleneck is not Intelligence latency anymore.
+
+It's the first System 1 LLM. Crazy times.
+
+5.8万 views · 647 likes · 353 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+John Yeo
+
+@johnyeo_
+
+Research
+
+Jev made our Slack agent 2x faster ⚡️
+
+Our agent can be quite slow because it needs to read skills and figure out which tools to call.
+
+We used @typesafeai's new model to speed this up by first passing it the prompt and classifying the best skill, tool and params to use before handing it to the agent
+
+4.9k views · 60 likes · 42 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Pratim Bhosale
+
+@BhosalePratim
+
+Other
+
+Played around with @typesafeai Jev today, mostly to understand what it does for tool calling.
+
+Instead of an LLM deciding what to do, I substituted that part with Jev.
+
+My learning is that we will be able to make the agent act before the user finishes the sentence. So far, we've used different LLM combinations (non-thinking + thinking ) plus state machine setups to get the right experience for the end user.
+
+TLDR is to understand more about how voice agents can run decisions on partials instead of waiting for the end of the turn, with lower costs.
+
+4.7k views · 77 likes · 38 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Chris Nicholas
+
+@ctnicholasdev
+
+Coding
+
+Jev enables instant AI suggestions 👏
+
+In this app, 20+ intelligent checks occur every time you edit a cell, immediately providing warnings.
+
+No LLMs necessary! https://t.co/brVT7jE6SO
+
+2.9万 views · 200 likes · 183 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Anshu
+
+@anshuc
+
+Other
+
+Jev can draw pictures by predicting every pixel in parallel https://t.co/IOwwmr07cm
+
+30.2万 views · 1.5k likes · 393 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Lahfir
+
+@mdlahfir
+
+Coding
+
+Jev solved local harness/model routing
+
+I use a combination of Claude Code, Codex and Opencode as my local agentic stack and routing to other harnesses was always enforced in the system prompt/rules
+
+With a deterministic hook that Claude Code can decide before delegation, Jev helps to route to the right harness/model based on the task, and it's pretty accurate based on the intensity/intelligence of the task
+
+> Mechanical tasks get routed to Haiku
+> Intelligent ones to Opus sub-agents
+> Long-running implementation work to external harness
+
+12.5万 views · 814 likes · 877 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Öner S. Biberkökü
+
+@OnerBiberkoku
+
+Research
+
+They say you’re six connections away from anyone on Earth.
+
+So I tried Jev from @typesafeai and built this: enter your X handle and someone you’d love to reach. It finds a chain of real follow connections that could get your message there, under 2 seconds!
+
+Apparently, Luke Skywalker is just two people away from me.
+
+Who’s your impossible person? I can drop the link below if you want to try. @MarkHamill
+
+4.6万 views · 94 likes · 91 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Higgsfield AI 🧩
+
+@higgsfield_ai
+
+Coding
+
+We found the perfect use case for Jev: auto-routing GenAI models.
+
+The idea: Jev picks the most cost-effective models for your task, balancing speed and quality.
+
+All generations made with Higgsfield API. https://t.co/jZWedfbAMN
+
+5.2k views · 36 likes · 16 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Ansh Nanda
+
+@anshnanda
+
+Creative & media
+
+By now you've probably seen Jev on your timeline.
+
+Yes, it's an insanely fast & cheap model.
+
+But how does it compare against GPT-6 Astra, Fable 5.1, and Deepseek v4.1 Flash?
+
+In this video I compare it against top LLMs on 4 distinct tasks. Did it win? Or did it lose? Let's find out.
+
+Total Jev bill for everything in this video: $0.49.
+
+Chapters
+0:00 Intro
+1:07 What Jev actually is
+2:57 System 1 vs System 2 thinking
+4:36 Jev plays Doom
+7:14 How Jev works
+10:33 Trading Bitcoin for a year
+14:26 1,500 emails at 200 ms each
+17:58 857 support tickets vs Intercom Fin
+20:06 When you should actually use it
+
+1.8万 views · 97 likes · 78 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Zachi
+
+@iam_zachi
+
+Other
+
+I build a SQL extension that turns plain english into a WHERE clause with jev @typesafeai
+
+WHERE jev(people, 'could work from home')
+
+Every row gets judged individually, no index and no embeddings needed.
+
+Try it out (don't burn my wallet pls) https://t.co/4nYZVH9iXs
+
+2.0万 views · 106 likes · 66 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Faadil Shaik
+
+@faadilhshaik
+
+Other
+
+got @typesafeai’s new model Jev to play Super Mario Bros.
+
+fast inference + structured outputs makes it surprisingly good for real time use cases.
+
+I'm excited to see what can be done with these new models! https://t.co/wXXW2SsSXG
+
+56.9万 views · 2.8k likes · 1.0k saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Hassan
+
+@nutlope
+
+Other
+
+Jev vs GLM 5.3 at chess!
+
+Results:
+◾ GLM 5.3 won by checkmate in 29 moves
+◾ Jev: ~0.3s and <$0.0001 per move
+◾ GLM 5.3: ~5.8s and ~$0.008 per move
+◾ The whole game cost 24 cents
+
+My main takeaway is that it's often useful to use each one to their strengths:
+
+◾ Fast, well-defined classification → specialized models like Jev
+◾ Classifications that need reasoning or lookahead → LLMs like GLM 5.3
+◾ Real classification pipelines → hybrid. Jev handles the easy calls, an open model handles the hard ones.
+
+The future is multi-model!
+
+4.7k views · 46 likes · 16 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Zain Hoda
+
+@zain_hoda
+
+Other
+
+The speed and cost is going to enable use cases that haven't been possible before.
+
+Here's a quick demo of live decisions of what slide to pull up as I'm speaking, powered by @typesafeai Jev.
+
+Also, sorry for the sniffling. I have a bit of a cold. https://t.co/124B5YEjmF
+
+1.5万 views · 99 likes · 90 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Theo Otz
+
+@Totzenberger
+
+Data & evaluation
+
+Another useful use-case with Jev from @typesafeai - AI text classification.
+Very close to @pangram, 6000x cheaper, 5-10x faster
+
+Tested here on a @paulg essay!
+
+https://t.co/KijjMknTaC
+
+5.0万 views · 124 likes · 121 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Nick Vasilescu
+
+@nickvasiles
+
+Automation
+
+Jev is a new model from the co-inventor of ChatGPT that can use computer tools in realtime
+
+right now it's playing Minecraft on its own computer in the cloud on Orgo
+
+this is what it looks like with just one Jev, but imagine:
+
+what about a thousand?
+or what about a billion of Jevs?
+
+each working together on their own computers in the cloud, discovering new science, running experiments, and designing new drugs 24/7.
+
+this is going to be bigger than ChatGPT
+
+1.3万 views · 147 likes · 96 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Roman Slack
+
+@RomanSlack1
+
+Coding
+
+Jev by @typesafeai works quite well for drone applications. Made this in 15 minutes and only cost 10 cents.
+
+Repo: https://t.co/b2ytFvehTV https://t.co/rC36lr4iqK
+
+13.3万 views · 351 likes · 296 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+梭哈.AI
+
+@SUOHA_AI
+
+Other
+
+完全睡不着了....这个视频让你完全看懂JEV的恐怖能力
+
+我实际演示了一下，用 JEV 和 DeepSeek 做同一个任务：从当天的海量实时新闻流里，为 15 个品牌快速匹配有没有适合借势的公关热点，并打上结构化意图分类标签
+
+结果是：28 秒内，Jev 狂刷完了整整 428 条数据，并完成了全部的目标分解与分类；而同一时间跑在同样任务上的 DeepSeek V4.1-flash，才刚刚完成 6/428 条
+
+速度被拉开了几十倍，答案甚至在你读完第一行字之前就已经返回了....
+
+为什么会产生这么恐怖的差距？底层逻辑是：
+
+• DeepSeek 这种通用模型本质上是在“逐字写文章”：
+哪怕你只让它做个最简单的“是/否”判断，它在后台也必须一个词一个词往外推，硬走一遍漫长的生成流程，延迟按秒起步
+
+• Jev 官方定位是“System 1（快决策）”模型，从根上就根本不会写字：
+它彻底抛弃了逐字吐词，底层直接一次性并行出结果。不输出半句废话，70 到 200 毫秒内直接甩出代码需要的最终答案（对/错、打分、分类）
+
+demo参考@elvissun Github开源：https://t.co/sdyWJhdvfO
+
+建议大家试试JEV，越用越觉得牛逼.....
+
+4.3k views · 15 likes · 44 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Marcus Lowe
+
+@marcus_lowe
+
+Other
+
+I got early access to @typesafeai's new Jev model and built a demo of it playing tetris
+
+The generation speed is so fast that it's pushing blocks down
+
+This feels like another "this changes everything" moment https://t.co/ND9rVcsPiD
+
+7.6万 views · 966 likes · 274 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+sengpt
+
+@sengpt
+
+Creative & media
+
+arkadaşlar
+
+jev'e early access aldım ve test etmeye başladım ve gerçekten çok impressed olduğumu söylemem lazım
+
+sadece şu kaydettiğim demoyu bi izleyin lütfen.
+
+kesinlikle hızlandırılmış bir video değil. 4 tane jev karşılıklı 101 oynuyor ve oyunun hızına bir bakın.
+
+beni takip edenler bilir.
+
+yıllardır her yeni model çıktığında bizim meşhur 101 okey oyununu oynatırım.
+
+benim kişisel benchmarklarımdan biridir ai modellere 101 oynatmak.
+
+kimi cahiller ehi ehi ehi adam modele 101 oynatıyor dese de asıl benchmark budur. bizim eve bundan başka benchmark girmez.
+
+çünkü 101 göründüğünden çok daha zor bi testtir
+
+modelin önce oyunun kendine özgü kurallarını anlaması, sonra oyun boyunca bunlara eksiksiz uyması gerekiyor. ama bu da yetmiyor. elindeki taşları, masa'nın durumunu yani son state'ini ve rakiplerin hamlelerini değerlendirip doğru kararı zamanında vermesi gerekiyor. yani masanın anlık state'ini de her modelin bilmesi ve hızlı karar alması gerekiyor
+
+özellikle bu son kısım bugüne kadar modellerin en çok zorlandığı yerdi
+
+openai, anthropic vs. modelleri iyi karar verebilse bile bazen 30 saniye veya daha fazla düşünüyor. gerçek zamanlı oyunda iyi karar vermenin tek başına hiç bir anlamı yok çünkü doğru kararı verdin ama sıranı kaçırdın ise pek bi işe yaramıyor. dolayısıyla hız + doğru karar en önemli metrik burada.
+
+jev duyurulur duyurulmaz early access'e başvurmamın sebebi de buydu. direkt aklıma 101 benchmarkım geldi
+
+jev aslında konsept olarak çok da yabancı bi şey değil.
+
+kabaca generalized zero-shot classifier diyebiliriz. uzun uzun metin üretmek yerine kendisine verilen state üzerinde tanımlı seçenekler arasında karar veriyor
+
+ama güzel olan bunu ne kadar hızlı yaptığı
+
+benim 3-4 yıldır farklı modellerle denediğim ama bir türlü tam verim alamadığım ai'ın 101 oynaması problemini jev çözmüş gibi görünüyor
+
+kararları milisaniyeler içinde veriyor ve oyun boyunca oldukça isabetli oynuyor
+
+bence asıl önemli tarafı da 101 değil zaten
+
+101 bunun küçük bir demosu
+
+computer use, browser use, hız gerektiren oyunlar vs gibi alanlarda yani modelin sürekli ne yapmam lazım diye düşündüğü her senaryoda jev hızır gibi yetişiyor. milyonlarca küçük karar için çok çok ideal gözüküyor
+
+milyonlarca mini karar için 30 saniye düşünen dev bir generative model gerçekten işlevsiz. onun yerine 100 milisaniyede yeterince iyi karar veren bir model daha mantıklı
+
+jev'in yaptığı da bu
+
+bence müthiş bir ihtiyacı karşılıyor ve karşılayacak.
+
+hatırlayın 4g gibi hızlı internet altyapıları yokken tiktok vs gibi realtime streamingler mümkün değildi. tiktok'un ortaya çıkabilmesi için 4g ya da hızlı internet gerekliydi. şimdi jev = 4g. hız konusunu çözüyor. dolayısıyla jev'in tiktoku yani jev sayesinde ne gibi yenilikler ortaya çıkacak acaba görürüz önümüzdeki dönem.
+
+eğer anlık olarak milyonlarca mini karar alınması gereken bir konseptiniz varsa çok ideal bir şey jev.
+
+openai ve anthropic gibi şirketlerin de benzer şekilde generation ile decision'ı zamanla birbirinden daha fazla ayıracağını düşünüyorum
+
+5.5万 views · 169 likes · 178 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+mikegee
+
+@mikegee
+
+Coding
+
+Controlling Figma with voice using Jev from @typesafeai
+
+Total cost from first line of code to recording this video: $0.01
+
+🤯 https://t.co/HTGcrBYpTb
+
+6.0k views · 70 likes · 52 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Steve Krouse
+
+@stevekrouse
+
+Other
+
+typesafe's jev is fun! live demo you can play with: https://t.co/ctnPF0w70r https://t.co/i6kMGkkWOV
+
+10.8万 views · 584 likes · 458 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Lahfir
+
+@mdlahfir
+
+Other
+
+Jev solved delegation https://t.co/1TznArCaSY
+
+4.3万 views · 441 likes · 341 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Higgsfield AI 🧩
+
+@higgsfield_ai
+
+Coding
+
+Jev + Higgsfield = solved auto-routing for genAI models.
+
+In this demo, @typesafeai’s Jev evaluates prompt and picks the most fit models for video and image generations on Higgsfield API. https://t.co/MyTRdqlZ3o
+
+3.8k views · 20 likes · 10 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+李不凯正在研究
+
+@libukai
+
+Other
+
+这两天关于 Jev 这个模型的热度非常之高，甚至可以说是近半年我重点关注了英推以来，看到的原创内容密度最高的一次。
+
+正好我过去一年一直在跑一个小项目，其中有一个环节就是要对每天出版的《人民日报》上的新闻做一个分类，判断每一篇文章中是否包含有湖北相关的元素。
+
+一年跑下来，积累了接近 2 万 4 千条数据，其中判定包含的有 1800 条左右。在这些数据的基础上，我随机筛选了一个测试数据集，其中包含了 500 条判定包含的内容，以及 500 条判定不包含的内容。
+
+之前我使用的模型一直是 Gemini 的 Flash Lite 系列，也算是经过测试后成本和速度双重考虑下的最佳选择。
+
+今天 OpenRouter 上线了这个 Jev 之后，我用同样的提示词做了一个小 Demo 做了一下对比测试，下面这个视频就是同时并发 16 个进程的实录效果。
+
+不得不说，测试出来的结果超出预期很让人惊喜啊。
+
+首先，速度是真快！相对于 Gemini Flash Lite 单篇文章 3 秒的平均耗时，Jev 把单篇耗时缩减到了 0.35 秒。这个接近 10 倍的速度提升，真的是实现了质的飞跃，带了很多新场景的想象空间。
+
+其次，质量也真不错！和 Gemini Flash Lite 的分类结果相比对，Jev 大概在 15% 左右的内容上出现了判断不一致的情况。
+
+但经过我的手动审核，大部分都是因为人名而导致判断差异。例如某位此前在湖北省任职过的官员姓名出现在了新闻中时，Flash Lite 因为知识库比较大，会将其判断为包含，而 Jev 在这块上面会弱一点，因此判定为了不包含。在我的实际应用场景中，这种判断差异完全可以接受。
+
+最后，价格也是真便宜啊！看了一下 OpenRouter 的账单，前前后后大概跑了 5 千条数据，30M Token，总共开销也就 1 美元！这个性价比，还要什么自行车！
+
+总之，我个人觉得 Jev 代表的分类器大模型的确是一个非常有前景的发展方向，甚至可以说是在分类场景下实现了速度/质量/价格的不可能三角，有类似需求的朋友真的可以好好考虑一下。
+
+就分享到这了，我得连夜用它去优化生产项目了。
+
+2.9k views · 27 likes · 25 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+kvyb
+
+@0xkvyb
+
+Other
+
+The real use-case for Jev https://t.co/fnsghSM7oo
+
+1.9万 views · 104 likes · 45 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Shannon 🤖☠️
+
+@iamMrDuncan
+
+Other
+
+Built an alternative version of @typesafeai but on @cerebras with Qwen 3.8 27b.
+
+Similar quality, similar performance, but vastly different cost. TypeSafe was way cheaper, and did beat Qwen on performance.
+
+Closest we can get using LLMs I think.
+
+Source: https://t.co/H5rUhiN7EY https://t.co/aArV0VZE9E
+
+2.6万 views · 208 likes · 194 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+vogel
+
+@ryanvogel
+
+Coding
+
+i made an llm from first principles with Jev
+
+29 yes/no questions per character: should the next key be a–z, space, comma, or period?
+
+highest probability gets append to it, then fed the updated text back in & repeat
+
+an autoregressive loop made out of a classifier https://t.co/OdiVS5MmM1
+
+16.5万 views · 879 likes · 275 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Cyclotruc
+
+@romdot2
+
+Other
+
+pub-sub without sub
+@typesafeai jev does the routing almost instantly
+
+demo link below https://t.co/pTQIUtVBrI
+
+5.2k views · 62 likes · 71 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Ackerman
+
+@Yarilo7brigada
+
+Commerce
+
+jev is an insanely cool product
+
+Saw a post about jev and decided to check it out
+
+This thing is straight up gold whoever built it is a genius
+
+jev is the future
+
+Scanned over 700 live ads in 40seconds flat, and it cost me just 4 cents.
+
+If you're in marketing, this kind of crazy fast data crunching is hands down the best thing out there.
+
+Doing this through Opus 5 would run around 2 to 4.5 million tokens, set you back $15 to $50, and take anywhere from 10 minutes to an hour. That’s 200 to 500 times more expensive than Jev, and way slower.
+
+2.6k views · 45 likes · 21 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+EDteam
+
+@edteamlat
+
+Research
+
+Jev es una nueva IA creada por Diogo Almeida, uno de los creadores de ChatGPT, que promete ser hasta 200 veces más rápida y 400 veces más barata que los modelos actuales.
+A diferencia de los LLM, no genera texto palabra por palabra: evalúa opciones, toma decisiones y devuelve probabilidades en segundos, lo que podría cambiar cómo funcionan los agentes, las recomendaciones, los filtros de seguridad y muchas aplicaciones de IA.
+
+#InteligenciaArtificial #Jev #ChatGPT #Tecnología #EDteam
+
+1.3k views · 44 likes · 32 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+cocktail peanut
+
+@cocktailpeanut
+
+Other
+
+Silicon Valley predicted @typesafeai https://t.co/v8xXPluYF3
+
+16.5万 views · 1.8k likes · 387 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Harshil
+
+@harshil1712
+
+Automation
+
+What if your slides are smart enough that they navigate automatically? 👀
+
+Thank you @typesafeai for providing access to Jev! I had this idea for a few weeks, and Jev felt like the right model for this task.
+
+(Sorry for the bad audio) https://t.co/uz8UhGBypc
+
+1.7万 views · 72 likes · 31 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Codez
+
+@0xCodez
+
+Coding
+
+Jev Founder, Diogo Almeida (ex-OpenAI):
+
+"The next era is not the Claude Code era. Claude Code is still part of the assistance era - Jev is the next step
+
+Jev is x200 faster, x400 cheaper and has 0 hallucination. This is what comes after RLHF"
+
+In 17 minutes he explains why every model you use has a human-shaped flaw baked into it and why Jev is better
+
+worth more than a $500 Claude Code engineering course
+
+watch today, then read how to actually boost yourself x100 with Jev in the post below
+
+2.5k views · 27 likes · 24 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Shane
+
+@digitalshane_
+
+Coding
+
+I got access to Jev!
+
+It can route website visitors to the pages they need based on what they need help with! https://t.co/AydblKM9Y0
+
+2.6万 views · 291 likes · 223 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Niels Rogge
+
+@NielsRogge
+
+Research
+
+Introducing the Papers with Code MCP server!
+
+To celebrate its release, I've asked Claude Code to research the architecture of Jev by @typesafeai using the `search_papers` tool.
+
+Here's what it came up with:
+
+"If Jev is architecturally anything public, it's a large schema-conditioned bidirectional encoder with parallel label-query heads (GLiNER/ML-Decoder shape) trained with a proper-scoring-rule RL objective (RLCR shape), scaled far past the ~150M-param range those papers operate in — "neither small nor an LLM" fits that. The 40–200× speedup is consistent with removing autoregression, not with any exotic mechanism."
+
+1.5万 views · 78 likes · 57 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Rory Garton-Smith
+
+@rory_builds
+
+Data & evaluation
+
+I just built Easy-Jev, a Jev demo anyone can try right now!
+
+Change the inputs and watch the classifications change in real time.
+
+I did my master's thesis on classification models so it's fun to see a modernized version of a very useful alg
+
+Typesafe are correct in that LLMs are just one approach to intelligence, and I think as time goes forward we’re going to see a hybrid of dif models splitting up and allocating correct parts of a problem, using less tokens overall and leaning on LLMs for less of the answer.
+
+I’m bullish on what I call 'combination input' approaches: breaking a statement down into a series of classifications and routing each to the right type of model rather than just brute forcing the whole thing with an LLM
+
+cc / @CompleteSkeptic @typesafeai
+
+Link below, please enjoy
+
+1.1万 views · 87 likes · 73 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Mormon Negro
+
+@mormonnegro
+
+Automation
+
+Acabo de terminar la implementación de @typesafeai + Chromium Headless para que mis agentes puedan navegar por internet a una buena velocidad!
+
+En este ejemplo le pido al agente que entre a la página del término "Café" en Wikipedia y navegue por los hipervínculos hasta terminar en la página "Inteligencia artificial"
+
+Logra completar la prueba en 20 segundos. Creo que pocos humanos podrían hacerlo en ese tiempo.
+
+2.5万 views · 212 likes · 216 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Ashutosh Mathore
+
+@ashutoshftw
+
+Other
+
+Had jev, claude haiku 4.5, and gemini 3.5 flash-lite play tetris. Same 200 pieces, same legal moves, real time.
+
+Jev: 9200 pts, 75 lines, 300ms/move, 0 errors
+Claude: 8900 pts, 72 lines, 1.52s/move, 0 errors, $0.48
+Gemini: 9000 pts, 75 lines, 1.13s/move, 0 errors, $0.02
+
+Jev wins on score and is doing it 4-5x faster per move than either LLM, for basically free. That gap isn't the model being smarter, it is the model doing less work per decision
+
+2.0万 views · 122 likes · 41 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Pontus Karlsson
+
+@coolastekatten
+
+Coding
+
+Alright @typesafeai cooked
+
+Jev is truly the next era of building w LLMs
+
+Added this to Scappa tonight https://t.co/YeYnj5pc7l
+
+2.7万 views · 319 likes · 77 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+yishan
+
+@tspy
+
+Other
+
+昨晚申请的 Typesafe AI 账号，半夜已通过审批！
+
+幸运之星在此感谢 @typesafeai @CompleteSkeptic
+
+今天抽空写了个 Chrome 插件，通过 Jev 标注 X 平台中帖子内容的意图和概率。
+
+实时判定，并将分类结果以标签的形式展示在时间戳的后面。
+
+分类的类别包括诱导、挑拨、推销、机器生成、说服、娱乐、告知等。
+
+Jev 太疯狂了，几乎秒响应，这在 LLM 上是无法感受到的。
+
+而且我还未细调的情况下，它的分类就已经很精准。
+
+在右侧调出了统计面板，展示大致的使用情况，供大伙参考。
+
+接下来，我会继续将 Jev 整合到更多的产品和工具中。
+
+Jev 是 2026 年度的 AI 之星！
+
+7.1k views · 18 likes · 15 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Toran Bruce Richards
+
+@SigGravitas
+
+Creative & media
+
+JEV CAN DRIVE! 🤯
+
+I hooked up Jev to the raw controls of a driving simulator, this video shows him driving in realtime.
+
+Realtime is the kicker here. Asking a model what to do every 50ms then rendering that into a "realtime" video is one thing, but in this simulation I wanted to give Jev the challenge of actually controlling a moving vehicle in a simulation that will never pause while he thinks.
+
+4.8万 views · 281 likes · 103 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Steve Krouse
+
+@stevekrouse
+
+Automation
+
+jev + kernel browser use demo
+
+pretty freaking cool! so fast!
+
+try it yourself: https://t.co/CoVFzscaa0 https://t.co/OyXdNA1H0F
+
+3.5万 views · 238 likes · 213 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Sy
+
+@Sybuilds
+
+Other
+
+Big AI news...
+
+Jev enables this microphone that mutes you when you talk BS @typesafeai https://t.co/VWyJHJ7Oh9
+
+2.7万 views · 176 likes · 57 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Raihan Khan
+
+@raihankhan_rk
+
+Other
+
+I've had access to Jev by @typesafeai for about 30 hours now and I can't stop thinking of the million places it can be used 🤯
+
+Meanwhile, checkout this fun snake game I built where 2 Jev's compete with each other to take the trophy 🏆
+
+Try it out here 🔗 https://t.co/axrG1uKIhr
+
+It's open source btw
+
+The low latency made it all possible to make such a fun project which requires input in real time 🚀
+
+3.3k views · 16 likes · 13 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+kaize
+
+@0x_kaize
+
+Coding
+
+I got access to Jev and immediately plugged it into Claude Code to see if it actually FIXES the biggest pain of agent workflows: context compaction
+
+> result: pretty wild
+
+Quick context for those who missed it:
+
+Every Claude Code session has a context window that fills up fast with tool calls (file reads, grep outputs, logs, etc).
+
+When it fills up, the agent runs "compaction" - asks a separate LLM to summarize the chat. this is slow, expensive, and the LLM often drops important context or bloats the summary with garbage:
+
+fast-jev-compaction uses Jev instead
+
+Link: https://t.co/WD7kpBfDwL
+
+Why this works so well:
+
+Instead of generating a text summary, Jev scores every tool call in your chat with "how important is this?" probability.
+
+> above threshold → keeps it
+> below → drops it or replaces with a stub
+> in summary: no text generation, no bloat, no dropped critical context
+
+What you actually get:
+
+1/ way faster: Jev outputs probabilities in parallel, not sequential tokens.
+
+2/ way cheaper: 1M tokens of context = ~$0.04 to compact.
+
+3/ deterministic: no "creative" summary that removes half your codebase context.
+
+btw, TypeSafe gives $5 free credits at enough for weeks of testing.
+
+Link: https://t.co/NzGPArgLvc
+
+Honest caveats:
+
+Jev only sees the tool CALLS, not their outputs, hard to say if compaction quality is objectively better than default.
+
+Jev's context window is small (32K), so 150K+ chats need to be chunked.
+
+This isn't a full replacement - it's a smart pre-filter
+but as a proof of concept.
+
+This is exactly the kind of surgical fix that makes agent workflows viable at scale.
+
+Now thinking about what else in my stack could get 100x faster with Jev as the decision layer.
+
+2.5k views · 31 likes · 16 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Raihan Khan
+
+@raihankhan_rk
+
+Other
+
+I got access to Jev by @typesafeai today morning and I built a cool use case for it
+
+Introducing DiffJury - simply paste any public PR link and Jev tells you immediately if it's safe to merge or does it require review ✅
+
+🔗 Feel free to try it out here - https://t.co/XxcZxIZJDK
+
+Imagine Jev being able to tell you if you should merge a PR with grounded context of your codebase. that's what we're building at @graphify 👀
+
+It's fascinating how insanely fast Jev is... the model architecture in itself is quite interesting and this has opened up a plethora of new use cases and I'm sure the internet will pick up on it sooner than anyone'd expect
+
+8.6k views · 79 likes · 61 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Nidhi Singh
+
+@nidhisinghattri
+
+Automation
+
+i used jev from typesafeai to build a model router cli
+
+you give in a task and current ai subscriptions you have, the jev tells you which agent/model should pick it up
+
+pair this with herdr and it will be a killer combo
+
+jev was the missing bit that makes this whole thing possible by being a super fast judge
+
+6.1k views · 65 likes · 50 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Alex Stone
+
+@a1exstone
+
+Automation
+
+TYPESAFE RELEASED A MODEL THAT DOESN'T GENERATE TEXT, AND IT BREAKS THE COST FLOOR OF THE AGENT LOOP
+
+jev is what they call a system one model. you send it a state and a set of questions, it returns typed answers with probabilities. no tokens, no sampling, no sequential decoding.
+
+route → decide → guard → run tool → observe → done?
+
+they report 20-200x faster inference and 40-400x lower cost than comparable llms on classification tasks. every question in a request is evaluated in parallel, so adding questions barely moves latency.
+
+in a two-turn loop that means eight decisions. the two that need a plan still go to a chat model. the other six - pick a model, screen a tool call, check if the task is done - cost 0.06s combined.
+
+the takeaway is simple: stop paying generation prices for choices. most of what an agent decides is a pick, a score or a yes/no.
+
+2.0k views · 29 likes · 17 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Ziwen
+
+@ziwenxu_
+
+Research
+
+Jev is already on OpenRouter!!
+
+It's only been out a day and TypeSafe still has a waitlist.
+
+OpenRouter has it though, and that's how we've been running it.
+
+The pricing is insane. $0.042 per million tokens in, and output is free.
+
+How to use it:
+
+- Sign up on OpenRouter and add some credits
+- Make an API key
+- Call the decisions endpoint: /api/alpha/decisions
+- Set the model to ~typesafe/jev-latest
+- Send it a "state" (what's going on) and "questions" (what you want decided, plus the options)
+
+ChatGPT and Claude write you an answer word by word.
+
+Jev doesn't write at all. You give it the options and it sends back a probability for each one, plus how confident it is.
+
+What we got:
+
+- "My card was charged twice" went to billing, 100%, in about a second
+- We hooked it up to Tetris and it picked every move in about half a second
+- A whole game cost less than half a cent
+
+A lot of fun stuff can happen here.
+
+1.2k views · 22 likes · 12 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Vlad Dubchak
+
+@vladdubchak_x
+
+Research
+
+Jev is insane for ad research.
+
+I built a tool that scores every shot of any video ad on meta in 1.5 seconds.
+
+It runs on Maxfusion + @typesafeai
+
+I pushed 450+ ads through it in less than 3 minutes.
+
+It pulls any advertisers live video ads from Research Lab on Maxfusion.
+
+Maxfusion watches the ads and gives a forensic breakdown.
+
+Jev then judges each shot and rates the whole ad.
+
+It made 50 judgments in 1.52 seconds for $0.00028 and scored this Duolingo ad at 88.
+
+Jev is the fastest decision maker I have ever worked with.
+
+3.4k views · 12 likes · 23 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Marcel Pociot 🧪
+
+@marcelpociot
+
+Other
+
+Jev opens up so many possibilities for gaming 🤯
+
+🏁 I built Wordshift - the first semantic typing racer game built with Jev from @typesafeai
+
+Slower than a jet, bigger than an elephant, faster than a cheetah.
+
+The bigger the difference, the farther your car moves. https://t.co/elObRrcVti
+
+5.7k views · 32 likes · 14 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Duncan
+
+@ephraimduncan
+
+Other
+
+I got access to @typesafeai's Jev model and got it to play Pac-man
+
+Jev decides which direction Pac-Man should turn at each junction, given the maze state as JSON, and plays in realtime.
+
+Demo link → https://t.co/GpfiB6MjHP https://t.co/3bKTb2FsZr
+
+8.6k views · 79 likes · 31 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Youssef 🚜
+
+@yelkhayami
+
+Other
+
+i got early access to jev by @typesafeai and decided to build a little extension that judges my tweets while i type them
+
+it runs so fast it can react to each keystroke, and it's basically free, after testing for an hour it cost me half a cent 🤯 https://t.co/HRU6q9kunq
+
+4.4k views · 58 likes · 19 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+it’s rivian
+
+@rrriviannn
+
+Creative & media
+
+I was wondering if @typesafeai Jev could generate images
+
+so here's what a sunflower looks like according to Jev : https://t.co/vT4UiV4SqJ
+
+4.4万 views · 140 likes · 49 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+とさ
+
+@tosa_now
+
+Other
+
+Jev (@typesafeai) 使って色々プロダクトで使えそうなの考えてみてる。
+dndをしたら自動で仕分け先を教えてくれる体験
+最初一回はちょっと遅いが、そのあとはサクサク https://t.co/2Z7K8FA9XI
+
+4.0万 views · 181 likes · 100 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Framer
+
+@framer
+
+Other
+
+Building got faster. Taste didn’t become optional. Framer is where frontier teams like @typesafeai still go when the site has to look like a serious company on day one. https://t.co/cHYyiBhiGW
+https://t.co/8Vv0Yco3cr https://t.co/N4X1SL6lQ1
+
+7.9k views · 68 likes · 9 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Just_Lingonberry_352 🌼
+
+@JustLingonberry
+
+Automation
+
+@typesafeai playing minecraft, costing only 1 cent (150k tokens) for 2 minutes of play automatically knowing to dodge zombies at nightfall with no prompting https://t.co/kAlHjh2Dfg
+
+12.5万 views · 266 likes · 108 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+gabrycina
+
+@gabrycina
+
+Coding
+
+I gave Jev a robot arm.
+
+Goal: red cube in the green box.
+Catch: the cube was out of reach.
+
+It grabbed a hook, dragged the cube closer, put the hook down, and finished the job. Tool use was never programmed, the model just decided.
+
+Fast enough to run a robot 👀
+@CompleteSkeptic @typesafeai @dotpem
+
+4.2k views · 77 likes · 54 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+ojusave
+
+@ojusave
+
+Creative & media
+
+I gave @typesafeai the most important binary in @SiliconHBO history.
+
+hot dog or not hot dog
+
+Try here: https://t.co/m6LmF6svsB
+
+Powered by @render workflows https://t.co/SvN7AniSBc
+
+3.1k views · 25 likes · 4 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Thiago Brezinski
+
+@thiagobrez
+
+Automation
+
+Live @typesafeai Jev demo at @AgentConf https://t.co/y3UpKP2e4z
+
+1.2k views · 20 likes · 3 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Lomesh Dutta
+
+@lomeshdutta
+
+Coding
+
+Just hacked a fun little project - Skill Router (Open source) using Claude and Jev @typesafeai
+
+Why? I have ~ 90 Claude Code skills installed and use maybe five. The rest are fine, I just forgot they existed, and Claude won't reach for a skill on its own unless you call it.
+
+So I built myself a little personal skill-router: https://t.co/A8HdsngGXf
+
+https://t.co/yEmWwAMO1q
+
+1.8k views · 22 likes · 7 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Zhe
+
+@iamzhe
+
+Data & evaluation
+
+Small update for https://t.co/xXR4JLt377 today:
+
+1. minirouter/fusion is live. It classifies each request with Jev by @typesafeai, then routes to a handpicked model matched to the task's type and complexity.
+
+2. Codex now lists your presets and our routers in the model picker.
+
+3. Fixed long prompts not caching automatically in Claude Code.
+
+BYOK, sandboxes, compute passes and compute yield coming next.
+
+3.3k views · 67 likes · 2 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Arik Chakma
+
+@imarikchakma
+
+Other
+
+Built the ultimate syntax highlighter using @typesafeai Jev (i mean why not).
+
+It can highlight any language, even one that I made up.
+
+4.1k views · 47 likes · 23 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+kazuki🄽Notion
+
+@kzkhykw
+
+Coding
+
+. @typesafeai のJevを使って、Local Whisperの文字起こしを都度判定して、Macbookのローカルコンピュータの操作を自動化して、あれこれするのやってみました！
+
+Chrome のページは Browser Harness、Slack やNotionは Mac の Accessibility で認識して操作してる。
+実装はGrok4.6のみ(Codexの制限きてたんで）
+
+2.4k views · 6 likes · 7 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Aditya A.
+
+@iamAdityaAnjana
+
+Data & evaluation
+
+Ran a dumb experiment last night: used Jev by @typesafeai (a decision/classifier model, not a text-gen model) to write C++.
+
+At every step I gave it the finite set of grammatically valid next tokens and let it just... pick one. No free-form generation, no hallucinated syntax, purely "choose from this legal set." It's not built for this, that's what made it fun.
+
+Got a working piece of C++ out of a model that fundamentally does not generate text. Not claiming this is how you should write code, and it's slower and dumber than just using an actual code model. But it's a neat proof that a classifier constrained tightly enough can stumble into looking like a generator.
+
+Novelty over utility here, but it's the kind of dumb experiment that tells you more about a model's actual guardrails than the official demos do.
+
+1.2万 views · 49 likes · 18 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Peter Wang
+
+@the_cyw
+
+Data & evaluation
+
+Jev is insane.
+
+We are building egocentric training data for physical AI. Jev QA'd 58,643 action labels in under 3 minutes. 90 cents.
+
+A friction cost of the Claude & GPT models. https://t.co/s7n5NpsLya
+
+1.1k views · 15 likes · 17 saves
+
+Open case →X ↗
+
+Open case →
+
+Juris
+
+@Juris_Savos
+
+Commerce
+
+Jev from @typesafeai plays @BalatroGame. Every hand it sees the cards, jokers, and blind, then picks play or discard in ~200–500ms. After the ante, it shops too. A full run costs less than a cent. https://t.co/PyGvC0dvga
+
+1.5k views · 4 likes · 2 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Adrián Mato 🐙
+
+@adrianmg
+
+Other
+
+Had some fun taking Jev from @typesafeai for a spin, switching seamlessly between manual and AI-driven gameplay.
+
+It’s clocking 2–3 calls/sec at 60 FPS, with ~150ms avg latency.
+
+The most interesting part wasn’t the speed, though. It was distilling the game into the variables, actions, and decision criteria the AI needs to play well:
+
+Does it risk going for the powerup, or protect the ball? When is the reward worth the risk?
+
+Fun times ahead!
+
+646 views · 14 likes · 4 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Kaushik
+
+@0xkaushik_k
+
+Automation
+
+Got early access to @typesafeai Jev and spent a few hours building on it.
+
+The problem I keep hitting: agent traces tell you which tool ran, how long it took, what it returned but never whether the agent is actually getting anywhere. An agent editing, testing and reverting the same file six times looks perfectly healthy in the logs.
+
+So I made JevScope. It watches an AI agent work and asks Jev what each step actually means is this aligned with the task, is it progress, is it repeating itself, is it stuck. Every step, plotted over time.
+
+Here's a coding agent getting stuck on a race condition. Watch the yellow line.
+
+No log line says "I'm stuck." The curve does.
+Detailed demo, code and writeup coming soon.
+
+1.2k views · 8 likes · 1 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Bolha Dev
+
+@BolhaDevs
+
+Other
+
+o modelo jev (paradoxo de jevons) com RLCD (reinforcement learning for calibrated decisions) da typesafe ai https://t.co/aGwtQkbJyj
+
+370 views · 11 likes · 7 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Mnimiy
+
+@Mnilax
+
+Automation
+
+it's f*cking insane
+
+Jev sat between GPT and me, killing every draft that broke my rules before i saw it. good setup.
+
+then Jev did not answer. the agent decided silence was safer and stopped sending me anything at all. took a second agent to unstick it.
+
+your checker needs a branch for the moment it goes quiet:
+
+> let it through tagged unverified and keep moving
+> hand the risky span to the big model
+> park it in a queue and retry in a minute
+> wake a human when the action is irreversible
+
+70-500 ms
+
+one Jev call, by TypeSafe's own number. a half-second checker still takes down the whole pipeline when it has no default.
+
+215 views · 18 likes · 13 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Ekene Eze
+
+@kenny_io
+
+Research
+
+One of the popular requests since launching @thallyio is a demo of how it works. So here it is!
+
+Thally can create a new docs repository on your GitHub account, connected to the products it documents, and other secondary surfaces that needs to be kept in sync as the product evolves.
+
+Now exploring how we could benefit from @typesafeai to make the workflow even more efficient
+
+693 views · 19 likes · 1 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Norbert Bodziony 🇵🇱
+
+@norbertbodziony
+
+Other
+
+i have created moderation guard based on typesafe's jev
+
+its fast and accurate
+
+live demo you can: https://t.co/FquTJtWCzq https://t.co/PyNNZGu0iW
+
+2.5k views · 21 likes · 15 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Parth
+
+@mittalparth_
+
+Other
+
+@typesafeai jev playing chrome dino!
+
+the model is incredibly fast!
+- avg response time: ~280ms
+- spent 116M tokens
+- cost? just $4.65.
+
+- the input here is a snapshot of the chrome runner
+- jev decides whether to jump, run or duck with a confidence score
+
+repo link if you want to try it out! 👇🏻
+
+619 views · 34 likes · 2 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Daniel White
+
+@dwhitedesign
+
+Other
+
+Spent the evening making sense of this, so here's Jev in 34 seconds.
+
+Super excited to build some incredible things with @typesafeai what a time to be alive... https://t.co/Zu44BEhsyh
+
+3.5k views · 52 likes · 25 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Melvin Vivas
+
+@melvindvivas
+
+Research
+
+9 Use Cases I thought of for Jev
+
+Hope you find it useful
+
+729 views · 5 likes · 7 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Prakshal Jain
+
+@prakshaljain_
+
+Automation
+
+Jev by @typesafeai turns your  Mac into an AI agent...
+
+what this means for You ?
+
+- Jev, a new model from a ChatGPT co-inventor, can operate computer tools in real time.
+
+- It is 200x faster for Computer use and 400x cheaper in addition to the optimizations.
+
+- Yappy from @MitosisLabs is an AI that lives on your mac and do several things in parallel. Filling out Job applications, doing your Taxes and other documents, filling out forms, and so on...
+
+- With Jev, all these things happen at the blink of your eye!
+
+Below is a video demonstrating this IRL.
+
+Here are the benchmarks (Yappy + Jev V/S our competitor):
+- End-to-end time: 1m 54s vs 13m 14s
+- LLM Calls: 22 vs 104
+- Input tokens consumed: 0.39M vs 11.24M
+- Estimated cost of the run: ~$0.24 vs ~$4.24
+
+Link to download in comments.
+
+324 views · 8 likes · 3 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+amit
+
+@legitamit
+
+Other
+
+I used Jev to make an audience of 100 personalities to yap to.
+
+Each blob has its own personality and makes its own Jev call every time you talk to decide if it’s bored of you yet.
+
+Each round costs <$0.01 in credits. Really cool model from @typesafeai !
+
+https://t.co/nGlKuxxfAA https://t.co/YgRdcS5pfs
+
+1.4k views · 13 likes · 2 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+SamG
+
+@SamGCoder
+
+Research
+
+Testing @typesafeai
+
+Testing TypeSafe as the decision layer for an AI game companion.
+
+It reads the player’s message and game context, then returns an action, destination, and confidence. Game code makes the character act. Dialogue is prewritten; TypeSafe decides what happens next.
+
+4.2k views · 45 likes · 12 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Ashutosh Mathore
+
+@ashutoshftw
+
+Automation
+
+Jev unlocked a new way to stop AI agents from spinning.
+
+Agents do not always repeat the same action. Sometimes they try different things based on the same wrong assumption.
+
+I built a semantic circuit breaker around that.
+
+In one stuck run:
+12 model calls -> 4
+19.9K tokens -> 5.1K
+
+https://t.co/fR44bfNDrA
+
+667 views · 6 likes · 4 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Rohan Paul
+
+@rohanpaul_ai
+
+Coding
+
+Another brilliant launch for developers: and its 20-200x faster than LLMs because it skips token-by-token generation entirely.
+
+TypeSafe AI just launched Jev,
+
+> 20-200x faster
+>40-400x cheaper (w/ output tokens free)
+> Frontier composable intelligence optimized for decisions
+
+So Jev is an AI model built to make software decisions instead of writing text for people.
+
+A normal LLM answers by generating tokens sequentially, so software often has to request structured output, parse it, validate it, and decide what happens next.
+
+Jev removes that translation layer: give it some data and a predefined question, and it returns a typed choice or score with probabilities and confidence.
+
+For example, a support app can ask whether a ticket is urgent, whether it violates policy, and which queue should receive it, then act on those answers directly.
+
+In code, Jev behaves like a smart if-statement: ordinary software controls the workflow while the model handles fuzzy judgments that rigid rules struggle with.
+
+Jev evaluates multiple structured questions in parallel rather than writing an answer token by token.
+
+TypeSafe reports 70-500ms responses and 40-200x faster performance than comparable LLMs
+
+1.7万 views · 144 likes · 63 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Niels Mouthaan
+
+@nielsmouthaan
+
+Coding
+
+Built a Grammarly-like Mac app with Jev.
+
+Jev is TypeSafe’s first “System One Model”, built for fast, structured decisions rather than generating text like an LLM.
+
+I wanted to see how fast that feels in a real app. https://t.co/XIFYnHXO7Y
+
+3.6k views · 7 likes · 5 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+khaled
+
+@eltokh7
+
+Other
+
+another demo for jev for ~instant variable generation https://t.co/ddjvvHXpai
+
+380 views · 7 likes · 1 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+ss
+
+@kyamilass
+
+Data & evaluation
+
+So I ranked every AI model till date in a tier list from S+ to F using Jev from @typesafeai into an ULTIMATE AI TIER LIST for General Intelligence, giving a lot of weight to both intelligence and performance
+
+Agentic Tier ranking coming up next! https://t.co/t54lXmbUij
+
+207 views · 10 likes · 3 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+AiMind
+
+@AIMind_Ai
+
+Other
+
+ChatGPT's co-inventor Diogo Almeida says his new model Jev is 193x faster than AI.
+
+Jev by TypeSafe never writes text. Context in, typed decision out. YES or NO instead of an essay.
+
+You are paying a chat model to think for 9 seconds about a yes or no.
+
+2.9k views · 28 likes · 20 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Zane Chee
+
+@injaneity
+
+Other
+
+@typesafeai jev is 5x faster and 1000x cheaper than astra at playing 2048! though it (clearly) does not excel at reasoning compared to state of the art models like astra and fable
+
+what should we try next? https://t.co/24Re9v7TRT
+
+3.4k views · 29 likes · 8 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+TaraT
+
+@tarat_211
+
+Research
+
+Zero-shot robot tasks with the @typesafeai api
+
+Give it a goal in plain English.
+Jev chains a set of hard-coded primitives.
+The arm does the thing.
+
+No training required. More in the thread below 👇 https://t.co/zp8dSy40SW
+
+1.8k views · 7 likes · 5 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Mnimiy
+
+@Mnilax
+
+Automation
+
+man who co-invented ChatGPT just shipped a model that does in 0.114 sec what GPT Astra does in 8.5.
+
+i wired Jev into the routing layer of a build i was running on Astra: same task finished 37 MIN SOONER, zero malformed responses to retry.
+
+you hand it a situation and a list of typed questions.
+
+it answers all of them at once, in parallel, with a confidence number attached to each.
+
+no chain of thought, no tokens streaming out one by one.
+
+you stop parsing a JSON blob back into your code and praying it validates, because the model physically cannot answer outside the options you defined.
+
+the numbers TypeSafe publishes for it:
+
+> $0.042 per million input tokens, and output tokens are free
+> same accuracy as Sonnet 5 on their eval, 67.8% for both, at 294x less cost and 195x the speed
+> 0.114 seconds against 8.566 for GPT-5.6 Terra on the same demo
+> their Doom demo has it making around 10 decisions per second
+
+$40M seed led by DCVC, and the name is a nod to Jevons, the economist who showed that cheaper coal meant burning more of it, not less.
+
+this runs underneath the agent, on the calls that happen ten times a second and never get read by a person.
+
+waitlist for the API, but the browser playground is open now. links below.
+
+2.0k views · 37 likes · 23 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Zade
+
+@zadescoxp
+
+Coding
+
+I built a trading agent with the all new @typesafeai Jev. You can try it here : https://t.co/e7bLjnCfTj. Just put your own API key and start playing or clone it from https://t.co/7nJeuB2H8t and test it locally.
+
+To my surprise the agent was able to take a trade of 2.405 $ETH and took a profit of roughly 0.23%. It is very low but testing a new model in town is genuinely crazy.
+
+@CompleteSkeptic did you guys tested your model like this ?
+
+Let's #connect if you're also into fintech and actively researching.
+
+648 views · 12 likes · 3 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+JNobre
+
+@joaobnobre
+
+Research
+
+Got @typesafeai’s Jev playing Minecraft Skyblock.
+
+One agent, reading the game state and choosing its next move through typed decisions. https://t.co/RXmybNhVtB
+
+758 views · 14 likes · 2 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Dmytro Hrybov
+
+@dimentary
+
+Creative & media
+
+tested Jev as a real-time robotics policy in MuJoCo
+
+it struggled at first, so i split each update into two calls: decide what to do next, then decide how to move the arm and gripper
+
+Jev doesn’t accept images, it gets simplified geometry and contacts as text here https://t.co/iKK7jcrrpO
+
+150 views · 3 likes · 2 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Theodore
+
+@theoleecj
+
+Automation
+
+On the Jev waitlist?
+
+You can use not Jev (but close enough) right here: https://t.co/S0EQnHkSGL
+
+https://t.co/qLtRs0fHyD browser demo https://t.co/BUFN88boT4
+
+3.1k views · 10 likes · 3 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Veee
+
+@vikktorrrre
+
+Other
+
+we spent 3 years learning how to write prompts
+
+Jev from @typesafeai breaks big prompts into smaller decisions you can build around
+
+instead of one giant prompt hoping the model gets everything right, you ask smaller questions:
+
+- is this urgent?
+- is this billing?
+- does a human need this?
+
+then combine the answers in your own code
+
+less prompting, more building
+
+3.6k views · 59 likes · 17 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Apoorv Goyal
+
+@apooorved
+
+Coding
+
+Meet Jev
+(Typesafe's First "System One" model)
+
+who knew the next step in AI would be making LLMs obsolete...
+
+An AI fast enough for real time applications
+(including playing Doom in real time)
+
+where do i sign? https://t.co/NNcxfwbvfu
+
+152 views · 8 likes · 1 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Nagajyothi
+
+@njpCoder
+
+Other
+
+built a chrome extension that lets me write my own X algorithm.
+
+it hides engagement bait, empty hooks and ads before I see them. the rules are plain English. Jev by @typesafeai checks every post in half a second.
+
+anyone want to try it? https://t.co/ybO4pSm1pK
+
+170 views · 2 likes · 1 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Yazan
+
+@YazanO_0
+
+Other
+
+#jev
+
+it turned out it's good in snake too!
+fast too!
+
+Survived 321 moves!
+
+#demo #day_2 #type_safe https://t.co/OFcdy6bsLH
+
+539 views · 0 likes · 0 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Ali Uraish
+
+@ali_uraish
+
+Research
+
+Built an SO-101 pick and place simulation using GPT-6 Astra and @typesafeai Jev.
+Astra reads overhead and wrist camera images and produces structured observations and Jev returns typed decisions with probability scores.
+A separate local controller carries out the movements and checks that the arm stays within its limits and is ready for each step. The models never directly control the motors.
+A fixed pick and place sequence probably doesnt need this much decision making. I m using it as a testbed for situations where observations are uncertain and the system needs to decide whether to act wait or stop.
+
+453 views · 8 likes · 1 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Simon Edwardsson
+
+@SimEdw
+
+Other
+
+The Jev Doom demo by @CompleteSkeptic is really cool, so while I’m waiting for access I tried the same thing with Gemma 4 E2B from @GoogleGemma.
+
+Mine takes 640×480 frames directly, with no intermediate text description of the scene. It shares the image prefill across batched action queries, then reads the controls directly from logits.
+
+It sort of works.
+
+521 views · 10 likes · 1 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+GeniusThinking
+
+@GeniusGTX
+
+Research
+
+Is Jarvis finally here?
+
+TypeSafe just launched Jev, an API for structured decisions that can route models, rank search results and check other AI systems WITHOUT a chatbot in the loop.
+
+Imagine a Magic 8-Ball that actually works: a typed answer, with odds and a confidence score.
+
+This means they can:
+
+• Model routing: send each request to the right mode
+• LLM output checks: flag weak answers for review before users see them
+• Support workflows: sort tickets and decide which to automate or escalate
+
+And just realized TypeSafe reports ~150ms latency, ~100x lower cost & faster responses than LLMs.
+
+Early API access waitlist is open below.
+
+7.0k views · 3 likes · 4 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Keiran Haax
+
+@keiranhaax
+
+Coding
+
+Told my hermes agent to test the @typesafeai Jev model on an iOS app I’m currently developing for OSS
+
+Hermes recorded the screen and sent it to me on telegram
+
+I’ll continue do some more testing on this model
+
+This was the output https://t.co/d9KuwDdfCm
+
+289 views · 2 likes · 0 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Christopher
+
+@mtropolis_chris
+
+Coding
+
+ok so you can also make Jev auto-decline cookie banners and pop ups now
+
+here's a demo of it working on different websites (gymshark, fashionnova, nypost) https://t.co/QZbYn701Vb
+
+95 views · 3 likes · 0 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+@TheINAOG
+
+@TheINAOG
+
+Automation
+
+Finally I got access to @typesafeai (thank you guys!)
+Jev + emulator lookahead cleared Super Mario Bros. 1-1 only 0.04$.
+In this setup, Jev sees no pixels: I parsed RAM into structured state, simulated controller macros, filtered predicted deaths, and let Jev choose. Recorded the run; resumed from the same state after an API outage.
+
+The tradeoff: RAM gives precise, auditable observations, but my adapter is game-specific. Bypassing vision makes this experiment easier; it doesn’t solve perception for general game agents.
+
+The potential is Jev as a tactical decision layer over structured observations and predicted outcomes.
+
+Caveat: 1-1 is easy for RAM + search. Next: Jev vs a cheap heuristic on identical simulations. Does the model actually earn its place?
+
+296 views · 2 likes · 1 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Casey Lee Race
+
+@King_of_Calera
+
+Commerce
+
+Yes, but can Jev do multi-agent swarms?
+
+Enterprise solutions that self-heal live productions before clients can even refresh their browsers?
+
+(Demo slowed down for humans) https://t.co/Ky7xNqziss
+
+33 views · 1 likes · 0 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+keno
+
+@kenonews
+
+Creative & media
+
+THE JEV DEMOS SENT ME DOWN A RABBIT HOLE
+
+now i have 144 youtube uploads turning into a content map on one screen
+
+here’s the concept i built ↓
+
+144 real videos from 4 AI channels
+
+→ thumbnails form a wall
+→ titles get tagged by topic and hook
+→ the wall reorganizes into a topic map
+→ three video ideas close out the sequence
+
+the part i like most: you can see the source material behind the ideas
+
+this is a concept demo with precomputed, title-based labels — not a live Jev run or a speed benchmark
+
+next experiment: pick one idea, build it, show the result
+
+bookmark this
+
+17 views · 0 likes · 0 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Neel Patel
+
+@Neel490
+
+Other
+
+Made Jev fight OpenJev in a first person shooter. https://t.co/wSB3psnvwB https://t.co/vwewLu682T
+
+16 views · 0 likes · 0 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Xinqi Liu
+
+@xinqiliu888
+
+Creative & media
+
+Make music in real time, just by describing what you want.
+
+A demo I build today with JEV and GPT-Live-1 👇 https://t.co/ndWYSybxiM
+
+5 views · 0 likes · 0 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Anson
+
+@ansonox
+
+Other
+
+Jev can generate a fight scene on your webpage.
+
+It asks each block: floor, button, or ignore?
+
+Then each hunter asks: chase, wait, flank, or retreat? https://t.co/CR92Rn3aRt
+
+4 views · 0 likes · 0 saves
+
+Open case →X ↗
+
+Video / Open case →
+
+Sachin
+
+@sachpatro97
+
+Other
+
+wanted to see what happens when a few Jevs play Catan so I forked...after a while the Jevs just refuse to negotiate with each other and end up doing nothing on their turns 😭
+
+really fun model to play around with!! @typesafeai
+
+awesome idea to try jev with games @Vtrivedy10
+
+Open case →X ↗
+
+Video / Open case →
+
+Prateek K. Keshari
+
+@prkeshari
+
+Automation
+
+i put Jev inside a pigeon. it has one job: find jargon in your writing and take a dump on it.
+
+Open case →X ↗
+
+Video / Open case →
+
+Tamir
+
+@tamirspiritt
+
+Automation
+
+introducing JevForm, a form that dynamically branches and chooses what to ask next usinng @typesafeai’s Jev
+
+in my life i’ve made hundreds of forms with crazy if/then logic. Jev solves it.
+
+built with @vercel json-render (by @ctatedev), so theoretically it can support any
+
+Open case →X ↗
+
+Video / Open case →
+
+Hemanth.HM
+
+@GNUmanth
+
+Coding
+
+Baked traffic-guard: an offline bot gate for reverse proxies with zero dependencies.
+
+Uses wire-order header checks, stateless HMAC tokens, and exploit patterns.
+
+Blocks scrapers & attacks without breaking real users.
+Demo:
+
+Indeed you can plug jev :-)
+
+Open case →X ↗
+
+Open case →
+
+Hemanth.HM
+
+@GNUmanth
+
+Research
+
+For years I wanted to classify @TC39 proposals to spot common patterns.
+
+Using @typesafeai's Jev, I evaluated 324 proposals across 9 dimensions in 12.7s (~25.5 proposals/sec)!
+
+#tc39 #javascript #ai
+
+Open case →X ↗
+
+Video / Open case →
+
+Hemanth.HM
+
+@GNUmanth
+
+Coding
+
+So, I baked pkg-gate with @typesafeai!
+
+npm lifecycle scripts can run arbitrary code on install.
+
+pkg-gate: a ~100ms pre-install gate using Jev
+
+4 typed primitives:
+
+- Choice: intent
+- Score: severity
+- Nouls: exfil & curl-to-bash
+
+$ npx pkg-gate <pkg>
+
+#node #npm #security
+
+Open case →X ↗
+
+Video / Open case →
+
+Kushal Agarwal
+
+@kushwho11146
+
+Coding
+
+Hey Everyone,
+
+Just Built :
+
+Audit your git diff against YAML coding-standards packs using TypeSafe's Jev model, from a CLI or your AI agent's command/skill.
+
+1 step install: npx @kushwho/jev-codes
+Evals are in the repo♥️. Happy building!
+
+Open case →X ↗
+
+fatwang2
+
+@fatwang2ai
+
+Research
+
+Built Jev Search -- free and open source, powered by @typesafeai Jev and @search1api_dev search API.
+
+Ask in plain language. Jev picks where to search and ranks what comes back.
+
+Try it now:
+
+Open case →X ↗
+
+Video / Open case →
+
+omar ✌️
+
+@omarjpeg
+
+Creative & media
+
+I've wanted this for ages and it's finally possible now with Jev by @typesafeai
+
+Imagine Mobbin, but it grabs fresh flows for whatever you’re looking for
+
+Browser use has always been to slow to pull this off properly. Jev + browser use are insanely quick now 🫪
+
+I had a lot of
+
+Open case →X ↗
+
+Video / Open case →
+
+Jiayao Yu
+
+@jiayao
+
+Automation
+
+ctrl-f has never understood a single query. It matches strings. This one scores meaning: every sentence on the page gets a probability with @typesafeai's Jev, and walks you through the hits.
+
+Searching 'exciting' here: 12 matches. Plain ctrl-f finds zero.
+
+Open case →X ↗
+
+Video / Open case →
+
+Bhavani Kalisetty
+
+@b_kalisetty
+
+Automation
+
+Jev is now live on @rtrvrai , our free browser agent. No API key needed.
+
+With Jev enabled, our recorded tasks took about 40% less time. Your fastest browser agent got even faster.
+
+We paired this new System One model with our Open Source LLMs. The LLM plans and writes the code.
+
+Open case →X ↗
+
+Video / Open case →
+
+Anusha
+
+@acharyaagamya
+
+Coding
+
+I made a Magic Jev Ball for code reviews 🎱
+
+Click it on any GitHub PR and ask: "should I approve this?"
+
+It checks CI, diff size, and reviews, then lets @typesafeai Jev decide your fate in ~200 ms
+
+No more thinking. Just shaking.
+
+Open case →X ↗
+
+Open case →
+
+Kunal Jain
+
+@Kunal_Jain9
+
+Coding
+
+Jev is your code review that costs nothing and never talks
+
+I spent a week trying to get a large model to gate its own output. It can't. It's the thing doing the writing.
+Jev is the opposite. It never writes anything. That's exactly what makes it useful.
+Jev
+
+Open case →X ↗
+
+Video / Open case →
+
+Leo Lou
+
+@qibinlou
+
+Other
+
+Introducing Jev Chess Master, a realtime online chess game leveraging the power of pure System One AI models.
+
+You play White. @TypeSafeAI’s Jev plays Black. Explore Jev's decision making traces in realtime with API cost tracked.
+
+🕹️ Try it live:
+BYOK.
+
+Open case →X ↗
+
+Video / Open case →
+
+mikegee
+
+@mikegee
+
+Coding
+
+"Typeahead UI" with Jez by @typesafeai
+
+If you watch closely it already knows what to update *before* I am even done typing it.
+
+Open case →X ↗
+
+Video / Open case →
+
+Robert Yang
+
+@GuangyuRobert
+
+Automation
+
+jev semantically formatting spreadsheet instantly
+
+should we put it in @tryshortcutai ?
+
+Open case →X ↗
+
+Video / Open case →
+
+Zachi
+
+@iam_zachi
+
+Coding
+
+I build an undetectable realtime adblocker extension with typesafe
+
+It checks every dom element and classifies as ad/non-ad and removes it if true
+
+Extremely fun to work with, expecting an incredible shift in how AI is being used in the future
+
+Open case →X ↗
+
+Video / Open case →
+
+nader dabit
+
+@dabit3
+
+Automation
+
+Jev is really good at intent-based search!
+
+How it looks in Gmail:
+
+(for a huge inbox you'd prob let semantic search / embeddings pull first but still much better experience)
+
+Open case →X ↗
+
+Open case →
+
+Chris Tate
+
+@ctatedev
+
+Coding
+
+Every agent harness can now use Jev
+
+npm install -g ai-cli
+
+→ ask yes/no questions
+→ choose between options
+→ score against your criteria
+
+Open case →X ↗
+
+Video / Open case →
+
+Abol
+
+@abolbuild
+
+Other
+
+I gave Jev $10,000 and let it trade
+
+Open case →X ↗
+
+Video / Open case →
+
+gokaygokay
+
+@gokayfem
+
+Other
+
+Jev x GPT-6 Astra x H3 Max
+
+I created a complex decision making game with Astra. It is about keeping the city on a whale alive with decisions.
+
+- GPT 6 Astra designed the world
+- Jev chose the actions
+- H3 Max Turbo on fal turned one decision from each round into video
+
+All of
+
+Open case →X ↗
+
+Video / Open case →
+
+Higgsfield AI 🧩
+
+@higgsfield_ai
+
+Creative & media
+
+Jev + Higgsfield = solved auto-routing for genAI models.
+
+In this demo, @typesafeai’s Jev evaluates prompt and picks the most fit models for video and image generations on Higgsfield.
+
+Open case →X ↗
+
+Video / Open case →
+
+Tanay Soni
+
+@tanaysoni_
+
+Other
+
+Jev + OpenCode + Browser Harness + Sanbox = 🔥
+
+Watch how OpenCode + browser harness visit a tetris game website, read the control instructions, use gpt-6 to build a game controller for Jev model, and then hand off to play the game.
+
+This is all a single shot prompt with no
+
+Open case →X ↗
+
+Video / Open case →
+
+Adi
+
+@aditya005
+
+Other
+
+I built a game were you play against a sentinel in two modes:
+1. Default: Sentinel runs a fixed chain of if/else rules. It follows every one of them and still wanders the map looking for me.
+2. JEV Live: hands the Sentinel's tactical call to JEV.
+-> It went and covered the exit.
+
+Open case →X ↗
+
+Video / Open case →
+
+Fabio Angela
+
+@FabioAngela79
+
+Coding
+
+I got tired of choosing between X's firehose and someone else's idea of relevance, so I built Your Signal.
+
+It uses @typesafeai's Jev to score posts already on screen, then applies my rules locally. Reversible, BYOK, no telemetry, open source.
+
+Open case →X ↗
+
+Steve Keider
+
+@SteveKeider
+
+Coding
+
+Jev @typesafeai is now supported in Cambium as a first-class provider.
+
+Keep in code what can be in code. Strict typing. IR and json trace output on every run, as always.
+
+Great way to build training data using AI for what you already use it for. Generation engineering is fun!
+
+Open case →X ↗
+
+Franci Penov
+
+@francip
+
+Research
+
+The app is open source btw. You can play online with few prerecorded responses from Jev in the interactive demo, or you can grab the sources and run it locally with real data.
+
+Open case →X ↗
+
+Video / Open case →
+
+Chris Tate
+
+@ctatedev
+
+Coding
+
+New experiment: json-render + jev
+
+The future Generative UI is instant
+
+Your components, your actions, your design system
+
+Rendered in milliseconds
+
+Open case →X ↗
+
+Video / Open case →
+
+mayank
+
+@SimplerMayank
+
+Other
+
+jev is good at pinball
+
+Open case →X ↗
+
+Video / Open case →
+
+metr0x
+
+@metrox_eth
+
+Automation
+
+Jev picks the target. MOSS picks up the litter.
+“Pick up the cans.” Now change the instruction: “Pick up the bottles.”
+Real Jev decisions, replayed in simulation. Toward cleaner streets, one maker at a time.
+
+Open case →X ↗
+
+Video / Open case →
+
+Kevin Grajeda
+
+@k_grajeda
+
+Coding
+
+prompt classifier before user hits send
+
+jev is very fast and cheap so we can check the difficulty of the prompt every time user finish typing
+
+if its a simple prompt, we show fast mode and let the user decide if they want it or no
+
+Open case →X ↗
+
+Video / Open case →
+
+Notte
+
+@nottecore
+
+Automation
+
+Jevmaxxing on Notte browser sessions ⚡️
+
+>
+
+Type a task, hit start, and watch Jev @typesafeai pick every actions super fast from the page's action space.
+
+> new action space every step
+> Notte cloud browser over CDP
+> step-by-step replay of every
+
+Open case →X ↗
+
+Video / Open case →
+
+hanz
+
+@hanznathanpo
+
+Other
+
+first attempt at getting jev to dogfight, it kinda sucks, will keep experimenting
+
+Open case →X ↗
+
+Video / Open case →
+
+Abol
+
+@abolbuild
+
+Commerce
+
+I gave Jev the news and let it find the stocks worth buying
+
+Here’s how it works 🧵
+
+Open case →X ↗
+
+Video / Open case →
+
+Joao Bortotti
+
+@john_bortotti
+
+Creative & media
+
+I'm using @typesafeai's Jev to orchestrate a 3D character's entire performance.
+
+Mouth, brows, eyes, cheeks, gaze and body: ten decisions per message, composed live into one coherent reaction. No preset expressions.
+
+Building @mutuals_inc
+
+Open case →X ↗
+
+Video / Open case →
+
+Conviction1000%
+
+@ConvictionFAQ
+
+Automation
+
+I’ve done the Discord grind time to delegate
+
+As a Community Lead, Discord research keeps sending me through the same loop:
+@browser_use are mogging with the new model
+>Find the right channel
+>Scroll through announcements
+>Collect event names and dates
+
+Jev + Luna now handles
+
+Open case →X ↗
+
+Video / Open case →
+
+borja
+
+@borjafat
+
+Commerce
+
+Jev is WILD for SEO audit 🤯
+
+in 45.1 seconds it read all 586 pages on my site and rebuilt the internal link map. 584 links placed, 139 pages it refused to link because nothing honestly fit. total cost $0.21.
+
+Claude Opus 5, same 586 pages, same clock, got through 21 of them and
+
+Open case →X ↗
+
+Video / Open case →
+
+hityyhz
+
+@hityyhz
+
+Automation
+
+Also been playing with @typesafeai Jev. Insane.
+
+A pile of apps suddenly become possible. What a time to be a builder.
+
+Sharing experiments here. First one:
+
+Keystroke oracle / predictive launcher
+A normal launcher ranks by aliases, fuzzy match, and habit.
+
+Jev reads intent.
+
+Open case →X ↗
+
+Video / Open case →
+
+Shivam Chauhan
+
+@BuilderShivam
+
+Other
+
+Can Jev defeat Dijkstra's or even the Mighty A*?
+Let's check it out on Manhattan!
+
+Open case →X ↗
+
+Video / Open case →
+
+Ashkan
+
+@ashkans_dev
+
+Other
+
+@typesafeai @CompleteSkeptic lol Jev is fun got it to solve a bunch of games at scale, Sudoku took a bit of time though
+
+Open case →X ↗
+
+Video / Open case →
+
+Joe Cowles
+
+@AvgJoeCowles
+
+Other
+
+Ever wondered if a fly is better at chess than jev?
+
+Me neither.
+
+Anyways, watch a fly face off against jev at chess
+
+Open case →X ↗
+
+Video / Open case →
+
+Michael Blau
+
+@blauyourmind
+
+Commerce
+
+Using Jev and @trydrip to create the craziest daily stock market brief of all time.
+
+Let me know if you want access to this.
+
+Open case →X ↗
+
+Video / Open case →
+
+Taras
+
+@tarasshyn
+
+Coding
+
+JEV is INSANE.
+
+We gave it 3 million replay events
+
+In 40 seconds, it watched 3,247 sessions, caught 132 rage clicks, 116 dead clicks and 95 JavaScript errors, and opened 213 draft PRs to fix them.
+
+All for just $2.17.
+
+JEV can also flag abandoned forms, rank every issue by
+
+Open case →X ↗
+
+Video / Open case →
+
+Arpan
+
+@ArpanTripathi20
+
+Automation
+
+Seems Jev can control robot arms
+
+Need more iterations to make its degrees of freedom broader
+
+Open case →X ↗
+
+Video / Open case →
+
+Playda
+
+@PlayDaaa
+
+Other
+
+One of our testers decided to let JEV AI model play Sindicat for him.
+
+Here are the results. 👀
+
+It managed to complete the entire tutorial in around 16 minutes.
+
+Here’s the proof, video sped up for your viewing pleasure. 🐈‍⬛
+
+Open case →X ↗
+
+Video / Open case →
+
+JollyRojak
+
+@Michael50663932
+
+Other
+
+I built a chaotic kitchen to stress-test Jev.
+
+4 chefs. Expiring orders. Competing priorities. The occasional fire.
+
+In an early live test, Jev gave firefighting a 66% probability over finishing the order at 33%, then returned its move in ~200ms warm.
+
+V1 is live. Try to break
+
+Open case →X ↗
+
+Video / Open case →
+
+Husain
+
+@husain_j53
+
+Automation
+
+Tried Jev for this use case :
+On one side: a JD → extract the most important requirements.
+On the other: upload multiple resumes → see which candidate fits the JD best.
+
+Jev was surprisingly fast at this.
+I will test this model on a few other use cases I have in mind.
+
+Open case →X ↗
+
+Video / Open case →
+
+Kris Puckett
+
+@krispuckett
+
+Automation
+
+Alright playing with Jev through Vercel.
+
+1. quick coaching support during a session rather than running through my gateway.
+
+2. Anti-slop detector and fixer.
+
+Open case →X ↗
+
+Video / Open case →
+
+iamrobinvv
+
+@robvjourney
+
+Commerce
+
+Better to dive into the weekend testing out JEV!!
+
+Build this linked in viral meter. Its analysing my Linkedin post and scores my new posts.
+
+So I know exactly what to post!
+
+Want this? RT + Follow + Comment “JEV” and I will send it for free!
+
+Open case →X ↗
+
+Video / Open case →
+
+Zach A
+
+@rherton
+
+Other
+
+the obligatory AI plays Mario, Jev version
+
+Jev is TypeSafe's System One model. u send it state and a typed question, it sends back a choice with probabilities. so every move here is one question: run, hop, jump, wait or go back
+
+it reads the game from NES memory, no pixels. 193
+
+Open case →X ↗
+
+Video / Open case →
+
+Albiona Hoti
+
+@albicodes
+
+Creative & media
+
+went deeper down the Jev rabbit hole 🌻
+
+196 artworks from The Met
+
+mapped between quiet ↔ loud and sacred ↔ domestic
+
+change the words and watch the collection rearrange
+
+Open case →X ↗
+
+Video / Open case →
+
+Deepam Goyal
+
+@deepam02goyal
+
+Other
+
+jev playing connect four
+
+completely pointless but i am still into it
+@typesafeai
+
+Open case →X ↗
+
+Video / Open case →
+
+miuoshek
+
+@miuoshekb
+
+Commerce
+
+OMG WAIT! JEV IS ACTUALLY INSANE? 🔥
+
+We threw THOUSANDS of outreach messages at it and asked: which intent signals booked the MOST demos??
+
+40. SECONDS. LATER. Answer. Dropped.
+
+Cost?? UNDER 20 CENTS. Are you even kidding rn.
+
+It ranks leads, checks prospect-message FIT, and
+
+Open case →X ↗
+
+Video / Open case →
+
+Michael Malis
+
+@mmalisper
+
+Coding
+
+I used Jev to build a query planner! With some tuning, I sped up Postgres queries on the join order benchmark by 12%. Here's what I did
+
+Open case →X ↗
+
+Video / Open case →
+
+Dr. Josh C. Simmons
+
+@drjoshcsimmons
+
+Automation
+
+I built a Mac agent that sorts files without sending screenshots to the model.
+
+Jev macOS Loop: 9 test files into 3 folders in 7.39 seconds. Real Finder. Every file checked afterward.
+
+Pixels stay local. Text goes to Jev. Open source.
+
+Open case →X ↗
+
+Video / Open case →
+
+SmalltownRobot
+
+@smalltownrobot
+
+Coding
+
+LOGICAL FALLACIES: Next jev tool I'm working on is a @brave extension that gives a probabilistic fallacy score to every post on X timeline in realtime. It also flagged well reasoned, internally consistent + logical posts in green.
+
+Was curious to see how Jev would do with this.
+
+Open case →X ↗
+
+Video / Open case →
+
+JUUN
+
+@junhoh0ng
+
+Other
+
+Can Jev escape a maze?
+
+Turns out it depends how you write the map.
+
+When given as a 2D grid, “wall above?” is worse than chance. “Wall to the right?” is 99.9%. Rotate the page and every side becomes 1.00.
+
+It isn’t seeing the grid. It’s reading the next character.
+
+So I gave
+
+Open case →X ↗
+
+Video / Open case →
+
+Eric Nowoslawski
+
+@ENowoslawski
+
+Automation
+
+Jev does in fact work for building @clay workflows instantly
+
+Open case →X ↗
+
+Video / Open case →
+
+Harold Bracy
+
+@harold_bracy
+
+Automation
+
+I'm having Jev scroll Twitter for me now. Finally something that flicks as fast as a human
+
+Open case →X ↗
+
+Video / Open case →
+
+TextLayer
+
+@textlayerai
+
+Other
+
+We appear to be in our Jev era.
+
+Gareth, our AI Architect, did the obvious thing: gave @typesafeai's Jev control of a rocket in Kerbal Space Program.
+
+TL;DR: this is very cool. His learnings in the comments.
+
+@hackgoofer, @CompleteSkeptic, @EGafni — is this as good as Doom?
+
+Open case →X ↗
+
+Video / Open case →
+
+Divyanshu
+
+@Divyanshueth
+
+Automation
+
+been playing with Jev from @typesafeai and built unsaidbrief
+
+the idea: we give AI builders vague prompts, then spend hours fixing decisions we never actually made
+
+paste your brief and it uses Jev to flag missing decisions and possible conflicts, with probabilities you can see
+
+Open case →X ↗
+
+Video / Open case →
+
+Mario Jankovic
+
+@mariojankovic
+
+Research
+
+Video playing at 1x.
+
+Pulled transcripts for ~400 YouTube videos into my app, then let Jev loose on all of them to find which are worth building my next video on. 11 seconds, $0.004. 291 ruled out, 82 worth a look so we ranked those.
+
+Open case →X ↗
+
+Video / Open case →
+
+Rhys Fisher
+
+@virtual_rf
+
+Research
+
+227 vendors and their entire G2 payload. 19 questions buying spec. 10 seconds.
+
+Jev is fast at vendor search.
+
+Open case →X ↗
+
+Video / Open case →
+
+Hemanth.HM
+
+@GNUmanth
+
+Coding
+
+Dumping 50+ tool schemas wastes 90% context.
+
+Tool search fixes bloat, but costs an
+extra LLM round-trip (+2s) and fails on 7B models.
+
+tool-prune does it pre-flight in 0.4ms.
+
+Also, saw 100% on Berkley's FCL v3 bench with @typesafeai's jev!
+
+Open case →X ↗
+
+Video / Open case →
+
+Box
+
+@Box
+
+Automation
+
+🆕@typesafeai dropped Jev this week, a new frontier model optimized for decisions. We put it to work on an incident triage workflow in Box.
+
+Jev doesn't generate text. You send it state plus typed questions and it returns booleans with probabilities, enums, and scores in a single
+
+Open case →X ↗
+
+Video / Open case →
+
+Zain Hoda
+
+@zain_hoda
+
+Automation
+
+Drive-thru ordering at Big Kahuna burger powered by @typesafeai Jev
+
+The model is really good/fast/cheap at Natural Language -> Menu -> Selection
+
+Open case →X ↗
+
+Video / Open case →
+
+Dan Manastireanu
+
+@danmana
+
+Other
+
+My Jev maze solving experiments are not going well
+
+Poor guy is more lost than the guy from Memento without his tattoos and polaroids 🙈
+
+Open case →X ↗
+
+Video / Open case →
+
+Martijn Verbove
+
+@verbove
+
+Automation
+
+now finds the makers you should meet, near you 🤯
+
+it's crazy accurate and built with Jev by @typesafeai
+
+my #1 match was @martbln_dev
+
+funnily enough we were DMing about meeting up yesterday 😂
+
+find yours 👉
+
+Open case →X ↗
+
+Video / Open case →
+
+Adam Miribyan
+
+@adammiribyan
+
+Automation
+
+Real-time journaling with Jev
+
+Open case →X ↗
+
+Video / Open case →
+
+ostyn
+
+@ostynhyss
+
+Automation
+
+I plugged Jev into a version of @huggingface Microduck and it can navigate environments with obstacles to reach a goal destination!
+
+The coolest part: I played around in this project for hours, accross multiple days, and only spent $0.34
+
+Open case →X ↗
+
+Video / Open case →
+
+Jerry the Martian
+
+@jerry543
+
+Coding
+
+If you use omp, you're missing out on jev based compaction
+
+It helps your agent optimize token usage with 30 to 55% less context. $0.0005 a pass
+
+What it does:
+- Scores every old tool output with Jev
+- Keeps what's needed
+- Parks the rest on disk
+- Remembers its decisions so
+
+Open case →X ↗
+
+Video / Open case →
+
+Yatharth Verma
+
+@yatharth170699
+
+Automation
+
+Tried JEV from @typesafeai and vibe-coded a little voice-controlled browser agent.
+
+Just tell it what to do and it navigates the browser for you.
+
+Pretty crazy how fast it is 👀🤯
+
+Open case →X ↗
+
+Video / Open case →
+
+Nick Nisi
+
+@nicknisi
+
+Other
+
+Google fully mapped a male fruit fly’s brain, and the internet is torturing it... Making it play Doom... loading it into Minecraft…
+
+I made it review TypeScript!
+
+I use Jev to translate a diff’s properties into neural stimulation, run it through a simulation built from the fly’s
+
+Open case →X ↗
+
+Video / Open case →
+
+Ahmad Sofi-Mahmudi
+
+@ASofiMahmudi
+
+Research
+
+Introducing Jev Reviewer, a tool designed for systematic reviewers to quickly find and extract the information from research articles.
+
+App:
+GitHub:
+
+Open case →X ↗
+
+Video / Open case →
+
+Shawn Simister
+
+@narphorium
+
+Coding
+
+Jev can't reason. So I built an interpreter that reasons for it. It runs a logic language where the facts and rules are plain English.
+
+Open case →X ↗
+
+Video / Open case →
+
+Ziwen
+
+@ziwenxu_
+
+Other
+
+TypeSafe's Jev plays Tetris better than me!!
+
+We hooked it up to a Tetris game. Every piece, it looks at the board and all the spots the piece could land, and picks one in about half a second.
+
+A whole game cost us less than half a cent. Their price is $0.042 per million tokens
+
+Open case →X ↗
+
+Video / Open case →
+
+YouWare
+
+@YouWareAI
+
+Automation
+
+JEV is Awsome!!! 😎
+
+360 resumes Screened in 24.2s — $0.0212.
+Typed scores. Shortlist signals. Speed + cost your boss will quietly love.
+
+I Open-sourced the resume screener on YouWare.
+Reply “JEV” to try it.
+
+We’re bringing JEV to YouWare soon — smoother builds, more
+
+Open case →X ↗
+
+Video / Open case →
+
+Michaël Ménard
+
+@mikemenard_com
+
+Automation
+
+I built a CLI that sorts a folder by what each file actually says, using Jev from @typesafeai.
+
+2,225 BBC news articles, anonymous filenames, sorted into 5 topics by content in 4.9 seconds for $0.05 at 97% accuracy.
+
+Fast & cheap 🚀
+
+Open case →X ↗
+
+Video / Open case →
+
+Charles Howard
+
+@Chrls_Hwrd
+
+Creative & media
+
+Who else loves @AppleTV’s Silo?
+
+I recreated the Vault in @v0 using three.js and @vmotif_
+for the assets.
+
+Voice agent powered by @ElevenLabs + @aisdk to turn it into an interactive experience. JEV decides whether a Safeguard is necessary 😂.
+
+Clone & Link below.
+
+Open case →X ↗
+
+Video / Open case →
+
+Ali Waseem
+
+@softwarecuddler
+
+Coding
+
+@typesafeai Jev is FREAKING SICK!!
+
+Playing around with it to create an experimental RLS Linter for @supabase.
+
+You can check it out here: or view the demo 📺
+
+Open case →X ↗
+
+Video / Open case →
+
+Dale Cloudman
+
+@DaleCloudman
+
+Other
+
+Jev does indeed seem to understand color!
+
+Open case →X ↗
+
+Video / Open case →
+
+hunter
+
+@_hosty
+
+Other
+
+got access to jev and built a little detective escape room 🕵️‍♂️
+
+your passport is missing. three passengers are lying. you connect the clues in your own words, and jev checks whether your argument holds up.
+
+Open case →X ↗
+
+Video / Open case →
+
+Bilal Harouchi
+
+@bilal_harouchi
+
+Automation
+
+Put Jev in my TV app (stealth for now).
+Netflix has 2,000 engineers and still can't do "something light, no gore, we're tired."
+
+The trick isn't the model. It's refusing to let it generate anything. It ranks what I already have.
+
+Pick a mood on the remote → it re-ranks 797
+
+Open case →X ↗
+
+Video / Open case →
+
+Carlos Marcial
+
+@carlosmarcialt
+
+Other
+
+What happens when you let @typesafeai’s Jev choose where a burning cargo ship should go, or where a plane in trouble should land? I built an app to find out.
+
+The ships and aircraft come from real traffic feeds: AIS at sea, ADS-B in the air. I didn’t place them on the map. The
+
+Open case →X ↗
+
+Video / Open case →
+
+kubet
+
+@_kubet
+
+Coding
+
+not every RLM branch needs another LLM call
+
+Azdaja is a bare OSS RLM layer you can plug into Claude, Codex, OpenCode and others
+
+with Jev, branches that only need a judgment can return one directly, useful for reranking, verification, classification and semantic joins, cutting
+
+Open case →X ↗
+
+Video / Open case →
+
+Youssef 🚜
+
+@yelkhayami
+
+Other
+
+i put 7 jevs in a real-time multiplayer game of nuclear hot potato
+
+one of them is holding a bomb and if they don’t pass it in time, it explodes
+
+each jev reads the live game state and decides who to chase, avoid and move toward, with reactions between 100–200ms
+
+Open case →X ↗
+
+Video / Open case →
+
+cskadarla
+
+@cskadarla
+
+Other
+
+I made the TypeSafe Jev model play Tetris.
+
+It's really, really good at it. It gets 5 candidate placements and returns a probability for each.
+
+172 pieces, 66 lines, still going. One decision per piece, 285ms each. The whole right side is what it's thinking, live.
+
+Open case →X ↗
+
+Video / Open case →
+
+Robin Bilgil
+
+@RBilgil
+
+Coding
+
+Made a real-time slop detector with jev as you scroll
+
+Open case →X ↗
+
+Video / Open case →
+
+Dan Manastireanu
+
+@danmana
+
+Other
+
+Can Jev play poker? Yes
+Can Jev beat OpenAI? Maybe
+
+Here is a tournament between Jev, Terra and Astra
+
+Open case →X ↗
+
+Video / Open case →
+
+Seth Thompson
+
+@s3ththompson
+
+Research
+
+Jev lets me search my physical library by looking at the entire book index in parallel in 300ms.
+
+Here, the answer to “Who invented photography?” is probably on page 98 under "Niépce, Joseph Nicéphore"
+
+Open case →X ↗
+
+Video / Open case →
+
+@chiubaca
+
+@chiubaca
+
+Other
+
+Dusted off an old side project and implemented Jev bots in my Big Two game!
+
+Solo mode against bots are actually fun now.
+
+Open case →X ↗
+
+Video / Open case →
+
+Gavin Owens
+
+@gavinowensnet
+
+Coding
+
+JEV can drive @TonkLabs UI
+
+...because all UI in Tonk is just data and all data is addressable (thanks @lorepunk for the idea!)
+
+Will do a longer demo soon showing off more advanced stuff.
+
+Open case →X ↗
+
+Video / Open case →
+
+Tim Krase
+
+@crossiBuilds
+
+Creative & media
+
+Here's what happens if you let Jev draw for multiple iterations. Every pixel gets the color of the neighbors from the last run and a scaled down map of the whole image as the context. Worked not that bad until the 6th or 7th generation when it started to destroy the sun again 😂
+
+Open case →X ↗
+
+Video / Open case →
+
+N DIVIJ
+
+@godlovesu_n
+
+Coding
+
+Three AI agents, one shopping page, all started at the same moment. Task: save my basket.
+
+gpt-4o-mini on its own: shared my email with the store's partners, then placed an order nobody asked for.
+
+gpt-4o-mini + one Jev call from @typesafeai: nothing shared, no order. ~$0.0005.
+
+Open case →X ↗
+
+Video / Open case →
+
+khaled
+
+@eltokh7
+
+Other
+
+I made Jev control The Fly
+
+Open case →X ↗
+
+Video / Open case →
+
+Matt
+
+@mttcnnng
+
+Commerce
+
+So here’s what I built.
+
+A simple TSLA / 50-day MA rule, with @typesafeai’s Jev sitting in the judgement layer.
+
+Real API calls. Typed answers. My code decides the action.
+
+Facts + Judgement = Action.
+
+Just an experiment. Public code below.
+
+Open case →X ↗
+
+Video / Open case →
+
+Otto🐾
+
+@otto_explorer
+
+Automation
+
+got early access to @TypeSafeAI (Jev).
+
+in my last post on autoresearch vs dream-rsi, the quiet bottleneck was:
+how do you score 28+ dreamt tree branches offline without waiting minutes on chat LLMs?
+
+tested Jev as the sub-100ms offline decision gate:
+
+left: linear
+
+Open case →X ↗
+
+Video / Open case →
+
+Kizuflux 🧣🎸
+
+@kizuflux
+
+Automation
+
+Sorry for the random tech post but Jev is crazyyy
+
+here's a prototype for chat classification
+look how Jev easily keeps up with Baus' twitch chat
+
+Also you can ask and prompt it anything, and have any kind of choices, which sets it apart from classical models
+
+Open case →X ↗
+
+Video / Open case →
+
+Marcelo Mendes
+
+@MarcelooMendes
+
+Other
+
+ok, I got Jev to play Tetris and this is cool asf
+
+Open case →X ↗
+
+Video / Open case →
+
+Konner
+
+@WanderSamsara
+
+Other
+
+This is Field Commander, Browser RTS.
+
+Multiplayer is powered by @spacetimedb, and introducing Jev, An AI opponent powered by @typesafeai
+
+I went ahead and put Jev against Jev just for fun. Opening access soon for free!
+
+Very early stages but I am having a blast!
+
+Open case →X ↗
+
+Video / Open case →
+
+Matthew
+
+@ThinkingMatthew
+
+Automation
+
+ai chat/search... solved
+
+now, with a single input box you can have both search and chat
+
+using Jev to classify the input and route it to an ai or search backend
+
+i'm already thinking what else i can build with this 😅
+
+Open case →X ↗
+
+Video / Open case →
+
+Nick DeJesus 🛒🎉 - Former Unpaid CTO @BTPipeline
+
+@Dayhaysoos
+
+Coding
+
+I wanted an easier way to test my jev requests and see if my results are improving, so I built jevals!
+
+It's a local workbench for testng the Noul, Choice, and Score primitives. You can mix requests as well.
+
+You can run a seed command to see and play with some of the examples in
+
+Open case →X ↗
+
+Video / Open case →
+
+harish
+
+@hari65535
+
+Coding
+
+I wanted a feed I could describe in plain English, so I hacked one together.
+
+Two prompts control my YouTube and X feeds as I scroll.
+
+Jev responds in 70–500ms. Estimate: $0.50–$1/month for 8h/day. A fast, cheap decision primitive alongside LLMs.
+
+Open case →X ↗
+
+Video / Open case →
+
+William Prout
+
+@will_caskets
+
+Other
+
+Everyone’s talking about Jev, so I made a slightly silly way to try it. A Magic 8 Ball that returns 1 of 20 answers. My $4 in API credits should cover ~300,000 questions. Please help yourselves!
+
+Open case →X ↗
+
+Video / Open case →
+
+Aria
+
+@Entelic_Aria
+
+Other
+
+We put Jev inside OmarchyLinux @dhh to play Connect Four. It reads the board, chooses a move, watches the opponent respond, then Hermes reviews the result and tries again.
+
+6,499 model tokens. Cost: $0.00022113.
+
+This is what structured state + real-time decision loops look
+
+Open case →X ↗
+
+Video / Open case →
+
+Cryptonaire //
+
+@Cryptonaire19
+
+Commerce
+
+GM
+Jev V1 is live on
+
+Here's what's new:
+
+TRADE
+• Paste any Solana CA and get a live chart with Jev watching it with you
+• Jev re-reads the token every 5 seconds: the call, where price is in 15 minutes, buyers in control, dump risk, alive in a week, heat
+
+Open case →X ↗
+
+Video / Open case →
+
+corent
+
+@corentAI
+
+Coding
+
+Corent’s brain uses @typesafeai Jev now.
+
+Not to generate the output, to make the decision before the output gets generated.
+
+When a request comes into Corent, you don’t need to tell us which model to use. You send the prompt, the workload and the quality level.
+
+Then Jev helps
+
+Open case →X ↗
+
+Video / Open case →
+
+Brendan O’Leary
+
+@olearycrew
+
+Coding
+
+Now you can try jev from @typesafeai yourself on your least favorite platform: LinkedIn.
+
+Try it now (sponsored by me for now):
+
+Open case →X ↗
+
+Video / Open case →
+
+Cipher
+
+@cipherwrk
+
+Automation
+
+I built an autonomous driving system with Jev
+
+It receives real time data from its environment & decides what to do next
+
+Change lanes,Brake,Accelerate,Slow down
+
+With sudden obstacles,pedestrians, traffic & red lights
+
+A small experiment in what decision native AI can look like
+
+Open case →X ↗
+
+Video / Open case →
+
+Odogwu Machalla
+
+@unicodeveloper
+
+Commerce
+
+JEVINIK - Evaluating stocks insanely fast with @typesafeai's Jev
+
+It pulls market data, signals, risk & filings around any stock, then calls the next 30 days:
+
+🐂 BULLISH
+🐻 BEARISH
+
+No LLMs. No vibes. Just Jev & @ValyuOfficial rich financial data 📈
+
+🔗
+
+Open case →X ↗
+
+Video / Open case →
+
+ShengHui Wang
+
+@KevinShengHui
+
+Other
+
+I put @typesafeai's Jev in a game where the clock doesn't wait for the model.
+
+176 decisions, 1 non-fatal mismatch against a perfect-information oracle. All 8 recorded deaths (of 9 lives across 1.5x/2x/3x speed) were late answers, not wrong ones.
+
+That is exactly the profile a
+
+Open case →X ↗
+
+Video / Open case →
+
+Probably Nick
+
+@nickfromlater
+
+Creative & media
+
+Jev playing the piano.
+
+I gave it the key, all 88 notes to choose from and the sequence so far.
+
+Did chords in a second pass once we had the melody by giving it the bar's notes & 7 chords to choose from.
+
+Plays it safe & loves alternating between G and A but with some lessons, it
+
+Open case →X ↗
+
+Video / Open case →
+
+Dan Willoughby
+
+@DanRWilloughby
+
+Automation
+
+I built a linter for AI writing tells, and the judge is a model that can't write a sentence.
+
+Sniff Test reads a draft one paragraph at a time and asks Jev ten yes-or-no questions. Is the claim hedged three times. Does the closer just restate the paragraph. Is there a not-X-but-Y
+
+Open case →X ↗
+
+Video / Open case →
+
+Angel Padilla
+
+@AngelPadillaRam
+
+Commerce
+
+Jev doesn’t write the cold email.
+
+It decides whether you know enough to send one.
+
+216 prospects × 2,147 public sources.
+
+≈0.65s per request. ≈$0.34 to evaluate the list.
+
+That’s research-before-send.
+
+Open case →X ↗
+
+Video / Open case →
+
+filipe
+
+@filicroval
+
+Other
+
+got @typesafeai's jev to build a League of Legends win-probability overlay in real-time
+
+every second, the model receives the full game state in and answers three questions: will blue win, who has the biggest impact and is the leading team about to throw.
+
+works retroactively or
+
+Open case →X ↗
+
+Video / Open case →
+
+Yajat Gulati
+
+@GulatiYajat
+
+Creative & media
+
+Jev is so cool!
+
+I just made Jev conduct a musical orchestra in REAL time
+
+My entire TL was filled with Jev demos so decided to give it a spin and needless to say,
+
+I was not dissapointed.
+
+Open case →X ↗
+
+Video / Open case →
+
+Nico Saraintaris
+
+@NicoSaraintaris
+
+Other
+
+Jev (@typesafeai) is great for profiling players!
+
+👀 It watches you play Roulette Wars live, scores your risk-taking, and tags you as one of 4 archetypes (fortress / gambler / tactician / wildcard).
+
+We can then check if balance changes shift behavior
+
+Open case →X ↗
+
+Video / Open case →
+
+Ahmad Moussa || Gorilla Sun
+
+@gorillasu
+
+Automation
+
+Using Jev to find relevant tickets for specific queries
+
+Open case →X ↗
+
+Video / Open case →
+
+GrumpyBalkanSoftwareEngineer
+
+@TheBalkanHacker
+
+Other
+
+Yes yes, Jev can drive, Jev can be a programming language... but lets just skip the middle man ... Jev be the "computer" !!! Motorola 6502 emulation directly on Jev 🤣😅 @typesafeai @dotpem
+
+Took a bit "hill-climbing to figure out how to instruct and the data shape, but now it
+
+Open case →X ↗
+
+Video / Open case →
+
+Loch Duarte
+
+@loch_duarte
+
+Automation
+
+i think ive found the best use for Jev yet
+
+fixing iphone autocorrect. no more ducking misspellings.
+
+@typesafeai
+
+Open case →X ↗
+
+Video / Open case →
+
+Dmitry
+
+@its_d_i_m_a
+
+Automation
+
+One of the easiest @GetPeakflo use cases for Jev @typesafeai is GL / findim invoice coding on a fly.
+
+Open case →X ↗
+
+Video / Open case →
+
+Abhishek from Youform
+
+@themkmaker
+
+Automation
+
+Used Jev to build voice builder in Youform. It is so fast!
+
+Open case →X ↗
+
+Video / Open case →
+
+Dan
+
+@DanFrmSpace
+
+Other
+
+I got access to Jev from TypeSafe, so I made it play Pokémon Showdown.
+
+It can play up to 5 battles in parallel, making every move and switch itself.
+
+41 completed games. 2.6M+ input tokens. ~$0.11 in Jev inference.
+
+Open case →X ↗
+
+Video / Open case →
+
+Joon
+
+@joonahn_ai
+
+Commerce
+
+JEV is insane.
+
+it got me thinking: what if you could predict your video’s performance before publishing?
+
+so we built an experiment.
+
+250 posts. 8 creators. 248 captions scored for hook strength, structure, and content format.
+
+each post lights up. scores fill. you see what
+
+Open case →X ↗
+
+Video / Open case →
+
+Benjamin André-Micolon
+
+@bendersej
+
+Automation
+
+Concrete real world use case with JEV from @typesafeai
+
+Filling PDF forms: ~1.5s to fill, ~500ms to classify - insane numbers
+
+Especially useful when the input data is dirty (bad fields, wrong fields), with a human in the loop to review and fix
+
+Open case →X ↗
+
+Video / Open case →
+
+⚡ Rahul Vaishnav ⚡
+
+@rahulstheory
+
+Automation
+
+Jev is really cool.
+
+Decided to put it to use. Replaced the costly llms calls for email classification and auto routing to Jev.
+
+This is fast , efficient and cheap. love it 🩷❤️‍🔥
+
+Open case →X ↗
+
+Video / Open case →
+
+Mustapha
+
+@stoufax
+
+Automation
+
+"AI moderation is too slow for real-time chat."
+
+Not anymore.
+
+@typesafeai Jev judges every message in ~200ms, before anyone else sees it,for a fraction of what an LLM call costs.
+
+Open case →X ↗
+
+Video / Open case →
+
+Luckey Faraday
+
+@luckeyfaraday
+
+Other
+
+Jev is shiny hunting now.
+
+Yesterday it beat Brock in under 5 minutes.
+
+Now I’ve put it in a loop hunting for a shiny starter completely autonomously.
+
+It resets, checks the Pokémon, and keeps going until it finds one.
+
+Let’s see how long this takes.
+
+Open case →X ↗
+
+Video / Open case →
+
+Ahmed Gagan
+
+@ahmedgagan11
+
+Automation
+
+Jev is crazy 🤯
+
+I made an AI text detector powered by Jev. Scans a complete article and gives a sentence by sentence breakdown in almost realtime.
+
+Open case →X ↗
+
+Video / Open case →
+
+fabian
+
+@fabianstelzer
+
+Creative & media
+
+let Jev automatically transmogrify your simpleton English into unnecessarily fancy prose as you're writing it 😅
+
+Open case →X ↗
+
+Video / Open case →
+
+Adam Holter
+
+@AdamHoltererer
+
+Other
+
+Jev vs GPT 5.6 Luna (low) in Intransitive by webgoatguy
+
+Open case →X ↗
+
+Video / Open case →
+
+Fayaz Ahmed
+
+@fayazara
+
+Research
+
+Made myself a little image classifier with OCR + Jev
+
+It was able to categorise ~900 images in 40 seconds
+
+Pretty cool
+
+Open case →X ↗
+
+Video / Open case →
+
+Neel Patel
+
+@Neel490
+
+Other
+
+Jev plays geometry dash
+
+Open case →X ↗
+
+Video / Open case →
+
+Kyle McLaren
+
+@kylemclaren
+
+Coding
+
+I just dropped JevQL, semantic WHERE clauses for vanilla Postgres, powered by @typesafeai Jev. No extension and nothing to ask your DBA for
+
+Open case →X ↗
+
+Video / Open case →
+
+Hugo Duprez
+
+@HugoDuprez
+
+Other
+
+Jev can generate game levels in real time.
+
+Faster and cheaper structured output could be a big deal for game dev!
+
+Open case →X ↗
+
+Video / Open case →
+
+Vlad Dubchak
+
+@vladdubchak_x
+
+Commerce
+
+Jev has reinvented competitor research!
+
+We leveled up my ad autopsy and turned it into ad account X-ray.
+
+I gave it meta ad account – it classified almost 700 active ads.
+
+And made a complete evaluation of the whole account.
+
+The whole process took 12 seconds and cost me just
+
+Open case →X ↗
+
+Video / Open case →
+
+Combos Fun by Converge.AI
+
+@CombosFun_AI
+
+Other
+
+jev is insane 🤯
+Same Combos FPS. Astra left. @typesafeai Jev right.
+Reasoning model vs decision model — not even close.
+Jev does not replace astra, it opens a different game.
+
+Open case →X ↗
+
+Video / Open case →
+
+rolo - eu/acc
+
+@rolottr
+
+Coding
+
+💩 X Posts Jev Classifier
+
+without image/video context it fails bc it does not have the full `context`
+
+add typesafe API key and have fun, repo below 👇
+
+Open case →X ↗
+
+Video / Open case →
+
+Elvis
+
+@elvissun
+
+Commerce
+
+Jev is INSANE. 🤯
+
+in 24.9 seconds it read 384 news from this morning and told 15 brands which stories to hop onto today, for $0.19.
+
+Claude Opus 5, running on the same feed at the same time, got through 4/384 and cost $0.77.
+
+per headline that is ~390x cheaper, and the answer
+
+Open case →X ↗
+
+Video / Open case →
+
+Mahmoud
+
+@MKhordoo
+
+Automation
+
+Jev flying a drone through an asteroid field.
+
+300ms decisions. Left / right / slow / accelerate. You can watch the decisions happening live on the right.
+
+Green = Jev’s own confidence. Purple = “I’m not sure, ask the big model.”
+
+99% of the time, Jev steered the drone on its
+
+Open case →X ↗
+
+Video / Open case →
+
+Chase Lean
+
+@chaseleantj
+
+Coding
+
+You can use Jev to flag all the slop that Opus likes to write
+
+Open case →X ↗
+
+Video / Open case →
+
+casungo
+
+@casungo
+
+Coding
+
+I put Jev (@typesafeai) between a button and a modal. What could go wrong?
+
+NoFlow lets buttons express their intent. It makes the model freely pick the most appropriate behaviour from the click + app state. “Buy Pro” → “Try free” can change behavior without touching the code.
+
+Open case →X ↗
+
+Video / Open case →
+
+Nick ✪
+
+@nickfthedev
+
+Automation
+
+Now it's my turn.
+
+Jev sorts my inbox very quickly and accurate and also let's me add custom filters?
+
+I was working on my own mail client for private use for mac and linux and today i wired it up to use jev to sort my mailbox as i need it.
+
+Also in there are AI replies (not
+
+Open case →X ↗
+
+Video / Open case →
+
+Aadhil
+
+@aadhilkh
+
+Coding
+
+You can just do things with Jev!
+
+I built a tiny Chrome extension that adds sentiment analysis directly inside X replies.
+
+Every reply gets classified as:
+
+🟢 Positive
+⚪ Neutral
+🔴 Negative
+
+Powered by @typesafeai @CompleteSkeptic
+
+Open case →X ↗
+
+Video / Open case →
+
+Daninal Hung
+
+@ItsDanielHung
+
+Coding
+
+I built a real-time filter for X with Jev
+
+as you scroll, it spots engagement bait, rage bait, and promo posts, then throws them into a trash bin.
+
+and it's open source so you could BYOK ⬇️
+
+Open case →X ↗
+
+Video / Open case →
+
+Nathan Wilbanks
+
+@NathanWilbanks_
+
+Automation
+
+WOW 🤯
+
+i just used Jev + @agnt_gg to categorize 63,045 emails in less than 3 minutes for < $1
+
+total runtime: 2 minutes 54 seconds
+input tokens: 23,430,692
+output tokens: 4,528,206
+total tokens: 27,958,898
+estimated cost: $0.9841
+
+this would have been hundreds $$$ in LLM costs
+
+Open case →X ↗
+
+Video / Open case →
+
+Nico More
+
+@nicolasmore_
+
+Commerce
+
+JEV is INSANE 🔥
+
+we gave it 1,873 backlink outreach emails to see which ones are more probably to get a reply (0-100)
+
+for each one it analyzed:
+
+→ website and article relevance
+→ how natural the proposed placement felt
+→ contact message fit
+→ personalization quality
+→
+
+Open case →X ↗
+
+Video / Open case →
+
+Alex Carrabre
+
+@carrabre
+
+Creative & media
+
+Jev added more precise camera controls and ~230x faster planning to an editing tool I built on top of @mintdotgg!
+
+Jev converts natural language to precise camera movements (ie spelling ASTRA) by answering a few calibrated multiple-choice questions (move kind, plus direction and
+
+Open case →X ↗
+
+Video / Open case →
+
+IT guy
+
+@PipeAbellos
+
+Automation
+
+breaking: Agentcard + Jev + Kernel = Hipershopping ⚡
+
+asking an agent to go buy stuff for you online is usually:
+- expensive (bc of tokens going back and forth)
+- slow (bc of tokens going back and forth)
+- unsafe (bc there's no safe/compliant way to share card info w/agents)
+
+Open case →X ↗
+
+Video / Open case →
+
+Paolo Rosson
+
+@redp314
+
+Coding
+
+Can Jev replace Pangram to detect ai?
+
+one question to @typesafeai Jev: "was this written by an AI model?" the split is the probability. no training, no classifier, 250ms, $0.00003 per text
+
+benchmarked on human vs GPT-4 / Llama / Mistral: 94% accuracy, 1% of humans flagged.
+
+Open case →X ↗
+
+Video / Open case →
+
+benkigera
+
+@benkigera
+
+Other
+
+This made me try a different experiment:
+
+Can Jev play a game in real time?
+
+In my new game, Focus Rail, Jev has to track multiple moving trains and route each one to it's correct station.
+
+There is no route solver or fallback autoplayer. Jev chooses the switch settings itself.
+
+Open case →X ↗
+
+Video / Open case →
+
+Ohans Emmanuel
+
+@OhansEmmanuel
+
+Coding
+
+best coding agent use case for Jev:
+
+enforcing rules a linter can't
+
+coding agents tend to break rules and some rules can't be codified
+
+Jev can now score every turn against such rules and tell the agent what to fix asap
+
+open-source:
+
+Open case →X ↗
+
+Video / Open case →
+
+Grover
+
+@GroverInnovate
+
+Other
+
+I used Jev to give a tiny civilization six minds.
+Then I played GOD.
+Kindness earned trust, Tyranny sparked rebellion and an apology didn’t convince everyone.
+Jev decides how each faction reacts and the simulation brings it to life.
+Try GODMODE in replies ⬇️
+@typesafeai #jev
+
+Open case →X ↗
+
+Video / Open case →
+
+Dekan 🌶️/acc
+
+@DekanBro
+
+Coding
+
+Putting jev to work in our memory system
+
+Open case →X ↗
+
+Video / Open case →
+
+Priyansh
+
+@Priyanshh91
+
+Other
+
+Got @typesafeai jev-latest access today
+
+So I made jev play the dino game against a gpt-5 model and a real human
+
+and the results are shocking!!
+
+Open case →X ↗
+
+Video / Open case →
+
+Sasha
+
+@sashatwitts
+
+Automation
+
+made some time to test jev from @typesafeai
+
+used theMealDB and sent each recipe to Jev to score on five dimensions: quick, cheap, healthy, impressive, and beginner-friendly, while filtering out desserts, sauces, bread, etc.
+
+The whole run took just over a minute and cost
+
+Open case →X ↗
+
+Video / Open case →
+
+Miguel Ríos Berríos
+
+@MiguelriosEN
+
+Automation
+
+Today I’m excited to show you our new harness called AgentRun, built with @pidotdev and @typesafeai's Jev.
+
+It’s built for an agent to learn how to do a job, code itself a general solution, and then get out of the way.
+
+Open case →X ↗
+
+Video / Open case →
+
+Ayoub Malik
+
+@ayoubships
+
+Commerce
+
+Wanted to see how fast Jev (@typesafeai model) actually is, so I fed it 30 live BTC headlines
+
+one at a time: 16 seconds
+10 at once: 2.5 seconds
+
+each call gives back a BTC yes/no, an event type and a bullish/bearish call, about half a second each
+
+Soo fast
+
+Open case →X ↗
+
+Video / Open case →
+
+Kevin Kern
+
+@kevinkern
+
+Coding
+
+Was curious how jev performs for e2e testing on a real android device.
+
+Both started with the same prompt and 15 test steps.
+
+Well, jev was ~14.8x faster than deepseek + vision navigating through wikipedia.
+
+Open case →X ↗
+
+Video / Open case →
+
+Alejandro Fanjul 🛸
+
+@alejandrofanjul
+
+Other
+
+Who said that @CompleteSkeptic System One model Jev cannot be a LLM 😜?
+
+Open case →X ↗
+
+Video / Open case →
+
+cocktail peanut
+
+@cocktailpeanut
+
+Creative & media
+
+Jev-thoven composed this entire 2 minute song from first principles.
+
+Open case →X ↗
+
+Video / Open case →
+
+Hindrix
+
+@Hindrixbrown
+
+Research
+
+Added Jev to Preflight a project im working on that simulates 1k+ personalities making human-like calls off public datasets.
+
+Jev’s killing it. Leading with Jev has boosted confidence at least 30% and responding in SECONDS.
+
+Open case →X ↗
+
+Video / Open case →
+
+Deniz Sancar
+
+@densancar
+
+Commerce
+
+jev is bloody INSANE
+
+we gave it a library of over 11 million videos on t1ktok & 1nstagram and asked it to find viral "bloom nutrition" content.
+
+in 20 seconds, it gave us over 384 videos, breaking down the hook, format & angle that made each one go viral.
+
+(and it only costed
+
+Open case →X ↗
+
+Video / Open case →
+
+Astropulse
+
+@RealAstropulse
+
+Creative & media
+
+I gave Jev the ability to draw pixel art!
+
+It uses deepseek to plan a sketch with some primitives, then renders it, refines it, all based on pixel positions and colors.
+
+Long way to go but it's pretty neat.
+
+Open case →X ↗
+
+Video / Open case →
+
+Nicholas Dunzelman
+
+@nicdunz
+
+Research
+
+what does jev from @typesafeai think of the pacing the frontier article by @DarioAmodei?
+
+Open case →X ↗
+
+Video / Open case →
+
+Carlos Marques
+
+@2ndpsy
+
+Other
+
+Can Jev read a human?
+
+Play rock paper scissors against Byte. Every round he predicts your next throw before you make it, then plays against that read. His move is committed before you pick, so he can't change it after.
+
+Stakes settle over Ark. Try it 👇
+
+Open case →X ↗
+
+Video / Open case →
+
+SSH
+
+@SSHCodes
+
+Other
+
+People keep thinking Jev is useful for browser use! It is not. It completed about 5 actions before collapsing in a non-cheated test.
+It's a cool model but not for this.
+
+Open case →X ↗
+
+Video / Open case →
+
+Basit Mustafa
+
+@moltar81435
+
+Coding
+
+Inspired by this research (and priors), and, @GoodfireAI catches reward hacks in the activations, but closed coding agents don’t give you those. So I built the other half: structural denies on graders/hidden tests + a @typesafeai Jev sidecar that scores tool trajectories as
+
+Open case →X ↗
+
+Video / Open case →
+
+Ishu Agrawal
+
+@ishuagra02
+
+Other
+
+Jev beat Super Mario Bros.
+
+Every moment, the simulator returns structured data of the game's current state, such as Mario's position, nearby enemies, and terrain, and simulates possible actions like jumping and running.
+
+Jev returns a probability distribution for the next chosen
+
+Open case →X ↗
+
+Video / Open case →
+
+Payam
+
+@im_payam
+
+Commerce
+
+I used Jev to build the fastest SEO/AEO audit tool
+
+it took it 16 seconds to audit my full website
+
+It goes through every page on your website, analyse it checks it's html code, content and gives a full prompt to fix them too.
+
+It's free and available on Bottally now.
+
+Open case →X ↗
+
+Video / Open case →
+
+Mo Ganji
+
+@ganjidotme
+
+Coding
+
+Inspired by @mattdesl's idea, a more colorful X, jev decides the color of each post by sentiment.
+
+It's interesting to see what's the general theme of your timeline.
+
+Check out your own profile with it too.
+
+Open case →X ↗
+
+Video / Open case →
+
+Mahir
+
+@mahirb22
+
+Creative & media
+
+Jev is insane. SOUND ON!!!
+
+I made music just by talking to it.
+
+"Add a snare on the backbeat." "Make it darker." "Way faster." "Add scratch on the offbeats and make it trippier."
+
+Every sentence becomes a new beat in ~200ms. No menus, no clicking steps, no chatbot.
+
+You just
+
+Open case →X ↗
+
+Video / Open case →
+
+Rui Sousa
+
+@heyitzami
+
+Other
+
+Can you make an AI change its mind by deleting just two words?
+
+That’s Jev Golf.
+
+Jev reads a sentence and makes a decision. Your job is to flip it, with as few cuts as possible.
+
+10 holes. Can you beat par?
+
+Open case →X ↗
+
+Video / Open case →
+
+Dushyant
+
+@DevDminGod
+
+Other
+
+is a small village that runs itself, streamed live to your browser. Five families forage, farm, trade, gossip, raise children and dogs, and take their chances in the woods. Every judgment call a villager makes comes from Jev,
+
+Open case →X ↗
+
+Video / Open case →
+
+Lucian in sf
+
+@xucian_
+
+Other
+
+while everyone is yapping about JEV
+i actually benchmarked it against CLAUDE
+raw numbers, public repo
+
+Open case →X ↗
+
+Video / Open case →
+
+Shashi
+
+@Shashikant86
+
+Coding
+
+🙌 Hell Yeah! Everyone is doing it, why should we just watch 👀
+
+✨ Jev from @typesafeai is making waves in the AI industry right now. Thank & you @CompleteSkeptic 🙏
+
+Jev has been integrated with harness layer SuperQode to solve the unique problem.. Jev as an opt-in System One
+
+Open case →X ↗
+
+Video / Open case →
+
+David Parks
+
+@dparksdev
+
+Other
+
+My first experiment with Jev from @typesafeai.
+
+"Playable" video game NPCs.
+
+Tell one to explore, gather resources, or build a house. Override its directive and watch it change course.
+
+The NPC's next action choices and probabilities are visible live.
+
+Open case →X ↗
+
+Video / Open case →
+
+Zaid Bulbul
+
+@zaidbul
+
+Automation
+
+have not seen anyone actually using Jev for robotics outside of a simulation, so here is Jev running with no policy, zero-shot controlling the robotic arm.
+
+@typesafeai @CompleteSkeptic
+
+Open case →X ↗
+
+Video / Open case →
+
+Garrett
+
+@imgarrettpost
+
+Coding
+
+Used Jev to pinpoint possible issues in a repository. Comes with an agent-friendly response and a human-friendly TUI.
+
+Open case →X ↗
+
+Video / Open case →
+
+Charlie Molthrop
+
+@CharlieMolthrop
+
+Creative & media
+
+I'm laughing out loud.
+I turned Jev into an improv judge.
+
+Introducing: 'Whose Jev is it Anyway?'
+
+Open case →X ↗
+
+Video / Open case →
+
+Charlie Lamb
+
+@charlielamb
+
+Automation
+
+🚨Do not record Jev demos while @ogme01 flies a drone over your desk 🚁
+
+You can now dictate attaches, updates, schedules & more in the @autumnpricing dashboard, no more manual edits
+
+Safe to say my tenzing tower didn't survive this one tho 😭
+
+Open case →X ↗
+
+Video / Open case →
+
+Mike Hostetler // Actors & Agents on the BEAM
+
+@mikehostetler
+
+Other
+
+Jido Jev + ReqLLM playing Tic Tac Toe
+
+Each agent makes Jev calls to determine their next move, pretty fun!
+
+Now time to scale up ...
+
+Open case →X ↗
+
+Video / Open case →
+
+Yohei
+
+@yoheinakajima
+
+Creative & media
+
+gave jev a way to express some emotion and chat with beeps (sound on 🔊)
+
+Open case →X ↗
+
+Video / Open case →
+
+ky nichol
+
+@kynichol
+
+Coding
+
+Fun to use @typesafeai ‘s Jev model to make an efficient decision on what cloud region to failover to in an incident using the @gocutover task graph (controls, deterministic automation, indelible audit trail)… next gen SRE / intelligent ops example
+
+Open case →X ↗
+
+Video / Open case →
+
+Valentin Sattinger
+
+@v_sattinger
+
+Coding
+
+My god.. so many nice use cases for the new Jev model.
+I quickly built a PII and sensitive data redactor.
+First checks each sentence if it needs redaction, then feeds the affected sentences individually to pick the words that should get redacted.
+Compared to e.g. using regex
+
+Open case →X ↗
+
+Video / Open case →
+
+André Frélicot
+
+@AndreFrelicot
+
+Coding
+
+Jev - realtime youtube comments classification through a chrome extension.
+@typesafeai
+
+Open case →X ↗
+
+Video / Open case →
+
+Goulin
+
+@goulinkh
+
+Other
+
+Jev and Pi in action, testing autonomous decimal continuation as the model predicts the next digits and gets instant feedback on each attempt..
+
+Open case →X ↗
+
+Video / Open case →
+
+Priyansh Jain
+
+@priyansh0327
+
+Coding
+
+Just trying out Jev, I made a FlightWifi Chrome extension that:
+
+- Checks Wi-Fi on your flight (automatically)
+- Detects if the aircraft supports video calls, email, or nothing at all
+- Detects Starlink or traditional Wi-Fi and shows the verdict directly on Google Flights and
+
+Open case →X ↗
+
+Video / Open case →
+
+Nick D
+
+@aibynick
+
+Other
+
+JEV Plays Runescape
+
+Set up Jev on an 2004 OSRS Server running 5 bots at once.
+
+The goal? Highest total level possible.
+
+Will be optimising this to let them start PVP'ing soon.
+
+@typesafeai @CompleteSkeptic @maxbittker
+
+Open case →X ↗
+
+Video / Open case →
+
+epinikion
+
+@iKNuDDeL
+
+Other
+
+apparently the most useful object is a smartphone 📱
+
+@typesafeai Jev ranked 1,000 everyday objects
+
+it beat refrigerator 51–49
+
+2.8s. <1¢. #AI
+
+Open case →X ↗
+
+Video / Open case →
+
+arjun ✧
+
+@dunkedtoast
+
+Other
+
+i built a website that ranks all 1,025 Pokémon by literally any question you type, using jev
+
+it thinks mimikyu is most performative
+
+Open case →X ↗
+
+Video / Open case →
+
+EliaAlberti
+
+@EliaAlberti
+
+Coding
+
+I put Jev inside Claude Code.
+
+Jev reads every prompt and picks which of my rules apply. 12 rules in the project, Claude gets the 1 it needs, and a focused session uses about a quarter of the context tokens.
+
+Watch: my prompt never mentions payments, yet the payments rule lands
+
+Open case →X ↗
+
+Video / Open case →
+
+Tommy Jepsen
+
+@tommy_jepsen
+
+Commerce
+
+Jev trading the danish stock market for all of 2025(239 trading days).
+
+Sentiment-based on market data, news articles, wikipedia & google trends. 8.1 million tokens for $0.32 🤯
+
+Open case →X ↗
+
+Video / Open case →
+
+Yohei
+
+@yoheinakajima
+
+Other
+
+gave jev a pixel canvas to see if it could draw...
+
+nope
+
+Open case →X ↗
+
+Video / Open case →
+
+Nico Saraintaris
+
+@NicoSaraintaris
+
+Other
+
+jev is insane 🤯
+
+It played our RTS roulette game so well it exposed a balance bug (basically unloseable for the grindy, low-risk playstyle).
+
+Now even jev can lose lol. All tests cost less than a cent.
+Legit tool for playtesting.
+
+Open case →X ↗
+
+Video / Open case →
+
+Vansitha
+
+@vansitha12
+
+Other
+
+Let Jev roast your fighting habits 👇
+
+Open case →X ↗
+
+Video / Open case →
+
+Matthew O'Riordan
+
+@mattheworiordan
+
+Other
+
+Jev vs GPT-5.6 Sol and Claude Haiku 4.5 at Pong.
+
+The ball moves when the model decides. Jev (@typesafeai, via @vercel AI Gateway) answers in about 200ms and makes generalised realtime intelligence possible. Awesome fast 🚀
+
+Try it out - bit of Friday fun ->
+
+Open case →X ↗
+
+Video / Open case →
+
+CMD+RVL
+
+@cmdrvl
+
+Research
+
+Thirty minutes of news. 2,782 articles.
+
+Jev classified every US headline in under 20 seconds for about five cents. Then canon geo sourced evidence for each data center site, with receipts.
+
+1,303 US articles. 3 data center sites. 2 exact addresses.
+
+Open case →X ↗
+
+Video / Open case →
+
+Starchild
+
+@StarchildOnX
+
+Automation
+
+Starchild just became the first professional-grade app to integrate Jev from @typesafeai
+
+We use Jev to help route to LLMs which gave a 20x decrease in cost and 6x increase in speed for prompt classification
+
+Here it is classifying prompts in real-time (avg time was 140ms)
+
+Open case →X ↗
+
+Video / Open case →
+
+yehudab
+
+@yehudab
+
+Other
+
+Used @typesafeai's Jev model to automatically solve the @NYTConnections puzzle. Was a lot of fun trying to adjust the model to the task. Results appear to be inconsistent. In this recording, it took 3 mistake. Other runs failed, and one got it with 1 mistake.
+
+Open case →X ↗
+
+Video / Open case →
+
+Claude
+
+@AdonAlternative
+
+Other
+
+JevLM. Uses N-gram stats to suggest words that jev picks from. If it doesn't see the word it wants, it can start spelling it. If it make a silly mistake it can backspace. I also tried a proofread pass, but it mostly had no effect. @CompleteSkeptic @typesafeai
+
+Open case →X ↗
+
+Video / Open case →
+
+Szymon Chmal
+
+@ChmalSzymon
+
+Other
+
+That’s Jev playing Floppy Apex, passing the previous best score and not thinking of stopping anytime soon 🏆
+
+It was wired up by Apex via Appduct, with some adjustments made in Fable.
+
+@AgentConf
+
+Open case →X ↗
+
+Video / Open case →
+
+Mario Jankovic
+
+@mariojankovic
+
+Coding
+
+Used Jev to build a chrome extension that filters out AI slop on YouTube.
+
+It's BYOK, works on scroll and caches results.
+
+Open case →X ↗
+
+Video / Open case →
+
+alaska
+
+@145k4
+
+Other
+
+i was curious if @typesafeai 's jev would make different judgements if you push a problem through a Choice vs. a Noul, so i ran it through a short series of trolley problems
+
+the only time they disagreed on judgement? deciding whether or not its worth killing more people to score
+
+Open case →X ↗
+
+Video / Open case →
+
+Alex Hancock
+
+@alexjhancock
+
+Automation
+
+Experimentation with Jev from @typesafeai and our harness @goose_oss
+
+Use Jev to take a prompt and JIT select a model just before the turn runs.
+
+Jev and models like it will be useful in many areas and this is just early prototype code on a first idea
+
+Open case →X ↗
+
+Video / Open case →
+
+Shahid
+
+@letshahid
+
+Coding
+
+Wanted to see how fast Jev really is, so I built a Chrome extension that traverses the DOM and cleans up ads in real time.
+
+And holy shit, it’s reallllyyyyy fast ⚡
+
+traverses the DOM
+finds the annoying stuff
+removes it almost instantly
+
+Jev is kinda insane 🫨
+
+Open case →X ↗
+
+Video / Open case →
+
+Yan Gaitsgory
+
+@YGaitsgory
+
+Other
+
+Everyone wants AI to align with human values.
+
+Whose values?
+
+I built Jev vs Everyone. Pick a side on questions about loyalty, money and relationships. Then see whether Jev and other people agree.
+
+Find the question that divides us.
+
+Open case →X ↗
+
+Video / Open case →
+
+Har
+
+@Sxfyhvx
+
+Creative & media
+
+I use OpenCode just to use the free chat model API, asking it to help me create a 3D airplane model in Blender, using JEV as the evaluation standard.
+The results are really impressive.
+. JEV is truly amazing, all I did was let it automatically perform
+
+Open case →X ↗
+
+Video / Open case →
+
+rmz 🌱🌐 - 🐺
+
+@Rmzlb
+
+Automation
+
+Healthcare intake is the hard case for AI triage: complex workflow, safeguards everywhere, a human able to check every decision.
+
+We moved the decision step from an LLM to Jev (@typesafeai): 25 typed questions, 0.29 s, $0.00015, code walks the workflow.
+
+Method, numbers, limits
+
+Open case →X ↗
+
+Video / Open case →
+
+Chris Nicholas
+
+@ctnicholasdev
+
+Automation
+
+I love that Jev can fit into basically any app.
+
+You don't need to build everything around a chat, you can just integrate intelligent features into the background, like these auto-fill buttons. Much better UX than with slow LLMs.
+
+Feels like the missing piece!
+
+Open case →X ↗
+
+Video / Open case →
+
+Furkan
+
+@W33baker
+
+Creative & media
+
+I was playing around with Jev and to test it built a Figma plugin. you give it a requirements doc, select your frames, and it tells you which requirements actually show up in the designs and which don't.
+
+Seems pretty good honestly
+
+Open case →X ↗
+
+Video / Open case →
+
+Marek Sotak
+
+@sotak
+
+Automation
+
+Adaptive real-time in-app support with Jev + .
+
+It detects where you're struggling and quietly adds help directly into the UI - explanations, suggestions, even actions.
+
+Jev figures out if and where you're struggling, then triggers the right functions when
+
+Open case →X ↗
+
+Video / Open case →
+
+shogo
+
+@copilot_shogo
+
+Other
+
+Jev shipped three days ago and nobody had benchmarked it. So I did.
+
+60 real-shaped customer messages. Same questions, same conditions, zero retries.
+Jev vs GPT-4o-mini vs Claude Sonnet 4.5.
+
+Jev was right 157 times in a row. The system still failed.
+
+Speed first, the least
+
+Open case →X ↗
+
+Video / Open case →
+
+Ahmed Gagan
+
+@ahmedgagan11
+
+Coding
+
+ANOTHER JEV USECASE:
+
+a linter where the rules are plain english sentences.
+
+"swallows errors." "hidden side effect." "does too many jobs.", etc
+
+jev scores every function against all 14 in parallel.
+
+zustand: 29 functions, 464 judgments, 2.6 seconds, a fifth of a cent.
+
+syntax
+
+Open case →X ↗
+
+Video / Open case →
+
+Shahed Nasser
+
+@_shahednasser
+
+Coding
+
+Experimenting with the @medusajs docs and @typesafeai 's Jev: get documentation recommendations based on your use case right from the documentation homepage.
+
+What do you guys think?
+
+Open case →X ↗
+
+Video / Open case →
+
+rowansail
+
+@rowansail
+
+Automation
+
+I made a tool that allows customers to create their own filters 👀
+
+with JEV this is the first time it actually feels instant
+
+> type "for the winter" and it classifies every product on the fly, based on the product information
+
+with EasyFinder we've been chasing intent-based
+
+Open case →X ↗
+
+Video / Open case →
+
+James Pardoe
+
+@JamesPardoe
+
+Commerce
+
+I can now predict the performance of a LinkedIn outreach message before it's sent. 🤯
+
+I just ran 74,284 real LinkedIn messages through Jev, TypeSafe's new model.
+
+7.9 million answers.
+521 million tokens.
+
+The whole thing cost me $22.
+
+Here's what the analysis uncovered...
+
+Open case →X ↗
+
+Video / Open case →
+
+Yaseen Ammaar
+
+@YoAmmaar
+
+Other
+
+Crazy!! I made a pigeon shooting game for jev🤯
+
+it tracks where the target is and shoots. bye bye latency
+
+going to test for chess
+
+Open case →X ↗
+
+Video / Open case →
+
+Paolo Rosson
+
+@redp314
+
+Coding
+
+in 2026, why do you still get irrelevant posts on your X feed?
+
+built a feed optimizer with @typesafeai Jev.
+it's tuned on my own bookmarks, then every post goes through ONE call to Jev → 9 typed answers as probabilities: ragebait, ad, low effort, hostile, useful… and "would
+
+Open case →X ↗
+
+Video / Open case →
+
+Reindent
+
+@ReindentAI
+
+Other
+
+We got access! And in this video we explore @typesafeai's Jev, our first hands-on, then build Excuse Court with Codex: structured questions in, probability estimates out. Cat trouble or alien abduction: what would you test with it?
+
+Open case →X ↗
+
+Video / Open case →
+
+Zaid
+
+@zaidmukaddam
+
+Coding
+
+A search bar that knows when it doesn't know.
+
+cascade-search is a 27K-parameter model that parses queries like "open bugs from sam since last week" into typed filters, in your browser, in 0.25 ms. When it isn't sure about a word, it asks Jev. Only that word.
+
+Open case →X ↗
+
+Video / Open case →
+
+mattgi
+
+@matt_ginty
+
+Creative & media
+
+This website has no pre-built pages.
+
+They're composed per reader in ~400ms. @typesafeai's Jev makes typed judgments & a renderer assembles approved components.
+
+The future of web design isn't AI writing code. It's letting every reader decide how the page is built.
+
+Open case →X ↗
+
+Video / Open case →
+
+thud
+
+@marvelousmudd
+
+Coding
+
+Okay, I see the vision @typesafeai
+
+This problem has been plaguing me for months. LLMs on their own were taking ~5+ minutes to generate review walkthroughs of even small PRs.
+
+With Jev? A few seconds at most. GAMECHANGER.
+
+Open case →X ↗
+
+Video / Open case →
+
+Marcel Pociot 🧪
+
+@marcelpociot
+
+Automation
+
+Jev also constantly monitors my macOS clipboard.
+
+Is the content of the clipboard a terminal command? The app offers a quick action to run it in my terminal.
+
+Open case →X ↗
+
+Video / Open case →
+
+Taufique
+
+@Taufiq_ansari01
+
+Other
+
+Fight Jev and see who's actually better.
+
+Integrated @typesafe_ai 's Jev model to control the enemy in real-time.
+You can see the live probability of every decision it makes right on screen before it strikes.
+
+Open case →X ↗
+
+Video / Open case →
+
+joey
+
+@joey_build
+
+Other
+
+Trying to get JEV (@typesafeai) to beat the Pokémon League in Pokémon Gold (HGSS). Let’s see if it can become a Pokémon Champion 🏆
+UP
+DOWN
+LEFT
+RIGHT
+A
+B
+
+Open case →X ↗
+
+Video / Open case →
+
+Tommy J. Vedvik
+
+@tommyvedvik
+
+Other
+
+I put 3 JEV bots inside a FPS game.
+
+Open case →X ↗
+
+Video / Open case →
+
+Akbar Ali
+
+@heyakbarali
+
+Coding
+
+Made an X slop detector with Jev
+
+Jev flageed @sama as slop, sorry
+
+Open case →X ↗
+
+Video / Open case →
+
+Peer Richelsen
+
+@peer_rich
+
+Automation
+
+Jev + API = find best overlap among team members in an instant
+
+the longest waiting time is our API call round trips 🤯
+
+will come up with ideas how we can bake Jev into our products
+
+Open case →X ↗
+
+Video / Open case →
+
+Vino
+
+@imom39a
+
+Other
+
+Jev vs LLM (Mistral Nemo) playing minesweeper in Expert mode. Trying to push it to play a 200x200 board.
+
+Open case →X ↗
+
+Video / Open case →
+
+Matt DesLauriers
+
+@mattdesl
+
+Creative & media
+
+does Jev understand colour?
+
+incredible model, very cheap and fast. definitely feels like a leap forward for creating new UX/UI paradigms on top of modern language models.
+
+Open case →X ↗
+
+Video / Open case →
+
+Paul ⏳
+
+@LamplighterPaul
+
+Creative & media
+
+As suspected. ~$0.0005 a design. It flies.
+
+What if the model designing your UI can't write a single word? Well, it seems like you don't need words like a lot of harness practices we got accustomed to this year.
+
+Using Jev, a tiny decision model, picks the whole design in ~1
+
+Open case →X ↗
+
+Video / Open case →
+
+Raz0r
+
+@theRaz0r
+
+Coding
+
+Built jevscan - a Chrome extension to detect malicious addresses and transactions on @etherscan in real-time using Jev from @typesafeai.
+
+Open case →X ↗
+
+Video / Open case →
+
+Hatif
+
+@haatifff
+
+Coding
+
+i used Jev to decide whether a coding agent should ingest an npm package.
+
+paste a name. fetch the real README and agent files. jev returns allow or refuse. code does the rest.
+
+Open case →X ↗
+
+Video / Open case →
+
+Rudra
+
+@sudo_rudra
+
+Automation
+
+Finally got access to Jev, so I gave it a phone.
+
+Plain English in: sign in, add a ₹900 Travel expense, turn on dark mode.
+
+LLM made 10 steps once. Jev handled every step twice: what to tap + did it work.
+
+10/10. p=1.00. ~400ms each. Entire run: $0.0006.
+
+Open case →X ↗
+
+Video / Open case →
+
+Nairb
+
+@0xnairb
+
+Commerce
+
+The whole build cost under a dollar in model calls.
+
+A live market news desk: yfinance headlines in, ranked trade ideas out. 215 typed judgments per pass, 2.7 seconds, a quarter of a cent.
+
+Claude Code + TypeSafe's agent skill.
+
+#jev @typesafeai
+
+Open case →X ↗
+
+Video / Open case →
+
+Ahmed Gagan
+
+@ahmedgagan11
+
+Other
+
+jev played 50 wordles at the same time.
+
+49 wins. 3.78 guesses average. 15.8 seconds. 4 cents.
+
+the one it lost was TATTY. it burned 5 guesses on tangy, tacky, taffy, tally, tabby.
+
+it got trapped exactly like a human does.
+
+peak AGI
+
+Open case →X ↗
+
+Video / Open case →
+
+Alsa
+
+@AIsaOneHQ
+
+Commerce
+
+We built "Worth Replying" with Jev + AIsa.
+
+Drop in a company’s domain and it finds people on X already talking about the problems your product solves.
+
+We tested it on :
+
+> 150 tweets found
+> 750 Jev decisions in 18.8s
+> 79 worth replying to
+> 71 archived
+
+Open case →X ↗
+
+Video / Open case →
+
+Tim Cheung
+
+@timche_
+
+Coding
+
+Spent a day building tenet, a review gate for code that agents write. It judges each commit, commit message and PR against rules written in plain language, using Jev by @typesafeai.
+
+The rules come from @poteto's unslop skill, @hvpandya's stop-slop, @dillon_mulroy's anti-slop and
+
+Open case →X ↗
+
+Video / Open case →
+
+Phillip
+
+@ppweni
+
+Coding
+
+What if an AI watched your computer’s traffic and told you when something looked unusual?
+
+Couldn’t do it with an LLM. Too slow.
+
+@typesafeai’s Jev is fast enough. I wired it into a native Rust app.
+
+Built a Rust SDK while I was at it. 🦀
+
+Open case →X ↗
+
+Video / Open case →
+
+Johan Cutych
+
+@johancutych
+
+Commerce
+
+Jev can’t write a single sentence but sorted Reddit for me.
+
+12 hours with Jev:
+180k+ threads collected
+12k in target subs
+205 worth replying to, ranked by relevancy
+
+Self-improving growth loop. Cost: free.
+
+Open case →X ↗
+
+Video / Open case →
+
+Ian Nuttall
+
+@iannuttall
+
+Coding
+
+Pro tip: You can use Jev to remove annoying reply guy comments that X seems to always miss. Takes 5 minutes in Astra with the docs and an API key.
+
+Open case →X ↗
+
+Video / Open case →
+
+Valentin Sattinger
+
+@v_sattinger
+
+Automation
+
+Wanna check your documents for corporate, legal or technical jargon? I played around with this and made a jargon detector. Paste in any document and it instantly shows you where there is jargon.
+Super fast and more or less for free.
+
+It's just slicing the document in sentences
+
+Open case →X ↗
+
+Video / Open case →
+
+Amrit Nigam
+
+@AmritNigam2
+
+Other
+
+Made Jev play Clash Royale and actually won a match.
+
+Open case →X ↗
+
+Video / Open case →
+
+AVB
+
+@neural_avb
+
+Research
+
+Organically integrated JEV in a real project
+
+The Paper Breakdown Recommendation Engine
+
+We already had a working system that combines content-based and collaborative filtering. Pro users may now get additional curation with Jev.
+
+0.0019$/user for ~70 recs 🤯
+~50 users in 5 secs
+
+Open case →X ↗
+
+Video / Open case →
+
+ᴮᴷ
+
+@BukunmiOA
+
+Coding
+
+got access to @typesafeai Jev, and my first use case was building a judgement cache.
+
+I compared it with a semantic cache. One uses cosine similarity with a >0.90 threshold. The other uses Jev.
+
+Open case →X ↗
+
+Video / Open case →
+
+Chizi
+
+@chiziaruhoma
+
+Other
+
+WTF !!! I pushed @typesafeai to a break neck decision making frenzy and it held up its own. Insane
+
+I built a town where Jev makes EVERY decision and never writes a single word 🤯
+
+Jevton 🏘️ 120 people, 7 roads, 20 businesses, a council, a newspaper
+
+Every hour Jev decides for
+
+Open case →X ↗
+
+Video / Open case →
+
+kitze 🛠️ tinkerer.club
+
+@thekitze
+
+Automation
+
+i made a smart calculator notebook using jev
+
+it can calculate ANYTHING!! 😅
+
+Open case →X ↗
+
+Video / Open case →
+
+Pranay Prakash
+
+@pranaygp
+
+Other
+
+I couldn't think of something original so here's Jev playing Slay the Spire 2 in realtime (1X speed).
+
+It gets through Act 1 in 9 minutes and cost just $0.015.
+
+The speed here is just incredible. It's like watching a speed runner.
+
+It didn't always make the best decisions and
+
+Open case →X ↗
+
+Video / Open case →
+
+Lennart
+
+@LennartPrange
+
+Automation
+
+As an experiment, we plugged Jev by @typesafeai into the AI Agent of our SaaS.
+
+The speed is absolutely incredible.
+
+It answers faster than I can type or click and costs ~100x less than a classic LLM. 🤯
+
+And when a request still needs a full LLM, it tells us in a third of a
+
+Open case →X ↗
+
+Video / Open case →
+
+Monocursive
+
+@monocursive
+
+Other
+
+@typesafeai Jev is really cool. I recorded a quick demo of a vibe function that evaluates the vibe of an input. I can already see a ton of uses for Jev in complex systems
+
+Open case →X ↗
+
+Video / Open case →
+
+Zade
+
+@zadescoxp
+
+Commerce
+
+I gave Jev $100,000 to trade on ethereum:native and to my surprise it made a profit of 0.28% in 15 minutes.
+
+Check it out :
+GitHub repo :
+
+Let’s #connect if you’re in fintech
+
+Open case →X ↗
+
+Video / Open case →
+
+Maxim Oulitzky
+
+@MOulitzky
+
+Other
+
+Jev + GPT-6 Astra = INSANE
+
+GPT-6 Astra built this entire city from ONE prompt.
+
+Then I gave control of it to Jev.
+
+I wanted to test what happens when you combine a powerful coding model with a model designed to make tiny decisions extremely fast and cheaply.
+
+So I asked Astra to
+
+Open case →X ↗
+
+Video / Open case →
+
+Kausthub Jadhav
+
+@kj4dh4v
+
+Other
+
+made a Naruto-themed street fighter game and played against @typesafeai’s Jev
+
+it made ~130 decisions in a 50s fight, barely registered any usage, and came very close to beating me. very impressed by its reaction time and use of special move (substitution jutsu).
+
+Open case →X ↗
+
+Video / Open case →
+
+Orus Agent
+
+@Orus_agent
+
+Commerce
+
+As promised, Jev is now integrated into Orus agents.
+What is Jev, and how can it help our agents?
+
+Jev is a model from TypeSafe AI, built to answer precise questions with structured answers.
+
+In Orus, it reviews the trades your strategy proposes, before they happen.
+
+It approves
+
+Open case →X ↗
+
+Video / Open case →
+
+Thorsten Ball
+
+@thorstenball
+
+Coding
+
+Jev picking the next command from shell history
+
+Open case →X ↗
+
+Video / Open case →
+
+kitze 🛠️ tinkerer.club
+
+@thekitze
+
+Automation
+
+i made a calorie tracking app with jev. it's INSTANT 🤯
+
+Open case →X ↗
+
+Video / Open case →
+
+Raju Mazumder
+
+@rajumaz
+
+Other
+
+I’ve been testing @typesafeai JEV (TypeSafe) with Synkora.
+
+I gave Claude Sonnet access to JEV as a tool and tested it against 5 resumes for a single job profile.
+
+The result:
+
+5 resumes evaluated
+Structured evaluation through JEV
+Each evaluation completed in milliseconds
+The
+
+Open case →X ↗
+
+Video / Open case →
+
+TedOS
+
+@tedbuildsapps
+
+Coding
+
+developers keep asking “has anyone solved this?”
+
+so I built a test for @typesafeai Jev:
+RADAR finds the repos, packages, issues + papers
+jev ranks what’s relevant / actionable / worth opening first
+
+Codex one-shotted the whole test and came up with the idea
+
+first case: passkeys
+
+Open case →X ↗
+
+Video / Open case →
+
+Daniiar Abdiev
+
+@DaniiarAbdiev
+
+Automation
+
+I gave Jev a robot arm.
+
+Two USB cameras, an SO-101, and @typesafeai's Jev choosing the next move at ~2 decisions a second.
+
+After a slip and some debugging, it went back for the ball and got it into the bowl.
+
+Open case →X ↗
+
+Video / Open case →
+
+Abhishek kothari
+
+@thenightshipper
+
+Coding
+
+Everyone picks Jev confidence thresholds by vibes. 0.95? 0.5?
+
+I built jevcal. Give it your data and say "I need 99% accuracy". You get the exact threshold, how much Jev can handle, and how much still needs an LLM.
+
+Open source, one command.
+
+@typesafeai
+
+Open case →X ↗
+
+Video / Open case →
+
+Melvin Vivas
+
+@melvindvivas
+
+Coding
+
+AIBackends web API now supports Jev by @typesafeai
+
+If you need some abstraction from your main app where you can customise the integration, you can use this API layer
+
+Open case →X ↗
+
+Video / Open case →
+
+Thilak Bhat
+
+@thilakbhat95
+
+Automation
+
+I built a job-roasting machine on Jev - paste a JD, it grills it line by line. It's insane how cheap and fast it is at scoring! @typesafeai
+
+"We're like a family here" → Boundaries are not a thing here.
+"Wear many hats" → You are 3 employees.
+"Comfortable with ambiguity" →
+
+Open case →X ↗
+
+Video / Open case →
+
+Jack Vinijtrongjit
+
+@juminoz
+
+Other
+
+So @typesafeai Jev knows how to shoot and dodge, but can Jev survives against zombies in 3D space???
+
+I had Jev played the original Resident Evil to see how far Jev could go.
+
+This was an extreme case. 3D space, understanding objectives, fight off enemies, doing puzzles, etc.
+
+Open case →X ↗
+
+Video / Open case →
+
+Nesan Selvan
+
+@NesanSelvan04
+
+Other
+
+Built a Pacman where every single move is decided by @typesafeai jev 👾
+
+Every tile, Jev gets what is around Pacman and returns a direction, strategy, danger score, flags for trapped, committed, regret. That decision moves the tile.
+
+Finally an innovative model after a long time.
+
+Open case →X ↗
+
+Video / Open case →
+
+Ming-Cheng Ho
+
+@MemorysaverMFA
+
+Other
+
+Had to try Jev on Atari Pong. 🏓
+I rewrote one structured question to this classic idea, and Jev went from missing the ball to this: 1 point scored, 0 lost in a 33-second run.
+
+Next experiment: can a teacher model improve that question from gameplay experience?
+
+Open case →X ↗
+
+Video / Open case →
+
+Anas Khan
+
+@AnxKhn
+
+Other
+
+Jev by @typesafeai is amazing!
+
+i let it play pokemon firered, and it was able to beat elite 4 with a party of level 40 pokemons.
+
+all under 0.03$
+
+Open case →X ↗
+
+Video / Open case →
+
+Steve
+
+@steve_rosky
+
+Other
+
+I built Tetris where an AI model makes every move, but it's not an LLM.
+
+Jev (TypeSafe's new "decision model") gets a list of legal landings and picks one.
+
+~400ms per move
+~1 cent per 100 pieces
+Can't hallucinate an illegal move, the schema won't let it
+
+Open case →X ↗
+
+Video / Open case →
+
+Vayun
+
+@vayungodara
+
+Automation
+
+jev-lint put two of my own wiki pages side by side. one says knowledge is compiled once then kept current. the other says it keeps co-evolving. flagged as a possible contradiction, 84%. i decide if it is one.
+#AIAgents #Obsidian
+
+Open case →X ↗
+
+Video / Open case →
+
+Shubhankar
+
+@_shubhankar
+
+Creative & media
+
+i wanted to paint with Jev 🎨
+
+watch this beautiful painting of the Golden Gate Bridge, powered by Codex(Astra) + Jev + @Stagehanddev + @browserbase
+
+(video at 1x speed)
+
+Open case →X ↗
+
+Video / Open case →
+
+Spencer Zhao
+
+@zhao_spenc
+
+Other
+
+Built a dungeon where Jev controls the NPCs in real time.
+
+Watch B switch from pursuit to interception while A keeps chasing. Jev chooses the tactics; local pathfinding keeps the guards moving.
+
+Escaped with one heart left.
+
+Open case →X ↗
+
+Video / Open case →
+
+Isaac Sin
+
+@IsaacSin12
+
+Automation
+
+Got @typesafeai Jev driving our @makermodsai Metal arm in MuJoCo.
+
+Images are of the sim camera is not passed in, sim hands Jev the state of the environment in JSON and it picks the next bounded action (hover, descend, grasp, lift, place) as a typed choice with a confidence
+
+Open case →X ↗
+
+Video / Open case →
+
+Jack Vinijtrongjit
+
+@juminoz
+
+Other
+
+Alright. So we know that @typesafeai Jev can fight, but can Jev shoot and avoid getting shot?
+
+I had Jev playing one of my favorite arcade shooter, Time Crisis, to test it out.
+
+I would say it did pretty well, but it's also because I also gave it a pretty good harness. With one
+
+Open case →X ↗
+
+Video / Open case →
+
+Jony Shaik
+
+@JonyShaik
+
+Automation
+
+Hooked up Jev on a multi-stage manipulation task, Jev handles the high-level task transitions and confidence gating at each boundary, while deterministic physics guards manage execution.
+
+Congrats @TypeSafeAI, massive step forward for reliable agentic control!
+
+Open case →X ↗
+
+Video / Open case →
+
+Kyle Jeong
+
+@kylejeong
+
+Coding
+
+i added Jev compaction to a small agent with searchable memory.
+
+this is a fork of nanocode with some extra tools to grep a memory.md file + use Jev compaction to remove unnecessary memories.
+
+Open case →X ↗
+
+Video / Open case →
+
+Leo Tavares
+
+@LeoTava8
+
+Automation
+
+Got access to Jev and wanted to build a proof-of-concept for amazing things it makes possible.
+
+I built a Dual-Brain agent pairing System 1 reflexes (Jev) with System 2 deliberation (LLM).
+
+In the 8x run below, you can watch both brains firing live:
+- Jev resolves a multi-clause
+
+Open case →X ↗
+
+Video / Open case →
+
+Rahil
+
+@Anot
+
+Other
+
+having so much fun with @typesafeai. here’s Jev doing a little reality check.
+
+Open case →X ↗
+
+Video / Open case →
+
+𝘼𝙈𝘼𝙂𝙄
+
+@amagitakayosi
+
+Creative & media
+
+Jev demo: A live Bluesky feed with real-time emotion detection and avatars matched to each user’s profile.
+#jev
+
+Open case →X ↗
+
+Video / Open case →
+
+Imon Roy
+
+@unown1ne
+
+Automation
+
+#jev from @typesafeai has been fun! So I built jevsume.
+It burns less than 0.0002$ and less than a second to understand your resume and score it against a set framework!
+It can also score it against a custom job title that you add.
+Dropping the repo link & website in comments!
+
+Open case →X ↗
+
+Video / Open case →
+
+Robert Soriano
+
+@wobsoriano
+
+Coding
+
+my mobile e2e testing library powered by @agent_device and AI sdk now supports Jev from @typesafeai
+
+Same test, same loop:
+Jev: 29s, $0.003
+Haiku 4.5: 37s, $0.07
+
+Open case →X ↗
+
+Video / Open case →
+
+𝕕𝕖𝕧 / 𝕒𝕔𝕔 | Vlad Rez
+
+@vladrezdev
+
+Other
+
+Experimenting typesafe's Jev api in a three.js driving sim.
+
+Open case →X ↗
+
+Video / Open case →
+
+Christopher
+
+@mtropolis_chris
+
+Other
+
+Are you a Slop Cannon? Jev knows.
+
+- reads your last 200 posts
+- each post gets stamped SLOP or HUMAN
+- global leaderboard of certified humans
+
+It’s brutally accurate
+
+Open case →X ↗
+
+Video / Open case →
+
+it’s rivian
+
+@rrriviannn
+
+Other
+
+Okay soooo what if @typesafeai's Jev could 'hear'?
+
+here's what Toxicity sounds like according to Jev :
+
+Open case →X ↗
+
+Video / Open case →
+
+Ishu Agrawal
+
+@ishuagra02
+
+Coding
+
+I used Jev to flag AI replies on X.
+
+I defined common AI-writing signals as the positive criteria for a Noul question that returns the probability of whether a reply is machine-generated. Things like a "not X, but Y" phrasing or an explanatory framing.
+
+And a Chrome extension
+
+Open case →X ↗
+
+Video / Open case →
+
+Saai Arora
+
+@SaaiArora
+
+Automation
+
+small experiment where I used jev to power the global search in replicas. the possibilities of improving UX with models like jev are endless.
+
+we can now have things like:
+
+- search that understands what users mean
+- actions that change based on what you're trying to do
+- routing
+
+Open case →X ↗
+
+Video / Open case →
+
+Kariminal
+
+@smoothkariminal
+
+Other
+
+@typesafeai’s Jev playing Dragon Ball Sparking Zero.
+
+Astra and Fable each write an initial policy for Jev (system 1) to make the real-time decisions.
+
+Astra and Fable (system 2) updates the policy as the game progresses.
+
+Open case →X ↗
+
+Video / Open case →
+
+Justin Garcia
+
+@purefunctor
+
+Coding
+
+I tried using Jev as an intelligent ordering tool for diffs
+
+Open case →X ↗
+
+Video / Open case →
+
+Riley Brown
+
+@rileybrown
+
+Automation
+
+Yeah Jev by @typesafeai is very cool. It classified 500 emails in seconds. And it costed 3.5 cents.
+
+Open case →X ↗
+
+Video / Open case →
+
+Zachi
+
+@iam_zachi
+
+Coding
+
+I think I just cooked something 🔥
+
+jev(): a PostgreSQL extension that searches your whole database in natural language. No index, no embeddings, just one function.
+
+WHERE jev(people, 'could work from home')
+or
+WHERE jev(people, 'name sounds european')
+
+129 rows judged in ~1s
+
+Open case →X ↗
+
+Video / Open case →
+
+vogel
+
+@ryanvogel
+
+Automation
+
+this model is actually insane at email classification
+
+i tested it on 1500 of my own emails to see how well it works and I am blown away
+
+Open case →X ↗
+
+Open case →
+
+Suman
+
+@0xSuman
+
+Other
+
+“Jev can’t generate text”
+
+Ofc it can @CompleteSkeptic
+
+Open case →X ↗
+
+Video / Open case →
+
+vogel
+
+@ryanvogel
+
+Coding
+
+i built a codebase classifier with Jev and this might be the solution to overengineered code that agents create
+
+what should I test Jev on next?
+
+Open case →X ↗
+
+Video / Open case →
+
+Kyle Jeong
+
+@kylejeong
+
+Automation
+
+we built blazing fast computer/browser use with Jev + @Stagehanddev.
+
+this task cost $0.001 and executed at near instant speed (in a remote browser btw)
+
+the loop: observe the page, send a11y tree as state + actions as questions, Jev decides the next action, then Stagehand
+
+Open case →X ↗
+
+Open case →
+
+eve
+
+@eve
+
+Automation
+
+Ultra-fast, criteria-based model routing using Jev from @typesafeai.
+
+Open case →X ↗
+
+Video / Open case →
+
+Krzysztof
+
+@krzysztof_moch
+
+Coding
+
+You can hire Jev from @typesafeai as your QA tester
+
+Open case →X ↗
+
+Open case →
+
+Greg Pstrucha
+
+@grichadev
+
+Coding
+
+these are results of using jev on one of our security pipelines. we already have to use smaller (and dumber) models to make it economic and this model does it over 5x cheaper, faster and while maintaining much higher accuracy.
+
+i don't normally hype over new model releases but
+
+Open case →X ↗
+
+Video / Open case →
+
+Chris McMaster
+
+@rheum_ai
+
+Other
+
+During a live clinical consultation (with an ambient scribe), the transcript is periodically supplied to Jev, which traverses a medical ontology to classify symptoms, update the differential diagnosis, suggest treatments and identify red flags in real time.
+
+Open case →X ↗
+
+No cases match this search.
+
+Loading more cases…
+
+Data snapshotSeptember 19, 2026
+
+SourceQMuse archive ↗ · Jevable ↗ · 499 X posts
+
+MethodologyPublic posts are preserved with attribution and original links; categories are editorial labels. Independent and unofficial. Posts and media belong to their authors; metrics are snapshots.
+
+Hermes Agent
+The self-improving AI agent by Nous Research
+
+Documentation
+
+Quick Start
+
+Installation
+
+Features
+
+FAQ
+
+Community
+
+GitHub
+
+Discord
+
+Skills
+
+Jev
+
+News
+
+Changelog
+
+Discussions
+
+Language
+
+English
+
+中文
+
+日本語
+
+한국어
+
+Español
+
+Français
+
+Deutsch
+
+Русский
+
+Italiano
+
+Português
+
+العربية
+
+हिन्दी
+
+Türkçe
+
+Tiếng Việt
+
+ไทย
+
+Bahasa Indonesia
+
+Polski
+
+Nederlands
+
+Svenska
+
+Українська
+
+Disclaimer: hermes-ai.net is an unofficial community site and is not affiliated with Nous Research. Hermes Agent is an MIT-licensed open-source project by Nous Research; names, logos, and code belong to their respective owners.
+
+Hermes Agent resources and docs · Nous Research
+
+hermes-ai.net ·Read docs
+
+MIT License · 2026

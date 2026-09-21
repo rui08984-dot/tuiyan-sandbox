@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Three Jev clones and a 27B - Ap[e]Chat Blog</title>
+  <link rel="stylesheet" href="/apchat-blog/css/style.css">
+</head>
+<body>
+  <header>
+    <h1><a href="/apchat-blog/">Ap[e]Chat Blog</a></h1>
+    <p>Tech notes, GitHub discoveries, and learning logs</p>
+  </header>
+  
+  <main>
+    <h1 id="three-jev-clones-and-a-27b">Three Jev clones and a 27B</h1>
+
+<p>TypeSafe’s Jev is a hosted “System One” model. You hand it a piece of text and a typed question: pick one of these five options, is this true or false, rate this on a scale. It answers in one forward pass, so there is no text to parse and nothing to hallucinate. It took a funded team two years. Within a few days of its launch, several open-source drop-in replacements appeared, each claiming to match or beat it.</p>
+
+<p>We ran three of them, plus one model that has no business being in this comparison, against the same 78 questions.</p>
+
+<h2 id="setup">Setup</h2>
+
+<p>The suite is <code class="language-plaintext highlighter-rouge">jabr/classifier-benchmark</code> — 8 tasks, 78 cases, across the three primitives Jev exposes: <strong>choice</strong> (multi-class routing), <strong>noul</strong> (a calibrated yes/no probability), and <strong>score</strong> (a position on an ordered rubric). We picked it because the arguments were already about this suite.</p>
+
+<p>Everything ran on one Mac mini, M4 Pro, 24 GB, on MPS:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>model</th>
+      <th>what it is</th>
+      <th>size</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Von-1.0</td>
+      <td>ModernBERT-large NLI classifier, 395M</td>
+      <td>1.5 GB</td>
+    </tr>
+    <tr>
+      <td>GLiNER2-large</td>
+      <td>DeBERTa-v3-large, 486M</td>
+      <td>1.8 GB</td>
+    </tr>
+    <tr>
+      <td>Laya</td>
+      <td>ModernBERT-large, 421M</td>
+      <td>2.2 GB</td>
+    </tr>
+    <tr>
+      <td>Bonsai-27B</td>
+      <td>a 27B chat model at 1.1 bits per weight</td>
+      <td>3.5 GB</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The last row is the odd one. Bonsai is a general 27B chat model compressed to about a bit per weight. It was trained to hold conversations, and it has no decision head at all. We put it on the same footing as the others by forcing its answer through a JSON-schema enum, so it picks from the identical option list. The probabilities come out of its logprobs, which keeps the calibration metrics meaningful.</p>
+
+<h2 id="the-control">The control</h2>
+
+<p>Before trusting any number: <strong>GLiNER2 reproduced its published results exactly, on all eight tasks.</strong> That is the only reason the rest of the table means anything. If our setup were moving scores around, GLiNER2’s would have moved too.</p>
+
+<p>This is worth doing every time. Without it, a model that scores differently from its paper might be telling you about the model, or about your own machine, and you cannot tell which.</p>
+
+<h2 id="results">Results</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>task</th>
+      <th>Von</th>
+      <th>GLiNER2</th>
+      <th>Laya</th>
+      <th>Bonsai 1-bit</th>
+      <th>Jev*</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>support_department (choice)</td>
+      <td>0.867</td>
+      <td>0.933</td>
+      <td>0.533</td>
+      <td>0.933</td>
+      <td>1.000</td>
+    </tr>
+    <tr>
+      <td>email_intent (choice)</td>
+      <td>1.000</td>
+      <td>0.900</td>
+      <td>0.900</td>
+      <td>1.000</td>
+      <td>1.000</td>
+    </tr>
+    <tr>
+      <td>refund_eligible (noul)</td>
+      <td>0.700</td>
+      <td>0.500</td>
+      <td>0.700</td>
+      <td><strong>1.000</strong></td>
+      <td>1.000</td>
+    </tr>
+    <tr>
+      <td>urgency (noul)</td>
+      <td>0.250</td>
+      <td>1.000</td>
+      <td>0.875</td>
+      <td><strong>1.000</strong></td>
+      <td>1.000</td>
+    </tr>
+    <tr>
+      <td>secret_leak (noul)</td>
+      <td>0.625</td>
+      <td>0.500</td>
+      <td>0.500</td>
+      <td><strong>1.000</strong></td>
+      <td>1.000</td>
+    </tr>
+    <tr>
+      <td>frustration_level (score)</td>
+      <td>0.889</td>
+      <td>1.000</td>
+      <td>0.667</td>
+      <td>0.667</td>
+      <td>1.000</td>
+    </tr>
+    <tr>
+      <td>incident_severity (score)</td>
+      <td>1.000</td>
+      <td>0.556</td>
+      <td>0.222</td>
+      <td>0.556</td>
+      <td>0.778</td>
+    </tr>
+    <tr>
+      <td>review_sentiment (score)</td>
+      <td>0.667</td>
+      <td>0.889</td>
+      <td>0.333</td>
+      <td>0.889</td>
+      <td>1.000</td>
+    </tr>
+    <tr>
+      <td><strong>micro accuracy</strong></td>
+      <td>0.769</td>
+      <td>0.795</td>
+      <td>0.590</td>
+      <td><strong>0.885</strong></td>
+      <td>0.974</td>
+    </tr>
+    <tr>
+      <td><strong>macro accuracy</strong></td>
+      <td>0.750</td>
+      <td>0.785</td>
+      <td>0.591</td>
+      <td><strong>0.881</strong></td>
+      <td>0.972</td>
+    </tr>
+    <tr>
+      <td>mean ms / case</td>
+      <td>47</td>
+      <td>66</td>
+      <td><strong>30</strong></td>
+      <td>1682</td>
+      <td>~302</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>* The Jev column comes from the suite author’s run against the hosted API. We did not run it.</p>
+
+<h2 id="the-open-models-do-not-replace-jev">The open models do not replace Jev</h2>
+
+<p>The closest of them, GLiNER2, is 18 points behind Jev. On 78 cases that gap is far too wide to be noise.</p>
+
+<p><strong>Von improved, and its card overstates it.</strong> When the benchmark’s author first ran Von it scored 0.654 micro. Von’s author found a bug in his Python wrapper and fixed it. We measure 0.769 today, a real gain of 11.5 points, and it lands exactly where the criticism did: the tasks where the model had appeared not to be reading its input at all. But its author claims 0.923 on the card, and a comfortable win over GLiNER2 on this very suite. We measure it losing to GLiNER2 on both averages. The sign of the comparison is reversed. One task also went backwards in the fix: urgency fell to 0.250, with an AUC of 0.312, worse than ordering the cases at random.</p>
+
+<p><strong>The binary questions are where the small models fall apart.</strong> Look at the three noul rows. Von, GLiNER2 and Laya sit at 0.5 to 0.7, which is coin-flip territory on questions like “does this message contain a credential.” The 27B gets all three perfect, with perfect ranking.</p>
+
+<p><strong>Size beats specialisation here, and it costs you 25x.</strong> Bonsai at roughly one bit per weight scores 0.885. That is 9 points clear of the best purpose-built classifier, and it closes half the distance from GLiNER2 to Jev. It also takes 1.7 seconds per decision instead of 30-66 milliseconds. If you are gating a user-facing request, 1.7 seconds settles it on its own. If you are triaging a queue overnight, it does not.</p>
+
+<p>The big model’s weak spot is the ordered rubrics. GLiNER2 beats it on frustration, Von beats it on incident severity. Picking a point on a five-level scale seems to be a different skill from picking a category or answering yes.</p>
+
+<h2 id="caveats">Caveats</h2>
+
+<p>78 cases is a small suite, and each task holds only 8 to 15 of them, so one or two answers swing a task’s score. Every model here answers questions phrased by the suite’s author, and for the NLI-based models the phrasing <em>is</em> the prompt — a different wording moves the result. We learned that the hard way: before running the real suite, we tested two of these models on four cases we wrote ourselves and got the opposite ranking.</p>
+
+<h2 id="sources">Sources</h2>
+
+<p>The argument that started this:</p>
+
+<ul>
+  <li>Reddit, r/LocalLLaMA: <a href="https://www.reddit.com/r/LocalLLaMA/comments/1wkpxn6/von_opensource_395m_system_one_model/">Von: Open-source 395M “System One” model</a> — the release thread, including the independent benchmark run that scored Von at 0.654 and the author’s reply that it was a wrapper bug.</li>
+  <li>The earlier thread it points back to: <a href="https://www.reddit.com/r/LocalLLaMA/comments/1wijo3e/i_literally_built_the_jev_architecture_one_year/">I literally built the Jev architecture one year back and completely open-sourced it with model, dataset and paper</a> — which is where Laya comes from.</li>
+</ul>
+
+<p>The benchmark:</p>
+
+<ul>
+  <li><a href="https://github.com/jabr/classifier-benchmark"><code class="language-plaintext highlighter-rouge">jabr/classifier-benchmark</code></a> — the 8 tasks / 78 cases used here, and the published <code class="language-plaintext highlighter-rouge">results/</code> we checked our GLiNER2 control against.</li>
+</ul>
+
+<p>The models:</p>
+
+<ul>
+  <li>Von — <a href="https://github.com/wfzyx/von">github.com/wfzyx/von</a>, weights <a href="https://huggingface.co/wfzyx/von-1.0"><code class="language-plaintext highlighter-rouge">wfzyx/von-1.0</code></a> (Apache 2.0, ModernBERT-large).</li>
+  <li>GLiNER2 — <a href="https://github.com/fastino-ai/GLiNER2">github.com/fastino-ai/GLiNER2</a>, weights <a href="https://huggingface.co/fastino/gliner2-large-v1"><code class="language-plaintext highlighter-rouge">fastino/gliner2-large-v1</code></a> (Apache 2.0), <a href="https://arxiv.org/abs/2507.18546">paper</a>.</li>
+  <li>Laya — <a href="https://github.com/NandhaKishorM/laya">github.com/NandhaKishorM/laya</a>, weights <a href="https://huggingface.co/convaiinnovations/laya"><code class="language-plaintext highlighter-rouge">convaiinnovations/laya</code></a> (Apache 2.0).</li>
+  <li>Bonsai — <a href="https://github.com/PrismML-Eng/Bonsai-demo">PrismML-Eng/Bonsai-demo</a>, weights <a href="https://huggingface.co/prism-ml/Bonsai-27B-gguf"><code class="language-plaintext highlighter-rouge">prism-ml/Bonsai-27B-gguf</code></a> (Apache 2.0), <code class="language-plaintext highlighter-rouge">Bonsai-27B-Q1_0.gguf</code>. Announcement: <a href="https://prismml.com/news/bonsai-2-27b">Introducing Bonsai 2 27B</a>.</li>
+  <li>Jev — <code class="language-plaintext highlighter-rouge">typesafe/jev-1.13</code>, hosted; the weights are not published. The benchmark reaches it through OpenRouter’s decisions endpoint (<code class="language-plaintext highlighter-rouge">openrouter.ai/api/alpha/decisions</code>), which takes the same typed-question JSON, so no prompt round-tripping is involved.</li>
+</ul>
+
+<p>We hit two mismatches between a model card and what it ships, both in <code class="language-plaintext highlighter-rouge">wfzyx/von-1.0</code>. The card states an 8,192-token context; <code class="language-plaintext highlighter-rouge">config.json</code> says <code class="language-plaintext highlighter-rouge">max_position_embeddings: 2048</code>. Its methodology section gives a calibration temperature of 1.0367; the shipped <code class="language-plaintext highlighter-rouge">calibration.json</code> says 1.1692. We used the shipped value.</p>
+
+<p>We wrote two backends the harness does not ship, one for Laya and one for Bonsai. Both are short files dropped into <code class="language-plaintext highlighter-rouge">bench/backends/</code> and registered in its <code class="language-plaintext highlighter-rouge">__init__.py</code>. The Laya one maps the suite’s typed questions onto <code class="language-plaintext highlighter-rouge">agent.predict</code>, which takes the same choice/noul/score schema. The Bonsai one talks to the demo’s <code class="language-plaintext highlighter-rouge">llama-server</code> over the OpenAI-compatible API and forces the answer through a JSON-schema enum, so the 27B picks from the identical option list. It reads the probabilities out of the logprobs at the token that separates the options. Without that, AUC and calibration error are not computable for a generative model at all. Thinking has to be disabled through <code class="language-plaintext highlighter-rouge">chat_template_kwargs</code>; <code class="language-plaintext highlighter-rouge">--reasoning-budget 0</code> does not do it, and with reasoning on the schema never constrains the answer.</p>
+
+  </main>
+  
+  <footer>
+    <p>&copy; 2026 Ap[e]Chat Blog</p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,179 @@
+Three Jev clones and a 27B - Ap[e]Chat Blog 
+
+Ap[e]Chat Blog 
+
+Tech notes, GitHub discoveries, and learning logs
+
+Three Jev clones and a 27B
+
+TypeSafe’s Jev is a hosted “System One” model. You hand it a piece of text and a typed question: pick one of these five options, is this true or false, rate this on a scale. It answers in one forward pass, so there is no text to parse and nothing to hallucinate. It took a funded team two years. Within a few days of its launch, several open-source drop-in replacements appeared, each claiming to match or beat it.
+
+We ran three of them, plus one model that has no business being in this comparison, against the same 78 questions.
+
+Setup
+
+The suite is jabr/classifier-benchmark — 8 tasks, 78 cases, across the three primitives Jev exposes: choice (multi-class routing), noul (a calibrated yes/no probability), and score (a position on an ordered rubric). We picked it because the arguments were already about this suite.
+
+Everything ran on one Mac mini, M4 Pro, 24 GB, on MPS:
+
+model 
+what it is 
+size 
+
+Von-1.0 
+ModernBERT-large NLI classifier, 395M 
+1.5 GB 
+
+GLiNER2-large 
+DeBERTa-v3-large, 486M 
+1.8 GB 
+
+Laya 
+ModernBERT-large, 421M 
+2.2 GB 
+
+Bonsai-27B 
+a 27B chat model at 1.1 bits per weight 
+3.5 GB 
+
+The last row is the odd one. Bonsai is a general 27B chat model compressed to about a bit per weight. It was trained to hold conversations, and it has no decision head at all. We put it on the same footing as the others by forcing its answer through a JSON-schema enum, so it picks from the identical option list. The probabilities come out of its logprobs, which keeps the calibration metrics meaningful.
+
+The control
+
+Before trusting any number: GLiNER2 reproduced its published results exactly, on all eight tasks. That is the only reason the rest of the table means anything. If our setup were moving scores around, GLiNER2’s would have moved too.
+
+This is worth doing every time. Without it, a model that scores differently from its paper might be telling you about the model, or about your own machine, and you cannot tell which.
+
+Results
+
+task 
+Von 
+GLiNER2 
+Laya 
+Bonsai 1-bit 
+Jev* 
+
+support_department (choice) 
+0.867 
+0.933 
+0.533 
+0.933 
+1.000 
+
+email_intent (choice) 
+1.000 
+0.900 
+0.900 
+1.000 
+1.000 
+
+refund_eligible (noul) 
+0.700 
+0.500 
+0.700 
+1.000 
+1.000 
+
+urgency (noul) 
+0.250 
+1.000 
+0.875 
+1.000 
+1.000 
+
+secret_leak (noul) 
+0.625 
+0.500 
+0.500 
+1.000 
+1.000 
+
+frustration_level (score) 
+0.889 
+1.000 
+0.667 
+0.667 
+1.000 
+
+incident_severity (score) 
+1.000 
+0.556 
+0.222 
+0.556 
+0.778 
+
+review_sentiment (score) 
+0.667 
+0.889 
+0.333 
+0.889 
+1.000 
+
+micro accuracy 
+0.769 
+0.795 
+0.590 
+0.885 
+0.974 
+
+macro accuracy 
+0.750 
+0.785 
+0.591 
+0.881 
+0.972 
+
+mean ms / case 
+47 
+66 
+30 
+1682 
+~302 
+
+* The Jev column comes from the suite author’s run against the hosted API. We did not run it.
+
+The open models do not replace Jev
+
+The closest of them, GLiNER2, is 18 points behind Jev. On 78 cases that gap is far too wide to be noise.
+
+Von improved, and its card overstates it. When the benchmark’s author first ran Von it scored 0.654 micro. Von’s author found a bug in his Python wrapper and fixed it. We measure 0.769 today, a real gain of 11.5 points, and it lands exactly where the criticism did: the tasks where the model had appeared not to be reading its input at all. But its author claims 0.923 on the card, and a comfortable win over GLiNER2 on this very suite. We measure it losing to GLiNER2 on both averages. The sign of the comparison is reversed. One task also went backwards in the fix: urgency fell to 0.250, with an AUC of 0.312, worse than ordering the cases at random.
+
+The binary questions are where the small models fall apart. Look at the three noul rows. Von, GLiNER2 and Laya sit at 0.5 to 0.7, which is coin-flip territory on questions like “does this message contain a credential.” The 27B gets all three perfect, with perfect ranking.
+
+Size beats specialisation here, and it costs you 25x. Bonsai at roughly one bit per weight scores 0.885. That is 9 points clear of the best purpose-built classifier, and it closes half the distance from GLiNER2 to Jev. It also takes 1.7 seconds per decision instead of 30-66 milliseconds. If you are gating a user-facing request, 1.7 seconds settles it on its own. If you are triaging a queue overnight, it does not.
+
+The big model’s weak spot is the ordered rubrics. GLiNER2 beats it on frustration, Von beats it on incident severity. Picking a point on a five-level scale seems to be a different skill from picking a category or answering yes.
+
+Caveats
+
+78 cases is a small suite, and each task holds only 8 to 15 of them, so one or two answers swing a task’s score. Every model here answers questions phrased by the suite’s author, and for the NLI-based models the phrasing is the prompt — a different wording moves the result. We learned that the hard way: before running the real suite, we tested two of these models on four cases we wrote ourselves and got the opposite ranking.
+
+Sources
+
+The argument that started this:
+
+Reddit, r/LocalLLaMA: Von: Open-source 395M “System One” model — the release thread, including the independent benchmark run that scored Von at 0.654 and the author’s reply that it was a wrapper bug.
+
+The earlier thread it points back to: I literally built the Jev architecture one year back and completely open-sourced it with model, dataset and paper — which is where Laya comes from.
+
+The benchmark:
+
+jabr/classifier-benchmark — the 8 tasks / 78 cases used here, and the published results/ we checked our GLiNER2 control against.
+
+The models:
+
+Von — github.com/wfzyx/von , weights wfzyx/von-1.0 (Apache 2.0, ModernBERT-large).
+
+GLiNER2 — github.com/fastino-ai/GLiNER2 , weights fastino/gliner2-large-v1 (Apache 2.0), paper .
+
+Laya — github.com/NandhaKishorM/laya , weights convaiinnovations/laya (Apache 2.0).
+
+Bonsai — PrismML-Eng/Bonsai-demo , weights prism-ml/Bonsai-27B-gguf (Apache 2.0), Bonsai-27B-Q1_0.gguf . Announcement: Introducing Bonsai 2 27B .
+
+Jev — typesafe/jev-1.13 , hosted; the weights are not published. The benchmark reaches it through OpenRouter’s decisions endpoint ( openrouter.ai/api/alpha/decisions ), which takes the same typed-question JSON, so no prompt round-tripping is involved.
+
+We hit two mismatches between a model card and what it ships, both in wfzyx/von-1.0 . The card states an 8,192-token context; config.json says max_position_embeddings: 2048 . Its methodology section gives a calibration temperature of 1.0367; the shipped calibration.json says 1.1692. We used the shipped value.
+
+We wrote two backends the harness does not ship, one for Laya and one for Bonsai. Both are short files dropped into bench/backends/ and registered in its __init__.py . The Laya one maps the suite’s typed questions onto agent.predict , which takes the same choice/noul/score schema. The Bonsai one talks to the demo’s llama-server over the OpenAI-compatible API and forces the answer through a JSON-schema enum, so the 27B picks from the identical option list. It reads the probabilities out of the logprobs at the token that separates the options. Without that, AUC and calibration error are not computable for a generative model at all. Thinking has to be disabled through chat_template_kwargs ; --reasoning-budget 0 does not do it, and with reasoning on the schema never constrains the answer.
+
+© 2026 Ap[e]Chat Blog

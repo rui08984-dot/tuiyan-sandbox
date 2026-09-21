@@ -1,0 +1,2001 @@
+{
+  "sha": "cf348cd291bb538ad9fa902334649ef5dd937e92",
+  "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/trees/cf348cd291bb538ad9fa902334649ef5dd937e92",
+  "tree": [
+    {
+      "path": ".agents",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "16edf0f1ce50080a0e701c1410c5725e56c4bfac",
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/trees/16edf0f1ce50080a0e701c1410c5725e56c4bfac"
+    },
+    {
+      "path": ".agents/skills",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "d5d71b4a811c9307440d5289261fcda9dab7c1ac",
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/trees/d5d71b4a811c9307440d5289261fcda9dab7c1ac"
+    },
+    {
+      "path": ".agents/skills/engineering",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "1b5777ac451617cca8f6bce2b65f363754ee0c99",
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/trees/1b5777ac451617cca8f6bce2b65f363754ee0c99"
+    },
+    {
+      "path": ".agents/skills/engineering/SKILL.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f6e56bf9cf718a3a3b5b155c087c6f552f97c01b",
+      "size": 3562,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/f6e56bf9cf718a3a3b5b155c087c6f552f97c01b"
+    },
+    {
+      "path": ".agents/skills/engineering/agents",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "1a75071af76c4ca73f3ad3d1a661f7511548115a",
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/trees/1a75071af76c4ca73f3ad3d1a661f7511548115a"
+    },
+    {
+      "path": ".agents/skills/engineering/agents/openai.yaml",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e3505dec842a5a6ed1203008c9571c741dcd8fe4",
+      "size": 198,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/e3505dec842a5a6ed1203008c9571c741dcd8fe4"
+    },
+    {
+      "path": ".agents/skills/engineering/reference",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "9390fb83f6a44ee7a8303cbef48c32977490e7bb",
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/trees/9390fb83f6a44ee7a8303cbef48c32977490e7bb"
+    },
+    {
+      "path": ".agents/skills/engineering/reference/GOOD_ENGINEERING_H.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b3246c0673a097f19bb8ef4b3d9c0343b504ca23",
+      "size": 8494,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/b3246c0673a097f19bb8ef4b3d9c0343b504ca23"
+    },
+    {
+      "path": ".agents/skills/engineering/reference/grill-it.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "568ebbcd7d125b06f51578614eec3a5e60cc9ec9",
+      "size": 3144,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/568ebbcd7d125b06f51578614eec3a5e60cc9ec9"
+    },
+    {
+      "path": ".agents/skills/engineering/reference/gut-check.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9a9cb42f3c0aaac3206764bb3c7bb4622f3ae57e",
+      "size": 2358,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/9a9cb42f3c0aaac3206764bb3c7bb4622f3ae57e"
+    },
+    {
+      "path": ".agents/skills/engineering/reference/ladder.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4cb1126ff8eef3215c35b7d296dee55224be77fd",
+      "size": 3841,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/4cb1126ff8eef3215c35b7d296dee55224be77fd"
+    },
+    {
+      "path": ".agents/skills/engineering/reference/plan-it.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5d749632f2f7a3acc2228e7b8eb8b26c250edc62",
+      "size": 2702,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/5d749632f2f7a3acc2228e7b8eb8b26c250edc62"
+    },
+    {
+      "path": ".agents/skills/engineering/reference/talk-it-out.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f8948c0696a9f9bbcca99288a47b9c5da0dc79b4",
+      "size": 4228,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/f8948c0696a9f9bbcca99288a47b9c5da0dc79b4"
+    },
+    {
+      "path": ".agents/skills/show-me",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "902d0ec7ccd54b1521e6f9d39f5ec6646cc645ac",
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/trees/902d0ec7ccd54b1521e6f9d39f5ec6646cc645ac"
+    },
+    {
+      "path": ".agents/skills/show-me/LICENSE.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2f9bc8084904177330df5e57b493edf139405267",
+      "size": 1506,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/2f9bc8084904177330df5e57b493edf139405267"
+    },
+    {
+      "path": ".agents/skills/show-me/SKILL.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d57a0a0afc2800a4cc7a7765e65a9c6c18e67b4f",
+      "size": 3297,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/d57a0a0afc2800a4cc7a7765e65a9c6c18e67b4f"
+    },
+    {
+      "path": ".agents/skills/show-me/agents",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "024d5fd4cdcc0e717edfcf0ad88c55561032ce6f",
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/trees/024d5fd4cdcc0e717edfcf0ad88c55561032ce6f"
+    },
+    {
+      "path": ".agents/skills/show-me/agents/openai.yaml",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8e5eb9434e7e438885a52239db028a3aff3bfdc6",
+      "size": 189,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/8e5eb9434e7e438885a52239db028a3aff3bfdc6"
+    },
+    {
+      "path": ".claude",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "c0b430f0e5a59d09e4c3f31484392d613ffdd848",
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/trees/c0b430f0e5a59d09e4c3f31484392d613ffdd848"
+    },
+    {
+      "path": ".claude/skills",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "6e7547cd90c8f7e44b089d539b92a17bf1e94862",
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/trees/6e7547cd90c8f7e44b089d539b92a17bf1e94862"
+    },
+    {
+      "path": ".claude/skills/engineering",
+      "mode": "120000",
+      "type": "blob",
+      "sha": "19b3e934e1464617dcc1d7a35eb744edd10a37c6",
+      "size": 32,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/19b3e934e1464617dcc1d7a35eb744edd10a37c6"
+    },
+    {
+      "path": ".claude/skills/show-me",
+      "mode": "120000",
+      "type": "blob",
+      "sha": "b919221d70f106d0e8e86409cb7989c6d1b282c5",
+      "size": 28,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/b919221d70f106d0e8e86409cb7989c6d1b282c5"
+    },
+    {
+      "path": ".env.example",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "54c590d9f17c08474678288db46fde5e43be74fd",
+      "size": 1065,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/54c590d9f17c08474678288db46fde5e43be74fd"
+    },
+    {
+      "path": ".gitignore",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3a8871b690a84c3b1169f7006b2749d9f5399bee",
+      "size": 291,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/3a8871b690a84c3b1169f7006b2749d9f5399bee"
+    },
+    {
+      "path": ".npmrc",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "145d3fa25b8c8cdd495ab40849109408792fee0d",
+      "size": 35,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/145d3fa25b8c8cdd495ab40849109408792fee0d"
+    },
+    {
+      "path": ".nvmrc",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2bd5a0a98a36cc08ada88b804d3be047e6aa5b8a",
+      "size": 3,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/2bd5a0a98a36cc08ada88b804d3be047e6aa5b8a"
+    },
+    {
+      "path": "AGENTS.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3d027d800607f5bc86857abed130f7e70a716685",
+      "size": 5687,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/3d027d800607f5bc86857abed130f7e70a716685"
+    },
+    {
+      "path": "CLAUDE.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a0fe32a7450c3e0a5ca4883d8b6a4ef8b6d10455",
+      "size": 448,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/a0fe32a7450c3e0a5ca4883d8b6a4ef8b6d10455"
+    },
+    {
+      "path": "CONVENTIONS.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "86abcf5e950a177d6d24f0420d18ad8f97a61de2",
+      "size": 12824,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/86abcf5e950a177d6d24f0420d18ad8f97a61de2"
+    },
+    {
+      "path": "LICENSE",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b9f43e7cfa8b6f052498fc52807ac477bad77177",
+      "size": 1068,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/b9f43e7cfa8b6f052498fc52807ac477bad77177"
+    },
+    {
+      "path": "README.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4757d46c69d828d55e73d92226e7df6c12a8edd8",
+      "size": 9798,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/4757d46c69d828d55e73d92226e7df6c12a8edd8"
+    },
+    {
+      "path": "docs",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "91f28190ecab856438fb2ac98a222e0fe4a06a8c",
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/trees/91f28190ecab856438fb2ac98a222e0fe4a06a8c"
+    },
+    {
+      "path": "docs/benchmarks",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "a50da39765736b42f37d3471d3b0237f7c68e030",
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/trees/a50da39765736b42f37d3471d3b0237f7c68e030"
+    },
+    {
+      "path": "docs/benchmarks/README.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "dd79c551eab4acb63fd8f21bee40eaa7d43675d3",
+      "size": 9440,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/dd79c551eab4acb63fd8f21bee40eaa7d43675d3"
+    },
+    {
+      "path": "docs/benchmarks/comparison",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "7e82648593e3c897a3b515fb66019c38bd3e3659",
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/trees/7e82648593e3c897a3b515fb66019c38bd3e3659"
+    },
+    {
+      "path": "docs/benchmarks/comparison/approve-jev.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f64d0439c491668f47f3d7b0252e1d3199e12b2e",
+      "size": 350441,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/f64d0439c491668f47f3d7b0252e1d3199e12b2e"
+    },
+    {
+      "path": "docs/benchmarks/comparison/approve-qwen.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6b7dcde6553f4049e718a9566cdb6a632f4aeb09",
+      "size": 338616,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/6b7dcde6553f4049e718a9566cdb6a632f4aeb09"
+    },
+    {
+      "path": "docs/benchmarks/comparison/dispatch-jev.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3653d6ddd18880b20382e6294dbd337e1151f2c4",
+      "size": 564974,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/3653d6ddd18880b20382e6294dbd337e1151f2c4"
+    },
+    {
+      "path": "docs/benchmarks/comparison/dispatch-qwen.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "399227e783f89b5bf0b7d7fd7783590fdb7bc0d3",
+      "size": 485250,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/399227e783f89b5bf0b7d7fd7783590fdb7bc0d3"
+    },
+    {
+      "path": "docs/benchmarks/comparison/drive-jev.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6b2083ae32d4d65766d71d78fad748b705a13046",
+      "size": 256501,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/6b2083ae32d4d65766d71d78fad748b705a13046"
+    },
+    {
+      "path": "docs/benchmarks/comparison/drive-qwen.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7c0182579a4677c3d8d63d01e62d709f55b3b1a2",
+      "size": 201162,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/7c0182579a4677c3d8d63d01e62d709f55b3b1a2"
+    },
+    {
+      "path": "docs/benchmarks/comparison/environment.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2c68535210fd71e1262c30d7e6870749498d89f4",
+      "size": 5817,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/2c68535210fd71e1262c30d7e6870749498d89f4"
+    },
+    {
+      "path": "docs/benchmarks/comparison/home-jev.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2f91997ca8b3f6722e6934c1cc055384123be1d1",
+      "size": 200129,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/2f91997ca8b3f6722e6934c1cc055384123be1d1"
+    },
+    {
+      "path": "docs/benchmarks/comparison/home-qwen.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "114c74479b3a0e2e7472644a7cf9bf695c0fc86d",
+      "size": 155608,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/114c74479b3a0e2e7472644a7cf9bf695c0fc86d"
+    },
+    {
+      "path": "docs/benchmarks/comparison/judge-jev.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5c323e2dfb0da4bd033570917be99a7162205c06",
+      "size": 731267,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/5c323e2dfb0da4bd033570917be99a7162205c06"
+    },
+    {
+      "path": "docs/benchmarks/comparison/judge-qwen.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0a628fd6f0ee1a2f0456b8e1a360ba11dd252abd",
+      "size": 605576,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/0a628fd6f0ee1a2f0456b8e1a360ba11dd252abd"
+    },
+    {
+      "path": "docs/benchmarks/comparison/navigate-jev.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5458bc0402e97bb9e8b7219c8c80a72259a44ec6",
+      "size": 301139,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/5458bc0402e97bb9e8b7219c8c80a72259a44ec6"
+    },
+    {
+      "path": "docs/benchmarks/comparison/navigate-qwen.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b1e41f03c383455684a665164858c879a6349b59",
+      "size": 183728,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/b1e41f03c383455684a665164858c879a6349b59"
+    },
+    {
+      "path": "docs/benchmarks/comparison/screen-jev.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "affd18005f5097a13c51dacbc6a06f7987ec7f1b",
+      "size": 328773,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/affd18005f5097a13c51dacbc6a06f7987ec7f1b"
+    },
+    {
+      "path": "docs/benchmarks/comparison/screen-qwen.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6555e3035de91883e69b38ee27e93ae442a326b8",
+      "size": 320402,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/6555e3035de91883e69b38ee27e93ae442a326b8"
+    },
+    {
+      "path": "docs/benchmarks/comparison/summary.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "76f70951d2a18e3a4faad314b1544bea27db099a",
+      "size": 48171,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/76f70951d2a18e3a4faad314b1544bea27db099a"
+    },
+    {
+      "path": "docs/benchmarks/live.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "99e2d0a3f42dbf6e137262974b3d76f13fc9e0b6",
+      "size": 15455,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/99e2d0a3f42dbf6e137262974b3d76f13fc9e0b6"
+    },
+    {
+      "path": "docs/benchmarks/local-stub.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9001ba73855286320ee21d412887bf1304d7f634",
+      "size": 82873,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/9001ba73855286320ee21d412887bf1304d7f634"
+    },
+    {
+      "path": "docs/benchmarks/needle-capped-2026-09-19",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "4824dd5394c525daff8875c355d0c516bc4dcadc",
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/trees/4824dd5394c525daff8875c355d0c516bc4dcadc"
+    },
+    {
+      "path": "docs/benchmarks/needle-capped-2026-09-19/README.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "284d0d57b31b6345482cef411b274b14994a4218",
+      "size": 4427,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/284d0d57b31b6345482cef411b274b14994a4218"
+    },
+    {
+      "path": "docs/benchmarks/needle-capped-2026-09-19/approve-needle.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0ac3f576068ed7e3cbf2022cedce58586efd7741",
+      "size": 401444,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/0ac3f576068ed7e3cbf2022cedce58586efd7741"
+    },
+    {
+      "path": "docs/benchmarks/needle-capped-2026-09-19/dispatch-needle.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a50745c4aeef44df13eb0c558fa14cf00d1a3d4d",
+      "size": 500639,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/a50745c4aeef44df13eb0c558fa14cf00d1a3d4d"
+    },
+    {
+      "path": "docs/benchmarks/needle-capped-2026-09-19/drive-needle.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d6855fba9845fc18fe9c3fc27cf1fc3cdb145b22",
+      "size": 231628,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/d6855fba9845fc18fe9c3fc27cf1fc3cdb145b22"
+    },
+    {
+      "path": "docs/benchmarks/needle-capped-2026-09-19/environment.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "39acf0219d734b7b1772e507bcc2ec403d8b909c",
+      "size": 3597,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/39acf0219d734b7b1772e507bcc2ec403d8b909c"
+    },
+    {
+      "path": "docs/benchmarks/needle-capped-2026-09-19/home-needle.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0c1b5637f813281bba51ae0b92f724ef97fbd55b",
+      "size": 174178,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/0c1b5637f813281bba51ae0b92f724ef97fbd55b"
+    },
+    {
+      "path": "docs/benchmarks/needle-capped-2026-09-19/judge-needle.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6b1f8b5a9238fce2aa5f9148698b7c4fbb9bafb2",
+      "size": 668216,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/6b1f8b5a9238fce2aa5f9148698b7c4fbb9bafb2"
+    },
+    {
+      "path": "docs/benchmarks/needle-capped-2026-09-19/navigate-needle.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a74e806fc03a3adfb51231461e457487245373af",
+      "size": 59337,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/a74e806fc03a3adfb51231461e457487245373af"
+    },
+    {
+      "path": "docs/benchmarks/needle-capped-2026-09-19/screen-needle.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6019f81172d929e0622a3c9dbab4a55213babeca",
+      "size": 380945,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/6019f81172d929e0622a3c9dbab4a55213babeca"
+    },
+    {
+      "path": "docs/benchmarks/needle-capped-2026-09-19/summary.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5ef0a04d79995d659d76203551ad8409f7c9c9e0",
+      "size": 99386,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/5ef0a04d79995d659d76203551ad8409f7c9c9e0"
+    },
+    {
+      "path": "docs/benchmarks/needle-warm-2026-09-18",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "00722975d6388aefab6b6b91c071595a2e973f1c",
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/trees/00722975d6388aefab6b6b91c071595a2e973f1c"
+    },
+    {
+      "path": "docs/benchmarks/needle-warm-2026-09-18/README.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "398514ff56527a10462dc8bfa63571f73a358062",
+      "size": 4740,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/398514ff56527a10462dc8bfa63571f73a358062"
+    },
+    {
+      "path": "docs/benchmarks/needle-warm-2026-09-18/approve-needle.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ef0a472a1c7ea2687d9841a93e87f63c6dca8af4",
+      "size": 380172,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/ef0a472a1c7ea2687d9841a93e87f63c6dca8af4"
+    },
+    {
+      "path": "docs/benchmarks/needle-warm-2026-09-18/dispatch-needle.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a3479a613d4e10a02122a8b92d4b32932a25fa9b",
+      "size": 500721,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/a3479a613d4e10a02122a8b92d4b32932a25fa9b"
+    },
+    {
+      "path": "docs/benchmarks/needle-warm-2026-09-18/drive-needle.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "58233c835d0079c3b38f2660370fec7f1d2812d0",
+      "size": 23441,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/58233c835d0079c3b38f2660370fec7f1d2812d0"
+    },
+    {
+      "path": "docs/benchmarks/needle-warm-2026-09-18/environment.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4a78f74d19ec9bb40d698f408a4db211b41e1449",
+      "size": 3235,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/4a78f74d19ec9bb40d698f408a4db211b41e1449"
+    },
+    {
+      "path": "docs/benchmarks/needle-warm-2026-09-18/home-needle.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "fe9ce137dd98ffe50273131375072ab2ed75d81f",
+      "size": 174108,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/fe9ce137dd98ffe50273131375072ab2ed75d81f"
+    },
+    {
+      "path": "docs/benchmarks/needle-warm-2026-09-18/judge-needle.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "bd4306b1e9a6ee0f491fc15eac3ffcc9bf29aa51",
+      "size": 495063,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/bd4306b1e9a6ee0f491fc15eac3ffcc9bf29aa51"
+    },
+    {
+      "path": "docs/benchmarks/needle-warm-2026-09-18/navigate-needle.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "28dfd3a69f7589b764c908ab28ebee95dfd9f19a",
+      "size": 8910,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/28dfd3a69f7589b764c908ab28ebee95dfd9f19a"
+    },
+    {
+      "path": "docs/benchmarks/needle-warm-2026-09-18/screen-needle.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8b6d168bb2246a32436cf9ece8cc772a1624276a",
+      "size": 331093,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/8b6d168bb2246a32436cf9ece8cc772a1624276a"
+    },
+    {
+      "path": "docs/benchmarks/needle-warm-2026-09-18/summary.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "994b5d44335bd03e03dd596e616418ffee1ea86c",
+      "size": 85207,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/994b5d44335bd03e03dd596e616418ffee1ea86c"
+    },
+    {
+      "path": "docs/benchmarks/needle",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "bbdfceb7117a108443ff8fd70747b3629028f281",
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/trees/bbdfceb7117a108443ff8fd70747b3629028f281"
+    },
+    {
+      "path": "docs/benchmarks/needle/README.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1c4502ddc369ced98f0be810372f991ab5a1a38c",
+      "size": 5345,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/1c4502ddc369ced98f0be810372f991ab5a1a38c"
+    },
+    {
+      "path": "docs/benchmarks/needle/approve-needle.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ebed4d86f922245fbaeb81b4a3a06217da380465",
+      "size": 379964,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/ebed4d86f922245fbaeb81b4a3a06217da380465"
+    },
+    {
+      "path": "docs/benchmarks/needle/dispatch-needle.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4c1e5decae1833e6f2239a5a9aca5b092d23489b",
+      "size": 500429,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/4c1e5decae1833e6f2239a5a9aca5b092d23489b"
+    },
+    {
+      "path": "docs/benchmarks/needle/drive-needle.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ae9fb1a5f7eacd7a405ea63fba9fcfdd768575fc",
+      "size": 19806,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/ae9fb1a5f7eacd7a405ea63fba9fcfdd768575fc"
+    },
+    {
+      "path": "docs/benchmarks/needle/environment.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4b83cb44bfb5edfc4d48af657924fb8ebd4f5c8a",
+      "size": 3466,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/4b83cb44bfb5edfc4d48af657924fb8ebd4f5c8a"
+    },
+    {
+      "path": "docs/benchmarks/needle/home-needle.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "726646c472b9e0df305eb833c1a0030dfba85a15",
+      "size": 174058,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/726646c472b9e0df305eb833c1a0030dfba85a15"
+    },
+    {
+      "path": "docs/benchmarks/needle/judge-needle.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0424a75eaa1033f30292e7ccb623e1908ec5ba71",
+      "size": 494915,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/0424a75eaa1033f30292e7ccb623e1908ec5ba71"
+    },
+    {
+      "path": "docs/benchmarks/needle/navigate-needle.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "38f3ffcd2d831aa0afab8a0ff4746f00a7c81e84",
+      "size": 8866,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/38f3ffcd2d831aa0afab8a0ff4746f00a7c81e84"
+    },
+    {
+      "path": "docs/benchmarks/needle/screen-needle.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "485741a631f8554a1d00e56bb2eb1e830a37b29a",
+      "size": 330953,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/485741a631f8554a1d00e56bb2eb1e830a37b29a"
+    },
+    {
+      "path": "docs/benchmarks/needle/summary.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1d3feb810495da34b0634eba66cdaae623d1d231",
+      "size": 85218,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/1d3feb810495da34b0634eba66cdaae623d1d231"
+    },
+    {
+      "path": "docs/benchmarks/qwen-theater.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "00306814f0894dca0af034eaf37f19bb7f51a586",
+      "size": 7854,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/00306814f0894dca0af034eaf37f19bb7f51a586"
+    },
+    {
+      "path": "docs/benchmarks/rlcd-2026-09-19-v2",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "c6347bbdf02aec134d05eb816245e32918826e89",
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/trees/c6347bbdf02aec134d05eb816245e32918826e89"
+    },
+    {
+      "path": "docs/benchmarks/rlcd-2026-09-19-v2/README.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7dfa20f3339ad4cf40041552ef3e2367e8d8769a",
+      "size": 4529,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/7dfa20f3339ad4cf40041552ef3e2367e8d8769a"
+    },
+    {
+      "path": "docs/benchmarks/rlcd-2026-09-19-v2/approve-rlcd.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "642b80c0183871f5cb8356fef582dda54b81b499",
+      "size": 491416,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/642b80c0183871f5cb8356fef582dda54b81b499"
+    },
+    {
+      "path": "docs/benchmarks/rlcd-2026-09-19-v2/dispatch-rlcd.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3e0bcea69788e0e19ea6c9d1c70a79a6911d3708",
+      "size": 891457,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/3e0bcea69788e0e19ea6c9d1c70a79a6911d3708"
+    },
+    {
+      "path": "docs/benchmarks/rlcd-2026-09-19-v2/drive-rlcd.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "680deb0693a80302e1e78b4a58b6105d7cad74d8",
+      "size": 522055,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/680deb0693a80302e1e78b4a58b6105d7cad74d8"
+    },
+    {
+      "path": "docs/benchmarks/rlcd-2026-09-19-v2/environment.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e4693b4e9367dd590acaba5e6bd2cf2fb12aab65",
+      "size": 3973,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/e4693b4e9367dd590acaba5e6bd2cf2fb12aab65"
+    },
+    {
+      "path": "docs/benchmarks/rlcd-2026-09-19-v2/home-rlcd.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7fc7b90750dcb681b363f758d26fda5b47b75dc5",
+      "size": 315993,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/7fc7b90750dcb681b363f758d26fda5b47b75dc5"
+    },
+    {
+      "path": "docs/benchmarks/rlcd-2026-09-19-v2/judge-rlcd.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "bbe91b8014def068c9e8157e2623ac08e785c6b0",
+      "size": 954724,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/bbe91b8014def068c9e8157e2623ac08e785c6b0"
+    },
+    {
+      "path": "docs/benchmarks/rlcd-2026-09-19-v2/navigate-rlcd.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1e5a71109c456788436625a334265809f99b5670",
+      "size": 44301,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/1e5a71109c456788436625a334265809f99b5670"
+    },
+    {
+      "path": "docs/benchmarks/rlcd-2026-09-19-v2/screen-rlcd.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f1e372196958453f4c87a539cc6c31c4e27395f3",
+      "size": 483142,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/f1e372196958453f4c87a539cc6c31c4e27395f3"
+    },
+    {
+      "path": "docs/benchmarks/rlcd-2026-09-19-v2/summary.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "609d9e5db3854acb969e50a4282bbd8e23649caf",
+      "size": 87118,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/609d9e5db3854acb969e50a4282bbd8e23649caf"
+    },
+    {
+      "path": "docs/benchmarks/rlcd-2026-09-19",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "02b11880a9099618dedbc72d4ea1ed3bff7b7237",
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/trees/02b11880a9099618dedbc72d4ea1ed3bff7b7237"
+    },
+    {
+      "path": "docs/benchmarks/rlcd-2026-09-19/README.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a64b1652bf77ac2f449881741c3b8475e8a6764e",
+      "size": 4896,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/a64b1652bf77ac2f449881741c3b8475e8a6764e"
+    },
+    {
+      "path": "docs/benchmarks/rlcd-2026-09-19/approve-rlcd.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1051227e2f687c2c0dabb86d8ff40be639cd742c",
+      "size": 509804,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/1051227e2f687c2c0dabb86d8ff40be639cd742c"
+    },
+    {
+      "path": "docs/benchmarks/rlcd-2026-09-19/dispatch-rlcd.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7883919af2cd598db06be55bfd36f937e53d6be8",
+      "size": 876629,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/7883919af2cd598db06be55bfd36f937e53d6be8"
+    },
+    {
+      "path": "docs/benchmarks/rlcd-2026-09-19/drive-rlcd.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "792fc42470429b0597a72210d4d1ba961a91cf79",
+      "size": 277911,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/792fc42470429b0597a72210d4d1ba961a91cf79"
+    },
+    {
+      "path": "docs/benchmarks/rlcd-2026-09-19/environment.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a33a69c5dd8d492e9fd28f5adf52747a8b0d824b",
+      "size": 3973,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/a33a69c5dd8d492e9fd28f5adf52747a8b0d824b"
+    },
+    {
+      "path": "docs/benchmarks/rlcd-2026-09-19/home-rlcd.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4078bf581843ddca71520f9f968db829c1cbdd4e",
+      "size": 311030,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/4078bf581843ddca71520f9f968db829c1cbdd4e"
+    },
+    {
+      "path": "docs/benchmarks/rlcd-2026-09-19/judge-rlcd.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8abd112aa78dd7b0f51c9d90b00a6a23a5662de6",
+      "size": 1326526,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/8abd112aa78dd7b0f51c9d90b00a6a23a5662de6"
+    },
+    {
+      "path": "docs/benchmarks/rlcd-2026-09-19/navigate-rlcd.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "985a7e391ee0ca97fdb6fb8fe8b092a857c6a415",
+      "size": 59398,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/985a7e391ee0ca97fdb6fb8fe8b092a857c6a415"
+    },
+    {
+      "path": "docs/benchmarks/rlcd-2026-09-19/screen-rlcd.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "fd61cd4f21e0fbaa9531ed864c0b1987a819d476",
+      "size": 488702,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/fd61cd4f21e0fbaa9531ed864c0b1987a819d476"
+    },
+    {
+      "path": "docs/benchmarks/rlcd-2026-09-19/summary.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4fda15d43d055aa952c81e704c5d4356fa1e40d1",
+      "size": 109587,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/4fda15d43d055aa952c81e704c5d4356fa1e40d1"
+    },
+    {
+      "path": "docs/benchmarks/theater",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "a4054e1af76cc0883a6ce84805b73c6900291953",
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/trees/a4054e1af76cc0883a6ce84805b73c6900291953"
+    },
+    {
+      "path": "docs/benchmarks/theater/environment.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6ae9d1affe4956761ebcfa713be8a9d592d951f5",
+      "size": 2918,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/6ae9d1affe4956761ebcfa713be8a9d592d951f5"
+    },
+    {
+      "path": "docs/benchmarks/theater/home.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "966a7e7938b0cf5070ff7eb6cb2c9c20be7b0b93",
+      "size": 153622,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/966a7e7938b0cf5070ff7eb6cb2c9c20be7b0b93"
+    },
+    {
+      "path": "docs/benchmarks/theater/initial.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3140c19686be012ca1aac489f0e1b74f787ec55e",
+      "size": 1789676,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/3140c19686be012ca1aac489f0e1b74f787ec55e"
+    },
+    {
+      "path": "docs/benchmarks/theater/scoring.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3c62dd74a1d5b50f2b6f16bffb60555b45e81d49",
+      "size": 597824,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/3c62dd74a1d5b50f2b6f16bffb60555b45e81d49"
+    },
+    {
+      "path": "docs/benchmarks/theater/summary.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1f5b1bbb6a7cebfe27c4c74391f40844e4200739",
+      "size": 21401,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/1f5b1bbb6a7cebfe27c4c74391f40844e4200739"
+    },
+    {
+      "path": "docs/context",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "b010e2a7d71f6656eaef9e10118585e211902506",
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/trees/b010e2a7d71f6656eaef9e10118585e211902506"
+    },
+    {
+      "path": "docs/context/api_reference.txt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6977a2aa784acd004af6496e86d4b02ff521697f",
+      "size": 15849,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/6977a2aa784acd004af6496e86d4b02ff521697f"
+    },
+    {
+      "path": "docs/context/api_references.txt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "31190a761f248ef6151d094a6ec0ceabe4fbd0b4",
+      "size": 125,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/31190a761f248ef6151d094a6ec0ceabe4fbd0b4"
+    },
+    {
+      "path": "docs/context/cerebras_snippet.txt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "aa4b0dca58d28a78f5d99c999e226cb22b25b58c",
+      "size": 544,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/aa4b0dca58d28a78f5d99c999e226cb22b25b58c"
+    },
+    {
+      "path": "docs/examples.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ccdcf9953d6dd7eb59b3aa44666071d937872816",
+      "size": 7238,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/ccdcf9953d6dd7eb59b3aa44666071d937872816"
+    },
+    {
+      "path": "docs/jev-smoke.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "47051b1acf51286a23b9c45c7f6d95a42cdf568a",
+      "size": 40436,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/47051b1acf51286a23b9c45c7f6d95a42cdf568a"
+    },
+    {
+      "path": "docs/jev.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "dd08553a13402393fd8aa8b52d5c020035b87275",
+      "size": 7075,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/dd08553a13402393fd8aa8b52d5c020035b87275"
+    },
+    {
+      "path": "docs/live-results.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "aeafafa066fdba5661e3b4180e38a4fd322d4b4f",
+      "size": 9433,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/aeafafa066fdba5661e3b4180e38a4fd322d4b4f"
+    },
+    {
+      "path": "docs/media",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "ca22df86fac8de5528f94d65a43adfd9d34e7c20",
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/trees/ca22df86fac8de5528f94d65a43adfd9d34e7c20"
+    },
+    {
+      "path": "docs/media/README.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2f505b2412b60590ce21f6de008622d83c5c30d5",
+      "size": 2049,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/2f505b2412b60590ce21f6de008622d83c5c30d5"
+    },
+    {
+      "path": "docs/media/theater-demo.gif",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "15fbf9ba30623f35ab9e6655678b4ea6be48f27a",
+      "size": 7376448,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/15fbf9ba30623f35ab9e6655678b4ea6be48f27a"
+    },
+    {
+      "path": "docs/media/theater-demo.mp4",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "847e97750b89ef388e10c688678e165b42587e70",
+      "size": 2657469,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/847e97750b89ef388e10c688678e165b42587e70"
+    },
+    {
+      "path": "docs/media/theater.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "dbfc8e1b00289659b57b421348a51d3776f5fac6",
+      "size": 238261,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/dbfc8e1b00289659b57b421348a51d3776f5fac6"
+    },
+    {
+      "path": "docs/needle.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "cc77fbf2e69c5f4ffd367ea90bf389ecbabeb813",
+      "size": 13190,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/cc77fbf2e69c5f4ffd367ea90bf389ecbabeb813"
+    },
+    {
+      "path": "docs/plan.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ef1a7b8d60a558dfa3f9955e54f7f37facadfb6c",
+      "size": 9031,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/ef1a7b8d60a558dfa3f9955e54f7f37facadfb6c"
+    },
+    {
+      "path": "docs/rlcd.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "81835648608cdd271163769e2a66e2b770165d84",
+      "size": 5723,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/81835648608cdd271163769e2a66e2b770165d84"
+    },
+    {
+      "path": "docs/security.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "93f32760d9ae527cf4078a35acb7832f3b3bf009",
+      "size": 3855,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/93f32760d9ae527cf4078a35acb7832f3b3bf009"
+    },
+    {
+      "path": "docs/showcase-research.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "54dc3a6aeb80a6cc4ca409b20eb3542cbbbbc7e6",
+      "size": 4969,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/54dc3a6aeb80a6cc4ca409b20eb3542cbbbbc7e6"
+    },
+    {
+      "path": "docs/standalone-api.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "cc38e069292271005b19668f80d1a4298c0f680f",
+      "size": 4199,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/cc38e069292271005b19668f80d1a4298c0f680f"
+    },
+    {
+      "path": "docs/theater-verification.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "010ffd171c2c16d5182664d8b30f4db80b7b96fc",
+      "size": 5978,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/010ffd171c2c16d5182664d8b30f4db80b7b96fc"
+    },
+    {
+      "path": "eslint.config.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "fb0e4375ecacfc04c797f9f12d4b0bde45528170",
+      "size": 483,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/fb0e4375ecacfc04c797f9f12d4b0bde45528170"
+    },
+    {
+      "path": "package-lock.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "09978017745bff1c44ecd1c764a2931b93249e6c",
+      "size": 127216,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/09978017745bff1c44ecd1c764a2931b93249e6c"
+    },
+    {
+      "path": "package.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "847953b1f3c4d78f26bf617bb61eeff970bbb431",
+      "size": 1965,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/847953b1f3c4d78f26bf617bb61eeff970bbb431"
+    },
+    {
+      "path": "packages",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "f4943a5b2c79599a8933b52857e3417d8d50a846",
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/trees/f4943a5b2c79599a8933b52857e3417d8d50a846"
+    },
+    {
+      "path": "packages/api",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "70afeef1f3ab72d35d8d0f89da7ae07bca75075e",
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/trees/70afeef1f3ab72d35d8d0f89da7ae07bca75075e"
+    },
+    {
+      "path": "packages/api/README.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a52bf85caf2ea3fe810daebb1efe034083e3614a",
+      "size": 1558,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/a52bf85caf2ea3fe810daebb1efe034083e3614a"
+    },
+    {
+      "path": "packages/api/examples",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "a718975907a5aa6ce2a84ceb773427b41cb3949f",
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/trees/a718975907a5aa6ce2a84ceb773427b41cb3949f"
+    },
+    {
+      "path": "packages/api/examples/README.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "05d7855f735d4ddadcc04162ee5b1e5bdc0ea229",
+      "size": 3388,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/05d7855f735d4ddadcc04162ee5b1e5bdc0ea229"
+    },
+    {
+      "path": "packages/api/examples/benchmark.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a797b191043a937847f785a80b47a98a62ec4986",
+      "size": 10191,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/a797b191043a937847f785a80b47a98a62ec4986"
+    },
+    {
+      "path": "packages/api/examples/record-request.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f5cb1645b11557e1f111236aac7f6d96b5d3a046",
+      "size": 2530,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/f5cb1645b11557e1f111236aac7f6d96b5d3a046"
+    },
+    {
+      "path": "packages/api/examples/run.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "de3d075a078283aceb35e555b3d91f736e74b306",
+      "size": 5311,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/de3d075a078283aceb35e555b3d91f736e74b306"
+    },
+    {
+      "path": "packages/api/package.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ea5ff5783a097cf05e1b20e49285ec7cd26403f1",
+      "size": 1033,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/ea5ff5783a097cf05e1b20e49285ec7cd26403f1"
+    },
+    {
+      "path": "packages/api/src",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "eff25440b0156115634df7c187d090c3b8b6f9c6",
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/trees/eff25440b0156115634df7c187d090c3b8b6f9c6"
+    },
+    {
+      "path": "packages/api/src/cerebras.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "09e667b269bbc696b01648849e7f708edda492cc",
+      "size": 5621,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/09e667b269bbc696b01648849e7f708edda492cc"
+    },
+    {
+      "path": "packages/api/src/contracts.test.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "98c6b8cdfb858c5b8d3385641a395326c7d7fc1b",
+      "size": 7185,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/98c6b8cdfb858c5b8d3385641a395326c7d7fc1b"
+    },
+    {
+      "path": "packages/api/src/contracts.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "93a4d70e614f10734eed3b1c80d69a68b00dd539",
+      "size": 6775,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/93a4d70e614f10734eed3b1c80d69a68b00dd539"
+    },
+    {
+      "path": "packages/api/src/errors.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d1960714701e44b1bbf0230150f165e2c4e4f513",
+      "size": 1415,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/d1960714701e44b1bbf0230150f165e2c4e4f513"
+    },
+    {
+      "path": "packages/api/src/evaluate.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2627fb75be6714444799f6ea5885bdf0ee22039a",
+      "size": 3050,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/2627fb75be6714444799f6ea5885bdf0ee22039a"
+    },
+    {
+      "path": "packages/api/src/examples",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "0c372b3a79716e2b52a83047c7d2de93d510e8e6",
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/trees/0c372b3a79716e2b52a83047c7d2de93d510e8e6"
+    },
+    {
+      "path": "packages/api/src/examples/fixtures.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1cdaf41d2243a5891628cef5b723aa24c65f0b68",
+      "size": 6243,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/1cdaf41d2243a5891628cef5b723aa24c65f0b68"
+    },
+    {
+      "path": "packages/api/src/examples/policies.test.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e03d0285397fb44b2be4720e5fceb020a2e23386",
+      "size": 1981,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/e03d0285397fb44b2be4720e5fceb020a2e23386"
+    },
+    {
+      "path": "packages/api/src/examples/policies.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4021bb2dbc73b255c471c99c992c715cb474e4bb",
+      "size": 3505,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/4021bb2dbc73b255c471c99c992c715cb474e4bb"
+    },
+    {
+      "path": "packages/api/src/http.test.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "02d407078e36c74b18716489a00198299c18008f",
+      "size": 8777,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/02d407078e36c74b18716489a00198299c18008f"
+    },
+    {
+      "path": "packages/api/src/http.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5cca4905cb2bf93388c0149f027597609791e4e3",
+      "size": 8122,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/5cca4905cb2bf93388c0149f027597609791e4e3"
+    },
+    {
+      "path": "packages/api/src/index.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "aaf593e99dc2621a9cc580d01c4797c4cac06602",
+      "size": 1191,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/aaf593e99dc2621a9cc580d01c4797c4cac06602"
+    },
+    {
+      "path": "packages/api/src/json.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3958692e0c7c6d048a16b18799bf49e18fa3d48f",
+      "size": 2483,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/3958692e0c7c6d048a16b18799bf49e18fa3d48f"
+    },
+    {
+      "path": "packages/api/src/lifecycle.test.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "35138b5cfe523b730a5b6e24f6d988602e25e13a",
+      "size": 5326,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/35138b5cfe523b730a5b6e24f6d988602e25e13a"
+    },
+    {
+      "path": "packages/api/src/logging.test.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a83b2249999ffbd2e9562d0d4c5010c4bad11a3f",
+      "size": 2220,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/a83b2249999ffbd2e9562d0d4c5010c4bad11a3f"
+    },
+    {
+      "path": "packages/api/src/metrics.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3f1f7b07f9752af728dc30cadd305d9fae1db088",
+      "size": 990,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/3f1f7b07f9752af728dc30cadd305d9fae1db088"
+    },
+    {
+      "path": "packages/api/src/models.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ece16a9e768c0553216c6b2450f8b76f8a6893dd",
+      "size": 430,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/ece16a9e768c0553216c6b2450f8b76f8a6893dd"
+    },
+    {
+      "path": "packages/api/src/schema.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e0bf2464c634eaf0df46f01d5a3354f8bdcdc4ad",
+      "size": 7076,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/e0bf2464c634eaf0df46f01d5a3354f8bdcdc4ad"
+    },
+    {
+      "path": "packages/api/src/test-support.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8cca243fd6ea5ef044f53d8cb65610bf12999ce9",
+      "size": 1951,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/8cca243fd6ea5ef044f53d8cb65610bf12999ce9"
+    },
+    {
+      "path": "packages/api/tsconfig.build.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6c350939c6058a9c9a8ccc361e81d5d882d667e7",
+      "size": 137,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/6c350939c6058a9c9a8ccc361e81d5d882d667e7"
+    },
+    {
+      "path": "packages/api/tsconfig.examples.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a3e035bdf2a45d2ee46aabbb106475adb53e367e",
+      "size": 181,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/a3e035bdf2a45d2ee46aabbb106475adb53e367e"
+    },
+    {
+      "path": "packages/api/tsconfig.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1331e13a683b135d6706eabc06538757ac975c2e",
+      "size": 418,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/1331e13a683b135d6706eabc06538757ac975c2e"
+    },
+    {
+      "path": "packages/demos",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "de96435a3f137bd24152025c71747610fe3864fd",
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/trees/de96435a3f137bd24152025c71747610fe3864fd"
+    },
+    {
+      "path": "packages/demos/AGENTS.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "643577dfaef36ee8032915ef80a0f0638f7beda0",
+      "size": 678,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/643577dfaef36ee8032915ef80a0f0638f7beda0"
+    },
+    {
+      "path": "packages/demos/CLAUDE.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "43c994c2d3617f947bcb5adf1933e21dabe46bb5",
+      "size": 11,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/43c994c2d3617f947bcb5adf1933e21dabe46bb5"
+    },
+    {
+      "path": "packages/demos/README.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "399211d00fde65e987362a0ebf30ed270ce4a9e0",
+      "size": 12176,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/399211d00fde65e987362a0ebf30ed270ce4a9e0"
+    },
+    {
+      "path": "packages/demos/app",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "d773a3af3a1e15874eb65ccc300f31715b3debe5",
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/trees/d773a3af3a1e15874eb65ccc300f31715b3debe5"
+    },
+    {
+      "path": "packages/demos/app/api",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "230793a634e1280ddcdd3d5b1dbe01bf3aac55b4",
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/trees/230793a634e1280ddcdd3d5b1dbe01bf3aac55b4"
+    },
+    {
+      "path": "packages/demos/app/api/config",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "8b678da781ee8b1c5ba060dacfa3300170897073",
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/trees/8b678da781ee8b1c5ba060dacfa3300170897073"
+    },
+    {
+      "path": "packages/demos/app/api/config/route.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c83c3564183bcf44c05bb0dec844c087bc108327",
+      "size": 554,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/c83c3564183bcf44c05bb0dec844c087bc108327"
+    },
+    {
+      "path": "packages/demos/app/api/decide",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "db9c2dcfbe330542175053fcd382a7aecaca4171",
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/trees/db9c2dcfbe330542175053fcd382a7aecaca4171"
+    },
+    {
+      "path": "packages/demos/app/api/decide/route.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "78df0e431c9ed0f8be2a93effdf2f5db42150fb1",
+      "size": 864,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/78df0e431c9ed0f8be2a93effdf2f5db42150fb1"
+    },
+    {
+      "path": "packages/demos/app/globals.css",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "81214c8c51de6070c8d4a80dfc5bb22e6898b003",
+      "size": 467,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/81214c8c51de6070c8d4a80dfc5bb22e6898b003"
+    },
+    {
+      "path": "packages/demos/app/icon.svg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c934da34fa4f571b81d19030c871db9915e6d6c6",
+      "size": 202,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/c934da34fa4f571b81d19030c871db9915e6d6c6"
+    },
+    {
+      "path": "packages/demos/app/layout.tsx",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0ebc11653d1aa062f9709e79c46aa18eedfcfda0",
+      "size": 475,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/0ebc11653d1aa062f9709e79c46aa18eedfcfda0"
+    },
+    {
+      "path": "packages/demos/app/page.tsx",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c4bbc75e89c36c0a908098e2c79be3f2c3902a2a",
+      "size": 117,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/c4bbc75e89c36c0a908098e2c79be3f2c3902a2a"
+    },
+    {
+      "path": "packages/demos/components",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "5d4ad251c4d2bcdc15eda40d30bddff31ffd1005",
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/trees/5d4ad251c4d2bcdc15eda40d30bddff31ffd1005"
+    },
+    {
+      "path": "packages/demos/components/theater",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "a125d6baaddcf4a276b0e6d7ca5ee52d026f3edd",
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/trees/a125d6baaddcf4a276b0e6d7ca5ee52d026f3edd"
+    },
+    {
+      "path": "packages/demos/components/theater/city.tsx",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "987a8fce7a13f1ad19793b7c09b8f1b83b916aa6",
+      "size": 5353,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/987a8fce7a13f1ad19793b7c09b8f1b83b916aa6"
+    },
+    {
+      "path": "packages/demos/components/theater/comparison-player.tsx",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b7346b08709b4eaa5791b621e9e70afad7a7573b",
+      "size": 8194,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/b7346b08709b4eaa5791b621e9e70afad7a7573b"
+    },
+    {
+      "path": "packages/demos/components/theater/contract-dialog.tsx",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "617ed7127b6569ee78f22e250d3a5d70855413eb",
+      "size": 6481,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/617ed7127b6569ee78f22e250d3a5d70855413eb"
+    },
+    {
+      "path": "packages/demos/components/theater/home-scene.tsx",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "cd487a145a415a794265e55fd8efc695ca2d7929",
+      "size": 4576,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/cd487a145a415a794265e55fd8efc695ca2d7929"
+    },
+    {
+      "path": "packages/demos/components/theater/json-code.tsx",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "13a9975126e090402e7516b8dc2b33ff24ee3582",
+      "size": 712,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/13a9975126e090402e7516b8dc2b33ff24ee3582"
+    },
+    {
+      "path": "packages/demos/components/theater/player.tsx",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "359ee2235406bc929857c6216a471bad61830023",
+      "size": 9068,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/359ee2235406bc929857c6216a471bad61830023"
+    },
+    {
+      "path": "packages/demos/components/theater/theater.css",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9cd361126cd3926ab0ea850217168d134f0cb985",
+      "size": 34592,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/9cd361126cd3926ab0ea850217168d134f0cb985"
+    },
+    {
+      "path": "packages/demos/components/theater/use-player.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8b75dde9c9df791d95fc111bab6cf7c7e7caf4a1",
+      "size": 14057,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/8b75dde9c9df791d95fc111bab6cf7c7e7caf4a1"
+    },
+    {
+      "path": "packages/demos/components/theater/visuals.tsx",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f4545c8dc9386489d7a500424cd1865aa660eb61",
+      "size": 9971,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/f4545c8dc9386489d7a500424cd1865aa660eb61"
+    },
+    {
+      "path": "packages/demos/lib",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "427319be0a241a65c9ea10e1ca47c79d2b3a12f1",
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/trees/427319be0a241a65c9ea10e1ca47c79d2b3a12f1"
+    },
+    {
+      "path": "packages/demos/lib/contracts.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "875e8e88d0ad52055b62b21bdcb9bbb0b5a02e39",
+      "size": 2474,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/875e8e88d0ad52055b62b21bdcb9bbb0b5a02e39"
+    },
+    {
+      "path": "packages/demos/lib/jev.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c3d13dfbee1a9b7ff043d4f0648c14e3113b5f27",
+      "size": 7823,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/c3d13dfbee1a9b7ff043d4f0648c14e3113b5f27"
+    },
+    {
+      "path": "packages/demos/lib/models.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "fd766d63b624e7f041aa9b42e45066a1ee449bee",
+      "size": 1124,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/fd766d63b624e7f041aa9b42e45066a1ee449bee"
+    },
+    {
+      "path": "packages/demos/lib/needle-plan.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c0c4271f0fdacfeb52df3dbe1ed4ecfdfa6e1239",
+      "size": 2024,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/c0c4271f0fdacfeb52df3dbe1ed4ecfdfa6e1239"
+    },
+    {
+      "path": "packages/demos/lib/needle-worker.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8237f3b278e394507c1a2f2e28763b2281f4cb68",
+      "size": 8396,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/8237f3b278e394507c1a2f2e28763b2281f4cb68"
+    },
+    {
+      "path": "packages/demos/lib/needle.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ad0082f28a5945dd3a0eb6a643011c89f1dc8b5c",
+      "size": 2976,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/ad0082f28a5945dd3a0eb6a643011c89f1dc8b5c"
+    },
+    {
+      "path": "packages/demos/lib/request.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2cb46ef9d159a15cd3cfefb6b6372a90c9ebac69",
+      "size": 1319,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/2cb46ef9d159a15cd3cfefb6b6372a90c9ebac69"
+    },
+    {
+      "path": "packages/demos/lib/rlcd-plan.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0094d949c0723b429509d6f7a4aebe745243b748",
+      "size": 13890,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/0094d949c0723b429509d6f7a4aebe745243b748"
+    },
+    {
+      "path": "packages/demos/lib/rlcd.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d469bb8c0c1922d1487ec2b1d92203db5d2e11c9",
+      "size": 9908,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/d469bb8c0c1922d1487ec2b1d92203db5d2e11c9"
+    },
+    {
+      "path": "packages/demos/lib/runtime.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7183084553e3a5722d1713caac611e688b96e97e",
+      "size": 13227,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/7183084553e3a5722d1713caac611e688b96e97e"
+    },
+    {
+      "path": "packages/demos/lib/server.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b4b3f03ab33a581c61ce1ed85d426fcddf30dcff",
+      "size": 1169,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/b4b3f03ab33a581c61ce1ed85d426fcddf30dcff"
+    },
+    {
+      "path": "packages/demos/lib/theater",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "237627f9234056100ef7928d3dc26d9c9ac54b03",
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/trees/237627f9234056100ef7928d3dc26d9c9ac54b03"
+    },
+    {
+      "path": "packages/demos/lib/theater/contract-view.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0c338da1ae8a31a0dbf33f6144cdd36afc820df1",
+      "size": 5006,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/0c338da1ae8a31a0dbf33f6144cdd36afc820df1"
+    },
+    {
+      "path": "packages/demos/lib/theater/contracts.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "080a4f2b8f447d9fd0928fa7f79e489049753363",
+      "size": 6640,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/080a4f2b8f447d9fd0928fa7f79e489049753363"
+    },
+    {
+      "path": "packages/demos/lib/theater/data.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a702751977251d3ee7930e187923ebfa1b4f3efb",
+      "size": 8104,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/a702751977251d3ee7930e187923ebfa1b4f3efb"
+    },
+    {
+      "path": "packages/demos/lib/theater/driving.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "64dcc2901d2a4c69f9d5029398e96ce26d1027ec",
+      "size": 2849,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/64dcc2901d2a4c69f9d5029398e96ce26d1027ec"
+    },
+    {
+      "path": "packages/demos/lib/theater/evaluations.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5a77ba78c74e6c0506f1dd206d4c266f81a8dc59",
+      "size": 4273,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/5a77ba78c74e6c0506f1dd206d4c266f81a8dc59"
+    },
+    {
+      "path": "packages/demos/lib/theater/home.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "cfb400269dc824a048cb04f94c817424f3d74fb5",
+      "size": 6968,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/cfb400269dc824a048cb04f94c817424f3d74fb5"
+    },
+    {
+      "path": "packages/demos/lib/theater/judge.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9b265162377f1a8236406d7ae0c9bd18c7f024f2",
+      "size": 303,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/9b265162377f1a8236406d7ae0c9bd18c7f024f2"
+    },
+    {
+      "path": "packages/demos/lib/theater/navigation.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c2c6e3e04b45c6cb831018b9e8460bd67159b58b",
+      "size": 1640,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/c2c6e3e04b45c6cb831018b9e8460bd67159b58b"
+    },
+    {
+      "path": "packages/demos/lib/theater/workload.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "978cac3d8e41f3703503756b8fe27a7eacc095b7",
+      "size": 1537,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/978cac3d8e41f3703503756b8fe27a7eacc095b7"
+    },
+    {
+      "path": "packages/demos/lib/traffic.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c3eda3c6287a5cd438a5d94ecc19cb703a77dcec",
+      "size": 3720,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/c3eda3c6287a5cd438a5d94ecc19cb703a77dcec"
+    },
+    {
+      "path": "packages/demos/needle-release.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "fbfaef943f95c527fa6d1ad2e353abb131a9844f",
+      "size": 103,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/fbfaef943f95c527fa6d1ad2e353abb131a9844f"
+    },
+    {
+      "path": "packages/demos/next-env.d.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ce4e94a6b10f160ee021fe18939af160d2927dcf",
+      "size": 288,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/ce4e94a6b10f160ee021fe18939af160d2927dcf"
+    },
+    {
+      "path": "packages/demos/next.config.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "df20f196a0bc2ff0a412e962e4283b8de3c2024e",
+      "size": 612,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/df20f196a0bc2ff0a412e962e4283b8de3c2024e"
+    },
+    {
+      "path": "packages/demos/package.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c8184838f28e43b79128b0bb21c28ed70dfdb1f4",
+      "size": 767,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/c8184838f28e43b79128b0bb21c28ed70dfdb1f4"
+    },
+    {
+      "path": "packages/demos/python",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "590b7acf405e907a473f5b1d2b31a42db64a3555",
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/trees/590b7acf405e907a473f5b1d2b31a42db64a3555"
+    },
+    {
+      "path": "packages/demos/python/rlcd_worker.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7724bf9a1b53f0df09651cd92f739742a7e8b58a",
+      "size": 1917,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/7724bf9a1b53f0df09651cd92f739742a7e8b58a"
+    },
+    {
+      "path": "packages/demos/rlcd-release.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "51163816b0ddc27ef4c9ce7e46e8c83ada40dfbc",
+      "size": 252,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/51163816b0ddc27ef4c9ce7e46e8c83ada40dfbc"
+    },
+    {
+      "path": "packages/demos/rlcd-requirements.lock",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c0d84edd9a39461ad73bc4bb20706f3e7d1555d5",
+      "size": 725,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/c0d84edd9a39461ad73bc4bb20706f3e7d1555d5"
+    },
+    {
+      "path": "packages/demos/scripts",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "cebd81d482c5671254c28b25c7a71629d98bf3be",
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/trees/cebd81d482c5671254c28b25c7a71629d98bf3be"
+    },
+    {
+      "path": "packages/demos/scripts/needle-paths.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "cae9fdd07a0be2fc788c1fe935af8614cad95cb4",
+      "size": 984,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/cae9fdd07a0be2fc788c1fe935af8614cad95cb4"
+    },
+    {
+      "path": "packages/demos/scripts/next.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "51170d82acd4011373d0ae148495c4a8f1b1a69b",
+      "size": 2444,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/51170d82acd4011373d0ae148495c4a8f1b1a69b"
+    },
+    {
+      "path": "packages/demos/scripts/rlcd-paths.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "fbe83287af5b4bc4376ea099a9a6899c6b38c392",
+      "size": 1097,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/fbe83287af5b4bc4376ea099a9a6899c6b38c392"
+    },
+    {
+      "path": "packages/demos/scripts/setup-needle.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "652a9b9d54e631db89b4e66aa7628c61df7cf33f",
+      "size": 1162,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/652a9b9d54e631db89b4e66aa7628c61df7cf33f"
+    },
+    {
+      "path": "packages/demos/scripts/setup-rlcd.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "22039d7e43d9943174a1ef53f9b8bb6077a6d929",
+      "size": 1811,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/22039d7e43d9943174a1ef53f9b8bb6077a6d929"
+    },
+    {
+      "path": "packages/demos/tests",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "0dbe8a6039df06ab559ce7197babe09d5e7dffe7",
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/trees/0dbe8a6039df06ab559ce7197babe09d5e7dffe7"
+    },
+    {
+      "path": "packages/demos/tests/contract-view.test.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "85ef8b161339322d693791e5bbf1378f323a3eab",
+      "size": 3767,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/85ef8b161339322d693791e5bbf1378f323a3eab"
+    },
+    {
+      "path": "packages/demos/tests/demos.test.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "be3980149ff5edf9a74439c28098763a8df23e7b",
+      "size": 5135,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/be3980149ff5edf9a74439c28098763a8df23e7b"
+    },
+    {
+      "path": "packages/demos/tests/home.test.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "bbcd6bfc45833c56a179b51f1a7b6d1f339dae2a",
+      "size": 3963,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/bbcd6bfc45833c56a179b51f1a7b6d1f339dae2a"
+    },
+    {
+      "path": "packages/demos/tests/jev.test.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a8fb6b1b5759886875c27e71cf78c16b80fd11f3",
+      "size": 8402,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/a8fb6b1b5759886875c27e71cf78c16b80fd11f3"
+    },
+    {
+      "path": "packages/demos/tests/needle.test.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "47a589b4bd85355b7e1c33f148764d333cf47233",
+      "size": 9938,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/47a589b4bd85355b7e1c33f148764d333cf47233"
+    },
+    {
+      "path": "packages/demos/tests/rlcd.test.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1f29c238f822add25c11ecfa27448b60b32bdedd",
+      "size": 7737,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/1f29c238f822add25c11ecfa27448b60b32bdedd"
+    },
+    {
+      "path": "packages/demos/tests/theater.test.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a280df20c7bef2bcba55a6328a0f404c10b22bd5",
+      "size": 9507,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/a280df20c7bef2bcba55a6328a0f404c10b22bd5"
+    },
+    {
+      "path": "packages/demos/tsconfig.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "fc65a7a321616a81ad3189cc67fa4f83f4ab7400",
+      "size": 510,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/fc65a7a321616a81ad3189cc67fa4f83f4ab7400"
+    },
+    {
+      "path": "scripts",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "5168a81304c6bdaae2bcbb747a93a981c676656a",
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/trees/5168a81304c6bdaae2bcbb747a93a981c676656a"
+    },
+    {
+      "path": "scripts/benchmark-needle.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a7f59125a46a5e21a91535a15cfb680de9406b80",
+      "size": 6329,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/a7f59125a46a5e21a91535a15cfb680de9406b80"
+    },
+    {
+      "path": "scripts/benchmark-quality.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "75d82d42410ed84780704ed26cf63392b487ed75",
+      "size": 2324,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/75d82d42410ed84780704ed26cf63392b487ed75"
+    },
+    {
+      "path": "scripts/benchmark-rlcd.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3ce9ba1d857ce4fca5aff20f4145eed1c75fe66c",
+      "size": 7632,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/3ce9ba1d857ce4fca5aff20f4145eed1c75fe66c"
+    },
+    {
+      "path": "scripts/make-demo.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "dded3037f21e77eb036fe6a002641dd311eebba5",
+      "size": 5462,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/dded3037f21e77eb036fe6a002641dd311eebba5"
+    },
+    {
+      "path": "scripts/probe-needle-speed.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "02a04fc0625918d212d35b9851b4e3fd055228d4",
+      "size": 6133,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/02a04fc0625918d212d35b9851b4e3fd055228d4"
+    },
+    {
+      "path": "scripts/summarize-comparison.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6362357843c7255840c07490e4bbc5f8085b655e",
+      "size": 6571,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/6362357843c7255840c07490e4bbc5f8085b655e"
+    },
+    {
+      "path": "scripts/summarize-needle.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7b769725c67b0ebc7d05a2c4a67789a71268531a",
+      "size": 3980,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/7b769725c67b0ebc7d05a2c4a67789a71268531a"
+    },
+    {
+      "path": "scripts/summarize-rlcd.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "db64bebe58b2c2e3de354f60b302ec4dff64c603",
+      "size": 5239,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/db64bebe58b2c2e3de354f60b302ec4dff64c603"
+    },
+    {
+      "path": "scripts/summarize-theater.mjs",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7f3c6238ffd4b2084caf5fe4195feb74905ada08",
+      "size": 7003,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/7f3c6238ffd4b2084caf5fe4195feb74905ada08"
+    },
+    {
+      "path": "skills-lock.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "77d5a668f41747fffd4d14f3443fc6d67944431a",
+      "size": 513,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/77d5a668f41747fffd4d14f3443fc6d67944431a"
+    },
+    {
+      "path": "todo.txt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "52ae7356a5970de1e1c3c78b1ca0aac9a7c32175",
+      "size": 756,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/52ae7356a5970de1e1c3c78b1ca0aac9a7c32175"
+    },
+    {
+      "path": "tsconfig.base.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3ca72652d2f1ae821eff653efa7b522e6f99d8d1",
+      "size": 330,
+      "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/3ca72652d2f1ae821eff653efa7b522e6f99d8d1"
+    }
+  ],
+  "truncated": false
+}

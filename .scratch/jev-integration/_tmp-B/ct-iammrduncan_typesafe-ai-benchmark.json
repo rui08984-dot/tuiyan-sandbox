@@ -1,0 +1,322 @@
+[
+  {
+    "name": ".agents",
+    "path": ".agents",
+    "sha": "16edf0f1ce50080a0e701c1410c5725e56c4bfac",
+    "size": 0,
+    "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/contents/.agents?ref=main",
+    "html_url": "https://github.com/iammrduncan/typesafe-ai-benchmark/tree/main/.agents",
+    "git_url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/trees/16edf0f1ce50080a0e701c1410c5725e56c4bfac",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/contents/.agents?ref=main",
+      "git": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/trees/16edf0f1ce50080a0e701c1410c5725e56c4bfac",
+      "html": "https://github.com/iammrduncan/typesafe-ai-benchmark/tree/main/.agents"
+    }
+  },
+  {
+    "name": ".claude",
+    "path": ".claude",
+    "sha": "c0b430f0e5a59d09e4c3f31484392d613ffdd848",
+    "size": 0,
+    "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/contents/.claude?ref=main",
+    "html_url": "https://github.com/iammrduncan/typesafe-ai-benchmark/tree/main/.claude",
+    "git_url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/trees/c0b430f0e5a59d09e4c3f31484392d613ffdd848",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/contents/.claude?ref=main",
+      "git": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/trees/c0b430f0e5a59d09e4c3f31484392d613ffdd848",
+      "html": "https://github.com/iammrduncan/typesafe-ai-benchmark/tree/main/.claude"
+    }
+  },
+  {
+    "name": ".env.example",
+    "path": ".env.example",
+    "sha": "54c590d9f17c08474678288db46fde5e43be74fd",
+    "size": 1065,
+    "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/contents/.env.example?ref=main",
+    "html_url": "https://github.com/iammrduncan/typesafe-ai-benchmark/blob/main/.env.example",
+    "git_url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/54c590d9f17c08474678288db46fde5e43be74fd",
+    "download_url": "https://raw.githubusercontent.com/iammrduncan/typesafe-ai-benchmark/main/.env.example",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/contents/.env.example?ref=main",
+      "git": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/54c590d9f17c08474678288db46fde5e43be74fd",
+      "html": "https://github.com/iammrduncan/typesafe-ai-benchmark/blob/main/.env.example"
+    }
+  },
+  {
+    "name": ".gitignore",
+    "path": ".gitignore",
+    "sha": "3a8871b690a84c3b1169f7006b2749d9f5399bee",
+    "size": 291,
+    "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/contents/.gitignore?ref=main",
+    "html_url": "https://github.com/iammrduncan/typesafe-ai-benchmark/blob/main/.gitignore",
+    "git_url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/3a8871b690a84c3b1169f7006b2749d9f5399bee",
+    "download_url": "https://raw.githubusercontent.com/iammrduncan/typesafe-ai-benchmark/main/.gitignore",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/contents/.gitignore?ref=main",
+      "git": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/3a8871b690a84c3b1169f7006b2749d9f5399bee",
+      "html": "https://github.com/iammrduncan/typesafe-ai-benchmark/blob/main/.gitignore"
+    }
+  },
+  {
+    "name": ".npmrc",
+    "path": ".npmrc",
+    "sha": "145d3fa25b8c8cdd495ab40849109408792fee0d",
+    "size": 35,
+    "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/contents/.npmrc?ref=main",
+    "html_url": "https://github.com/iammrduncan/typesafe-ai-benchmark/blob/main/.npmrc",
+    "git_url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/145d3fa25b8c8cdd495ab40849109408792fee0d",
+    "download_url": "https://raw.githubusercontent.com/iammrduncan/typesafe-ai-benchmark/main/.npmrc",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/contents/.npmrc?ref=main",
+      "git": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/145d3fa25b8c8cdd495ab40849109408792fee0d",
+      "html": "https://github.com/iammrduncan/typesafe-ai-benchmark/blob/main/.npmrc"
+    }
+  },
+  {
+    "name": ".nvmrc",
+    "path": ".nvmrc",
+    "sha": "2bd5a0a98a36cc08ada88b804d3be047e6aa5b8a",
+    "size": 3,
+    "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/contents/.nvmrc?ref=main",
+    "html_url": "https://github.com/iammrduncan/typesafe-ai-benchmark/blob/main/.nvmrc",
+    "git_url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/2bd5a0a98a36cc08ada88b804d3be047e6aa5b8a",
+    "download_url": "https://raw.githubusercontent.com/iammrduncan/typesafe-ai-benchmark/main/.nvmrc",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/contents/.nvmrc?ref=main",
+      "git": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/2bd5a0a98a36cc08ada88b804d3be047e6aa5b8a",
+      "html": "https://github.com/iammrduncan/typesafe-ai-benchmark/blob/main/.nvmrc"
+    }
+  },
+  {
+    "name": "AGENTS.md",
+    "path": "AGENTS.md",
+    "sha": "3d027d800607f5bc86857abed130f7e70a716685",
+    "size": 5687,
+    "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/contents/AGENTS.md?ref=main",
+    "html_url": "https://github.com/iammrduncan/typesafe-ai-benchmark/blob/main/AGENTS.md",
+    "git_url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/3d027d800607f5bc86857abed130f7e70a716685",
+    "download_url": "https://raw.githubusercontent.com/iammrduncan/typesafe-ai-benchmark/main/AGENTS.md",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/contents/AGENTS.md?ref=main",
+      "git": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/3d027d800607f5bc86857abed130f7e70a716685",
+      "html": "https://github.com/iammrduncan/typesafe-ai-benchmark/blob/main/AGENTS.md"
+    }
+  },
+  {
+    "name": "CLAUDE.md",
+    "path": "CLAUDE.md",
+    "sha": "a0fe32a7450c3e0a5ca4883d8b6a4ef8b6d10455",
+    "size": 448,
+    "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/contents/CLAUDE.md?ref=main",
+    "html_url": "https://github.com/iammrduncan/typesafe-ai-benchmark/blob/main/CLAUDE.md",
+    "git_url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/a0fe32a7450c3e0a5ca4883d8b6a4ef8b6d10455",
+    "download_url": "https://raw.githubusercontent.com/iammrduncan/typesafe-ai-benchmark/main/CLAUDE.md",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/contents/CLAUDE.md?ref=main",
+      "git": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/a0fe32a7450c3e0a5ca4883d8b6a4ef8b6d10455",
+      "html": "https://github.com/iammrduncan/typesafe-ai-benchmark/blob/main/CLAUDE.md"
+    }
+  },
+  {
+    "name": "CONVENTIONS.md",
+    "path": "CONVENTIONS.md",
+    "sha": "86abcf5e950a177d6d24f0420d18ad8f97a61de2",
+    "size": 12824,
+    "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/contents/CONVENTIONS.md?ref=main",
+    "html_url": "https://github.com/iammrduncan/typesafe-ai-benchmark/blob/main/CONVENTIONS.md",
+    "git_url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/86abcf5e950a177d6d24f0420d18ad8f97a61de2",
+    "download_url": "https://raw.githubusercontent.com/iammrduncan/typesafe-ai-benchmark/main/CONVENTIONS.md",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/contents/CONVENTIONS.md?ref=main",
+      "git": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/86abcf5e950a177d6d24f0420d18ad8f97a61de2",
+      "html": "https://github.com/iammrduncan/typesafe-ai-benchmark/blob/main/CONVENTIONS.md"
+    }
+  },
+  {
+    "name": "LICENSE",
+    "path": "LICENSE",
+    "sha": "b9f43e7cfa8b6f052498fc52807ac477bad77177",
+    "size": 1068,
+    "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/contents/LICENSE?ref=main",
+    "html_url": "https://github.com/iammrduncan/typesafe-ai-benchmark/blob/main/LICENSE",
+    "git_url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/b9f43e7cfa8b6f052498fc52807ac477bad77177",
+    "download_url": "https://raw.githubusercontent.com/iammrduncan/typesafe-ai-benchmark/main/LICENSE",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/contents/LICENSE?ref=main",
+      "git": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/b9f43e7cfa8b6f052498fc52807ac477bad77177",
+      "html": "https://github.com/iammrduncan/typesafe-ai-benchmark/blob/main/LICENSE"
+    }
+  },
+  {
+    "name": "README.md",
+    "path": "README.md",
+    "sha": "4757d46c69d828d55e73d92226e7df6c12a8edd8",
+    "size": 9798,
+    "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/contents/README.md?ref=main",
+    "html_url": "https://github.com/iammrduncan/typesafe-ai-benchmark/blob/main/README.md",
+    "git_url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/4757d46c69d828d55e73d92226e7df6c12a8edd8",
+    "download_url": "https://raw.githubusercontent.com/iammrduncan/typesafe-ai-benchmark/main/README.md",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/contents/README.md?ref=main",
+      "git": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/4757d46c69d828d55e73d92226e7df6c12a8edd8",
+      "html": "https://github.com/iammrduncan/typesafe-ai-benchmark/blob/main/README.md"
+    }
+  },
+  {
+    "name": "docs",
+    "path": "docs",
+    "sha": "91f28190ecab856438fb2ac98a222e0fe4a06a8c",
+    "size": 0,
+    "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/contents/docs?ref=main",
+    "html_url": "https://github.com/iammrduncan/typesafe-ai-benchmark/tree/main/docs",
+    "git_url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/trees/91f28190ecab856438fb2ac98a222e0fe4a06a8c",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/contents/docs?ref=main",
+      "git": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/trees/91f28190ecab856438fb2ac98a222e0fe4a06a8c",
+      "html": "https://github.com/iammrduncan/typesafe-ai-benchmark/tree/main/docs"
+    }
+  },
+  {
+    "name": "eslint.config.mjs",
+    "path": "eslint.config.mjs",
+    "sha": "fb0e4375ecacfc04c797f9f12d4b0bde45528170",
+    "size": 483,
+    "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/contents/eslint.config.mjs?ref=main",
+    "html_url": "https://github.com/iammrduncan/typesafe-ai-benchmark/blob/main/eslint.config.mjs",
+    "git_url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/fb0e4375ecacfc04c797f9f12d4b0bde45528170",
+    "download_url": "https://raw.githubusercontent.com/iammrduncan/typesafe-ai-benchmark/main/eslint.config.mjs",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/contents/eslint.config.mjs?ref=main",
+      "git": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/fb0e4375ecacfc04c797f9f12d4b0bde45528170",
+      "html": "https://github.com/iammrduncan/typesafe-ai-benchmark/blob/main/eslint.config.mjs"
+    }
+  },
+  {
+    "name": "package-lock.json",
+    "path": "package-lock.json",
+    "sha": "09978017745bff1c44ecd1c764a2931b93249e6c",
+    "size": 127216,
+    "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/contents/package-lock.json?ref=main",
+    "html_url": "https://github.com/iammrduncan/typesafe-ai-benchmark/blob/main/package-lock.json",
+    "git_url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/09978017745bff1c44ecd1c764a2931b93249e6c",
+    "download_url": "https://raw.githubusercontent.com/iammrduncan/typesafe-ai-benchmark/main/package-lock.json",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/contents/package-lock.json?ref=main",
+      "git": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/09978017745bff1c44ecd1c764a2931b93249e6c",
+      "html": "https://github.com/iammrduncan/typesafe-ai-benchmark/blob/main/package-lock.json"
+    }
+  },
+  {
+    "name": "package.json",
+    "path": "package.json",
+    "sha": "847953b1f3c4d78f26bf617bb61eeff970bbb431",
+    "size": 1965,
+    "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/contents/package.json?ref=main",
+    "html_url": "https://github.com/iammrduncan/typesafe-ai-benchmark/blob/main/package.json",
+    "git_url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/847953b1f3c4d78f26bf617bb61eeff970bbb431",
+    "download_url": "https://raw.githubusercontent.com/iammrduncan/typesafe-ai-benchmark/main/package.json",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/contents/package.json?ref=main",
+      "git": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/847953b1f3c4d78f26bf617bb61eeff970bbb431",
+      "html": "https://github.com/iammrduncan/typesafe-ai-benchmark/blob/main/package.json"
+    }
+  },
+  {
+    "name": "packages",
+    "path": "packages",
+    "sha": "f4943a5b2c79599a8933b52857e3417d8d50a846",
+    "size": 0,
+    "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/contents/packages?ref=main",
+    "html_url": "https://github.com/iammrduncan/typesafe-ai-benchmark/tree/main/packages",
+    "git_url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/trees/f4943a5b2c79599a8933b52857e3417d8d50a846",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/contents/packages?ref=main",
+      "git": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/trees/f4943a5b2c79599a8933b52857e3417d8d50a846",
+      "html": "https://github.com/iammrduncan/typesafe-ai-benchmark/tree/main/packages"
+    }
+  },
+  {
+    "name": "scripts",
+    "path": "scripts",
+    "sha": "5168a81304c6bdaae2bcbb747a93a981c676656a",
+    "size": 0,
+    "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/contents/scripts?ref=main",
+    "html_url": "https://github.com/iammrduncan/typesafe-ai-benchmark/tree/main/scripts",
+    "git_url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/trees/5168a81304c6bdaae2bcbb747a93a981c676656a",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/contents/scripts?ref=main",
+      "git": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/trees/5168a81304c6bdaae2bcbb747a93a981c676656a",
+      "html": "https://github.com/iammrduncan/typesafe-ai-benchmark/tree/main/scripts"
+    }
+  },
+  {
+    "name": "skills-lock.json",
+    "path": "skills-lock.json",
+    "sha": "77d5a668f41747fffd4d14f3443fc6d67944431a",
+    "size": 513,
+    "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/contents/skills-lock.json?ref=main",
+    "html_url": "https://github.com/iammrduncan/typesafe-ai-benchmark/blob/main/skills-lock.json",
+    "git_url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/77d5a668f41747fffd4d14f3443fc6d67944431a",
+    "download_url": "https://raw.githubusercontent.com/iammrduncan/typesafe-ai-benchmark/main/skills-lock.json",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/contents/skills-lock.json?ref=main",
+      "git": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/77d5a668f41747fffd4d14f3443fc6d67944431a",
+      "html": "https://github.com/iammrduncan/typesafe-ai-benchmark/blob/main/skills-lock.json"
+    }
+  },
+  {
+    "name": "todo.txt",
+    "path": "todo.txt",
+    "sha": "52ae7356a5970de1e1c3c78b1ca0aac9a7c32175",
+    "size": 756,
+    "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/contents/todo.txt?ref=main",
+    "html_url": "https://github.com/iammrduncan/typesafe-ai-benchmark/blob/main/todo.txt",
+    "git_url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/52ae7356a5970de1e1c3c78b1ca0aac9a7c32175",
+    "download_url": "https://raw.githubusercontent.com/iammrduncan/typesafe-ai-benchmark/main/todo.txt",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/contents/todo.txt?ref=main",
+      "git": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/52ae7356a5970de1e1c3c78b1ca0aac9a7c32175",
+      "html": "https://github.com/iammrduncan/typesafe-ai-benchmark/blob/main/todo.txt"
+    }
+  },
+  {
+    "name": "tsconfig.base.json",
+    "path": "tsconfig.base.json",
+    "sha": "3ca72652d2f1ae821eff653efa7b522e6f99d8d1",
+    "size": 330,
+    "url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/contents/tsconfig.base.json?ref=main",
+    "html_url": "https://github.com/iammrduncan/typesafe-ai-benchmark/blob/main/tsconfig.base.json",
+    "git_url": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/3ca72652d2f1ae821eff653efa7b522e6f99d8d1",
+    "download_url": "https://raw.githubusercontent.com/iammrduncan/typesafe-ai-benchmark/main/tsconfig.base.json",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/contents/tsconfig.base.json?ref=main",
+      "git": "https://api.github.com/repos/iammrduncan/typesafe-ai-benchmark/git/blobs/3ca72652d2f1ae821eff653efa7b522e6f99d8d1",
+      "html": "https://github.com/iammrduncan/typesafe-ai-benchmark/blob/main/tsconfig.base.json"
+    }
+  }
+]

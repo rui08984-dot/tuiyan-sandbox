@@ -1,0 +1,364 @@
+{
+  "sha": "8a4fbdf712e78c5ef45509a16aacb81facdd79be",
+  "url": "https://api.github.com/repos/daseinlabs/open-jev/git/trees/8a4fbdf712e78c5ef45509a16aacb81facdd79be",
+  "tree": [
+    {
+      "path": ".github",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "24847a0e6ff03eb608bb98e330c972f2197cd16a",
+      "url": "https://api.github.com/repos/daseinlabs/open-jev/git/trees/24847a0e6ff03eb608bb98e330c972f2197cd16a"
+    },
+    {
+      "path": ".github/workflows",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "5494ee0299bd2850e28374554ec30978c8a3f733",
+      "url": "https://api.github.com/repos/daseinlabs/open-jev/git/trees/5494ee0299bd2850e28374554ec30978c8a3f733"
+    },
+    {
+      "path": ".github/workflows/docs.yml",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8abcafa24c4d95c4080ac085992a20909b7fe45a",
+      "size": 1221,
+      "url": "https://api.github.com/repos/daseinlabs/open-jev/git/blobs/8abcafa24c4d95c4080ac085992a20909b7fe45a"
+    },
+    {
+      "path": ".gitignore",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "466ba5cb51112d1bbf3fb7cf1840b7fef3c35f34",
+      "size": 156,
+      "url": "https://api.github.com/repos/daseinlabs/open-jev/git/blobs/466ba5cb51112d1bbf3fb7cf1840b7fef3c35f34"
+    },
+    {
+      "path": "Makefile",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "cad144e5434b55380690a4dcbff8a22450590948",
+      "size": 3351,
+      "url": "https://api.github.com/repos/daseinlabs/open-jev/git/blobs/cad144e5434b55380690a4dcbff8a22450590948"
+    },
+    {
+      "path": "README.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "47b9ae620512b3dd78e82a6c8f8643ae6853d671",
+      "size": 11630,
+      "url": "https://api.github.com/repos/daseinlabs/open-jev/git/blobs/47b9ae620512b3dd78e82a6c8f8643ae6853d671"
+    },
+    {
+      "path": "data",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "3cb54beb43833afadc4691cfe94f8d271241fef6",
+      "url": "https://api.github.com/repos/daseinlabs/open-jev/git/trees/3cb54beb43833afadc4691cfe94f8d271241fef6"
+    },
+    {
+      "path": "data/synthetic",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "4881e35588e41defd1369daac2a737076f536590",
+      "url": "https://api.github.com/repos/daseinlabs/open-jev/git/trees/4881e35588e41defd1369daac2a737076f536590"
+    },
+    {
+      "path": "data/synthetic/test.jsonl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "64995f49c20383c9076d3c1704de319808aced1e",
+      "size": 91209,
+      "url": "https://api.github.com/repos/daseinlabs/open-jev/git/blobs/64995f49c20383c9076d3c1704de319808aced1e"
+    },
+    {
+      "path": "data/synthetic/train.jsonl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "90cd49f90e3123c78ad8170f13c2d847b8543796",
+      "size": 458286,
+      "url": "https://api.github.com/repos/daseinlabs/open-jev/git/blobs/90cd49f90e3123c78ad8170f13c2d847b8543796"
+    },
+    {
+      "path": "data/synthetic/validation.jsonl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "aec3454aaae40566550631595d44383d5723f58c",
+      "size": 91431,
+      "url": "https://api.github.com/repos/daseinlabs/open-jev/git/blobs/aec3454aaae40566550631595d44383d5723f58c"
+    },
+    {
+      "path": "demo",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "385f5e640ead5dc99e4c6d50d1a530c40d69f6b5",
+      "url": "https://api.github.com/repos/daseinlabs/open-jev/git/trees/385f5e640ead5dc99e4c6d50d1a530c40d69f6b5"
+    },
+    {
+      "path": "demo/doom",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "64ef18b306e2ea717d8a0ae98bfd27514367c2fa",
+      "url": "https://api.github.com/repos/daseinlabs/open-jev/git/trees/64ef18b306e2ea717d8a0ae98bfd27514367c2fa"
+    },
+    {
+      "path": "demo/doom/README.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7277f86574600f416746d9c74de5c30213846ccc",
+      "size": 4828,
+      "url": "https://api.github.com/repos/daseinlabs/open-jev/git/blobs/7277f86574600f416746d9c74de5c30213846ccc"
+    },
+    {
+      "path": "demo/doom/client.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e562ed53708cc05545d9cc690c4de326f0596fb2",
+      "size": 3297,
+      "url": "https://api.github.com/repos/daseinlabs/open-jev/git/blobs/e562ed53708cc05545d9cc690c4de326f0596fb2"
+    },
+    {
+      "path": "demo/doom/describe.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "723641a4ed9b73541aeb72af8588d75113572255",
+      "size": 4784,
+      "url": "https://api.github.com/repos/daseinlabs/open-jev/git/blobs/723641a4ed9b73541aeb72af8588d75113572255"
+    },
+    {
+      "path": "demo/doom/game.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "53557e540722ccb9e929edaab3c08fc2808435e3",
+      "size": 11913,
+      "url": "https://api.github.com/repos/daseinlabs/open-jev/git/blobs/53557e540722ccb9e929edaab3c08fc2808435e3"
+    },
+    {
+      "path": "demo/doom/play.py",
+      "mode": "100755",
+      "type": "blob",
+      "sha": "9779551b4ee9209b9fb04e5ed6946677754b5115",
+      "size": 11007,
+      "url": "https://api.github.com/repos/daseinlabs/open-jev/git/blobs/9779551b4ee9209b9fb04e5ed6946677754b5115"
+    },
+    {
+      "path": "demo/doom/render.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ebe0e376627a20c9b14d3d7ba5d6c0296603c14c",
+      "size": 2110,
+      "url": "https://api.github.com/repos/daseinlabs/open-jev/git/blobs/ebe0e376627a20c9b14d3d7ba5d6c0296603c14c"
+    },
+    {
+      "path": "docs",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "2b4e0e366c723622cbe15196888b637bce1f035f",
+      "url": "https://api.github.com/repos/daseinlabs/open-jev/git/trees/2b4e0e366c723622cbe15196888b637bce1f035f"
+    },
+    {
+      "path": "docs/api.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4b2c14eb6e0cdf475db352a8748f5a6290129b9d",
+      "size": 450,
+      "url": "https://api.github.com/repos/daseinlabs/open-jev/git/blobs/4b2c14eb6e0cdf475db352a8748f5a6290129b9d"
+    },
+    {
+      "path": "docs/cli.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "fff4732f8509657fc9000da93b8e5dbb7d3e6c0e",
+      "size": 7886,
+      "url": "https://api.github.com/repos/daseinlabs/open-jev/git/blobs/fff4732f8509657fc9000da93b8e5dbb7d3e6c0e"
+    },
+    {
+      "path": "docs/design",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "05dff04f6f39c6d7c5fcbb746e523c4d4e4123b2",
+      "url": "https://api.github.com/repos/daseinlabs/open-jev/git/trees/05dff04f6f39c6d7c5fcbb746e523c4d4e4123b2"
+    },
+    {
+      "path": "docs/design/one-pass-option-scoring.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e5b71a117fad469075a9b17d4cbac82b82780fbc",
+      "size": 9491,
+      "url": "https://api.github.com/repos/daseinlabs/open-jev/git/blobs/e5b71a117fad469075a9b17d4cbac82b82780fbc"
+    },
+    {
+      "path": "docs/design/per-task-finetuning-with-gemma.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f272d8a1a9af458635ea809374162710cdd295a5",
+      "size": 8293,
+      "url": "https://api.github.com/repos/daseinlabs/open-jev/git/blobs/f272d8a1a9af458635ea809374162710cdd295a5"
+    },
+    {
+      "path": "docs/doom-demo.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3ae01948e85714119ed7a2abc9f6bde1e9f7829e",
+      "size": 4978,
+      "url": "https://api.github.com/repos/daseinlabs/open-jev/git/blobs/3ae01948e85714119ed7a2abc9f6bde1e9f7829e"
+    },
+    {
+      "path": "docs/getting-started.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "bfbd0d0f2b58f9518354344ed7838cb2aeba9e2f",
+      "size": 4823,
+      "url": "https://api.github.com/repos/daseinlabs/open-jev/git/blobs/bfbd0d0f2b58f9518354344ed7838cb2aeba9e2f"
+    },
+    {
+      "path": "docs/index.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "74366983c11e0fc49cd6f24101acf687cde3379d",
+      "size": 2606,
+      "url": "https://api.github.com/repos/daseinlabs/open-jev/git/blobs/74366983c11e0fc49cd6f24101acf687cde3379d"
+    },
+    {
+      "path": "docs/media",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "5c6a41e527849ff0fddb09efffd322ab57144bd7",
+      "url": "https://api.github.com/repos/daseinlabs/open-jev/git/trees/5c6a41e527849ff0fddb09efffd322ab57144bd7"
+    },
+    {
+      "path": "docs/media/doom-recording.gif",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a3e03bb2a796dc54cc5cf2e3dd412b4a9071367b",
+      "size": 4688576,
+      "url": "https://api.github.com/repos/daseinlabs/open-jev/git/blobs/a3e03bb2a796dc54cc5cf2e3dd412b4a9071367b"
+    },
+    {
+      "path": "docs/media/doom-recording.mov",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ad6909c5c24e9bdef759c713d9d04648e0de6add",
+      "size": 3143273,
+      "url": "https://api.github.com/repos/daseinlabs/open-jev/git/blobs/ad6909c5c24e9bdef759c713d9d04648e0de6add"
+    },
+    {
+      "path": "docs/training.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "af61577c608112a09811f302a894a2874ff03d6f",
+      "size": 4864,
+      "url": "https://api.github.com/repos/daseinlabs/open-jev/git/blobs/af61577c608112a09811f302a894a2874ff03d6f"
+    },
+    {
+      "path": "examples",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "bae6b41a31c28fd4033b7ba78cb006fbcd4a8058",
+      "url": "https://api.github.com/repos/daseinlabs/open-jev/git/trees/bae6b41a31c28fd4033b7ba78cb006fbcd4a8058"
+    },
+    {
+      "path": "examples/systemone-quickstart.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7315eed09b6da7d3b49bc8769e6fd3998b28bc05",
+      "size": 830,
+      "url": "https://api.github.com/repos/daseinlabs/open-jev/git/blobs/7315eed09b6da7d3b49bc8769e6fd3998b28bc05"
+    },
+    {
+      "path": "mkdocs.yml",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ccccfb70892ed219fac62c40a3b1e354c1730084",
+      "size": 1586,
+      "url": "https://api.github.com/repos/daseinlabs/open-jev/git/blobs/ccccfb70892ed219fac62c40a3b1e354c1730084"
+    },
+    {
+      "path": "openjev",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "db1b69e8158df8112e3a74b1d0f0bd9d58a3278f",
+      "url": "https://api.github.com/repos/daseinlabs/open-jev/git/trees/db1b69e8158df8112e3a74b1d0f0bd9d58a3278f"
+    },
+    {
+      "path": "openjev/__init__.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e1c2357d6c2f47dd679e350fcc8360b54e6a8161",
+      "size": 209,
+      "url": "https://api.github.com/repos/daseinlabs/open-jev/git/blobs/e1c2357d6c2f47dd679e350fcc8360b54e6a8161"
+    },
+    {
+      "path": "openjev/cli.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2d36bf2e4e1c93988254c0a5552d1f490f444c6a",
+      "size": 11340,
+      "url": "https://api.github.com/repos/daseinlabs/open-jev/git/blobs/2d36bf2e4e1c93988254c0a5552d1f490f444c6a"
+    },
+    {
+      "path": "openjev/features.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9858fc03f881fd53cc421ae06a7d5656965a2249",
+      "size": 5452,
+      "url": "https://api.github.com/repos/daseinlabs/open-jev/git/blobs/9858fc03f881fd53cc421ae06a7d5656965a2249"
+    },
+    {
+      "path": "openjev/head.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ec1d1cfcd1c99a4b69ae39e6b7424cbfe2420dca",
+      "size": 2242,
+      "url": "https://api.github.com/repos/daseinlabs/open-jev/git/blobs/ec1d1cfcd1c99a4b69ae39e6b7424cbfe2420dca"
+    },
+    {
+      "path": "openjev/scorer.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "31c6dcdf6dd79fa71d76750d99338dd1e56fa9e0",
+      "size": 8181,
+      "url": "https://api.github.com/repos/daseinlabs/open-jev/git/blobs/31c6dcdf6dd79fa71d76750d99338dd1e56fa9e0"
+    },
+    {
+      "path": "openjev/server.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "fea4070c0f1d2bcc28aa71e4b477325230217895",
+      "size": 3613,
+      "url": "https://api.github.com/repos/daseinlabs/open-jev/git/blobs/fea4070c0f1d2bcc28aa71e4b477325230217895"
+    },
+    {
+      "path": "openjev/systemone.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b232cb6b399fb7c1ec978482cd560a6a7d03d9bc",
+      "size": 6401,
+      "url": "https://api.github.com/repos/daseinlabs/open-jev/git/blobs/b232cb6b399fb7c1ec978482cd560a6a7d03d9bc"
+    },
+    {
+      "path": "openjev/train.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "658c0dad3b8231d1655648ca4cb8af3380e99ef5",
+      "size": 3670,
+      "url": "https://api.github.com/repos/daseinlabs/open-jev/git/blobs/658c0dad3b8231d1655648ca4cb8af3380e99ef5"
+    },
+    {
+      "path": "pyproject.toml",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ab1c5e741cb306159f1dbd6f644f06bdf5735b3d",
+      "size": 820,
+      "url": "https://api.github.com/repos/daseinlabs/open-jev/git/blobs/ab1c5e741cb306159f1dbd6f644f06bdf5735b3d"
+    },
+    {
+      "path": "uv.lock",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a5a9b9b7cbb61950381d8e2d69914da5b4baf50c",
+      "size": 377338,
+      "url": "https://api.github.com/repos/daseinlabs/open-jev/git/blobs/a5a9b9b7cbb61950381d8e2d69914da5b4baf50c"
+    }
+  ],
+  "truncated": false
+}

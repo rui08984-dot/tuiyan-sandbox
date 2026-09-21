@@ -1,0 +1,485 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>JEVBOT · a trading desk run by Jev, live in your chat</title>
+<meta name="description" content="$JEVBOT is a pump.fun coin with a job: its creator fees fund a trading desk run by Jev, a model that doesn't chat. Every minute it looks at real coins and answers in milliseconds: buy, watch or pass. Every answer lands in this feed.">
+<meta property="og:title" content="JEVBOT · a trading desk run by Jev">
+<meta property="og:description" content="The coin's fees fund the desk. Jev decides every trade in milliseconds: buy, watch or pass, hold or sell. Every answer is public, losers included.">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="/icon.png" type="image/png">
+<link rel="apple-touch-icon" href="/icon.png">
+<meta property="og:image" content="/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="/og.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --shell: #ffffff; --line: #e4e9e5; --ink: #0b1a10; --muted: #6b7a70; --faint: #9aa79e;
+    --wall: #d9f2df; --bubble: #ffffff; --mine: #c9ffd6; --sys: rgba(11,26,16,0.55);
+    --neon: #39ff6a; --deep: #0f9d3a; --coal: #06120a;
+    --buy: #12b84a; --watch: #e39a00; --pass: #93a098; --hold: #2f7df0; --sell: #ef4b2b;
+    --fire: #ff6a1a; --up: #0f9d3a; --down: #e0352b;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin: 0; height: 100%; background: var(--shell); color: var(--ink); font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif; font-size: 15px; -webkit-font-smoothing: antialiased; font-variant-numeric: tabular-nums; overflow: hidden; }
+  a { color: var(--deep); text-decoration: none; } a:hover { text-decoration: underline; }
+  button { font: inherit; color: inherit; border: 0; background: none; cursor: pointer; padding: 0; }
+  .mono { font-family: "JetBrains Mono", ui-monospace, Menlo, monospace; }
+  .hide { display: none !important; }
+  .up { color: var(--up); } .down { color: var(--down); }
+
+  /* ---------- app shell: chats | conversation | profile ---------- */
+  .app { height: 100dvh; display: grid; grid-template-columns: 320px minmax(0, 1fr) 340px; }
+  .side { border-right: 1px solid var(--line); display: flex; flex-direction: column; min-height: 0; }
+  .side .top { padding: 16px 18px 12px; display: flex; align-items: center; gap: 10px; }
+  .side .top b { font-size: 19px; letter-spacing: -0.02em; }
+  .side .top .badge { margin-left: auto; font-size: 11px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; padding: 4px 8px; border-radius: 6px; background: #fff3d1; color: #7a5200; }
+  .side .top .badge.live { background: var(--mine); color: #0a5a22; }
+  .search { margin: 0 14px 8px; padding: 9px 12px; border-radius: 10px; background: #f1f4f2; color: var(--faint); font-size: 14px; }
+  .chats { overflow-y: auto; flex: 1; min-height: 0; padding: 4px 8px 12px; }
+  .chat { width: 100%; display: grid; grid-template-columns: 50px minmax(0,1fr) auto; gap: 12px; align-items: center; padding: 9px 10px; border-radius: 12px; text-align: left; }
+  .chat:hover { background: #f4f7f5; } .chat.on { background: var(--mine); }
+  .chat .av { width: 50px; height: 50px; border-radius: 50%; display: grid; place-items: center; font-size: 22px; background: #eef3ef; overflow: hidden; }
+  .chat .av img { width: 100%; height: 100%; object-fit: cover; }
+  .chat b { display: block; font-size: 15px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .chat small { display: block; color: var(--muted); font-size: 13.5px; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .chat .meta { text-align: right; align-self: start; padding-top: 3px; }
+  .chat .meta time { font-size: 12px; color: var(--faint); display: block; }
+  .chat .meta i { display: inline-block; min-width: 20px; margin-top: 5px; padding: 2px 6px; border-radius: 999px; background: var(--deep); color: #fff; font-size: 11.5px; font-weight: 600; font-style: normal; text-align: center; }
+  .side .foot { padding: 12px 18px; border-top: 1px solid var(--line); font-size: 12px; color: var(--faint); line-height: 1.45; }
+
+  .conv { display: flex; flex-direction: column; min-width: 0; min-height: 0; background-color: var(--wall); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220' viewBox='0 0 220 220' fill='none' stroke='%230b1a10' stroke-opacity='.07' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M30 24v34M22 32h16v18H22z'/%3E%3Cpath d='M150 40l8 8 12-16 10 10 14-20'/%3E%3Cpath d='M96 96v30M89 104h14v14H89z'/%3E%3Ccircle cx='180' cy='120' r='9'/%3E%3Cpath d='M176 120h8M180 116v8'/%3E%3Cpath d='M28 150l5 12 12 5-12 5-5 12-5-12-12-5 12-5z'/%3E%3Cpath d='M120 176h40M120 186h26'/%3E%3Cpath d='M200 190v22M194 196h12v10h-12z'/%3E%3Cpath d='M60 80q10-10 20 0'/%3E%3C/svg%3E"); }
+  .bar { background: var(--shell); border-bottom: 1px solid var(--line); padding: 10px 16px; display: flex; align-items: center; gap: 12px; min-height: 62px; }
+  .bar .back { display: none; font-size: 22px; padding: 4px 6px 4px 0; color: var(--deep); }
+  .bar .av { width: 42px; height: 42px; border-radius: 50%; overflow: hidden; flex: none; background: var(--neon); }
+  .bar .av img { width: 100%; height: 100%; object-fit: cover; }
+  .bar .who { min-width: 0; flex: 1; text-align: left; }
+  .bar .who b { display: block; font-size: 16px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .bar .who small { display: block; font-size: 13px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .bar .who small.on { color: var(--deep); }
+  .bar .pnl { text-align: right; flex: none; } .bar .pnl b { display: block; font-size: 16px; font-weight: 700; } .bar .pnl small { font-size: 12px; color: var(--muted); }
+  .pin { background: var(--shell); border-bottom: 1px solid var(--line); padding: 7px 16px; font-size: 13px; color: var(--muted); display: flex; gap: 10px; align-items: center; border-left: 3px solid var(--deep); }
+  .pin b { color: var(--deep); font-weight: 600; flex: none; } .pin span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+
+  .feed { flex: 1; min-height: 0; overflow-y: auto; padding: 14px 0 8px; scroll-behavior: smooth; overscroll-behavior: contain; }
+  .col { max-width: 760px; margin: 0 auto; padding: 0 14px; display: flex; flex-direction: column; gap: 4px; }
+  .sys { align-self: center; margin: 10px 0 6px; padding: 4px 12px; border-radius: 999px; background: var(--sys); color: #fff; font-size: 12.5px; font-weight: 500; text-align: center; }
+  .msg { display: grid; grid-template-columns: 34px minmax(0, auto); gap: 8px; align-items: end; justify-content: start; max-width: 100%; }
+  .msg.new { animation: pop .22s ease-out; }
+  @keyframes pop { from { opacity: 0; transform: translateY(6px); } }
+  .msg .av { width: 34px; height: 34px; border-radius: 50%; overflow: hidden; background: var(--neon); } .msg .av img { width: 100%; height: 100%; object-fit: cover; }
+  .msg.cont .av { visibility: hidden; height: 0; }
+  .bub { position: relative; background: var(--bubble); border-radius: 16px 16px 16px 5px; padding: 8px 12px 7px; max-width: min(560px, 100%); box-shadow: 0 1px 1.5px rgba(11,26,16,0.12); line-height: 1.42; min-width: 0; overflow-wrap: anywhere; }
+  .msg.cont .bub { border-radius: 16px; }
+  .bub .name { font-size: 13px; font-weight: 600; color: var(--deep); margin-bottom: 2px; }
+  .bub time { float: right; margin: 6px 0 -2px 12px; font-size: 11.5px; color: var(--faint); }
+  .bub p { margin: 0 0 6px; } .bub p:last-of-type { margin-bottom: 0; }
+  .bub ul { margin: 4px 0 2px; padding-left: 18px; } .bub li { margin: 3px 0; }
+  .bub.wide { width: min(560px, 100%); }
+  .me { align-self: flex-end; max-width: 80%; background: var(--mine); border-radius: 16px 16px 5px 16px; padding: 8px 12px; box-shadow: 0 1px 1.5px rgba(11,26,16,0.12); animation: pop .22s ease-out; }
+
+  /* scan bubble rows */
+  .rows { margin: 4px -4px 0; display: grid; }
+  .row { display: grid; grid-template-columns: 28px minmax(0,1fr) auto; gap: 9px; align-items: center; padding: 6px 4px; border-radius: 10px; text-align: left; width: 100%; }
+  .row:hover { background: #f1f6f2; }
+  .row + .row { border-top: 1px solid #eef2ef; }
+  .ci, .ph { width: 28px; height: 28px; border-radius: 8px; object-fit: cover; background: #e6ece8; display: block; flex: none; }
+  .row b { font-weight: 600; font-size: 14.5px; } .row small { display: block; color: var(--muted); font-size: 12.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .vd { font-size: 12px; font-weight: 700; letter-spacing: .03em; text-transform: uppercase; padding: 3px 8px; border-radius: 6px; color: #fff; white-space: nowrap; }
+  .vd.buy { background: var(--buy); } .vd.watch { background: var(--watch); } .vd.pass { background: #e8edea; color: var(--muted); } .vd.hold { background: var(--hold); } .vd.sell { background: var(--sell); } .vd.guard { background: var(--coal); color: var(--neon); }
+  .vd.buyback { background: var(--fire); } .vd.keep { background: #e8edea; color: var(--muted); }
+  .vd.veto { background: #fff; color: var(--buy); box-shadow: inset 0 0 0 1.5px var(--buy); text-decoration: line-through; } .vd.veto.bbv { color: var(--fire); box-shadow: inset 0 0 0 1.5px var(--fire); }
+
+  /* trade card */
+  .card { width: min(420px, 100%); padding: 0; overflow: hidden; }
+  .card .hd { display: flex; align-items: center; gap: 10px; padding: 10px 12px; color: #fff; }
+  .card.buy .hd { background: var(--buy); } .card.sell .hd { background: var(--sell); } .card.win .hd { background: var(--buy); } .card.guard .hd { background: var(--coal); color: var(--neon); } .card.bb .hd { background: linear-gradient(100deg, #ff8a1a, #ff4a1a); } .card.pos .hd { background: #f1f6f2; color: var(--ink); }
+  .card .hd img, .card .hd .ph { width: 38px; height: 38px; border-radius: 10px; }
+  .card .hd b { font-size: 16px; display: block; letter-spacing: -0.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } .card .hd small { font-size: 12.5px; opacity: .9; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .card .hd .big { margin-left: auto; font-size: 20px; font-weight: 700; flex: none; }
+  .card .bd { padding: 10px 12px 8px; }
+  .pb { display: grid; grid-template-columns: 68px minmax(0,1fr) 38px; gap: 8px; align-items: center; font-size: 12px; margin: 4px 0; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; font-weight: 600; }
+  .pb i { height: 8px; border-radius: 99px; background: #e8edea; overflow: hidden; display: block; } .pb i u { display: block; height: 100%; border-radius: 99px; background: #c4cec7; }
+  .pb.pick { color: var(--ink); } .pb.pick.buy u { background: var(--buy); } .pb.pick.sell u { background: var(--sell); } .pb.pick.hold u { background: var(--hold); } .pb.pick.watch u { background: var(--watch); } .pb.pick.pass u { background: var(--pass); } .pb.pick.buyback u { background: var(--fire); } .pb.pick.keep u { background: var(--pass); }
+  .pb span { text-align: right; text-transform: none; letter-spacing: 0; }
+  .kv { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; } .kv span { font-size: 12.5px; padding: 3px 8px; border-radius: 6px; background: #f1f6f2; color: var(--muted); } .kv span b { color: var(--ink); font-weight: 600; }
+  .nums { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 6px; } .nums div { background: #f1f6f2; border-radius: 8px; padding: 6px 8px; min-width: 0; } .nums b { display: block; font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } .nums small { color: var(--muted); font-size: 11.5px; }
+  .acts { display: flex; border-top: 1px solid #eef2ef; margin-top: 10px; } .acts > * { flex: 1; text-align: center; padding: 9px 4px; font-size: 13.5px; font-weight: 600; color: var(--deep); } .acts > * + * { border-left: 1px solid #eef2ef; } .acts .off { color: var(--faint); font-weight: 500; }
+  .card time { float: none; display: block; text-align: right; margin: 6px 0 0; }
+
+  .typing { display: inline-flex; gap: 4px; align-items: center; padding: 4px 2px; } .typing i { width: 7px; height: 7px; border-radius: 50%; background: var(--faint); animation: ty 1.2s infinite; } .typing i:nth-child(2) { animation-delay: .15s; } .typing i:nth-child(3) { animation-delay: .3s; }
+  @keyframes ty { 0%,60%,100% { transform: translateY(0); opacity: .5; } 30% { transform: translateY(-4px); opacity: 1; } }
+
+  pre { margin: 6px 0 2px; padding: 12px; border-radius: 10px; background: var(--coal); color: #d5e6d9; font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 11.5px; line-height: 1.5; white-space: pre-wrap; word-break: break-word; max-height: 360px; overflow: auto; }
+  pre .k { color: #8fd0ff; } pre .s { color: var(--neon); }
+  canvas.eq { width: 100%; height: 210px; display: block; border-radius: 10px; background: #f6faf7; margin-top: 4px; }
+
+  /* composer */
+  .composer { background: var(--shell); border-top: 1px solid var(--line); padding: 8px 12px calc(10px + env(safe-area-inset-bottom)); }
+  .quick { display: flex; gap: 6px; overflow-x: auto; padding: 2px 2px 8px; scrollbar-width: none; max-width: 760px; margin: 0 auto; } .quick::-webkit-scrollbar { display: none; }
+  .quick button { flex: none; padding: 7px 12px; border-radius: 999px; background: #eef7f0; color: var(--deep); font-size: 13.5px; font-weight: 500; box-shadow: inset 0 0 0 1px #cfe9d6; } .quick button:hover { background: var(--mine); }
+  .inp { max-width: 760px; margin: 0 auto; display: flex; gap: 8px; align-items: center; }
+  .inp .fake { flex: 1; min-width: 0; padding: 11px 14px; border-radius: 999px; background: #f1f4f2; color: var(--faint); font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .cta { flex: none; padding: 11px 18px; border-radius: 999px; background: var(--coal); color: var(--neon) !important; font-weight: 700; font-size: 14.5px; text-decoration: none !important; white-space: nowrap; } .cta:hover { background: #12301b; }
+
+  /* profile */
+  .prof { border-left: 1px solid var(--line); overflow-y: auto; min-height: 0; background: var(--shell); }
+  .prof .x { display: none; }
+  .prof .art { background: var(--neon); padding: 22px 40px 14px; display: grid; place-items: center; }
+  .prof .art svg { width: 100%; max-width: 230px; height: auto; overflow: visible; animation: bob 5s ease-in-out infinite; }
+  @keyframes bob { 0%,100% { transform: translateY(0) rotate(-1.5deg); } 50% { transform: translateY(-6px) rotate(1.5deg); } }
+  .mascot .eye rect { transform-box: fill-box; transform-origin: center; animation: candle 4.2s ease-in-out infinite; } .mascot .e2 rect { animation-delay: .35s; }
+  @keyframes candle { 0%,38%,100% { transform: scaleY(1); } 42% { transform: scaleY(.12); } 46% { transform: scaleY(1); } 70% { transform: scaleY(1.28) translateY(-3px); } 84% { transform: scaleY(.8) translateY(3px); } }
+  .mascot .tapeline { stroke-dasharray: 900; stroke-dashoffset: 900; animation: draw 6s ease-in-out infinite; } @keyframes draw { 0% { stroke-dashoffset: 900; } 60%,100% { stroke-dashoffset: 0; } }
+  .prof .id { padding: 14px 18px 4px; } .prof .id b { font-size: 20px; letter-spacing: -0.02em; } .prof .id .bot { font-size: 11px; font-weight: 600; letter-spacing: .05em; padding: 2px 6px; border-radius: 5px; background: #eef3ef; color: var(--muted); vertical-align: 3px; margin-left: 6px; }
+  .prof .id small { display: block; color: var(--muted); margin-top: 2px; }
+  .sec { padding: 12px 18px; border-top: 8px solid #f1f4f2; } .sec:first-of-type { border-top: 0; }
+  .sec .l { font-size: 12.5px; color: var(--deep); font-weight: 600; margin-bottom: 4px; }
+  .sec p { margin: 0; line-height: 1.5; color: #24342a; }
+  .caline { display: flex; gap: 8px; align-items: center; } .caline span { font-size: 12.5px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; } .caline button { flex: none; font-size: 12.5px; font-weight: 600; color: var(--deep); padding: 4px 10px; border-radius: 999px; background: #eef7f0; }
+  .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; } .stats div { background: #f4f7f5; border-radius: 10px; padding: 9px 11px; min-width: 0; } .stats b { display: block; font-size: 17px; letter-spacing: -0.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } .stats small { color: var(--muted); font-size: 12px; }
+  .links a { display: flex; justify-content: space-between; padding: 9px 0; border-top: 1px solid var(--line); color: var(--ink); font-size: 14.5px; } .links a:first-child { border-top: 0; } .links a::after { content: "↗"; color: var(--faint); }
+  .prof .cta { display: block; text-align: center; margin: 4px 0 0; }
+  .fine { font-size: 12px; color: var(--faint); line-height: 1.5; }
+
+  /* sheet */
+  .sheet { position: fixed; inset: 0; z-index: 50; background: rgba(6,18,10,0.45); display: grid; place-items: end center; }
+  .sheet .box { width: min(640px, 100%); max-height: 86dvh; overflow: auto; background: var(--shell); border-radius: 18px 18px 0 0; padding: 16px 16px calc(18px + env(safe-area-inset-bottom)); animation: up .22s ease-out; }
+  @keyframes up { from { transform: translateY(30px); opacity: 0; } }
+  .sheet h3 { margin: 0 0 2px; font-size: 17px; } .sheet .sub { color: var(--muted); font-size: 13.5px; margin-bottom: 10px; }
+  .sheet .close { float: right; font-size: 14px; font-weight: 600; color: var(--deep); padding: 4px 8px; }
+  .sheet pre { max-height: none; }
+
+  @media (min-width: 900px) { .sheet { place-items: center; } .sheet .box { border-radius: 18px; } }
+  @media (max-width: 1180px) { .app { grid-template-columns: 300px minmax(0,1fr); } .prof { position: fixed; inset: 0 0 0 auto; width: min(380px, 100%); z-index: 40; transform: translateX(100%); transition: transform .25s ease; box-shadow: -10px 0 40px rgba(6,18,10,.18); } .prof.open { transform: none; } .prof .x { display: block; position: absolute; top: 10px; right: 12px; z-index: 2; width: 34px; height: 34px; border-radius: 50%; background: rgba(6,18,10,.75); color: #fff; font-size: 16px; } }
+  @media (max-width: 760px) {
+    .app { grid-template-columns: minmax(0,1fr); }
+    .side { display: none; } .app.list .side { display: flex; border-right: 0; } .app.list .conv { display: none; }
+    .bar .back { display: block; }
+    .bar .pnl b { font-size: 15px; }
+    .me { max-width: 88%; }
+  }
+</style>
+</head>
+<body>
+<div class="app" id="app">
+  <aside class="side">
+    <div class="top"><b>Chats</b><span class="badge" id="modeBadge">paper</span></div>
+    <div class="search">🔍 &nbsp;Search</div>
+    <div class="chats" id="chats"></div>
+    <div class="foot">Independent project. Not affiliated with TypeSafe AI, $JEV or the earlier $JEVBOT coin at jevbot.xyz. Not financial advice.</div>
+  </aside>
+
+  <main class="conv">
+    <div class="bar">
+      <button class="back" id="back" aria-label="Chats">‹</button>
+      <button class="av" id="openProf" aria-label="Profile"><img src="/icon.png" alt=""></button>
+      <button class="who" id="openProf2"><b id="barName">JEVBOT</b><small id="barSub">connecting…</small></button>
+      <div class="pnl"><b id="barPnl">—</b><small id="barPnlL">desk P&amp;L</small></div>
+    </div>
+    <div class="pin" id="pin"><b>Pinned</b><span id="pinText">I never open a trade Jev didn't answer. Guardrails are code, and they're public.</span></div>
+    <div class="feed" id="feed"><div class="col" id="col"></div></div>
+    <div class="composer">
+      <div class="quick" id="quick"></div>
+      <div class="inp"><div class="fake">Jev doesn't chat — tap a question ↑</div><a class="cta" id="buyBtn" href="https://pump.fun" target="_blank" rel="noopener">Buy <span class="sym">$JEVBOT</span></a></div>
+    </div>
+  </main>
+
+  <aside class="prof" id="prof">
+    <button class="x" id="closeProf" aria-label="Close">✕</button>
+    <div class="art"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" class="mascot">
+  <defs>
+    <radialGradient id="badge" cx=".5" cy=".38" r=".75"><stop offset="0" stop-color="#12361d"/><stop offset="1" stop-color="#06120a"/></radialGradient>
+    <clipPath id="ring"><circle cx="250" cy="262" r="204"/></clipPath>
+    <linearGradient id="shade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7dff9b"/><stop offset="1" stop-color="#1fd655"/></linearGradient>
+  </defs>
+  <!-- badge -->
+  <circle cx="250" cy="262" r="218" fill="#fff"/>
+  <circle cx="250" cy="262" r="204" fill="url(#badge)"/>
+  <g clip-path="url(#ring)">
+    <!-- tape in the background -->
+    <path class="tapeline" d="M40 360L96 330 130 348 176 290 214 312 262 250 300 276 350 204 392 226 470 150" fill="none" stroke="#39ff6a" stroke-width="5" stroke-linejoin="round" stroke-linecap="round" opacity=".28"/>
+    <g opacity=".5"><path d="M92 196v64" stroke="#39ff6a" stroke-width="4" stroke-linecap="round"/><rect x="82" y="208" width="20" height="36" rx="5" fill="#39ff6a"/><path d="M412 300v58" stroke="#ff5a36" stroke-width="4" stroke-linecap="round"/><rect x="402" y="312" width="20" height="30" rx="5" fill="#ff5a36"/></g>
+    <!-- suit -->
+    <path d="M118 500Q118 410 204 392L250 430 296 392Q382 410 382 500Z" fill="#fff" stroke="#fff" stroke-width="30" stroke-linejoin="round"/>
+    <path d="M118 500Q118 410 204 392L250 430 296 392Q382 410 382 500Z" fill="#10301b" stroke="#06120a" stroke-width="12" stroke-linejoin="round"/>
+    <path d="M204 392L250 430 296 392 282 378H218Z" fill="#f2fff0" stroke="#06120a" stroke-width="10" stroke-linejoin="round"/>
+    <path d="M238 408h24l5 16-17 10-17-10z" fill="#39ff6a" stroke="#06120a" stroke-width="8" stroke-linejoin="round"/>
+    <path d="M236 434h28l8 50h-44z" fill="#39ff6a" stroke="#06120a" stroke-width="8" stroke-linejoin="round"/>
+  </g>
+  <!-- sticker outline -->
+  <g fill="#fff" stroke="#fff" stroke-width="34" stroke-linejoin="round"><rect x="122" y="150" width="256" height="216" rx="62"/><circle cx="116" cy="262" r="22"/><circle cx="384" cy="262" r="22"/><path d="M96 190Q250 84 404 190Q250 150 96 190Z"/></g>
+  <!-- ears -->
+  <circle cx="116" cy="262" r="22" fill="#39ff6a" stroke="#06120a" stroke-width="11"/><circle cx="384" cy="262" r="22" fill="#39ff6a" stroke="#06120a" stroke-width="11"/>
+  <!-- head -->
+  <rect x="122" y="150" width="256" height="216" rx="62" fill="#f2fff0" stroke="#06120a" stroke-width="13"/>
+  <path d="M150 330q100 34 200 0" fill="none" stroke="#cfeed6" stroke-width="8" stroke-linecap="round"/>
+  <!-- screen -->
+  <rect x="150" y="204" width="200" height="112" rx="36" fill="#06120a"/>
+  <g class="eyes" fill="#39ff6a" stroke="#39ff6a" stroke-linecap="round">
+    <g class="eye e1"><path d="M202 222v68" stroke-width="6"/><rect x="186" y="236" width="32" height="40" rx="9" stroke="none"/></g>
+    <g class="eye e2"><path d="M298 222v68" stroke-width="6"/><rect x="282" y="236" width="32" height="40" rx="9" stroke="none"/></g>
+  </g>
+  <path d="M232 288q18 15 36 0" fill="none" stroke="#39ff6a" stroke-width="7" stroke-linecap="round"/>
+  <ellipse cx="172" cy="296" rx="9" ry="5" fill="#39ff6a" opacity=".35"/><ellipse cx="328" cy="296" rx="9" ry="5" fill="#39ff6a" opacity=".35"/>
+  <!-- dealer's eyeshade -->
+  <path d="M96 190Q250 84 404 190Q250 150 96 190Z" fill="url(#shade)" stroke="#06120a" stroke-width="12" stroke-linejoin="round"/>
+  <path d="M150 164Q250 112 350 164" fill="none" stroke="#f2fff0" stroke-width="7" stroke-linecap="round" opacity=".7"/>
+  <!-- sparkles -->
+  <g fill="#fff"><path d="M70 120l6 17 17 6-17 6-6 17-6-17-17-6 17-6z"/><path d="M430 96l5 13 13 5-13 5-5 13-5-13-13-5 13-5z" fill="#fff"/><path d="M462 262l4 11 11 4-11 4-4 11-4-11-11-4 11-4z"/><circle cx="52" cy="300" r="5" fill="#fff"/></g>
+</svg></div>
+    <div class="id"><b>JEVBOT</b><span class="bot">BOT</span><small id="profSub">one-robot trading desk · pump.fun</small></div>
+    <div class="sec"><div class="l">Bio</div><p>A coin with a job. My creator fees fund a trading desk run by <b>Jev</b>, a model that doesn't chat: it answers typed questions in milliseconds. I post every answer here, losers included.</p></div>
+    <div class="sec"><div class="l">Contract</div><div class="caline mono"><span id="ca">not launched yet</span><button id="copy" class="hide">copy</button></div><a class="cta" id="buyBtn2" href="https://pump.fun" target="_blank" rel="noopener" style="margin-top:10px">Buy <span class="sym">$JEVBOT</span> on pump.fun</a></div>
+    <div class="sec"><div class="l">The desk right now</div><div class="stats" id="stats"></div></div>
+    <div class="sec links" id="links"></div>
+    <div class="sec fine"><span class="sym">$JEVBOT</span> is a memecoin and an experiment, not an investment product. Holding it gives no claim on the desk's bank or profits. The desk trades highly volatile tokens and can lose everything. Independent project — not affiliated with TypeSafe AI, $JEV or the earlier $JEVBOT coin at jevbot.xyz. "Jev" is TypeSafe AI's System One model, used through its public API.</div>
+  </aside>
+</div>
+<div class="sheet hide" id="sheet"><div class="box"><button class="close" id="sheetClose">Done</button><h3 id="sheetT"></h3><div class="sub" id="sheetS"></div><div id="sheetB"></div></div></div>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const API = "";
+let D = null, PROTO = null, TAPE = [], CLOSED = [], EQ = [], BB = [], chan = "live", extra = [], sig = "";
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const num = (v, d = 3) => (v === null || v === undefined || !isFinite(v) ? "—" : Number(v).toFixed(Math.abs(v) >= 100 ? 1 : d));
+const sol = (v, d = 3) => (v === null || v === undefined || !isFinite(v) ? "—" : `${num(v, d)} SOL`);
+const sgn = (v, d = 3) => (v === null || v === undefined || !isFinite(v) ? "—" : `${v >= 0 ? "+" : ""}${Number(v).toFixed(d)}`);
+const usd = (v) => (v === null || !isFinite(v) ? "—" : v >= 1e6 ? `$${(v / 1e6).toFixed(2)}M` : v >= 1e3 ? `$${(v / 1e3).toFixed(1)}K` : `$${v.toFixed(v >= 10 ? 0 : 2)}`);
+const pct = (v, d = 1) => (v === null || v === undefined || !isFinite(v) ? "—" : `${v > 0 ? "+" : ""}${v.toFixed(d)}%`);
+const p100 = (v) => (v === null || v === undefined ? "—" : `${Math.round(v * 100)}%`);
+const cls = (v) => (v > 0 ? "up" : v < 0 ? "down" : "");
+const hm = (t) => new Date(t * 1000).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+const ago = (t) => { const s = Math.max(0, Math.floor(Date.now() / 1000) - t); return s < 60 ? `${s}s` : s < 3600 ? `${Math.floor(s / 60)}m` : s < 86400 ? `${Math.floor(s / 3600)}h ${Math.floor((s % 3600) / 60)}m` : `${Math.floor(s / 86400)}d`; };
+const dur = (s) => (s < 3600 ? `${Math.max(1, Math.round(s / 60))}m` : `${Math.floor(s / 3600)}h ${Math.round((s % 3600) / 60)}m`);
+const cimg = (mint, c = "ci") => (mint ? `<img class="${c}" src="https://images.pump.fun/coin-image/${esc(mint)}?variant=86x86" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.outerHTML='<span class=ph></span>'">` : '<span class="ph"></span>');
+const hl = (o) => esc(JSON.stringify(o, null, 2)).replace(/&quot;([^&]+?)&quot;:/g, '<span class="k">"$1"</span>:').replace(/: &quot;(.*?)&quot;(,?)$/gm, ': <span class="s">"$1"</span>$2');
+const get = (p) => fetch(API + p).then((r) => (r.ok ? r.json() : Promise.reject(new Error(p + " " + r.status))));
+const SYM = () => (D && D.coin ? `$${D.coin.symbol}` : "$JEVBOT");
+
+// ---------------------------------------------------------------- message builders
+const bot = (html, { t, cont, wide, name } = {}) => `<div class="msg ${cont ? "cont" : ""}"><span class="av"><img src="/icon.png" alt=""></span><div class="bub ${wide ? "wide" : ""}">${name === false || cont ? "" : '<div class="name">JEVBOT</div>'}${html}${t ? `<time>${hm(t)}</time>` : ""}</div></div>`;
+const botCard = (html, cont) => `<div class="msg ${cont ? "cont" : ""}"><span class="av"><img src="/icon.png" alt=""></span>${html}</div>`;
+const sys = (text) => `<div class="sys">${text}</div>`;
+const me = (text) => `<div class="me">${esc(text)}</div>`;
+const bars = (r) => { const acts = r.kind === "position" ? ["hold", "sell"] : r.kind === "treasury" ? ["buyback", "keep"] : ["buy", "watch", "pass"]; if (!r.probs) return ""; return acts.map((a) => `<div class="pb ${a} ${r.action === a ? "pick" : ""}"><b>${a}</b><i><u style="width:${Math.round((r.probs[a] || 0) * 100)}%"></u></i><span class="mono">${Math.round((r.probs[a] || 0) * 100)}%</span></div>`).join(""); };
+const reads = (r) => { const R = r.readings || {}, o = []; if ((r.action === "buy" || r.action === "buyback") && r.sizePct) o.push(`size <b>${r.sizePct}%</b>`); if (R.rug_risk != null) o.push(`rug <b>${p100(R.rug_risk)}</b>`); if (R.dumping != null) o.push(`dumping <b>${p100(R.dumping)}</b>`); if (R.momentum != null) o.push(`momentum <b>${p100(R.momentum)}</b>`); if (R.original != null) o.push(`original <b>${p100(R.original)}</b>`); if (r.latencyMs) o.push(`<b>${r.latencyMs} ms</b>`); return o.length ? `<div class="kv">${o.map((x) => `<span>${x}</span>`).join("")}</div>` : ""; };
+
+function buybackCard(r) {
+  const b = BB.find((x) => x.decisionId === r.id) || {};
+  return botCard(`<div class="bub card bb"><div class="hd">${cimg(r.mint)}<div style="min-width:0"><b>🔥 BOUGHT BACK &amp; BURNED</b><small>$${esc(r.symbol)} · Jev: P(buyback) ${p100(r.probs && r.probs.buyback)} · over the ${Math.round(D.rules.minBuybackProb * 100)}% line</small></div></div>
+    <div class="bd">${b.sol ? `<div class="nums"><div><b>${num(b.sol, 4)}</b><small>SOL spent</small></div><div><b>${Math.round(b.tokens).toLocaleString()}</b><small>bought</small></div><div><b>${Math.round(b.burned).toLocaleString()}</b><small>burned</small></div></div>` : ""}<div style="margin-top:8px">${bars(r)}</div>${reads(r)}<p style="margin:8px 0 0;color:var(--muted);font-size:13.5px">${esc(r.note || "")}</p><time>${hm(r.t)}</time></div>
+    <div class="acts">${b.buyTx ? `<a href="${D.tx}${esc(b.buyTx)}" target="_blank" rel="noopener">buy ↗</a>` : `<span class="off">${r.paper ? "paper fill" : "no receipt"}</span>`}${b.burnTx ? `<a href="${D.tx}${esc(b.burnTx)}" target="_blank" rel="noopener">burn ↗</a>` : ""}${r.state ? `<button data-dec="${r.id}">what Jev saw</button>` : ""}</div></div>`, true);
+}
+function tradeCard(r) {
+  if (r.kind === "treasury") return buybackCard(r);
+  const sell = r.action === "sell", guard = r.brain === "guardrail";
+  const pos = sell ? CLOSED.find((p) => p.id === r.positionId) : null;
+  const pnl = pos ? pos.pnlPct : (r.state && r.state.position ? r.state.position.pnl_pct : null);
+  const kind = guard ? "guard" : sell ? (pnl > 0 ? "win" : "sell") : "buy";
+  const tx = pos ? pos.sellTx : (D.positions.find((p) => p.id === r.positionId) || {}).buyTx;
+  return botCard(`<div class="bub card ${kind}"><div class="hd">${cimg(r.mint)}<div style="min-width:0"><b>${sell ? "SOLD" : "BOUGHT"} $${esc(r.symbol)}</b><small>${guard ? "guardrail — sold without asking" : `Jev: P(${r.action}) ${p100(r.probs && r.probs[r.action])} · over the ${Math.round((sell ? D.rules.minSellProb : D.rules.minBuyProb) * 100)}% line`}</small></div>${sell ? `<span class="big">${pct(pnl)}</span>` : ""}</div>
+    <div class="bd">${bars(r)}${reads(r)}<p style="margin:8px 0 0;color:var(--muted);font-size:13.5px">${esc(r.note || "")}</p><time>${hm(r.t)}</time></div>
+    <div class="acts"><a href="https://pump.fun/coin/${esc(r.mint)}" target="_blank" rel="noopener">pump.fun ↗</a>${tx ? `<a href="${D.tx}${esc(tx)}" target="_blank" rel="noopener">receipt ↗</a>` : `<span class="off">${r.paper ? "paper fill" : "no receipt"}</span>`}${r.state ? `<button data-dec="${r.id}">what Jev saw</button>` : ""}</div></div>`, true);
+}
+
+function rowHtml(r) {
+  const veto = (r.action === "buy" || r.action === "buyback") && !r.executed;
+  const sub = r.kind === "treasury" ? `my own coin · ${usd(r.mcapUsd)} · buy back & burn?${r.latencyMs ? ` · ${r.latencyMs} ms` : ""}` : r.kind === "position" ? `open position · ${pct(r.state && r.state.position ? r.state.position.pnl_pct : null)}` : `${usd(r.mcapUsd)}${r.readings && r.readings.rug_risk != null ? ` · rug ${p100(r.readings.rug_risk)}` : ""}${r.latencyMs ? ` · ${r.latencyMs} ms` : ""}`;
+  const tag = r.brain === "guardrail" ? '<span class="vd guard">guardrail</span>' : `<span class="vd ${veto ? "veto" + (r.action === "buyback" ? " bbv" : "") : r.action}">${esc(r.action)} ${p100(r.probs && r.probs[r.action])}</span>`;
+  return `<button class="row" data-dec="${r.id}">${cimg(r.mint)}<span style="min-width:0"><b>$${esc(r.symbol)}</b><small>${esc(veto && r.note ? r.note : sub)}</small></span>${tag}</button>`;
+}
+
+function intro() {
+  const d = D, out = [];
+  out.push(bot(`<p>gm. I'm <b>JEVBOT</b> — a one-robot trading desk.</p><p>${esc(SYM())} is a coin with a job: its creator fees are my only funding. Every ${d.rules.scanSec === 60 ? "minute" : d.rules.scanSec + " seconds"} I show real pump.fun coins to <b>Jev</b>, a model that doesn't chat. It answers in milliseconds — <b>buy, watch or pass</b> — and I obey. Every few scans it also decides whether I <b>buy back &amp; burn</b> my own coin.</p>`));
+  out.push(bot(`<p>Everything I ask and everything it answers lands in this chat. Tap any coin to see exactly what Jev saw.</p>`, { cont: true }));
+  if (d.paper) out.push(bot(`<p>📝 <b>Paper desk.</b> ${d.coin ? "No wallet key loaded" : "My coin hasn't launched"}, so I'm practising with a pretend ${d.rules.paperBankSol} SOL: real coins, real answers, simulated fills. Nothing moves on chain yet.</p>`, { cont: true }));
+  if (!d.schedulerEnabled) out.push(bot(`<p>⏸ I'm paused. Nothing is asked, claimed or traded until I'm switched back on.</p>`, { cont: true }));
+  else if (!d.jev.online) out.push(bot(`<p>😴 <b>Jev is offline right now.</b> I have no other brain, so I open nothing. My guardrails still watch whatever I hold.</p>`, { cont: true }));
+  else if (!d.jev.reachable) out.push(bot(`<p>📡 Jev isn't answering. I keep retrying every scan and open nothing in the meantime.</p>`, { cont: true }));
+  return out.join("");
+}
+
+function liveHtml() {
+  const out = [intro()];
+  const asc = [...TAPE].reverse(); let lastScan = null, lastDay = "";
+  let group = [];
+  const flush = () => { if (!group.length) return; const t = group[group.length - 1].t; const pos = group.filter((g) => g.kind === "position").length, tr = group.filter((g) => g.kind === "treasury").length, sc = group.length - pos - tr;
+    out.push(bot(`<p>${[pos ? `Reviewed ${pos} position${pos > 1 ? "s" : ""}` : "", tr ? `${pos ? "asked" : "Asked"} about my own coin` : "", sc ? `${pos || tr ? "showed" : "Showed"} Jev ${sc} coin${sc > 1 ? "s" : ""}` : ""].filter(Boolean).join(", ")}.</p><div class="rows">${group.map(rowHtml).join("")}</div>`, { t, wide: true }));
+    for (const g of group) if (g.executed) out.push(tradeCard(g)); group = []; };
+  for (const r of asc) {
+    const day = new Date(r.t * 1000).toLocaleDateString([], { month: "long", day: "numeric" });
+    if (r.scan !== lastScan) { flush(); if (day !== lastDay) { out.push(sys(day)); lastDay = day; } out.push(sys(`scan #${r.scan} · ${hm(r.t)}`)); lastScan = r.scan; }
+    group.push(r);
+  }
+  flush();
+  if (D.lastNote) out.push(sys(esc(D.lastNote.msg)));
+  out.push(extra.join(""));
+  out.push(`<div id="tail"></div>`);
+  return out.join("");
+}
+
+function posCard(p) {
+  return botCard(`<div class="bub card pos"><div class="hd">${cimg(p.mint)}<div style="min-width:0"><b>$${esc(p.symbol)}</b><small>${esc(p.name || "")}</small></div><span class="big ${cls(p.pnlPct)}">${pct(p.pnlPct)}</span></div>
+    <div class="bd"><div class="nums"><div><b>${num(p.costSol)}</b><small>SOL in</small></div><div><b>${num(p.valueSol)}</b><small>SOL now</small></div><div><b>${ago(p.openedAt)}</b><small>held</small></div></div><div class="kv"><span>entry <b>${usd(p.entryMcapUsd)}</b></span><span>stop <b>${D.rules.stopLossPct}%</b></span>${p.paper ? "<span>paper</span>" : ""}</div></div>
+    <div class="acts"><a href="https://pump.fun/coin/${esc(p.mint)}" target="_blank" rel="noopener">pump.fun ↗</a>${p.buyTx ? `<a href="${D.tx}${esc(p.buyTx)}" target="_blank" rel="noopener">buy receipt ↗</a>` : '<span class="off">paper fill</span>'}</div></div>`, true);
+}
+function positionsHtml() {
+  const d = D, n = d.positions.length, out = [];
+  out.push(bot(`<p>I hold <b>${n} of ${d.rules.maxPositions}</b> slots. ${n ? "Every scan each one goes back to Jev: <b>hold</b> or <b>sell</b>?" : d.jev.online ? "I'm waiting for a buy Jev is sure about." : "Jev is offline, so nothing opens."}</p><p style="color:var(--muted);font-size:13.5px">Marked every ${d.rules.watchSec}s from the newest trade. Stop-loss ${d.rules.stopLossPct}%, hard stop ${d.rules.hardStopPct}%, trailing stop and max hold ${Math.round(d.rules.maxHoldMin / 60)}h sell without asking.</p>`));
+  d.positions.forEach((p) => out.push(posCard(p)));
+  out.push(bot(`<p><b>My books, in SOL</b></p><div class="nums" style="margin-top:6px"><div><b>${num(d.equity.sol)}</b><small>equity</small></div><div><b>${num(d.bank.free)}</b><small>free bank</small></div><div><b>${num(d.equity.heldSol)}</b><small>in positions</small></div></div><div class="kv"><span>funded with <b>${sol(d.equity.fundedSol, 2)}</b> ${d.paper ? "pretend" : "claimed fees"}</span>${d.coin ? `<span>fees waiting <b>${num(d.bank.unclaimedSol, 4)}</b></span>` : ""}</div>`, { cont: true, wide: true }));
+  out.push(bot(`<p><b>Equity curve</b> — one point per scan. Dashed = what I was funded with.</p><canvas class="eq" id="cv"></canvas>${EQ.length < 2 ? '<p style="color:var(--muted);font-size:13.5px;margin-top:6px">The curve starts with the first scans.</p>' : ""}`, { cont: true, wide: true }));
+  return out.join("");
+}
+
+function recordHtml() {
+  const s = D.stats, out = [];
+  out.push(bot(`<p><b>The record.</b> Nothing is deleted, nothing is back-filled.</p><div class="nums" style="margin-top:6px"><div><b class="${cls(D.equity.pnlSol)}">${sgn(D.equity.pnlSol)}</b><small>SOL desk P&amp;L</small></div><div><b>${s.winRatePct === null ? "—" : Math.round(s.winRatePct) + "%"}</b><small>${s.wins}/${s.closed} wins</small></div><div><b class="${cls(s.avgPnlPct)}">${pct(s.avgPnlPct)}</b><small>avg trade</small></div></div><div class="kv"><span>best <b>${pct(s.bestPct)}</b></span><span>worst <b>${pct(s.worstPct)}</b></span><span>asked <b>${s.questions.toLocaleString()}</b> questions about <b>${s.coinsSeen.toLocaleString()}</b> coins</span><span>buy ${s.byAction.buy} · watch ${s.byAction.watch} · pass ${s.byAction.pass}</span></div>`, { wide: true }));
+  const bb = D.buybacks || { count: 0 };
+  out.push(bot(`<p><b>🔥 Buybacks.</b> ${bb.count ? `${bb.count} so far: <b>${num(bb.sol, 4)} SOL</b> spent, <b>${Math.round(bb.burned).toLocaleString()}</b> ${esc(SYM())} burned forever (${((bb.burned / 1e9) * 100).toFixed(3)}% of supply).` : "None yet. Every few scans Jev is asked whether I buy my own coin back and burn it."}</p>`, { cont: true, wide: true }));
+  BB.slice(0, 20).forEach((b) => out.push(bot(`<p>🔥 <b>${num(b.sol, 4)} SOL</b> → bought ${Math.round(b.tokens).toLocaleString()}, burned ${Math.round(b.burned).toLocaleString()}${b.paper ? " (paper)" : ""}</p><p style="font-size:13.5px">${b.buyTx ? `<a href="${D.tx}${esc(b.buyTx)}" target="_blank" rel="noopener">buy ↗</a> ` : ""}${b.burnTx ? `· <a href="${D.tx}${esc(b.burnTx)}" target="_blank" rel="noopener">burn ↗</a>` : ""}</p>`, { cont: true, t: b.t })));
+  if (!CLOSED.length) out.push(bot(`<p>No closed trades yet. The first one lands here with its receipts.</p>`, { cont: true }));
+  [...CLOSED].reverse().forEach((p) => out.push(botCard(`<div class="bub card ${p.exitBy === "guardrail" ? "guard" : p.pnlSol > 0 ? "win" : "sell"}"><div class="hd">${cimg(p.mint)}<div style="min-width:0"><b>$${esc(p.symbol)}</b><small>closed by ${esc(p.exitBy || "—")} · held ${dur(p.closedAt - p.openedAt)}</small></div><span class="big">${pct(p.pnlPct)}</span></div>
+    <div class="bd"><div class="nums"><div><b>${num(p.costSol)}</b><small>SOL in</small></div><div><b>${num(p.proceedsSol)}</b><small>SOL out</small></div><div><b class="${cls(p.pnlSol)}">${sgn(p.pnlSol, 4)}</b><small>SOL P&amp;L</small></div></div><p style="margin:8px 0 0;color:var(--muted);font-size:13.5px">${esc(p.exitNote || "")}</p><time>${new Date(p.closedAt * 1000).toLocaleString([], { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" })}</time></div>
+    <div class="acts"><a href="https://pump.fun/coin/${esc(p.mint)}" target="_blank" rel="noopener">coin ↗</a>${p.buyTx ? `<a href="${D.tx}${esc(p.buyTx)}" target="_blank" rel="noopener">buy ↗</a>` : ""}${p.sellTx ? `<a href="${D.tx}${esc(p.sellTx)}" target="_blank" rel="noopener">sell ↗</a>` : ""}${p.paper ? '<span class="off">paper fills</span>' : ""}</div></div>`, true)));
+  return out.join("");
+}
+
+function protocolHtml() {
+  if (!PROTO) return bot("<p>loading…</p>");
+  const g = PROTO.guardrails, out = [];
+  out.push(me("What exactly do you ask Jev?"));
+  out.push(bot(`<p>Jev is TypeSafe AI's <b>System One</b> model. It doesn't write text: I send a situation plus typed questions, it sends back a decision with probabilities in 70–500 ms.</p><p>These are the real questions. They never change between scans.</p>`));
+  out.push(bot(`<p><b>When I scout a coin</b> · <span class="mono" style="font-size:12px">POST ${esc(PROTO.endpoint.replace(/^https?:\/\//, ""))}</span></p><pre>${hl({ model: PROTO.model, state: "{ coin, tape_5m, desk, desk_results }", questions: PROTO.scout })}</pre>`, { cont: true, wide: true }));
+  out.push(bot(`<p><b>When I review a position</b></p><pre>${hl({ model: PROTO.model, state: "{ position, coin, tape_5m, desk_results }", questions: PROTO.position })}</pre>`, { cont: true, wide: true }));
+  if (PROTO.treasury) out.push(bot(`<p><b>When I look at my own coin</b> (every ${g.buybackEveryScans} scans)</p><pre>${hl({ model: PROTO.model, state: "{ own_coin, tape_5m, desk, buybacks_so_far, desk_results }", questions: PROTO.treasury })}</pre>`, { cont: true, wide: true }));
+  out.push(me("And what stops you from blowing up?"));
+  out.push(bot(`<p><b>Guardrails.</b> They sit outside the model — code, not opinions. When one fires the feed says <span class="vd guard">guardrail</span>, never Jev.</p><ul><li><b>${g.maxPositions}</b> positions at once, at most</li><li><b>${g.maxTradeSol} SOL</b> hard cap per buy</li><li>sizes Jev can pick: <b>${g.sizesPct.join(" / ")}%</b> of the free bank</li><li>I buy when Jev's <b>P(buy) ≥ ${Math.round(g.minBuyProb * 100)}%</b> (it doesn't have to be its top answer), <b>momentum ≥ ${Math.round(g.minMomentum * 100)}%</b> and <b>rug risk ≤ ${Math.round(g.maxRugRisk * 100)}%</b></li><li>I sell when <b>P(sell) ≥ ${Math.round(g.minSellProb * 100)}%</b>; a fresh position is not re-asked for <b>${g.minHoldMin} min</b> (no churn)</li><li><b>The screen</b> — a coin is never shown to Jev unless it clears all of this (every rule comes from a trade I lost money on): at least <b>${g.minAgeMin} min old</b>; a live 5-min tape (<b>≥ ${g.minTapeTrades} trades, ≥ ${usd(g.minTapeUsd)}</b>) from <b>≥ ${g.minWallets} wallets</b> with real-sized trades (avg <b>≥ $${g.minAvgTradeUsd}</b>, no wash farms); 5-min volume <b>≥ ${g.minTurnoverPct}%</b> of its market cap (no fake pools); buyers ahead of sellers; not a vertical candle (<b>≤ +${g.maxPump5mPct}%</b> in 5 min); <b>≥ ${g.minHolders} holders</b>, top-10 wallets <b>≤ ${g.maxTop10Pct}%</b>, dev <b>≤ ${g.maxDevPct}%</b>, bundlers <b>≤ ${g.maxBundlerPct}%</b>, snipers <b>≤ ${g.maxSniperPct}%</b></li><li>right before buying I quote the buy <b>and the sell back</b>: if that round trip loses more than <b>${g.maxRoundTripLossPct}%</b>, no trade (thin or taxed liquidity)</li><li>at most <b>${g.maxNewPerScan}</b> new position per scan</li><li>buybacks: <b>${g.buybackSizesPct.join(" / ")}%</b> of the free bank, never more than <b>${g.maxBuybackSol} SOL</b>, only if <b>P(buyback) ≥ ${Math.round(g.minBuybackProb * 100)}%</b>; only what that buy brought in is burned</li><li>positions are re-marked every <b>${g.watchSec}s</b> from the newest trade: stop-loss <b>${g.stopLossPct}%</b> (${g.stopLossStrikes} checks in a row), hard stop <b>${g.hardStopPct}%</b> (one check), trailing stop (once <b>+${g.trailArmPct}%</b> up, sold <b>${g.trailGivebackPct}%</b> off the peak), max hold <b>${Math.round(g.maxHoldMin / 60)} h</b> — all sold without asking</li><li>only SOL-paired coins between <b>${usd(g.minMcapUsd)}</b> and <b>${usd(g.maxMcapUsd)}</b> that traded in the last ${Math.round(g.maxIdleSec / 60)} min</li></ul><p style="color:var(--muted);font-size:13.5px">Raw: <a href="/api/protocol" target="_blank">/api/protocol</a></p>`));
+  return out.join("");
+}
+
+const FAQ = [
+  ["How do you work?", `<p>One process, one wallet, one clock:</p><ul><li><b>1. The coin funds me.</b> Every trade of ${"{SYM}"} on pump.fun pays a creator fee in SOL. Each scan I claim those fees into my <b>bank</b>. That's the only money I ever get.</li><li><b>2. Scout.</b> I read pump.fun's own feeds — top runners, live streams, latest trades.</li><li><b>3. Ask Jev.</b> One call per coin: buy, watch or pass, how big, rug risk, momentum, originality. It sees the coin, five minutes of tape and my own record.</li><li><b>4. Act on the probabilities.</b> Jev's P(buy) over my public line = one swap, receipt in the feed. Under it, nothing.</li><li><b>5. Review.</b> Every scan every position goes back to Jev: hold or sell? A sell is the whole position, back to SOL, back into the bank.</li></ul>`],
+  ["Where do the coins in the feed come from?", `<p>From pump.fun itself: its <b>top runners</b>, its <b>live streams</b> and its <b>latest trades</b>. Then comes <b>the screen</b>: coin age, real wallets and trade sizes, volume against market cap, holder concentration, dev / bundler / sniper bags. Most coins die there and Jev never sees them. The few that clear it are shown to Jev. A coin it says <b>watch</b> on comes back a few minutes later.</p>`],
+  ["Is Jev really making the calls?", `<p>Yes — and when it isn't, I say so. Every row carries who answered: <b>Jev</b> (with its latency and probabilities, straight from the API) or a <b>guardrail</b>. If the API is down or there's no key, I open nothing. Nothing is ever labelled Jev that Jev didn't answer.</p>`],
+  ["What is the paper desk?", `<p>Before the coin is live (or when no wallet key is loaded) I run on pretend money: real coins, real questions, real answers, but simulated fills — mark price minus a fixed cost per side. Paper results never mix with live results: going live starts a clean record funded only by real claimed fees.</p>`],
+  ["Do you buy back your own coin?", `<p>Yes, when Jev says so. Every few scans I show it my own chart and ask: <b>buyback</b> or <b>keep</b>? On a buyback I market-buy {SYM} with part of my bank and <b>burn</b> exactly what that buy brought in — supply goes down for good, and both receipts land in the feed. It costs trading capital, so Jev weighs it against keeping the SOL for positions.</p>`],
+  ["Do holders get the profits?", `<p>No. Holding ${"{SYM}"} is not a claim on my bank. Profits stay in the bank and compound into bigger trades. Holders benefit through the buybacks & burns Jev decides on, and get the show: a public, verifiable record of a millisecond model trading its own coin's fees.</p>`],
+  ["Can you lose everything?", `<p>Yes. I trade memecoins. The guardrails bound each mistake, but a string of losses drains the bank until new fees come in.</p>`],
+  ["What can you touch in the wallet?", `<p>My wallet is the coin's creator wallet. I keep my own books: I only spend what <b>I</b> claimed or earned, and only sell tokens <b>I</b> bought. I never trade my own coin, and anything else in that wallet is left alone. Every SOL in and out is on Solscan.</p>`],
+  ["Are you the JEVBOT from jevbot.xyz?", `<p>No. An earlier, unrelated coin used the same name. I'm a separate project with my own contract — the only real one is the CA in my profile. If it isn't there yet, I haven't launched.</p>`],
+  ["Glossary?", `<ul><li><b>Scan</b> — one pass of the loop on a fixed clock: claim, review positions, scout coins.</li><li><b>Bank / free bank</b> — SOL I may spend: claimed fees plus sale proceeds, minus what's in positions.</li><li><b>P</b> — Jev's calibrated probability for the answer it picked.</li><li><b>Rug / momentum</b> — two yes/no readings asked with every coin, 0–100%.</li><li><b>Guardrail</b> — a fixed rule outside the model.</li><li><b>Equity</b> — bank plus open positions at pump.fun's current market cap.</li></ul>`],
+];
+function aboutHtml() { const out = [sys("frequently asked")]; for (const [q, a] of FAQ) { out.push(me(q)); out.push(bot(a.replaceAll("{SYM}", esc(SYM())))); } out.push(sys("fine print")); out.push(bot(`<p style="font-size:13.5px;color:var(--muted)">${esc(SYM())} is a memecoin and an experiment, not an investment product. Holding it gives no claim on the desk's bank or its profits. The desk trades highly volatile tokens and can lose all of its funds. Nothing here is financial advice. Independent project — not affiliated with TypeSafe AI, $JEV or the earlier $JEVBOT coin at jevbot.xyz.</p>`)); return out.join(""); }
+
+// ---------------------------------------------------------------- quick replies (scripted, from live data)
+const QUICK = {
+  live: [["What do you hold?", () => D.positions.length ? `<p>${D.positions.map((p) => `<b>$${esc(p.symbol)}</b> ${pct(p.pnlPct)}`).join(" · ")}</p><p style="color:var(--muted);font-size:13.5px">${D.positions.length}/${D.rules.maxPositions} slots · ${num(D.equity.heldSol)} SOL in positions.</p>` : `<p>Nothing right now. ${D.jev.online ? "I'm waiting for a buy Jev is sure about." : "Jev is offline, so I open nothing."}</p>`],
+    ["How are you doing?", () => `<p>Desk P&amp;L <b class="${cls(D.equity.pnlSol)}">${sgn(D.equity.pnlSol)} SOL</b> on ${sol(D.equity.fundedSol, 2)} ${D.paper ? "pretend" : "claimed"}. ${D.stats.closed ? `${D.stats.wins}/${D.stats.closed} closed trades won, average ${pct(D.stats.avgPnlPct)}.` : "No closed trades yet."}</p><p style="color:var(--muted);font-size:13.5px">${D.stats.questions.toLocaleString()} questions asked${D.stats.avgLatencyMs ? ` · Jev answers in ${D.stats.avgLatencyMs} ms on average` : ""}.</p>`],
+    ["Buybacks?", () => (D.buybacks && D.buybacks.count ? `<p>🔥 ${D.buybacks.count} buybacks: <b>${num(D.buybacks.sol, 4)} SOL</b> spent, <b>${Math.round(D.buybacks.burned).toLocaleString()}</b> ${esc(SYM())} burned forever.</p>` : `<p>None yet. Every ${D.rules.buybackEveryScans} scans I ask Jev whether I buy my own coin back and burn it. When it says yes, the receipts land here.</p>`)], ["Where do coins come from?", () => FAQ[1][1]], ["Is this real money?", () => D.paper ? FAQ[3][1] : `<p>Yes. Live desk: every fill has a receipt on Solscan, and my wallet is public in my profile.</p>`],
+    ["CA?", () => D.coin ? `<p class="mono" style="font-size:13px">${esc(D.coin.mint)}</p><p><a href="${D.coin.links.pump}" target="_blank" rel="noopener">Buy on pump.fun ↗</a></p>` : `<p>Not launched yet. When it is, the contract shows up in my profile — don't trust any other.</p>`]],
+};
+function renderQuick() {
+  const list = chan === "live" ? QUICK.live.map(([q], i) => `<button data-q="${i}">${esc(q)}</button>`) : [];
+  const nav = [["live", "💬 live feed"], ["positions", "📌 positions"], ["record", "🧾 record"], ["protocol", "🧠 protocol"], ["about", "❓ how it works"]].filter(([c]) => c !== chan).map(([c, l]) => `<button data-go="${c}">${l}</button>`);
+  $("quick").innerHTML = [...list, ...nav].join("");
+}
+$("quick").addEventListener("click", (e) => { const b = e.target.closest("button"); if (!b || !D) return; if (b.dataset.go) return go(b.dataset.go);
+  const [q, fn] = QUICK.live[Number(b.dataset.q)]; extra.push(me(q)); render(true, true);
+  setTimeout(() => { extra.push(bot(fn(), { t: Math.floor(Date.now() / 1000) })); if (extra.length > 12) extra = extra.slice(-12); render(true, true); }, 450); });
+
+// ---------------------------------------------------------------- shell
+const CH = { live: ["💬", "Live feed"], positions: ["📌", "Positions"], record: ["🧾", "Record"], protocol: ["🧠", "Protocol"], about: ["❓", "How it works"] };
+function renderChats() {
+  if (!D) return; const L = TAPE[0], s = D.stats;
+  const prev = {
+    live: L ? `${L.brain === "guardrail" ? "guardrail" : "Jev"}: ${L.action} $${L.symbol}${L.probs ? " · " + p100(L.probs[L.action]) : ""}` : D.jev.online ? "waiting for the first scan" : "Jev is offline — nothing opens",
+    positions: D.positions.length ? D.positions.map((p) => `$${p.symbol} ${pct(p.pnlPct)}`).join(" · ") : "no open positions", record: s.closed ? `${s.closed} closed · ${Math.round(s.winRatePct)}% wins · ${sgn(s.pnlSol)} SOL` : "no closed trades yet",
+    protocol: "the exact words Jev is asked", about: "FAQ, glossary, fine print",
+  };
+  $("chats").innerHTML = Object.entries(CH).map(([c, [e, n]]) => `<button class="chat ${c === chan ? "on" : ""}" data-go="${c}"><span class="av">${c === "live" ? '<img src="/icon.png" alt="">' : e}</span><span style="min-width:0"><b>${c === "live" ? "JEVBOT · live feed" : n}</b><small>${esc(prev[c])}</small></span><span class="meta"><time>${c === "live" && L ? hm(L.t) : ""}</time>${c === "positions" && D.positions.length ? `<i>${D.positions.length}</i>` : ""}</span></button>`).join("");
+}
+$("chats").addEventListener("click", (e) => { const b = e.target.closest("[data-go]"); if (b) go(b.dataset.go); });
+function go(c) { chan = c; sig = ""; $("app").classList.remove("list"); render(true, true); renderChats(); renderQuick(); history.replaceState(null, "", c === "live" ? location.pathname : "#" + c); }
+$("back").addEventListener("click", () => $("app").classList.add("list"));
+const prof = (open) => $("prof").classList.toggle("open", open);
+$("openProf").addEventListener("click", () => prof(true)); $("openProf2").addEventListener("click", () => prof(true)); $("closeProf").addEventListener("click", () => prof(false));
+
+function render(force, toBottom) {
+  if (!D) return;
+  const s = JSON.stringify([chan, TAPE[0] && [TAPE[0].id, TAPE[0].executed, TAPE[0].note], CLOSED.length, BB.length, D.positions.map((p) => [p.id, Math.round((p.pnlPct || 0) * 10)]), D.jev.online, D.jev.reachable, D.paper, D.lastNote, extra.length, EQ.length, !!PROTO, Math.round(D.equity.sol * 1000)]);
+  if (!force && s === sig) return; sig = s;
+  const feed = $("feed"), atBottom = feed.scrollHeight - feed.scrollTop - feed.clientHeight < 140, top = feed.scrollTop;
+  $("col").innerHTML = chan === "live" ? liveHtml() : chan === "positions" ? positionsHtml() : chan === "record" ? recordHtml() : chan === "protocol" ? protocolHtml() : aboutHtml();
+  if (chan === "positions") drawEquity();
+  feed.style.scrollBehavior = "auto";
+  if (chan === "live" ? (toBottom || atBottom) : false) feed.scrollTop = feed.scrollHeight; else feed.scrollTop = toBottom ? 0 : top;
+  feed.style.scrollBehavior = "";
+  tick();
+}
+function tick() {
+  if (!D) return;
+  const left = Math.max(0, D.nextScanAt - Math.floor(Date.now() / 1000 + (D._skew || 0))), busy = D.phase && D.phase !== "idle";
+  const PH = { claiming: "claiming fees…", positions: "reviewing positions…", scouting: "asking Jev…", treasury: "looking at my own chart…", buyback: "buying back & burning…", buying: "buying…", selling: "selling…" };
+  const sub = $("barSub");
+  if (!D.schedulerEnabled) { sub.textContent = "paused"; sub.className = ""; }
+  else if (!D.jev.online) { sub.textContent = "Jev offline · desk opens nothing"; sub.className = ""; }
+  else if (busy) { sub.textContent = PH[D.phase] || "working…"; sub.className = "on"; }
+  else { sub.textContent = `online · next scan in ${Math.floor(left / 60)}:${String(left % 60).padStart(2, "0")}`; sub.className = "on"; }
+  const tail = $("tail"); if (tail) tail.innerHTML = busy && D.jev.online ? bot('<span class="typing"><i></i><i></i><i></i></span>', { name: false }) : "";
+}
+
+function renderDesk(d) {
+  D = d;
+  document.querySelectorAll(".sym").forEach((e) => (e.textContent = SYM()));
+  $("modeBadge").textContent = d.paper ? "paper desk" : "live desk"; $("modeBadge").classList.toggle("live", !d.paper);
+  $("barPnl").innerHTML = `<span class="${cls(d.equity.pnlSol)}">${sgn(d.equity.pnlSol)} SOL</span>`; $("barPnlL").textContent = `${d.paper ? "paper " : ""}P&L · equity ${num(d.equity.sol, 2)}`;
+  if (d.coin) { $("ca").textContent = d.coin.mint; $("copy").classList.remove("hide"); $("buyBtn").href = $("buyBtn2").href = d.coin.links.pump; }
+  if (d.screen) { const sk = Object.entries(d.screen.skipped || {}).sort((a, b) => b[1] - a[1]).slice(0, 3).map(([k, v]) => `${v} ${k}`).join(", "); $("pinText").textContent = `Last scan: screened ${d.screen.looked} coins → ${d.screen.asked} shown to Jev${sk ? ` (cut: ${sk})` : ""}. I never open a trade Jev didn't answer.`; }
+  $("profSub").textContent = `${d.paper ? "paper desk" : "live desk"} · ${d.jev.online ? d.jev.model : "Jev offline"} · scan #${d.scan}`;
+  const s = d.stats;
+  $("stats").innerHTML = [[`${num(d.equity.sol)} SOL`, `equity · ${usd(d.equity.sol * (d.solUsd || 0))}`], [`<span class="${cls(d.equity.pnlSol)}">${sgn(d.equity.pnlSol)}</span>`, "SOL desk P&L"], [s.winRatePct === null ? "—" : Math.round(s.winRatePct) + "%", `win rate · ${s.wins}/${s.closed}`], [`${d.positions.length}/${d.rules.maxPositions}`, "positions open"], [(d.buybacks && d.buybacks.burned ? Math.round(d.buybacks.burned).toLocaleString() : "0"), `${SYM()} burned · ${d.buybacks ? d.buybacks.count : 0} buybacks`], [s.questions.toLocaleString(), "questions asked"], [s.avgLatencyMs === null ? "—" : s.avgLatencyMs + " ms", "avg answer time"]].map(([v, l]) => `<div><b>${v}</b><small>${l}</small></div>`).join("");
+  $("links").innerHTML = [d.brand.twitter ? `<a href="${esc(d.brand.twitter)}" target="_blank" rel="noopener">X / Twitter</a>` : "", d.brand.telegram ? `<a href="${esc(d.brand.telegram)}" target="_blank" rel="noopener">Telegram</a>` : "", d.coin ? `<a href="${d.coin.links.pump}" target="_blank" rel="noopener">pump.fun</a>` : "", d.coin ? `<a href="${d.coin.links.explorer}" target="_blank" rel="noopener">Token on Solscan</a>` : "", d.walletLink ? `<a href="${d.walletLink}" target="_blank" rel="noopener">Desk wallet on Solscan</a>` : "", `<a href="/api/desk" target="_blank">Raw desk state (JSON)</a>`].join("");
+  render(); renderChats();
+}
+
+// "what Jev saw" sheet
+$("col").addEventListener("click", (e) => { const b = e.target.closest("[data-dec]"); if (!b) return; const r = TAPE.find((x) => x.id === Number(b.dataset.dec)); if (!r) return;
+  $("sheetT").textContent = `$${r.symbol} · ${r.brain === "guardrail" ? "guardrail" : "Jev said " + r.action}`; $("sheetS").textContent = `${new Date(r.t * 1000).toLocaleString()} · scan #${r.scan}${r.latencyMs ? ` · answered in ${r.latencyMs} ms` : ""}${r.paper ? " · paper" : ""}`;
+  $("sheetB").innerHTML = `${bars(r)}${reads(r)}${r.note ? `<p style="color:var(--muted);font-size:14px">${esc(r.note)}</p>` : ""}<pre>${hl({ asked_by: r.brain, model: r.model, answer: { action: r.action, probabilities: r.probs, confidence: r.confidence, size_pct: r.sizePct, readings: r.readings }, what_jev_saw: r.state })}</pre><p style="font-size:13.5px"><a href="https://pump.fun/coin/${esc(r.mint)}" target="_blank" rel="noopener">open $${esc(r.symbol)} on pump.fun ↗</a></p>`;
+  $("sheet").classList.remove("hide"); });
+$("sheet").addEventListener("click", (e) => { if (e.target === $("sheet") || e.target === $("sheetClose")) $("sheet").classList.add("hide"); });
+$("copy").addEventListener("click", () => { navigator.clipboard.writeText($("ca").textContent); $("copy").textContent = "copied"; setTimeout(() => ($("copy").textContent = "copy"), 1200); });
+
+function drawEquity() {
+  const cv = $("cv"); if (!cv || EQ.length < 2) return; const pts = EQ, dpr = window.devicePixelRatio || 1, W = cv.clientWidth, H = cv.clientHeight; cv.width = W * dpr; cv.height = H * dpr;
+  const c = cv.getContext("2d"); c.scale(dpr, dpr); const funded = D.equity.fundedSol, eq = pts.map((p) => p.bank + p.held);
+  let lo = Math.min(...eq, funded), hi = Math.max(...eq, funded); const pad = (hi - lo || hi * 0.02 || 0.01) * 0.2; lo -= pad; hi += pad;
+  const L = 50, R = 10, T = 10, B = 22, t0 = pts[0].t, t1 = pts[pts.length - 1].t, x = (t) => L + ((t - t0) / (t1 - t0 || 1)) * (W - L - R), y = (v) => T + (1 - (v - lo) / (hi - lo)) * (H - T - B);
+  c.font = "10.5px JetBrains Mono, monospace"; c.fillStyle = "#6b7a70"; c.strokeStyle = "rgba(11,26,16,0.07)";
+  for (let i = 0; i <= 3; i++) { const v = lo + ((hi - lo) * i) / 3; c.beginPath(); c.moveTo(L, y(v)); c.lineTo(W - R, y(v)); c.stroke(); c.fillText(v.toFixed(3), 4, y(v) + 3); }
+  c.fillText(hm(t0), L, H - 6); const e = hm(t1); c.fillText(e, W - R - c.measureText(e).width, H - 6);
+  c.setLineDash([5, 4]); c.strokeStyle = "#9aa79e"; c.beginPath(); c.moveTo(L, y(funded)); c.lineTo(W - R, y(funded)); c.stroke(); c.setLineDash([]);
+  const g = c.createLinearGradient(0, T, 0, H - B); g.addColorStop(0, "rgba(57,255,106,0.4)"); g.addColorStop(1, "rgba(57,255,106,0)");
+  c.fillStyle = g; c.beginPath(); pts.forEach((p, i) => (i ? c.lineTo(x(p.t), y(eq[i])) : c.moveTo(x(p.t), y(eq[i])))); c.lineTo(x(t1), H - B); c.lineTo(x(t0), H - B); c.fill();
+  c.strokeStyle = "#0f9d3a"; c.lineWidth = 2.5; c.lineJoin = "round"; c.beginPath(); pts.forEach((p, i) => (i ? c.lineTo(x(p.t), y(eq[i])) : c.moveTo(x(p.t), y(eq[i])))); c.stroke();
+}
+
+const loadDesk = () => get("/api/desk").then((d) => { d._skew = d.now - Date.now() / 1000; renderDesk(d); }).catch(() => { $("barSub").textContent = "desk unreachable — retrying"; $("barSub").className = ""; });
+const loadTape = () => get("/api/decisions?limit=120").then((r) => { TAPE = r; render(); renderChats(); }).catch(() => {});
+const loadSlow = () => { get("/api/closed").then((r) => { CLOSED = r; render(); }).catch(() => {}); get("/api/buybacks").then((b) => { BB = b; render(); }).catch(() => {}); get("/api/equity").then((p) => { EQ = p; if (chan === "positions") render(); }).catch(() => {}); };
+if (CH[location.hash.slice(1)]) chan = location.hash.slice(1);
+get("/api/protocol").then((p) => { PROTO = p; render(); }).catch(() => {});
+Promise.all([loadDesk(), loadTape()]).then(() => { loadSlow(); renderQuick(); render(true, true); });
+setInterval(loadDesk, 3000); setInterval(loadTape, 6000); setInterval(loadSlow, 20000); setInterval(tick, 500);
+addEventListener("resize", () => chan === "positions" && drawEquity());
+</script>
+</body>
+</html>

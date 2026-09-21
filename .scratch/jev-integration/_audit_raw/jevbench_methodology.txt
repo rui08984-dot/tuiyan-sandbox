@@ -1,0 +1,284 @@
+TITLE: Methodology — JevBench
+
+JevBenchIndependent
+01 Records02 Evidence03 Compare04 Cost05 MethodologyRECORDS / 002
+
+JEVBENCH TECHNICAL NOTE 001
+
+How evidence is handled.
+
+The document our credibility rests on: sourcing, execution, scoring, latency, cost, failure handling, reproducibility and limitations.
+
+DOCUMENT
+
+JB-TN-001
+
+REVISION
+
+A
+
+STATUS
+
+[ CURRENT ]
+
+01
+
+Every number needs a source.
+
+A figure without a source URL and a verification date does not go on the site. The build fails on one — this is a test, not an intention.
+
+02
+
+Benchmarks stay attached to their task.
+
+A metric only exists inside a run, and a run always carries its dataset, protocol and date. There is nowhere in the schema to store a model-level score, so a context-free accuracy claim is not something this site can express.
+
+03
+
+Whoever ran it stays labeled — including us.
+
+Vendor-published results are recorded as tier C and displayed as Vendor-reported. Runs JevBench executed itself carry no evidence tier at all, because the A-D scale grades independence from the party with an interest in the result and on our own runs that party is us. Neither is ever silently mixed into a table beside independent results.
+
+04
+
+Missing data remains missing.
+
+No estimates, no house defaults, no plausible-looking fills. Ask the cost model for a cached-input discount on a model with no published cache rate and it returns an error rather than a number.
+
+05
+
+Losses are evidence too.
+
+We evaluate one vendor's model, which is a structural conflict of interest. The only honest answer is to publish where Jev loses as prominently as where it wins, and to make every figure checkable against its original.
+
+Independence disclosure
+
+JevBench is not affiliated with TypeSafe. No sponsorship, no free API credits, no pre-publication review, no vendor logos or branding. If that ever changes it will be disclosed at the top of every affected page, before anything else.
+
+There is no universal Jev accuracy
+
+A benchmark run is one dataset, one protocol, one date. Every number lives inside a run and travels with it. Across the evidence collected so far, Jev’s recorded accuracy spans 62.6% to 95.4%. A single headline figure would be wrong for every task it was quoted about.
+
+62.6%Label an email as phishing or legitimate.PhishNChips v5.2 · n = 2,00080.3%Assign one of 77 banking intents to a customer utterance, zero-shot, as a typed Choice.BANKING77 (complete official test split) · n = 3,08083.2%Assign a customer banking utterance to one of 77 intent labels, zero-shot.Banking77 (test split) · n = 20887.0%Assign an utterance to one of 150 intents or to an out-of-scope bucket, zero-shot.CLINC150 (test + OOS test splits) · n = 20091.7%Classify an agent tool call as readonly, destructive, privileged or exfiltration.Hand-labelled tool-call set (author's own) · n = 6093.6%Label an email as legitimate, spam or phishing.Main paired set (author's own assembly) · n = 5,73395.4%Label an email as legitimate, spam or phishing, on a set held out from the main run.Fresh set (author's own assembly) · n = 3,300
+
+Where a study covered two datasets we split it into two runs. Averaging across datasets destroys the only context that makes the numbers mean anything.
+
+Two provenance classes, never pooled
+
+Most of what is here we did not produce: we collect runs other people published and normalize them. Since 2026-09-20 we also run a small number of benchmarks ourselves, starting with RUN 001 — the complete 3,080-row BANKING77 test split against Jev 1.13.0, published with its pinned dataset commit, its protocol, the runner that produced it and the full per-row result log.
+
+A run we executed is not independent evidence
+
+We chose the dataset, we wrote the prompt, and we publish the write-up the number lands in. There is no tier we could honestly award ourselves, so our own runs carry none — and that is enforced by the type system rather than by good intentions: RunProvenance is a discriminated union in which a run marked conductedBy: "jevbench" cannot be given an evidence tier and cannot be marked independent. Attempting either fails the build. A first-party run is not weaker evidence than a tier A run and not stronger; it is differently conflicted, and it is labelled so you can discount it accordingly.
+
+RUN 001 was executed against TypeSafe’s public API on a self-funded key. It cost $0.22 and involved no contact with the vendor: no credits, no review, no advance notice.
+
+Evidence tiers
+
+Each collected run is graded on how we know it, not on how strong the result is. A small study can be tier A; its size is recorded in the run’s sample count and limitations, not in its tier. The scale applies to evidence we collected — runs we executed ourselves sit outside it entirely, for the reason above.
+
+A
+
+Independent · Reproduction artifacts available
+
+Run by a third party with no vendor involvement. Code and dataset or protocol are public, so the result could be re-run. This does not mean anyone has re-run it — see `independentlyReproduced`, which nothing in the dataset sets yet.
+
+B
+
+Independent · Published
+
+Run by a third-party researcher or outlet, but reproduction material is partial or absent.
+
+C
+
+Vendor-reported
+
+Published by the vendor of the model being measured. Recorded for completeness, never treated as independent evidence.
+
+D
+
+Anecdotal
+
+A single hands-on session, blog post or social media report. Directional only.
+
+Reproducible is not reproduced
+
+Tier A means the artifacts to re-run a benchmark are public. It does not mean anyone has re-run it. We never label a run “Reproduced” on the strength of a GitHub repository; that claim needs a second party to re-run it and report matching numbers, and nothing in our dataset qualifies yet.
+
+Limitations are mandatory
+
+Every run carries a non-empty limitations list and a statement of what it does not prove. A run with neither has not been read carefully enough to publish. Two examples of why this matters:
+
+Latency is partly geography
+
+In the phishing benchmark, measured from France, Jev’s p50 was 239 ms against Claude Haiku 4.5’s 687 ms — a 2.9x ratio. The author also recorded the network floor inside each figure: 163 ms and 18 ms. We report the measured figures and the floors, and label anything we subtract as derived. The network-floor-adjusted residual, roughly 76 ms and 669 ms, is not model compute time and we never call it that: it still contains queueing, gateway hops, TLS negotiation, serialisation and provider-side overhead. What it does show is that the ranking is not an artifact of where the client sat, while the 2.9x ratio transfers nowhere.
+
+A pre-registered result that came back ambiguous is a result
+
+The Banking77 and CLINC150 study pre-registered its kill/go criteria and hash-pinned them before running. Its primary outcome, the cascade escalation rate, was +0.265 with a 95% interval of [−0.530, +0.595] — spanning zero. Verdict: AMBIGUOUS. We record that verdict at the top of the run rather than quietly reporting the accuracy ordering underneath as though it were decided.
+
+The cost model
+
+Three scenarios are priced for a workload: B, one baseline call per request; J, one Jev call per request; and H(f), a cascade of one Jev call plus a fallback call on a fraction f of requests. Solving H(f) = B gives the headline:
+
+f* = (B − J) / F
+
+Four decisions change that answer, and each is a place a cost comparison usually goes wrong. Output tokens are priced on both sides — Jev bills output at $0.00/MTok and a generative baseline does not, so counting only input tokens understates the baseline by roughly an order of magnitude on a classification workload. Jev’s input tokens are independent of the baseline’s, because a typed decision request and a generative prompt are not the same length. The fallback call is modelled separately, since an escalation may carry a different prompt or go to a different model; when F does equal B the formula reduces to f* = 1 − J/B, which we let fall out of the arithmetic rather than baking in. And cache and batch rates are provider-specific, never a house default.
+
+One measured anchor, and why it is not a default
+
+On Banking77, reaching a 90.5% accuracy target required escalating 22.0% of requests from Jev to a frontier model, against 48.5% from a nano-class model. That is a measurement from one dataset at one accuracy target, and the difference was not statistically significant. It appears beside the calculator as an observed example; it never pre-fills the input.
+
+Pricing
+
+Prices are recorded per model and per provider, since gateway and first-party pricing differ, each with a source URL, the date a maintainer last confirmed it, an optional validity window and a flag for promotional rates. Prices older than 30 days are flagged stale.
+
+Model
+
+Input
+
+Output
+
+Cache hit
+
+Batch
+
+Verified
+
+Jev
+
+$0.042/MTok
+
+$0.00/MTok
+
+not published
+
+not published
+
+OpenRouter, 2026-09-19
+
+Claude Haiku 4.5
+
+$1.00/MTok
+
+$5.00/MTok
+
+$0.1/MTok
+
+50%
+
+Anthropic (first-party API), 2026-09-19
+
+GPT-5.4 nano
+
+No verified pricing. No price confirmed against OpenAI's pricing page.
+
+GPT-5.6 Terra
+
+No verified pricing. No price confirmed against OpenAI's pricing page.
+
+DeepSeek v4 Pro
+
+No verified pricing. No price confirmed against DeepSeek's own pricing page. The routing run recorded its own measured spend, which stays on that run rather than being reused as a rate.
+
+Jev → DeepSeek v4 Pro cascade
+
+No verified pricing. A cascade's cost depends on its escalation rate and on both models' rates, which is what the cost model on this site computes rather than something a provider publishes.
+
+TF-IDF + logistic regression
+
+No verified pricing. Self-hosted classical model: cost is compute and engineering time, not per-token billing. Needs a separate cost model before it can appear in the calculator.
+
+Jev + TF-IDF ensemble
+
+No verified pricing. An ensemble's cost is the sum of its parts plus orchestration, which depends on how it is deployed. Not a single rate that can be verified against a provider page.
+
+Qwen 3.8 27B
+
+No verified pricing. No price confirmed against Cerebras's own pricing page. The workload-suite run recorded its own measured spend, which stays on that run rather than being reused as a rate.
+
+Needle 3
+
+No verified pricing. Run locally rather than billed per token. Its cost is hardware and electricity, which the source explicitly excluded.
+
+BGE-small-en-v1.5 + logistic regression
+
+No verified pricing. Self-hosted: cost is compute and engineering time, not per-token billing. Needs a separate cost model before it can appear in the calculator.
+
+The cost model’s type signature accepts only verified pricing, so an unverified model cannot reach the arithmetic. Batch mode is hidden entirely until both sides of a comparison publish a discount — discounting one side while the other pays list price is worse than not offering the option.
+
+Sources (13)
+
+Jev 1.13 — API Pricing & ProvidersOpenRouter · verified 2026-09-19
+
+Gateway listing, not TypeSafe's own page. Gateway pricing can differ from first-party API pricing; recorded as observed at OpenRouter. Needs re-verification against TypeSafe's own pricing page when one is confirmed.
+
+Pricing — Anthropic model and feature pricingAnthropic · verified 2026-09-19 · vendor-affiliated
+
+First-party pricing page. Vendor-affiliated for Anthropic's own models, which is the normal and correct source for a list price — the vendorAffiliated flag matters for benchmark claims, not for a vendor quoting its own rate card.
+
+Jev: a "System One Model" that only decides/classifies/routes/scoresLatent Space (AINews) · verified 2026-09-19
+
+Launch coverage. Relays TypeSafe's own speed and cost claims; used here only for descriptive facts about what Jev is, not for performance figures.
+
+jev-phishing-bench — Jev vs Claude Haiku 4.5 on 2,000 phishing emailsanisselbd · verified 2026-09-19
+
+Public code and stated methodology. Repository does not state author affiliation or who funded API costs; recorded as unstated rather than assumed independent-funded.
+
+jev-baselines-eval — Pre-registered independent eval of Jev against nano-class, frontier, and supervised-encoder baselinesickma2311 · verified 2026-09-19
+
+Pre-registration is hash-pinned in the repository. Author states no TypeSafe affiliation, no vendor involvement, no free credits, and that API costs (~$1) were paid by the author.
+
+jev-benchmark — Jev on agent tool-call risk classificationthemsquared · verified 2026-09-19
+
+Compares two Jev variants against each other. Contains no non-Jev baseline; author states no provider key was available at run time.
+
+jev-spam-eval — three-way email classification: Jev variants vs TF-IDF logistic regressionbitnovus · verified 2026-09-19
+
+Public code and stated protocol. The repository does not state a run date, the author's affiliation, or who funded API costs; it does report measured spend of about $1.35 for the full paired run.
+
+typesafe-ai-benchmark — Jev vs Qwen 3.8 27B vs Needle 3 across seven synthetic agent workloadsiammrduncan / Hackers in the Loop · verified 2026-09-19
+
+Author states 'This is an independent benchmark, not a TypeSafe implementation or parity claim' and warns the timing figures are 'not a controlled speed ranking'. Affiliation and funding are not disclosed.
+
+awesome-typesafe — community resource list for TypeSafe, System One models and JevAbdelStark · verified 2026-09-19
+
+Not evidence itself. Used as a discovery feed for independent benchmarks; each item it links is verified separately before anything is recorded.
+
+Janus — confidence routing between Jev and a larger fallback modelFirasSX914 · verified 2026-09-19
+
+A routing library rather than a benchmark. Its measured results are the tool's own demo output on two public datasets, so the tool has an interest in routing working — it reported that it does not on one of the two, which cuts against that interest. No run date, calibration metrics or intervals are stated.
+
+jev-orderby-bench — is ORDER BY over a Jev probability defensible?yodablocks · verified 2026-09-19
+
+Six pre-registered gate conditions with stated thresholds, run against an easy corpus and a deliberately hard probe. Author states API costs were paid by the author and used TypeSafe's published $0.042/MTok rate for cost estimates.
+
+OpenJev / SemIf — reproducing Jev's interface pattern with open modelsTheoLeeCJ · verified 2026-09-19
+
+Checked specifically for whether it independently reproduces any run recorded here. It does not. The project states it 'reproduces that interface pattern with open models; it does not reproduce Jev's undisclosed model or training', measures open models (Qwen3-0.6B, MiniCPM5-2B, Qwen3.5-4B) rather than Jev, and re-runs none of our recorded datasets. Its only Jev comparison uses TypeSafe's own published figures on 102 aligned rows, and it notes it could not align the vendor's 711-row aggregate. Recorded as a source so the question 'has anything been reproduced?' has a checkable answer; no run is recorded from it.
+
+JevBench RUN 001 — Banking77 artifacts (protocol, full result log, summary)JevBench · verified 2026-09-20
+
+Self-published. JevBench executed this run against TypeSafe's live API using a self-funded API key: no credits, no review, no vendor contact. The complete 3,080-row result log is published alongside the summary so the accuracy, latency and cost figures can be recomputed from the raw rows.
+
+Corrections
+
+If a figure here is wrong, it is a bug and we want it reported. Every number carries its source so it can be checked against the original. When we correct something we say what changed and when.
+
+JEVBENCH
+
+INDEPENDENT MODEL EVALUATION
+
+ARCHIVE / REV A / 2026
+
+PAGE END
+
+01 Records02 Evidence03 Compare04 Cost05 Methodology
+
+Not affiliated with TypeSafe.
+
+Privacy
+
+No sponsorship, no free credits, no pre-publication review.
+
+Last evidence update · 2026-09-20

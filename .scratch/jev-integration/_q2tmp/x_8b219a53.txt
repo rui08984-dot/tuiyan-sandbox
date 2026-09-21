@@ -1,0 +1,838 @@
+TypeSafe AI's Jev: What "System One Models" Actually Are 
+
+-->
+
+-->
+
+-->
+
+TrueFoundry Named Frost & Sullivan's 2026 Global Transformational Innovation Leader. Read report 
+
+Product
+
+Gateway
+
+AI Gateway
+MCP Gateway
+Agent Gateway
+Prompt Management
+Agent Skills Registry
+AITori
+
+Deployment
+
+AI Deployment Platform
+Training & Fine-Tuning
+
+Agent Harness
+
+TrueForge
+new
+
+Product
+
+Gateway
+
+AI Gateway
+
+MCP Gateway
+
+Agent Gateway
+
+Prompt Management
+Agent Skills Registry
+AI-Tory
+
+Deployment
+
+AI Deployment Platform
+Training & Fine-Tuning
+
+Agent Harness
+
+TrueForge
+new
+
+Solutions
+
+BY INDUSTRY
+
+Banking and Investments
+
+Media and Communication
+
+Education
+
+Healthcare and Life Sciences
+
+Power and Utilities
+
+Insurance
+
+Retail
+
+Government
+
+Technology
+
+Oil and Gas
+
+By Use Case
+
+For DS Leaders
+
+For IT Leaders
+
+Application Suites
+
+Customer Support and CRM
+
+Finance
+
+IT Operations
+
+Marketing
+
+Sales and Lead Management
+
+Security and Compliance
+
+HR and Recruiting
+
+Digital Workplace
+
+AI/ML Leaders
+
+By Role
+
+Principal Architect
+
+VP of Platform
+
+Chief AI Officer
+
+CISO
+
+Developers
+
+OPEN SOURCE
+
+KubeElasti
+
+Github
+
+CruiseKube
+
+EXPLORE
+
+Docs
+
+Change Log
+
+Discord Community
+
+Partners
+
+Partner
+
+Newsletter
+
+AWS
+
+Azure
+
+GCP
+
+Partner Program
+
+Resources
+
+Why TrueFoundry?
+
+Case Studies
+
+Wall of Love
+
+G2 Reviews
+
+G2 Reviews
+
+Analyst Coverage
+
+Resource Center
+
+Newsletter
+
+Blog
+
+E-Book
+
+Events & Conferences
+
+Webinars
+
+Support
+
+Models
+
+Glossary
+
+Compare
+
+TrueFoundry vs Portkey
+
+TrueFoundry vs Kong
+
+TrueFoundry vs LiteLLM
+
+TrueFoundry vs Solo.io
+
+TrueFoundry vs Sagemaker
+
+AI Gateway Comparison Series
+
+Azure Comparison Series
+
+Explore
+
+For DS Leaders
+
+For IT Leaders
+
+Live Demo
+
+Accelerators
+
+Academy
+
+Solutions
+
+BY INDUSTRY
+
+Banking and Investments
+
+Media and Communication
+
+Education
+
+Healthcare and Life Sciences
+
+Power and Utilities
+
+CUSTOMERS
+
+For DS Leaders
+
+For IT Leaders
+
+Insurance
+
+Retail
+
+Government
+
+Technology
+
+Oil and Gas
+
+By Use Case
+
+Newsletter
+
+Application Suites
+
+Customer Support & CRM
+
+Finance
+
+IT Operations
+
+Marketing
+
+Trust Center
+
+Compare 
+
+Newsletter
+
+Sales & Lead Management
+
+Security & Compliance
+
+HR & Recruiting
+
+Digital Workplace
+
+AI/ML Leaders
+
+By Role
+
+Principal Architect
+
+VP of Platform
+
+Chief AI Officer
+
+CISO
+
+Developers
+
+EXPLORE
+
+Docs
+
+Change Log
+
+Discord Community
+
+OPEN SOURCE
+
+KubeElasti
+
+Cognita
+
+CruiseKube
+
+Partners
+
+Partner
+
+AWS
+
+Azure
+
+GCP
+
+Partner Program
+
+Resources
+
+Why TrueFoundry?
+
+Case Studies
+
+Wall of Love
+
+G2 Reviews
+
+Press Room
+
+Analyst Coverage
+
+Resource Center
+
+For DS Leaders
+
+For IT Leaders
+
+Blog
+
+E-Book
+
+Events & Conferences
+
+Webinars
+
+Support
+
+Models
+
+Glossary
+
+Compare 
+
+TrueFoundry vs Portkey
+
+TrueFoundry vs Kong
+
+TrueFoundry vs LiteLLM
+
+TrueFoundry vs Solo.io
+
+TrueFoundry vs Sagemaker
+
+AI Gateway Comparison Series
+
+Azure Comparison Series
+
+Explore
+
+Newsletter
+
+Live Demo
+
+Accelerators
+
+Academy
+
+Pricing Live Demo Login Sign Up
+Book Demo
+
+2k
+
+2k
+
+Book Demo
+
+Sign Up
+Login 
+
+Go back
+
+Try TrueFoundry — Live, Right Now
+Get instant access to a live TrueFoundry environment. Deploy models, route LLM traffic, and explore the full platform — your sandbox is ready in seconds, no credit card required.
+9.9
+
+-->
+
+Loved by Enterprises and Startups
+
+TypeSafe AI's Jev and "System One Models": What Actually Shipped
+By Ashish Dubey Published: September 18, 2026 
+
+Built for Speed: ~10ms Latency, Even Under Load
+Blazingly fast way to build, track and deploy your models!
+Handles 350+ RPS on just 1 vCPU — no tuning needed
+Production-ready with full enterprise support
+Get Started with Truefoundry Now Talk to the Expert 
+
+What TypeSafe AI released 
+TypeSafe AI is an AI lab founded by Diogo Almeida — previously at OpenAI, where he worked on the instruction-following research that became ChatGPT — along with Erik Gafni and Sasha Sheng. After roughly two years in stealth, the company published its launch post on September 15, 2026, alongside a $40M seed round led by DCVC. DataCamp and several trade outlets covered it over the following days.
+The framing in the launch post is a question rather than a benchmark: models have been superhuman at chat for years, so where is all the automation? TypeSafe's answer is that the bottleneck was never raw intelligence — it's that a model which replies in prose is an awkward component to build software on top of. Its company manifesto puts it more bluntly: today's AI was trained on the assumption that a human sits on the other side of it.
+Jev is the first model built on that premise. The name comes from William Stanley Jevons, whose paradox holds that falling cost drives rising consumption; System One is a nod to Daniel Kahneman's fast, intuitive System 1 thinking, as distinct from slow, deliberate System 2 reasoning.
+What a "System One Model" actually is 
+Among the types of AI models you'd reach for in production, this one is defined by what it gives up. A chat model returns a string, and a string can be anything — an answer, a refusal, a paragraph of reasoning, or something malformed that your parser chokes on. Jev doesn't return strings at all.
+Instead, you declare the shape of the answer up front: which fields you want, and which values each field is allowed to take. The model returns those fields filled in, each with a probability attached. TypeSafe describes the result as a frontier-intelligence function call — unstructured state in, typed probabilistic decisions out. In practice it behaves less like a chatbot and more like an ai decision engine you can call from a line of code.
+Three properties follow from that design:
+Parallel sampling. Every field is produced in one pass rather than one token at a time, which is where the speed claim comes from.
+Schema conformance by construction. Because possible outputs are enumerated in advance, a type error isn't unlikely — it's unavailable. TypeSafe notes this would be trivially falsifiable with a single counterexample.
+Calibrated confidence on every answer. Each output carries a probability, and the training objective — which TypeSafe calls Reinforcement Learning for Calibrated Decisions, or RLCD — optimises for those probabilities being honest rather than for human preference (RLHF) or programmatically verifiable rewards (RLVR).
+
+A chat LLM builds its answer token by token; a System One model fills every field of a fixed schema in one pass, each with a confidence score. 
+That third property is the one most likely to be underrated. A model that's right 95% of the time but can't tell you which calls are in the other 5% can't be automated around. One that reports honest uncertainty can be — you branch on the confidence score and route the low-confidence cases to a human or a bigger model.
+How it differs from a chat LLM 
+
+Chat / Reasoning LLM vs Jey Comparison 
+
+Chat / reasoning LLM 
+Jey (System One) 
+
+Returns 
+
+Strings — text to be parsed and validated
+
+Typed values from a pre-declared schema
+
+Sampling 
+
+Sequential, one token at a time
+
+Parallel, all fields in one query
+
+Confidence 
+
+Overconfident and inconsistent when asked
+
+Calibrated probability on every field
+
+Latency 
+
+3–329 s across frontier models, per the third-party benchmark TypeSafe cites
+
+70–500 ms, TypeSafe-reported
+
+Input price 
+
+~$0.20–$10 / MTok
+
+$0.042 / MTok
+
+Output price 
+
+Roughly 5x input
+
+Free — "too cheap to meter"
+
+Failure mode 
+
+Can hallucinate, refuse, or emit an unparsable shape
+
+Cannot leave the schema; can still pick the wrong allowed value
+
+Best fit 
+
+Drafting, summarising, tool-using agents, human-in-the-loop work
+
+Classify, route, score, extract, verify — decisions inside code
+
+Availability 
+
+Broadly available, many providers
+
+Waitlisted early access, one hosted API
+
+One practical limit worth knowing: Jev supports a cardinality of up to 255 options per choice. Above that, TypeSafe uses a two-stage approach — score candidates independently, then make an explicit choice — which it acknowledges is slower.
+What's verifiable and what's a vendor claim 
+This is the part worth slowing down on, because the launch numbers are unusually large and the evidence behind them is unusually self-contained. To TypeSafe's credit, its post includes its own "nuance" notes under each result, which is where most of the following comes from.
+Independently checkable today: 
+Pricing. Published openly. What can't be verified is whether it's sustainable rather than subsidised — TypeSafe says as much, and expects prices to fall rather than rise.
+Schema conformance. A guarantee about output shape is falsifiable by a single bad response, and TypeSafe's 0% type-error figure is derived from the construction rather than measured.
+Per-call latency. Anyone with early access can time it, with the caveat that published runs came from the team's own laptops on the US West Coast.
+The launch itself. Funding, founder background, and availability are all corroborated by independent press coverage.
+‍ Self-reported and not yet independently reproduced: 
+The 193.6x faster / 444.6x cheaper figures. These come from TypeSafe's own workflow evals — a new evaluation format the company designed, in which every model runs the same compute graph and is scored against reference probabilities drawn from the average of GPT-6 Astra and Fable 5.1. TypeSafe flags three limitations itself: the workflows were built by its own model-capabilities team, the choice of reference models biases results toward OpenAI and Anthropic, and competing LLMs run through TypeSafe's own System One adapter.
+Intelligence parity with frontier models. The claim is parity on System One-shaped tasks specifically, benchmarked mainly against GPT-5.6 Terra. It is not a claim about general capability, and shouldn't be read as one.
+The hallucination comparison. The LLM figures in that chart come from OpenRouter traffic, which TypeSafe notes is likely biased because harder queries get routed to better models.
+Still unknown: performance on public benchmarks, behaviour on tasks that aren't cleanly decision-shaped, accuracy on domain-specific work in someone else's hands, and anything at all about production reliability at scale. Early access only opened this week.
+There's also a wording issue worth being precise about, because it will get flattened in summaries. TypeSafe says Jev can't hallucinate , and in the narrow sense that's fair: a model that never emits free text can't invent a citation or a tool name. But llm hallucination and correctness aren't the same problem. A model constrained to three allowed categories can still confidently pick the wrong one — what's been eliminated is the malformed answer, not the mistaken judgment. Calibration is TypeSafe's answer to that, and calibration is exactly the claim that needs independent testing. Teams already using structured outputs with JSON schema will recognise the distinction: constraining the shape of an answer has never guaranteed the substance of it.
+Where a decision model fits in a production stack 
+Set the specific launch aside for a moment, because the shape of it is more interesting than the numbers. What TypeSafe is arguing — and what a growing number of teams are arriving at independently — is that one general-purpose model answering every call is a prototyping pattern, not a production one.
+
+A production stack ends up holding several model types at once, with the routing layer deciding which one serves a given call. 
+The decisions inside a running system are mostly small and repetitive: is this ticket urgent, which queue does it belong in, does this response violate policy, which of these fields is the invoice number. Sending each of those to a frontier chat model works, and teams do it, but it means paying generation prices and generation latency for something closer to a lookup. That's the same calculus behind choosing when to specialise a small model instead of prompting a large one , and it's why verification-style work — scoring, judging, jailbreak detection, agent guardrails — is the use case TypeSafe leads with. Guardrails have to run on every call, which makes cost and latency the binding constraint rather than raw capability.
+The consequence for anyone running AI in production is an ai orchestration problem rather than a model-selection one. If the right answer is a chat LLM for some calls, a fast decision model for others, and a fine-tuned small model for a third set, then the thing that has to be stable is the layer in front of them — one call path, consistent auth and logging, and the freedom to change which model serves a given task without rewriting the application. That's the premise behind auto-routing on the TrueFoundry AI Gateway , and it's the reason a launch like this one is more interesting as an architectural signal than as a benchmark.
+For now, Jev is a closed hosted API in early access, so there's nothing to deploy and no integration to evaluate. That may change. The pattern it represents almost certainly will not.
+Conclusion 
+TypeSafe AI 's Jev is a genuinely different bet: that the useful next step isn't a smarter chat model but a dependable one that software can call like any other function. The design is coherent, the founder's track record is real, and the price and latency targets are aggressive enough to change what's worth automating. The benchmark multiples, though, are self-graded on a format the company invented, and the strongest claim in the post — calibration — is the one no outside party has tested yet. Both things can be true.
+What the launch does confirm is a direction: production stacks are heading toward a mix of model types chosen per task, not a single model chosen per company. If that's the shape of your system, the layer worth getting right is the one in front of the models.
+See how the TrueFoundry AI Gateway routes across model types → 
+
+TrueFoundry AI Gateway delivers ~3–4 ms latency, handles 350+ RPS on 1 vCPU, scales horizontally with ease, and is production-ready, while LiteLLM suffers from high latency, struggles beyond moderate RPS, lacks built-in scaling, and is best for light or prototype workloads.
+
+Built for Speed: ~10ms Latency, Even Under Load
+Schedule your Demo Now
+
+Try now.
+One gateway for all your models, MCP servers, and agents.
+No credit card needed.
+
+Start free
+
+How Can You Prevent GenAI Costs From Spiraling at Scale?
+
+Access Full 2026 Report 
+
+Gartner Hype Cycle for Platform Engineering 2026
+
+Access Full 2026 Report 
+
+One Layer of Control for All AI
+Route and govern model and tool traffic with a centralized AI Gateway
+Book Demo
+
+Table of Contents
+
+Text Link 
+
+One Gateway for Every LLM, Agent and MCP Server
+Book a 30-min with our AI expert 
+
+Book a Demo 
+
+The fastest way to build, govern and scale your AI
+Book Demo 
+Summarize with
+
+Discover More 
+
+August 26, 2026
+
+|
+5 min read
+
+AI Agent Portability: Switch Models Without Rebuilding Your Agents
+
+September 21, 2026
+
+|
+5 min read
+
+SCIM Provisioning: Why Deprovisioning Is the Part Everyone Gets Wrong
+
+No items found.
+
+September 21, 2026
+
+|
+5 min read
+
+SAML vs OIDC: How to Choose, and What Matters More
+
+No items found.
+
+September 21, 2026
+
+|
+5 min read
+
+RBAC vs ABAC: Choosing an Access Control Model for AI Agents
+
+No items found.
+
+September 21, 2026
+
+|
+5 min read
+
+Fine-Grained Authorization: How Fine Is Fine Enough?
+
+No items found.
+
+September 16, 2026
+
+|
+5 min read
+
+Fine-Tuning vs Prompting: When to Specialize an SLM
+
+No items found.
+
+August 21, 2026
+
+|
+5 min read
+
+Structured Outputs: Why Production AI Needs Schemas, Not Just Prose
+
+No items found.
+
+August 25, 2026
+
+|
+5 min read
+
+AI Agent Guardrails: Inspecting Every Tool Call and Model Hop
+
+No items found.
+
+September 9, 2026
+
+|
+5 min read
+
+Introducing Auto Routing on the TrueFoundry AI Gateway
+
+No items found.
+
+September 11, 2026
+
+|
+5 min read
+
+From Token Spend to Workflow Economics: What BCG’s Return-on-AI Framework Requires
+
+No items found.
+
+Recent Blogs
+
+Kubernetes RBAC Explained: Roles, Bindings, and the Layer Above It
+September 21, 2026
+Ashish Dubey 
+
+MCP Authentication, Explained: Inbound Identity, Outbound Credentials, and Delegation
+September 21, 2026
+Boyu Wang 
+
+Fine-Grained Authorization: How Fine Is Fine Enough?
+September 21, 2026
+Ashish Dubey 
+
+RBAC vs ABAC: Choosing an Access Control Model for AI Agents
+September 21, 2026
+Ashish Dubey 
+
+SAML vs OIDC: How to Choose, and What Matters More
+September 21, 2026
+Ashish Dubey 
+
+SCIM Provisioning: Why Deprovisioning Is the Part Everyone Gets Wrong
+September 21, 2026
+Ashish Dubey 
+
+What Are LangGraph Deep Agents? The Harness Explained
+September 21, 2026
+Sahajmeet Kaur 
+
+What Are Claude Managed Agents? Architecture, How They Work, and When to Use Them
+September 21, 2026
+Sahajmeet Kaur 
+
+MCP Tool Approvals, Explained: From Pending Call to Bounded Human Decision
+September 19, 2026
+Boyu Wang 
+
+HubSpot MCP Server: Tools, Privacy, and How to Connect It Safely
+September 19, 2026
+Ashish Dubey 
+
+Snowflake MCP Server: Tools, Setup, and Cost Control
+September 19, 2026
+Ashish Dubey 
+
+Agent Sandboxes, Explained: Why TrueForge Treats the Sandbox as a Tool
+September 18, 2026
+Boyu Wang 
+
+Airtable MCP Server: Tools, Scopes, and How to Connect It Safely
+September 17, 2026
+Ashish Dubey 
+
+Databricks MCP Server: Tools, Setup, and Governing Agent Access
+September 17, 2026
+Ashish Dubey 
+
+dbt MCP Server: Tools, Setup, and How to Give Agents Metadata Safely
+September 17, 2026
+Ashish Dubey 
+
+Frequently asked questions
+What is TypeSafe AI's Jev?
+
+Jev is the first model in a class TypeSafe AI calls System One Models, launched in early access on September 15, 2026. Rather than generating text, it takes unstructured input plus a schema you define in advance and returns typed values with calibrated confidence scores. It's aimed at decisions made inside software — classification, routing, scoring, extraction — rather than at chat.
+
+What are System One Models?
+
+They're models built to make fast, structured decisions that software consumes directly, named after Daniel Kahneman's fast, intuitive System 1 thinking. The defining trade is giving up free-form text generation in exchange for parallel sampling, guaranteed schema conformance, and a probability attached to every answer.
+
+Can Jev really not hallucinate?
+
+It can't produce an answer outside the schema you defined, which rules out invented fields, malformed output, and fabricated tool names. It can still select the wrong value from the allowed set — that's an accuracy question, not a format one, and TypeSafe's response to it is calibrated confidence rather than a claim of infallibility.
+
+Is Jev open source or self-hostable?
+
+No. It's a proprietary model served from TypeSafe's own hosted API, currently behind an early-access waitlist. There are no published weights and no on-prem option today.
+‍
+
+How many LLMs does TrueFoundry support?
+
+1,000+ LLMs through a single OpenAI-compatible API. Switching models means changing the model name in the request — same URL, same credentials — which is what makes swapping in a new provider a configuration change rather than an integration project.
+‍
+
+What latency does the TrueFoundry AI Gateway add?
+
+Roughly 3–4 ms of overhead, handling 350+ RPS on a single vCPU. That matters more as model calls get faster: a routing layer that adds hundreds of milliseconds would erase the advantage of a sub-second decision model.
+‍
+
+Take a quick product tour
+
+Start Product Tour
+
+Product Tour
+
+Product
+AI Gateway 
+MCP Gateway 
+LLMOps 
+Model Serving 
+Tracing 
+
+Company
+About Us 
+Careers 
+Our Vision 
+Terms of Service 
+What's New 
+Trust Center 
+Roadmap 
+
+Resources
+Documentation 
+Blog 
+E-Book 
+Events & Conferences 
+Webinars 
+Support 
+Models 
+Glossary 
+Skill Registry 
+
+Why TrueFoundry?
+Case Studies 
+Wall of Love 
+G2 Reviews 
+Press Room 
+
+© 2022 ENSEMBLE Technologies
+
+EN
+
+ES
+
+DE
+
+FR
+
+PT
+
+AR
+
+JA
+
+EN
+
+Ensemble Labs Inc, 355 Bryant Street, Suite 403, San Francisco, CA 94107
+
+Subscribe to our newsletter
+The latest news, articles, and resources sent to your inbox
+
+-->
+
+© 2026 All rights reserved.
+
+Hey AI, learn about us 
+
+tag
+============================================================ -->
+tag
+============================================================ -->
+
+const links = document.querySelectorAll('.post_rich-text a');
+
+links.forEach(link => {
+let hasTextSibling = false;
+for (let sibling of link.parentNode.childNodes) {
+if (sibling.nodeType === Node.TEXT_NODE && sibling.textContent.trim() !== '') {
+hasTextSibling = true;
+break;
+}
+}
+
+let classAdded = false;
+
+if (!hasTextSibling) {
+link.classList.add('post_button');
+classAdded = true;
+}
+
+if (classAdded) {
+const div = document.createElement('div');
+div.style.paddingTop = '1.5rem';
+
+const wrapDiv = document.createElement('div');
+wrapDiv.classList.add('post_button-wrap');
+
+if (link.parentNode.tagName === 'P') {
+const parent = link.parentNode;
+const grandparent = parent.parentNode;
+
+if (parent.childNodes.length === 1) {
+wrapDiv.appendChild(link);
+div.appendChild(wrapDiv);
+if (grandparent) {
+grandparent.replaceChild(div, parent);
+}
+} else {
+if (grandparent) {
+grandparent.insertBefore(div, parent);
+wrapDiv.appendChild(link);
+div.appendChild(wrapDiv);
+}
+}
+} else {
+const parent = link.parentNode;
+wrapDiv.appendChild(link);
+div.appendChild(wrapDiv);
+parent.replaceChild(div, link);
+}
+}
+});
