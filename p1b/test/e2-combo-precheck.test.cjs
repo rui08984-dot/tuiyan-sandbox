@@ -78,7 +78,8 @@ test('④ 真实件：矩阵／两对／判决自洽／RES 门／三零／零副
   //   09-18（二十五）批再结 66 条 ⇒ 1389 → 1455（同上，读数前进）；
   //   09-19（二十六）批再结 44 条（含空 URL 修复件首验：kraken 6/npm 4/mlb 1）⇒ 1455 → 1499（同上）；
   //   09-20（二十八）批再结 33 条（L3 31＋L5 2）⇒ 1499 → 1532（同上）
-  assert.equal(j.cohort_rows, 1532, '队列应与 PREREG §1 池口径一致: ' + j.cohort_rows);
+  //   09-21（三十一）批再结 1 条（mlb）⇒ 1532 → 1533（同上；读数前进，非口径变更）
+  assert.equal(j.cohort_rows, 1533, '队列应与 PREREG §1 池口径一致: ' + j.cohort_rows);
   assert.ok(j.multi_engine_items >= 30, '多引擎题应 ≥30（R3 可估前提）: ' + j.multi_engine_items);
   const pairs = Object.keys(j.pair_population);
   assert.ok(pairs.some((k) => k.indexOf('L1') !== -1 && k.indexOf('L6') !== -1), 'L1×L6 对应在: ' + JSON.stringify(pairs));
