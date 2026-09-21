@@ -1,0 +1,27 @@
+{
+ "predictions": {
+  "n": 1992,
+  "sha": "ad146e00686aa740"
+ },
+ "games": {
+  "n": 88,
+  "sha": "0650ef60ace0e385"
+ },
+ "verdicts": {
+  "n": 5156,
+  "sha": "d18ba8758d2601fb"
+ },
+ "events": {
+  "n": 556,
+  "sha": "9a3c4c3b882dff81"
+ },
+ "claims": {
+  "n": 447,
+  "sha": "d37b8be0566cf1d0"
+ },
+ "players": {
+  "n": 334,
+  "sha": "aaf589b21585a150"
+ }
+}
+predictions MAX(id) = 2007 （写前基线，供零翻转对照）
