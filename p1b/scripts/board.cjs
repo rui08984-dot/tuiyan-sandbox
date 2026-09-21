@@ -18,6 +18,8 @@ function readJson(p) { try { return JSON.parse(fs.readFileSync(p, 'utf8')); } ca
 
 // ── G2 门（最新报告件；缺 → 提示）──
 // 2026-09-15：同五层件，改「自动取最新日期件」（固定名会静默陈旧）。回退历史固定名。
+// ★2026-09-21 修（与 calibration-report.cjs 同批）：日期后允许可选小写字母后缀——同日重跑的
+//   `…-20260921c.json` 此前被忽略 ⇒ 静默读旧件（实测 board 读 a 版、真实最新是 c 版）。
 function latestByPattern(re, fallback) {
   try {
     const cands = fs.readdirSync(OUT).filter((f) => re.test(f)).sort();
@@ -25,7 +27,7 @@ function latestByPattern(re, fallback) {
   } catch (e) { /* 目录不可读 ⇒ 回退 */ }
   return path.join(OUT, fallback);
 }
-const G2_FILE = latestByPattern(/^g2-report-latest-\d{8}\.json$/, 'g2-report-latest-20260914.json');
+const G2_FILE = latestByPattern(/^g2-report-latest-(\d{8})([a-z]?)\.json$/, 'g2-report-latest-20260914.json');
 const g2 = readJson(G2_FILE);
 const G2_HINT = 'node p1b/scripts/g2-report.cjs --audit p1b/sim/out/g2-audit-r4.json --text p1b/sim/out/g2-report-latest-<YYYYMMDD>.out --json p1b/sim/out/g2-report-latest-<YYYYMMDD>.json';
 
@@ -37,7 +39,7 @@ const hc = (audit && audit.human_calibration) || null;
 // 2026-09-15：由「固定日期文件名」改为「自动取最新日期件」——固定名曾在命题 A 晚间补漏后
 //   静默供出陈旧 L6 读数（0.1829 vs 实测 0.1755）。改为按 stage4-run-five-layers-YYYYMMDD.json
 //   的日期后缀取最大者；无匹配时回退历史固定名（零硬编码依赖）。只读、零写库。
-const S4_FILE = latestByPattern(/^stage4-run-five-layers-\d{8}\.json$/, 'stage4-run-five-layers-20260914.json');
+const S4_FILE = latestByPattern(/^stage4-run-five-layers-(\d{8})([a-z]?)\.json$/, 'stage4-run-five-layers-20260914.json');
 const s4 = readJson(S4_FILE);
 
 // ── 账本计数（只读库）──

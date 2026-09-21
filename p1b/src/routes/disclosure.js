@@ -19,6 +19,8 @@ function latest(re) {
   } catch (e) { /* 目录不可读 ⇒ 视为缺件 */ }
   return null;
 }
+// ★2026-09-21：日期后允许可选小写字母后缀（同日重跑的 `…-20260921c.json` 此前被忽略 ⇒ 静默读旧件）。
+//   与 board.cjs / calibration-report.cjs 同批修（三处同一缺陷）。
 function serve(pattern, hint, reply) {
   const p = latest(pattern);
   if (!p) return reply.code(404).send({ error: 'n/a：缺披露件（未生成或尚未跑脚本）', hint: hint });
@@ -29,9 +31,9 @@ function serve(pattern, hint, reply) {
 
 function register(app) {
   app.get('/api/disclosure/calendar', async (req, reply) =>
-    serve(/^forecast-calendar-\d{8}\.json$/, 'node p1b/scripts/forecast-calendar.cjs', reply));
+    serve(/^forecast-calendar-(\d{8})([a-z]?)\.json$/, 'node p1b/scripts/forecast-calendar.cjs', reply));
   app.get('/api/disclosure/calibration', async (req, reply) =>
-    serve(/^calibration-report-\d{8}\.json$/, 'node p1b/scripts/calibration-report.cjs', reply));
+    serve(/^calibration-report-(\d{8})([a-z]?)\.json$/, 'node p1b/scripts/calibration-report.cjs', reply));
 }
 
 module.exports = { register };

@@ -15,12 +15,20 @@ function arg(n, d) { const i = process.argv.indexOf('--' + n); return i >= 0 && 
 
 const OUT_DIR = arg('out-dir', path.join(ROOT, 'p1b', 'sim', 'out'));
 // latestByPattern（board.cjs L21-27 同款；照【13】U8 原文"不新建公共模块以免动 board"）
+// ★2026-09-21 修：后缀字母件（同日重跑 `…-20260921b.json`/`c.json`）此前被正则忽略 ⇒ 静默读旧件。
+//   同批次 stage4 有 a/b/c 三版时，只认无后缀那版 ⇒ 报告格数落后于真实读数（实测 9 vs 10）。
+//   修法：日期后允许可选小写字母后缀，并按 (日期, 后缀) 排序取最后（无后缀 < a < b < c）。
+const S4_RE = /^stage4-run-five-layers-(\d{8})([a-z]?)\.json$/;
+const G2_RE = /^g2-report-latest-(\d{8})([a-z]?)\.json$/;
 function latestByPattern(dir, re, fallback) {
-  try { const c = fs.readdirSync(dir).filter((f) => re.test(f)).sort(); if (c.length) return path.join(dir, c[c.length - 1]); } catch (e) { /* ignore */ }
+  try {
+    const c = fs.readdirSync(dir).filter((f) => re.test(f)).sort();
+    if (c.length) return path.join(dir, c[c.length - 1]);
+  } catch (e) { /* ignore */ }
   return path.join(dir, fallback);
 }
-const S4 = arg('stage4', latestByPattern(OUT_DIR, /^stage4-run-five-layers-\d{8}\.json$/, 'stage4-run-five-layers-20260914.json'));
-const G2 = arg('g2', latestByPattern(OUT_DIR, /^g2-report-latest-\d{8}\.json$/, 'g2-report-latest-20260914.json'));
+const S4 = arg('stage4', latestByPattern(OUT_DIR, S4_RE, 'stage4-run-five-layers-20260914.json'));
+const G2 = arg('g2', latestByPattern(OUT_DIR, G2_RE, 'g2-report-latest-20260914.json'));
 
 function readJson(p) { try { return JSON.parse(fs.readFileSync(p, 'utf8')); } catch (e) { return null; } }
 const s4 = readJson(S4);
