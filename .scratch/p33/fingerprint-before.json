@@ -1,0 +1,28 @@
+{
+ "predictions": {
+  "n": 1992,
+  "sha": "48ea6b80b214f59f"
+ },
+ "games": {
+  "n": 88,
+  "sha": "0650ef60ace0e385"
+ },
+ "verdicts": {
+  "n": 5156,
+  "sha": "d18ba8758d2601fb"
+ },
+ "events": {
+  "n": 556,
+  "sha": "9a3c4c3b882dff81"
+ },
+ "claims": {
+  "n": 447,
+  "sha": "d37b8be0566cf1d0"
+ },
+ "players": {
+  "n": 334,
+  "sha": "aaf589b21585a150"
+ },
+ "_maxId": 2007,
+ "_resolved": 1646
+}

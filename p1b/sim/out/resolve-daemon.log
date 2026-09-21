@@ -4412,3 +4412,59 @@
 [2026-09-21T19:40:42+08:00]   fetch-fail kind=elexon_fuelhh_daily_mean x1 — HTTP 403（跳过不写）
 [2026-09-21T19:40:42+08:00] round#1 用时 55.6s | 未解总数=361 到期选中=35 唯一真值请求=35（台账重复合并 0） | resolved=15 pending=7（含预筛 3） fail=13 refused=0／同结论并发=0 口径护栏=0 unsupported=0 未到期跳过=273 无法定到期=53 wouldWrite=0 实打网=27
 [2026-09-21T19:40:42+08:00]   取数失败明细 {"fetch-fail:dlt_draw_result:HTTP 567":8,"fetch-fail:cta_daily_total_rides:HTTP 403":3,"fetch-fail:elexon_fuelhh_daily_mean:HTTP 403":2}
+[2026-09-21T22:09:11+08:00] === corpus-resolve-daemon start | mode=once interval=60min due-only=true confirm=true
+[2026-09-21T22:09:11+08:00] 复用 corpus-resolve RESOLVERS 成功：inline-extract(60 kinds)
+[2026-09-21T22:09:11+08:00] db=.scratch/p33/snap-drill.db
+[2026-09-21T22:09:16+08:00] WARN dlt 日历刷新失败（沿用内置锚 26104@2026-09-12）: HTTP 567
+[2026-09-21T22:09:16+08:00] 日历锚刷新：ssq 2026109@2026-09-20 | dlt 26104@2026-09-12
+[2026-09-21T22:09:39+08:00] 二遍补打 8 组（首遍网络失败，缓 8s 后重试一次）
+[2026-09-21T22:09:47+08:00]   fetch-fail kind=dlt_draw_result x1 — HTTP 567（跳过不写）
+[2026-09-21T22:09:47+08:00]   fetch-fail kind=dlt_draw_result x1 — HTTP 567（跳过不写）
+[2026-09-21T22:09:47+08:00]   fetch-fail kind=dlt_draw_result x1 — HTTP 567（跳过不写）
+[2026-09-21T22:09:47+08:00]   fetch-fail kind=dlt_draw_result x1 — HTTP 567（跳过不写）
+[2026-09-21T22:09:47+08:00]   fetch-fail kind=dlt_draw_result x1 — HTTP 567（跳过不写）
+[2026-09-21T22:09:47+08:00]   fetch-fail kind=dlt_draw_result x1 — HTTP 567（跳过不写）
+[2026-09-21T22:09:47+08:00]   fetch-fail kind=dlt_draw_result x1 — HTTP 567（跳过不写）
+[2026-09-21T22:09:47+08:00]   fetch-fail kind=dlt_draw_result x1 — HTTP 567（跳过不写）
+[2026-09-21T22:09:47+08:00]   pending(预筛) kind=binance_daily_close x1 due=2026-09-21 — UTC 日 2026-09-21 尚未收盘
+[2026-09-21T22:09:47+08:00]   pending(预筛) kind=binance_daily_close x1 due=2026-09-21 — UTC 日 2026-09-21 尚未收盘
+[2026-09-21T22:09:47+08:00]   pending(预筛) kind=binance_daily_close x1 due=2026-09-21 — UTC 日 2026-09-21 尚未收盘
+[2026-09-21T22:09:47+08:00]   fetch-fail kind=cta_daily_total_rides x1 — HTTP 403（跳过不写）
+[2026-09-21T22:09:47+08:00]   fetch-fail kind=cta_daily_total_rides x1 — HTTP 403（跳过不写）
+[2026-09-21T22:09:47+08:00]   fetch-fail kind=cta_daily_total_rides x1 — HTTP 403（跳过不写）
+[2026-09-21T22:09:47+08:00]   resolved id=1965 kind=frankfurter_rate_range -> true | Frankfurter 2026-09-21 USD/CNY=6.6954（阈值 <= 6.7394，机检）
+[2026-09-21T22:09:47+08:00]   resolved id=1966 kind=frankfurter_rate_range -> false | Frankfurter 2026-09-21 USD/CNY=6.6954（阈值 >= 6.773，机检）
+[2026-09-21T22:09:47+08:00]   resolved id=1967 kind=frankfurter_rate_range -> true | Frankfurter 2026-09-21 USD/JPY=157.27（阈值 <= 159.09，机检）
+[2026-09-21T22:09:47+08:00]   resolved id=1968 kind=frankfurter_rate_range -> false | Frankfurter 2026-09-21 USD/JPY=157.27（阈值 >= 161.89，机检）
+[2026-09-21T22:09:47+08:00]   fetch-fail kind=elexon_fuelhh_daily_mean x1 — HTTP 403（跳过不写）
+[2026-09-21T22:09:47+08:00]   fetch-fail kind=elexon_fuelhh_daily_mean x1 — HTTP 403（跳过不写）
+[2026-09-21T22:09:47+08:00] round#1 用时 31.1s | 未解总数=346 到期选中=20 唯一真值请求=20（台账重复合并 0） | resolved=4 pending=3（含预筛 3） fail=13 refused=0／同结论并发=0 口径护栏=0 unsupported=0 未到期跳过=273 无法定到期=53 wouldWrite=0 实打网=16
+[2026-09-21T22:09:47+08:00]   取数失败明细 {"fetch-fail:dlt_draw_result:HTTP 567":8,"fetch-fail:cta_daily_total_rides:HTTP 403":3,"fetch-fail:elexon_fuelhh_daily_mean:HTTP 403":2}
+[2026-09-21T22:10:06+08:00] === corpus-resolve-daemon start | mode=once interval=60min due-only=true confirm=true
+[2026-09-21T22:10:06+08:00] 复用 corpus-resolve RESOLVERS 成功：inline-extract(60 kinds)
+[2026-09-21T22:10:06+08:00] db=p1a-terminal/data/p1a.db
+[2026-09-21T22:10:10+08:00] WARN dlt 日历刷新失败（沿用内置锚 26104@2026-09-12）: HTTP 567
+[2026-09-21T22:10:10+08:00] 日历锚刷新：ssq 2026109@2026-09-20 | dlt 26104@2026-09-12
+[2026-09-21T22:10:31+08:00] 二遍补打 8 组（首遍网络失败，缓 8s 后重试一次）
+[2026-09-21T22:10:39+08:00]   fetch-fail kind=dlt_draw_result x1 — HTTP 567（跳过不写）
+[2026-09-21T22:10:39+08:00]   fetch-fail kind=dlt_draw_result x1 — HTTP 567（跳过不写）
+[2026-09-21T22:10:39+08:00]   fetch-fail kind=dlt_draw_result x1 — HTTP 567（跳过不写）
+[2026-09-21T22:10:39+08:00]   fetch-fail kind=dlt_draw_result x1 — HTTP 567（跳过不写）
+[2026-09-21T22:10:39+08:00]   fetch-fail kind=dlt_draw_result x1 — HTTP 567（跳过不写）
+[2026-09-21T22:10:39+08:00]   fetch-fail kind=dlt_draw_result x1 — HTTP 567（跳过不写）
+[2026-09-21T22:10:39+08:00]   fetch-fail kind=dlt_draw_result x1 — HTTP 567（跳过不写）
+[2026-09-21T22:10:39+08:00]   fetch-fail kind=dlt_draw_result x1 — HTTP 567（跳过不写）
+[2026-09-21T22:10:39+08:00]   pending(预筛) kind=binance_daily_close x1 due=2026-09-21 — UTC 日 2026-09-21 尚未收盘
+[2026-09-21T22:10:39+08:00]   pending(预筛) kind=binance_daily_close x1 due=2026-09-21 — UTC 日 2026-09-21 尚未收盘
+[2026-09-21T22:10:39+08:00]   pending(预筛) kind=binance_daily_close x1 due=2026-09-21 — UTC 日 2026-09-21 尚未收盘
+[2026-09-21T22:10:39+08:00]   fetch-fail kind=cta_daily_total_rides x1 — HTTP 403（跳过不写）
+[2026-09-21T22:10:39+08:00]   fetch-fail kind=cta_daily_total_rides x1 — HTTP 403（跳过不写）
+[2026-09-21T22:10:39+08:00]   fetch-fail kind=cta_daily_total_rides x1 — HTTP 403（跳过不写）
+[2026-09-21T22:10:39+08:00]   resolved id=1965 kind=frankfurter_rate_range -> true | Frankfurter 2026-09-21 USD/CNY=6.6954（阈值 <= 6.7394，机检）
+[2026-09-21T22:10:39+08:00]   resolved id=1966 kind=frankfurter_rate_range -> false | Frankfurter 2026-09-21 USD/CNY=6.6954（阈值 >= 6.773，机检）
+[2026-09-21T22:10:39+08:00]   resolved id=1967 kind=frankfurter_rate_range -> true | Frankfurter 2026-09-21 USD/JPY=157.27（阈值 <= 159.09，机检）
+[2026-09-21T22:10:39+08:00]   resolved id=1968 kind=frankfurter_rate_range -> false | Frankfurter 2026-09-21 USD/JPY=157.27（阈值 >= 161.89，机检）
+[2026-09-21T22:10:39+08:00]   fetch-fail kind=elexon_fuelhh_daily_mean x1 — HTTP 403（跳过不写）
+[2026-09-21T22:10:39+08:00]   fetch-fail kind=elexon_fuelhh_daily_mean x1 — HTTP 403（跳过不写）
+[2026-09-21T22:10:39+08:00] round#1 用时 29.2s | 未解总数=346 到期选中=20 唯一真值请求=20（台账重复合并 0） | resolved=4 pending=3（含预筛 3） fail=13 refused=0／同结论并发=0 口径护栏=0 unsupported=0 未到期跳过=273 无法定到期=53 wouldWrite=0 实打网=16
+[2026-09-21T22:10:39+08:00]   取数失败明细 {"fetch-fail:dlt_draw_result:HTTP 567":8,"fetch-fail:cta_daily_total_rides:HTTP 403":3,"fetch-fail:elexon_fuelhh_daily_mean:HTTP 403":2}

@@ -80,7 +80,8 @@ test('④ 真实件：矩阵／两对／判决自洽／RES 门／三零／零副
   //   09-20（二十八）批再结 33 条（L3 31＋L5 2）⇒ 1499 → 1532（同上）
   //   09-21（三十一）批再结 1 条（mlb）⇒ 1532 → 1533（同上；读数前进，非口径变更）
   //   09-21（三十二）批修 frankfurter 两处 resolver 缺陷 ⇒ 补结 15 条 ⇒ 1533 → 1548（同上）
-  assert.equal(j.cohort_rows, 1548, '队列应与 PREREG §1 池口径一致: ' + j.cohort_rows);
+  //   09-21（三十三）批 4 条顺延题补结（ECB 09-21 值发布后）⇒ 1548 → 1552（同上；★此批使分域可出结论 9→10）
+  assert.equal(j.cohort_rows, 1552, '队列应与 PREREG §1 池口径一致: ' + j.cohort_rows);
   assert.ok(j.multi_engine_items >= 30, '多引擎题应 ≥30（R3 可估前提）: ' + j.multi_engine_items);
   const pairs = Object.keys(j.pair_population);
   assert.ok(pairs.some((k) => k.indexOf('L1') !== -1 && k.indexOf('L6') !== -1), 'L1×L6 对应在: ' + JSON.stringify(pairs));

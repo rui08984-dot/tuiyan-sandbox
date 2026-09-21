@@ -72,8 +72,10 @@ test('③ 真实件：MATCH／人口／保留格与阶段 4 同集合／无臂�
   //   09-19（二十六）批结算 44 条 ⇒ 阶段 4 可出结论 8 → 9（L2/kraken n=30 过线），但 R1-B 保留格仍 8：
   //   kraken 30 条 outcome 全 true ⇒ 落入 RES 条款（无分辨力）被降档 ⇒ 与阶段 4 集合首次出现分歧（9 vs 8）。
   //   这是冻结规则（E2 R1 rules v1，sha 前 8 位 e0331cf8）按设计首次绑定，非口径变更。
-  assert.equal(kept.length, 8, '保留格应为 8（kraken 被 RES 条款降档 ⇒ 与阶段 4「可出结论 9 格」差一格）: ' + JSON.stringify(kept));
-  for (const c of ['L1/werewolf_sim', 'L2/dbnomics', 'L2/energycharts', 'L2/noaa', 'L2/wikimedia', 'L3/openmeteo', 'L5/cwl', 'L6/werewolf_sim']) {
+  //   09-21（三十三）批 4 条顺延题补结 ⇒ L2/frankfurter n 29→33（过 min_n=30）且 RES CI 下界 0.0145 > 0
+  //   ⇒ 有分辨力、**未被降档** ⇒ 保留格 8 → 9；与阶段 4「可出结论 10 格」仍差一格（差在 L2/kraken，见上）。
+  assert.equal(kept.length, 9, '保留格应为 9（kraken 被 RES 条款降档；frankfurter 自 09-21 起保留）: ' + JSON.stringify(kept));
+  for (const c of ['L1/werewolf_sim', 'L2/dbnomics', 'L2/energycharts', 'L2/frankfurter', 'L2/noaa', 'L2/wikimedia', 'L3/openmeteo', 'L5/cwl', 'L6/werewolf_sim']) {
     assert.ok(kept.indexOf(c) !== -1, '应含 ' + c);
   }
   // 降档理由两类：n<30（样本不足）或 RES CI 下界 ≤ 0（无分辨力）——09-19 起 RES 条款首次绑定（L2/kraken）
