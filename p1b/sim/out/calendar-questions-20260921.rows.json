@@ -1,0 +1,212 @@
+[
+ {
+  "statement": "【forward】Eurostat DE 2026-10 失业率（%，季调）是否 <= 3.5？",
+  "layer": "L2",
+  "prob": 0.3333333333333333,
+  "prob_source": "empirical_freq@hist:dbnomics_eurostat_unemployment_monthly+eurostat_live_unemployment_monthly|geo=DE|n=3|q=0.3",
+  "base": 0.3333333333333333,
+  "baseNote": "前瞻·日历出题：同 geo 历史 3 期观测中 <= 3.5 占 33.3%（分位 q=0.3；来源＝账本 resolve_note 实测值解析）",
+  "resolve": {
+   "kind": "eurostat_live_unemployment_monthly",
+   "geo": "DE",
+   "month": "2026-10",
+   "threshold": 3.5,
+   "cmp": "<=",
+   "url_template": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/une_rt_m?format=JSON&geo={geo}&s_adj=SA&unit=PC_ACT&sex=T&age=TOTAL&lastTimePeriod={last_n}",
+   "last_n": "120",
+   "field": "官方直连 body.dimension.time.category.index 反查 month → body.value[该索引]（%）"
+  },
+  "meta": {
+   "phase": "i1_calendar",
+   "cutoff": "2026-09-21T15:17:23.436Z",
+   "eventDate": "2026-12-01",
+   "eventNote": "发布日（日历推算）：ESMS 原文「约 31 天」；实测 24 期中位 32 天（30~39）",
+   "calendar_source": "eurostat-unemployment",
+   "evidence_url": "https://ec.europa.eu/eurostat/news/release-calendar"
+  },
+  "calendar": {
+   "source_id": "eurostat-unemployment",
+   "publish_date": "2026-12-01",
+   "lag_days": 31,
+   "evidence_url": "https://ec.europa.eu/eurostat/news/release-calendar",
+   "cutoff": "2026-09-21"
+  },
+  "slug": "corpus:calendar|eurostat_live_unemployment_monthly|DE|2026-10|3.5",
+  "band_ok": true
+ },
+ {
+  "statement": "【forward】Eurostat DE 2026-10 失业率（%，季调）是否 >= 4.0？",
+  "layer": "L2",
+  "prob": 0.3333333333333333,
+  "prob_source": "empirical_freq@hist:dbnomics_eurostat_unemployment_monthly+eurostat_live_unemployment_monthly|geo=DE|n=3|q=0.7",
+  "base": 0.3333333333333333,
+  "baseNote": "前瞻·日历出题：同 geo 历史 3 期观测中 >= 4.0 占 33.3%（分位 q=0.7；来源＝账本 resolve_note 实测值解析）",
+  "resolve": {
+   "kind": "eurostat_live_unemployment_monthly",
+   "geo": "DE",
+   "month": "2026-10",
+   "threshold": 4,
+   "cmp": ">=",
+   "url_template": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/une_rt_m?format=JSON&geo={geo}&s_adj=SA&unit=PC_ACT&sex=T&age=TOTAL&lastTimePeriod={last_n}",
+   "last_n": "120",
+   "field": "官方直连 body.dimension.time.category.index 反查 month → body.value[该索引]（%）"
+  },
+  "meta": {
+   "phase": "i1_calendar",
+   "cutoff": "2026-09-21T15:17:23.436Z",
+   "eventDate": "2026-12-01",
+   "eventNote": "发布日（日历推算）：ESMS 原文「约 31 天」；实测 24 期中位 32 天（30~39）",
+   "calendar_source": "eurostat-unemployment",
+   "evidence_url": "https://ec.europa.eu/eurostat/news/release-calendar"
+  },
+  "calendar": {
+   "source_id": "eurostat-unemployment",
+   "publish_date": "2026-12-01",
+   "lag_days": 31,
+   "evidence_url": "https://ec.europa.eu/eurostat/news/release-calendar",
+   "cutoff": "2026-09-21"
+  },
+  "slug": "corpus:calendar|eurostat_live_unemployment_monthly|DE|2026-10|4.0",
+  "band_ok": true
+ },
+ {
+  "statement": "【forward】Eurostat FR 2026-10 失业率（%，季调）是否 <= 7.8？",
+  "layer": "L2",
+  "prob": 0.6666666666666666,
+  "prob_source": "empirical_freq@hist:dbnomics_eurostat_unemployment_monthly+eurostat_live_unemployment_monthly|geo=FR|n=3|q=0.3",
+  "base": 0.6666666666666666,
+  "baseNote": "前瞻·日历出题：同 geo 历史 3 期观测中 <= 7.8 占 66.7%（分位 q=0.3；来源＝账本 resolve_note 实测值解析）",
+  "resolve": {
+   "kind": "eurostat_live_unemployment_monthly",
+   "geo": "FR",
+   "month": "2026-10",
+   "threshold": 7.8,
+   "cmp": "<=",
+   "url_template": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/une_rt_m?format=JSON&geo={geo}&s_adj=SA&unit=PC_ACT&sex=T&age=TOTAL&lastTimePeriod={last_n}",
+   "last_n": "120",
+   "field": "官方直连 body.dimension.time.category.index 反查 month → body.value[该索引]（%）"
+  },
+  "meta": {
+   "phase": "i1_calendar",
+   "cutoff": "2026-09-21T15:17:23.436Z",
+   "eventDate": "2026-12-01",
+   "eventNote": "发布日（日历推算）：ESMS 原文「约 31 天」；实测 24 期中位 32 天（30~39）",
+   "calendar_source": "eurostat-unemployment",
+   "evidence_url": "https://ec.europa.eu/eurostat/news/release-calendar"
+  },
+  "calendar": {
+   "source_id": "eurostat-unemployment",
+   "publish_date": "2026-12-01",
+   "lag_days": 31,
+   "evidence_url": "https://ec.europa.eu/eurostat/news/release-calendar",
+   "cutoff": "2026-09-21"
+  },
+  "slug": "corpus:calendar|eurostat_live_unemployment_monthly|FR|2026-10|7.8",
+  "band_ok": true
+ },
+ {
+  "statement": "【forward】Eurostat FR 2026-10 失业率（%，季调）是否 >= 7.9？",
+  "layer": "L2",
+  "prob": 0.3333333333333333,
+  "prob_source": "empirical_freq@hist:dbnomics_eurostat_unemployment_monthly+eurostat_live_unemployment_monthly|geo=FR|n=3|q=0.7",
+  "base": 0.3333333333333333,
+  "baseNote": "前瞻·日历出题：同 geo 历史 3 期观测中 >= 7.9 占 33.3%（分位 q=0.7；来源＝账本 resolve_note 实测值解析）",
+  "resolve": {
+   "kind": "eurostat_live_unemployment_monthly",
+   "geo": "FR",
+   "month": "2026-10",
+   "threshold": 7.9,
+   "cmp": ">=",
+   "url_template": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/une_rt_m?format=JSON&geo={geo}&s_adj=SA&unit=PC_ACT&sex=T&age=TOTAL&lastTimePeriod={last_n}",
+   "last_n": "120",
+   "field": "官方直连 body.dimension.time.category.index 反查 month → body.value[该索引]（%）"
+  },
+  "meta": {
+   "phase": "i1_calendar",
+   "cutoff": "2026-09-21T15:17:23.436Z",
+   "eventDate": "2026-12-01",
+   "eventNote": "发布日（日历推算）：ESMS 原文「约 31 天」；实测 24 期中位 32 天（30~39）",
+   "calendar_source": "eurostat-unemployment",
+   "evidence_url": "https://ec.europa.eu/eurostat/news/release-calendar"
+  },
+  "calendar": {
+   "source_id": "eurostat-unemployment",
+   "publish_date": "2026-12-01",
+   "lag_days": 31,
+   "evidence_url": "https://ec.europa.eu/eurostat/news/release-calendar",
+   "cutoff": "2026-09-21"
+  },
+  "slug": "corpus:calendar|eurostat_live_unemployment_monthly|FR|2026-10|7.9",
+  "band_ok": true
+ },
+ {
+  "statement": "【forward】Eurostat ES 2026-10 失业率（%，季调）是否 <= 10.2？",
+  "layer": "L2",
+  "prob": 0.3333333333333333,
+  "prob_source": "empirical_freq@hist:dbnomics_eurostat_unemployment_monthly+eurostat_live_unemployment_monthly|geo=ES|n=3|q=0.3",
+  "base": 0.3333333333333333,
+  "baseNote": "前瞻·日历出题：同 geo 历史 3 期观测中 <= 10.2 占 33.3%（分位 q=0.3；来源＝账本 resolve_note 实测值解析）",
+  "resolve": {
+   "kind": "eurostat_live_unemployment_monthly",
+   "geo": "ES",
+   "month": "2026-10",
+   "threshold": 10.2,
+   "cmp": "<=",
+   "url_template": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/une_rt_m?format=JSON&geo={geo}&s_adj=SA&unit=PC_ACT&sex=T&age=TOTAL&lastTimePeriod={last_n}",
+   "last_n": "120",
+   "field": "官方直连 body.dimension.time.category.index 反查 month → body.value[该索引]（%）"
+  },
+  "meta": {
+   "phase": "i1_calendar",
+   "cutoff": "2026-09-21T15:17:23.436Z",
+   "eventDate": "2026-12-01",
+   "eventNote": "发布日（日历推算）：ESMS 原文「约 31 天」；实测 24 期中位 32 天（30~39）",
+   "calendar_source": "eurostat-unemployment",
+   "evidence_url": "https://ec.europa.eu/eurostat/news/release-calendar"
+  },
+  "calendar": {
+   "source_id": "eurostat-unemployment",
+   "publish_date": "2026-12-01",
+   "lag_days": 31,
+   "evidence_url": "https://ec.europa.eu/eurostat/news/release-calendar",
+   "cutoff": "2026-09-21"
+  },
+  "slug": "corpus:calendar|eurostat_live_unemployment_monthly|ES|2026-10|10.2",
+  "band_ok": true
+ },
+ {
+  "statement": "【forward】Eurostat ES 2026-10 失业率（%，季调）是否 >= 10.6？",
+  "layer": "L2",
+  "prob": 0.3333333333333333,
+  "prob_source": "empirical_freq@hist:dbnomics_eurostat_unemployment_monthly+eurostat_live_unemployment_monthly|geo=ES|n=3|q=0.7",
+  "base": 0.3333333333333333,
+  "baseNote": "前瞻·日历出题：同 geo 历史 3 期观测中 >= 10.6 占 33.3%（分位 q=0.7；来源＝账本 resolve_note 实测值解析）",
+  "resolve": {
+   "kind": "eurostat_live_unemployment_monthly",
+   "geo": "ES",
+   "month": "2026-10",
+   "threshold": 10.6,
+   "cmp": ">=",
+   "url_template": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/une_rt_m?format=JSON&geo={geo}&s_adj=SA&unit=PC_ACT&sex=T&age=TOTAL&lastTimePeriod={last_n}",
+   "last_n": "120",
+   "field": "官方直连 body.dimension.time.category.index 反查 month → body.value[该索引]（%）"
+  },
+  "meta": {
+   "phase": "i1_calendar",
+   "cutoff": "2026-09-21T15:17:23.436Z",
+   "eventDate": "2026-12-01",
+   "eventNote": "发布日（日历推算）：ESMS 原文「约 31 天」；实测 24 期中位 32 天（30~39）",
+   "calendar_source": "eurostat-unemployment",
+   "evidence_url": "https://ec.europa.eu/eurostat/news/release-calendar"
+  },
+  "calendar": {
+   "source_id": "eurostat-unemployment",
+   "publish_date": "2026-12-01",
+   "lag_days": 31,
+   "evidence_url": "https://ec.europa.eu/eurostat/news/release-calendar",
+   "cutoff": "2026-09-21"
+  },
+  "slug": "corpus:calendar|eurostat_live_unemployment_monthly|ES|2026-10|10.6",
+  "band_ok": true
+ }
+]
