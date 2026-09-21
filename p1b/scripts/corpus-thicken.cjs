@@ -109,6 +109,11 @@ function quantile(a, p) { const s = a.slice().sort((x, y) => x - y); if (!s.leng
 /**
  * 薄域 → 出题配方。每条给出：kind（须有现役 resolver）、取数（历史窗）、事件日（未来 N 天）、阈值候选分位。
  * **只列 n<30 的薄域**（阶段 4 分域读数清单）。
+ *
+ * ★2026-09-21 修（登记缺陷 `corpus-thicken.cjs:372`）：新增可选字段 `publishDays`＝该域的**发布日集合**
+ *   （0=周日…6=周六）。缺省＝每天都有（不填即原行为，零回归）。**未过滤非发布日 ⇒ 生成「永远不会出数」
+ *   的题**——与 frankfurter 19 条被预筛拦死同根：题面问「某日的数据」，而该日源根本不发布。
+ *   现役只有 frankfurter 需要（ECB 参考汇率每工作日发布，周末不发）。
  */
 const RECIPES = [
   {
@@ -175,6 +180,7 @@ const RECIPES = [
   },
   {
     domain: 'frankfurter', kind: 'frankfurter_rate_range', layer: 'L2',
+    publishDays: [1, 2, 3, 4, 5], // ★ECB 参考汇率每工作日发布（周末不发）——见本文件 RECIPES 头注
     build: async (targetDate) => {
       const pairs = [['USD', 'CNY'], ['USD', 'JPY'], ['USD', 'GBP'], ['EUR', 'USD']];
       const out = [];
@@ -370,7 +376,9 @@ const RECIPES = [
   const report = { run_at: RUN_AT, today: TODAY, confirm: CONFIRM, per_domain: PER, domains: [], total_new: 0, total_skip: 0, dry_run: !CONFIRM };
 
   // 目标事件日：未来 3 / 5 / 7 天（确保 cutoff 早于事件日，Q0-2）
+  // ★2026-09-21 修：按域 `publishDays` 过滤——**非发布日生成的题永远取不到数**（登记缺陷）
   const targetDates = [addDays(TODAY, 3), addDays(TODAY, 5), addDays(TODAY, 7)];
+  const dow = (iso) => new Date(iso + 'T12:00:00Z').getUTCDay();
 
   if (DB_ARG) process.env.P1B_DB_PATH = DB_ARG;
   db.init(DB_ARG || undefined);
@@ -379,14 +387,8 @@ const RECIPES = [
   for (const rc of RECIPES) {
     if (ONLY && rc.domain !== ONLY) continue;
     const dom = { domain: rc.domain, kind: rc.kind, layer: rc.layer, generated: 0, inserted: 0, skipped_dup: 0, skipped_band: 0, errors: [] };
-    let cands = [];
-    for (const td of targetDates) {
-      try { cands = cands.concat(await rc.build(td)); } catch (e) { dom.errors.push(td + ': ' + e.message); }
-    }
-    dom.generated = cands.length;
-    // 幂等：按 canonical key 查重（predictions 无 slug 列）
-    const existing = loadExist(conn);
-    // ★ 每域总量硬闸（防跨轮堆题）：目标 = 养到 >=30（阶段 4 分域读数准入线）
+    // ★上限前置（2026-09-21 修）：**先判上限再生成**——原顺序是「先生成（打网络）后判上限」
+    //   ⇒ 已满的域白跑一轮网络（实测 frankfurter 已满仍生成 16 条、耗时 12.5s 后丢弃）。
     const DOMAIN_CAP = Number(arg("cap", "30")) || 30;
     const haveN = conn.prepare(
       "SELECT COUNT(*) c FROM predictions WHERE layer IN ('L2','L3') AND evidence_json LIKE ?"
@@ -397,6 +399,18 @@ const RECIPES = [
       report.domains.push(dom);
       continue;
     }
+    // ★发布日过滤（未声明 publishDays 的域＝每日都有，零回归）
+    const domDates = rc.publishDays
+      ? targetDates.filter((td) => { const ok = rc.publishDays.indexOf(dow(td)) !== -1; if (!ok) dom.skipped_nonpublish = (dom.skipped_nonpublish || 0) + 1; return ok; })
+      : targetDates;
+    if (rc.publishDays && domDates.length === 0) dom.note_nonpublish = '三个目标日全为非发布日 ⇒ 本域本轮零出题（避免生成不可解题）';
+    let cands = [];
+    for (const td of domDates) {
+      try { cands = cands.concat(await rc.build(td)); } catch (e) { dom.errors.push(td + ': ' + e.message); }
+    }
+    dom.generated = cands.length;
+    // 幂等：按 canonical key 查重（predictions 无 slug 列）
+    const existing = loadExist(conn);
     const need = Math.min(PER, DOMAIN_CAP - haveN);   // 只补差额
     dom.have_before = haveN;
     dom.need = need;
