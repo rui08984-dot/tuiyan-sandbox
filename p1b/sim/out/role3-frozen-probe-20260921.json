@@ -1,0 +1,369 @@
+{
+ "script": "p1b/scripts/role3-freeze.cjs",
+ "action": "freeze",
+ "label": "probe",
+ "run_id": "role3-freeze-probe-20260921",
+ "frozen_at": "2026-09-21T15:20:01.627Z",
+ "source_file": "p1b/sim/out/role3-pilot-20260919.rows.json",
+ "branch_count": 42,
+ "parents": [
+  1994,
+  1995,
+  1996,
+  1997,
+  1998,
+  1999,
+  2000,
+  2001,
+  2002,
+  2003,
+  2004,
+  2005,
+  2006,
+  2007
+ ],
+ "branch_set": [
+  {
+   "parent_id": 1994,
+   "kind": "oddsapi_h2h",
+   "pick": "away",
+   "child_statement": "【forward】英超 Bournemouth vs Liverpool（2026-09-20 开赛）客队获胜"
+  },
+  {
+   "parent_id": 1994,
+   "kind": "oddsapi_h2h",
+   "pick": "draw",
+   "child_statement": "【forward】英超 Bournemouth vs Liverpool（2026-09-20 开赛）平局"
+  },
+  {
+   "parent_id": 1994,
+   "kind": "oddsapi_h2h",
+   "pick": "home",
+   "child_statement": "【forward】英超 Bournemouth vs Liverpool（2026-09-20 开赛）主队获胜"
+  },
+  {
+   "parent_id": 1995,
+   "kind": "oddsapi_h2h",
+   "pick": "away",
+   "child_statement": "【forward】英超 Leeds United vs Crystal Palace（2026-09-20 开赛）客队获胜"
+  },
+  {
+   "parent_id": 1995,
+   "kind": "oddsapi_h2h",
+   "pick": "draw",
+   "child_statement": "【forward】英超 Leeds United vs Crystal Palace（2026-09-20 开赛）平局"
+  },
+  {
+   "parent_id": 1995,
+   "kind": "oddsapi_h2h",
+   "pick": "home",
+   "child_statement": "【forward】英超 Leeds United vs Crystal Palace（2026-09-20 开赛）主队获胜"
+  },
+  {
+   "parent_id": 1996,
+   "kind": "oddsapi_h2h",
+   "pick": "away",
+   "child_statement": "【forward】英超 Manchester City vs Sunderland（2026-09-20 开赛）客队获胜"
+  },
+  {
+   "parent_id": 1996,
+   "kind": "oddsapi_h2h",
+   "pick": "draw",
+   "child_statement": "【forward】英超 Manchester City vs Sunderland（2026-09-20 开赛）平局"
+  },
+  {
+   "parent_id": 1996,
+   "kind": "oddsapi_h2h",
+   "pick": "home",
+   "child_statement": "【forward】英超 Manchester City vs Sunderland（2026-09-20 开赛）主队获胜"
+  },
+  {
+   "parent_id": 1997,
+   "kind": "oddsapi_h2h",
+   "pick": "away",
+   "child_statement": "【forward】英超 Fulham vs Manchester United（2026-09-20 开赛）客队获胜"
+  },
+  {
+   "parent_id": 1997,
+   "kind": "oddsapi_h2h",
+   "pick": "draw",
+   "child_statement": "【forward】英超 Fulham vs Manchester United（2026-09-20 开赛）平局"
+  },
+  {
+   "parent_id": 1997,
+   "kind": "oddsapi_h2h",
+   "pick": "home",
+   "child_statement": "【forward】英超 Fulham vs Manchester United（2026-09-20 开赛）主队获胜"
+  },
+  {
+   "parent_id": 1998,
+   "kind": "oddsapi_h2h",
+   "pick": "away",
+   "child_statement": "【forward】英超 Arsenal vs Leeds United（2026-10-10 开赛）客队获胜"
+  },
+  {
+   "parent_id": 1998,
+   "kind": "oddsapi_h2h",
+   "pick": "draw",
+   "child_statement": "【forward】英超 Arsenal vs Leeds United（2026-10-10 开赛）平局"
+  },
+  {
+   "parent_id": 1998,
+   "kind": "oddsapi_h2h",
+   "pick": "home",
+   "child_statement": "【forward】英超 Arsenal vs Leeds United（2026-10-10 开赛）主队获胜"
+  },
+  {
+   "parent_id": 1999,
+   "kind": "oddsapi_h2h",
+   "pick": "away",
+   "child_statement": "【forward】英超 Aston Villa vs Brentford（2026-10-10 开赛）客队获胜"
+  },
+  {
+   "parent_id": 1999,
+   "kind": "oddsapi_h2h",
+   "pick": "draw",
+   "child_statement": "【forward】英超 Aston Villa vs Brentford（2026-10-10 开赛）平局"
+  },
+  {
+   "parent_id": 1999,
+   "kind": "oddsapi_h2h",
+   "pick": "home",
+   "child_statement": "【forward】英超 Aston Villa vs Brentford（2026-10-10 开赛）主队获胜"
+  },
+  {
+   "parent_id": 2000,
+   "kind": "oddsapi_h2h",
+   "pick": "away",
+   "child_statement": "【forward】英超 Chelsea vs Bournemouth（2026-10-10 开赛）客队获胜"
+  },
+  {
+   "parent_id": 2000,
+   "kind": "oddsapi_h2h",
+   "pick": "draw",
+   "child_statement": "【forward】英超 Chelsea vs Bournemouth（2026-10-10 开赛）平局"
+  },
+  {
+   "parent_id": 2000,
+   "kind": "oddsapi_h2h",
+   "pick": "home",
+   "child_statement": "【forward】英超 Chelsea vs Bournemouth（2026-10-10 开赛）主队获胜"
+  },
+  {
+   "parent_id": 2001,
+   "kind": "oddsapi_h2h",
+   "pick": "away",
+   "child_statement": "【forward】英超 Sunderland vs Brighton and Hove Albion（2026-10-10 开赛）客队获胜"
+  },
+  {
+   "parent_id": 2001,
+   "kind": "oddsapi_h2h",
+   "pick": "draw",
+   "child_statement": "【forward】英超 Sunderland vs Brighton and Hove Albion（2026-10-10 开赛）平局"
+  },
+  {
+   "parent_id": 2001,
+   "kind": "oddsapi_h2h",
+   "pick": "home",
+   "child_statement": "【forward】英超 Sunderland vs Brighton and Hove Albion（2026-10-10 开赛）主队获胜"
+  },
+  {
+   "parent_id": 2002,
+   "kind": "oddsapi_h2h",
+   "pick": "away",
+   "child_statement": "【forward】英超 Ipswich Town vs Fulham（2026-10-10 开赛）客队获胜"
+  },
+  {
+   "parent_id": 2002,
+   "kind": "oddsapi_h2h",
+   "pick": "draw",
+   "child_statement": "【forward】英超 Ipswich Town vs Fulham（2026-10-10 开赛）平局"
+  },
+  {
+   "parent_id": 2002,
+   "kind": "oddsapi_h2h",
+   "pick": "home",
+   "child_statement": "【forward】英超 Ipswich Town vs Fulham（2026-10-10 开赛）主队获胜"
+  },
+  {
+   "parent_id": 2003,
+   "kind": "oddsapi_h2h",
+   "pick": "away",
+   "child_statement": "【forward】英超 Manchester United vs Tottenham Hotspur（2026-10-10 开赛）客队获胜"
+  },
+  {
+   "parent_id": 2003,
+   "kind": "oddsapi_h2h",
+   "pick": "draw",
+   "child_statement": "【forward】英超 Manchester United vs Tottenham Hotspur（2026-10-10 开赛）平局"
+  },
+  {
+   "parent_id": 2003,
+   "kind": "oddsapi_h2h",
+   "pick": "home",
+   "child_statement": "【forward】英超 Manchester United vs Tottenham Hotspur（2026-10-10 开赛）主队获胜"
+  },
+  {
+   "parent_id": 2004,
+   "kind": "oddsapi_h2h",
+   "pick": "away",
+   "child_statement": "【forward】英超 Crystal Palace vs Nottingham Forest（2026-10-11 开赛）客队获胜"
+  },
+  {
+   "parent_id": 2004,
+   "kind": "oddsapi_h2h",
+   "pick": "draw",
+   "child_statement": "【forward】英超 Crystal Palace vs Nottingham Forest（2026-10-11 开赛）平局"
+  },
+  {
+   "parent_id": 2004,
+   "kind": "oddsapi_h2h",
+   "pick": "home",
+   "child_statement": "【forward】英超 Crystal Palace vs Nottingham Forest（2026-10-11 开赛）主队获胜"
+  },
+  {
+   "parent_id": 2005,
+   "kind": "oddsapi_h2h",
+   "pick": "away",
+   "child_statement": "【forward】英超 Hull City vs Everton（2026-10-11 开赛）客队获胜"
+  },
+  {
+   "parent_id": 2005,
+   "kind": "oddsapi_h2h",
+   "pick": "draw",
+   "child_statement": "【forward】英超 Hull City vs Everton（2026-10-11 开赛）平局"
+  },
+  {
+   "parent_id": 2005,
+   "kind": "oddsapi_h2h",
+   "pick": "home",
+   "child_statement": "【forward】英超 Hull City vs Everton（2026-10-11 开赛）主队获胜"
+  },
+  {
+   "parent_id": 2006,
+   "kind": "oddsapi_h2h",
+   "pick": "away",
+   "child_statement": "【forward】英超 Liverpool vs Manchester City（2026-10-11 开赛）客队获胜"
+  },
+  {
+   "parent_id": 2006,
+   "kind": "oddsapi_h2h",
+   "pick": "draw",
+   "child_statement": "【forward】英超 Liverpool vs Manchester City（2026-10-11 开赛）平局"
+  },
+  {
+   "parent_id": 2006,
+   "kind": "oddsapi_h2h",
+   "pick": "home",
+   "child_statement": "【forward】英超 Liverpool vs Manchester City（2026-10-11 开赛）主队获胜"
+  },
+  {
+   "parent_id": 2007,
+   "kind": "oddsapi_h2h",
+   "pick": "away",
+   "child_statement": "【forward】英超 Coventry City vs Newcastle United（2026-10-12 开赛）客队获胜"
+  },
+  {
+   "parent_id": 2007,
+   "kind": "oddsapi_h2h",
+   "pick": "draw",
+   "child_statement": "【forward】英超 Coventry City vs Newcastle United（2026-10-12 开赛）平局"
+  },
+  {
+   "parent_id": 2007,
+   "kind": "oddsapi_h2h",
+   "pick": "home",
+   "child_statement": "【forward】英超 Coventry City vs Newcastle United（2026-10-12 开赛）主队获胜"
+  }
+ ],
+ "sha16": "a7f52679ada9be50",
+ "sha_method": "sha256(JSON.stringify(分支数组，按 parent_id|pick 排序))[:16]",
+ "parent_status_at_freeze": {
+  "1994": {
+   "exists": true,
+   "resolved": false,
+   "resolved_at": null,
+   "matures_at": "2026-09-20"
+  },
+  "1995": {
+   "exists": true,
+   "resolved": false,
+   "resolved_at": null,
+   "matures_at": "2026-09-20"
+  },
+  "1996": {
+   "exists": true,
+   "resolved": false,
+   "resolved_at": null,
+   "matures_at": "2026-09-20"
+  },
+  "1997": {
+   "exists": true,
+   "resolved": false,
+   "resolved_at": null,
+   "matures_at": "2026-09-20"
+  },
+  "1998": {
+   "exists": true,
+   "resolved": false,
+   "resolved_at": null,
+   "matures_at": "2026-10-10"
+  },
+  "1999": {
+   "exists": true,
+   "resolved": false,
+   "resolved_at": null,
+   "matures_at": "2026-10-10"
+  },
+  "2000": {
+   "exists": true,
+   "resolved": false,
+   "resolved_at": null,
+   "matures_at": "2026-10-10"
+  },
+  "2001": {
+   "exists": true,
+   "resolved": false,
+   "resolved_at": null,
+   "matures_at": "2026-10-10"
+  },
+  "2002": {
+   "exists": true,
+   "resolved": false,
+   "resolved_at": null,
+   "matures_at": "2026-10-10"
+  },
+  "2003": {
+   "exists": true,
+   "resolved": false,
+   "resolved_at": null,
+   "matures_at": "2026-10-10"
+  },
+  "2004": {
+   "exists": true,
+   "resolved": false,
+   "resolved_at": null,
+   "matures_at": "2026-10-11"
+  },
+  "2005": {
+   "exists": true,
+   "resolved": false,
+   "resolved_at": null,
+   "matures_at": "2026-10-11"
+  },
+  "2006": {
+   "exists": true,
+   "resolved": false,
+   "resolved_at": null,
+   "matures_at": "2026-10-11"
+  },
+  "2007": {
+   "exists": true,
+   "resolved": false,
+   "resolved_at": null,
+   "matures_at": "2026-10-12"
+  }
+ },
+ "all_parents_unresolved": true,
+ "discipline": "零账本写；冻结件只增不改；分支集 sha16 随读数件（PREREG v1.1 §3）"
+}

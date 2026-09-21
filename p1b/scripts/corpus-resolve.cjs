@@ -411,6 +411,32 @@ const RESOLVERS = {
     if (!v) return { pending: '比分缺失/非数（' + JSON.stringify(m.scores) + '）' };
     return { outcome: v.outcome, note: '机检:英超 ' + m.home_team + ' ' + v.detail + ' ' + m.away_team + '（The Odds API scores）' };
   },
+  // ── sim 域（狼人局）：放逐座位机检（2026-09-21 · U 型路径题用）──
+  // ★与其余 resolver 的区别：真值**不在网络**，在本地账本同库的 events/games 表。
+  //   本函数经 getJson 之外的通道取数——由调用方（sim 结算批）注入 db 句柄；此处若未注入则如实 reject（不猜）。
+  //   口径：events 表 type='death' 且 raw_text 含『计票』⇒ 其 JSON 的键即被放逐座位；
+  //   另核 games.meta.truth 里该座位的角色（供角色复核，不参与判定）。
+  async sim_exile_seat(r) {
+    if (!r || r.game_id === undefined || r.seat === undefined) {
+      return { reject: 'sim_exile_seat 缺 game_id/seat 参数 ⇒ 拒判（防静默判 false）' };
+    }
+    const sdb = (r.__db || null);
+    if (!sdb) return { reject: 'sim_exile_seat 需注入 db 句柄（r.__db）；本 resolver 真值在本地库非网络' };
+    const row = sdb.prepare(
+      "SELECT raw_text FROM events WHERE game_id = ? AND type = 'death' AND raw_text LIKE '%计票%' ORDER BY seq LIMIT 1"
+    ).get(r.game_id);
+    if (!row) return { pending: 'sim 局 ' + r.game_id + ' 无计票事件（未跑完或数据缺失）' };
+    const m = /计票：({[^}]*})/.exec(String(row.raw_text));
+    if (!m) return { reject: '计票事件格式不符（无法解析 JSON）：' + String(row.raw_text).slice(0, 80) };
+    let tally; try { tally = JSON.parse(m[1]); } catch (e) { return { reject: '计票 JSON 不可解析：' + m[1] }; }
+    const seats = Object.keys(tally).map((x) => Number(x));
+    if (!seats.length) return { reject: '计票为空 ⇒ 无被放逐者（异常局面，拒判）' };
+    const exiled = seats[0];
+    const isExiled = exiled === Number(r.seat);
+    return { outcome: isExiled ? 'true' : 'false',
+      note: 'sim 局 ' + r.game_id + ' 计票 ' + JSON.stringify(tally) + ' ⇒ 被放逐 ' + exiled + ' 号'
+        + '（本题问 ' + r.seat + ' 号；机检·本地 events 表）' };
+  },
 };
 
 // ── 同口径 kind 别名（字段描述一致才共用；纯新增，不改既有 7 种）──
