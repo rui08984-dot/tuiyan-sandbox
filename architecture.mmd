@@ -1,0 +1,82 @@
+flowchart TB
+    subgraph MAIN["推演沙盘主项目 · 预测万物分层平台"]
+        direction TB
+        LEDGER[("p1a.db<br/>账本 1992/1630/5156")]
+        VAULT[("truth_vault<br/>1992 ok")]
+        INTAKE["intake 接题门<br/>六层决策树"]
+        ENGINES["分层引擎 L1-L6<br/>五层齐备"]
+        STAGE4["stage4-run<br/>五层读数+分域 29/9"]
+        CAL["calibration-report<br/>校准报告"]
+        BOARD["board 看板"]
+        LEDGER --> VAULT
+        LEDGER --> ENGINES
+        INTAKE --> LEDGER
+        ENGINES --> STAGE4
+        STAGE4 --> CAL
+        STAGE4 --> BOARD
+    end
+
+    subgraph PHASE["阶段路线（0-5 + 第1-4期）"]
+        direction LR
+        P0["阶段0 可信账本<br/>完成"]
+        P1["阶段1 判词路<br/>完成 三负结果"]
+        P2["阶段2 语料扩容<br/>完成 跨天数"]
+        P3["阶段3 G2 过程门<br/>完成"]
+        P4["阶段4 分层引擎<br/>进行 9/10 格"]
+        P5["阶段5 前瞻信号<br/>完成 Δ=0.1587"]
+        P0 --> P1 --> P2 --> P3 --> P4
+        P2 --> P5
+    end
+
+    subgraph TICKET["第 3 期票制菜单"]
+        direction LR
+        A1["票A A1 重算器<br/>完成"]
+        TB["票B 厚格基建<br/>完成 负结果归档"]
+        R3["角色3 分支合成器<br/>完成 首跑负结果"]
+        I1["I1 日历即题源<br/>未开"]
+        A3["A3 配方库<br/>闸门未过"]
+        A5["A5/O6 姿态门<br/>闸门未过"]
+    end
+
+    subgraph INFRA["纪律与基础设施"]
+        direction LR
+        PREREG["PREREG 冻结<br/>7 件 MATCH"]
+        TEST["测试 549/549"]
+        SCRIPTS["脚本 117 在役"]
+        UI["前端观测台<br/>三轮改造"]
+        HANDOFF["交接链 20 份<br/>+ 状态栈"]
+    end
+
+    subgraph RADIO["AI 音乐电台副线（内容产品）"]
+        direction TB
+        PLAN["策划两件<br/>0902/0903"]
+        SONG["做歌 hot-step<br/>ace-music"]
+        POLISH["体检 music-polish<br/>-14 LUFS"]
+        LRC["歌词 MM3 LRC"]
+        VIDEO["视频合成<br/>ffmpeg+ASS 待建"]
+        COVER["封面 Blender/模板"]
+        PUB["发布 B站/抖音<br/>未开号"]
+        EP1["EP01 成片<br/>29min 已出"]
+        EP2["EP02 制作<br/>封面已出"]
+        PLAN --> SONG --> POLISH --> LRC --> VIDEO --> COVER --> PUB
+        SONG --> EP1
+        SONG --> EP2
+        COVER --> EP1
+    end
+
+    ENGINES -.->|"判词"| VERD[("verdicts 5156")]
+    VERD -.-> STAGE4
+    PREREG -.->|"冻结判据"| R3
+    R3 -.->|"只披露"| BOARD
+    TB -.->|"等数据"| P4
+    I1 -.->|"生成题源"| INTAKE
+    RADIO -.->|"独立线<br/>不接账本"| INFRA
+
+    classDef done fill:#2e7d32,color:#fff
+    classDef doing fill:#f9a825,color:#000
+    classDef blocked fill:#c62828,color:#fff
+    classDef notstarted fill:#546e7a,color:#fff
+
+    class P0,P1,P2,P3,P5,A1,TB,R3,LEDGER,VAULT,INTAKE,ENGINES,CAL,BOARD,PREREG,TEST,SCRIPTS,UI,HANDOFF,PLAN,SONG,POLISH,LRC,COVER,EP1 done
+    class P4,STAGE4,EP2 doing
+    class A3,A5,I1,PUB,VIDEO notstarted

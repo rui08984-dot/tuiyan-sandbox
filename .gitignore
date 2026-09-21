@@ -66,3 +66,11 @@ _p1a_backup_pre_m2.db
 # 金样钉定库快照的 SQLite 边车（运行期生成，不入库）
 p1b/test/fixtures/stage4-golden-db-*.db-shm
 p1b/test/fixtures/stage4-golden-db-*.db-wal
+
+# ===== 2026-09-21 状态栈接入（SessionRelay）=====
+# 本地记忆库不入库（含会话原文/数据库；交接备份走 srelay export .hop）
+.sessionrelay/
+.sessionrelayignore
+# 状态栈三件（progress.md/architecture.mmd/dashboard.html）**入库**（团队共享的看板与依赖图）
+# dashboard.html＝生成物（由 progress.md + architecture.mmd 经 gen_dashboard.mjs 重生成；照 p1b/web/dist/ 先例不入库）
+dashboard.html
