@@ -100,7 +100,45 @@ test('⑤ 路由接线锁：App.tsx 含两页的 import + Route + NavLink', () =
     ['Route bayes-lens', /<Route path="\/bayes-lens" element=\{<BayesLensPage \/>\}/],
     ['NavLink negative-results', /<NavLink to="\/negative-results"/],
     ['NavLink bayes-lens', /<NavLink to="\/bayes-lens"/],
+    // 第 4 期 A9（三行对比榜）
+    ['import ArenaPage', /import ArenaPage from '\.\/pages\/disclosure\/ArenaPage'/],
+    ['Route arena', /<Route path="\/arena" element=\{<ArenaPage \/>\}/],
+    ['NavLink arena', /<NavLink to="\/arena"/],
   ];
   const bad = checks.filter(([, re]) => !re.test(src)).map(([n]) => n);
   assert.deepEqual(bad, [], '接线缺失：\n' + bad.join('\n'));
+});
+
+test('⑥ ★A9 三行对比榜：口径纪律锁（禁跨题集直接比较）', async () => {
+  const { register } = require(path.join(ROOT, 'p1b/src/routes/disclosure.js'));
+  const routes = {};
+  register({ get: (p, h) => { routes[p] = h; } });
+  assert.ok(routes['/api/disclosure/arena'], '缺 arena 端点');
+  const r = await routes['/api/disclosure/arena']({}, mkReply());
+
+  // ① 三行齐：我方 / 人类 / 市场
+  assert.ok(Array.isArray(r.mine) && r.mine.length >= 3, '我方行应 ≥3 层');
+  assert.ok(r.human && r.human.values, '人类行应含基线值');
+  assert.ok(r.market && typeof r.market.available === 'boolean', '市场行应含 available 标志');
+
+  // ② ★核心纪律：必须逐对声明可比性（不可比原因）
+  assert.ok(Array.isArray(r.incomparable) && r.incomparable.length >= 2, '应 ≥2 条可比性声明（实测 ' + (r.incomparable || []).length + '）');
+  for (const x of r.incomparable) {
+    assert.ok(x.pair && x.reason && String(x.reason).length > 10, '每条声明须含 pair 与实质 reason');
+  }
+
+  // ③ 恒挂限定语块三条
+  assert.equal(r.qualification_block.length, 3, '限定语块应 3 条');
+
+  // ④ ★市场行不得混入我方读数（07 号件：市场价仅作对手参照）
+  const mineStr = JSON.stringify(r.mine);
+  assert.ok(mineStr.indexOf('marketPrice') < 0, '我方行不得含市场价字段');
+  assert.ok(mineStr.indexOf('p_pick') < 0, '我方行不得含市场价字段');
+
+  // ⑤ ★人类基线须标注核验状态（转载级不得冒充已核验）
+  assert.ok(r.human.status && /转载级/.test(r.human.status), '人类基线须如实标注「转载级」核验状态');
+
+  // ⑥ ★页面源码禁词（A6 §3）—— ArenaPage 单独查
+  const src = fs.readFileSync(path.join(ROOT, 'p1b/web/src/pages/disclosure/ArenaPage.tsx'), 'utf8');
+  assert.equal((src.match(/预测/g) || []).length, 0, 'ArenaPage 不得含禁词');
 });
