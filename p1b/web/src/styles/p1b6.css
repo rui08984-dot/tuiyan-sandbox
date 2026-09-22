@@ -64,7 +64,7 @@
   background: rgba(143, 175, 123, 0.16); color: var(--accent);
 }
 .adv-badge .spinner { width: 10px; height: 10px; border-width: 2px; }
-.adv-badge.is-ready { background: rgba(88, 179, 104, 0.14); color: var(--ok); }
+.adv-badge.is-ready { background: var(--ok-bg); color: var(--ok); }
 .adv-body {
   background: var(--panel); border: 1px solid var(--line);
   border-radius: var(--radius); padding: 12px 14px; margin-bottom: 12px;

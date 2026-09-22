@@ -51,8 +51,8 @@
 /* 轻提示（与 input.css .toast 同款：本页独立引入保持一致观感） */
 .toast {
   position: sticky; top: 8px; z-index: 25;
-  background: rgba(88, 179, 104, 0.14); color: var(--ok);
-  border: 1px solid rgba(88, 179, 104, 0.4);
+  background: var(--ok-bg); color: var(--ok);
+  border: 1px solid var(--ok-border);
   border-radius: 10px; padding: 10px 14px; font-size: 14px;
   margin-bottom: 10px; word-break: break-all;
 }
@@ -81,7 +81,7 @@
 }
 @keyframes adv-spin { to { transform: rotate(360deg); } }
 .adv-ready {
-  background: rgba(88, 179, 104, 0.14); border: 1px solid rgba(88, 179, 104, 0.4);
+  background: var(--ok-bg); border: 1px solid var(--ok-border);
   color: var(--ok); border-radius: var(--radius); padding: 12px 14px; margin-bottom: 12px;
 }
 
@@ -112,7 +112,7 @@
 .contr-card.under-low { border-left-color: var(--line); }
 .contr-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .under-badge { font-size: 12px; line-height: 1; border-radius: 999px; padding: 5px 9px; white-space: nowrap; }
-.under-badge.high { background: rgba(224, 92, 74, 0.18); color: var(--danger); }
+.under-badge.high { background: var(--danger-bg); color: var(--danger); }
 .under-badge.mid { background: rgba(201, 164, 76, 0.16); color: var(--warn); }
 .under-badge.low { background: var(--panel-2); color: var(--muted); border: 1px solid var(--line); }
 .ref-chip {
@@ -174,10 +174,10 @@
   font-size: 11.5px; line-height: 1; border-radius: 999px; padding: 3px 8px;
   white-space: nowrap; flex-shrink: 0;
 }
-.team-townsfold, .team-townsfolk { background: rgba(88, 179, 104, 0.16); color: var(--ok); }
+.team-townsfold, .team-townsfolk { background: var(--ok-bg); color: var(--ok); }
 .team-outsider { background: var(--panel); color: var(--muted); border: 1px solid var(--line); }
 .team-minion { background: rgba(201, 164, 76, 0.16); color: var(--warn); }
-.team-demon { background: rgba(224, 92, 74, 0.16); color: var(--danger); }
+.team-demon { background: var(--danger-bg); color: var(--danger); }
 .team-traveller, .team-fabled { background: rgba(143, 175, 123, 0.16); color: var(--accent); }
 
 /* 桌面宽屏微调 */

@@ -14,7 +14,7 @@
 .ui-stat-caption { color: var(--muted); font-size: var(--font-size-xs); display: block; }
 .ui-stat.is-accent { border-color: rgba(143, 175, 123, 0.45); }
 .ui-stat.is-warn { border-color: rgba(201, 164, 76, 0.5); }
-.ui-stat.is-danger { border-color: rgba(224, 92, 74, 0.5); }
+.ui-stat.is-danger { border-color: var(--danger-border); }
 
 /* ── Badge ── */
 .ui-badge { display: inline-flex; align-items: center; gap: 4px; padding: 1px 8px; border-radius: var(--radius-pill); font-size: var(--font-size-small); border: 1px solid var(--line); color: var(--text); background: var(--panel-2); white-space: nowrap; }

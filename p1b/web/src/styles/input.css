@@ -3,8 +3,8 @@
 /* ── 轻提示（入账/修订/撤回回执）── */
 .toast {
   position: sticky; top: 8px; z-index: 25;
-  background: rgba(88, 179, 104, 0.14); color: var(--ok);
-  border: 1px solid rgba(88, 179, 104, 0.4);
+  background: var(--ok-bg); color: var(--ok);
+  border: 1px solid var(--ok-border);
   border-radius: 10px; padding: 10px 14px; font-size: 14px;
   margin-bottom: 10px; word-break: break-all;
 }
@@ -27,8 +27,8 @@
 .roster { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
 .roster-chip {
   font-size: 12.5px; line-height: 1; padding: 6px 9px; border-radius: 999px;
-  background: rgba(88, 179, 104, 0.14); color: var(--ok);
-  border: 1px solid rgba(88, 179, 104, 0.35); white-space: nowrap;
+  background: var(--ok-bg); color: var(--ok);
+  border: 1px solid var(--ok-border); white-space: nowrap;
 }
 .roster-chip.is-dead {
   background: var(--panel-2); color: var(--muted);
@@ -74,8 +74,8 @@
 .tl-claim { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; font-size: 13.5px; }
 .tl-claim .pred { font-size: 12px; padding: 2px 8px; border-radius: 999px; white-space: nowrap; }
 .pred-claims_role { background: rgba(143, 175, 123, 0.16); color: var(--accent); }
-.pred-is_wolf { background: rgba(224, 92, 74, 0.16); color: var(--danger); }
-.pred-is_good { background: rgba(88, 179, 104, 0.16); color: var(--ok); }
+.pred-is_wolf { background: var(--danger-bg); color: var(--danger); }
+.pred-is_good { background: var(--ok-bg); color: var(--ok); }
 .pred-other { background: var(--panel-2); color: var(--muted); }
 .tl-row-actions { display: flex; gap: 6px; margin-left: auto; }
 .tl-row-actions .btn { min-height: 34px; padding: 0 10px; font-size: 12.5px; }
@@ -107,7 +107,7 @@
 }
 .confirm-re {
   margin: 10px 0 0; padding: 8px 10px; border-radius: 8px; font-size: 13.5px;
-  background: rgba(224, 92, 74, 0.14); color: var(--danger);
+  background: var(--danger-bg); color: var(--danger);
 }
 .confirm-sec { margin-top: 14px; }
 .confirm-sec > .sec-title { margin: 0 0 8px; font-size: 13px; color: var(--muted); letter-spacing: 1px; }
