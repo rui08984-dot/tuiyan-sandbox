@@ -9,12 +9,31 @@
   background: rgba(26, 31, 28, 0.96);
   border-bottom: 1px solid var(--line);
   backdrop-filter: blur(8px);
+  min-width: 0;
+  max-width: 100%;
+}
 }
 .brand {
   display: flex; align-items: center; gap: 6px; margin-right: auto;
   color: var(--text); text-decoration: none; font-weight: 700; font-size: 15px;
+  flex: 0 0 auto;
 }
-.appbar-nav { display: flex; gap: 4px; }
+/* 窄屏纪律：11 项导航在 360px 下放不下 ⇒ 导航条自身横向滚动，
+ * 保住每项 44px 触控目标（不靠压缩可点面积换不溢出）。滚动条隐身。 */
+.appbar-nav {
+  display: flex; gap: 4px;
+  min-width: 0; flex: 1 1 auto;
+  overflow-x: auto; overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.appbar-nav::-webkit-scrollbar { height: 0; }
+/* 顶栏内层：所有断点都必须是可收缩的 flex 行——它在窄屏曾被内容撑到 456px
+ * 而把整页推宽（页面横向滚动）。放在断点外，桌面端由 ≥900px 段补 max-width。 */
+.appbar-inner {
+  display: flex; align-items: center; gap: 10px;
+  min-width: 0; width: 100%; flex: 1 1 auto;
+}
 .appbar-link {
   display: flex; align-items: center; min-height: 44px; padding: 0 14px;
   color: var(--muted); text-decoration: none; font-size: 14px; border-radius: 10px;

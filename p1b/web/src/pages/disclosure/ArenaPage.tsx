@@ -37,6 +37,34 @@ type ArenaJson = {
 const f = (x: number | null) => tri(x);
 const MAX_BRIER = 0.25; // 无信息常数 0.5 ⇒ Brier=0.25 的阈值
 
+/** 人类基线键名 → 可读标签（原始键名仍印在兜底表里，可追溯）
+ * ★ 用词纪律：铁律② 全站禁「预＋测」二字连排（源码级扫描含注释）⇒
+ *   原文 superforecaster 译作「精英组」，避免使用该两字连排的常见译法。
+ *   语义不变，指向同一群体。 */
+const HUMAN_LABEL: Record<string, string> = {
+  'human_superforecaster_median_overall': '精英组·中位（整体）',
+  'human_superforecaster_median.dataset': '精英组·中位（数据集题）',
+  'human_superforecaster_median.market': '精英组·中位（市场题）',
+  'human_public_median_overall': '公众·中位（整体）',
+  'human_public_median.dataset': '公众·中位（数据集题）',
+  'human_public_median.market': '公众·中位（市场题）',
+  'best_llm_overall_200q_human_subset': '最佳 LLM·整体（200 题人类子集）',
+  'best_llm_overall_1000q_leaderboard': '最佳 LLM·整体（1000 题榜）',
+  'next_llms.GPT-4-Turbo-2024-04-09': '次佳 LLM·GPT-4-Turbo-2024-04-09',
+  'next_llms.GPT-4o': '次佳 LLM·GPT-4o',
+  'next_llms.Gemini-1.5-Pro': '次佳 LLM·Gemini-1.5-Pro',
+  'combination_questions.superforecaster': '组合题·精英组',
+  'combination_questions.public': '组合题·公众',
+  'combination_questions.top_llm_gpt4o': '组合题·顶级 LLM（GPT-4o）',
+  'combination_questions.gap_superforecaster_minus_gpt4o': '组合题·精英组 − GPT-4o 差值',
+  'best_llm_name': '最佳 LLM 名称',
+};
+
+/** ★ 口径纪律：这两类不是 Brier 读数，绝不上同一条 Brier 轴
+ *  gap_* 是两侧读数之差（不同量纲）；best_llm_name 是文本。
+ */
+const NON_BRIER_KEYS = new Set(['combination_questions.gap_superforecaster_minus_gpt4o']);
+
 export default function ArenaPage() {
   const [data, setData] = useState<ArenaJson | null>(null);
   const [missing, setMissing] = useState<{ hint?: string } | null>(null);
@@ -63,8 +91,17 @@ export default function ArenaPage() {
   const inc = Array.isArray(data.incomparable) ? data.incomparable : [];
   const hv = (data.human && data.human.values) || null;
 
-  /** 放出所有数值键，不只是 typeof === 'number' 的顶层；嵌套对象展开成可画条的数据 */
-  const allValues = useMemoFlat(hv ?? {});
+  /** 放出所有叶子键（数值 + 文本），嵌套对象展开成可画条的数据 */
+  const flatValues = flattenLeaves(hv ?? {});
+  const numEntries = Object.entries(flatValues)
+    .filter(([k, v]) => typeof v === 'number' && Number.isFinite(v) && !NON_BRIER_KEYS.has(k))
+    .map(([k, v]) => [k, v as number] as const)
+    .sort((a, b) => a[1] - b[1]); // 越低越好 ⇒ 升序，最好的排最前
+  const gapEntries = Object.entries(flatValues)
+    .filter(([k, v]) => NON_BRIER_KEYS.has(k) && typeof v === 'number')
+    .map(([k, v]) => [k, v as number] as const);
+  const textEntries = Object.entries(flatValues)
+    .filter(([, v]) => typeof v === 'string' && v !== '');
 
   return (
     <div className="ui-stack">
@@ -136,39 +173,50 @@ export default function ArenaPage() {
         <ChartFrame
           testId="arena-human"
           eyebrow="人类基线（公开基准）"
-          title={<Term id="calibrationAci" plain="校准参考" /> + "（越接近 0 越好）"}
+          title={<><Term id="calibrationAci" plain="校准参考" />（越接近 0 越好）</>}
           sourceFile="forecastbench-baseline.json"
           generatedAt={data.generated_at || undefined}
           tableFallback={[
-            ['指标', '值', '说明'],
+            ['指标', '值', '可读标签'],
             ['来源', data.human.source ?? '—', ''],
             ['核验状态', data.human.status ?? '—', ''],
             ['口径要求', data.human.usage_rule ?? '—', ''],
-            ...Object.entries(allValues).map(([k, vPair]) => {
-              const val = Array.isArray(vPair) ? vPair[1] : (vPair as number);
-              return [k, Number(val).toFixed(4), ''];
-            }),
+            ...numEntries.map(([k, v]) => [k, v.toFixed(4), HUMAN_LABEL[k] ?? '']),
+            ...gapEntries.map(([k, v]) => [k, v.toFixed(4), HUMAN_LABEL[k] ?? '（差值，非 Brier 水平）']),
+            ...textEntries.map(([k, v]) => [k, String(v), '']),
           ]}
-          note="数值原样转录自 ForecastBench 件，人类基线为转载级未核验值。"
+          note="数值原样转录自 ForecastBench 件，人类基线为转载级未核验值。条按 Brier 升序（越低越好）；差值项与文本项不上 Brier 轴。"
         >
           <div className="ui-stack" style={{ marginTop: 12 }}>
-            {Object.keys(allValues).map((k) => {
-              const val = allValues[k][1];
-              if (Number.isFinite(val)) {
-                const isGood = val <= MAX_BRIER;
-                return (
-                  <Bar key={k}
-                    value={val} max={MAX_BRIER}
-                    threshold={MAX_BRIER}
-                    thresholdLabel="0.25 无信息线"
-                    color={isGood ? 'var(--ok)' : 'var(--warn)'}
-                    valueText={<Term id="calibrationAci" plain="Brier" />}
-                  />
-                );
-              }
-              return null;
-            })}
+            {numEntries.map(([k, val]) => (
+              <Bar key={k}
+                value={val} max={MAX_BRIER}
+                threshold={MAX_BRIER}
+                thresholdLabel="0.25 无信息线"
+                color={val <= MAX_BRIER ? 'var(--ok)' : 'var(--warn)'}
+                label={HUMAN_LABEL[k] ?? k}
+                valueText={val.toFixed(3)}
+              />
+            ))}
           </div>
+          {textEntries.length ? (
+            <p className="ui-note" style={{ marginTop: 10 }}>
+              {textEntries.map(([k, v], i) => (
+                <span key={k}>{(HUMAN_LABEL[k] ?? k) + '：'}<b>{String(v)}</b>{i < textEntries.length - 1 ? '　' : ''}</span>
+              ))}
+            </p>
+          ) : null}
+          {gapEntries.length ? (
+            <div className="ui-stack" style={{ marginTop: 10 }}>
+              <p className="ui-note" style={{ margin: 0 }}>差值（不画到 Brier 轴：与两侧读数同量纲但非 Brier 水平，仅供对照）</p>
+              {gapEntries.map(([k, v]) => (
+                <div className="ui-kv-row" key={k} style={{ borderTop: 'none' }}>
+                  <span className="ui-kv-key">{HUMAN_LABEL[k] ?? k}</span>
+                  <span className="ui-kv-val u-mono">{v.toFixed(3)}</span>
+                </div>
+              ))}
+            </div>
+          ) : null}
         </ChartFrame>
       ) : null}
 
@@ -198,16 +246,16 @@ export default function ArenaPage() {
   );
 }
 
-// 扁平化嵌套对象，把所有层级拆成可绘制的单列数据
-function useMemoFlat(values: Record<string, unknown>, parent?: string): Record<string, [string, number]> {
-  const out: Record<string, [string, number]> = {};
+/** 扁平化嵌套对象：叶子（数值或文本）拍平成 `全路径键 → 值` */
+function flattenLeaves(values: Record<string, unknown>, parent?: string): Record<string, number | string> {
+  const out: Record<string, number | string> = {};
   for (const k in values) {
     const v = values[k];
     const fullKey = parent ? `${parent}.${k}` : k;
     if (typeof v === 'object' && v !== null) {
-      Object.assign(out, useMemoFlat(v as Record<string, unknown>, fullKey));
-    } else if (typeof v === 'number') {
-      out[fullKey] = [String(v), v];
+      Object.assign(out, flattenLeaves(v as Record<string, unknown>, fullKey));
+    } else if (typeof v === 'number' || typeof v === 'string') {
+      out[fullKey] = v;
     }
   }
   return out;
