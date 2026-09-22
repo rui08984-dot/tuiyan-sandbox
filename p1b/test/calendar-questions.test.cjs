@@ -104,3 +104,25 @@ test('⑥ 活库前提条件式：无历史 geo 如实跳过（不编）', () =>
   const it = rep.sources[0].geos.find((g) => g.geo === 'IT');
   if (it && it.hist_n === 0) assert.ok(it.skipped, 'IT 历史 0 期时须标 skipped');
 });
+
+test('⑦ ★候选留痕旁路（--record-candidates）＋ 严格口径', () => {
+  // 背景（2026-09-22）：交接件 §1 新首选棒②「I1 出题器的 --record-candidates（同理补齐）」。
+  //   承 corpus-sources-b4.cjs / role3-utype.cjs 同款实现（默认关 ⇒ 零行为变化）。
+  assert.ok(/--record-candidates=/.test(SRC), '须支持 --record-candidates= 参数');
+  assert.ok(/const DROPS = \[\]/.test(SRC), '须有 DROPS 数组');
+  assert.ok(/function recDrop/.test(SRC), '须有 recDrop 函数');
+  // ★默认关锁
+  assert.ok(/function recDrop\(stage, reason, info\) \{ if \(!REC_PATH\) return;/.test(SRC), '★recDrop 须在 !REC_PATH 时立即 return');
+  // 丢弃点：3 处（源级／geo 级／分位级）
+  const n = (SRC.match(/recDrop\(/g) || []).length - 1;
+  assert.equal(n, 3, '应有 3 处 recDrop 调用（实测 ' + n + '）');
+  // ★产物锁：含 counts 与「源/geo 级」如实标注
+  const recPath = path.join(ROOT, '.scratch/p37/i1-candidates.json');
+  if (fs.existsSync(recPath)) {
+    const r = JSON.parse(fs.readFileSync(recPath, 'utf8'));
+    assert.equal(r.counts.proposed_total, r.counts.candidates + r.counts.drops, '提议全集＝候选＋被丢');
+    assert.ok(/源\/geo 级/.test(r.note), '★须如实标注 drops 是源/geo 级（非逐题级）');
+    // ★严格口径读数须如实（<100% 也要记）
+    assert.ok(r.counts.drops >= 1, '当前应有 ≥1 条被丢（IT 历史不足）⇒ 严格口径 < 100%');
+  }
+});

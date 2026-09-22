@@ -50,6 +50,15 @@ const DRY = FLAG('dry-run');
 const TODAY = new Date().toISOString().slice(0, 10);          // ★运行时日期戳（禁写死）
 const RUN_AT = new Date().toISOString();
 
+// ── 候选留痕旁路（2026-09-22 · 承 corpus-sources-b4.cjs / role3-utype.cjs 同款实现）──────────
+// 为什么：I1 的前置是「**过锚率 ≥80%**」，而该率的分母＝**提议全集**（含被丢的）。
+//   本生成器在「日历推算不出／同 geo 历史不足／分位算不出」时直接 continue ⇒ 被丢提议**零留痕**
+//   ⇒ 拿现成候选算出的永远是**构造性 100%**。旁路落「提议全集＋丢弃原因」让过锚率**可测**。
+// 纪律：**默认关** ⇒ 不传 `--record-candidates=<path>` 时**零行为变化**（不建数组、不写文件）。
+const REC_PATH = (() => { const a = process.argv.find((x) => x.startsWith('--record-candidates=')); return a ? a.slice(20) : null; })();
+const DROPS = [];
+function recDrop(stage, reason, info) { if (!REC_PATH) return; DROPS.push(Object.assign({ stage: stage, reason: reason }, info || {})); }
+
 // ── 三源日历的**机器可用投影**（来源：收据 §6；此处只落「发布滞后」这一个出题需要的量）──
 // ★纪律：滞后值须与收据 §6 的实测一致；改动＝口径变更，须同时改收据并说明。
 const SOURCES = [
@@ -143,7 +152,7 @@ function histObserved(conn, kinds, geo) {
   for (const src of SOURCES) {
     const s = { id: src.id, kind: src.kind, lagDays: src.lagDays, lagNote: src.lagNote, evidenceUrl: src.evidenceUrl, geos: [], rows: 0 };
     const per = nextPublishablePeriod(src, TODAY);
-    if (!per) { s.error = '无法推算下一个可出题参考期（日历规则未覆盖）'; report.sources.push(s); continue; }
+    if (!per) { recDrop('source', 'no_publishable_period', { source_id: src.id }); s.error = '无法推算下一个可出题参考期（日历规则未覆盖）'; report.sources.push(s); continue; }
     s.target_period = per.period;
     s.publish_date = per.publishDate;
     s.days_until = per.daysUntil;
@@ -152,11 +161,11 @@ function histObserved(conn, kinds, geo) {
       // ★历史观测值来源：同族镜像 kind（dbnomics 镜像 vs live 直连，同源同量纲）
       const obs = histObserved(conn, src.histKinds || [src.kind], geo);
       const g = { geo, hist_n: obs.length, rows: 0 };
-      if (obs.length < 3) { g.skipped = '同 geo 历史观测不足 3 期（实测 ' + obs.length + '）⇒ 无阈值来源（如实跳过，不编）'; s.geos.push(g); continue; }
+      if (obs.length < 3) { recDrop('geo', 'insufficient_history', { source_id: src.id, geo: geo, hist_n: obs.length }); g.skipped = '同 geo 历史观测不足 3 期（实测 ' + obs.length + '）⇒ 无阈值来源（如实跳过，不编）'; s.geos.push(g); continue; }
       const vals = obs.map((o) => o.value);
       for (const q of [0.3, 0.7]) {
         const th = quantile(vals, q);
-        if (th === null) continue;
+        if (th === null) { recDrop('quantile', 'no_quantile', { source_id: src.id, geo: geo, q: q }); continue; }
         const ge = q >= 0.5;
         const hit = vals.filter((x) => (ge ? x >= th : x <= th)).length / vals.length;
         const bandOk = inBand(hit);
@@ -225,6 +234,21 @@ function histObserved(conn, kinds, geo) {
     fs.writeFileSync(repPath, JSON.stringify(report, null, 1), 'utf8');
     console.log('产物 ' + rowsPath);
     console.log('产物 ' + repPath);
+    // ── 候选留痕落盘（默认关；仅当传 --record-candidates=<path>）──
+    if (REC_PATH) {
+      const dropByReason = {};
+      for (const dz of DROPS) dropByReason[dz.reason] = (dropByReason[dz.reason] || 0) + 1;
+      fs.writeFileSync(REC_PATH, JSON.stringify({
+        run_at: RUN_AT, source: 'calendar-questions.cjs', today: TODAY,
+        note: '候选留痕旁路产物（承 corpus-sources-b4.cjs / role3-utype.cjs 同款）：candidates＝产出的候选题；'
+          + 'drops＝被丢提议（含原因）。过锚率的严格分母＝candidates.length + drops.length（提议全集）。'
+          + '★注意：本生成器的 drops 是**源/geo 级**（整个源或整个 geo 被丢），非逐题级。',
+        candidates: report.rows, drops: DROPS,
+        counts: { candidates: report.rows.length, drops: DROPS.length, proposed_total: report.rows.length + DROPS.length, drop_by_reason: dropByReason },
+      }, null, 1), 'utf8');
+      console.log('[record] 候选留痕 -> ' + REC_PATH + '（候选 ' + report.rows.length + ' ＋ 被丢 ' + DROPS.length + ' ＝ 提议全集 ' + (report.rows.length + DROPS.length) + '）');
+      console.log('[record] 被丢按原因 ' + JSON.stringify(dropByReason));
+    }
     console.log('下一步：node p1b/scripts/anchor-gate.cjs --candidates ' + rowsPath + ' --label I1-日历出题');
   }
 })();
