@@ -37,9 +37,9 @@ type LensJson = {
   o7_maxent?: { prior: string; statement: string } | null;
 };
 const QUALIFICATION_BLOCK = [
-  '重放计分（读侧）：本页数字来自引擎重放，账本 gate=descriptive 未计分；baseline_brier 列从未写入。',
-  '过程能力门（G2）不含质量读数（门定性恒挂限定语）；对外表述一律挂限定语。',
-  'n<30 的格只记方向、不出结论；格间禁池化。',
+  '本页数字来自引擎重放，账本里只作记录、不计分；对照读数从未写入。',
+  '质量门不含质量读数（门定性恒挂限定语）；对外表述一律挂限定语。',
+  '样本少于 30 条的格只记方向、不出结论；格间禁池化。',
 ];
 const LABELS: Array<{ key: string; termId: string; label: string; plain: string }> = [
   { key: 'prior', termId: 'bayesPrior', label: '先验', plain: '看线索之前的起点：历史基率' },

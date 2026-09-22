@@ -72,6 +72,36 @@ const SEM_LABEL: Record<string, string> = {
 };
 const MAX_BRIER = 0.25; // 无信息常数 0.5 对应的水平线
 
+/**
+ * 限定语块人话化。
+ * ★ 后端原文含内部标识（`gate=descriptive`、`baseline_brier`、`n<30`）——
+ *   合规含义必须一字不丢，但术语要译成人话；数值口径（30 条门槛）保持原样。
+ */
+function humanizeQualification(q: string): string {
+  return String(q)
+    .replace('重放计分（读侧）：', '')
+    .replace(/账本 gate=descriptive 未计分/g, '账本里只作记录、不计分')
+    .replace(/baseline_brier 列从未写入/g, '对照读数从未写入')
+    .replace(/n<30 的格/g, '样本少于 30 条的格')
+    .replace(/过程能力门（G2）/g, '质量门');
+}
+
+/** 各层语义的人话标签（原 role 是内部标识：deterministic_recalc / prior / …） */
+const SEM_ROLE: Record<string, string> = {
+  deterministic_recalc: '程序复算',
+  prior: '历史基率起算',
+  'prior+calibration': '基率起算＋区间校正',
+  certified_prior: '认证随机源',
+  posterior_aggregation: '证据合成',
+  annotation_layer: '人工标注层',
+};
+
+function humanizeSemantics(s: Sem | null): string {
+  if (!s) return 'n/a（该层无读数）';
+  const role = SEM_ROLE[s.role] ?? s.role;
+  return role + '（' + s.note + '）';
+}
+
 export default function OverviewPage() {
   const [rep, setRep] = useState<RepJson | null>(null);
   const [lens, setLens] = useState<AiJson | null>(null);
@@ -396,9 +426,7 @@ export default function OverviewPage() {
               >
                 <KVTable testId="ov-sem-kv" rows={Object.keys(rep.bayes_semantics).sort().map((L) => ({
                   k: <><span className="layer-dot" style={{ background: LAYER_COLOR[L] }} aria-hidden="true" />{L} · {SEM_LABEL[L] ?? L}</>,
-                  v: rep.bayes_semantics![L]
-                    ? `${rep.bayes_semantics![L]!.role}（${rep.bayes_semantics![L]!.note}）`
-                    : 'n/a（该层无读数）',
+                  v: humanizeSemantics(rep.bayes_semantics![L]),
                 }))} />
               </ChartFrame>
             ) : null}
@@ -413,7 +441,7 @@ export default function OverviewPage() {
               note="读数来自引擎重放，与账本口径不同源、不可互相搬运。"
             >
               <ul className="ui-note" style={{ margin: 0 }}>
-                {(rep?.qualification_block ?? []).map((q, i) => <li key={i}>{q}</li>)}
+                {(rep?.qualification_block ?? []).map((q, i) => <li key={i}>{humanizeQualification(q)}</li>)}
                 <li>{rep?.leakage_statement?.text ?? '防泄漏说明见数据文件'}</li>
               </ul>
               {rep?.leakage_statement?.excluded_rows !== null && rep?.leakage_statement?.excluded_rows !== undefined ? (

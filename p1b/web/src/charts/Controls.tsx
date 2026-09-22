@@ -118,7 +118,7 @@ export function ReliabilityPlot({
   return (
     <div className="reliability" data-testid={testId}>
       <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} role="img"
-        aria-label={`可靠性图，${valid.length} 个点${skipped ? '，' + skipped + ' 格样本不足未绘' : ''}`}>
+        aria-label={`校准诊断图，${valid.length} 个点${skipped ? '，' + skipped + ' 格样本不足未绘' : ''}`}>
         {/* 网格 */}
         {[0.25, 0.5, 0.75].map((t) => (
           <g key={t}>
@@ -135,7 +135,7 @@ export function ReliabilityPlot({
             <circle key={i} cx={X(p.x as number).toFixed(1)} cy={Y(p.y as number).toFixed(1)}
               r={r.toFixed(1)} fill="var(--accent)" fillOpacity="0.55"
               stroke="var(--accent)" strokeWidth="1">
-              <title>{`${p.label ?? ''} mean_p=${(p.x as number).toFixed(3)} obs=${(p.y as number).toFixed(3)} n=${p.n ?? 0}`}</title>
+              <title>{`${p.label ?? ''}　说出 ${(p.x as number).toFixed(3)}　实际发生 ${(p.y as number).toFixed(3)}　样本 ${p.n ?? 0} 条`}</title>
             </circle>
           );
         })}

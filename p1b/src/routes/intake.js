@@ -358,7 +358,7 @@ function register(app) {
       })),
       limit: limit, offset: offset,
       generated_at: new Date().toISOString(),
-      note: '接题库只读列表（最新 N 条，只读零写）：分层判定与 gate 状态如实透出；概率读数仅在对应层引擎接线且 gate=scored 时非空，否则如实留空（不出数）。',
+      note: '最近接的题（只读）。分层与计分状态如实显示；只有该层算法已接线、且该题确实参与计分时才有读数，否则如实留空、不出数。',
     };
   });
 }
