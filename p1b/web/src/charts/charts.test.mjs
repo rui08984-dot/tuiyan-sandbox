@@ -44,7 +44,13 @@ test('区间缺失不画须且留空态文字', () => {
 
 test('折线空值断线，不跨 null 连线', () => {
   const l = read('LineChart.tsx');
-  assert.ok(l.includes('pen = false'), 'null 未断开路径（会跨空值连线）');
+  // 2026-09-22 五轮：折线改单调三次平滑后，null 处理从「pen 标记」改为「切连续段」。
+  // 闸的**意图**不变——空值处必须断开、不得跨越连线。故断言新的结构不变量：
+  //   · 遇 null 时把当前段收进 segs 并重置（而不是继续往同一条 path 追加）
+  //   · 每段独立生成 path（segs.map），段与段之间不会有连接指令
+  assert.ok(l.includes('if (y === null)'), 'null 未做分支处理');
+  assert.ok(/segs\.push\(cur\)[\s\S]*cur = \[\]/.test(l), 'null 处未切断线段（会跨空值连线）');
+  assert.ok(l.includes('segs.map('), '各连续段未独立建 path');
 });
 
 test('图表色值全取 CSS 变量，组件不硬编码 hex', () => {

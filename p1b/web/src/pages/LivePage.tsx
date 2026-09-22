@@ -50,7 +50,16 @@ export default function LivePage() {
     advise.startAdvise(gid, g.day).catch((e) => g.setPageErr(e instanceof Error ? e.message : String(e)));
   }
 
-  const empty = g.games.length === 0;
+  /* ══ 空态判定（2026-09-22 五轮修正）══
+   * 原实现：`empty = games.length === 0`。
+   * 缺陷：当库里有局、但 localStorage 里存的 gameId 已失效（或从未选过局）时，
+   *   empty=false 而 gid=null ⇒ 页面只剩一条 TopBar，下方整片空白。
+   *   实测截图确认了这个状态（有局可切却什么都不显示）。
+   * 修正：把「没有任何可选局」与「有局但还没选」都视为需要引导的状态，
+   *   后者给的是「选一局」而不是「开新局」——文案与动作都要对症。 */
+  const noGames = g.games.length === 0;
+  const noSelection = !noGames && gid === null;
+  const showGuide = noGames || noSelection;
 
   return (
     <div className="input-page">
@@ -61,12 +70,21 @@ export default function LivePage() {
       {g.pageErr && <div className="banner banner-error"><p>{g.pageErr}</p></div>}
       {g.toast && <div className="toast">{g.toast}</div>}
 
-      {empty && <LiveEmpty onCreate={() => setWizardOpen(true)} />}
+      {/* 空态：没有任何对局时，或库里有局但尚未选中时 —— 都该给明确下一步，
+       * 而不是留一片空白（那些控件在无局状态下没有作用对象）。 */}
+      {showGuide && (
+        <LiveEmpty
+          onCreate={() => setWizardOpen(true)}
+          existingGames={g.games}
+          onPick={(id) => g.switchGame(id)}
+          busy={g.busy}
+        />
+      )}
 
       {gid != null && <AdvisorZone gameId={gid} gameName={g.game?.name ?? '#' + gid} advise={advise} />}
       {gid != null && <OracleZone gameId={gid} advise={advise} />}
 
-      {!empty && gid != null && (
+      {!showGuide && gid != null && (
         <>
           <div className="section-title">第 {g.day} 天事件流（最新在上）</div>
           <Timeline events={g.events.filter((e) => e.day === g.day)} claims={g.claims.filter((c) => c.day === g.day)}
@@ -81,9 +99,12 @@ export default function LivePage() {
         </>
       )}
 
-      <InputBar text={cf.text} phase={g.phase} busy={g.busy} hasGame={gid != null}
-        onText={cf.setText} onPhase={g.setPhase} onSend={() => void cf.sendText()}
-        onMacro={(k) => { cf.setMacroErr(null); cf.setMacroKind(k); }} />
+      {/* 输入条仅在选了局之后出现（它有 hasGame 判定，但无局时整条都无意义） */}
+      {gid != null && (
+        <InputBar text={cf.text} phase={g.phase} busy={g.busy} hasGame={gid != null}
+          onText={cf.setText} onPhase={g.setPhase} onSend={() => void cf.sendText()}
+          onMacro={(k) => { cf.setMacroErr(null); cf.setMacroKind(k); }} />
+      )}
 
       {cf.macroKind != null && (
         <MacroSheet key={cf.macroKind} kind={cf.macroKind} day={g.day} phase={g.phase} players={g.players} botcScript={g.script} busy={g.busy}

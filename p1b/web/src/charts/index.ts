@@ -12,5 +12,6 @@ export { LineChart, Histogram } from './LineChart';
 export type { Series } from './LineChart';
 export { FilterChips, ChipFilter, SparkBar, ReliabilityPlot } from './Controls';
 export { ReadoutCard, MiniGauge, MiniTrend } from './ReadoutCard';
+export { Waffle } from './Waffle';
 export * as scale from './scale';
 export { BRIER_NOINFO } from './scale';

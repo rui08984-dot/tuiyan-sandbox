@@ -10,21 +10,80 @@
 }
 
 /* ── 顶部条：局名 + 第 N 天 + 存活名单 ── */
+/* ══ TopBar 三区制（2026-09-22 五轮重做）══
+ * 用户反馈首页「不够规则、不够功能化」。原实现是两行 flex + marginTop 硬堆，
+ * 元素之间没有分区边界，扫视时不知从哪读起。
+ * 改为 grid 三区：身份 / 状态 / 动作 —— 列宽定死，每区内部纵向对齐，
+ * 窄屏自然塌成单列（用 minmax 而非媒体查询硬切）。 */
 .topbar {
   background: var(--panel);
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  padding: 12px 14px;
+  padding: 14px 16px;
   margin-bottom: 12px;
+  display: grid;
+  grid-template-columns: minmax(140px, 1.2fr) minmax(150px, 1fr) auto;
+  grid-template-areas:
+    'id state act'
+    'roster roster roster';
+  gap: 14px var(--space-5);
+  align-items: start;
 }
-.topbar-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-.topbar-name { font-weight: 700; font-size: 17px; margin-right: auto; }
-.topbar-meta { color: var(--muted); font-size: 13px; }
-.day-stepper { display: inline-flex; align-items: center; gap: 6px; }
-.day-stepper .btn { min-height: 38px; min-width: 38px; padding: 0 10px; font-size: 16px; }
-.day-num { min-width: 64px; text-align: center; font-weight: 700; color: var(--accent); font-size: 16px; }
+
+.tb-zone { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.tb-zone-id { grid-area: id; }
+.tb-zone-state { grid-area: state; }
+.tb-zone-act { grid-area: act; flex-direction: row; align-items: center; gap: var(--space-2); }
+
+/* 区标签：极小号大写，是**结构标记**不是装饰——它让每列职责一眼可辨 */
+.tb-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  line-height: 1.4;
+}
+.tb-name { font-weight: 700; font-size: 16px; line-height: 1.3; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tb-sub { color: var(--muted); font-size: var(--font-size-small); line-height: 1.4; }
+
+/* 天数步进器：方形按键 + 居中数字，像一个真正的计数器 */
+.tb-day { display: inline-flex; align-items: center; gap: 4px; }
+.tb-step {
+  appearance: none; display: inline-flex; align-items: center; justify-content: center;
+  width: 32px; height: 32px; padding: 0;
+  background: var(--panel-2); border: 1px solid var(--line); border-radius: var(--radius-sm);
+  color: var(--text); font: inherit; font-size: 17px; line-height: 1; cursor: pointer;
+  transition: border-color var(--dur-quick, 160ms) ease, background var(--dur-quick, 160ms) ease;
+}
+.tb-step:hover:not(:disabled) { border-color: var(--accent); background: var(--panel-3); }
+.tb-step:disabled { opacity: 0.4; cursor: not-allowed; }
+.tb-step:active:not(:disabled) { transform: scale(0.94); }
+.tb-day-num { min-width: 62px; text-align: center; font-weight: 700; color: var(--accent); font-size: 15px; font-variant-numeric: tabular-nums; }
+.tb-btn { white-space: nowrap; }
+
+/* 席位横条：独占一行（可能很长），与上面三区用分隔线断开 */
+.tb-roster {
+  grid-area: roster;
+  display: flex; align-items: baseline; gap: var(--space-3);
+  padding-top: 12px; border-top: 1px solid var(--line);
+  min-width: 0;
+}
+.tb-roster .roster { margin-top: 0; }
 
 .roster { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+
+/* 窄屏：三区塌成单列，动作区排成一行按钮 */
+@media (max-width: 767px) {
+  .topbar {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: 'id' 'state' 'act' 'roster';
+    gap: var(--space-3);
+  }
+  .tb-zone-act { justify-content: flex-start; }
+  .tb-btn { flex: 1 1 auto; min-height: 44px; }
+  .tb-step { width: 44px; height: 44px; }   /* 触控下限 */
+}
 .roster-chip {
   font-size: 12.5px; line-height: 1; padding: 6px 9px; border-radius: 999px;
   background: var(--ok-bg); color: var(--ok);

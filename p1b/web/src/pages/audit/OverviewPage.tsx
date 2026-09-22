@@ -21,8 +21,10 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Term, IconChart, IconLayers, EmptyState, KVTable, HelpMark } from '../../components/ui';
 import { PagePlate } from '../../components/PagePlate';
+import { PageSidebar } from '../../components/PageSidebar';
+import '../../styles/shell.css';
 import {
-  ChartFrame, HeatGrid, ReadoutCard, ForestPlot, ReliabilityPlot, StackedBar, FilterChips,
+  ChartFrame, HeatGrid, ReadoutCard, ForestPlot, ReliabilityPlot, StackedBar, Waffle,
 } from '../../charts';
 import type { HeatCell } from '../../charts';
 import { quad, tri, int, THIN_CELL_NOTE, MISSING_TEXT } from '../../lib/format';
@@ -108,6 +110,7 @@ export default function OverviewPage() {
   const [lens, setLens] = useState<AiJson | null>(null);
   const [missing, setMissing] = useState<string | null>(null);
   const [layerPick, setLayerPick] = useState<string[]>([]);
+  const [domainPick, setDomainPick] = useState<string[]>([]);
   const [onlyAllowed, setOnlyAllowed] = useState(false);
   const [showDetail, setShowDetail] = useState(false);
 
@@ -169,9 +172,10 @@ export default function OverviewPage() {
   const filtered = useMemo(() => {
     let cs = cells;
     if (layerPick.length) cs = cs.filter((c) => layerPick.indexOf(c.layer) >= 0);
+    if (domainPick.length) cs = cs.filter((c) => domainPick.indexOf(c.domain) >= 0);
     if (onlyAllowed) cs = cs.filter((c) => c.conclusion_allowed);
     return cs;
-  }, [cells, layerPick, onlyAllowed]);
+  }, [cells, layerPick, domainPick, onlyAllowed]);
 
   const heatCells: HeatCell[] = filtered.map((c) => ({
     layer: c.layer, domain: c.domain, value: c.brier_engine, n: c.scored_n, allowed: c.conclusion_allowed,
@@ -200,6 +204,14 @@ export default function OverviewPage() {
   if (!rep && !lens) return <div className="ui-skeleton">正在读取读数…</div>;
 
   const thinCount = cells.filter((c) => !c.conclusion_allowed).length;
+  /* Bento 分层依据：样本量前三的层跨两列（见下方注释中的网格算术） */
+  const leadLayers = byLayer.slice().sort((a, b) => (b.n ?? 0) - (a.n ?? 0)).slice(0, 3).map((x) => x.layer);
+  /* 侧栏只列有读数的领域，按可读格子数降序（空领域是噪音不是信息） */
+  const domainsWithData = domains
+    .map((d) => ({ d, n: cells.filter((c) => c.domain === d && typeof c.brier_engine === 'number').length }))
+    .filter((x) => x.n > 0)
+    .sort((a, b) => b.n - a.n)
+    .map((x) => x.d);
 
   return (
     <div className="ui-stack">
@@ -215,6 +227,51 @@ export default function OverviewPage() {
           </>
         }
       />
+
+      {/* 两栏骨架：左侧分类器（宽屏常驻，窄屏折叠为横向条）+ 右侧主区 */}
+      <div className="page-shell">
+        <PageSidebar
+          testId="ov-sidebar"
+          title="筛选"
+          onClear={() => { setLayerPick([]); setOnlyAllowed(false); setDomainPick([]); }}
+          groups={[
+            {
+              label: '层',
+              hint: '多选',
+              options: LAYER_META.map((m) => {
+                const cnt = cells.filter((c) => c.layer === m.id && typeof c.brier_engine === 'number').length;
+                return { id: m.id, label: `${m.id} ${m.name}`, color: LAYER_COLOR[m.id], count: cnt };
+              }),
+              value: layerPick,
+              onChange: setLayerPick,
+            },
+            {
+              label: '领域',
+              hint: `${domainsWithData.length} 个有读数`,
+              /* 只列**有读数**的领域，并按可读格子数降序：
+               * 原实现列出全部 27 个领域（多数计数为 0），侧栏被噪音撑得很长，
+               * 使用者要滚动才能找到真正有数据的项。空领域不是信息，是干扰。 */
+              options: domainsWithData.map((d) => ({
+                id: d,
+                label: d,
+                count: cells.filter((c) => c.domain === d && typeof c.brier_engine === 'number').length,
+              })),
+              value: domainPick,
+              onChange: setDomainPick,
+            },
+            {
+              label: '门槛',
+              single: true,
+              options: [
+                { id: 'allowed', label: '只看样本充足的', count: cells.filter((c) => c.conclusion_allowed).length },
+              ],
+              value: onlyAllowed ? ['allowed'] : [],
+              onChange: (v) => setOnlyAllowed(v.length > 0),
+            },
+          ]}
+        />
+
+        <div className="page-shell-main">
 
       {/* ══ 第一层：整体读数（一屏见主结论）══ */}
       <section className="ui-section" data-testid="ov-overall">
@@ -234,25 +291,39 @@ export default function OverviewPage() {
                 unit="Brier"
                 rangeText={`基准线 0.25 · ${overall.brier <= MAX_BRIER ? '低于基准线' : '高于基准线'}`}
                 status={<Term id="brier" plain="越低越准" />}
-                tone={overall.brier <= MAX_BRIER ? 'ok' : 'warn'}
+                tone="lead"
               />
             </div>
-            <div className="ov-hero-stats stagger-in">
-              <div className="ov-stat">
-                <span className="ov-stat-num">{int(cells.length)}</span>
-                <span className="ov-stat-label">可读格子</span>
+            {/* 右侧改为华夫图 + 紧凑读数：不再是一排同宽方框
+             *  —— 用户反馈「每个数字都有一个方框」的针对性改动。
+             * 依据 ui-ux-pro-max chart 域：Waffle 属 AA 级部分对整体图表。 */}
+            <div className="ov-hero-stats">
+              <div className="ov-waffle-panel">
+                <Waffle
+                  testId="ov-waffle"
+                  filled={cells.length - thinCount}
+                  total={cells.length}
+                  label="样本充足的格子"
+                  unit=" 格"
+                  emptyLabel={`另有 ${thinCount} 格样本偏少，只记方向不出结论`}
+                />
               </div>
-              <div className="ov-stat">
-                <span className="ov-stat-num">{int(cells.length - thinCount)}</span>
-                <span className="ov-stat-label">样本充足</span>
-              </div>
-              <div className="ov-stat">
-                <span className="ov-stat-num">{int(thinCount)}</span>
-                <span className="ov-stat-label">样本偏少</span>
-              </div>
-              <div className="ov-stat">
-                <span className="ov-stat-num">{int(domains.length)}</span>
-                <span className="ov-stat-label">覆盖领域</span>
+              <div className="mini-rows">
+                <div className="mini-row">
+                  <span className="mini-row-label">覆盖领域</span>
+                  <span />
+                  <span className="mini-row-value u-mono">{int(domains.length)}</span>
+                </div>
+                <div className="mini-row">
+                  <span className="mini-row-label">已结算记录</span>
+                  <span />
+                  <span className="mini-row-value u-mono">{int(overall.n)}</span>
+                </div>
+                <div className="mini-row">
+                  <span className="mini-row-label">可读格子</span>
+                  <span />
+                  <span className="mini-row-value u-mono">{int(cells.length)}</span>
+                </div>
               </div>
             </div>
           </div>
@@ -277,6 +348,16 @@ export default function OverviewPage() {
             const n = row ? row.n : null;
             const brier = row ? row.brier : null;
             const thin = n !== null && n > 0 && n < 30;
+            const noData = n === null || n === 0;
+            /* Bento 形制分层（五轮）：按样本量给三种尺寸，让网格**填满不留空位**。
+             * 算术：6 张卡、3 列网格 ⇒ 若仅 1 张跨 2 列则总宽 7 单位（除不尽，留缺口）；
+             * 让样本量前 3 名跨 2 列 ⇒ 3×1 + 3×2 = 9 单位 = 正好 3 行，整齐无洞。
+             * 这不是为了凑数——样本量前三本来就是最值得看大的三层。 */
+            const isLead = !noData && leadLayers.indexOf(m.id) >= 0;
+            const tier = noData ? 'tight' : (isLead ? 'lead' : undefined);
+            /* 结构化辅助色（五轮）：L4 自反层用紫调（它本就是「叠加层」的异类），
+             * 打破全站只有绿的单调，同时给该层一个可记忆的身份色。 */
+            const chip = m.id === 'L4' ? 'plum' as const : undefined;
             return (
               <ReadoutCard
                 key={m.id}
@@ -286,11 +367,12 @@ export default function OverviewPage() {
                 value={brier}
                 scaleMax={MAX_BRIER}
                 unit="Brier"
-                rangeText={n === null || n === 0 ? undefined : `已结算 ${int(n)} 条`}
+                rangeText={noData ? undefined : `已结算 ${int(n)} 条`}
                 trend={trendByLayer[m.id]}
-                status={n === null || n === 0 ? '暂无读数' : (thin ? '样本偏少，仅记方向' : '样本充足')}
-                tone={brier === null ? undefined : (brier <= MAX_BRIER ? 'ok' : 'warn')}
-                missingText={n === 0 || n === null ? MISSING_TEXT : '样本不足'}
+                status={noData ? '暂无读数' : (thin ? '样本偏少，仅记方向' : '样本充足')}
+                tone={tier ?? (brier === null ? undefined : (brier <= MAX_BRIER ? 'ok' : 'warn'))}
+                chip={chip}
+                missingText={noData ? MISSING_TEXT : '样本不足'}
               />
             );
           })}
@@ -309,19 +391,8 @@ export default function OverviewPage() {
         <p className="ui-note" style={{ marginTop: 0 }}>
           横向是领域、纵向是层。格上数字＝该格的表现，越低越准；
           斜纹格样本偏少，只记方向不出结论；空格＝该组合没有记录（不是表现好）。
+          用左侧分类器可以只看某几层或某几个领域。
         </p>
-        <FilterChips groups={[
-          {
-            label: '层', options: LAYER_META.map((m) => ({ id: m.id, label: m.id, color: LAYER_COLOR[m.id] })),
-            value: layerPick, onChange: setLayerPick,
-          },
-          {
-            label: '门槛', single: true,
-            options: [{ id: 'allowed', label: '只看样本充足的' }],
-            value: onlyAllowed ? ['allowed'] : [],
-            onChange: (v) => setOnlyAllowed(v.length > 0),
-          },
-        ]} testId="ov-filter" />
         {heatCells.length ? (
           <ChartFrame
             testId="ov-heat"
@@ -476,10 +547,12 @@ export default function OverviewPage() {
         ) : null}
       </section>
 
-      <p className="ui-note" data-testid="ov-generated-at">
-        数据更新于 {rep?.generated_at ? new Date(rep.generated_at).toLocaleString('zh-CN', { hour12: false }) : '—'}
-        {bulkNote(rep, lens)}
-      </p>
+        <p className="ui-note" data-testid="ov-generated-at">
+          数据更新于 {rep?.generated_at ? new Date(rep.generated_at).toLocaleString('zh-CN', { hour12: false }) : '—'}
+          {bulkNote(rep, lens)}
+        </p>
+        </div>
+      </div>
     </div>
   );
 }

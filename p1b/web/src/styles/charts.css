@@ -213,10 +213,86 @@
 .mini-trend-empty { font-size: var(--font-size-micro); color: var(--muted); }
 .mini-gauge { display: block; }
 
-/* 读数卡网格：宽屏 3 列、中屏 2 列、窄屏 1 列 */
+/* ══ 读数卡网格：宽屏 3 列、中屏 2 列、窄屏 1 列 ══
+ * 五轮起支持 Bento 尺寸分层：.is-lead 占两列（见下方形制分层规则）。 */
 .readout-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--grid-gap); min-width: 0; }
 @media (max-width: 1023px) { .readout-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 767px) { .readout-grid { grid-template-columns: minmax(0, 1fr); } }
+
+/* ══ 华夫图（2026-09-22 五轮）══
+ * 依据 ui-ux-pro-max chart 域：Waffle 卡片组的形状语言是「方格」，
+ * 与本项目「数据映射网格」的既有底纹同源——格间距 2px（规范要求），
+ * 未填充格用 --panel-3（弱但可见：空 ≠ 不存在）。 */
+.waffle { display: flex; flex-direction: column; gap: var(--space-2); min-width: 0; }
+.waffle-grid {
+  display: grid;
+  gap: 2px;                       /* 规范：2–3px 格间距 */
+  width: 100%;
+  max-width: 148px;
+}
+.waffle-cell {
+  aspect-ratio: 1;                /* 正方形格：比例才可数 */
+  border-radius: 1.5px;
+  background: var(--panel-3);
+  transition: background var(--dur-panel, 280ms) ease;
+}
+.waffle-cell.is-on { background: var(--accent); }
+.waffle-foot {
+  display: flex; align-items: baseline; gap: var(--space-2); flex-wrap: wrap;
+  font-size: var(--font-size-small); color: var(--muted);
+}
+.waffle-num { color: var(--text); font-weight: 600; }
+.waffle-pct { color: var(--accent); font-weight: 600; }
+.waffle-label { color: var(--muted); }
+.waffle-note { margin: 2px 0 0; font-size: var(--font-size-micro); color: var(--muted); }
+
+/* 仪表末端锚点：读数停在哪（五轮新增，配合细弧） */
+.gauge-tip { transition: r var(--dur-sweep, 620ms) var(--ease-instrument, ease-out); }
+
+/* ══ 紧凑条：用于次要读数（区别于卡片）══
+ * 用户反馈「每个数字都有一个方框」——紧凑条提供**无方框**的读数形态：
+ * 左侧标签 + 中间条形 + 右侧数值，靠留白与细分隔线分组，不用边框围起来。 */
+.mini-row {
+  display: grid;
+  grid-template-columns: minmax(72px, auto) 1fr auto;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 7px 0;
+  border-top: 1px solid var(--line);
+  min-width: 0;
+}
+.mini-row:first-child { border-top: none; }
+.mini-row-label { font-size: var(--font-size-small); color: var(--muted); }
+.mini-row-value { font-size: var(--font-size-small); font-variant-numeric: tabular-nums; font-weight: 600; }
+.mini-row-track { position: relative; height: 6px; background: var(--panel-2); border-radius: var(--radius-pill); overflow: hidden; }
+.mini-row-fill { display: block; height: 100%; border-radius: var(--radius-pill); transform-origin: left center;
+  animation: bar-fill var(--dur-sweep, 620ms) var(--ease-instrument, ease-out) both; }
+
+/* ══ 读数卡的形制分层（五轮）══
+ * 依据 Bento Grids 风格：不同重要度的读数用**不同尺寸的卡**，而不是一排同宽方框。
+ *   .is-lead  主读数：占两列、数值特大、带左侧色条
+ *   （默认）  普通读数：一列
+ *   .is-tight 紧凑读数：一列但减小内边距、隐藏趋势条 */
+.readout-card.is-lead {
+  grid-column: span 2;
+  padding: 22px 24px;
+}
+.readout-card.is-lead .readout-num { font-size: calc(var(--font-size-metric) * 1.35); }
+.readout-card.is-lead .mini-gauge { width: 92px; height: auto; }
+.readout-card.is-tight { padding: 12px 14px; gap: var(--space-2); }
+.readout-card.is-tight .readout-num { font-size: var(--font-size-h3); }
+.readout-card.is-tight .mini-gauge { width: 42px; height: auto; }
+
+/* 左侧语义色条：用结构色区分卡片族（不是装饰——它表明这张卡属于哪一组） */
+.readout-card.is-lead { border-left: 3px solid var(--accent); }
+.readout-card.tone-cyan { border-left-color: var(--cyan); }
+.readout-card.tone-plum { border-left-color: var(--plum); }
+.readout-card.tone-amber { border-left-color: var(--amber); }
+
+@media (max-width: 767px) {
+  .readout-card.is-lead { grid-column: span 1; padding: 16px; }
+  .readout-card.is-lead .readout-num { font-size: var(--font-size-metric); }
+}
 
 /* ── 校准总览页（四页合一）──
  * 首屏布局：左＝整体读数卡（主角），右＝四个关键计数（配角）。
@@ -238,6 +314,16 @@
   font-variant-numeric: tabular-nums; line-height: 1.1;
 }
 .ov-stat-label { font-size: var(--font-size-small); color: var(--muted); }
+
+/* ── 整体表现区的右侧（五轮重做）──
+ * 从「四个同宽方框」改为：华夫图（比例一目可数）+ 无边框的紧凑读数行。
+ * 这样右侧既有图形（不是纯数字堆），又不与左侧主读数卡抢视觉重量。 */
+.ov-hero-stats { display: flex; flex-direction: column; gap: var(--space-4); min-width: 0; }
+.ov-waffle-panel {
+  background: var(--panel); border: 1px solid var(--line);
+  border-radius: var(--radius-md); padding: 16px; min-width: 0;
+}
+.mini-rows { display: flex; flex-direction: column; min-width: 0; }
 
 /* 折叠按钮：整宽、可点区域够大（触控 44px 下限），箭头用文字而非图标字体 */
 .ov-fold {

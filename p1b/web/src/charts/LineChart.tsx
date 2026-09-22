@@ -45,18 +45,72 @@ export function LineChart({
     return t === null ? null : h - padB - t * (h - padT - padB);
   };
 
-  // 逐序列构造 path（null 断开为新 M）
+  // 逐序列构造 path
+  //
+  // ── 2026-09-22 五轮 · 平滑化 ──
+  // 用户反馈「线条太机械」。原实现是直线段连接（L 指令），折角生硬。
+  // 改用**单调三次插值**（Fritsch–Carlson）：
+  //   · 比 Catmull-Rom 更适合数据图 —— 它**不会过冲**，不会在两点之间
+  //     冒出数据里不存在的峰谷（那等于视觉上编造读数）
+  //   · 又比直线柔和，转折处有连续的一阶导
+  // 纪律不变：null 断线、不补、不当 0。
   const paths = series.map((s) => {
-    let d = '';
-    let pen = false;
+    // 先切成「连续有效段」（null 处断开），逐段独立平滑
+    const segs: { x: number; y: number }[][] = [];
+    let cur: { x: number; y: number }[] = [];
     for (let i = 0; i < n; i++) {
       const v = s.values[i];
       const y = typeof v === 'number' && Number.isFinite(v) ? py(v) : null;
-      if (y === null) { pen = false; continue; }
-      d += (pen ? ' L ' : ' M ') + px(i).toFixed(2) + ' ' + y.toFixed(2);
-      pen = true;
+      if (y === null) {
+        if (cur.length) { segs.push(cur); cur = []; }
+        continue;
+      }
+      cur.push({ x: px(i), y });
     }
-    return d.trim();
+    if (cur.length) segs.push(cur);
+
+    return segs.map((seg) => {
+      if (seg.length === 1) return `M ${seg[0].x.toFixed(2)} ${seg[0].y.toFixed(2)}`;
+      if (seg.length === 2) {
+        return `M ${seg[0].x.toFixed(2)} ${seg[0].y.toFixed(2)} L ${seg[1].x.toFixed(2)} ${seg[1].y.toFixed(2)}`;
+      }
+      const N = seg.length;
+      const dx: number[] = []; const m: number[] = [];
+      for (let i = 0; i < N - 1; i++) {
+        dx[i] = seg[i + 1].x - seg[i].x;
+        m[i] = dx[i] === 0 ? 0 : (seg[i + 1].y - seg[i].y) / dx[i];
+      }
+      const t: number[] = new Array(N);
+      t[0] = m[0];
+      t[N - 1] = m[N - 2];
+      for (let i = 1; i < N - 1; i++) {
+        // 异号或一侧为 0 ⇒ 该点是极值，切线置 0（"不过冲"的关键）
+        t[i] = (m[i - 1] * m[i] <= 0) ? 0 : (m[i - 1] + m[i]) / 2;
+      }
+      // 限制切线幅值，保证单调段内不越界
+      for (let i = 0; i < N - 1; i++) {
+        if (m[i] === 0) { t[i] = 0; t[i + 1] = 0; continue; }
+        const a = t[i] / m[i];
+        const b = t[i + 1] / m[i];
+        const s2 = a * a + b * b;
+        if (s2 > 9) {
+          const tau = 3 / Math.sqrt(s2);
+          t[i] = tau * a * m[i];
+          t[i + 1] = tau * b * m[i];
+        }
+      }
+      let out = `M ${seg[0].x.toFixed(2)} ${seg[0].y.toFixed(2)}`;
+      for (let i = 0; i < N - 1; i++) {
+        const h = dx[i];
+        const c1x = seg[i].x + h / 3;
+        const c1y = seg[i].y + (t[i] * h) / 3;
+        const c2x = seg[i + 1].x - h / 3;
+        const c2y = seg[i + 1].y - (t[i + 1] * h) / 3;
+        out += ` C ${c1x.toFixed(2)} ${c1y.toFixed(2)} ${c2x.toFixed(2)} ${c2y.toFixed(2)}`
+          + ` ${seg[i + 1].x.toFixed(2)} ${seg[i + 1].y.toFixed(2)}`;
+      }
+      return out;
+    }).join(' ');
   });
 
   // 差异带：两序列逐点配对，任一缺则该段无带

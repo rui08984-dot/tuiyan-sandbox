@@ -78,8 +78,89 @@
 .adv-hist-row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
 
 /* ── 空态主 CTA（开新局引导流入口）── */
-.live-hero { text-align: center; padding: 26px 12px 10px; }
-.live-hero .btn { min-height: 52px; min-width: 220px; font-size: 16px; font-weight: 600; }
+.live-hero { padding: 8px 0 10px; }
+
+/* ── 空态入口面板（2026-09-22 五轮重做）──
+ * 用户反馈首页「不够规则、不够功能化」。
+ * 原空态是「一行字 + 一个居中按钮 + 大片留白」，既没结构也没说明下一步。
+ * 改为三段式面板：标题说明 → 三步骤（带产出物）→ 主 CTA。
+ * 步骤用编号 + 产出物描述：让使用者知道每一步**得到什么**，而不是只看到动作名。 */
+.le-panel {
+  display: flex; flex-direction: column; gap: var(--space-5);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  max-width: 760px;
+  margin: 0 auto;
+}
+.le-head { display: flex; flex-direction: column; gap: 6px; }
+.le-title { margin: 0; font-size: 20px; font-weight: 700; }
+.le-sub { margin: 0; color: var(--muted); font-size: var(--font-size-body); line-height: 1.55; }
+
+/* 三步骤：横向排列（宽屏），窄屏塌成单列 */
+.le-steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-4);
+  min-width: 0;
+}
+@media (max-width: 767px) { .le-steps { grid-template-columns: minmax(0, 1fr); gap: var(--space-3); } }
+
+.le-step {
+  display: flex; gap: var(--space-3); align-items: flex-start;
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--line);
+  min-width: 0;
+}
+/* 步骤编号：用形状而非 emoji；方框 + 抹茶数字，表示"这是一步" */
+.le-step-n {
+  flex: 0 0 auto;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 24px; height: 24px;
+  border: 1px solid var(--accent);
+  border-radius: var(--radius-sm);
+  color: var(--accent);
+  font-size: var(--font-size-small);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.le-step-body { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.le-step-t { font-weight: 600; font-size: var(--font-size-body); }
+.le-step-d { color: var(--muted); font-size: var(--font-size-small); line-height: 1.45; }
+/* 产出物：与动作区分开（不同的语义层） */
+.le-step-out { color: var(--accent); font-size: var(--font-size-micro); margin-top: 2px; }
+
+.le-cta { display: flex; align-items: center; gap: var(--space-3); flex-wrap: wrap; }
+.le-btn { min-height: 48px; min-width: 180px; font-size: 15px; font-weight: 600; }
+.le-cta-note { color: var(--muted); font-size: var(--font-size-small); }
+
+/* 待选局列表（有局未选中时显示）：就地选择，省掉一次抽屉跳转 */
+.le-games {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
+  gap: var(--space-2);
+  min-width: 0;
+}
+.le-game {
+  appearance: none;
+  display: flex; flex-direction: column; gap: 3px;
+  padding: 12px 14px;
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  min-height: 44px;
+  transition: border-color var(--dur-quick, 160ms) ease, background var(--dur-quick, 160ms) ease;
+}
+.le-game:hover:not(:disabled) { border-color: var(--accent); background: var(--panel-3); }
+.le-game:disabled { opacity: 0.5; cursor: not-allowed; }
+.le-game-name { font-weight: 600; font-size: var(--font-size-body); }
+.le-game-meta { color: var(--muted); font-size: var(--font-size-small); }
+.le-more { margin: 0; color: var(--muted); font-size: var(--font-size-small); }
 
 /* ── 新建引导流：分步指示 ── */
 .wiz-steps { display: flex; gap: 8px; margin: 2px 0 10px; font-size: 12.5px; }

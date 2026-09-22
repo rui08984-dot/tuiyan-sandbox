@@ -27,6 +27,24 @@
   --danger: #D4826F;
   --radius: 12px;
 
+  /* ── 结构色相族（2026-09-22 五轮 · 打破「全绿单调」）──
+   * 问题：此前全站只有抹茶绿一个强调色，读数卡、图表、边框全是绿的，
+   *   长时间看视觉疲劳，也失去「不同层/不同域用不同色」的辨识度。
+   * 方案：以抹茶绿为**主调**（品牌色，占比最大），另立三条**结构化辅助色**，
+   *   各有明确分工，不是随意加色：
+   *     --cyan   ：冷色，用于「对照/外部基准」类数据（人类基线、市场参照）
+   *     --plum   ：紫调，用于「自反/叠加层」这类特殊语义（L4 本体色）
+   *     --amber  ：暖色，用于「警示/薄样本」类提示（已有 warn 的加深版，做面积用）
+   * 约束：三条辅助色 vs --panel 对比度均 ≥4.5:1，由 contrast-check.cjs 核验。
+   * 纪律：辅助色只用于**结构化区分**（分层、分类、状态），不做装饰性涂抹。 */
+  --cyan: #7FA6A0;
+  --plum: #A98FB5;
+  --amber: #C9A44C;
+  /* 与辅助色配套的极淡底（用于卡片左侧条、区域衬底，不干扰读数对比度） */
+  --cyan-tint: rgba(127, 166, 160, 0.10);
+  --plum-tint: rgba(169, 143, 181, 0.10);
+  --amber-tint: rgba(201, 164, 76, 0.10);
+
   /* ── 字体（Fira 由 @fontsource 本地打包，离线可用；缺失回退系统字体）── */
   --font-sans: "Fira Sans", "Segoe UI", system-ui, -apple-system, "Microsoft YaHei", sans-serif;
   --font-mono: "Fira Code", "Cascadia Code", Consolas, ui-monospace, monospace;

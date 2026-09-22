@@ -1,0 +1,147 @@
+/* ══════════════════════════════════════════════════════════════════════════
+ * 页面骨架与侧栏（2026-09-22 五轮）
+ *
+ * 用户要求：「左边一排分类器，可以框选一些东西」＋「整体排版要统一风格」。
+ *
+ * 设计依据（ui-ux-pro-max）：
+ *   · Sticky Navigation：固定导航不得遮挡内容 ⇒ 侧栏 sticky 且不覆盖主区
+ *   · Fixed Positioning：注意安全区与其他固定元素 ⇒ 侧栏 top 用 appbar 高度变量
+ *   · Viewport Units：移动端不用 100vh ⇒ 已用 100dvh
+ *
+ * 断点策略（与全站 375/768/1024/1440 四档一致）：
+ *   ≥1024px：左侧固定侧栏 + 右侧主区（两栏）
+ *   <1024px ：侧栏折叠为顶部横向可滚动 chip 条（不占垂直空间，也不遮内容）
+ * ══════════════════════════════════════════════════════════════════════════ */
+
+/* ── 两栏骨架 ── */
+.page-shell {
+  display: grid;
+  grid-template-columns: 208px minmax(0, 1fr);
+  gap: var(--space-5);
+  align-items: start;
+  min-width: 0;
+}
+.page-shell-main { min-width: 0; }
+
+/* ── 侧栏本体 ── */
+.page-side {
+  position: sticky;
+  /* appbar 高度（约 56px）+ 间距；用变量以便 appbar 改高时同步 */
+  top: calc(56px + var(--space-4));
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  max-height: calc(100dvh - 56px - var(--space-5));
+  overflow-y: auto;
+  padding-right: 4px;
+  min-width: 0;
+}
+/* 侧栏滚动条隐形但可滚（内容长时不撑破） */
+.page-side::-webkit-scrollbar { width: 0; }
+.page-side { scrollbar-width: none; }
+
+.page-side-head {
+  display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-2);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--line);
+}
+.page-side-title {
+  font-size: var(--font-size-micro);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.page-side-clear {
+  appearance: none; background: none; border: none; padding: 0;
+  color: var(--accent); font: inherit; font-size: var(--font-size-micro);
+  cursor: pointer; text-decoration: underline; text-underline-offset: 2px;
+}
+.page-side-clear:hover { color: var(--text); }
+
+/* 分组：用 fieldset，默认样式清零 */
+.page-side-group { border: none; margin: 0; padding: 0; min-width: 0; }
+.page-side-legend {
+  display: flex; align-items: baseline; gap: 6px;
+  padding: 0 0 var(--space-2);
+  font-size: var(--font-size-small);
+  font-weight: 600;
+  color: var(--text);
+}
+.page-side-hint { font-weight: 400; font-size: var(--font-size-micro); color: var(--muted); }
+
+.page-side-list { display: flex; flex-direction: column; gap: 1px; }
+.page-side-list.is-single { gap: 1px; }
+
+/* 选项：整行可点，热区够大（触控下限），选中时有明确标记 */
+.page-side-opt {
+  appearance: none;
+  display: flex; align-items: center; gap: 8px;
+  width: 100%;
+  min-height: 34px;
+  padding: 6px 8px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  color: var(--muted);
+  font: inherit;
+  font-size: var(--font-size-small);
+  text-align: left;
+  cursor: pointer;
+  transition: background var(--dur-quick, 160ms) ease, color var(--dur-quick, 160ms) ease, border-color var(--dur-quick, 160ms) ease;
+}
+.page-side-opt:hover { background: var(--panel-2); color: var(--text); }
+.page-side-opt.is-on {
+  background: var(--panel-2);
+  border-color: var(--line);
+  color: var(--text);
+  font-weight: 600;
+}
+.page-side-opt:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+.page-side-mark {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 14px; height: 14px; flex: 0 0 auto;
+  color: var(--accent);
+}
+.page-side-dot {
+  width: 9px; height: 9px; border-radius: 2px;
+  border: 1px solid var(--line);
+  background: var(--panel-3);
+}
+.page-side-label { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.page-side-count {
+  flex: 0 0 auto;
+  font-size: var(--font-size-micro);
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── 窄屏：侧栏变顶部横向条 ──
+ * 不占垂直空间（用户在小屏上更需要内容高度），且保持全部筛选可用。 */
+@media (max-width: 1023px) {
+  .page-shell { grid-template-columns: minmax(0, 1fr); gap: var(--space-4); }
+  .page-side {
+    position: static;
+    max-height: none;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: var(--space-4);
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: var(--space-2);
+    border-bottom: 1px solid var(--line);
+    -webkit-overflow-scrolling: touch;
+  }
+  .page-side-head { flex: 0 0 auto; border-bottom: none; padding-bottom: 0; align-self: center; }
+  .page-side-title { display: none; }        /* 窄屏省掉标题，把宽度让给选项 */
+  .page-side-group { flex: 0 0 auto; }
+  .page-side-legend { padding-bottom: 6px; white-space: nowrap; }
+  .page-side-list { flex-direction: row; flex-wrap: nowrap; gap: var(--space-2); }
+  .page-side-opt { white-space: nowrap; }
+}
+
+@media (max-width: 767px) {
+  .page-side { gap: var(--space-3); }
+  .page-side-opt { min-height: 44px; }        /* 触控下限 */
+}

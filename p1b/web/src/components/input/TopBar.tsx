@@ -36,36 +36,59 @@ export default function TopBar(p: TopBarProps) {
   const upper = Math.max(1, p.maxDay) + 1; // 允许预录下一天
   return (
     <div className="topbar">
-      <div className="topbar-row">
-        <span className="topbar-name">{p.game ? p.game.name : '未选局'}</span>
-        <span className="topbar-meta">{p.game ? typeLabel(p.game.type) + ' · ' + p.game.player_count + '人' : ''}</span>
-        <button className="btn" style={{ minHeight: 38 }} onClick={() => setOpen(true)}>切换/建局</button>
+      {/* ══ 三区制（2026-09-22 五轮重做）══
+       * 用户反馈：首页「不够规则、不够功能化」。
+       * 根因：原来用 marginTop:8 硬堆两行，元素没有明确分区，
+       *   局名/天数/存活/动作各占一行但互不对齐，视觉上"散"。
+       * 改法：按**功能**分三区，用 grid 定死列宽，各区内部纵向对齐：
+       *   ① 身份区：当前是哪一局（局名 + 类型 + 人数）
+       *   ② 状态区：现在第几天 + 存活情况 + 席位横条
+       *   ③ 动作区：切局 / 天结算 / 开新局
+       * 这样每一列职责单一，扫一眼就知道该看哪里。 */}
+      <div className="tb-zone tb-zone-id">
+        <span className="tb-label">当前对局</span>
+        <span className="tb-name">{p.game ? p.game.name : '未选局'}</span>
+        <span className="tb-sub">{p.game ? typeLabel(p.game.type) + ' · ' + p.game.player_count + ' 人' : '还没有开始任何一局'}</span>
       </div>
-      <div className="topbar-row" style={{ marginTop: 8 }}>
-        <span className="day-stepper">
-          <button className="btn" aria-label="前一天" disabled={p.day <= 1 || p.busy}
+
+      <div className="tb-zone tb-zone-state">
+        <span className="tb-label">进度</span>
+        <div className="tb-day">
+          <button className="tb-step" aria-label="前一天" disabled={p.day <= 1 || p.busy}
             onClick={() => p.onDay(Math.max(1, p.day - 1))}>−</button>
-          <span className="day-num">第 {p.day} 天</span>
-          <button className="btn" aria-label="后一天" disabled={p.day >= upper || p.busy}
+          <span className="tb-day-num">第 {p.day} 天</span>
+          <button className="tb-step" aria-label="后一天" disabled={p.day >= upper || p.busy}
             onClick={() => p.onDay(Math.min(upper, p.day + 1))}>＋</button>
+        </div>
+        <span className="tb-sub">
+          {p.roster.length ? `存活 ${alive} / ${p.roster.length} 人` : '（无席位）'}
         </span>
-        <span className="topbar-meta">存活 {alive}/{p.roster.length}</span>
+      </div>
+
+      <div className="tb-zone tb-zone-act">
+        <button className="btn tb-btn" onClick={() => setOpen(true)}>切换 / 建局</button>
         {p.onSettle && (
-          <button className="btn btn-primary" style={{ minHeight: 38 }} disabled={p.busy || p.settling}
-            onClick={p.onSettle}>
-            {p.settling ? '生成中…' : <><IconBolt size={14} /> 天结算</>}
+          <button className="btn btn-primary tb-btn" disabled={p.busy || p.settling} onClick={p.onSettle}>
+            {p.settling
+              ? <><span className="spinner" aria-hidden />生成中…</>
+              : <><IconBolt size={14} /> 天结算</>}
           </button>
         )}
-        {p.settling && <span className="adv-badge"><span className="spinner" aria-hidden></span>生成中</span>}
       </div>
-      <div className="roster">
-        {p.roster.map((r) => (
-          <span key={r.seat} className={'roster-chip' + (r.alive ? '' : ' is-dead')}>
-            {r.seat}号·{r.name}
-          </span>
-        ))}
-        {p.roster.length === 0 && <span className="topbar-meta">（无席位）</span>}
-      </div>
+
+      {/* 席位横条：独立成行（它可能很长，不该挤进上面任何一列） */}
+      {p.roster.length > 0 && (
+        <div className="tb-roster">
+          <span className="tb-label">席位</span>
+          <div className="roster">
+            {p.roster.map((r) => (
+              <span key={r.seat} className={'roster-chip' + (r.alive ? '' : ' is-dead')}>
+                {r.seat}号·{r.name}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
       {open && (
         <GameSheet
           games={p.games} currentId={p.game?.id ?? null} busy={p.busy}
