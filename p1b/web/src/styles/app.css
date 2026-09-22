@@ -13,19 +13,34 @@ html, body { margin: 0; padding: 0; }
 
 body {
   background: var(--bg);
-  /* 双层刻度网格：次 8px + 主 32px（抹茶色相），语义＝观测标尺；与 .app-surface 同源 */
+  /* 背景分层（由下往上，2026-09-22 四轮艺术化）：
+   *   ① 三层径向光晕 —— 抹茶色在左上/右下/中上极淡地散开，给深底纵向深度，
+   *      像仪器机箱内壁被指示灯染上的余光（不是装饰性发光：无 blur、无 box-shadow，
+   *      只是极低不透明度的实色渐变，既守发光红线，又不会在深色底上显脏）
+   *   ② 双层刻度网格 —— 次 8px + 主 32px，语义＝观测标尺（保留既有设计）
+   *   ③ 顶/底暗角 —— 让中部内容自然浮起，视线聚拢
+   * 全部用 background-* 静态层，不产生合成层，滚动无额外开销。 */
   background-image:
+    radial-gradient(ellipse 70% 50% at 12% 0%, var(--glow-1) 0%, transparent 62%),
+    radial-gradient(ellipse 60% 45% at 92% 22%, var(--glow-2) 0%, transparent 60%),
+    radial-gradient(ellipse 80% 50% at 50% 108%, var(--glow-3) 0%, transparent 64%),
+    linear-gradient(to bottom, transparent 0%, transparent 72%, var(--vignette) 100%),
     linear-gradient(to right, var(--grid-line-fine) 1px, transparent 1px),
     linear-gradient(to bottom, var(--grid-line-fine) 1px, transparent 1px),
     linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
     linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
   background-size:
+    100% 100%,
+    100% 100%,
+    100% 100%,
+    100% 100%,
     var(--grid-size-fine) var(--grid-size-fine),
     var(--grid-size-fine) var(--grid-size-fine),
     var(--grid-size) var(--grid-size),
     var(--grid-size) var(--grid-size);
+  background-attachment: fixed, fixed, fixed, fixed, scroll, scroll, scroll, scroll;
   color: var(--text);
-  font: 15px/1.55 -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+  font: 15px/1.55 var(--font-sans, "Fira Sans"), -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: transparent;
 }

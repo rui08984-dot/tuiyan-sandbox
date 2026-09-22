@@ -14,6 +14,7 @@
  */
 import { useEffect, useState } from 'react';
 import { IconClock } from '../../components/ui';
+import { PagePlate } from '../../components/PagePlate';
 import { ChartFrame, Bar, LineChart } from '../../charts';
 import { int } from '../../lib/format';
 
@@ -64,10 +65,13 @@ export default function CalendarPage() {
 
   return (
     <div className="ui-stack">
-      <header className="page-head">
-        <h1><IconClock size={20} /> 待验证队列（{data.today}）</h1>
-        <p className="page-sub">口径：{data.basis}。只披露不裁决；本页不构成任何能力宣称。</p>
-      </header>
+      <PagePlate
+        testId="cal-plate"
+        icon={<IconClock size={20} />}
+        title="待验证队列"
+        tail={data.today}
+        subtitle={<>共 {int(data.rows)} 题等着见分晓。口径：{data.basis}。只披露不裁决；本页不构成任何能力宣称。</>}
+      />
 
       {/* ── ① 未来 7 天 +8–30 天 → 柱状条 ── */}
       <ChartFrame

@@ -4,7 +4,7 @@
  * （数据页 .content--wide 1280 ／ 表单页 .content--form 720 ／ 其余 860 阅读宽）。
  * 路由全兼容：/live→/、/games→/manage、/input|/advisor→/、*→/（一个不破）。
  */
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { HashRouter, Navigate, NavLink, Route, Routes, useLocation } from 'react-router-dom';
 import LivePage from './pages/LivePage';
 import ManagePage from './pages/ManagePage';
@@ -17,7 +17,9 @@ import CalendarPage from './pages/disclosure/CalendarPage';           // P0-U7�
 import NegativeResultsPage from './pages/disclosure/NegativeResultsPage';   // 第 4 期 I2（2026-09-21）：负结果账本对外页
 import CompilerPage from './pages/disclosure/CompilerPage';                 // 第 4 期（2026-09-21）：编译器门面
 import { IconLayers, IconCompass, IconGear, IconBook, TermDrawer } from './components/ui';
+import { CanvasField } from './components/CanvasField';
 import './styles/p1b6.css';
+import './styles/motion.css';
 
 const linkCls = ({ isActive }: { isActive: boolean }) => 'appbar-link' + (isActive ? ' is-active' : '');
 const toolCls = ({ isActive }: { isActive: boolean }) => 'appbar-gear' + (isActive ? ' is-active' : '');
@@ -39,8 +41,27 @@ function containerClass(path: string): string {
 function Shell() {
   const { pathname } = useLocation();
   const [termsOpen, setTermsOpen] = useState(false);
+
+  /**
+   * 页面转场（2026-09-22 三轮）：路由变化时给主内容区换 key，触发「仪表通电」动画，
+   * 同时放一条扫描线自上而下扫过（仪器自检的视觉语言）。
+   *
+   * ★ 为什么用 key 换而不是状态机：React 在 key 变化时会卸载重挂，
+   *   于是 CSS animation 自然从头播一次——比手写 enter/exit 状态更少出错。
+   * ★ 扫描线的 key 也要变，否则连续切页时第二次不重播。
+   */
+  const [runId, setRunId] = useState(0);
+  const firstRun = useRef(true);
+  useEffect(() => {
+    // 首屏不播扫描线（页面刚打开时用户还没切换过，扫一下反而突兀）
+    if (firstRun.current) { firstRun.current = false; return; }
+    setRunId((n) => n + 1);
+  }, [pathname]);
+
   return (
     <div className="app">
+      <CanvasField testId="field-bg" />
+      <span key={runId} className={'scanline' + (runId > 0 ? ' is-running' : '')} aria-hidden="true" />
       <header className="appbar">
         <div className="appbar-inner">
           <NavLink to="/" className="brand" aria-label="AI 推演沙盘">
@@ -69,6 +90,8 @@ function Shell() {
         </div>
       </header>
       <main className={containerClass(pathname)}>
+        {/* key 变化 ⇒ 重挂载 ⇒ 播一次「通电」动画（首屏也播，进场要有仪式感） */}
+        <div key={pathname} className="page-enter">
         <Routes>
           <Route path="/" element={<LivePage />} />
           <Route path="/manage" element={<ManagePage />} />
@@ -92,6 +115,7 @@ function Shell() {
           <Route path="/advisor" element={<Navigate to="/" replace />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
+        </div>
       </main>
       <TermDrawer open={termsOpen} onClose={() => setTermsOpen(false)} />
     </div>

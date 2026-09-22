@@ -10,6 +10,7 @@
  */
 import { useEffect, useState } from 'react';
 import { Term, IconChart } from '../../components/ui';
+import { PagePlate } from '../../components/PagePlate';
 
 type Entry = {
   id: string; name: string;
@@ -124,11 +125,18 @@ export default function NegativeResultsPage() {
 
   return (
     <div className="ui-stack">
-      <h1 className="ui-section-title"><IconChart size={16} /> 负结果账本</h1>
-      <p className="ui-note">
-        输得起才配赢：每个死掉的假设都挂出处——判据件、冻结指纹与复算命令一并公开。
-        这是本项目独有的一份资产：同类平台通常只披露胜出者。
-      </p>
+      <PagePlate
+        testId="nr-plate"
+        icon={<IconChart size={20} />}
+        title="负结果账本"
+        tail="Negative Results"
+        subtitle={
+          <>
+            输得起才配赢：每个死掉的假设都挂出处——判据件、冻结指纹与复算命令一并公开。
+            这是本项目独有的一份资产：同类平台通常只披露胜出者。
+          </>
+        }
+      />
 
       <section className="ui-section">
         <h2 className="ui-section-title">限定语块</h2>

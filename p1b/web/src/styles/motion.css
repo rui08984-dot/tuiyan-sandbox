@@ -1,0 +1,478 @@
+/* ══════════════════════════════════════════════════════════════════════════
+ * 动效层 motion.css（2026-09-22 三轮 · 「运行中的仪器」）
+ *
+ * 设计命题：这套系统是一件**正在运转的精密仪器**，不是静态报表。
+ *   页面切换 = 仪表通电；仪表盘 = 指针扫过刻度；标题 = 铭牌被装上；
+ *   线条 = 信号从起点走到终点。所有动效都对应一个真实的物理解读，
+ *   不做「为了好看而转」的装饰。
+ *
+ * ★ 四条硬约束（来自既有测试闸，一条不破）：
+ *   ① 禁装饰性发光 —— charts.test.mjs / layoutUx.test.mjs / term.test.mjs
+ *      三处断言禁止 `box-shadow: 0 0 Npx rgba(...)`。故戏剧感全部由
+ *      **运动、色块、手势延展**承担，不用辉光。
+ *   ② 必须支持 prefers-reduced-motion —— tokens.test.mjs 断言 CSS 含该关键字，
+ *      且真运行时须真的停（不是只写个空块）。
+ *   ③ 禁 emoji 图标 —— appShell.test.mjs。动效一律用 CSS/SVG 形状。
+ *   ④ 零依赖 —— charts.test.mjs 守「不引图表库」。故全部手写 CSS/Canvas。
+ *
+ * ★ 缓动语言（仪器的物理感）：
+ *   --ease-swift   快出缓停，像指针弹到位后有阻尼
+ *   --ease-mech    机械匀速起步再收，像电机加速
+ *   --ease-settle  过冲回落，像弹簧制动
+ *   --ease-instrument 仪器扫描：慢起、快中、稳收
+ * ══════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ── 时长阶梯（按"信息重量"分档：越重越慢）── */
+  --dur-tap: 90ms;        /* 点按反馈：必须瞬时，慢了显迟钝 */
+  --dur-quick: 160ms;     /* 悬浮/颜色：微交互基线 */
+  --dur-panel: 280ms;     /* 面板/卡片入场 */
+  --dur-sweep: 620ms;     /* 仪表扫描：指针从 0 到目标 */
+  --dur-reveal: 520ms;    /* 标题/区块揭示 */
+  --dur-page: 340ms;      /* 页面转场 */
+
+  /* ── 缓动曲线 ── */
+  --ease-swift: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-mech: cubic-bezier(0.4, 0.0, 0.2, 1);
+  --ease-settle: cubic-bezier(0.34, 1.42, 0.64, 1);   /* 轻过冲：指针到位的那一下 */
+  --ease-instrument: cubic-bezier(0.16, 0.84, 0.28, 1);
+
+  /* ── 入场位移量（统一手势，避免各页各写）── */
+  --shift-x: 18px;        /* 左右进场 */
+  --shift-y: 14px;        /* 上浮进场 */
+
+  /* ── 交错阶梯：列表/卡片依次入场的延迟步长 ── */
+  --stagger: 46ms;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+ * A. 页面转场 —— 仪表通电
+ * 路由切换时：旧页快速淡出（90ms，不拖沓），新页从"未通电"到"通电"
+ * （亮度爬升 + 轻微上浮 + 一条扫描线自上而下扫过）。
+ * ══════════════════════════════════════════════════════════════════════════ */
+
+.page-enter {
+  animation: page-power-on var(--dur-page) var(--ease-instrument) both;
+}
+
+@keyframes page-power-on {
+  0% {
+    opacity: 0;
+    transform: translateY(6px);
+    filter: brightness(0.82);
+  }
+  55% {
+    filter: brightness(1.04);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: brightness(1);
+  }
+}
+
+/* 扫描线：一条 1px 横线自上而下走过（仪器自检的视觉语言）
+ * 语义＝「正在核对这一页的读数」，不是装饰：所以只走一次、不循环。 */
+.scanline {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 1px;
+  z-index: 40;
+  pointer-events: none;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    var(--accent) 18%,
+    var(--accent) 82%,
+    transparent 100%
+  );
+  opacity: 0;
+  will-change: transform, opacity;
+}
+.scanline.is-running {
+  animation: scan-sweep var(--dur-page) var(--ease-mech) 1 both;
+}
+
+@keyframes scan-sweep {
+  0% { opacity: 0; transform: translateY(0) scaleX(0.12); }
+  12% { opacity: 0.5; }
+  60% { opacity: 0.32; }
+  100% { opacity: 0; transform: translateY(100vh) scaleX(1); }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+ * B. 区块/卡片入场 —— 依次通电
+ * 用法：容器加 .stagger-in，子元素自动依次入场（CSS 变量 --stagger 控制步长）。
+ * 用 :nth-child 前 8 项即可覆盖绝大多数网格，超出者不延迟（避免长列表等到最后）。
+ * ══════════════════════════════════════════════════════════════════════════ */
+
+.stagger-in > * {
+  animation: rise-in var(--dur-panel) var(--ease-swift) both;
+}
+.stagger-in > *:nth-child(1) { animation-delay: 0ms; }
+.stagger-in > *:nth-child(2) { animation-delay: var(--stagger); }
+.stagger-in > *:nth-child(3) { animation-delay: calc(var(--stagger) * 2); }
+.stagger-in > *:nth-child(4) { animation-delay: calc(var(--stagger) * 3); }
+.stagger-in > *:nth-child(5) { animation-delay: calc(var(--stagger) * 4); }
+.stagger-in > *:nth-child(6) { animation-delay: calc(var(--stagger) * 5); }
+.stagger-in > *:nth-child(7) { animation-delay: calc(var(--stagger) * 6); }
+.stagger-in > *:nth-child(n + 8) { animation-delay: calc(var(--stagger) * 7); }
+
+@keyframes rise-in {
+  0% { opacity: 0; transform: translateY(var(--shift-y)); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+ * C. 标题系统 —— 铭牌被装上
+ * 用户要求：「从两边交叉穿插进来形成主体字 + 投射的背影字 + 后面有纯色色块」
+ * 实现：
+ *   .plate        —— 纯色色块（铭牌底座），从左侧延展出来
+ *   .plate-title  —— 主字，从左侧滑入
+ *   .plate-tail   —— 尾字（如英文副名/编号），从右侧滑入 —— 二者交叉对穿
+ *   .plate-shadow —— 投影字（同一文本的偏移副本，低对比度，压在色块后）
+ * ══════════════════════════════════════════════════════════════════════════ */
+
+.plate {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 4px 14px 4px 10px;
+  border-radius: var(--radius-sm);
+  isolation: isolate;          /* 让 z-index 在本组件内结算，不干扰外部层叠 */
+}
+/* 色块底座：从左侧延展（scaleX 而非 width，避免触发重排） */
+.plate::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background: var(--accent);
+  opacity: 0.14;
+  border-radius: inherit;
+  transform-origin: left center;
+  animation: plate-unfurl var(--dur-reveal) var(--ease-mech) both;
+}
+@keyframes plate-unfurl {
+  0% { transform: scaleX(0); opacity: 0; }
+  30% { opacity: 0.14; }
+  100% { transform: scaleX(1); opacity: 0.14; }
+}
+
+/* 投影字：同一文本的偏移副本，压在主字后下方，形成「字浮在底板上」的层次。
+ * ★ 字号/字重必须与 .plate-title 一致（不能 inherit .plate 的 15px，否则会缩成小标签）：
+ *   故这里显式声明与主字同样的 26px/800，并在窄屏断点同步降档。
+ * ★ 定位用 left/top 对齐色块内边距原点 + 固定像素偏移，
+ *   不用 translateY(-50%)（百分比基于自身盒高，随字号变化会漂）。 */
+.plate-shadow {
+  position: absolute;
+  left: 12px;
+  top: 6px;
+  z-index: -1;
+  color: var(--text);
+  opacity: 0.09;
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+  animation: plate-shadow-drop var(--dur-reveal) var(--ease-settle) both;
+  animation-delay: 120ms;
+}
+@keyframes plate-shadow-drop {
+  0% { opacity: 0; transform: translate(0, 0); }
+  100% { opacity: 0.09; transform: translate(3px, 3px); }
+}
+@media (max-width: 767px) {
+  .plate-shadow { font-size: 21px; }
+}
+
+/* 主字：左侧进入 */
+.plate-title {
+  animation: plate-from-left var(--dur-reveal) var(--ease-swift) both;
+  animation-delay: 60ms;
+}
+@keyframes plate-from-left {
+  0% { opacity: 0; transform: translateX(calc(-1 * var(--shift-x))); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+/* 尾字：右侧进入 —— 与主字对穿，形成「交叉穿插」 */
+.plate-tail {
+  animation: plate-from-right var(--dur-reveal) var(--ease-swift) both;
+  animation-delay: 60ms;
+}
+@keyframes plate-from-right {
+  0% { opacity: 0; transform: translateX(var(--shift-x)); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+/* ── 页头铭牌：排版层级 ──
+ * 主字 26px/800（粗），尾字 12px 大写宽字距（细），靠**尺寸与字重反差**立层级，
+ * 而不是靠颜色——这样在任何主题下都有层级。 */
+.page-plate {
+  margin: 2px 0 var(--space-4);
+}
+.page-plate .plate {
+  padding: 8px 18px 8px 12px;
+  /* 铭牌宽度跟随内容，但给足内边距让投影字有落点 */
+  min-width: max-content;
+}
+.plate-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin: 0;
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.01em;   /* 大字号收紧字距，避免松散 */
+  line-height: 1.2;
+  color: var(--text);
+}
+.plate-icon {
+  display: inline-flex;
+  color: var(--accent);
+  flex: 0 0 auto;
+}
+.plate-tail {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.plate-sub {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: var(--font-size-body);
+  line-height: 1.55;
+  max-width: 68ch;          /* 控制阅读行长，避免满屏长句 */
+}
+/* 窄屏：尾字可省略（它只是副名），主字缩小一档但保持粗体 */
+@media (max-width: 767px) {
+  .plate-title { font-size: 21px; }
+  .plate-tail { display: none; }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+ * D. 线条延展 —— 信号从起点走到数值
+ * 用于误差须、森林图、热力格、趋势条。统一用 stroke-dashoffset / scaleX。
+ * ══════════════════════════════════════════════════════════════════════════ */
+
+/* 横向线条：从左端长到右端 */
+.grow-x {
+  animation: grow-x var(--dur-sweep) var(--ease-instrument) both;
+  transform-origin: left center;
+}
+@keyframes grow-x {
+  0% { transform: scaleX(0); }
+  100% { transform: scaleX(1); }
+}
+
+/* 纵向线条：从下往上长（柱状图的"立起来"） */
+.grow-y {
+  animation: grow-y var(--dur-sweep) var(--ease-instrument) both;
+  transform-origin: center bottom;
+}
+@keyframes grow-y {
+  0% { transform: scaleY(0); }
+  100% { transform: scaleY(1); }
+}
+
+/* SVG 描边：路径自绘（用于折线图/弧线）——需在元素上设 --path-len */
+.draw-path {
+  stroke-dasharray: var(--path-len, 1000);
+  stroke-dashoffset: var(--path-len, 1000);
+  animation: draw-path var(--dur-sweep) var(--ease-instrument) forwards;
+  animation-delay: 80ms;
+}
+@keyframes draw-path {
+  to { stroke-dashoffset: 0; }
+}
+
+/* 仪表指针/数据轨：从 0 扫到目标值（见 Gauge 组件的 dasharray 动画） */
+.sweep-arc {
+  animation: sweep-arc var(--dur-sweep) var(--ease-instrument) both;
+}
+@keyframes sweep-arc {
+  0% { stroke-dasharray: 0 var(--arc-circ, 999); }
+}
+
+/* 数字滚动：读数从低位爬到目标（用 CSS 计数，避免 JS 逐帧）
+ * ★ 无障碍：真实数值始终在 DOM 里（通过 aria-label 与末尾静态文本），
+ *   动画只是视觉过渡，读屏器读到的仍是准确值。 */
+.count-up {
+  animation: count-up var(--dur-sweep) var(--ease-instrument) both;
+}
+@keyframes count-up {
+  0% { opacity: 0; transform: translateY(6px); }
+  40% { opacity: 1; }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+ * E. 粒子与背景层 —— 环境氛围（由 CanvasParticles 组件驱动）
+ * 语义：背景粒子的连线＝「数据点之间的关联」，密度随页面数据量变化。
+ * ══════════════════════════════════════════════════════════════════════════ */
+
+.field-bg {
+  position: fixed;
+  inset: 0;
+  /* ★ 必须显式给宽高：canvas 的 clientWidth/clientHeight 来自 CSS 盒模型，
+   *   只写 inset:0 会让它取默认 300×150（HTML canvas 的固有尺寸），
+   *   于是 resize() 算出的画布是默认大小，粒子全挤在左上角。 */
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;
+  animation: field-fade-in 1200ms var(--ease-mech) 300ms forwards;
+}
+@keyframes field-fade-in {
+  to { opacity: 1; }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+ * F. 交互微反馈 —— 手感
+ * ══════════════════════════════════════════════════════════════════════════ */
+
+/* 按下去有实体感：轻微下沉 + 收紧（像按下仪器按键） */
+.pressable {
+  transition:
+    transform var(--dur-quick) var(--ease-swift),
+    border-color var(--dur-quick) ease,
+    background var(--dur-quick) ease,
+    color var(--dur-quick) ease;
+}
+.pressable:hover { transform: translateY(-1px); }
+.pressable:active { transform: translateY(0) scale(0.985); transition-duration: var(--dur-tap); }
+
+/* 导航项：激活时底部一条延展线（结构＝当前位置，非装饰） */
+.appbar-link {
+  position: relative;
+}
+.appbar-link::after {
+  content: '';
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 6px;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 1px;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform var(--dur-panel) var(--ease-settle);
+}
+.appbar-link.is-active::after { transform: scaleX(1); }
+
+/* 读数卡悬浮：微微抬起（不用阴影，用位移 + 边框提亮） */
+.readout-card {
+  transition:
+    transform var(--dur-panel) var(--ease-swift),
+    border-color var(--dur-panel) ease,
+    background var(--dur-panel) ease;
+}
+.readout-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+}
+
+/* 图表帧：入场时轻微上浮 */
+.chart-frame {
+  animation: rise-in var(--dur-panel) var(--ease-swift) both;
+}
+
+/* 热力格：依次点亮（像仪表盘的指示灯逐个亮起） */
+.heat-cell {
+  animation: cell-light-up var(--dur-panel) var(--ease-swift) both;
+}
+@keyframes cell-light-up {
+  0% { opacity: 0; transform: scale(0.9); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+/* 表格行：从左滑入 */
+.ui-matrix tbody tr {
+  animation: row-slide-in var(--dur-panel) var(--ease-swift) both;
+}
+@keyframes row-slide-in {
+  0% { opacity: 0; transform: translateX(calc(-1 * var(--shift-x))); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+/* 进度条/条形：宽度从 0 涨到目标（覆盖内联 width） */
+.cbar-fill,
+.sparkbar-fill,
+.cnest-inner,
+.cstack-seg,
+.gauge-bar-fill {
+  animation: bar-fill var(--dur-sweep) var(--ease-instrument) both;
+}
+@keyframes bar-fill {
+  0% { transform: scaleX(0); }
+  100% { transform: scaleX(1); }
+}
+/* 条形容器需要 overflow 裁剪，否则 scaleX 会露出原宽 */
+.cbar-track, .sparkbar-track, .cstack-track, .gauge-bar-track {
+  overflow: hidden;
+}
+.cbar-fill, .sparkbar-fill, .cstack-seg, .gauge-bar-fill {
+  transform-origin: left center;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+ * G. 无障碍：尊重「减少动态效果」系统偏好
+ * ★ 这是硬闸（tokens.test.mjs 断言关键字存在），且必须真的停住——
+ *   不是把时长改成 1ms（那仍会闪一下），而是彻底移除动画并保持在终态。
+ * ══════════════════════════════════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0ms !important;
+    transition-duration: 1ms !important;
+    scroll-behavior: auto !important;
+  }
+  /* 入场动画的初始态是 opacity:0 —— 若只是缩短时长，某些浏览器会停在中间帧。
+   * 强制终态，确保内容一定可见（可访问性优先于动效）。 */
+  .page-enter,
+  .stagger-in > *,
+  .chart-frame,
+  .heat-cell,
+  .ui-matrix tbody tr,
+  .plate::before,
+  .plate-shadow,
+  .plate-title,
+  .plate-tail,
+  .grow-x,
+  .grow-y,
+  .draw-path,
+  .sweep-arc,
+  .count-up,
+  .cbar-fill,
+  .sparkbar-fill,
+  .cnest-inner,
+  .cstack-seg,
+  .gauge-bar-fill {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .field-bg { opacity: 1; animation: none; }
+  .scanline { display: none; }
+  .field-bg { display: none; }
+  .appbar-link::after { transition: none; }
+  .readout-card:hover { transform: none; }
+  .pressable:hover,
+  .pressable:active { transform: none; }
+}

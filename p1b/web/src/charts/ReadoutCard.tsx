@@ -17,9 +17,11 @@
  *   ② 空态原文保留——「样本不足」「n<30 出不了区间」不得被图形替掉（dist.test.mjs 契约）
  *   ③ 稀疏 ≠ 0 —— 无读数的格子画「无数据」，绝不画成 0 的好格
  */
-import type { ReactNode } from 'react';
+import type { CSSProperties, ReactNode } from 'react';
 
-/** 半圆仪表：弧长＝读数占比，阈值虚线＝参照线 */
+/** 半圆仪表：弧长＝读数占比，阈值虚线＝参照线
+ * ★ 2026-09-22 三轮：数据轨带「引擎启动」扫描动画——从 0 扫到目标值，
+ *   像仪表通电后指针弹到位。动画只影响视觉，aria-label 始终是准确值。 */
 export function MiniGauge({
   value, lo = 0, hi = 1, threshold, size = 56, missingText = '样本不足', testId,
 }: {
@@ -44,15 +46,17 @@ export function MiniGauge({
     <svg width={size} height={size / 2 + 6} viewBox={`0 0 ${size} ${size / 2 + 6}`} role="img"
       className="mini-gauge"
       aria-label={has ? `读数 ${value}` : missingText}
-      data-testid={testId}>
+      data-testid={testId}
+      style={{ '--arc-circ': CIRC.toFixed(2) } as CSSProperties}>
       {/* 底轨 */}
       <path d={`M ${cx - r} ${cy} A ${r} ${r} 0 0 1 ${cx + r} ${cy}`}
         fill="none" stroke="var(--panel-3)" strokeWidth={stroke} strokeLinecap="round" />
-      {/* 数据轨 */}
+      {/* 数据轨：通电扫描（sweep-arc 关键帧从 dasharray 0 涨到目标） */}
       {has ? (
         <path d={`M ${cx - r} ${cy} A ${r} ${r} 0 0 1 ${cx + r} ${cy}`}
           fill="none" stroke="var(--accent)" strokeWidth={stroke} strokeLinecap="round"
-          strokeDasharray={`${(t * CIRC).toFixed(2)} ${CIRC.toFixed(2)}`} />
+          strokeDasharray={`${(t * CIRC).toFixed(2)} ${CIRC.toFixed(2)}`}
+          className="sweep-arc" />
       ) : null}
       {/* 阈值刻度（承载参照语义，不是装饰） */}
       {thrT !== null ? (

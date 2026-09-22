@@ -16,6 +16,7 @@
  */
 import { useEffect, useState } from 'react';
 import { Term, IconChart } from '../../components/ui';
+import { PagePlate } from '../../components/PagePlate';
 
 type KindOpt = { kind: string; required: string[]; one_of: string[] };
 type CatalogJson = {
@@ -61,11 +62,18 @@ export default function CompilerPage() {
 
   return (
     <div className="ui-stack">
-      <h1 className="ui-section-title"><IconChart size={16} /> 编译器门面</h1>
-      <p className="ui-note">
-        只需选一个<b>真值锚类型</b>，系统查历史给出这道题「通常属于哪一层、用哪个引擎、有多少同类样本」。
-        这是把九组专业问答压缩成一次选择的<b>参考建议</b>——正式接题仍走接题页的核对。
-      </p>
+      <PagePlate
+        testId="compiler-plate"
+        icon={<IconChart size={20} />}
+        title="编译器"
+        tail="Compiler"
+        subtitle={
+          <>
+            只需选一个<b>真值锚类型</b>，系统查历史给出这道题「通常属于哪一层、用哪个引擎、有多少同类样本」。
+            这是把九组专业问答压缩成一次选择的<b>参考建议</b>——正式接题仍走接题页的核对。
+          </>
+        }
+      />
 
       <section className="ui-section">
         <h2 className="ui-section-title">怎么用（三步）</h2>

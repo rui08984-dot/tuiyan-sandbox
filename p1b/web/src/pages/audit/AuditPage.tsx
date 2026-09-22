@@ -18,9 +18,10 @@ import { Fragment, useCallback, useEffect, useState, type ReactNode } from 'reac
 import * as api from '../../api';
 import type { AuditSummary, AuditLayerCalibration, AuditG2KpiResult } from '../../types';
 import {
-  StatCard, Badge, KVTable, Tabs, Breadcrumb, AlertBar, EmptyState, Term,
+  StatCard, Badge, KVTable, Tabs, Breadcrumb, AlertBar, EmptyState, Term, HelpMark,
   IconChart, IconLayers,
 } from '../../components/ui';
+import { PagePlate } from '../../components/PagePlate';
 import { BrierGauge, ErrorBar, SparkBar, NestedBar } from '../../charts';
 import { tri, pct, fmtCi, int, gateHuman, gateHumanMulti, engineHuman } from '../../lib/format';
 
@@ -100,13 +101,18 @@ export default function AuditPage() {
     <section className="page" data-testid="audit-page">
       <div className="ui-stack">
         <Breadcrumb items={crumbs} testId="breadcrumb" />
-        <header style={{ margin: 0 }}>
-          <h2 style={{ display: 'flex', alignItems: 'center', gap: 8, margin: '0 0 4px', fontSize: 'var(--font-size-h2)' }}>
-            <IconChart size={20} /> 万物审计仪表盘
-            <Badge tone="muted" testId="audit-banner">只记不评 · 分层账本</Badge>
-          </h2>
-          <p className="ui-note" style={{ margin: 0 }}>只记录、不打分 · 数字仅供参照，结论以完整判据为准</p>
-        </header>
+        <PagePlate
+          testId="audit-plate"
+          icon={<IconChart size={20} />}
+          title="万物审计"
+          tail="Audit"
+          subtitle={
+            <>
+              只记录、不打分，结论以完整判据为准。
+              <Badge tone="muted" testId="audit-banner">只记不评 · 分层账本</Badge>
+            </>
+          }
+        />
 
         {/* 加载骨架：占位尺寸与真实卡一致 ⇒ 数据到达时不跳动（CLS） */}
         {loading && (
@@ -156,7 +162,13 @@ export default function AuditPage() {
         <AlertBar alerts={alerts} testId="alertbar" />
 
         <div className="ui-section" data-testid="layer-matrix">
-          <h3 className="ui-section-title"><IconLayers size={16} /> 分层矩阵（L1-L6）</h3>
+          <h3 className="ui-section-title">
+            <IconLayers size={16} /> 分层矩阵（L1-L6）
+            <HelpMark
+              testId="audit-matrix-help"
+              text="点任意一行可以展开那一层的详情。校准参考＝在已回填真值的题上做的机械算术；样本少于 30 条不出置信区间。"
+            />
+          </h3>
           <p className="ui-note" style={{ marginTop: 0 }}>点任意行展开该层详情（面包屑同步）；校准参考=已回填真值题上的机械算术，n&lt;30 不出 CI。</p>
           {loading && !summary ? <EmptyState text="账本读取中…" testId="audit-loading" /> : (
             <table className="ui-matrix" data-testid="layer-matrix-table">

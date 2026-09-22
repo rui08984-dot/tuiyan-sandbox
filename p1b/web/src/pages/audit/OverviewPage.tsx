@@ -19,7 +19,8 @@
  *   - 页面正文与代码注释均不得出现禁用字样（禁词闸源码级扫描）
  */
 import { useEffect, useMemo, useState } from 'react';
-import { Term, IconChart, IconLayers, EmptyState, KVTable } from '../../components/ui';
+import { Term, IconChart, IconLayers, EmptyState, KVTable, HelpMark } from '../../components/ui';
+import { PagePlate } from '../../components/PagePlate';
 import {
   ChartFrame, HeatGrid, ReadoutCard, ForestPlot, ReliabilityPlot, StackedBar, FilterChips,
 } from '../../charts';
@@ -202,17 +203,25 @@ export default function OverviewPage() {
 
   return (
     <div className="ui-stack">
-      <header className="page-head">
-        <h1><IconChart size={20} /> 校准总览</h1>
-        <p className="page-sub">
-          我们报出的概率，和实际发生的事情对得上多少。
-          <b>数值越低越准</b>；0.25 是「一律报五成」这条基准线——低过它才算真的有用。
-        </p>
-      </header>
+      <PagePlate
+        testId="ov-plate"
+        icon={<IconChart size={20} />}
+        title="校准总览"
+        tail="Calibration"
+        subtitle={
+          <>
+            我们报出的概率，和实际发生的事情对得上多少。
+            <b>数值越低越准</b>；0.25 是「一律报五成」这条基准线——低过它才算真的有用。
+          </>
+        }
+      />
 
       {/* ══ 第一层：整体读数（一屏见主结论）══ */}
       <section className="ui-section" data-testid="ov-overall">
-        <h2 className="ui-section-title">整体表现</h2>
+        <h2 className="ui-section-title">
+          整体表现
+          <HelpMark termId="brier" label="校准分是什么" testId="ov-overall-help" />
+        </h2>
         {overall ? (
           <div className="ov-hero">
             <div className="ov-hero-figure">
@@ -228,7 +237,7 @@ export default function OverviewPage() {
                 tone={overall.brier <= MAX_BRIER ? 'ok' : 'warn'}
               />
             </div>
-            <div className="ov-hero-stats">
+            <div className="ov-hero-stats stagger-in">
               <div className="ov-stat">
                 <span className="ov-stat-num">{int(cells.length)}</span>
                 <span className="ov-stat-label">可读格子</span>
@@ -252,11 +261,17 @@ export default function OverviewPage() {
 
       {/* ══ 第二层：分层读数卡（图形当主角）══ */}
       <section className="ui-section" data-testid="ov-layers">
-        <h2 className="ui-section-title"><IconLayers size={16} /> 各层表现</h2>
+        <h2 className="ui-section-title">
+          <IconLayers size={16} /> 各层表现
+          <HelpMark
+            testId="ov-layers-help"
+            text="六层是按「这件事有多难算」分的：算得出来的（决定论）到纯运气（不可约随机）到有对手针对你（对抗）。不同层不能直接横向比较谁更准——因为难度本来就不同。"
+          />
+        </h2>
         <p className="ui-note" style={{ marginTop: 0 }}>
           六层各自的性质不同，横比之前先看每层是什么。样本少于 30 条的层只记方向，不下结论。
         </p>
-        <div className="readout-grid">
+        <div className="readout-grid stagger-in">
           {LAYER_META.map((m) => {
             const row = byLayer.filter((x) => x.layer === m.id)[0];
             const n = row ? row.n : null;
@@ -284,7 +299,13 @@ export default function OverviewPage() {
 
       {/* ══ 第三层：分域热力表（可筛选）══ */}
       <section className="ui-section" data-testid="ov-domains">
-        <h2 className="ui-section-title">各领域细分</h2>
+        <h2 className="ui-section-title">
+          各领域细分
+          <HelpMark
+            testId="ov-domains-help"
+            text="领域＝题目的题材（如经济数据、天气、汇率）。同一个层里，不同领域的表现可能差很多——这张表就是让你看到差在哪。"
+          />
+        </h2>
         <p className="ui-note" style={{ marginTop: 0 }}>
           横向是领域、纵向是层。格上数字＝该格的表现，越低越准；
           斜纹格样本偏少，只记方向不出结论；空格＝该组合没有记录（不是表现好）。
