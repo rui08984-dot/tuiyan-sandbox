@@ -1,0 +1,384 @@
+{
+ "run_at": "2026-09-22T09:29:59.957Z",
+ "today": "2026-09-22",
+ "db": "E:\\music player\\p1a-terminal\\data\\p1a.db",
+ "scanned": 1368,
+ "total_all": 1994,
+ "pass": 1311,
+ "leak": [
+  {
+   "id": 817,
+   "kind": "cwl_ssq_red_contains",
+   "window_start": "2026-09-13",
+   "cutoff_day": "2026-09-13",
+   "resolved": true,
+   "statement": "【forward】双色球第 2026106 期红球含 07（cutoff=落库时点 2026-09-13T01:07:55+08:00，该期尚未开奖；期号=上期 2026105+1"
+  },
+  {
+   "id": 829,
+   "kind": "cwl_ssq_blue_odd",
+   "window_start": "2026-09-13",
+   "cutoff_day": "2026-09-13",
+   "resolved": true,
+   "statement": "【forward】双色球第 2026106 期蓝球为奇数（cutoff=落库时点 2026-09-13T01:07:55+08:00，该期尚未开奖；期号=上期 2026105+1 "
+  },
+  {
+   "id": 1082,
+   "kind": "eurostat_live_tertiary_attain",
+   "window_start": "2026-01-01",
+   "cutoff_day": "2026-09-13",
+   "resolved": false,
+   "statement": "【forward】Eurostat 德国 2026 年 25-74 岁高等教育人口占比（%） >= 20.4"
+  },
+  {
+   "id": 1085,
+   "kind": "eurostat_live_tertiary_attain",
+   "window_start": "2026-01-01",
+   "cutoff_day": "2026-09-13",
+   "resolved": false,
+   "statement": "【forward】Eurostat 法国 2026 年 25-74 岁高等教育人口占比（%） >= 19.8"
+  },
+  {
+   "id": 1088,
+   "kind": "eurostat_live_tertiary_attain",
+   "window_start": "2026-01-01",
+   "cutoff_day": "2026-09-13",
+   "resolved": false,
+   "statement": "【forward】Eurostat 西班牙 2026 年 25-74 岁高等教育人口占比（%） >= 12.0"
+  },
+  {
+   "id": 1100,
+   "kind": "noaa_solar_cycle_ssn_monthly",
+   "window_start": "2026-09-01",
+   "cutoff_day": "2026-09-13",
+   "resolved": false,
+   "statement": "【forward】NOAA 太阳黑子数 2026-09 月均值 >= 87.2"
+  },
+  {
+   "id": 1459,
+   "kind": "delphi_fluview_num_ili",
+   "window_start": "2026-07-26",
+   "cutoff_day": "2026-09-05",
+   "resolved": true,
+   "statement": "【backfill】美国 CDC FluView 202630 周（MMWR）ILI 就诊量 >= 42083 人次"
+  },
+  {
+   "id": 1460,
+   "kind": "delphi_fluview_num_ili",
+   "window_start": "2026-08-02",
+   "cutoff_day": "2026-09-05",
+   "resolved": true,
+   "statement": "【backfill】美国 CDC FluView 202631 周（MMWR）ILI 就诊量 >= 74855 人次"
+  },
+  {
+   "id": 1461,
+   "kind": "delphi_fluview_num_ili",
+   "window_start": "2026-08-09",
+   "cutoff_day": "2026-09-05",
+   "resolved": true,
+   "statement": "【backfill】美国 CDC FluView 202632 周（MMWR）ILI 就诊量 >= 39852 人次"
+  },
+  {
+   "id": 1462,
+   "kind": "delphi_fluview_num_ili",
+   "window_start": "2026-08-16",
+   "cutoff_day": "2026-09-05",
+   "resolved": true,
+   "statement": "【backfill】美国 CDC FluView 202633 周（MMWR）ILI 就诊量 >= 45082 人次"
+  },
+  {
+   "id": 1463,
+   "kind": "delphi_fluview_num_ili",
+   "window_start": "2026-08-23",
+   "cutoff_day": "2026-09-05",
+   "resolved": true,
+   "statement": "【backfill】美国 CDC FluView 202634 周（MMWR）ILI 就诊量 >= 54426 人次"
+  },
+  {
+   "id": 1464,
+   "kind": "delphi_fluview_num_ili",
+   "window_start": "2026-08-30",
+   "cutoff_day": "2026-09-05",
+   "resolved": true,
+   "statement": "【backfill】美国 CDC FluView 202635 周（MMWR）ILI 就诊量 >= 41955 人次"
+  },
+  {
+   "id": 1507,
+   "kind": "eurostat_live_unemployment_monthly",
+   "window_start": "2026-09-01",
+   "cutoff_day": "2026-09-13",
+   "resolved": false,
+   "statement": "【forward】Eurostat 德国 2026-09 月失业率（%） <= 3.70"
+  },
+  {
+   "id": 1512,
+   "kind": "eurostat_live_unemployment_monthly",
+   "window_start": "2026-09-01",
+   "cutoff_day": "2026-09-13",
+   "resolved": false,
+   "statement": "【forward】Eurostat 法国 2026-09 月失业率（%） <= 8.50"
+  },
+  {
+   "id": 1517,
+   "kind": "eurostat_live_unemployment_monthly",
+   "window_start": "2026-09-01",
+   "cutoff_day": "2026-09-13",
+   "resolved": false,
+   "statement": "【forward】Eurostat 西班牙 2026-09 月失业率（%） <= 17.70"
+  },
+  {
+   "id": 1929,
+   "kind": "delphi_fluview_ili",
+   "window_start": "2026-07-26",
+   "cutoff_day": "2026-09-12",
+   "resolved": true,
+   "statement": "【backfill】美国 CDC FluView 202630 周（MMWR）加州 ILI 就诊量 >= 5963 人次（cutoff=该周结束后次日（严格早于真值公布日 滞后约 "
+  },
+  {
+   "id": 1930,
+   "kind": "delphi_fluview_ili",
+   "window_start": "2026-04-19",
+   "cutoff_day": "2026-09-12",
+   "resolved": true,
+   "statement": "【backfill】美国 CDC FluView 202616 周（MMWR）加州 ILI 就诊量 >= 6113 人次（cutoff=该周结束后次日（严格早于真值公布日 滞后约 "
+  },
+  {
+   "id": 1933,
+   "kind": "delphi_fluview_ili",
+   "window_start": "2026-07-26",
+   "cutoff_day": "2026-09-12",
+   "resolved": true,
+   "statement": "【backfill】美国 CDC FluView 202630 周（MMWR）得州 ILI 就诊量 >= 593 人次（cutoff=该周结束后次日（严格早于真值公布日 滞后约 2"
+  },
+  {
+   "id": 1934,
+   "kind": "delphi_fluview_ili",
+   "window_start": "2026-04-19",
+   "cutoff_day": "2026-09-12",
+   "resolved": true,
+   "statement": "【backfill】美国 CDC FluView 202616 周（MMWR）得州 ILI 就诊量 >= 949 人次（cutoff=该周结束后次日（严格早于真值公布日 滞后约 2"
+  },
+  {
+   "id": 1937,
+   "kind": "delphi_fluview_ili",
+   "window_start": "2026-07-26",
+   "cutoff_day": "2026-09-12",
+   "resolved": true,
+   "statement": "【backfill】美国 CDC FluView 202630 周（MMWR）佛州 ILI 就诊量 >= 5756 人次（cutoff=该周结束后次日（严格早于真值公布日 滞后约 "
+  },
+  {
+   "id": 1938,
+   "kind": "delphi_fluview_ili",
+   "window_start": "2026-04-19",
+   "cutoff_day": "2026-09-12",
+   "resolved": true,
+   "statement": "【backfill】美国 CDC FluView 202616 周（MMWR）佛州 ILI 就诊量 >= 5839 人次（cutoff=该周结束后次日（严格早于真值公布日 滞后约 "
+  }
+ ],
+ "unverifiable": [
+  {
+   "id": 731,
+   "kind": "cwl_ssq_red_contains",
+   "why": "gate 不认 resolve.issue"
+  },
+  {
+   "id": 732,
+   "kind": "cwl_ssq_blue_odd",
+   "why": "gate 不认 resolve.issue"
+  },
+  {
+   "id": 733,
+   "kind": "cwl_ssq_red_contains",
+   "why": "gate 不认 resolve.issue"
+  },
+  {
+   "id": 734,
+   "kind": "cwl_ssq_blue_odd",
+   "why": "gate 不认 resolve.issue"
+  },
+  {
+   "id": 735,
+   "kind": "cwl_ssq_red_contains",
+   "why": "gate 不认 resolve.issue"
+  },
+  {
+   "id": 736,
+   "kind": "cwl_ssq_blue_odd",
+   "why": "gate 不认 resolve.issue"
+  },
+  {
+   "id": 1117,
+   "kind": "crossref_week_total",
+   "why": "gate 不认 resolve.week_start"
+  },
+  {
+   "id": 1118,
+   "kind": "crossref_week_total",
+   "why": "gate 不认 resolve.week_start"
+  },
+  {
+   "id": 1119,
+   "kind": "crossref_week_total",
+   "why": "gate 不认 resolve.week_start"
+  },
+  {
+   "id": 1120,
+   "kind": "crossref_week_total",
+   "why": "gate 不认 resolve.week_start"
+  },
+  {
+   "id": 1121,
+   "kind": "crossref_week_total",
+   "why": "gate 不认 resolve.week_start"
+  },
+  {
+   "id": 1468,
+   "kind": "nvd_cve_week_count",
+   "why": "gate 不认 resolve.week_start"
+  },
+  {
+   "id": 1469,
+   "kind": "nvd_cve_week_count",
+   "why": "gate 不认 resolve.week_start"
+  },
+  {
+   "id": 1470,
+   "kind": "nvd_cve_week_count",
+   "why": "gate 不认 resolve.week_start"
+  },
+  {
+   "id": 1471,
+   "kind": "nvd_cve_week_count",
+   "why": "gate 不认 resolve.week_start"
+  },
+  {
+   "id": 1472,
+   "kind": "nvd_cve_week_count",
+   "why": "gate 不认 resolve.week_start"
+  },
+  {
+   "id": 1988,
+   "kind": "oddsapi_h2h",
+   "why": "gate 不认 resolve.commence_utc"
+  },
+  {
+   "id": 1989,
+   "kind": "oddsapi_h2h",
+   "why": "gate 不认 resolve.commence_utc"
+  },
+  {
+   "id": 1990,
+   "kind": "oddsapi_h2h",
+   "why": "gate 不认 resolve.commence_utc"
+  },
+  {
+   "id": 1991,
+   "kind": "oddsapi_h2h",
+   "why": "gate 不认 resolve.commence_utc"
+  },
+  {
+   "id": 1992,
+   "kind": "oddsapi_h2h",
+   "why": "gate 不认 resolve.commence_utc"
+  },
+  {
+   "id": 1993,
+   "kind": "oddsapi_h2h",
+   "why": "gate 不认 resolve.commence_utc"
+  },
+  {
+   "id": 1994,
+   "kind": "oddsapi_h2h",
+   "why": "gate 不认 resolve.commence_utc"
+  },
+  {
+   "id": 1995,
+   "kind": "oddsapi_h2h",
+   "why": "gate 不认 resolve.commence_utc"
+  },
+  {
+   "id": 1996,
+   "kind": "oddsapi_h2h",
+   "why": "gate 不认 resolve.commence_utc"
+  },
+  {
+   "id": 1997,
+   "kind": "oddsapi_h2h",
+   "why": "gate 不认 resolve.commence_utc"
+  },
+  {
+   "id": 1998,
+   "kind": "oddsapi_h2h",
+   "why": "gate 不认 resolve.commence_utc"
+  },
+  {
+   "id": 1999,
+   "kind": "oddsapi_h2h",
+   "why": "gate 不认 resolve.commence_utc"
+  },
+  {
+   "id": 2000,
+   "kind": "oddsapi_h2h",
+   "why": "gate 不认 resolve.commence_utc"
+  },
+  {
+   "id": 2001,
+   "kind": "oddsapi_h2h",
+   "why": "gate 不认 resolve.commence_utc"
+  },
+  {
+   "id": 2002,
+   "kind": "oddsapi_h2h",
+   "why": "gate 不认 resolve.commence_utc"
+  },
+  {
+   "id": 2003,
+   "kind": "oddsapi_h2h",
+   "why": "gate 不认 resolve.commence_utc"
+  },
+  {
+   "id": 2004,
+   "kind": "oddsapi_h2h",
+   "why": "gate 不认 resolve.commence_utc"
+  },
+  {
+   "id": 2005,
+   "kind": "oddsapi_h2h",
+   "why": "gate 不认 resolve.commence_utc"
+  },
+  {
+   "id": 2006,
+   "kind": "oddsapi_h2h",
+   "why": "gate 不认 resolve.commence_utc"
+  },
+  {
+   "id": 2007,
+   "kind": "oddsapi_h2h",
+   "why": "gate 不认 resolve.commence_utc"
+  }
+ ],
+ "by_kind": {
+  "cwl_ssq_red_contains": 1,
+  "cwl_ssq_blue_odd": 1,
+  "eurostat_live_tertiary_attain": 3,
+  "noaa_solar_cycle_ssn_monthly": 1,
+  "delphi_fluview_num_ili": 6,
+  "eurostat_live_unemployment_monthly": 3,
+  "delphi_fluview_ili": 6
+ },
+ "unsupported_by_field": {
+  "resolve.week_start": 10,
+  "resolve.commence_utc": 20
+ },
+ "structural_by_field": {
+  "resolve.issue": 6
+ },
+ "totals": {
+  "pass": 1311,
+  "leak": 21,
+  "unverifiable": 36,
+  "unverifiable_unsupported": 30,
+  "unverifiable_structural": 6,
+  "leak_rate_over_scanned": 0.0154
+ }
+}
