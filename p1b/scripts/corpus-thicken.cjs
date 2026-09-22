@@ -30,6 +30,18 @@ const ONLY = arg('only', null);
 const PER = Number(arg('per', '12')) || 12;
 const DB_ARG = arg('db', null);
 
+// ── 候选留痕旁路（2026-09-22 · 承 corpus-sources-b4.cjs / role3-utype.cjs / calendar-questions.cjs 同款）──
+// 为什么：本生成器在 **recipe 内部**（网络失败／历史不足／阈值算不出／不在基率带）直接 continue
+//   ⇒ 被丢提议**零留痕** ⇒ 拿现成候选算出的永远是**构造性 100%**（过锚率的严格分母＝提议全集）。
+// 纪律：**默认关** ⇒ 不传 `--record-candidates=<path>` 时**零行为变化**（不建数组、不写文件）。
+const REC_PATH = (() => { const a = process.argv.find((x) => x.startsWith('--record-candidates=')); return a ? a.slice(20) : null; })();
+const DROPS = [];
+function recDrop(stage, reason, info) { if (!REC_PATH) return; DROPS.push(Object.assign({ stage: stage, reason: reason }, info || {})); }
+// ★数据过滤（**不计入提议全集**）：源数据行的筛选（如 elexon 只要 WIND 燃料），
+//   不是「本可成为候选但被丢的提议」⇒ 混入分母会严重失真（实测 elexon 6745 行 ⇒ 失真 1125 倍）。
+const FILTERED = [];
+function dataFilter(reason) { if (!REC_PATH) return; FILTERED.push({ reason: reason }); }
+
 const LO = 0.15, HI = 0.85;
 let dom_note_elexon = null;   // elexon 取数失败原因（如实上报）
 const UA = 'corpus-thicken/1.0 (research; +node)';
@@ -127,14 +139,14 @@ const RECIPES = [
         const start = addDays(end, -60);
         const u = 'https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/'
           + encodeURIComponent(art) + '/daily/' + start.replace(/-/g, '') + '/' + end.replace(/-/g, '');
-        let j; try { j = await jget(u); } catch (e) { continue; }
+        let j; try { j = await jget(u); } catch (e) { recDrop('recipe', 'fetch_fail', {}); continue; }
         const vals = (j.items || []).map((x) => x.views).filter((x) => typeof x === 'number');
-        if (vals.length < 30) continue;
+        if (vals.length < 30) { recDrop('recipe', 'insufficient_history', {}); continue; }
         for (const q of [0.3, 0.5, 0.7]) {
           const th = quantile(vals, q);
-          if (th === null) continue;
+          if (th === null) { recDrop('recipe', 'no_quantile', {}); continue; }
           const hit = vals.filter((x) => x >= th).length / vals.length;
-          if (!inBand(hit)) continue;
+          if (!inBand(hit)) { recDrop('recipe', 'out_of_band', {}); continue; }
           out.push({
             statement: '【forward】维基百科英文条目「' + art.replace(/_/g, ' ') + '」在 ' + targetDate
               + '（UTC）的日浏览量，是否 >= ' + th + ' 次？',
@@ -156,16 +168,16 @@ const RECIPES = [
       for (const [pair, cn] of pairs) {
         // 近 90 天日收盘
         // ★ Kraken 是墙外源：本机直连 fetch failed ⇒ 走 CONNECT 隧道（自建，零依赖）
-        let j; try { j = await jgetProxied('https://api.kraken.com/0/public/OHLC?pair=' + pair + '&interval=1440'); } catch (e) { continue; }
+        let j; try { j = await jgetProxied('https://api.kraken.com/0/public/OHLC?pair=' + pair + '&interval=1440'); } catch (e) { recDrop('recipe', 'fetch_fail', {}); continue; }
         const key = Object.keys(j.result || {}).find((k) => k !== 'last');
         const rows = (j.result && key && j.result[key]) || [];
         const closes = rows.map((r) => Number(r[4])).filter((x) => isFinite(x));
-        if (closes.length < 30) continue;
+        if (closes.length < 30) { recDrop('recipe', 'insufficient_history', {}); continue; }
         for (const q of [0.3, 0.5, 0.7]) {
           const th = quantile(closes, q);
-          if (th === null) continue;
+          if (th === null) { recDrop('recipe', 'no_quantile', {}); continue; }
           const hit = closes.filter((x) => x >= th).length / closes.length;
-          if (!inBand(hit)) continue;
+          if (!inBand(hit)) { recDrop('recipe', 'out_of_band', {}); continue; }
           out.push({
             statement: '【forward】Kraken ' + pair + '（' + cn + '）在 ' + targetDate + '（UTC）的日收盘价，是否 >= ' + th.toFixed(2) + ' 美元？',
             base: hit, baseNote: '前瞻·Kraken：过去 ' + closes.length + ' 个交易日中 >= ' + th.toFixed(2) + ' 占 ' + (hit * 100).toFixed(1) + '%（分位 q=' + q + '，pre-cutoff）',
@@ -186,15 +198,15 @@ const RECIPES = [
       const out = [];
       for (const [a, b] of pairs) {
         const end = TODAY, start = addDays(end, -90);
-        let j; try { j = await jget('https://api.frankfurter.app/' + start + '..' + end + '?from=' + a + '&to=' + b); } catch (e) { continue; }
+        let j; try { j = await jget('https://api.frankfurter.app/' + start + '..' + end + '?from=' + a + '&to=' + b); } catch (e) { recDrop('recipe', 'fetch_fail', {}); continue; }
         const vals = Object.values(j.rates || {}).map((r) => r[b]).filter((x) => typeof x === 'number');
-        if (vals.length < 30) continue;
+        if (vals.length < 30) { recDrop('recipe', 'insufficient_history', {}); continue; }
         for (const q of [0.3, 0.7]) {
           const th = quantile(vals, q);
-          if (th === null) continue;
+          if (th === null) { recDrop('recipe', 'no_quantile', {}); continue; }
           const ge = q >= 0.5;
           const hit = vals.filter((x) => (ge ? x >= th : x <= th)).length / vals.length;
-          if (!inBand(hit)) continue;
+          if (!inBand(hit)) { recDrop('recipe', 'out_of_band', {}); continue; }
           out.push({
             statement: '【forward】' + targetDate + ' 欧元区 ECB 参考汇率 ' + a + '/' + b + '，是否 ' + (ge ? '>=' : '<=') + ' ' + th.toFixed(4) + '？',
             base: hit, baseNote: '前瞻·汇率：过去 ' + vals.length + ' 个交易日中 ' + (ge ? '>=' : '<=') + ' ' + th.toFixed(4) + ' 占 ' + (hit * 100).toFixed(1) + '%（分位 q=' + q + '，pre-cutoff）',
@@ -214,14 +226,14 @@ const RECIPES = [
       const out = [];
       const end = TODAY, start = addDays(end, -27);
       for (const p of pkgs) {
-        let j; try { j = await jget('https://api.npmjs.org/downloads/range/' + start + ':' + end + '/' + p); } catch (e) { continue; }
+        let j; try { j = await jget('https://api.npmjs.org/downloads/range/' + start + ':' + end + '/' + p); } catch (e) { recDrop('recipe', 'fetch_fail', {}); continue; }
         const vals = (j.downloads || []).map((x) => x.downloads).filter((x) => typeof x === 'number');
-        if (vals.length < 20) continue;
+        if (vals.length < 20) { recDrop('recipe', 'insufficient_history', {}); continue; }
         // 预测「目标日单日下载量 >= 近 4 周日均」
         const daily = vals.reduce((s, x) => s + x, 0) / vals.length;
         const th = Math.round(daily);
         const hit = vals.filter((x) => x >= th).length / vals.length;
-        if (!inBand(hit)) continue;
+        if (!inBand(hit)) { recDrop('recipe', 'out_of_band', {}); continue; }
         out.push({
           statement: '【forward】npm 包「' + p + '」在 ' + targetDate + '（UTC）的单日下载量，是否 >= ' + th + ' 次？',
           base: hit, baseNote: '前瞻·npm：过去 ' + vals.length + ' 天中 >= ' + th + '（4周日均）占 ' + (hit * 100).toFixed(1) + '%（pre-cutoff）',
@@ -240,15 +252,15 @@ const RECIPES = [
       const out = [];
       const weekEnd = addDays(targetDate, 6);   // 周窗：目标日 .. +6
       for (const r of repos) {
-        let j; try { j = await jget('https://api.github.com/repos/' + r + '/stats/participation'); } catch (e) { continue; }   // 周历史（含至今）
+        let j; try { j = await jget('https://api.github.com/repos/' + r + '/stats/participation'); } catch (e) { recDrop('recipe', 'fetch_fail', {}); continue; }   // 周历史（含至今）
         const all = (j.all || []).filter((x) => typeof x === 'number');
-        if (all.length < 20) continue;
+        if (all.length < 20) { recDrop('recipe', 'insufficient_history', {}); continue; }
         for (const q of [0.3, 0.7]) {
           const th = quantile(all, q);
-          if (th === null) continue;
+          if (th === null) { recDrop('recipe', 'no_quantile', {}); continue; }
           const ge = q >= 0.5;
           const hit = all.filter((x) => (ge ? x >= th : x <= th)).length / all.length;
-          if (!inBand(hit)) continue;
+          if (!inBand(hit)) { recDrop('recipe', 'out_of_band', {}); continue; }
           out.push({
             statement: '【forward】GitHub 仓库 ' + r + ' 在周窗 ' + targetDate + '~' + weekEnd + ' 的提交数，是否 ' + (ge ? '>=' : '<=') + ' ' + th + ' 次？',
             base: hit, baseNote: '前瞻·GitHub：过去 ' + all.length + ' 周中 ' + (ge ? '>=' : '<=') + ' ' + th + ' 占 ' + (hit * 100).toFixed(1) + '%（分位 q=' + q + '，pre-cutoff）',
@@ -337,10 +349,10 @@ const RECIPES = [
         else {
           const byDay = {};
           for (const r of j.data) {
-            if (String(r.fuelType) !== "WIND") continue;
+            if (String(r.fuelType) !== "WIND") { dataFilter('not_wind_fuel'); continue; }
             const k = String(r.settlementDate || "").slice(0, 10);
             const v = Number(r.generation);
-            if (!k || !isFinite(v)) continue;
+            if (!k || !isFinite(v)) { dataFilter('invalid_sample'); continue; }
             (byDay[k] = byDay[k] || []).push(v);
           }
           const daily = Object.values(byDay).map((a) => a.reduce((x, y) => x + y, 0) / a.length).filter((x) => isFinite(x));
@@ -354,10 +366,10 @@ const RECIPES = [
       // （取数已在缓存块完成；口径＝WIND 日均 MW，照既有 resolver）
       for (const q of [0.3, 0.7]) {
         const th = quantile(daily, q);
-        if (th === null) continue;
+        if (th === null) { recDrop('recipe', 'no_quantile', {}); continue; }
         const ge = q >= 0.5;
         const hit = daily.filter((x) => (ge ? x >= th : x <= th)).length / daily.length;
-        if (!inBand(hit)) continue;
+        if (!inBand(hit)) { recDrop('recipe', 'out_of_band', {}); continue; }
         out.push({
           statement: '【forward】英国 Elexon 电力系统 ' + targetDate + ' 的日均发电量，是否 ' + (ge ? '>=' : '<=') + ' ' + th.toFixed(0) + ' MWh？',
           base: hit, baseNote: '前瞻·Elexon：过去 ' + daily.length + ' 天中 ' + (ge ? '>=' : '<=') + ' ' + th.toFixed(0) + ' 占 ' + (hit * 100).toFixed(1) + '%（分位 q=' + q + '，pre-cutoff）',
@@ -471,5 +483,31 @@ const RECIPES = [
   console.log('== 薄域补量 ' + (CONFIRM ? '（已写库）' : '（DRY-RUN，未写库）') + ' ==');
   console.log('  新增 ' + report.total_new + ' 条 | 查重跳过 ' + report.total_skip + ' 条');
   console.log('  产物 ' + p);
+  // ── 候选留痕落盘（默认关；仅当传 --record-candidates=<path>）──
+  if (REC_PATH) {
+    const dropByReason = {};
+    for (const dz of DROPS) dropByReason[dz.reason] = (dropByReason[dz.reason] || 0) + 1;
+    // 提议全集＝已产出的候选（各域 dom.generated 之和）＋ 被丢（DROPS）
+    const candTotal = report.domains.reduce((s, d) => s + (d.generated || 0), 0);
+    fs.writeFileSync(REC_PATH, JSON.stringify({
+      run_at: RUN_AT, source: 'corpus-thicken.cjs', today: TODAY, confirm: CONFIRM,
+      note: '候选留痕旁路产物（承 corpus-sources-b4.cjs / role3-utype.cjs / calendar-questions.cjs 同款）：'
+        + 'drops＝被丢提议（含原因）。过锚率的严格分母＝候选 ＋ drops（提议全集）。'
+        + '★注意：本生成器的 drops 是**recipe 内条目级**（逐标的/逐对/逐条目被丢），非整题级；'
+        + '且 candidates 只给计数（明细见 thicken-report 产物），因本脚本的主产物是 report 而非候选数组。',
+      counts: {
+        candidates_generated: candTotal,
+        drops: DROPS.length,
+        proposed_total: candTotal + DROPS.length,
+        drop_by_reason: dropByReason,
+        data_filtered: FILTERED.length,
+        data_filtered_by_reason: (() => { const o = {}; for (const f of FILTERED) o[f.reason] = (o[f.reason] || 0) + 1; return o; })(),
+      },
+      drops: DROPS,
+      report_file: p,
+    }, null, 1), 'utf8');
+    console.log('[record] 候选留痕 -> ' + REC_PATH + '（候选 ' + candTotal + ' ＋ 被丢 ' + DROPS.length + ' ＝ 提议全集 ' + (candTotal + DROPS.length) + '）');
+    console.log('[record] 被丢按原因 ' + JSON.stringify(dropByReason));
+  }
   console.log('  用时 ' + ((Date.now() - t0) / 1000).toFixed(1) + 's');
 })().catch((e) => { console.error('FATAL', e); process.exit(1); });

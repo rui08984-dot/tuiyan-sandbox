@@ -61,3 +61,27 @@ test('④ 零回归锁：过滤只对声明 publishDays 的 recipe 生效', () =
   const decls = (src.match(/publishDays:\s*\[/g) || []).length;
   assert.equal(decls, 1, '当前应只有 frankfurter 一个域声明 publishDays（实测 ' + decls + '）——新增时须同时核该域发布节奏并给证据');
 });
+
+test('⑤ ★候选留痕旁路：数据过滤 vs 候选丢弃（口径分离锁）', () => {
+  // 背景（2026-09-22）：给 corpus-thicken 加旁路时**先犯后修**一个口径错——
+  //   把「源数据行过滤」（elexon 只要 WIND 燃料，实测 6745 行非 WIND）计入「提议全集」
+  //   ⇒ 严格分母从 6 虚增到 6751（**失真 1125 倍**）。
+  //   本锁确保：**数据过滤**（dataFilter）与**候选丢弃**（recDrop）**分开**，前者不入分母。
+  const SRC2 = fs.readFileSync(path.join(ROOT, 'p1b/scripts/corpus-thicken.cjs'), 'utf8');
+  assert.ok(/function dataFilter/.test(SRC2), '须有 dataFilter 函数');
+  assert.ok(/const FILTERED = \[\]/.test(SRC2), '须有 FILTERED 数组（与 DROPS 分开）');
+  assert.ok(/function dataFilter\(reason\) \{ if \(!REC_PATH\) return; FILTERED\.push/.test(SRC2), '★dataFilter 须写入 FILTERED 而非 DROPS');
+  // ★反向锁：数据行过滤不得走 recDrop
+  assert.ok(!/recDrop\('recipe', 'not_wind_fuel'/.test(SRC2), '★not_wind_fuel 不得走 recDrop（那是数据过滤）');
+  assert.ok(!/recDrop\('recipe', 'invalid_sample'/.test(SRC2), '★invalid_sample 不得走 recDrop（那是数据过滤）');
+  // 落盘须单列 data_filtered
+  assert.ok(/data_filtered:/.test(SRC2), '留痕件须单列 data_filtered');
+  // 产物锁：若留痕件存在，proposed_total 不得含 data_filtered
+  const rp = path.join(ROOT, '.scratch/p37/thicken-elexon3.json');
+  if (fs.existsSync(rp)) {
+    const r = JSON.parse(fs.readFileSync(rp, 'utf8'));
+    assert.equal(r.counts.proposed_total, r.counts.candidates_generated + r.counts.drops, '提议全集＝候选＋候选丢弃（★不含数据过滤）');
+    assert.ok(r.counts.data_filtered > 0, 'elexon 应有数据过滤记录（实测 6745）');
+    assert.ok(r.counts.proposed_total < 100, '★提议全集不得被数据过滤撑大（实测 6）');
+  }
+});

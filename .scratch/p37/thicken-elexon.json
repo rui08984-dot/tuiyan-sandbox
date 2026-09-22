@@ -1,0 +1,15 @@
+{
+ "run_at": "2026-09-22T16:53:16+08:00",
+ "source": "corpus-thicken.cjs",
+ "today": "2026-09-22",
+ "confirm": false,
+ "note": "候选留痕旁路产物（承 corpus-sources-b4.cjs / role3-utype.cjs / calendar-questions.cjs 同款）：drops＝被丢提议（含原因）。过锚率的严格分母＝候选 ＋ drops（提议全集）。★注意：本生成器的 drops 是**recipe 内条目级**（逐标的/逐对/逐条目被丢），非整题级；且 candidates 只给计数（明细见 thicken-report 产物），因本脚本的主产物是 report 而非候选数组。",
+ "counts": {
+  "candidates_generated": 6,
+  "drops": 0,
+  "proposed_total": 6,
+  "drop_by_reason": {}
+ },
+ "drops": [],
+ "report_file": "E:\\music player\\.scratch\\backtest\\thicken-report-2026-09-22.json"
+}
