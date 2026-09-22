@@ -123,7 +123,8 @@ test('⑦ 特征可得性审计：四臂判定与「账本根本不存在」的�
   const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'p1b-feat-'));
   try {
     const jp = path.join(tmp, 'f.json');
-    execFileSync(process.execPath, [path.join(ROOT, 'p1b', 'scripts', 'thickcell-features.cjs'), '--json', jp], { encoding: 'utf8' });
+    // ★2026-09-22 修：必须同时传 --md（否则脚本写默认路径 = 仓库产物，跑测试就覆写）
+    execFileSync(process.execPath, [path.join(ROOT, 'p1b', 'scripts', 'thickcell-features.cjs'), '--json', jp, '--md', path.join(tmp, 'f.md')], { encoding: 'utf8' });
     const j = JSON.parse(fs.readFileSync(jp, 'utf8'));
     // ★ 数据标记（随账本增长更新）：PREREG v1.2 冻结时点（09-18）池=607；
     //   09-19（二十六）批结算 ⇒ L3 openmeteo 三 kind 新解 23 条（wind 8/sunshine 8/precip 7）⇒ 607 → 630
@@ -225,5 +226,20 @@ test('⑧ PREREG v1／v1.1／v1.2 三件冻结自检：各自 MATCH=true，且�
     const first = (t.match(/`([0-9a-f]{64})`/) || [])[1];
     assert.equal(first, freezeSha(p).sha256, name + '：第一个反引号 64 位 hex 须＝本件登记的 sha');
     assert.ok(/sha256：`[0-9a-f]{64}`/.test(t), name + '：sha 须写在 sha256：槽位');
+  }
+});
+
+test('⑧ ★回归锁：测试调用脚本必须同时传 --json 与 --md（防写仓库产物）', () => {
+  // 背景（2026-09-22 实测）：thickcell-features.cjs 的 .md 用 arg('md', 默认路径)，
+  //   测试只传了 --json ⇒ 每次跑测试都写 p1b/sim/out/thickcell-features-<今日>.md（仓库产物被覆写）。
+  //   本锁断言：测试源码里调该脚本的 execFileSync 必须同时含 --json 与 --md。
+  const src = fs.readFileSync(__filename, 'utf8');
+  // ★只取「真正执行」的行（以 execFileSync( 开头）——否则会匹配到本测试自身的源码串
+  const lines = src.split('\n').filter((l) => /^\s*execFileSync\(/.test(l));
+  const calls = lines.filter((l) => l.indexOf('thickcell-features') >= 0);
+  assert.ok(calls.length > 0, '应存在对 thickcell-features 的调用');
+  for (const c of calls) {
+    assert.ok(/--json/.test(c), '调用须传 --json: ' + c.slice(0, 80));
+    assert.ok(/--md/.test(c), '★调用须同时传 --md（否则写默认路径 = 仓库产物）: ' + c.slice(0, 80));
   }
 });
