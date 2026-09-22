@@ -24,44 +24,49 @@ type LedgerJson = {
   empirical: Entry[]; design_rejected: Entry[];
 };
 const QUALIFICATION_BLOCK = [
-  '重放计分（读侧）：本页数字来自引擎重放与既有实验记录，账本 gate=descriptive 未计分。',
-  '过程能力门（G2）不含质量读数（门定性恒挂限定语）；对外表述一律挂限定语。',
-  'n<30 的格只记方向、不出结论；格间禁池化。',
+  '本页数字来自引擎重放与既有实验记录，账本状态下「只记录、不计分」。',
+  '质量门不含质量读数（门定性恒挂限定语）；对外表述一律挂限定语。',
+  '样本少于 30 的格只记方向、不出结论；格间禁池化。',
 ];
 
-/** 实证类卡：四要素（假设／判据／结局／复算入口），缺一即撤 */
+/** 实证类卡：四要素（假设／判据／结局／复算入口）
+ * ★ 2026-09-22 二轮：复算命令与校验码收进默认收起的「技术明细」——
+ *   四要素一条不少（审计追溯完整），但使用者第一眼看到的是结论而非命令行。 */
 function EmpiricalCard({ e }: { e: Entry }) {
   return (
-    <article className="ui-section" style={{ borderLeft: '3px solid var(--ui-warn, #d97706)', paddingLeft: 12 }}>
+    <article className="ui-section nr-card">
       <h3 className="ui-section-title">{e.id} · {e.name}</h3>
       <div className="ui-kv">
         <div className="ui-kv-row">
-          <span className="ui-kv-key">假设</span>
+          <span className="ui-kv-key">当时的假设</span>
           <span className="ui-kv-val">{e.hypothesis}</span>
         </div>
         <div className="ui-kv-row">
-          <span className="ui-kv-key">判据</span>
-          <span className="ui-kv-val">
-            <code>{e.criterion}</code>
-            {e.criterion_sha16 ? <span className="ui-note"> ｜ sha16 <code>{e.criterion_sha16}</code></span> : null}
-          </span>
+          <span className="ui-kv-key">怎么判定</span>
+          <span className="ui-kv-val">{e.criterion}</span>
         </div>
         <div className="ui-kv-row">
-          <span className="ui-kv-key">结局</span>
-          <span className="ui-kv-val">{e.outcome}</span>
-        </div>
-        <div className="ui-kv-row">
-          <span className="ui-kv-key">复算入口</span>
-          <span className="ui-kv-val"><code>{e.rerun}</code></span>
-        </div>
-        <div className="ui-kv-row">
-          <span className="ui-kv-key">证据件</span>
-          <span className="ui-kv-val">
-            <code>{e.evidence}</code>
-            {e.evidence_sha16 ? <span className="ui-note"> ｜ sha16 <code>{e.evidence_sha16}</code></span> : null}
-          </span>
+          <span className="ui-kv-key">结果</span>
+          <span className="ui-kv-val nr-outcome">{e.outcome}</span>
         </div>
       </div>
+      <details className="nr-tech">
+        <summary>技术明细（复算入口与校验码）</summary>
+        <div className="ui-kv">
+          <div className="ui-kv-row">
+            <span className="ui-kv-key">复算命令</span>
+            <span className="ui-kv-val u-mono">{e.rerun}</span>
+          </div>
+          <div className="ui-kv-row">
+            <span className="ui-kv-key">判据校验码</span>
+            <span className="ui-kv-val u-mono">{e.criterion_sha16 ?? '—'}</span>
+          </div>
+          <div className="ui-kv-row">
+            <span className="ui-kv-key">证据件</span>
+            <span className="ui-kv-val u-mono">{e.evidence}{e.evidence_sha16 ? ' ｜ ' + e.evidence_sha16 : ''}</span>
+          </div>
+        </div>
+      </details>
     </article>
   );
 }
@@ -69,21 +74,23 @@ function EmpiricalCard({ e }: { e: Entry }) {
 /** 设计类卡：拒绝理由／出处（此类未跑 ⇒ 无「结局/复算入口」，非缺失） */
 function DesignCard({ e }: { e: Entry }) {
   return (
-    <article className="ui-section" style={{ borderLeft: '3px solid var(--ui-muted, #64748b)', paddingLeft: 12 }}>
+    <article className="ui-section nr-card is-design">
       <h3 className="ui-section-title">{e.id} · {e.name}</h3>
       <div className="ui-kv">
         <div className="ui-kv-row">
-          <span className="ui-kv-key">拒绝理由</span>
+          <span className="ui-kv-key">为什么不采用</span>
           <span className="ui-kv-val">{e.reason}</span>
         </div>
-        <div className="ui-kv-row">
-          <span className="ui-kv-key">出处</span>
-          <span className="ui-kv-val">
-            <code>{e.source}</code>
-            {e.source_sha16 ? <span className="ui-note"> ｜ sha16 <code>{e.source_sha16}</code></span> : null}
-          </span>
-        </div>
       </div>
+      <details className="nr-tech">
+        <summary>技术明细（出处与校验码）</summary>
+        <div className="ui-kv">
+          <div className="ui-kv-row">
+            <span className="ui-kv-key">出处</span>
+            <span className="ui-kv-val u-mono">{e.source}{e.source_sha16 ? ' ｜ ' + e.source_sha16 : ''}</span>
+          </div>
+        </div>
+      </details>
     </article>
   );
 }
@@ -104,7 +111,9 @@ export default function NegativeResultsPage() {
     return (
       <div className="ui-stack">
         <h1 className="ui-section-title">负结果账本</h1>
-        <div className="ui-empty">披露件暂缺（n/a）。生成命令：<code>{missing.hint}</code></div>
+        <div className="ui-empty" title={missing.hint ? '维护者：' + missing.hint : undefined}>
+          这项数据还没准备好，重新生成后即可显示
+        </div>
       </div>
     );
   }

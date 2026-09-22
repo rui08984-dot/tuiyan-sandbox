@@ -8,6 +8,7 @@
  */
 import { useState, type ReactNode } from 'react';
 import '../styles/charts.css';
+import { sourceLabel, humanTime } from '../lib/format';
 
 export function ChartFrame({
   title,
@@ -69,10 +70,15 @@ export function ChartFrame({
         ) : children}
       </div>
       {note ? <p className="chart-note">{note}</p> : null}
+      {/* 元信息行：人话优先，内部标识降级进 title（口径仍可追溯，但不干扰使用者） */}
       {(sourceFile || generatedAt) && (
         <footer className="chart-meta">
-          {sourceFile ? <span className="u-mono">源 {sourceFile}</span> : null}
-          {generatedAt ? <span>生成 {generatedAt}</span> : null}
+          {sourceFile ? (
+            <span title={'数据来源文件：' + sourceFile}>{sourceLabel(sourceFile)}</span>
+          ) : null}
+          {generatedAt ? (
+            <span title={'生成时刻：' + generatedAt}>更新于 {humanTime(generatedAt)}</span>
+          ) : null}
         </footer>
       )}
     </figure>

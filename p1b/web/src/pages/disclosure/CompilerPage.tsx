@@ -42,7 +42,7 @@ export default function CompilerPage() {
     fetch('/api/disclosure/compiler')
       .then((r) => r.json())
       .then((j) => { if (alive) setCatalog(j as CatalogJson); })
-      .catch(() => { if (alive) setErr('n/a：门面端点不可用'); });
+      .catch(() => { if (alive) setErr('这项数据还没准备好，重新生成后即可显示'); });
     return () => { alive = false; };
   }, []);
 
@@ -57,7 +57,7 @@ export default function CompilerPage() {
   }, [picked]);
 
   if (err) return <div className="ui-stack"><h1 className="ui-section-title">编译器门面</h1><div className="ui-empty">{err}</div></div>;
-  if (!catalog) return <div className="ui-skeleton">读取契约表…</div>;
+  if (!catalog) return <div className="ui-skeleton">正在读取分类目录…</div>;
 
   return (
     <div className="ui-stack">
@@ -103,12 +103,14 @@ export default function CompilerPage() {
                   <b>{result.suggestion.layer}</b>
                   {result.suggestion.layer_unanimous
                     ? <span className="ui-note"> ｜历史同类题全部落此层（单层，可自动推断）</span>
-                    : <span className="ui-note"> ｜历史出现多层 {JSON.stringify(result.suggestion.all_layers_seen)}，须人工确认</span>}
+                    : <span className="ui-note"> ｜历史出现多层 {result.suggestion.all_layers_seen.join('、')}，须人工确认</span>}
                 </span>
               </div>
               <div className="ui-kv-row">
-                <span className="ui-kv-key">引擎配方</span>
-                <span className="ui-kv-val"><code>{result.suggestion.engine || 'n/a'}</code> ｜ {result.suggestion.engine_note}</span>
+                <span className="ui-kv-key">算法</span>
+                <span className="ui-kv-val" title={result.suggestion.engine ? '内部标识：' + result.suggestion.engine : undefined}>
+                  {result.suggestion.engine_note || result.suggestion.engine || '暂无'}
+                </span>
               </div>
               <div className="ui-kv-row">
                 <span className="ui-kv-key">同类样本</span>
@@ -121,12 +123,12 @@ export default function CompilerPage() {
           </section>
 
           <section className="ui-section">
-            <h2 className="ui-section-title">样本明细（按层×引擎）</h2>
+            <h2 className="ui-section-title">样本明细（按层）</h2>
             <table className="ui-matrix">
-              <thead><tr><th>层</th><th>引擎</th><th>题数</th><th>已解</th></tr></thead>
+              <thead><tr><th>层</th><th>题数</th><th>已解</th></tr></thead>
               <tbody>
                 {result.evidence.breakdown.map((b, i) => (
-                  <tr key={i}><td>{b.layer}</td><td>{b.engine || 'n/a'}</td><td>{b.n}</td><td>{b.resolved}</td></tr>
+                  <tr key={i}><td>{b.layer}</td><td>{b.n}</td><td>{b.resolved}</td></tr>
                 ))}
               </tbody>
             </table>

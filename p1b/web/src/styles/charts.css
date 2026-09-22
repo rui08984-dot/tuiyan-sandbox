@@ -175,3 +175,93 @@
   border-radius: 4px;
   margin-top: 6px;
 }
+
+/* ── 读数卡（2026-09-22 二轮 · 结果展示层，参考 Metaculus 问题卡结构）──
+ * 结构分工：图形（左）→ 身份与数值（中）→ 趋势（下）。
+ * 图形当主角、数值大字紧随，二者互相印证而非互相替代。 */
+.readout-card {
+  display: flex; flex-direction: column; gap: var(--space-3);
+  background: var(--panel); border: 1px solid var(--line);
+  border-radius: var(--radius-md); padding: 16px; min-width: 0;
+  transition: border-color 160ms ease, background 160ms ease;
+}
+.readout-card:hover { border-color: rgba(143, 175, 123, 0.35); }
+.readout-card.is-ok { border-left: 3px solid var(--ok); }
+.readout-card.is-warn { border-left: 3px solid var(--warn); }
+.readout-card.is-danger { border-left: 3px solid var(--danger); }
+.readout-card.is-missing { background: var(--panel-2); }
+
+.readout-main { display: flex; align-items: flex-start; gap: var(--space-3); min-width: 0; }
+.readout-figure { flex: 0 0 auto; display: flex; align-items: center; }
+.readout-text { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+
+.readout-head { display: flex; align-items: baseline; gap: var(--space-2); flex-wrap: wrap; min-width: 0; }
+.readout-title { font-weight: 600; font-size: var(--font-size-body); }
+.readout-status { font-size: var(--font-size-micro); color: var(--muted); }
+.readout-sub { font-size: var(--font-size-small); color: var(--muted); line-height: 1.4; }
+
+/* 数值行：大号 + tabular-nums，与图形并列但独立可读 */
+.readout-value { display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; margin-top: 2px; }
+.readout-num { font-size: var(--font-size-h2); font-weight: 600; font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums; line-height: 1.1; }
+.readout-unit { font-size: var(--font-size-small); color: var(--muted); }
+.readout-range { font-size: var(--font-size-small); color: var(--muted); font-variant-numeric: tabular-nums; }
+.is-missing .readout-num { font-size: var(--font-size-body); color: var(--muted); font-family: inherit; }
+
+.readout-trend { display: flex; align-items: center; gap: var(--space-2); min-width: 0; }
+.mini-trend { display: block; max-width: 100%; }
+.mini-trend-empty { font-size: var(--font-size-micro); color: var(--muted); }
+.mini-gauge { display: block; }
+
+/* 读数卡网格：宽屏 3 列、中屏 2 列、窄屏 1 列 */
+.readout-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--grid-gap); min-width: 0; }
+@media (max-width: 1023px) { .readout-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 767px) { .readout-grid { grid-template-columns: minmax(0, 1fr); } }
+
+/* ── 校准总览页（四页合一）──
+ * 首屏布局：左＝整体读数卡（主角），右＝四个关键计数（配角）。
+ * 用 grid 让两侧在窄屏自然堆叠，不需要额外的媒体查询开关。 */
+.ov-hero { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: var(--grid-gap); min-width: 0; }
+@media (max-width: 1023px) { .ov-hero { grid-template-columns: minmax(0, 1fr); } }
+.ov-hero-figure { min-width: 0; }
+.ov-hero-stats {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--grid-gap); min-width: 0;
+}
+.ov-stat {
+  display: flex; flex-direction: column; justify-content: center; gap: 2px;
+  background: var(--panel); border: 1px solid var(--line);
+  border-radius: var(--radius-md); padding: 14px 16px; min-width: 0;
+}
+.ov-stat-num {
+  font-size: var(--font-size-h2); font-weight: 600; font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums; line-height: 1.1;
+}
+.ov-stat-label { font-size: var(--font-size-small); color: var(--muted); }
+
+/* 折叠按钮：整宽、可点区域够大（触控 44px 下限），箭头用文字而非图标字体 */
+.ov-fold {
+  appearance: none; display: block; width: 100%;
+  min-height: 44px; padding: 10px 16px; text-align: left;
+  background: var(--panel); border: 1px solid var(--line);
+  border-radius: var(--radius-md); color: var(--text);
+  font: inherit; font-size: var(--font-size-body); cursor: pointer;
+  transition: border-color 160ms ease, background 160ms ease;
+}
+.ov-fold:hover { border-color: var(--accent); }
+.ov-fold[aria-expanded="true"] { border-color: var(--accent); }
+
+/* ── 负结果卡（2026-09-22 二轮）──
+ * 主视图只留「假设／判定／结果」三行结论；复算命令与校验码收进 nr-tech 折叠区。
+ * 左侧色条＝语义（实证＝警示色，设计类＝中性色），不单靠颜色：标题里都带类型文字。 */
+.nr-card { border-left: 3px solid var(--warn); padding-left: 14px; min-width: 0; }
+.nr-card.is-design { border-left-color: var(--muted); }
+.nr-outcome { font-weight: 600; }
+.nr-tech { margin-top: var(--space-2); }
+.nr-tech > summary {
+  cursor: pointer; color: var(--muted); font-size: var(--font-size-small);
+  min-height: 32px; display: flex; align-items: center;
+}
+.nr-tech > summary:hover { color: var(--text); }
+.nr-tech[open] > summary { color: var(--accent); margin-bottom: 6px; }
+.nr-tech .ui-kv-val { font-size: var(--font-size-small); word-break: break-all; }

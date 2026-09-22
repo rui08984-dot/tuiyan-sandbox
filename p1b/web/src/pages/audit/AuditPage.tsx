@@ -22,7 +22,7 @@ import {
   IconChart, IconLayers,
 } from '../../components/ui';
 import { BrierGauge, ErrorBar, SparkBar, NestedBar } from '../../charts';
-import { tri, pct, fmtCi, int } from '../../lib/format';
+import { tri, pct, fmtCi, int, gateHuman, gateHumanMulti, engineHuman } from '../../lib/format';
 
 const errMsg = (e: unknown): string => (e instanceof Error ? e.message : String(e));
 
@@ -39,11 +39,6 @@ const LAYER_META: { id: string; name: string; plain: string; brief: string; engi
   { id: 'L6', name: '对抗', plain: '对手在跟你斗，会针对你', brief: '利益相反的智慧主体直接产生，对手可观测并适应——结构推断而非基率。', engine: 'structural', tone: 'is-l6' },
 ];
 
-const STATIC_CALIB = {
-  raLine: 'R-A 读数门：校准分 0.0008 —— 达成（结算证据读数）',
-  rbLine: 'R-B 信息价值：负结果 —— 三路判词≈分题型基率（等价性检验达成），合并条款未达成',
-  badge: '探索性 · 判据=预注册冻结件',
-};
 const GATE_ORDER = ['scored', 'descriptive', 'blocked'];
 
 export default function AuditPage() {
@@ -70,7 +65,8 @@ export default function AuditPage() {
   const gateByLayer: Record<string, string> = {};
   for (const r of kpi?.layer_gate ?? []) {
     const L = r.layer ?? '未分层';
-    const g = r.gate ?? '—';
+    const g = r.gate ?? '';
+    if (!g) continue;                                    // 空状态不并进复合串（会拼出「descriptive / —」）
     const cur = gateByLayer[L];
     gateByLayer[L] = cur ? (cur.indexOf(g) >= 0 ? cur : cur + ' / ' + g) : g;
   }
@@ -109,7 +105,7 @@ export default function AuditPage() {
             <IconChart size={20} /> 万物审计仪表盘
             <Badge tone="muted" testId="audit-banner">只记不评 · 分层账本</Badge>
           </h2>
-          <p className="ui-note" style={{ margin: 0 }}>纯 SQL 只读 · 零 LLM · 门禁解锁前一切数字只配「参考」</p>
+          <p className="ui-note" style={{ margin: 0 }}>只记录、不打分 · 数字仅供参照，结论以完整判据为准</p>
         </header>
 
         {/* 加载骨架：占位尺寸与真实卡一致 ⇒ 数据到达时不跳动（CLS） */}
@@ -168,7 +164,7 @@ export default function AuditPage() {
                 <tr>
                   <th><Term id="layer" plain="层" /></th><th className="num">题量</th><th className="num hide-narrow">已解</th>
                   <th><Term id="brier" plain="校准参考（CI）" /></th><th className="hide-narrow"><Term id="baseRate" plain="基率" /></th>
-                  <th className="hide-narrow"><Term id="resolver" plain="引擎位" /></th><th className="hide-narrow">gate</th>
+                  <th className="hide-narrow"><Term id="resolver" plain="算法" /></th><th className="hide-narrow">是否计分</th>
                 </tr>
               </thead>
               <tbody>
@@ -183,7 +179,8 @@ export default function AuditPage() {
                         <td className="num"><SparkBar value={r ? r.n : 0} max={maxN} text={r ? r.n : 0} /></td>
                         <td className="num hide-narrow">{r ? r.resolved : 0}</td>
                         <td className="num" data-testid={'layer-brier-' + m.id}>
-                          {/* 字符串 → 误差须（0.25 无信息阈值虚线）；文案仍在，图形只是补充 */}
+                          {/* 误差须 + 数值：ErrorBar 自带数值与区间文字（无障碍要求：图形必有文字兜底），
+                           * 页面不再重复输出同一串——此前会渲染两遍（截图可见叠字）。 */}
                           <span className="layer-ci-cell">
                             <ErrorBar
                               value={r ? r.brier : null}
@@ -191,12 +188,11 @@ export default function AuditPage() {
                               ciHi={ci ? ci.ci_hi : null}
                               lo={0} hi={0.25} threshold={0.25} width={150}
                             />
-                            {(r ? tri(r.brier) : '样本不足') + (ci && ci.ci_lo !== null ? ' ' + fmtCi(ci.ci_lo, ci.ci_hi) : '')}
                           </span>
                         </td>
                         <td className="hide-narrow">{(r && r.base_rate_n > 0) ? pct(r.base_rate) + '（n=' + r.base_rate_n + '）' : '样本不足'}</td>
-                        <td className="hide-narrow"><span className="u-mono">{m.engine}</span></td>
-                        <td className="hide-narrow">{gateByLayer[m.id] ?? '—'}</td>
+                        <td className="hide-narrow" title={m.engine}>{engineHuman(m.engine)}</td>
+                        <td className="hide-narrow" title={gateByLayer[m.id] ? '原始状态：' + gateByLayer[m.id] : undefined}>{gateHumanMulti(gateByLayer[m.id])}</td>
                       </tr>
                       {open && (
                         <tr className="is-detail" data-testid={'layer-detail-' + m.id}>
@@ -217,8 +213,8 @@ export default function AuditPage() {
                                   { k: <Term id="brier" plain="判得准不准" />, v: r ? tri(r.brier) : '样本不足' },
                                   { k: <Term id="wilson" plain="参考置信区间" />, v: fmtCi(ci ? ci.ci_lo : null, ci ? ci.ci_hi : null) },
                                   { k: <Term id="baseRate" plain="历史上占多少" />, v: (r && r.base_rate_n > 0) ? pct(r.base_rate) + '（n=' + r.base_rate_n + '）' : '样本不足' },
-                                  { k: <Term id="resolver" plain="引擎位" />, v: m.engine },
-                                  { k: 'gate', v: gateByLayer[m.id] ?? '—' },
+                                  { k: '算法', v: <span title={m.engine}>{engineHuman(m.engine)}</span> },
+                                  { k: '是否计分', v: <span title={gateByLayer[m.id] ? '原始状态：' + gateByLayer[m.id] : undefined}>{gateHumanMulti(gateByLayer[m.id])}</span> },
                                 ]} />
                               </div>
                             </div>
@@ -233,18 +229,18 @@ export default function AuditPage() {
           )}
         </div>
 
-        {/* ── 分层 × gate 计数矩阵（layer_gate[] 的本来用途） ── */}
+        {/* ── 分层 × 计分状态计数矩阵（layer_gate[] 的本来用途） ── */}
         {kpi && gates.length ? (
           <div className="ui-section" data-testid="gate-matrix">
-            <h3 className="ui-section-title"><IconLayers size={16} /> 分层 × gate 计数矩阵</h3>
+            <h3 className="ui-section-title"><IconLayers size={16} /> 各层记录的计分状态</h3>
             <p className="ui-note" style={{ marginTop: 0 }}>
-              每格＝该层处于该 gate 的行数（数字直接印在格上，不单靠颜色）。
-              scored＝参与计分，descriptive＝只描述，blocked＝被门禁挡住。
+              每格数字＝该层处于该状态的记录条数（数字直接印在格上，不单靠颜色）。
+              已计分＝参与成绩统计，只记录＝留档不出数，未通过门禁＝被规则挡住。
             </p>
             <div className="gatematrix" role="grid"
               style={{ gridTemplateColumns: `minmax(64px, auto) repeat(${gates.length}, minmax(0, 1fr))` }}>
               <span className="gm-head" />
-              {gates.map((g) => <span key={g} className="gm-head u-mono">{g}</span>)}
+              {gates.map((g) => <span key={g} className="gm-head" title={'原始状态：' + g}>{gateHuman(g)}</span>)}
               {LAYER_META.map((m) => (
                 <Fragment key={m.id}>
                   <span className="gm-head">{m.id} {m.name}</span>
@@ -276,7 +272,9 @@ export default function AuditPage() {
                   {summary.by_layer_checklist.map((r, i) => (
                     <tr key={i}>
                       <td>{r.layer ?? '未分层'}</td>
-                      <td className="u-mono">{r.checklist_hash ?? '—'}</td>
+                      <td title={r.checklist_hash ? '校验值：' + r.checklist_hash : undefined}>
+                        {r.checklist_hash ? <span className="u-mono">{String(r.checklist_hash).slice(0, 8)}</span> : '—'}
+                      </td>
                       <td className="num">
                         <NestedBar outer={r.n} inner={r.n - r.tautology_n} max={Math.max(1, ...summary.by_layer_checklist.map((x) => x.n))}
                           outerLabel="条数" innerLabel="非重言" />
@@ -288,20 +286,27 @@ export default function AuditPage() {
                 </tbody>
               </table>
             ) },
-            { id: 'gate', label: 'gate 分布', content: (
+            { id: 'gate', label: '计分状态分布', content: (
               summary.by_gate.length
                 ? <div className="ui-stack" data-testid="audit-gate-dist">
                     {summary.by_gate.map((g, i) => (
                       <SparkBar key={i} value={g.n} max={Math.max(1, ...summary.by_gate.map((x) => x.n))}
-                        text={(g.gate ?? '未分层（gate 未补录）') + '　' + int(g.n)} />
+                        text={gateHuman(g.gate) + '　' + int(g.n) + ' 条'} />
                     ))}
                   </div>
                 : <EmptyState text="暂无记录" />
             ) },
-            { id: 'calib', label: '校准汇总', content: (
+            { id: 'calib', label: '校准结论', content: (
               <div className="ui-stack">
-                <KVTable testId="audit-calib-static" rows={[{ k: 'R-A', v: STATIC_CALIB.raLine }, { k: 'R-B', v: STATIC_CALIB.rbLine }]} />
-                <div><Badge tone="info">{STATIC_CALIB.badge}</Badge></div>
+                <p className="ui-note" style={{ margin: 0 }}>
+                  <b>R-A 读数门</b>：校准分 0.0008，<Badge tone="ok">已达成</Badge>
+                  <span className="u-mono" style={{ marginLeft: 8, opacity: 0.75 }}>（结算证据读数）</span>
+                </p>
+                <p className="ui-note" style={{ margin: 0 }}>
+                  <b>R-B 信息价值</b>：三路判词与分题型基率相当（等价性检验<span title="合并条款未达成">已达成</span>），
+                  合并条款<Badge tone="muted">未达成</Badge>
+                </p>
+                <div><Badge tone="info">探索性结论 · 判据为预注册冻结版本</Badge></div>
               </div>
             ) },
             { id: 'forward', label: '待解前瞻（' + summary.pending_forward_total + '）', content: (

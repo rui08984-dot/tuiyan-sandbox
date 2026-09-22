@@ -91,19 +91,19 @@ test('④ ★禁词锁：两页源码与 App.tsx 不得含「预测」字样', (
   assert.deepEqual(bad, [], '禁词命中（A6 §3）：\n' + bad.join('\n'));
 });
 
-test('⑤ 路由接线锁：App.tsx 含两页的 import + Route + NavLink', () => {
+test('⑤ 路由接线锁：负结果在导航；已合并页仍可达（重定向到总览）', () => {
   const src = fs.readFileSync(path.join(ROOT, 'p1b/web/src/App.tsx'), 'utf8');
   const checks = [
     ['import NegativeResultsPage', /import NegativeResultsPage from '\.\/pages\/disclosure\/NegativeResultsPage'/],
-    ['import BayesLensPage', /import BayesLensPage from '\.\/pages\/disclosure\/BayesLensPage'/],
     ['Route negative-results', /<Route path="\/negative-results" element=\{<NegativeResultsPage \/>\}/],
-    ['Route bayes-lens', /<Route path="\/bayes-lens" element=\{<BayesLensPage \/>\}/],
     ['NavLink negative-results', /<NavLink to="\/negative-results"/],
-    ['NavLink bayes-lens', /<NavLink to="\/bayes-lens"/],
-    // 第 4 期 A9（三行对比榜）
-    ['import ArenaPage', /import ArenaPage from '\.\/pages\/disclosure\/ArenaPage'/],
-    ['Route arena', /<Route path="\/arena" element=\{<ArenaPage \/>\}/],
-    ['NavLink arena', /<NavLink to="\/arena"/],
+    // 2026-09-22 二轮：bayes-lens / arena 并入校准总览。
+    // 闸的意图不变——**页面不得变成死链**：旧路径必须仍有 Route，且指向总览。
+    ['Route bayes-lens → 总览', /<Route path="\/bayes-lens" element=\{<Navigate to="\/overview" replace \/>\}/],
+    ['Route arena → 总览', /<Route path="\/arena" element=\{<Navigate to="\/overview" replace \/>\}/],
+    ['import OverviewPage', /import OverviewPage from '\.\/pages\/audit\/OverviewPage'/],
+    ['Route overview', /<Route path="\/overview" element=\{<OverviewPage \/>\}/],
+    ['NavLink overview', /<NavLink to="\/overview"/],
   ];
   const bad = checks.filter(([, re]) => !re.test(src)).map(([n]) => n);
   assert.deepEqual(bad, [], '接线缺失：\n' + bad.join('\n'));
@@ -191,10 +191,15 @@ test('⑧ ★kind→层单层性（门面自动推断的前提，本会话实测
   assert.ok(Object.keys(byK).length >= 40, 'kind 数应 ≥40（实测 ' + Object.keys(byK).length + '）');
 });
 
-test('⑨ 第 4 期五页接线齐（含编译器）', () => {
+test('⑨ 第 4 期页面全可达（导航或有重定向，无死链）', () => {
   const src = fs.readFileSync(path.join(ROOT, 'p1b/web/src/App.tsx'), 'utf8');
+  // 2026-09-22 二轮：bayes-lens / arena 并入 /overview 后不再占导航项，
+  // 但「可达性」这条不变量必须保持——旧路径仍须有 Route（重定向也算）。
   for (const p of ['negative-results', 'bayes-lens', 'arena', 'compiler']) {
-    assert.ok(new RegExp('<Route path="/' + p + '"').test(src), '缺 Route: ' + p);
+    assert.ok(new RegExp('<Route path="/' + p + '"').test(src), '缺 Route（页面变死链）: ' + p);
+  }
+  // 仍在导航里的独立页面
+  for (const p of ['negative-results', 'compiler']) {
     assert.ok(new RegExp('<NavLink to="/' + p + '"').test(src), '缺 NavLink: ' + p);
   }
 });

@@ -14,11 +14,12 @@
  */
 import { useEffect, useState } from 'react';
 import { IconClock } from '../../components/ui';
-import { ChartFrame, Bar, StackedBar, LineChart } from '../../charts';
+import { ChartFrame, Bar, LineChart } from '../../charts';
 import { int } from '../../lib/format';
 
 type CalJson = {
   title: string; today: string; rows: number; basis: string;
+  generated_at?: string | null;
   buckets: { day_window: Record<string, number>; week_window: Record<string, number>; gt30: number; undatable_ledger: number };
   conservation: { sum: number; rows: number };
   dual_source_row: { agree: number; mismatch_n: number; ledger_only_n: number; evidence_only_n: number; both_none: number; rule: string };
@@ -44,7 +45,9 @@ export default function CalendarPage() {
     return (
       <div className="ui-stack">
         <h1 className="ui-section-title">待验证队列</h1>
-        <div className="ui-empty">披露件暂缺（n/a）。生成命令：<code>{missing.hint}</code></div>
+        <div className="ui-empty" title={missing.hint ? '维护者：' + missing.hint : undefined}>
+          这项数据还没准备好，重新生成后即可显示
+        </div>
       </div>
     );
   }
@@ -59,8 +62,6 @@ export default function CalendarPage() {
   const dBucket = data.dual_source_bucket.diff || [];
   const maxDiff = Math.max(1, ...dBucket.map((x) => Math.max(Math.abs(x.ledger - x.evidence_daemon), 1)));
 
-  const maxSum = Math.max(data.conservation.sum, data.conservation.rows, 1);
-
   return (
     <div className="ui-stack">
       <header className="page-head">
@@ -71,16 +72,16 @@ export default function CalendarPage() {
       {/* ── ① 未来 7 天 +8–30 天 → 柱状条 ── */}
       <ChartFrame
         testId="cal-daybar"
-        eyebrow="到期量分布"
-        title="未来窗口内的题量"
+        eyebrow="到期分布"
+        title="近期有多少题要见分晓"
         sourceFile="forecast-calendar"
-        generatedAt={undefined}
+        generatedAt={data.generated_at}
         tableFallback={[
           ['日期', '条数'],
           ...dayRows.map((k) => [k, data.buckets.day_window[k]]),
           ...weekRows.map((k) => [k + '（周后）', data.buckets.week_window[k]]),
         ]}
-        note="柱高＝窗口内到期题量；无数据即该窗口无题。"
+        note="柱高＝该时段内到期的题量；没有柱子就是那时段没有题。"
       >
         <div className="cstack">
           {dayRows.map((k) => (
@@ -94,44 +95,25 @@ export default function CalendarPage() {
         </div>
       </ChartFrame>
 
-      {/* ── ② 守恒自检 → 占比条 +100% 线 ── */}
-      <ChartFrame
-        testId="cal-conservation"
-        eyebrow="守恒自检"
-        title="sum（已定到期）vs rows（总行数）"
-        sourceFile="forecast-calendar"
-        generatedAt={undefined}
-        note="两者应相等（sum==rows），否则存在不可定到期或统计偏差。100% 虚线为基准。"
-      >
-        <StackedBar
-          segments={[
-            { label: '已定到期（sum）', value: data.conservation.sum, color: 'var(--ok)' },
-            { label: '未定到期', value: data.conservation.rows - data.conservation.sum, color: 'var(--warn)', pattern: 'stripe' as const },
-          ]}
-          total={data.conservation.rows}
-          totalText={`${data.conservation.sum} / ${data.conservation.rows} (${(data.conservation.sum / maxSum * 100).toFixed(1)}%)`}
-        />
-      </ChartFrame>
-
-      {/* ── ③ 双源比对 → 双线折线 ＋ by_kind 分布 ── */}
+      {/* ── ② 双源比对 → 双线折线 ── */}
       {dBucket.length ? (
         <ChartFrame
           testId="cal-diff-line"
-          eyebrow="双源比对（账本 vs 证据）"
-          title="每日到期差值｜ledger − evidence_daemon"
+          eyebrow="两套算法对账"
+          title="每日到期题量：账本 vs 证据推算"
           sourceFile="forecast-calendar"
-          generatedAt={undefined}
+          generatedAt={data.generated_at}
           tableFallback={[
             ['日期', '账本', '证据', '差值'],
             ...dBucket.map((x) => [x.day, x.ledger, x.evidence_daemon, x.ledger - x.evidence_daemon]),
           ]}
-          note="实线＝账本到期数；虚线＝证据到期数；差异带＝两线之间面积（直观看偏离程度）。"
+          note="两条线越贴合说明两套算法越一致；中间灰带是两者差距。"
         >
           <LineChart
             xLabels={dBucket.map((x) => x.day.slice(-2))}
             series={[
-              { name: '账本到期', color: 'var(--layer-l2)', values: dBucket.map((x) => x.ledger), dash: undefined },
-              { name: '证据到期', color: 'var(--layer-l5)', values: dBucket.map((x) => x.evidence_daemon), dash: '3 2' },
+              { name: '账本记录', color: 'var(--layer-l2)', values: dBucket.map((x) => x.ledger), dash: undefined },
+              { name: '证据推算', color: 'var(--layer-l5)', values: dBucket.map((x) => x.evidence_daemon), dash: '3 2' },
             ]}
             lo={-maxDiff} hi={maxDiff} height={96}
             bandBetween={[0, 1]}
@@ -139,18 +121,19 @@ export default function CalendarPage() {
         </ChartFrame>
       ) : null}
 
-      {/* ── ④ 证据来源分布 ── */}
+      {/* ── ③ 证据来源分布 ── */}
       <ChartFrame
         testId="cal-src-counts"
         eyebrow="证据来源"
-        title="各来源类型的计数"
+        title="这些题的到期日是怎么确定的"
         sourceFile="forecast-calendar"
-        generatedAt={undefined}
+        generatedAt={data.generated_at}
         tableFallback={[
           ['来源', '计数'],
           ...srcs.map((k) => [k, data.evidence_src_counts[k]]),
           ...(data.by_kind !== undefined ? Object.entries(data.by_kind).map(([k, v]) => [k, v]) : []),
         ]}
+        note="按来源类型统计，可看出多少题已有明确到期依据、多少还没定。"
       >
         <div className="ui-stack">
           {srcs.map((k) => (

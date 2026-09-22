@@ -142,10 +142,10 @@ export function ReliabilityPlot({
         {/* 轴框 */}
         <rect x={pad} y={pad} width={inner} height={inner} fill="none" stroke="var(--chart-axis)" strokeWidth="1" />
       </svg>
-      <div className="reliability-axis-x">mean_p（报出的概率均值） →</div>
-      <div className="reliability-axis-y">观测频率 obs_rate →</div>
+      <div className="reliability-axis-x">说出的概率 →</div>
+      <div className="reliability-axis-y">实际发生频率 →</div>
       <p className="chart-note">
-        对角虚线＝完美校准参照；点面积＝可计分样本量。
+        对角虚线＝「说多少就发生多少」的参照；点越大说明样本越多。
         {skipped > 0 ? ` 另有 ${skipped} 格样本不足，未绘（不以 0 填充）。` : ''}
       </p>
     </div>

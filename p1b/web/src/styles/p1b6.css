@@ -12,7 +12,6 @@
   min-width: 0;
   max-width: 100%;
 }
-}
 .brand {
   display: flex; align-items: center; gap: 6px; margin-right: auto;
   color: var(--text); text-decoration: none; font-weight: 700; font-size: 15px;
@@ -28,6 +27,11 @@
   scrollbar-width: none;
 }
 .appbar-nav::-webkit-scrollbar { height: 0; }
+/* 极窄屏：品牌只留图标，把宽度让给导航（图标有 aria-label，不丢可访问名） */
+@media (max-width: 420px) {
+  .brand > span { display: none; }
+  .brand { gap: 0; }
+}
 /* 顶栏内层：所有断点都必须是可收缩的 flex 行——它在窄屏曾被内容撑到 456px
  * 而把整页推宽（页面横向滚动）。放在断点外，桌面端由 ≥900px 段补 max-width。 */
 .appbar-inner {
@@ -37,6 +41,8 @@
 .appbar-link {
   display: flex; align-items: center; min-height: 44px; padding: 0 14px;
   color: var(--muted); text-decoration: none; font-size: 14px; border-radius: 10px;
+  flex: 0 0 auto;          /* 不被压缩：窄屏靠容器滚动，不靠压缩可点面积 */
+  white-space: nowrap;
 }
 .appbar-link.is-active { color: var(--accent); background: rgba(143, 175, 123, 0.12); }
 .appbar-gear {

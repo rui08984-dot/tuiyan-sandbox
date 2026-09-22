@@ -17,6 +17,7 @@ import * as api from '../../api';
 import type { IntakeClassifyResult, IntakeRejectsResult, IntakeQuestionsResult } from '../../types';
 import '../../styles/intake.css';
 import { IconPen, Term } from '../../components/ui';
+import { gateHuman } from '../../lib/format';
 
 const errMsg = (e: unknown): string => (e instanceof Error ? e.message : String(e));
 
@@ -169,15 +170,19 @@ export default function IntakePage() {
 
           <details className="intake-advanced">
             <summary>真值锚参数（可选，多数题不用填）</summary>
+            <p className="intake-note" style={{ marginTop: 0 }}>
+              想让系统自动核对这道题的结果，就在这里说明「去哪里查、查什么、怎么算过」。
+              不确定就留空——留空不影响接题。
+            </p>
             <div className="intake-spec-grid">
-              <label>类型 kind<input className="intake-input" value={spec.kind} onChange={(e) => setSpecField('kind', e.target.value)} placeholder="official_stat" /></label>
-              <label>取数地址 url_template<input className="intake-input" value={spec.url_template} onChange={(e) => setSpecField('url_template', e.target.value)} placeholder="https://…" /></label>
-              <label>字段 field<input className="intake-input" value={spec.field} onChange={(e) => setSpecField('field', e.target.value)} placeholder="daily_high_temp" /></label>
-              <label>阈值 threshold<input className="intake-input" value={spec.threshold} onChange={(e) => setSpecField('threshold', e.target.value)} placeholder="35" /></label>
-              <label>比较 cmp<input className="intake-input" value={spec.cmp} onChange={(e) => setSpecField('cmp', e.target.value)} placeholder="gt / gte / lt" /></label>
-              <label>日期 date<input className="intake-input" value={spec.date} onChange={(e) => setSpecField('date', e.target.value)} placeholder="2026-09-12" /></label>
+              <label>数据类型<input className="intake-input" value={spec.kind} onChange={(e) => setSpecField('kind', e.target.value)} placeholder="官方统计 / 比赛结果 / 价格" /></label>
+              <label>查询地址<input className="intake-input" value={spec.url_template} onChange={(e) => setSpecField('url_template', e.target.value)} placeholder="https://…" /></label>
+              <label>取哪一项<input className="intake-input" value={spec.field} onChange={(e) => setSpecField('field', e.target.value)} placeholder="如 当日最高气温" /></label>
+              <label>判定阈值<input className="intake-input" value={spec.threshold} onChange={(e) => setSpecField('threshold', e.target.value)} placeholder="35" /></label>
+              <label>比较方式<input className="intake-input" value={spec.cmp} onChange={(e) => setSpecField('cmp', e.target.value)} placeholder="大于 / 不小于 / 小于" /></label>
+              <label>核对日期<input className="intake-input" value={spec.date} onChange={(e) => setSpecField('date', e.target.value)} placeholder="2026-09-12" /></label>
             </div>
-            <p className="intake-note">六项都可留空；填了类型才会随请求提交。</p>
+            <p className="intake-note">六项都可留空；填了数据类型才会随请求提交。</p>
           </details>
 
           <h3 className="intake-card-title">② 三道必过关（不满足就不收）</h3>
@@ -253,7 +258,7 @@ export default function IntakePage() {
               <div className="intake-kv"><span>归属层（机算）</span><b>{(result.layer ?? '—') + '（' + (result.computed_layer ?? '—') + '）'}</b></div>
               <div className="intake-kv"><span>叠加层</span><b>{result.secondary ?? '无'}</b></div>
               <div className="intake-kv"><span>取数引擎</span><b>{(result.engine ?? '—') + (result.engine_plan?.calibrator ? ' + ' + result.engine_plan.calibrator : '')}</b></div>
-              <div className="intake-kv"><span>门读数</span><b>{(result.gate ?? '—') + (result.gate_reason ? '（' + result.gate_reason + '）' : '')}</b></div>
+              <div className="intake-kv"><span>是否计分</span><b title={result.gate ? '原始状态：' + result.gate : undefined}>{gateHuman(result.gate) + (result.gate_reason ? '（' + result.gate_reason + '）' : '')}</b></div>
               <div className="intake-kv"><span><Term id="checklistHash" plain="判据版本号" /></span><b>{result.checklist_hash ?? '—'}</b></div>
               {typeof result.prob === 'number' && (
                 <div className="intake-kv"><span>参考读数</span><b>{result.prob}{result.prob_ci ? '（区间 ' + result.prob_ci[0] + '–' + result.prob_ci[1] + '）' : ''}</b></div>
@@ -283,22 +288,24 @@ export default function IntakePage() {
           <div className="intake-card" data-testid="intake-questions">
             <h3 className="intake-card-title">接题库（最新 20 条 · 只读）</h3>
             {questions ? (
-              <table className="intake-table" data-testid="intake-questions-table">
-                <thead><tr><th>id</th><th>题面</th><th>层</th><th>gate</th><th>读数</th><th>落库</th></tr></thead>
-                <tbody>
-                  {questions.items.map((q) => (
-                    <tr key={q.id} data-testid={'intake-q-row-' + q.id}>
-                      <td>{q.id}</td>
-                      <td className="intake-stmt" title={q.statement}>{q.statement}</td>
-                      <td>{q.layer ?? '—'}</td>
-                      <td>{q.gate ?? '—'}</td>
-                      <td>{q.prob == null ? '—' : q.prob}</td>
-                      <td>{q.created_at}</td>
-                    </tr>
-                  ))}
-                  {questions.items.length === 0 && <tr><td colSpan={6} className="intake-note">暂无接题记录</td></tr>}
-                </tbody>
-              </table>
+              <div className="intake-table-wrap">
+                <table className="intake-table" data-testid="intake-questions-table">
+                  <thead><tr><th>编号</th><th>题面</th><th>层</th><th>是否计分</th><th>读数</th><th>落库时间</th></tr></thead>
+                  <tbody>
+                    {questions.items.map((q) => (
+                      <tr key={q.id} data-testid={'intake-q-row-' + q.id}>
+                        <td>{q.id}</td>
+                        <td className="intake-stmt" title={q.statement}>{q.statement}</td>
+                        <td>{q.layer ?? '—'}</td>
+                        <td title={q.gate ? '原始状态：' + q.gate : undefined}>{gateHuman(q.gate)}</td>
+                        <td>{q.prob == null ? '—' : q.prob}</td>
+                        <td>{q.created_at}</td>
+                      </tr>
+                    ))}
+                    {questions.items.length === 0 && <tr><td colSpan={6} className="intake-note">暂无接题记录</td></tr>}
+                  </tbody>
+                </table>
+              </div>
             ) : <p className="intake-note">读取中…</p>}
             {questions && <p className="intake-note">{questions.note}</p>}
           </div>
