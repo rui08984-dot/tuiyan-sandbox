@@ -34,13 +34,22 @@ export const IconBrain = ({ size = 16 }: IconProps) => S('M9.5 2A2.5 2.5 0 0 1 1
 export const IconCheck = ({ size = 16 }: IconProps) => S('M20 6 9 17l-5-5', size);
 export const IconWrench = ({ size = 16 }: IconProps) => S('M14.7 6.3a4 4 0 0 0 5 5l-9.4 9.4a2.1 2.1 0 0 1-3-3Z|M14.7 6.3 18 3l3 3-3.3 3.3', size);
 export const IconChevron = ({ size = 16 }: IconProps) => S('M6 9l6 6 6-6', size);
-export function StatCard({ label, value, caption, tone, testId }: {
+/**
+ * StatCard —— KPI 卡。
+ * 2026-09-22 全方面重构：新增可选 `viz` / `eyebrow` 插槽（放迷你仪表/条 + 大写小标签）。
+ * ★ 纪律：viz 只是 value 的图形化补充，**value 文字永远在**——设计库 grade=AA 要求
+ *   数值始终以文本呈现，且 dist.test.mjs 钉死「样本不足」字面量不得被图形替掉。
+ */
+export function StatCard({ label, value, caption, tone, testId, viz, eyebrow }: {
   label: ReactNode; value: ReactNode; caption?: ReactNode; tone?: 'accent' | 'warn' | 'danger'; testId?: string;
+  viz?: ReactNode; eyebrow?: ReactNode;
 }) {
   return (
     <div className={'ui-stat' + (tone ? ' is-' + tone : '')} data-testid={testId}>
+      {eyebrow ? <span className="chart-eyebrow">{eyebrow}</span> : null}
       <span className="ui-stat-label">{label}</span>
       <span className="ui-stat-value">{value}</span>
+      {viz ? <span className="ui-stat-viz">{viz}</span> : null}
       {caption ? <span className="ui-stat-caption">{caption}</span> : null}
     </div>
   );

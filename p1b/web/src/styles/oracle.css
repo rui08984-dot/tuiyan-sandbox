@@ -40,7 +40,7 @@
 .oracle-verdict { margin: 12px 0 0; font-size: 15px; line-height: 1.7; }
 .oracle-disclaimer {
   margin-top: 12px; padding: 5px 10px; border-radius: 999px; display: inline-block;
-  background: rgba(224, 168, 60, 0.14); color: var(--accent); font-size: 12.5px; white-space: nowrap;
+  background: rgba(143, 175, 123, 0.14); color: var(--accent); font-size: 12.5px; white-space: nowrap;
 }
 .oracle-llmerr { margin: 8px 0 0; color: var(--muted); font-size: 12px; }
 .oracle-foot { display: flex; justify-content: flex-end; margin-top: 14px; }

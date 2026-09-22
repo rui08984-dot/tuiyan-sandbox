@@ -6,6 +6,13 @@
  * 数据源：GET /api/audit/summary（既有，契约不变）+ GET /api/audit/g2-kpi（新增只读，R4 KPI）。
  * 铁律：全文禁用宣称字样（用「审计／校准参考／分层账本／题面／判据」）；纯展示零 LLM；
  * 校准参考为机械算术，样本不足如实留空；图标=内联 SVG（emoji 清零）。
+ *
+ * ── 2026-09-22 全方面重构 ──
+ *   ① KPI 卡加迷你仪表/占比条（value 文字仍在，图形只是补充）
+ *   ② 补齐接口早已返回、此前从未渲染的 4 个 KPI（out_of_regime/unlayered/regime_rows/tautology_rows）
+ *   ③ 分层矩阵「校准参考（CI）」列：字符串 → 误差须图（0.25 无信息阈值虚线）
+ *   ④ 新增分层 × gate 计数矩阵（layer_gate[]，types.ts 注释早写明是矩阵数据源却没画）
+ *   ⑤ 展开区补 settled / brier_n（同样从未渲染）
  */
 import { Fragment, useCallback, useEffect, useState, type ReactNode } from 'react';
 import * as api from '../../api';
@@ -14,14 +21,11 @@ import {
   StatCard, Badge, KVTable, Tabs, Breadcrumb, AlertBar, EmptyState, Term,
   IconChart, IconLayers,
 } from '../../components/ui';
+import { BrierGauge, ErrorBar, SparkBar, NestedBar } from '../../charts';
+import { tri, pct, fmtCi, int } from '../../lib/format';
 
 const errMsg = (e: unknown): string => (e instanceof Error ? e.message : String(e));
-const tri = (v: number | null): string => (v === null || v === undefined ? '样本不足' : v.toFixed(3));
-const pct = (v: number | null): string => (v === null || v === undefined ? '—' : (v * 100).toFixed(1) + '%');
-const fmtCi = (lo: number | null, hi: number | null): string =>
-  (lo === null || hi === null ? 'n<30 不出 CI' : '[' + lo.toFixed(3) + ', ' + hi.toFixed(3) + ']');
 
-/** 六层静态词表（照万物分类清单 v2 冻结版；中立词，零计算） */
 /** 六层静态词表（照万物分类清单 v2 冻结版；中立词，零计算）
  *  plain＝人话一句（L1 表面），brief＝专业定义（收在展开区，配 Term）
  *  铁律：专业词一个不删，只从第一屏收进第二层。
@@ -40,6 +44,8 @@ const STATIC_CALIB = {
   rbLine: 'R-B 信息价值：负结果 —— 三路判词≈分题型基率（等价性检验达成），合并条款未达成',
   badge: '探索性 · 判据=预注册冻结件',
 };
+const GATE_ORDER = ['scored', 'descriptive', 'blocked'];
+
 export default function AuditPage() {
   const [summary, setSummary] = useState<AuditSummary | null>(null);
   const [kpi, setKpi] = useState<AuditG2KpiResult | null>(null);
@@ -68,6 +74,16 @@ export default function AuditPage() {
     const cur = gateByLayer[L];
     gateByLayer[L] = cur ? (cur.indexOf(g) >= 0 ? cur : cur + ' / ' + g) : g;
   }
+  /** 分层 × gate 计数（layer_gate[] 的本来用途：矩阵，而非折成字符串） */
+  const gateCount: Record<string, Record<string, number>> = {};
+  for (const r of kpi?.layer_gate ?? []) {
+    const L = r.layer ?? '未分层';
+    const g = r.gate ?? '未标注';
+    if (!gateCount[L]) gateCount[L] = {};
+    gateCount[L][g] = (gateCount[L][g] ?? 0) + r.n;
+  }
+  const gates = Array.from(new Set((kpi?.layer_gate ?? []).map((r) => r.gate ?? '未标注')))
+    .sort((a, b) => (GATE_ORDER.indexOf(a) < 0 ? 99 : GATE_ORDER.indexOf(a)) - (GATE_ORDER.indexOf(b) < 0 ? 99 : GATE_ORDER.indexOf(b)));
 
   const alerts: { tone: string; text: ReactNode }[] = [];
   if (kpi) {
@@ -81,6 +97,8 @@ export default function AuditPage() {
 
   const openMeta = openLayer ? LAYER_META.filter((m) => m.id === openLayer)[0] : null;
   const crumbs = [{ label: '审计' }, { label: '分层' }, { label: openMeta ? openMeta.id + ' · ' + openMeta.name : '全层', current: true }];
+  const maxN = Math.max(1, ...(summary?.layer_calibration ?? []).map((r) => r.n));
+  const maxGateN = Math.max(1, ...(kpi?.layer_gate ?? []).map((r) => r.n));
 
   return (
     <section className="page" data-testid="audit-page">
@@ -108,15 +126,39 @@ export default function AuditPage() {
         )}
 
         <div className="ui-kpi-row" data-testid="kpi-row" style={loading ? { display: 'none' } : undefined}>
-          <StatCard testId="kpi-total" label="总题量" value={l0 ? l0.records : '—'} caption="账本总条数（参考）" />
-          <StatCard testId="kpi-resolved" label="已解真值" value={l0 ? l0.resolved : '—'} caption="真值已到（参考）" />
-          <StatCard testId="kpi-qualified" label="合格池" value={kpi ? kpi.kpi.qualified_pool : '—'} caption={<Term id="cutoff" plain="信息截止合规·非重言" />} />
-          <StatCard testId="kpi-hardest" label="最难档" value={kpi ? kpi.kpi.hardest : '—'} caption={<Term id="r4" plain="外生难度最高档" />} tone={kpi && kpi.kpi.hardest < 20 ? 'warn' : undefined} />
-          <StatCard testId="kpi-pending" label="待解前瞻" value={summary ? summary.pending_forward_total : '—'} caption="真值未发生" />
-          <StatCard testId="kpi-outside" label="门域外" value={kpi ? kpi.kpi.out_of_domain : '—'} caption={<Term id="g2Regime" plain="不按现行规则算" />} tone={kpi && kpi.kpi.out_of_domain > 0 ? 'accent' : undefined} />
+          <StatCard testId="kpi-total" eyebrow="账本" label="总题量" value={l0 ? int(l0.records) : '—'}
+            caption="账本总条数（参考）"
+            viz={l0 ? <SparkBar value={l0.records_valid} max={l0.records || 1} text={'有效 ' + int(l0.records_valid)} /> : undefined} />
+          <StatCard testId="kpi-resolved" eyebrow="真值" label="已解真值" value={l0 ? int(l0.resolved) : '—'}
+            caption="真值已到（参考）"
+            viz={l0 ? <SparkBar value={l0.resolved} max={l0.records || 1} color="var(--ok)" text={'占 ' + pct(l0.records ? l0.resolved / l0.records : null)} /> : undefined} />
+          <StatCard testId="kpi-qualified" eyebrow="合规" label="合格池" value={kpi ? int(kpi.kpi.qualified_pool) : '—'}
+            caption={<Term id="cutoff" plain="信息截止合规·非重言" />} />
+          <StatCard testId="kpi-hardest" eyebrow="难度" label="最难档" value={kpi ? kpi.kpi.hardest : '—'}
+            caption={<Term id="r4" plain="外生难度最高档" />} tone={kpi && kpi.kpi.hardest < 20 ? 'warn' : undefined}
+            viz={kpi ? <SparkBar value={kpi.kpi.hardest} max={Math.max(kpi.kpi.qualified_pool || 1, 1)} threshold={20} text="下限 20" color="var(--warn)" /> : undefined} />
+          <StatCard testId="kpi-pending" eyebrow="在途" label="待解前瞻" value={summary ? int(summary.pending_forward_total) : '—'}
+            caption="真值未发生" />
+          <StatCard testId="kpi-outside" eyebrow="域外" label="门域外" value={kpi ? int(kpi.kpi.out_of_domain) : '—'}
+            caption={<Term id="g2Regime" plain="不按现行规则算" />} tone={kpi && kpi.kpi.out_of_domain > 0 ? 'accent' : undefined} />
         </div>
 
+        {/* ── 此前从未渲染的 4 个 KPI（接口早就返回了） ── */}
+        {kpi ? (
+          <div className="ui-kpi-row" data-testid="kpi-row-extra" style={{ gridTemplateColumns: 'repeat(4, minmax(0, 1fr))' }}>
+            <StatCard testId="kpi-out-of-regime" eyebrow="口径" label="规则域外行" value={int(kpi.kpi.out_of_regime)}
+              caption={<Term id="g2Regime" plain="不在现行判据域内" />} />
+            <StatCard testId="kpi-unlayered" eyebrow="覆盖" label="未分层行" value={int(kpi.kpi.unlayered)}
+              caption={<Term id="layer" plain="还没定到 L1-L6" />} tone={kpi.kpi.unlayered > 0 ? 'warn' : undefined} />
+            <StatCard testId="kpi-regime-rows" eyebrow="口径" label="规则域总行" value={int(kpi.kpi.regime_rows)}
+              caption="参与判定的总行数" />
+            <StatCard testId="kpi-tautology" eyebrow="隔离" label="重言行" value={int(kpi.kpi.tautology_rows)}
+              caption="判定标准与结算定义重言，已隔离" />
+          </div>
+        ) : null}
+
         <AlertBar alerts={alerts} testId="alertbar" />
+
         <div className="ui-section" data-testid="layer-matrix">
           <h3 className="ui-section-title"><IconLayers size={16} /> 分层矩阵（L1-L6）</h3>
           <p className="ui-note" style={{ marginTop: 0 }}>点任意行展开该层详情（面包屑同步）；校准参考=已回填真值题上的机械算术，n&lt;30 不出 CI。</p>
@@ -138,10 +180,19 @@ export default function AuditPage() {
                     <Fragment key={m.id}>
                       <tr className="is-row" data-testid={'layer-row-' + m.id} onClick={() => setOpenLayer(open ? null : m.id)}>
                         <td><Badge tone={m.tone.replace('is-', '')}>{m.id}</Badge> <span style={{ color: 'var(--muted)' }}>{m.name}</span></td>
-                        <td className="num">{r ? r.n : 0}</td>
+                        <td className="num"><SparkBar value={r ? r.n : 0} max={maxN} text={r ? r.n : 0} /></td>
                         <td className="num hide-narrow">{r ? r.resolved : 0}</td>
                         <td className="num" data-testid={'layer-brier-' + m.id}>
-                          {(r ? tri(r.brier) : '样本不足') + (ci && ci.ci_lo !== null ? ' ' + fmtCi(ci.ci_lo, ci.ci_hi) : '')}
+                          {/* 字符串 → 误差须（0.25 无信息阈值虚线）；文案仍在，图形只是补充 */}
+                          <span className="layer-ci-cell">
+                            <ErrorBar
+                              value={r ? r.brier : null}
+                              ciLo={ci ? ci.ci_lo : null}
+                              ciHi={ci ? ci.ci_hi : null}
+                              lo={0} hi={0.25} threshold={0.25} width={150}
+                            />
+                            {(r ? tri(r.brier) : '样本不足') + (ci && ci.ci_lo !== null ? ' ' + fmtCi(ci.ci_lo, ci.ci_hi) : '')}
+                          </span>
                         </td>
                         <td className="hide-narrow">{(r && r.base_rate_n > 0) ? pct(r.base_rate) + '（n=' + r.base_rate_n + '）' : '样本不足'}</td>
                         <td className="hide-narrow"><span className="u-mono">{m.engine}</span></td>
@@ -150,17 +201,27 @@ export default function AuditPage() {
                       {open && (
                         <tr className="is-detail" data-testid={'layer-detail-' + m.id}>
                           <td colSpan={7}>
-                            <p className="ui-note" style={{ marginTop: 0 }}><b>{m.plain}</b>——{m.brief}</p>
-                            <KVTable testId={'layer-kv-' + m.id} rows={[
-                              { k: '题量 n', v: r ? r.n : 0 },
-                              { k: '已解真值', v: r ? r.resolved : 0 },
-                              { k: '无法判定', v: r ? r.ambiguous : 0 },
-                              { k: <Term id="brier" plain="判得准不准" />, v: r ? tri(r.brier) : '样本不足' },
-                              { k: <Term id="wilson" plain="参考置信区间" />, v: fmtCi(ci ? ci.ci_lo : null, ci ? ci.ci_hi : null) },
-                              { k: <Term id="baseRate" plain="历史上占多少" />, v: (r && r.base_rate_n > 0) ? pct(r.base_rate) + '（n=' + r.base_rate_n + '）' : '样本不足' },
-                              { k: <Term id="resolver" plain="引擎位" />, v: m.engine },
-                              { k: 'gate', v: gateByLayer[m.id] ?? '—' },
-                            ]} />
+                            <div className="layer-detail-flex">
+                              <div className="layer-detail-gauge">
+                                <BrierGauge value={r ? r.brier : null} label="校准参考 Brier" testId={'layer-gauge-' + m.id} />
+                                {(r && r.base_rate_n > 0) ? <BrierGauge value={r.base_rate} label="基率" testId={'layer-gauge-br-' + m.id} /> : null}
+                              </div>
+                              <div className="ui-stack">
+                                <p className="ui-note" style={{ marginTop: 0 }}><b>{m.plain}</b>——{m.brief}</p>
+                                <KVTable testId={'layer-kv-' + m.id} rows={[
+                                  { k: '题量 n', v: r ? r.n : 0 },
+                                  { k: '已解真值', v: r ? r.resolved : 0 },
+                                  { k: '无法判定', v: r ? r.ambiguous : 0 },
+                                  { k: '已结算（基率分母）', v: r ? (r.settled ?? '—') : '—' },
+                                  { k: '有概率可读数的题（Brier 分母）', v: r ? (r.brier_n ?? '—') : '—' },
+                                  { k: <Term id="brier" plain="判得准不准" />, v: r ? tri(r.brier) : '样本不足' },
+                                  { k: <Term id="wilson" plain="参考置信区间" />, v: fmtCi(ci ? ci.ci_lo : null, ci ? ci.ci_hi : null) },
+                                  { k: <Term id="baseRate" plain="历史上占多少" />, v: (r && r.base_rate_n > 0) ? pct(r.base_rate) + '（n=' + r.base_rate_n + '）' : '样本不足' },
+                                  { k: <Term id="resolver" plain="引擎位" />, v: m.engine },
+                                  { k: 'gate', v: gateByLayer[m.id] ?? '—' },
+                                ]} />
+                              </div>
+                            </div>
                           </td>
                         </tr>
                       )}
@@ -171,6 +232,41 @@ export default function AuditPage() {
             </table>
           )}
         </div>
+
+        {/* ── 分层 × gate 计数矩阵（layer_gate[] 的本来用途） ── */}
+        {kpi && gates.length ? (
+          <div className="ui-section" data-testid="gate-matrix">
+            <h3 className="ui-section-title"><IconLayers size={16} /> 分层 × gate 计数矩阵</h3>
+            <p className="ui-note" style={{ marginTop: 0 }}>
+              每格＝该层处于该 gate 的行数（数字直接印在格上，不单靠颜色）。
+              scored＝参与计分，descriptive＝只描述，blocked＝被门禁挡住。
+            </p>
+            <div className="gatematrix" role="grid"
+              style={{ gridTemplateColumns: `minmax(64px, auto) repeat(${gates.length}, minmax(0, 1fr))` }}>
+              <span className="gm-head" />
+              {gates.map((g) => <span key={g} className="gm-head u-mono">{g}</span>)}
+              {LAYER_META.map((m) => (
+                <Fragment key={m.id}>
+                  <span className="gm-head">{m.id} {m.name}</span>
+                  {gates.map((g) => {
+                    const n = (gateCount[m.id] && gateCount[m.id][g]) || 0;
+                    return (
+                      <span key={g} className={'gm-cell' + (n === 0 ? ' is-zero' : '')}
+                        style={n === 0 ? undefined : {
+                          background: 'color-mix(in srgb, ' + 'var(--layer-' + m.id.toLowerCase() + ') '
+                            + Math.max(8, Math.round((n / maxGateN) * 55)) + '%, var(--panel-2))',
+                        }}
+                        title={m.id + ' × ' + g + ' = ' + n}>
+                        <b className="u-mono">{n}</b>
+                      </span>
+                    );
+                  })}
+                </Fragment>
+              ))}
+            </div>
+          </div>
+        ) : null}
+
         {summary && (
           <Tabs testId="audit-detail-tabs" tabs={[
             { id: 'ledger', label: '账本×判据版本', content: (
@@ -178,8 +274,15 @@ export default function AuditPage() {
                 <thead><tr><th>层</th><th>判据版本</th><th className="num">条数</th><th className="num hide-narrow">重言隔离</th></tr></thead>
                 <tbody>
                   {summary.by_layer_checklist.map((r, i) => (
-                    <tr key={i}><td>{r.layer ?? '未分层'}</td><td className="u-mono">{r.checklist_hash ?? '—'}</td>
-                      <td className="num">{r.n}</td><td className="num hide-narrow">{r.tautology_n}</td></tr>
+                    <tr key={i}>
+                      <td>{r.layer ?? '未分层'}</td>
+                      <td className="u-mono">{r.checklist_hash ?? '—'}</td>
+                      <td className="num">
+                        <NestedBar outer={r.n} inner={r.n - r.tautology_n} max={Math.max(1, ...summary.by_layer_checklist.map((x) => x.n))}
+                          outerLabel="条数" innerLabel="非重言" />
+                      </td>
+                      <td className="num hide-narrow"><SparkBar value={r.tautology_n} max={Math.max(1, ...summary.by_layer_checklist.map((x) => x.tautology_n))} color="var(--warn)" text={r.tautology_n} /></td>
+                    </tr>
                   ))}
                   {summary.by_layer_checklist.length === 0 && <tr><td colSpan={4}>账本暂无记录</td></tr>}
                 </tbody>
@@ -187,7 +290,12 @@ export default function AuditPage() {
             ) },
             { id: 'gate', label: 'gate 分布', content: (
               summary.by_gate.length
-                ? <KVTable testId="audit-gate-dist" rows={summary.by_gate.map((g) => ({ k: g.gate ?? '未分层（gate 未补录）', v: g.n }))} />
+                ? <div className="ui-stack" data-testid="audit-gate-dist">
+                    {summary.by_gate.map((g, i) => (
+                      <SparkBar key={i} value={g.n} max={Math.max(1, ...summary.by_gate.map((x) => x.n))}
+                        text={(g.gate ?? '未分层（gate 未补录）') + '　' + int(g.n)} />
+                    ))}
+                  </div>
                 : <EmptyState text="暂无记录" />
             ) },
             { id: 'calib', label: '校准汇总', content: (
@@ -201,8 +309,12 @@ export default function AuditPage() {
                 <thead><tr><th>题面</th><th className="hide-narrow">层</th><th className="num">落注参考</th><th className="hide-narrow">到期日</th></tr></thead>
                 <tbody>
                   {summary.pending_forward.map((r) => (
-                    <tr key={r.id}><td>{r.target || r.statement}</td><td className="hide-narrow">{r.layer ?? '未分层'}</td>
-                      <td className="num">{pct(r.assigned_prob)}</td><td className="hide-narrow">{r.event_day ?? '目标期'}</td></tr>
+                    <tr key={r.id}>
+                      <td>{r.target || r.statement}</td>
+                      <td className="hide-narrow">{r.layer ?? '未分层'}</td>
+                      <td className="num"><SparkBar value={r.assigned_prob} max={1} text={pct(r.assigned_prob)} /></td>
+                      <td className="hide-narrow">{r.event_day ?? '目标期'}</td>
+                    </tr>
                   ))}
                   {summary.pending_forward.length === 0 && <tr><td colSpan={4}>暂无待解前瞻记录</td></tr>}
                 </tbody>

@@ -1,20 +1,11 @@
 /* P1b 网页工作台 —— 手机竖屏优先（线下局边玩边录），桌面宽屏自适应。 */
 
-:root {
-  color-scheme: dark;
-  --bg: #14110c;
-  --panel: #1e1913;
-  --panel-2: #262019;
-  --line: #3a3227;
-  --text: #ece5d8;
-  --muted: #a89a83;
-  --accent: #e0a83c;
-  --accent-ink: #2a1f08;
-  --ok: #58b368;
-  --warn: #d9a441;
-  --danger: #e05c4a;
-  --radius: 12px;
-}
+/**
+ * 2026-09-22 全方面重构：本文件的旧 :root 色板已删除。
+ * 原因：它定义在 tokens.css 之后，会**覆盖**抹茶绿新令牌（CSS 层叠：后定义者胜）。
+ * 身份色现由 tokens.css 单一真源提供（--bg #1A1F1C / --accent #8FAF7B / --panel #222926…）。
+ * 色板改动一律改 tokens.css，并跑 contrast-check.cjs 核验对比度。
+ */
 
 * { box-sizing: border-box; }
 
@@ -22,10 +13,17 @@ html, body { margin: 0; padding: 0; }
 
 body {
   background: var(--bg);
+  /* 双层刻度网格：次 8px + 主 32px（抹茶色相），语义＝观测标尺；与 .app-surface 同源 */
   background-image:
+    linear-gradient(to right, var(--grid-line-fine) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line-fine) 1px, transparent 1px),
     linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
     linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
-  background-size: 32px 32px;
+  background-size:
+    var(--grid-size-fine) var(--grid-size-fine),
+    var(--grid-size-fine) var(--grid-size-fine),
+    var(--grid-size) var(--grid-size),
+    var(--grid-size) var(--grid-size);
   color: var(--text);
   font: 15px/1.55 -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -44,7 +42,7 @@ body {
   right: 0;
   z-index: 30;
   display: flex;
-  background: rgba(26, 22, 15, 0.96);
+  background: rgba(26, 31, 28, 0.96);
   border-top: 1px solid var(--line);
   padding-bottom: env(safe-area-inset-bottom);
   backdrop-filter: blur(8px);
@@ -209,7 +207,7 @@ code {
   border-radius: var(--radius);
   padding: 12px 14px;
 }
-.provider-card.is-active { border-color: rgba(224, 168, 60, 0.55); }
+.provider-card.is-active { border-color: rgba(143, 175, 123, 0.55); }
 
 .provider-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
 .provider-name { font-weight: 600; font-size: 16px; margin-right: 8px; }
@@ -223,9 +221,9 @@ code {
   padding: 5px 9px;
   white-space: nowrap;
 }
-.badge-accent { background: rgba(224, 168, 60, 0.18); color: var(--accent); }
+.badge-accent { background: rgba(143, 175, 123, 0.18); color: var(--accent); }
 .badge-ok { background: rgba(88, 179, 104, 0.16); color: var(--ok); }
-.badge-warn { background: rgba(217, 164, 65, 0.14); color: var(--warn); }
+.badge-warn { background: rgba(201, 164, 76, 0.14); color: var(--warn); }
 
 .provider-url { margin: 8px 0 2px; color: var(--muted); font-size: 13px; word-break: break-all; }
 .provider-models { margin: 2px 0 0; font-size: 13.5px; }

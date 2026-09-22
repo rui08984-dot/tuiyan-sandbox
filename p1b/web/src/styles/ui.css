@@ -12,8 +12,8 @@
 .ui-stat-label { color: var(--muted); font-size: var(--font-size-small); display: block; }
 .ui-stat-value { font-size: var(--font-size-metric); font-weight: 600; line-height: 1.15; font-variant-numeric: tabular-nums; display: block; }
 .ui-stat-caption { color: var(--muted); font-size: var(--font-size-xs); display: block; }
-.ui-stat.is-accent { border-color: rgba(224, 168, 60, 0.45); }
-.ui-stat.is-warn { border-color: rgba(217, 164, 65, 0.5); }
+.ui-stat.is-accent { border-color: rgba(143, 175, 123, 0.45); }
+.ui-stat.is-warn { border-color: rgba(201, 164, 76, 0.5); }
 .ui-stat.is-danger { border-color: rgba(224, 92, 74, 0.5); }
 
 /* ── Badge ── */
@@ -170,7 +170,7 @@ button:active:not(:disabled), .ui-tab:active, .count-chip:active, .intake-layer-
 }
 
 /* 3) 卡片悬浮抬升（用 border+shadow，不加发光——守 Ornate design 红线） */
-.ui-stat:hover, .ui-section:hover { border-color: rgba(224, 168, 60, 0.35); }
+.ui-stat:hover, .ui-section:hover { border-color: rgba(143, 175, 123, 0.35); }
 
 /* 4) 加载骨架：占位不跳动（CLS） */
 .ui-skeleton {
@@ -194,3 +194,32 @@ button:active:not(:disabled), .ui-tab:active, .count-chip:active, .intake-layer-
 /* 7) 表格行悬浮高亮（数据页可读性） */
 .ui-matrix tbody tr.is-row:hover { background: var(--panel-2); }
 .intake-table tbody tr:hover { background: var(--panel-2); }
+
+/* ── 2026-09-22 全方面重构：KPI 卡图形插槽 ── */
+/* ★ value 文字永远在，viz 只是补充（图形不得替代文案，见 dist.test.mjs 契约文案断言） */
+.ui-stat-viz { display: block; margin-top: 6px; min-width: 0; }
+.ui-stat-viz .gauge { align-items: flex-start; }
+.ui-stat-viz .gauge-num { font-size: var(--font-size-small); }
+
+/* 层色圆点（表格/图例里标层，配文字标签，不单靠颜色） */
+.layer-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px;
+  vertical-align: middle; border: 1px solid var(--line); flex: 0 0 auto; }
+
+/* gate 计数矩阵：格上必写数字（热力 grade=B 的数值兜底要求） */
+.gatematrix { display: grid; gap: 2px; min-width: 0; }
+.gatematrix .gm-cell { display: flex; flex-direction: column; align-items: center; justify-content: center;
+  min-height: 34px; border-radius: 4px; font-size: var(--font-size-micro); background: var(--panel-2); }
+.gatematrix .gm-cell.is-zero { color: var(--muted); }
+.gatematrix .gm-head { color: var(--muted); font-size: var(--font-size-micro); display: flex; align-items: center; }
+
+/* 审计页：展开区双栏（左仪表 / 右键值表）；窄屏回落单列 */
+.layer-detail-flex { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--space-4); align-items: start; }
+.layer-detail-gauge { display: flex; gap: var(--space-4); flex-wrap: wrap; }
+.layer-ci-cell { display: flex; flex-direction: column; gap: 2px; align-items: flex-start; }
+@media (max-width: 767px) {
+  .layer-detail-flex { grid-template-columns: minmax(0, 1fr); }
+  .ui-kpi-row[style] { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+}
+@media (max-width: 374px) {
+  .ui-kpi-row[style] { grid-template-columns: minmax(0, 1fr) !important; }
+}

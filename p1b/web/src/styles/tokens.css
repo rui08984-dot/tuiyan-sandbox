@@ -3,21 +3,28 @@
  * ② 补全：密度（density 9）／字阶／间距／圆角／层级阴影／语义色／L1-L6 层色
  * ③ 字体：Fira Sans（正文）＋ Fira Code（数字/ID/判据）＋ 全局 tabular-nums（列对齐）
  * ④ 本文件只定义令牌 + body 字体两条规则；不改任何布局选择器（步 1 结构零变化）
+ *
+ * ── 2026-09-22 全方面重构：视觉系统换为「抹茶绿观测台」──
+ *   底：墨绿黑（保留深色身份，适配夜间线下局场景）｜强调：抹茶绿｜文字：暖白
+ *   ★ 全部对比度由 p1b/web/src/styles/contrast-check.cjs 逐对核验（≥4.5:1），非肉眼判断。
+ *     初版 --matcha #6E8B5E(3.90) 与 --layer-l6 #C4705E(4.12) 未达标 ⇒ 实测后调亮为
+ *     #829F70(5.05) / #D4826F(5.11)。此后改色必跑该脚本。
  */
 :root {
-  /* ── 基础身份（原样迁入 app.css:5-16）── */
+  /* ── 基础身份（抹茶绿观测台）── */
   color-scheme: dark;
-  --bg: #14110c;
-  --panel: #1e1913;
-  --panel-2: #262019;
-  --line: #3a3227;
-  --text: #ece5d8;
-  --muted: #a89a83;
-  --accent: #e0a83c;
-  --accent-ink: #2a1f08;
-  --ok: #58b368;
-  --warn: #d9a441;
-  --danger: #e05c4a;
+  --bg: #1A1F1C;
+  --panel: #222926;
+  --panel-2: #2B322E;
+  --line: #3A423D;
+  --text: #EDE8DC;
+  --muted: #A3A79C;
+  --accent: #8FAF7B;
+  --matcha: #829F70;
+  --accent-ink: #141A15;
+  --ok: #7FA87A;
+  --warn: #C9A44C;
+  --danger: #D4826F;
   --radius: 12px;
 
   /* ── 字体（Fira 由 @fontsource 本地打包，离线可用；缺失回退系统字体）── */
@@ -56,20 +63,20 @@
   --shadow-2: 0 4px 12px rgba(0, 0, 0, 0.38);
   --shadow-3: 0 10px 28px rgba(0, 0, 0, 0.45);
 
-  /* ── 语义色（ok/warn/danger 复用人格色；info 补一档 + 四档底）── */
-  --info: #6fb3d8;
-  --ok-bg: rgba(88, 179, 104, 0.14);
-  --warn-bg: rgba(217, 164, 65, 0.14);
-  --danger-bg: rgba(224, 92, 74, 0.14);
-  --info-bg: rgba(111, 179, 216, 0.14);
+  /* ── 语义色（去饱和，守深色模式「不直接反色」规则）＋ 四档底 ── */
+  --info: #7FA6A0;
+  --ok-bg: rgba(127, 168, 122, 0.14);
+  --warn-bg: rgba(201, 164, 76, 0.14);
+  --danger-bg: rgba(196, 112, 94, 0.14);
+  --info-bg: rgba(127, 166, 160, 0.14);
 
-  /* ── L1-L6 层色（矩阵表/徽章；--panel 上对比度 ≥4.5:1，实测见收据）── */
-  --layer-l1: #7fb2ff;
-  --layer-l2: #8ed08a;
-  --layer-l3: #e0a83c;
-  --layer-l4: #d59ae6;
-  --layer-l5: #63c7cf;
-  --layer-l6: #f08a7a;
+  /* ── L1-L6 层色：抹茶→青→琥珀连续光谱，六色互辨且 vs --panel 均 ≥4.5:1 ── */
+  --layer-l1: #9FB8A8;
+  --layer-l2: #8FAF7B;
+  --layer-l3: #C9B96A;
+  --layer-l4: #A98FB5;
+  --layer-l5: #7FA6A0;
+  --layer-l6: #D98A77;
 
   /* ── 容器宽（容器分类：数据页 1280 / 表单页 720 / 阅读 860）── */
   --content-wide: 1280px;
@@ -83,24 +90,45 @@
   --breakpoint-lg: 1024px;
   --breakpoint-xl: 1440px;
 
-  /* ── 观测台语义层（2026-09-15 · 只增不改）── */
-  --grid-line: rgba(255, 255, 255, 0.04);
-  --panel-3: #2f2720;
+  /* ── 观测台语义层 ── */
+  --panel-3: #343B36;
   --shadow-4: 0 18px 48px rgba(0, 0, 0, 0.55);
   --space-section: 32px;
   --font-size-micro: 11px;
+
+  /* ── 刻度网格双层：主 32px（5%）＋次 8px（2.5%）
+     语义＝观测标尺/沙盘坐标，非装饰；抹茶色相与身份一致 ── */
+  --grid-line: rgba(143, 175, 123, 0.05);
+  --grid-line-fine: rgba(143, 175, 123, 0.025);
+  --grid-size: 32px;
+  --grid-size-fine: 8px;
+
+  /* ── eyebrow 小标签（专业控制台的大写小标签气质）── */
+  --eyebrow-size: 11px;
+  --eyebrow-tracking: 0.08em;
+
+  /* ── 图表刻度（数据线/条 vs 背景 ≥3:1，守 contrast-data）── */
+  --chart-axis: #6A756C;
+  --chart-grid: rgba(143, 175, 123, 0.12);
+  --chart-threshold: #C9A44C;
+  --chart-nodata: #2B322E;
 }
 
 /* 全局字体与数字对齐（本文件唯一全局规则，不涉布局） */
 body { font-family: var(--font-sans); font-variant-numeric: tabular-nums; }
 .u-mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
 
-/* 观测台底纹：1px 双向细网格，语义＝沙盘坐标/观测标尺；4% 亮度，不影响 AA 对比度 */
+/* 观测台刻度网格：主 32px ＋ 次 8px 双层，语义＝沙盘坐标/观测标尺 */
 .app-surface {
   background-image:
+    linear-gradient(to right, var(--grid-line-fine) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line-fine) 1px, transparent 1px),
     linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
     linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
-  background-size: 32px 32px;
+  background-size: var(--grid-size-fine) var(--grid-size-fine),
+    var(--grid-size-fine) var(--grid-size-fine),
+    var(--grid-size) var(--grid-size),
+    var(--grid-size) var(--grid-size);
 }
 @media (prefers-reduced-motion: reduce) {
   * { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }

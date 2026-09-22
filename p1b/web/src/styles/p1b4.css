@@ -10,8 +10,8 @@
   min-width: 0;
   transition: border-color 150ms ease, background 150ms ease;
 }
-.game-item:hover { border-color: rgba(224, 168, 60, 0.45); background: var(--panel-2); }
-.game-item.is-selected { border-color: rgba(224, 168, 60, 0.55); }
+.game-item:hover { border-color: rgba(143, 175, 123, 0.45); background: var(--panel-2); }
+.game-item.is-selected { border-color: rgba(143, 175, 123, 0.55); }
 .game-item-main { flex: 1; min-width: 0; background: none; border: none; color: inherit; font: inherit; text-align: left; padding: 0; cursor: pointer; }
 .game-item-name { font-weight: 600; font-size: 15.5px; }
 .game-item-meta { margin: 2px 0 0; color: var(--muted); font-size: 12.5px; }
@@ -71,12 +71,12 @@
 /* 生成中横幅 + 就绪提醒 */
 .adv-running {
   display: flex; align-items: center; gap: 10px;
-  background: rgba(224, 168, 60, 0.12); border: 1px solid rgba(224, 168, 60, 0.5);
+  background: rgba(143, 175, 123, 0.12); border: 1px solid rgba(143, 175, 123, 0.5);
   border-radius: var(--radius); padding: 12px 14px; margin-bottom: 12px;
 }
 .adv-running .spinner {
   width: 16px; height: 16px; border-radius: 50%; flex-shrink: 0;
-  border: 2px solid rgba(224, 168, 60, 0.35); border-top-color: var(--accent);
+  border: 2px solid rgba(143, 175, 123, 0.35); border-top-color: var(--accent);
   animation: adv-spin 0.9s linear infinite;
 }
 @keyframes adv-spin { to { transform: rotate(360deg); } }
@@ -99,7 +99,7 @@
 .adv-sec-title { margin: 16px 0 8px; font-size: 13px; color: var(--muted); font-weight: 600; letter-spacing: 1px; }
 .adv-warn {
   margin: 10px 0 0; padding: 8px 10px; border-radius: 8px; font-size: 13px;
-  background: rgba(217, 164, 65, 0.14); color: var(--warn); word-break: break-all;
+  background: rgba(201, 164, 76, 0.14); color: var(--warn); word-break: break-all;
 }
 
 /* 矛盾区：欠定度色标 high=红 mid=黄 low=灰 */
@@ -113,7 +113,7 @@
 .contr-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .under-badge { font-size: 12px; line-height: 1; border-radius: 999px; padding: 5px 9px; white-space: nowrap; }
 .under-badge.high { background: rgba(224, 92, 74, 0.18); color: var(--danger); }
-.under-badge.mid { background: rgba(217, 164, 65, 0.16); color: var(--warn); }
+.under-badge.mid { background: rgba(201, 164, 76, 0.16); color: var(--warn); }
 .under-badge.low { background: var(--panel-2); color: var(--muted); border: 1px solid var(--line); }
 .ref-chip {
   font-size: 11.5px; padding: 2px 7px; border-radius: 999px;
@@ -132,8 +132,8 @@
 .hyp-head { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
 .hyp-id { font-weight: 700; color: var(--accent); font-size: 13.5px; }
 .tend-badge { font-size: 12px; line-height: 1; border-radius: 999px; padding: 4px 8px; white-space: nowrap; }
-.tend-strong { background: rgba(224, 168, 60, 0.18); color: var(--accent); }
-.tend-mid { background: rgba(217, 164, 65, 0.16); color: var(--warn); }
+.tend-strong { background: rgba(143, 175, 123, 0.18); color: var(--accent); }
+.tend-mid { background: rgba(201, 164, 76, 0.16); color: var(--warn); }
 .tend-weak { background: var(--panel-2); color: var(--muted); border: 1px solid var(--line); }
 .hyp-content { margin: 0; font-size: 14px; word-break: break-all; }
 .hyp-evs { margin: 0; font-size: 12px; color: var(--muted); word-break: break-all; }
@@ -154,7 +154,7 @@
 /* ── 补充件 ── */
 .row2 { display: grid; gap: 12px; grid-template-columns: 1fr 1fr; }
 .sheet-seats { max-height: 240px; overflow-y: auto; padding-right: 4px; }
-.chip.is-on { border-color: rgba(224, 168, 60, 0.6); color: var(--accent); }
+.chip.is-on { border-color: rgba(143, 175, 123, 0.6); color: var(--accent); }
 .adv-roster { margin: 4px 0 0; font-size: 12.5px; color: var(--muted); word-break: break-all; }
 
 /* ── B4：BOTC 局详情（阵营/状态声称 + 角色参考面板）── */
@@ -176,9 +176,9 @@
 }
 .team-townsfold, .team-townsfolk { background: rgba(88, 179, 104, 0.16); color: var(--ok); }
 .team-outsider { background: var(--panel); color: var(--muted); border: 1px solid var(--line); }
-.team-minion { background: rgba(217, 164, 65, 0.16); color: var(--warn); }
+.team-minion { background: rgba(201, 164, 76, 0.16); color: var(--warn); }
 .team-demon { background: rgba(224, 92, 74, 0.16); color: var(--danger); }
-.team-traveller, .team-fabled { background: rgba(224, 168, 60, 0.16); color: var(--accent); }
+.team-traveller, .team-fabled { background: rgba(143, 175, 123, 0.16); color: var(--accent); }
 
 /* 桌面宽屏微调 */
 @media (min-width: 900px) {

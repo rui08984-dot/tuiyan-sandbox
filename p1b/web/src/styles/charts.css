@@ -1,0 +1,174 @@
+/* 图表层样式（2026-09-22 全方面重构 · 自研 SVG/CSS，零依赖）
+ * 红线：禁装饰性渐变/发光/动画、禁 emoji 图标、对比度由 contrast-check.cjs 核验。
+ * 本文件所有色值取自 tokens.css，不硬编码 hex。
+ */
+
+/* ── 图框 ── */
+.chart-frame { margin: 0; background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius-md); padding: var(--card-padding); min-width: 0; }
+.chart-frame-head { display: flex; align-items: baseline; gap: var(--space-2); flex-wrap: wrap; margin-bottom: var(--space-2); }
+.chart-frame-actions { margin-left: auto; }
+.chart-title { font-size: var(--font-size-h3); font-weight: 600; }
+.chart-body { min-width: 0; }
+.chart-note { margin: var(--space-2) 0 0; color: var(--muted); font-size: var(--font-size-small); line-height: 1.45; }
+.chart-meta { display: flex; gap: var(--space-3); flex-wrap: wrap; margin-top: var(--space-2); padding-top: 6px;
+  border-top: 1px solid var(--line); color: var(--muted); font-size: var(--font-size-micro); }
+
+/* eyebrow：专业控制台的大写小标签（结构＝信息，非装饰） */
+.chart-eyebrow { display: block; font-size: var(--eyebrow-size); letter-spacing: var(--eyebrow-tracking);
+  text-transform: uppercase; color: var(--muted); font-weight: 600; }
+
+.chart-legend { display: flex; gap: var(--space-3); flex-wrap: wrap; font-size: var(--font-size-small); color: var(--muted); margin-bottom: 6px; }
+.chart-legend-item { display: inline-flex; align-items: center; gap: 5px; }
+.chart-swatch { width: 10px; height: 10px; border-radius: 2px; border: 1px solid var(--line); flex: 0 0 auto; }
+.chart-swatch--line { width: 14px; height: 3px; border-radius: 2px; border: none; }
+.chart-swatch.is-stripe { background: repeating-linear-gradient(45deg, var(--warn) 0 2px, var(--panel-2) 2px 4px); }
+.chart-swatch.is-empty { background: var(--chart-nodata); }
+
+.chart-toggle { appearance: none; background: var(--panel-2); border: 1px solid var(--line); color: var(--muted);
+  border-radius: var(--radius-pill); padding: 3px 10px; font: inherit; font-size: var(--font-size-small); cursor: pointer;
+  transition: border-color 160ms ease, color 160ms ease; }
+.chart-toggle:hover { color: var(--text); border-color: var(--accent); }
+.chart-toggle[aria-pressed="true"] { color: var(--accent); border-color: var(--accent); }
+.chart-toggle--mini { padding: 1px 8px; font-size: var(--font-size-micro); }
+
+/* 数据表兜底 */
+.chart-table-wrap { overflow-x: auto; }
+.chart-table { width: 100%; border-collapse: collapse; font-size: var(--font-size-small); }
+.chart-table th, .chart-table td { text-align: left; padding: 4px 8px; border-top: 1px solid var(--line); }
+.chart-table tr:first-child th { border-top: none; color: var(--muted); font-weight: 500; }
+.chart-table td { font-variant-numeric: tabular-nums; }
+
+/* ── 扇形仪表 ── */
+.gauge { display: flex; flex-direction: column; align-items: center; gap: 2px; position: relative; min-width: 0; }
+.gauge .chart-toggle--mini { position: absolute; top: 0; right: 0; }
+.gauge-value { display: flex; align-items: baseline; gap: 3px; }
+.gauge-num { font-size: var(--font-size-h2); font-weight: 600; font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+.gauge-unit { font-size: var(--font-size-micro); color: var(--muted); }
+.gauge-label { font-size: var(--font-size-small); color: var(--muted); text-align: center; }
+.gauge-thr-note { font-size: var(--font-size-micro); color: var(--chart-threshold); }
+.gauge-bar { width: 100%; padding-top: 18px; }
+.gauge-bar-track { position: relative; display: block; height: 10px; background: var(--panel-2); border-radius: var(--radius-pill); overflow: hidden; }
+.gauge-bar-fill { display: block; height: 100%; border-radius: var(--radius-pill); }
+.gauge-bar-threshold { position: absolute; top: -3px; bottom: -3px; width: 2px; background: var(--chart-threshold); }
+.gauge-bar-scale { display: flex; justify-content: space-between; font-size: var(--font-size-micro); color: var(--muted); margin-top: 3px; }
+.gauge-bar-thr-label { color: var(--chart-threshold); }
+
+/* ── 误差须 / 森林图 ── */
+.errbar { display: grid; grid-template-columns: minmax(72px, auto) auto; align-items: center; gap: 6px; min-width: 0; }
+.errbar svg { grid-column: 2; }
+.errbar-label { font-size: var(--font-size-small); color: var(--muted); }
+.errbar-value { grid-column: 2; font-size: var(--font-size-micro); color: var(--muted); }
+.errbar-thr { grid-column: 2; font-size: var(--font-size-micro); color: var(--chart-threshold); }
+.forest { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+
+/* ── 分域热力表 ── */
+.heatgrid-wrap { min-width: 0; }
+.heatgrid { --heat-cell: 54px; --heat-row-head: 52px; display: grid; gap: 2px; overflow-x: auto; padding-bottom: 4px; }
+.heat-cell { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px;
+  min-height: 40px; padding: 3px 2px; border-radius: 4px; font-size: var(--font-size-micro); text-align: center; }
+.heat-corner { background: transparent; }
+.heat-colhead { color: var(--muted); font-size: var(--font-size-micro); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: var(--heat-cell); }
+.heat-rowhead { flex-direction: row; gap: 4px; justify-content: flex-start; color: var(--text); font-weight: 600; }
+.heat-rowhead-swatch { width: 8px; height: 8px; border-radius: 2px; flex: 0 0 auto; }
+.heat-num { font-weight: 600; color: var(--text); }
+.heat-n { color: var(--muted); opacity: 0.85; }
+.heat-cell.is-thin { background: repeating-linear-gradient(45deg, rgba(0,0,0,0.28) 0 3px, transparent 3px 6px), var(--panel-2) !important; }
+.heat-cell.is-thin .heat-num { color: var(--text); }
+.heat-cell.is-nodata { background: var(--chart-nodata); color: var(--muted); }
+.heat-cell.is-novalue { background: var(--panel-2); color: var(--muted); }
+.heat-legend { display: flex; align-items: center; gap: var(--space-2); margin-top: var(--space-2); font-size: var(--font-size-micro); color: var(--muted); flex-wrap: wrap; }
+.heat-legend-title { font-weight: 600; }
+.heat-legend-bar { flex: 1 1 120px; min-width: 120px; height: 8px; border-radius: 4px; border: 1px solid var(--line);
+  background: linear-gradient(to right, rgb(127, 168, 122), rgb(201, 164, 76), rgb(212, 130, 111)); }
+.heat-legend-ticks { display: flex; justify-content: space-between; gap: var(--space-3); }
+.heat-legend--patterns { margin-top: 6px; }
+
+/* ── 条形族 ── */
+.cbar { display: grid; grid-template-columns: minmax(80px, 1fr) 3fr auto; align-items: center; gap: var(--space-2); min-width: 0; }
+.cbar-label { font-size: var(--font-size-small); color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cbar-track { position: relative; display: block; height: 10px; background: var(--panel-2); border-radius: var(--radius-pill); overflow: hidden; }
+.cbar-fill { position: absolute; left: 0; top: 0; bottom: 0; border-radius: var(--radius-pill); }
+.cbar-threshold { position: absolute; top: -2px; bottom: -2px; width: 2px; background: var(--chart-threshold); }
+.cbar-value { font-size: var(--font-size-small); }
+.cstack { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.cstack-track { display: flex; height: 14px; border-radius: var(--radius-sm); overflow: hidden; background: var(--panel-2); border: 1px solid var(--line); }
+.cstack-seg { display: block; height: 100%; border-right: 1px solid var(--panel); }
+.cstack-seg:last-child { border-right: none; }
+.cstack-seg.is-stripe { background: repeating-linear-gradient(45deg, var(--warn) 0 3px, var(--panel-2) 3px 6px); }
+.cstack-seg.is-empty-track { width: 100%; }
+.cstack-legend { display: flex; gap: var(--space-3); flex-wrap: wrap; font-size: var(--font-size-small); color: var(--muted); }
+.cstack-total { font-size: var(--font-size-micro); color: var(--muted); }
+.cnest { display: grid; grid-template-columns: 3fr auto; align-items: center; gap: var(--space-2); min-width: 0; }
+.cnest-track { display: block; height: 12px; background: transparent; border: 1px solid var(--line); border-radius: var(--radius-sm); overflow: hidden; }
+.cnest-outer { display: block; height: 100%; background: var(--panel-3); }
+.cnest-inner { display: block; height: 100%; background: var(--accent); }
+.cnest-legend { grid-column: 1 / -1; display: flex; gap: var(--space-3); flex-wrap: wrap; font-size: var(--font-size-small); color: var(--muted); }
+
+/* ── 折线 / 直方 ── */
+.linechart { min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+.linechart-main { display: flex; align-items: stretch; gap: 6px; min-width: 0; }
+.linechart-axis { display: flex; flex-direction: column; justify-content: space-between; align-items: flex-end;
+  font-size: var(--font-size-micro); color: var(--muted); flex: 0 0 auto; padding: 2px 0; }
+.linechart-ylabel { writing-mode: vertical-rl; transform: rotate(180deg); color: var(--muted); font-size: var(--font-size-micro); }
+.linechart-plot { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.linechart-svg { width: 100%; height: 120px; display: block; }
+.linechart-xlabels { display: flex; justify-content: space-between; font-size: var(--font-size-micro); color: var(--muted); }
+.hist { min-width: 0; }
+.hist-counts { display: flex; gap: 2px; font-size: var(--font-size-micro); color: var(--muted); margin-top: 2px; }
+.hist-counts span { flex: 1; text-align: center; }
+
+/* ── chip 筛选栏 ── */
+.chips { display: flex; gap: var(--space-3); flex-wrap: wrap; align-items: flex-start; min-width: 0; }
+.chips-group { display: flex; gap: 4px; flex-wrap: wrap; align-items: center; }
+.chip-btn { appearance: none; display: inline-flex; align-items: center; gap: 5px;
+  background: var(--panel-2); border: 1px solid var(--line); color: var(--muted);
+  border-radius: var(--radius-pill); min-height: 32px; padding: 0 12px; font: inherit; font-size: var(--font-size-base);
+  cursor: pointer; transition: border-color 160ms ease, color 160ms ease, background 160ms ease; }
+.chip-btn:hover { color: var(--text); border-color: var(--accent); }
+.chip-btn.is-on { color: var(--accent); border-color: var(--accent); background: rgba(143, 175, 123, 0.12); }
+.chip-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.chip-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+/* ── 迷你条 ── */
+.sparkbar { display: inline-flex; align-items: center; gap: 6px; width: 100%; min-width: 0; }
+.sparkbar-track { flex: 1 1 auto; height: 6px; background: var(--panel-2); border-radius: 3px; overflow: hidden; min-width: 24px; }
+.sparkbar-fill { display: block; height: 100%; background: var(--accent); }
+.sparkbar-text { flex: 0 0 auto; font-size: var(--font-size-micro); }
+
+/* ── 可靠性图 ── */
+.reliability { position: relative; display: inline-block; min-width: 0; }
+.reliability-axis-x { font-size: var(--font-size-micro); color: var(--muted); text-align: center; }
+.reliability-axis-y { position: absolute; left: -6px; top: 50%; transform: rotate(-90deg) translateX(50%);
+  transform-origin: left center; font-size: var(--font-size-micro); color: var(--muted); }
+
+/* ── 响应式（页面级无横向滚动；热力表自身可滚并带键盘可达） ── */
+@media (max-width: 1023px) {
+  .heatgrid { --heat-cell: 46px; }
+  .cbar { grid-template-columns: minmax(64px, 1fr) 2fr auto; }
+}
+@media (max-width: 767px) {
+  .heatgrid { --heat-cell: 42px; --heat-row-head: 40px; }
+  .errbar { grid-template-columns: 1fr; }
+  .errbar svg, .errbar-value, .errbar-thr { grid-column: 1; }
+  .cbar { grid-template-columns: 1fr auto; }
+  .cbar-label { grid-column: 1 / -1; }
+  .linechart-svg { height: 96px; }
+  .chart-toggle { min-height: 44px; }
+  .chip-btn { min-height: 44px; }
+}
+@media (max-width: 374px) {
+  .heatgrid { --heat-cell: 38px; }
+  .gauge-num { font-size: var(--font-size-h3); }
+}
+
+/* 迷你条阈值刻度（如工程下限 20）：竖线 + title，不靠颜色暗示 */
+.sparkbar-threshold { position: absolute; top: -2px; bottom: -2px; width: 2px; background: var(--chart-threshold); }
+.sparkbar-track { position: relative; }
+
+/* 不可比行：用斜纹背景区分（与热力表薄格斜纹同款） */
+.incomparable-row {
+  background: repeating-linear-gradient(45deg, rgba(0,0,0,0.28) 0 3px, transparent 3px 6px);
+  padding: 10px;
+  border-radius: 4px;
+  margin-top: 6px;
+}

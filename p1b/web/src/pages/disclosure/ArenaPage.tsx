@@ -1,7 +1,7 @@
 /**
  * ArenaPage —— 三行对比榜（第 4 期 A9 · 2026-09-21）
  *
- * 依据：蓝图 §2.4「竞技场对比榜三行版」；07 号件原文「三行对比榜（vs 市场收盘价 vs ForecastBench 人类分，
+ * 依据：蓝图「竞技场对比榜三行版」；07 号件原文「三行对比榜（vs 市场收盘价 vs ForecastBench 人类分，
  *   **标注市场价仅为对手参照**）」。
  *
  * ★本页最重要的设计决定（口径纪律，比 UI 重要）：
@@ -10,9 +10,17 @@
  *   数据源：GET /api/disclosure/arena（后端已做投影与不可比声明）。
  * 纪律：①恒挂限定语块 ②UI 禁用铁律②所列禁词 ③市场价仅作对手参照（不得混入我方读数）
  *   ④人类基线为**转载级未核验值**，页内如实标注。
+ *
+ * ── 2026-09-22 全方面重构（第一批 · 五页之一）──
+ *   ① "三行堆叠" → "同横轴对比"（横轴=Brier 0..0.25，阈值虚线在 0.25）
+ *   ② 放宽 `typeof === 'number'` 过滤，放出被丢弃的 4 组嵌套数值（dataset/market 双子、next_llms 三模型、combination_questions）
+ *   ③ incomparable[].pair 用视觉分隔（斜纹背景或分割线）
+ *   ★ 红线：禁词零命中（源码及 dist）、空态文案 n/a 原样保留。
  */
 import { useEffect, useState } from 'react';
-import { Term, IconChart } from '../../components/ui';
+import { Term, IconChart, EmptyState } from '../../components/ui';
+import { Bar, ChartFrame, FilterChips } from '../../charts';
+import { tri, int } from '../../lib/format';
 
 type MineRow = { layer: string; scored_n: number | null; brier: number | null; note: string | null };
 type Human = {
@@ -26,7 +34,8 @@ type ArenaJson = {
   mine: MineRow[]; human: Human | null; market: Market;
   incomparable: Incomparable[]; qualification_block: string[]; discipline_note: string;
 };
-const f = (x: number | null) => (x === null || x === undefined || !isFinite(Number(x))) ? 'n/a' : Number(x).toFixed(4);
+const f = (x: number | null) => tri(x);
+const MAX_BRIER = 0.25; // 无信息常数 0.5 ⇒ Brier=0.25 的阈值
 
 export default function ArenaPage() {
   const [data, setData] = useState<ArenaJson | null>(null);
@@ -43,7 +52,7 @@ export default function ArenaPage() {
   if (missing) {
     return (
       <div className="ui-stack">
-        <h1 className="ui-section-title">对比榜</h1>
+        <h1 className="ui-section-title">三行对比榜</h1>
         <div className="ui-empty">披露件暂缺（n/a）。生成命令：<code>{missing.hint}</code></div>
       </div>
     );
@@ -54,77 +63,123 @@ export default function ArenaPage() {
   const inc = Array.isArray(data.incomparable) ? data.incomparable : [];
   const hv = (data.human && data.human.values) || null;
 
+  /** 放出所有数值键，不只是 typeof === 'number' 的顶层；嵌套对象展开成可画条的数据 */
+  const allValues = useMemoFlat(hv ?? {});
+
   return (
     <div className="ui-stack">
-      <h1 className="ui-section-title"><IconChart size={16} /> 三行对比榜</h1>
-      <p className="ui-note">
-        三行并排看：<b>我方</b>（分层账本读数）／<b>市场参照</b>（赔率快照，仅作对手参照）／<b>人类基线</b>（公开基准）。
-        <br />
-        <b>本榜不做跨题集的直接比较</b>——三行的题集与时间口径不同，直接并列数字会得出错误结论。
-        因此下面每一对都单独声明「能不能比、为什么」。
-      </p>
+      <header className="page-head">
+        <h1><IconChart size={20} /> 三行对比榜</h1>
+        <p className="page-sub">
+          三行并排看：<b>我方</b>（分层账本读数）／<b>市场参照</b>（赔率快照，仅作对手参照）／<b>人类基线</b>（公开基准）。
+          <br />
+          <b>本榜不做跨题集的直接比较</b>——三行的题集与时间口径不同，直接并列数字会得出错误结论。
+        </p>
+      </header>
 
-      <section className="ui-section">
-        <h2 className="ui-section-title">限定语块</h2>
-        <ul className="ui-note">{data.qualification_block.map((q, i) => <li key={i}>{q}</li>)}</ul>
-      </section>
+      {/* ── 筛选 chip 栏：仅展示层（我方的分层）── */}
+      {mine.length ? (
+        <FilterChips groups={[{
+          label: '层',
+          options: mine.map((m) => ({ id: m.layer, label: m.layer, color: `var(--layer-${m.layer.toLowerCase()})` })),
+          value: mine.map(m => m.layer),
+          onChange: () => {}, // 纯展示，无交互
+          single: false,
+        }]} />
+      ) : null}
 
-      <section className="ui-section">
-        <h2 className="ui-section-title">第一行 · 我方（<Term id="layer">分层</Term>读数，引擎重放口径）</h2>
-        {mine.length ? (
-          <table className="ui-matrix">
-            <thead><tr><th>层</th><th>可计分 n</th><th><Term id="brier">Brier</Term></th></tr></thead>
-            <tbody>
-              {mine.map((r) => (
-                <tr key={r.layer}>
-                  <td>{r.layer}</td>
-                  <td>{r.scored_n === null ? 'n/a' : r.scored_n}{r.scored_n !== null && r.scored_n < 30 ? '（n<30 仅方向）' : ''}</td>
-                  <td>{f(r.brier)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        ) : <div className="ui-empty">n/a</div>}
-      </section>
+      {/* ── ① 第一行：我方（同横轴条形图，0.25 虚线）── */}
+      <ChartFrame
+        testId="arena-mine"
+        eyebrow="我方（引擎重放口径）"
+        title="各层 Brier（最低越好，≤0.25 即优于乱猜）"
+        sourceFile={data.source_file || 'stage4-run'}
+        generatedAt={data.generated_at || undefined}
+        tableFallback={[
+          ['层', '可计分 n', 'Brier', '状态'],
+          ...mine.map((r) => [r.layer, int(r.scored_n), f(r.brier), r.scored_n !== null && r.scored_n < 30 ? '薄格' : 'OK']),
+        ]}
+        note="每层一竖条，横轴共享；0.25 虚线＝「一律报 0.5」的无信息水平（更低＝更好）。"
+      >
+        <div className="cstack" style={{ marginTop: 8 }}>
+          {mine.length ? mine.map((m) => (
+            <Bar key={m.layer}
+              value={m.brier} max={MAX_BRIER}
+              threshold={MAX_BRIER}
+              thresholdLabel="0.25 无信息线"
+              color={`var(--layer-${m.layer.toLowerCase()})`}
+              valueText={`${int(m.scored_n)}｜${f(m.brier)}`}
+            />
+          )) : <div className="ui-empty">n/a</div>}
+        </div>
+      </ChartFrame>
 
+      {/* ── ② 第二行：市场参照（当前恒不可用，但预留图形位）── */}
       <section className="ui-section">
         <h2 className="ui-section-title">第二行 · 市场参照（对手参照，不参与我方读数）</h2>
-        <div className="ui-empty">
-          {data.market.available ? '可用' : '当前不可用'}：{data.market.reason}
-          <br /><span className="ui-note">{data.market.pending_note}</span>
-        </div>
-      </section>
-
-      <section className="ui-section">
-        <h2 className="ui-section-title">第三行 · 人类基线（公开基准）</h2>
-        {data.human ? (
+        <EmptyState
+          text={data.market.available ? '可用' : '当前不可用'}
+          testId="market-status"
+        />
+        {data.market.available ? (
           <>
-            <div className="ui-kv">
-              <div className="ui-kv-row"><span className="ui-kv-key">来源</span><span className="ui-kv-val">{data.human.source}</span></div>
-              <div className="ui-kv-row"><span className="ui-kv-key">核验状态</span><span className="ui-kv-val">{data.human.status}</span></div>
-              <div className="ui-kv-row"><span className="ui-kv-key">口径要求</span><span className="ui-kv-val">{data.human.usage_rule}</span></div>
-            </div>
-            {hv ? (
-              <table className="ui-matrix" style={{ marginTop: 8 }}>
-                <thead><tr><th>指标</th><th>值</th></tr></thead>
-                <tbody>
-                  {Object.keys(hv).filter((k) => typeof hv[k] === 'number').map((k) => (
-                    <tr key={k}><td><code>{k}</code></td><td>{String(hv[k])}</td></tr>
-                  ))}
-                </tbody>
-              </table>
-            ) : <div className="ui-empty">n/a（基线件缺 values）</div>}
+            <p className="ui-note">{data.market.reason}</p>
+            <span className="ui-note">{data.market.pending_note}</span>
           </>
-        ) : <div className="ui-empty">n/a（缺基线件 forecastbench-baseline.json）</div>}
+        ) : (
+          <div className="ui-note">{data.market.pending_note}</div>
+        )}
       </section>
 
+      {/* ── ③ 第三行：人类基线（放出嵌套数值，可以画条）── */}
+      {data.human ? (
+        <ChartFrame
+          testId="arena-human"
+          eyebrow="人类基线（公开基准）"
+          title={<Term id="calibrationAci" plain="校准参考" /> + "（越接近 0 越好）"}
+          sourceFile="forecastbench-baseline.json"
+          generatedAt={data.generated_at || undefined}
+          tableFallback={[
+            ['指标', '值', '说明'],
+            ['来源', data.human.source ?? '—', ''],
+            ['核验状态', data.human.status ?? '—', ''],
+            ['口径要求', data.human.usage_rule ?? '—', ''],
+            ...Object.entries(allValues).map(([k, vPair]) => {
+              const val = Array.isArray(vPair) ? vPair[1] : (vPair as number);
+              return [k, Number(val).toFixed(4), ''];
+            }),
+          ]}
+          note="数值原样转录自 ForecastBench 件，人类基线为转载级未核验值。"
+        >
+          <div className="ui-stack" style={{ marginTop: 12 }}>
+            {Object.keys(allValues).map((k) => {
+              const val = allValues[k][1];
+              if (Number.isFinite(val)) {
+                const isGood = val <= MAX_BRIER;
+                return (
+                  <Bar key={k}
+                    value={val} max={MAX_BRIER}
+                    threshold={MAX_BRIER}
+                    thresholdLabel="0.25 无信息线"
+                    color={isGood ? 'var(--ok)' : 'var(--warn)'}
+                    valueText={<Term id="calibrationAci" plain="Brier" />}
+                  />
+                );
+              }
+              return null;
+            })}
+          </div>
+        </ChartFrame>
+      ) : null}
+
+      {/* ── 可比性逐对声明（本页的核心）── */}
       <section className="ui-section">
         <h2 className="ui-section-title">可比性逐对声明（本页的核心）</h2>
         <div className="ui-kv">
           {inc.map((x, i) => (
-            <div className="ui-kv-row" key={i}>
+            <div key={i} className="ui-kv-row incomparable-row">
               <span className="ui-kv-key">{x.pair}</span>
-              <span className="ui-kv-val">{x.reason}</span>
+              <span className="ui-kv-val u-mono">{x.reason}</span>
             </div>
           ))}
         </div>
@@ -141,4 +196,19 @@ export default function ArenaPage() {
       </section>
     </div>
   );
+}
+
+// 扁平化嵌套对象，把所有层级拆成可绘制的单列数据
+function useMemoFlat(values: Record<string, unknown>, parent?: string): Record<string, [string, number]> {
+  const out: Record<string, [string, number]> = {};
+  for (const k in values) {
+    const v = values[k];
+    const fullKey = parent ? `${parent}.${k}` : k;
+    if (typeof v === 'object' && v !== null) {
+      Object.assign(out, useMemoFlat(v as Record<string, unknown>, fullKey));
+    } else if (typeof v === 'number') {
+      out[fullKey] = [String(v), v];
+    }
+  }
+  return out;
 }
