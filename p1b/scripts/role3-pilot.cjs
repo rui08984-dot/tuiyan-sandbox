@@ -195,7 +195,19 @@ async function main() {
   // 汇总 rows.json（分母＝全部提议分支；含解析失败/违约/调用失败）
   const existing = (() => { try { return JSON.parse(fs.readFileSync(OUT_ROWS, 'utf8')); } catch (e) { return null; } })();
   const merged = existing && Array.isArray(existing.rows) ? existing.rows.concat(allRows) : allRows;
-  fs.writeFileSync(OUT_ROWS, JSON.stringify({ label: 'role3-分解小批-' + TAG, generated_at: new Date().toISOString(), cutoff_note: '子题 cutoff＝提议时刻（ runner 注入），事件日=开赛日 ⇒ 未来事件无泄漏', rows: merged }, null, 1), 'utf8');
+  // ★2026-09-22：本 runner 的口径**比 drops 数组更严**——无效项（解析失败/契约违约/调用失败）**不丢弃**，
+  //   而是留在 rows 里以 `_valid:false` 标记（resolve=null ⇒ gate 判 no_anchor）⇒ **分母天然＝提议全集**。
+  //   此处显式输出 `drops: []` 并说明，让 anchor-gate 能报**严格口径**（否则 gate 只报「候选口径」）。
+  //   ★若将来改成「丢弃无效项」，必须改为往 drops 里塞，不得静默丢。
+  fs.writeFileSync(OUT_ROWS, JSON.stringify({
+    label: 'role3-分解小批-' + TAG,
+    generated_at: new Date().toISOString(),
+    cutoff_note: '子题 cutoff＝提议时刻（ runner 注入），事件日=开赛日 ⇒ 未来事件无泄漏',
+    drops: [],
+    drops_note: '★空数组是**如实**的：本 runner 不丢弃任何提议——解析失败/契约违约/调用失败均留在 rows 里'
+      + '（_valid:false ＋ resolve:null）⇒ gate 会判它们 no_anchor ⇒ 分母天然＝提议全集（比 drops 口径更严）。',
+    rows: merged,
+  }, null, 1), 'utf8');
 
   const usage = llmChat.getUsageStats();
   const summary = {

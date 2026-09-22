@@ -108,3 +108,14 @@ test('⑥ 冻结件形状锁', () => {
     for (const k of ['parent_id', 'kind', 'pick', 'child_statement']) assert.ok(k in b, '分支须含 ' + k);
   }
 });
+
+test('⑦ ★role3-pilot 的严格口径（drops:[] 是如实，非缺失）', () => {
+  // 背景（2026-09-22）：role3-pilot 的口径**比 drops 数组更严**——无效项（解析失败/契约违约/调用失败）
+  //   不丢弃，而是留在 rows 里以 _valid:false 标记（resolve=null ⇒ gate 判 no_anchor）
+  //   ⇒ 分母天然＝提议全集。本批补显式 drops: [] ＋ 说明，让 gate 能报**严格口径**。
+  const pilotSrc = fs.readFileSync(path.join(ROOT, 'p1b/scripts/role3-pilot.cjs'), 'utf8');
+  assert.ok(pilotSrc.indexOf('drops: []') !== -1, '★须显式输出 drops: []（否则 gate 只报候选口径）');
+  assert.ok(/drops_note/.test(pilotSrc), '须附说明（防后人误以为「空数组＝没做留痕」）');
+  assert.ok(/_valid/.test(pilotSrc), '须保留 _valid 标记机制');
+  assert.ok(/不丢弃任何提议|比 drops 口径更严|分母天然/.test(pilotSrc), '★说明须点明该口径比 drops 更严');
+});
