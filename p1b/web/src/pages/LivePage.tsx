@@ -81,30 +81,39 @@ export default function LivePage() {
         />
       )}
 
-      {gid != null && <AdvisorZone gameId={gid} gameName={g.game?.name ?? '#' + gid} advise={advise} />}
-      {gid != null && <OracleZone gameId={gid} advise={advise} />}
+      {/* ══ 主体：两栏工作台（2026-09-22 六轮重做）══
+       * 用户反馈首页「排版稀烂、不够功能化、像是在为狼人杀做的」。
+       * 根因（实测）：所有区块宽度都锁在 828px，在 1440 屏上浪费近一半横向空间，
+       *   而时间线却高 1538px —— 是「窄栏垂直堆叠」，不是工作台布局。
+       * 改法：按**职责**分两栏（宽屏），窄屏保持单栏顺序流：
+       *   左栏＝记录流（时间线，主内容，占 1.6 份宽）
+       *   右栏＝工具区（参谋卡 / 判词 / 录入，占 1 份宽，sticky 跟随）
+       * 这样「看记录」与「用工具」各占其位，不必来回滚动。 */}
+      {!showGuide && gid != null ? (
+        <div className="live-shell">
+          <div className="live-main">
+            <div className="section-title">第 {g.day} 天事件流（最新在上）</div>
+            <Timeline events={g.events.filter((e) => e.day === g.day)} claims={g.claims.filter((c) => c.day === g.day)}
+              actions={g.actions.filter((a) => a.day === g.day)}
+              botcClaims={g.botcClaims.filter((c) => c.day === g.day)} botcScript={g.script}
+              seatName={g.seatName} busy={g.busy}
+              onEditClaim={(c) => { g.setEditErr(null); g.setEditTarget({ kind: 'claim', row: c }); }}
+              onRetractClaim={(c) => void g.doRetract('claim', c)}
+              onEditAction={(a) => { g.setEditErr(null); g.setEditTarget({ kind: 'action', row: a }); }}
+              onRetractAction={(a) => void g.doRetract('action', a)}
+              onRetractBotcClaim={(c) => void g.doRetractBotc(c)} />
+          </div>
 
-      {!showGuide && gid != null && (
-        <>
-          <div className="section-title">第 {g.day} 天事件流（最新在上）</div>
-          <Timeline events={g.events.filter((e) => e.day === g.day)} claims={g.claims.filter((c) => c.day === g.day)}
-            actions={g.actions.filter((a) => a.day === g.day)}
-            botcClaims={g.botcClaims.filter((c) => c.day === g.day)} botcScript={g.script}
-            seatName={g.seatName} busy={g.busy}
-            onEditClaim={(c) => { g.setEditErr(null); g.setEditTarget({ kind: 'claim', row: c }); }}
-            onRetractClaim={(c) => void g.doRetract('claim', c)}
-            onEditAction={(a) => { g.setEditErr(null); g.setEditTarget({ kind: 'action', row: a }); }}
-            onRetractAction={(a) => void g.doRetract('action', a)}
-            onRetractBotcClaim={(c) => void g.doRetractBotc(c)} />
-        </>
-      )}
-
-      {/* 输入条仅在选了局之后出现（它有 hasGame 判定，但无局时整条都无意义） */}
-      {gid != null && (
-        <InputBar text={cf.text} phase={g.phase} busy={g.busy} hasGame={gid != null}
-          onText={cf.setText} onPhase={g.setPhase} onSend={() => void cf.sendText()}
-          onMacro={(k) => { cf.setMacroErr(null); cf.setMacroKind(k); }} />
-      )}
+          <aside className="live-side">
+            <AdvisorZone gameId={gid} gameName={g.game?.name ?? '#' + gid} advise={advise} />
+            <OracleZone gameId={gid} advise={advise} />
+            {/* 录入区在右栏：与记录流同屏，边看边记不必滚动 */}
+            <InputBar text={cf.text} phase={g.phase} busy={g.busy} hasGame={gid != null}
+              onText={cf.setText} onPhase={g.setPhase} onSend={() => void cf.sendText()}
+              onMacro={(k) => { cf.setMacroErr(null); cf.setMacroKind(k); }} />
+          </aside>
+        </div>
+      ) : null}
 
       {cf.macroKind != null && (
         <MacroSheet key={cf.macroKind} kind={cf.macroKind} day={g.day} phase={g.phase} players={g.players} botcScript={g.script} busy={g.busy}

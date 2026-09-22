@@ -175,3 +175,50 @@
   .appbar-inner { display: flex; align-items: center; gap: 10px; width: 100%; max-width: 860px; }
   .content { padding-bottom: 48px; max-width: 860px; }
 }
+
+/* ══ 首页工作台两栏（2026-09-22 六轮）══
+ * 用户反馈首页「排版稀烂、不够功能化、像在为狼人杀做的」。
+ * 实测根因：所有区块宽度锁死在 828px（.content 默认宽档），
+ *   1440 屏上左右各空约 300px，而时间线却纵向堆到 1538px —— 是「窄栏堆叠」不是工作台。
+ * 改法：左栏记录流（主）+ 右栏工具区（sticky 跟随），按职责分区。 */
+.live-shell {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(300px, 1fr);
+  gap: var(--space-5);
+  align-items: start;
+  min-width: 0;
+}
+.live-main { min-width: 0; }
+.live-side {
+  display: flex; flex-direction: column; gap: var(--space-3);
+  min-width: 0;
+  /* 工具区随滚动跟随：记录流很长时，录入框始终在手边 */
+  position: sticky;
+  top: calc(56px + var(--space-4));
+  max-height: calc(100dvh - 56px - var(--space-5));
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+.live-side::-webkit-scrollbar { width: 0; }
+
+/* 右栏内的输入条：不再吸底（它已在 sticky 栏里），否则会与栏体打架 */
+.live-side .input-bar { position: static; bottom: auto; }
+/* 右栏内的条状组件：去掉重复的外边距（栏的 gap 已负责间距） */
+.live-side .adv-strip { margin-bottom: 0; }
+
+/* 窄屏：回到单栏顺序流（记录流 → 工具），不强行两栏 */
+@media (max-width: 1023px) {
+  .live-shell { grid-template-columns: minmax(0, 1fr); gap: var(--space-4); }
+  .live-side {
+    position: static; max-height: none; overflow: visible;
+    /* 窄屏把录入放回底部（拇指可达），工具区在上 */
+    order: 2;
+  }
+  .live-side .input-bar {
+    position: sticky; bottom: calc(8px + env(safe-area-inset-bottom));
+  }
+}
+/* 首页在宽屏用宽档容器（原为 828 阅读宽，导致两侧留白近半屏） */
+@media (min-width: 1024px) {
+  .content:has(.live-shell) { max-width: 1280px; }
+}
