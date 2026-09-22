@@ -98,3 +98,29 @@ test('⑥ ★gate 口径边界（如实记录，非失败）', () => {
   assert.ok(/gate 口径|局内前瞻|日期粒度|unverifiable/i.test(SRC) || /日历口径/.test(SRC),
     '头注须记录「局内口径与日历口径不同量纲」这一边界');
 });
+
+test('⑦ ★候选留痕旁路（--record-candidates）', () => {
+  // 背景（2026-09-22）：交接件 §1 下一棒②「新产分支批次的候选留痕（--record-candidates 同款）」。
+  //   承 corpus-sources-b4.cjs 同款实现（默认关 ⇒ 零行为变化）。
+  const SRC2 = fs.readFileSync(SCRIPT, 'utf8');
+  // ① 静态锁：须有旁路三件（路径解析／drops 数组／落盘分支）
+  assert.ok(/--record-candidates=/.test(SRC2), '须支持 --record-candidates= 参数');
+  assert.ok(/const DROPS = \[\]/.test(SRC2), '须有 DROPS 数组');
+  assert.ok(/function recDrop/.test(SRC2), '须有 recDrop 函数');
+  assert.ok(/if \(REC_PATH\) \{/.test(SRC2), '落盘须以 REC_PATH 为条件（默认关）');
+  // ② ★默认关锁：不传参时不得建数组/写文件（recDrop 首行即 return）
+  assert.ok(/function recDrop\(stage, reason, info\) \{ if \(!REC_PATH\) return;/.test(SRC2), '★recDrop 须在 !REC_PATH 时立即 return（默认关零行为变化）');
+  // ③ 丢弃点覆盖：5 处父题级丢弃都应留痕
+  const n = (SRC2.match(/recDrop\('parent'/g) || []).length;
+  assert.equal(n, 5, '应有 5 处父题级 recDrop 调用（实测 ' + n + '）');
+  // ④ 产物锁：若留痕件已生成，须含 counts 与严格口径说明
+  const recPath = path.join(ROOT, '.scratch/p37/utype-candidates.json');
+  if (fs.existsSync(recPath)) {
+    const r = JSON.parse(fs.readFileSync(recPath, 'utf8'));
+    assert.ok(r.counts && typeof r.counts.proposed_total === 'number', '留痕件须含 counts.proposed_total');
+    assert.equal(r.counts.proposed_total, r.counts.candidates + r.counts.drops, '提议全集＝候选＋被丢');
+    assert.ok(/严格分母/.test(r.note), '须说明严格分母口径');
+    // ★如实标注：本生成器的 drops 是父题级（非路径级）
+    assert.ok(/父题级/.test(r.note), '★须如实标注 drops 是父题级');
+  }
+});

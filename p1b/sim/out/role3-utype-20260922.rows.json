@@ -1,0 +1,3530 @@
+[
+ {
+  "statement": "【U型·路径】sim 局 7（发言已毕、投票未开）：本局会放逐 3 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 7,
+   "seat": 3,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 7,
+   "path_seat": 3,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|7|exile|3"
+ },
+ {
+  "statement": "【U型·路径】sim 局 7（发言已毕、投票未开）：本局会放逐 4 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 7,
+   "seat": 4,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 7,
+   "path_seat": 4,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|7|exile|4"
+ },
+ {
+  "statement": "【U型·路径】sim 局 7（发言已毕、投票未开）：本局会放逐 5 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 7,
+   "seat": 5,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 7,
+   "path_seat": 5,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|7|exile|5"
+ },
+ {
+  "statement": "【U型·路径】sim 局 7（发言已毕、投票未开）：本局会放逐 6 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 7,
+   "seat": 6,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 7,
+   "path_seat": 6,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|7|exile|6"
+ },
+ {
+  "statement": "【U型·路径】sim 局 8（发言已毕、投票未开）：本局会放逐 2 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 8,
+   "seat": 2,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 8,
+   "path_seat": 2,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|8|exile|2"
+ },
+ {
+  "statement": "【U型·路径】sim 局 8（发言已毕、投票未开）：本局会放逐 3 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 8,
+   "seat": 3,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 8,
+   "path_seat": 3,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|8|exile|3"
+ },
+ {
+  "statement": "【U型·路径】sim 局 8（发言已毕、投票未开）：本局会放逐 4 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 8,
+   "seat": 4,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 8,
+   "path_seat": 4,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|8|exile|4"
+ },
+ {
+  "statement": "【U型·路径】sim 局 8（发言已毕、投票未开）：本局会放逐 6 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 8,
+   "seat": 6,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 8,
+   "path_seat": 6,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|8|exile|6"
+ },
+ {
+  "statement": "【U型·路径】sim 局 9（发言已毕、投票未开）：本局会放逐 1 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 9,
+   "seat": 1,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 9,
+   "path_seat": 1,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|9|exile|1"
+ },
+ {
+  "statement": "【U型·路径】sim 局 9（发言已毕、投票未开）：本局会放逐 2 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 9,
+   "seat": 2,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 9,
+   "path_seat": 2,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|9|exile|2"
+ },
+ {
+  "statement": "【U型·路径】sim 局 9（发言已毕、投票未开）：本局会放逐 4 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 9,
+   "seat": 4,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 9,
+   "path_seat": 4,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|9|exile|4"
+ },
+ {
+  "statement": "【U型·路径】sim 局 9（发言已毕、投票未开）：本局会放逐 5 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 9,
+   "seat": 5,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 9,
+   "path_seat": 5,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|9|exile|5"
+ },
+ {
+  "statement": "【U型·路径】sim 局 10（发言已毕、投票未开）：本局会放逐 1 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 10,
+   "seat": 1,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 10,
+   "path_seat": 1,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|10|exile|1"
+ },
+ {
+  "statement": "【U型·路径】sim 局 10（发言已毕、投票未开）：本局会放逐 3 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 10,
+   "seat": 3,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 10,
+   "path_seat": 3,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|10|exile|3"
+ },
+ {
+  "statement": "【U型·路径】sim 局 10（发言已毕、投票未开）：本局会放逐 4 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 10,
+   "seat": 4,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 10,
+   "path_seat": 4,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|10|exile|4"
+ },
+ {
+  "statement": "【U型·路径】sim 局 10（发言已毕、投票未开）：本局会放逐 5 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 10,
+   "seat": 5,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 10,
+   "path_seat": 5,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|10|exile|5"
+ },
+ {
+  "statement": "【U型·路径】sim 局 11（发言已毕、投票未开）：本局会放逐 1 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 11,
+   "seat": 1,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 11,
+   "path_seat": 1,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|11|exile|1"
+ },
+ {
+  "statement": "【U型·路径】sim 局 11（发言已毕、投票未开）：本局会放逐 2 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 11,
+   "seat": 2,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 11,
+   "path_seat": 2,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|11|exile|2"
+ },
+ {
+  "statement": "【U型·路径】sim 局 11（发言已毕、投票未开）：本局会放逐 5 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 11,
+   "seat": 5,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 11,
+   "path_seat": 5,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|11|exile|5"
+ },
+ {
+  "statement": "【U型·路径】sim 局 11（发言已毕、投票未开）：本局会放逐 6 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 11,
+   "seat": 6,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 11,
+   "path_seat": 6,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|11|exile|6"
+ },
+ {
+  "statement": "【U型·路径】sim 局 12（发言已毕、投票未开）：本局会放逐 2 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 12,
+   "seat": 2,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 12,
+   "path_seat": 2,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|12|exile|2"
+ },
+ {
+  "statement": "【U型·路径】sim 局 12（发言已毕、投票未开）：本局会放逐 3 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 12,
+   "seat": 3,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 12,
+   "path_seat": 3,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|12|exile|3"
+ },
+ {
+  "statement": "【U型·路径】sim 局 12（发言已毕、投票未开）：本局会放逐 5 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 12,
+   "seat": 5,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 12,
+   "path_seat": 5,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|12|exile|5"
+ },
+ {
+  "statement": "【U型·路径】sim 局 12（发言已毕、投票未开）：本局会放逐 6 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 12,
+   "seat": 6,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 12,
+   "path_seat": 6,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|12|exile|6"
+ },
+ {
+  "statement": "【U型·路径】sim 局 13（发言已毕、投票未开）：本局会放逐 1 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 13,
+   "seat": 1,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 13,
+   "path_seat": 1,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|13|exile|1"
+ },
+ {
+  "statement": "【U型·路径】sim 局 13（发言已毕、投票未开）：本局会放逐 2 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 13,
+   "seat": 2,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 13,
+   "path_seat": 2,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|13|exile|2"
+ },
+ {
+  "statement": "【U型·路径】sim 局 13（发言已毕、投票未开）：本局会放逐 4 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 13,
+   "seat": 4,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 13,
+   "path_seat": 4,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|13|exile|4"
+ },
+ {
+  "statement": "【U型·路径】sim 局 13（发言已毕、投票未开）：本局会放逐 5 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 13,
+   "seat": 5,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 13,
+   "path_seat": 5,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|13|exile|5"
+ },
+ {
+  "statement": "【U型·路径】sim 局 14（发言已毕、投票未开）：本局会放逐 1 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 14,
+   "seat": 1,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 14,
+   "path_seat": 1,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|14|exile|1"
+ },
+ {
+  "statement": "【U型·路径】sim 局 14（发言已毕、投票未开）：本局会放逐 2 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 14,
+   "seat": 2,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 14,
+   "path_seat": 2,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|14|exile|2"
+ },
+ {
+  "statement": "【U型·路径】sim 局 14（发言已毕、投票未开）：本局会放逐 3 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 14,
+   "seat": 3,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 14,
+   "path_seat": 3,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|14|exile|3"
+ },
+ {
+  "statement": "【U型·路径】sim 局 14（发言已毕、投票未开）：本局会放逐 4 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 14,
+   "seat": 4,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 14,
+   "path_seat": 4,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|14|exile|4"
+ },
+ {
+  "statement": "【U型·路径】sim 局 15（发言已毕、投票未开）：本局会放逐 1 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 15,
+   "seat": 1,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 15,
+   "path_seat": 1,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|15|exile|1"
+ },
+ {
+  "statement": "【U型·路径】sim 局 15（发言已毕、投票未开）：本局会放逐 4 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 15,
+   "seat": 4,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 15,
+   "path_seat": 4,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|15|exile|4"
+ },
+ {
+  "statement": "【U型·路径】sim 局 15（发言已毕、投票未开）：本局会放逐 5 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 15,
+   "seat": 5,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 15,
+   "path_seat": 5,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|15|exile|5"
+ },
+ {
+  "statement": "【U型·路径】sim 局 15（发言已毕、投票未开）：本局会放逐 6 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 15,
+   "seat": 6,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 15,
+   "path_seat": 6,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|15|exile|6"
+ },
+ {
+  "statement": "【U型·路径】sim 局 16（发言已毕、投票未开）：本局会放逐 1 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 16,
+   "seat": 1,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 16,
+   "path_seat": 1,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|16|exile|1"
+ },
+ {
+  "statement": "【U型·路径】sim 局 16（发言已毕、投票未开）：本局会放逐 3 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 16,
+   "seat": 3,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 16,
+   "path_seat": 3,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|16|exile|3"
+ },
+ {
+  "statement": "【U型·路径】sim 局 16（发言已毕、投票未开）：本局会放逐 5 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 16,
+   "seat": 5,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 16,
+   "path_seat": 5,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|16|exile|5"
+ },
+ {
+  "statement": "【U型·路径】sim 局 16（发言已毕、投票未开）：本局会放逐 6 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 16,
+   "seat": 6,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 16,
+   "path_seat": 6,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|16|exile|6"
+ },
+ {
+  "statement": "【U型·路径】sim 局 17（发言已毕、投票未开）：本局会放逐 3 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 17,
+   "seat": 3,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 17,
+   "path_seat": 3,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|17|exile|3"
+ },
+ {
+  "statement": "【U型·路径】sim 局 17（发言已毕、投票未开）：本局会放逐 4 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 17,
+   "seat": 4,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 17,
+   "path_seat": 4,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|17|exile|4"
+ },
+ {
+  "statement": "【U型·路径】sim 局 17（发言已毕、投票未开）：本局会放逐 5 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 17,
+   "seat": 5,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 17,
+   "path_seat": 5,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|17|exile|5"
+ },
+ {
+  "statement": "【U型·路径】sim 局 17（发言已毕、投票未开）：本局会放逐 6 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 17,
+   "seat": 6,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 17,
+   "path_seat": 6,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|17|exile|6"
+ },
+ {
+  "statement": "【U型·路径】sim 局 18（发言已毕、投票未开）：本局会放逐 1 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 18,
+   "seat": 1,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 18,
+   "path_seat": 1,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|18|exile|1"
+ },
+ {
+  "statement": "【U型·路径】sim 局 18（发言已毕、投票未开）：本局会放逐 3 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 18,
+   "seat": 3,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 18,
+   "path_seat": 3,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|18|exile|3"
+ },
+ {
+  "statement": "【U型·路径】sim 局 18（发言已毕、投票未开）：本局会放逐 4 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 18,
+   "seat": 4,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 18,
+   "path_seat": 4,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|18|exile|4"
+ },
+ {
+  "statement": "【U型·路径】sim 局 18（发言已毕、投票未开）：本局会放逐 5 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 18,
+   "seat": 5,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 18,
+   "path_seat": 5,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|18|exile|5"
+ },
+ {
+  "statement": "【U型·路径】sim 局 19（发言已毕、投票未开）：本局会放逐 3 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 19,
+   "seat": 3,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 19,
+   "path_seat": 3,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|19|exile|3"
+ },
+ {
+  "statement": "【U型·路径】sim 局 19（发言已毕、投票未开）：本局会放逐 4 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 19,
+   "seat": 4,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 19,
+   "path_seat": 4,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|19|exile|4"
+ },
+ {
+  "statement": "【U型·路径】sim 局 19（发言已毕、投票未开）：本局会放逐 5 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 19,
+   "seat": 5,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 19,
+   "path_seat": 5,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|19|exile|5"
+ },
+ {
+  "statement": "【U型·路径】sim 局 19（发言已毕、投票未开）：本局会放逐 6 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 19,
+   "seat": 6,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 19,
+   "path_seat": 6,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|19|exile|6"
+ },
+ {
+  "statement": "【U型·路径】sim 局 20（发言已毕、投票未开）：本局会放逐 2 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 20,
+   "seat": 2,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 20,
+   "path_seat": 2,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|20|exile|2"
+ },
+ {
+  "statement": "【U型·路径】sim 局 20（发言已毕、投票未开）：本局会放逐 4 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 20,
+   "seat": 4,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 20,
+   "path_seat": 4,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|20|exile|4"
+ },
+ {
+  "statement": "【U型·路径】sim 局 20（发言已毕、投票未开）：本局会放逐 5 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 20,
+   "seat": 5,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 20,
+   "path_seat": 5,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|20|exile|5"
+ },
+ {
+  "statement": "【U型·路径】sim 局 20（发言已毕、投票未开）：本局会放逐 6 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 20,
+   "seat": 6,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 20,
+   "path_seat": 6,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|20|exile|6"
+ },
+ {
+  "statement": "【U型·路径】sim 局 21（发言已毕、投票未开）：本局会放逐 1 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 21,
+   "seat": 1,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 21,
+   "path_seat": 1,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|21|exile|1"
+ },
+ {
+  "statement": "【U型·路径】sim 局 21（发言已毕、投票未开）：本局会放逐 2 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 21,
+   "seat": 2,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 21,
+   "path_seat": 2,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|21|exile|2"
+ },
+ {
+  "statement": "【U型·路径】sim 局 21（发言已毕、投票未开）：本局会放逐 4 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 21,
+   "seat": 4,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 21,
+   "path_seat": 4,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|21|exile|4"
+ },
+ {
+  "statement": "【U型·路径】sim 局 21（发言已毕、投票未开）：本局会放逐 5 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 21,
+   "seat": 5,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 21,
+   "path_seat": 5,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|21|exile|5"
+ },
+ {
+  "statement": "【U型·路径】sim 局 22（发言已毕、投票未开）：本局会放逐 1 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 22,
+   "seat": 1,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 22,
+   "path_seat": 1,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|22|exile|1"
+ },
+ {
+  "statement": "【U型·路径】sim 局 22（发言已毕、投票未开）：本局会放逐 2 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 22,
+   "seat": 2,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 22,
+   "path_seat": 2,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|22|exile|2"
+ },
+ {
+  "statement": "【U型·路径】sim 局 22（发言已毕、投票未开）：本局会放逐 4 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 22,
+   "seat": 4,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 22,
+   "path_seat": 4,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|22|exile|4"
+ },
+ {
+  "statement": "【U型·路径】sim 局 22（发言已毕、投票未开）：本局会放逐 6 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 22,
+   "seat": 6,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 22,
+   "path_seat": 6,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|22|exile|6"
+ },
+ {
+  "statement": "【U型·路径】sim 局 23（发言已毕、投票未开）：本局会放逐 1 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 23,
+   "seat": 1,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 23,
+   "path_seat": 1,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|23|exile|1"
+ },
+ {
+  "statement": "【U型·路径】sim 局 23（发言已毕、投票未开）：本局会放逐 2 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 23,
+   "seat": 2,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 23,
+   "path_seat": 2,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|23|exile|2"
+ },
+ {
+  "statement": "【U型·路径】sim 局 23（发言已毕、投票未开）：本局会放逐 5 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 23,
+   "seat": 5,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 23,
+   "path_seat": 5,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|23|exile|5"
+ },
+ {
+  "statement": "【U型·路径】sim 局 23（发言已毕、投票未开）：本局会放逐 6 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 23,
+   "seat": 6,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 23,
+   "path_seat": 6,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|23|exile|6"
+ },
+ {
+  "statement": "【U型·路径】sim 局 24（发言已毕、投票未开）：本局会放逐 1 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 24,
+   "seat": 1,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 24,
+   "path_seat": 1,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|24|exile|1"
+ },
+ {
+  "statement": "【U型·路径】sim 局 24（发言已毕、投票未开）：本局会放逐 3 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 24,
+   "seat": 3,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 24,
+   "path_seat": 3,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|24|exile|3"
+ },
+ {
+  "statement": "【U型·路径】sim 局 24（发言已毕、投票未开）：本局会放逐 5 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 24,
+   "seat": 5,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 24,
+   "path_seat": 5,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|24|exile|5"
+ },
+ {
+  "statement": "【U型·路径】sim 局 24（发言已毕、投票未开）：本局会放逐 6 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 24,
+   "seat": 6,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 24,
+   "path_seat": 6,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|24|exile|6"
+ },
+ {
+  "statement": "【U型·路径】sim 局 25（发言已毕、投票未开）：本局会放逐 1 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 25,
+   "seat": 1,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 25,
+   "path_seat": 1,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|25|exile|1"
+ },
+ {
+  "statement": "【U型·路径】sim 局 25（发言已毕、投票未开）：本局会放逐 2 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 25,
+   "seat": 2,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 25,
+   "path_seat": 2,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|25|exile|2"
+ },
+ {
+  "statement": "【U型·路径】sim 局 25（发言已毕、投票未开）：本局会放逐 3 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 25,
+   "seat": 3,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 25,
+   "path_seat": 3,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|25|exile|3"
+ },
+ {
+  "statement": "【U型·路径】sim 局 25（发言已毕、投票未开）：本局会放逐 4 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 25,
+   "seat": 4,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 25,
+   "path_seat": 4,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|25|exile|4"
+ },
+ {
+  "statement": "【U型·路径】sim 局 26（发言已毕、投票未开）：本局会放逐 1 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 26,
+   "seat": 1,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 26,
+   "path_seat": 1,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|26|exile|1"
+ },
+ {
+  "statement": "【U型·路径】sim 局 26（发言已毕、投票未开）：本局会放逐 2 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 26,
+   "seat": 2,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 26,
+   "path_seat": 2,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|26|exile|2"
+ },
+ {
+  "statement": "【U型·路径】sim 局 26（发言已毕、投票未开）：本局会放逐 4 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 26,
+   "seat": 4,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 26,
+   "path_seat": 4,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|26|exile|4"
+ },
+ {
+  "statement": "【U型·路径】sim 局 26（发言已毕、投票未开）：本局会放逐 5 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 26,
+   "seat": 5,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 26,
+   "path_seat": 5,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|26|exile|5"
+ },
+ {
+  "statement": "【U型·路径】sim 局 27（发言已毕、投票未开）：本局会放逐 2 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 27,
+   "seat": 2,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 27,
+   "path_seat": 2,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|27|exile|2"
+ },
+ {
+  "statement": "【U型·路径】sim 局 27（发言已毕、投票未开）：本局会放逐 3 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 27,
+   "seat": 3,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 27,
+   "path_seat": 3,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|27|exile|3"
+ },
+ {
+  "statement": "【U型·路径】sim 局 27（发言已毕、投票未开）：本局会放逐 4 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 27,
+   "seat": 4,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 27,
+   "path_seat": 4,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|27|exile|4"
+ },
+ {
+  "statement": "【U型·路径】sim 局 27（发言已毕、投票未开）：本局会放逐 6 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 27,
+   "seat": 6,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 27,
+   "path_seat": 6,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|27|exile|6"
+ },
+ {
+  "statement": "【U型·路径】sim 局 28（发言已毕、投票未开）：本局会放逐 2 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 28,
+   "seat": 2,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 28,
+   "path_seat": 2,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|28|exile|2"
+ },
+ {
+  "statement": "【U型·路径】sim 局 28（发言已毕、投票未开）：本局会放逐 3 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 28,
+   "seat": 3,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 28,
+   "path_seat": 3,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|28|exile|3"
+ },
+ {
+  "statement": "【U型·路径】sim 局 28（发言已毕、投票未开）：本局会放逐 4 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 28,
+   "seat": 4,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 28,
+   "path_seat": 4,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|28|exile|4"
+ },
+ {
+  "statement": "【U型·路径】sim 局 28（发言已毕、投票未开）：本局会放逐 6 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 28,
+   "seat": 6,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 28,
+   "path_seat": 6,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|28|exile|6"
+ },
+ {
+  "statement": "【U型·路径】sim 局 29（发言已毕、投票未开）：本局会放逐 1 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 29,
+   "seat": 1,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 29,
+   "path_seat": 1,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|29|exile|1"
+ },
+ {
+  "statement": "【U型·路径】sim 局 29（发言已毕、投票未开）：本局会放逐 3 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 29,
+   "seat": 3,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 29,
+   "path_seat": 3,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|29|exile|3"
+ },
+ {
+  "statement": "【U型·路径】sim 局 29（发言已毕、投票未开）：本局会放逐 5 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 29,
+   "seat": 5,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 29,
+   "path_seat": 5,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|29|exile|5"
+ },
+ {
+  "statement": "【U型·路径】sim 局 29（发言已毕、投票未开）：本局会放逐 6 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 29,
+   "seat": 6,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 29,
+   "path_seat": 6,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|29|exile|6"
+ },
+ {
+  "statement": "【U型·路径】sim 局 30（发言已毕、投票未开）：本局会放逐 2 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 30,
+   "seat": 2,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 30,
+   "path_seat": 2,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|30|exile|2"
+ },
+ {
+  "statement": "【U型·路径】sim 局 30（发言已毕、投票未开）：本局会放逐 3 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 30,
+   "seat": 3,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 30,
+   "path_seat": 3,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|30|exile|3"
+ },
+ {
+  "statement": "【U型·路径】sim 局 30（发言已毕、投票未开）：本局会放逐 4 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 30,
+   "seat": 4,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 30,
+   "path_seat": 4,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|30|exile|4"
+ },
+ {
+  "statement": "【U型·路径】sim 局 30（发言已毕、投票未开）：本局会放逐 5 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 30,
+   "seat": 5,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 30,
+   "path_seat": 5,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|30|exile|5"
+ },
+ {
+  "statement": "【U型·路径】sim 局 31（发言已毕、投票未开）：本局会放逐 1 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 31,
+   "seat": 1,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 31,
+   "path_seat": 1,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|31|exile|1"
+ },
+ {
+  "statement": "【U型·路径】sim 局 31（发言已毕、投票未开）：本局会放逐 3 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 31,
+   "seat": 3,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 31,
+   "path_seat": 3,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|31|exile|3"
+ },
+ {
+  "statement": "【U型·路径】sim 局 31（发言已毕、投票未开）：本局会放逐 4 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 31,
+   "seat": 4,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 31,
+   "path_seat": 4,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|31|exile|4"
+ },
+ {
+  "statement": "【U型·路径】sim 局 31（发言已毕、投票未开）：本局会放逐 5 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 31,
+   "seat": 5,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 31,
+   "path_seat": 5,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|31|exile|5"
+ },
+ {
+  "statement": "【U型·路径】sim 局 32（发言已毕、投票未开）：本局会放逐 1 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 32,
+   "seat": 1,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 32,
+   "path_seat": 1,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|32|exile|1"
+ },
+ {
+  "statement": "【U型·路径】sim 局 32（发言已毕、投票未开）：本局会放逐 3 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 32,
+   "seat": 3,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 32,
+   "path_seat": 3,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|32|exile|3"
+ },
+ {
+  "statement": "【U型·路径】sim 局 32（发言已毕、投票未开）：本局会放逐 4 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 32,
+   "seat": 4,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 32,
+   "path_seat": 4,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|32|exile|4"
+ },
+ {
+  "statement": "【U型·路径】sim 局 32（发言已毕、投票未开）：本局会放逐 6 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 32,
+   "seat": 6,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 32,
+   "path_seat": 6,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|32|exile|6"
+ },
+ {
+  "statement": "【U型·路径】sim 局 33（发言已毕、投票未开）：本局会放逐 1 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 33,
+   "seat": 1,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 33,
+   "path_seat": 1,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|33|exile|1"
+ },
+ {
+  "statement": "【U型·路径】sim 局 33（发言已毕、投票未开）：本局会放逐 2 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 33,
+   "seat": 2,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 33,
+   "path_seat": 2,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|33|exile|2"
+ },
+ {
+  "statement": "【U型·路径】sim 局 33（发言已毕、投票未开）：本局会放逐 3 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 33,
+   "seat": 3,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 33,
+   "path_seat": 3,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|33|exile|3"
+ },
+ {
+  "statement": "【U型·路径】sim 局 33（发言已毕、投票未开）：本局会放逐 4 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 33,
+   "seat": 4,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 33,
+   "path_seat": 4,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|33|exile|4"
+ },
+ {
+  "statement": "【U型·路径】sim 局 34（发言已毕、投票未开）：本局会放逐 2 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 34,
+   "seat": 2,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 34,
+   "path_seat": 2,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|34|exile|2"
+ },
+ {
+  "statement": "【U型·路径】sim 局 34（发言已毕、投票未开）：本局会放逐 4 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 34,
+   "seat": 4,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 34,
+   "path_seat": 4,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|34|exile|4"
+ },
+ {
+  "statement": "【U型·路径】sim 局 34（发言已毕、投票未开）：本局会放逐 5 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 34,
+   "seat": 5,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 34,
+   "path_seat": 5,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|34|exile|5"
+ },
+ {
+  "statement": "【U型·路径】sim 局 34（发言已毕、投票未开）：本局会放逐 6 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 34,
+   "seat": 6,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 34,
+   "path_seat": 6,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|34|exile|6"
+ },
+ {
+  "statement": "【U型·路径】sim 局 35（发言已毕、投票未开）：本局会放逐 1 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 35,
+   "seat": 1,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 35,
+   "path_seat": 1,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|35|exile|1"
+ },
+ {
+  "statement": "【U型·路径】sim 局 35（发言已毕、投票未开）：本局会放逐 2 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 35,
+   "seat": 2,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 35,
+   "path_seat": 2,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|35|exile|2"
+ },
+ {
+  "statement": "【U型·路径】sim 局 35（发言已毕、投票未开）：本局会放逐 4 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 35,
+   "seat": 4,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 35,
+   "path_seat": 4,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|35|exile|4"
+ },
+ {
+  "statement": "【U型·路径】sim 局 35（发言已毕、投票未开）：本局会放逐 6 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 35,
+   "seat": 6,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 35,
+   "path_seat": 6,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|35|exile|6"
+ },
+ {
+  "statement": "【U型·路径】sim 局 36（发言已毕、投票未开）：本局会放逐 2 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 36,
+   "seat": 2,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 36,
+   "path_seat": 2,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|36|exile|2"
+ },
+ {
+  "statement": "【U型·路径】sim 局 36（发言已毕、投票未开）：本局会放逐 3 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 36,
+   "seat": 3,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 36,
+   "path_seat": 3,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|36|exile|3"
+ },
+ {
+  "statement": "【U型·路径】sim 局 36（发言已毕、投票未开）：本局会放逐 4 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 36,
+   "seat": 4,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 36,
+   "path_seat": 4,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|36|exile|4"
+ },
+ {
+  "statement": "【U型·路径】sim 局 36（发言已毕、投票未开）：本局会放逐 6 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 36,
+   "seat": 6,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 36,
+   "path_seat": 6,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|36|exile|6"
+ },
+ {
+  "statement": "【U型·路径】sim 局 37（发言已毕、投票未开）：本局会放逐 1 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 37,
+   "seat": 1,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 37,
+   "path_seat": 1,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|37|exile|1"
+ },
+ {
+  "statement": "【U型·路径】sim 局 37（发言已毕、投票未开）：本局会放逐 2 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 37,
+   "seat": 2,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 37,
+   "path_seat": 2,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|37|exile|2"
+ },
+ {
+  "statement": "【U型·路径】sim 局 37（发言已毕、投票未开）：本局会放逐 3 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 37,
+   "seat": 3,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 37,
+   "path_seat": 3,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|37|exile|3"
+ },
+ {
+  "statement": "【U型·路径】sim 局 37（发言已毕、投票未开）：本局会放逐 4 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 37,
+   "seat": 4,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 8,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 37,
+   "path_seat": 4,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|37|exile|4"
+ },
+ {
+  "statement": "【U型·路径】sim 局 90（发言已毕、投票未开）：本局会放逐 2 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 90,
+   "seat": 2,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 19,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 90,
+   "path_seat": 2,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|90|exile|2"
+ },
+ {
+  "statement": "【U型·路径】sim 局 90（发言已毕、投票未开）：本局会放逐 5 号吗？（该号被放逐 ⇒ 狼人阵营胜利）",
+  "layer": "L6",
+  "resolve": {
+   "kind": "sim_exile_seat",
+   "game_id": 90,
+   "seat": 5,
+   "expect": "exiled",
+   "anchor": "events 表 type=death 且 raw_text 含计票 ⇒ 计票 JSON 的键即被放逐座位；games.meta.truth 供角色复核"
+  },
+  "prob": null,
+  "prob_source": "n/a（本批只产结构；读数留待判词批）",
+  "meta": {
+   "phase": "role3_utype",
+   "cutoff": "2026-09-22T08:45:48.148Z",
+   "cutoff_seq": 19,
+   "cutoff_event": "发言结束，全体投票放逐",
+   "eventDate": null,
+   "parent_prediction_id": null,
+   "game_id": 90,
+   "path_seat": 5,
+   "path_role": "villager",
+   "path_type": "alternative",
+   "win_rule": "exile_wolf -> village_win; else wolf_win",
+   "independent": true
+  },
+  "slug": "corpus:utype|sim|90|exile|5"
+ }
+]

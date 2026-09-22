@@ -54,6 +54,15 @@ const DRY = FLAG('dry-run');
 const TODAY = new Date().toISOString().slice(0, 10);
 const RUN_AT = new Date().toISOString();
 
+// ── 候选留痕旁路（2026-09-22 · 承 corpus-sources-b4.cjs 同款实现）────────────────
+// 为什么：角色③／I1 的前置都是「**过锚率 ≥80%**」，而该率的分母＝**提议全集**（含被丢的）。
+//   本生成器在「局无 meta／无 villagers／win_rule 不符／缺事件」时直接 continue ⇒ 被丢提议**零留痕**
+//   ⇒ 拿现成候选算出的永远是**构造性 100%**。本旁路落「提议全集＋丢弃原因」让过锚率**可测**。
+// 纪律：**默认关** ⇒ 不传 `--record-candidates=<path>` 时**零行为变化**（不建数组、不写文件）。
+const REC_PATH = (() => { const a = process.argv.find((x) => x.startsWith('--record-candidates=')); return a ? a.slice(20) : null; })();
+const DROPS = [];
+function recDrop(stage, reason, info) { if (!REC_PATH) return; DROPS.push(Object.assign({ stage: stage, reason: reason }, info || {})); }
+
 (async () => {
   const db = new DatabaseSync(DB_PATH, { readOnly: true });
   const report = { run_at: RUN_AT, today: TODAY, dry_run: DRY, parents: [], rows: [], totals: {} };
@@ -68,14 +77,14 @@ const RUN_AT = new Date().toISOString();
   for (const gg of games) {
     const p = { id: null, game_id: gg.game_id };
     const g = db.prepare('SELECT id, meta FROM games WHERE id = ?').get(gg.game_id);
-    if (!g || !g.meta) { report.parents.push({ id: null, game_id: gg.game_id, skipped: '局无 meta（老数据）⇒ 无 truth 可依，不编' }); continue; }
-    let m; try { m = JSON.parse(g.meta); } catch (e) { report.parents.push({ id: null, game_id: gg.game_id, skipped: 'meta 不可解析' }); continue; }
+    if (!g || !g.meta) { recDrop('parent', 'no_meta', { game_id: gg.game_id }); report.parents.push({ id: null, game_id: gg.game_id, skipped: '局无 meta（老数据）⇒ 无 truth 可依，不编' }); continue; }
+    let m; try { m = JSON.parse(g.meta); } catch (e) { recDrop('parent', 'meta_unparsable', { game_id: gg.game_id }); report.parents.push({ id: null, game_id: gg.game_id, skipped: 'meta 不可解析' }); continue; }
     const truth = m.truth || {};
     const villagers = Array.isArray(truth.villagers) ? truth.villagers : [];
     const wolves = Array.isArray(truth.wolves) ? truth.wolves : [];
     const winRule = ((m.prereg || {}).variant || {}).win_rule || null;
-    if (!villagers.length) { report.parents.push({ id: null, game_id: gg.game_id, skipped: 'truth 无 villagers ⇒ 路径不可枚举，不编' }); continue; }
-    if (!winRule || !/exile_wolf/.test(winRule)) { report.parents.push({ id: null, game_id: gg.game_id, skipped: 'win_rule 非 exile_wolf 形态 ⇒ 路径语义不同，本批不处理' }); continue; }
+    if (!villagers.length) { recDrop('parent', 'no_villagers', { game_id: gg.game_id }); report.parents.push({ id: null, game_id: gg.game_id, skipped: 'truth 无 villagers ⇒ 路径不可枚举，不编' }); continue; }
+    if (!winRule || !/exile_wolf/.test(winRule)) { recDrop('parent', 'win_rule_not_exile_wolf', { game_id: gg.game_id, win_rule: winRule }); report.parents.push({ id: null, game_id: gg.game_id, skipped: 'win_rule 非 exile_wolf 形态 ⇒ 路径语义不同，本批不处理' }); continue; }
 
     // ★局内 cutoff：『发言结束』事件的 seq（投票在其后）
     const sp = db.prepare(
@@ -84,7 +93,7 @@ const RUN_AT = new Date().toISOString();
     const vote = db.prepare(
       "SELECT seq, raw_text FROM events WHERE game_id = ? AND type = 'death' AND raw_text LIKE '%计票%' ORDER BY seq LIMIT 1"
     ).get(gg.game_id);
-    if (!sp || !vote) { report.parents.push({ id: null, game_id: gg.game_id, skipped: '缺『发言结束』或『计票』事件 ⇒ 局内 cutoff 不可定，不编' }); continue; }
+    if (!sp || !vote) { recDrop('parent', 'missing_cutoff_or_vote_event', { game_id: gg.game_id, has_speech_end: !!sp, has_vote: !!vote }); report.parents.push({ id: null, game_id: gg.game_id, skipped: '缺『发言结束』或『计票』事件 ⇒ 局内 cutoff 不可定，不编' }); continue; }
 
     const pr = { id: null, game_id: gg.game_id, wolves, villagers, win_rule: winRule, branches: 0, cutoff_seq: sp.seq, vote_seq: vote.seq, vote_note: String(vote.raw_text).slice(0, 80) };
     // ② 路径：放逐每个平民 ⇒ 狼胜（非互斥：任一成立即父题成立）
@@ -150,6 +159,21 @@ const RUN_AT = new Date().toISOString();
     fs.writeFileSync(repPath, JSON.stringify(report, null, 1), 'utf8');
     console.log('产物 ' + rowsPath);
     console.log('产物 ' + repPath);
+    // ── 候选留痕落盘（默认关；仅当传 --record-candidates=<path>）──
+    if (REC_PATH) {
+      const dropByReason = {};
+      for (const dz of DROPS) dropByReason[dz.reason] = (dropByReason[dz.reason] || 0) + 1;
+      fs.writeFileSync(REC_PATH, JSON.stringify({
+        run_at: RUN_AT, source: 'role3-utype.cjs', today: TODAY,
+        note: '候选留痕旁路产物（承 corpus-sources-b4.cjs 同款）：candidates＝产出的路径题；drops＝被丢的父题'
+          + '（含原因）。过锚率的严格分母＝candidates.length + drops.length（提议全集）。'
+          + '★注意：本生成器的 drops 是**父题级**（整局被丢），非路径级——一局被丢则其全部路径都不产出。',
+        candidates: report.rows, drops: DROPS,
+        counts: { candidates: report.rows.length, drops: DROPS.length, proposed_total: report.rows.length + DROPS.length, drop_by_reason: dropByReason },
+      }, null, 1), 'utf8');
+      console.log('[record] 候选留痕 -> ' + REC_PATH + '（候选 ' + report.rows.length + ' ＋ 被丢 ' + DROPS.length + ' ＝ 提议全集 ' + (report.rows.length + DROPS.length) + '）');
+      console.log('[record] 被丢按原因 ' + JSON.stringify(dropByReason));
+    }
     console.log('下一步：node p1b/scripts/role3-freeze.cjs freeze --candidates ' + rowsPath + ' --label utype');
   }
 })();
