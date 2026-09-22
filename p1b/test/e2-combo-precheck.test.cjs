@@ -82,7 +82,8 @@ test('④ 真实件：矩阵／两对／判决自洽／RES 门／三零／零副
   //   09-21（三十二）批修 frankfurter 两处 resolver 缺陷 ⇒ 补结 15 条 ⇒ 1533 → 1548（同上）
   //   09-21（三十三）批 4 条顺延题补结（ECB 09-21 值发布后）⇒ 1548 → 1552（同上；★此批使分域可出结论 9→10）
   //   09-21（四十三）批修 dlt 反爬（resolver 显式传 Referer）⇒ 补结 8 条 ⇒ 1552 → 1560（同上；★L5/dlt 首次出数 n 0→8）
-  assert.equal(j.cohort_rows, 1560, '队列应与 PREREG §1 池口径一致: ' + j.cohort_rows);
+  //   09-22 例行结算 3 条（L2 binance BTC/ETH/SOL 09-21 收盘）⇒ 1560 → 1563（同上；读数前进，非口径变更）
+  assert.equal(j.cohort_rows, 1563, '队列应与 PREREG §1 池口径一致: ' + j.cohort_rows);
   assert.ok(j.multi_engine_items >= 30, '多引擎题应 ≥30（R3 可估前提）: ' + j.multi_engine_items);
   const pairs = Object.keys(j.pair_population);
   assert.ok(pairs.some((k) => k.indexOf('L1') !== -1 && k.indexOf('L6') !== -1), 'L1×L6 对应在: ' + JSON.stringify(pairs));

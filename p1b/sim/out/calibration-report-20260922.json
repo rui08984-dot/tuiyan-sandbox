@@ -1,0 +1,564 @@
+{
+ "script": "p1b/scripts/calibration-report.cjs",
+ "title": "分域格校准报告",
+ "stage4_file": "E:\\music player\\p1b\\sim\\out\\stage4-run-five-layers-20260922.json",
+ "g2_file": "E:\\music player\\p1b\\sim\\out\\g2-report-latest-20260917.json",
+ "stage4_present": true,
+ "g2_present": true,
+ "qualification_block": [
+  "重放计分（读侧）：本报告数字来自引擎重放，账本 gate=descriptive 未计分；baseline_brier 列从未写入。",
+  "过程能力门（G2）不含质量读数（门定性恒挂限定语）；对外表述一律挂限定语。",
+  "n<30 的格只记方向、不出结论；格间禁池化。"
+ ],
+ "leakage_statement": {
+  "excluded_rows": 98,
+  "fingerprint": "78b8cedb9d37307a…",
+  "text": "每题 cutoff 合规由管线与真值口径排除保证：已排除真值口径缺陷行 98（resolved_at<事件日 ∧ resolve 含 forecast；指纹 78b8cedb9d37307a…）。"
+ },
+ "bayes_semantics": {
+  "L1": {
+   "role": "deterministic_recalc",
+   "note": "概率主干豁免"
+  },
+  "L2": {
+   "role": "prior",
+   "note": "基率+Wilson"
+  },
+  "L3": {
+   "role": "prior+calibration",
+   "note": "ACI 只调区间不调 p"
+  },
+  "L5": {
+   "role": "certified_prior",
+   "note": "不可约随机"
+  },
+  "L6": {
+   "role": "posterior_aggregation",
+   "note": "似然证据行→固定规则聚合"
+  }
+ },
+ "cells": [
+  {
+   "layer": "L1",
+   "domain": "werewolf_sim",
+   "scored_n": 180,
+   "conclusion_allowed": true,
+   "mean_p": 0.5222222222222223,
+   "obs_rate": 0.5222222222222223,
+   "brier_engine": 0,
+   "delta_vs_half": -0.25,
+   "delta_ci95": {
+    "lb": -0.25,
+    "ub": -0.25,
+    "B": 1000,
+    "seed": 987654321,
+    "mean": -0.25
+   }
+  },
+  {
+   "layer": "L2",
+   "domain": "energycharts",
+   "scored_n": 99,
+   "conclusion_allowed": true,
+   "mean_p": 0.49960515151515145,
+   "obs_rate": 0.48484848484848486,
+   "brier_engine": 0.23570634519056552,
+   "delta_vs_half": -0.01429365480943448,
+   "delta_ci95": {
+    "lb": -0.04004854391431312,
+    "ub": 0.014100006752626267,
+    "B": 1000,
+    "seed": 987654321,
+    "mean": -0.014293654809434328
+   }
+  },
+  {
+   "layer": "L2",
+   "domain": "dbnomics",
+   "scored_n": 79,
+   "conclusion_allowed": true,
+   "mean_p": 0.433958151898734,
+   "obs_rate": 0.6075949367088608,
+   "brier_engine": 0.2499836201244809,
+   "delta_vs_half": -0.000016379875519112463,
+   "delta_ci95": {
+    "lb": -0.03399963766516457,
+    "ub": 0.035064291017164545,
+    "B": 1000,
+    "seed": 987654321,
+    "mean": -0.000016379875518991954
+   }
+  },
+  {
+   "layer": "L2",
+   "domain": "noaa",
+   "scored_n": 52,
+   "conclusion_allowed": true,
+   "mean_p": 0.5009267307692308,
+   "obs_rate": 0.5384615384615384,
+   "brier_engine": 0.2126347516185384,
+   "delta_vs_half": -0.0373652483814616,
+   "delta_ci95": {
+    "lb": -0.06892591762325001,
+    "ub": -0.0015371326567500078,
+    "B": 1000,
+    "seed": 987654321,
+    "mean": -0.037365248381461526
+   }
+  },
+  {
+   "layer": "L2",
+   "domain": "wikimedia",
+   "scored_n": 38,
+   "conclusion_allowed": true,
+   "mean_p": 0.44345173684210515,
+   "obs_rate": 0.2631578947368421,
+   "brier_engine": 0.20229975861478947,
+   "delta_vs_half": -0.047700241385210534,
+   "delta_ci95": {
+    "lb": -0.09057744856884208,
+    "ub": -0.0035864614885526237,
+    "B": 1000,
+    "seed": 987654321,
+    "mean": -0.047700241385210514
+   }
+  },
+  {
+   "layer": "L2",
+   "domain": "frankfurter",
+   "scored_n": 33,
+   "conclusion_allowed": true,
+   "mean_p": 0.4112037272727273,
+   "obs_rate": 0.45454545454545453,
+   "brier_engine": 0.2176088672662727,
+   "delta_vs_half": -0.03239113273372729,
+   "delta_ci95": {
+    "lb": -0.07921480206830303,
+    "ub": 0.01529827561545454,
+    "B": 1000,
+    "seed": 987654321,
+    "mean": -0.03239113273372727
+   }
+  },
+  {
+   "layer": "L2",
+   "domain": "kraken",
+   "scored_n": 30,
+   "conclusion_allowed": true,
+   "mean_p": 0.47899223333333346,
+   "obs_rate": 0.9,
+   "brier_engine": 0.2644558932043667,
+   "delta_vs_half": 0.014455893204366688,
+   "delta_ci95": {
+    "lb": -0.032896359862366664,
+    "ub": 0.06302832460090003,
+    "B": 1000,
+    "seed": 987654321,
+    "mean": 0.014455893204366672
+   }
+  },
+  {
+   "layer": "L2",
+   "domain": "binance",
+   "scored_n": 22,
+   "conclusion_allowed": false,
+   "mean_p": null,
+   "obs_rate": 0.045454545454545456,
+   "brier_engine": null,
+   "delta_vs_half": null,
+   "delta_ci95": null
+  },
+  {
+   "layer": "L2",
+   "domain": "eurostat",
+   "scored_n": 16,
+   "conclusion_allowed": false,
+   "mean_p": null,
+   "obs_rate": 0.75,
+   "brier_engine": null,
+   "delta_vs_half": null,
+   "delta_ci95": null
+  },
+  {
+   "layer": "L2",
+   "domain": "delphi",
+   "scored_n": 12,
+   "conclusion_allowed": false,
+   "mean_p": null,
+   "obs_rate": 0.08333333333333333,
+   "brier_engine": null,
+   "delta_vs_half": null,
+   "delta_ci95": null
+  },
+  {
+   "layer": "L2",
+   "domain": "npm",
+   "scored_n": 7,
+   "conclusion_allowed": false,
+   "mean_p": null,
+   "obs_rate": 0.7142857142857143,
+   "brier_engine": null,
+   "delta_vs_half": null,
+   "delta_ci95": null
+  },
+  {
+   "layer": "L2",
+   "domain": "mlb",
+   "scored_n": 7,
+   "conclusion_allowed": false,
+   "mean_p": null,
+   "obs_rate": 0.5714285714285714,
+   "brier_engine": null,
+   "delta_vs_half": null,
+   "delta_ci95": null
+  },
+  {
+   "layer": "L2",
+   "domain": "github",
+   "scored_n": 6,
+   "conclusion_allowed": false,
+   "mean_p": null,
+   "obs_rate": 1,
+   "brier_engine": null,
+   "delta_vs_half": null,
+   "delta_ci95": null
+  },
+  {
+   "layer": "L2",
+   "domain": "cta",
+   "scored_n": 4,
+   "conclusion_allowed": false,
+   "mean_p": null,
+   "obs_rate": 0.25,
+   "brier_engine": null,
+   "delta_vs_half": null,
+   "delta_ci95": null
+  },
+  {
+   "layer": "L2",
+   "domain": "bom",
+   "scored_n": 2,
+   "conclusion_allowed": false,
+   "mean_p": null,
+   "obs_rate": 1,
+   "brier_engine": null,
+   "delta_vs_half": null,
+   "delta_ci95": null
+  },
+  {
+   "layer": "L2",
+   "domain": "crossref",
+   "scored_n": 0,
+   "conclusion_allowed": false,
+   "mean_p": null,
+   "obs_rate": null,
+   "brier_engine": null,
+   "delta_vs_half": null,
+   "delta_ci95": null
+  },
+  {
+   "layer": "L2",
+   "domain": "elexon",
+   "scored_n": 0,
+   "conclusion_allowed": false,
+   "mean_p": null,
+   "obs_rate": null,
+   "brier_engine": null,
+   "delta_vs_half": null,
+   "delta_ci95": null
+  },
+  {
+   "layer": "L2",
+   "domain": "nvd",
+   "scored_n": 0,
+   "conclusion_allowed": false,
+   "mean_p": null,
+   "obs_rate": null,
+   "brier_engine": null,
+   "delta_vs_half": null,
+   "delta_ci95": null
+  },
+  {
+   "layer": "L2",
+   "domain": "openalex",
+   "scored_n": 0,
+   "conclusion_allowed": false,
+   "mean_p": null,
+   "obs_rate": null,
+   "brier_engine": null,
+   "delta_vs_half": null,
+   "delta_ci95": null
+  },
+  {
+   "layer": "L2",
+   "domain": "oddsapi",
+   "scored_n": 0,
+   "conclusion_allowed": false,
+   "mean_p": null,
+   "obs_rate": null,
+   "brier_engine": null,
+   "delta_vs_half": null,
+   "delta_ci95": null
+  },
+  {
+   "layer": "L3",
+   "domain": "openmeteo",
+   "scored_n": 574,
+   "conclusion_allowed": true,
+   "mean_p": 0.49841893728223013,
+   "obs_rate": 0.49477351916376305,
+   "brier_engine": 0.23752196606449102,
+   "delta_vs_half": -0.012478033935508975,
+   "delta_ci95": {
+    "lb": -0.022909333907344953,
+    "ub": -0.001153764007674213,
+    "B": 1000,
+    "seed": 987654321,
+    "mean": -0.012478033935508715
+   }
+  },
+  {
+   "layer": "L3",
+   "domain": "ghcn",
+   "scored_n": 23,
+   "conclusion_allowed": false,
+   "mean_p": null,
+   "obs_rate": 0.9565217391304348,
+   "brier_engine": null,
+   "delta_vs_half": null,
+   "delta_ci95": null
+  },
+  {
+   "layer": "L3",
+   "domain": "usgs",
+   "scored_n": 10,
+   "conclusion_allowed": false,
+   "mean_p": null,
+   "obs_rate": 0.3,
+   "brier_engine": null,
+   "delta_vs_half": null,
+   "delta_ci95": null
+  },
+  {
+   "layer": "L3",
+   "domain": "noaa",
+   "scored_n": 7,
+   "conclusion_allowed": false,
+   "mean_p": null,
+   "obs_rate": 0.5714285714285714,
+   "brier_engine": null,
+   "delta_vs_half": null,
+   "delta_ci95": null
+  },
+  {
+   "layer": "L3",
+   "domain": "swpc",
+   "scored_n": 4,
+   "conclusion_allowed": false,
+   "mean_p": null,
+   "obs_rate": 1,
+   "brier_engine": null,
+   "delta_vs_half": null,
+   "delta_ci95": null
+  },
+  {
+   "layer": "L3",
+   "domain": "jpl",
+   "scored_n": 2,
+   "conclusion_allowed": false,
+   "mean_p": null,
+   "obs_rate": 0,
+   "brier_engine": null,
+   "delta_vs_half": null,
+   "delta_ci95": null
+  },
+  {
+   "layer": "L5",
+   "domain": "cwl",
+   "scored_n": 40,
+   "conclusion_allowed": true,
+   "mean_p": 0.30909090920000004,
+   "obs_rate": 0.125,
+   "brier_engine": 0.1357438016834711,
+   "delta_vs_half": -0.11425619831652889,
+   "delta_ci95": {
+    "lb": -0.15185950408595034,
+    "ub": -0.07122933882975205,
+    "B": 1000,
+    "seed": 987654321,
+    "mean": -0.11425619831652889
+   }
+  },
+  {
+   "layer": "L5",
+   "domain": "dlt",
+   "scored_n": 8,
+   "conclusion_allowed": false,
+   "mean_p": null,
+   "obs_rate": 0.375,
+   "brier_engine": null,
+   "delta_vs_half": null,
+   "delta_ci95": null
+  },
+  {
+   "layer": "L6",
+   "domain": "werewolf_sim",
+   "scored_n": 270,
+   "conclusion_allowed": true,
+   "mean_p": 0.5817407185185183,
+   "obs_rate": 0.5777777777777777,
+   "brier_engine": 0.17545467076550367,
+   "delta_vs_half": -0.07454532923449633,
+   "delta_ci95": {
+    "lb": -0.09164804629622228,
+    "ub": -0.05755035169539631,
+    "B": 1000,
+    "seed": 987654321,
+    "mean": -0.07454532923449632
+   }
+  }
+ ],
+ "generated_at": "2026-09-22T08:43:44.028Z",
+ "cells_total": 29,
+ "cells_with_conclusion": 10,
+ "u8_columns_file": "E:\\music player\\p1b\\sim\\out\\u8-columns-20260920.json",
+ "u8_columns_present": true,
+ "prequential_two_order": {
+  "L2": {
+   "max_gap": 0.017130257077026645,
+   "gap_at_half": 0.012829891808647631,
+   "reorder_rho": 0.9825605327589665,
+   "months": 1
+  },
+  "L3": {
+   "max_gap": 0.234031144641,
+   "gap_at_half": 0.010161044069854963,
+   "reorder_rho": 0.9800225605764262,
+   "months": 1
+  },
+  "L5": {
+   "max_gap": 0.10847107434710745,
+   "gap_at_half": 0.010330578509248317,
+   "reorder_rho": 0.9961585697557643,
+   "months": 1
+  },
+  "L6": {
+   "max_gap": 0,
+   "gap_at_half": 0,
+   "reorder_rho": 1,
+   "months": 1
+  }
+ },
+ "lag_rank_test": {
+  "available": true,
+  "file": "E:\\music player\\p1b\\sim\\out\\stage5-rank-diagnostic-20260917.json",
+  "reason_unavailable": "逐对件缺失 ⇒ 不编数（复算入口：node p1b/scripts/stage5-rank-diagnostic.cjs）",
+  "not_a_gate": "体检服不是引擎：不设生死判据、不进任何门控；m=2 ⇒ 3 档秩，功效极低，不得当能力宣称。",
+  "erratum": "先导判据改挂倾斜统计量 T（U² 圆上旋转不变 ⇒ 对整团倾斜全盲：全秩=3 时 U² 取最小值、p→1）；蓝图 18 号件原文的 Watson U² 及其置换 p 仍并列披露，两者读数不同之处原样呈现。",
+  "strata": [
+   {
+    "label": "ALL",
+    "n": 93,
+    "hist": {
+     "r1": 34,
+     "r2": 20,
+     "r3": 33
+    },
+    "ties": 6,
+    "watson_u2": 0.024212818437577242,
+    "perm_p_watson": 0.3806193806193806,
+    "tilt_stat": -1,
+    "perm_p_tilt": 0.929070929070929,
+    "perm_B": 1000,
+    "tilt_dir": "low",
+    "tilt_sig": false,
+    "between_deficit": -11
+   },
+   {
+    "label": "city 23.13,113.26",
+    "n": 23,
+    "hist": {
+     "r1": 10,
+     "r2": 4,
+     "r3": 8
+    },
+    "ties": 1,
+    "watson_u2": 0.022106700273051654,
+    "perm_p_watson": 0.4305694305694306,
+    "tilt_stat": -1.5,
+    "perm_p_tilt": 0.7582417582417582,
+    "perm_B": 1000,
+    "tilt_dir": "low",
+    "tilt_sig": false,
+    "between_deficit": -3.666666666666667
+   },
+   {
+    "label": "city 30.57,104.07",
+    "n": 23,
+    "hist": {
+     "r1": 4,
+     "r2": 5,
+     "r3": 12
+    },
+    "ties": 2,
+    "watson_u2": 0.040695232094097186,
+    "perm_p_watson": 0.17582417582417584,
+    "tilt_stat": 8,
+    "perm_p_tilt": 0.04395604395604396,
+    "perm_B": 1000,
+    "tilt_dir": "high",
+    "tilt_sig": true,
+    "between_deficit": -2.666666666666667
+   },
+   {
+    "label": "city 31.23,121.47",
+    "n": 24,
+    "hist": {
+     "r1": 12,
+     "r2": 3,
+     "r3": 9
+    },
+    "ties": 0,
+    "watson_u2": 0.06076388888888885,
+    "perm_p_watson": 0.06993006993006994,
+    "tilt_stat": -3,
+    "perm_p_tilt": 0.46853146853146854,
+    "perm_B": 1000,
+    "tilt_dir": "low",
+    "tilt_sig": false,
+    "between_deficit": -5
+   },
+   {
+    "label": "city 39.9,116.41",
+    "n": 23,
+    "hist": {
+     "r1": 8,
+     "r2": 8,
+     "r3": 4
+    },
+    "ties": 3,
+    "watson_u2": 0.05182734719596711,
+    "perm_p_watson": 0.16883116883116883,
+    "tilt_stat": -4.5,
+    "perm_p_tilt": 0.2777222777222777,
+    "perm_B": 1000,
+    "tilt_dir": "low",
+    "tilt_sig": false,
+    "between_deficit": 0.33333333333333304
+   }
+  ],
+  "leading_signal": {
+   "rule": "4 城中 ≥3 城同向倾斜（倾斜统计量 T 的置换 p<0.10）⇒ MOS 提队首",
+   "rule_src": "18 号件 §2.3（原文写 Watson p，本件勘误见 erratum_20260917）",
+   "cities_significant": 1,
+   "same_dir_ge3": [],
+   "holds": false,
+   "action": "4 城无同向倾斜（或不足 3 城显著）⇒ 照 18 号件 §2.3：MOS 主件持票不提前"
+  }
+ },
+ "o7_maxent": {
+  "prior": "Beta(1,1)",
+  "statement": "无信息进入时的起点＝均匀分布 Beta(1,1)（最大熵）——引擎在无证据行时的先验不是\"拍脑袋的数\"，而是熵最大的那个选择；证据行到达后由固定规则聚合改变它。"
+ },
+ "negative_results_ledger": "E:\\music player\\p1b\\sim\\out\\negative-results-ledger-20260920.json"
+}

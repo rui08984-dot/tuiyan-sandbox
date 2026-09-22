@@ -1,0 +1,516 @@
+{
+ "script": "p1b/scripts/e2-combo-precheck.cjs",
+ "basis": "PREREG-E2-路由分配-v1.md §3（§3.1 ρ̂／§3.2 歧义分解／§3.3 RES 准入门／§3.4 一致率）",
+ "anchors": [
+  "DOI 10.1057/jors.1969.103",
+  "Krogh-Vedelsby 1995（教科书级）",
+  "DOI 10.1023/a:1022859003006",
+  "Murphy 1973"
+ ],
+ "generated_at": "2026-09-22T08:44:19.007Z",
+ "discipline": {
+  "ledger_write": false,
+  "llm": false,
+  "network": false
+ },
+ "difference_vs_old_precheck": "旧件 e2-shadow-score.cjs 按 layer 门控引擎 ⇒ 「重叠 0 题」是脚本构造产物；本件为全引擎可用性矩阵（每题试遍 5 引擎）。",
+ "does_not_change_frozen_criteria": "是否据本件改写 PREREG §3.0「R3 不启动」＝版本递进（须拍板）；本件只测量。",
+ "threshold_rho_kill": 0.95,
+ "min_pair_n": 10,
+ "cohort_rows": 1563,
+ "engine_count_distribution": {
+  "0": 38,
+  "1": 247,
+  "2": 1267,
+  "3": 11
+ },
+ "multi_engine_items": 1278,
+ "pair_population": {
+  "L1×L6": 240,
+  "L2×L3": 1027,
+  "L2×L3×L5": 11
+ },
+ "pair_population_by_layer": {
+  "L1｜L1×L6": 180,
+  "L6｜L1×L6": 60,
+  "L3｜L2×L3": 620,
+  "L5｜L2×L3×L5": 11,
+  "L2｜L2×L3": 407
+ },
+ "domain_unknown_rows": 0,
+ "rho_precheck": [
+  {
+   "pair": "L1×L6",
+   "n": 240,
+   "rho_hat": 0.011469153108492005,
+   "ci95": {
+    "lo": -0.07533020491120246,
+    "hi": 0.10769503384897376,
+    "B": 1000,
+    "seed": 987654321
+   },
+   "identical_outputs": false,
+   "zero_variance": false,
+   "decision": "不停用（ρ̂ CI 下界 < 0.95）"
+  },
+  {
+   "pair": "L2×L3",
+   "n": 1027,
+   "rho_hat": 1,
+   "ci95": {
+    "lo": 1,
+    "hi": 1,
+    "B": 1000,
+    "seed": 987654321
+   },
+   "identical_outputs": true,
+   "zero_variance": false,
+   "decision": "该域组合臂判死（ρ̂ CI 下界 ≥ 0.95）"
+  },
+  {
+   "pair": "L2×L3×L5",
+   "n": 11,
+   "rho_hat": 1,
+   "ci95": {
+    "lo": 1,
+    "hi": 1,
+    "B": 1000,
+    "seed": 987654321
+   },
+   "identical_outputs": true,
+   "zero_variance": false,
+   "decision": "该域组合臂判死（ρ̂ CI 下界 ≥ 0.95）"
+  }
+ ],
+ "res_gate": [
+  {
+   "engine": "L1",
+   "n": 240,
+   "RES": 0.14751041666666667,
+   "ci95_RES": {
+    "lo": 0.122067569870484,
+    "hi": 0.17268547661870504,
+    "B": 1000,
+    "seed": 987654321
+   },
+   "REL": 0.026694444444444444,
+   "UNC": 0.2499826388888889,
+   "brier": 0.12916666666666668,
+   "eligible": true,
+   "verdict": "进混合池（RES CI 下界 > 0）"
+  },
+  {
+   "engine": "L2",
+   "n": 1038,
+   "RES": 0.01419115411426273,
+   "ci95_RES": {
+    "lo": 0.009483989957909833,
+    "hi": 0.022132147895853084,
+    "B": 1000,
+    "seed": 987654321
+   },
+   "REL": 0.0023715013214375903,
+   "UNC": 0.24995452199835907,
+   "brier": 0.23696435835018223,
+   "eligible": true,
+   "verdict": "进混合池（RES CI 下界 > 0）"
+  },
+  {
+   "engine": "L3",
+   "n": 1038,
+   "RES": 0.01419115411426273,
+   "ci95_RES": {
+    "lo": 0.009483989957909833,
+    "hi": 0.022132147895853084,
+    "B": 1000,
+    "seed": 987654321
+   },
+   "REL": 0.0023715013214375903,
+   "UNC": 0.24995452199835907,
+   "brier": 0.23696435835018223,
+   "eligible": true,
+   "verdict": "进混合池（RES CI 下界 > 0）"
+  },
+  {
+   "engine": "L5",
+   "n": 48,
+   "RES": 0.016865079365079368,
+   "ci95_RES": {
+    "lo": 0.0009774743230625584,
+    "hi": 0.06793478260869565,
+    "B": 1000,
+    "seed": 987654321
+   },
+   "REL": 0.0291662119854225,
+   "UNC": 0.1388888888888889,
+   "brier": 0.15165735719900314,
+   "eligible": true,
+   "verdict": "进混合池（RES CI 下界 > 0）"
+  },
+  {
+   "engine": "L6",
+   "n": 450,
+   "RES": 0.08856762363300205,
+   "ci95_RES": {
+    "lo": 0.0716036536820006,
+    "hi": 0.11173010348975261,
+    "B": 1000,
+    "seed": 987654321
+   },
+   "REL": 0.02197359726500813,
+   "UNC": 0.24691358024691357,
+   "brier": 0.17938786719019778,
+   "eligible": true,
+   "verdict": "进混合池（RES CI 下界 > 0）"
+  }
+ ],
+ "ambiguity_decomposition": [
+  {
+   "pair": "L1×L6",
+   "n": 240,
+   "E_members": 0.15912691730096454,
+   "E_ensemble": 0.10732039406714897,
+   "A": 0.05180652323381561,
+   "expected_gain": 0.05180652323381557,
+   "skill_gap": 0.13423262577317707,
+   "net_gain": -0.08242610253936146,
+   "identity_residual": 1.4839113734084938e-17,
+   "read": "净增益 ≤ 0（组合不如直接挑最佳成员）"
+  },
+  {
+   "pair": "L2×L3",
+   "n": 1027,
+   "E_members": 0.23696435835018223,
+   "E_ensemble": 0.23696435835018223,
+   "A": 0,
+   "expected_gain": 0,
+   "skill_gap": 0,
+   "net_gain": 0,
+   "identity_residual": 0,
+   "read": "净增益 ≤ 0（组合不如直接挑最佳成员）"
+  },
+  {
+   "pair": "L2×L3×L5",
+   "n": 11,
+   "E_members": 0.23696435835018223,
+   "E_ensemble": 0.23696435835018223,
+   "A": 0,
+   "expected_gain": 0,
+   "skill_gap": 0,
+   "net_gain": 0,
+   "identity_residual": 0,
+   "read": "净增益 ≤ 0（组合不如直接挑最佳成员）"
+  }
+ ],
+ "s32_falsification": {
+  "unit": "(引擎对 × 域) 格，n≥10",
+  "n_cells": 13,
+  "n_cells_A_gt0": 1,
+  "spearman": null,
+  "ci95": {
+   "lo": null,
+   "hi": null
+  },
+  "decisive": false,
+  "read": "★无信息量：可判格（A>0）＝1 <3 ⇒ 秩相关在本账本上不成立（非「通过」也非「未通过」）",
+  "cells": [
+   {
+    "cell": "L1×L6|werewolf_sim",
+    "pair": "L1×L6",
+    "domain": "werewolf_sim",
+    "n": 240,
+    "A": 0.05180652323381561,
+    "skill_gap": 0.13423262577317707,
+    "net_gain": -0.08242610253936146,
+    "E_members": 0.15912691730096454,
+    "E_ensemble": 0.10732039406714897,
+    "identical_outputs": false
+   },
+   {
+    "cell": "L2×L3|openmeteo",
+    "pair": "L2×L3",
+    "domain": "openmeteo",
+    "n": 574,
+    "A": 0,
+    "skill_gap": 0,
+    "net_gain": 0,
+    "E_members": 0.23752196606449102,
+    "E_ensemble": 0.23752196606449102,
+    "identical_outputs": true
+   },
+   {
+    "cell": "L2×L3|dbnomics",
+    "pair": "L2×L3",
+    "domain": "dbnomics",
+    "n": 79,
+    "A": 0,
+    "skill_gap": 0,
+    "net_gain": 0,
+    "E_members": 0.2499836201244809,
+    "E_ensemble": 0.2499836201244809,
+    "identical_outputs": true
+   },
+   {
+    "cell": "L2×L3|binance",
+    "pair": "L2×L3",
+    "domain": "binance",
+    "n": 22,
+    "A": 0,
+    "skill_gap": 0,
+    "net_gain": 0,
+    "E_members": 0.2475073223059091,
+    "E_ensemble": 0.2475073223059091,
+    "identical_outputs": true
+   },
+   {
+    "cell": "L2×L3|wikimedia",
+    "pair": "L2×L3",
+    "domain": "wikimedia",
+    "n": 38,
+    "A": 0,
+    "skill_gap": 0,
+    "net_gain": 0,
+    "E_members": 0.20229975861478947,
+    "E_ensemble": 0.20229975861478947,
+    "identical_outputs": true
+   },
+   {
+    "cell": "L2×L3|frankfurter",
+    "pair": "L2×L3",
+    "domain": "frankfurter",
+    "n": 33,
+    "A": 0,
+    "skill_gap": 0,
+    "net_gain": 0,
+    "E_members": 0.2176088672662727,
+    "E_ensemble": 0.2176088672662727,
+    "identical_outputs": true
+   },
+   {
+    "cell": "L2×L3|noaa",
+    "pair": "L2×L3",
+    "domain": "noaa",
+    "n": 59,
+    "A": 0,
+    "skill_gap": 0,
+    "net_gain": 0,
+    "E_members": 0.2077752491770508,
+    "E_ensemble": 0.2077752491770508,
+    "identical_outputs": true
+   },
+   {
+    "cell": "L2×L3|ghcn",
+    "pair": "L2×L3",
+    "domain": "ghcn",
+    "n": 23,
+    "A": 0,
+    "skill_gap": 0,
+    "net_gain": 0,
+    "E_members": 0.25946794021986963,
+    "E_ensemble": 0.25946794021986963,
+    "identical_outputs": true
+   },
+   {
+    "cell": "L2×L3|energycharts",
+    "pair": "L2×L3",
+    "domain": "energycharts",
+    "n": 99,
+    "A": 0,
+    "skill_gap": 0,
+    "net_gain": 0,
+    "E_members": 0.23570634519056552,
+    "E_ensemble": 0.23570634519056552,
+    "identical_outputs": true
+   },
+   {
+    "cell": "L2×L3|delphi",
+    "pair": "L2×L3",
+    "domain": "delphi",
+    "n": 12,
+    "A": 0,
+    "skill_gap": 0,
+    "net_gain": 0,
+    "E_members": 0.3048595246895,
+    "E_ensemble": 0.3048595246895,
+    "identical_outputs": true
+   },
+   {
+    "cell": "L2×L3|kraken",
+    "pair": "L2×L3",
+    "domain": "kraken",
+    "n": 30,
+    "A": 0,
+    "skill_gap": 0,
+    "net_gain": 0,
+    "E_members": 0.2644558932043667,
+    "E_ensemble": 0.2644558932043667,
+    "identical_outputs": true
+   },
+   {
+    "cell": "L2×L3|usgs",
+    "pair": "L2×L3",
+    "domain": "usgs",
+    "n": 10,
+    "A": 0,
+    "skill_gap": 0,
+    "net_gain": 0,
+    "E_members": 0.2563705487432,
+    "E_ensemble": 0.2563705487432,
+    "identical_outputs": true
+   },
+   {
+    "cell": "L2×L3|eurostat",
+    "pair": "L2×L3",
+    "domain": "eurostat",
+    "n": 16,
+    "A": 0,
+    "skill_gap": 0,
+    "net_gain": 0,
+    "E_members": 0.28440163554175,
+    "E_ensemble": 0.28440163554175,
+    "identical_outputs": true
+   }
+  ]
+ },
+ "s34_agreement": {
+  "predicted_domains": [
+   "werewolf_sim"
+  ],
+  "measured_gain_domains": [],
+  "intersection": [],
+  "union_n": 1,
+  "agreement_jaccard": 0,
+  "recall_share": 0,
+  "precision_share": null,
+  "threshold": 0.7,
+  "verdict": "降纯披露（一致率 <0.70；★边界：集合极小 ⇒ 该判定只作方向披露）",
+  "degenerate": true,
+  "domains": [
+   {
+    "domain": "werewolf_sim",
+    "cells": [
+     "L1×L6|werewolf_sim"
+    ],
+    "A": 0.05180652323381561,
+    "net_gain": -0.08242610253936146,
+    "n": 240
+   },
+   {
+    "domain": "openmeteo",
+    "cells": [
+     "L2×L3|openmeteo"
+    ],
+    "A": 0,
+    "net_gain": 0,
+    "n": 574
+   },
+   {
+    "domain": "dbnomics",
+    "cells": [
+     "L2×L3|dbnomics"
+    ],
+    "A": 0,
+    "net_gain": 0,
+    "n": 79
+   },
+   {
+    "domain": "binance",
+    "cells": [
+     "L2×L3|binance"
+    ],
+    "A": 0,
+    "net_gain": 0,
+    "n": 22
+   },
+   {
+    "domain": "wikimedia",
+    "cells": [
+     "L2×L3|wikimedia"
+    ],
+    "A": 0,
+    "net_gain": 0,
+    "n": 38
+   },
+   {
+    "domain": "frankfurter",
+    "cells": [
+     "L2×L3|frankfurter"
+    ],
+    "A": 0,
+    "net_gain": 0,
+    "n": 33
+   },
+   {
+    "domain": "noaa",
+    "cells": [
+     "L2×L3|noaa"
+    ],
+    "A": 0,
+    "net_gain": 0,
+    "n": 59
+   },
+   {
+    "domain": "ghcn",
+    "cells": [
+     "L2×L3|ghcn"
+    ],
+    "A": 0,
+    "net_gain": 0,
+    "n": 23
+   },
+   {
+    "domain": "energycharts",
+    "cells": [
+     "L2×L3|energycharts"
+    ],
+    "A": 0,
+    "net_gain": 0,
+    "n": 99
+   },
+   {
+    "domain": "delphi",
+    "cells": [
+     "L2×L3|delphi"
+    ],
+    "A": 0,
+    "net_gain": 0,
+    "n": 12
+   },
+   {
+    "domain": "kraken",
+    "cells": [
+     "L2×L3|kraken"
+    ],
+    "A": 0,
+    "net_gain": 0,
+    "n": 30
+   },
+   {
+    "domain": "usgs",
+    "cells": [
+     "L2×L3|usgs"
+    ],
+    "A": 0,
+    "net_gain": 0,
+    "n": 10
+   },
+   {
+    "domain": "eurostat",
+    "cells": [
+     "L2×L3|eurostat"
+    ],
+    "A": 0,
+    "net_gain": 0,
+    "n": 16
+   }
+  ]
+ },
+ "not_run": {
+  "note": "§3.2（期望增益 vs 实测 ΔBrier 秩相关）与 §3.4（开关一致率）**已于 2026-09-17 补齐**（原 n/a 理由＝「须下游实测 ΔBrier」，E2 跑完后该理由消失）。"
+ },
+ "bootstrap": {
+  "B": 1000,
+  "seed": 987654321,
+  "method": "按题配对重采样·百分位法"
+ }
+}

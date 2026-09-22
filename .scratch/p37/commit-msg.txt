@@ -1,0 +1,27 @@
+09-22 例行结算：3 条补结（L2 binance）· 零翻转成立 · 已解 1658→1661
+
+【到期面】34 条（oddsapi_h2h 10／npm 7／elexon 4／cta 3／binance 3／无kind 2／nvd 1／mlb 1／cwl 2／crossref 1）
+
+【safe-mutation 五步】
+- ① 写前指纹：六表 SQL 级 sha16（predictions 1994／12e723257f4338bf；已解 1658）
+- ② 两份快照：VACUUM INTO ×2，sha16 935eee219087d94a（逐位相同）
+- ③ 副本演练：--db= 等号形式；resolved=3 pending=5 fail=5；实打网 7
+- ④ 生产写入：resolved=3（与演练同数）
+- ⑤ 零翻转：四表逐位相同、行数不变（1994）、恰 +3
+
+【补结 3 条】全为 L2 binance 09-21 收盘价题：
+- id 896 BTCUSDT 86620.00（阈值 >= 95840.62）→ false
+- id 900 ETHUSDT 2776.19（阈值 >= 3255.56）→ false
+- id 904 SOLUSDT 118.90（阈值 >= 154.81）→ false
+★ 三条均为「高于阈值」预测而实际远低 ⇒ 全 false（非恒真）
+
+【未结】binance pending 3（UTC 日未收盘，正常）／elexon pending 2＋fail 2／cta fail 3
+  ⇒ cta/elexon 的 403 为（四十四）批已诊断的**地域封禁**（环境事实，不可自愈）
+
+【读数前进】已解 1658→1661｜L2 404→407（Brier 0.2393→0.2384）｜其余层与分域（29/10）不变
+【vault】insert 0/update 3 ⇒ ok=true（1994==1994、diff 0）；写前自动快照已存
+
+【测试门】533/533 pass（首跑 1 红＝数据标记过期，队列 1560→1563，按先例带注更新「读数前进，非口径变更」）
+【同步】依赖产物刷新：e2-combo-precheck／e2-r1-rules／thickcell-features 各 20260922 版
+
+【收据】p1b/sim/out/resolve-routine-receipt-20260922.md

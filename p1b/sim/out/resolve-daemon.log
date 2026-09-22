@@ -4563,3 +4563,44 @@
 [2026-09-21T23:33:58+08:00]   fetch-fail kind=elexon_fuelhh_daily_mean x1 — HTTP 403（跳过不写）
 [2026-09-21T23:33:58+08:00] round#1 用时 14.0s | 未解总数=342 到期选中=16 唯一真值请求=16（台账重复合并 0） | resolved=8 pending=3（含预筛 3） fail=5 refused=0／同结论并发=0 口径护栏=0 unsupported=0 未到期跳过=273 无法定到期=53 wouldWrite=0 实打网=3
 [2026-09-21T23:33:58+08:00]   取数失败明细 {"fetch-fail:cta_daily_total_rides:HTTP 403":3,"fetch-fail:elexon_fuelhh_daily_mean:HTTP 403":2}
+[2026-09-22T16:42:18+08:00] === corpus-resolve-daemon start | mode=once interval=60min due-only=true confirm=true
+[2026-09-22T16:42:18+08:00] 复用 corpus-resolve RESOLVERS 成功：inline-extract(61 kinds)
+[2026-09-22T16:42:18+08:00] db=.scratch/p37/drill-work.db
+[2026-09-22T16:42:24+08:00] WARN dlt 日历刷新失败（沿用内置锚 26104@2026-09-12）: HTTP 567
+[2026-09-22T16:42:24+08:00] 日历锚刷新：ssq 2026109@2026-09-20 | dlt 26104@2026-09-12
+[2026-09-22T16:42:53+08:00] 二遍补打 1 组（首遍网络失败，缓 8s 后重试一次）
+[2026-09-22T16:43:02+08:00]   pending kind=cwl_ssq_red_contains x1 due=2026-09-22 — 第 2026110 期未开奖
+[2026-09-22T16:43:02+08:00]   pending kind=cwl_ssq_blue_odd x1 due=2026-09-22 — 第 2026110 期未开奖
+[2026-09-22T16:43:02+08:00]   resolved id=896 kind=binance_daily_close -> false | Binance BTCUSDT 2026-09-21 close=86620.00000000（阈值 >= 95840.62，机检）
+[2026-09-22T16:43:02+08:00]   resolved id=900 kind=binance_daily_close -> false | Binance ETHUSDT 2026-09-21 close=2776.19000000（阈值 >= 3255.56，机检）
+[2026-09-22T16:43:02+08:00]   resolved id=904 kind=binance_daily_close -> false | Binance SOLUSDT 2026-09-21 close=118.90000000（阈值 >= 154.81，机检）
+[2026-09-22T16:43:02+08:00]   fetch-fail kind=cta_daily_total_rides x1 — HTTP 403（跳过不写）
+[2026-09-22T16:43:02+08:00]   fetch-fail kind=cta_daily_total_rides x1 — HTTP 403（跳过不写）
+[2026-09-22T16:43:02+08:00]   fetch-fail kind=cta_daily_total_rides x1 — HTTP 403（跳过不写）
+[2026-09-22T16:43:02+08:00]   pending kind=mlb_schedule_daily_total_runs x1 due=2026-09-22 — 2026-09-22 尚未到
+[2026-09-22T16:43:02+08:00]   fetch-fail kind=elexon_fuelhh_daily_mean x1 — HTTP 403（跳过不写）
+[2026-09-22T16:43:02+08:00]   fetch-fail kind=elexon_fuelhh_daily_mean x1 — HTTP 403（跳过不写）
+[2026-09-22T16:43:02+08:00]   pending kind=elexon_fuelhh_daily_mean x1 due=2026-09-22 — 2026-09-22 尚未到
+[2026-09-22T16:43:02+08:00]   pending kind=elexon_fuelhh_daily_mean x1 due=2026-09-22 — 2026-09-22 尚未到
+[2026-09-22T16:43:02+08:00] round#1 用时 37.9s | 未解总数=334 到期选中=13 唯一真值请求=13（台账重复合并 0） | resolved=3 pending=5（含预筛 0） fail=5 refused=0／同结论并发=0 口径护栏=0 unsupported=0 未到期跳过=268 无法定到期=53 wouldWrite=0 实打网=7
+[2026-09-22T16:43:02+08:00]   取数失败明细 {"fetch-fail:cta_daily_total_rides:HTTP 403":3,"fetch-fail:elexon_fuelhh_daily_mean:HTTP 403":2}
+[2026-09-22T16:43:16+08:00] === corpus-resolve-daemon start | mode=once interval=60min due-only=true confirm=true
+[2026-09-22T16:43:16+08:00] 复用 corpus-resolve RESOLVERS 成功：inline-extract(61 kinds)
+[2026-09-22T16:43:16+08:00] db=E:\music player\p1a-terminal\data\p1a.db
+[2026-09-22T16:43:21+08:00] WARN dlt 日历刷新失败（沿用内置锚 26104@2026-09-12）: HTTP 567
+[2026-09-22T16:43:21+08:00] 日历锚刷新：ssq 2026109@2026-09-20 | dlt 26104@2026-09-12
+[2026-09-22T16:43:31+08:00]   pending kind=cwl_ssq_red_contains x1 due=2026-09-22 — 第 2026110 期未开奖
+[2026-09-22T16:43:31+08:00]   pending kind=cwl_ssq_blue_odd x1 due=2026-09-22 — 第 2026110 期未开奖
+[2026-09-22T16:43:31+08:00]   resolved id=896 kind=binance_daily_close -> false | Binance BTCUSDT 2026-09-21 close=86620.00000000（阈值 >= 95840.62，机检）
+[2026-09-22T16:43:31+08:00]   resolved id=900 kind=binance_daily_close -> false | Binance ETHUSDT 2026-09-21 close=2776.19000000（阈值 >= 3255.56，机检）
+[2026-09-22T16:43:31+08:00]   resolved id=904 kind=binance_daily_close -> false | Binance SOLUSDT 2026-09-21 close=118.90000000（阈值 >= 154.81，机检）
+[2026-09-22T16:43:31+08:00]   fetch-fail kind=cta_daily_total_rides x1 — HTTP 403（跳过不写）
+[2026-09-22T16:43:31+08:00]   fetch-fail kind=cta_daily_total_rides x1 — HTTP 403（跳过不写）
+[2026-09-22T16:43:31+08:00]   fetch-fail kind=cta_daily_total_rides x1 — HTTP 403（跳过不写）
+[2026-09-22T16:43:31+08:00]   pending kind=mlb_schedule_daily_total_runs x1 due=2026-09-22 — 2026-09-22 尚未到
+[2026-09-22T16:43:31+08:00]   fetch-fail kind=elexon_fuelhh_daily_mean x1 — HTTP 403（跳过不写）
+[2026-09-22T16:43:31+08:00]   fetch-fail kind=elexon_fuelhh_daily_mean x1 — HTTP 403（跳过不写）
+[2026-09-22T16:43:31+08:00]   pending kind=elexon_fuelhh_daily_mean x1 due=2026-09-22 — 2026-09-22 尚未到
+[2026-09-22T16:43:31+08:00]   pending kind=elexon_fuelhh_daily_mean x1 due=2026-09-22 — 2026-09-22 尚未到
+[2026-09-22T16:43:31+08:00] round#1 用时 10.1s | 未解总数=334 到期选中=13 唯一真值请求=13（台账重复合并 0） | resolved=3 pending=5（含预筛 0） fail=5 refused=0／同结论并发=0 口径护栏=0 unsupported=0 未到期跳过=268 无法定到期=53 wouldWrite=0 实打网=6
+[2026-09-22T16:43:31+08:00]   取数失败明细 {"fetch-fail:cta_daily_total_rides:HTTP 403":3,"fetch-fail:elexon_fuelhh_daily_mean:HTTP 403":2}
