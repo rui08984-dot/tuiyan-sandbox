@@ -19,12 +19,12 @@
  *   - 页面正文与代码注释均不得出现禁用字样（禁词闸源码级扫描）
  */
 import { useEffect, useMemo, useState } from 'react';
-import { Term, IconChart, IconLayers, EmptyState, KVTable, HelpMark } from '../../components/ui';
+import { IconChart, IconLayers, EmptyState, KVTable, HelpMark } from '../../components/ui';
 import { PagePlate } from '../../components/PagePlate';
 import { PageSidebar } from '../../components/PageSidebar';
 import '../../styles/shell.css';
 import {
-  ChartFrame, HeatGrid, ReadoutCard, ForestPlot, ReliabilityPlot, StackedBar, Waffle,
+  ChartFrame, HeatGrid, ReadoutCard, MiniGauge, ForestPlot, ReliabilityPlot, StackedBar, Waffle,
 } from '../../charts';
 import type { HeatCell } from '../../charts';
 import { quad, tri, int, THIN_CELL_NOTE, MISSING_TEXT } from '../../lib/format';
@@ -204,8 +204,6 @@ export default function OverviewPage() {
   if (!rep && !lens) return <div className="ui-skeleton">正在读取读数…</div>;
 
   const thinCount = cells.filter((c) => !c.conclusion_allowed).length;
-  /* Bento 分层依据：样本量前三的层跨两列（见下方注释中的网格算术） */
-  const leadLayers = byLayer.slice().sort((a, b) => (b.n ?? 0) - (a.n ?? 0)).slice(0, 3).map((x) => x.layer);
   /* 侧栏只列有读数的领域，按可读格子数降序（空领域是噪音不是信息） */
   const domainsWithData = domains
     .map((d) => ({ d, n: cells.filter((c) => c.domain === d && typeof c.brier_engine === 'number').length }))
@@ -281,22 +279,28 @@ export default function OverviewPage() {
         </h2>
         {overall ? (
           <div className="ov-hero">
-            <div className="ov-hero-figure">
-              <ReadoutCard
-                testId="ov-overall-card"
-                title="全部分层合计"
-                subtitle={`由 ${overall.cells} 个有读数的格子合并，共 ${int(overall.n)} 条已结算记录`}
-                value={overall.brier}
-                scaleMax={MAX_BRIER}
-                unit="Brier"
-                rangeText={`基准线 0.25 · ${overall.brier <= MAX_BRIER ? '低于基准线' : '高于基准线'}`}
-                status={<Term id="brier" plain="越低越准" />}
-                tone="lead"
-              />
+            {/* 主结论区：这一块用**大卡**（与下方网格区的小卡形成区域层级）。
+             * 层级差异在"区域之间"是允许且必要的——它告诉使用者先看哪里；
+             * 而同一区域内的卡片必须同形（六轮定版）。 */}
+            <div className="ov-hero-card">
+              <div className="ov-hero-figure">
+                <MiniGauge value={overall.brier} hi={MAX_BRIER} threshold={0.25} size={112} />
+              </div>
+              <div className="ov-hero-body">
+                <span className="ov-hero-eyebrow">整体校准分</span>
+                <div className="ov-hero-value">
+                  <span className="ov-hero-num u-mono">{overall.brier.toFixed(3)}</span>
+                  <span className="ov-hero-unit">Brier</span>
+                </div>
+                <p className="ov-hero-note">
+                  由 {overall.cells} 个有读数的格子合并，共 {int(overall.n)} 条已结算记录。
+                  基准线 0.25＝「一律报五成」，
+                  <b className={overall.brier <= MAX_BRIER ? 'is-good' : 'is-bad'}>
+                    {overall.brier <= MAX_BRIER ? '低于基准线' : '高于基准线'}
+                  </b>。
+                </p>
+              </div>
             </div>
-            {/* 右侧改为华夫图 + 紧凑读数：不再是一排同宽方框
-             *  —— 用户反馈「每个数字都有一个方框」的针对性改动。
-             * 依据 ui-ux-pro-max chart 域：Waffle 属 AA 级部分对整体图表。 */}
             <div className="ov-hero-stats">
               <div className="ov-waffle-panel">
                 <Waffle
@@ -349,15 +353,8 @@ export default function OverviewPage() {
             const brier = row ? row.brier : null;
             const thin = n !== null && n > 0 && n < 30;
             const noData = n === null || n === 0;
-            /* Bento 形制分层（五轮）：按样本量给三种尺寸，让网格**填满不留空位**。
-             * 算术：6 张卡、3 列网格 ⇒ 若仅 1 张跨 2 列则总宽 7 单位（除不尽，留缺口）；
-             * 让样本量前 3 名跨 2 列 ⇒ 3×1 + 3×2 = 9 单位 = 正好 3 行，整齐无洞。
-             * 这不是为了凑数——样本量前三本来就是最值得看大的三层。 */
-            const isLead = !noData && leadLayers.indexOf(m.id) >= 0;
-            const tier = noData ? 'tight' : (isLead ? 'lead' : undefined);
-            /* 结构化辅助色（五轮）：L4 自反层用紫调（它本就是「叠加层」的异类），
-             * 打破全站只有绿的单调，同时给该层一个可记忆的身份色。 */
-            const chip = m.id === 'L4' ? 'plum' as const : undefined;
+            /* 六轮定版：同组卡片一律同形（尺寸差异只在区域层级上，不在兄弟卡之间）。
+             * 数据差异通过**数值、条高、状态色**表达，不通过卡片大小。 */
             return (
               <ReadoutCard
                 key={m.id}
@@ -370,8 +367,8 @@ export default function OverviewPage() {
                 rangeText={noData ? undefined : `已结算 ${int(n)} 条`}
                 trend={trendByLayer[m.id]}
                 status={noData ? '暂无读数' : (thin ? '样本偏少，仅记方向' : '样本充足')}
-                tone={tier ?? (brier === null ? undefined : (brier <= MAX_BRIER ? 'ok' : 'warn'))}
-                chip={chip}
+                tone={brier === null ? undefined : (brier <= MAX_BRIER ? 'ok' : 'warn')}
+                chip={m.id === 'L4' ? 'plum' : undefined}
                 missingText={noData ? MISSING_TEXT : '样本不足'}
               />
             );

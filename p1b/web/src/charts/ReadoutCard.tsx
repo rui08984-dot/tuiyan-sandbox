@@ -98,33 +98,73 @@ export function MiniGauge({
   );
 }
 
-/** 迷你趋势条：一排小竖条，形状＝变化（无读数处留缺口，不补 0） */
+/**
+ * 迷你趋势条：一格数据一个**固定宽度**的小竖条。
+ *
+ * ── 2026-09-22 六轮修复 ──
+ * 缺陷（截图确认）：原实现用 `bw = width / values.length` 平分宽度，
+ *   于是「该层有 1 个领域」画出一根 120px 宽的巨条，
+ *   「有 6 个领域」画成六根 20px 的细条 —— **同一个组件在不同卡片里长得完全不一样**，
+ *   整排卡片看起来像渲染坏了（用户原话「有的是一条细线有的是几块方格」）。
+ * 修法：条宽恒定（--trend-bar），总宽按条数算；条数超出上限时抽稀（保留首尾与峰值），
+ *   保证视觉单元始终一致 —— 变化只在**高度**（那是数据），宽度是样式。
+ */
 export function MiniTrend({
-  values, width = 120, height = 26, testId,
+  values, height = 26, testId,
 }: {
   values: (number | null)[];
-  width?: number; height?: number;
+  height?: number;
   testId?: string;
 }) {
   const present = values.filter((v): v is number => typeof v === 'number' && Number.isFinite(v));
   if (!present.length) {
-    return <span className="mini-trend-empty" data-testid={testId}>暂无趋势</span>;
+    return <span className="mini-trend-empty" data-testid={testId}>无分布</span>;
   }
+
+  /* 抽稀：最多显示 12 根（视觉一致的上限）。超出时按等距采样，并保证峰值被保留——
+   * 否则抽稀可能恰好丢掉最极端的那个读数，那等于漏掉信息。 */
+  const MAX_BARS = 12;
+  let shown: (number | null)[] = values;
+  if (values.length > MAX_BARS) {
+    const step = values.length / MAX_BARS;
+    const picked: (number | null)[] = [];
+    for (let i = 0; i < MAX_BARS; i++) picked.push(values[Math.floor(i * step)]);
+    // 补上峰值（若未被采到）
+    let peakIdx = 0;
+    for (let i = 0; i < values.length; i++) {
+      const a = values[i]; const b = values[peakIdx];
+      if (typeof a === 'number' && (typeof b !== 'number' || a > b)) peakIdx = i;
+    }
+    if (picked.indexOf(values[peakIdx]) < 0) picked[picked.length - 1] = values[peakIdx];
+    shown = picked;
+  }
+
   const max = Math.max(...present);
   const min = Math.min(...present, 0);
   const span = max - min || 1;
-  const bw = width / Math.max(values.length, 1);
+  const n = shown.length;
+  // 固定条宽 + 固定间隙 ⇒ 不论几张卡，波形单元一致
+  const barW = 7;
+  const gap = 3;
+  /* ★ 单条的最小占位：只有 1 个领域时，一根 7px 的孤立竖条在卡片里
+   *   看起来像「渲染坏了」。给它一个明确的**单点标记**样式——
+   *   用宽度 14px 的胶囊 + 更实的填充，读作「一个数据点」而不是「半根条」。 */
+  const single = n === 1;
+  const effBarW = single ? 14 : barW;
+  const width = n * effBarW + (n - 1) * gap;
 
   return (
     <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`} className="mini-trend"
-      role="img" aria-label={`趋势条，共 ${values.length} 个点`} data-testid={testId}>
-      {values.map((v, i) => {
+      role="img"
+      aria-label={single ? `单个数据点，值 ${(shown[0] as number).toFixed(3)}` : `分布条，共 ${n} 个点`}
+      data-testid={testId}>
+      {shown.map((v, i) => {
         if (typeof v !== 'number' || !Number.isFinite(v)) return null; // 缺口：不补 0
-        const h = Math.max(1.5, ((v - min) / span) * (height - 2));
+        const h = Math.max(2, ((v - min) / span) * (height - 2));
         return (
-          <rect key={i} x={(i * bw + bw * 0.15).toFixed(2)} y={(height - h).toFixed(2)}
-            width={Math.max(1, bw * 0.7).toFixed(2)} height={h.toFixed(2)}
-            fill="var(--accent)" fillOpacity="0.85" />
+          <rect key={i} x={(i * (effBarW + gap)).toFixed(2)} y={(height - h).toFixed(2)}
+            width={effBarW} height={h.toFixed(2)} rx={single ? effBarW / 2 : 1.5}
+            fill="var(--accent)" fillOpacity={single ? 0.9 : 0.85} />
         );
       })}
     </svg>
@@ -149,38 +189,39 @@ export function ReadoutCard({
   unit?: string;
   /** 参照区间文字（如「区间 [0.21, 0.27]」） */
   rangeText?: ReactNode;
-  /** 迷你趋势序列 */
+  /** 迷你分布条序列 */
   trend?: (number | null)[];
   /** 状态徽标（如「n≥30 可出结论」） */
   status?: ReactNode;
-  /** 语义色调；'lead' 为主读数（跨两列、特大数值），'tight' 为紧凑型 */
-  tone?: 'ok' | 'warn' | 'danger' | 'lead' | 'tight';
-  /** 结构化辅助色（五轮）：区分卡片族，不是装饰 */
+  /** 语义色调。★ 六轮起**不再承载尺寸**——同组卡尺寸恒定（见下方注释） */
+  tone?: 'ok' | 'warn' | 'danger';
+  /** 结构化辅助色（区分卡片族，不是装饰） */
   chip?: 'cyan' | 'plum' | 'amber';
   missingText?: string;
-  /** 仪表的量程上限（Brier 类读数传 0.25，否则默认 1）
-   *  ★ 不传会按 0..1 缩放——0.19 的读数会画成 19% 弧长，看起来像没数据。 */
+  /** 仪表的量程上限（Brier 类读数传 0.25，否则默认 1） */
   scaleMax?: number;
   testId?: string;
 }) {
   const has = typeof value === 'number' && Number.isFinite(value);
-  const isLead = tone === 'lead';
-  const isTight = tone === 'tight';
-  const visibleTone = (tone === 'ok' || tone === 'warn' || tone === 'danger') ? tone : undefined;
+  /* ── 2026-09-22 六轮 · 统一尺寸 ──
+   * 缺陷（截图确认）：上一轮按样本量给卡片分了三档尺寸（lead/tight/普通），
+   *   结果同一组六张卡里仪表有 92/64/42px 三种、数字有特大/普通/小三种，
+   *   使用者读起来像「有的卡坏了」。
+   * 定论：**同一组卡片的形状必须完全一致，变化只能来自数据**。
+   *   尺寸差异留给「不同层级的区域」（如主结论区 vs 列表区），
+   *   而不是「同一网格里的兄弟卡」。故此处尺寸固定。 */
   return (
     <article
       className={
         'readout-card'
-        + (visibleTone ? ' is-' + visibleTone : '')
-        + (isLead ? ' is-lead' : '')
-        + (isTight ? ' is-tight' : '')
+        + (tone ? ' is-' + tone : '')
         + (has ? '' : ' is-missing')
         + (chip ? ' tone-' + chip : '')
       }
       data-testid={testId}>
       <div className="readout-main">
         <div className="readout-figure">
-          <MiniGauge value={value} hi={scaleMax ?? 1} threshold={0.25} size={isLead ? 92 : (isTight ? 42 : 64)} missingText={missingText} />
+          <MiniGauge value={value} hi={scaleMax ?? 1} threshold={0.25} size={64} missingText={missingText} />
         </div>
         <div className="readout-text">
           <div className="readout-head">

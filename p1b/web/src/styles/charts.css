@@ -176,40 +176,63 @@
   margin-top: 6px;
 }
 
-/* ── 读数卡（2026-09-22 二轮 · 结果展示层，参考 Metaculus 问题卡结构）──
- * 结构分工：图形（左）→ 身份与数值（中）→ 趋势（下）。
- * 图形当主角、数值大字紧随，二者互相印证而非互相替代。 */
+/* ══ 读数卡（六轮：统一形制）══
+ * 教训：上一轮给同组卡片分了三档尺寸，结果「六张卡长得都不一样」。
+ * 现在同一网格内所有卡片尺寸恒定 —— 变化只允许来自数据（数值/条高/状态色）。 */
 .readout-card {
-  display: flex; flex-direction: column; gap: var(--space-3);
+  display: flex; flex-direction: column; gap: var(--space-2);
   background: var(--panel); border: 1px solid var(--line);
   border-radius: var(--radius-md); padding: 16px; min-width: 0;
-  transition: border-color 160ms ease, background 160ms ease;
+  /* 等高：同一行卡片高度一致，网格不会被内容撑得参差（对齐的硬保证） */
+  min-height: 132px;
+  transition: border-color var(--dur-panel, 280ms) ease, background var(--dur-panel, 280ms) ease;
 }
 .readout-card:hover { border-color: rgba(143, 175, 123, 0.35); }
 .readout-card.is-ok { border-left: 3px solid var(--ok); }
 .readout-card.is-warn { border-left: 3px solid var(--warn); }
 .readout-card.is-danger { border-left: 3px solid var(--danger); }
 .readout-card.is-missing { background: var(--panel-2); }
+/* 结构化辅助色（区分卡片族） */
+.readout-card.tone-cyan { border-left: 3px solid var(--cyan); }
+.readout-card.tone-plum { border-left: 3px solid var(--plum); }
+.readout-card.tone-amber { border-left: 3px solid var(--amber); }
 
+/* 主体：图 + 文两列。图形区宽度固定，保证各卡的仪表严格纵向对齐 */
 .readout-main { display: flex; align-items: flex-start; gap: var(--space-3); min-width: 0; }
-.readout-figure { flex: 0 0 auto; display: flex; align-items: center; }
-.readout-text { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+/* 图形区：固定 64px 宽 + 底对齐 —— 各卡仪表均以同一基线起落，
+ * 不会因为弧长不同而看起来「一个高一个低」（六轮对齐修正）。 */
+.readout-figure {
+  flex: 0 0 64px;
+  display: flex; align-items: flex-end; justify-content: center;
+  min-height: 38px;
+}
+.readout-text { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
 
 .readout-head { display: flex; align-items: baseline; gap: var(--space-2); flex-wrap: wrap; min-width: 0; }
 .readout-title { font-weight: 600; font-size: var(--font-size-body); }
 .readout-status { font-size: var(--font-size-micro); color: var(--muted); }
 .readout-sub { font-size: var(--font-size-small); color: var(--muted); line-height: 1.4; }
 
-/* 数值行：大号 + tabular-nums，与图形并列但独立可读 */
-.readout-value { display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; margin-top: 2px; }
-.readout-num { font-size: var(--font-size-h2); font-weight: 600; font-family: var(--font-mono);
-  font-variant-numeric: tabular-nums; line-height: 1.1; }
+/* 数值行：固定字阶（不再按卡片分级），tabular-nums 保证同位对齐 */
+.readout-value { display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; margin-top: 1px; }
+.readout-num { font-size: var(--font-size-metric); font-weight: 600; font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums; line-height: 1.15; }
 .readout-unit { font-size: var(--font-size-small); color: var(--muted); }
 .readout-range { font-size: var(--font-size-small); color: var(--muted); font-variant-numeric: tabular-nums; }
 .is-missing .readout-num { font-size: var(--font-size-body); color: var(--muted); font-family: inherit; }
 
-.readout-trend { display: flex; align-items: center; gap: var(--space-2); min-width: 0; }
-.mini-trend { display: block; max-width: 100%; }
+/* 分布条：钉在卡片底部、高度固定 ⇒ 各卡的条必然落在同一水平线上
+ * （六轮：此前用 margin-top:auto 但高度随内容变，导致有的贴底有的浮在中间）。
+ * 用 flex-end 对齐 + 恒定 min-height，保证即使无数据（显示"无分布"文字）
+ * 也占同样高度，网格行高才不会被个别卡片撑变。 */
+.readout-trend {
+  display: flex; align-items: flex-end; gap: var(--space-2);
+  min-width: 0; height: 30px; margin-top: auto;
+  padding-top: 6px;
+}
+/* 左侧留出与仪表同宽的空白，让分布条与文字列对齐（不与仪表重叠视线） */
+.readout-trend { padding-left: calc(64px + var(--space-3)); }
+.mini-trend { display: block; }
 .mini-trend-empty { font-size: var(--font-size-micro); color: var(--muted); }
 .mini-gauge { display: block; }
 
@@ -268,56 +291,55 @@
 .mini-row-fill { display: block; height: 100%; border-radius: var(--radius-pill); transform-origin: left center;
   animation: bar-fill var(--dur-sweep, 620ms) var(--ease-instrument, ease-out) both; }
 
-/* ══ 读数卡的形制分层（五轮）══
- * 依据 Bento Grids 风格：不同重要度的读数用**不同尺寸的卡**，而不是一排同宽方框。
- *   .is-lead  主读数：占两列、数值特大、带左侧色条
- *   （默认）  普通读数：一列
- *   .is-tight 紧凑读数：一列但减小内边距、隐藏趋势条 */
-.readout-card.is-lead {
-  grid-column: span 2;
-  padding: 22px 24px;
-}
-.readout-card.is-lead .readout-num { font-size: calc(var(--font-size-metric) * 1.35); }
-.readout-card.is-lead .mini-gauge { width: 92px; height: auto; }
-.readout-card.is-tight { padding: 12px 14px; gap: var(--space-2); }
-.readout-card.is-tight .readout-num { font-size: var(--font-size-h3); }
-.readout-card.is-tight .mini-gauge { width: 42px; height: auto; }
-
-/* 左侧语义色条：用结构色区分卡片族（不是装饰——它表明这张卡属于哪一组） */
-.readout-card.is-lead { border-left: 3px solid var(--accent); }
-.readout-card.tone-cyan { border-left-color: var(--cyan); }
-.readout-card.tone-plum { border-left-color: var(--plum); }
-.readout-card.tone-amber { border-left-color: var(--amber); }
-
-@media (max-width: 767px) {
-  .readout-card.is-lead { grid-column: span 1; padding: 16px; }
-  .readout-card.is-lead .readout-num { font-size: var(--font-size-metric); }
-}
+/* ══ 读数卡的形制（六轮定版）══
+ * 六轮撤销了五轮的 lead/tight 尺寸分级 —— 同组卡片必须同形。
+ * 尺寸差异只保留在**区域层级**上：主结论区的大卡（.ov-hero-card）与
+ * 网格区的小卡（.readout-card）是两个不同区域，它们可以有大小差；
+ * 但同一个 .readout-grid 内的卡片一律等大。 */
+.readout-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--grid-gap); min-width: 0; align-items: stretch; }
+@media (max-width: 1023px) { .readout-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 767px) { .readout-grid { grid-template-columns: minmax(0, 1fr); } }
 
 /* ── 校准总览页（四页合一）──
- * 首屏布局：左＝整体读数卡（主角），右＝四个关键计数（配角）。
+ * 首屏布局：左＝整体读数大卡（主角），右＝比例与计数（配角）。
  * 用 grid 让两侧在窄屏自然堆叠，不需要额外的媒体查询开关。 */
-.ov-hero { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: var(--grid-gap); min-width: 0; }
+.ov-hero { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: var(--grid-gap); min-width: 0; }
 @media (max-width: 1023px) { .ov-hero { grid-template-columns: minmax(0, 1fr); } }
-.ov-hero-figure { min-width: 0; }
-.ov-hero-stats {
-  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--grid-gap); min-width: 0;
-}
-.ov-stat {
-  display: flex; flex-direction: column; justify-content: center; gap: 2px;
-  background: var(--panel); border: 1px solid var(--line);
-  border-radius: var(--radius-md); padding: 14px 16px; min-width: 0;
-}
-.ov-stat-num {
-  font-size: var(--font-size-h2); font-weight: 600; font-family: var(--font-mono);
-  font-variant-numeric: tabular-nums; line-height: 1.1;
-}
-.ov-stat-label { font-size: var(--font-size-small); color: var(--muted); }
 
-/* ── 整体表现区的右侧（五轮重做）──
- * 从「四个同宽方框」改为：华夫图（比例一目可数）+ 无边框的紧凑读数行。
- * 这样右侧既有图形（不是纯数字堆），又不与左侧主读数卡抢视觉重量。 */
+/* 主结论大卡（六轮）：与下方网格区的同形小卡形成**区域层级**——
+ * 层级差异在"区域之间"是必要的（告诉使用者先看哪里），
+ * 而同一网格内的卡片一律同形（那是上一轮的缺陷，已撤销）。 */
+.ov-hero-card {
+  display: flex; align-items: center; gap: var(--space-5);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius-md);
+  padding: 22px 24px;
+  min-width: 0;
+}
+.ov-hero-figure { flex: 0 0 auto; display: flex; align-items: center; }
+.ov-hero-body { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.ov-hero-eyebrow {
+  font-size: var(--font-size-micro); font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);
+}
+.ov-hero-value { display: flex; align-items: baseline; gap: 8px; }
+.ov-hero-num {
+  font-size: 44px; font-weight: 700; line-height: 1;
+  font-variant-numeric: tabular-nums; letter-spacing: -0.02em;
+}
+.ov-hero-unit { font-size: var(--font-size-body); color: var(--muted); }
+.ov-hero-note { margin: 2px 0 0; font-size: var(--font-size-small); color: var(--muted); line-height: 1.5; max-width: 46ch; }
+.ov-hero-note .is-good { color: var(--ok); }
+.ov-hero-note .is-bad { color: var(--warn); }
+@media (max-width: 767px) {
+  .ov-hero-card { flex-direction: column; align-items: flex-start; gap: var(--space-3); padding: 16px; }
+  .ov-hero-num { font-size: 34px; }
+}
+
+/* 右侧：华夫图（比例一目可数）+ 无边框紧凑读数行。
+ * 既有图形（不是纯数字堆），又不与左侧主卡抢视觉重量。 */
 .ov-hero-stats { display: flex; flex-direction: column; gap: var(--space-4); min-width: 0; }
 .ov-waffle-panel {
   background: var(--panel); border: 1px solid var(--line);
