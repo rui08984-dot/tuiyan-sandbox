@@ -41,6 +41,13 @@ function register(app) {
   app.get('/api/disclosure/negative-results', async (req, reply) =>
     serve(/^negative-results-ledger-(\d{8})([a-z]?)\.json$/, 'node p1b/scripts/negative-results.cjs', reply));
 
+  // ── 2026-09-22 前端全方面重构：判词离散度（9 路单时刻横截面）──
+  //   additive 只读端点：fs.readFileSync 落盘件，零写库、零 LLM、不碰 p1a.db 契约。
+  //   ★ 件内自带 discipline/no_time_axis 声明——它度量重测信度，不是「信念随时间更新」；
+  //     前端必须原文披露，不得据此画折线（详见 p1b/scripts/verdict-spread.cjs 头注）。
+  app.get('/api/disclosure/verdict-spread', async (req, reply) =>
+    serve(/^verdict-spread-(\d{8})([a-z]?)\.json$/, 'node p1b/scripts/verdict-spread.cjs', reply));
+
   // ── 第 4 期 I6：贝叶斯语义透镜（**精简投影**：只返回页面需要的字段，不透传整件）──
   app.get('/api/disclosure/bayes-lens', async (req, reply) => {
     const p = latest(/^stage4-run-five-layers-(\d{8})([a-z]?)\.json$/);

@@ -1,0 +1,2259 @@
+{
+  "title": "判词离散度披露件（9 路横截面）",
+  "script": "p1b/scripts/verdict-spread.cjs",
+  "db": "p1a-terminal\\data\\p1a.db",
+  "run_prefix": "decouple9-",
+  "generated_at": "2026-09-22T11:35:55.774Z",
+  "discipline": [
+    "本件是单时刻横截面（同一题 3 变体 × 3 温度 = 9 路判词），不是时间序列。",
+    "它度量的是判词离散度／重测信度（同一输入重复采样的一致性），不是「信念随时间更新」。",
+    "禁止把本件的任何字段连成随时间演化的折线：decouple9 批次全部 created_at 逐位相同，构造上无时间轴。"
+  ],
+  "no_time_axis": true,
+  "summary": {
+    "questions": 40,
+    "total_rows": 390,
+    "variants": [
+      "v1_evidence",
+      "v2_skeptical",
+      "v3_baserate"
+    ],
+    "temperatures": [
+      0.2,
+      0.7,
+      1
+    ],
+    "runs": [
+      "decouple9-20260917-v1-evidence-T02",
+      "decouple9-20260917-v1-evidence-T02-rep",
+      "decouple9-20260917-v1-evidence-T07",
+      "decouple9-20260917-v1-evidence-T1",
+      "decouple9-20260917-v2-skeptical-T02",
+      "decouple9-20260917-v2-skeptical-T07",
+      "decouple9-20260917-v2-skeptical-T1",
+      "decouple9-20260917-v3-baserate-T02",
+      "decouple9-20260917-v3-baserate-T07",
+      "decouple9-20260917-v3-baserate-T1"
+    ],
+    "complete_9_rows": 1,
+    "median_spread": 0.35,
+    "max_spread": 0.94
+  },
+  "by_variant": [
+    {
+      "variant": "v1_evidence",
+      "questions_with_reads": 40,
+      "total_reads": 150,
+      "mean": 0.5911,
+      "pooled_sd": 0.2664,
+      "median_spread": 0.115,
+      "max_spread": 0.68,
+      "bins": [
+        {
+          "x0": 0,
+          "x1": 0.1,
+          "count": 7
+        },
+        {
+          "x0": 0.1,
+          "x1": 0.2,
+          "count": 4
+        },
+        {
+          "x0": 0.2,
+          "x1": 0.3,
+          "count": 7
+        },
+        {
+          "x0": 0.3,
+          "x1": 0.4,
+          "count": 19
+        },
+        {
+          "x0": 0.4,
+          "x1": 0.5,
+          "count": 24
+        },
+        {
+          "x0": 0.5,
+          "x1": 0.6,
+          "count": 8
+        },
+        {
+          "x0": 0.6,
+          "x1": 0.7,
+          "count": 18
+        },
+        {
+          "x0": 0.7,
+          "x1": 0.8,
+          "count": 24
+        },
+        {
+          "x0": 0.8,
+          "x1": 0.9,
+          "count": 16
+        },
+        {
+          "x0": 0.9,
+          "x1": 1,
+          "count": 23
+        }
+      ]
+    },
+    {
+      "variant": "v2_skeptical",
+      "questions_with_reads": 40,
+      "total_reads": 120,
+      "mean": 0.5639,
+      "pooled_sd": 0.2344,
+      "median_spread": 0.12,
+      "max_spread": 0.21,
+      "bins": [
+        {
+          "x0": 0,
+          "x1": 0.1,
+          "count": 0
+        },
+        {
+          "x0": 0.1,
+          "x1": 0.2,
+          "count": 2
+        },
+        {
+          "x0": 0.2,
+          "x1": 0.3,
+          "count": 12
+        },
+        {
+          "x0": 0.3,
+          "x1": 0.4,
+          "count": 29
+        },
+        {
+          "x0": 0.4,
+          "x1": 0.5,
+          "count": 10
+        },
+        {
+          "x0": 0.5,
+          "x1": 0.6,
+          "count": 5
+        },
+        {
+          "x0": 0.6,
+          "x1": 0.7,
+          "count": 15
+        },
+        {
+          "x0": 0.7,
+          "x1": 0.8,
+          "count": 21
+        },
+        {
+          "x0": 0.8,
+          "x1": 0.9,
+          "count": 19
+        },
+        {
+          "x0": 0.9,
+          "x1": 1,
+          "count": 7
+        }
+      ]
+    },
+    {
+      "variant": "v3_baserate",
+      "questions_with_reads": 40,
+      "total_reads": 120,
+      "mean": 0.579,
+      "pooled_sd": 0.0102,
+      "median_spread": 0,
+      "max_spread": 0.11,
+      "bins": [
+        {
+          "x0": 0,
+          "x1": 0.1,
+          "count": 0
+        },
+        {
+          "x0": 0.1,
+          "x1": 0.2,
+          "count": 0
+        },
+        {
+          "x0": 0.2,
+          "x1": 0.3,
+          "count": 0
+        },
+        {
+          "x0": 0.3,
+          "x1": 0.4,
+          "count": 0
+        },
+        {
+          "x0": 0.4,
+          "x1": 0.5,
+          "count": 1
+        },
+        {
+          "x0": 0.5,
+          "x1": 0.6,
+          "count": 119
+        },
+        {
+          "x0": 0.6,
+          "x1": 0.7,
+          "count": 0
+        },
+        {
+          "x0": 0.7,
+          "x1": 0.8,
+          "count": 0
+        },
+        {
+          "x0": 0.8,
+          "x1": 0.9,
+          "count": 0
+        },
+        {
+          "x0": 0.9,
+          "x1": 1,
+          "count": 0
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "pid": 91,
+      "layer": "L6",
+      "outcome": "false",
+      "row_count": 10,
+      "variants": 3,
+      "per_variant": {
+        "v1_evidence": {
+          "n": 4,
+          "values": [
+            0.02,
+            0.02,
+            0.02,
+            0.01
+          ],
+          "mean": 0.0175,
+          "sd": 0.005,
+          "min": 0.01,
+          "max": 0.02
+        },
+        "v2_skeptical": {
+          "n": 3,
+          "values": [
+            0.78,
+            0.84,
+            0.95
+          ],
+          "mean": 0.8567,
+          "sd": 0.0862,
+          "min": 0.78,
+          "max": 0.95
+        },
+        "v3_baserate": {
+          "n": 3,
+          "values": [
+            0.58,
+            0.58,
+            0.58
+          ],
+          "mean": 0.58,
+          "sd": 0,
+          "min": 0.58,
+          "max": 0.58
+        }
+      },
+      "spread": 0.94,
+      "mean": 0.438,
+      "sd": 0.3813,
+      "p10": 0.019,
+      "p90": 0.851
+    },
+    {
+      "pid": 92,
+      "layer": "L6",
+      "outcome": "true",
+      "row_count": 7,
+      "variants": 3,
+      "per_variant": {
+        "v1_evidence": {
+          "n": 1,
+          "values": [
+            0.03
+          ],
+          "mean": 0.03,
+          "sd": null,
+          "min": 0.03,
+          "max": 0.03
+        },
+        "v2_skeptical": {
+          "n": 3,
+          "values": [
+            0.35,
+            0.32,
+            0.3
+          ],
+          "mean": 0.3233,
+          "sd": 0.0252,
+          "min": 0.3,
+          "max": 0.35
+        },
+        "v3_baserate": {
+          "n": 3,
+          "values": [
+            0.47,
+            0.58,
+            0.58
+          ],
+          "mean": 0.5433,
+          "sd": 0.0635,
+          "min": 0.47,
+          "max": 0.58
+        }
+      },
+      "spread": 0.55,
+      "mean": 0.3757,
+      "sd": 0.1921,
+      "p10": 0.192,
+      "p90": 0.58
+    },
+    {
+      "pid": 104,
+      "layer": "L6",
+      "outcome": "false",
+      "row_count": 9,
+      "variants": 3,
+      "per_variant": {
+        "v1_evidence": {
+          "n": 3,
+          "values": [
+            0.5,
+            0.35,
+            0.65
+          ],
+          "mean": 0.5,
+          "sd": 0.15,
+          "min": 0.35,
+          "max": 0.65
+        },
+        "v2_skeptical": {
+          "n": 3,
+          "values": [
+            0.3,
+            0.18,
+            0.28
+          ],
+          "mean": 0.2533,
+          "sd": 0.0643,
+          "min": 0.18,
+          "max": 0.3
+        },
+        "v3_baserate": {
+          "n": 3,
+          "values": [
+            0.58,
+            0.58,
+            0.58
+          ],
+          "mean": 0.58,
+          "sd": 0,
+          "min": 0.58,
+          "max": 0.58
+        }
+      },
+      "spread": 0.47,
+      "mean": 0.4444,
+      "sd": 0.1685,
+      "p10": 0.26,
+      "p90": 0.594
+    },
+    {
+      "pid": 108,
+      "layer": "L6",
+      "outcome": "true",
+      "row_count": 10,
+      "variants": 3,
+      "per_variant": {
+        "v1_evidence": {
+          "n": 4,
+          "values": [
+            0.88,
+            0.85,
+            0.96,
+            0.8
+          ],
+          "mean": 0.8725,
+          "sd": 0.067,
+          "min": 0.8,
+          "max": 0.96
+        },
+        "v2_skeptical": {
+          "n": 3,
+          "values": [
+            0.65,
+            0.83,
+            0.68
+          ],
+          "mean": 0.72,
+          "sd": 0.0964,
+          "min": 0.65,
+          "max": 0.83
+        },
+        "v3_baserate": {
+          "n": 3,
+          "values": [
+            0.58,
+            0.58,
+            0.58
+          ],
+          "mean": 0.58,
+          "sd": 0,
+          "min": 0.58,
+          "max": 0.58
+        }
+      },
+      "spread": 0.38,
+      "mean": 0.739,
+      "sd": 0.1415,
+      "p10": 0.58,
+      "p90": 0.888
+    },
+    {
+      "pid": 120,
+      "layer": "L6",
+      "outcome": "true",
+      "row_count": 10,
+      "variants": 3,
+      "per_variant": {
+        "v1_evidence": {
+          "n": 4,
+          "values": [
+            0.75,
+            0.65,
+            0.68,
+            0.65
+          ],
+          "mean": 0.6825,
+          "sd": 0.0472,
+          "min": 0.65,
+          "max": 0.75
+        },
+        "v2_skeptical": {
+          "n": 3,
+          "values": [
+            0.72,
+            0.76,
+            0.78
+          ],
+          "mean": 0.7533,
+          "sd": 0.0306,
+          "min": 0.72,
+          "max": 0.78
+        },
+        "v3_baserate": {
+          "n": 3,
+          "values": [
+            0.58,
+            0.58,
+            0.58
+          ],
+          "mean": 0.58,
+          "sd": 0,
+          "min": 0.58,
+          "max": 0.58
+        }
+      },
+      "spread": 0.2,
+      "mean": 0.673,
+      "sd": 0.0776,
+      "p10": 0.58,
+      "p90": 0.762
+    },
+    {
+      "pid": 122,
+      "layer": "L6",
+      "outcome": "true",
+      "row_count": 10,
+      "variants": 3,
+      "per_variant": {
+        "v1_evidence": {
+          "n": 4,
+          "values": [
+            0.78,
+            0.8,
+            0.72,
+            0.76
+          ],
+          "mean": 0.765,
+          "sd": 0.0342,
+          "min": 0.72,
+          "max": 0.8
+        },
+        "v2_skeptical": {
+          "n": 3,
+          "values": [
+            0.85,
+            0.78,
+            0.72
+          ],
+          "mean": 0.7833,
+          "sd": 0.0651,
+          "min": 0.72,
+          "max": 0.85
+        },
+        "v3_baserate": {
+          "n": 3,
+          "values": [
+            0.58,
+            0.58,
+            0.58
+          ],
+          "mean": 0.58,
+          "sd": 0,
+          "min": 0.58,
+          "max": 0.58
+        }
+      },
+      "spread": 0.27,
+      "mean": 0.715,
+      "sd": 0.1004,
+      "p10": 0.58,
+      "p90": 0.805
+    },
+    {
+      "pid": 134,
+      "layer": "L6",
+      "outcome": "true",
+      "row_count": 10,
+      "variants": 3,
+      "per_variant": {
+        "v1_evidence": {
+          "n": 4,
+          "values": [
+            0.8,
+            0.88,
+            0.85,
+            0.86
+          ],
+          "mean": 0.8475,
+          "sd": 0.034,
+          "min": 0.8,
+          "max": 0.88
+        },
+        "v2_skeptical": {
+          "n": 3,
+          "values": [
+            0.75,
+            0.78,
+            0.68
+          ],
+          "mean": 0.7367,
+          "sd": 0.0513,
+          "min": 0.68,
+          "max": 0.78
+        },
+        "v3_baserate": {
+          "n": 3,
+          "values": [
+            0.58,
+            0.58,
+            0.58
+          ],
+          "mean": 0.58,
+          "sd": 0,
+          "min": 0.58,
+          "max": 0.58
+        }
+      },
+      "spread": 0.3,
+      "mean": 0.734,
+      "sd": 0.1208,
+      "p10": 0.58,
+      "p90": 0.862
+    },
+    {
+      "pid": 135,
+      "layer": "L6",
+      "outcome": "false",
+      "row_count": 10,
+      "variants": 3,
+      "per_variant": {
+        "v1_evidence": {
+          "n": 4,
+          "values": [
+            0.45,
+            0.4,
+            0.38,
+            0.45
+          ],
+          "mean": 0.42,
+          "sd": 0.0356,
+          "min": 0.38,
+          "max": 0.45
+        },
+        "v2_skeptical": {
+          "n": 3,
+          "values": [
+            0.33,
+            0.4,
+            0.4
+          ],
+          "mean": 0.3767,
+          "sd": 0.0404,
+          "min": 0.33,
+          "max": 0.4
+        },
+        "v3_baserate": {
+          "n": 3,
+          "values": [
+            0.58,
+            0.58,
+            0.58
+          ],
+          "mean": 0.58,
+          "sd": 0,
+          "min": 0.58,
+          "max": 0.58
+        }
+      },
+      "spread": 0.25,
+      "mean": 0.455,
+      "sd": 0.0926,
+      "p10": 0.375,
+      "p90": 0.58
+    },
+    {
+      "pid": 147,
+      "layer": "L6",
+      "outcome": "false",
+      "row_count": 10,
+      "variants": 3,
+      "per_variant": {
+        "v1_evidence": {
+          "n": 4,
+          "values": [
+            0.45,
+            0.31,
+            0.35,
+            0.52
+          ],
+          "mean": 0.4075,
+          "sd": 0.0954,
+          "min": 0.31,
+          "max": 0.52
+        },
+        "v2_skeptical": {
+          "n": 3,
+          "values": [
+            0.36,
+            0.35,
+            0.32
+          ],
+          "mean": 0.3433,
+          "sd": 0.0208,
+          "min": 0.32,
+          "max": 0.36
+        },
+        "v3_baserate": {
+          "n": 3,
+          "values": [
+            0.58,
+            0.58,
+            0.58
+          ],
+          "mean": 0.58,
+          "sd": 0,
+          "min": 0.58,
+          "max": 0.58
+        }
+      },
+      "spread": 0.27,
+      "mean": 0.44,
+      "sd": 0.1151,
+      "p10": 0.319,
+      "p90": 0.58
+    },
+    {
+      "pid": 149,
+      "layer": "L6",
+      "outcome": "false",
+      "row_count": 10,
+      "variants": 3,
+      "per_variant": {
+        "v1_evidence": {
+          "n": 4,
+          "values": [
+            0.38,
+            0.28,
+            0.35,
+            0.45
+          ],
+          "mean": 0.365,
+          "sd": 0.0705,
+          "min": 0.28,
+          "max": 0.45
+        },
+        "v2_skeptical": {
+          "n": 3,
+          "values": [
+            0.35,
+            0.39,
+            0.22
+          ],
+          "mean": 0.32,
+          "sd": 0.0889,
+          "min": 0.22,
+          "max": 0.39
+        },
+        "v3_baserate": {
+          "n": 3,
+          "values": [
+            0.58,
+            0.58,
+            0.58
+          ],
+          "mean": 0.58,
+          "sd": 0,
+          "min": 0.58,
+          "max": 0.58
+        }
+      },
+      "spread": 0.36,
+      "mean": 0.416,
+      "sd": 0.1289,
+      "p10": 0.274,
+      "p90": 0.58
+    },
+    {
+      "pid": 161,
+      "layer": "L6",
+      "outcome": "false",
+      "row_count": 10,
+      "variants": 3,
+      "per_variant": {
+        "v1_evidence": {
+          "n": 4,
+          "values": [
+            0.48,
+            0.42,
+            0.35,
+            0.45
+          ],
+          "mean": 0.425,
+          "sd": 0.0557,
+          "min": 0.35,
+          "max": 0.48
+        },
+        "v2_skeptical": {
+          "n": 3,
+          "values": [
+            0.28,
+            0.32,
+            0.42
+          ],
+          "mean": 0.34,
+          "sd": 0.0721,
+          "min": 0.28,
+          "max": 0.42
+        },
+        "v3_baserate": {
+          "n": 3,
+          "values": [
+            0.58,
+            0.58,
+            0.58
+          ],
+          "mean": 0.58,
+          "sd": 0,
+          "min": 0.58,
+          "max": 0.58
+        }
+      },
+      "spread": 0.3,
+      "mean": 0.446,
+      "sd": 0.1101,
+      "p10": 0.316,
+      "p90": 0.58
+    },
+    {
+      "pid": 162,
+      "layer": "L6",
+      "outcome": "false",
+      "row_count": 10,
+      "variants": 3,
+      "per_variant": {
+        "v1_evidence": {
+          "n": 4,
+          "values": [
+            0.15,
+            0.15,
+            0.16,
+            0.12
+          ],
+          "mean": 0.145,
+          "sd": 0.0173,
+          "min": 0.12,
+          "max": 0.16
+        },
+        "v2_skeptical": {
+          "n": 3,
+          "values": [
+            0.48,
+            0.55,
+            0.62
+          ],
+          "mean": 0.55,
+          "sd": 0.07,
+          "min": 0.48,
+          "max": 0.62
+        },
+        "v3_baserate": {
+          "n": 3,
+          "values": [
+            0.58,
+            0.58,
+            0.58
+          ],
+          "mean": 0.58,
+          "sd": 0,
+          "min": 0.58,
+          "max": 0.58
+        }
+      },
+      "spread": 0.5,
+      "mean": 0.397,
+      "sd": 0.22,
+      "p10": 0.147,
+      "p90": 0.584
+    },
+    {
+      "pid": 163,
+      "layer": "L6",
+      "outcome": "false",
+      "row_count": 10,
+      "variants": 3,
+      "per_variant": {
+        "v1_evidence": {
+          "n": 4,
+          "values": [
+            0.98,
+            0.98,
+            0.98,
+            0.98
+          ],
+          "mean": 0.98,
+          "sd": 0,
+          "min": 0.98,
+          "max": 0.98
+        },
+        "v2_skeptical": {
+          "n": 3,
+          "values": [
+            0.8,
+            0.85,
+            0.76
+          ],
+          "mean": 0.8033,
+          "sd": 0.0451,
+          "min": 0.76,
+          "max": 0.85
+        },
+        "v3_baserate": {
+          "n": 3,
+          "values": [
+            0.58,
+            0.58,
+            0.58
+          ],
+          "mean": 0.58,
+          "sd": 0,
+          "min": 0.58,
+          "max": 0.58
+        }
+      },
+      "spread": 0.4,
+      "mean": 0.807,
+      "sd": 0.1759,
+      "p10": 0.58,
+      "p90": 0.98
+    },
+    {
+      "pid": 174,
+      "layer": "L6",
+      "outcome": "false",
+      "row_count": 10,
+      "variants": 3,
+      "per_variant": {
+        "v1_evidence": {
+          "n": 4,
+          "values": [
+            0.52,
+            0.27,
+            0.55,
+            0.65
+          ],
+          "mean": 0.4975,
+          "sd": 0.1615,
+          "min": 0.27,
+          "max": 0.65
+        },
+        "v2_skeptical": {
+          "n": 3,
+          "values": [
+            0.65,
+            0.62,
+            0.55
+          ],
+          "mean": 0.6067,
+          "sd": 0.0513,
+          "min": 0.55,
+          "max": 0.65
+        },
+        "v3_baserate": {
+          "n": 3,
+          "values": [
+            0.58,
+            0.58,
+            0.58
+          ],
+          "mean": 0.58,
+          "sd": 0,
+          "min": 0.58,
+          "max": 0.58
+        }
+      },
+      "spread": 0.38,
+      "mean": 0.555,
+      "sd": 0.1089,
+      "p10": 0.495,
+      "p90": 0.65
+    },
+    {
+      "pid": 175,
+      "layer": "L6",
+      "outcome": "true",
+      "row_count": 10,
+      "variants": 3,
+      "per_variant": {
+        "v1_evidence": {
+          "n": 4,
+          "values": [
+            0.95,
+            0.98,
+            0.97,
+            0.98
+          ],
+          "mean": 0.97,
+          "sd": 0.0141,
+          "min": 0.95,
+          "max": 0.98
+        },
+        "v2_skeptical": {
+          "n": 3,
+          "values": [
+            0.87,
+            0.86,
+            0.91
+          ],
+          "mean": 0.88,
+          "sd": 0.0265,
+          "min": 0.86,
+          "max": 0.91
+        },
+        "v3_baserate": {
+          "n": 3,
+          "values": [
+            0.58,
+            0.58,
+            0.58
+          ],
+          "mean": 0.58,
+          "sd": 0,
+          "min": 0.58,
+          "max": 0.58
+        }
+      },
+      "spread": 0.4,
+      "mean": 0.826,
+      "sd": 0.1749,
+      "p10": 0.58,
+      "p90": 0.98
+    },
+    {
+      "pid": 176,
+      "layer": "L6",
+      "outcome": "true",
+      "row_count": 8,
+      "variants": 3,
+      "per_variant": {
+        "v1_evidence": {
+          "n": 2,
+          "values": [
+            0.84,
+            0.87
+          ],
+          "mean": 0.855,
+          "sd": 0.0212,
+          "min": 0.84,
+          "max": 0.87
+        },
+        "v2_skeptical": {
+          "n": 3,
+          "values": [
+            0.2,
+            0.34,
+            0.3
+          ],
+          "mean": 0.28,
+          "sd": 0.0721,
+          "min": 0.2,
+          "max": 0.34
+        },
+        "v3_baserate": {
+          "n": 3,
+          "values": [
+            0.58,
+            0.58,
+            0.58
+          ],
+          "mean": 0.58,
+          "sd": 0,
+          "min": 0.58,
+          "max": 0.58
+        }
+      },
+      "spread": 0.67,
+      "mean": 0.5363,
+      "sd": 0.244,
+      "p10": 0.27,
+      "p90": 0.849
+    },
+    {
+      "pid": 188,
+      "layer": "L6",
+      "outcome": "false",
+      "row_count": 10,
+      "variants": 3,
+      "per_variant": {
+        "v1_evidence": {
+          "n": 4,
+          "values": [
+            0.35,
+            0.05,
+            0.42,
+            0.5
+          ],
+          "mean": 0.33,
+          "sd": 0.1965,
+          "min": 0.05,
+          "max": 0.5
+        },
+        "v2_skeptical": {
+          "n": 3,
+          "values": [
+            0.32,
+            0.2,
+            0.18
+          ],
+          "mean": 0.2333,
+          "sd": 0.0757,
+          "min": 0.18,
+          "max": 0.32
+        },
+        "v3_baserate": {
+          "n": 3,
+          "values": [
+            0.58,
+            0.58,
+            0.58
+          ],
+          "mean": 0.58,
+          "sd": 0,
+          "min": 0.58,
+          "max": 0.58
+        }
+      },
+      "spread": 0.53,
+      "mean": 0.376,
+      "sd": 0.189,
+      "p10": 0.167,
+      "p90": 0.58
+    },
+    {
+      "pid": 192,
+      "layer": "L6",
+      "outcome": "false",
+      "row_count": 10,
+      "variants": 3,
+      "per_variant": {
+        "v1_evidence": {
+          "n": 4,
+          "values": [
+            0.65,
+            0.7,
+            0.78,
+            0.62
+          ],
+          "mean": 0.6875,
+          "sd": 0.0699,
+          "min": 0.62,
+          "max": 0.78
+        },
+        "v2_skeptical": {
+          "n": 3,
+          "values": [
+            0.76,
+            0.65,
+            0.72
+          ],
+          "mean": 0.71,
+          "sd": 0.0557,
+          "min": 0.65,
+          "max": 0.76
+        },
+        "v3_baserate": {
+          "n": 3,
+          "values": [
+            0.58,
+            0.58,
+            0.58
+          ],
+          "mean": 0.58,
+          "sd": 0,
+          "min": 0.58,
+          "max": 0.58
+        }
+      },
+      "spread": 0.2,
+      "mean": 0.662,
+      "sd": 0.075,
+      "p10": 0.58,
+      "p90": 0.762
+    },
+    {
+      "pid": 204,
+      "layer": "L6",
+      "outcome": "true",
+      "row_count": 10,
+      "variants": 3,
+      "per_variant": {
+        "v1_evidence": {
+          "n": 4,
+          "values": [
+            0.78,
+            0.78,
+            0.85,
+            0.97
+          ],
+          "mean": 0.845,
+          "sd": 0.0896,
+          "min": 0.78,
+          "max": 0.97
+        },
+        "v2_skeptical": {
+          "n": 3,
+          "values": [
+            0.85,
+            0.7,
+            0.65
+          ],
+          "mean": 0.7333,
+          "sd": 0.1041,
+          "min": 0.65,
+          "max": 0.85
+        },
+        "v3_baserate": {
+          "n": 3,
+          "values": [
+            0.58,
+            0.58,
+            0.58
+          ],
+          "mean": 0.58,
+          "sd": 0,
+          "min": 0.58,
+          "max": 0.58
+        }
+      },
+      "spread": 0.39,
+      "mean": 0.732,
+      "sd": 0.1359,
+      "p10": 0.58,
+      "p90": 0.862
+    },
+    {
+      "pid": 206,
+      "layer": "L6",
+      "outcome": "false",
+      "row_count": 10,
+      "variants": 3,
+      "per_variant": {
+        "v1_evidence": {
+          "n": 4,
+          "values": [
+            0.7,
+            0.72,
+            0.7,
+            0.55
+          ],
+          "mean": 0.6675,
+          "sd": 0.0789,
+          "min": 0.55,
+          "max": 0.72
+        },
+        "v2_skeptical": {
+          "n": 3,
+          "values": [
+            0.86,
+            0.82,
+            0.82
+          ],
+          "mean": 0.8333,
+          "sd": 0.0231,
+          "min": 0.82,
+          "max": 0.86
+        },
+        "v3_baserate": {
+          "n": 3,
+          "values": [
+            0.58,
+            0.58,
+            0.58
+          ],
+          "mean": 0.58,
+          "sd": 0,
+          "min": 0.58,
+          "max": 0.58
+        }
+      },
+      "spread": 0.31,
+      "mean": 0.691,
+      "sd": 0.1153,
+      "p10": 0.577,
+      "p90": 0.824
+    },
+    {
+      "pid": 218,
+      "layer": "L6",
+      "outcome": "true",
+      "row_count": 10,
+      "variants": 3,
+      "per_variant": {
+        "v1_evidence": {
+          "n": 4,
+          "values": [
+            0.68,
+            0.92,
+            0.67,
+            0.7
+          ],
+          "mean": 0.7425,
+          "sd": 0.119,
+          "min": 0.67,
+          "max": 0.92
+        },
+        "v2_skeptical": {
+          "n": 3,
+          "values": [
+            0.75,
+            0.86,
+            0.65
+          ],
+          "mean": 0.7533,
+          "sd": 0.105,
+          "min": 0.65,
+          "max": 0.86
+        },
+        "v3_baserate": {
+          "n": 3,
+          "values": [
+            0.58,
+            0.58,
+            0.58
+          ],
+          "mean": 0.58,
+          "sd": 0,
+          "min": 0.58,
+          "max": 0.58
+        }
+      },
+      "spread": 0.34,
+      "mean": 0.697,
+      "sd": 0.1171,
+      "p10": 0.58,
+      "p90": 0.866
+    },
+    {
+      "pid": 231,
+      "layer": "L6",
+      "outcome": "true",
+      "row_count": 10,
+      "variants": 3,
+      "per_variant": {
+        "v1_evidence": {
+          "n": 4,
+          "values": [
+            0.42,
+            0.5,
+            0.45,
+            0.45
+          ],
+          "mean": 0.455,
+          "sd": 0.0332,
+          "min": 0.42,
+          "max": 0.5
+        },
+        "v2_skeptical": {
+          "n": 3,
+          "values": [
+            0.33,
+            0.35,
+            0.4
+          ],
+          "mean": 0.36,
+          "sd": 0.0361,
+          "min": 0.33,
+          "max": 0.4
+        },
+        "v3_baserate": {
+          "n": 3,
+          "values": [
+            0.58,
+            0.58,
+            0.58
+          ],
+          "mean": 0.58,
+          "sd": 0,
+          "min": 0.58,
+          "max": 0.58
+        }
+      },
+      "spread": 0.25,
+      "mean": 0.464,
+      "sd": 0.0937,
+      "p10": 0.348,
+      "p90": 0.58
+    },
+    {
+      "pid": 245,
+      "layer": "L6",
+      "outcome": "true",
+      "row_count": 10,
+      "variants": 3,
+      "per_variant": {
+        "v1_evidence": {
+          "n": 4,
+          "values": [
+            0.28,
+            0.22,
+            0.32,
+            0.3
+          ],
+          "mean": 0.28,
+          "sd": 0.0432,
+          "min": 0.22,
+          "max": 0.32
+        },
+        "v2_skeptical": {
+          "n": 3,
+          "values": [
+            0.42,
+            0.4,
+            0.27
+          ],
+          "mean": 0.3633,
+          "sd": 0.0814,
+          "min": 0.27,
+          "max": 0.42
+        },
+        "v3_baserate": {
+          "n": 3,
+          "values": [
+            0.58,
+            0.58,
+            0.58
+          ],
+          "mean": 0.58,
+          "sd": 0,
+          "min": 0.58,
+          "max": 0.58
+        }
+      },
+      "spread": 0.36,
+      "mean": 0.395,
+      "sd": 0.1404,
+      "p10": 0.265,
+      "p90": 0.58
+    },
+    {
+      "pid": 258,
+      "layer": "L6",
+      "outcome": "true",
+      "row_count": 10,
+      "variants": 3,
+      "per_variant": {
+        "v1_evidence": {
+          "n": 4,
+          "values": [
+            0.65,
+            0.6,
+            0.72,
+            0.78
+          ],
+          "mean": 0.6875,
+          "sd": 0.0789,
+          "min": 0.6,
+          "max": 0.78
+        },
+        "v2_skeptical": {
+          "n": 3,
+          "values": [
+            0.66,
+            0.8,
+            0.68
+          ],
+          "mean": 0.7133,
+          "sd": 0.0757,
+          "min": 0.66,
+          "max": 0.8
+        },
+        "v3_baserate": {
+          "n": 3,
+          "values": [
+            0.58,
+            0.58,
+            0.57
+          ],
+          "mean": 0.5767,
+          "sd": 0.0058,
+          "min": 0.57,
+          "max": 0.58
+        }
+      },
+      "spread": 0.23,
+      "mean": 0.662,
+      "sd": 0.0834,
+      "p10": 0.579,
+      "p90": 0.782
+    },
+    {
+      "pid": 259,
+      "layer": "L6",
+      "outcome": "false",
+      "row_count": 10,
+      "variants": 3,
+      "per_variant": {
+        "v1_evidence": {
+          "n": 4,
+          "values": [
+            0.98,
+            0.98,
+            0.98,
+            0.97
+          ],
+          "mean": 0.9775,
+          "sd": 0.005,
+          "min": 0.97,
+          "max": 0.98
+        },
+        "v2_skeptical": {
+          "n": 3,
+          "values": [
+            0.72,
+            0.83,
+            0.9
+          ],
+          "mean": 0.8167,
+          "sd": 0.0907,
+          "min": 0.72,
+          "max": 0.9
+        },
+        "v3_baserate": {
+          "n": 3,
+          "values": [
+            0.58,
+            0.58,
+            0.58
+          ],
+          "mean": 0.58,
+          "sd": 0,
+          "min": 0.58,
+          "max": 0.58
+        }
+      },
+      "spread": 0.4,
+      "mean": 0.81,
+      "sd": 0.1788,
+      "p10": 0.58,
+      "p90": 0.98
+    },
+    {
+      "pid": 272,
+      "layer": "L6",
+      "outcome": "false",
+      "row_count": 10,
+      "variants": 3,
+      "per_variant": {
+        "v1_evidence": {
+          "n": 4,
+          "values": [
+            0.3,
+            0.27,
+            0.45,
+            0.3
+          ],
+          "mean": 0.33,
+          "sd": 0.0812,
+          "min": 0.27,
+          "max": 0.45
+        },
+        "v2_skeptical": {
+          "n": 3,
+          "values": [
+            0.3,
+            0.42,
+            0.22
+          ],
+          "mean": 0.3133,
+          "sd": 0.1007,
+          "min": 0.22,
+          "max": 0.42
+        },
+        "v3_baserate": {
+          "n": 3,
+          "values": [
+            0.58,
+            0.58,
+            0.58
+          ],
+          "mean": 0.58,
+          "sd": 0,
+          "min": 0.58,
+          "max": 0.58
+        }
+      },
+      "spread": 0.36,
+      "mean": 0.4,
+      "sd": 0.1412,
+      "p10": 0.265,
+      "p90": 0.58
+    },
+    {
+      "pid": 288,
+      "layer": "L6",
+      "outcome": "true",
+      "row_count": 10,
+      "variants": 3,
+      "per_variant": {
+        "v1_evidence": {
+          "n": 4,
+          "values": [
+            0.84,
+            0.82,
+            0.78,
+            0.82
+          ],
+          "mean": 0.815,
+          "sd": 0.0252,
+          "min": 0.78,
+          "max": 0.84
+        },
+        "v2_skeptical": {
+          "n": 3,
+          "values": [
+            0.75,
+            0.71,
+            0.78
+          ],
+          "mean": 0.7467,
+          "sd": 0.0351,
+          "min": 0.71,
+          "max": 0.78
+        },
+        "v3_baserate": {
+          "n": 3,
+          "values": [
+            0.58,
+            0.58,
+            0.58
+          ],
+          "mean": 0.58,
+          "sd": 0,
+          "min": 0.58,
+          "max": 0.58
+        }
+      },
+      "spread": 0.26,
+      "mean": 0.724,
+      "sd": 0.1061,
+      "p10": 0.58,
+      "p90": 0.822
+    },
+    {
+      "pid": 302,
+      "layer": "L6",
+      "outcome": "false",
+      "row_count": 10,
+      "variants": 3,
+      "per_variant": {
+        "v1_evidence": {
+          "n": 4,
+          "values": [
+            0.6,
+            0.7,
+            0.84,
+            0.65
+          ],
+          "mean": 0.6975,
+          "sd": 0.1034,
+          "min": 0.6,
+          "max": 0.84
+        },
+        "v2_skeptical": {
+          "n": 3,
+          "values": [
+            0.8,
+            0.74,
+            0.66
+          ],
+          "mean": 0.7333,
+          "sd": 0.0702,
+          "min": 0.66,
+          "max": 0.8
+        },
+        "v3_baserate": {
+          "n": 3,
+          "values": [
+            0.58,
+            0.58,
+            0.58
+          ],
+          "mean": 0.58,
+          "sd": 0,
+          "min": 0.58,
+          "max": 0.58
+        }
+      },
+      "spread": 0.26,
+      "mean": 0.673,
+      "sd": 0.095,
+      "p10": 0.58,
+      "p90": 0.804
+    },
+    {
+      "pid": 315,
+      "layer": "L6",
+      "outcome": "false",
+      "row_count": 10,
+      "variants": 3,
+      "per_variant": {
+        "v1_evidence": {
+          "n": 4,
+          "values": [
+            0.4,
+            0.4,
+            0.4,
+            0.4
+          ],
+          "mean": 0.4,
+          "sd": 0,
+          "min": 0.4,
+          "max": 0.4
+        },
+        "v2_skeptical": {
+          "n": 3,
+          "values": [
+            0.33,
+            0.35,
+            0.4
+          ],
+          "mean": 0.36,
+          "sd": 0.0361,
+          "min": 0.33,
+          "max": 0.4
+        },
+        "v3_baserate": {
+          "n": 3,
+          "values": [
+            0.58,
+            0.58,
+            0.58
+          ],
+          "mean": 0.58,
+          "sd": 0,
+          "min": 0.58,
+          "max": 0.58
+        }
+      },
+      "spread": 0.25,
+      "mean": 0.442,
+      "sd": 0.0983,
+      "p10": 0.348,
+      "p90": 0.58
+    },
+    {
+      "pid": 329,
+      "layer": "L6",
+      "outcome": "false",
+      "row_count": 10,
+      "variants": 3,
+      "per_variant": {
+        "v1_evidence": {
+          "n": 4,
+          "values": [
+            0.33,
+            0.3,
+            0.35,
+            0.34
+          ],
+          "mean": 0.33,
+          "sd": 0.0216,
+          "min": 0.3,
+          "max": 0.35
+        },
+        "v2_skeptical": {
+          "n": 3,
+          "values": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "mean": 0.3,
+          "sd": 0,
+          "min": 0.3,
+          "max": 0.3
+        },
+        "v3_baserate": {
+          "n": 3,
+          "values": [
+            0.58,
+            0.58,
+            0.58
+          ],
+          "mean": 0.58,
+          "sd": 0,
+          "min": 0.58,
+          "max": 0.58
+        }
+      },
+      "spread": 0.28,
+      "mean": 0.396,
+      "sd": 0.1283,
+      "p10": 0.3,
+      "p90": 0.58
+    },
+    {
+      "pid": 342,
+      "layer": "L6",
+      "outcome": "false",
+      "row_count": 10,
+      "variants": 3,
+      "per_variant": {
+        "v1_evidence": {
+          "n": 4,
+          "values": [
+            0.32,
+            0.48,
+            0.55,
+            0.28
+          ],
+          "mean": 0.4075,
+          "sd": 0.1284,
+          "min": 0.28,
+          "max": 0.55
+        },
+        "v2_skeptical": {
+          "n": 3,
+          "values": [
+            0.58,
+            0.48,
+            0.66
+          ],
+          "mean": 0.5733,
+          "sd": 0.0902,
+          "min": 0.48,
+          "max": 0.66
+        },
+        "v3_baserate": {
+          "n": 3,
+          "values": [
+            0.58,
+            0.58,
+            0.58
+          ],
+          "mean": 0.58,
+          "sd": 0,
+          "min": 0.58,
+          "max": 0.58
+        }
+      },
+      "spread": 0.38,
+      "mean": 0.509,
+      "sd": 0.1222,
+      "p10": 0.316,
+      "p90": 0.588
+    },
+    {
+      "pid": 343,
+      "layer": "L6",
+      "outcome": "false",
+      "row_count": 10,
+      "variants": 3,
+      "per_variant": {
+        "v1_evidence": {
+          "n": 4,
+          "values": [
+            0.72,
+            0.95,
+            0.99,
+            0.92
+          ],
+          "mean": 0.895,
+          "sd": 0.1201,
+          "min": 0.72,
+          "max": 0.99
+        },
+        "v2_skeptical": {
+          "n": 3,
+          "values": [
+            0.93,
+            0.79,
+            0.88
+          ],
+          "mean": 0.8667,
+          "sd": 0.0709,
+          "min": 0.79,
+          "max": 0.93
+        },
+        "v3_baserate": {
+          "n": 3,
+          "values": [
+            0.59,
+            0.58,
+            0.58
+          ],
+          "mean": 0.5833,
+          "sd": 0.0058,
+          "min": 0.58,
+          "max": 0.59
+        }
+      },
+      "spread": 0.41,
+      "mean": 0.793,
+      "sd": 0.1644,
+      "p10": 0.58,
+      "p90": 0.954
+    },
+    {
+      "pid": 356,
+      "layer": "L6",
+      "outcome": "true",
+      "row_count": 8,
+      "variants": 3,
+      "per_variant": {
+        "v1_evidence": {
+          "n": 2,
+          "values": [
+            0.06,
+            0.74
+          ],
+          "mean": 0.4,
+          "sd": 0.4808,
+          "min": 0.06,
+          "max": 0.74
+        },
+        "v2_skeptical": {
+          "n": 3,
+          "values": [
+            0.22,
+            0.32,
+            0.2
+          ],
+          "mean": 0.2467,
+          "sd": 0.0643,
+          "min": 0.2,
+          "max": 0.32
+        },
+        "v3_baserate": {
+          "n": 3,
+          "values": [
+            0.58,
+            0.58,
+            0.58
+          ],
+          "mean": 0.58,
+          "sd": 0,
+          "min": 0.58,
+          "max": 0.58
+        }
+      },
+      "spread": 0.68,
+      "mean": 0.41,
+      "sd": 0.241,
+      "p10": 0.158,
+      "p90": 0.628
+    },
+    {
+      "pid": 372,
+      "layer": "L6",
+      "outcome": "false",
+      "row_count": 10,
+      "variants": 3,
+      "per_variant": {
+        "v1_evidence": {
+          "n": 4,
+          "values": [
+            0.75,
+            0.92,
+            0.65,
+            0.68
+          ],
+          "mean": 0.75,
+          "sd": 0.1208,
+          "min": 0.65,
+          "max": 0.92
+        },
+        "v2_skeptical": {
+          "n": 3,
+          "values": [
+            0.76,
+            0.8,
+            0.68
+          ],
+          "mean": 0.7467,
+          "sd": 0.0611,
+          "min": 0.68,
+          "max": 0.8
+        },
+        "v3_baserate": {
+          "n": 3,
+          "values": [
+            0.58,
+            0.58,
+            0.58
+          ],
+          "mean": 0.58,
+          "sd": 0,
+          "min": 0.58,
+          "max": 0.58
+        }
+      },
+      "spread": 0.34,
+      "mean": 0.698,
+      "sd": 0.111,
+      "p10": 0.58,
+      "p90": 0.812
+    },
+    {
+      "pid": 386,
+      "layer": "L6",
+      "outcome": "true",
+      "row_count": 10,
+      "variants": 3,
+      "per_variant": {
+        "v1_evidence": {
+          "n": 4,
+          "values": [
+            0.76,
+            0.85,
+            0.61,
+            0.66
+          ],
+          "mean": 0.72,
+          "sd": 0.1068,
+          "min": 0.61,
+          "max": 0.85
+        },
+        "v2_skeptical": {
+          "n": 3,
+          "values": [
+            0.84,
+            0.85,
+            0.75
+          ],
+          "mean": 0.8133,
+          "sd": 0.0551,
+          "min": 0.75,
+          "max": 0.85
+        },
+        "v3_baserate": {
+          "n": 3,
+          "values": [
+            0.58,
+            0.58,
+            0.58
+          ],
+          "mean": 0.58,
+          "sd": 0,
+          "min": 0.58,
+          "max": 0.58
+        }
+      },
+      "spread": 0.27,
+      "mean": 0.706,
+      "sd": 0.117,
+      "p10": 0.58,
+      "p90": 0.85
+    },
+    {
+      "pid": 399,
+      "layer": "L6",
+      "outcome": "false",
+      "row_count": 10,
+      "variants": 3,
+      "per_variant": {
+        "v1_evidence": {
+          "n": 4,
+          "values": [
+            0.4,
+            0.44,
+            0.48,
+            0.45
+          ],
+          "mean": 0.4425,
+          "sd": 0.033,
+          "min": 0.4,
+          "max": 0.48
+        },
+        "v2_skeptical": {
+          "n": 3,
+          "values": [
+            0.33,
+            0.38,
+            0.38
+          ],
+          "mean": 0.3633,
+          "sd": 0.0289,
+          "min": 0.33,
+          "max": 0.38
+        },
+        "v3_baserate": {
+          "n": 3,
+          "values": [
+            0.58,
+            0.58,
+            0.58
+          ],
+          "mean": 0.58,
+          "sd": 0,
+          "min": 0.58,
+          "max": 0.58
+        }
+      },
+      "spread": 0.25,
+      "mean": 0.46,
+      "sd": 0.0927,
+      "p10": 0.375,
+      "p90": 0.58
+    },
+    {
+      "pid": 413,
+      "layer": "L6",
+      "outcome": "false",
+      "row_count": 10,
+      "variants": 3,
+      "per_variant": {
+        "v1_evidence": {
+          "n": 4,
+          "values": [
+            0.4,
+            0.37,
+            0.4,
+            0.3
+          ],
+          "mean": 0.3675,
+          "sd": 0.0472,
+          "min": 0.3,
+          "max": 0.4
+        },
+        "v2_skeptical": {
+          "n": 3,
+          "values": [
+            0.25,
+            0.25,
+            0.37
+          ],
+          "mean": 0.29,
+          "sd": 0.0693,
+          "min": 0.25,
+          "max": 0.37
+        },
+        "v3_baserate": {
+          "n": 3,
+          "values": [
+            0.58,
+            0.58,
+            0.58
+          ],
+          "mean": 0.58,
+          "sd": 0,
+          "min": 0.58,
+          "max": 0.58
+        }
+      },
+      "spread": 0.33,
+      "mean": 0.408,
+      "sd": 0.1305,
+      "p10": 0.25,
+      "p90": 0.58
+    },
+    {
+      "pid": 426,
+      "layer": "L6",
+      "outcome": "true",
+      "row_count": 10,
+      "variants": 3,
+      "per_variant": {
+        "v1_evidence": {
+          "n": 4,
+          "values": [
+            0.72,
+            0.7,
+            0.79,
+            0.78
+          ],
+          "mean": 0.7475,
+          "sd": 0.0443,
+          "min": 0.7,
+          "max": 0.79
+        },
+        "v2_skeptical": {
+          "n": 3,
+          "values": [
+            0.5,
+            0.6,
+            0.55
+          ],
+          "mean": 0.55,
+          "sd": 0.05,
+          "min": 0.5,
+          "max": 0.6
+        },
+        "v3_baserate": {
+          "n": 3,
+          "values": [
+            0.58,
+            0.58,
+            0.58
+          ],
+          "mean": 0.58,
+          "sd": 0,
+          "min": 0.58,
+          "max": 0.58
+        }
+      },
+      "spread": 0.29,
+      "mean": 0.638,
+      "sd": 0.1012,
+      "p10": 0.545,
+      "p90": 0.781
+    },
+    {
+      "pid": 427,
+      "layer": "L6",
+      "outcome": "true",
+      "row_count": 10,
+      "variants": 3,
+      "per_variant": {
+        "v1_evidence": {
+          "n": 4,
+          "values": [
+            0.98,
+            0.95,
+            0.98,
+            0.98
+          ],
+          "mean": 0.9725,
+          "sd": 0.015,
+          "min": 0.95,
+          "max": 0.98
+        },
+        "v2_skeptical": {
+          "n": 3,
+          "values": [
+            0.9,
+            0.9,
+            0.9
+          ],
+          "mean": 0.9,
+          "sd": 0,
+          "min": 0.9,
+          "max": 0.9
+        },
+        "v3_baserate": {
+          "n": 3,
+          "values": [
+            0.58,
+            0.58,
+            0.58
+          ],
+          "mean": 0.58,
+          "sd": 0,
+          "min": 0.58,
+          "max": 0.58
+        }
+      },
+      "spread": 0.4,
+      "mean": 0.833,
+      "sd": 0.1776,
+      "p10": 0.58,
+      "p90": 0.98
+    },
+    {
+      "pid": 440,
+      "layer": "L6",
+      "outcome": "true",
+      "row_count": 8,
+      "variants": 3,
+      "per_variant": {
+        "v1_evidence": {
+          "n": 2,
+          "values": [
+            0.6,
+            0.25
+          ],
+          "mean": 0.425,
+          "sd": 0.2475,
+          "min": 0.25,
+          "max": 0.6
+        },
+        "v2_skeptical": {
+          "n": 3,
+          "values": [
+            0.2,
+            0.38,
+            0.35
+          ],
+          "mean": 0.31,
+          "sd": 0.0964,
+          "min": 0.2,
+          "max": 0.38
+        },
+        "v3_baserate": {
+          "n": 3,
+          "values": [
+            0.58,
+            0.58,
+            0.57
+          ],
+          "mean": 0.5767,
+          "sd": 0.0058,
+          "min": 0.57,
+          "max": 0.58
+        }
+      },
+      "spread": 0.4,
+      "mean": 0.4388,
+      "sd": 0.1635,
+      "p10": 0.235,
+      "p90": 0.586
+    }
+  ]
+}

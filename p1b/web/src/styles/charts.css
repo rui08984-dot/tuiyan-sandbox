@@ -4,13 +4,15 @@
  */
 
 /* ── 图框 ── */
-.chart-frame { margin: 0; background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius-md); padding: var(--card-padding); min-width: 0; }
+/* 克制设计：24px 大内边距让读数呼吸，长词允许换行绝不溢出容器 */
+.chart-frame { margin: 0; background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius-md);
+  padding: 24px; min-width: 0; overflow-wrap: anywhere; }
 .chart-frame-head { display: flex; align-items: baseline; gap: var(--space-2); flex-wrap: wrap; margin-bottom: var(--space-2); }
 .chart-frame-actions { margin-left: auto; }
 .chart-title { font-size: var(--font-size-h3); font-weight: 600; }
-.chart-body { min-width: 0; }
-.chart-note { margin: var(--space-2) 0 0; color: var(--muted); font-size: var(--font-size-small); line-height: 1.45; }
-.chart-meta { display: flex; gap: var(--space-3); flex-wrap: wrap; margin-top: var(--space-2); padding-top: 6px;
+.chart-body { min-width: 0; margin-top: 12px; }
+.chart-note { margin: 12px 0 0; color: var(--muted); font-size: var(--font-size-small); line-height: 1.45; }
+.chart-meta { display: flex; gap: var(--space-3); flex-wrap: wrap; margin-top: 12px; padding-top: 6px;
   border-top: 1px solid var(--line); color: var(--muted); font-size: var(--font-size-micro); }
 
 /* eyebrow：专业控制台的大写小标签（结构＝信息，非装饰） */
@@ -39,19 +41,20 @@
 .chart-table td { font-variant-numeric: tabular-nums; }
 
 /* ── 扇形仪表 ── */
-.gauge { display: flex; flex-direction: column; align-items: center; gap: 2px; position: relative; min-width: 0; }
-.gauge .chart-toggle--mini { position: absolute; top: 0; right: 0; }
-.gauge-value { display: flex; align-items: baseline; gap: 3px; }
+.gauge { display: flex; flex-direction: column; align-items: center; gap: 4px; position: relative; min-width: 0; }
+.gauge .chart-toggle--mini { position: absolute; top: 4px; right: 4px; }
+.gauge-value { display: flex; align-items: baseline; gap: 6px; justify-content: center; }
 .gauge-num { font-size: var(--font-size-h2); font-weight: 600; font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
 .gauge-unit { font-size: var(--font-size-micro); color: var(--muted); }
 .gauge-label { font-size: var(--font-size-small); color: var(--muted); text-align: center; }
 .gauge-thr-note { font-size: var(--font-size-micro); color: var(--chart-threshold); }
-.gauge-bar { width: 100%; padding-top: 18px; }
+.gauge-bar { width: 100%; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--line); }
 .gauge-bar-track { position: relative; display: block; height: 10px; background: var(--panel-2); border-radius: var(--radius-pill); overflow: hidden; }
-.gauge-bar-fill { display: block; height: 100%; border-radius: var(--radius-pill); }
+.gauge-bar-fill { display: block; height: 100%; background: var(--accent); border-radius: var(--radius-pill); transition: width 300ms ease; }
 .gauge-bar-threshold { position: absolute; top: -3px; bottom: -3px; width: 2px; background: var(--chart-threshold); }
 .gauge-bar-scale { display: flex; justify-content: space-between; font-size: var(--font-size-micro); color: var(--muted); margin-top: 3px; }
-.gauge-bar-thr-label { color: var(--chart-threshold); }
+.gauge-bar-thr-label { color: var(--chart-threshold); font-weight: 500; }
+.gauge-bar-empty { text-align: center; font-size: var(--font-size-micro); color: var(--muted); }
 
 /* ── 误差须 / 森林图 ── */
 .errbar { display: grid; grid-template-columns: minmax(72px, auto) auto; align-items: center; gap: 6px; min-width: 0; }

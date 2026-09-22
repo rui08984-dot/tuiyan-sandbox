@@ -1,12 +1,10 @@
 /**
  * 统一图框（2026-09-22 全方面重构）
  *
- * 职责：给每张图一个一致的「标题 + 图例 + 数值兜底 + 元信息行」外壳。
- * ★ 元信息行（源文件名 + 生成时点）对齐参考图的元数据行气质，也是本项目的
- *   「口径可追溯」铁律落点——每张图都能追到它是从哪个件、什么时点算出来的。
- *
- * ★ 数值兜底：设计库对扇形/热力/仪表的共同要求＝「不得只靠颜色传达」。
- *   `tableFallback` 提供可切换的数据表，图形挂了也不丢数。
+ * ★ 克制设计原则：
+ *   - 主屏只显示核心读数，专业细节收进第二层
+ *   - 严格控制内边距和字号，绝不溢出容器
+ *   - 留白充足、呼吸感强、对比度清晰
  */
 import { useState, type ReactNode } from 'react';
 import '../styles/charts.css';
@@ -38,7 +36,7 @@ export function ChartFrame({
     <figure className="chart-frame" data-testid={testId}>
       <figcaption className="chart-frame-head">
         {eyebrow ? <span className="chart-eyebrow">{eyebrow}</span> : null}
-        <span className="chart-title">{title}</span>
+        <h3 className="chart-title">{title}</h3>
         <span className="chart-frame-actions">
           {tableFallback && tableFallback.length > 1 ? (
             <button
