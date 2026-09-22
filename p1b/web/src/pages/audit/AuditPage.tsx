@@ -22,6 +22,8 @@ import {
   IconChart, IconLayers,
 } from '../../components/ui';
 import { PagePlate } from '../../components/PagePlate';
+import { PageSidebar } from '../../components/PageSidebar';
+import '../../styles/shell.css';
 import { BrierGauge, ErrorBar, SparkBar, NestedBar } from '../../charts';
 import { tri, pct, fmtCi, int, gateHuman, gateHumanMulti, engineHuman } from '../../lib/format';
 
@@ -42,12 +44,21 @@ const LAYER_META: { id: string; name: string; plain: string; brief: string; engi
 
 const GATE_ORDER = ['scored', 'descriptive', 'blocked'];
 
+/** 层色（与全站 L1-L6 层色令牌同源；侧栏色点用） */
+const LAYER_COLOR: Record<string, string> = {
+  L1: 'var(--layer-l1)', L2: 'var(--layer-l2)', L3: 'var(--layer-l3)',
+  L4: 'var(--layer-l4)', L5: 'var(--layer-l5)', L6: 'var(--layer-l6)',
+};
+
 export default function AuditPage() {
   const [summary, setSummary] = useState<AuditSummary | null>(null);
   const [kpi, setKpi] = useState<AuditG2KpiResult | null>(null);
   const [loadErr, setLoadErr] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [openLayer, setOpenLayer] = useState<string | null>(null);
+  /* 侧栏筛选（六轮）：层多选 + 只看薄样本 */
+  const [layerPick, setLayerPick] = useState<string[]>([]);
+  const [onlyThin, setOnlyThin] = useState(false);
 
   const refresh = useCallback(async () => {
     setLoading(true); setLoadErr(null);
@@ -161,6 +172,36 @@ export default function AuditPage() {
 
         <AlertBar alerts={alerts} testId="alertbar" />
 
+        <div className="page-shell">
+          <PageSidebar
+            testId="audit-sidebar"
+            title="筛选"
+            onClear={() => { setLayerPick([]); setOnlyThin(false); }}
+            groups={[
+              {
+                label: '层',
+                hint: '多选',
+                options: LAYER_META.map((m) => ({
+                  id: m.id,
+                  label: `${m.id} ${m.name}`,
+                  color: LAYER_COLOR[m.id],
+                  count: (calibByLayer[m.id] ? calibByLayer[m.id]!.n : 0),
+                })),
+                value: layerPick,
+                onChange: setLayerPick,
+              },
+              {
+                label: '样本',
+                single: true,
+                options: [{ id: 'thin', label: '只看样本偏少的', count: thin.length }],
+                value: onlyThin ? ['thin'] : [],
+                onChange: (v) => setOnlyThin(v.length > 0),
+              },
+            ]}
+          />
+
+          <div className="page-shell-main">
+
         <div className="ui-section" data-testid="layer-matrix">
           <h3 className="ui-section-title">
             <IconLayers size={16} /> 分层矩阵（L1-L6）
@@ -169,7 +210,11 @@ export default function AuditPage() {
               text="点任意一行可以展开那一层的详情。校准参考＝在已回填真值的题上做的机械算术；样本少于 30 条不出置信区间。"
             />
           </h3>
-          <p className="ui-note" style={{ marginTop: 0 }}>点任意行展开该层详情（面包屑同步）；校准参考=已回填真值题上的机械算术，n&lt;30 不出 CI。</p>
+          <p className="ui-note" style={{ marginTop: 0 }}>
+            {layerPick.length || onlyThin
+              ? `已筛：${layerPick.length ? layerPick.join(' / ') : '全部层'}${onlyThin ? '；只看样本偏少' : ''}。`
+              : '点任意行展开该层详情（面包屑同步）；校准参考=已回填真值题上的机械算术，n<30 不出 CI。'}
+          </p>
           {loading && !summary ? <EmptyState text="账本读取中…" testId="audit-loading" /> : (
             <table className="ui-matrix" data-testid="layer-matrix-table">
               <thead>
@@ -180,7 +225,14 @@ export default function AuditPage() {
                 </tr>
               </thead>
               <tbody>
-                {LAYER_META.map((m) => {
+                {LAYER_META.filter((m) => {
+                  if (layerPick.length && layerPick.indexOf(m.id) < 0) return false;
+                  if (onlyThin) {
+                    const c = calibByLayer[m.id];
+                    return !!c && c.n > 0 && c.n < 100;
+                  }
+                  return true;
+                }).map((m) => {
                   const r = calibByLayer[m.id];
                   const ci = ciByLayer[m.id];
                   const open = openLayer === m.id;
@@ -341,6 +393,8 @@ export default function AuditPage() {
         )}
 
         {summary && <p className="ui-note" data-testid="audit-generated-at">账本快照：{summary.generated_at} ｜ {summary.note}</p>}
+          </div>
+        </div>
       </div>
     </section>
   );

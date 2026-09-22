@@ -18,6 +18,12 @@ import { useEffect, useState } from 'react';
 import { Term, IconChart } from '../../components/ui';
 import { PagePlate } from '../../components/PagePlate';
 
+/** 剥掉数据源里可能混入的 Markdown 强调记号（**加粗** 等）。
+ * 前端显示的是文案，不是 Markdown 源码；出现星号即为渲染缺陷。 */
+function stripMd(s: string): string {
+  return String(s).replace(/\*\*(.+?)\*\*/g, '$1').replace(/(^|\s)\*(?!\s)/g, '$1');
+}
+
 type KindOpt = { kind: string; required: string[]; one_of: string[] };
 type CatalogJson = {
   mode: 'catalog'; contract_source: string | null; kinds: KindOpt[];
@@ -75,22 +81,43 @@ export default function CompilerPage() {
         }
       />
 
+      {/* 「怎么用」从纯 ol 改为编号步骤卡（六轮）：
+       * 原实现是一列普通列表项，与下方真正的操作区没有视觉区分，
+       * 使用者分不清「说明」与「该点的地方」。现在用同样式编号块明确标为说明区。
+       * ★ 顺带加一道兜底：数据源文案里若混入 Markdown 强调记号（**x**），
+       *   会被当纯文本渲染成星号。这里统一剥掉——前端不该显示原始标记。 */}
       <section className="ui-section">
-        <h2 className="ui-section-title">怎么用（三步）</h2>
-        <ol className="ui-note">{catalog.how_it_works.map((s, i) => <li key={i}>{s}</li>)}</ol>
+        <h2 className="ui-section-title">这个工具做什么</h2>
+        <div className="le-steps">
+          {catalog.how_it_works.map((s, i) => (
+            <div className="le-step" key={i}>
+              <span className="le-step-n" aria-hidden="true">{i + 1}</span>
+              <div className="le-step-body">
+                <span className="le-step-d">{stripMd(s)}</span>
+              </div>
+            </div>
+          ))}
+        </div>
       </section>
 
-      <section className="ui-section">
-        <h2 className="ui-section-title">第一步：选真值锚类型（{catalog.kinds.length} 种）</h2>
-        <select
-          value={picked}
-          onChange={(e) => setPicked(e.target.value)}
-          aria-label="选择真值锚类型"
-          style={{ minWidth: 320, padding: '6px 8px' }}
-        >
-          <option value="">— 请选择 —</option>
-          {catalog.kinds.map((k) => <option key={k.kind} value={k.kind}>{k.kind}</option>)}
-        </select>
+      {/* 操作区：视觉上明显区别于说明区（有边框、有底色），一眼看出"在这里选" */}
+      <section className="ui-section cp-op">
+        <h2 className="ui-section-title">
+          第一步：选真值锚类型
+          <span className="cp-count">{catalog.kinds.length} 种可选</span>
+        </h2>
+        <label className="cp-field">
+          <span className="cp-field-label">这道题的结果去哪里查</span>
+          <select
+            value={picked}
+            onChange={(e) => setPicked(e.target.value)}
+            aria-label="选择真值锚类型"
+            className="cp-select"
+          >
+            <option value="">— 请选择 —</option>
+            {catalog.kinds.map((k) => <option key={k.kind} value={k.kind}>{k.kind}</option>)}
+          </select>
+        </label>
       </section>
 
       {result && !result.known ? (
@@ -102,7 +129,7 @@ export default function CompilerPage() {
 
       {result && result.known && result.suggestion && result.evidence ? (
         <>
-          <section className="ui-section">
+          <section className="ui-section cp-result">
             <h2 className="ui-section-title">第二步：系统建议（参考）</h2>
             <div className="ui-kv">
               <div className="ui-kv-row">

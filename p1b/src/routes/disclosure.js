@@ -162,11 +162,11 @@ function register(app) {
         contract_source: contracts ? 'g2-contract-frozen-r4.json' : null,
         kinds: contracts ? Object.keys(contracts).sort().filter((k) => k.charAt(0) !== '_').map((k) => ({ kind: k, required: contracts[k].required || [], one_of: contracts[k].one_of || [] })) : [],
         how_it_works: [
-          '第一步：选一个真值锚类型（kind）——它决定这道题「能不能机检」。',
-          '第二步：门面查账本历史，给出这类题**通常属于哪一层**、用**哪个引擎**、**有多少同类样本**。',
-          '第三步：这是**参考建议**，不是判定。正式接题仍须走接题页的三问核对（拒收门）。',
+          '第一步：选一个真值锚类型——它决定这道题「能不能机检」。',
+          '第二步：门面查账本历史，给出这类题通常属于哪一层、用哪个引擎、有多少同类样本。',
+          '第三步：这只是参考建议，不是判定。正式接题仍须走接题页的三问核对。',
         ],
-        discipline_note: '本门面**只读账本历史**（零写库）；给出的是参考建议，不替代接题页的拒收门与 checklist 判定。',
+        discipline_note: '本门面只读账本历史（零写库）；给出的是参考建议，不替代接题页的拒收门与核对判据。',
       };
     }
 

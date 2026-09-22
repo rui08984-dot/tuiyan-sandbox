@@ -11,6 +11,8 @@
 import { useEffect, useState } from 'react';
 import { Term, IconChart } from '../../components/ui';
 import { PagePlate } from '../../components/PagePlate';
+import { PageSidebar } from '../../components/PageSidebar';
+import '../../styles/shell.css';
 
 type Entry = {
   id: string; name: string;
@@ -99,6 +101,8 @@ function DesignCard({ e }: { e: Entry }) {
 export default function NegativeResultsPage() {
   const [data, setData] = useState<LedgerJson | null>(null);
   const [missing, setMissing] = useState<{ hint?: string } | null>(null);
+  /* 分类筛选（六轮）：空数组＝全部显示 */
+  const [kindFilter, setKindFilter] = useState<string[]>([]);
   useEffect(() => {
     let alive = true;
     fetch('/api/disclosure/negative-results')
@@ -122,6 +126,8 @@ export default function NegativeResultsPage() {
 
   const emp = Array.isArray(data.empirical) ? data.empirical : [];
   const des = Array.isArray(data.design_rejected) ? data.design_rejected : [];
+  const empShown = kindFilter.length === 0 || kindFilter.indexOf('empirical') >= 0;
+  const desShown = kindFilter.length === 0 || kindFilter.indexOf('design') >= 0;
 
   return (
     <div className="ui-stack">
@@ -138,20 +144,45 @@ export default function NegativeResultsPage() {
         }
       />
 
+      <div className="page-shell">
+        <PageSidebar
+          testId="nr-sidebar"
+          title="分类"
+          onClear={() => setKindFilter([])}
+          groups={[
+            {
+              label: '类型',
+              hint: '多选',
+              options: [
+                { id: 'empirical', label: '实证类', count: emp.length },
+                { id: 'design', label: '设计类', count: des.length },
+              ],
+              value: kindFilter,
+              onChange: setKindFilter,
+            },
+          ]}
+        />
+
+        <div className="page-shell-main">
+
       <section className="ui-section">
         <h2 className="ui-section-title">限定语块</h2>
         <ul className="ui-note">{QUALIFICATION_BLOCK.map((q, i) => <li key={i}>{q}</li>)}</ul>
       </section>
 
-      <section className="ui-section">
-        <h2 className="ui-section-title">实证类（跑过、有读数、结论＝停）｜{emp.length} 条</h2>
-        {emp.length ? emp.map((e) => <EmpiricalCard key={e.id} e={e} />) : <div className="ui-empty">n/a</div>}
-      </section>
+      {empShown ? (
+        <section className="ui-section">
+          <h2 className="ui-section-title">实证类（跑过、有读数、结论＝停）｜{emp.length} 条</h2>
+          {emp.length ? emp.map((e) => <EmpiricalCard key={e.id} e={e} />) : <div className="ui-empty">n/a</div>}
+        </section>
+      ) : null}
 
-      <section className="ui-section">
-        <h2 className="ui-section-title">设计类（评审否决、未跑）｜{des.length} 条</h2>
-        {des.length ? des.map((e) => <DesignCard key={e.id} e={e} />) : <div className="ui-empty">n/a</div>}
-      </section>
+      {desShown ? (
+        <section className="ui-section">
+          <h2 className="ui-section-title">设计类（评审否决、未跑）｜{des.length} 条</h2>
+          {des.length ? des.map((e) => <DesignCard key={e.id} e={e} />) : <div className="ui-empty">n/a</div>}
+        </section>
+      ) : null}
 
       <section className="ui-section">
         <h2 className="ui-section-title">口径与出处</h2>
@@ -161,6 +192,9 @@ export default function NegativeResultsPage() {
           贝叶斯语义见 <Term id="bayesPrior">先验</Term> ／ <Term id="posteriorAgg">后验聚合</Term> 术语说明。
         </p>
       </section>
+
+        </div>
+      </div>
     </div>
   );
 }

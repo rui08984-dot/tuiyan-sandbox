@@ -373,3 +373,44 @@
 .nr-tech > summary:hover { color: var(--text); }
 .nr-tech[open] > summary { color: var(--accent); margin-bottom: 6px; }
 .nr-tech .ui-kv-val { font-size: var(--font-size-small); word-break: break-all; }
+
+/* ══ 编译器页布局（六轮）══
+ * 该页是**表单流**（选择 → 建议 → 明细），不是数据浏览页，
+ * 因此不加侧栏分类器（那会误导——没有可筛的集合），而是把三段层级做清楚：
+ *   说明区（无框）→ 操作区（有框有底，明显是"该点这里"）→ 结果区（有框，左色条） */
+.cp-op {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 18px 20px;
+}
+.cp-count {
+  margin-left: 8px;
+  font-size: var(--font-size-small);
+  font-weight: 400;
+  color: var(--muted);
+}
+.cp-field { display: flex; flex-direction: column; gap: 6px; max-width: 480px; }
+.cp-field-label { font-size: var(--font-size-small); color: var(--muted); }
+.cp-select {
+  appearance: none;
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 36px 10px 12px;
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font: inherit;
+  font-size: var(--font-size-body);
+  cursor: pointer;
+  /* 自绘下拉箭头（禁 emoji，用内联 SVG data URI） */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23A3A79C' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 11px center;
+}
+.cp-select:hover { border-color: var(--accent); }
+.cp-select:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+/* 结果区：左色条标明"这是系统给的结论" */
+.cp-result { border-left: 3px solid var(--accent); padding-left: 16px; }

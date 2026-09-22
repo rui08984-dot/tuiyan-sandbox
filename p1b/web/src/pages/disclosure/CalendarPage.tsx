@@ -15,6 +15,8 @@
 import { useEffect, useState } from 'react';
 import { IconClock } from '../../components/ui';
 import { PagePlate } from '../../components/PagePlate';
+import { PageSidebar } from '../../components/PageSidebar';
+import '../../styles/shell.css';
 import { ChartFrame, Bar, LineChart } from '../../charts';
 import { int } from '../../lib/format';
 
@@ -32,6 +34,10 @@ type CalJson = {
 export default function CalendarPage() {
   const [data, setData] = useState<CalJson | null>(null);
   const [missing, setMissing] = useState<{ hint?: string } | null>(null);
+  /* 侧栏筛选状态（六轮）。空数组＝不筛（显示全部）。 */
+  const [winFilter, setWinFilter] = useState<string[]>([]);
+  const [srcFilter, setSrcFilter] = useState<string[]>([]);
+  const [onlyMismatch, setOnlyMismatch] = useState(false);
 
   useEffect(() => {
     let alive = true;
@@ -63,6 +69,30 @@ export default function CalendarPage() {
   const dBucket = data.dual_source_bucket.diff || [];
   const maxDiff = Math.max(1, ...dBucket.map((x) => Math.max(Math.abs(x.ledger - x.evidence_daemon), 1)));
 
+  /* ══ 侧栏筛选（六轮）══
+   * ★ 诚实说明：本页数据是**聚合计数**（按日/周分桶），不是可逐条过滤的明细。
+   *   所以这里的分类器控制的是「显示哪些时段切片」，而不是假装在过滤条目——
+   *   不制造「看起来能筛、其实筛不动」的假交互。
+   * 分组：
+   *   时段 —— 7 天内 / 8–30 天 / 30 天以上 / 未定到期
+   *   来源 —— 证据来源类型（每类一个切片） */
+  const windowOptions = [
+    { id: 'd7', label: '7 天内', count: dayRows.reduce((a, k) => a + data.buckets.day_window[k], 0) },
+    { id: 'd30', label: '8–30 天', count: weekRows.reduce((a, k) => a + data.buckets.week_window[k], 0) },
+    { id: 'gt30', label: '30 天以上', count: data.buckets.gt30 },
+    { id: 'undated', label: '未定到期', count: data.buckets.undatable_ledger },
+  ];
+  const srcOptions = srcs.map((k) => ({
+    id: k,
+    label: k === 'undatable' ? '不可定' : k.split(':')[0],
+    count: data.evidence_src_counts[k],
+  }));
+  const allWindows = windowOptions.map((o) => o.id);
+  const allSrcs = srcOptions.map((o) => o.id);
+  const winPick = winFilter.length ? winFilter : allWindows;
+  const srcPick = srcFilter.length ? srcFilter : allSrcs;
+  const showWin = (id: string) => winPick.indexOf(id) >= 0;
+
   return (
     <div className="ui-stack">
       <PagePlate
@@ -73,11 +103,31 @@ export default function CalendarPage() {
         subtitle={<>共 {int(data.rows)} 题等着见分晓。口径：{data.basis}。只披露不裁决；本页不构成任何能力宣称。</>}
       />
 
+      <div className="page-shell">
+        <PageSidebar
+          testId="cal-sidebar"
+          title="筛选"
+          onClear={() => { setWinFilter([]); setSrcFilter([]); setOnlyMismatch(false); }}
+          groups={[
+            { label: '时段', hint: '多选', options: windowOptions, value: winFilter, onChange: setWinFilter },
+            { label: '证据来源', hint: `${srcs.length} 类`, options: srcOptions, value: srcFilter, onChange: setSrcFilter },
+            {
+              label: '对账',
+              single: true,
+              options: [{ id: 'mismatch', label: '只看不一致的', count: dRow.mismatch_n }],
+              value: onlyMismatch ? ['mismatch'] : [],
+              onChange: (v) => setOnlyMismatch(v.length > 0),
+            },
+          ]}
+        />
+
+        <div className="page-shell-main">
+
       {/* ── ① 未来 7 天 +8–30 天 → 柱状条 ── */}
       <ChartFrame
         testId="cal-daybar"
         eyebrow="到期分布"
-        title="近期有多少题要见分晓"
+        title={winFilter.length ? `到期分布（已筛 ${winFilter.length} 个时段）` : '近期有多少题要见分晓'}
         sourceFile="forecast-calendar"
         generatedAt={data.generated_at}
         tableFallback={[
@@ -88,14 +138,26 @@ export default function CalendarPage() {
         note="柱高＝该时段内到期的题量；没有柱子就是那时段没有题。"
       >
         <div className="cstack">
-          {dayRows.map((k) => (
+          {showWin('d7') && dayRows.map((k) => (
             <Bar key={k} value={data.buckets.day_window[k]} max={Math.max(15, ...Object.values(data.buckets.day_window))}
               threshold={10} thresholdLabel="阈值 10" label={`① ${k}`} valueText={int(data.buckets.day_window[k])} />
           ))}
-          {weekRows.map((k) => (
+          {showWin('d30') && weekRows.map((k) => (
             <Bar key={k} value={data.buckets.week_window[k]} max={Math.max(15, ...Object.values(data.buckets.week_window))}
               threshold={5} thresholdLabel="阈值 5" label={`② ${k}`} valueText={int(data.buckets.week_window[k])} />
           ))}
+          {/* 30 天以上与未定到期也要能被筛到——否则筛选器会"吃掉"这两类数据 */}
+          {showWin('gt30') ? (
+            <Bar value={data.buckets.gt30} max={Math.max(15, data.buckets.gt30, 1)}
+              label="③ 30 天以上" valueText={int(data.buckets.gt30)} />
+          ) : null}
+          {showWin('undated') ? (
+            <Bar value={data.buckets.undatable_ledger} max={Math.max(15, data.buckets.undatable_ledger, 1)}
+              color="var(--warn)" label="④ 未定到期" valueText={int(data.buckets.undatable_ledger)} />
+          ) : null}
+          {!showWin('d7') && !showWin('d30') && !showWin('gt30') && !showWin('undated') ? (
+            <p className="ui-note" style={{ margin: 0 }}>当前筛选下没有时段可显示</p>
+          ) : null}
         </div>
       </ChartFrame>
 
@@ -140,10 +202,13 @@ export default function CalendarPage() {
         note="按来源类型统计，可看出多少题已有明确到期依据、多少还没定。"
       >
         <div className="ui-stack">
-          {srcs.map((k) => (
+          {srcs.filter((k) => srcPick.indexOf(k) >= 0).map((k) => (
             <Bar key={k} value={data.evidence_src_counts[k]} max={Math.max(...Object.values(data.evidence_src_counts))}
               label={k === 'undatable' ? '不可定' : k.split(':')[0]} valueText={int(data.evidence_src_counts[k])} />
           ))}
+          {srcs.filter((k) => srcPick.indexOf(k) >= 0).length === 0 ? (
+            <p className="ui-note" style={{ margin: 0 }}>当前筛选下没有来源可显示</p>
+          ) : null}
           {data.by_kind && Object.entries(data.by_kind!).length > 0 && (
             <>
               <hr style={{ border: 'none', borderTop: '1px solid var(--line)', margin: '8px 0' }} />
@@ -159,15 +224,18 @@ export default function CalendarPage() {
 
       {/* ── 明细区（纯表格兜底） ── */}
       <section className="ui-section">
-        <h2 className="ui-section-title">明细读数（精确值）</h2>
+        <h2 className="ui-section-title">
+          明细读数（精确值）
+          {onlyMismatch ? <span className="ui-note">　仅显示不一致相关</span> : null}
+        </h2>
         <div className="ui-kv">
-          <div className="ui-kv-row"><span className="ui-kv-key">一致</span><span className="ui-kv-val">{dRow.agree}</span></div>
+          {!onlyMismatch && <div className="ui-kv-row"><span className="ui-kv-key">一致</span><span className="ui-kv-val">{dRow.agree}</span></div>}
           <div className="ui-kv-row"><span className="ui-kv-key">不一致</span><span className="ui-kv-val">{dRow.mismatch_n}</span></div>
           <div className="ui-kv-row"><span className="ui-kv-key">仅账本有</span><span className="ui-kv-val">{dRow.ledger_only_n}</span></div>
           <div className="ui-kv-row"><span className="ui-kv-key">仅证据有</span><span className="ui-kv-val">{dRow.evidence_only_n}</span></div>
-          <div className="ui-kv-row"><span className="ui-kv-key">双无</span><span className="ui-kv-val">{dRow.both_none}</span></div>
-          <div className="ui-kv-row"><span className="ui-kv-key">30 天以上</span><span className="ui-kv-val">{data.buckets.gt30}</span></div>
-          <div className="ui-kv-row"><span className="ui-kv-key">无到期日</span><span className="ui-kv-val">{data.buckets.undatable_ledger}</span></div>
+          {!onlyMismatch && <div className="ui-kv-row"><span className="ui-kv-key">双无</span><span className="ui-kv-val">{dRow.both_none}</span></div>}
+          {!onlyMismatch && <div className="ui-kv-row"><span className="ui-kv-key">30 天以上</span><span className="ui-kv-val">{data.buckets.gt30}</span></div>}
+          {!onlyMismatch && <div className="ui-kv-row"><span className="ui-kv-key">无到期日</span><span className="ui-kv-val">{data.buckets.undatable_ledger}</span></div>}
         </div>
       </section>
 
@@ -175,6 +243,9 @@ export default function CalendarPage() {
         <h2 className="ui-section-title">规则</h2>
         <p className="ui-note">{dRow.rule}</p>
       </section>
+
+        </div>
+      </div>
     </div>
   );
 }
