@@ -13,6 +13,7 @@ import {
   type SeatCtx,
 } from './confirm-flow';
 import SeatField from './SeatField';
+import { useModalDismiss } from '../../lib/useModalDismiss';
 import { IconAlert } from '../ui';
 
 interface ConfirmCardProps {
@@ -32,8 +33,17 @@ interface ConfirmCardProps {
 
 export default function ConfirmCard(p: ConfirmCardProps) {
   const { card: c } = p;
+  /* 统一弹层行为（七轮）：Esc 可关、锁滚动、焦点管理。
+   * ★ 但**禁用点遮罩关闭** —— 这张卡里是使用者刚录完、尚未入库的内容，
+   *   误触遮罩就丢弃是不可接受的（误操作代价高于便利）。
+   *   要放弃必须显式按「放弃」按钮，那是明确的意图表达。 */
+  const { overlayProps } = useModalDismiss<HTMLDivElement>(p.onCancel, {
+    closeOnOverlay: false,
+  });
+
   return (
-    <div className="confirm-overlay" role="dialog" aria-modal="true" aria-label="待确认卡">
+    <div className="confirm-overlay" role="dialog" aria-modal="true" aria-label="待确认卡"
+      ref={overlayProps.ref} onClick={overlayProps.onClick}>
       <div className="confirm-sheet">
         <div className="confirm-head">
           <h2>待确认卡</h2>

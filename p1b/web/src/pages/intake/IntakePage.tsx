@@ -17,7 +17,8 @@ import * as api from '../../api';
 import type { IntakeClassifyResult, IntakeRejectsResult, IntakeQuestionsResult } from '../../types';
 import '../../styles/intake.css';
 import { IconPen, Term } from '../../components/ui';
-import { gateHuman } from '../../lib/format';
+import { PagePlate } from '../../components/PagePlate';
+import { gateHuman, humanTime } from '../../lib/format';
 
 const errMsg = (e: unknown): string => (e instanceof Error ? e.message : String(e));
 
@@ -152,92 +153,138 @@ export default function IntakePage() {
   };
   return (
     <section className="page" data-testid="intake-page">
-      <div className="intake-banner" role="note" data-testid="intake-banner">开放接题 · 只记不评 · 分层账本</div>
-
-      <header className="intake-head">
-        <h2><IconPen size={18} /> 开放接题</h2>
-        <p className="intake-sub">填题面 → 过三道必答关 → 挑出它算哪一类；本页只做登记，不改已有记录。</p>
-      </header>
+      {/* ══ 页头（2026-09-23 七轮统一）══
+       * 原状：一条 .intake-banner 横条（「开放接题 · 只记不评 · 分层账本」）
+       *   ＋ 一个 19px/700 的 h2 —— 与本项目其余九页的铭牌格式不一致
+       *   （其他页是 26px/800 + 底块 + 投影字 + 英文尾字），同一套导航下切页会"变样"。
+       * 改法：丢弃自造页头，统一用 PagePlate；原横条那句话本就是「口径声明」，
+       *   归入副标题（信息不丢，只是不再单独占一条视觉带）。 */}
+      <PagePlate
+        testId="intake-plate"
+        icon={<IconPen size={20} />}
+        title="开放接题"
+        tail="Intake"
+        subtitle={
+          <>
+            填题面 → 过三道必答关 → 挑出它算哪一类。
+            <b>本页只做登记，不改已有记录</b>；仅记不评、分层归档。
+          </>
+        }
+      />
 
       <div className="intake-grid">
-        {/* ── 左栏：接题表单 ── */}
-        <form className="intake-card" onSubmit={submit} data-testid="intake-form">
-          <h3 className="intake-card-title">① 这道题在问什么</h3>
-          <label className="intake-label" htmlFor="intake-statement">题面（必填）</label>
-          <textarea id="intake-statement" className="intake-textarea" rows={3} value={statement}
-            placeholder="例：2026-09-12 上海最高气温超过 35°C"
-            onChange={(e) => setStatement(e.target.value)} data-testid="intake-statement" />
-
-          <details className="intake-advanced">
-            <summary>真值锚参数（可选，多数题不用填）</summary>
-            <p className="intake-note" style={{ marginTop: 0 }}>
-              想让系统自动核对这道题的结果，就在这里说明「去哪里查、查什么、怎么算过」。
-              不确定就留空——留空不影响接题。
-            </p>
-            <div className="intake-spec-grid">
-              <label>数据类型<input className="intake-input" value={spec.kind} onChange={(e) => setSpecField('kind', e.target.value)} placeholder="官方统计 / 比赛结果 / 价格" /></label>
-              <label>查询地址<input className="intake-input" value={spec.url_template} onChange={(e) => setSpecField('url_template', e.target.value)} placeholder="https://…" /></label>
-              <label>取哪一项<input className="intake-input" value={spec.field} onChange={(e) => setSpecField('field', e.target.value)} placeholder="如 当日最高气温" /></label>
-              <label>判定阈值<input className="intake-input" value={spec.threshold} onChange={(e) => setSpecField('threshold', e.target.value)} placeholder="35" /></label>
-              <label>比较方式<input className="intake-input" value={spec.cmp} onChange={(e) => setSpecField('cmp', e.target.value)} placeholder="大于 / 不小于 / 小于" /></label>
-              <label>核对日期<input className="intake-input" value={spec.date} onChange={(e) => setSpecField('date', e.target.value)} placeholder="2026-09-12" /></label>
+        {/* ── 左栏：接题表单 ──
+         * 2026-09-23 七轮：原为**一张** 876×908 的巨卡包住三个步骤，
+         *   问题：① 一屏读不完，用户滚动时看不到自己在第几步
+         *         ② 三段的视觉权重完全相同，没有进度感
+         *         ③ 提交按钮离第一步很远（在 900px 下方）
+         * 改为**三步三卡**：每步独立成卡、带步骤编号与完成状态，
+         *   表单语义由 <form> 包住三卡保留（Enter 提交、label 关联都不变）。 */}
+        <form className="intake-steps" onSubmit={submit} data-testid="intake-form">
+          <section className="intake-card intake-step" data-testid="intake-step-1">
+            <div className="intake-step-head">
+              <span className="intake-step-n" aria-hidden="true">1</span>
+              <h3 className="intake-card-title">这道题在问什么</h3>
+              <span className="intake-step-state">{statement.trim() ? '已填' : '待填'}</span>
             </div>
-            <p className="intake-note">六项都可留空；填了数据类型才会随请求提交。</p>
-          </details>
+            <label className="intake-label" htmlFor="intake-statement">题面（必填）</label>
+            <textarea id="intake-statement" className="intake-textarea" rows={3} value={statement}
+              placeholder="例：2026-09-12 上海最高气温超过 35°C"
+              onChange={(e) => setStatement(e.target.value)} data-testid="intake-statement" />
 
-          <h3 className="intake-card-title">② 三道必过关（不满足就不收）</h3>
-          <div className="intake-gate-list">
-            {GATE_QS.map((q) => (
-              <label className={'intake-check intake-check-row' + (gate[q.key] ? ' is-on' : ' is-off')} key={q.key} data-testid={'intake-gate-' + q.key}>
-                <input type="checkbox" checked={!!gate[q.key]} onChange={() => toggleGate(q.key)} />
-                <span className="intake-check-text">
-                  {q.termId ? <Term id={q.termId} plain={q.label} /> : q.label}
-                  <i className="intake-hint">{q.hint}</i>
-                </span>
-                <span className="intake-check-mark" aria-hidden>{gate[q.key] ? '✓' : '—'}</span>
-              </label>
-            ))}
-          </div>
+            <details className="intake-advanced">
+              <summary>真值锚参数（可选，多数题不用填）</summary>
+              <p className="intake-note" style={{ marginTop: 0 }}>
+                想让系统自动核对这道题的结果，就在这里说明「去哪里查、查什么、怎么算过」。
+                不确定就留空——留空不影响接题。
+              </p>
+              <div className="intake-spec-grid">
+                <label>数据类型<input className="intake-input" value={spec.kind} onChange={(e) => setSpecField('kind', e.target.value)} placeholder="官方统计 / 比赛结果 / 价格" /></label>
+                <label>查询地址<input className="intake-input" value={spec.url_template} onChange={(e) => setSpecField('url_template', e.target.value)} placeholder="https://…" /></label>
+                <label>取哪一项<input className="intake-input" value={spec.field} onChange={(e) => setSpecField('field', e.target.value)} placeholder="如 当日最高气温" /></label>
+                <label>判定阈值<input className="intake-input" value={spec.threshold} onChange={(e) => setSpecField('threshold', e.target.value)} placeholder="35" /></label>
+                <label>比较方式<input className="intake-input" value={spec.cmp} onChange={(e) => setSpecField('cmp', e.target.value)} placeholder="大于 / 不小于 / 小于" /></label>
+                <label>核对日期<input className="intake-input" value={spec.date} onChange={(e) => setSpecField('date', e.target.value)} placeholder="2026-09-12" /></label>
+              </div>
+              <p className="intake-note">六项都可留空；填了数据类型才会随请求提交。</p>
+            </details>
+          </section>
 
-          <h3 className="intake-card-title">③ 这道题算哪种类型</h3>
-          <p className="intake-note">{DECISION_ORDER_NOTE}</p>
-          <div className="intake-layer-grid">
-            {LAYERS.map((l) => {
-              const picked = layers[l.id].filter(Boolean).length;
-              const total = l.qs.length;
-              const full = picked === total;
-              const open = openLayers[l.id];
-              return (
-                <div className={'intake-layer-card' + (full ? ' is-full' : '') + (open ? ' is-open' : '')} key={l.id} data-testid={'intake-layer-' + l.id}>
-                  <button type="button" className="intake-layer-toggle" aria-expanded={open}
-                    onClick={() => setOpenLayers((prev) => ({ ...prev, [l.id]: !prev[l.id] }))}>
-                    <span className="intake-layer-id">{l.id}</span>
-                    <span className="intake-layer-name"><Term id="layer" plain={l.name} /></span>
-                    <span className="intake-layer-count">{picked}/{total}</span>
-                  </button>
-                  {open && (
-                    <div className="intake-layer-body">
-                      {l.qs.map((q, i) => (
-                        <label className={'intake-check intake-check-row' + (layers[l.id][i] ? ' is-on' : '')} key={i}>
-                          <input type="checkbox" checked={!!layers[l.id][i]} onChange={() => toggleQ(l.id, i)} data-testid={'intake-q-' + l.id + '-' + i} />
-                          <span className="intake-check-text">
-                            <Term id="layer" plain={q.plain} formal={q.formal} />
-                          </span>
-                          <span className="intake-check-mark" aria-hidden>{layers[l.id][i] ? '✓' : ''}</span>
-                        </label>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-          <p className="intake-note">逐个核对：最先全部勾上的那层就是归属层；五层都没勾满则记为 unknown。</p>
+          <section className="intake-card intake-step" data-testid="intake-step-2">
+            <div className="intake-step-head">
+              <span className="intake-step-n" aria-hidden="true">2</span>
+              <h3 className="intake-card-title">三道必过关</h3>
+              <span className="intake-step-state">
+                {GATE_QS.filter((q) => gate[q.key]).length}/{GATE_QS.length} 已确认
+              </span>
+            </div>
+            <p className="intake-note" style={{ marginTop: 0 }}>
+              三条都成立才收；有一条不成立就不用往下填了。
+            </p>
+            <div className="intake-gate-list">
+              {GATE_QS.map((q) => (
+                <label className={'intake-check intake-check-row' + (gate[q.key] ? ' is-on' : ' is-off')} key={q.key} data-testid={'intake-gate-' + q.key}>
+                  <input type="checkbox" checked={!!gate[q.key]} onChange={() => toggleGate(q.key)} />
+                  <span className="intake-check-text">
+                    {q.termId ? <Term id={q.termId} plain={q.label} /> : q.label}
+                    <i className="intake-hint">{q.hint}</i>
+                  </span>
+                  <span className="intake-check-mark" aria-hidden>{gate[q.key] ? '✓' : '—'}</span>
+                </label>
+              ))}
+            </div>
+          </section>
 
-          <button type="submit" className="intake-submit" disabled={busy} data-testid="intake-submit">
-            {busy ? '提交中…' : '提交分类'}
-          </button>
-          {formErr && <div className="intake-error" role="alert" data-testid="intake-form-error">{formErr}</div>}
+          <section className="intake-card intake-step" data-testid="intake-step-3">
+            <div className="intake-step-head">
+              <span className="intake-step-n" aria-hidden="true">3</span>
+              <h3 className="intake-card-title">核对它属于哪一层</h3>
+              <span className="intake-step-state">
+                {LAYERS.filter((l) => layers[l.id].filter(Boolean).length === l.qs.length).length} 层已勾满
+              </span>
+            </div>
+            <p className="intake-note" style={{ marginTop: 0 }}>{DECISION_ORDER_NOTE}</p>
+            <div className="intake-layer-grid">
+              {LAYERS.map((l) => {
+                const picked = layers[l.id].filter(Boolean).length;
+                const total = l.qs.length;
+                const full = picked === total;
+                const open = openLayers[l.id];
+                return (
+                  <div className={'intake-layer-card' + (full ? ' is-full' : '') + (open ? ' is-open' : '')} key={l.id} data-testid={'intake-layer-' + l.id}>
+                    <button type="button" className="intake-layer-toggle" aria-expanded={open}
+                      onClick={() => setOpenLayers((prev) => ({ ...prev, [l.id]: !prev[l.id] }))}>
+                      <span className="intake-layer-id">{l.id}</span>
+                      <span className="intake-layer-name"><Term id="layer" plain={l.name} /></span>
+                      <span className="intake-layer-count">{picked}/{total}</span>
+                    </button>
+                    {open && (
+                      <div className="intake-layer-body">
+                        {l.qs.map((q, i) => (
+                          <label className={'intake-check intake-check-row' + (layers[l.id][i] ? ' is-on' : '')} key={i}>
+                            <input type="checkbox" checked={!!layers[l.id][i]} onChange={() => toggleQ(l.id, i)} data-testid={'intake-q-' + l.id + '-' + i} />
+                            <span className="intake-check-text">
+                              <Term id="layer" plain={q.plain} formal={q.formal} />
+                            </span>
+                            <span className="intake-check-mark" aria-hidden>{layers[l.id][i] ? '✓' : ''}</span>
+                          </label>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+            <p className="intake-note">逐个核对：最先全部勾上的那层就是归属层；五层都没勾满则记为 unknown。</p>
+
+            {/* 提交区：三步之后，整宽、显眼（原实现埋在 900px 的长卡底部） */}
+            <div className="intake-submit-row">
+              <button type="submit" className="intake-submit" disabled={busy} data-testid="intake-submit">
+                {busy ? '提交中…' : '提交分类'}
+              </button>
+              {formErr && <div className="intake-error" role="alert" data-testid="intake-form-error">{formErr}</div>}
+            </div>
+          </section>
         </form>
 
         {/* ── 右栏：结果卡 + 拒收分布 + 接题库 ── */}
@@ -286,26 +333,30 @@ export default function IntakePage() {
           </div>
 
           <div className="intake-card" data-testid="intake-questions">
-            <h3 className="intake-card-title">接题库（最新 20 条 · 只读）</h3>
+            <h3 className="intake-card-title">接题库（最近 {questions ? questions.items.length : 0} 条 · 只读）</h3>
+            {/* ══ 2026-09-23 七轮：表格 → 紧凑列表 ══
+             * 原状：6 列表格塞进 360px 侧栏，实测列头被压成竖排字
+             *   （「编 号」「是 否 计 分」「读 数」），时间戳折成三行「20: 09: 14」，
+             *   基本不可读——这是**用错容器**：宽表属于主区，不属于窄栏。
+             * 改法：窄栏改垂直列表，每条两行（题面 + 元信息），信息不删只重排。
+             *   要看完整表格请去「账本审计」页（那里是宽档容器）。 */}
             {questions ? (
-              <div className="intake-table-wrap">
-                <table className="intake-table" data-testid="intake-questions-table">
-                  <thead><tr><th>编号</th><th>题面</th><th>层</th><th>是否计分</th><th>读数</th><th>落库时间</th></tr></thead>
-                  <tbody>
-                    {questions.items.map((q) => (
-                      <tr key={q.id} data-testid={'intake-q-row-' + q.id}>
-                        <td>{q.id}</td>
-                        <td className="intake-stmt" title={q.statement}>{q.statement}</td>
-                        <td>{q.layer ?? '—'}</td>
-                        <td title={q.gate ? '原始状态：' + q.gate : undefined}>{gateHuman(q.gate)}</td>
-                        <td>{q.prob == null ? '—' : q.prob}</td>
-                        <td>{q.created_at}</td>
-                      </tr>
-                    ))}
-                    {questions.items.length === 0 && <tr><td colSpan={6} className="intake-note">暂无接题记录</td></tr>}
-                  </tbody>
-                </table>
-              </div>
+              questions.items.length ? (
+                <ul className="intake-qlist" data-testid="intake-questions-list">
+                  {questions.items.map((q) => (
+                    <li className="intake-qitem" key={q.id} data-testid={'intake-q-row-' + q.id}>
+                      <span className="intake-qitem-stmt" title={q.statement}>{q.statement}</span>
+                      <span className="intake-qitem-meta">
+                        <span className="u-mono">#{q.id}</span>
+                        {q.layer ? <span className="intake-qitem-tag">{q.layer}</span> : null}
+                        <span title={q.gate ? '原始状态：' + q.gate : undefined}>{gateHuman(q.gate)}</span>
+                        {q.prob != null ? <span className="u-mono">读数 {q.prob}</span> : null}
+                        <span className="intake-qitem-time">{humanTime(q.created_at)}</span>
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              ) : <p className="intake-note">暂无接题记录</p>
             ) : <p className="intake-note">读取中…</p>}
             {questions && <p className="intake-note">{questions.note}</p>}
           </div>

@@ -5,6 +5,7 @@ import type { BotcScript, Game, Player } from '../types';
 import { defaultSeatName, setSeatName } from '../lib/seatNames';
 import { Step1Form, Step2Form } from './NewGameWizardSteps';
 import { useGameTypes } from '../lib/useGameTypes';
+import { useModalDismiss } from '../lib/useModalDismiss';
 import { IconClose } from './ui';
 
 const errMsg = (e: unknown): string => (e instanceof Error ? e.message : String(e));
@@ -68,9 +69,15 @@ export default function NewGameWizard(props: {
     }
   }
 
+  /* 统一弹层行为（七轮）：Esc 关 / 点遮罩关 / 锁滚动 / 焦点管理。
+   * 此前本向导**没有** Esc、也没有点遮罩关闭，而同站的术语抽屉有——
+   * 同一站点内弹层行为不一，正是用户反馈的「交互有点奇怪」。 */
+  const { overlayProps, contentProps } = useModalDismiss<HTMLDivElement>(props.onClose);
+
   return (
-    <div className="sheet-overlay" role="dialog" aria-modal="true" aria-label="开新局引导">
-      <div className="sheet">
+    <div className="sheet-overlay" role="dialog" aria-modal="true" aria-label="开新局引导"
+      ref={overlayProps.ref} onClick={overlayProps.onClick}>
+      <div className="sheet" onClick={contentProps.onClick}>
         <div className="sheet-head">
           <h2>开新局</h2>
           <button type="button" className="btn btn-ghost" onClick={props.onClose} aria-label="关闭"><IconClose size={16} /></button>

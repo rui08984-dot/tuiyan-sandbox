@@ -14,6 +14,7 @@ import { getOracle } from '../../api';
 import type { OracleResult } from '../../types';
 import type { useAdvise } from './useAdvise';
 import '../../styles/oracle.css';
+import { useModalDismiss } from '../../lib/useModalDismiss';
 import { IconCompass, IconClose } from '../../components/ui';
 
 type Advise = ReturnType<typeof useAdvise>;
@@ -51,6 +52,14 @@ export default function OracleZone(props: { gameId: number; advise: Advise }) {
     void load();
   }
 
+  /* 统一弹层行为（七轮）：Esc / 点遮罩 / 锁滚动 / 焦点。
+   * 注意 hook 必须在组件顶层调用（不能在 open && 的分支里），
+   * 否则开关弹层会改变 hook 调用顺序 —— 违反 Hooks 规则。 */
+  const { overlayProps, contentProps } = useModalDismiss<HTMLDivElement>(() => setOpen(false), {
+    /* 加载中也允许关（避免网络慢时用户被困住） */
+    lockScroll: true,
+  });
+
   // 天结算就绪自动弹一次：仅 task 就绪（source='task'）且本局该天未弹过；手动入口不受此限
   const ready = a.current && a.current.source === 'task' && a.current.gameId === props.gameId ? a.current : null;
   useEffect(() => {
@@ -69,8 +78,9 @@ export default function OracleZone(props: { gameId: number; advise: Advise }) {
         <span className="oracle-entry-hint">赛后娱乐彩蛋 · 非游戏研判</span>
       </div>
       {open && (
-        <div className="oracle-overlay" role="dialog" aria-modal="true" aria-label="本局玄学判词">
-          <div className="oracle-card">
+        <div className="oracle-overlay" role="dialog" aria-modal="true" aria-label="本局玄学判词"
+          ref={overlayProps.ref} onClick={overlayProps.onClick}>
+          <div className="oracle-card" onClick={contentProps.onClick}>
             <div className="oracle-head">
               <h2><IconCompass size={18} /> 本局玄学判词</h2>
               <button type="button" className="btn btn-ghost" onClick={() => setOpen(false)} aria-label="关闭"><IconClose size={16} /></button>

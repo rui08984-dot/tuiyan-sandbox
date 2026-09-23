@@ -7,6 +7,7 @@ import { useState } from 'react';
 import type { BotcScript, Game, GameType } from '../../types';
 import { SCRIPT_LABEL } from '../../botc/roles';
 import { useGameTypes } from '../../lib/useGameTypes';
+import { useModalDismiss } from '../../lib/useModalDismiss';
 import { IconClose, IconBolt } from '../ui';
 
 export interface RosterChip { seat: number; name: string; alive: boolean }
@@ -126,9 +127,12 @@ function GameSheet(props: {
       ? { name: name.trim(), type, player_count: count, script }
       : { name: name.trim(), type, player_count: count }); // werewolf 局不带 script
   }
+  /* 统一弹层行为（七轮）：Esc / 点遮罩 / 锁滚动 / 焦点 */
+  const { overlayProps, contentProps } = useModalDismiss<HTMLDivElement>(props.onClose);
   return (
-    <div className="sheet-overlay" role="dialog" aria-modal="true" aria-label="切换或新建对局">
-      <div className="sheet">
+    <div className="sheet-overlay" role="dialog" aria-modal="true" aria-label="切换或新建对局"
+      ref={overlayProps.ref} onClick={overlayProps.onClick}>
+      <div className="sheet" onClick={contentProps.onClick}>
         <div className="sheet-head">
           <h2>选局 / 新建局</h2>
           <button className="btn btn-ghost" onClick={props.onClose} aria-label="关闭"><IconClose size={16} /></button>

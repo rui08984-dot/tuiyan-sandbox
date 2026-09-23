@@ -20,7 +20,7 @@ import '../styles/shell.css';
 import GameDetail from './manage/GameDetail';
 import NewGameWizard from '../components/NewGameWizard';
 import { useGameTypes } from '../lib/useGameTypes';
-import { IconFolder, HelpMark } from '../components/ui';
+import { IconFolder, IconChart, HelpMark } from '../components/ui';
 import { PagePlate } from '../components/PagePlate';
 import { PageSidebar } from '../components/PageSidebar';
 
@@ -156,6 +156,18 @@ export default function ManagePage() {
           <>
             共 {all.length} 局。进行中＝有记录的局，可以继续录入；未开局＝已建好但还没开始。
             点任意一局查看席位名单、导出记录或推进天数。
+          </>
+        }
+        actions={
+          <>
+            <button type="button" className="btn" onClick={() => navigate('/audit')}
+              data-testid="manage-audit-entry" title="万物审计仪表盘（分层账本 · 只记不评）">
+              <IconChart size={15} /> 审计
+            </button>
+            <button type="button" className="btn btn-primary" onClick={() => setWizardOpen(true)}
+              data-testid="manage-create-game">
+              ＋ 开新局
+            </button>
           </>
         }
       />

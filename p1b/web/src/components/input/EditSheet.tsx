@@ -6,6 +6,7 @@ import { useState } from 'react';
 import type { AnyPredicate, BotcScript, Claim, GameAction } from '../../types';
 import { botcRoleDisplay, rolesByScript } from '../../botc/roles';
 import { ALL_PREDICATES, PRED_LABEL, ROLE_PREDICATES } from './confirm-flow';
+import { useModalDismiss } from '../../lib/useModalDismiss';
 import { IconClose } from '../ui';
 
 /** werewolf 局谓词全集（通用 7 枚举，原样保留） */
@@ -48,9 +49,13 @@ export default function EditSheet(p: EditSheetProps) {
     }
   }
 
+  /* 统一弹层行为（七轮）：Esc / 点遮罩 / 锁滚动 / 焦点 */
+  const { overlayProps, contentProps } = useModalDismiss<HTMLDivElement>(p.onClose);
+
   return (
-    <div className="sheet-overlay" role="dialog" aria-modal="true" aria-label="修订">
-      <div className="sheet">
+    <div className="sheet-overlay" role="dialog" aria-modal="true" aria-label="修订"
+      ref={overlayProps.ref} onClick={overlayProps.onClick}>
+      <div className="sheet" onClick={contentProps.onClick}>
         <div className="sheet-head">
           <h2>{isClaim ? '修订声称 c' + c!.id : '修订行动 a' + a!.id}</h2>
           <button className="btn btn-ghost" onClick={p.onClose} aria-label="关闭"><IconClose size={16} /></button>

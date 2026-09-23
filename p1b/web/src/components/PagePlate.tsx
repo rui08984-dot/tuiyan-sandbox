@@ -21,6 +21,7 @@ export function PagePlate({
   title,
   tail,
   subtitle,
+  actions,
   testId,
 }: {
   /** 页头图标（内联 SVG，禁 emoji） */
@@ -31,18 +32,25 @@ export function PagePlate({
   tail?: string;
   /** 一句话说明（人话，满行） */
   subtitle?: ReactNode;
+  /** 页级主操作（七轮补）：如「开新局」。
+   *  ★ 存在的必要性：此前各页把主操作放在自造页头里，换成统一铭牌时极易遗漏
+   *    （实测：管理页的「开新局」就是这么丢的）。有了这个插槽，主操作随铭牌一起统一。 */
+  actions?: ReactNode;
   testId?: string;
 }) {
   return (
     <header className="page-plate" data-testid={testId}>
-      <div className="plate">
-        {/* 投影字：同一文本的偏移副本。z-index 低于色块，形成"字浮在底板上"的层次 */}
-        <span className="plate-shadow" aria-hidden="true">{title}</span>
-        <h1 className="plate-title">
-          {icon ? <span className="plate-icon" aria-hidden="true">{icon}</span> : null}
-          {title}
-        </h1>
-        {tail ? <span className="plate-tail" aria-hidden="true">{tail}</span> : null}
+      <div className="plate-row">
+        <div className="plate">
+          {/* 投影字：同一文本的偏移副本。z-index 低于色块，形成"字浮在底板上"的层次 */}
+          <span className="plate-shadow" aria-hidden="true">{title}</span>
+          <h1 className="plate-title">
+            {icon ? <span className="plate-icon" aria-hidden="true">{icon}</span> : null}
+            {title}
+          </h1>
+          {tail ? <span className="plate-tail" aria-hidden="true">{tail}</span> : null}
+        </div>
+        {actions ? <div className="plate-actions">{actions}</div> : null}
       </div>
       {subtitle ? <p className="plate-sub">{subtitle}</p> : null}
     </header>

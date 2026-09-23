@@ -7,6 +7,7 @@ import { useState } from 'react';
 import type { BotcScript, EventPhase, Player } from '../../types';
 import { rolesByScript } from '../../botc/roles';
 import { MACRO_LABEL, type MacroInput, type MacroKind } from './confirm-flow';
+import { useModalDismiss } from '../../lib/useModalDismiss';
 import { IconClose } from '../ui';
 
 const ROLE_SUGGEST = ['预言家', '女巫', '猎人', '守卫', '预言家+守卫', '村民'];
@@ -44,9 +45,13 @@ export default function MacroSheet(p: MacroSheetProps) {
     p.onSubmit({ kind: p.kind, seat, role: role.trim(), target_seat: target, day: p.day, phase: p.phase });
   }
 
+  /* 统一弹层行为（七轮）：Esc / 点遮罩 / 锁滚动 / 焦点 */
+  const { overlayProps, contentProps } = useModalDismiss<HTMLDivElement>(p.onClose);
+
   return (
-    <div className="sheet-overlay" role="dialog" aria-modal="true" aria-label={MACRO_LABEL[p.kind]}>
-      <div className="sheet">
+    <div className="sheet-overlay" role="dialog" aria-modal="true" aria-label={MACRO_LABEL[p.kind]}
+      ref={overlayProps.ref} onClick={overlayProps.onClick}>
+      <div className="sheet" onClick={contentProps.onClick}>
         <div className="sheet-head">
           <h2>{MACRO_LABEL[p.kind]} · 宏录入</h2>
           <button className="btn btn-ghost" onClick={p.onClose} aria-label="关闭"><IconClose size={16} /></button>

@@ -4,6 +4,7 @@
  */
 import { useMemo, useState } from 'react';
 import { saveProvider } from '../api';
+import { useModalDismiss } from '../lib/useModalDismiss';
 import type { Provider } from '../types';
 
 export interface ProviderTemplate {
@@ -104,9 +105,14 @@ export function ProviderEditorSheet({ session, onClose, onSaved }: Props) {
     }
   }
 
+  /* 统一弹层行为（七轮）：本组件原用自写的 onMouseDown 判遮罩关闭，
+   * 但没有 Esc、没有锁滚动——同站其他弹层有。改走统一 hook（行为一致 + 补上缺失项）。 */
+  const { overlayProps, contentProps } = useModalDismiss<HTMLDivElement>(onClose);
+
   return (
-    <div className="sheet-overlay" onMouseDown={(e) => { if (e.target === e.currentTarget) onClose(); }}>
-      <div className="sheet" role="dialog" aria-modal="true" aria-label={isEdit ? '编辑供应商' : '添加供应商'}>
+    <div className="sheet-overlay" ref={overlayProps.ref} onClick={overlayProps.onClick}>
+      <div className="sheet" role="dialog" aria-modal="true" aria-label={isEdit ? '编辑供应商' : '添加供应商'}
+        onClick={contentProps.onClick}>
         <div className="sheet-head">
           <h2>{isEdit ? '编辑供应商' : '添加供应商'}</h2>
           <button type="button" className="btn btn-ghost" onClick={onClose}>关闭</button>

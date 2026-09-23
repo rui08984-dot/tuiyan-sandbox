@@ -476,3 +476,20 @@
   .pressable:hover,
   .pressable:active { transform: none; }
 }
+
+/* ══ 铭牌行：标题 + 页级操作（七轮）══
+ * 主操作随铭牌统一放置，避免"换页头时把按钮丢了"（实测发生过）。 */
+.plate-row {
+  display: flex; align-items: center; gap: var(--space-4);
+  flex-wrap: wrap;
+}
+.plate-actions {
+  margin-left: auto;
+  display: flex; align-items: center; gap: var(--space-2);
+  flex-wrap: wrap;
+}
+@media (max-width: 767px) {
+  /* 窄屏：操作换到标题下方一行，整宽分布（拇指易达） */
+  .plate-actions { margin-left: 0; width: 100%; }
+  .plate-actions .btn { flex: 1 1 auto; min-height: 44px; }
+}

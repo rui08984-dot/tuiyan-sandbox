@@ -10,6 +10,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { activateProvider, deleteProvider, getEffectiveProvider, listProviders, testProvider } from '../api';
 import type { EffectiveProvider, Provider, ProviderListResult, ProviderTestResult } from '../types';
 import { Tabs, IconGear, IconCheck, IconClose } from '../components/ui';
+import { PagePlate } from '../components/PagePlate';
 import {
   ProviderEditorSheet,
   type EditorSession,
@@ -96,14 +97,20 @@ export default function SettingsPage() {
 
   return (
     <section className="page">
-      <header className="page-head">
-        <IconGear size={20} />
-        <h1>设置</h1>
-      </header>
-      <p className="page-sub">
-        供应商管理器 —— 配置文件与终端共享，网页改完终端自动生效。
-        API Key 只保存在服务端，页面不回显明文。
-      </p>
+      {/* 统一铭牌（七轮）：原为自造的 page-head（20px 图标 + h1），
+       * 与其余九页的 26px 铭牌格式不一致——同一套导航下切页会"变样"。 */}
+      <PagePlate
+        testId="settings-plate"
+        icon={<IconGear size={20} />}
+        title="设置"
+        tail="Settings"
+        subtitle={
+          <>
+            供应商管理器 —— 配置文件与终端共享，网页改完终端自动生效。
+            API Key 只保存在服务端，页面不回显明文。
+          </>
+        }
+      />
 
       {loadError && (
         <div className="banner banner-error" role="alert">
