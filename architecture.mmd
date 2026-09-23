@@ -42,26 +42,22 @@ flowchart TB
         direction LR
         GATE{"放行门<br/>①10格 ✅<br/>②报告 ✅<br/>③天气两季 ✅"}
         F1["I2 负结果账本页<br/>完成"]
-        F2["I6 语义透镜页<br/>完成"]
-        F3["A9 三行对比榜<br/>完成 含不可比声明"]
+        F5["校准总览页<br/>★四页合一 0922"]
         F4["编译器门面<br/>完成 kind→层"]
-        F5["校准报告页<br/>完成"]
         F6["日历页<br/>完成"]
         GATE --> F1
-        GATE --> F2
-        GATE --> F3
-        GATE --> F4
         GATE --> F5
+        GATE --> F4
         GATE --> F6
     end
 
     subgraph INFRA["纪律与基础设施"]
         direction LR
         PREREG["PREREG 冻结<br/>7 件 MATCH"]
-        TEST["测试 543/543"]
+        TEST["测试 636/636"]
         SCRIPTS["脚本 121 在役<br/>含 leak-scan"]
-        UI["前端观测台<br/>四轮改造+第4期四页"]
-        HANDOFF["交接链 20 份<br/>+ 状态栈"]
+        UI["前端观测台<br/>七轮改造 0923<br/>含四页合一"]
+        HANDOFF["交接链 21 份<br/>+ 状态栈"]
     end
 
     ENGINES -.->|"判词"| VERD[("verdicts 5156")]
@@ -77,6 +73,6 @@ flowchart TB
     classDef doing fill:#f9a825,color:#000
     classDef notstarted fill:#546e7a,color:#fff
 
-    class P0,P1,P2,P3,P4,P5,A1,TB,R3,LEDGER,VAULT,INTAKE,ENGINES,STAGE4,CAL,BOARD,PREREG,TEST,SCRIPTS,UI,HANDOFF,GATE,F1,F2,F3,F4,F5,F6 done
+    class P0,P1,P2,P3,P4,P5,A1,TB,R3,LEDGER,VAULT,INTAKE,ENGINES,STAGE4,CAL,BOARD,PREREG,TEST,SCRIPTS,UI,HANDOFF,GATE,F1,F4,F5,F6 done
     class I1 doing
     class A3,A5 notstarted
