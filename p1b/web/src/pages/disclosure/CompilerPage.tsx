@@ -17,6 +17,7 @@
 import { useEffect, useState } from 'react';
 import { Term, IconChart } from '../../components/ui';
 import { PagePlate } from '../../components/PagePlate';
+import { humanId } from '../../lib/format';
 
 /** 剥掉数据源里可能混入的 Markdown 强调记号（**加粗** 等）。
  * 前端显示的是文案，不是 Markdown 源码；出现星号即为渲染缺陷。 */
@@ -115,7 +116,8 @@ export default function CompilerPage() {
             className="cp-select"
           >
             <option value="">— 请选择 —</option>
-            {catalog.kinds.map((k) => <option key={k.kind} value={k.kind}>{k.kind}</option>)}
+            {/* 选项文案可读化（六轮）但 value 保持原始键——提交给后端的是标识，显示给人看的是词 */}
+            {catalog.kinds.map((k) => <option key={k.kind} value={k.kind}>{humanId(k.kind)}</option>)}
           </select>
         </label>
       </section>

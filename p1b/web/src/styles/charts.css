@@ -414,3 +414,47 @@
 
 /* 结果区：左色条标明"这是系统给的结论" */
 .cp-result { border-left: 3px solid var(--accent); padding-left: 16px; }
+
+/* ══════════════════════════════════════════════════════════════════════════
+ * 图表视觉语法（2026-09-22 六轮定标）
+ *
+ * 用户反馈「有的是一整块连着的，有的是断点式的方块，看着不统一」。
+ * 清点现状：条形族当时有 5 种高度（6/10/12/14/16px）、4 种圆角
+ * （pill/sm/3px/无）、2 种描边，且同是「条形」却分两派画法：
+ *   · 连续型（cbar/cstack/cnest）——一条整带，段间用 1px 分隔
+ *   · 离散型（waffle/heat/mini-trend）——分离的小方格
+ * 混用导致同一页里「有的一条、有的几块」，读起来像坏了。
+ *
+ * ── 定标规则（三条，按数据语义而非审美选择）──
+ *   ① 单一连续量   → 连续带（一条，圆角 pill，高度 10px）
+ *   ② 多个组分的和 → 堆叠带（一条，段间 1px 分隔，圆角 sm，高度 12px）
+ *   ③ 计数/占比格  → 分离方格（间隙 2px，圆角 1.5px，方格等大）
+ * 三类的圆角与间隙**各自固定**，不再逐处自定义。
+ * ══════════════════════════════════════════════════════════════════════════ */
+:root {
+  --bar-h-continuous: 10px;   /* 单一连续量 */
+  --bar-h-stacked: 12px;      /* 堆叠带（比连续量略高：要看清分段） */
+  --bar-r-continuous: 999px;  /* 连续量：胶囊 */
+  --bar-r-stacked: 4px;       /* 堆叠带：小圆角（分段边界才清晰） */
+  --cell-gap: 2px;            /* 方格间隙（与 HeatGrid/Waffle 一致） */
+  --cell-r: 1.5px;            /* 方格圆角 */
+}
+
+/* ① 单一连续量：统一高度与胶囊 */
+.cbar-track, .gauge-bar-track, .mini-row-track { height: var(--bar-h-continuous); border-radius: var(--bar-r-continuous); }
+.cbar-fill, .gauge-bar-fill, .mini-row-fill { border-radius: var(--bar-r-continuous); }
+
+/* ② 堆叠带：统一高度与圆角；段间分隔线用 --panel（与底色同源，视觉是"切开"而非"描边"） */
+.cstack-track { height: var(--bar-h-stacked); border-radius: var(--bar-r-stacked); }
+.cnest-track { height: var(--bar-h-stacked); border-radius: var(--bar-r-stacked); }
+
+/* ③ 分离方格：对齐 HeatGrid / Waffle 的间隙与圆角 */
+.waffle-grid { gap: var(--cell-gap); }
+.waffle-cell { border-radius: var(--cell-r); }
+
+/* 迷你条（表内联）：也归入连续量一类，高度统一 */
+.sparkbar-track { height: 8px; border-radius: 4px; }
+.sparkbar-fill { border-radius: 4px; }
+
+/* 读数卡内的分布条：归入分离方格一类（它就是计数格） */
+.mini-trend rect { rx: var(--cell-r); }

@@ -27,7 +27,7 @@ import {
   ChartFrame, HeatGrid, ReadoutCard, MiniGauge, ForestPlot, ReliabilityPlot, StackedBar, Waffle,
 } from '../../charts';
 import type { HeatCell } from '../../charts';
-import { quad, tri, int, THIN_CELL_NOTE, MISSING_TEXT } from '../../lib/format';
+import { quad, tri, int, THIN_CELL_NOTE, MISSING_TEXT, humanId } from '../../lib/format';
 
 type Cell = {
   layer: string; domain: string; scored_n: number; conclusion_allowed: boolean;
@@ -168,6 +168,12 @@ export default function OverviewPage() {
   }, [cells]);
 
   const domains = useMemo(() => Array.from(new Set(cells.map((c) => c.domain))).sort(), [cells]);
+  /* 域键 → 可读标签（六轮）：键本身仍是下划线命名，只在**显示层**转成词形 */
+  const domainLabel = useMemo(() => {
+    const m: Record<string, string> = {};
+    for (const d of domains) m[d] = humanId(d);
+    return m;
+  }, [domains]);
 
   const filtered = useMemo(() => {
     let cs = cells;
@@ -251,7 +257,7 @@ export default function OverviewPage() {
                * 使用者要滚动才能找到真正有数据的项。空领域不是信息，是干扰。 */
               options: domainsWithData.map((d) => ({
                 id: d,
-                label: d,
+                label: domainLabel[d] ?? d,
                 count: cells.filter((c) => c.domain === d && typeof c.brier_engine === 'number').length,
               })),
               value: domainPick,
@@ -407,7 +413,13 @@ export default function OverviewPage() {
             note="格上数字直接印出，不靠颜色单独传达；斜纹＝样本偏少。"
           >
             <div tabIndex={0} role="region" aria-label="分层领域表，可横向滚动">
-              <HeatGrid cells={heatCells} layers={layerPick.length ? layerPick : LAYER_META.map((m) => m.id)} domains={domains} />
+              {/* domains 仍是原始键（HeatGrid 靠它查格），另传 displayLabels 只改列头显示 */}
+              <HeatGrid
+                cells={heatCells}
+                layers={layerPick.length ? layerPick : LAYER_META.map((m) => m.id)}
+                domains={domains}
+                displayLabels={domainLabel}
+              />
             </div>
           </ChartFrame>
         ) : <EmptyState text="当前筛选下没有可显示的格子" />}

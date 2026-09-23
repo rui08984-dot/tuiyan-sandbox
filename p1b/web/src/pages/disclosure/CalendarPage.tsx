@@ -18,7 +18,7 @@ import { PagePlate } from '../../components/PagePlate';
 import { PageSidebar } from '../../components/PageSidebar';
 import '../../styles/shell.css';
 import { ChartFrame, Bar, LineChart } from '../../charts';
-import { int } from '../../lib/format';
+import { int, humanId } from '../../lib/format';
 
 type CalJson = {
   title: string; today: string; rows: number; basis: string;
@@ -84,7 +84,8 @@ export default function CalendarPage() {
   ];
   const srcOptions = srcs.map((k) => ({
     id: k,
-    label: k === 'undatable' ? '不可定' : k.split(':')[0],
+    // 来源键 → 可读标签（六轮）：`openmeteo_daily_max` 这类下划线键不下线到界面
+    label: k === 'undatable' ? '不可定' : humanId(k.split(':')[0]),
     count: data.evidence_src_counts[k],
   }));
   const allWindows = windowOptions.map((o) => o.id);
@@ -204,7 +205,7 @@ export default function CalendarPage() {
         <div className="ui-stack">
           {srcs.filter((k) => srcPick.indexOf(k) >= 0).map((k) => (
             <Bar key={k} value={data.evidence_src_counts[k]} max={Math.max(...Object.values(data.evidence_src_counts))}
-              label={k === 'undatable' ? '不可定' : k.split(':')[0]} valueText={int(data.evidence_src_counts[k])} />
+              label={k === 'undatable' ? '不可定' : humanId(k.split(':')[0])} valueText={int(data.evidence_src_counts[k])} />
           ))}
           {srcs.filter((k) => srcPick.indexOf(k) >= 0).length === 0 ? (
             <p className="ui-note" style={{ margin: 0 }}>当前筛选下没有来源可显示</p>
@@ -215,7 +216,7 @@ export default function CalendarPage() {
               <span className="chart-eyebrow">分题型</span>
               {Object.entries(data.by_kind!).slice(0, 10).map(([k, v]) => (
                 <Bar key={k} value={v} max={Math.max(...Object.values(data.by_kind!))}
-                  label={k.split(':')[0]} valueText={int(v)} />
+                  label={humanId(k.split(':')[0])} valueText={int(v)} />
               ))}
             </>
           )}

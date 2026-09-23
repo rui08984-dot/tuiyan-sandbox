@@ -19,7 +19,8 @@ export const FALLBACK_TYPES: GameTypeOption[] = [
 let cache: GameTypeOption[] | null = null;
 let inflight: Promise<GameTypeOption[]> | null = null;
 
-/** 形状校验：必须是非空数组，每项有非空 id（缺 name 用 id 兜底） */
+/** 形状校验：必须是非空数组，每项有非空 id
+ * ★ 缺 name 时用 humanTypeFallback（不是原始 id）——否则内部标识会漏到界面 */
 export function normalizeTypes(raw: unknown): GameTypeOption[] | null {
   if (!Array.isArray(raw) || raw.length === 0) return null;
   const out: GameTypeOption[] = [];
@@ -27,7 +28,12 @@ export function normalizeTypes(raw: unknown): GameTypeOption[] | null {
     if (!x || typeof x !== 'object') continue;
     const o = x as Partial<AdapterInfo>;
     if (typeof o.id !== 'string' || o.id === '') continue;
-    out.push({ id: o.id, name: typeof o.name === 'string' && o.name ? o.name : o.id, kind: typeof o.kind === 'string' ? o.kind : 'unknown', ready: o.ready !== false });
+    out.push({
+      id: o.id,
+      name: typeof o.name === 'string' && o.name ? o.name : humanTypeFallback(o.id),
+      kind: typeof o.kind === 'string' ? o.kind : 'unknown',
+      ready: o.ready !== false,
+    });
   }
   return out.length > 0 ? out : null;
 }
@@ -44,10 +50,34 @@ export function loadGameTypes(fetchImpl?: () => Promise<unknown>): Promise<GameT
   return inflight;
 }
 
-/** id → 中文名（找不到回退 id 本身，不显示空白） */
+/**
+ * id → 中文名。
+ *
+ * ── 2026-09-22 六轮修正 ──
+ * 原实现找不到匹配就 `return id`，于是内部类型标识（如
+ * `werewolf_sim_6p_tubian3d`、`corpus:dbnomics`）会直接漏到界面卡片上。
+ * 这类内部串对使用者没有意义，且带下划线/冒号，看起来像渲染出错。
+ *
+ * 现按**可读性**分三层兜底：
+ *   ① 登记表里查得到 → 用登记的中文名（正路）
+ *   ② 形如 corpus:xxx / sim-xxx 的内部 id → 归成大类人话（「语料导入」等）
+ *   ③ 其余未知 → 原文照旧（不猜测、不编造），但去掉下划线让 it 读起来像词
+ */
 export function typeLabel(types: GameTypeOption[], id: string): string {
   const hit = types.find((t) => t.id === id);
-  return hit ? hit.name : id;
+  if (hit && hit.name && hit.name !== hit.id) return hit.name;
+  return humanTypeFallback(id);
+}
+
+/** 内部类型 id → 人话兜底（不编造具体名称，只做可读化归类） */
+export function humanTypeFallback(id: string): string {
+  const s = String(id || '');
+  if (s.indexOf('corpus:') === 0) return '语料导入';
+  if (s.indexOf('werewolf') === 0) return '狼人杀';
+  if (s === 'botc') return '血染钟楼';
+  if (s.indexOf('sim') === 0) return '模拟局';
+  // 未知类型：保底把下划线/连字符换成空格，至少读起来像词而不是变量名
+  return s.replace(/[_-]+/g, ' ').trim() || '未知类型';
 }
 
 /** 测试缝：清缓存 */

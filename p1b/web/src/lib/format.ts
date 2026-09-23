@@ -148,3 +148,53 @@ export function engineHuman(e: string | null | undefined): string {
   if (e === null || e === undefined || e === '') return '—';
   return ENGINE_LABEL[e] ?? e;
 }
+
+/**
+ * 标识符可读化（六轮）。
+ *
+ * 场景：数据源的域键/题型键/来源键（如 `werewolf_sim`、`dbnomics_series_value`、
+ * `openmeteo_daily_max`）直接当下划线变量名显示在表头与下拉里。
+ *
+ * ★ 纪律：**只做格式可读化，不做翻译，不编造名称**。
+ *   这些键里既有专有名词（`binance`＝币安、`openmeteo`＝Open-Meteo，本就该原样），
+ *   也有内部命名（`werewolf_sim`）。翻译会编造事实；原样显示又像变量名。
+ *   故只把下划线/连字符换成空格并规整大小写——它仍是同一个键，只是不再是代码风貌。
+ *   键本身（供程序用）不受影响，调用方只在显示层用它。
+ */
+export function humanId(v: string | null | undefined): string {
+  if (v === null || v === undefined || v === '') return '—';
+  const s = String(v);
+  // 保留已知专有名词的原有大小写（Open-Meteo 不该被规整成 openmeteo）
+  const KEEP: Record<string, string> = {
+    openmeteo: 'Open-Meteo',
+    github: 'GitHub',
+    npm: 'npm',
+    nvd: 'NVD',
+    cwl: 'CWL',
+    sst: 'SST',
+    co2: 'CO₂',
+    mlb: 'MLB',
+    kraken: 'Kraken',
+    binance: 'Binance',
+    crossref: 'Crossref',
+    eurostat: 'Eurostat',
+    frankfurter: 'Frankfurter',
+    ghcn: 'GHCN',
+    ghcommit: 'GitHub Commits',
+    wikipv: 'Wikipedia PV',
+    openalex: 'OpenAlex',
+    dbnomics: 'DBnomics',
+    elexon: 'Elexon',
+    oddsapi: 'Odds API',
+    dlt: 'DLT',
+    cta: 'CTA',
+    bom: 'BOM',
+    s2: 'S2',
+  };
+  return s
+    .split(/[_:]+/)
+    .map((part) => KEEP[part.toLowerCase()] ?? part)
+    .filter(Boolean)
+    .join(' ')
+    .trim() || s;
+}

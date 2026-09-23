@@ -26,17 +26,23 @@ export function HeatGrid({
   cells,
   layers,
   domains,
+  displayLabels,
   valueLabel = 'Brier',
   testId,
 }: {
   cells: HeatCell[];
   layers: string[];
+  /** 原始域键（用于查格，保持不变） */
   domains: string[];
+  /** 域键 → 显示标签（六轮）：键是内部命名，列头该显示可读形式。
+   *  ★ 只影响显示，不参与查格——两者必须是同一数组的两种呈现。 */
+  displayLabels?: Record<string, string>;
   valueLabel?: string;
   testId?: string;
 }) {
   const map = new Map<string, HeatCell>();
   for (const c of cells) map.set(c.layer + '|' + c.domain, c);
+  const label = (d: string) => (displayLabels && displayLabels[d]) ? displayLabels[d] : d;
 
   const present = cells.map((c) => c.value).filter((v): v is number => typeof v === 'number' && Number.isFinite(v));
   const maxV = present.length ? Math.max(BRIER_NOINFO, ...present) : BRIER_NOINFO;
@@ -51,11 +57,11 @@ export function HeatGrid({
       >
         <span className="heat-cell heat-corner" role="columnheader" />
         {domains.map((d) => (
-          <span key={d} className="heat-cell heat-colhead u-mono" role="columnheader" title={d}>{d}</span>
+          <span key={d} className="heat-cell heat-colhead" role="columnheader" title={d}>{label(d)}</span>
         ))}
 
         {layers.map((L) => (
-          <FragmentRow key={L} L={L} domains={domains} map={map} maxV={maxV} valueLabel={valueLabel} />
+          <FragmentRow key={L} L={L} domains={domains} map={map} maxV={maxV} valueLabel={valueLabel} labelOf={label} />
         ))}
       </div>
 
@@ -83,9 +89,11 @@ export function HeatGrid({
 }
 
 function FragmentRow({
-  L, domains, map, maxV, valueLabel,
+  L, domains, map, maxV, valueLabel, labelOf,
 }: {
   L: string; domains: string[]; map: Map<string, HeatCell>; maxV: number; valueLabel: string;
+  /** 域键 → 显示标签（不含则原样） */
+  labelOf: (d: string) => string;
 }) {
   return (
     <>
@@ -99,7 +107,7 @@ function FragmentRow({
           // 稀疏：无数据格 ≠ 0 分好格
           return (
             <span key={d} className="heat-cell is-nodata" role="gridcell"
-              title={`${L}·${d}：无数据（该层×域无入账）`} aria-label={`${L} ${d} 无数据`}>
+              title={`${L} · ${labelOf(d)}：无数据（该层×域无入账）`} aria-label={`${L} ${labelOf(d)} 无数据`}>
               <span aria-hidden="true">—</span>
             </span>
           );
@@ -111,8 +119,8 @@ function FragmentRow({
             className={'heat-cell' + (c.allowed ? '' : ' is-thin') + (t === null ? ' is-novalue' : '')}
             role="gridcell"
             style={t === null ? undefined : { background: seqColor(t) }}
-            title={`${L}·${d}｜${valueLabel} ${c.value === null ? '样本不足' : c.value.toFixed(4)}｜n=${c.n ?? 0}${c.allowed ? '' : '（薄格 n<30 仅记方向）'}`}
-            aria-label={`${L} ${d}，${valueLabel} ${c.value === null ? '样本不足' : c.value.toFixed(4)}，样本 ${c.n ?? 0}${c.allowed ? '' : '，薄格仅记方向'}`}
+            title={`${L} · ${labelOf(d)}｜${valueLabel} ${c.value === null ? '样本不足' : c.value.toFixed(4)}｜n=${c.n ?? 0}${c.allowed ? '' : '（薄格 n<30 仅记方向）'}`}
+            aria-label={`${L} ${labelOf(d)}，${valueLabel} ${c.value === null ? '样本不足' : c.value.toFixed(4)}，样本 ${c.n ?? 0}${c.allowed ? '' : '，薄格仅记方向'}`}
           >
             {/* ③ 数值印在格上 */}
             <span className="heat-num u-mono">{c.value === null ? '不足' : c.value.toFixed(3)}</span>

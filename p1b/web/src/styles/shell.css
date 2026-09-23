@@ -145,3 +145,31 @@
   .page-side { gap: var(--space-3); }
   .page-side-opt { min-height: 44px; }        /* 触控下限 */
 }
+
+/* ══ 对局管理页（六轮）══
+ * 90 局平铺会撑成 3352px 的墙，故：按状态分区 + 未开局默认只展 12 条 + 侧栏筛选。 */
+.mg-count {
+  margin-left: 8px;
+  font-size: var(--font-size-small);
+  font-weight: 400;
+  color: var(--muted);
+}
+/* 「展开其余 N 局」：整宽次要按钮，明确是"查看更多"而非操作 */
+.mg-more {
+  display: block;
+  width: 100%;
+  margin-top: var(--space-3);
+  min-height: 44px;
+  color: var(--muted);
+}
+.mg-more:hover { color: var(--text); border-color: var(--accent); }
+
+/* 局卡片：标题单行省略（原名带长后缀会折成两行导致卡片不等高）
+ * —— 完整名进 title，卡片本身保持等高整齐 */
+.game-item-name {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.game-item-meta { display: block; }
