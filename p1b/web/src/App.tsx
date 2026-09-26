@@ -7,7 +7,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { HashRouter, Navigate, NavLink, Route, Routes, useLocation } from 'react-router-dom';
 import LivePage from './pages/LivePage';
-import HomePage from './pages/HomePage';                           // 2026-09-27 八轮：入口页（回答「这是什么/什么状态/两条线」）
+import HomePage from './pages/HomePage';
+import ResolvePage from './pages/ResolvePage';   // ★八轮第五改：待落定（题线第二个动作）                           // 2026-09-27 八轮：入口页（回答「这是什么/什么状态/两条线」）
 import ManagePage from './pages/ManagePage';
 import SettingsPage from './pages/SettingsPage';
 import MysticPage from './pages/mystic/MysticPage';
@@ -94,7 +95,8 @@ function Shell() {
               <NavLink to="/audit" className={linkCls}>账本</NavLink>
               <NavLink to="/calendar" className={linkCls}>待验证</NavLink>
               <NavLink to="/negative-results" className={linkCls}>负结果</NavLink>
-              <NavLink to="/intake" className={linkCls}>接题</NavLink>
+              <NavLink to="/resolve" className={linkCls}>待落定</NavLink>
+              <NavLink to="/intake" className={linkCls}>记一笔</NavLink>
               <NavLink to="/compiler" className={linkCls}>编译器</NavLink>
             </span>
             <span className="appbar-sep" aria-hidden="true" />
@@ -129,6 +131,7 @@ function Shell() {
           {/* 2026-09-22 二轮：校准总览（原 calibration/bayes-lens/arena 三页合并到此） */}
           <Route path="/overview" element={<OverviewPage />} />
           <Route path="/audit" element={<AuditPage />} />
+          <Route path="/resolve" element={<ResolvePage />} />
           <Route path="/intake" element={<IntakePage />} />
           <Route path="/calendar" element={<CalendarPage />} />
           <Route path="/negative-results" element={<NegativeResultsPage />} />

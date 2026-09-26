@@ -288,3 +288,56 @@ export function getAuditG2Kpi(): Promise<AuditG2KpiResult> {
   if (USE_MOCK) return Promise.reject(new ApiError(0, 'mock 模式未实现审计 KPI 接口，请直连后端'));
   return request('/audit/g2-kpi', 'GET');
 }
+
+/* ══════════════════════════════════════════════════════════════════════════
+ * ★八轮第五改 · 落定（resolve）—— **本产品题线上的第二个动词**
+ *
+ * 【为什么这是最重要的一处】独立侦察实测出一条我此前四轮都没看见的事实：
+ *   `POST /api/predictions/:id/resolve` 与 `GET /api/predictions/unresolved`
+ *   **后端早就写好了**（含 409 不可变守卫、ambiguous 强制附注、L0 判据），
+ *   而**前端一次都没调过**。1994 道题全部由 CLI 批量脚本灌入，
+ *   人手写的题 0 道，接题表单总共 2 行且都是测试夹具。
+ *   ⇒ 题线上**只有"入账"没有"落定"**，而"落定"还发生在终端里。
+ *   ⇒ 一个没有第二个动词的界面，长出来必然是仪表盘 —— 这才是
+ *     「像个后端维护的东西」的真正来源，不是配色或版式问题。
+ *
+ * 接上之后，「看数」从**目的地**变成**回声**：按下去的一瞬间，
+ * 偏差线就地长出来，而不是让人去某个页面查一个数。
+ * ══════════════════════════════════════════════════════════════════════════ */
+
+/** 一条待落定的题（后端 listUnresolved 的行形状，只取前端要用的字段）。 */
+export interface UnresolvedRow {
+  id: number;
+  statement: string;
+  layer: string | null;
+  matures_at: string | null;
+  game_id: number | null;
+  created_at: string | null;
+  outcome: null;
+}
+
+/** GET /api/predictions/unresolved —— 待落定清单（**今天最该点的那一屏**） */
+export function listUnresolved(opts?: { limit?: number; offset?: number }): Promise<{
+  /** ★实测：后端 listUnresolved 返回的键是 **items**（不是 rows）——
+   *   一开始按 rows 读，页面永远空。字段形状以 predictions.js:116 的契约为准。 */
+  items: UnresolvedRow[]; total: number; limit?: number; offset?: number; l0_gate?: Record<string, unknown>;
+}> {
+  if (USE_MOCK) return Promise.reject(new ApiError(0, 'mock 模式未实现落定清单接口，请直连后端'));
+  const q: string[] = [];
+  if (opts?.limit != null) q.push('limit=' + opts.limit);
+  if (opts?.offset != null) q.push('offset=' + opts.offset);
+  return request('/predictions/unresolved' + (q.length ? '?' + q.join('&') : ''), 'GET');
+}
+
+/** 落定结果。★ambiguous 必须附 note——后端会 400 拒收，这是纪律不是限制。 */
+export type ResolveOutcome = 'true' | 'false' | 'ambiguous';
+
+/** POST /api/predictions/:id/resolve —— 真值回填（**账本不可变**：已落定返回 409） */
+export function resolvePrediction(
+  id: number,
+  outcome: ResolveOutcome,
+  note?: string,
+): Promise<{ id: number; outcome: string; resolved_at: string; resolve_note: string | null }> {
+  if (USE_MOCK) return Promise.reject(new ApiError(0, 'mock 模式未实现落定接口，请直连后端'));
+  return request('/predictions/' + id + '/resolve', 'POST', { outcome, note: note ?? null });
+}

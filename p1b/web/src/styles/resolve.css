@@ -1,0 +1,69 @@
+/* ResolvePage 待落定（八轮第五改）
+ * 形制纪律：这是**唯一能改变账本的题线页面**，所以它的每一处都要指向"回答"。
+ * · 清单而非图表——用户要回答 0~3 个问题，不是读分布。
+ * · 三个键常驻每行：真发生了 / 没发生 / 判定不清。不给"再想想"当默认。
+ * · 弃权与判定不清分开：「判定不清」要附原因（进负结果），「没发生」是一等答案。
+ * · 过期条目标记但**不自动排到最前**——排在前等于替用户决定优先级，是推荐。 */
+.resolve { max-width: 860px; }
+.resolve-head { margin-bottom: var(--space-5); }
+
+.resolve-counts {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  border-top: 2px solid var(--text); border-bottom: 1px solid var(--line);
+  margin-bottom: var(--space-5);
+}
+.resolve-count { padding: 14px 16px 16px; border-left: 1px solid var(--line); }
+.resolve-count:first-child { border-left: none; padding-left: 0; }
+.resolve-count b {
+  display: block; font-size: 26px; font-weight: 600; line-height: 1.1;
+  color: var(--text); letter-spacing: -0.02em;
+}
+.resolve-count.is-overdue b { color: var(--warn); }
+.resolve-count span { display: block; margin-top: 4px; font-size: 12px; color: var(--muted); }
+
+.resolve-list { list-style: none; margin: 0; padding: 0; }
+.resolve-item {
+  display: flex; align-items: center; gap: var(--space-4);
+  padding: 12px 0; border-bottom: 1px solid var(--line);
+}
+.resolve-item-main { flex: 1 1 auto; min-width: 0; }
+.resolve-item-stmt { font-size: 13.5px; line-height: 1.55; color: var(--text); }
+.resolve-item-meta { display: flex; align-items: center; gap: 10px; margin-top: 4px; flex-wrap: wrap; }
+.resolve-tag {
+  font-size: 11px; padding: 1px 6px; border-radius: var(--radius-pill);
+  border: 1px solid var(--line); color: var(--muted);
+}
+.resolve-due { font-family: var(--font-mono); font-size: 11.5px; color: var(--muted); }
+.resolve-due.is-overdue { color: var(--warn); }
+.resolve-item.is-overdue .resolve-item-stmt { border-left: 2px solid var(--warn); padding-left: 10px; }
+
+.resolve-actions { display: flex; gap: 6px; flex: 0 0 auto; }
+.resolve-actions .btn { padding: 5px 11px; font-size: 12.5px; }
+.btn-yes:hover { border-color: var(--ok); color: var(--ok); }
+.btn-no:hover  { border-color: var(--danger); color: var(--danger); }
+.btn-amb:hover { border-color: var(--warn); color: var(--warn); }
+
+.resolve-empty, .resolve-clear { padding: 32px 0; }
+.resolve-clear-big { margin: 0 0 8px; font-size: 20px; color: var(--text); }
+.resolve-clear-sub { margin: 0; font-size: 13px; line-height: 1.7; color: var(--muted); }
+.resolve-clear-sub a { color: var(--accent); }
+
+.resolve-toasts { position: fixed; right: 16px; bottom: 16px; display: flex; flex-direction: column; gap: 8px; z-index: 60; }
+.resolve-toast {
+  max-width: 340px; padding: 10px 13px; border-radius: var(--radius-item);
+  border: 1px solid var(--line); background: var(--panel);
+  font-size: 12.5px; line-height: 1.5; color: var(--text);
+}
+.resolve-toast.is-ok   { border-color: var(--ok-border); background: var(--ok-bg); }
+.resolve-toast.is-warn { border-color: var(--warn-border); background: var(--warn-bg); }
+.resolve-toast.is-err  { border-color: var(--danger-border); background: var(--danger-bg); }
+
+@media (max-width: 768px) {
+  .resolve-counts { grid-template-columns: 1fr; }
+  .resolve-count { border-left: none; padding-left: 0; border-top: 1px solid var(--line); }
+  .resolve-count:first-child { border-top: none; }
+  .resolve-item { flex-direction: column; align-items: stretch; }
+  .resolve-actions .btn { flex: 1 1 0; }
+  .resolve-toasts { left: 12px; right: 12px; }
+  .resolve-toast { max-width: none; }
+}
