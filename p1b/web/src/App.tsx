@@ -9,7 +9,8 @@ import { HashRouter, Navigate, NavLink, Route, Routes, useLocation } from 'react
 import LivePage from './pages/LivePage';
 import HomePage from './pages/HomePage';
 import ResolvePage from './pages/ResolvePage';   // ★八轮第五改：待落定（题线第二个动作）
-import WhereOffPage from './pages/WhereOffPage'; // ★八轮第六改：我在哪儿偏了（五页看板的合并体）   // ★八轮第五改：待落定（题线第二个动作）                           // 2026-09-27 八轮：入口页（回答「这是什么/什么状态/两条线」）
+import WhereOffPage from './pages/WhereOffPage'; // ★八轮第六改：我在哪儿偏了（五页看板的合并体）
+import NotePage from './pages/NotePage';        // ★八轮第七改：记一笔（接题页减负版） // ★八轮第六改：我在哪儿偏了（五页看板的合并体）   // ★八轮第五改：待落定（题线第二个动作）                           // 2026-09-27 八轮：入口页（回答「这是什么/什么状态/两条线」）
 import ManagePage from './pages/ManagePage';
 import SettingsPage from './pages/SettingsPage';
 import MysticPage from './pages/mystic/MysticPage';
@@ -96,7 +97,7 @@ function Shell() {
              *  旧路径全部保留重定向 ⇒ 书签与外部链接不断。 */}
             <span className="appbar-group">
               <NavLink to="/resolve" className={linkCls}>待落定</NavLink>
-              <NavLink to="/intake" className={linkCls}>记一笔</NavLink>
+              <NavLink to="/note" className={linkCls}>记一笔</NavLink>
               <NavLink to="/where-off" className={linkCls}>我在哪儿偏了</NavLink>
             </span>
             <span className="appbar-sep" aria-hidden="true" />
@@ -136,7 +137,9 @@ function Shell() {
           <Route path="/resolve" element={<ResolvePage />} />
           {/* ★八轮第六改：合并体。旧五页路径全部重定向到它 ⇒ 书签不断。 */}
           <Route path="/where-off" element={<WhereOffPage />} />
-          <Route path="/intake" element={<IntakePage />} />
+          {/* 旧接题页保留重定向（书签不断）；源码保留＝禁词扫描测试的目标。 */}
+          <Route path="/note" element={<NotePage />} />
+          <Route path="/intake" element={<Navigate to="/note" replace />} />
           <Route path="/calendar" element={<Navigate to="/where-off" replace />} />
           <Route path="/negative-results" element={<NegativeResultsPage />} />
           {/* 编译器并入合并页：它的全部功能是「选个 kind 告诉你它属于哪层」，

@@ -1,0 +1,74 @@
+/* NotePage 记一笔（八轮第七改）
+ * 形制：一页只做两件事——写下题面、选一个答案来源。系统回建议，人只改异议。
+ * ★不做成表单：25 个复选框曾经把「判层」这件最难的事放在第一屏，
+ *   而它其实可从「答案去哪里查」自动推出来。
+ * 拒收的回执把因果方向说清：**是系统拒了你**，不是「你没通过考试」。 */
+.note { max-width: 720px; }
+
+.note-label {
+  display: block; margin: 0 0 6px;
+  font-size: 12.5px; font-weight: 600; color: var(--text);
+}
+.note-hint { margin: 0 0 8px; font-size: 12px; line-height: 1.65; color: var(--muted); }
+.note-text, .note-select {
+  width: 100%; padding: 10px 12px; margin-bottom: 18px;
+  border: 1px solid var(--line); border-radius: var(--radius-item);
+  background: var(--panel); color: var(--text);
+  font-family: inherit; font-size: 14px; line-height: 1.6;
+}
+.note-text { resize: vertical; }
+.note-text:focus, .note-select:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+.note-need {
+  margin: -12px 0 18px; font-size: 11.5px; line-height: 1.6; color: var(--muted);
+  font-family: var(--font-mono);
+}
+
+.note-advice {
+  padding: 14px 16px; margin-bottom: 18px;
+  border: 1px solid var(--line); border-left: 3px solid var(--accent);
+  border-radius: var(--radius-item); background: var(--panel-2);
+}
+.note-advice-h { font-size: 13.5px; line-height: 1.6; color: var(--text); }
+.note-advice-h b { color: var(--accent); }
+.note-advice-h code { font-family: var(--font-mono); font-size: 12px; }
+.note-advice-note { margin: 6px 0 10px; font-size: 12px; line-height: 1.65; color: var(--muted); }
+.note-advice-note b { color: var(--text); }
+.note-chk {
+  display: flex; align-items: flex-start; gap: 8px;
+  padding: 5px 0; font-size: 13px; line-height: 1.55; color: var(--text);
+  cursor: pointer;
+}
+.note-chk input { margin-top: 3px; flex: 0 0 auto; }
+.note-chk.is-off { color: var(--muted); text-decoration: line-through; }
+
+.note-go {
+  width: 100%; padding: 12px; margin-bottom: 8px;
+  border: 1px solid var(--accent); border-radius: var(--radius-item);
+  background: var(--accent); color: var(--accent-ink);
+  font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer;
+}
+.note-go:disabled { opacity: 0.45; cursor: not-allowed; }
+.note-go:focus-visible { outline: 2px solid var(--text); outline-offset: 2px; }
+.note-err {
+  margin: 0 0 16px; padding: 9px 12px;
+  border: 1px solid var(--danger-border); background: var(--danger-bg);
+  border-radius: var(--radius-item); font-size: 12.5px; color: var(--text);
+}
+
+.note-receipt {
+  padding: 16px 18px; border-radius: var(--radius-block);
+  border: 1px solid var(--line);
+}
+.note-receipt.is-ok { border-color: var(--ok-border); background: var(--ok-bg); }
+.note-receipt.is-reject { border-color: var(--warn-border); background: var(--warn-bg); }
+.note-receipt-h { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
+.note-receipt-why { margin: 0 0 8px; font-size: 13.5px; line-height: 1.7; color: var(--text); }
+.note-receipt-list { display: grid; grid-template-columns: 64px 1fr; gap: 4px 12px; margin: 0 0 10px; }
+.note-receipt-list dt { font-size: 12px; color: var(--muted); }
+.note-receipt-list dd { margin: 0; font-size: 13px; color: var(--text); }
+.note-receipt-sub { margin: 0; font-size: 12px; line-height: 1.7; color: var(--muted); }
+.note-receipt-sub b { color: var(--text); }
+
+@media (max-width: 375px) {
+  .note-receipt-list { grid-template-columns: 1fr; }
+}
