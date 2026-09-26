@@ -110,13 +110,24 @@
   --header-height: 56px;
   --sidebar-width: 240px;
 
-  /* ── 圆角 / 阴影 ──
-   * ★阴影大幅收敛：浅底上重阴影会立刻显脏，且 skill 点名「统一软阴影」是 AI 味。
-   *   层级改由**边框 + 底色差**承担（见 --line/--panel-2），阴影只留极轻一档给浮层。 */
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 14px;
+  /* ── 圆角（八轮第二改：从"三个同义别名"改为**按层级**）──
+   * 病象：critic 判「所有卡片同 radius、同边框、同阴影 ⇒ 零层级」。
+   *   实测更糟：5 档圆角并存且大量写死（12px/10px/8px/4px 各 7–16 处）。
+   * 修法：圆角由**层级**决定，不再由"谁先写的"决定。四级＋药丸：
+   *   页面级  : 0    —— 页面是留白，不该有盒子（critic：「页级不该有卡片」）
+   *   区块级  : 10px —— 承载一组内容
+   *   条目级  : 6px  —— 单个读数/输入项
+   *   行级    : 4px  —— 表格行内的小控件
+   *   药丸    : 用于状态标签与芯片（唯一允许全圆的地方） */
+  --radius-row: 4px;
+  --radius-item: 6px;
+  --radius-block: 10px;
+  --radius-lg: 14px;          /* 仅浮层/模态 */
   --radius-pill: 999px;
+  /* 旧名保留为别名（避免改结构），但**不得再新增用法** */
+  --radius-sm: var(--radius-item);
+  --radius-md: var(--radius-block);
+  --radius: var(--radius-block);
   --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.06);
   --shadow-2: 0 2px 6px rgba(0, 0, 0, 0.07);
   --shadow-3: 0 8px 24px rgba(0, 0, 0, 0.10);

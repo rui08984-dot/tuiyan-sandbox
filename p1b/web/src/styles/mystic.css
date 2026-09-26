@@ -25,14 +25,14 @@
 }
 .mystic-method-tabs { display: flex; gap: 8px; }
 .mystic-method-tab {
-  flex: 1; min-height: 34px; border-radius: 8px; font-size: 13.5px;
+  flex: 1; min-height: 34px; border-radius: var(--radius-item); font-size: 13.5px;
   border: 1px solid var(--line); background: transparent; color: inherit;
 }
 .mystic-method-tab.is-active { border-color: var(--accent); color: var(--accent); }
 .mystic-numbers-row { display: flex; gap: 8px; }
 .mystic-input {
   flex: 1; min-width: 0; min-height: 36px; padding: 0 10px; font-size: 14px;
-  border: 1px solid var(--line); border-radius: 8px; background: var(--panel-2); color: inherit;
+  border: 1px solid var(--line); border-radius: var(--radius-item); background: var(--panel-2); color: inherit;
 }
 .mystic-cast-btn { min-height: 36px; }
 .mystic-form-hint { margin: 0; color: var(--muted); font-size: 12px; }
@@ -50,7 +50,7 @@
   .mystic-gua-grid { gap: 6px; }
 }
 .mystic-gua-card {
-  background: var(--panel-2); border: 1px solid var(--line); border-radius: 10px;
+  background: var(--panel-2); border: 1px solid var(--line); border-radius: var(--radius-item);
   padding: 10px 8px; text-align: center;
 }
 .mystic-gua-label { color: var(--muted); font-size: 12px; margin-bottom: 8px; }
@@ -70,7 +70,7 @@
 
 /* 动爻体用五行条 */
 .mystic-tiyong {
-  padding: 8px 10px; border-radius: 8px; font-size: 13.5px; background: var(--panel-2);
+  padding: 8px 10px; border-radius: var(--radius-item); font-size: 13.5px; background: var(--panel-2);
 }
 .mystic-derived { color: var(--muted); font-size: 12px; }
 

@@ -20,86 +20,10 @@
 import type { CSSProperties, ReactNode } from 'react';
 // ★八轮第二改：读数条由 MiniGauge 换成 DeviationBar
 //   —— 旧仪表把「弧越长」画成「越好」，而 Brier 是误差（越小越好），图形在替数字说反话。
+// ★八轮第三改：MiniGauge 已整体删除（无调用点），其说明与实现一并移除；
+//   本 import 曾在删除时误删，导致运行时报 "DeviationBar is not defined"（截图实证），
+//   故在此显式标注，避免下一次删代码时又被连带清掉。
 import { DeviationBar } from './DeviationBar';
-
-/** 半圆仪表：弧长＝读数占比，阈值虚线＝参照线
- *
- * ── 2026-09-22 五轮 · 去机械化 ──
- * 依据 ui-ux-pro-max chart 域规范（Gauge 条目）：
- *   ① 「Always show numerical value + % of target as text beside chart」
- *   ② 「Performance: Red → Yellow → Green gradient. Target: marker line」
- * 改动：
- *   · 弧线变细（6px → 4.5px）＋ 端点圆帽 → 更接近仪表针脚而非管道
- *   · 数据轨用**青→抹茶渐变**（不是单色块），对应规范里的 gradient 要求
- *   · 末端加一个实心点（读数落点），给「指针停在哪」一个明确的视觉锚
- *   · 底轨改虚线，弱化存在感，让数据轨成为唯一主角
- *   · 阈值刻度保留（承载「无信息线」语义，非装饰）
- */
-export function MiniGauge({
-  value, lo = 0, hi = 1, threshold, size = 56, missingText = '样本不足', testId,
-}: {
-  value: number | null | undefined;
-  lo?: number; hi?: number;
-  threshold?: number;
-  size?: number;
-  missingText?: string;
-  testId?: string;
-}) {
-  const has = typeof value === 'number' && Number.isFinite(value);
-  const t = has ? Math.min(1, Math.max(0, (value - lo) / (hi - lo || 1))) : 0;
-  const r = size / 2 - 6;
-  const cx = size / 2;
-  const cy = size / 2;
-  const CIRC = Math.PI * r;
-  const stroke = 4.5;
-
-  const thrT = typeof threshold === 'number' ? Math.min(1, Math.max(0, (threshold - lo) / (hi - lo || 1))) : null;
-  // 数据轨末端坐标（用于端点圆点）
-  const endAngle = Math.PI * t;
-  const endX = cx - r * Math.cos(endAngle);
-  const endY = cy - r * Math.sin(endAngle);
-  // 渐变 id 需要唯一：用 size + 值派生，避免多仪表互相覆盖
-  const gid = `mg-${size}-${Math.round(t * 1000)}`;
-
-  return (
-    <svg width={size} height={size / 2 + 6} viewBox={`0 0 ${size} ${size / 2 + 6}`} role="img"
-      className="mini-gauge"
-      aria-label={has ? `读数 ${value}` : missingText}
-      data-testid={testId}
-      style={{ '--arc-circ': CIRC.toFixed(2) } as CSSProperties}>
-      <defs>
-        {/* 青 → 抹茶：冷起暖收，比单色多一层信息（越靠右越接近满值） */}
-        <linearGradient id={gid} x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stopColor="var(--cyan)" />
-          <stop offset="100%" stopColor="var(--accent)" />
-        </linearGradient>
-      </defs>
-      {/* 底轨：虚线弱化，像刻度盘上未填充的部分 */}
-      <path d={`M ${cx - r} ${cy} A ${r} ${r} 0 0 1 ${cx + r} ${cy}`}
-        fill="none" stroke="var(--panel-3)" strokeWidth={stroke} strokeLinecap="round"
-        strokeDasharray="1 5" opacity="0.7" />
-      {/* 数据轨：通电扫描 + 渐变描边 */}
-      {has && t > 0.001 ? (
-        <>
-          <path d={`M ${cx - r} ${cy} A ${r} ${r} 0 0 1 ${cx + r} ${cy}`}
-            fill="none" stroke={`url(#${gid})`} strokeWidth={stroke} strokeLinecap="round"
-            strokeDasharray={`${(t * CIRC).toFixed(2)} ${CIRC.toFixed(2)}`}
-            className="sweep-arc" />
-          {/* 末端锚点：读数停在哪 */}
-          <circle cx={endX.toFixed(2)} cy={endY.toFixed(2)} r={stroke / 2 - 0.6}
-            fill="var(--accent)" className="gauge-tip" />
-        </>
-      ) : null}
-      {/* 阈值刻度（无信息线） */}
-      {thrT !== null ? (
-        <line
-          x1={cx - r * Math.cos(Math.PI * thrT)} y1={cy - r * Math.sin(Math.PI * thrT)}
-          x2={cx - (r - stroke * 1.6) * Math.cos(Math.PI * thrT)} y2={cy - (r - stroke * 1.6) * Math.sin(Math.PI * thrT)}
-          stroke="var(--chart-threshold)" strokeWidth="1.6" strokeLinecap="round" />
-      ) : null}
-    </svg>
-  );
-}
 
 /**
  * 迷你趋势条：一格数据一个**固定宽度**的小竖条。
@@ -241,8 +165,21 @@ export function ReadoutCard({
         </div>
       </div>
       {trend && trend.length ? (
+        /* ★八轮第三改：独立 critic 判这排条「无轴、无标尺、无说明，L5 与 L6
+         * 长得一模一样，纯噪声」。数据本身没错（抽稀时保留峰值，不漏极值），
+         * 缺的是**读者知道它按什么排**。⇒ 补一行标尺：范围 + 点数 + 峰在哪。
+         * 一句话把它从装饰变成读数。 */
         <div className="readout-trend">
           <MiniTrend values={trend} />
+          <span className="readout-trend-cap">
+            {(() => {
+              const ok = trend.filter((v) => typeof v === 'number' && Number.isFinite(v)) as number[];
+              if (!ok.length) return '无分布';
+              const lo = Math.min(...ok), hi = Math.max(...ok);
+              const peak = trend.indexOf(hi) + 1;
+              return `按时间排 · ${ok.length} 点 · 范围 ${lo.toFixed(3)}–${hi.toFixed(3)} · 峰在第 ${peak}`;
+            })()}
+          </span>
         </div>
       ) : null}
     </article>

@@ -5,7 +5,7 @@
 
 /* ── 图框 ── */
 /* 克制设计：24px 大内边距让读数呼吸，长词允许换行绝不溢出容器 */
-.chart-frame { margin: 0; background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius-md);
+.chart-frame { margin: 0; background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius-block);
   padding: 24px; min-width: 0; overflow-wrap: anywhere; }
 .chart-frame-head { display: flex; align-items: baseline; gap: var(--space-2); flex-wrap: wrap; margin-bottom: var(--space-2); }
 .chart-frame-actions { margin-left: auto; }
@@ -182,7 +182,7 @@
 .readout-card {
   display: flex; flex-direction: column; gap: var(--space-2);
   background: var(--panel); border: 1px solid var(--line);
-  border-radius: var(--radius-md); padding: 16px; min-width: 0;
+  border-radius: var(--radius-block); padding: 16px; min-width: 0;
   /* 等高：同一行卡片高度一致，网格不会被内容撑得参差（对齐的硬保证） */
   min-height: 132px;
   transition: border-color var(--dur-panel, 280ms) ease, background var(--dur-panel, 280ms) ease;
@@ -314,7 +314,7 @@
   background: var(--panel);
   border: 1px solid var(--line);
   border-left: 4px solid var(--accent);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-block);
   padding: 22px 24px;
   min-width: 0;
 }
@@ -343,7 +343,7 @@
 .ov-hero-stats { display: flex; flex-direction: column; gap: var(--space-4); min-width: 0; }
 .ov-waffle-panel {
   background: var(--panel); border: 1px solid var(--line);
-  border-radius: var(--radius-md); padding: 16px; min-width: 0;
+  border-radius: var(--radius-block); padding: 16px; min-width: 0;
 }
 .mini-rows { display: flex; flex-direction: column; min-width: 0; }
 
@@ -352,7 +352,7 @@
   appearance: none; display: block; width: 100%;
   min-height: 44px; padding: 10px 16px; text-align: left;
   background: var(--panel); border: 1px solid var(--line);
-  border-radius: var(--radius-md); color: var(--text);
+  border-radius: var(--radius-block); color: var(--text);
   font: inherit; font-size: var(--font-size-body); cursor: pointer;
   transition: border-color 160ms ease, background 160ms ease;
 }
@@ -381,7 +381,7 @@
 .cp-op {
   background: var(--panel);
   border: 1px solid var(--line);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-block);
   padding: 18px 20px;
 }
 .cp-count {
@@ -503,4 +503,18 @@
 }
 .devbar-missing .is-unmeasured {
   display: inline-block; width: 22px; height: 10px; border-radius: 2px;
+}
+
+/* 八轮第三改：分布条的标尺行。
+ * 病象（critic）：这排条原本没有轴、没有标尺、没有说明 ⇒ 读者不知道它按什么排，
+ * 而 L5 与 L6 长得一模一样 ⇒ 判为纯噪声。数据本身是对的（抽稀保留峰值），
+ * 缺的只是「这是什么」的说明。 */
+.readout-trend-cap {
+  display: block;
+  margin-top: 4px;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 10.5px;
+  line-height: 1.5;
+  color: var(--muted);
 }

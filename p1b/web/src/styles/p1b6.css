@@ -42,7 +42,7 @@
 }
 .appbar-link {
   display: flex; align-items: center; min-height: 44px; padding: 0 14px;
-  color: var(--muted); text-decoration: none; font-size: 14px; border-radius: 10px;
+  color: var(--muted); text-decoration: none; font-size: 14px; border-radius: var(--radius-item);
   flex: 0 0 auto;          /* 不被压缩：窄屏靠容器滚动，不靠压缩可点面积 */
   white-space: nowrap;
 }
@@ -50,17 +50,24 @@
 .appbar-gear {
   display: flex; align-items: center; justify-content: center;
   min-width: 44px; min-height: 44px; font-size: 18px;
-  color: var(--muted); text-decoration: none; border-radius: 10px;
+  color: var(--muted); text-decoration: none; border-radius: var(--radius-item);
 }
 .appbar-gear.is-active { color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, transparent); }
 
-/* 现场主屏：无底部 Tab 栏 → 输入条贴底，内容底部预留输入条高度（手机竖屏单手） */
-.content { padding-bottom: calc(150px + env(safe-area-inset-bottom)); }
+/* 现场主屏：无底部 Tab 栏 → 输入条贴底，内容底部预留输入条高度（手机竖屏单手）
+ *
+ * ★八轮第三改：原先是**全局** .content 加 150px 底部留白，为的是给现场那条贴底
+ * 输入条腾位置。但观测台/入口/接题等页根本没有那条输入条 ⇒ 内容底下凭空多出
+ * 150px 空洞且无收边——独立 critic 判为「下半屏是空的、页面是浮在视口里的，
+ * 而不是坐在页面里」。⇒ 收窄成按模式给：现场留 150，观测台只留常规收边。
+ * 落位靠 <html data-mode>（App.tsx 按路由设置，live = 现场/对局/排盘）。 */
+[data-mode="live"] .content { padding-bottom: calc(150px + env(safe-area-inset-bottom)); }
+[data-mode="desk"] .content { padding-bottom: 64px; }
 
 /* ── 参谋卡区：时间线顶部可展开大卡 ── */
 .adv-strip {
   display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
-  background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius);
+  background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius-block);
   padding: 8px 12px; margin-bottom: 12px;
 }
 .adv-strip-title { font-weight: 700; font-size: 14.5px; }
@@ -75,7 +82,7 @@
 .adv-badge.is-ready { background: var(--ok-bg); color: var(--ok); }
 .adv-body {
   background: var(--panel); border: 1px solid var(--line);
-  border-radius: var(--radius); padding: 12px 14px; margin-bottom: 12px;
+  border-radius: var(--radius-block); padding: 12px 14px; margin-bottom: 12px;
 }
 .adv-hist-row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
 
@@ -91,7 +98,7 @@
   display: flex; flex-direction: column; gap: var(--space-5);
   background: var(--panel);
   border: 1px solid var(--line);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-block);
   padding: 24px;
   max-width: 760px;
   margin: 0 auto;

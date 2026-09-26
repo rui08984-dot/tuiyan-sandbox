@@ -11,7 +11,7 @@ export { Bar, StackedBar, NestedBar } from './Bars';
 export { LineChart, Histogram } from './LineChart';
 export type { Series } from './LineChart';
 export { FilterChips, ChipFilter, SparkBar, ReliabilityPlot } from './Controls';
-export { ReadoutCard, MiniGauge, MiniTrend } from './ReadoutCard';
+export { ReadoutCard, MiniTrend } from './ReadoutCard';
 export { DeviationBar } from './DeviationBar';
 export { Waffle } from './Waffle';
 export * as scale from './scale';

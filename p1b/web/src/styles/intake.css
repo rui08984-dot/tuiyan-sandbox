@@ -19,7 +19,7 @@
 .intake-side { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
 /* 宽屏下侧栏吸顶：填表时结果始终可见（治「填完要滚下去找结果」） */
 @media (min-width: 1024px) { .intake-side { position: sticky; top: calc(var(--header-height) + 8px); } }
-.intake-card { border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel); padding: 12px 14px; min-width: 0; }
+.intake-card { border: 1px solid var(--line); border-radius: var(--radius-block); background: var(--panel); padding: 12px 14px; min-width: 0; }
 .intake-card-title { margin: 10px 0 6px; font-size: 15px; font-weight: 600; }
 .intake-card-title:first-child { margin-top: 0; }
 .intake-card-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
@@ -27,7 +27,7 @@
 .intake-label { display: block; color: var(--muted); font-size: 12.5px; margin-bottom: 4px; }
 .intake-textarea, .intake-input {
   width: 100%; box-sizing: border-box; background: var(--bg); color: var(--text);
-  border: 1px solid var(--line); border-radius: 8px; padding: 7px 9px; font: inherit; font-size: 13.5px;
+  border: 1px solid var(--line); border-radius: var(--radius-item); padding: 7px 9px; font: inherit; font-size: 13.5px;
 }
 .intake-textarea { resize: vertical; min-height: 62px; }
 .intake-spec-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 8px; }
@@ -42,12 +42,12 @@
 .intake-layer-count { float: right; color: var(--muted); font-size: 11.5px; }
 
 .intake-submit {
-  margin-top: 12px; width: 100%; padding: 10px 14px; border: none; border-radius: 8px;
+  margin-top: 12px; width: 100%; padding: 10px 14px; border: none; border-radius: var(--radius-item);
   background: var(--accent); color: var(--accent-ink); font: inherit; font-weight: 600; cursor: pointer;
 }
 .intake-submit:disabled { opacity: 0.6; cursor: progress; }
-.intake-mini { background: transparent; color: var(--accent); border: 1px solid var(--line); border-radius: 8px; padding: 3px 10px; font: inherit; font-size: 12px; cursor: pointer; }
-.intake-error { margin-top: 10px; padding: 8px 10px; border-radius: 8px; background: var(--danger-bg); color: var(--danger); font-size: 13px; word-break: break-word; }
+.intake-mini { background: transparent; color: var(--accent); border: 1px solid var(--line); border-radius: var(--radius-item); padding: 3px 10px; font: inherit; font-size: 12px; cursor: pointer; }
+.intake-error { margin-top: 10px; padding: 8px 10px; border-radius: var(--radius-item); background: var(--danger-bg); color: var(--danger); font-size: 13px; word-break: break-word; }
 
 .intake-result.is-ok { border-color: var(--ok-border); }
 .intake-result.is-reject { border-color: var(--warn-border); }
@@ -59,7 +59,7 @@
 
 .intake-note { margin: 6px 0 0; color: var(--muted); font-size: 12.5px; }
 .intake-fold { margin-top: 8px; font-size: 12.5px; color: var(--muted); }
-.intake-pre { margin: 6px 0 0; padding: 8px; background: var(--bg); border: 1px solid var(--line); border-radius: 8px; overflow: auto; max-height: 260px; font-size: 11.5px; color: var(--text); white-space: pre-wrap; word-break: break-word; }
+.intake-pre { margin: 6px 0 0; padding: 8px; background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius-item); overflow: auto; max-height: 260px; font-size: 11.5px; color: var(--text); white-space: pre-wrap; word-break: break-word; }
 .intake-table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
 .intake-table th, .intake-table td { padding: 5px 6px; text-align: left; border-top: 1px solid var(--line); vertical-align: top; }
 .intake-table th { border-top: none; color: var(--muted); font-weight: 500; }

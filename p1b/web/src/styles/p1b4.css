@@ -6,7 +6,7 @@
 .game-item {
   display: flex; align-items: center; gap: 10px;
   background: var(--panel); border: 1px solid var(--line);
-  border-radius: var(--radius); padding: 12px 14px;
+  border-radius: var(--radius-block); padding: 12px 14px;
   min-width: 0;
   transition: border-color 150ms ease, background 150ms ease;
 }
@@ -21,7 +21,7 @@
 /* ── 局详情 ── */
 .detail-card {
   background: var(--panel); border: 1px solid var(--line);
-  border-radius: var(--radius); padding: 14px; margin-bottom: 12px;
+  border-radius: var(--radius-block); padding: 14px; margin-bottom: 12px;
 }
 .detail-head { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
 .detail-title { font-weight: 700; font-size: 17px; }
@@ -42,7 +42,7 @@
 .seat-row { display: flex; align-items: center; gap: 8px; }
 .seat-badge {
   flex: 0 0 auto; width: 48px; text-align: center;
-  font-size: 13px; padding: 11px 0; border-radius: 8px;
+  font-size: 13px; padding: 11px 0; border-radius: var(--radius-item);
   background: var(--panel-2); border: 1px solid var(--line); color: var(--muted);
 }
 .seat-row input { flex: 1; min-width: 0; }
@@ -53,14 +53,14 @@
   position: sticky; top: 8px; z-index: 25;
   background: var(--ok-bg); color: var(--ok);
   border: 1px solid var(--ok-border);
-  border-radius: 10px; padding: 10px 14px; font-size: 14px;
+  border-radius: var(--radius-item); padding: 10px 14px; font-size: 14px;
   margin-bottom: 10px; word-break: break-all;
 }
 
 /* ── 参谋卡面板：结算工具条 ── */
 .adv-toolbar {
   background: var(--panel); border: 1px solid var(--line);
-  border-radius: var(--radius); padding: 12px 14px; margin-bottom: 12px;
+  border-radius: var(--radius-block); padding: 12px 14px; margin-bottom: 12px;
   display: grid; gap: 10px;
 }
 .adv-toolbar .row { display: flex; gap: 8px; align-items: flex-end; flex-wrap: wrap; }
@@ -72,7 +72,7 @@
 .adv-running {
   display: flex; align-items: center; gap: 10px;
   background: color-mix(in srgb, var(--accent) 12%, transparent); border: 1px solid color-mix(in srgb, var(--accent) 50%, transparent);
-  border-radius: var(--radius); padding: 12px 14px; margin-bottom: 12px;
+  border-radius: var(--radius-block); padding: 12px 14px; margin-bottom: 12px;
 }
 .adv-running .spinner {
   width: 16px; height: 16px; border-radius: 50%; flex-shrink: 0;
@@ -82,13 +82,13 @@
 @keyframes adv-spin { to { transform: rotate(360deg); } }
 .adv-ready {
   background: var(--ok-bg); border: 1px solid var(--ok-border);
-  color: var(--ok); border-radius: var(--radius); padding: 12px 14px; margin-bottom: 12px;
+  color: var(--ok); border-radius: var(--radius-block); padding: 12px 14px; margin-bottom: 12px;
 }
 
 /* ── 参谋卡（结构对齐 p1a-terminal/src/cards.js）── */
 .adv-card {
   background: var(--panel); border: 1px solid var(--line);
-  border-radius: var(--radius); padding: 14px; margin-bottom: 12px;
+  border-radius: var(--radius-block); padding: 14px; margin-bottom: 12px;
 }
 .adv-card-banner {
   text-align: center; font-weight: 700; letter-spacing: 1px;
@@ -98,13 +98,13 @@
 .adv-card-sub { text-align: center; color: var(--muted); font-size: 12.5px; margin: 6px 0 0; word-break: break-all; }
 .adv-sec-title { margin: 16px 0 8px; font-size: 13px; color: var(--muted); font-weight: 600; letter-spacing: 1px; }
 .adv-warn {
-  margin: 10px 0 0; padding: 8px 10px; border-radius: 8px; font-size: 13px;
+  margin: 10px 0 0; padding: 8px 10px; border-radius: var(--radius-item); font-size: 13px;
   background: rgba(201, 164, 76, 0.14); color: var(--warn); word-break: break-all;
 }
 
 /* 矛盾区：欠定度色标 high=红 mid=黄 low=灰 */
 .contr-card {
-  border: 1px solid var(--line); border-left-width: 3px; border-radius: 10px;
+  border: 1px solid var(--line); border-left-width: 3px; border-radius: var(--radius-item);
   background: var(--panel-2); padding: 10px 12px; margin-bottom: 8px;
 }
 .contr-card.under-high { border-left-color: var(--danger); }
@@ -126,7 +126,7 @@
 /* 假设区双栏对峙：≥360px 两列并排，过窄自动堆叠 */
 .hyp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 8px; }
 .hyp-card {
-  border: 1px solid var(--line); border-radius: 10px; background: var(--panel-2);
+  border: 1px solid var(--line); border-radius: var(--radius-item); background: var(--panel-2);
   padding: 10px 12px; display: flex; flex-direction: column; gap: 6px; min-width: 0;
 }
 .hyp-head { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
@@ -143,7 +143,7 @@
 .cp-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
 .cp-item {
   display: flex; align-items: flex-start; gap: 10px; cursor: pointer;
-  border: 1px solid var(--line); border-radius: 10px; background: var(--panel-2);
+  border: 1px solid var(--line); border-radius: var(--radius-item); background: var(--panel-2);
   padding: 10px 12px;
 }
 .cp-item input[type="checkbox"] { width: 18px; height: 18px; min-height: 0; margin-top: 2px; accent-color: var(--accent); flex-shrink: 0; }
@@ -163,7 +163,7 @@
 .role-ref { margin-top: 4px; }
 .role-ref-grid { margin-top: 10px; display: grid; gap: 8px; }
 .role-card {
-  background: var(--panel-2); border: 1px solid var(--line); border-radius: 10px;
+  background: var(--panel-2); border: 1px solid var(--line); border-radius: var(--radius-item);
   padding: 10px 12px; display: grid; gap: 4px;
 }
 .role-card-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }

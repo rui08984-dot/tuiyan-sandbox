@@ -7,9 +7,14 @@ import { useState, type ReactNode } from 'react';
 import '../../styles/ui.css';
 
 type IconProps = { size?: number };
-/** 极简 SVG 包装：d 用 | 分隔多条 path；stroke=currentColor */
+/** 极简 SVG 包装：d 用 | 分隔多条 path；stroke=currentColor
+ *
+ * ★八轮第二改：描边 1.8 → **1.5**，对齐 ui-ux-pro-max 的 icons 数据集推荐的
+ *   Phosphor outline 口径（regular weight）。1.8 在 14–16px 下偏肥，
+ *   且与同页文字笔画不同粗，视觉上"图标比字重"。
+ *   ★零依赖原则下不引 Phosphor 包，只**采用其规范**（描边粗细／尺寸四档／a11y 分工）。 */
 const S = (d: string, size: number) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"
     strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
     {d.split('|').map((p, i) => <path key={i} d={p} />)}
   </svg>

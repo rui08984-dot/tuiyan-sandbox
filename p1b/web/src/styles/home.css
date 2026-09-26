@@ -114,7 +114,7 @@
   display: block;
   padding: 16px 16px 14px;
   border: 1px solid var(--line);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-block);
   background: var(--panel);
   text-decoration: none;
   transition: background 120ms ease, border-color 120ms ease;

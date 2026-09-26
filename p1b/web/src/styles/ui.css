@@ -8,7 +8,7 @@
 .ui-kpi-row { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: var(--grid-gap); }
 @media (max-width: 1023px) { .ui-kpi-row { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (max-width: 767px) { .ui-kpi-row { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-.ui-stat { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius-md); padding: var(--card-padding); min-width: 0; box-shadow: var(--shadow-1); }
+.ui-stat { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius-block); padding: var(--card-padding); min-width: 0; box-shadow: var(--shadow-1); }
 .ui-stat-label { color: var(--muted); font-size: var(--font-size-small); display: block; }
 .ui-stat-value { font-size: var(--font-size-metric); font-weight: 600; line-height: 1.15; font-variant-numeric: tabular-nums; display: block; }
 .ui-stat-caption { color: var(--muted); font-size: var(--font-size-xs); display: block; }
@@ -60,7 +60,7 @@
 .ui-empty svg { opacity: 0.7; }
 
 /* ── 通用块 / 栅格 ── */
-.ui-section { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius-md); padding: var(--card-padding); min-width: 0; }
+.ui-section { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius-block); padding: var(--card-padding); min-width: 0; }
 .ui-section-title { margin: 0 0 var(--space-2); font-size: var(--font-size-h3); font-weight: 600; display: flex; align-items: center; gap: 6px; }
 .ui-note { margin: 6px 0 0; color: var(--muted); font-size: var(--font-size-small); }
 .ui-grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: var(--grid-gap); align-items: start; }
