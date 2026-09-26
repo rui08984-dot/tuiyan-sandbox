@@ -58,6 +58,15 @@ function dueOf(e0) {
   if (r.month) return { due: monthEndPlusOne(r.month), src: 'month+1mo' };
   if (m.expectMonth) return { due: m.expectMonth + '-01', src: 'meta.expectMonth' };
   if (r.week_end && k === 'github_weekly_commits') return { due: addDays(r.week_end, 1), src: 'week_end+1d' };
+  // ★2026-09-27 修缺陷：周窗计数两 kind 的证据字段叫 `week_start`（窗口 = 起~起+6），
+  //   与 github 的 `week_end` 不同名 ⇒ 旧 dueOf 一律落 undatable ⇒ **明明有 resolver 却永不进结算**。
+  //   到期口径不是自拟：照 resolver 自身的门反推（corpus-resolve.cjs crossref/nvd 两支同款
+  //   `const end = plusDays(r.week_start, 6); if (end >= shToday()) return pending`）
+  //   ⇒ 窗口末日 = week_start+6，数据自 **week_start+7** 起可取。
+  if (r.week_start && (k === 'crossref_week_total' || k === 'nvd_cve_week_count')) return { due: addDays(r.week_start, 7), src: 'week_start+7d' };
+  // ★2026-09-27 修缺陷：赔率题到期 = 开赛日次日起（英超单场约 2h 踢完；真值端点
+  //   /v4/sports/<lg>/scores/?daysFrom=3 是 3 日滚动窗，次日仍在窗内）。
+  if (k === 'oddsapi_h2h' && r.commence_utc) return { due: addDays(String(r.commence_utc).slice(0, 10), 1), src: 'commence_utc+1d' };
   if (r.end && k === 'npm_downloads_window') return { due: addDays(r.end, 1), src: 'end+1d' };
   if (k.indexOf('cwl') === 0 && r.issue) return { due: inferIssue(r.issue, CALS.cwl), src: 'infer:ssq' };
   if (k === 'dlt_draw_result' && r.issue) return { due: inferIssue(r.issue, CALS.dlt), src: 'infer:dlt' };
@@ -460,7 +469,11 @@ async function reportDue() {
   console.log('\n[到期日来源] ' + JSON.stringify(d.bySrc));
   console.log('[按 kind] ' + JSON.stringify(d.byKind));
   console.log('[无法定到期] ' + d.undatable + ' ' + JSON.stringify(d.undKinds));
-  const p = path.join(ROOT, 'p1b', 'sim', 'out', 'resolve-daemon.due.json');
+  // ★2026-09-27 加 `--report-due-out=<path>`：照 odds-questions.cjs 的 --report-dir 先例
+  //   （同族缺陷：测试跑一次就把产物写进仓库）。默认仍是仓库路径（生产读数件位置不变）。
+  const OUT_ARG = val('--report-due-out', null);
+  const p = OUT_ARG ? path.resolve(OUT_ARG) : path.join(ROOT, 'p1b', 'sim', 'out', 'resolve-daemon.due.json');
+  fs.mkdirSync(path.dirname(p), { recursive: true });
   fs.writeFileSync(p, JSON.stringify({ generated_at: ts(), today: today(), ...d }, null, 1), 'utf8');
   console.log('\n已落盘 ' + p);
 }
@@ -503,5 +516,14 @@ async function main() {
     await new Promise((r) => setTimeout(r, INTERVAL_MIN * 60000));
   }
 }
-main().catch((e) => { log('FATAL ' + ((e && e.stack) ? e.stack : (e && e.message))); process.exit(1); });
+// ★2026-09-27 加 CLI 守卫：`main()` 里的 `log()` 会**追加写** p1b/sim/out/resolve-daemon.log，
+//   无条件执行 ⇒ 本件被 require 时也写盘 ⇒ 污染同目录别的测试的「require 零副作用」目录快照
+//   （实测打红 e2-combo-precheck.test.cjs:109）。守卫后本件可安全 require 供纯函数测试。
+//   本 daemon 的既有调用方式全是 CLI（`node p1b/scripts/corpus-resolve-daemon.cjs …`），行为不变。
+if (require.main === module) {
+  main().catch((e) => { log('FATAL ' + ((e && e.stack) ? e.stack : (e && e.message))); process.exit(1); });
+}
+
+// 供测试直测纯函数（只读、无网络、无写盘）
+module.exports = { dueOf, distribute, addDays, monthEndPlusOne };
 

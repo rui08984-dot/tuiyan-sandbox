@@ -93,8 +93,15 @@ test('⑤ CLI dry-run：合成迷你库零写 ＋ 报告落盘；require 零副�
   db.exec('CREATE TABLE games (id INTEGER PRIMARY KEY, game_type TEXT, name TEXT, player_count INTEGER, created_at TEXT, source TEXT)');
   db.close();
   const snap = path.join(tmpDir, 'odds-snapshots-soccer_epl.jsonl');
-  fs.writeFileSync(snap, JSON.stringify({ snapshot_utc: '2026-09-17T07:24:46.199Z', league: 'soccer_epl', matches: [
-    { id: 'mm1', commence_utc: '2026-09-25T15:00:00Z', home: 'X', away: 'Y', consensus: { n_books: 3, probs_mean: [0.4, 0.3, 0.3] } }] }) + '\n', 'utf8');
+  // ★2026-09-27 修「时间炸弹」缺陷：夹具原把开赛日写死 '2026-09-25T15:00:00Z'，
+  //   而 CLI 的 Q0-2② 判「只对未来场次出题」用的是**真实 now** ⇒ 该日一过，
+  //   本测试就永久转红（实测 09-27 复现：候选 0，跳过 past_kickoff=1）。
+  //   本测试要验的是「未来场次才出题」这条规则，**不是**某个日历日 ⇒ 改为相对 now 构造，
+  //   规则意图一字未改，且永不再随挂钟腐坏（同族纪律：活库前提类测试改条件式）。
+  const kickoff = new Date(Date.now() + 7 * 24 * 3600 * 1000).toISOString();
+  const snapIso = new Date(Date.parse(kickoff) - 48 * 3600 * 1000).toISOString();
+  fs.writeFileSync(snap, JSON.stringify({ snapshot_utc: snapIso, league: 'soccer_epl', matches: [
+    { id: 'mm1', commence_utc: kickoff, home: 'X', away: 'Y', consensus: { n_books: 3, probs_mean: [0.4, 0.3, 0.3] } }] }) + '\n', 'utf8');
 
   const out = execFileSync(process.execPath, [SCRIPT, '--db', mini, '--snapshots', snap, '--report-dir', tmpDir], { encoding: 'utf8' });
   assert.ok(/DRY-RUN/.test(out) && /候选 1/.test(out), 'dry-run 应报候选且不写库: ' + out.slice(0, 160));

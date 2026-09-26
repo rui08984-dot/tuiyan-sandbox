@@ -1,0 +1,31 @@
+{
+ "predictions": {
+  "rows": 1994,
+  "sha16": "63cbe3270428d3f7"
+ },
+ "verdicts": {
+  "rows": 5156,
+  "sha16": "2e96df95a5ff7dd0"
+ },
+ "games": {
+  "rows": 90,
+  "sha16": "5f07851382fa413d"
+ },
+ "events": {
+  "rows": 556,
+  "sha16": "9494fe6c19d80f8f"
+ },
+ "truth_vault": {
+  "rows": 1994,
+  "sha16": "11f61bf94e069938"
+ },
+ "intake_questions": {
+  "rows": 2,
+  "sha16": "0b3f50fc34d942b0"
+ },
+ "__meta": {
+  "captured_at": "2026-09-26T16:51:13.570Z",
+  "resolved": 1661,
+  "total": 1994
+ }
+}

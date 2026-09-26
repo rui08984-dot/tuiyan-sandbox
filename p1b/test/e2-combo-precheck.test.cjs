@@ -83,7 +83,10 @@ test('④ 真实件：矩阵／两对／判决自洽／RES 门／三零／零副
   //   09-21（三十三）批 4 条顺延题补结（ECB 09-21 值发布后）⇒ 1548 → 1552（同上；★此批使分域可出结论 9→10）
   //   09-21（四十三）批修 dlt 反爬（resolver 显式传 Referer）⇒ 补结 8 条 ⇒ 1552 → 1560（同上；★L5/dlt 首次出数 n 0→8）
   //   09-22 例行结算 3 条（L2 binance BTC/ETH/SOL 09-21 收盘）⇒ 1560 → 1563（同上；读数前进，非口径变更）
-  assert.equal(j.cohort_rows, 1563, '队列应与 PREREG §1 池口径一致: ' + j.cohort_rows);
+  //   09-27 例行结算 37 条（★含修 dueOf 到期口径缺陷后首次放行的 crossref 4 ＋ nvd 3）⇒ 1563 → 1600（同上；
+  //     ★差值 37 与收据 resolved 逐位相等 ⇒ 纯读数前进，**无口径变更**。本锁的意图＝「队列只许因结算变大」，
+  //     每次结算追加一行流水，故照旧逐批更新而非改成不落数的动态断言——那会把锁废掉）
+  assert.equal(j.cohort_rows, 1600, '队列应与 PREREG §1 池口径一致: ' + j.cohort_rows);
   assert.ok(j.multi_engine_items >= 30, '多引擎题应 ≥30（R3 可估前提）: ' + j.multi_engine_items);
   const pairs = Object.keys(j.pair_population);
   assert.ok(pairs.some((k) => k.indexOf('L1') !== -1 && k.indexOf('L6') !== -1), 'L1×L6 对应在: ' + JSON.stringify(pairs));
