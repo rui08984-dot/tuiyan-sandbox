@@ -4911,3 +4911,123 @@
 [2026-09-27T00:54:53+08:00]   pending kind=oddsapi_h2h x1 due=2026-09-21 — scores 窗内（近 3 日）未见 182b81a9e220b2347235107c42802fd8
 [2026-09-27T00:54:53+08:00] round#1 用时 93.6s | 未解总数=331 到期选中=56 唯一真值请求=56（台账重复合并 0） | resolved=37 pending=12（含预筛 0） fail=7 refused=0／同结论并发=0 口径护栏=0 unsupported=0 未到期跳过=251 无法定到期=24 wouldWrite=0 实打网=39
 [2026-09-27T00:54:53+08:00]   取数失败明细 {"fetch-fail:cta_daily_total_rides:HTTP 403":3,"fetch-fail:elexon_fuelhh_daily_mean:HTTP 403":4}
+[2026-09-27T01:05:59+08:00] === corpus-resolve-daemon start | mode=once interval=60min due-only=true confirm=false（DRY-RUN，不写库）
+[2026-09-27T01:05:59+08:00] 复用 corpus-resolve RESOLVERS 成功：inline-extract(61 kinds)
+[2026-09-27T01:05:59+08:00] db=.scratch/p38/drill2.db
+[2026-09-27T01:06:05+08:00] WARN dlt 日历刷新失败（沿用内置锚 26104@2026-09-12）: HTTP 567
+[2026-09-27T01:06:05+08:00] 日历锚刷新：ssq 2026111@2026-09-24 | dlt 26104@2026-09-12
+[2026-09-27T01:07:47+08:00]   [dry] would resolve kind=cwl_ssq_red_contains x1 due=2026-09-24 -> true | cwl 官方 2026111 期 red=06,07,14,22,31,32 blue=05（red 含 07，机检）
+[2026-09-27T01:07:47+08:00]   pending kind=cwl_ssq_red_contains x1 due=2026-09-27 — 第 2026112 期未开奖
+[2026-09-27T01:07:47+08:00]   [dry] would resolve kind=cwl_ssq_blue_odd x1 due=2026-09-24 -> true | cwl 官方 2026111 期 red=06,07,14,22,31,32 blue=05（blue 为奇数，机检）
+[2026-09-27T01:07:47+08:00]   pending kind=cwl_ssq_blue_odd x1 due=2026-09-27 — 第 2026112 期未开奖
+[2026-09-27T01:07:47+08:00]   [dry] would resolve kind=dlt_draw_result x1 due=2026-09-23 -> false | 体彩官方 dlt 26109 期 lotteryDrawResult=12 14 16 27 34 04 08（后区含 01，机检）
+[2026-09-27T01:07:47+08:00]   [dry] would resolve kind=dlt_draw_result x1 due=2026-09-26 -> false | 体彩官方 dlt 26110 期 lotteryDrawResult=03 24 25 26 35 07 09（后区含 01，机检）
+[2026-09-27T01:07:47+08:00]   [dry] would resolve kind=dlt_draw_result x1 due=2026-09-23 -> true | 体彩官方 dlt 26109 期 lotteryDrawResult=12 14 16 27 34 04 08（前区最大号 34 >= 30，机检）
+[2026-09-27T01:07:47+08:00]   [dry] would resolve kind=dlt_draw_result x1 due=2026-09-26 -> true | 体彩官方 dlt 26110 期 lotteryDrawResult=03 24 25 26 35 07 09（前区最大号 35 >= 30，机检）
+[2026-09-27T01:07:47+08:00]   [dry] would resolve kind=wikimedia_pageviews x1 due=2026-09-23 -> true | Wikimedia Bitcoin 2026-09-23 views=11580（阈值 >= 6554，机检）
+[2026-09-27T01:07:47+08:00]   [dry] would resolve kind=wikimedia_pageviews x1 due=2026-09-23 -> true | Wikimedia Artificial_intelligence 2026-09-23 views=43321（阈值 >= 28680，机检）
+[2026-09-27T01:07:47+08:00]   [dry] would resolve kind=wikimedia_pageviews x1 due=2026-09-23 -> false | Wikimedia ChatGPT 2026-09-23 views=98559（阈值 >= 101315，机检）
+[2026-09-27T01:07:47+08:00]   [dry] would resolve kind=wikimedia_pageviews x1 due=2026-09-23 -> true | Wikimedia Taylor_Swift 2026-09-23 views=30087（阈值 >= 21751，机检）
+[2026-09-27T01:07:47+08:00]   [dry] would resolve kind=wikimedia_pageviews x1 due=2026-09-23 -> true | Wikimedia Ethereum 2026-09-23 views=3351（阈值 >= 1856，机检）
+[2026-09-27T01:07:47+08:00]   [dry] would resolve kind=github_weekly_commits x1 due=2026-09-27 -> true | GitHub nodejs/node 2026-09-20~2026-09-26 commits=116（阈值 >= 61，机检）
+[2026-09-27T01:07:47+08:00]   [dry] would resolve kind=github_weekly_commits x1 due=2026-09-27 -> true | GitHub microsoft/vscode 2026-09-20~2026-09-26 commits=959（阈值 >= 728，机检）
+[2026-09-27T01:07:47+08:00]   [dry] would resolve kind=github_weekly_commits x1 due=2026-09-27 -> false | GitHub facebook/react 2026-09-20~2026-09-26 commits=4（阈值 >= 20，机检）
+[2026-09-27T01:07:47+08:00]   [dry] would resolve kind=frankfurter_rate_range x1 due=2026-09-23 -> false | Frankfurter 2026-09-23 USD/CNY=6.7074（阈值 >= 7.1076，机检）
+[2026-09-27T01:07:47+08:00]   [dry] would resolve kind=frankfurter_rate_range x1 due=2026-09-23 -> true | Frankfurter 2026-09-23 USD/JPY=157.92（阈值 >= 155.85，机检）
+[2026-09-27T01:07:47+08:00]   [dry] would resolve kind=frankfurter_rate_range x1 due=2026-09-23 -> true | Frankfurter 2026-09-23 USD/EUR=0.87635（阈值 >= 0.8603，机检）
+[2026-09-27T01:07:47+08:00]   [dry] would resolve kind=npm_downloads_window x1 due=2026-09-23 -> true | npm react 2026-09-16~2026-09-22 下载=165284669（阈值 >= 141517729，机检）
+[2026-09-27T01:07:47+08:00]   [dry] would resolve kind=npm_downloads_window x1 due=2026-09-23 -> true | npm typescript 2026-09-16~2026-09-22 下载=264336296（阈值 >= 202420346，机检）
+[2026-09-27T01:07:47+08:00]   [dry] would resolve kind=npm_downloads_window x1 due=2026-09-23 -> true | npm vite 2026-09-16~2026-09-22 下载=164542576（阈值 >= 142666346，机检）
+[2026-09-27T01:07:47+08:00]   fetch-fail kind=cta_daily_total_rides x1 — HTTP 403（跳过不写）
+[2026-09-27T01:07:47+08:00]   fetch-fail kind=cta_daily_total_rides x1 — HTTP 403（跳过不写）
+[2026-09-27T01:07:47+08:00]   fetch-fail kind=cta_daily_total_rides x1 — HTTP 403（跳过不写）
+[2026-09-27T01:07:47+08:00]   [dry] would resolve kind=crossref_week_total x1 due=2026-09-13 -> false | Crossref 2026-09-06~2026-09-12 新注册 DOI=243132（阈值 >= 246479，机检）
+[2026-09-27T01:07:47+08:00]   [dry] would resolve kind=crossref_week_total x1 due=2026-09-21 -> false | Crossref 2026-09-14~2026-09-20 新注册 DOI=240484（阈值 >= 255924，机检）
+[2026-09-27T01:07:47+08:00]   [dry] would resolve kind=nvd_cve_week_count x1 due=2026-09-21 -> true | NVD 2026-09-14~2026-09-20 新发 CVE=4862（阈值 >= 2056，机检）
+[2026-09-27T01:07:47+08:00]   [dry] would resolve kind=binance_daily_close x1 due=2026-09-23 -> false | Binance DOGEUSDT 2026-09-23 close=0.09272000（阈值 >= 0.1547，机检）
+[2026-09-27T01:07:47+08:00]   [dry] would resolve kind=binance_daily_close x1 due=2026-09-23 -> false | Binance XRPUSDT 2026-09-23 close=1.50100000（阈值 >= 1.9236，机检）
+[2026-09-27T01:07:47+08:00]   [dry] would resolve kind=binance_daily_close x1 due=2026-09-23 -> false | Binance ADAUSDT 2026-09-23 close=0.23840000（阈值 >= 0.2735，机检）
+[2026-09-27T01:07:47+08:00]   [dry] would resolve kind=binance_daily_close x1 due=2026-09-23 -> false | Binance LTCUSDT 2026-09-23 close=61.84000000（阈值 >= 77.01，机检）
+[2026-09-27T01:07:47+08:00]   [dry] would resolve kind=binance_daily_close x1 due=2026-09-23 -> true | Binance BNBUSDT 2026-09-23 close=767.38000000（阈值 >= 650.74，机检）
+[2026-09-27T01:07:47+08:00]   [dry] would resolve kind=npm_downloads_window x1 due=2026-09-23 -> true | npm next 2026-09-16~2026-09-22 下载=53300113（阈值 >= 35817389，机检）
+[2026-09-27T01:07:47+08:00]   [dry] would resolve kind=npm_downloads_window x1 due=2026-09-23 -> true | npm vue 2026-09-16~2026-09-22 下载=15196452（阈值 >= 10989475，机检）
+[2026-09-27T01:07:47+08:00]   [dry] would resolve kind=npm_downloads_window x1 due=2026-09-23 -> true | npm lodash 2026-09-16~2026-09-22 下载=161024340（阈值 >= 148919787，机检）
+[2026-09-27T01:07:47+08:00]   [dry] would resolve kind=npm_downloads_window x1 due=2026-09-23 -> true | npm axios 2026-09-16~2026-09-22 下载=109008875（阈值 >= 102020399，机检）
+[2026-09-27T01:07:47+08:00]   [dry] would resolve kind=mlb_schedule_daily_total_runs x1 due=2026-09-22 -> true | MLB 2026-09-22 16 场总得分=122（阈值 >= 93，机检）
+[2026-09-27T01:07:47+08:00]   [dry] would resolve kind=crossref_week_total x1 due=2026-09-25 -> false | Crossref 2026-09-18~2026-09-24 新注册 DOI=239121（阈值 >= 252180，机检）
+[2026-09-27T01:07:47+08:00]   [dry] would resolve kind=crossref_week_total x1 due=2026-09-27 -> false | Crossref 2026-09-20~2026-09-26 新注册 DOI=243655（阈值 >= 252180，机检）
+[2026-09-27T01:07:47+08:00]   [dry] would resolve kind=nvd_cve_week_count x1 due=2026-09-25 -> false | NVD 2026-09-18~2026-09-24 新发 CVE=2520（阈值 >= 2919，机检）
+[2026-09-27T01:07:47+08:00]   [dry] would resolve kind=nvd_cve_week_count x1 due=2026-09-27 -> false | NVD 2026-09-20~2026-09-26 新发 CVE=2831（阈值 >= 2919，机检）
+[2026-09-27T01:07:47+08:00]   fetch-fail kind=elexon_fuelhh_daily_mean x1 — HTTP 403（跳过不写）
+[2026-09-27T01:07:47+08:00]   fetch-fail kind=elexon_fuelhh_daily_mean x1 — HTTP 403（跳过不写）
+[2026-09-27T01:07:47+08:00]   fetch-fail kind=elexon_fuelhh_daily_mean x1 — HTTP 403（跳过不写）
+[2026-09-27T01:07:47+08:00]   fetch-fail kind=elexon_fuelhh_daily_mean x1 — HTTP 403（跳过不写）
+[2026-09-27T01:07:47+08:00]   pending kind=oddsapi_h2h x1 due=2026-09-19 — scores 窗内（近 3 日）未见 82d8b6a005d78bac0b1508abc17a7d39
+[2026-09-27T01:07:47+08:00]   pending kind=oddsapi_h2h x1 due=2026-09-20 — scores 窗内（近 3 日）未见 d02ff636f652d5b5bb65f6b24330c4fe
+[2026-09-27T01:07:47+08:00]   pending kind=oddsapi_h2h x1 due=2026-09-20 — scores 窗内（近 3 日）未见 b5b058d0a95f9742548f789d1c564a78
+[2026-09-27T01:07:47+08:00]   pending kind=oddsapi_h2h x1 due=2026-09-20 — scores 窗内（近 3 日）未见 88519a51012811476c9b4724eafc96c5
+[2026-09-27T01:07:47+08:00]   pending kind=oddsapi_h2h x1 due=2026-09-20 — scores 窗内（近 3 日）未见 f65c4eaf0f94a569f06d768f737dad2e
+[2026-09-27T01:07:47+08:00]   pending kind=oddsapi_h2h x1 due=2026-09-20 — scores 窗内（近 3 日）未见 75133fdcd4fc3067b303a8f166f974e4
+[2026-09-27T01:07:47+08:00]   pending kind=oddsapi_h2h x1 due=2026-09-21 — scores 窗内（近 3 日）未见 784f777f5181e1efdad7a6ecb2cfde15
+[2026-09-27T01:07:47+08:00]   pending kind=oddsapi_h2h x1 due=2026-09-21 — scores 窗内（近 3 日）未见 b63aef4291a066e32644e591c19a235a
+[2026-09-27T01:07:47+08:00]   pending kind=oddsapi_h2h x1 due=2026-09-21 — scores 窗内（近 3 日）未见 f923236e69ed946fdc55163494ee88db
+[2026-09-27T01:07:47+08:00]   pending kind=oddsapi_h2h x1 due=2026-09-21 — scores 窗内（近 3 日）未见 182b81a9e220b2347235107c42802fd8
+[2026-09-27T01:07:47+08:00] round#1 用时 102.0s | 未解总数=331 到期选中=56 唯一真值请求=56（台账重复合并 0） | resolved=0 pending=12（含预筛 0） fail=7 refused=0／同结论并发=0 口径护栏=0 unsupported=0 未到期跳过=251 无法定到期=24 wouldWrite=37 实打网=40
+[2026-09-27T01:07:47+08:00]   取数失败明细 {"fetch-fail:cta_daily_total_rides:HTTP 403":3,"fetch-fail:elexon_fuelhh_daily_mean:HTTP 403":4}
+[2026-09-27T01:08:53+08:00] db=E:\music player\p1a-terminal\data\p1a.db
+[2026-09-27T01:09:11+08:00] === corpus-resolve-daemon start | mode=once interval=60min due-only=true confirm=false（DRY-RUN，不写库）
+[2026-09-27T01:09:11+08:00] 复用 corpus-resolve RESOLVERS 成功：inline-extract(61 kinds)
+[2026-09-27T01:09:11+08:00] db=.scratch/p38/drill3.db
+[2026-09-27T01:09:16+08:00] WARN dlt 日历刷新失败（沿用内置锚 26104@2026-09-12）: HTTP 567
+[2026-09-27T01:09:16+08:00] 日历锚刷新：ssq 2026111@2026-09-24 | dlt 26104@2026-09-12
+[2026-09-27T01:09:25+08:00]   [dry] would resolve kind=cwl_ssq_red_contains x1 due=2026-09-22 -> false | cwl 官方 2026110 期 red=02,05,16,19,26,32 blue=14（red 含 07，机检）
+[2026-09-27T01:09:25+08:00]   pending kind=cwl_ssq_red_contains x1 due=2026-09-27 — 第 2026112 期未开奖
+[2026-09-27T01:09:25+08:00]   [dry] would resolve kind=cwl_ssq_blue_odd x1 due=2026-09-22 -> false | cwl 官方 2026110 期 red=02,05,16,19,26,32 blue=14（blue 为奇数，机检）
+[2026-09-27T01:09:25+08:00]   pending kind=cwl_ssq_blue_odd x1 due=2026-09-27 — 第 2026112 期未开奖
+[2026-09-27T01:09:25+08:00]   fetch-fail kind=cta_daily_total_rides x1 — HTTP 403（跳过不写）
+[2026-09-27T01:09:25+08:00]   fetch-fail kind=cta_daily_total_rides x1 — HTTP 403（跳过不写）
+[2026-09-27T01:09:25+08:00]   fetch-fail kind=cta_daily_total_rides x1 — HTTP 403（跳过不写）
+[2026-09-27T01:09:25+08:00]   fetch-fail kind=elexon_fuelhh_daily_mean x1 — HTTP 403（跳过不写）
+[2026-09-27T01:09:25+08:00]   fetch-fail kind=elexon_fuelhh_daily_mean x1 — HTTP 403（跳过不写）
+[2026-09-27T01:09:25+08:00]   fetch-fail kind=elexon_fuelhh_daily_mean x1 — HTTP 403（跳过不写）
+[2026-09-27T01:09:25+08:00]   fetch-fail kind=elexon_fuelhh_daily_mean x1 — HTTP 403（跳过不写）
+[2026-09-27T01:09:25+08:00]   pending kind=oddsapi_h2h x1 due=2026-09-19 — scores 窗内（近 3 日）未见 82d8b6a005d78bac0b1508abc17a7d39
+[2026-09-27T01:09:25+08:00]   pending kind=oddsapi_h2h x1 due=2026-09-20 — scores 窗内（近 3 日）未见 d02ff636f652d5b5bb65f6b24330c4fe
+[2026-09-27T01:09:25+08:00]   pending kind=oddsapi_h2h x1 due=2026-09-20 — scores 窗内（近 3 日）未见 b5b058d0a95f9742548f789d1c564a78
+[2026-09-27T01:09:25+08:00]   pending kind=oddsapi_h2h x1 due=2026-09-20 — scores 窗内（近 3 日）未见 88519a51012811476c9b4724eafc96c5
+[2026-09-27T01:09:25+08:00]   pending kind=oddsapi_h2h x1 due=2026-09-20 — scores 窗内（近 3 日）未见 f65c4eaf0f94a569f06d768f737dad2e
+[2026-09-27T01:09:25+08:00]   pending kind=oddsapi_h2h x1 due=2026-09-20 — scores 窗内（近 3 日）未见 75133fdcd4fc3067b303a8f166f974e4
+[2026-09-27T01:09:25+08:00]   pending kind=oddsapi_h2h x1 due=2026-09-21 — scores 窗内（近 3 日）未见 784f777f5181e1efdad7a6ecb2cfde15
+[2026-09-27T01:09:25+08:00]   pending kind=oddsapi_h2h x1 due=2026-09-21 — scores 窗内（近 3 日）未见 b63aef4291a066e32644e591c19a235a
+[2026-09-27T01:09:25+08:00]   pending kind=oddsapi_h2h x1 due=2026-09-21 — scores 窗内（近 3 日）未见 f923236e69ed946fdc55163494ee88db
+[2026-09-27T01:09:25+08:00]   pending kind=oddsapi_h2h x1 due=2026-09-21 — scores 窗内（近 3 日）未见 182b81a9e220b2347235107c42802fd8
+[2026-09-27T01:09:25+08:00] round#1 用时 8.6s | 未解总数=294 到期选中=21 唯一真值请求=21（台账重复合并 0） | resolved=0 pending=12（含预筛 0） fail=7 refused=0／同结论并发=0 口径护栏=0 unsupported=0 未到期跳过=251 无法定到期=22 wouldWrite=2 实打网=6
+[2026-09-27T01:09:25+08:00]   取数失败明细 {"fetch-fail:cta_daily_total_rides:HTTP 403":3,"fetch-fail:elexon_fuelhh_daily_mean:HTTP 403":4}
+[2026-09-27T01:09:32+08:00] === corpus-resolve-daemon start | mode=once interval=60min due-only=true confirm=true
+[2026-09-27T01:09:32+08:00] 复用 corpus-resolve RESOLVERS 成功：inline-extract(61 kinds)
+[2026-09-27T01:09:32+08:00] db=E:\music player\p1a-terminal\data\p1a.db
+[2026-09-27T01:09:37+08:00] WARN dlt 日历刷新失败（沿用内置锚 26104@2026-09-12）: HTTP 567
+[2026-09-27T01:09:37+08:00] 日历锚刷新：ssq 2026111@2026-09-24 | dlt 26104@2026-09-12
+[2026-09-27T01:09:45+08:00]   resolved id=821 kind=cwl_ssq_red_contains -> false | cwl 官方 2026110 期 red=02,05,16,19,26,32 blue=14（red 含 07，机检）
+[2026-09-27T01:09:45+08:00]   pending kind=cwl_ssq_red_contains x1 due=2026-09-27 — 第 2026112 期未开奖
+[2026-09-27T01:09:45+08:00]   resolved id=833 kind=cwl_ssq_blue_odd -> false | cwl 官方 2026110 期 red=02,05,16,19,26,32 blue=14（blue 为奇数，机检）
+[2026-09-27T01:09:45+08:00]   pending kind=cwl_ssq_blue_odd x1 due=2026-09-27 — 第 2026112 期未开奖
+[2026-09-27T01:09:45+08:00]   fetch-fail kind=cta_daily_total_rides x1 — HTTP 403（跳过不写）
+[2026-09-27T01:09:45+08:00]   fetch-fail kind=cta_daily_total_rides x1 — HTTP 403（跳过不写）
+[2026-09-27T01:09:45+08:00]   fetch-fail kind=cta_daily_total_rides x1 — HTTP 403（跳过不写）
+[2026-09-27T01:09:45+08:00]   fetch-fail kind=elexon_fuelhh_daily_mean x1 — HTTP 403（跳过不写）
+[2026-09-27T01:09:45+08:00]   fetch-fail kind=elexon_fuelhh_daily_mean x1 — HTTP 403（跳过不写）
+[2026-09-27T01:09:45+08:00]   fetch-fail kind=elexon_fuelhh_daily_mean x1 — HTTP 403（跳过不写）
+[2026-09-27T01:09:45+08:00]   fetch-fail kind=elexon_fuelhh_daily_mean x1 — HTTP 403（跳过不写）
+[2026-09-27T01:09:45+08:00]   pending kind=oddsapi_h2h x1 due=2026-09-19 — scores 窗内（近 3 日）未见 82d8b6a005d78bac0b1508abc17a7d39
+[2026-09-27T01:09:45+08:00]   pending kind=oddsapi_h2h x1 due=2026-09-20 — scores 窗内（近 3 日）未见 d02ff636f652d5b5bb65f6b24330c4fe
+[2026-09-27T01:09:45+08:00]   pending kind=oddsapi_h2h x1 due=2026-09-20 — scores 窗内（近 3 日）未见 b5b058d0a95f9742548f789d1c564a78
+[2026-09-27T01:09:45+08:00]   pending kind=oddsapi_h2h x1 due=2026-09-20 — scores 窗内（近 3 日）未见 88519a51012811476c9b4724eafc96c5
+[2026-09-27T01:09:45+08:00]   pending kind=oddsapi_h2h x1 due=2026-09-20 — scores 窗内（近 3 日）未见 f65c4eaf0f94a569f06d768f737dad2e
+[2026-09-27T01:09:45+08:00]   pending kind=oddsapi_h2h x1 due=2026-09-20 — scores 窗内（近 3 日）未见 75133fdcd4fc3067b303a8f166f974e4
+[2026-09-27T01:09:45+08:00]   pending kind=oddsapi_h2h x1 due=2026-09-21 — scores 窗内（近 3 日）未见 784f777f5181e1efdad7a6ecb2cfde15
+[2026-09-27T01:09:45+08:00]   pending kind=oddsapi_h2h x1 due=2026-09-21 — scores 窗内（近 3 日）未见 b63aef4291a066e32644e591c19a235a
+[2026-09-27T01:09:45+08:00]   pending kind=oddsapi_h2h x1 due=2026-09-21 — scores 窗内（近 3 日）未见 f923236e69ed946fdc55163494ee88db
+[2026-09-27T01:09:45+08:00]   pending kind=oddsapi_h2h x1 due=2026-09-21 — scores 窗内（近 3 日）未见 182b81a9e220b2347235107c42802fd8
+[2026-09-27T01:09:45+08:00] round#1 用时 7.9s | 未解总数=294 到期选中=21 唯一真值请求=21（台账重复合并 0） | resolved=2 pending=12（含预筛 0） fail=7 refused=0／同结论并发=0 口径护栏=0 unsupported=0 未到期跳过=251 无法定到期=22 wouldWrite=0 实打网=5
+[2026-09-27T01:09:45+08:00]   取数失败明细 {"fetch-fail:cta_daily_total_rides:HTTP 403":3,"fetch-fail:elexon_fuelhh_daily_mean:HTTP 403":4}

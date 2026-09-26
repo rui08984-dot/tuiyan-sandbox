@@ -37,12 +37,27 @@ const CALS = {
 function addDays(iso, n) { const d = new Date(iso + 'T00:00:00Z'); d.setUTCDate(d.getUTCDate() + n); return d.toISOString().slice(0, 10); }
 function dow(iso) { return new Date(iso + 'T00:00:00Z').getUTCDay(); }
 function nextDraw(iso, dows) { let d = addDays(iso, 1), g = 0; while (dows.indexOf(dow(d)) === -1 && g++ < 10) d = addDays(d, 1); return d; }
-/** 从 cal.latestCode/latestDate 按期号节奏推进到 issue，返回开奖日；期号长度不符或回推失败返回 null */
+/** ★2026-09-27 新增：上一个开奖日（nextDraw 的反向）。用于 inferIssue 的**回推**分支。 */
+function prevDraw(iso, dows) { let d = addDays(iso, -1), g = 0; while (dows.indexOf(dow(d)) === -1 && g++ < 10) d = addDays(d, -1); return d; }
+/**
+ * 从 cal.latestCode/latestDate 按期号节奏推算 issue 的开奖日；期号长度不符或推不出返回 null。
+ *
+ * ★2026-09-27 修缺陷：**原实现只能从锚「往前」推**（`while (code < target)`）⇒
+ *   一旦日历锚被刷新到**比某题期号更新**的位置（锚每次结算都从官方列表刷新，是会前进的），
+ *   该题即 `< target` 恒不成立 ⇒ 返回 null ⇒ 落 `undatable` ⇒ **永久不再被结算，且无告警**。
+ *   实测：内置兜底锚 cwl=2026105@09-10，09-24 刷新到 2026111@09-24 ⇒ 期号 **2026110** 的
+ *   两条题（id 821/833，09-22 已开奖）当场被甩在锚后，跨过结算再也结算不了。
+ *   ⇒ 补**回推**分支（按同一开奖节奏往回走）。前推/回推共用 `cal.dows`，口径一致。
+ */
 function inferIssue(issue, cal) {
   const target = String(issue);
   let code = String(cal.latestCode), date = cal.latestDate, g = 0;
   if (target.length !== code.length) return null;
-  while (Number(code) < Number(target) && g++ < 400) { date = nextDraw(date, cal.dows); code = String(Number(code) + 1); }
+  if (Number(code) <= Number(target)) {
+    while (Number(code) < Number(target) && g++ < 400) { date = nextDraw(date, cal.dows); code = String(Number(code) + 1); }
+  } else {
+    while (Number(code) > Number(target) && g++ < 400) { date = prevDraw(date, cal.dows); code = String(Number(code) - 1); }
+  }
   return code === target ? date : null;
 }
 function monthEndPlusOne(ym) { const y = Number(String(ym).slice(0, 4)), mo = Number(String(ym).slice(5, 7)); return mo === 12 ? (y + 1) + '-01-01' : y + '-' + String(mo + 1).padStart(2, '0') + '-01'; }
@@ -525,5 +540,5 @@ if (require.main === module) {
 }
 
 // 供测试直测纯函数（只读、无网络、无写盘）
-module.exports = { dueOf, distribute, addDays, monthEndPlusOne };
+module.exports = { dueOf, distribute, addDays, monthEndPlusOne, inferIssue, prevDraw, nextDraw };
 

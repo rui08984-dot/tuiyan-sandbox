@@ -1,7 +1,7 @@
 {
  "script": "p1b/scripts/calibration-report.cjs",
  "title": "分域格校准报告",
- "stage4_file": "E:\\music player\\p1b\\sim\\out\\stage4-run-five-layers-20260922.json",
+ "stage4_file": "E:\\music player\\p1b\\sim\\out\\stage4-run-five-layers-20260926.json",
  "g2_file": "E:\\music player\\p1b\\sim\\out\\g2-report-latest-20260917.json",
  "stage4_present": true,
  "g2_present": true,
@@ -109,35 +109,35 @@
   {
    "layer": "L2",
    "domain": "wikimedia",
-   "scored_n": 38,
+   "scored_n": 43,
    "conclusion_allowed": true,
-   "mean_p": 0.44345173684210515,
-   "obs_rate": 0.2631578947368421,
-   "brier_engine": 0.20229975861478947,
-   "delta_vs_half": -0.047700241385210534,
+   "mean_p": 0.44313220930232555,
+   "obs_rate": 0.32558139534883723,
+   "brier_engine": 0.21680862391858138,
+   "delta_vs_half": -0.033191376081418617,
    "delta_ci95": {
-    "lb": -0.09057744856884208,
-    "ub": -0.0035864614885526237,
+    "lb": -0.07398602055251162,
+    "ub": 0.009551128981488377,
     "B": 1000,
     "seed": 987654321,
-    "mean": -0.047700241385210514
+    "mean": -0.033191376081418596
    }
   },
   {
    "layer": "L2",
    "domain": "frankfurter",
-   "scored_n": 33,
+   "scored_n": 36,
    "conclusion_allowed": true,
-   "mean_p": 0.4112037272727273,
-   "obs_rate": 0.45454545454545453,
-   "brier_engine": 0.2176088672662727,
-   "delta_vs_half": -0.03239113273372729,
+   "mean_p": 0.4158256388888889,
+   "obs_rate": 0.4722222222222222,
+   "brier_engine": 0.21780812832741664,
+   "delta_vs_half": -0.03219187167258336,
    "delta_ci95": {
-    "lb": -0.07921480206830303,
-    "ub": 0.01529827561545454,
+    "lb": -0.07390652920963889,
+    "ub": 0.009771581052861114,
     "B": 1000,
     "seed": 987654321,
-    "mean": -0.03239113273372727
+    "mean": -0.032191871672583326
    }
   },
   {
@@ -160,10 +160,10 @@
   {
    "layer": "L2",
    "domain": "binance",
-   "scored_n": 22,
+   "scored_n": 27,
    "conclusion_allowed": false,
    "mean_p": null,
-   "obs_rate": 0.045454545454545456,
+   "obs_rate": 0.07407407407407407,
    "brier_engine": null,
    "delta_vs_half": null,
    "delta_ci95": null
@@ -181,6 +181,17 @@
   },
   {
    "layer": "L2",
+   "domain": "npm",
+   "scored_n": 14,
+   "conclusion_allowed": false,
+   "mean_p": null,
+   "obs_rate": 0.8571428571428571,
+   "brier_engine": null,
+   "delta_vs_half": null,
+   "delta_ci95": null
+  },
+  {
+   "layer": "L2",
    "domain": "delphi",
    "scored_n": 12,
    "conclusion_allowed": false,
@@ -192,11 +203,11 @@
   },
   {
    "layer": "L2",
-   "domain": "npm",
-   "scored_n": 7,
+   "domain": "github",
+   "scored_n": 9,
    "conclusion_allowed": false,
    "mean_p": null,
-   "obs_rate": 0.7142857142857143,
+   "obs_rate": 0.8888888888888888,
    "brier_engine": null,
    "delta_vs_half": null,
    "delta_ci95": null
@@ -214,22 +225,33 @@
   },
   {
    "layer": "L2",
-   "domain": "github",
-   "scored_n": 6,
+   "domain": "cta",
+   "scored_n": 4,
    "conclusion_allowed": false,
    "mean_p": null,
-   "obs_rate": 1,
+   "obs_rate": 0.25,
    "brier_engine": null,
    "delta_vs_half": null,
    "delta_ci95": null
   },
   {
    "layer": "L2",
-   "domain": "cta",
-   "scored_n": 4,
+   "domain": "crossref",
+   "scored_n": 2,
    "conclusion_allowed": false,
    "mean_p": null,
-   "obs_rate": 0.25,
+   "obs_rate": 0,
+   "brier_engine": null,
+   "delta_vs_half": null,
+   "delta_ci95": null
+  },
+  {
+   "layer": "L2",
+   "domain": "nvd",
+   "scored_n": 2,
+   "conclusion_allowed": false,
+   "mean_p": null,
+   "obs_rate": 0,
    "brier_engine": null,
    "delta_vs_half": null,
    "delta_ci95": null
@@ -247,29 +269,7 @@
   },
   {
    "layer": "L2",
-   "domain": "crossref",
-   "scored_n": 0,
-   "conclusion_allowed": false,
-   "mean_p": null,
-   "obs_rate": null,
-   "brier_engine": null,
-   "delta_vs_half": null,
-   "delta_ci95": null
-  },
-  {
-   "layer": "L2",
    "domain": "elexon",
-   "scored_n": 0,
-   "conclusion_allowed": false,
-   "mean_p": null,
-   "obs_rate": null,
-   "brier_engine": null,
-   "delta_vs_half": null,
-   "delta_ci95": null
-  },
-  {
-   "layer": "L2",
-   "domain": "nvd",
    "scored_n": 0,
    "conclusion_allowed": false,
    "mean_p": null,
@@ -375,27 +375,27 @@
   {
    "layer": "L5",
    "domain": "cwl",
-   "scored_n": 40,
+   "scored_n": 44,
    "conclusion_allowed": true,
-   "mean_p": 0.30909090920000004,
-   "obs_rate": 0.125,
-   "brier_engine": 0.1357438016834711,
-   "delta_vs_half": -0.11425619831652889,
+   "mean_p": 0.31198347118181824,
+   "obs_rate": 0.1590909090909091,
+   "brier_engine": 0.1507325319534185,
+   "delta_vs_half": -0.09926746804658149,
    "delta_ci95": {
-    "lb": -0.15185950408595034,
-    "ub": -0.07122933882975205,
+    "lb": -0.14298459800300517,
+    "ub": -0.05127723516904584,
     "B": 1000,
     "seed": 987654321,
-    "mean": -0.11425619831652889
+    "mean": -0.09926746804658149
    }
   },
   {
    "layer": "L5",
    "domain": "dlt",
-   "scored_n": 8,
+   "scored_n": 12,
    "conclusion_allowed": false,
    "mean_p": null,
-   "obs_rate": 0.375,
+   "obs_rate": 0.4166666666666667,
    "brier_engine": null,
    "delta_vs_half": null,
    "delta_ci95": null
@@ -418,7 +418,7 @@
    }
   }
  ],
- "generated_at": "2026-09-26T16:55:22.452Z",
+ "generated_at": "2026-09-26T17:10:00.670Z",
  "cells_total": 29,
  "cells_with_conclusion": 10,
  "u8_columns_file": "E:\\music player\\p1b\\sim\\out\\u8-columns-20260920.json",

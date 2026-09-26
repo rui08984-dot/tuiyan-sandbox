@@ -24,7 +24,7 @@
  "l5_evidence_gap": {
   "l5_rows": 108,
   "note_text_with_certified_value": 84,
-  "of_which_resolved": 30,
+  "of_which_resolved": 32,
   "gap": "引擎契约要结构化的 evidence.certifiedSource（{id,kind,...}）；账本里认证值是**文本**（baseRateNote「基率=组合数理论值 X」）。**2026-09-14 修（读侧）**：新增 `p1b/src/engines/l5_sources.js` 按 resolve.kind 从**组合数精确值**重建认证分布，并与文本可解析数值交叉核对（不一致如实标记、不静默）；**账本零改动、写端零改动**。写端补结构化 certifiedSource 仍留待与 F4 真值分库同批迁移（届时本注册表自动退居兜底）。"
  },
  "truth_basis_defect_excluded_rows": 98,
@@ -411,19 +411,19 @@
    "domain": "cwl",
    "ledger_rows": 70,
    "engine_ok": 70,
-   "scored_n": 42,
-   "obs_rate": 0.16666666666666666,
-   "brier_engine": 0.15117079892011023,
+   "scored_n": 44,
+   "obs_rate": 0.1590909090909091,
+   "brier_engine": 0.1507325319534185,
    "brier_const_half": 0.25,
-   "delta_vs_half": -0.09882920107988977,
+   "delta_vs_half": -0.09926746804658149,
    "delta_ci95": {
-    "lb": -0.13980716249586772,
-    "ub": -0.047865013775678866,
+    "lb": -0.14298459800300517,
+    "ub": -0.05127723516904584,
     "B": 1000,
     "seed": 987654321,
-    "mean": -0.09882920107988978
+    "mean": -0.09926746804658149
    },
-   "mean_p": 0.31060606071428576,
+   "mean_p": 0.31198347118181824,
    "conclusion_allowed": true
   },
   {
@@ -487,7 +487,7 @@
    }
   }
  },
- "generated_at": "2026-09-26T16:55:46.387Z",
+ "generated_at": "2026-09-26T17:10:00.505Z",
  "report": {
   "L1": {
    "layer": "L1",
@@ -648,7 +648,7 @@
    "engine_ok": 108,
    "engine_fail": 0,
    "engine_fail_reasons": {},
-   "scored_n": 54,
+   "scored_n": 56,
    "engine_sample": [
     {
      "id": 453,
@@ -684,20 +684,20 @@
      }
     }
    ],
-   "brier_engine": 0.1578179679067516,
+   "brier_engine": 0.15723621639768523,
    "brier_const_half": 0.25,
-   "delta_vs_half": -0.0921820320932484,
+   "delta_vs_half": -0.09276378360231477,
    "delta_ci95": {
-    "lb": -0.13087972882860463,
-    "ub": -0.04794692082722355,
+    "lb": -0.13277870516234563,
+    "ub": -0.04480481041437904,
     "B": 1000,
     "seed": 987654321,
-    "mean": -0.09218203209324835
+    "mean": -0.09276378360231474
    },
-   "obs_rate": 0.2222222222222222,
-   "mean_p": 0.3305660975555555,
-   "brier_ledger_prior": 0.16535099841722226,
-   "delta_vs_ledger_prior": -0.007533030510470662,
+   "obs_rate": 0.21428571428571427,
+   "mean_p": 0.3309354901785714,
+   "brier_ledger_prior": 0.1645002089223929,
+   "delta_vs_ledger_prior": -0.007263992524707663,
    "signal": "delta_vs_half_negative_CI_excludes_0",
    "note": "L5：引擎 p 即认证源公布分布（本层按定义「无信息优势可学」）。vs 常数 0.5 的 Δ 只反映事件基率偏离 50%（本批彩票事件 p≈0.17–0.63）——**不构成任何\"更准/有本事\"宣称**：L5 铁律，显著优于认证源＝泄漏信号，不是本事。本层有意义的读数＝**校准**（观测频率 vs 引擎平均 p，当前样本小、仅披露）；开奖真值持续到达后读数自然增长。",
    "bayes_semantics": {

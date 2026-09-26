@@ -85,3 +85,45 @@ test('⑤ ★不得把未到期/无字段的题误判为已到期（防过度放
   assert.equal(D.dueOf({ resolve: { kind: 'github_weekly_commits', week_end: '2026-09-20' } }).due, '2026-09-21');
   assert.equal(D.dueOf({ meta: '{"expectDate":"2026-10-01"}', resolve: { kind: 'y' } }).src, 'meta.expectDate');
 });
+
+// ══ 2026-09-27 追加：inferIssue 回推分支（彩票期号被日历锚「甩在身后」）══
+test('⑥ ★inferIssue 必须能向前**也能向后**推（锚会前进，旧期号会被甩在身后）', () => {
+  // 病象：原实现只有 `while (code < target)` 前推。锚每次结算都从官方列表刷新、会前进，
+  //   一旦锚越过某题期号，该题 `< target` 恒不成立 ⇒ 返回 null ⇒ undatable ⇒ 永久不结算、无告警。
+  //   实测：cwl 内置锚 2026105@09-10，09-24 刷新到 2026111@09-24 ⇒ 期号 2026110 的 id 821/833 被甩在身后。
+  //
+  // ★本测试**刻意不依赖活库**：初版写成「去账��里捞落在锚后的题」，结果修复一落地、
+  //   那两题被结算掉，测试立刻转红——这正是本项目明令的「活库前提类测试」反模式
+  //   （纪律：活库前提类测试改条件式）。改为直接测纯函数 `inferIssue`，输入自包含、永不腐坏。
+  const SSQ_DOW = [0, 2, 4];                       // 周日/二/四（照脚本 CALS.cwl.dows）
+  const anchor = { latestCode: '2026111', latestDate: '2026-09-24', dows: SSQ_DOW };
+
+  // 回推（本缺陷的核心）：锚 2026111@09-24，期号 2026110 应回推到上一个开奖日 09-22（周二）
+  assert.equal(D.inferIssue('2026110', anchor), '2026-09-22', '★回推：2026110 应为 2026-09-22');
+  // 前推（原有能力不得被本次修复破坏）：期号 2026112 应推到 09-27（周日）
+  assert.equal(D.inferIssue('2026112', anchor), '2026-09-27', '前推：2026112 应为 2026-09-27');
+  // 锚自身
+  assert.equal(D.inferIssue('2026111', anchor), '2026-09-24', '锚期号应等于锚日');
+  // 多步回推：连续 3 期都要能退。★注意 SSQ 是**每周二/四/日**，期号与日历日**不是 1:1**
+  //   （锚 2026111@09-24 周四 ⇒ 2026110=09-22 周二、2026109=09-20 周日、2026108=09-17 周四…）
+  assert.equal(D.inferIssue('2026108', anchor), '2026-09-17', '回推 3 期：2026108 应为 2026-09-17（周四）');
+  assert.equal(D.inferIssue('2026107', anchor), '2026-09-15', '回推 4 期：2026107 应为 2026-09-15（周二）');
+  // 回推结果必须**落在正确的星期几**上（防止 prevDraw 走偏）
+  for (const [issue, want] of [['2026108', '2026-09-17'], ['2026107', '2026-09-15'], ['2026110', '2026-09-22']]) {
+    const got = D.inferIssue(issue, anchor);
+    assert.ok(SSQ_DOW.includes(new Date(got + 'T00:00:00Z').getUTCDay()),
+      '回推结果 ' + got + ' 必须是开奖日（周��/四/日）');
+    assert.equal(got, want);
+  }
+  // dlt 同样适用（周一/三/六）
+  const dlt = { latestCode: '26106', latestDate: '2026-09-16', dows: [1, 3, 6] };
+  assert.equal(D.inferIssue('26105', dlt), '2026-09-14', 'dlt 回推：26105 应为 2026-09-14（周一）');
+  assert.equal(D.inferIssue('26107', dlt), '2026-09-19', 'dlt 前推：26107 应为 2026-09-19（周六）');
+});
+
+test('⑦ 回推不得越界（期号长度不符仍返回 null，禁瞎猜）', () => {
+  const cal = { latestCode: '2026111', latestDate: '2026-09-24', dows: [0, 2, 4] };
+  assert.equal(D.dueOf({ resolve: { kind: 'cwl_ssq_red_contains', issue: '26104' } }).due, null,
+    '期号长度不符 ⇒ 仍须 null（不同彩票不可互推）');
+  assert.equal(D.dueOf({ resolve: { kind: 'cwl_ssq_red_contains' } }).due, null, '缺 issue ⇒ null');
+});
