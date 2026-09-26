@@ -13,6 +13,8 @@ export type { Series } from './LineChart';
 export { FilterChips, ChipFilter, SparkBar, ReliabilityPlot } from './Controls';
 export { ReadoutCard, MiniTrend } from './ReadoutCard';
 export { DeviationBar } from './DeviationBar';
+export { SpecimenStrip } from './SpecimenStrip';
+ export type { Specimen } from './SpecimenStrip';
 export { Waffle } from './Waffle';
 export * as scale from './scale';
 export { BRIER_NOINFO } from './scale';

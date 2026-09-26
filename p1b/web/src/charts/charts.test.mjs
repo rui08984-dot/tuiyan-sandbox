@@ -76,3 +76,36 @@ test('格式化真源的契约文案不得漂移（与 dist 测试同向）', ()
 test('空值绝不当 0 绘制（hasNum 判定存在于真源）', () => {
   assert.ok(fmt.includes('export function hasNum'), '缺 hasNum');
 });
+
+/* ══ 2026-09-27 八轮第四改 · 标本带（SpecimenStrip）══
+ * 病象：29 个「层×域」格被拆成 6 张**等质**卡片 ⇒ 独立 critic 判
+ *   「连 L4 都没数据和 L1 拿到一模一样的盒子 ⇒ 同样的盒子 = 同样的确定性」，
+ *   恰是本产品最要防的误读（读不出"哪 10 格够、哪 19 格不够"）。
+ * 本闸锁三条纪律：
+ *   ① 三态用**形状**（实心 / 斜纹 / 虚线框）而非仅颜色 ⇒ 黑白打印与色觉障碍免读；
+ *   ② 薄格必须显示破折号"—"，**绝不显示 0**（0 是"测了是 0"，薄格是"没测够"）；
+ *   ③ 空位/被筛掉的格**保留占位**不删除（防"筛完数据就消失了"的错觉）。 */
+const stripSrc = read('SpecimenStrip.tsx');
+const stripCss = readFileSync(join(dir, '..', 'styles', 'charts.css'), 'utf8');
+
+test('标本带①：三态用形状区分（实心/斜纹/虚线框），非仅颜色', () => {
+  assert.ok(stripSrc.includes('is-ok'), '缺够格（实心）态');
+  assert.ok(stripSrc.includes('is-thin'), '缺薄格（斜纹）态');
+  assert.ok(stripCss.includes('.strip-cell.is-ok'), '实心态无样式');
+  assert.ok(stripCss.includes('.strip-cell.is-thin'), '斜纹态无样式');
+  assert.ok(stripCss.includes('border-style: dashed'), '薄格须用虚线框（与斜纹叠加＝两道非颜色信号）');
+});
+
+test('标本带②：薄格显示「—」，绝不显示 0', () => {
+  assert.ok(stripSrc.includes('strip-cell-dash'), '薄格须有破折号元素');
+  assert.ok(stripSrc.includes('—'), '破折号字面量缺失');
+  // 不允许把 n 直接印在薄格上当作"读数 0"
+  assert.equal(/is-thin[\s\S]{0,200}\{c\.n\}/.test(stripSrc), false,
+    '薄格不得把 n 当读数印出（n<30 是"没测够"不是"测了是 0"）');
+});
+
+test('标本带③：aria 完整说明，且明确区分「未测」与「0」', () => {
+  assert.ok(stripSrc.includes('aria-label'), '缺 aria-label');
+  assert.ok(stripSrc.includes('不是「数据为 0」') || stripSrc.includes('「未测」'),
+    'aria/说明须点明「未测」与「数据为 0」不是一回事');
+});

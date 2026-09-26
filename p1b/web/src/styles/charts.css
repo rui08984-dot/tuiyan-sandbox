@@ -518,3 +518,78 @@
   line-height: 1.5;
   color: var(--muted);
 }
+
+/* ══ SpecimenStrip 标本带（八轮第四改 · 交互重做核心件）══
+ * 形制纪律：
+ *  · **形状承载状态，颜色只是强化**——实心/斜纹/虚框三态在黑白打印与色觉障碍下都成立。
+ *  · 斜纹复用全站 .is-unmeasured 记号：「未测」在全站是同一个样子，
+ *    避免读者在矩阵里学两套「不够」的表示法。
+ *  · 无格子用 1px 虚框而非删除：筛完不许让 10 格变成 4 格。 */
+.strip { margin: 0 0 var(--space-5); }
+
+.strip-cap {
+  display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+.strip-anchor { font-size: var(--font-size-body); color: var(--text); }
+.strip-anchor b {
+  font-family: var(--font-mono); font-size: 22px; font-weight: 600;
+  color: var(--accent); margin-right: 1px;
+}
+.strip-anchor-sub { font-size: var(--font-size-small); color: var(--muted); }
+
+.strip-band {
+  display: flex; flex-wrap: wrap; gap: 3px;
+  padding: 10px; border: 1px solid var(--line); border-radius: var(--radius-item);
+  background: var(--panel);
+}
+.strip-cell {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 1px;
+  width: 78px; padding: 6px 7px;
+  border: 1px solid var(--line); border-radius: var(--radius-row);
+  background: var(--panel); color: var(--text);
+  font: inherit; text-align: left; cursor: pointer;
+  transition: border-color 120ms ease, background 120ms ease;
+}
+.strip-cell:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.strip-cell.is-active { border-color: var(--accent); background: var(--panel-2); }
+
+/* 够：实心。不是"深一点"，是**有底**。 */
+.strip-cell.is-ok { background: var(--panel-2); border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); }
+/* 不够：斜纹＝未测。全站同一记号，绝不与「数据为 0」混淆。 */
+.strip-cell.is-thin {
+  border-style: dashed; color: var(--muted);
+  background-image: repeating-linear-gradient(45deg,
+    var(--unmeasured-ink) 0 1px, transparent 1px var(--unmeasured-stripe));
+}
+
+.strip-cell-n {
+  font-family: var(--font-mono); font-variant-numeric: tabular-nums;
+  font-size: 13px; font-weight: 600; line-height: 1.1;
+}
+.strip-cell.is-thin .strip-cell-n { color: var(--muted); }
+.strip-cell-d {
+  font-size: 10px; line-height: 1.2; color: var(--muted);
+  max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.strip-cell-b {
+  font-family: var(--font-mono); font-size: 10px; color: var(--text); opacity: 0.75;
+}
+.strip-cell-dash { font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
+
+.strip-legend {
+  display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+  margin: 8px 0 0; font-size: var(--font-size-xs); color: var(--muted);
+}
+.strip-key { display: inline-flex; align-items: center; gap: 5px; }
+.strip-key i {
+  display: inline-block; width: 16px; height: 11px; border-radius: 2px;
+  border: 1px solid var(--line);
+}
+.strip-key i.is-ok { background: var(--panel-2); border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); }
+.strip-key i.is-thin {
+  border-style: dashed;
+  background-image: repeating-linear-gradient(45deg,
+    var(--unmeasured-ink) 0 1px, transparent 1px 5px);
+}
+.strip-note { margin-left: auto; opacity: 0.85; }

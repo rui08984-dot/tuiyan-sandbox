@@ -24,7 +24,7 @@ import { PagePlate } from '../../components/PagePlate';
 import { PageSidebar } from '../../components/PageSidebar';
 import '../../styles/shell.css';
 import {
-  ChartFrame, HeatGrid, ReadoutCard, DeviationBar, ForestPlot, ReliabilityPlot, StackedBar, Waffle,
+  ChartFrame, HeatGrid, ReadoutCard, DeviationBar, SpecimenStrip, ForestPlot, ReliabilityPlot, StackedBar, Waffle,
 } from '../../charts';
 import type { HeatCell } from '../../charts';
 import { quad, tri, int, THIN_CELL_NOTE, MISSING_TEXT, humanId } from '../../lib/format';
@@ -111,6 +111,8 @@ export default function OverviewPage() {
   const [missing, setMissing] = useState<string | null>(null);
   const [layerPick, setLayerPick] = useState<string[]>([]);
   const [domainPick, setDomainPick] = useState<string[]>([]);
+  // ★八轮第四改：标本带点选联动的当前域（null=未选）
+  const [activeDomain, setActiveDomain] = useState<string | null>(null);
   const [onlyAllowed, setOnlyAllowed] = useState(false);
   const [showDetail, setShowDetail] = useState(false);
 
@@ -340,7 +342,36 @@ export default function OverviewPage() {
         ) : <EmptyState text="暂无可读的校准数据" />}
       </section>
 
-      {/* ══ 第二层：分层读数卡（图形当主角）══ */}
+      {/* ══ ★八轮第四改 · 标本带：29 格一排，形状即结论 ══
+       * 放在「各层表现」之前，因为它是**回答问题的那个图**，卡片只是它的展开：
+       *   扫一眼这一条 ⇒ 哪 10 格够、哪 19 格不够，全部解决；下面是逐层细节，要时才看。
+       * 旧版把 29 格拆成 6 张等质卡片 ⇒ 独立 critic 判「连 L4 都没数据和 L1 拿到
+       * 一模一样的盒子 ⇒ 同样的盒子 = 同样的确定性」，恰是本产品最要防的误读。 */}
+      {cells.length ? (
+        <section className="ui-section" data-testid="ov-strip">
+          <h2 className="ui-section-title">
+            <IconChart size={16} /> 标本带
+            <HelpMark
+              testId="ov-strip-help"
+              text="每一格是一个「层 × 领域」的统计口径。实心＝样本够，可以说结论；斜纹＝样本不足，只记方向。斜纹和「数据是 0」是两回事，别读混。"
+            />
+          </h2>
+          <SpecimenStrip
+            testId="ov-specimen"
+            cells={filtered.map((c) => ({
+              layer: c.layer,
+              domain: c.domain,
+              n: c.scored_n,
+              ok: !!c.conclusion_allowed,
+              brier: c.brier_engine,
+            }))}
+            active={activeDomain}
+            onPick={(s) => setActiveDomain(s ? s.domain : null)}
+          />
+        </section>
+      ) : null}
+
+      {/* ══ 第三层：分层读数卡（各层细节）══ */}
       <section className="ui-section" data-testid="ov-layers">
         <h2 className="ui-section-title">
           <IconLayers size={16} /> 各层表现
@@ -353,7 +384,9 @@ export default function OverviewPage() {
           六层各自的性质不同，横比之前先看每层是什么。样本少于 30 条的层只记方向，不下结论。
         </p>
         <div className="readout-grid stagger-in">
-          {LAYER_META.map((m) => {
+          {/* ★八轮第四改：标本带选中某域时，下方卡片只留与该域相关的层——
+              两块因此是「图 ↔ 详情」的关系，不是并排的两个独立视图。 */}
+          {LAYER_META.filter((m) => !activeDomain || byLayer.some((x) => x.layer === m.id && x.domain === activeDomain)).map((m) => {
             const row = byLayer.filter((x) => x.layer === m.id)[0];
             const n = row ? row.n : null;
             const brier = row ? row.brier : null;
