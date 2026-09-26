@@ -14,6 +14,8 @@ export { FilterChips, ChipFilter, SparkBar, ReliabilityPlot } from './Controls';
 export { ReadoutCard, MiniTrend } from './ReadoutCard';
 export { DeviationBar } from './DeviationBar';
 export { SpecimenStrip } from './SpecimenStrip';
+export { BiasStrip } from './BiasStrip';
+export type { BiasPoint } from './BiasStrip';
  export type { Specimen } from './SpecimenStrip';
 export { Waffle } from './Waffle';
 export * as scale from './scale';

@@ -55,11 +55,19 @@ test('★壳层不挂装饰性粒子场（防氛围装饰回流）', () => {
   assert.equal(/components\/CanvasField/.test(code), false, 'App.tsx 又 import 了 CanvasField');
 });
 
-test('★导航按用途分组（入口/观测+工具｜现场）', () => {
+test('★导航由 9 项收成 5 项，且写成动词/问句（八轮第六改）', () => {
   assert.ok(app.includes('appbar-group'), '缺导航分组容器');
   assert.ok(app.includes('appbar-sep'), '缺分组分隔线');
-  assert.ok(app.includes('to="/" end'), '入口页路由缺失');
   assert.ok(app.includes('path="/live"'), '/live 应是实页（现场）');
+  // 题线三动作，全部是**动词/问句**而非名词
+  assert.ok(app.includes('>待落定<'), '缺「待落定」（今天该干的）');
+  assert.ok(app.includes('>记一笔<'), '缺「记一笔」（写新的）');
+  assert.ok(app.includes('>我在哪儿偏了<'), '缺「我在哪儿偏了」（回声）');
+  // ★旧五页路径必须仍可直达（书签不断）——全部重定向到合并体
+  for (const p of ['/overview', '/audit', '/calendar', '/compiler']) {
+    assert.ok(app.includes('path="' + p + '"'), '旧路径 ' + p + ' 消失（书签会断）');
+  }
+  assert.ok(app.includes('to="/where-off"'), '旧页须重定向到合并体');
 });
 
 test('★入口页是 HomePage（不再是狼人杀选局）', () => {

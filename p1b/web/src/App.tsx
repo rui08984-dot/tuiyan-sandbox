@@ -8,7 +8,8 @@ import { useEffect, useRef, useState } from 'react';
 import { HashRouter, Navigate, NavLink, Route, Routes, useLocation } from 'react-router-dom';
 import LivePage from './pages/LivePage';
 import HomePage from './pages/HomePage';
-import ResolvePage from './pages/ResolvePage';   // ★八轮第五改：待落定（题线第二个动作）                           // 2026-09-27 八轮：入口页（回答「这是什么/什么状态/两条线」）
+import ResolvePage from './pages/ResolvePage';   // ★八轮第五改：待落定（题线第二个动作）
+import WhereOffPage from './pages/WhereOffPage'; // ★八轮第六改：我在哪儿偏了（五页看板的合并体）   // ★八轮第五改：待落定（题线第二个动作）                           // 2026-09-27 八轮：入口页（回答「这是什么/什么状态/两条线」）
 import ManagePage from './pages/ManagePage';
 import SettingsPage from './pages/SettingsPage';
 import MysticPage from './pages/mystic/MysticPage';
@@ -86,18 +87,17 @@ function Shell() {
             <span>推演沙盘</span>
           </NavLink>
           <nav className="appbar-nav" aria-label="主导航">
-            {/* ★2026-09-27 八轮：导航按「用途」分两组，取代此前 8 项平铺。
-             *  病象：平铺时 1-3 项属推演沙盘现场、4-8 项属读数观测台，两条线交错，
-             *  新人无法从导航看出这是个什么东西。分组后每组内部同质、一眼可辨。 */}
+            {/* ★八轮第六改：导航由 9 项收成 5 项。
+             *  病象（用户原话）：「数值太多了…页面都是在展示数值，有点像后端维护的东西」。
+             *  实测：五个「看数」页合计展示 99 处、交互 10 处；其中三页在展示**同一批字段**。
+             *  收法：「看数」压成**一个**入口，题线只留三个动作——且写成**动词/问句**而非名词
+             *  （方向兵判据：「名词导航 = 仪表盘，问句导航 = 工具」）：
+             *    待落定（今天该干的）· 记一笔（写新的）· 我在哪儿偏了（回声）
+             *  旧路径全部保留重定向 ⇒ 书签与外部链接不断。 */}
             <span className="appbar-group">
-              <NavLink to="/" end className={linkCls}>入口</NavLink>
-              <NavLink to="/overview" className={linkCls}>观测台</NavLink>
-              <NavLink to="/audit" className={linkCls}>账本</NavLink>
-              <NavLink to="/calendar" className={linkCls}>待验证</NavLink>
-              <NavLink to="/negative-results" className={linkCls}>负结果</NavLink>
               <NavLink to="/resolve" className={linkCls}>待落定</NavLink>
               <NavLink to="/intake" className={linkCls}>记一笔</NavLink>
-              <NavLink to="/compiler" className={linkCls}>编译器</NavLink>
+              <NavLink to="/where-off" className={linkCls}>我在哪儿偏了</NavLink>
             </span>
             <span className="appbar-sep" aria-hidden="true" />
             <span className="appbar-group">
@@ -129,13 +129,19 @@ function Shell() {
           <Route path="/settings" element={<SettingsPage />} />
           <Route path="/mystic" element={<MysticPage />} />
           {/* 2026-09-22 二轮：校准总览（原 calibration/bayes-lens/arena 三页合并到此） */}
-          <Route path="/overview" element={<OverviewPage />} />
-          <Route path="/audit" element={<AuditPage />} />
+          {/* ★八轮第六改：五页看板收成「我在哪儿偏了」。**源码刻意保留不删**——
+              禁词扫描测试（disclosureUx）仍以它们为扫描目标，删了就失去那道闸的目标。 */}
+          <Route path="/overview" element={<Navigate to="/where-off" replace />} />
+          <Route path="/audit" element={<Navigate to="/where-off" replace />} />
           <Route path="/resolve" element={<ResolvePage />} />
+          {/* ★八轮第六改：合并体。旧五页路径全部重定向到它 ⇒ 书签不断。 */}
+          <Route path="/where-off" element={<WhereOffPage />} />
           <Route path="/intake" element={<IntakePage />} />
-          <Route path="/calendar" element={<CalendarPage />} />
+          <Route path="/calendar" element={<Navigate to="/where-off" replace />} />
           <Route path="/negative-results" element={<NegativeResultsPage />} />
-          <Route path="/compiler" element={<CompilerPage />} />
+          {/* 编译器并入合并页：它的全部功能是「选个 kind 告诉你它属于哪层」，
+              而那层信息在新流程里是回执上的一行字，不值一个顶级导航位。源码保留（禁词扫描目标）。 */}
+          <Route path="/compiler" element={<Navigate to="/where-off" replace />} />
           {/* 旧路径重定向保兼容（书签/旧链接）：已并入总览的三页 */}
           <Route path="/calibration" element={<Navigate to="/overview" replace />} />
           <Route path="/bayes-lens" element={<Navigate to="/overview" replace />} />

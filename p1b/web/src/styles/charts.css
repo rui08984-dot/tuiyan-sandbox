@@ -605,3 +605,37 @@
 .strip-cell.is-dimmed:focus-visible { opacity: 0.7; }
 .strip-key i.is-dimmed { opacity: 0.22; border-style: solid; background: var(--panel-2); }
 .strip-note b { color: var(--text); font-weight: 600; }
+
+/* ══ BiasStrip 偏流条（八轮第六改）══
+ * 形制纪律：
+ *  · 纵向以「无信息线 0.25」为零轴，**向上=说大了、向下=说小了**，轴自带文字。
+ *  · 薄格画**断线的空心方块**且不画竖线——画了竖线等于宣称"这里有偏差"，
+ *    而"没测够"与"偏差是 0"必须视觉上不可混同（这是本产品最要防的误读）。
+ *  · 横轴按时间，故"一段歪了"能被一眼看出；按大小排会把时间维度拍平，
+ *    而那不是用户能认领的错。
+ *  · 默认不给总分、不给裁决句——裁决留给读者。 */
+.bias { margin: 0 0 var(--space-5); }
+.bias-svg { width: 100%; height: 96px; display: block; background: var(--chart-nodata); border-radius: var(--radius-item); }
+.bias-axis { stroke: var(--chart-threshold); stroke-width: 1; }
+.bias-bound { stroke: var(--line); stroke-width: 1; stroke-dasharray: 3 4; }
+.bias-bar { shape-rendering: crispEdges; }
+.bias-bar.is-over  { fill: var(--danger); }
+.bias-bar.is-under { fill: var(--info); }
+.bias-thin {
+  fill: none; stroke: var(--muted); stroke-width: 1; stroke-dasharray: 2 2;
+  shape-rendering: crispEdges;
+}
+.bias-axis-labels {
+  display: flex; justify-content: space-between; margin-top: 5px;
+  font-family: var(--font-mono); font-size: 10px; color: var(--muted);
+}
+.bias-axis-mid { color: var(--text); }
+.bias-cap {
+  display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+  margin: 8px 0 0; font-size: var(--font-size-xs); color: var(--muted);
+}
+.bias-key { display: inline-flex; align-items: center; gap: 5px; }
+.bias-key i { display: inline-block; width: 14px; height: 10px; border-radius: 2px; }
+.bias-key i.is-thin { border: 1px dashed var(--muted); }
+.bias-key i.is-over  { background: var(--danger); }
+.bias-key i.is-under { background: var(--info); }

@@ -123,3 +123,31 @@ test('标本带④：筛选只降对比度，不减少格数', () => {
   assert.ok(/cells=\{cells\.map/.test(ov), '★页面须传**全量** cells（不是 filtered），否则格数会随筛选变少');
   assert.ok(ov.includes('dimmed: !filtered.includes(c)'), '须用 dimmed 标记被排除的格');
 });
+
+/* BiasStrip 偏流条闸（八轮第六改）
+ * 病象：旧形态是「六张等质读数卡」——critic 判「连 L4 都没数据和 L1 拿到一样的盒子
+ *   ⇒ 同样的盒子 = 同样的确定性」，恰是本产品最要防的误读。
+ * 本闸锁两条：
+ *   ① 薄格（n<30）必须画成**断线空心方块**且不画竖线——画了竖线等于宣称
+ *     "这里有偏差"，而"没测够"与"偏差是 0"必须视觉上不可混同。
+ *   ② 纵轴以无信息线为零轴、向上=说大了/向下=说小了，且上下界参考线必须在。 */
+test('偏流条①：薄格画断线方块，不画竖线（没测够≠偏差是0）', () => {
+  const bias = read('BiasStrip.tsx');
+  assert.ok(bias.includes('is-unmeasured') || bias.includes('bias-thin'), '缺薄格样式引用');
+  assert.ok(bias.includes('p.n < 30'), '须以 n<30 判薄格');
+  assert.ok(bias.includes('bias-thin'), '薄格须用 bias-thin（空心方块）');
+  // 薄格分支里不能出现画 bar 的调用
+  const thinBranch = bias.slice(bias.indexOf('thin ?'), bias.indexOf('thin ?') + 400);
+  assert.equal(/bias-bar/.test(thinBranch), false, '薄格分支不得画 bias-bar（那是"有偏差"的记号）');
+  assert.ok(/断线|没测够|不是「?偏差/.test(bias), '须在图注里点明断线=没测够，不是 0');
+});
+
+test('偏流条②：以无信息线为零轴，且有上下界参考线', () => {
+  const bias = read('BiasStrip.tsx');
+  const css = readFileSync(join(dir, '..', 'styles', 'charts.css'), 'utf8');
+  assert.ok(bias.includes('bias-axis'), '须画零轴');
+  assert.ok(bias.includes('bias-bound'), '须画上下界参考线（否则"长短"无意义）');
+  assert.ok(css.includes('.bias-axis'), '零轴缺样式');
+  assert.ok(css.includes('.bias-bound'), '参考线缺样式');
+  assert.ok(/is-over/.test(bias) && /is-under/.test(bias), '须区分"说大了"与"说小了"两种方向');
+});

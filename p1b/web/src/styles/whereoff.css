@@ -1,0 +1,77 @@
+/* WhereOffPage 我在哪儿偏了（八轮第六改 · 五页看板的合并体）
+ * 形制纪律：
+ *  · 三段递进：主视觉（偏流条）→ 可认领的错 → 字段抽屉。
+ *    默认屏上**一个原始字段名都不出现**——进这页不是为了看字段，是为了认错。
+ *  · 不用卡片网格：偏差是一个连续的形状，该用一条带子，不该拆成 6 个盒子。
+ *  · 薄格那一栏用斜纹（复用全站「未测」记号），且**不给误差值**。 */
+.whereoff { max-width: 980px; }
+.whereoff-h {
+  display: flex; align-items: center; gap: 8px;
+  margin: 0 0 8px; font-size: var(--font-size-h3); font-weight: 600; color: var(--text);
+}
+.whereoff-note { margin: 0 0 12px; max-width: 68ch; font-size: 12.5px; line-height: 1.7; color: var(--muted); }
+.whereoff-note b { color: var(--text); }
+.whereoff-bad, .whereoff-loading, .whereoff-empty { color: var(--muted); font-size: 13px; }
+
+.whereoff-s1 { margin-bottom: 40px; }
+.whereoff-s2 { margin-bottom: 36px; }
+.whereoff-s3 { margin-bottom: 36px; }
+
+.habits { list-style: none; margin: 0; padding: 0; }
+.habit {
+  display: flex; align-items: baseline; gap: 14px;
+  padding: 9px 0; border-bottom: 1px solid var(--line);
+}
+.habit-domain { flex: 0 0 150px; font-size: 13px; color: var(--text); }
+.habit-delta {
+  flex: 0 0 148px; font-family: var(--font-mono); font-size: 13px; font-weight: 600;
+}
+.habit-delta.is-under { color: var(--info); }
+.habit-delta.is-over  { color: var(--danger); }
+.habit-n { font-size: 11.5px; color: var(--muted); }
+
+.thin-strip { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 4px; }
+.thin-cell {
+  display: flex; align-items: baseline; gap: 5px;
+  padding: 5px 8px; border: 1px dashed var(--line); border-radius: var(--radius-row);
+}
+.thin-n { font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
+.thin-d { font-size: 11px; color: var(--muted); }
+.thin-dash { font-family: var(--font-mono); color: var(--muted); }
+
+.drawer-handle {
+  display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; width: 100%;
+  padding: 11px 0; border: none; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  background: none; cursor: pointer; text-align: left;
+  font-size: 13px; color: var(--text); font-family: inherit;
+}
+.drawer-handle:hover { color: var(--accent); }
+.drawer-handle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.drawer-hint { font-size: 11px; color: var(--muted); font-family: var(--font-mono); }
+
+.drawer-body { padding: 16px 0 8px; }
+.drawer-body h3 {
+  margin: 18px 0 8px; font-size: 12px; font-weight: 600; color: var(--muted);
+  letter-spacing: 0.02em;
+}
+.drawer-body h3:first-child { margin-top: 0; }
+.qual { margin: 0; padding-left: 18px; font-size: 12.5px; line-height: 1.75; color: var(--muted); }
+.qual li { margin-bottom: 4px; }
+.qual b { color: var(--text); }
+.fieldlist { margin: 0; }
+.fieldlist-row {
+  display: grid; grid-template-columns: 180px 1fr; gap: 10px;
+  padding: 5px 0; border-bottom: 1px solid var(--line);
+}
+.fieldlist-row dt { font-family: var(--font-mono); font-size: 11.5px; color: var(--muted); }
+.fieldlist-row dd { margin: 0; min-width: 0; }
+.fieldlist-row code {
+  display: block; font-family: var(--font-mono); font-size: 11px; color: var(--text);
+  word-break: break-all; line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+  .habit { flex-wrap: wrap; gap: 4px 12px; }
+  .habit-domain { flex: 0 0 100%; }
+  .fieldlist-row { grid-template-columns: 1fr; }
+}
