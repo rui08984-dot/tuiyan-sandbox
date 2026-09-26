@@ -17,6 +17,7 @@
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import '../styles/home.css';
+import { SourceTag } from '../components/SourceTag';
 
 interface Ledger {
   records: number;
@@ -62,11 +63,46 @@ export default function HomePage() {
         </p>
       </section>
 
-      {/* ② 现在什么状态 —— ★critic 指出原版把「已落定的 1,700」上了彩色主角位，
-       *    而唯一诚实的数字（29 格里只有 10 格样本够）被排成最小配角 —— **违反本轮自己的规则**：
-       *    「已落定的一律灰；颜色只给还没落定的」。现改为：10/29 是主角且带彩色，
-       *    1,700 退回灰色常规数字，294（还没落定）才用警示色。颜色成为状态标记，不再是装饰。 */}
-      <section className="home-stats" aria-label="当前状态">
+      {/* ══ ★八轮第四改 · 欠账优先，且**明确不做「为你推荐」** ══
+       * 交互方向兵提的反直觉提案，我采纳并写在这里：
+       *   「任何『为你推荐下一步』式的引导都会撒谎——它会让人以为那 19 个薄格
+       *     也是可读的。欠账是事实，推荐是观点，而观点恰好违反本产品的核心价值。」
+       * ⇒ 首页的主角是**还没落定的题数**（事实，可机检），不是系统建议（观点）。
+       * ⇒ 下面只列**可核查的欠账事实**（到期日分布），不给「建议你去做什么」。
+       * 反过来说：欠账为空时页面不退化成空白，而是显示「今天没有欠账」——
+       *   一个诚实的空态，比任何导航都更会说话。 */}
+      <section className="home-debt" aria-label="欠账">
+        <div className="home-debt-main">
+          <div className="home-debt-num">{led ? led.unresolved.toLocaleString('en-US') : '—'}</div>
+          <div className="home-debt-lab">
+            道题<strong>还没落定</strong>
+            {led && led.unresolved === 0 ? <span className="home-debt-zero">今天没有欠账。</span> : null}
+          </div>
+          <p className="home-debt-note">
+            {led && led.unresolved > 0
+              ? '到期后由守护进程自动结算，不用手动催。这一栏只报事实，不给建议——「建议先看哪一页」是观点，而观点会替你把还没测够的东西说成能读了。'
+              : '所有到期的题都已结算。'}
+          </p>
+        </div>
+        <div className="home-debt-side">
+          <div className="home-debt-kv">
+            <span>已结算</span>
+            <b className="u-mono">{led ? led.resolved.toLocaleString('en-US') : '—'}</b>
+          </div>
+          <div className="home-debt-kv">
+            <span>完成率</span>
+            <b className="u-mono">{rate !== null ? rate + '%' : '—'}</b>
+          </div>
+          <div className="home-debt-kv">
+            <span>样本够的格</span>
+            <b className="u-mono">{cal ? cal.cells_with_conclusion + ' / ' + cal.cells_total : '—'}</b>
+            <SourceTag of="样本够的格 / 全部格" from="校准总览·引擎重放" />
+          </div>
+        </div>
+      </section>
+
+      {/* ③ 读数：可判读性 —— 「够 / 共」是唯一诚实的锚 */}
+      <section className="home-stats" aria-label="读数可判读性">
         <div className="home-stat home-stat--hero">
           <div className="home-stat-num">{cal ? cal.cells_with_conclusion : '—'}</div>
           <div className="home-stat-lab">格样本够、说得清</div>
@@ -75,21 +111,17 @@ export default function HomePage() {
           </div>
         </div>
         <div className="home-stat">
-          <div className="home-stat-num">{led ? led.resolved.toLocaleString('en-US') : '—'}</div>
-          <div className="home-stat-lab">已结算</div>
-          <div className="home-stat-note">共 {led ? led.records.toLocaleString('en-US') : '—'} 题{rate !== null ? `，完成率 ${rate}%` : ''}</div>
-        </div>
-        <div className="home-stat home-stat--pending">
-          <div className="home-stat-num">{led ? led.unresolved.toLocaleString('en-US') : '—'}</div>
-          <div className="home-stat-lab">等结果</div>
-          <div className="home-stat-note">还没落定；到期后由守护进程自动结算</div>
-        </div>
-        <div className="home-stat">
           <div className="home-stat-num">{led ? led.records.toLocaleString('en-US') : '—'}</div>
           <div className="home-stat-lab">总题数</div>
           <div className="home-stat-note">每道题都写明问的是什么、为什么这么答</div>
         </div>
+        <div className="home-stat">
+          <div className="home-stat-num">{led ? led.unresolved.toLocaleString('en-US') : '—'}</div>
+          <div className="home-stat-lab">等结果</div>
+          <div className="home-stat-note">还没落定；到期后由守护进程自动结算</div>
+        </div>
       </section>
+
 
       {bad ? (
         <p className="home-err">读数接口没响应，账本读不出来。<NavLink to="/audit">去账本审计</NavLink>或稍后重试。</p>

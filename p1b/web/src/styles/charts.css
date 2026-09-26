@@ -593,3 +593,15 @@
     var(--unmeasured-ink) 0 1px, transparent 1px 5px);
 }
 .strip-note { margin-left: auto; opacity: 0.85; }
+
+/* 标本带纪律④：筛选只改对比度，不改格数。
+ * 病象（我自己犯的）：接 URL 筛选时把 filtered 数组整个传给带子，
+ *   于是 29 格 → 7 格，被筛掉的 22 格**消失**——而带子的注释明明写着
+ *   「筛不掉的格保留占位不删除」。用户会把「筛掉了 22 格」误读成
+ *   「数据没了 22 格」，恰是本产品最要防的那类误读。
+ * 修法：带子恒收全量格，被排除的加 .is-dimmed 降对比度。 */
+.strip-cell.is-dimmed { opacity: 0.22; }
+.strip-cell.is-dimmed:hover,
+.strip-cell.is-dimmed:focus-visible { opacity: 0.7; }
+.strip-key i.is-dimmed { opacity: 0.22; border-style: solid; background: var(--panel-2); }
+.strip-note b { color: var(--text); font-weight: 600; }

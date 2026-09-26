@@ -19,6 +19,7 @@
  *   - 页面正文与代码注释均不得出现禁用字样（禁词闸源码级扫描）
  */
 import { useEffect, useMemo, useState } from 'react';
+import { useFilterParam, useFlagParam } from '../../lib/useFilterParam';
 import { IconChart, IconLayers, EmptyState, KVTable, HelpMark } from '../../components/ui';
 import { PagePlate } from '../../components/PagePlate';
 import { PageSidebar } from '../../components/PageSidebar';
@@ -109,11 +110,12 @@ export default function OverviewPage() {
   const [rep, setRep] = useState<RepJson | null>(null);
   const [lens, setLens] = useState<AiJson | null>(null);
   const [missing, setMissing] = useState<string | null>(null);
-  const [layerPick, setLayerPick] = useState<string[]>([]);
-  const [domainPick, setDomainPick] = useState<string[]>([]);
+  // ★八轮第四改：三处筛选从 useState 改为**写进 URL**——切页/刷新/后退/分享都不丢
+  const [layerPick, setLayerPick] = useFilterParam('layer');
+  const [domainPick, setDomainPick] = useFilterParam('domain');
   // ★八轮第四改：标本带点选联动的当前域（null=未选）
   const [activeDomain, setActiveDomain] = useState<string | null>(null);
-  const [onlyAllowed, setOnlyAllowed] = useState(false);
+  const [onlyAllowed, setOnlyAllowed] = useFlagParam('onlyok');
   const [showDetail, setShowDetail] = useState(false);
 
   useEffect(() => {
@@ -358,12 +360,15 @@ export default function OverviewPage() {
           </h2>
           <SpecimenStrip
             testId="ov-specimen"
-            cells={filtered.map((c) => ({
+            // ★八轮第四改：传**全量**格 + dimmed 标记，而非 filtered ——
+            // 筛选只改对比度，不改格数（否则「筛掉的」会被读成「没了的」）
+            cells={cells.map((c) => ({
               layer: c.layer,
               domain: c.domain,
               n: c.scored_n,
               ok: !!c.conclusion_allowed,
               brier: c.brier_engine,
+              dimmed: !filtered.includes(c),
             }))}
             active={activeDomain}
             onPick={(s) => setActiveDomain(s ? s.domain : null)}

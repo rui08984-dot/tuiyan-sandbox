@@ -34,6 +34,8 @@ export interface Specimen {
   brier: number | null;
   /** 域的中文名（若有）。 */
   label?: string;
+  /** ★被当前筛选排除：仍显示、仍占位，只降到低对比（防「筛掉的」被读成「没了的」）。 */
+  dimmed?: boolean;
 }
 
 const short = (d: string) => (d.length > 9 ? d.slice(0, 8) + '…' : d);
@@ -70,22 +72,27 @@ export function SpecimenStrip({
         </span>
       </figcaption>
 
-      {/* ── 带：够的在前（实心），薄的在后（斜纹）——排序本身携带结论 ── */}
+      {/* ── 带：够的在前（实心），薄的在后（斜纹）——排序本身携带结论 ──
+       * ★纪律：被筛掉的格**仍占原位**，只是降到低对比（is-dimmed）。
+       *   若筛选后格数变少，用户会把「筛掉了 22 格」误读成「数据没了 22 格」——
+       *   这正是本产品最要防的那类误读。故筛选只改**对比度**，不改**数量**。 */}
       <div className="strip-band" role="img" aria-label={label}>
         {[...ok, ...thin].map((c) => {
           const state = c.ok ? 'ok' : 'thin';
           const on = active === c.domain;
+          const dim = !!c.dimmed;
           return (
             <button
               key={c.layer + '/' + c.domain}
               type="button"
-              className={'strip-cell is-' + state + (on ? ' is-active' : '')}
+              className={'strip-cell is-' + state + (on ? ' is-active' : '') + (dim ? ' is-dimmed' : '')}
               onClick={() => onPick && onPick(on ? null : c)}
               aria-pressed={on}
               title={
                 c.layer + ' · ' + c.domain +
                 '｜样本 ' + c.n +
-                (c.ok ? (c.brier != null ? '｜误差 ' + c.brier.toFixed(4) : '') : '｜样本不足，只记方向')
+                (c.ok ? (c.brier != null ? '｜误差 ' + c.brier.toFixed(4) : '') : '｜样本不足，只记方向') +
+                (dim ? '｜已被当前筛选排除（仍占位显示）' : '')
               }
             >
               <span className="strip-cell-n">{c.n}</span>
@@ -100,7 +107,8 @@ export function SpecimenStrip({
       <p className="strip-legend">
         <span className="strip-key"><i className="is-ok" aria-hidden="true" />够（实心）</span>
         <span className="strip-key"><i className="is-thin" aria-hidden="true" />不够（斜纹＝未测，不是 0）</span>
-        <span className="strip-note">格位按「够在前」排；筛掉某格时它仍占原位，只降到低对比。</span>
+        <span className="strip-key"><i className="is-dimmed" aria-hidden="true" />被筛选排除（仍占位）</span>
+        <span className="strip-note">筛选只改对比度，<b>不改格数</b>——否则「筛掉的」会被读成「没了的」。</span>
       </p>
     </figure>
   );

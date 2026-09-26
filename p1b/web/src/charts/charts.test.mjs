@@ -109,3 +109,17 @@ test('标本带③：aria 完整说明，且明确区分「未测」与「0」',
   assert.ok(stripSrc.includes('不是「数据为 0」') || stripSrc.includes('「未测」'),
     'aria/说明须点明「未测」与「数据为 0」不是一回事');
 });
+
+/* 标本带纪律④：筛选只改对比度，不改格数。
+ * 病象（★本轮我自己犯的）：接 URL 筛选时把 filtered 数组整个传给带子，
+ *   于是 29 格 → 7 格，被筛掉的 22 格**从页面上消失**——而带子的说明里
+ *   明明写着「筛不掉的格保留占位不删除」。用户会把「筛掉了 22 格」
+ *   误读成「数据没了 22 格」，恰是本产品最要防的那类误读。
+ * 本闸锁两处：带子支持 dimmed 态；页面传的是**全量**格而非 filtered。 */
+test('标本带④：筛选只降对比度，不减少格数', () => {
+  assert.ok(stripSrc.includes('dimmed'), '带子须支持 dimmed（被排除但仍占位）');
+  assert.ok(stripCss.includes('.strip-cell.is-dimmed'), '缺 dimmed 降对比样式');
+  const ov = readFileSync(join(dir, '..', 'pages', 'audit', 'OverviewPage.tsx'), 'utf8');
+  assert.ok(/cells=\{cells\.map/.test(ov), '★页面须传**全量** cells（不是 filtered），否则格数会随筛选变少');
+  assert.ok(ov.includes('dimmed: !filtered.includes(c)'), '须用 dimmed 标记被排除的格');
+});
