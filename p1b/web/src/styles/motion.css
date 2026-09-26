@@ -42,65 +42,35 @@
   --shift-y: 14px;        /* 上浮进场 */
 
   /* ── 交错阶梯：列表/卡片依次入场的延迟步长 ── */
-  --stagger: 46ms;
+  --stagger: 60ms;   /* 八轮：46→60ms。依据该 skill「分组入场 30–80ms」区间取中位，
+                            步长太小读不出节奏、太大则拖慢首屏。 */
 }
 
 /* ══════════════════════════════════════════════════════════════════════════
- * A. 页面转场 —— 仪表通电
- * 路由切换时：旧页快速淡出（90ms，不拖沓），新页从"未通电"到"通电"
- * （亮度爬升 + 轻微上浮 + 一条扫描线自上而下扫过）。
+ * A. 页面转场 —— 【本轮删除「仪表通电」，改为近乎无感的落定】
+ *
+ * 【删】page-power-on（亮度爬升 + 上浮 + 扫描线）——**频次门违规**。
+ *   依据 find-animation-opportunities 的第一道门（频率）：
+ *   核心导航属「每天 100+ 次」档，该档判定原文是「Reject. No animation. Ever.」，
+ *   只允许近乎无感的极简过渡。旧动效每次开页播 340ms 的「通电仪式」。
+ *   叠加的目的门也站不住：六项合法目的（反馈／空间一致／状态指示／防突兀／解释／愉悦）
+ *   里没有「仪器自检感」这一项——它说不出此刻在向用户解释什么。
+ *   ⇒ 整块移除，而非缩短（缩短仍是每天几十次的仪式感）。
+ *
+ * 【留】新页 120ms 淡入：属「防突兀变化」——内容不应凭空出现。位移仅 3px。
  * ══════════════════════════════════════════════════════════════════════════ */
-
 .page-enter {
-  animation: page-power-on var(--dur-page) var(--ease-instrument) both;
+  animation: page-settle 120ms cubic-bezier(0.4, 0, 0.2, 1) both;
 }
 
-@keyframes page-power-on {
-  0% {
-    opacity: 0;
-    transform: translateY(6px);
-    filter: brightness(0.82);
-  }
-  55% {
-    filter: brightness(1.04);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-    filter: brightness(1);
-  }
+@keyframes page-settle {
+  from { opacity: 0; transform: translateY(3px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-/* 扫描线：一条 1px 横线自上而下走过（仪器自检的视觉语言）
- * 语义＝「正在核对这一页的读数」，不是装饰：所以只走一次、不循环。 */
-.scanline {
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 0;
-  height: 1px;
-  z-index: 40;
-  pointer-events: none;
-  background: linear-gradient(
-    to right,
-    transparent 0%,
-    var(--accent) 18%,
-    var(--accent) 82%,
-    transparent 100%
-  );
-  opacity: 0;
-  will-change: transform, opacity;
-}
-.scanline.is-running {
-  animation: scan-sweep var(--dur-page) var(--ease-mech) 1 both;
-}
-
-@keyframes scan-sweep {
-  0% { opacity: 0; transform: translateY(0) scaleX(0.12); }
-  12% { opacity: 0.5; }
-  60% { opacity: 0.32; }
-  100% { opacity: 0; transform: translateY(100vh) scaleX(1); }
-}
+/* 【删】.scanline 扫描线：每次开页必播的纯装饰，频次门同样违规。
+   组件侧 <span className="scanline"> 保留（空元素、无可见物），
+   以免动 App.tsx 的 JSX 结构；类名与关键帧均已删除 ⇒ 它现在什么也不做。 */
 
 /* ══════════════════════════════════════════════════════════════════════════
  * B. 区块/卡片入场 —— 依次通电
@@ -243,7 +213,7 @@
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.18em;
-  text-transform: uppercase;
+  /* no-uppercase */
   color: var(--muted);
   white-space: nowrap;
 }
@@ -492,4 +462,77 @@
   /* 窄屏：操作换到标题下方一行，整宽分布（拇指易达） */
   .plate-actions { margin-left: 0; width: 100%; }
   .plate-actions .btn { flex: 1 1 auto; min-height: 44px; }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+ * C. 八轮第二改 · 通过四道门的动效（find-animation-opportunities）
+ *
+ * 门的四问，逐条记录判定（该 skill 的立场是「预期大多数候选被否决」）：
+ *   ① 频率  ② 目的（六项之一）  ③ 时长预算  ④ 是否妨碍读数
+ * ══════════════════════════════════════════════════════════════════════════ */
+
+/* ── ① 按压反馈：反馈 + 近乎无感 ──
+   频率＝每天几十次 ⇒ 频次门只允许「近乎无感」⇒ 160ms / scale 0.98（不是 0.9）。
+   目的＝「反馈」：确认界面听见了这次点击。键盘触发时同样有效（:active 覆盖）。 */
+.appbar-link:active,
+.appbar-gear:active,
+.home-lane:active,
+.chip:active,
+.btn:active {
+  transform: scale(0.98);
+  transition: transform 160ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── ② 抽屉/弹层：空间一致性 + 偶尔频次 ──
+   频率＝偶尔（点术语表、点弹窗）⇒ 频次门放行。
+   目的＝「空间一致性」：面板须从它的触发点长出来，否则用户不知道它从哪来。
+   变换原点交给组件设 --transform-origin（Phosphor/Base UI 的同名做法）。
+   时长 220ms（预算：弹层 200–500ms）。 */
+.ui-drawer,
+.sheet,
+[role="dialog"] {
+  transform-origin: var(--transform-origin, 50% 0%);
+  transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1),
+              transform 220ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.ui-drawer[data-state="open"],
+.sheet[data-state="open"],
+[role="dialog"][data-state="open"] {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+.ui-drawer[data-state="closed"],
+.sheet[data-state="closed"],
+[role="dialog"][data-state="closed"] {
+  opacity: 0;
+  transform: scale(0.97) translateY(-6px);
+}
+
+/* ── ③ 骨架 → 内容：防突兀变化 ──
+   频率＝偶尔（每次拉数）⇒ 放行。目的＝「防止内容凭空出现」。
+   ★关键纪律：**动的是骨架，不动数字**——读数本身永不位移，
+   否则用户正在读的那串数字会「跳」，那是本产品最不能犯的错。 */
+.skeleton,
+.is-loading {
+  animation: skeleton-pulse 1.2s ease-in-out infinite;
+}
+@keyframes skeleton-pulse {
+  0%, 100% { opacity: 0.5; }
+  50%      { opacity: 0.85; }
+}
+
+/* ── 明确否决（写下来，免得下轮又加回来）──
+   ✗ 数字 count-up 滚动：频次每天几十次 ⇒ delight 预算不够；且把"不确定的读数"
+     做得闪动，与本产品「不显得比实际更确定」直接冲突。
+   ✗ 鼠标追踪粒子 / 星座连线：纯装饰，且④门「妨碍读数」——已随 CanvasField 一并移除。
+   ✗ 悬停时卡片位移：每天几十次的高频动效会让列表抖动，比不动更廉价。
+   ✗ 导航项之间的滑动指示器：核心导航＝100+/day 档，该档永不动效。 */
+
+@media (prefers-reduced-motion: reduce) {
+  .appbar-link, .appbar-gear, .home-lane, .chip, .btn,
+  .ui-drawer, .sheet, [role="dialog"], .skeleton, .is-loading {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+  }
 }

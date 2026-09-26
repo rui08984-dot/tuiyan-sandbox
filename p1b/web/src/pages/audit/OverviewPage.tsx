@@ -24,7 +24,7 @@ import { PagePlate } from '../../components/PagePlate';
 import { PageSidebar } from '../../components/PageSidebar';
 import '../../styles/shell.css';
 import {
-  ChartFrame, HeatGrid, ReadoutCard, MiniGauge, ForestPlot, ReliabilityPlot, StackedBar, Waffle,
+  ChartFrame, HeatGrid, ReadoutCard, DeviationBar, ForestPlot, ReliabilityPlot, StackedBar, Waffle,
 } from '../../charts';
 import type { HeatCell } from '../../charts';
 import { quad, tri, int, THIN_CELL_NOTE, MISSING_TEXT, humanId } from '../../lib/format';
@@ -290,7 +290,7 @@ export default function OverviewPage() {
              * 而同一区域内的卡片必须同形（六轮定版）。 */}
             <div className="ov-hero-card">
               <div className="ov-hero-figure">
-                <MiniGauge value={overall.brier} hi={MAX_BRIER} threshold={0.25} size={112} />
+                <DeviationBar value={overall.brier} baseline={0.25} max={MAX_BRIER} />
               </div>
               <div className="ov-hero-body">
                 <span className="ov-hero-eyebrow">整体校准分</span>

@@ -63,19 +63,39 @@
   --plum-tint: rgba(169, 143, 181, 0.10);
   --amber-tint: rgba(201, 164, 76, 0.10);
 
-  /* ── 字体（Fira 由 @fontsource 本地打包，离线可用；缺失回退系统字体）── */
-  --font-sans: "Fira Sans", "Segoe UI", system-ui, -apple-system, "Microsoft YaHei", sans-serif;
-  --font-mono: "Fira Code", "Cascadia Code", Consolas, ui-monospace, monospace;
+  /* ── 字体（八轮第二改）──
+   * ★查表结论（ui-ux-pro-max 查 google-fonts 数据集）：
+   *   搜「中文 UI 无衬线」返回的三款——ZCOOL XiaoWei（宋体展示）、
+   *   ZCOOL QingKe HuangYou（海报黑）、ZCOOL KuaiLe（ playful 圆体）——
+   *   **全是展示/装饰体，没有一款适合数据密排的工具界面**。
+   *   强行上就是把界面做成海报。⇒ 诚实结论：**不换中文字族**。
+   *
+   * 真正的问题不在"用哪个字"，在两处：
+   *  ① 中文回落只写了 "Microsoft YaHei" 一项——macOS/iOS 会掉到系统默认，
+   *     字重和字形与拉丁部分对不上。⇒ 补全按平台优先级的栈。
+   *  ② 拉丁（Fira）与中文分开渲染时基线不齐。⇒ 数字/ID 走等宽，正文走无衬线，
+   *     并全局 tabular-nums（数字列才能对齐）。
+   * Fira 仍由 @fontsource 本地打包（离线可用，缺字自动回落系统）。 */
+  --font-sans: "Fira Sans", system-ui, -apple-system, "Segoe UI", "PingFang SC",
+               "Hiragino Sans GB", "Microsoft YaHei", "Source Han Sans SC",
+               "Noto Sans CJK SC", sans-serif;
+  --font-mono: "Fira Code", ui-monospace, "SF Mono", "Cascadia Mono", Consolas,
+               "PingFang SC", "Microsoft YaHei", monospace;
 
-  /* ── 字阶 ── */
+  /* ── 字阶（八轮第二改：critic 指出 eyebrow 与标题「光学重量打架」）──
+   * 病象：eyebrow 11px 等宽＋大字距＋中灰，光学重量几乎等于 15px 标题，两个东西在互抢。
+   * 修法：**把差拉开**——eyebrow 降到 10px、透明度再压一档、字距略收；
+   *   标题升到 16px/600 并给正文更多级差（此前 13.5/14 只差 0.5px，等于没有层级）。
+   * 原则：相邻两级**至少差 2px 或差一档字重**，否则层级是假的。 */
   --font-size-xs: 11px;
   --font-size-small: 12px;
   --font-size-base: 13.5px;
   --font-size-body: 14px;
-  --font-size-h3: 15px;
-  --font-size-h2: 19px;
-  --font-size-metric: 26px;
-  --line-height: 1.5;
+  --font-size-h3: 16px;      /* 区块标题（原 15，与正文区分度不足） */
+  --font-size-h2: 20px;      /* 页标题（原 19） */
+  --font-size-h1: 27px;      /* 入口页大标题 */
+  --font-size-metric: 30px;  /* 主角数字（入口页 hero 用 34，见 home.css） */
+  --line-height: 1.6;        /* 中文正文需要比拉丁更松的行距（原 1.5 偏挤） */
 
   /* ── 间距 / 密度（density 9）── */
   --space-1: 4px;
@@ -227,9 +247,32 @@
   --chart-threshold: #C9A44C;
 }
 
-  /* ── eyebrow 小标签（专业控制台的大写小标签气质）── */
-  --eyebrow-size: 11px;
-  --eyebrow-tracking: 0.08em;
+  /* ── eyebrow 小标签 ──
+   * ★八轮第二改：按 ui-ux-pro-max 的图标/标签数据与 critic 反馈重定权重。
+   *   规范：小写、10px、字距 0.06em、透明度再压一档（--muted 的 72%）。
+   *   目的是让它**明确弱于标题**——此前 11px＋等宽＋中灰的光学重量几乎等于标题，
+   *   两者在互抢（critic 判为"打架"）。
+   * ⚠ 另注：全大写拉丁 eyebrow（CALIBRATION / INTAKE 那种）是 2026 年被广泛识别的
+   *   AI 设计破绽之一，本项目已不在任何页面使用；若将来有人加回，这条注释就是拦它的。 */
+  --eyebrow-size: 10px;
+  --eyebrow-tracking: 0.06em;
+  --eyebrow-ink: color-mix(in srgb, var(--muted) 72%, transparent);
+
+  /* ── 图标规范（八轮第二改）──
+   * ★查表结论：ui-ux-pro-max 的 icons 数据集推荐 **Phosphor（主）+ Heroicons（兜底）**，
+   *   风格 outline，并给了三条无障碍约定。
+   * ★但本项目守「零新依赖」（不引 UI 库/不引新包），故**不引包**，
+   *   改为**采用其规范**继续用自绘 SVG：
+   *     · 描边 1.5（ Phosphor regular 的口径；此前自绘图标粗细不统一）
+   *     · 尺寸只走四档，不许随手写 13/17/22
+   *     · 无障碍按语义分：装饰性（旁边有可见文字）→ aria-hidden；
+   *         独立可交互 → 必须有可访问名
+   * 组件侧的实现在 components/ui/index.tsx。 */
+  --icon-stroke: 1.5;
+  --icon-size-xs: 14px;
+  --icon-size-sm: 16px;
+  --icon-size-md: 18px;
+  --icon-size-lg: 24px;
 }
 
 /* 全局字体与数字对齐（本文件唯一全局规则，不涉布局） */

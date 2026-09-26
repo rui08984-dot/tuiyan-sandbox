@@ -103,3 +103,49 @@ test('刻度网格为双层（主+次）且为抹茶色相', () => {
   assert.ok(css.includes('--grid-size-fine'), '缺次网格尺寸变量');
   assert.ok(css.includes('--grid-size'), '缺主网格尺寸变量');
 });
+
+/** ★八轮第二改：禁「全大写拉丁」eyebrow 回流。
+ *  病象：`.plate-tail` / `.chart-eyebrow` / `.tb-label` / `.page-side-title` /
+ *   `.ov-hero-eyebrow` 五处都带 `text-transform: uppercase` + 大字距，
+ *   在中文标题旁贴一串全大写拉丁字母——独立 critic 判为「AI 破绽·全中·最严重」档，
+ *   且 critic 指出它们「光学重量几乎等于标题」，两者在互抢。
+ *  处置：尾字**信息保留**（英文名仍显示），只去掉全大写与大字距。
+ *  本闸把它锁死，防以「排版规范」为名加回。 */
+test('★禁全大写拉丁 eyebrow（AI 破绽，防回流）', () => {
+  const offenders = [];
+  for (const f of ['app.css','charts.css','input.css','intake.css','mystic.css','motion.css','oracle.css','p1b4.css','p1b6.css','shell.css','ui.css']) {
+    const t = readFileSync(new URL('./' + f, import.meta.url), 'utf8');
+    if (/text-transform:\s*uppercase/.test(t)) offenders.push(f);
+  }
+  assert.deepEqual(offenders, [], '仍有 text-transform:uppercase：' + offenders.join(','));
+});
+
+/** ★八轮第二改：DeviationBar 必须在场且语义正确。
+ *  病象：旧 MiniGauge 把「弧越长」画成「越好」，而 Brier 是误差（越小越好）——
+ *   弧长 0.192/0.25 看着「快满格」，实际是「比无信息线好 0.058」。图形替数字说反话。
+ *   且同一仪表在一页画了 7 次。本闸锁「偏差条已取代仪表」。 */
+test('★偏差条在位（禁半圆仪表回流：弧长语义与误差相反）', () => {
+  assert.ok(css.length > 0);
+  const charts = readFileSync(new URL('../charts/DeviationBar.tsx', import.meta.url), 'utf8');
+  assert.ok(charts.includes('baseline'), 'DeviationBar 须以基准为零轴');
+  assert.ok(charts.includes("'better'") && charts.includes("'worse'"), '须区分优于/劣于基准两种状态');
+  assert.ok(charts.includes('aria-label'), '须有无障碍完整读法（不靠颜色单独承载）');
+  const readout = readFileSync(new URL('../charts/ReadoutCard.tsx', import.meta.url), 'utf8');
+  assert.equal(/<MiniGauge value=\{value\}/.test(readout), false, 'ReadoutCard 仍用 MiniGauge');
+});
+
+/** ★八轮第二改：动效须守 find-animation-opportunities 的四道门。
+ *  门①频率：核心导航属「每天 100+ 次」档 ⇒ 原文判定「Reject. No animation. Ever.」
+ *  门②目的：六项合法目的之外（"仪器自检感"不在其中）⇒ 删。
+ *  病象：page-power-on（340ms 通电仪式）+ scanline 每次开页必播，频次门违规。
+ *  本闸锁「不得回流」。 */
+test('★动效守频次门（禁页面通电仪式与扫描线回流）', () => {
+  // ★只查代码区：注释里说明「为何删除」是必要留痕，不得被当成回流
+  const raw = readFileSync(new URL('./motion.css', import.meta.url), 'utf8');
+  const m = raw.split('\n').filter((l) => !l.trim().startsWith('*') && !l.trim().startsWith('/*') && !l.trim().startsWith('//')).join('\n');
+  assert.equal(/page-power-on/.test(m), false, 'page-power-on 已删（核心导航属 100+/day 档，永不动效）');
+  assert.equal(/scan-sweep/.test(m), false, '扫描线已删（每次开页必播的纯装饰）');
+  assert.ok(m.includes('page-settle'), '应保留近乎无感的 120ms 落定（属「防突兀变化」）');
+  // 留存的动效必须都尊重 reduced-motion
+  assert.ok(m.includes('prefers-reduced-motion'), '缺 prefers-reduced-motion（交付底线）');
+});

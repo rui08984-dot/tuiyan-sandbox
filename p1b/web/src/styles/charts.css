@@ -17,7 +17,7 @@
 
 /* eyebrow：专业控制台的大写小标签（结构＝信息，非装饰） */
 .chart-eyebrow { display: block; font-size: var(--eyebrow-size); letter-spacing: var(--eyebrow-tracking);
-  text-transform: uppercase; color: var(--muted); font-weight: 600; }
+  /* no-uppercase */ color: var(--muted); font-weight: 600; }
 
 .chart-legend { display: flex; gap: var(--space-3); flex-wrap: wrap; font-size: var(--font-size-small); color: var(--muted); margin-bottom: 6px; }
 .chart-legend-item { display: inline-flex; align-items: center; gap: 5px; }
@@ -322,7 +322,7 @@
 .ov-hero-body { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
 .ov-hero-eyebrow {
   font-size: var(--font-size-micro); font-weight: 600;
-  letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);
+  letter-spacing: 0.12em; /* no-uppercase */ color: var(--muted);
 }
 .ov-hero-value { display: flex; align-items: baseline; gap: 8px; }
 .ov-hero-num {
@@ -458,3 +458,49 @@
 
 /* 读数卡内的分布条：归入分离方格一类（它就是计数格） */
 .mini-trend rect { rx: var(--cell-r); }
+
+/* ══ DeviationBar（八轮第二改 · 替换 7 处半圆仪表）══
+ * 形制：一条以「基准」为零轴的双向条。左边＝优于基准，右边＝劣于基准。
+ * ★颜色是状态标记不是装饰：优于用青、劣于用砖红、持平落灰。
+ *   「已落定一律灰、颜色只给状态」——这里状态就是"与基准差多少、往哪边"。 */
+.devbar { display: flex; flex-direction: column; gap: 6px; width: 100%; }
+.devbar-track {
+  position: relative;
+  height: 10px;
+  border-radius: 3px;
+  background: var(--chart-nodata);
+  overflow: hidden;
+}
+/* 零轴：基准所在位置，居中。★自带文字标注在 .devbar-cap 里 */
+.devbar-axis {
+  position: absolute; left: 50%; top: 0; bottom: 0;
+  width: 1px; background: var(--chart-threshold); opacity: 0.85;
+}
+.devbar-fill {
+  position: absolute; top: 0; bottom: 0;
+  border-radius: 2px;
+}
+.devbar-fill.is-left  { right: 50%; }
+.devbar-fill.is-right { left: 50%; }
+.devbar-fill.is-better { background: var(--info); }   /* 优于基准 */
+.devbar-fill.is-worse  { background: var(--danger); } /* 劣于基准 */
+.devbar-fill.is-mid    { background: var(--muted); opacity: 0.5; }
+
+.devbar-cap {
+  display: flex; align-items: baseline; gap: 8px;
+  font-family: var(--font-mono); font-variant-numeric: tabular-nums;
+}
+.devbar-delta { font-size: 15px; font-weight: 600; color: var(--text); }
+.devbar-delta.is-better { color: var(--info); }
+.devbar-delta.is-worse  { color: var(--danger); }
+.devbar-base  { font-size: 11px; color: var(--muted); }
+
+.devbar--compact .devbar-track { height: 6px; }
+
+.devbar-missing {
+  display: flex; align-items: center; gap: 6px; margin: 0;
+  font-size: 12px; color: var(--muted);
+}
+.devbar-missing .is-unmeasured {
+  display: inline-block; width: 22px; height: 10px; border-radius: 2px;
+}

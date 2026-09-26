@@ -18,6 +18,9 @@
  *   ③ 稀疏 ≠ 0 —— 无读数的格子画「无数据」，绝不画成 0 的好格
  */
 import type { CSSProperties, ReactNode } from 'react';
+// ★八轮第二改：读数条由 MiniGauge 换成 DeviationBar
+//   —— 旧仪表把「弧越长」画成「越好」，而 Brier 是误差（越小越好），图形在替数字说反话。
+import { DeviationBar } from './DeviationBar';
 
 /** 半圆仪表：弧长＝读数占比，阈值虚线＝参照线
  *
@@ -221,7 +224,7 @@ export function ReadoutCard({
       data-testid={testId}>
       <div className="readout-main">
         <div className="readout-figure">
-          <MiniGauge value={value} hi={scaleMax ?? 1} threshold={0.25} size={64} missingText={missingText} />
+          <DeviationBar value={value} baseline={0.25} max={scaleMax ?? 0.5} missingText={missingText} compact />
         </div>
         <div className="readout-text">
           <div className="readout-head">
