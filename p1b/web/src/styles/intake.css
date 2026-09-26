@@ -4,7 +4,7 @@
 /* 恒挂定位横幅 */
 .intake-banner {
   align-self: center; padding: 6px 14px; border-radius: 999px;
-  background: rgba(143, 175, 123, 0.14); color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 14%, transparent); color: var(--accent);
   font-size: 12.5px; white-space: nowrap; margin-bottom: 8px;
 }
 

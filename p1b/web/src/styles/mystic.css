@@ -10,7 +10,7 @@
 /* 页面级恒挂横幅（铁律：始终可见，不随排盘状态消失） */
 .mystic-banner {
   align-self: center; padding: 6px 14px; border-radius: 999px;
-  background: rgba(143, 175, 123, 0.14); color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 14%, transparent); color: var(--accent);
   font-size: 12.5px; white-space: nowrap;
 }
 

@@ -12,7 +12,7 @@
 .ui-stat-label { color: var(--muted); font-size: var(--font-size-small); display: block; }
 .ui-stat-value { font-size: var(--font-size-metric); font-weight: 600; line-height: 1.15; font-variant-numeric: tabular-nums; display: block; }
 .ui-stat-caption { color: var(--muted); font-size: var(--font-size-xs); display: block; }
-.ui-stat.is-accent { border-color: rgba(143, 175, 123, 0.45); }
+.ui-stat.is-accent { border-color: color-mix(in srgb, var(--accent) 45%, transparent); }
 .ui-stat.is-warn { border-color: rgba(201, 164, 76, 0.5); }
 .ui-stat.is-danger { border-color: var(--danger-border); }
 
@@ -215,7 +215,7 @@ button:active:not(:disabled), .ui-tab:active, .count-chip:active, .intake-layer-
 }
 
 /* 3) 卡片悬浮抬升（用 border+shadow，不加发光——守 Ornate design 红线） */
-.ui-stat:hover, .ui-section:hover { border-color: rgba(143, 175, 123, 0.35); }
+.ui-stat:hover, .ui-section:hover { border-color: color-mix(in srgb, var(--accent) 35%, transparent); }
 
 /* 4) 加载骨架：占位不跳动（CLS） */
 .ui-skeleton {

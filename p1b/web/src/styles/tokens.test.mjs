@@ -14,13 +14,60 @@ test('观测台语义层变量齐备', () => {
 });
 
 /** 2026-09-22 全方面重构：身份色由暖棕羊皮纸换为抹茶绿观测台。
- *  旧锁（--bg #14110c / --accent #e0a83c / --panel #1e1913）改为锁新值。
+ *  ★2026-09-27 八轮：底色再由「墨绿黑」换为「中性石墨」——
+ *  动机不是好不好看（不可测），是三处可测的结构问题：
+ *   ① 原底色带绿味（#1A1F1C 的 R<G<B），面板层级只能靠「继续加绿」区分 ⇒ 整站一个色相
+ *      ⇒ 撞「近黑底＋单一亮点」AI 味清单，也丧失「不同层/不同域用不同色」的辨识度；
+ *   ② 强调色由「全站唯一光源」降为「仪器指示灯」，色相让位给语义；
+ *   ③ 三层径向光晕 + 星座粒子零信息承载 ⇒ 删除（glow-* 全部 transparent）。
  *  ★ 不是删闸，是换锁：新值同样逐字锁定，且下面增补了自动对比度闸（更强的守卫）。 */
-test('抹茶绿身份变量值未被改动', () => {
-  assert.ok(css.includes('--bg: #1A1F1C;'), '--bg 被改（应为墨绿黑 #1A1F1C）');
-  assert.ok(css.includes('--accent: #8FAF7B;'), '--accent 被改（应为抹茶绿 #8FAF7B）');
-  assert.ok(css.includes('--panel: #222926;'), '--panel 被改（应为 #222926）');
-  assert.ok(css.includes('--matcha: #829F70;'), '--matcha 被改（应为 #829F70）');
+test('★冷白记录台身份变量值未被改动', () => {
+  assert.ok(css.includes('--bg: #F4F4F1;'), '--bg 被改（应为冷白 #F4F4F1）');
+  assert.ok(css.includes('--accent: #0F6E63;'), '--accent 被改（应为深青 #0F6E63）');
+  assert.ok(css.includes('--panel: #FFFFFF;'), '--panel 被改（应为纯白 #FFFFFF）');
+  assert.ok(css.includes('--text: #1A1A1A;'), '--text 被改（应为近纯黑 #1A1A1A）');
+});
+
+/** ★八轮第二轮（冷白记录台）新增两道闸：
+ *  ① 现场深色主题必须在场且自带合格的层色——浅底版的低彩度色在深底上只有 ~2.3:1（实测不合格）。
+ *  ② 未测斜纹工具类必须在场：本轮的核心机制是「已落定一律灰、颜色/纹理只给还没落定的」，
+ *     若 .is-unmeasured 消失，19 个薄格会退回纯空白，被读成「没数据」而非「已知不足」。 */
+test('★现场深色主题自带合格层色（浅底层色在深底不合格）', () => {
+  const live = css.slice(css.indexOf('[data-mode="live"]'));
+  assert.ok(live.length > 0, '缺 [data-mode="live"] 深色主题块');
+  for (const v of ['--layer-l1', '--layer-l2', '--layer-l3', '--layer-l4', '--layer-l5', '--layer-l6']) {
+    assert.ok(live.includes(v + ':'), '现场主题缺 ' + v);
+  }
+  assert.ok(css.includes('[data-mode="live"]'), '缺现场模式选择器');
+});
+
+test('★未测＝斜纹的工具类在位（核心机制不得退化）', () => {
+  assert.ok(css.includes('.is-unmeasured'), '缺 .is-unmeasured（未测格斜纹）');
+  assert.ok(css.includes('--unmeasured-ink'), '缺 --unmeasured-ink');
+  assert.ok(css.includes('repeating-linear-gradient'), '斜纹须用 repeating-linear-gradient');
+});
+
+test('★全站不得有写死的强调色 rgba（换色板会静默降级）', () => {
+  // 病象：旧色板时代遗留 20+ 处 rgba(143,175,123,α) 写死值，换成浅底后会显脏且不受主题控制。
+  const offenders = [];
+  for (const f of ['app.css', 'charts.css', 'input.css', 'intake.css', 'mystic.css', 'oracle.css', 'p1b4.css', 'p1b6.css', 'ui.css']) {
+    const t = readFileSync(new URL('./' + f, import.meta.url), 'utf8');
+    if (/143,\s*175,\s*123/.test(t)) offenders.push(f);
+  }
+  assert.deepEqual(offenders, [], '仍有写死的旧强调色：' + offenders.join(','));
+});
+
+/** ★新增闸：装饰性背景必须为零。
+ *  病象：三层径向光晕 + 暗角 + 星座粒子，全部不表达任何状态、不参与任何读数，
+ *  只是在深底上制造「有东西在动」的错觉，并让面板边界更难分辨。
+ *  本闸把「装饰不得回来」固化，防后续以「加氛围」为名重新引入。 */
+test('★装饰性背景层已归零（防氛围装饰回流）', () => {
+  for (const v of ['--glow-1', '--glow-2', '--glow-3', '--vignette']) {
+    // v 自带前导 --，故模式里不要再拼 '--'（否则会拼成 '---glow-1' 而永不匹配）
+    const m = new RegExp(v + ':\\s*([^;]+);').exec(css);
+    assert.ok(m, '缺变量 ' + v);
+    assert.equal(m[1].trim(), 'transparent', v + ' 应为 transparent（装饰已删除），实得 ' + m[1].trim());
+  }
 });
 
 test('L1-L6 层色六色全在', () => {
@@ -29,9 +76,13 @@ test('L1-L6 层色六色全在', () => {
   }
 });
 
-test('观测台底纹类已注册且尊重 reduced-motion', () => {
-  assert.ok(css.includes('.app-surface'), '缺 .app-surface');
-  assert.ok(css.includes('prefers-reduced-motion'), '缺 reduced-motion');
+/** ★八轮第二轮：`.app-surface` 双层网格**已整体删除**，本闸随之换锁。
+ *  病象：网格在深底上是「坐标系」；换浅底后它变成**纸纹**，与正文打架，
+ *  而全站其实没有一处真正挂过 .app-surface（实测 grep 零命中）——即一个从未生效的装饰。
+ *  新锁：reduced-motion 仍在（交付底线），且「未测斜纹」在场（见上）。 */
+test('reduced-motion 仍在场（交付底线）且底纹网格已退役', () => {
+  assert.ok(css.includes('prefers-reduced-motion'), '缺 reduced-motion（交付底线，不可删）');
+  assert.equal(css.includes('.app-surface'), false, '.app-surface 已退役（浅底上只是纸纹，且从未挂载）');
 });
 
 /** ★ 新增闸：换色板后「好不好看」不可测，「看不看得清」可测。

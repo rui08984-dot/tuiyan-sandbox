@@ -7,6 +7,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { HashRouter, Navigate, NavLink, Route, Routes, useLocation } from 'react-router-dom';
 import LivePage from './pages/LivePage';
+import HomePage from './pages/HomePage';                           // 2026-09-27 八轮：入口页（回答「这是什么/什么状态/两条线」）
 import ManagePage from './pages/ManagePage';
 import SettingsPage from './pages/SettingsPage';
 import MysticPage from './pages/mystic/MysticPage';
@@ -17,7 +18,8 @@ import CalendarPage from './pages/disclosure/CalendarPage';           // P0-U7�
 import NegativeResultsPage from './pages/disclosure/NegativeResultsPage';   // 第 4 期 I2（2026-09-21）：负结果账本对外页
 import CompilerPage from './pages/disclosure/CompilerPage';                 // 第 4 期（2026-09-21）：编译器门面
 import { IconLayers, IconCompass, IconGear, IconBook, TermDrawer } from './components/ui';
-import { CanvasField } from './components/CanvasField';
+// ★八轮：装饰性 Canvas 粒子场（components/CanvasField.tsx）已从壳层移除，
+//   理由与「组件源码保留未删」的原因见 JSX 处注释。此处**不再 import**（免得 tsc 报未使用）。
 import './styles/p1b6.css';
 import './styles/motion.css';
 
@@ -52,7 +54,14 @@ function Shell() {
    */
   const [runId, setRunId] = useState(0);
   const firstRun = useRef(true);
-  useEffect(() => {
+    useEffect(() => {
+      // ★八轮：色温编码模式——现场（狼人杀，夜间线下局）走深色，观测台走浅色。
+      //   挂 data-mode 而非换 class，令牌层用 [data-mode="live"] 覆盖即可，页面零改动。
+      const live = ['/live', '/manage', '/mystic'].indexOf(pathname) !== -1;
+      document.documentElement.setAttribute('data-mode', live ? 'live' : 'desk');
+    }, [pathname]);
+
+    useEffect(() => {
     // 首屏不播扫描线（页面刚打开时用户还没切换过，扫一下反而突兀）
     if (firstRun.current) { firstRun.current = false; return; }
     setRunId((n) => n + 1);
@@ -60,7 +69,14 @@ function Shell() {
 
   return (
     <div className="app">
-      <CanvasField testId="field-bg" />
+      {/* ★2026-09-27 八轮：**移除**装饰性 Canvas 粒子场（CanvasField）。
+       *  理由不是「不好看」，是它**宣称了没实现的语义**——组件头注写「密度随页面数据量变化」，
+       *  实测密度公式是 `min(MAX, (w*h)/100000*DENSITY)`，**只跟视口面积有关**，
+       *  与页面数据无关（实测接题页与校准总览的粒子场完全一致）。
+       *  即：拿一句假的数据语义，包装一段纯装饰的持续动画（每帧重绘 + 鼠标避让），
+       *  同时让面板边界更难分辨。这正是要清掉的那类东西。
+       *  组件源码与其 reduced-motion 测试**保留未删**（要恢复只需重新挂载一行），
+       *  但本文件新增闸锁死「不得重新挂载」——见 styles/appShell 下的八轮用例。 */}
       <span key={runId} className={'scanline' + (runId > 0 ? ' is-running' : '')} aria-hidden="true" />
       <header className="appbar">
         <div className="appbar-inner">
@@ -69,14 +85,23 @@ function Shell() {
             <span>推演沙盘</span>
           </NavLink>
           <nav className="appbar-nav" aria-label="主导航">
-            <NavLink to="/" end className={linkCls}>概览</NavLink>
-            <NavLink to="/intake" className={linkCls}>接题</NavLink>
-            <NavLink to="/manage" className={linkCls}>对局</NavLink>
-            <NavLink to="/overview" className={linkCls}>校准总览</NavLink>
-            <NavLink to="/audit" className={linkCls}>账本审计</NavLink>
-            <NavLink to="/calendar" className={linkCls}>待验证</NavLink>
-            <NavLink to="/negative-results" className={linkCls}>负结果</NavLink>
-            <NavLink to="/compiler" className={linkCls}>编译器</NavLink>
+            {/* ★2026-09-27 八轮：导航按「用途」分两组，取代此前 8 项平铺。
+             *  病象：平铺时 1-3 项属推演沙盘现场、4-8 项属读数观测台，两条线交错，
+             *  新人无法从导航看出这是个什么东西。分组后每组内部同质、一眼可辨。 */}
+            <span className="appbar-group">
+              <NavLink to="/" end className={linkCls}>入口</NavLink>
+              <NavLink to="/overview" className={linkCls}>观测台</NavLink>
+              <NavLink to="/audit" className={linkCls}>账本</NavLink>
+              <NavLink to="/calendar" className={linkCls}>待验证</NavLink>
+              <NavLink to="/negative-results" className={linkCls}>负结果</NavLink>
+              <NavLink to="/intake" className={linkCls}>接题</NavLink>
+              <NavLink to="/compiler" className={linkCls}>编译器</NavLink>
+            </span>
+            <span className="appbar-sep" aria-hidden="true" />
+            <span className="appbar-group">
+              <NavLink to="/live" className={linkCls}>现场</NavLink>
+              <NavLink to="/manage" className={linkCls}>对局</NavLink>
+            </span>
           </nav>
           <button type="button" className="appbar-gear" onClick={() => setTermsOpen(true)} aria-label="术语表" title="术语表">
             <IconBook size={18} />
@@ -93,7 +118,11 @@ function Shell() {
         {/* key 变化 ⇒ 重挂载 ⇒ 播一次「通电」动画（首屏也播，进场要有仪式感） */}
         <div key={pathname} className="page-enter">
         <Routes>
-          <Route path="/" element={<LivePage />} />
+          {/* ★2026-09-27 八轮：`/` 由 LivePage 改为 HomePage。
+           *  病象见 HomePage 头注：入口页原先是狼人杀选局，新人第一屏答错了问题。
+           *  现场页让位到 /live（下方 /live 的旧重定向同步改指向，路径不破）。 */}
+          <Route path="/" element={<HomePage />} />
+          <Route path="/live" element={<LivePage />} />
           <Route path="/manage" element={<ManagePage />} />
           <Route path="/settings" element={<SettingsPage />} />
           <Route path="/mystic" element={<MysticPage />} />
@@ -108,11 +137,10 @@ function Shell() {
           <Route path="/calibration" element={<Navigate to="/overview" replace />} />
           <Route path="/bayes-lens" element={<Navigate to="/overview" replace />} />
           <Route path="/arena" element={<Navigate to="/overview" replace />} />
-          {/* 旧路径重定向保兼容（书签/旧链接） */}
-          <Route path="/live" element={<Navigate to="/" replace />} />
+          {/* 旧路径重定向保兼容（书签/旧链接）—— ★八轮：/live 已成实页，其余旧别名照旧 */}
           <Route path="/games" element={<Navigate to="/manage" replace />} />
-          <Route path="/input" element={<Navigate to="/" replace />} />
-          <Route path="/advisor" element={<Navigate to="/" replace />} />
+          <Route path="/input" element={<Navigate to="/live" replace />} />
+          <Route path="/advisor" element={<Navigate to="/live" replace />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
         </div>

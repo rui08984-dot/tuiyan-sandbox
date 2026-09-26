@@ -6,7 +6,9 @@
   display: flex; align-items: center; gap: 6px;
   padding: 6px 12px;
   padding-top: calc(6px + env(safe-area-inset-top));
-  background: rgba(26, 31, 28, 0.96);
+  /* ★八轮：原为写死的 rgba(26,31,28,.96) 深墨绿 ⇒ 换浅底后变成「深色横条压在白页上」。
+     改走令牌：现场深色自动取深值、观测台浅色自动取浅值，两种模式都对。 */
+  background: color-mix(in srgb, var(--panel) 92%, transparent);
   border-bottom: 1px solid var(--line);
   backdrop-filter: blur(8px);
   min-width: 0;
@@ -44,13 +46,13 @@
   flex: 0 0 auto;          /* 不被压缩：窄屏靠容器滚动，不靠压缩可点面积 */
   white-space: nowrap;
 }
-.appbar-link.is-active { color: var(--accent); background: rgba(143, 175, 123, 0.12); }
+.appbar-link.is-active { color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, transparent); }
 .appbar-gear {
   display: flex; align-items: center; justify-content: center;
   min-width: 44px; min-height: 44px; font-size: 18px;
   color: var(--muted); text-decoration: none; border-radius: 10px;
 }
-.appbar-gear.is-active { color: var(--accent); background: rgba(143, 175, 123, 0.12); }
+.appbar-gear.is-active { color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, transparent); }
 
 /* 现场主屏：无底部 Tab 栏 → 输入条贴底，内容底部预留输入条高度（手机竖屏单手） */
 .content { padding-bottom: calc(150px + env(safe-area-inset-bottom)); }
@@ -67,7 +69,7 @@
 .adv-badge {
   display: inline-flex; align-items: center; gap: 6px;
   font-size: 12px; padding: 4px 10px; border-radius: 999px; white-space: nowrap;
-  background: rgba(143, 175, 123, 0.16); color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 16%, transparent); color: var(--accent);
 }
 .adv-badge .spinner { width: 10px; height: 10px; border-width: 2px; }
 .adv-badge.is-ready { background: var(--ok-bg); color: var(--ok); }
@@ -165,7 +167,7 @@
 /* ── 新建引导流：分步指示 ── */
 .wiz-steps { display: flex; gap: 8px; margin: 2px 0 10px; font-size: 12.5px; }
 .wiz-step { flex: 1; text-align: center; padding: 7px 0; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); }
-.wiz-step.is-on { color: var(--accent); border-color: rgba(143, 175, 123, 0.55); }
+.wiz-step.is-on { color: var(--accent); border-color: color-mix(in srgb, var(--accent) 55%, transparent); }
 .sheet-search { margin-top: 4px; }
 .sheet-cta { width: 100%; margin-top: 4px; }
 

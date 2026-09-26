@@ -126,13 +126,13 @@
 }
 .tl-head { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
 .tl-seq { color: var(--muted); font-size: 12.5px; }
-.tl-type { font-size: 12px; padding: 3px 8px; border-radius: 999px; background: rgba(143, 175, 123, 0.16); color: var(--accent); }
+.tl-type { font-size: 12px; padding: 3px 8px; border-radius: 999px; background: color-mix(in srgb, var(--accent) 16%, transparent); color: var(--accent); }
 .tl-actor { font-weight: 600; font-size: 14.5px; }
 .tl-raw { margin: 6px 0 2px; font-size: 14.5px; word-break: break-all; }
 .tl-claims { margin-top: 8px; display: grid; gap: 6px; }
 .tl-claim { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; font-size: 13.5px; }
 .tl-claim .pred { font-size: 12px; padding: 2px 8px; border-radius: 999px; white-space: nowrap; }
-.pred-claims_role { background: rgba(143, 175, 123, 0.16); color: var(--accent); }
+.pred-claims_role { background: color-mix(in srgb, var(--accent) 16%, transparent); color: var(--accent); }
 .pred-is_wolf { background: var(--danger-bg); color: var(--danger); }
 .pred-is_good { background: var(--ok-bg); color: var(--ok); }
 .pred-other { background: var(--panel-2); color: var(--muted); }
@@ -158,7 +158,7 @@
 }
 .confirm-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .confirm-head h2 { margin: 0; font-size: 18px; margin-right: auto; }
-.confirm-round { font-size: 12px; padding: 4px 10px; border-radius: 999px; background: rgba(143, 175, 123, 0.16); color: var(--accent); white-space: nowrap; }
+.confirm-round { font-size: 12px; padding: 4px 10px; border-radius: 999px; background: color-mix(in srgb, var(--accent) 16%, transparent); color: var(--accent); white-space: nowrap; }
 .confirm-raw { margin: 10px 0 0; color: var(--muted); font-size: 13.5px; word-break: break-all; }
 .confirm-warn {
   margin: 10px 0 0; padding: 8px 10px; border-radius: 8px; font-size: 13.5px;

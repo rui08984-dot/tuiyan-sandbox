@@ -64,10 +64,15 @@ export function Waffle({
       >
         {Array.from({ length: CELLS }).map((_, i) => {
           const on = hasData && i < filledCells;
+          // ★八轮核心机制的像素落地：**未点亮 ≠ 没有数据，而是「已知不足」**。
+          //   旧版点亮格与空格同为纯色底 ⇒ 19 个空格被读成「没数据」，与「数据为 0」混淆——
+          //   而这正是本产品最要防的误读。改���给空格打**斜纹**（不是把灰调淡）：
+          //   斜纹在黑白打印与色觉障碍下都成立，且方向感＝「这块还没填完」。
+          const unknown = hasData && !on;
           return (
             <span
               key={i}
-              className={'waffle-cell' + (on ? ' is-on' : '')}
+              className={'waffle-cell' + (on ? ' is-on' : '') + (unknown ? ' is-unmeasured' : '')}
               style={on ? { background: color } : undefined}
               aria-hidden="true"
             />

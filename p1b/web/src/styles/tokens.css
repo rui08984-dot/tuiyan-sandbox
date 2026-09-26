@@ -11,20 +11,38 @@
  *     #829F70(5.05) / #D4826F(5.11)。此后改色必跑该脚本。
  */
 :root {
-  /* ── 基础身份（抹茶绿观测台）── */
-  color-scheme: dark;
-  --bg: #1A1F1C;
-  --panel: #222926;
-  --panel-2: #2B322E;
-  --line: #3A423D;
-  --text: #EDE8DC;
-  --muted: #A3A79C;
-  --accent: #8FAF7B;
-  --matcha: #829F70;
-  --accent-ink: #141A15;
-  --ok: #7FA87A;
-  --warn: #C9A44C;
-  --danger: #D4826F;
+  /* ── 基础身份（冷白记录台 · 2026-09-27 八轮重做）──
+   *
+   * 本轮不是「换个颜色」，是**反转一条规则**：
+   *   旧规则：颜色用来区分「哪层哪域」⇒ 整站着色 ⇒ 眼睛要在一堆彩色里找信息。
+   *   新规则：**已落定的一律灰；颜色只给「还没落定」的东西。**
+   *         样本不够的格子打斜纹（不是把灰色调淡，是明确的「未测」纹理）；
+   *         颜色面积因此自然收缩到全屏 10% 以内。
+   *   ⇒ 屏幕上颜色越少的地方，数据越可靠。诚实从一句自我声明，变成一条配色规则。
+   *   这同时是减法原则的落地：**克制的设计立刻显得高级**。
+   *
+   * 为什么不用暖色纸底：三家方向里最诱人的两套（宣纸朱批 #EDE6D8/#B23A28、
+   * 碳化档案纸 #E7DFC8/#C1440E）都精准踩中「暖奶油底 + 陶土色点缀」这条
+   * 2026 年被广泛识别的 AI 设计破绽 ⇒ 主动避开，走**冷白**。
+   *
+   * 为什么现场页仍是深色：狼人杀是夜间线下局，深底是该场景的真实需求（brief 优先）；
+   *   色温由此编码模式——**现场＝沉浸（深），观测台＝清醒（浅）**。
+   *   深色值挂在下方 [data-mode="live"]，不污染读数面。
+   *
+   * ★ 全部对比度由 contrast-check.cjs 逐对核验（≥4.5:1），非肉眼判断；改色必跑。 */
+  color-scheme: light;
+  --bg: #F4F4F1;
+  --panel: #FFFFFF;
+  --panel-2: #EAEAE6;
+  --line: #D2D2CC;
+  --text: #1A1A1A;
+  --muted: #5C5C57;
+  --accent: #0F6E63;
+  --matcha: #3F6B3A;
+  --accent-ink: #FFFFFF;
+  --ok: #3F6B3A;
+  --warn: #8A6212;
+  --danger: #A8341F;
   --radius: 12px;
 
   /* ── 结构色相族（2026-09-22 五轮 · 打破「全绿单调」）──
@@ -72,42 +90,66 @@
   --header-height: 56px;
   --sidebar-width: 240px;
 
-  /* ── 圆角 / 层级阴影 ── */
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
+  /* ── 圆角 / 阴影 ──
+   * ★阴影大幅收敛：浅底上重阴影会立刻显脏，且 skill 点名「统一软阴影」是 AI 味。
+   *   层级改由**边框 + 底色差**承担（见 --line/--panel-2），阴影只留极轻一档给浮层。 */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
   --radius-pill: 999px;
-  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.35);
-  --shadow-2: 0 4px 12px rgba(0, 0, 0, 0.38);
-  --shadow-3: 0 10px 28px rgba(0, 0, 0, 0.45);
+  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-2: 0 2px 6px rgba(0, 0, 0, 0.07);
+  --shadow-3: 0 8px 24px rgba(0, 0, 0, 0.10);
 
-  /* ── 语义色（去饱和，守深色模式「不直接反色」规则）＋ 四档底 + 三档边框 ── */
-  --info: #7FA6A0;
-  --ok-bg: rgba(127, 168, 122, 0.14);
-  --warn-bg: rgba(201, 164, 76, 0.14);
-  --danger-bg: rgba(212, 130, 111, 0.14);
-  --info-bg: rgba(127, 166, 160, 0.14);
-  /* 边框档：色板只此一处定义，页面不得再写死 rgba（旧琥珀金时代遗留过散落常量） */
-  --ok-border: rgba(127, 168, 122, 0.55);
-  --warn-border: rgba(201, 164, 76, 0.55);
-  --danger-border: rgba(212, 130, 111, 0.55);
+  /* ── 语义色（浅底版；全部 vs --panel ≥4.5:1，contrast-check 实测）── */
+  --info: #2A5F7A;
+  --ok-bg: rgba(63, 107, 58, 0.10);
+  --warn-bg: rgba(138, 98, 18, 0.10);
+  --danger-bg: rgba(168, 52, 31, 0.10);
+  --info-bg: rgba(42, 95, 122, 0.10);
+  /* 边框档：色板只此一处定义，页面不得再写死 rgba */
+  --ok-border: rgba(63, 107, 58, 0.45);
+  --warn-border: rgba(138, 98, 18, 0.45);
+  --danger-border: rgba(168, 52, 31, 0.45);
 
-  /* ── L1-L6 层色：抹茶→青→琥珀连续光谱，六色互辨且 vs --panel 均 ≥4.5:1 ── */
-  --layer-l1: #9FB8A8;
-  --layer-l2: #8FAF7B;
-  --layer-l3: #C9B96A;
-  --layer-l4: #A98FB5;
-  --layer-l5: #7FA6A0;
-  --layer-l6: #D98A77;
+  /* ── L1-L6 层色（浅底版，六色互辨且 vs --panel 均 ≥4.5:1）──
+   * ★降饱和：浅底上原来的亮色会「跳」出来抢戏。改成同明度带的低彩度，
+   *   让它们只做**分类标记**，不与正文争注意力。 */
+  --layer-l1: #4A6B5A;
+  --layer-l2: #0F6E63;
+  --layer-l3: #7A6A1E;
+  --layer-l4: #6B4A7A;
+  --layer-l5: #2A5F7A;
+  --layer-l6: #8A4030;
 
-  /* ── 背景氛围层（2026-09-22 四轮艺术化）──
-   * 三层径向光晕 + 暗角。全部极低不透明度：目的是给深底纵向深度，
-   * 不是发光效果（无 blur、无 box-shadow ⇒ 不触发既有的「禁装饰性发光」闸）。
-   * 数值都在 0.02–0.05 之间：再高就会在深绿底上显脏、并干扰读数的对比度。 */
-  --glow-1: rgba(143, 175, 123, 0.05);   /* 主强调色散光（左上） */
-  --glow-2: rgba(127, 166, 160, 0.035);  /* 青色冷光（右上，与抹茶形成色温对比） */
-  --glow-3: rgba(201, 185, 106, 0.028);  /* 琥珀暖光（底部，收束视线） */
-  --vignette: rgba(0, 0, 0, 0.22);       /* 底部暗角 */
+  /* ── 背景氛围层：★2026-09-27 八轮全部归零（删除，非调暗）──
+   * 原三层径向光晕 + 暗角承载零信息——不表达任何状态、不参与任何读数，
+   * 只在深底上制造「有东西在动」的错觉，并让面板边界更难分辨。
+   * 保留变量名而不删，是为了不动引用它们的样式规则（本轮只改值，改名属结构变更另议）。 */
+  --glow-1: transparent;
+  --glow-2: transparent;
+  --glow-3: transparent;
+  --vignette: transparent;
+
+  /* ── 刻度网格：浅底上降到几乎不可见 ──
+   * 网格在深底时是「坐标系」；在浅底上它会变成**纸纹**、与文字打架。
+   *   观测台不再靠背景网格表达"这是仪器"，改由下面的「未测斜纹」表达。 */
+  --grid-line: rgba(26, 26, 26, 0.022);
+  --grid-line-fine: rgba(26, 26, 26, 0.010);
+  --grid-size: 32px;
+  --grid-size-fine: 8px;
+
+  /* ══ ★★★ 本轮设计的核心机制：未测 = 斜纹 ══
+   * 一句话：**已落定的一律灰；颜色与纹理只给「还没落定」的东西。**
+   * 实现上刻意**不用**「把灰调淡」来表示未测——淡灰在浅底上等于不可见，
+   * 等于把「没数据」和「数据很小」混为一谈。改用明确的方向性斜纹：
+   *   · 斜纹在黑白打印下依然可辨（不依赖颜色）
+   *   · 斜纹的方向感＝「这块还没填完」
+   *   · 与色觉障碍用户无关（不靠色相区分）
+   * 任何「样本不够 / 未判定 / 数据缺失」的格子都应加 .is-unmeasured。 */
+  --unmeasured-ink: rgba(26, 26, 26, 0.16);
+  --unmeasured-bg: rgba(26, 26, 26, 0.035);
+  --unmeasured-stripe: 6px;
 
   /* ── 容器宽（容器分类：数据页 1280 / 表单页 720 / 阅读 860）── */
   --content-wide: 1280px;
@@ -122,45 +164,91 @@
   --breakpoint-xl: 1440px;
 
   /* ── 观测台语义层 ── */
-  --panel-3: #343B36;
-  --shadow-4: 0 18px 48px rgba(0, 0, 0, 0.55);
+  --panel-3: #F7F7F4;
+  --shadow-4: 0 12px 32px rgba(0, 0, 0, 0.12);
   --space-section: 32px;
   --font-size-micro: 11px;
 
-  /* ── 刻度网格双层：主 32px（5%）＋次 8px（2.5%）
-     语义＝观测标尺/沙盘坐标，非装饰；抹茶色相与身份一致 ── */
-  --grid-line: rgba(143, 175, 123, 0.05);
-  --grid-line-fine: rgba(143, 175, 123, 0.025);
-  --grid-size: 32px;
-  --grid-size-fine: 8px;
+  /* ── 图表刻度（浅底；数据线/条 vs 背景 ≥3:1）── */
+  --chart-axis: #8A8A82;
+  --chart-grid: rgba(26, 26, 26, 0.08);
+  --chart-threshold: #8A6212;
+  --chart-nodata: #EAEAE6;
+}
+
+/* ══ 现场深色主题（2026-09-27 八轮）══
+ * 狼人杀是夜间线下局，深底是该场景的真实需求（brief 优先于风格统一）。
+ * 由此**色温编码模式**：现场＝沉浸（深），观测台＝清醒（浅）。
+ * 只覆盖「底/字/线/面板」四组，不复制整份色板 ⇒ 现场页的语义色仍取浅底版，
+ * 那些值在深底上对比度不足，故此处一并给出深底够用的替身。 */
+[data-mode="live"] {
+  color-scheme: dark;
+  --bg: #15181A;
+  --panel: #1C2022;
+  --panel-2: #24292B;
+  --panel-3: #2C3234;
+  --line: #363D3F;
+  --text: #E7E6E1;
+  --muted: #A0A5A3;
+  --accent: #7FB0A0;
+  --accent-ink: #0F1416;
+  --ok: #7FA87A;
+  --warn: #C9A44C;
+  --danger: #D4826F;
+  --info: #7FA6A0;
+  --grid-line: rgba(127, 176, 160, 0.03);
+  --grid-line-fine: rgba(127, 176, 160, 0.014);
+  --chart-axis: #7C8583;
+  --chart-grid: rgba(127, 176, 160, 0.12);
+  --chart-nodata: #24292B;
+  --unmeasured-ink: rgba(231, 230, 225, 0.16);
+  --unmeasured-bg: rgba(231, 230, 225, 0.035);
+  /* ★层色必须随主题各自取值：浅底版的低彩度色在深底上只有 ~2.3:1（实测不合格）。
+     深底版取同色相的亮调，vs --panel 全部 ≥5.6:1（contrast-check 实测）。 */
+  --layer-l1: #9FB8A8;
+  --layer-l2: #8FAF7B;
+  --layer-l3: #C9B96A;
+  --layer-l4: #A98FB5;
+  --layer-l5: #7FA6A0;
+  --layer-l6: #D98A77;
+  --ok-bg: rgba(127, 168, 122, 0.14);
+  --warn-bg: rgba(201, 164, 76, 0.14);
+  --danger-bg: rgba(212, 130, 111, 0.14);
+  --info-bg: rgba(127, 166, 160, 0.14);
+  --ok-border: rgba(127, 168, 122, 0.55);
+  --warn-border: rgba(201, 164, 76, 0.55);
+  --danger-border: rgba(212, 130, 111, 0.55);
+  --matcha: #829F70;
+  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.35);
+  --shadow-2: 0 4px 12px rgba(0, 0, 0, 0.38);
+  --shadow-3: 0 10px 28px rgba(0, 0, 0, 0.45);
+  --shadow-4: 0 18px 48px rgba(0, 0, 0, 0.55);
+  --panel-3: #2C3234;
+  --chart-threshold: #C9A44C;
+}
 
   /* ── eyebrow 小标签（专业控制台的大写小标签气质）── */
   --eyebrow-size: 11px;
   --eyebrow-tracking: 0.08em;
-
-  /* ── 图表刻度（数据线/条 vs 背景 ≥3:1，守 contrast-data）── */
-  --chart-axis: #6A756C;
-  --chart-grid: rgba(143, 175, 123, 0.12);
-  --chart-threshold: #C9A44C;
-  --chart-nodata: #2B322E;
 }
 
 /* 全局字体与数字对齐（本文件唯一全局规则，不涉布局） */
 body { font-family: var(--font-sans); font-variant-numeric: tabular-nums; }
 .u-mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
 
-/* 观测台刻度网格：主 32px ＋ 次 8px 双层，语义＝沙盘坐标/观测标尺 */
-.app-surface {
-  background-image:
-    linear-gradient(to right, var(--grid-line-fine) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--grid-line-fine) 1px, transparent 1px),
-    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
-  background-size: var(--grid-size-fine) var(--grid-size-fine),
-    var(--grid-size-fine) var(--grid-size-fine),
-    var(--grid-size) var(--grid-size),
-    var(--grid-size) var(--grid-size);
+/* ══ ★ 未测格：斜纹（八轮核心机制）══
+ * 约定：任何「样本不够 / 未判定 / 数据缺失」的格子加 .is-unmeasured。
+ * 为什么不用「淡灰」表示未测：淡灰在浅底上≈不可见 ⇒ 把"没数据"和"数据很小"
+ * 混为一谈，而这正是本项目最要防的误读。斜纹在黑白打印与色觉障碍下都成立。 */
+.is-unmeasured {
+  background-image: repeating-linear-gradient(
+    45deg,
+    var(--unmeasured-ink) 0 1px,
+    transparent 1px var(--unmeasured-stripe)
+  );
+  background-color: var(--unmeasured-bg);
 }
+
 @media (prefers-reduced-motion: reduce) {
   * { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
 }
