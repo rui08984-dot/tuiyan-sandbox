@@ -34,11 +34,29 @@
 .note-advice-note { margin: 6px 0 10px; font-size: 12px; line-height: 1.65; color: var(--muted); }
 .note-advice-note b { color: var(--text); }
 .note-chk {
-  display: flex; align-items: flex-start; gap: 8px;
-  padding: 5px 0; font-size: 13px; line-height: 1.55; color: var(--text);
+  display: flex; align-items: center; gap: 8px;   /* ★center 而非 flex-start：勾选框与文字基线对齐 */
+  padding: 3px 0; font-size: 13px; line-height: 1.5; color: var(--text);
   cursor: pointer;
 }
-.note-chk input { margin-top: 3px; flex: 0 0 auto; }
+/* ★T5 实测踩到（浏览器实测：整行高 191px＝判据文字被挤成竖排）。
+   **真因不在文字 span，而在 input**——而且是**两处**：
+   ① `<input type=checkbox>` 未设 width 时浏览器按 size 给默认宽度，
+      在 flex 容器里实测撑到 **681px（吃满整行）**，把文字 span 挤成 0
+      ⇒ 文字竖排、整行 191px 高。
+   ② 全局有 `input, textarea, select { min-height: 44px }`（触控基线，见 app.css）
+      ⇒ 即使钉了 height:15px，实测仍被撑成 **15x44**，行高 50px。
+   ⇒ 修法两处都要：input 钉 `width/height/min-height:0/flex:none`，
+      文字再给 `flex:1 + min-width:0` 兜底。
+   ★教训：这条我**连猜错三次**（先怪 span、再怪 flex-basis、最后才发现是全局
+     min-height）。`p1b4.css` 处理 checkbox 时早就用对了写法（min-height:0），
+     我没先查既有的同类解法。 */
+.note-chk input {
+  margin-top: 0; flex: none;
+  width: 15px; height: 15px; min-height: 0; padding: 0; margin: 0;
+  align-self: center;   /* 不加它还会被 flex 沿交叉轴拉伸 */
+  accent-color: var(--accent);
+}
+.note-chk > span { flex: 1 1 auto; min-width: 0; }
 .note-chk.is-off { color: var(--muted); text-decoration: line-through; }
 
 .note-go {
@@ -71,4 +89,56 @@
 
 @media (max-width: 375px) {
   .note-receipt-list { grid-template-columns: 1fr; }
+}
+
+/* ══ 算数露头（T5）：两个数并排 + 一句结论 ══
+ * 形制决策：
+ * · 两个数**大小相同、左右对称**——它们是对等的两个视角，不是主次。
+ *   把历史频率做成"主角"、你的判断做成"配角"会暗示"你该跟着基率填"。
+ * · 结论句单独一行、字号更大：它是用户来这一页真正要拿走的东西。
+ * · 样本不足时数字**降对比**（is-thin）而不是照样大红——
+ *   一个看起来很确定的数，会被当成可靠基线用。 */
+.note-answer {
+  padding: 16px 18px; margin-bottom: 18px;
+  border: 1px solid var(--line); border-left: 3px solid var(--accent);
+  border-radius: var(--radius-item); background: var(--panel-2);
+}
+.note-answer-h { margin: 0 0 12px; font-size: 13px; font-weight: 600; color: var(--text); }
+
+.note-nums { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.note-num { min-width: 0; }
+.note-num-lab { font-size: 11.5px; color: var(--muted); margin-bottom: 3px; }
+.note-num-v {
+  font-family: var(--font-mono); font-variant-numeric: tabular-nums;
+  font-size: 28px; font-weight: 600; line-height: 1.1; color: var(--text);
+}
+/* ★样本不足 ⇒ 降对比但**不隐藏**：不显示会让人以为没算，显示成大红会让人当成基线 */
+.note-num-v.is-thin { color: var(--muted); }
+.note-num-note { margin-top: 4px; font-size: 11.5px; line-height: 1.5; color: var(--muted); }
+
+.note-prob {
+  width: 100%; padding: 6px 10px;
+  border: 1px solid var(--line); border-radius: var(--radius-row);
+  background: var(--panel); color: var(--text);
+  font-family: var(--font-mono); font-size: 28px; font-weight: 600; line-height: 1.1;
+}
+.note-prob:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+.note-prob::placeholder { color: var(--muted); font-weight: 400; opacity: 0.5; }
+
+.note-verdict {
+  margin: 14px 0 0; padding-top: 12px;
+  border-top: 1px solid var(--line);
+  font-size: 14px; line-height: 1.65; color: var(--text);
+}
+.note-thin-warn {
+  margin: 8px 0 0; padding: 7px 10px;
+  border: 1px solid var(--warn-border); background: var(--warn-bg);
+  border-radius: var(--radius-row);
+  font-size: 12px; line-height: 1.6; color: var(--text);
+}
+.note-thin-warn b { font-weight: 600; }
+
+@media (max-width: 480px) {
+  .note-nums { grid-template-columns: 1fr; gap: 12px; }
+  .note-num-v, .note-prob { font-size: 24px; }
 }

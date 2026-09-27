@@ -42,6 +42,17 @@ import { KIND_GROUPS, kindLabel } from '../lib/kindLabel';
 /** 真值锚类型（来自 /api/disclosure/compiler 的 kinds 目录；此处只取展示用的代表若干）。 */
 interface KindSpec { kind: string; required: string[]; one_of: string[][]; }
 
+/** ★T4：后端 base_rate 的形状（只读聚合，口径见 p1b/src/routes/disclosure.js）。
+ *  注意 rate 可为 **null** —— 那表示「同类还没有已结算的题」，
+ *  与 rate=0（测了，确实一次没发生）**不是一回事**，绝不能混。 */
+interface Hint {
+  n: number;          // 已结算的同类题数
+  hit: number;        // 其中真发生的
+  rate: number | null;// 真发生频率；null = 没有
+  enough: boolean;    // 是否达 n>=30 线
+  note: string;       // 人话口径说明
+}
+
 const REASON_TEXT: Record<string, string> = {
   no_anchor: '这道题没有能事后核对的地方，所以它永远没法判对错。',
   leak: '写下题面的时候，答案可能已经公开了——那这道题就只是在抄答案。',
@@ -55,6 +66,9 @@ export default function NotePage() {
   const [statement, setStatement] = useState('');
   /** ★后端 lookup 模式返回的形状（实测）：{ suggestion:{layer,engine}, evidence:{total_n,resolved_n} } */
   const [advice, setAdvice] = useState<{ layer?: string; engine?: string; n?: number } | null>(null);
+  // ★T5：历史频率（后端 T4 给的）与两段式等待的当前段
+  const [base, setBase] = useState<Hint | null>(null);
+  const [phase, setPhase] = useState<'idle' | 'freq' | 'done'>('idle');
   const [over, setOver] = useState<Record<string, string[]>>({});   // layer -> 被取消的序号
   const [res, setRes] = useState<IntakeClassifyResult | null>(null);
   const [busy, setBusy] = useState(false);
@@ -70,28 +84,37 @@ export default function NotePage() {
   const spec = useMemo(() => kinds.find((k) => k.kind === kind) || null, [kinds, kind]);
 
   // ★T3（M1）：后端给了、但尚未翻译的 kind —— 仍要出现在下拉里（标注「未译」）。
-  //   静默丢弃会让人以为「没这个来源」，那比「英文看不懂」更坏。
+  //   静默丢弃会让人以为「没这个来源」，那比英文看不懂更坏。
   const untranslated = useMemo(
     () => kinds.map((k) => k.kind).filter((k) => kindLabel(k).label.indexOf('（未译）') >= 0),
     [kinds],
   );
 
-  /** 选 kind ⇒ 向后端要参考建议（该类题通常属哪层） */
+  // ★T5：你的判断。留空＝先不给数，等你看到基率再决定——**顺序很重要**：
+  //   先看到「这类题历史上 7.4%」再填，比先填一个数再被告知基率更不容易锚定。
+  const [myProb, setMyProb] = useState<string>('');
+
+  /** 选 kind ⇒ 向后端要：层 / 引擎 / 样本量 / ★历史真实频率（T4 新增） */
   useEffect(() => {
     setAdvice(null);
+    setPhase('idle');
     if (!kind) return;
     let alive = true;
+    setPhase('freq');
     fetch('/api/disclosure/compiler?kind=' + encodeURIComponent(kind))
       .then((r) => (r.ok ? r.json() : null))
       .then((j) => {
         if (!alive || !j) return;
-        // ★实测形状：带 kind 查询时返回 { mode:"lookup", suggestion:{layer,engine}, evidence:{total_n,resolved_n} }
-        //   —— layer 嵌在 suggestion 里，不在顶层（我一开始按顶层读，拿到 undefined）。
+        // ★实测形状：{ suggestion:{layer,engine}, evidence:{total_n}, base_rate:{n,hit,rate,enough,note} }
+        //   —— 三个都**嵌套**在子对象里（我一开始按顶层读，拿到 undefined）。
         const sug = (j as { suggestion?: { layer?: string; engine?: string } }).suggestion || {};
         const ev = (j as { evidence?: { total_n?: number } }).evidence || {};
+        const br = (j as { base_rate?: Hint }).base_rate;
         setAdvice({ layer: sug.layer, engine: sug.engine, n: ev.total_n });
+        setBase(br);
+        setPhase('done');
       })
-      .catch(() => undefined);
+      .catch(() => { if (alive) { setPhase('done'); setErr('读不到这类题的历史样本'); } });
     return () => { alive = false; };
   }, [kind]);
 
@@ -181,17 +204,67 @@ export default function NotePage() {
         ) : null}
       </section>
 
-      {/* ── 系统建议：人只改异议 ── */}
+      {/* ══ ★T5：算数露头 —— 两个数并排 + 一句结论 ══
+          这是本产品**存在的理由**。过去写完题面什么都拿不到，
+          用户不知道"我凭什么给这个数"、也不知道"历史上这类题怎么样"。
+          现在并排给出：我的判断 vs 同类历史真实频率。 */}
       {advice ? (
-        <section className="note-advice" data-testid="note-advice">
-          <div className="note-advice-h">
+        <section className="note-answer" data-testid="note-answer">
+          <h2 className="note-answer-h">这类题，历史上怎么样</h2>
+
+          <div className="note-nums">
+            {/* 左：同类历史真实频率（后端 T4 实算，只读） */}
+            <div className="note-num">
+              <div className="note-num-lab">同类历史</div>
+              <div className={'note-num-v' + (base && base.enough ? '' : ' is-thin')}>
+                {base && base.rate != null ? Math.round(base.rate * 100) + '%' : '—'}
+              </div>
+              <div className="note-num-note">
+                {base
+                  ? (base.n > 0
+                      ? (base.enough
+                          ? ('已结算 ' + base.n + ' 条里对了 ' + base.hit + ' 条')
+                          : ('只结算了 ' + base.n + ' 条，不足 30'))
+                      : '同类还没有已结算的题')
+                  : '在数…'}
+              </div>
+            </div>
+
+            {/* 右：你的判断 —— 放在看过基率之后填，减少锚定 */}
+            <div className="note-num">
+              <div className="note-num-lab">你的判断</div>
+              <input
+                className="note-prob" inputMode="decimal" value={myProb}
+                placeholder="填 0-100"
+                onChange={(e) => setMyProb(e.target.value)}
+                aria-label="你判断这件事发生的概率，填 0 到 100 之间的百分数"
+              />
+              <div className="note-num-note">
+                {myProbValid(myProb) ? '（如 62 表示你押 62%）' : '还没填'}
+              </div>
+            </div>
+          </div>
+
+          {/* ★结论句：只有两个数都在场才有意义——这是整个产品唯一真正有价值的话 */}
+          <p className="note-verdict" data-testid="note-verdict">
+            {verdictText(myProb, base)}
+          </p>
+
+          {/* ★诚实线：样本不够时必须说「只记方向」，且不给看起来很确定的数 */}
+          {base && !base.enough ? (
+            <p className="note-thin-warn">
+              ★同类样本不足 30 条 ⇒ <b>只记方向，不当结论用</b>。这个数只是"大致什么量级"，不是可靠基率。
+            </p>
+          ) : null}
+
+          <div className="note-advice-h" style={{ marginTop: 16 }}>
             按账本历史，这类题通常算作
             <b>{advice.layer || '—'}</b>
             {advice.engine ? <>，用 <code>{advice.engine}</code></> : null}
             {typeof advice.n === 'number' ? <>，你写过 <b>{advice.n}</b> 道同类</> : null}
           </div>
           <p className="note-advice-note">
-            这是**参考建议不是判定**。我按「是」填了下面这层判据——<b>不同意就取消勾选</b>，其余不用管。
+            上面这层判据我按「是」填好了——<b>不同意就取消勾选</b>，其余不用管。这是参考建议不是判定。
           </p>
           {(LAYER_Q[advice.layer || ''] || []).map((q, i) => {
             const off = (over[advice.layer || ''] || []).includes(String(i));
@@ -263,6 +336,37 @@ function Receipt({ r }: { r: IntakeClassifyResult }) {
       </p>
     </div>
   );
+}
+
+/** 我的判断是否是合法的 0-100 百分数 */
+export function myProbValid(v: string): boolean {
+  if (v.trim() === '') return false;
+  const n = Number(v);
+  return Number.isFinite(n) && n >= 0 && n <= 100;
+}
+
+/**
+ * ★结论句：只有两个数都在场才有意义。
+ * 这是整个产品**唯一真正有价值的话**——「你比基率更乐观/更保守」，
+ * 只有当"你的判断"和"同类历史频率"并排出现时才存在。
+ *
+ * 诚实纪律：样本不够（enough=false）时**不给这个结论**——
+ * 用 27 条样本说"你比基率乐观"是拿噪音当结论，正是本项目最要防的误读。
+ * 那时只说"先看看这类题历史上什么量级"。
+ */
+export function verdictText(myProb: string, base: Hint | null): string {
+  if (!base || base.rate == null) return '还没有同类已结算的题，暂时没有历史频率可比。';
+  if (!base.enough) {
+    return '同类样本只有 ' + base.n + ' 条，不足以说"你比基率更乐观还是更保守"——先当作方向参考。';
+  }
+  if (!myProbValid(myProb)) return '填上你的判断，才知道你是比历史更乐观还是更保守。';
+  const mine = Number(myProb) / 100;
+  const gap = mine - base.rate;
+  const pct = (Math.abs(gap) * 100).toFixed(1);
+  if (Math.abs(gap) < 0.05) return '你的判断和历史频率差不多（差 ' + pct + ' 个百分点）。';
+  return gap > 0
+    ? '你比历史更乐观：高 ' + pct + ' 个百分点。历史上这类题常不发生。'
+    : '你比历史更保守：低 ' + pct + ' 个百分点。';
 }
 
 /** 六层判据的人话版（与旧接题页同源，判据一句不删） */
