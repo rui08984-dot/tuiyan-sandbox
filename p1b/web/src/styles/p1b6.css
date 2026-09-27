@@ -231,3 +231,18 @@
 @media (min-width: 1024px) {
   .content:has(.live-shell) { max-width: 1280px; }
 }
+
+/* ══ 现场覆盖层（八轮第八改）══
+ * 进现场后顶栏整条换掉：题线三动作**不可见**。
+ * 这不是隐藏功能，是不打断——现场是秒级节奏的线下局，
+ * 局中不该有"去记一笔""去看偏差"这些分钟级动作在旁边晃。
+ * 退出按钮是唯一出口，且**回到进现场之前那一页**（lastDesk 记忆）。 */
+.appbar-group--live { gap: 6px; }
+.appbar-exit {
+  margin-left: 10px; padding: 5px 12px;
+  border: 1px solid var(--line); border-radius: var(--radius-item);
+  background: transparent; color: var(--text);
+  font: inherit; font-size: 12.5px; cursor: pointer;
+}
+.appbar-exit:hover { border-color: var(--accent); color: var(--accent); }
+.appbar-exit:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }

@@ -246,3 +246,11 @@
 .srctag:hover, .srctag:focus-visible { opacity: 1; color: var(--text); }
 .srctag:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .srctag-asof { font-family: var(--font-mono); opacity: 0.8; }
+
+/* 现场线单独一块（八轮第七改）
+ * 理由：现场是线下局时的密集操作（秒级节奏），题线三动作是独处时做的（分钟级）。
+ * 两种节奏挤在一排会互相打断——方向兵的原话：「局中操作会被写题流程打断」。 */
+.home-lanes--live { margin-top: 28px; }
+.home-lane-row--1 { display: block; }
+.home-lane-row--1 .home-lane { max-width: 420px; }
+.home-lane-row--1 .home-lane-d { min-height: 0; }

@@ -5,7 +5,7 @@
  * 路由全兼容：/live→/、/games→/manage、/input|/advisor→/、*→/（一个不破）。
  */
 import { useEffect, useRef, useState } from 'react';
-import { HashRouter, Navigate, NavLink, Route, Routes, useLocation } from 'react-router-dom';
+import { HashRouter, Navigate, NavLink, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import LivePage from './pages/LivePage';
 import HomePage from './pages/HomePage';
 import ResolvePage from './pages/ResolvePage';   // ★八轮第五改：待落定（题线第二个动作）
@@ -57,12 +57,25 @@ function Shell() {
    */
   const [runId, setRunId] = useState(0);
   const firstRun = useRef(true);
+  // ★八轮第八改：现场覆盖层所需的三样东西——
+  //   isLive    当前是不是在「现场模式」（现场/对局/排盘）
+  //   navigate  退出时要跳回哪儿
+  //   lastDesk  **进现场之前**所在的题线路径（退出即回原处，位置不丢）
+  const isLive = ['/live', '/manage', '/mystic'].indexOf(pathname) !== -1;
+  const navigate = useNavigate();
+  const lastDesk = useRef<string>('/resolve');
+
     useEffect(() => {
       // ★八轮：色温编码模式——现场（狼人杀，夜间线下局）走深色，观测台走浅色。
       //   挂 data-mode 而非换 class，令牌层用 [data-mode="live"] 覆盖即可，页面零改动。
-      const live = ['/live', '/manage', '/mystic'].indexOf(pathname) !== -1;
-      document.documentElement.setAttribute('data-mode', live ? 'live' : 'desk');
-    }, [pathname]);
+      if (isLive) {
+        document.documentElement.setAttribute('data-mode', 'live');
+      } else {
+        document.documentElement.setAttribute('data-mode', 'desk');
+        // 记住"进现场之前在哪"，退现场时原路返回
+        lastDesk.current = pathname;
+      }
+    }, [pathname, isLive]);
 
     useEffect(() => {
     // 首屏不播扫描线（页面刚打开时用户还没切换过，扫一下反而突兀）
@@ -88,23 +101,42 @@ function Shell() {
             <span>推演沙盘</span>
           </NavLink>
           <nav className="appbar-nav" aria-label="主导航">
-            {/* ★八轮第六改：导航由 9 项收成 5 项。
-             *  病象（用户原话）：「数值太多了…页面都是在展示数值，有点像后端维护的东西」。
-             *  实测：五个「看数」页合计展示 99 处、交互 10 处；其中三页在展示**同一批字段**。
-             *  收法：「看数」压成**一个**入口，题线只留三个动作——且写成**动词/问句**而非名词
-             *  （方向兵判据：「名词导航 = 仪表盘，问句导航 = 工具」）：
-             *    待落定（今天该干的）· 记一笔（写新的）· 我在哪儿偏了（回声）
-             *  旧路径全部保留重定向 ⇒ 书签与外部链接不断。 */}
-            <span className="appbar-group">
-              <NavLink to="/resolve" className={linkCls}>待落定</NavLink>
-              <NavLink to="/note" className={linkCls}>记一笔</NavLink>
-              <NavLink to="/where-off" className={linkCls}>我在哪儿偏了</NavLink>
-            </span>
-            <span className="appbar-sep" aria-hidden="true" />
-            <span className="appbar-group">
-              <NavLink to="/live" className={linkCls}>现场</NavLink>
-              <NavLink to="/manage" className={linkCls}>对局</NavLink>
-            </span>
+            {/* ★八轮第八改：现场是**覆盖层**，不是同一排导航里的另一组。
+             *  理由（方向兵）：现场是线下狼人杀时的密集操作（秒级节奏），
+             *  题线三动作是独处时做的（分钟级）。两种节奏挤在一排导航里会互相打断——
+             *  局中想记一笔、或答题答到一半被"去对局"分神，都是真实会发生的事。
+             *  ⇒ 进现场后**整条导航换掉**：只剩现场/对局 + 一个显式的「退出现场」，
+             *    退出回到进来之前那一页（lastDesk 记忆），位置不丢。
+             *    题线三动作在局中**不可见**，这不是隐藏功能，是不打断。 */}
+            {isLive ? (
+              <span className="appbar-group appbar-group--live">
+                <NavLink to="/live" className={linkCls}>现场</NavLink>
+                <NavLink to="/manage" className={linkCls}>对局</NavLink>
+                <button
+                  type="button" className="appbar-exit"
+                  onClick={() => navigate(lastDesk.current || '/')}
+                >退出现场</button>
+              </span>
+            ) : (
+              <>
+                {/* ★八轮第六改：导航由 9 项收成 5 项。
+                 *  病象（用户原话）：「数值太多了…页面都是在展示数值，有点像后端维护的东西」。
+                 *  实测：五个「看数」页合计展示 99 处、交互 10 处；其中三页在展示**同一批字段**。
+                 *  收法：「看数」压成**一个**入口，题线只留三个动作——且写成**动词/问句**而非名词
+                 *  （方向兵判据：「名词导航 = 仪表盘，问句导航 = 工具」）：
+                 *    待落定（今天该干的）· 记一笔（写新的）· 我在哪儿偏了（回声）
+                 *  旧路径全部保留重定向 ⇒ 书签与外部链接不断。 */}
+                <span className="appbar-group">
+                  <NavLink to="/resolve" className={linkCls}>待落定</NavLink>
+                  <NavLink to="/note" className={linkCls}>记一笔</NavLink>
+                  <NavLink to="/where-off" className={linkCls}>我在哪儿偏了</NavLink>
+                </span>
+                <span className="appbar-sep" aria-hidden="true" />
+                <span className="appbar-group">
+                  <NavLink to="/live" className={linkCls}>现场</NavLink>
+                </span>
+              </>
+            )}
           </nav>
           <button type="button" className="appbar-gear" onClick={() => setTermsOpen(true)} aria-label="术语表" title="术语表">
             <IconBook size={18} />

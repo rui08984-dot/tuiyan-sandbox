@@ -2,7 +2,7 @@
  *
  * 病象：路由 `/` 原先渲染 LivePage（狼人杀选局），导航第一项却叫「概览」。
  *   ⇒ 新人第一屏问「这是什么」，界面答「选一局继续」；而且两条产品线在导航上交错
- *      （1-3 项属推演沙盘现场、4-8 项属预测观测台），入口页只服务其中一条。
+ *      （八轮第六改后导航已收成 5 项，入口页退出导航），入口页只服务其中一条。
  *   ⇒ 侦察实测：pages/ 全库 grep「今天|下一步|该做|待办」只命中一行代码注释，
  *      **全站没有任何「今天该做什么」的承载位**。
  *
@@ -124,38 +124,58 @@ export default function HomePage() {
 
 
       {bad ? (
-        <p className="home-err">读数接口没响应，账本读不出来。<NavLink to="/audit">去账本审计</NavLink>或稍后重试。</p>
+        <p className="home-err">读数接口没响应，账本读不出来。可直接去 <NavLink to="/resolve">待落定</NavLink> 或稍后重试。</p>
       ) : null}
 
-      {/* ③ 两条产品线 —— 各说清是干什么的，不让新人自己猜 */}
+      {/* ③ 题线三动作（八轮六/七改后）+ 现场线
+       *  ★顺序按「今天该干什么」排，不按功能分类排：
+       *    先答欠着的（有截止压力）→ 再写新的 → 最后才是回看偏差。
+       *    把"看数"放在最后，是因为它是**回声**不是**入口**——
+       *    用户不是来看数的，是来回答一道题的。 */}
       <section className="home-lanes">
-        <h2 className="home-lanes-h">这里有两条线</h2>
+        <h2 className="home-lanes-h">三个动作</h2>
         <div className="home-lane-row">
-          <NavLink to="/overview" className="home-lane">
-            <div className="home-lane-t">观测台</div>
+          <NavLink to="/resolve" className="home-lane">
+            <div className="home-lane-t">待落定</div>
             <div className="home-lane-d">
-              看读数：整体误差多大、哪一层哪一域样本够、哪些结论只是披露。
-              <b>这里只读，不改任何记录。</b>
+              到期的题在这里回答真发生了还是没发生。
+              <b>答了才算落定</b>——只看不动手，账本里什么都没变。
             </div>
-            <div className="home-lane-go">进观测台</div>
+            <div className="home-lane-go">去回答</div>
           </NavLink>
-          <NavLink to="/intake" className="home-lane">
-            <div className="home-lane-t">接题</div>
+          <NavLink to="/note" className="home-lane">
+            <div className="home-lane-t">记一笔</div>
             <div className="home-lane-d">
-              把一件还没发生的事写成题。三道必过门任一不过就拒收，拒收也要留原因。
-              <b>只做登记，不改已有记录。</b>
+              把一件还没发生的事写下来，说清答案去哪里查。
+              <b>收不了也会告诉你为什么</b>，并留痕。
             </div>
-            <div className="home-lane-go">去接题</div>
+            <div className="home-lane-go">去写</div>
           </NavLink>
-          <NavLink to="/live" className="home-lane">
-            <div className="home-lane-t">现场</div>
+          <NavLink to="/where-off" className="home-lane">
+            <div className="home-lane-t">我在哪儿偏了</div>
             <div className="home-lane-d">
-              狼人杀与血染钟楼的现场记录、参谋卡与口述复盘。
-              <b>模拟局可入账本，真实对局只做复盘、不入账本。</b>
+              一道题一根线，看你在哪儿系统性说大或说小。
+              <b>只读，不改任何记录。</b>
             </div>
-            <div className="home-lane-go">进现场</div>
+            <div className="home-lane-go">去回看</div>
           </NavLink>
         </div>
+      </section>
+
+      {/* 现场线：与题线是两种节奏，单独一块，不混进三动作 */}
+      <section className="home-lanes home-lanes--live">
+        <h2 className="home-lanes-h">另一条线：现场</h2>
+        <NavLink to="/live" className="home-lane-row home-lane-row--1">
+          <div className="home-lane">
+            <div className="home-lane-t">狼人杀与血染钟楼</div>
+            <div className="home-lane-d">
+              现场记录、参谋卡与口述复盘。
+              <b>模拟局可入账本；真实对局只做复盘、不入账本。</b>
+              现场是线下局时的密集操作，和上面三件事的节奏不一样，所以分开。
+            </div>
+            <div className="home-lane-go">进现场</div>
+          </div>
+        </NavLink>
       </section>
 
       <p className="home-foot">
