@@ -48,6 +48,65 @@ function register(app) {
   app.get('/api/disclosure/verdict-spread', async (req, reply) =>
     serve(/^verdict-spread-(\d{8})([a-z]?)\.json$/, 'node p1b/scripts/verdict-spread.cjs', reply));
 
+  // ── 2026-09-28 T6：揭晓分流（**只读**，三类）──
+  //   病象：旧「待落定」页把到期未解的题列成一队让人**全部手填**，
+  //   但守护进程已在自动结算（实测一轮：到期 21 → 自动结 2 / pending 12 / fail 7）。
+  //   ⇒ 那页是倒退设计。本端点把「到期未解」按**能不能自动揭晓**分三类：
+  //     ① 已自动揭晓（守护进程已结，折叠展示结果）
+  //     ② 待你确认（机器拿不到但人能答，附「为什么」）
+  //     ③ 永远结不了（接口封禁 / 真值窗口已过，**不给假按钮**）
+  //   ★分类真源见 src/evidence/revealClass.js（kind 的固有属性，非运行时日志——那没落库）。
+  //   ★零写：不改 p1a.db 任何一列。
+  app.get('/api/disclosure/resolve-queue', async (req) => {
+    const conn = require('../deps').db.getConnection();
+    const today = new Date().toLocaleString('sv-SE', { timeZone: 'Asia/Shanghai' }).slice(0, 10);
+    const RC = require('../evidence/revealClass');
+
+    // ① 已自动揭晓：已结算且有真值，按到期日倒序（最近的在前）
+    const autoRows = conn.prepare(
+      "SELECT p.id, p.statement, p.assigned_prob, p.outcome, p.resolved_at, p.layer," +
+      " json_extract(p.evidence_json,'$[0].resolve.kind') kind, p.matures_at" +
+      " FROM predictions p WHERE p.resolved_at IS NOT NULL AND p.outcome IS NOT NULL" +
+      " ORDER BY p.resolved_at DESC LIMIT 40"
+    ).all();
+
+    // ②③ 待处理：到期未解
+    const openRows = conn.prepare(
+      "SELECT p.id, p.statement, p.assigned_prob, p.layer," +
+      " json_extract(p.evidence_json,'$[0].resolve.kind') kind, p.matures_at" +
+      " FROM predictions p WHERE p.resolved_at IS NULL AND p.matures_at IS NOT NULL" +
+      " AND substr(p.matures_at,1,10) <= ? ORDER BY p.matures_at ASC"
+    ).all(today);
+
+    const split = { ok: [], human: [], stuck: [] };
+    for (const r of openRows) {
+      const c = RC.classifyReveal(r.kind);
+      (split[c.c] || split.human).push({ ...r, cls: c.c, why: c.note, unregistered: !c.kind || !RC.REVEAL_CLASS[c.kind] });
+    }
+
+    return {
+      mode: 'resolve-queue',
+      today,
+      counts: {
+        auto_revealed: autoRows.length,
+        need_human: split.human.length,
+        stuck: split.stuck.length,
+        ...RC.classCounts(openRows),
+      },
+      auto_revealed: autoRows.map((r) => ({
+        id: r.id, statement: r.statement, assigned_prob: r.assigned_prob,
+        outcome: r.outcome, resolved_at: r.resolved_at, layer: r.layer, kind: r.kind,
+      })),
+      need_human: split.human,
+      stuck: split.stuck,
+      discipline: [
+        '三类互斥且完备：每个到期未解的题必属其一（分类依据＝kind 的取数能力，不是运行时日志——那没落库）。',
+        '「永远结不了」的题**不给可点按钮**——点了没反应比不给更糟，用户会以为是 bug。',
+        '本端点只读：不改账本任何一列。揭晓仍由守护进程与 resolve 接口写。',
+      ],
+    };
+  });
+
   // ── 第 4 期 I6：贝叶斯语义透镜（**精简投影**：只返回页面需要的字段，不透传整件）──
   app.get('/api/disclosure/bayes-lens', async (req, reply) => {
     const p = latest(/^stage4-run-five-layers-(\d{8})([a-z]?)\.json$/);
