@@ -37,7 +37,7 @@ import type { IntakeClassifyResult } from '../types';
 import '../styles/note.css';
 import { Term } from '../components/ui';
 import { Wait } from '../components/Wait';
-import { Wait } from '../components/Wait';
+import { KIND_GROUPS, kindLabel } from '../lib/kindLabel';
 
 /** 真值锚类型（来自 /api/disclosure/compiler 的 kinds 目录；此处只取展示用的代表若干）。 */
 interface KindSpec { kind: string; required: string[]; one_of: string[][]; }
@@ -68,6 +68,13 @@ export default function NotePage() {
   }, []);
 
   const spec = useMemo(() => kinds.find((k) => k.kind === kind) || null, [kinds, kind]);
+
+  // ★T3（M1）：后端给了、但尚未翻译的 kind —— 仍要出现在下拉里（标注「未译」）。
+  //   静默丢弃会让人以为「没这个来源」，那比「英文看不懂」更坏。
+  const untranslated = useMemo(
+    () => kinds.map((k) => k.kind).filter((k) => kindLabel(k).label.indexOf('（未译）') >= 0),
+    [kinds],
+  );
 
   /** 选 kind ⇒ 向后端要参考建议（该类题通常属哪层） */
   useEffect(() => {
@@ -139,12 +146,30 @@ export default function NotePage() {
         <p className="note-hint">
           <Term id="truthAnchor" plain="这一栏决定这道题能不能机检——到期时有没有一个地方能自动拿到真实答案。选错了，题就废了。" />
         </p>
+        {/* ★T3（M1）：从「27 个引擎标识平铺」改为「按领域分组的人话选项」。
+            依据是用户凭什么判断选它——**到期时能不能去某处查到真实答案**，
+            所以每项都带一句「去哪查」。分组的依据是"能不能扫读"，平铺没法扫。
+            ★未收录的 kind **不静默丢**，仍出现在「其他」组并标注「未译」——
+            丢了会让人以为"没这个来源"，那是更坏的错。 */}
         <select
           id="note-kind" className="note-select" value={kind}
           onChange={(e) => { setKind(e.target.value); setRes(null); }}
         >
           <option value="">选一个…</option>
-          {kinds.map((k) => <option key={k.kind} value={k.kind}>{k.kind}</option>)}
+          {KIND_GROUPS.map((g) => (
+            <optgroup key={g.group} label={g.group}>
+              {g.items.map((it) => (
+                <option key={it.kind} value={it.kind}>{it.label} · {it.source}</option>
+              ))}
+            </optgroup>
+          ))}
+          {untranslated.length ? (
+            <optgroup label="其他（尚未翻译的来源）">
+              {untranslated.map((k) => (
+                <option key={k} value={k}>{k}（未译）</option>
+              ))}
+            </optgroup>
+          ) : null}
         </select>
         {spec ? (
           <p className="note-need">
