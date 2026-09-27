@@ -191,9 +191,42 @@ function register(app) {
     const resolvedN = rows.reduce((s, r) => s + r.resolved, 0);
     const top = rows[0];
     const layers = [...new Set(rows.map((r) => r.layer))];
+
+    // ★2026-09-28 T4：补「同类题历史真实频率」——**这是产品主循环的起点**。
+    //   用户的流程是：写一道题 → **后端先给一个数（概率）** → 到期后回来验证。
+    //   本门面原先只给「层 + 引擎 + 样本量」，那个数没露出来，等于把主循环砍掉一半
+    //   （实测：binance 那类 27 条已结算里真发生 2 条 = 7.4%，数据一直在盘上）。
+    //
+    // 口径（与项目既有纪律一致，引用不新造）：
+    //   · 分母＝**已结算且 outcome ∈ {true,false}** 的同类题（未结算的不进分母——
+    //     把"还没到期的题"算进样本会让人以为已经有答案了）。
+    //   · n<30 ⇒ `enough:false`，界面须写「只记方向，别当结论」。
+    //     这不是新纪律，是既有 K F13／stage4 的 n≥30 纪律在接题侧的同一口径。
+    //   · 只读、零写；不算新题（这道题自己还没落库）。
+    const hist = conn.prepare(
+      "SELECT COUNT(*) n, SUM(CASE WHEN outcome = 'true' THEN 1 ELSE 0 END) hit" +
+      " FROM predictions WHERE json_extract(evidence_json,'$[0].resolve.kind') = ?" +
+      " AND resolved_at IS NOT NULL AND outcome IN ('true','false')"
+    ).get(kind);
+    const hN = Number(hist && hist.n) || 0;
+    const hHit = Number(hist && hist.hit) || 0;
+    const hEnough = hN >= 30;
+    const baseRate = hN > 0
+      ? {
+          n: hN,
+          hit: hHit,
+          rate: hHit / hN,
+          enough: hEnough,
+          note: hEnough
+            ? ('同类已结算 ' + hN + ' 条，真发生 ' + hHit + ' 条（' + (hHit / hN * 100).toFixed(1) + '%）')
+            : ('同类只结算了 ' + hN + ' 条，不足 30 ⇒ 只能记方向，不能当结论用'),
+        }
+      : { n: 0, hit: 0, rate: null, enough: false, note: '同类还没有已结算的题 ⇒ 没有历史频率可用' };
+
     return {
       mode: 'lookup', kind,
       known: true,
+      base_rate: baseRate,
       suggestion: {
         layer: top.layer,
         layer_unanimous: layers.length === 1,     // 历史是否单一层
