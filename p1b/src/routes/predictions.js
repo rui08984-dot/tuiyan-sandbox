@@ -107,7 +107,14 @@ function register(app) {
     const r = store.resolvePrediction(id, outcome, note);
     if (!r.ok && r.reason === 'not_found') throw httpError(404, '预测记录不存在: ' + id);
     if (!r.ok && r.reason === 'already_resolved') {
-      throw httpError(409, '该记录已 resolve（resolved_at=' + r.row.resolved_at + '，outcome=' + r.row.outcome + '）；账本不可变，如需纠错请另开修正记录');
+      // ★2026-08-28 T1（M7）：**原 409 文案是死胡同**——它让用户去开一条
+      //   不存在的修正记录路径（实测全库 grep amend 零命中，没有任何修正接口）。
+      //   教用户走一条不存在的路，比不说更糟。改为如实说明现状：
+      //   账本不可改（这正是它可信的原因）＋ 目前没有修正入口。
+      //   真要做修正功能，涉及「修正记录算不算进校准统计」⇒ 动账本不可变语义 ⇒ 须另立项。
+      throw httpError(409, '该记录已落定（resolved_at=' + r.row.resolved_at + '，outcome=' + r.row.outcome + '）。'
+        + '账本不可改——这正是它可信的原因。'
+        + '目前**没有**修正入口（需要单独立项）：修正记录算不算进统计，会影响已冻结的读数。');
     }
     return r.row;
   });

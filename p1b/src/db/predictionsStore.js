@@ -339,7 +339,11 @@ function listUnresolved(opts) {
 }
 
 /**
- * resolve 真值回填（账本不可变：已 resolve 拒改，纠错另开修正记录）。
+ * resolve 真值回填（账本不可变：已 resolve 拒改）。
+ * ★2026-08-28 T1（M7）：原文在此写「纠错另开修正记录」，但**全库无 amend 接口**
+ *   （grep 零命中）⇒ 那是指向一条不存在的路。已改为在 409 文案里**如实说明**
+ *   「目前没有修正入口」。真要做修正功能，须先定「修正记录算不算进校准统计」，
+ *   属**另立项**范围，不在本轮。
  * @returns {{ok:true,row:object}|{ok:false,reason:'not_found'}|{ok:false,reason:'already_resolved',row:object}}
  */
 function resolvePrediction(id, outcome, note) {

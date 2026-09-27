@@ -71,7 +71,11 @@ export default function ResolvePage() {
       say('ok', '已落定：' + row.statement.slice(0, 40) + (v === 'ambiguous' ? '（记为判定存疑）' : ''));
     } catch (e) {
       if (e instanceof ApiError && e.status === 409) {
-        say('warn', '这条已落定过了 —— 账本不可变，要改请另开一条修正记录。');
+        // ★2026-08-28 T1（M7）：原 409 提示是**死胡同**——它让用户去开一条
+        //   不存在的修正记录路径（实测后端 grep amend 零命中，无任何修正接口）。
+        //   教用户走一条不存在的路，比不说更糟。改为如实说明：不可改是不可变的
+        //   前提（这正是账本可信的原因），且目前无修正入口（真做须另立项）。
+        say('warn', '这条已落定过了 —— 账本不可改，这正是它可信的原因。目前没有修正入口（需另立项）。');
         void load();
       } else {
         say('err', '落定失败：' + (e instanceof Error ? e.message : String(e)));

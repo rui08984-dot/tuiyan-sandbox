@@ -149,7 +149,13 @@ test('POST resolve true → 200 resolved_at 落格', async () => {
 test('POST resolve 已 resolve → 409（账本不可变）', async () => {
   const r = await app.inject({ method: 'POST', url: '/api/predictions/' + pred1.id + '/resolve', payload: { outcome: 'false' } });
   assert.equal(r.statusCode, 409);
-  assert.match(j(r).error, /不可变/);
+  // ★2026-08-28 T1（M7）：断言的**意图**是「必须告知账本不可改」，
+  //   不是锁死「不可变」这三个字——措辞改成了「不可改——这正是它可信的原因」，
+  //   并去掉了指向死胡同的「另开修正记录」（后端无 amend 接口）。
+  //   故此处匹配「不可变｜不可改」二者之一，并加一条「不得指向不存在的路」。
+  assert.match(j(r).error, /不可变|不可改/);
+  assert.equal(/另开修正记录/.test(j(r).error), false,
+    '★409 文案不得再指向不存在的修正入口（无 amend 接口）——那是死胡同');
 });
 
 test('POST resolve ambiguous：无 note → 400；带 note → 200（歧义不硬判）', async () => {
