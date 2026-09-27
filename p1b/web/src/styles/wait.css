@@ -1,0 +1,48 @@
+/* Wait 等待态（八轮 T2 · M5）
+ *
+ * 形制纪律（每条都有理由，不是审美偏好）：
+ * · 环只 14px、1.1s/圈 —— 频次门：每天用几十次的东西只允许近乎无感。
+ * · **不引起布局位移**：用 inline-flex 就近排，不做居中大块，不推走内容。
+ * · 文案是**信息不是动效** ⇒ reduced-motion 下环停转，**文案必须留着**。
+ * · 失败态给「重试」：只报错不给出口 = 把问题推给用户。 */
+.wait {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 6px 11px;
+  border: 1px solid var(--line); border-radius: var(--radius-row);
+  background: var(--panel);
+  font-size: 12.5px; line-height: 1.4; color: var(--text);
+  animation: wait-in 180ms ease-out both;   /* 淡入要慢：出现本身也是轻的 */
+}
+@keyframes wait-in { from { opacity: 0; } to { opacity: 1; } }
+
+/* 细环：2px 描边，缺口一小段（不是实心圆盘） */
+.wait-ring {
+  width: 14px; height: 14px; flex: 0 0 auto;
+  border: 2px solid var(--line); border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: wait-spin 1.1s linear infinite;
+}
+@keyframes wait-spin { to { transform: rotate(360deg); } }
+
+.wait-msg { color: var(--text); }
+.wait-slow { color: var(--muted); font-size: 11.5px; }
+
+.wait--error { border-color: var(--danger-border); background: var(--danger-bg); }
+.wait-x { color: var(--danger); font-size: 13px; line-height: 1; }
+.wait-retry {
+  margin-left: 4px; padding: 2px 9px;
+  border: 1px solid var(--danger-border); border-radius: var(--radius-row);
+  background: transparent; color: var(--text);
+  font: inherit; font-size: 12px; cursor: pointer;
+}
+.wait-retry:hover { background: var(--panel-2); }
+.wait-retry:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+/* ★reduced-motion：环停转，但**文案必须留着**——文案是信息，不是动效。 */
+@media (prefers-reduced-motion: reduce) {
+  .wait-ring { animation: none; border-top-color: var(--accent); }
+  .wait { animation: none; }
+  .wait--pending::after {
+    content: '（动画已关）'; color: var(--muted); font-size: 11px;
+  }
+}

@@ -26,6 +26,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { BiasStrip, type BiasPoint } from '../charts/BiasStrip';
 import { HelpMark } from '../components/ui';
+import { Wait } from '../components/Wait';
 import '../styles/whereoff.css';
 
 interface Cell {
@@ -112,8 +113,11 @@ export default function WhereOffPage() {
         </p>
       </header>
 
-      {bad ? <p className="whereoff-bad">读不到读数件，后端没响应。</p> : null}
-      {!d && !bad ? <p className="whereoff-loading">在算…</p> : null}
+      {bad ? (
+        <Wait state="error" error="读不到读数件，后端没响应。" onRetry={() => location.reload()} testId="whereoff-wait-err" />
+      ) : null}
+      {/* ★T2：算偏差条要时间（要读 29 格 + 排序 + 归并域），说明在算什么 */}
+      {!d && !bad ? <Wait state="pending" what="在算你在哪儿偏了…" testId="whereoff-wait" /> : null}
 
       {d ? (
         <>

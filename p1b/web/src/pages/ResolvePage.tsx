@@ -26,6 +26,7 @@
  */
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { ApiError, listUnresolved, resolvePrediction, type UnresolvedRow } from '../api';
+import { Wait } from '../components/Wait';
 import '../styles/resolve.css';
 
 type Verdict = 'true' | 'false' | 'ambiguous';
@@ -121,7 +122,8 @@ export default function ResolvePage() {
         </div>
       </div>
 
-      {loading ? <p className="resolve-empty">在读账本…</p> : null}
+      {/* ★T2：拉取清单也要说明在等什么——「在读账本」太笼统 */}
+      {loading ? <Wait state="pending" what="在读账本，列出还没落定的题…" testId="resolve-wait" /> : null}
 
       {!loading && (rows || []).length === 0 ? (
         <div className="resolve-clear">

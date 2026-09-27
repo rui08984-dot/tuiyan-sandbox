@@ -36,6 +36,8 @@ import * as api from '../api';
 import type { IntakeClassifyResult } from '../types';
 import '../styles/note.css';
 import { Term } from '../components/ui';
+import { Wait } from '../components/Wait';
+import { Wait } from '../components/Wait';
 
 /** 真值锚类型（来自 /api/disclosure/compiler 的 kinds 目录；此处只取展示用的代表若干）。 */
 interface KindSpec { kind: string; required: string[]; one_of: string[][]; }
@@ -188,8 +190,17 @@ export default function NotePage() {
       <button
         type="button" className="note-go" disabled={busy || !statement.trim() || !kind}
         onClick={() => void submit()}
-      >{busy ? '在问…' : '记下'}</button>
-      {err ? <p className="note-err">{err}</p> : null}
+      >记下</button>
+
+      {/* ★T2（M5）：等待态从按钮里挪出来。按钮变字**不是等待反馈**——
+          用户真正要看到的是「在数什么」。失败态给重试，只报错不给出口＝把问题推给用户。 */}
+      <Wait
+        state={err ? 'error' : busy ? 'pending' : 'idle'}
+        what="在数同类题的历史样本…"
+        error={err || null}
+        onRetry={err ? () => void submit() : undefined}
+        testId="note-wait"
+      />
 
       {/* ── 回执：人话，且拒收的因果方向要说清 ── */}
       {res ? <Receipt r={res} /> : null}

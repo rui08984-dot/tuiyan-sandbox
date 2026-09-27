@@ -18,6 +18,7 @@ import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import '../styles/home.css';
 import { SourceTag } from '../components/SourceTag';
+import { Wait } from '../components/Wait';
 
 interface Ledger {
   records: number;
@@ -73,7 +74,16 @@ export default function HomePage() {
        *   一个诚实的空态，比任何导航都更会说话。 */}
       <section className="home-debt" aria-label="欠账">
         <div className="home-debt-main">
-          <div className="home-debt-num">{led ? led.unresolved.toLocaleString('en-US') : '—'}</div>
+          {/* ★T2：加载中**不留「—」占位**——六个破折号同时闪一下比空着更晃。
+              加载态交给下面那条 <Wait>（它自身也有 400ms 延迟，见 Wait 组件纪律①）。 */}
+          <div className="home-debt-num">{led ? led.unresolved.toLocaleString('en-US') : ''}</div>
+          <Wait
+            state={bad ? 'error' : led ? 'idle' : 'pending'}
+            what="在读账本…"
+            error="读数接口没响应，账本读不出来。"
+            onRetry={bad ? () => location.reload() : undefined}
+            testId="home-wait"
+          />
           <div className="home-debt-lab">
             道题<strong>还没落定</strong>
             {led && led.unresolved === 0 ? <span className="home-debt-zero">今天没有欠账。</span> : null}
@@ -123,9 +133,8 @@ export default function HomePage() {
       </section>
 
 
-      {bad ? (
-        <p className="home-err">读数接口没响应，账本读不出来。可直接去 <NavLink to="/resolve">待落定</NavLink> 或稍后重试。</p>
-      ) : null}
+      {/* ★T2：失败态已由上面 <Wait state="error"> 承担（带重试出口），
+          此处不再重复一条无出口的纯文字提示。 */}
 
       {/* ③ 题线三动作（八轮六/七改后）+ 现场线
        *  ★顺序按「今天该干什么」排，不按功能分类排：
