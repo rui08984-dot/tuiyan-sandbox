@@ -1,0 +1,722 @@
+{
+  "script": "p1b/scripts/base-rate-decision-value.cjs",
+  "generated_at": "2026-09-28T20:25:58.809Z",
+  "question": "按诚实基率 assigned_prob 决策 vs 按 0.5 决策，结果有没有差别？",
+  "discipline": {
+    "zero_write_ledger": true,
+    "read_only": true,
+    "zero_llm": true,
+    "zero_network": true,
+    "zero_new_deps": true
+  },
+  "prereg": {
+    "file": "E:\\music player\\docs\\specs\\PREREG-base-rate-decision-value-v1.md",
+    "sha256": "619ac53a59769c2f3860ff9880788e1f61c439c7192e5760aa13e94362b80375",
+    "match": true,
+    "constants": {
+      "BINS": [
+        0.1,
+        0.3,
+        0.5,
+        0.7,
+        0.9
+      ],
+      "C1_WAD_TOL": 0.02,
+      "MIN_N": 30,
+      "BOOT_B": 1000,
+      "BOOT_SEED": 987654321,
+      "MDE_K": 2.8,
+      "HALF": 0.5
+    }
+  },
+  "pool": {
+    "n": 1602,
+    "excluded_truth_basis_defect": 98,
+    "min_n": 30
+  },
+  "c1_calibration": {
+    "n": 1602,
+    "bins": [
+      {
+        "label": 0.1,
+        "n": 30,
+        "obs_rate": 0.1,
+        "mean_p": 0.16656033333333334,
+        "mean_y": 0.1,
+        "eligible": true,
+        "note": "可判读"
+      },
+      {
+        "label": 0.3,
+        "n": 343,
+        "obs_rate": 0.36443148688046645,
+        "mean_p": 0.30989254153811296,
+        "mean_y": 0.36443148688046645,
+        "eligible": true,
+        "note": "可判读"
+      },
+      {
+        "label": 0.5,
+        "n": 661,
+        "obs_rate": 0.4659606656580938,
+        "mean_p": 0.4745729000946322,
+        "mean_y": 0.4659606656580938,
+        "eligible": true,
+        "note": "可判读"
+      },
+      {
+        "label": 0.7,
+        "n": 537,
+        "obs_rate": 0.6871508379888268,
+        "mean_p": 0.6682924547067618,
+        "mean_y": 0.6871508379888268,
+        "eligible": true,
+        "note": "可判读"
+      },
+      {
+        "label": 0.9,
+        "n": 31,
+        "obs_rate": 0.8709677419354839,
+        "mean_p": 0.8448387096774196,
+        "mean_y": 0.8709677419354839,
+        "eligible": true,
+        "note": "可判读"
+      }
+    ],
+    "n_eligible": 1602,
+    "wad": 0.023304186665073685,
+    "wad_center": 0.03270911360799,
+    "tol": 0.02,
+    "c1_pass": false,
+    "verdict": "未校准",
+    "n_eligible_bins": 5
+  },
+  "c2_decision_value": {
+    "n": 1602,
+    "delta": -0.02456272599399748,
+    "ci95": {
+      "lb": -0.031030769415501085,
+      "ub": -0.018014892148357633,
+      "B": 1000,
+      "seed": 987654321,
+      "mean": -0.02456272599399748
+    },
+    "sd_d": 0.1403615504722974,
+    "mde": 0.00981917346625403,
+    "brier_p": 0.22543727400600364,
+    "brier_half": 0.25,
+    "boot": {
+      "B": 1000,
+      "seed": 987654321
+    },
+    "c2_verdict": "A"
+  },
+  "verdict": {
+    "c2_exit": "A",
+    "c2_wording": "基率有决策价值（CI95 上界<0）",
+    "c1": "未校准",
+    "exit_b_mandatory": null
+  },
+  "layers": [
+    {
+      "layer": "L6",
+      "n": 270,
+      "eligible": true,
+      "c2": {
+        "n": 270,
+        "delta": -0.05586620370370382,
+        "ci95": {
+          "lb": -0.07415314814814813,
+          "ub": -0.03668166666666666,
+          "B": 1000,
+          "seed": 987654321,
+          "mean": -0.05586620370370382
+        },
+        "sd_d": 0.1505750323926622,
+        "mde": 0.025658373016432232,
+        "brier_p": 0.1941337962962963,
+        "brier_half": 0.25,
+        "boot": {
+          "B": 1000,
+          "seed": 987654321
+        },
+        "c2_verdict": "A"
+      },
+      "cal": {
+        "n": 270,
+        "bins": [
+          {
+            "label": 0.1,
+            "n": 0,
+            "obs_rate": null,
+            "mean_p": null,
+            "mean_y": null,
+            "eligible": false,
+            "note": "空档"
+          },
+          {
+            "label": 0.3,
+            "n": 40,
+            "obs_rate": 0.25,
+            "mean_p": 0.3393750000000001,
+            "mean_y": 0.25,
+            "eligible": true,
+            "note": "可判读"
+          },
+          {
+            "label": 0.5,
+            "n": 96,
+            "obs_rate": 0.375,
+            "mean_p": 0.4997916666666662,
+            "mean_y": 0.375,
+            "eligible": true,
+            "note": "可判读"
+          },
+          {
+            "label": 0.7,
+            "n": 113,
+            "obs_rate": 0.8141592920353983,
+            "mean_p": 0.7029203539823013,
+            "mean_y": 0.8141592920353983,
+            "eligible": true,
+            "note": "可判读"
+          },
+          {
+            "label": 0.9,
+            "n": 21,
+            "obs_rate": 0.8571428571428571,
+            "mean_p": 0.852857142857143,
+            "mean_y": 0.8571428571428571,
+            "eligible": false,
+            "note": "n<30 只方向披露·禁入判读"
+          }
+        ],
+        "n_eligible": 249,
+        "wad": 0.11295180722891529,
+        "wad_center": 0.10803212851405626,
+        "tol": 0.02,
+        "c1_pass": false,
+        "verdict": "未校准",
+        "n_eligible_bins": 3
+      },
+      "note": "可判读（**仅限本层**；禁与其它层池化）"
+    },
+    {
+      "layer": "L1",
+      "n": 180,
+      "eligible": true,
+      "c2": {
+        "n": 180,
+        "delta": -0.03851777777777776,
+        "ci95": {
+          "lb": -0.05774041666666668,
+          "ub": -0.017680972222222237,
+          "B": 1000,
+          "seed": 987654321,
+          "mean": -0.03851777777777776
+        },
+        "sd_d": 0.14648288301839407,
+        "mde": 0.030570930503799342,
+        "brier_p": 0.21148222222222224,
+        "brier_half": 0.25,
+        "boot": {
+          "B": 1000,
+          "seed": 987654321
+        },
+        "c2_verdict": "A"
+      },
+      "cal": {
+        "n": 180,
+        "bins": [
+          {
+            "label": 0.1,
+            "n": 4,
+            "obs_rate": 0,
+            "mean_p": 0.14875,
+            "mean_y": 0,
+            "eligible": false,
+            "note": "n<30 只方向披露·禁入判读"
+          },
+          {
+            "label": 0.3,
+            "n": 43,
+            "obs_rate": 0.3488372093023256,
+            "mean_p": 0.3116279069767441,
+            "mean_y": 0.3488372093023256,
+            "eligible": true,
+            "note": "可判读"
+          },
+          {
+            "label": 0.5,
+            "n": 61,
+            "obs_rate": 0.4426229508196721,
+            "mean_p": 0.5011475409836064,
+            "mean_y": 0.4426229508196721,
+            "eligible": true,
+            "note": "可判读"
+          },
+          {
+            "label": 0.7,
+            "n": 62,
+            "obs_rate": 0.6935483870967742,
+            "mean_p": 0.6679838709677423,
+            "mean_y": 0.6935483870967742,
+            "eligible": true,
+            "note": "可判读"
+          },
+          {
+            "label": 0.9,
+            "n": 10,
+            "obs_rate": 0.9,
+            "mean_p": 0.828,
+            "mean_y": 0.9,
+            "eligible": false,
+            "note": "n<30 只方向披露·禁入判读"
+          }
+        ],
+        "n_eligible": 166,
+        "wad": 0.040692771084337206,
+        "wad_center": 0.03614457831325299,
+        "tol": 0.02,
+        "c1_pass": false,
+        "verdict": "未校准",
+        "n_eligible_bins": 3
+      },
+      "note": "可判读（**仅限本层**；禁与其它层池化）"
+    },
+    {
+      "layer": "L3",
+      "n": 620,
+      "eligible": true,
+      "c2": {
+        "n": 620,
+        "delta": -0.011370675193548396,
+        "ci95": {
+          "lb": -0.021244653677419376,
+          "ub": -0.0005209131290322617,
+          "B": 1000,
+          "seed": 987654321,
+          "mean": -0.011370675193548396
+        },
+        "sd_d": 0.1281671190830185,
+        "mde": 0.014412483032812028,
+        "brier_p": 0.2386293248064518,
+        "brier_half": 0.25,
+        "boot": {
+          "B": 1000,
+          "seed": 987654321
+        },
+        "c2_verdict": "A"
+      },
+      "cal": {
+        "n": 620,
+        "bins": [
+          {
+            "label": 0.1,
+            "n": 1,
+            "obs_rate": 0,
+            "mean_p": 0.01,
+            "mean_y": 0,
+            "eligible": false,
+            "note": "n<30 只方向披露·禁入判读"
+          },
+          {
+            "label": 0.3,
+            "n": 117,
+            "obs_rate": 0.39316239316239315,
+            "mean_p": 0.30701452991452977,
+            "mean_y": 0.39316239316239315,
+            "eligible": true,
+            "note": "可判读"
+          },
+          {
+            "label": 0.5,
+            "n": 301,
+            "obs_rate": 0.4750830564784053,
+            "mean_p": 0.4678116279069767,
+            "mean_y": 0.4750830564784053,
+            "eligible": true,
+            "note": "可判读"
+          },
+          {
+            "label": 0.7,
+            "n": 201,
+            "obs_rate": 0.6368159203980099,
+            "mean_p": 0.6599781094527368,
+            "mean_y": 0.6368159203980099,
+            "eligible": true,
+            "note": "可判读"
+          },
+          {
+            "label": 0.9,
+            "n": 0,
+            "obs_rate": null,
+            "mean_p": null,
+            "mean_y": null,
+            "eligible": false,
+            "note": "空档"
+          }
+        ],
+        "n_eligible": 619,
+        "wad": 0.02734022617124415,
+        "wad_center": 0.050242326332794816,
+        "tol": 0.02,
+        "c1_pass": false,
+        "verdict": "未校准",
+        "n_eligible_bins": 3
+      },
+      "note": "可判读（**仅限本层**；禁与其它层池化）"
+    },
+    {
+      "layer": "L2",
+      "n": 476,
+      "eligible": true,
+      "c2": {
+        "n": 476,
+        "delta": -0.011543288071508144,
+        "ci95": {
+          "lb": -0.024182101726825972,
+          "ub": 0.0009858535084590002,
+          "B": 1000,
+          "seed": 987654321,
+          "mean": -0.011543288071508144
+        },
+        "sd_d": 0.13732393132813323,
+        "mde": 0.017623849803630704,
+        "brier_p": 0.23845671192849163,
+        "brier_half": 0.25,
+        "boot": {
+          "B": 1000,
+          "seed": 987654321
+        },
+        "c2_verdict": "B"
+      },
+      "cal": {
+        "n": 476,
+        "bins": [
+          {
+            "label": 0.1,
+            "n": 0,
+            "obs_rate": null,
+            "mean_p": null,
+            "mean_y": null,
+            "eligible": false,
+            "note": "空档"
+          },
+          {
+            "label": 0.3,
+            "n": 136,
+            "obs_rate": 0.39705882352941174,
+            "mean_p": 0.3069532481439179,
+            "mean_y": 0.39705882352941174,
+            "eligible": true,
+            "note": "可判读"
+          },
+          {
+            "label": 0.5,
+            "n": 192,
+            "obs_rate": 0.5208333333333334,
+            "mean_p": 0.4621811820966251,
+            "mean_y": 0.5208333333333334,
+            "eligible": true,
+            "note": "可判读"
+          },
+          {
+            "label": 0.7,
+            "n": 148,
+            "obs_rate": 0.668918918918919,
+            "mean_p": 0.6548894066049411,
+            "mean_y": 0.668918918918919,
+            "eligible": true,
+            "note": "可判读"
+          },
+          {
+            "label": 0.9,
+            "n": 0,
+            "obs_rate": null,
+            "mean_p": null,
+            "mean_y": null,
+            "eligible": false,
+            "note": "空档"
+          }
+        ],
+        "n_eligible": 476,
+        "wad": 0.05376457796710897,
+        "wad_center": 0.045798319327731075,
+        "tol": 0.02,
+        "c1_pass": false,
+        "verdict": "未校准",
+        "n_eligible_bins": 3
+      },
+      "note": "可判读（**仅限本层**；禁与其它层池化）"
+    },
+    {
+      "layer": "L5",
+      "n": 56,
+      "eligible": true,
+      "c2": {
+        "n": 56,
+        "delta": -0.08549979107760718,
+        "ci95": {
+          "lb": -0.12818643635866075,
+          "ub": -0.04008010688667859,
+          "B": 1000,
+          "seed": 987654321,
+          "mean": -0.08549979107760718
+        },
+        "sd_d": 0.17990943257364497,
+        "mde": 0.0673159457339487,
+        "brier_p": 0.16450020892239287,
+        "brier_half": 0.25,
+        "boot": {
+          "B": 1000,
+          "seed": 987654321
+        },
+        "c2_verdict": "A"
+      },
+      "cal": {
+        "n": 56,
+        "bins": [
+          {
+            "label": 0.1,
+            "n": 25,
+            "obs_rate": 0.12,
+            "mean_p": 0.17567239999999995,
+            "mean_y": 0.12,
+            "eligible": false,
+            "note": "n<30 只方向披露·禁入判读"
+          },
+          {
+            "label": 0.3,
+            "n": 7,
+            "obs_rate": 0,
+            "mean_p": 0.23597142857142855,
+            "mean_y": 0,
+            "eligible": false,
+            "note": "n<30 只方向披露·禁入判读"
+          },
+          {
+            "label": 0.5,
+            "n": 11,
+            "obs_rate": 0.18181818181818182,
+            "mean_p": 0.5084181818181818,
+            "mean_y": 0.18181818181818182,
+            "eligible": false,
+            "note": "n<30 只方向披露·禁入判读"
+          },
+          {
+            "label": 0.7,
+            "n": 13,
+            "obs_rate": 0.5384615384615384,
+            "mean_p": 0.649908923076923,
+            "mean_y": 0.5384615384615384,
+            "eligible": false,
+            "note": "n<30 只方向披露·禁入判读"
+          },
+          {
+            "label": 0.9,
+            "n": 0,
+            "obs_rate": null,
+            "mean_p": null,
+            "mean_y": null,
+            "eligible": false,
+            "note": "空档"
+          }
+        ],
+        "n_eligible": 0,
+        "wad": null,
+        "wad_center": null,
+        "tol": 0.02,
+        "c1_pass": null,
+        "verdict": "n/a",
+        "n_eligible_bins": 0
+      },
+      "note": "可判读（**仅限本层**；禁与其它层池化）"
+    }
+  ],
+  "f2_side_check": {
+    "total_rows_with_prob": 1992,
+    "with_base_rate": 1308,
+    "without_base_rate": 684,
+    "exact_bit_equal": 503,
+    "not_exact": 805,
+    "equal_within_1e3": 1308,
+    "equal_within_1e2": 1308,
+    "max_abs_diff": 0.000500000000000056,
+    "settled": {
+      "with_base_rate": 1057,
+      "exact_bit_equal": 359
+    },
+    "by_layer": {
+      "L3": {
+        "n": 615,
+        "with_br": 615,
+        "bit_exact": 131
+      },
+      "L2": {
+        "n": 595,
+        "with_br": 595,
+        "bit_exact": 291
+      },
+      "L5": {
+        "n": 98,
+        "with_br": 98,
+        "bit_exact": 81
+      }
+    },
+    "not_exact_sample": [
+      {
+        "id": 452,
+        "layer": "L2",
+        "assigned_prob": 0.4502,
+        "base_rate_p": 0.45,
+        "abs_diff": 0.00019999999999997797
+      },
+      {
+        "id": 459,
+        "layer": "L3",
+        "assigned_prob": 0.3367,
+        "base_rate_p": 0.337,
+        "abs_diff": 0.00030000000000002247
+      },
+      {
+        "id": 460,
+        "layer": "L3",
+        "assigned_prob": 0.3367,
+        "base_rate_p": 0.337,
+        "abs_diff": 0.00030000000000002247
+      },
+      {
+        "id": 461,
+        "layer": "L3",
+        "assigned_prob": 0.3367,
+        "base_rate_p": 0.337,
+        "abs_diff": 0.00030000000000002247
+      },
+      {
+        "id": 462,
+        "layer": "L3",
+        "assigned_prob": 0.3367,
+        "base_rate_p": 0.337,
+        "abs_diff": 0.00030000000000002247
+      },
+      {
+        "id": 463,
+        "layer": "L3",
+        "assigned_prob": 0.3033,
+        "base_rate_p": 0.303,
+        "abs_diff": 0.00030000000000002247
+      },
+      {
+        "id": 464,
+        "layer": "L3",
+        "assigned_prob": 0.3033,
+        "base_rate_p": 0.303,
+        "abs_diff": 0.00030000000000002247
+      },
+      {
+        "id": 465,
+        "layer": "L3",
+        "assigned_prob": 0.3033,
+        "base_rate_p": 0.303,
+        "abs_diff": 0.00030000000000002247
+      },
+      {
+        "id": 466,
+        "layer": "L3",
+        "assigned_prob": 0.3033,
+        "base_rate_p": 0.303,
+        "abs_diff": 0.00030000000000002247
+      },
+      {
+        "id": 467,
+        "layer": "L3",
+        "assigned_prob": 0.6467,
+        "base_rate_p": 0.647,
+        "abs_diff": 0.00029999999999996696
+      },
+      {
+        "id": 468,
+        "layer": "L3",
+        "assigned_prob": 0.6467,
+        "base_rate_p": 0.647,
+        "abs_diff": 0.00029999999999996696
+      },
+      {
+        "id": 469,
+        "layer": "L3",
+        "assigned_prob": 0.6467,
+        "base_rate_p": 0.647,
+        "abs_diff": 0.00029999999999996696
+      },
+      {
+        "id": 470,
+        "layer": "L3",
+        "assigned_prob": 0.6467,
+        "base_rate_p": 0.647,
+        "abs_diff": 0.00029999999999996696
+      },
+      {
+        "id": 471,
+        "layer": "L2",
+        "assigned_prob": 0.4488,
+        "base_rate_p": 0.449,
+        "abs_diff": 0.00020000000000003348
+      },
+      {
+        "id": 472,
+        "layer": "L2",
+        "assigned_prob": 0.2952,
+        "base_rate_p": 0.295,
+        "abs_diff": 0.00020000000000003348
+      },
+      {
+        "id": 473,
+        "layer": "L3",
+        "assigned_prob": 0.4839,
+        "base_rate_p": 0.484,
+        "abs_diff": 0.00009999999999998899
+      },
+      {
+        "id": 474,
+        "layer": "L3",
+        "assigned_prob": 0.4839,
+        "base_rate_p": 0.484,
+        "abs_diff": 0.00009999999999998899
+      },
+      {
+        "id": 475,
+        "layer": "L3",
+        "assigned_prob": 0.4839,
+        "base_rate_p": 0.484,
+        "abs_diff": 0.00009999999999998899
+      },
+      {
+        "id": 476,
+        "layer": "L3",
+        "assigned_prob": 0.4839,
+        "base_rate_p": 0.484,
+        "abs_diff": 0.00009999999999998899
+      },
+      {
+        "id": 481,
+        "layer": "L3",
+        "assigned_prob": 0.4409,
+        "base_rate_p": 0.441,
+        "abs_diff": 0.00009999999999998899
+      }
+    ],
+    "is_criterion": false,
+    "note": "★独立事实核验，**不参与** C1／C2 判定；核出什么写什么。"
+  },
+  "walkforward_note": {
+    "degenerate": true,
+    "why": "两臂都是常数函数（p 为写入时冻结的账本值；0.5 为常数）⇒ 无历史信息流，walk-forward 在此退化。",
+    "executed_assertions": {
+      "order_invariance": true,
+      "what": "打乱入池行后重算，d 向量逐位相同（常数臂不可能看见未来）；同刻题互不影响亦由该断言覆盖。",
+      "zero_leak_test": "见 p1b/test/base-rate-decision-value.test.cjs ⑧：扰动 t 之后的 y，d_t 逐位不变。"
+    },
+    "forbidden_claim": "★禁把本件对外表述成「跑了一次 walk-forward」——那是退化处的退化。"
+  }
+}

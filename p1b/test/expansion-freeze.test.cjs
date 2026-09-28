@@ -36,6 +36,18 @@
  *   ② PREREG 23：`.scratch/forecast-debate/` 下文件名含 PREREG 的 .md 冻结件 23 份。
  *   ③ 页面 25：`p1b/web/src/pages/**` 下 .tsx 共 25 个，其中 **8 个是重定向保留的死页面**
  *      （路由全为 `<Navigate replace>`、组件无任何 import，见 §死页面 断言）。
+ *      那 8 个死页**不许为凑计数而删**——它们是 9 个前端测试的扫描目标（实测 14 处引用），
+ *      删了是砍已被断言的行为；正解是「改扫 dist 产物」＝ADR-005 独立立项。
+ *
+ * ── ★FROZEN_BASELINE 是不动量，扩容只走 APPROVED_RAISES（2026-09-29 实测校正）──
+ *   首次登记 pages 上调时踩过：按文件头「§基线防篡改 三步」把 `FROZEN_BASELINE.pages`
+ *   一并改成 26，**当场判红**——`§豁免` 那条断言要求
+ *   `r.newBaseline > FROZEN_BASELINE[metric]`（严格大于，见下方 line≈281）。
+ *   两边同时成立不了：改了基线，newBaseline 就不再「大于冻结基线」。
+ *   ⇒ 本文件头 §基线防篡改 里「② 改 FROZEN_BASELINE」那一步**与实际执行的闸互相矛盾**，
+ *     以断言为准：**基线数字保持 25 不动，基线上调只登记在 APPROVED_RAISES**，
+ *     `effectiveBaseline()` 取 max(冻结值, 已批准上调)。BASELINE_SHA256 因此也不需要重算。
+ *   这条记录留着，是为了让下一个来登记的人不必再踩一遍。
  */
 
 const { test } = require('node:test');
@@ -72,7 +84,29 @@ const BASELINE_SHA256 = '375af205a4ece29c823dad27f8d6537507150de574240a687498b7d
  * 每条必填：metric / newBaseline / date / by / reason / evidence(收据文件，必须存在且非空)
  */
 const APPROVED_RAISES = [
-  // 示范（当前无）：{ metric: 'kinds', newBaseline: 28, date: '2026-xx-xx',
+  // ── 第六批 · pages 25 → 26（2026-09-29）────────────────────────────────
+  // ★本闸的**第一次实战命中**，不是事后补记：
+  //   冻结闸由 commit fa2423d 于 2026-09-29 04:16:02 落盘、pages 基线写死 25；
+  //   `p1b/web/src/pages/honest/BaselinePage.tsx` 于同日 04:27–04:29 新增（未入库），
+  //   即**基线写死后 11 分钟被越过且未登记**，本闸当场判红「现为 26 > 基线 25」。
+  //   ↑ 一个从没红过的闸不值钱；当场抓住自己的闸才值钱。
+  {
+    metric: 'pages',
+    newBaseline: 26,
+    date: '2026-09-29',
+    by: '第六批车道 B 提交；冻结评审人 = 助手；依据 = 已批准方案 '
+      + 'docs/plans/2026-09-28-最终方案-可信层对外.md §五 阶段二 2-B',
+    reason: '已批准方案 §五「阶段二 · 组装诚实区间」第 2-B 条逐字写着：'
+      + '「`ErrorBar` 已有 `value=null` 态（`p1b/web/src/charts/ErrorBar.tsx:32`），加一个页面消费它」'
+      + '——本轮要加一个页面是**用户已批准方案里的交付物**，不是临时起意的扩权。'
+      + '（实测更正：方案标的 `:32` 行号已漂移，`value` 的可空声明实际在 `ErrorBar.tsx:21`，'
+      + '`value: number | null | undefined;`；结论成立，零件确实在。）'
+      + '本次上调由冻结闸当场拦下后、由评审人依该已批准方案批准，非事后补记。'
+      + '★明确否决「删 8 个死页换计数」：那 8 个死页是 9 个前端测试的扫描目标（实测 14 处引用），'
+      + '删了是砍已被断言的行为；正解是「改扫 dist 产物」＝ADR-005 独立立项，不在本批。',
+    evidence: 'docs/specs/第六批收据-20260928.md',
+  },
+  // 示范（其余仍无）：{ metric: 'kinds', newBaseline: 28, date: '2026-xx-xx',
   //                 by: '…', reason: '…', evidence: '.scratch/…-收据.md' }
 ];
 
@@ -347,3 +381,7 @@ test('防篡改 · FROZEN_BASELINE 未被绕过 APPROVED_RAISES 直接改动', (
 // 供审阅者独立复算（不依赖本文件的任何变量）：
 //   node -e "console.log(require('node:crypto').createHash('sha256').update(JSON.stringify({kinds:27,prereg:23,pages:25})).digest('hex'))"
 //   = 375af205a4ece29c823dad27f8d6537507150de574240a687498b7d49d6c72e3
+// ★键序必须与 FROZEN_BASELINE 的声明序一致（kinds, prereg, pages）——JSON.stringify 依赖插入序，
+//   键序写错会算出另一个 hash，然后你会以为自己被篡改了。
+// ★FROZEN_BASELINE 是**不动量**（见文件头 2026-09-29 校正段）：基线上调只登记 APPROVED_RAISES，
+//   所以这个 hash 不会因为批准了扩容而变——它变，才说明有人绕过登记直接改了基线。

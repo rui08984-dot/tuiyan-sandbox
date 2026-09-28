@@ -15,6 +15,7 @@ import ManagePage from './pages/ManagePage';
 import SettingsPage from './pages/SettingsPage';
 import MysticPage from './pages/mystic/MysticPage';
 import QuestionPage from './pages/QuestionPage';               // ★T9（2026-09-28）：一道题的完整一生（/question/:id）
+import BaselinePage from './pages/honest/BaselinePage';         // ★2026-09-29：诚实区间（/baseline，两个出口由用户选：严格只看区间／给基率连数一起看）
 import NegativeResultsPage from './pages/disclosure/NegativeResultsPage';   // 第 4 期 I2（2026-09-21）：负结果账本对外页
 // ★T9：五页（Overview/Audit/Intake/Calendar/Compiler）的 **import 已删**——八轮第六/七改把
 //   它们的路由全部改成重定向，组件再没被渲染过，tsc 报 TS6133（实测 5 条，见本轮 tsc 输出）。
@@ -196,6 +197,10 @@ function Shell() {
               它是**从别的页跳进来**的详情页（回声页 → 具体某一道题），
               给它一个顶级导航位等于把"看一道"抬成"看全局"。 */}
           <Route path="/question/:id" element={<QuestionPage />} />
+          {/* ★2026-09-29 诚实区间：同「一道题的一生」一样是**从别处跳进来**的详情页，
+              入口在「我在哪儿偏了」页脚（那边是唯一的"看数"入口）——
+              不占导航位：八轮已把导航由 9 项收成 5 项，再加一个「看数」项是把收过的口重新撑开。 */}
+          <Route path="/baseline" element={<BaselinePage />} />
           {/* 旧路径重定向保兼容（书签/旧链接）：已并入总览的三页 */}
           <Route path="/calibration" element={<Navigate to="/overview" replace />} />
           <Route path="/bayes-lens" element={<Navigate to="/overview" replace />} />

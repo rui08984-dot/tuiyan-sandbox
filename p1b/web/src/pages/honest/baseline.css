@@ -1,0 +1,114 @@
+/* baseline.css —— 「诚实区间」页样式（2026-09-29）
+ *
+ * 与本目录同页的取数纪律配套：**空就是空**。本页没有任何一个 0 占位符，
+ * 所以样式里也不给"缺数据时补一格灰块"留位置——那正是要防的那种假象。
+ * 色值全部取 tokens.css 变量（守「不硬编码色」反模式，见 styles/palette-single-source.test.mjs）。
+ */
+
+.hb { display: flex; flex-direction: column; gap: 14px; }
+
+.hb-back {
+  align-self: flex-start;
+  font-size: var(--font-size-small);
+  color: var(--muted);
+  text-decoration: none;
+}
+.hb-back:hover { color: var(--accent); }
+
+/* ── 选哪一类 ── */
+.hb-pick {
+  display: flex; flex-direction: column; gap: 6px;
+  padding: 12px 14px;
+  background: var(--panel-3);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+}
+.hb-lbl { font-size: var(--font-size-small); color: var(--muted); }
+.hb-sel {
+  font: inherit; font-size: 15px;
+  padding: 8px 10px;
+  background: var(--panel); color: var(--text);
+  border: 1px solid var(--line); border-radius: var(--radius-sm);
+}
+.hb-src { margin: 0; font-size: var(--font-size-small); color: var(--muted); }
+
+/* ── ★两个出口：这是本页唯一的交互主体，所以给足点击区 ── */
+.hb-exit {
+  padding: 12px 14px;
+  background: var(--panel-3);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+}
+.hb-exit-h {
+  display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap;
+  margin: 0 0 8px; font-size: 15px;
+}
+.hb-exit-h span { font-size: var(--font-size-small); color: var(--muted); font-weight: 400; }
+.hb-exit-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+.hb-btn {
+  font: inherit; font-size: 13.5px;
+  min-height: 36px; padding: 6px 14px;
+  color: var(--text);
+  background: var(--panel);
+  border: 1px solid var(--line); border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+.hb-btn.is-on {
+  color: var(--accent-ink);
+  background: var(--accent);
+  border-color: var(--accent);
+  font-weight: 600;
+}
+.hb-exit-note { margin: 8px 0 0; font-size: var(--font-size-small); color: var(--muted); }
+
+/* ── 读数 ── */
+.hb-read { display: flex; flex-direction: column; gap: 12px; }
+
+/* 三态横幅：三句不同的话，各有自己的语气（够=平常／薄=克制／没有=说清是另一件事） */
+.hb-state {
+  margin: 0; padding: 10px 12px;
+  font-size: 13.5px; line-height: 1.6;
+  border-left: 3px solid var(--line); background: var(--panel-3);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+.hb-state.is-enough { border-left-color: var(--accent); }
+.hb-state.is-too_thin { border-left-color: var(--warn); }
+.hb-state.is-no_rows { border-left-color: var(--muted); }
+
+.hb-chart { padding: 6px 2px; }
+
+/* 数字与解释：图的形状归图表组件，文案归本页（见 BaselinePage 头注的如实记账条） */
+.hb-nums {
+  display: grid; gap: 0; margin: 0;
+  border: 1px solid var(--line); border-radius: var(--radius-md);
+  background: var(--panel); overflow: hidden;
+}
+.hb-num {
+  display: grid; grid-template-columns: 148px 1fr; gap: 10px;
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--line);
+}
+.hb-num:last-child { border-bottom: 0; }
+.hb-num dt { font-size: var(--font-size-small); color: var(--muted); }
+.hb-num dd { margin: 0; font-size: 13.5px; line-height: 1.6; }
+
+/* 「给基率」出口的强制标注：同一屏、不可折叠 ⇒ 视觉上必须比数字更显眼一点 */
+.hb-caveat {
+  margin: 0; padding: 10px 12px;
+  font-size: 13.5px; line-height: 1.6;
+  color: var(--text);
+  background: var(--panel-2);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius-sm);
+}
+
+.hb-foot { font-size: var(--font-size-small); color: var(--muted); }
+.hb-foot-h { margin: 0 0 4px; font-weight: 600; color: var(--text); }
+.hb-foot ul { margin: 0; padding-left: 18px; line-height: 1.7; }
+.hb-engine { margin: 6px 0 0; display: flex; gap: 8px; flex-wrap: wrap; }
+.hb-engine span { opacity: 0.8; }
+
+@media (max-width: 640px) {
+  .hb-num { grid-template-columns: 1fr; gap: 2px; }
+  .hb-btn { min-height: 44px; }
+}
