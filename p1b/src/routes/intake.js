@@ -46,6 +46,10 @@ const { certifiedSourceForRow } = require('../engines/l5_sources'); // 2026-09-1
 const baseRateMod = require('../evidence/baseRate'); // 批次 3：基率结构化字段（形态判别与引擎入参）
 const predictionsStore = require('../db/predictionsStore'); // 2026-09-28：只借 deriveMaturesAt（到期日推导的单一真源）
 const lab = require('../evidence/labBoundary'); // 2026-09-27：实验场/真实局边界单一真源（第 -1 步·实验场域门）
+// 洞三（2026-09-28）：返回体的 matures_at 必须与 create 落库那行**逐字相同** ⇒ 复用写侧那个归一器。
+//   路线间 require 是既有先例（`require('./games')` 见 advise/events/oracle/verdicts/predictions），
+//   且 predictions 不 require intake ⇒ 无循环。
+const { normalizeResolveSpec: normalizeResolveSpecForWrite } = require('./predictions');
 
 /** 清单版本：v2 判据 + v3 注记（unknown 出口 + L4 后置标注），随清单文档冻结。 */
 const CHECKLIST_HASH = 'v3';
@@ -58,7 +62,7 @@ const GATE_QUESTIONS = [
 ];
 
 /**
- * ★2026-09-28：本函数**只服务于返回体里新加的 matures_at 键**，不参与任何判定。
+ * ★2026-09-28：本函数**只服务于返回体里 matures_at 那一个键**，不参与任何判定。
  *   判据契约、拒收门、决策树、gate 状态机一律未动。
  *
  * 到期口径：真值锚里带日历字段（date / week_end / end / date_plus7 / week_start /
@@ -67,11 +71,39 @@ const GATE_QUESTIONS = [
  *   **人的散文**，从自由文本里正则抓一个日期当作到期日，就是替用户编造确定性
  *   （与 `predictionsStore.deriveMaturesAt` 的 #2 纪律同源）。
  *   推导本身复用 store 的单一真源，不在这里另写一套日期优先级。
+ *
+ * ★★洞三（2026-09-28 收敛）：入参从「intake 自己截断过的 resolveSpec」改成
+ *   **调用方发来的那份 raw spec，先过写侧那个 normalizeResolveSpec**。
+ *   为什么必须这样（实测，见 test/matures-at-two-paths.test.cjs）：
+ *     本文件原有一份 5 键白名单的 `normalizeResolveSpec`（url_template|field|threshold|cmp|date），
+ *     而 `predictions.js` 那份是**全量透传**。⇒ 同一个请求体经 classify 时
+ *     `month`/`year`/`period`/`week_end`/`end`/`date_plus7`/`week_start`/`epiweek`/`week`
+ *     **当场被丢掉**，经 create 时原样进去。实测矛盾方向是
+ *     「classify 说无到期日、账本里却有一个」：
+ *       {kind, month:'2026-10'} → classify `null` ／ create+落库 `2026-10-31`
+ *       {kind, year:2026}      → classify `null` ／ create+落库 `2027-12-31`
+ *     而到期日是**结算通道的选题闸门**（predictionsStore.js:213-216：早一年会让年度题在
+ *     真值尚未发布时就被选中），判错方向同样静默。
+ *   ⇒ 直接从 `./predictions` 取写侧那个归一器（路线间 require 是本项目既有先例：
+ *     `require('./games')` 见 advise/events/oracle/verdicts/predictions），**同一函数、同一份输入**。
+ *   ★为什么不能图省事直接喂 raw：写侧归一会**丢掉 null 值键**，而
+ *     `deriveMaturesAt({year: null})` 命中 `String(null).length === 4` 这条分支
+ *     会算出 `1-12-31`（一个垃圾日期）⇒ raw 与归一后**不等价**。
+ *     这条不等价是本文件的测试②逐字段钉出来的，不是推理。
+ *   ★本函数**不改**本文件那份 5 键归一器：它喂的是 intake_questions 落库内容与引擎入参，
+ *     改它就动了落库语义（超出"只许改返回体"的边界）。它自己那份白名单仍是一个**已知缺陷**，
+ *     已在测试文件头登记，等另立项。
  */
-function intakeMaturesAt(resolveSpec, engineEvidence) {
-  if (!resolveSpec) return null;
+function intakeMaturesAt(rawResolveSpec) {
+  if (!rawResolveSpec) return null;
+  let spec;
   try {
-    const d = predictionsStore.deriveMaturesAt(resolveSpec, engineEvidence);
+    spec = normalizeResolveSpecForWrite(rawResolveSpec);
+  } catch (e) {
+    return null; // 归一不过 ⇒ 推不出（不抛给调用方：返回体这一键不该把整个 classify 变成 500）
+  }
+  try {
+    const d = predictionsStore.deriveMaturesAt(spec, []);
     return String(d).slice(0, 10);
   } catch (e) {
     return null; // 题面/锚里没有日历字段 ⇒ 无日历到期日（显式 null，不静默留空）
@@ -391,7 +423,9 @@ function classifyIntake(body) {
     //   口径：题面/真值锚里带日历字段 ⇒ 给出推出来的日期；**推不出来就显式给 null**
     //   （"本题无日历到期日，按自身节奏结算"），**不许留空让人误以为没算**。
     //   与 predictionsStore 的 #2 纪律同源：省略即静默出域。
-    matures_at: intakeMaturesAt(resolveSpec, engineEvidence),
+    // ★洞三：传 `b.resolve_spec`（调用方发来的那份）而不是 `resolveSpec`（本文件 5 键白名单截断过的那份）
+    //   —— 两者在九个日历字段上不等价，详见 intakeMaturesAt 的注释。
+    matures_at: intakeMaturesAt(b.resolve_spec),
     intake_question_id: iq.id, intake_ledger: 'intake_questions',
   };
 }

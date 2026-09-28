@@ -13,6 +13,9 @@
  *   GET  /api/predictions/unresolved    未 resolve 清单
  *   GET  /api/predictions/:id           单题完整一生（2026-09-28 T8：题面/当时押的数/引擎基率/真值/
  *                                       判词条数/真值口径是否被排除统计；只读零写）
+ *   GET  /api/predictions/domains       账本按域分组（2026-09-28 洞一：报「其中 N 条是人手写的」；
+ *                                       real/lab/external/unknown 四域互斥、只分组不筛除）
+ *   ★`/unresolved` 与 `/calibration` 均带 `by_scope`：外部题不许和批量灌入的语料题同栏分不开。
  *
  * L0 铁律落点：本路由只记账/只回填真值，不计算不返回任何准确率/校准评分；l0_gate 字段
  * 如实回报门禁状态（review_unlocked=false 时 UI 一切数字只配「参考」，禁「预测」字样）。
@@ -261,6 +264,119 @@ function insertFromBody(gameId, body, opts) {
   });
 }
 
+/**
+ * 各域的人话标签（读侧披露用）。
+ * ★人话标签是**披露的一部分**，不是装饰：只给 "external=2" 用户无从判断那两条是什么；
+ *   反过来只给一句「人手写的题」而不给数，等于让人以为「一条都没有」——那与隐藏同一种误导。
+ */
+const SCOPE_TEXT = {
+  external: {
+    label: '人手写的题（外部题）',
+    note: '这些挂在一个**容器局**下——那不是一局对局。「记一笔」里你亲手写下的题都落在这里。',
+  },
+  lab: {
+    label: '批量灌入的语料题／实验场题',
+    note: 'CLI 批量灌进来的那批，以及实验场（模拟局）里出的题——它们不是人手写的。',
+  },
+  real: {
+    label: '真实对局里的题',
+    note: '挂在真实对局下。域门上线前落的历史题在这儿（现在这类题在接题层会被拒收）。',
+  },
+  unknown: {
+    label: '查不到局归属的题',
+    note: '局行查不到或 game_type 缺省 ⇒ 归 unknown，**不据此判真实局**（取「拒收」要确凿证据）。',
+  },
+};
+
+/**
+ * 库上有没有 `games.source` 这一列（**只读** pragma，一次 prepare 前一次查询）。
+ *
+ * ★为什么每次都查、不缓存：这一列是 `sim-loop.cjs:77` / `db/externalLedger.ensureSourceColumn`
+ *   的 **additive ALTER** 才有的，而这两条路都在运行期发生（本文件下面的 `POST /api/predictions`
+ *   第一次跑就会建容器局并补这一列）⇒ 进程启动时"没有"、落第一条外部题后"有"，缓存会把其中
+ *   一个状态一直错下去。pragma 打在内存库上是微秒级，不值得为它引入一个会过期的缓存。
+ *
+ * 查不到这一列时必须**从 SQL 里整段拿掉 source 分支**（不是 COALESCE 兜底）——
+ * SQLite 在 prepare 期解析列名，缺列会直接 `SqliteError: no such column`。
+ * 拿掉之后按 game_type 判，与 `classifyGame` 读 `row.source === undefined` 走同一条回退路。
+ */
+function gamesHaveSourceColumn() {
+  const cols = db.getConnection().pragma('table_info(games)');
+  for (const c of cols) if (c.name === 'source') return true;
+  return false;
+}
+
+/** 域口径 SQL（每次现查列有无；判定本身全部来自 labBoundary，本文件不重写）。 */
+function scopeSql(alias) {
+  return lab.PREDICTION_SCOPE_SQL(alias || 'g', { hasSource: gamesHaveSourceColumn() });
+}
+
+/**
+ * 域计数（只读；**判定一律来自 `lab.PREDICTION_SCOPE_SQL`**，本文件不重写任何域口径）。
+ * 缺省就把 SCOPES 四个域全开成 0 —— 只报碰巧非空的域，读者无法区分
+ * 「这个域是 0 条」和「这个域根本没查」，那正是「筛掉了 N 条被读成数据没了」的同一种病。
+ * @param {string} [where] 附加 WHERE（不含 WHERE 关键字），不传＝全账本
+ * @param {Array}  [args] 对应的 ? 绑定
+ * @returns {{real:number, lab:number, external:number, unknown:number}}
+ */
+function scopeCounts(where, args) {
+  const c = db.getConnection();
+  const by = {};
+  for (const s of lab.SCOPES) by[s] = 0;
+  const stmt = c.prepare(
+    'SELECT ' + scopeSql() + ' AS scope, COUNT(*) AS n'
+    + ' FROM predictions p LEFT JOIN games g ON g.id = p.game_id'
+    + (where ? ' WHERE ' + where : '')
+    + ' GROUP BY scope'
+  );
+  // apply 须以 statement 自身为 thisArg（better-sqlite3 原生绑定，照 predictionsStore.js:334 的先例；
+  // 传 null 会得到 "Illegal invocation" —— 不是 SQL 错，是 thisArg 错，极易误诊）
+  const rows = stmt.all.apply(stmt, args || []);
+  for (const r of rows) {
+    // CASE 恒非 NULL（有 ELSE），这里的兜底只防「有人往 SCOPES 之外加了新域却忘了改这个映射」
+    by[lab.SCOPES.indexOf(r.scope) === -1 ? 'unknown' : r.scope] += r.n;
+  }
+  return by;
+}
+
+/** 逐 id 取域（读侧给每行挂标签用；一次查询，不 N+1）。查不到的行记 unknown。 */
+function scopesOfIds(ids) {
+  const out = {};
+  if (!ids || !ids.length) return out;
+  const q = db.getConnection().prepare(
+    'SELECT p.id AS id, ' + scopeSql() + ' AS scope'
+    + ' FROM predictions p LEFT JOIN games g ON g.id = p.game_id WHERE p.id = ?'
+  );
+  for (const id of ids) {
+    const r = q.get(id);
+    out[id] = r ? r.scope : 'unknown';
+  }
+  return out;
+}
+
+/** 四域之和（守恒自校验：分组「互斥且完备」不是口头承诺，是一个能算出来的数）。 */
+function scopeSum(by) {
+  return lab.SCOPES.reduce((a, k) => a + (by[k] || 0), 0);
+}
+
+/** 域拆分挂到一组行上（就地加 `scope` 键，并按域分好计数）。 */
+function tagRowsByScope(items) {
+  const ids = items.map((r) => r.id);
+  const scopes = scopesOfIds(ids);
+  const by = {};
+  for (const s of lab.SCOPES) by[s] = 0;
+  for (const it of items) {
+    const sc = scopes[it.id] || 'unknown';
+    it.scope = sc;
+    it.scope_label = (SCOPE_TEXT[sc] || SCOPE_TEXT.unknown).label;
+    by[sc] += 1;
+  }
+  return by;
+}
+
+/** 域披露端点可取的视图（三值穷尽；`all` = 不筛）。缺省 `all`——**缺省不许筛**，筛必须显式要。 */
+const DOMAIN_VIEWS = ['all', 'hand_written', 'other'];
+
 function register(app) {
   store.ensurePredictionsTable(db.getConnection()); // additive 私有表（幂等，零碰 p1a 既有表）
 
@@ -279,12 +395,38 @@ function register(app) {
 
   /* ══ 2026-09-28：外部题免局落注（`POST /api/predictions`）══
    *
+   * 【本端点是给「外部题」用的】题面 + 真值锚类型（resolve_spec.kind）+ 用户自己的判断，
+   *   **没有对局**。判据是它落进的那个容器局不是一局对局（`db/externalLedger` 文件头）。
+   *
    * 【为什么需要】`predictions.game_id NOT NULL` ⇒ 落注必须挂一局，而外部题
    *   （天气/汇率/开奖…）没有对局。`routes/intake.js:25` 把域容器规则写成了待定项，
    *   于是「记一笔」记完的题**从不进 predictions 账**——界面全程"收下了"，
    *   账本里什么都没有，而用户填的那个数也一起没了。
    *
-   * 【本端点只做三件事，其余一律沿用既有落注链路】
+   * 【★本端点不收事件 id 证据（洞二 · 2026-09-28 · 显式拒绝，不是"漏检"）】
+   *   事件（夜里谁死了、谁投了谁、谁跳大神）是**对局线**的概念。外部题没有对局，
+   *   也就没有"第几号事件"可言。实测三条依据（`test/external-evidence-shape.test.cjs` 有闸）：
+   *     ① 本端点写的是**容器局**，不是调用方那一局；`normalizeEventIds` 查的是
+   *        `events WHERE id=? AND game_id=<容器局>` ⇒ 调用方真正想引用的局内事件
+   *        **结构上取不到**（实测：事件 id 1 属于真实局 2，容器局是 1，交叉查不到）。
+   *     ② 容器局**装不下**有意义的局内事件：`events.phase` 的 CHECK 是
+   *        `IN ('night','day','dusk')`，而天气/汇率/开奖没有夜、日、黄昏
+   *        （实测：插 `phase='forecast'` 被 CHECK 挡掉）。
+   *     ③ 容器局**不建席**（`externalLedger.js` 文件头：与 createGameCore 唯一的差别），
+   *        实测 0 席位 ⇒ 事件连叙事主体都没有。
+   *   ⇒ 所以这里选的是**显式拒绝**而不是"支持它"：唯一能通过校验的 id 属于一个
+   *     **不该存在的事件序列**；硬收则 id 在 evidence_json 里存成数字，
+   *     读端 `json_extract(evidence_json,'$[0].resolve.kind')`（基率/真值口径/单题详情全走这条）
+   *     照样取不到锚 ⇒ 落一条"看着落了库、其实没建索引"的黑洞行（本文件头铁律）。
+   *
+   *   ★改动前这条路径给的是**指错方向**的报错：调用方发 `evidence:[1,2]`（只一种形状），
+   *     路由把 `[{resolve}]` 拼上去才变成 `[{resolve},1,2]`，然后报
+   *     「evidence 一行内不许混两种形状」——**混形状是服务端自己造的**，
+   *     照这条提示去查，调用方会去检查"我是不是混了两种形状"，永远查不出问题。
+   *     现在在**拼锚之前**就拒，报错说的是真正的原因。
+   *   ★要按局落注、带局内事件证据，请用 `POST /api/games/:id/predictions`（那边照旧收事件 id）。
+   *
+   * 【本端点其余三件事，一律沿用既有落注链路】
    *   ① 把题挂到**显式的外部题容器局**（`db/externalLedger`，`games.source='external'`）；
    *      ⚠ 那是实现裁定、需创始人复核，见该文件头。
    *   ② 真值锚 **必须**给（`resolve_spec.kind`）——没有锚的行查不到历史频率、
@@ -300,6 +442,26 @@ function register(app) {
       throw httpError(400, 'resolve_spec 必填（真值锚类型，如 {kind:"openmeteo_daily_max"}）'
         + '—— 没有真值锚的行查不到历史频率、也判不了真值口径，等于没建索引');
     }
+    const callerEv = Array.isArray(body.evidence) ? body.evidence : [];
+    /* ★洞二：在**拼锚之前**拒事件 id。位置很要紧——放到后面就会被拼出来的
+     *   `[{resolve}, 1]` 触发 normalizeEvidence 的"混形状"分支，
+     *   而那句提示说的因果是反的（混形状是路由自己造的）。
+     *   判据是"元素是不是普通对象"（照 normalizeEvidence 同款分派）：非对象元素
+     *   在本端点的语义里只可能是事件 id（本端点只认结构化对象 + 事件 id 两种形状）。
+     *   注意 `[{resolve}, 1]` 这种**调用方自己也混了**的，一并在此拒：
+     *   对它们说"混两种形状"是次诊断，说"这里不收事件 id"才是真诊断。 */
+    for (let i = 0; i < callerEv.length; i++) {
+      const e = callerEv[i];
+      if (e !== null && (typeof e !== 'object' || Array.isArray(e))) {
+        throw httpError(400, '外部题端点（POST /api/predictions）不收事件 id 证据：'
+          + 'evidence[' + i + '] 收到 ' + JSON.stringify(e) + '，而事件（夜里谁死了、谁投了谁）是对局线的概念，'
+          + '这个端点收的是外部题——题面 + 真值锚类型 + 你自己的判断，它落进的是「外部题容器局」'
+          + '（不是一局对局：没有席位，也没有夜/日/黄昏的阶段），'
+          + '所以容器局下取不到你那些局内事件。'
+          + '★要按局落注、带局内事件证据，请改用 POST /api/games/:id/predictions。'
+          + '（若只是想给外部题挂基率/说明，请传结构化对象数组，每个元素带 resolve.kind。）');
+      }
+    }
     const container = extLedger.ensureExternalContainer();
     /* ★真值锚必须落在 **evidence[0]**，否则等于没建索引。
      *   读端一律用 `json_extract(evidence_json,'$[0].resolve.kind')` 检索
@@ -307,7 +469,6 @@ function register(app) {
      *   这条行就查不到历史频率、判不了真值口径，看着落了库、其实是个黑洞。
      *   沿用本文件头那条铁律的口径：**没有真值锚的行等于没建索引**。
      *   调用方自带 evidence 且第 0 个元素已有 resolve 时以它的为准，不重复塞。 */
-    const callerEv = Array.isArray(body.evidence) ? body.evidence : [];
     const hasAnchorAt0 = !!(callerEv.length && callerEv[0] && typeof callerEv[0] === 'object' && callerEv[0].resolve);
     const withAnchor = hasAnchorAt0 ? callerEv : [{ resolve: spec }].concat(callerEv);
     const row = insertFromBody(container.id, Object.assign({}, body, { evidence: withAnchor }),
@@ -362,14 +523,137 @@ function register(app) {
   // 未 resolve 清单（resolve 待办）
   app.get('/api/predictions/unresolved', async (req) => {
     const page = store.listUnresolved(pageOpts(req.query));
-    return Object.assign({}, page, { l0_gate: store.l0Gate() });
+    // ★洞一：外部题原来在这里和批量灌入的语料题同栏分不开。
+    //   加的是**两个**拆分，不是把其中一栏藏起来：
+    //     · `by_scope`      —— 全部未落定（outcome IS NULL）的域拆分，也就是 l0_gate.unresolved 那批
+    //     · `page_by_scope` —— **这一页**里各域多少条（到期闸已过滤过，两者是不同口径）
+    //   刻意不给 `by_scope` 套用到期闸：闸的日期口径在 store 里（`todayShanghai` + 成熟日比较），
+    //   在这里复刻一遍就是又一处日期算法分叉——本项目已经吃过一次亏（见 store 的 maturityState 注释）。
+    //   故两个数都如实标出口径，由读的人自己比，不替他合并成一个。
+    const pageBy = tagRowsByScope(page.items);
+    return Object.assign({}, page, {
+      l0_gate: store.l0Gate(),
+      by_scope: scopeCounts('outcome IS NULL'),
+      page_by_scope: pageBy,
+      scope_note: 'by_scope 数的是**全部未落定**的题；page_by_scope 数的是**这一页**（已过到期闸，'
+        + '没到期的那些不在页里）。两个数口径不同，都不是"数据少了"——账本一条都没删。',
+    });
   });
 
   // 校准读数（W2）：ECE+分桶，n<30 →「数据不足」；纯统计零 LLM（C 方案 5 对照组；
   // logit 聚合/层级 Platt 只留挂点不实现——无 resolve 积累不装学习件，YAGNI）
   app.get('/api/predictions/calibration', async () => {
-    return store.calibration();
+    // ★洞一：域拆分跟着读数一起给。**不改 store 的 ECE 口径**（它按 source_type 分桶是既有契约），
+    //   这里额外报一份域拆分，让"这个 ECE 里混了几条人手写的"看得见；看不清就等于没分。
+    //   分母 = 与 store.calibration 完全同一条筛选（outcome IN (true,false) ∧ assigned_prob IS NOT NULL），
+    //   两处任何一边改了筛选，这个数就会与 ECE 的 n 对不上——故 `by_scope` 之和 == `n` 是硬闸。
+    const CALIB_WHERE = "outcome IN ('true','false') AND assigned_prob IS NOT NULL";
+    const byScope = scopeCounts(CALIB_WHERE);
+    return Object.assign({}, store.calibration(), {
+      by_scope: byScope,
+      by_scope_total: scopeSum(byScope),
+      by_scope_note: '域拆分与本读数的 n 同源同筛（已落定 ∧ 押过数），故 by_scope_total 恒等于 n；'
+        + '域口径见 evidence/labBoundary.js（real/lab/external/unknown 四值互斥）。'
+        + '人手写的那部分（external）在 by_scope.external 里单列，未被混进同一个读数。',
+    });
   });
+
+  /* ══ 洞一（2026-09-28）：`GET /api/predictions/domains` —— 账本按域分组 · 只读披露 ══
+   *
+   * 【病象（实测）】
+   *   `NOT_REAL_GAME_PREDICTION_SQL()` 全仓 grep 的调用点只有 labBoundary 自己的定义/导出
+   *   ＋ 两个测试文件；`classifyGame(...).scope` 的生产消费方只有 `intake.js:278` 一处，
+   *   且只判 `=== 'real'`。⇒ external 题**不会**被误当成真实局剔掉（安全方向没问题），
+   *   但「按域分组、说清其中 N 条是人手写的」这件事**生产代码里没有任何地方在做**：
+   *   它们混在未落定清单、校准读数里，和批量灌入的语料题**同栏分不开**。
+   *
+   * 【先确认现有端点能不能承载（ask 明写的前置）】
+   *   能承载一半、不能承载全部，故本端点是**加**不是**换**：
+   *     · `/api/predictions/unresolved` 与 `/api/predictions/calibration` 已就地加了 `by_scope`
+   *       （这两处就是混得最凶的地方，改它们即可让既有消费方直接拿到拆分）；
+   *     · 但**全账本**的域分组、以及"两视图互斥且完备"这个可自校验的守恒量，
+   *       既有端点都给不出（unresolved 只覆盖未落定那部分，calibration 只覆盖已落定且押过数那部分），
+   *       所以另立这一个只读端点。**不改 predictions 表结构，也不建任何新的读侧表。**
+   *
+   * 【两条纪律】
+   *   ① **只分组，不筛除**。`total` 恒等于账本真实行数，与翻页/视图参数**无关**——
+   *      否则「筛掉了 N 条」会被读成「数据没了 N 条」，那是本项目最忌的静默失真。
+   *   ② **域口径不在本文件写死**。全部来自 `lab.PREDICTION_SCOPE_SQL`（= `classifyGame` 的 SQL 镜像），
+   *      本文件只做计数与措辞；`NOT_REAL_GAME_PREDICTION_SQL` 也由它派生 ⇒ 剔真实局与分域永远一致。
+   */
+  app.get('/api/predictions/domains', async (req) => {
+    const q = (req && req.query) || {};
+    const view = (q.view === undefined || q.view === '' || q.view === null) ? 'all' : String(q.view);
+    if (DOMAIN_VIEWS.indexOf(view) === -1) {
+      throw httpError(400, 'view 必须是 ' + DOMAIN_VIEWS.join('|') + '，收到: ' + JSON.stringify(view));
+    }
+    const page = pageOpts(q);
+    const c = db.getConnection();
+    const total = c.prepare('SELECT COUNT(*) AS n FROM predictions').get().n;
+    const byScope = scopeCounts();
+    // 只读页：列出选中那一栏的题（人话标签 + 域），让人不只看到一个数
+    const sql = scopeSql();
+    const scopeClause = view === 'hand_written' ? " AND " + sql + " = 'external'"
+      : (view === 'other' ? " AND " + sql + " <> 'external'" : '');
+    // game_source 同样受 hasSource 约束（缺列时整列不出现在 SELECT 里，否则 500）
+    const srcCol = gamesHaveSourceColumn() ? 'g.source' : "NULL";
+    const items = c.prepare(
+      'SELECT p.id AS id, p.game_id AS game_id, p.statement AS statement, p.layer AS layer,'
+      + ' p.created_at AS created_at, p.matures_at AS matures_at, p.resolved_at AS resolved_at,'
+      + ' p.outcome AS outcome, g.game_type AS game_type, ' + srcCol + ' AS game_source,'
+      + ' ' + sql + ' AS scope'
+      + ' FROM predictions p LEFT JOIN games g ON g.id = p.game_id'
+      + ' WHERE 1=1' + scopeClause
+      + ' ORDER BY p.id DESC LIMIT ? OFFSET ?'
+    ).all(page.limit, page.offset);
+    for (const it of items) {
+      it.view_bucket = view;
+      it.scope_label = (SCOPE_TEXT[it.scope] || SCOPE_TEXT.unknown).label;
+    }
+    const handN = byScope.external;
+    return {
+      ok: true,
+      view: view,
+      total: total,
+      by_scope: byScope,
+      // ★守恒量：四域互斥 ⇒ 各域之和恒等于总数。不是承诺，是每次调用现算的一个数。
+      sum_check: { sum: scopeSum(byScope), total: total, ok: scopeSum(byScope) === total },
+      by_settled: {
+        settled: { n: c.prepare("SELECT COUNT(*) AS n FROM predictions WHERE outcome IN ('true','false')").get().n },
+        unsettled: { n: c.prepare('SELECT COUNT(*) AS n FROM predictions WHERE outcome IS NULL').get().n },
+      },
+      hand_written: Object.assign({
+        key: 'hand_written',
+        scope: 'external',
+        n: handN,
+        // ★「这一栏之外还有多少」必须照报。只报这一栏的人会以为账本就这么多题。
+        excluded_from_this_view: total - handN,
+      }, SCOPE_TEXT.external),
+      other: {
+        key: 'other',
+        n: total - handN,
+        excluded_by_domain: { real: byScope.real, lab: byScope.lab, unknown: byScope.unknown },
+        note: '这一栏只是**没算进「人手写的」**那一条，一条都没删：账本总数仍是 ' + total + ' 条。',
+      },
+      items: items,
+      page: page,
+      disclosure: [
+        '账本共 ' + total + ' 条题：其中 ' + handN + ' 条是人手写的（挂在「外部题（容器局 · 非对局）」下，'
+          + '那不是一局对局）；其余 ' + (total - handN) + ' 条是批量灌入的语料题、实验场题或真实局里的题。',
+        '★本端点只分组，不筛除：账本一条都没删。要按域筛的时候，必须连着「筛掉了多少」一起报。',
+        '域口径只有一套（evidence/labBoundary.js 的 classifyGame 及其 SQL 镜像），'
+          + '四值互斥：real / lab / external / unknown；求和恒等于总数，可自校验。',
+      ],
+      discipline: [
+        '只读：一次 SELECT 都不写，不改账本任何一列。',
+        '域判定不在本端点重写：全部取自 lab.PREDICTION_SCOPE_SQL（= classifyGame 的 SQL 镜像）。',
+        '总数与翻页/视图无关：筛掉 N 条不许被读成数据少了 N 条。',
+      ],
+      l0_gate: store.l0Gate(),
+      generated_at: new Date().toISOString(),
+    };
+  });
+
 
   // ── 2026-09-28 T8：单题只读端点 —— **一道题的完整一生** ──
   //   病象：清单页给的是「行」，但一道题要能被读懂，缺的是**因果链**：
@@ -468,4 +752,4 @@ function register(app) {
   });
 }
 
-module.exports = { register, SOURCE_TYPES, OUTCOMES };
+module.exports = { register, SOURCE_TYPES, OUTCOMES, normalizeResolveSpec };

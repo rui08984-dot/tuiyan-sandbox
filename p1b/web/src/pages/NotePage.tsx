@@ -103,6 +103,12 @@ export default function NotePage() {
      现在分开两个来源：`res` 是分类/判层的答复，`ledger` 是**真进了账本**的回执；
      两者不许互相顶替（ledger 为空就不许显示"收下了"）。 */
   const [ledger, setLedger] = useState<LedgerRow | null>(null);
+  /* ★洞一（2026-09-28）：外部题和那批 CLI 批量灌入的语料题，在未落定清单、校准读数里
+     **同栏分不开**——后端已按域分组（GET /api/predictions/domains），可回执一个字都不提，
+     用户就永远不知道自己刚记下的那条落在哪一栏、"其中 N 条是人手写的"里的 N 到底是几。
+     ★查不到就**什么都不显示**，绝不写 0：「没查到」与「真的是 0 条」必须长得不一样
+     （与本文件 lookup 已知/未知的三态同一条纪律）。 */
+  const [domains, setDomains] = useState<DomainsRow | null>(null);
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState('');
 
@@ -207,12 +213,24 @@ export default function NotePage() {
       });
       // ★落注成功才把"记下了"说出口。setRes 在上面已经跑过一次，所以这里补的是**账本回执**。
       setLedger(c);
+      /* 域披露读数：只在**真落进账本之后**取。取它是为了让回执能说
+         「账本共 N 条，其中 M 条是人手写的」——那条外部题已和批量灌入的语料题分开数。
+         失败不牵连回执：上面 setLedger(c) 已经成立，这里只是多一句话，
+         拿不到就不显示（绝不用 0 顶替"没查到"）。 */
+      fetch('/api/predictions/domains')
+        .then((r) => (r.ok ? r.json() : null))
+        .then((j) => {
+          setDomains(j && typeof j.total === 'number' && j.by_scope && typeof j.by_scope.external === 'number'
+            ? { total: j.total, handWritten: j.by_scope.external } : null);
+        })
+        .catch(() => setDomains(null));
     } catch (e) {
       /* ★失败必须如实报错，不许显示「收下了」——那正是最会骗人的地方。
          两步之间的失败也会走这里：classify 过了但 create 没过时，
          `res` 已经是"收下了"，所以下面把它撤掉，别让界面停在一个半截状态上。 */
       setRes(null);
       setLedger(null);
+      setDomains(null);   // 回执被撤了，那句「共 N 条」也必须跟着撤（否则界面停在一个半截状态上）
       setErr(e instanceof Error ? e.message : String(e));
     } finally {
       setBusy(false);
@@ -238,7 +256,7 @@ export default function NotePage() {
         <textarea
           id="note-stmt" className="note-text" rows={2} value={statement}
           placeholder="例：2026-09-30 伦敦日降水量超过 20mm 吗？"
-          onChange={(e) => { setStatement(e.target.value); setRes(null); setLedger(null); }}
+          onChange={(e) => { setStatement(e.target.value); setRes(null); setLedger(null); setDomains(null); }}
         />
 
         <label className="note-label" htmlFor="note-kind">答案去哪里查</label>
@@ -252,7 +270,7 @@ export default function NotePage() {
             丢了会让人以为"没这个来源"，那是更坏的错。 */}
         <select
           id="note-kind" className="note-select" value={kind}
-          onChange={(e) => { setKind(e.target.value); setRes(null); setLedger(null); }}
+          onChange={(e) => { setKind(e.target.value); setRes(null); setLedger(null); setDomains(null); }}
         >
           <option value="">选一个…</option>
           {KIND_GROUPS.map((g) => (
@@ -337,7 +355,7 @@ export default function NotePage() {
               <input
                 className="note-prob" inputMode="decimal" value={myProb}
                 placeholder="填 0-100"
-                onChange={(e) => { setMyProb(e.target.value); setRes(null); setLedger(null); }}
+                onChange={(e) => { setMyProb(e.target.value); setRes(null); setLedger(null); setDomains(null); }}
                 aria-label="你判断这件事发生的概率，填 0 到 100 之间的百分数"
               />
               <div className="note-num-note">
@@ -413,10 +431,16 @@ export default function NotePage() {
       />
 
       {/* ── 回执：人话，且拒收的因果方向要说清 ── */}
-      {res ? <Receipt r={res} ledger={ledger} myProb={myProb} /> : null}
+      {res ? <Receipt r={res} ledger={ledger} myProb={myProb} domains={domains} /> : null}
     </div>
   );
 }
+
+/** 域披露读数（后端 `GET /api/predictions/domains` 的只读切片）。
+ *  ★只取本页要显示的两个数，判定口径**全部在后端**（evidence/labBoundary.js 的 classifyGame）。
+ *    本页不重算域，也不拿 `game_type` 自己猜——猜出来的数会与后端分组对不上，
+ *    而"两份口径"正是这个洞本身。 */
+type DomainsRow = { total: number; handWritten: number };
 
 /** 落注返回里，回执要用到的那几项（其余不显示）。 */
 type LedgerRow = {
@@ -438,7 +462,9 @@ type LedgerRow = {
  *   ——那句话在替一件没发生的事作证。现在 `ledger` 为空就只报"判成了什么、
  *   但没落进账本"，并把后端的原话摆出来。
  */
-function Receipt({ r, ledger, myProb }: { r: IntakeClassifyResult; ledger: LedgerRow | null; myProb: string }) {
+function Receipt({ r, ledger, myProb, domains }: {
+  r: IntakeClassifyResult; ledger: LedgerRow | null; myProb: string; domains: DomainsRow | null;
+}) {
   const rej = (r as unknown as { rejected?: boolean; reason?: string; detail?: string }).rejected;
   const reason = (r as unknown as { reason?: string }).reason || 'other';
   if (rej) {
@@ -496,6 +522,15 @@ function Receipt({ r, ledger, myProb }: { r: IntakeClassifyResult; ledger: Ledge
             那是个容器、<b>不是一局对局</b>，所以它不会混进任何对局统计里。</>
         ) : null}
       </p>
+      {/* ★洞一：这一句是「其中 N 条是人手写的」在界面上的落点。
+          刻意把**总数**和**人手写的条数**并排给出：只报后者会让人以为账本就这么多题，
+          只报前者则等于没分组。取不到读数时整块不渲染（不写 0）。 */}
+      {domains ? (
+        <p className="note-receipt-sub" data-testid="note-domains">
+          账本共 <b>{domains.total}</b> 条题，其中 <b>{domains.handWritten}</b> 条是人手写的
+          （其余 {domains.total - domains.handWritten} 条是批量灌入的语料题、实验场题或真实局里的题——一条都没删）。
+        </p>
+      ) : null}
     </div>
   );
 }

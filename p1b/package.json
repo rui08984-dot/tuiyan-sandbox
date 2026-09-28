@@ -7,7 +7,9 @@
   "main": "src/server.js",
   "scripts": {
     "start": "node src/server.js",
-    "test": "node --test"
+    "test": "node --test",
+    "gates": "node gates/gates.cjs",
+    "gates:list": "node gates/gates.cjs --list"
   },
   "license": "UNLICENSED",
   "dependencies": {
