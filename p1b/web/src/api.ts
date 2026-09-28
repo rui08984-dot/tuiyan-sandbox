@@ -281,6 +281,58 @@ export function listIntakeRejects(opts?: { limit?: number }): Promise<IntakeReje
   return request('/intake/rejects' + q, 'GET');
 }
 
+/* ══════════════════════════════════════════════════════════════════════════
+ * ★2026-09-28：落注（create）—— 「记一笔」的第一条**写**通路
+ *
+ * 【病象：这一页从头到尾只读不写】
+ *   在本函数之前，`api.ts` 里与 predictions 相关的 POST 只有 `/:id/resolve`（真值回填），
+ *   没有任何函数创建行 ⇒ 「记一笔」跑完 classify 只得到一句回执，账本里什么都没有；
+ *   用户在「你的判断」里填的那个数也一起没了——填了、看到"收下了"、其实没进账。
+ *
+ * 【为什么落注要挂在外部题容器局上（不是随手选的）】
+ *   后端 `predictions.game_id NOT NULL` ⇒ 落注必须挂一局，而外部题没有对局。
+ *   端点内部挂的是**显式**的容器局（`games.source='external'`），
+ *   既不是真实局、也不是实验场/语料局——人手写的一道题绝不能在统计上冒充灌入的语料。
+ *   ⇒ 本函数**不要**传 game_id：让它由后端解析，前端不许自己编一局出来。
+ * ══════════════════════════════════════════════════════════════════════════ */
+
+/** 落注入参。`prob` 必填且是 **0-1**（不是界面上那个 0-100 的百分数）。 */
+export interface CreatePredictionInput {
+  statement: string;
+  /** 0-1 数值。**必须来自用户填的那个数**（换算见 lib/noteProb.ts），不许拿基率顶。 */
+  prob: number;
+  /** 真值锚：{kind, date?, ...}。必填——没有锚的行查不到历史频率，等于没建索引。 */
+  resolve_spec: Record<string, unknown>;
+  /** 分层信息，来自 classify 的返回（layer/secondary_layer/engine/gate）。 */
+  layer?: string;
+  secondary_layer?: string | null;
+  engine?: string;
+  gate?: string;
+  /** 关联到接题台账的那一行（classify 返回的 intake_question_id）。 */
+  intake_question_id?: number;
+}
+
+/** POST /api/predictions —— 外部题免局落注（201）。
+ *  ★后端会在返回里带上 `container`（挂到了哪一局）与 `matures_why`（到期日怎么来的），
+ *    页面据此回执，不自己编。mock 模式未实现（直连后端，同 resolvePrediction）。 */
+export function createPrediction(
+  input: CreatePredictionInput,
+): Promise<{
+  id: number;
+  assigned_prob: number | null;
+  statement: string;
+  layer: string | null;
+  engine: string | null;
+  gate: string | null;
+  matures_at: string | null;
+  matures_why: string | null;
+  external: boolean;
+  container?: { game_id: number; name: string; scope: string };
+}> {
+  if (USE_MOCK) return Promise.reject(new ApiError(0, 'mock 模式未实现落注接口，请直连后端'));
+  return request('/predictions', 'POST', input);
+}
+
 // ── UI 重构步 2：审计页 KPI（只读；合格池/最难档/域外计数 + 分层 Brier CI）──
 
 /** GET /api/audit/g2-kpi —— R4 口径只读 KPI（口径与 g2-report.cjs 同源；mock 未实现） */

@@ -5,6 +5,8 @@
  * 契约（任务书 W1-2）：
  *   POST /api/games/:id/predictions     落注：statement + prob（prob 必须 0-1 数值；
  *                                       口语「大概率」由调用方澄清后传数值，本路由拒收口语）
+ *                                       evidence 收**两种形状**：事件 id 数组（旧，向后兼容）
+ *                                       或结构化对象数组（{resolve:{kind}, baseRate?}）
  *   GET  /api/games/:id/predictions     分页清单（limit/offset + total + l0_gate）
  *   POST /api/predictions/:id/resolve   真值回填：outcome ∈ true|false|ambiguous + note
  *                                       （歧义必须附 note 留痕，不许硬判；账本不可变，已 resolve 拒改 409）
@@ -23,9 +25,32 @@ const store = require('../db/predictionsStore');
 const vstore = require('../db/verdictsStore'); // 只读列判词（不写：生成仍走 verdicts 路由）
 const truthBasis = require('../evidence/truthBasis'); // 真值口径排除谓词的**单一真源**，本路由不重写判定
 const baseRateMod = require('../evidence/baseRate'); // 基率读数单一真源（结构化优先/文本兜底），本路由不另写解析器
+const kindGate = require('../evidence/resolveKind'); // 真值锚 kind 支持表单一真源（三表派生），本路由不另立字面量
+const lab = require('../evidence/labBoundary'); // 域边界单一真源（real / lab / external 三种 scope）
+const extLedger = require('../db/externalLedger'); // 外部题容器局（2026-09-28 · 实现裁定待创始人复核）
 
 const SOURCE_TYPES = store.SOURCE_TYPES;
 const OUTCOMES = store.OUTCOMES;
+
+/**
+ * 外部题落注用的 `resolve_spec` 取值。
+ * ★**这里只取 kind，不复述一遍 kind 的枚举**——那会立刻变成第二份支持表
+ *   （本文件头 `kindGate` 的注释写过：写端放进来一种、读端查不到，就回到今天的病）。
+ *   真正的合法性校验发生在下面的 `normalizeStructured` → `requireEnum(kindGate.supportedKinds())`，
+ *   与真库那 52 种 kind 同一个真源。
+ */
+function normalizeResolveSpec(spec) {
+  if (spec === undefined || spec === null) return null;
+  if (typeof spec !== 'object' || Array.isArray(spec)) throw httpError(400, 'resolve_spec 必须是对象 {kind,...}');
+  const out = {};
+  for (const k of Object.keys(spec)) {
+    if (spec[k] === undefined || spec[k] === null) continue;
+    out[k] = spec[k];
+  }
+  out.kind = String(out.kind === undefined ? '' : out.kind).trim();
+  if (!out.kind) throw httpError(400, 'resolve_spec.kind 必填（真值锚类型，如 openmeteo_daily_max）');
+  return out;
+}
 
 /** 样本量下限：与 auditKpi／stage4／compiler 门面同一口径，n 不足一律降级为「只记方向」。 */
 const MIN_N = 30;
@@ -53,13 +78,38 @@ function requireProb(v) {
 }
 
 /**
- * evidence 事件 id 引用校验：必须是整数 id 数组（≤10），且每个 id 真实存在并属于本局
- * （账本干净铁律：不留悬空引用；验证点自动路径的 id 已过 p1a postValidate 白名单）。
+ * evidence 的**两种形状**分派。
+ *
+ * 【病象：建库通路是断的】真库的 evidence_json 装的是结构化对象数组
+ * （`[{ resolve:{kind}, baseRate:{p,n,k,...} }]`），可本函数只收事件 id 数组
+ * ⇒ 走 HTTP 建出来的行没有真值锚、没有基率。而基率读数与真值锚端点一律用
+ * `json_extract(evidence_json,'$[0].resolve.kind')` 检索 ⇒ 那类行查不到历史频率，
+ * 等于落了一本没有索引的账（本轮实测真库 1994 行、1308 行的基率都在第 0 个元素上）。
+ *
+ * ★ 形状按**元素是不是普通对象**分，不看"能不能解析成整数"：
+ *   旧形状的元素是 id（旧调用方可能传字符串数字），元素是对象时绝无可能是事件 id。
+ *   混在一行 ⇒ 拒收，理由不是"格式不对"而是**后果**：读端只看 $[0]，
+ *   混形状行要么读不到锚、要么读不到事件引用，两头都残 ⇒ 等于没建索引。
  */
 function normalizeEvidence(gameId, evidence) {
   if (evidence === undefined || evidence === null) return [];
-  if (!Array.isArray(evidence)) throw httpError(400, 'evidence 必须是事件 id 数组');
-  if (evidence.length > 10) throw httpError(400, 'evidence 最多引用 10 个事件 id');
+  if (!Array.isArray(evidence)) throw httpError(400, 'evidence 必须是事件 id 数组或结构化对象数组');
+  if (evidence.length > 10) throw httpError(400, 'evidence 最多 10 项（事件 id 或结构化证据元素）');
+  const objs = evidence.filter((v) => v !== null && typeof v === 'object' && !Array.isArray(v)).length;
+  if (objs === 0) return normalizeEventIds(gameId, evidence);
+  if (objs !== evidence.length) {
+    throw httpError(400, 'evidence 一行内不许混两种形状（事件 id 与结构化对象）'
+      + '——读端只认第 0 个元素的位置，混形状行读端要么读不到真值锚、要么读不到事件引用，两头都残');
+  }
+  return normalizeStructured(evidence);
+}
+
+/**
+ * 旧形状：事件 id 引用校验。必须是整数 id（≤10），且每个 id 真实存在并属于本局
+ * （账本干净铁律：不留悬空引用；验证点自动路径的 id 已过 p1a postValidate 白名单）。
+ * ★向后兼容硬要求：既有调用方走的就是这条，一行都不许改口径。
+ */
+function normalizeEventIds(gameId, evidence) {
   const stmt = db.getConnection().prepare('SELECT id FROM events WHERE id = ? AND game_id = ?');
   const ids = [];
   for (const v of evidence) {
@@ -70,6 +120,51 @@ function normalizeEvidence(gameId, evidence) {
     if (ids.indexOf(id) === -1) ids.push(id);
   }
   return ids;
+}
+
+/**
+ * 新形状：结构化证据元素 `{ resolve:{kind,...}, baseRate?:{p,n,k,...}, ...其余键原样保留 }`。
+ *
+ * 校验只加两处，其余键**一律原样透传**（kind/slug/note/forecast/reference_tail/baseRateNote
+ * 都是生成批自己写的，读端在用；这里重写它们等于在写端另立一套生成口径）：
+ *   ① `resolve.kind` 必须在**支持表**内 —— 沿用 util.js 的 requireEnum 报错口径（字段名 + 收到的值 + 全部枚举），
+ *      禁另立魔法字符串式报错。支持表来源见 evidence/resolveKind.js（三表派生，非手抄字面量）。
+ *   ② `baseRate` 若出现则必须结构合法 —— 判据复用 baseRate.js 的 isStructured（基率字段的单一真源）。
+ *      ★非法就拒，不静默丢字段：丢了之后这行"看着落了库、其实没有基率"，
+ *      读端会一路退到文本兜底甚至报"没有基率"，而账本不可改，错了就永远错在那儿。
+ *   合法时用 baseRate.js 的 buildBaseRate 归一（补 schema 标签与 kind 缺省），
+ *   使新行与真库既有 1308 行的基率字段**同形**，不是"另一种基率"。
+ */
+function normalizeStructured(evidence) {
+  let kinds;
+  try {
+    kinds = kindGate.supportedKinds();
+  } catch (e) {
+    // 支持表读不到 ⇒ 无从判定 kind 合法性。如实报 500（服务端缺件），不伪装成用户的 400。
+    throw httpError(500, '真值锚支持表不可用，落注已中止（未写库）：' + e.message);
+  }
+  return evidence.map((el, i) => {
+    if (el === null || typeof el !== 'object' || Array.isArray(el)) {
+      throw httpError(400, 'evidence[' + i + '] 必须是结构化对象 {resolve:{kind}, baseRate?}');
+    }
+    const res = el.resolve;
+    if (res === null || typeof res !== 'object' || Array.isArray(res)) {
+      throw httpError(400, 'evidence[' + i + '].resolve.kind 必填（真值锚类型，如 openmeteo_daily_max）'
+        + '—— 没有真值锚的行既查不到基率、也判不了真值口径，等于没建索引');
+    }
+    requireEnum('evidence[' + i + '].resolve.kind', res.kind, kinds);
+    const out = Object.assign({}, el);
+    if (el.baseRate !== undefined && el.baseRate !== null) {
+      if (!baseRateMod.isStructured(el.baseRate)) {
+        throw httpError(400, 'evidence[' + i + '].baseRate 结构非法'
+          + '（须为 {p, n?, k?, kind?, window?, basis?, cmp?, threshold?}，p 必填且落在 [0,1]；'
+          + 'n/k 缺省表示未知，不是 0）—— 非法基率一律拒收，不静默丢字段'
+          + '（账本不可改，丢了就永远缺基率），收到: ' + JSON.stringify(el.baseRate));
+      }
+      out.baseRate = baseRateMod.buildBaseRate(el.baseRate);
+    }
+    return out;
+  });
 }
 
 /**
@@ -99,6 +194,73 @@ function truthBasisHits(row) {
   return hits;
 }
 
+/**
+ * 落注的**公共骨架**（2026-09-28）。
+ *
+ * 【为什么抽出来：病象是"分类信息全丢"】
+ *   原实现直接把 `{gameId, day, sourceType, statement, prob, evidence}` 六个字段
+ *   递给 `store.insertPrediction`，而 store 那一侧的 INSERT 写的是**十七列**
+ *   （predictionsStore.js:298），其中 layer / secondary_layer / engine / gate /
+ *   matures_at / g2_regime 全都是可选入参 —— 这里一个都没给。
+ *   ⇒ **走 HTTP 建出来的行，layer 恒为 NULL**。行"落库了"，可分层读数、
+ *     按层校准、按 gate 门控全都查不到它 —— 账本里有一条看不见分层的题。
+ *   store 侧的白名单早就支持这些字段（`AUDIT_KEYS`），缺的只是**路由没往下传**。
+ *
+ * ★本函数只做"往下传"这一件事，判据与校验一行都不新增、不放松
+ *   （`requireProb` / `normalizeEvidence` / store 的枚举白名单都原样在前面挡着）。
+ */
+function insertFromBody(gameId, body, opts) {
+  const o = opts || {};
+  const statement = requireNonEmptyString('statement', body.statement === undefined ? '' : String(body.statement));
+  // ★prob 必填：不是"没填就补一个"，是**没填就 400**。`requireProb` 拒口语、拒区间外。
+  const prob = requireProb(body.prob);
+  let day = null;
+  if (body.day !== undefined && body.day !== null) day = requireInt('day', body.day, 0);
+  else if (o.dayFromGame) day = currentDayOf(gameId); // 缺省=账本最新天（仅对局落注有意义）
+  const evidence = normalizeEvidence(gameId, body.evidence);
+
+  /* ── 分类与到期口径：往下传，但**只在给了的时候**给 ──
+     省略与"显式 null"是两件事（store 的 F16 白名单就是防这个的）：
+       · 给了就校验后照传，校验口径仍以 store 的 `assertAuditFields` 为准；
+       · 没给就整个键不出现 ⇒ store 写 NULL（既有 HTTP 调用方行为逐字不变）。 */
+  const audit = {};
+  if (body.layer !== undefined) audit.layer = body.layer;
+  if (body.secondary_layer !== undefined) audit.secondaryLayer = body.secondary_layer;
+  if (body.engine !== undefined) audit.engine = body.engine;
+  if (body.gate !== undefined) audit.gate = body.gate;
+  if (body.checklist_hash !== undefined) audit.checklistHash = body.checklist_hash;
+  if (body.metric_version !== undefined) audit.metricVersion = body.metric_version;
+  if (body.backtest_batch !== undefined) audit.backtestBatch = body.backtest_batch;
+  if (body.public_exposure !== undefined) audit.publicExposure = body.public_exposure;
+  // 到期日：调用方显式给了就用它的；否则**尝试从真值锚推**（resolve_spec/evidence 里的日历字段），
+  // 推得出来就用，推不出来就显式写 null 并在返回里说明原因——**不静默留空**。
+  //   （store 的 #2 纪律：有日历到期日给日期，无日历语义者显式传 null 并注释原因。）
+  let maturesAt = null;
+  let maturesWhy = null;
+  if (body.matures_at !== undefined && body.matures_at !== null) {
+    maturesAt = String(body.matures_at).slice(0, 10);
+  } else {
+    try {
+      maturesAt = store.deriveMaturesAt(o.resolveSpec || null, evidence);
+    } catch (e) {
+      maturesWhy = '题面与真值锚里没有任何日历字段 ⇒ 本题无日历到期日，'
+        + '按题目自身节奏结算（matures_at 显式写 null，不静默留空）';
+    }
+  }
+  audit.maturesAt = maturesAt;
+  // g2_regime：外部题不经 G2 批写通道，显式声明为 null（"本行不由 G2 批写"）而不是省略
+  audit.g2Regime = body.g2_regime === undefined ? null : body.g2_regime;
+
+  const row = store.insertPrediction(Object.assign(
+    { gameId: gameId, day: day, sourceType: o.sourceType, statement: statement, prob: prob, evidence: evidence },
+    audit,
+  ));
+  return Object.assign({}, row, {
+    matures_why: maturesWhy,
+    external: !!o.external,
+  });
+}
+
 function register(app) {
   store.ensurePredictionsTable(db.getConnection()); // additive 私有表（幂等，零碰 p1a 既有表）
 
@@ -107,18 +269,54 @@ function register(app) {
     const gameId = requireInt('game id', req.params.id, 1);
     getGameOr404(gameId);
     const body = req.body || {};
-    const statement = requireNonEmptyString('statement', body.statement === undefined ? '' : String(body.statement));
-    const prob = requireProb(body.prob);
     const sourceType = body.source_type === undefined || body.source_type === null
       ? '预测卡'
       : requireEnum('source_type', body.source_type, SOURCE_TYPES);
-    let day = null;
-    if (body.day !== undefined && body.day !== null) day = requireInt('day', body.day, 0);
-    else day = currentDayOf(gameId); // 缺省=账本最新天
-    const evidence = normalizeEvidence(gameId, body.evidence);
-    const row = store.insertPrediction({ gameId: gameId, day: day, sourceType: sourceType, statement: statement, prob: prob, evidence: evidence });
+    const row = insertFromBody(gameId, body, { sourceType: sourceType, dayFromGame: true });
     reply.code(201);
     return row;
+  });
+
+  /* ══ 2026-09-28：外部题免局落注（`POST /api/predictions`）══
+   *
+   * 【为什么需要】`predictions.game_id NOT NULL` ⇒ 落注必须挂一局，而外部题
+   *   （天气/汇率/开奖…）没有对局。`routes/intake.js:25` 把域容器规则写成了待定项，
+   *   于是「记一笔」记完的题**从不进 predictions 账**——界面全程"收下了"，
+   *   账本里什么都没有，而用户填的那个数也一起没了。
+   *
+   * 【本端点只做三件事，其余一律沿用既有落注链路】
+   *   ① 把题挂到**显式的外部题容器局**（`db/externalLedger`，`games.source='external'`）；
+   *      ⚠ 那是实现裁定、需创始人复核，见该文件头。
+   *   ② 真值锚 **必须**给（`resolve_spec.kind`）——没有锚的行查不到历史频率、
+   *      判不了真值口径，等于落了一本没有索引的账（与本文件头 L0 铁律同源）。
+   *   ③ 用户给的 `prob` **必填**，缺省即 400（不许拿基率/引擎读数顶上）。
+   *
+   * 纪律：口算概率（"大概率"）仍被 `requireProb` 拒；layer 枚举、gate 枚举、
+   *   evidence 结构仍由 store 的白名单校验，一条都没放松。 */
+  app.post('/api/predictions', async (req, reply) => {
+    const body = req.body || {};
+    const spec = normalizeResolveSpec(body.resolve_spec);
+    if (!spec) {
+      throw httpError(400, 'resolve_spec 必填（真值锚类型，如 {kind:"openmeteo_daily_max"}）'
+        + '—— 没有真值锚的行查不到历史频率、也判不了真值口径，等于没建索引');
+    }
+    const container = extLedger.ensureExternalContainer();
+    /* ★真值锚必须落在 **evidence[0]**，否则等于没建索引。
+     *   读端一律用 `json_extract(evidence_json,'$[0].resolve.kind')` 检索
+     *   （基率读数、真值口径、单题详情都是这条路）—— 锚不在第 0 个元素上，
+     *   这条行就查不到历史频率、判不了真值口径，看着落了库、其实是个黑洞。
+     *   沿用本文件头那条铁律的口径：**没有真值锚的行等于没建索引**。
+     *   调用方自带 evidence 且第 0 个元素已有 resolve 时以它的为准，不重复塞。 */
+    const callerEv = Array.isArray(body.evidence) ? body.evidence : [];
+    const hasAnchorAt0 = !!(callerEv.length && callerEv[0] && typeof callerEv[0] === 'object' && callerEv[0].resolve);
+    const withAnchor = hasAnchorAt0 ? callerEv : [{ resolve: spec }].concat(callerEv);
+    const row = insertFromBody(container.id, Object.assign({}, body, { evidence: withAnchor }),
+      { sourceType: '预测卡', resolveSpec: spec, external: true });
+    reply.code(201);
+    return Object.assign({}, row, {
+      container: { game_id: container.id, name: container.name, scope: lab.classifyGameType(container.game_type).scope },
+      intake_question_id: body.intake_question_id === undefined ? null : body.intake_question_id,
+    });
   });
 
   // 分页清单

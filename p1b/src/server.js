@@ -183,6 +183,10 @@ async function buildServer(opts) {
   require('./routes/intake').register(app, ctx); // 阶段 3 出口件（2026-09-13）：对外开放接题 POST /api/intake/classify + GET /api/intake/rejects（拒收门三问 + 六层判定 + 拒收日志，additive 新表 intake_rejects，零碰既有列）
   require('./routes/auditKpi').register(app, ctx); // UI 重构步 2：审计页 KPI 只读端点 GET /api/audit/g2-kpi（合格池/最难档/域外计数 + 分层 Brier 置信区间；纯 SQL 只读零写，口径与 g2-report.cjs 同源，既有 /api/audit/summary 契约不变）
   require('./routes/disclosure').register(app, ctx); // P0-U7/U8（2026-09-16）：披露件只读端点 GET /api/disclosure/calendar｜/calibration（读 sim/out 落盘件；缺件 404 带生成命令；零写库）
+  // 2026-09-28 补注册（批次三遗留）：analytics.js 早已建好，register 却从没被调用过
+  //   ⇒ GET /api/analytics/questions 与 /api/analytics/summary 两个端点一直是**死的**（404）。
+  //   纯只读聚合（analyticsStore），不新增表、不改既有端点。
+  require('./routes/analytics').register(app, ctx); // 批次三：GET /api/analytics/questions｜/api/analytics/summary（只读聚合）
 
   // 静态托管前端 dist：存在则挂（挂在 /api 之后，显式路由优先），不存在静默跳过
   if (fs.existsSync(WEB_DIST)) {

@@ -47,6 +47,14 @@ import type { NotePhase } from '../lib/noteWait';
    known:false 那一种连 base_rate 键都没有——不看 known 就会把"没有这类题"说成"还没结算"。 */
 import { readLookup, UNKNOWN_KIND_LINE, NO_SETTLED_LINE } from '../lib/noteLookup';
 import type { NoteLookup } from '../lib/noteLookup';
+/* 判据清单是后端硬契约（缺层/层长不符一律 400），而 400 只在提交那一刻才炸、
+   本地写和界面上都看不出来 ⇒ 装配口径抽成纯函数逐层单测（禁 jsdom/Testing Library）。
+   ★"没被问到的那几层发 unknown 而不是 false"的理由写在 lib/noteChecklist.ts 文件头。 */
+import { buildChecklist } from '../lib/noteChecklist';
+/* 「你的判断」是 assigned_prob 的唯一来源：读数/换算/拒收理由全在纯函数里，
+   因为它天天被用错的两件事——把 62 当 0-1 直接发（后端 400），
+   以及拿历史频率顶替用户没填的数（账本里看着样样齐全，其实没有人数）。 */
+import { submitGuard } from '../lib/noteProb';
 
 /** 真值锚类型（来自 /api/disclosure/compiler 的 kinds 目录；此处只取展示用的代表若干）。 */
 interface KindSpec { kind: string; required: string[]; one_of: string[][]; }
@@ -89,6 +97,12 @@ export default function NotePage() {
   const [phase, setPhase] = useState<NotePhase>('idle');
   const [over, setOver] = useState<Record<string, string[]>>({});   // layer -> 被取消的序号
   const [res, setRes] = useState<IntakeClassifyResult | null>(null);
+  /* ★账本回执（2026-09-28）：**落注成功之后**才有的那一行。
+     之前这一页全程只读不写，回执只报 classify 判出来的层与到期日，
+     读起来像"记下了"——而 predictions 账本里一行都没有。
+     现在分开两个来源：`res` 是分类/判层的答复，`ledger` 是**真进了账本**的回执；
+     两者不许互相顶替（ledger 为空就不许显示"收下了"）。 */
+  const [ledger, setLedger] = useState<LedgerRow | null>(null);
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState('');
 
@@ -151,46 +165,59 @@ export default function NotePage() {
   );
   const base: Hint | null = lookup && lookup.known ? lookup.base : null;
 
-  /** 该层判据默认「是」；人只把不认同的序号放进 over */
-  const buildChecklist = useCallback(() => {
-    const c: Record<string, boolean | string | Array<boolean | string>> = {
-      Q0_1: true, Q0_2: true, Q0_3: true,
-    };
-    if (advice?.layer) {
-      /* ★类型修复（TS2769）——**这条是真 bug，不只是类型噪音**：
-       *   原写 `const n = LAYER_Q.length`。但 LAYER_Q 的类型是 Record<string, string[]>，
-       *   索引签名把 "length" 这个键名也吃进去了，于是 .length 被推成 string[]——
-       *   这正是 tsc 报的 "Type 'string[]' is not assignable to type 'number'"。
-       *   运行时 LAYER_Q 是普通对象字面量、**根本没有 length 属性**（实测 undefined），
-       *   于是 Array.from({ length: undefined }, …) 返回 []，
-       *   即该层判据**一条都没勾**就提交，与本页三处文案（「该层判据我按『是』填好了」、
-       *   文件头「③ 该层的判据默认按"是"预填」）直接矛盾。
-       *   后端 intake.js:191 的 layerGreen 在 v.length !== QUESTION_COUNT[layer] 时直接 400。
-       *   正确取法是该层自己的题数：LAYER_Q[advice.layer].length 逐层等于后端
-       *   QUESTION_COUNT（L1/L2/L3/L6=4、L4/L5=3），两边天然对齐。
-       *   ★未加 as any / 未改类型断言 —— 那样只会把 400 一起骗过去。 */
-      const n = LAYER_Q[advice.layer].length;
-      c[advice.layer] = Array.from({ length: n }, (_, i) => !over[advice.layer!]?.includes(String(i)));
-    }
-    return c;
-  }, [advice, over]);
+  /** 该层判据默认「是」；人只把不认同的序号放进 over。
+   *  ★装配搬进纯函数 buildChecklist（lib/noteChecklist.ts）：后端逐层必填且层长不符即 400，
+   *    这条只在你按下"记下"那一刻才发生，页面上看不出来 ⇒ 必须能单测。
+   *    旧实现在这里只发「三问 + 建议层」，其余四层连键都没有 ⇒ 恒 400；
+   *    而拿 false 顶上也不行——那是替用户编造"不满足"。发 unknown 才是"没问"。 */
+  const checklist = useMemo(
+    () => buildChecklist({ layer: advice?.layer ?? null, off: advice?.layer ? over[advice.layer] : undefined }),
+    [advice, over],
+  );
 
   const submit = useCallback(async () => {
-    if (!statement.trim() || !kind) return;
+    /* ★闸在发请求之前（不是之后）：三件必答的事少一件就不许发出去。
+       其中「你的判断」是 `assigned_prob` 的**唯一来源**——不放行就等于
+       记下一条没有人数的题，而回执还写"收下了"。宁可当场说清为什么。 */
+    const v = submitGuard({ statement, kind, myProb });
+    if (!v.ok) { setErr(v.why); setBusy(false); return; }
     setBusy(true); setErr('');
     try {
+      /* 两步：先 classify 拿**层与到期口径**，再 create 把题与用户那个数落进账本。
+         ★顺序不能反：层是 classify 判出来的，create 只是记账；先建再判等于
+           建一条没有层的行（而分层的行才是那些读数认的东西）。 */
       const r = await api.classifyIntake({
         statement: statement.trim(),
         resolve_spec: { kind },
-        checklist: buildChecklist(),
+        checklist,
       } as never);
       setRes(r);
+      // ★被拒收就不建行：拒收的题进的是 intake_rejects 台账，不是 predictions 账本。
+      //   硬建一条进去＝把"系统拒收了这道题"和"账本里有一道题"同时说成真话。
+      if ((r as unknown as { rejected?: boolean }).rejected) return;
+      const c = await api.createPrediction({
+        statement: statement.trim(),
+        prob: v.prob,
+        resolve_spec: { kind },
+        layer: r.layer,
+        secondary_layer: r.secondary,
+        engine: r.engine,
+        gate: r.gate,
+        intake_question_id: r.intake_question_id,
+      });
+      // ★落注成功才把"记下了"说出口。setRes 在上面已经跑过一次，所以这里补的是**账本回执**。
+      setLedger(c);
     } catch (e) {
+      /* ★失败必须如实报错，不许显示「收下了」——那正是最会骗人的地方。
+         两步之间的失败也会走这里：classify 过了但 create 没过时，
+         `res` 已经是"收下了"，所以下面把它撤掉，别让界面停在一个半截状态上。 */
+      setRes(null);
+      setLedger(null);
       setErr(e instanceof Error ? e.message : String(e));
     } finally {
       setBusy(false);
     }
-  }, [statement, kind, buildChecklist]);
+  }, [statement, kind, myProb, checklist]);
 
   /* ★两段等待说两句话：查历史说「在数」，登记说「在登记」。
      共用一句"在数同类题的历史样本"会让人以为提交时也在数数——那是在解释一件没发生的事。 */
@@ -211,7 +238,7 @@ export default function NotePage() {
         <textarea
           id="note-stmt" className="note-text" rows={2} value={statement}
           placeholder="例：2026-09-30 伦敦日降水量超过 20mm 吗？"
-          onChange={(e) => { setStatement(e.target.value); setRes(null); }}
+          onChange={(e) => { setStatement(e.target.value); setRes(null); setLedger(null); }}
         />
 
         <label className="note-label" htmlFor="note-kind">答案去哪里查</label>
@@ -225,7 +252,7 @@ export default function NotePage() {
             丢了会让人以为"没这个来源"，那是更坏的错。 */}
         <select
           id="note-kind" className="note-select" value={kind}
-          onChange={(e) => { setKind(e.target.value); setRes(null); }}
+          onChange={(e) => { setKind(e.target.value); setRes(null); setLedger(null); }}
         >
           <option value="">选一个…</option>
           {KIND_GROUPS.map((g) => (
@@ -270,10 +297,20 @@ export default function NotePage() {
       {/* ══ ★T5：算数露头 —— 两个数并排 + 一句结论 ══
           这是本产品**存在的理由**。过去写完题面什么都拿不到，
           用户不知道"我凭什么给这个数"、也不知道"历史上这类题怎么样"。
-          现在并排给出：我的判断 vs 同类历史真实频率。 */}
-      {advice ? (
+          现在并排给出：我的判断 vs 同类历史真实频率。
+
+          ★2026-09-28 步骤 B：整块从 `{advice ? …}` 里**抬出来了**，条件改成 `kind`。
+          原因不是排版，是**闸的可执行性**：
+          「你的判断」是 `assigned_prob` 的唯一来源，而提交闸（lib/noteProb.ts）
+          少一个数就不放行。输入框若仍关在 advice 门里，账本里一道这种题都没有时
+          （lookup.known=false）**整块不渲染** ⇒ 闸把用户拦在一处他根本填不了的地方。
+          拦下一件用户做不了的事、又不告诉他去哪儿做，比不拦更坏。
+          左格在没有历史时显示「—」并说明为什么（理由/在数…），右格照常可填。 */}
+      {kind ? (
         <section className="note-answer" data-testid="note-answer">
-          <h2 className="note-answer-h">这类题，历史上怎么样</h2>
+          <h2 className="note-answer-h">
+            {advice ? '这类题，历史上怎么样' : '先记下你的判断'}
+          </h2>
 
           <div className="note-nums">
             {/* 左：同类历史真实频率（后端 T4 实算，只读） */}
@@ -289,26 +326,29 @@ export default function NotePage() {
                           ? ('已结算 ' + base.n + ' 条里对了 ' + base.hit + ' 条')
                           : ('只结算了 ' + base.n + ' 条，不足 30'))
                       : '同类还没有已结算的题')
-                  : '在数…'}
+                  : (lookup && !lookup.known ? '账本里还没有这类题' : '在数…')}
               </div>
             </div>
 
-            {/* 右：你的判断 —— 放在看过基率之后填，减少锚定 */}
+            {/* 右：你的判断 —— 放在看过基率之后填，减少锚定。
+                ★必填：不填就提交不了（这是"记一笔"与"写个备忘"的区别）。 */}
             <div className="note-num">
               <div className="note-num-lab">你的判断</div>
               <input
                 className="note-prob" inputMode="decimal" value={myProb}
                 placeholder="填 0-100"
-                onChange={(e) => setMyProb(e.target.value)}
+                onChange={(e) => { setMyProb(e.target.value); setRes(null); setLedger(null); }}
                 aria-label="你判断这件事发生的概率，填 0 到 100 之间的百分数"
               />
               <div className="note-num-note">
-                {myProbValid(myProb) ? '（如 62 表示你押 62%）' : '还没填'}
+                {myProbValid(myProb) ? '（如 62 表示你押 62%）' : '必填：到期后才知道自己偏了多少'}
               </div>
             </div>
           </div>
 
-          {/* ★结论句：只有两个数都在场才有意义——这是整个产品唯一真正有价值的话 */}
+          {/* ★结论句：只有两个数都在场才有意义——这是整个产品唯一真正有价值的话。
+              verdictText 三态齐全（known=false / 没有已结算的题 / 样本不足 / 差值），
+              所以没有建议层时它照样给得出**诚实**的那一句。 */}
           <p className="note-verdict" data-testid="note-verdict">
             {verdictText(myProb, base, lookup ? lookup.known : true)}
           </p>
@@ -320,6 +360,8 @@ export default function NotePage() {
             </p>
           ) : null}
 
+          {advice ? (
+            <>
           <div className="note-advice-h" style={{ marginTop: 16 }}>
             按账本历史，这类题通常算作
             <b>{advice.layer || '—'}</b>
@@ -345,9 +387,14 @@ export default function NotePage() {
               </label>
             );
           })}
+            </>
+          ) : null}
         </section>
       ) : null}
 
+      {/* ★按钮只挡"没法提交"的（没题面/没选源/正在提交），
+          **不挡"没给数"**：不给数是有话要说的（缺了它，账本里记下的不是你的判断），
+          闷掉按钮只会让人以为已经记下了。那道话说清在 lib/noteProb.submitGuard。 */}
       <button
         type="button" className="note-go" disabled={busy || !statement.trim() || !kind}
         onClick={() => void submit()}
@@ -366,13 +413,32 @@ export default function NotePage() {
       />
 
       {/* ── 回执：人话，且拒收的因果方向要说清 ── */}
-      {res ? <Receipt r={res} /> : null}
+      {res ? <Receipt r={res} ledger={ledger} myProb={myProb} /> : null}
     </div>
   );
 }
 
-/** 回执：系统的答复，用人说的话 */
-function Receipt({ r }: { r: IntakeClassifyResult }) {
+/** 落注返回里，回执要用到的那几项（其余不显示）。 */
+type LedgerRow = {
+  id: number;
+  assigned_prob: number | null;
+  layer: string | null;
+  engine: string | null;
+  gate: string | null;
+  matures_at: string | null;
+  matures_why: string | null;
+  container?: { game_id: number; name: string; scope: string };
+};
+
+/**
+ * 回执：系统的答复，用人说的话。
+ *
+ * ★2026-09-28 最重要的一处改动：**"收下了"只许在账本真的多了一行时出现**。
+ *   旧实现只要 classify 过了就写「收下了」，而那时 predictions 账本里一行都没有
+ *   ——那句话在替一件没发生的事作证。现在 `ledger` 为空就只报"判成了什么、
+ *   但没落进账本"，并把后端的原话摆出来。
+ */
+function Receipt({ r, ledger, myProb }: { r: IntakeClassifyResult; ledger: LedgerRow | null; myProb: string }) {
   const rej = (r as unknown as { rejected?: boolean; reason?: string; detail?: string }).rejected;
   const reason = (r as unknown as { reason?: string }).reason || 'other';
   if (rej) {
@@ -388,16 +454,47 @@ function Receipt({ r }: { r: IntakeClassifyResult }) {
     );
   }
   const detail = r as unknown as { layer?: string; engine?: string; matures_at?: string };
+  /* 判成了层、但没落进账本：这是**半截状态**，必须自己说出来。
+     旧文案在这条路上直接写「收下了」——那正是最会骗人的地方。 */
+  if (!ledger) {
+    return (
+      <div className="note-receipt is-reject" data-testid="note-receipt">
+        <div className="note-receipt-h">判出来了，但没落进账本</div>
+        <dl className="note-receipt-list">
+          <dt>算作</dt><dd><b>{detail.layer || '—'}</b>{detail.engine ? <>（{detail.engine}）</> : null}</dd>
+        </dl>
+        <p className="note-receipt-sub">
+          分类这一步过了，落注那一步没成——<b>账本里现在没有这道题，你填的数也没存下来</b>。
+          上面那条报错说的是原因，照着改完再记一次。
+        </p>
+      </div>
+    );
+  }
   return (
     <div className="note-receipt is-ok" data-testid="note-receipt">
       <div className="note-receipt-h">收下了</div>
       <dl className="note-receipt-list">
-        <dt>算作</dt><dd><b>{detail.layer || '—'}</b>{detail.engine ? <>（{detail.engine}）</> : null}</dd>
-        <dt>到期</dt><dd className="u-mono">{detail.matures_at || '按题面判据自动推'}</dd>
+        {/* ★这一行是本轮的核心：把用户填的数**原样报回去**。
+            界面给的是 0-100 的百分数，账本存的是 0-1；不回显的话，
+            用户无从知道自己押的到底是 62% 还是 0.62%。 */}
+        <dt>你押的</dt>
+        <dd className="u-mono">
+          <b>{Math.round((ledger.assigned_prob ?? 0) * 1000) / 10}%</b>
+          {myProbValid(myProb) ? '' : '（账本里存的是 ' + String(ledger.assigned_prob) + '，与你填的不一致——这是错的）'}
+        </dd>
+        <dt>算作</dt><dd><b>{ledger.layer || detail.layer || '—'}</b>{detail.engine ? <>（{detail.engine}）</> : null}</dd>
+        <dt>到期</dt>
+        <dd className="u-mono">
+          {ledger.matures_at || '本题无日历到期日，按题目自身节奏结算'}
+          {ledger.matures_why ? <div className="note-receipt-sub">{ledger.matures_why}</div> : null}
+        </dd>
       </dl>
       <p className="note-receipt-sub">
-        到期后去「待落定」回答一次，就算落定。不想改判据可以直接走——
-        <b>这一页只做登记，不改已有记录。</b>
+        到期后去「待落定」回答一次，就算落定。这一页只新增、不改已有记录。
+        {ledger.container ? (
+          <>题目记在「{ledger.container.name}」下（<code>{ledger.container.scope}</code> 域）——
+            那是个容器、<b>不是一局对局</b>，所以它不会混进任何对局统计里。</>
+        ) : null}
       </p>
     </div>
   );

@@ -44,6 +44,7 @@ const { l2Baseline } = require('../engines/l2_baseline'); // 阶段 4：L2 最�
 const { l5Certified } = require('../engines/l5_certified'); // 阶段 4：L5 认证源公布分布
 const { certifiedSourceForRow } = require('../engines/l5_sources'); // 2026-09-14：L5 认证源读侧重建（与 stage4-run 同源）
 const baseRateMod = require('../evidence/baseRate'); // 批次 3：基率结构化字段（形态判别与引擎入参）
+const predictionsStore = require('../db/predictionsStore'); // 2026-09-28：只借 deriveMaturesAt（到期日推导的单一真源）
 const lab = require('../evidence/labBoundary'); // 2026-09-27：实验场/真实局边界单一真源（第 -1 步·实验场域门）
 
 /** 清单版本：v2 判据 + v3 注记（unknown 出口 + L4 后置标注），随清单文档冻结。 */
@@ -55,6 +56,27 @@ const GATE_QUESTIONS = [
   { key: 'Q0_2', reason: 'leak', label: 'Q0-2 cutoff 早于事件决定性时点' },
   { key: 'Q0_3', reason: 'tautology', label: 'Q0-3 结果随实例变化（恒定即拒收）' },
 ];
+
+/**
+ * ★2026-09-28：本函数**只服务于返回体里新加的 matures_at 键**，不参与任何判定。
+ *   判据契约、拒收门、决策树、gate 状态机一律未动。
+ *
+ * 到期口径：真值锚里带日历字段（date / week_end / end / date_plus7 / week_start /
+ *   period / month / year / epiweek / week）⇒ 推出日期；推不出来 ⇒ **显式 null**。
+ * ★推不出来就 null，绝不猜：题面里那句「2026-09-30 伦敦日降水量…」里的日期是
+ *   **人的散文**，从自由文本里正则抓一个日期当作到期日，就是替用户编造确定性
+ *   （与 `predictionsStore.deriveMaturesAt` 的 #2 纪律同源）。
+ *   推导本身复用 store 的单一真源，不在这里另写一套日期优先级。
+ */
+function intakeMaturesAt(resolveSpec, engineEvidence) {
+  if (!resolveSpec) return null;
+  try {
+    const d = predictionsStore.deriveMaturesAt(resolveSpec, engineEvidence);
+    return String(d).slice(0, 10);
+  } catch (e) {
+    return null; // 题面/锚里没有日历字段 ⇒ 无日历到期日（显式 null，不静默留空）
+  }
+}
 
 /** 决策树顺序（R1-F1 修后：L4 已移出，改后置叠加标注）。 */
 const DECISION_ORDER = ['L5', 'L6', 'L1', 'L3', 'L2'];
@@ -362,6 +384,14 @@ function classifyIntake(body) {
     decided_by: decidedBy, checklist_hash: CHECKLIST_HASH, engine: plan.engine, engine_plan: plan,
     gate: gateInfo.gate, gate_reason: gateInfo.reason, resolve_spec: resolveSpec, statement: statement,
     prob: prob, prob_ci: probCi, engine_note: engineNote, engine_result: engineResult,
+    // ★2026-09-28 只加这一个键（判据契约/拒收门/决策树一个字未动）：
+    //   **到期口径原先压根不在返回体里**，而「记一笔」的回执读的是 `detail.matures_at`
+    //   ⇒ 那个字段恒为 undefined，界面永远落进「按题面判据自动推」兜底，
+    //   而调用方据此以为"到期日是系统给的"——实际是它自己编的一句。
+    //   口径：题面/真值锚里带日历字段 ⇒ 给出推出来的日期；**推不出来就显式给 null**
+    //   （"本题无日历到期日，按自身节奏结算"），**不许留空让人误以为没算**。
+    //   与 predictionsStore 的 #2 纪律同源：省略即静默出域。
+    matures_at: intakeMaturesAt(resolveSpec, engineEvidence),
     intake_question_id: iq.id, intake_ledger: 'intake_questions',
   };
 }
