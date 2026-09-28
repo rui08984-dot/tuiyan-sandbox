@@ -5,7 +5,7 @@
  *
  * 3 路 = 同 provider（tokenrhythm）× 3 prompt 变体 × 温度多样性（0.2/0.7/1.0）：
  *   v1_evidence  T=0.2  证据聚合视角（合法角色：信息聚合）
- *   v2_skeptical T=0.7  怀疑派视角（发散候选，G-合并 R-b：高温=发散原料非预测信号）
+ *   v2_skeptical T=0.7  怀疑派视角（发散候选，G-合并 R-b：高温=发散原料而非信号源）
  *   v3_baserate  T=1.0  基率视角（合法角色：基率检索）
  * provider 维度留空待第二把 key 扩展 3×N（表结构已兼容）。
  *
@@ -40,10 +40,20 @@
  *   边界：d 段输入=证据窗内 events/claims 副本；检测器真值盲（禁触 games.meta.truth）；
  *     events.actor_seat=players.id 须 JOIN players 还原座位号（acr-run.cjs L21-24 同口径）；
  *     非狼人域局（game_type 解析不出 format）不追加 d 段 → 2.0 形状。
+ *
+ * ★2026-09-29 结算时序闸（本文件只做两件事，判定一律在 store 里）：
+ *   1) 写前查一次 `vstore.leakStateOf(pid)`：判词晚于父题结算 → **409**（不是 200 空体）。
+ *      文案照 `routes/predictions.js:507` 那条 not_due 的形状：说清为什么拒、什么时候能写。
+ *      ★查在 LLM 调用**之前**：已经封口的题再花三路 token 出一份事后读数，钱和时间都是白花。
+ *      ⚠ 本路由**不持豁免口**（`saveVerdict` 的 `allowPostSettlement`）——透传即等于把闸拆掉。
+ *      读数实验批次要留的，只能由内部脚本显式传该口，落库自报 legacy 态并计入排除数披露。
+ *   2) 响应里带 `leak` 排除数披露（照 l6_structural 的 excluded++ 纪律）——本题有多少行
+ *      判词进不了 clean 读侧，必须与读数同屏，否则"少了"这件事只有看库的人才知道。
  */
 const { db, llm } = require('../deps');
 const predictions = require('../db/predictionsStore');
 const vstore = require('../db/verdictsStore');
+const vviews = require('../db/verdictsViews');
 const { chatText } = require('../lib/llmChat');
 const { resolveLlmOptions } = require('../llmOptions');
 const { getGameOr404 } = require('./games');
@@ -126,14 +136,14 @@ function truncateText(s, n) {
  * 空/全部悬空 → 「（本条无证据引用，仅题面陈述）」。
  * 3.0 追加 d 段（机械矛盾特征）：仅当开关开启且 game_type 解析出狼人域 format；默认开启，
  *   关闭→ a/b/c 逐字节等于 2.0。
- * @param {object} prediction 预测行（需 id/game_id/evidence）
+ * @param {object} prediction 题行（账本行；需 id/game_id/evidence）
  * @param {{contradictions?: boolean}} [opts] 消融参数（缺省读 env P1B_EVIDENCE_V3）
  * @returns {string} 多行证据块（零网络，纯查库）
  */
 function loadEvidence(prediction, opts) {
   // 【2026-09-13 修预存在 bug】1053 条 corpus 型 evidence 为结构化对象数组（非事件 id）。
   // 旧实现把元素直接当 SQL 参数绑定（下方 events 循环与 claims 的 IN 展开）→ RangeError，
-  // 生产 POST /predictions/:pid/verdicts 打到 corpus 预测即 500。此处只保留可作事件 id 的标量；
+  // 生产 POST /predictions/:pid/verdicts 打到 corpus 型题即 500。此处只保留可作事件 id 的标量；
   // 纯结构化快照走专用兜底行（与修复前基线的差异仅出现在这些原本会崩溃的行上）。
   // 命题 A 消融窗口覆盖（additive）：opts.evidenceIds 显式给出事件 id 集时优先（缺省＝prediction.evidence，逐字节不变）。
   const raw = (opts && Array.isArray(opts.evidenceIds)) ? opts.evidenceIds
@@ -364,6 +374,7 @@ function buildMockVerdict(variant, temperature, statement, extras) {
 
 function register(app, ctx) {
   vstore.ensureVerdictsTable(db.getConnection()); // additive 私有表（register 内 ensure，oracleCast 先例）
+  vviews.ensureVerdictsCleanView(db.getConnection()); // 读侧收口视图（additive；须在补列之后——见 verdictsViews 头注）
   // ── 结果缓存**生产接线**（2026-09-17 第十九批 additive；蓝图 §2.1#7 尾巴）──────────────────
   // 默认**关闭**：env `P1B_RESULT_CACHE_DIR` 未设 ⇒ 零行为变化（不读不写缓存）。
   // 键＝`keyOfMessages()`（**严格键**：实际 messages 逐字入哈希 ＋ 温度 ＋ 模型）——**不用**冻结的
@@ -379,7 +390,18 @@ function register(app, ctx) {
     const pid = requireInt('prediction id', req.params.pid, 1);
     const pred = predictions.getPrediction(pid);
     if (!pred || pred.game_id !== gameId) {
-      throw httpError(404, '预测记录不存在或不属于该局: ' + pid);
+      throw httpError(404, '记录不存在或不属于该局: ' + pid);
+    }
+    // ── 结算时序闸（2026-09-29）：查在 LLM 之前。判据不写在这里（store 是唯一真源）。
+    //   409 而非 200+空体——本项目吃过一次亏（routes/predictions.js:504-508 记着：not_due
+    //   一路落到 return，账本虽没被写、HTTP 却回 200，状态码会骗人）。
+    const gate = vstore.leakStateOf(pid);
+    if (gate.state === 'post_settlement') {
+      throw httpError(409, '这道题已结算（结算于 ' + gate.resolved_at + '），判词要到 ' + gate.now
+        + ' 才生成——那是拿着答案回头看，不是对这道题的信息读数。'
+        + '判词这一层只有在父题结算之前生成时才是信号，所以现在不能写。'
+        + '已结算之后仍要留读数（读数实验口径）的，走内部豁免口落库并自报为读数行、计入排除数披露；'
+        + '本接口不开放该入口。');
     }
     // 批次2-M1（R-A 后解冻件）：runId/model 可选透传（additive，缺省 NULL）——
     // 跑批批次指纹（PREREG hash 前 12 位）与模型口径入 verdicts 表，供消融按重跑批次分组。
@@ -441,6 +463,13 @@ function register(app, ctx) {
           model: model,
           resolvedModel: resolvedModel,
         });
+        // 兜底闸：进循环前已查过一次 leakStateOf；这里再查一次是因为两次之间可能刚好结算了。
+        //   拒写不是"单路失败"——它不是某一路挂了，是整批的前提不成立，所以照 not_due 抛 409，
+        //   不塞进 errors 里当 200 返回（那正是本项目吃过一次亏的坑）。
+        if (row && row.ok === false) {
+          throw httpError(409, '判词未落库：' + row.why
+            + '（写入发生在检查之后，期间本题完成结算）');
+        }
         saved.push({
           id: row.id,
           prompt_variant: row.prompt_variant,
@@ -451,19 +480,29 @@ function register(app, ctx) {
           run_id: row.run_id,
           model: row.model,
           resolved_model: row.resolved_model,
+          leak_state: row.leak_state,                          // clean＝进得了 clean 读侧；其余态一律进不了
           cache_hit: cacheHit,                                 // 结果缓存命中（env 未设时恒 false）
         });
       } catch (e) {
-        // 单路失败不落库不编造（消融数据干净优先）；如实标注
+        // 单路失败不落库不编造（消融数据干净优先）；如实标注。
+        // ★但 httpError 不进 errors：它不是"某一路挂了"，是整批的前提不成立——
+        //   塞进 errors 再回 200，等于把拒写说成"三路里有一路没成"（同 409 分支的坑）。
+        if (e && e.statusCode) throw e;
         errors.push({ prompt_variant: route.variant, temperature: route.temperature, error: String((e && e.message) ? e.message : e) });
       }
     }
+    // 读侧收口披露（照 l6_structural 的 excluded++ 纪律）：本题有多少行判词进不了 clean 读侧，
+    // 与读数同屏。"从视图里消失"本身是要告知的事实——静默过滤会把"一半的行不能用"说成"就这些行"。
+    const leak = vviews.leakDisclosure(pid);
     return {
       prediction_id: pid,
       mode: mode === 'MOCK' ? 'mock' : 'live',
       saved: saved,
       errors: errors,
-      note: 'LLM 只产出文本；implied_prob 由末行「P=0.xx」固定格式正则机械抽取，抽取失败落 NULL 不编数',
+      leak: leak,
+      note: 'LLM 只产出文本；implied_prob 由末行「P=0.xx」固定格式正则机械抽取，抽取失败落 NULL 不编数'
+        + '。本次写入的行 leak_state=clean（父题结算之前生成，可进 clean 读侧）'
+        + (leak.note ? '；' + leak.note : ''),
       l0_gate: predictions.l0Gate(),
     };
   });
