@@ -69,10 +69,36 @@ flowchart TB
     F4 -.->|"参考建议"| INTAKE
     F1 -.->|"负结果"| BOARD
 
+    subgraph D928["2026-09-28 专批：评审落地 ＋ 账本止血"]
+        direction TB
+        GUARD["落定到期闸<br/>未到期拒写 265 条移出待办"]
+        EXPIRE["揭晓分流<br/>split.ok 不再丢弃"]
+        FROZE["冻结闸 expansion-freeze<br/>kind27/PREREG23/页面25"]
+        SCRIPTG["脚本层收口<br/>13 文件 17 站点 CAS"]
+        SECURE["网络默认收紧<br/>127.0.0.1 ＋ 令牌可选"]
+        TLM["埋点 analytics<br/>作者/访客可分"]
+        VIEWS["我的题/语料库/others<br/>三桶恒等式"]
+        HOLE1["密钥清史未做<br/>408 commit + 6 悬空 blob"]
+        HOLE2["analytics 未注册<br/>端点是死的"]
+        HOLE3["记一笔闭环施工中<br/>从不创建 prediction"]
+    end
+
+    LEDGER --> GUARD
+    INTAKE --> EXPIRE
+    SCRIPTG --> LEDGER
+    SECURE -.->|"切断凭证外泄"| SCRIPTG
+    TLM --> VIEWS
+    EXPIRE --> VIEWS
+    FROZE -.->|"锁 kind/PREREG/页面 计数"| INTAKE
+    SCRIPTG -.->|"被扫描闸覆盖"| FROZE
+    HOLE1 -.-> SCRIPTG
+    HOLE2 -.-> TLM
+    HOLE3 --> INTAKE
+
     classDef done fill:#2e7d32,color:#fff
     classDef doing fill:#f9a825,color:#000
     classDef notstarted fill:#546e7a,color:#fff
 
-    class P0,P1,P2,P3,P4,P5,A1,TB,R3,LEDGER,VAULT,INTAKE,ENGINES,STAGE4,CAL,BOARD,PREREG,TEST,SCRIPTS,UI,HANDOFF,GATE,F1,F4,F5,F6 done
-    class I1 doing
-    class A3,A5 notstarted
+    class P0,P1,P2,P3,P4,P5,A1,TB,R3,LEDGER,VAULT,INTAKE,ENGINES,STAGE4,CAL,BOARD,PREREG,TEST,SCRIPTS,UI,HANDOFF,GATE,F1,F4,F5,F6,GUARD,EXPIRE,FROZE,SCRIPTG,SECURE,TLM,VIEWS done
+    class I1,HOLE3 doing
+    class A3,A5,HOLE1,HOLE2 notstarted
