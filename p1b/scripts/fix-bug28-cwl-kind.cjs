@@ -51,22 +51,30 @@ if (resolved.length) {
 if (!CONFIRM) { console.log('DRY-RUN：未写库。加 --confirm 执行。'); db.close(); process.exit(0); }
 
 const tx = db.transaction(() => {
-  let n = 0;
+  let n = 0, blocked = 0;
   for (const r of rows) {
     const ev = JSON.parse(r.evidence_json || '[]');
     if (!ev[0] || !ev[0].resolve) continue;
     const before = JSON.stringify(ev[0].resolve);
     ev[0].resolve = { kind: 'cwl_ssq_blue_odd', issue: String(ev[0].resolve.issue) }; // 与题面「蓝球为奇数」对齐
     const after = JSON.stringify(ev[0].resolve);
-    db.prepare('UPDATE predictions SET evidence_json=? WHERE id=?').run(JSON.stringify(ev), r.id);
+    // 收口 A（2026-09-28）：把上面的「先查后写」升级成 SQL 里的原子条件。
+    // 上面的 abort 只是 SELECT 时刻的快照——从查出到写回之间若该行被别处落定，裸写就会把
+    // 错误真值写进已落定行（正是本文件头警告的不可逆污染）。`AND outcome IS NULL` 与赋值同在
+    // 一条语句里，靠 SQLite 单语句原子性挡掉这个 TOCTOU；changes=0 ⇒ 拒改并如实计数。
+    if (db.prepare('UPDATE predictions SET evidence_json=? WHERE id=? AND outcome IS NULL').run(JSON.stringify(ev), r.id).changes === 0) {
+      blocked++;
+      console.log('   SKIP-SETTLED id=' + r.id + '（已落定，拒改 resolve spec）');
+      continue;
+    }
     n++;
     console.log('   fixed id=' + r.id + ' : ' + before + '  =>  ' + after);
   }
-  return n;
+  return { n, blocked };
 });
-const fixed = tx();
+const { n: fixed, blocked } = tx();
 const integrity = db.prepare('PRAGMA integrity_check').get();
 const left = db.prepare("SELECT COUNT(*) n FROM predictions p, json_each(p.evidence_json) e "
   + "WHERE json_extract(e.value,'$.resolve.kind')='cwl_ssq_red_contains' AND json_extract(e.value,'$.resolve.ball') IS NULL").get().n;
-console.log('[done] fixed=' + fixed + ' | 剩余 ball=null 行=' + left + ' | integrity=' + JSON.stringify(integrity));
+console.log('[done] fixed=' + fixed + ' | 守卫拒改(已落定)=' + blocked + ' | 剩余 ball=null 行=' + left + ' | integrity=' + JSON.stringify(integrity));
 db.close();

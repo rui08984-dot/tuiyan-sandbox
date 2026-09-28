@@ -17,7 +17,9 @@
  *   ② 空态原文保留——「样本不足」「n<30 出不了区间」不得被图形替掉（dist.test.mjs 契约）
  *   ③ 稀疏 ≠ 0 —— 无读数的格子画「无数据」，绝不画成 0 的好格
  */
-import type { CSSProperties, ReactNode } from 'react';
+// ★类型修复：原 `import type { CSSProperties, ReactNode }` 里的 CSSProperties 全文件零引用
+//   （六轮「统一尺寸」改造把内联 style 全删了，只剩 import 没清），故只删这一个名字。
+import type { ReactNode } from 'react';
 // ★八轮第二改：读数条由 MiniGauge 换成 DeviationBar
 //   —— 旧仪表把「弧越长」画成「越好」，而 Brier 是误差（越小越好），图形在替数字说反话。
 // ★八轮第三改：MiniGauge 已整体删除（无调用点），其说明与实现一并移除；

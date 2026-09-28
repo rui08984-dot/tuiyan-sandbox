@@ -390,8 +390,13 @@ export default function OverviewPage() {
         </p>
         <div className="readout-grid stagger-in">
           {/* ★八轮第四改：标本带选中某域时，下方卡片只留与该域相关的层——
-              两块因此是「图 ↔ 详情」的关系，不是并排的两个独立视图。 */}
-          {LAYER_META.filter((m) => !activeDomain || byLayer.some((x) => x.layer === m.id && x.domain === activeDomain)).map((m) => {
+              两块因此是「图 ↔ 详情」的关系，不是并排的两个独立视图。
+              ★类型修复（真 bug）：判定依据原先取自 `byLayer`，但 byLayer 是**层聚合**
+              （一个层一行，字段只有 layer/n/brier，自 595e249 引入起就没有 domain），
+              于是 `x.domain` 恒为 undefined、`=== activeDomain` 恒假 ⇒ 一旦选中任一域，
+              六张分层卡片会**全部消失**。domain 只存在于 `cells`（层×领域，29 格），
+              故改判 cells；byLayer 仍是层聚合，卡片上的 n/brier 口径不变。 */}
+          {LAYER_META.filter((m) => !activeDomain || cells.some((c) => c.layer === m.id && c.domain === activeDomain)).map((m) => {
             const row = byLayer.filter((x) => x.layer === m.id)[0];
             const n = row ? row.n : null;
             const brier = row ? row.brier : null;

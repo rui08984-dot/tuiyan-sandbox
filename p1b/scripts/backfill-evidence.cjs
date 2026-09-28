@@ -35,7 +35,14 @@ const titlesOf = (g) => {
 const games = conn.prepare('SELECT id FROM games WHERE id >= 8 AND id <= 37 ORDER BY id').all();
 const stats = { games: games.length, scanned: 0, changed: 0, unchanged: 0, missing: 0 };
 const diffRows = [];
-const applyStmt = conn.prepare('UPDATE predictions SET evidence_json = ? WHERE id = ?');
+// 收口 A（2026-09-28）：守卫条件与赋值同在一条 SQL 里，不靠上面的 SELECT 快照。
+// 本脚本的职责是**补回丢失的证据链**（写端 bug 导致 evidence_json 空），不是重写已有证据。
+// 守卫即业务语义：evidence_json 非空 ⇒ 该行已有证据链 ⇒ 一律拒改（哪怕已落定、哪怕内容看着不对），
+// 「错证据怎么处置」要另立裁定，不许在回填脚本里静默改掉。实测 2026-09-28：gid 8-37 的 450 行
+// 证据已 100% 非空，本脚本的活已干完，故此守卫不改任何实际写集合。
+const applyStmt = conn.prepare(
+  "UPDATE predictions SET evidence_json = ? WHERE id = ? AND (evidence_json IS NULL OR evidence_json = '' OR evidence_json = '[]')");
+let blocked = 0; // 被守卫拒改的行数：证据链已非空，本脚本无权改
 
 const runTx = conn.transaction(() => {
   for (const g of games) {
@@ -49,7 +56,8 @@ const runTx = conn.transaction(() => {
       if (cur !== null && cur !== undefined) { try { curNorm = JSON.stringify(JSON.parse(cur)); } catch (e) { curNorm = String(cur); } }
       const changed = curNorm !== next;
       diffRows.push({ game_id: g.id, key: t.key, prediction_id: pred.id, status: changed ? 'DIFF' : 'SAME', old: cur === undefined ? null : cur, next: next });
-      if (changed && APPLY) applyStmt.run(next, pred.id);
+      // changes=0 ⇒ 该行证据链已非空，守卫拒改；如实计数，不静默当成功
+      if (changed && APPLY && applyStmt.run(next, pred.id).changes === 0) blocked++;
       if (changed) stats.changed++; else stats.unchanged++;
     }
   }
@@ -64,5 +72,6 @@ for (const d of diffRows) {
     + (d.old !== undefined ? ' 现值=' + d.old : '') + (d.next !== undefined ? ' 新值=' + d.next : ''));
 }
 console.log('STATS=' + JSON.stringify(stats));
+if (APPLY) console.log('[guard] 守卫拒改（证据链已非空，本脚本无权改）=' + blocked);
 console.log(APPLY ? '已提交事务 UPDATE evidence_json（仅 DIFF 行）' : 'dry-run 零写入；确认 diff 后加 --apply 执行（M1 微步禁止 apply）');
 db.closeCurrent();

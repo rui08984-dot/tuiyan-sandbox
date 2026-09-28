@@ -74,3 +74,16 @@ p1b/test/fixtures/stage4-golden-db-*.db-wal
 # 状态栈三件（progress.md/architecture.mmd/dashboard.html）**入库**（团队共享的看板与依赖图）
 # dashboard.html＝生成物（由 progress.md + architecture.mmd 经 gen_dashboard.mjs 重生成；照 p1b/web/dist/ 先例不入库）
 dashboard.html
+
+# —— P1b 预测侧薄 CLI 的暂存产物（p1b/cli 的 F 档命令唯一落点，永不入库）——
+.scratch/cli/
+
+# ===== 2026-09-28 P0-1 凭证外泄链止血（只加规则，不动历史）=====
+# 为什么会漏：p1a-terminal/config/ 那条 ignore 只挡目录本身，挡不住
+#   「凭证先粘进会话记录 → 会话记录被自动归档成 .scratch/session-*/ → 派生脚本把
+#   原文抄成 .scratch/audit-*/.txt → 整目录入库」这条绕行路径。审计产物是会话的
+#   二次拷贝，凭证会跟着一起走，所以按目录前缀整片挡掉，而不是按文件名挨个补。
+# 影响面：.scratch/audit-3gen/ 下已入库的文件仍保持跟踪（git 对已跟踪文件继续跟踪，
+#   ignore 对它们无效）；本规则只保证「今后不再进」。清历史是另一件事，见
+#   docs/密钥清史方案-20260928.md（需用户点头后才执行）。
+.scratch/audit-*

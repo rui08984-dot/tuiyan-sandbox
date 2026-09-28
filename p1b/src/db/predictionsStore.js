@@ -192,8 +192,14 @@ function isoWeekSunday(yw) {
 }
 /**
  * #2（批次1）写端到期日推导：写端不得留空；推导不出即抛错（防 A2「新行默认 g2_regime=NULL 静默出域」）。
- * 覆盖：date / week_end / end / date_plus7 / week_start / period(月末) / month(月末) / year(年末)
+ * 覆盖：date / week_end / end / date_plus7 / week_start / period(月末) / month(月末) / year(次年 12-31)
  *       / epiweek(周六) / week('YYYYWww'→周日) / evidence.meta.drawDate|expectDate。
+ *
+ * ★**本函数不是契约的实现，是与契约并排的另一份手写件**——只有 `year` 一组已逐条对齐
+ *   `g2-contract-frozen-r4.json`（回归锁 p1b/test/matures-at-year.test.cjs）。
+ *   `period` / `month` / `end` / `week_start` 四组与契约、且与守护进程 `dueOf` 仍不一致
+ *   （详见 p1b/src/evidence/dueBranches.js 的分组登记与 UNIMPLEMENTED 表）；
+ *   那四组口径未拍板前**不要顺手改**——早一年与晚一月都会让结算通道选错题，且改错方向同样静默。
  */
 function deriveMaturesAt(resolve, evidence) {
   const r = resolve || {};
@@ -204,7 +210,11 @@ function deriveMaturesAt(resolve, evidence) {
   if (!d && isIsoDate(r.week_start)) d = r.week_start;
   if (!d) d = lastDayOfMonth(r.period);
   if (!d) d = lastDayOfMonth(r.month);
-  if (!d && String(r.year).length === 4 && isFinite(Number(r.year))) d = String(r.year) + '-12-31';
+  // 年度题到期日＝**次年** 12-31，不是本年：契约 year/yearly 四 kind 明写「date = 次年 12 月 31 日；输入 YYYY」
+  // （保守上界＝年度发布滞后可达一年+，本年最后一日等于还没到发布窗口就判到期）。
+  // 原实现写 String(r.year)+'-12-31'，整整早一年——到期日是结算通道的选题闸门，早一年会让年度题
+  // 在真值尚未发布时就被选中。回归锁：p1b/test/matures-at-year.test.cjs（断言直接读契约，不信本行）。
+  if (!d && String(r.year).length === 4 && isFinite(Number(r.year))) d = (Number(r.year) + 1) + '-12-31';
   if (!d) d = epiweekEnd(r.epiweek);
   if (!d) d = isoWeekSunday(r.week);
   if (!d) {
@@ -333,9 +343,64 @@ function listByGame(gameId, opts) {
   return listWhere('game_id = ?', [gameId], opts);
 }
 
-/** 未 resolve 清单（outcome IS NULL）。 */
+/** 上海日历日「今天」——到期口径的唯一定义处。 */
+function todayShanghai() {
+  return new Date().toLocaleString('sv-SE', { timeZone: 'Asia/Shanghai', hour12: false }).slice(0, 10);
+}
+
+/**
+ * 到期判定（**单一真源**，2026-09-28）：`matures_at <= 今天`（上海日历日，含当日）。
+ * 与 T6 只读端点 `GET /api/disclosure/resolve-queue`（`p1b/src/routes/disclosure.js:70,86`）
+ * 逐字同款。两边各写一套日期算法正是本项目已经吃过一次亏的地方（缺陷一的 year 分支分叉），
+ * 故到期只此一套判定；新写日期算法前请先读这段。
+ *
+ * 三态而非两态，因为第三态是真实存在的一整类题：
+ *   `due`         到期，可落定；
+ *   `not_due`     未到期，**拒绝落定**（真值尚未产生，此刻落定＝把半成品当真值写进不可逆账本）；
+ *   `no_due_date` 无日历到期日（matures_at 为空）——**照常放行**。
+ *   第三态为什么不能一并拦掉：botc 程序结算题、cwl/dlt 开奖题全无日历到期日
+ *   （全库实测 underivable 474 条 + 大量显式 null），一刀切拦死等于把整类题打死。
+ *   但也不许静默放行——回带一句人话，让「不受到期日约束」是看得见的。
+ */
+function maturityState(row, today) {
+  const t = today || todayShanghai();
+  const raw = row ? row.matures_at : null;
+  const due = (raw === null || raw === undefined) ? '' : String(raw).slice(0, 10);
+  if (!due) {
+    return { state: 'no_due_date', date: null, today: t,
+      why: '本题无日历到期日（matures_at 为空）——按来源自身节奏结算（botc 程序结算 / cwl·dlt 开奖等），不受到期日约束' };
+  }
+  if (due <= t) return { state: 'due', date: due, today: t, why: '已到期（' + due + ' <= ' + t + '）' };
+  return { state: 'not_due', date: due, today: t, why: '未到期：到期日 ' + due + ' 晚于今天 ' + t + '，真值尚未产生，此刻落定＝把半成品当真值写进不可逆账本' };
+}
+
+/**
+ * 未 resolve 清单。★2026-09-28 起**默认剔除「未到期」**（原来零过滤，未到期题与已到期题混在一张待办清单里，
+ *   而这张清单正是人点「落定」时看的东西）。
+ *
+ * ★**无到期日的题照旧留在清单里**（只剔除「有到期日但还没到」）：botc 程序结算题、cwl/dlt 开奖题
+ *   全无日历到期日，它们此刻就是可落定的——一并剔除等于把整类题从待办里抹掉。
+ *   本仓库的既有契约 `GET /api/predictions/unresolved`「只含未 resolve 行」也正是这么定的。
+ *   它们留在清单里 + `due_filter.included_no_due_date` 如实计数，状态可见、不静默。
+ * @param {{dueFilter?:false}} opts `dueFilter:false` 关闭过滤，供内部诊断/全量排查用（默认开）。
+ * @returns 分页体 + `due_filter`（两桶**如实计数**，不许静默吞题）
+ */
 function listUnresolved(opts) {
-  return listWhere('outcome IS NULL', [], opts);
+  const o = opts || {};
+  const t = todayShanghai();
+  if (o.dueFilter === false) {
+    const page = listWhere('outcome IS NULL', [], o);
+    return Object.assign(page, { due_filter: { on: false, today: t, excluded_not_yet_due: 0, included_no_due_date: 0 } });
+  }
+  const page = listWhere(
+    "outcome IS NULL AND (matures_at IS NULL OR matures_at = '' OR substr(matures_at,1,10) <= ?)", [t], o);
+  const c = db.getConnection().prepare(
+    "SELECT SUM(CASE WHEN matures_at IS NULL OR matures_at = '' THEN 1 ELSE 0 END) AS no_date,"
+    + " SUM(CASE WHEN matures_at IS NOT NULL AND matures_at <> '' AND substr(matures_at,1,10) > ? THEN 1 ELSE 0 END) AS not_yet"
+    + ' FROM predictions WHERE outcome IS NULL').get(t);
+  return Object.assign(page, {
+    due_filter: { on: true, today: t, excluded_not_yet_due: (c && c.not_yet) || 0, included_no_due_date: (c && c.no_date) || 0 },
+  });
 }
 
 /**
@@ -344,18 +409,34 @@ function listUnresolved(opts) {
  *   （grep 零命中）⇒ 那是指向一条不存在的路。已改为在 409 文案里**如实说明**
  *   「目前没有修正入口」。真要做修正功能，须先定「修正记录算不算进校准统计」，
  *   属**另立项**范围，不在本轮。
- * @returns {{ok:true,row:object}|{ok:false,reason:'not_found'}|{ok:false,reason:'already_resolved',row:object}}
+ *
+ * ★2026-09-28 加到期校验（本函数曾是全项目最宽的一条写入口）：
+ *   原实现只查 `outcome !== null`，**完全不看 `matures_at`** ⇒ 任何未到期的题都能被落定，
+ *   而账本无修正入口 ⇒ 一次误点＝不可逆污染。现在未到期一律拒写。
+ *   到期口径复用 `maturityState`（与 T6 只读端点同款），**不在此另写日期算法**。
+ *
+ * ⚠ `opts.allowNotDue` 是**唯一的**逃生口，仅供「明知要写未到期题」的口径夹具与内部回填
+ *   （例：测试 `prediction-lifeline.test.cjs` 故意造「结算早于事件日」的口径缺陷样本）。
+ *   **HTTP 路由一律不得透传**——透传即等于把这次设防拆掉。
+ * @returns {{ok:true,row:object,due_note?:string}|{ok:false,reason:'not_found'}|{ok:false,reason:'already_resolved',row:object}|{ok:false,reason:'not_due',due:string,today:string,why:string}}
  */
-function resolvePrediction(id, outcome, note) {
+function resolvePrediction(id, outcome, note, opts) {
   const conn = db.getConnection();
   const row = conn.prepare('SELECT * FROM predictions WHERE id = ?').get(id);
   if (!row) return { ok: false, reason: 'not_found' };
   if (row.outcome !== null && row.outcome !== undefined) {
     return { ok: false, reason: 'already_resolved', row: rowToPrediction(row) };
   }
+  const due = maturityState(row);
+  if (due.state === 'not_due' && !(opts && opts.allowNotDue === true)) {
+    return { ok: false, reason: 'not_due', due: due.date, today: due.today, why: due.why };
+  }
   conn.prepare("UPDATE predictions SET resolved_at = datetime('now'), outcome = ?, resolve_note = ? WHERE id = ?")
     .run(outcome, note === undefined || note === null ? null : note, id);
-  return { ok: true, row: rowToPrediction(conn.prepare('SELECT * FROM predictions WHERE id = ?').get(id)) };
+  const ok = { ok: true, row: rowToPrediction(conn.prepare('SELECT * FROM predictions WHERE id = ?').get(id)) };
+  // 无到期日的那类题：放行，但把「为什么不受到期日约束」摆到明面上（不许静默放行）。
+  if (due.state === 'no_due_date') ok.due_note = due.why;
+  return ok;
 }
 
 /**
@@ -525,4 +606,5 @@ module.exports = {
   resolvePrediction, l0Gate, convertCheckpointsToPredictions, calibration, SOURCE_TYPES, OUTCOMES,
   updateAuditFields, LAYERS, PRIMARY_LAYERS, GATES, predictionsTableDdl, PREDICTIONS_TABLE_DDL,
   updateTautology, deriveMaturesAt, assertAuditFields, AUDIT_KEYS, CORE_INSERT_KEYS, epiweekEnd, isIsoDate,
+  todayShanghai, maturityState,
 };

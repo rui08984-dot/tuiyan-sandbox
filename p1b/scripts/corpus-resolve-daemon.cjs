@@ -8,6 +8,7 @@
 //          ②网络失败跳过不写 ③账本不可变（resolvePrediction 拒改已 resolve）④默认 dry-run，--confirm 才写库
 // 日志：追加 p1b/sim/out/resolve-daemon.log（含时间戳与本轮 resolved/pending/fail 计数）
 const fs = require('fs'), path = require('path'), cp = require('child_process');
+const { klineClosed } = require('../src/evidence/klineClosed'); // 日 K「已收盘」单一真源（2026-09-28）
 const args = process.argv.slice(2);
 const has = (f) => args.indexOf(f) !== -1;
 const val = (f, d) => { const a = args.filter((x) => x.indexOf(f + '=') === 0)[0]; return a ? a.slice(f.length + 1) : d; };
@@ -72,6 +73,14 @@ function dueOf(e0) {
   if (r.period) return { due: monthEndPlusOne(r.period), src: 'period+1mo' };
   if (r.month) return { due: monthEndPlusOne(r.month), src: 'month+1mo' };
   if (m.expectMonth) return { due: m.expectMonth + '-01', src: 'meta.expectMonth' };
+  // ★2026-09-28 补 year 分支：契约 year/yearly 四 kind 明写「date = 次年 12 月 31 日；输入 YYYY」。
+  //   缺它时年度题一律落 undatable ⇒ daemon 永不选中 ⇒ **明明有 resolver 也永不结算，且无告警**
+  //   （与 09-27 修的 week_start 是同一个病，区别是这组是**整组**饿死）。
+  //   口径不自拟：判据与算式照写端口 deriveMaturesAt 的 year 分支**逐字同源**，
+  //   回归锁 p1b/test/matures-at-year.test.cjs ⑤ 把「同输入同日期」钉死，防两边再次分叉。
+  //   插在 meta.expectMonth **之后**：新增分支不遮蔽任何既有分支（实测 57 条 year 元素上零 expectMonth，
+  //   但「不改变既有输入的行为」优先于「与写端口同构」——两者在真有冲突时同样会分叉）。
+  if (String(r.year).length === 4 && isFinite(Number(r.year))) return { due: (Number(r.year) + 1) + '-12-31', src: 'year+1y' };
   if (r.week_end && k === 'github_weekly_commits') return { due: addDays(r.week_end, 1), src: 'week_end+1d' };
   // ★2026-09-27 修缺陷：周窗计数两 kind 的证据字段叫 `week_start`（窗口 = 起~起+6），
   //   与 github 的 `week_end` 不同名 ⇒ 旧 dueOf 一律落 undatable ⇒ **明明有 resolver 却永不进结算**。
@@ -202,6 +211,28 @@ function preScreen(r) {
 
 // ==== part p4a ====
 
+/**
+ * Binance 日 K 线 → 判词（**纯函数**：取数与判定分离，才能直测「未收盘的当日 K 线」而不打网）。
+ * ★2026-09-28 修缺陷：原实现取 `j[0]` 的 close 就写真值，而 `j[0]` 在 UTC 日未走完时是**当日那根还在长的**
+ *   K 线 ⇒ 半日价格被当收盘价落进不可变账本。上面 `preScreen` 用上海 `today()` 卡 UTC 源，
+ *   北京时间 00:00–07:59（＝UTC 16:00–23:59）恰好放过。
+ *   修法不是把 `today()` 换成 UTC（那只是把 8 小时错窗挪到 UTC 侧，且正确性仍寄生在
+ *   「省 API 调用的启发式」上），而是**在取 close 这一步证明 K 线已收盘**：
+ *   判据取自数据自报的 `closeTime`，与时区无关；单一真源 p1b/src/evidence/klineClosed.js。
+ *   回归锁 p1b/test/binance-kline-close.test.cjs。
+ */
+function judgeBinanceKlines(r, j, nowMs) {
+  const k = Array.isArray(j) ? j[0] : null;
+  if (!k) return { pending: 'Binance ' + r.date + ' 无 K 线（UTC 日尚未收盘）' };
+  const day = dateOf(new Date(Number(k[0])).toISOString());
+  if (day !== r.date) return { pending: 'Binance ' + r.symbol + ' 首根 K 线为 ' + day + '，非 ' + r.date + '（该 UTC 日未收盘）' };
+  if (!klineClosed(k, nowMs)) return { pending: 'Binance ' + r.date + ' K 线未收盘（closeTime 在当前时刻之后，半日价格不作收盘价）' };
+  const close = Number(k[4]);
+  const ok = cmpOk(close, r.cmp, r.threshold);
+  if (ok === null) return { pending: 'binance cmp/threshold 异常（' + r.cmp + r.threshold + '）' };
+  return { outcome: ok ? 'true' : 'false', note: 'Binance ' + r.symbol + ' ' + r.date + ' close=' + close + '（阈值 ' + r.cmp + r.threshold + '，机检）' };
+}
+
 // ── b3 系列真值锚（1/3）：PM10 / Binance / Wikimedia（真值口径对照 corpus-backfill resolve.field）──
 const B3 = {
   async openmeteo_air_pm10_daily_mean(r) {
@@ -220,13 +251,7 @@ const B3 = {
     let u = r.url_template || 'https://data-api.binance.vision/api/v3/klines?symbol={symbol}&interval=1d&limit=1000&startTime={start_ms}&endTime={end_ms}';
     u = u.replace('{symbol}', r.symbol).replace('{start_ms}', r.start_ms).replace('{end_ms}', r.end_ms);
     const j = await fetchRetry(() => cachedGet(u), 3, 'binance');
-    const k = Array.isArray(j) ? j[0] : null;
-    if (!k) return { pending: 'Binance ' + r.date + ' 无 K 线（UTC 日尚未收盘）' };
-    const close = Number(k[4]), day = dateOf(new Date(Number(k[0])).toISOString());
-    if (day !== r.date) return { pending: 'Binance ' + r.symbol + ' 首根 K 线为 ' + day + '，非 ' + r.date + '（该 UTC 日未收盘）' };
-    const ok = cmpOk(close, r.cmp, r.threshold);
-    if (ok === null) return { pending: 'binance cmp/threshold 异常（' + r.cmp + r.threshold + '）' };
-    return { outcome: ok ? 'true' : 'false', note: 'Binance ' + r.symbol + ' ' + r.date + ' close=' + close + '（阈值 ' + r.cmp + r.threshold + '，机检）' };
+    return judgeBinanceKlines(r, j);
   },
   async wikimedia_pageviews(r) {
     // 实测：Wikimedia 只认紧凑 YYYYMMDD，写 ISO 会 400；且该站有 UA 反爬（连续快打会 429）
@@ -443,6 +468,11 @@ async function execRound(ctx) {
     for (const id of g.ids) {
       const res = resolvePrediction(id, out.outcome, out.note);
       if (res.ok) { R.resolved++; log('  resolved id=' + id + ' kind=' + g.r.kind + ' -> ' + out.outcome + ' | ' + out.note); continue; }
+      // ★2026-09-28：resolvePrediction 已加到期设防（未到期一律拒写）。这里必须**如实**记成 not_due，
+      //   不可落进下面的 ledger-immutable 分支——那会把「题还没到期」误报成「账本已不可改」，
+      //   两件事的处置完全不同（一个等日期，一个要人拍板）。根因通常是本 daemon 的 dueOf
+      //   与账本 matures_at 两套到期口径对不上（各源粒度不同），所以这里把 due 与 today 一并打出来。
+      if (res.reason === 'not_due') { R.refused++; R.refusedNotDue = (R.refusedNotDue || 0) + 1; log('  refused(not_due) id=' + id + ' kind=' + g.r.kind + ' 到期日=' + res.due + ' 今天=' + res.today + '｜本轮算出=' + out.outcome + '（未到期不写）'); continue; }
       const now = conn.prepare('SELECT outcome, resolve_note FROM predictions WHERE id = ?').get(id) || {};
       if (now.outcome === out.outcome) { R.refusedRace++; log('  refused(concurrent) id=' + id + ' ' + res.reason + '｜库中已=' + now.outcome + '，与本轮结论一致'); }
       else { R.refusedPre++; R.refused++; log('  refused(ledger-immutable) id=' + id + ' ' + res.reason + '｜库中=' + now.outcome + '（' + String(now.resolve_note || '').slice(0, 60) + '），本轮算出=' + out.outcome + ' → 不改，仅记差异'); }
@@ -540,5 +570,5 @@ if (require.main === module) {
 }
 
 // 供测试直测纯函数（只读、无网络、无写盘）
-module.exports = { dueOf, distribute, addDays, monthEndPlusOne, inferIssue, prevDraw, nextDraw };
+module.exports = { dueOf, distribute, addDays, monthEndPlusOne, inferIssue, prevDraw, nextDraw, judgeBinanceKlines };
 

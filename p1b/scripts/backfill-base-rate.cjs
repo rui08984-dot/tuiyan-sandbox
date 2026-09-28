@@ -92,7 +92,8 @@ function buildRow(ev) {
       reasonHist[a.reason || 'other'] = (reasonHist[a.reason || 'other'] || 0) + 1;
       continue;
     }
-    plan.push({ id: r.id, ev: b.ev, added: b.added });
+    // prev = 写前读到的 evidence_json 原样字符串（pre-image），下面 CAS 用
+    plan.push({ id: r.id, ev: b.ev, prev: r.ev, added: b.added });
     if (LIMIT && plan.length >= LIMIT) break;
   }
 
@@ -122,14 +123,25 @@ function buildRow(ev) {
   else out.push('snapshot = (skipped by --no-snapshot)');
 
   // ④ 单事务写入
-  const upd = wdb.prepare('UPDATE predictions SET evidence_json = ? WHERE id = ?');
-  let written = 0;
+  // 收口 A（2026-09-28）：守卫用**写前逐字节 pre-image CAS**，不是 `AND outcome IS NULL`。
+  // 为什么不用 outcome 守卫：本脚本的职责就是把 baseRateNote 文本注记物化成结构化 baseRate，
+  // 而候选集（baseRateNote 有值、baseRate 未结构化）里绝大多数是已落定行——2026-09-28 生产库
+  // 只读实测：候选 216 行，其中 193 行 outcome IS NOT NULL。真加 outcome 守卫会把这条回填通道
+  // 掐死在「只许改未落定行」，而物化 baseRate 的价值恰恰在已落定行上。
+  // （如实记录：当前 216 个候选全被脚本自己的三读序安全校验判为 unsafe，故实际待写 0 行；
+  //   守卫是为将来安全校验放宽或新批数据进来时准备的，不是为了今天多写。）
+  // pre-image CAS 的语义严格更强：
+  //   · 写前读到的 evidence_json 必须原样还在（`AND evidence_json = ?`），并发/事后重写一律 changes=0 拒改；
+  //   · 再叠加下面 ⑤ 的 pureAdd 写后校验（删掉新 baseRate 键后须与写前逐字节等值），
+  //     可证本脚本只**增** baseRate 键、绝不重写 resolve 真值 spec，也不动 outcome/assigned_prob。
+  const upd = wdb.prepare('UPDATE predictions SET evidence_json = ? WHERE id = ? AND evidence_json = ?');
+  let written = 0, blocked = 0;
   wdb.exec('BEGIN IMMEDIATE');
   try {
-    for (const p of plan) { upd.run(JSON.stringify(p.ev), p.id); written++; }
+    for (const p of plan) { if (upd.run(JSON.stringify(p.ev), p.id, p.prev).changes === 0) blocked++; else written++; }
     wdb.exec('COMMIT');
   } catch (e) { wdb.exec('ROLLBACK'); throw e; }
-  out.push('written rows = ' + written);
+  out.push('written rows = ' + written + ' | 守卫拒改(pre-image 已变) = ' + blocked);
 
   // ⑤ 写后校验：pureAdd —— 对每个写入行，删掉新 baseRate 键后应与写前逐字节等值
   const post = wdb.prepare('SELECT id, evidence_json ev FROM predictions').all();

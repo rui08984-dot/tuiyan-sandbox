@@ -127,3 +127,108 @@ test('⑦ 回推不得越界（期号长度不符仍返回 null，禁瞎猜）',
     '期号长度不符 ⇒ 仍须 null（不同彩票不可互推）');
   assert.equal(D.dueOf({ resolve: { kind: 'cwl_ssq_red_contains' } }).due, null, '缺 issue ⇒ null');
 });
+
+// ══ 2026-09-27 追加：契约覆盖断言（取代 v1 方案的 ③④「例外名单 + baseline_n」）══
+/**
+ * 病象：`dueOf()` 与契约 `g2-contract-frozen-r4.json` 的 `date_derivations` 是**两份互不相关的表**——
+ *   一份是手写分支，一条 kind 一条 kind 猜出来的；一份是 sha 锁的登记。**两者之间没有任何断言。**
+ *   ⇒ 契约新增一个 kind（换了 `source_key` / 换了粒度）而 `dueOf` 没跟上 ⇒ 该 kind 静默落 `undatable`
+ *   ⇒ daemon 永不选中 ⇒ **明明有 resolver 也永不结算，无任何告警**。
+ *   09-27 实测正是这个病：契约 22 个 kind，`dueOf` 只覆盖 14 个（缺 8 个 kind / 86 条全量行）。
+ *
+ * 修法：断言「契约每一组要么 `dueOf` 推得出、要么在 `dueBranches.js` 显式登记未实现+原因」。
+ *   ★为什么**不用例外名单**：名单登记的是「今天哪几个没实现」，而要抓的是「明天多了哪个没实现」
+ *   ——手抄快照登记不了增量；契约覆盖断言登记的是**契约本身**，契约是活的。
+ *   ★为什么**不写任何数字、不建 baseline_n、不做单调性**：三样都是对活库读数的快照断言，
+ *   会随结算自然漂移 ⇒ 漂移即转红 ⇒ 要人回来改数字 ⇒ 改着改着就没人看了（Goodhart）。
+ *   本断言只锁**不变量**：「契约登记过的每个 kind，dueOf 要么能推、要么有人签字认领缺口」。
+ *
+ * ★**取题用全量行**（不分已解未解、与 g2-regime 无关）。理由有二：
+ *   ① 账本**只增不删** ⇒ 「全部行」是稳定口径；而按 `resolved_at IS NULL` 取会随结算缩水，
+ *      同一条分支在结算当天就换了一批题来测，测的其实是账本状态不是分支；
+ *   ② **已解行推不出 due 同样是真缺陷**（实测 8 kind 的 86 条里 64 条已解、22 条未解）
+ *      ——「已结掉了所以不必管」是错的，那 64 条正是当初饿死的那批。
+ *   ★v1 方案引本文件 `:95-97`（⑥ 里那段「活库前提类测试反模式」注释）当禁令依据是**误引**：
+ *      那条禁的是「前提是会消失的活库状态」；今天实测两谓词完全等价
+ *      （`corpus%` 集内 `outcome IS NULL` == `resolved_at IS NULL`，两向零分歧），
+ *      且本断言压根不碰账本——取题来自契约文件，纯合成夹具。
+ */
+const B = require(path.join(ROOT, 'p1b', 'src', 'evidence', 'dueBranches'));
+
+/** 每个 `source_key` 至少一个**合法**的合成取值（测试夹具，非口径；不写死任何到期日的期望值）。 */
+const SYNTH = {
+  period: '2026-09',            // YYYY-MM
+  month: '2026-09',             // YYYY-MM
+  year: '2026',                 // YYYY（契约 rule：次年 12-31）
+  end: '2026-09-10',            // YYYY-MM-DD
+  week_end: '2026-09-20',       // YYYY-MM-DD
+  week_start: '2026-09-07',     // YYYY-MM-DD（周窗计数：+7）
+  epiweek: '202639',            // YYYYWW（MMWR）
+  week: '2026W37',              // YYYYWNN（BOM 周末序号）
+};
+
+/** 按契约 `source_key` 造一份合成证据（**不碰活库**，输入自包含、永不腐坏）。 */
+function synthResolve(kind, sourceKey) {
+  const r = { kind: kind };
+  if (sourceKey === 'issue') {
+    // 同为 issue/draw 组但期号位数不同：cwl 是 YYYYNNN、dlt 是 YYNNN（`inferIssue` 按位数分派，不可互推）
+    r.issue = /^dlt/.test(String(kind)) ? '26104' : '2026105';
+  } else {
+    assert.ok(SYNTH[sourceKey], '★契约新增了 source_key=`' + sourceKey + '`（kind=' + kind
+      + '）——本测试的合成夹具还没有它的合法取值。**这正是本告警要报的增量**：请补 SYNTH 取值并确认 dueOf 是否需要新分支');
+    r[sourceKey] = SYNTH[sourceKey];
+  }
+  return { resolve: r };
+}
+
+/** 逐 kind 探 `dueOf` 能否从契约声明的 source_key 推出一个 YYYY-MM-DD（**只判「有没有」，不判「是哪个」**）。 */
+function derivable(kind) {
+  const srcKey = String((B.DATE_DERIVATIONS[kind] || {}).source_key || '');
+  const d = D.dueOf(synthResolve(kind, srcKey));
+  return !!(d && typeof d.due === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(d.due));
+}
+
+/** 逐组体检：返回 { covered, excused, bare }（bare = 既推不出、也没登记 ⇒ 该报红的）。 */
+function coverage() {
+  const covered = [], excused = [], bare = [];
+  for (const group of B.PAIRS) {
+    const reason = String((B.UNIMPLEMENTED || {})[group] || '').trim();
+    for (const kind of B.DERIV_BY_PAIR[group]) {
+      if (derivable(kind)) covered.push(group + ' → ' + kind);
+      else if (reason) excused.push(group + ' → ' + kind + '（已登记未实现：' + reason.slice(0, 40) + '…）');
+      else bare.push(group + ' → ' + kind);
+    }
+  }
+  return { covered, excused, bare };
+}
+
+test('⑧ ★契约覆盖：date_derivations 的每一组，要么 dueOf 推得出、要么显式登记未实现+原因', () => {
+  // 登记表自身的形状（不变量，不是数字）
+  assert.ok(B.PAIRS.length > 0, '契约里没有 date_derivations——分组表空了，检测器可能失效，须复核');
+  for (const g of Object.keys(B.UNIMPLEMENTED || {})) {
+    assert.ok(B.PAIRS.indexOf(g) !== -1, '未实现登记里有契约已不存在的组：' + g + '（契约换了请同步删登记）');
+    assert.ok(String(B.UNIMPLEMENTED[g]).trim().length > 0, '未实现登记「' + g + '」必须写原因，不许空串充数');
+  }
+  const cov = coverage();
+  assert.deepEqual(cov.bare, [],
+    '★契约登记了这些 kind，但 dueOf 推不出到期、且未在 dueBranches.UNIMPLEMENTED 登记原因：\n  ' + cov.bare.join('\n  ')
+    + '\n——它们会静默落 undatable ⇒ daemon 永不选中 ⇒ 永不结算且无告警。修法二选一：'
+    + '① 在 dueOf 补该 source_key 分支；② 在 dueBranches.UNIMPLEMENTED 登记该组 + 写明原因。'
+    + '\n已覆盖 ' + cov.covered.length + ' 个 · 已登记豁免 ' + cov.excused.length + ' 个');
+});
+
+test('⑧-对照 · 检测器不是恒真/恒假断言（防空跑绿）', () => {
+  // ① 探针不是恒真：契约外 kind ＋ 契约外字段 ⇒ dueOf 必推不出
+  const d = D.dueOf({ resolve: { kind: '__definitely_not_a_kind__', some_unknown_source_key: '2026-01-01' } });
+  assert.equal(d && d.due, null, '不认识的字段不得推出到期——若推得出，探针恒真、⑧ 是摆设');
+  // ② ★探针不是恒假（防**空洞地绿**）：若 derivable() 恒返回 false，⑧ 会靠「登记项全体豁免」一路绿下去，
+  //    那才是真事故。必须证明「至少有一个契约 kind 探得出」。
+  const cov = coverage();
+  assert.ok(cov.covered.length > 0,
+    '★没有任何契约 kind 能探出到期 ⇒ 探针恒假，⑧ 现在的绿是空洞的（检查 SYNTH 取值 / dueOf 是否整体崩了）');
+  assert.equal(cov.covered.length + cov.excused.length + cov.bare.length,
+    Object.keys(B.DATE_DERIVATIONS).length, '三类必须恰好瓜分契约全部 kind（漏算即检测器有洞）');
+  // ③ 新增 source_key 缺夹具时必须**抛错**而不是静默通过（新增 source_key 是本告警的核心增量）
+  assert.throws(() => synthResolve('x', 'brand_new_source_key'), /契约新增了 source_key/,
+    '新增 source_key 缺合成夹具时须响亮报错，禁静默');
+});

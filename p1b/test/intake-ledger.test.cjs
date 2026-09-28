@@ -24,7 +24,21 @@ const outIntake = path.join(tmpDir, 'g2-intake.json');
 let app = null;
 
 test.before(async () => {
+  // ── 生产库零写护栏（2026-09-27 · 边界硬规则 C4② · 防夹具污染再发生）────────────
+  // 事故留痕：2026-09-21 14:36:36 与 14:36:44，本文件的 test.before 整段（建局 + 裸 INSERT predictions
+  //   + 接题）**落到了生产库** —— 生产库现存 games#92/#93「D-8.1 护栏局」、predictions#2008/#2009
+  //   （statement='D-8.1 护栏：G2 行域样例'、created_at 硬编码 2026-01-01、matures_at='2026-02-01'）、
+  //   intake_questions#1/#2，全仓唯一来源就是本文件的 test.before（现 :42-55；`2026-02-01` 全仓仅此一处）。
+  //   账本不可变 ⇒ 这 2+2+2 行**不删**（safe-mutation），只防再发生。
+  // 修法（最小）：把「连接是否真的落在临时库」变成**写前断言**——断言不过就在第一条数据写入
+  //   （POST /api/games）之前中止，污染不可能再静默发生。先例：scripts/intake-e2e.cjs:69。
+  //   注：better-sqlite3 的 `.name` 是绝对路径（node:sqlite 的 `.name` 是 undefined，别混用）；
+  //   两侧都取绝对路径，避免分隔符形态差异。
+  assert.notStrictEqual(path.resolve(dbPath), path.resolve(db.DEFAULT_DB_PATH),
+    '生产库零写：临时库路径不得等于默认生产库 ' + db.DEFAULT_DB_PATH);
   app = await buildServer({ dbPath: dbPath, llmMock: true, providersPath: path.join(tmpDir, 'providers.json') });
+  assert.notStrictEqual(path.resolve(db.getConnection().name), path.resolve(db.DEFAULT_DB_PATH),
+    '生产库零写：buildServer 后实际连接必须落在临时库（实测曾落到 ' + db.getConnection().name + '）');
   const g = await app.inject({ method: 'POST', url: '/api/games', payload: { name: 'D-8.1 护栏局', type: 'werewolf', player_count: 6 } });
   const gid = g.json().game.id;
   // G2 行域样例（g2_regime=R4，可判：rd<cutoff 且 baseRateNote 可解析）——接题层不得污染其读数

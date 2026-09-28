@@ -7,7 +7,7 @@
  * 本闸锁三条：①判据默认已勾好（人只改异议）②判据只在系统给出建议后才出现
  *   ③**不删判据、不改契约**——六层问答个数固定，删了后端 400，且判据属 PREREG 冻结范围。
  */
-import { readFileSync } from 'node:fs';
+import { readFileSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
@@ -54,7 +54,13 @@ test('③ 不删判据、不改后端契约（六层问答个数固定，删了 
 test('④ 旧接题页路径仍在（书签不断），且源码保留为禁词扫描目标', () => {
   assert.ok(app.includes('path="/intake"'), '/intake 旧路径消失（书签会断）');
   assert.ok(/path="\/intake" element=\{<Navigate to="\/note"/.test(app), '/intake 须重定向到 /note');
-  assert.ok(app.includes('IntakePage'), '旧接题页源码须保留（disclosureUx 禁词扫描以它为目标）');
+  /* ★T9（2026-09-28）：本条原来断言 `App.tsx` 里含字符串 'IntakePage'，那是**代理判据**——
+     它真正想守的是「旧接题页的源码还在盘上，禁词扫描仍有目标」。
+     组件早已不渲染（/intake 是重定向），import 留着只会被 tsc 判 TS6133
+     （实测 5 条：Overview/Audit/Intake/Calendar/Compiler），本轮已按要求删掉。
+     ⇒ 改为直接断言**源码文件在盘上**——这才是本条的意图，代理判据已随重构失效。 */
+  assert.ok(existsSync(join(dir, 'pages', 'intake', 'IntakePage.tsx')),
+    '旧接题页源码须保留（禁词扫描以它为目标；删了就让那道闸失去扫描对象）');
 });
 
 test('⑤ 拒收的回执把因果方向说清：是系统拒了你，不是你没通过考试', () => {

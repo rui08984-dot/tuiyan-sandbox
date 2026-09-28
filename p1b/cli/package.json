@@ -1,0 +1,8 @@
+{
+  "name": "p1b-cli",
+  "version": "0.1.0",
+  "description": "P1b 预测侧薄 CLI —— 入口与命令定义（零依赖、零新包）",
+  "private": true,
+  "type": "commonjs",
+  "main": "index.cjs"
+}

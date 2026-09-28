@@ -38,6 +38,15 @@ import '../styles/note.css';
 import { Term } from '../components/ui';
 import { Wait } from '../components/Wait';
 import { KIND_GROUPS, kindLabel } from '../lib/kindLabel';
+/* ★判定搬进纯函数：组件级测试要 jsdom/Testing Library（本项目禁新依赖），
+   而"这段等待该显示成什么"恰恰是最该被单测的东西（空白与"查不到"同形＝骗人）。
+   state 与 what 必须同一个来源，否则会出现"圈在转、话却是另一段"。 */
+import { waitViewOf } from '../lib/noteWait';
+import type { NotePhase } from '../lib/noteWait';
+/* 同理：后端 lookup 有三种返回形状，读形状这件事必须能单测（禁 jsdom/Testing Library）。
+   known:false 那一种连 base_rate 键都没有——不看 known 就会把"没有这类题"说成"还没结算"。 */
+import { readLookup, UNKNOWN_KIND_LINE, NO_SETTLED_LINE } from '../lib/noteLookup';
+import type { NoteLookup } from '../lib/noteLookup';
 
 /** 真值锚类型（来自 /api/disclosure/compiler 的 kinds 目录；此处只取展示用的代表若干）。 */
 interface KindSpec { kind: string; required: string[]; one_of: string[][]; }
@@ -64,11 +73,20 @@ export default function NotePage() {
   const [kinds, setKinds] = useState<KindSpec[]>([]);
   const [kind, setKind] = useState<string>('');
   const [statement, setStatement] = useState('');
-  /** ★后端 lookup 模式返回的形状（实测）：{ suggestion:{layer,engine}, evidence:{total_n,resolved_n} } */
-  const [advice, setAdvice] = useState<{ layer?: string; engine?: string; n?: number } | null>(null);
-  // ★T5：历史频率（后端 T4 给的）与两段式等待的当前段
-  const [base, setBase] = useState<Hint | null>(null);
-  const [phase, setPhase] = useState<'idle' | 'freq' | 'done'>('idle');
+  /** ★缺陷三（2026-09-28）：原来这里是**两个** state（advice + base），
+      因为旧代码无条件 setAdvice({...})，而那个对象哪怕三个字段全是 undefined
+      也是 truthy ⇒ 面板照渲染。`advice` 与 `base` 现在都从 lookup 派生，
+      一个 state 装下"这道题源在账本里到底有没有记录"这**一件事**。
+      —— 拆成两个 state 就注定它们会各说各话（那正是旧病根的形状）。*/
+  const [lookup, setLookup] = useState<NoteLookup | null>(null);
+  /* ★缺陷二（2026-09-28）：这里曾写成 `const [, setPhase] = useState(...)`——
+     读取侧被摘掉、4 处 setPhase 调用（下方选 kind 的 effect）照旧在跑，却驱动不了任何东西。
+     而 <Wait> 那时只看 busy，busy 又只覆盖 submit ⇒ **选完「答案去哪里查」到数据返回
+     之间，界面上一个字都没有**；那段空白和「这个题源查不到历史样本」长得一模一样，
+     用户无从分辨"在等"和"没有"。
+     现在 phase 接到 <Wait>（判定在 lib/noteWait.ts，组件只负责渲染），
+     这段等待才有话可说。 */
+  const [phase, setPhase] = useState<NotePhase>('idle');
   const [over, setOver] = useState<Record<string, string[]>>({});   // layer -> 被取消的序号
   const [res, setRes] = useState<IntakeClassifyResult | null>(null);
   const [busy, setBusy] = useState(false);
@@ -96,7 +114,7 @@ export default function NotePage() {
 
   /** 选 kind ⇒ 向后端要：层 / 引擎 / 样本量 / ★历史真实频率（T4 新增） */
   useEffect(() => {
-    setAdvice(null);
+    setLookup(null);
     setPhase('idle');
     if (!kind) return;
     let alive = true;
@@ -104,19 +122,34 @@ export default function NotePage() {
     fetch('/api/disclosure/compiler?kind=' + encodeURIComponent(kind))
       .then((r) => (r.ok ? r.json() : null))
       .then((j) => {
-        if (!alive || !j) return;
-        // ★实测形状：{ suggestion:{layer,engine}, evidence:{total_n}, base_rate:{n,hit,rate,enough,note} }
-        //   —— 三个都**嵌套**在子对象里（我一开始按顶层读，拿到 undefined）。
-        const sug = (j as { suggestion?: { layer?: string; engine?: string } }).suggestion || {};
-        const ev = (j as { evidence?: { total_n?: number } }).evidence || {};
-        const br = (j as { base_rate?: Hint }).base_rate;
-        setAdvice({ layer: sug.layer, engine: sug.engine, n: ev.total_n });
-        setBase(br);
+        if (!alive) return;
+        // ★缺陷三：后端 lookup 有**三种**返回形状，其中 known:false 那种
+        //   **根本没有 base_rate 键**（只有 reason/hint）。旧代码直接读 .base_rate
+        //   且不看 known ⇒ 「账本里一道这种题都没有」被说成「有、但还没结算」。
+        //   现在读形状的活交给 readLookup（lib/noteLookup.ts，可单测）。
+        if (!j) {
+          // HTTP 非 2xx 时 r.json() 给的就是 null。旧代码在这里直接 return，
+          // 于是 phase 永远停在 freq —— 缺陷二把 phase 接进 <Wait> 之后，
+          // 那会变成**一个永远转下去的圈**：这是同一处的洞，一起堵上。
+          setLookup(null); setPhase('done'); setErr('读不到这类题的历史样本');
+          return;
+        }
+        setLookup(readLookup(j));
         setPhase('done');
       })
-      .catch(() => { if (alive) { setPhase('done'); setErr('读不到这类题的历史样本'); } });
+      .catch(() => { if (alive) { setLookup(null); setPhase('done'); setErr('读不到这类题的历史样本'); } });
     return () => { alive = false; };
   }, [kind]);
+
+  /* ★缺陷三：advice 与 base 都由 `known` 把关。
+     账本里没有这道题时，**不许造一个层出来**——层名「—」＋ 0 个复选框，
+     看起来像"系统建议了一条空层"，实际上那个层根本不存在。
+     面板这时整体不渲染，改显示后端给的理由（reason/hint 原文）。 */
+  const advice = useMemo(
+    () => (lookup && lookup.known ? { layer: lookup.layer, engine: lookup.engine, n: lookup.totalN } : null),
+    [lookup],
+  );
+  const base: Hint | null = lookup && lookup.known ? lookup.base : null;
 
   /** 该层判据默认「是」；人只把不认同的序号放进 over */
   const buildChecklist = useCallback(() => {
@@ -124,7 +157,19 @@ export default function NotePage() {
       Q0_1: true, Q0_2: true, Q0_3: true,
     };
     if (advice?.layer) {
-      const n = LAYER_Q.length;
+      /* ★类型修复（TS2769）——**这条是真 bug，不只是类型噪音**：
+       *   原写 `const n = LAYER_Q.length`。但 LAYER_Q 的类型是 Record<string, string[]>，
+       *   索引签名把 "length" 这个键名也吃进去了，于是 .length 被推成 string[]——
+       *   这正是 tsc 报的 "Type 'string[]' is not assignable to type 'number'"。
+       *   运行时 LAYER_Q 是普通对象字面量、**根本没有 length 属性**（实测 undefined），
+       *   于是 Array.from({ length: undefined }, …) 返回 []，
+       *   即该层判据**一条都没勾**就提交，与本页三处文案（「该层判据我按『是』填好了」、
+       *   文件头「③ 该层的判据默认按"是"预填」）直接矛盾。
+       *   后端 intake.js:191 的 layerGreen 在 v.length !== QUESTION_COUNT[layer] 时直接 400。
+       *   正确取法是该层自己的题数：LAYER_Q[advice.layer].length 逐层等于后端
+       *   QUESTION_COUNT（L1/L2/L3/L6=4、L4/L5=3），两边天然对齐。
+       *   ★未加 as any / 未改类型断言 —— 那样只会把 400 一起骗过去。 */
+      const n = LAYER_Q[advice.layer].length;
       c[advice.layer] = Array.from({ length: n }, (_, i) => !over[advice.layer!]?.includes(String(i)));
     }
     return c;
@@ -146,6 +191,10 @@ export default function NotePage() {
       setBusy(false);
     }
   }, [statement, kind, buildChecklist]);
+
+  /* ★两段等待说两句话：查历史说「在数」，登记说「在登记」。
+     共用一句"在数同类题的历史样本"会让人以为提交时也在数数——那是在解释一件没发生的事。 */
+  const wait = waitViewOf({ err, busy, phase });
 
   return (
     <div className="note">
@@ -204,6 +253,20 @@ export default function NotePage() {
         ) : null}
       </section>
 
+      {/* ══ ★缺陷三：known=false 是**另一件事**，不是"没有历史频率" ══
+          账本里一道这种题都没有 ⇒ 没有层可推、没有频率可比、判据无从谈起。
+          旧界面在这个状态下照渲染算数面板（层名「—」、判据 0 个、左注停在「在数…」），
+          等于把"没有"说成"还没结算"——而这两种情况的正确做法完全不同。
+          这里改显示后端给的理由原文（reason/hint），面板整体不渲染。 */}
+      {lookup && !lookup.known ? (
+        <section className="note-answer" data-testid="note-unknown-kind">
+          <h2 className="note-answer-h">这类题，账本里还没有记录</h2>
+          <p className="note-advice-note">{lookup.reason}</p>
+          {lookup.hint ? <p className="note-advice-note">{lookup.hint}</p> : null}
+          <p className="note-advice-note">{UNKNOWN_KIND_LINE}</p>
+        </section>
+      ) : null}
+
       {/* ══ ★T5：算数露头 —— 两个数并排 + 一句结论 ══
           这是本产品**存在的理由**。过去写完题面什么都拿不到，
           用户不知道"我凭什么给这个数"、也不知道"历史上这类题怎么样"。
@@ -247,7 +310,7 @@ export default function NotePage() {
 
           {/* ★结论句：只有两个数都在场才有意义——这是整个产品唯一真正有价值的话 */}
           <p className="note-verdict" data-testid="note-verdict">
-            {verdictText(myProb, base)}
+            {verdictText(myProb, base, lookup ? lookup.known : true)}
           </p>
 
           {/* ★诚实线：样本不够时必须说「只记方向」，且不给看起来很确定的数 */}
@@ -291,10 +354,12 @@ export default function NotePage() {
       >记下</button>
 
       {/* ★T2（M5）：等待态从按钮里挪出来。按钮变字**不是等待反馈**——
-          用户真正要看到的是「在数什么」。失败态给重试，只报错不给出口＝把问题推给用户。 */}
+          用户真正要看到的是「在数什么」。失败态给重试，只报错不给出口＝把问题推给用户。
+          ★缺陷二：state 不再是手写的 err/busy 三元（它看不见 phase，选源那段等于没接），
+          改为整段消费 waitViewOf 的结果。 */}
       <Wait
-        state={err ? 'error' : busy ? 'pending' : 'idle'}
-        what="在数同类题的历史样本…"
+        state={wait.state}
+        what={wait.what}
         error={err || null}
         onRetry={err ? () => void submit() : undefined}
         testId="note-wait"
@@ -353,9 +418,15 @@ export function myProbValid(v: string): boolean {
  * 诚实纪律：样本不够（enough=false）时**不给这个结论**——
  * 用 27 条样本说"你比基率乐观"是拿噪音当结论，正是本项目最要防的误读。
  * 那时只说"先看看这类题历史上什么量级"。
+ *
+ * ★缺陷三：还得分清**「账本里一道这种题都没有」**（known=false）与
+ * 「有这类题、但一条都还没结算」（base 为 null）。两句都是"没有频率可比"，
+ * 可它们对用户意味着完全不同的下一步：前者是"这个题源我没记过"，
+ * 后者是"我记了，还没到期"。说成同一句＝把两件事糊成一件。
  */
-export function verdictText(myProb: string, base: Hint | null): string {
-  if (!base || base.rate == null) return '还没有同类已结算的题，暂时没有历史频率可比。';
+export function verdictText(myProb: string, base: Hint | null, known: boolean = true): string {
+  if (!known) return UNKNOWN_KIND_LINE;
+  if (!base || base.rate == null) return NO_SETTLED_LINE;
   if (!base.enough) {
     return '同类样本只有 ' + base.n + ' 条，不足以说"你比基率更乐观还是更保守"——先当作方向参考。';
   }

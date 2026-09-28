@@ -91,7 +91,10 @@ async function main() {
     const gid = probe.prepare('SELECT id FROM games ORDER BY id LIMIT 1').get().id;
     const i = probe.prepare("INSERT INTO predictions (game_id, source_type, statement, layer) VALUES (?, '预测卡', 'rollback probe', 'unknown')").run(gid);
     unknownStillRejected = { ok: true, id: Number(i.lastInsertRowid), note: '警告：回滚后 unknown 仍可写，说明旧 CHECK 未恢复' };
-    probe.prepare('DELETE FROM predictions WHERE id = ?').run(i.lastInsertRowid);
+    // 收口 A（2026-09-28）：删除带上插行时的 statement 作二次确认。
+    // 守卫前是裸 `WHERE id = ?`——id 一旦对错（比如 lastInsertRowid 语义变化）就会删掉真实行；
+    // 有了 statement 条件，内容不是探针行的行一律删不掉。
+    probe.prepare("DELETE FROM predictions WHERE id = ? AND statement = 'rollback probe'").run(i.lastInsertRowid);
     unknownStillRejected.cleaned_up = true;
   } catch (e) {
     unknownStillRejected = { ok: false, code: (e && e.code) || null, message: String(e.message).split('\n')[0] };

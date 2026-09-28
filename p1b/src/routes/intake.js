@@ -8,7 +8,12 @@
  * 契约：
  *   POST /api/intake/classify  入参 {statement, resolve_spec:{kind,url_template?,field?,threshold?,cmp?,date?},
  *                              checklist:{Q0_1,Q0_2,Q0_3, L5,L6,L1,L3,L2 各层二元问答, L4 可选},
- *                              decided_layer?, secondary?}
+ *                              decided_layer?, secondary?,
+ *                              game_id?（**可选**，权威：局归属查库拿 games 行）, game_type?（**可选**，提示）}
+ *      · 【2026-09-27 边界硬规则 C3·第 -1 步】实验场域门：题挂在**真实对局**（game_type 非
+ *        `werewolf_sim*` / `corpus*`，或 games.source='real'）⇒ rejected，reason='other'
+ *        （detail.scope='not_prediction_lab'）。模拟局与语料局照常放行。**两个参数都缺省即短路**
+ *        （外部题本就没有局；既有调用方零改动）——判据单一真源见 `src/evidence/labBoundary.js`；
  *      · 拒收门三问（Q0-1 真值锚 / Q0-2 cutoff 早于决定性时点 / Q0-3 结果随实例变化）任一「否」
  *        → rejected，reason=no_anchor|leak|tautology，落 intake_rejects 留痕（拒收不是失败，分布进月报）；
  *      · 通过 → 决策树 L5→L6→L1→L3→L2 首个全绿层即 primary（最特殊优先）；
@@ -39,6 +44,7 @@ const { l2Baseline } = require('../engines/l2_baseline'); // 阶段 4：L2 最�
 const { l5Certified } = require('../engines/l5_certified'); // 阶段 4：L5 认证源公布分布
 const { certifiedSourceForRow } = require('../engines/l5_sources'); // 2026-09-14：L5 认证源读侧重建（与 stage4-run 同源）
 const baseRateMod = require('../evidence/baseRate'); // 批次 3：基率结构化字段（形态判别与引擎入参）
+const lab = require('../evidence/labBoundary'); // 2026-09-27：实验场/真实局边界单一真源（第 -1 步·实验场域门）
 
 /** 清单版本：v2 判据 + v3 注记（unknown 出口 + L4 后置标注），随清单文档冻结。 */
 const CHECKLIST_HASH = 'v3';
@@ -206,7 +212,33 @@ function normalizeResolveSpec(spec) {
   return out;
 }
 
-/** 接题分类主逻辑（纯函数 + 拒收时写 intake_rejects；不写 predictions，零 LLM）。 */
+/**
+ * 第 -1 步·实验场域门判定（2026-09-27 边界硬规则 C3）。
+ * 入参约定：
+ *   · `game_id`（**可选，权威**）——查库拿 games 行（含 source 列）。给了但库中不存在 ⇒ 400，
+ *     不回退到提示值：否则「随便编一个不存在的 game_id + 自称实验场」就能绕过本门。
+ *   · `game_type`（**可选，提示**）——调用方自述，仅在 `game_id` 缺省时使用（**不查库**）。
+ *   · 两者都缺省 ⇒ 直接短路返回 lab：外部题本就没有局（intake_questions 无 game_id 依赖），
+ *     既有四个调用方（web/src/api.ts:267-271 请求体只有 statement/resolve_spec/checklist）零改动、零打红。
+ * @returns {{scope:string, basis:string, game_id:?number, game_type:?string, source:?string}}
+ */
+function labBoundaryOf(body) {
+  const b = body || {};
+  if (b.game_id !== undefined && b.game_id !== null && b.game_id !== '') {
+    const gid = requireInt('game_id', b.game_id, 1);
+    const row = db.getConnection().prepare('SELECT * FROM games WHERE id=?').get(gid);
+    if (!row) throw httpError(400, 'game_id 在库中不存在: ' + gid + '（局归属以库中 games 行为准，不接受调用方自述）');
+    const c = lab.classifyGame(row);
+    return { scope: c.scope, basis: c.basis, game_id: gid, game_type: row.game_type, source: c.source };
+  }
+  if (b.game_type !== undefined && b.game_type !== null && b.game_type !== '') {
+    const c = lab.classifyGameType(b.game_type);
+    return { scope: c.scope, basis: 'declared_' + c.basis, game_id: null, game_type: String(b.game_type), source: null };
+  }
+  return { scope: 'lab', basis: 'no_linkage', game_id: null, game_type: null, source: null };
+}
+
+/** 接题分类主逻辑（分类主逻辑：拒收时写 intake_rejects；不写 predictions，零 LLM）。 */
 function classifyIntake(body) {
   const b = body || {};
   const statement = requireNonEmptyString('statement', b.statement === undefined ? '' : String(b.statement));
@@ -215,6 +247,29 @@ function classifyIntake(body) {
     throw httpError(400, 'checklist 必填（对象：Q0_1/Q0_2/Q0_3 + L5/L6/L1/L3/L2 各层问答，L4 可选）');
   }
   const resolveSpec = normalizeResolveSpec(b.resolve_spec);
+  // 第 -1 步·实验场域门（边界硬规则 C3，2026-09-27）：真实对局（werewolf/botc/…）的题不入预测实验场。
+  //   放 Q0 之前是硬理由：真实局题在 Q0-1「存在可机检/第三方可复核的真值锚」上本就答「否」，
+  //   若先过 Q0 会被记成 no_anchor/leak，污染那个专为防 Goodhart 设计的拒收原因分布。
+  //   reason 复用既有枚举 'other'（intakeStore.js:33 REASONS / :74 CHECK / :267-276 rejectStats 含 0 计数 /
+  //   web/src/pages/intake/IntakePage.tsx:26 已标「其他」）⇒ 表/枚举/前端零改动。
+  const boundary = labBoundaryOf(b);
+  if (boundary.scope === 'real') {
+    const detail = {
+      scope: 'not_prediction_lab',
+      boundary_basis: boundary.basis,
+      game_id: boundary.game_id,
+      game_type: boundary.game_type,
+      game_source: boundary.source,
+      checklist_hash: CHECKLIST_HASH,
+      resolve_spec_kind: resolveSpec ? resolveSpec.kind : null,
+    };
+    const rec = store.insertReject({ statement: statement, reason: 'other', detail: detail });
+    return {
+      ok: true, rejected: true, reason: 'other',
+      reject_id: rec.id, created_at: rec.created_at, detail: detail,
+      checklist_hash: CHECKLIST_HASH, engine: 'none', gate: 'descriptive', statement: statement,
+    };
+  }
   // 第 0 步·拒收门三问
   const gateFails = [];
   for (const q of GATE_QUESTIONS) {
@@ -363,4 +418,4 @@ function register(app) {
   });
 }
 
-module.exports = { register, classifyIntake, engineFor, resolveGate, ENGINE_TABLE, CHECKLIST_HASH, DECISION_ORDER, GATE_QUESTIONS, PRIMARY_LAYERS, G2, SCORABLE_LAYERS, GATE_TRANSITIONS, engineInputs, engineNoteFor };
+module.exports = { register, classifyIntake, labBoundaryOf, engineFor, resolveGate, ENGINE_TABLE, CHECKLIST_HASH, DECISION_ORDER, GATE_QUESTIONS, PRIMARY_LAYERS, G2, SCORABLE_LAYERS, GATE_TRANSITIONS, engineInputs, engineNoteFor };

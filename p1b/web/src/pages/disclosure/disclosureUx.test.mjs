@@ -24,14 +24,41 @@ test('校准报告页：接披露端点、薄格标注、限定语块、Term 渐
   assert.ok(rep.includes('bayesPrior') && rep.includes('posteriorAgg'), '贝叶斯术语 id 未用');
 });
 
-test('两页宽度档＝content--wide（表格页）＋路由与导航已挂', () => {
-  // 2026-09-22 二轮：校准报告页并入「校准总览」（OverviewPage）。
-  // 闸的意图不变——**这些数据必须有落地页且有宽档**：旧路径重定向到总览，总览挂宽档。
+test('披露数据：旧路径重定向到**实挂**落地页，且落地页挂宽档', () => {
+  /* 闸的意图（自 2026-09-22 二轮起未变）：**这些数据必须有落地页且有宽档**。
+   *
+   * ★为什么断言对象从「CalendarPage / OverviewPage 两个组件名」改成「旧路径 → 实挂落地页 → 落地页宽档」：
+   *   2026-09-27 八轮把五页看板合并成 /where-off，五页的 import **刻意删掉**了
+   *   （组件再不被渲染，tsc 报 TS6133，见 App.tsx:19-29 的留痕注释），
+   *   源码**保留不删**——因为本文件第 4 道禁词闸就是拿它们当扫描目标，删了就失去扫描面。
+   *   于是「组件名出现在 App.tsx」这条断言在八轮之后**永远不可能成立**，
+   *   而它锁的意图（数据有落地页、落地页是宽档）**依然完全成立且必须继续成立**。
+   *   ⇒ 改写的是断言的**写法**，不是它的**松紧**：下面的每一条都比原断言更具体
+   *     （原断言只查两个名字在不在；改写后逐条查「五条旧路径各自重定向到谁 /
+   *       落地页是不是真组件实挂 / 落地页容器档是不是宽档」）。
+   */
   assert.ok(app.includes("'/calendar'"), '缺日历路由');
   assert.ok(app.includes("'/overview'"), '缺总览路由');
   assert.ok(app.includes("'/calibration'") && app.includes('Navigate to="/overview"'), '旧校准路径未重定向到总览');
+
+  // ① 落地页必须**实挂**（挂真组件），不是重定向到自己 / 落到 *
+  assert.ok(/<Route path="\/where-off" element=\{<WhereOffPage \/>\} \/>/.test(app), '落地页 /where-off 未实挂 WhereOffPage');
+
+  // ② 八轮接手的四条披露旧路径，各自重定向到落地页（书签不断，且都落得到）
+  for (const legacy of ['/overview', '/audit', '/calendar', '/compiler']) {
+    assert.ok(
+      new RegExp(`<Route path="${legacy}" element=\\{<Navigate to="/where-off" replace \\/>\\} />`).test(app),
+      legacy + ' 未重定向到落地页 /where-off',
+    );
+  }
+
+  // ③ 宽档：落地页容器必须是 content--wide。合并前这四页都是宽档（1280），
+  //    合并后容器一度退回 .content 的 720px —— 闸就是防这个的（见 App.tsx containerClass 注释）。
   assert.ok(app.includes('content--wide'), '缺宽档');
-  assert.ok(app.includes('CalendarPage') && app.includes('OverviewPage'), '缺页面挂载');
+  assert.ok(
+    /if \(path === '\/where-off'\) return 'content content--wide';/.test(app),
+    '落地页 /where-off 未挂宽档（披露数据页被缩回阅读宽 720）',
+  );
 });
 
 test('禁词黑名单：两页源码与 App 不含「预测」字样', () => {

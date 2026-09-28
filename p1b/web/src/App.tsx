@@ -14,12 +14,19 @@ import NotePage from './pages/NotePage';        // ★八轮第七改：记一�
 import ManagePage from './pages/ManagePage';
 import SettingsPage from './pages/SettingsPage';
 import MysticPage from './pages/mystic/MysticPage';
-import OverviewPage from './pages/audit/OverviewPage';                       // 2026-09-22 二轮：校准总览（四页合一）
-import AuditPage from './pages/audit/AuditPage';
-import IntakePage from './pages/intake/IntakePage';
-import CalendarPage from './pages/disclosure/CalendarPage';           // P0-U7（2026-09-16）：待验证队列日历页
+import QuestionPage from './pages/QuestionPage';               // ★T9（2026-09-28）：一道题的完整一生（/question/:id）
 import NegativeResultsPage from './pages/disclosure/NegativeResultsPage';   // 第 4 期 I2（2026-09-21）：负结果账本对外页
-import CompilerPage from './pages/disclosure/CompilerPage';                 // 第 4 期（2026-09-21）：编译器门面
+// ★T9：五页（Overview/Audit/Intake/Calendar/Compiler）的 **import 已删**——八轮第六/七改把
+//   它们的路由全部改成重定向，组件再没被渲染过，tsc 报 TS6133（实测 5 条，见本轮 tsc 输出）。
+//   ★为什么只删 import、不删源码：(a) 删源码会让「禁词扫描」与「可达性」两道闸失去扫描目标；
+//   (b) 旧路径的 Route 必须留着（书签不断），源码是它们的历史留痕。
+//   五个旧路径的重定向去向（删 import 前逐条核对过，不是猜的）：
+//     /overview /audit /calendar /compiler → /where-off（合并体「我在哪儿偏了」）
+//     /intake                            → /note（「记一笔」＝接题页减负版，调用同一个 classify 端点）
+//   ★不并入别处的一处（如实记账，不假装已并）：/calendar 的**内容**（待验证队列日历、
+//     守恒自检、双源比对）在合并体里**没有对应区块**——它重定向过去的是聚合偏差页。
+//     这不是本轮引入的（重定向早于本轮就在），本轮只删未使用的 import，不动路由语义；
+//     要真并进去属另立项。
 import { IconLayers, IconCompass, IconGear, IconBook, TermDrawer } from './components/ui';
 // ★八轮：装饰性 Canvas 粒子场（components/CanvasField.tsx）已从壳层移除，
 //   理由与「组件源码保留未删」的原因见 JSX 处注释。此处**不再 import**（免得 tsc 报未使用）。
@@ -34,6 +41,14 @@ const toolCls = ({ isActive }: { isActive: boolean }) => 'appbar-gear' + (isActi
  *  接题页＝表单＋结果左右并列，对局页＝列表可横排多列；设置页仍为表单宽（720，单列易读）。
  */
 function containerClass(path: string): string {
+  // ★2026-09-28 收口：/where-off 是八轮合并体，**接管了下面四条旧路径**（见下方 Route）。
+  //   它原先不在宽档表里 ⇒ 容器退回 .content 的 720px（app.css:87），
+  //   而它接手的 /overview /audit /calendar /compiler 在合并前**全都是 content--wide（1280）**。
+  //   即：数据一条没少，宽档在合并中掉了（容器 1280 → 720）——这正是 disclosureUx 那道闸要防的事。
+  //   补上的是「意图不丢」，不是新增要求。
+  //   ★如实记账：页面自身 whereoff.css:7 还有 max-width: 980px，会先于容器生效；
+  //     改它属页面设计决策，本轮闸门修复不碰（要改另立项）。
+  if (path === '/where-off') return 'content content--wide';
   if (path === '/overview') return 'content content--wide';   // 2026-09-22 二轮：校准总览（读数卡网格需宽档）
   if (path === '/audit') return 'content content--wide';
   if (path === '/intake' || path === '/manage') return 'content content--wide';
@@ -177,6 +192,10 @@ function Shell() {
           {/* 编译器并入合并页：它的全部功能是「选个 kind 告诉你它属于哪层」，
               而那层信息在新流程里是回执上的一行字，不值一个顶级导航位。源码保留（禁词扫描目标）。 */}
           <Route path="/compiler" element={<Navigate to="/where-off" replace />} />
+          {/* ★T9：单题的一生。挂在题线三动作之下，不占导航位——
+              它是**从别的页跳进来**的详情页（回声页 → 具体某一道题），
+              给它一个顶级导航位等于把"看一道"抬成"看全局"。 */}
+          <Route path="/question/:id" element={<QuestionPage />} />
           {/* 旧路径重定向保兼容（书签/旧链接）：已并入总览的三页 */}
           <Route path="/calibration" element={<Navigate to="/overview" replace />} />
           <Route path="/bayes-lens" element={<Navigate to="/overview" replace />} />

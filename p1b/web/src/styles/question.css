@@ -1,0 +1,238 @@
+/* QuestionPage 一道题的完整一生（2026-09-28 · T9）
+ *
+ * 形制纪律：
+ *  · **竖排单列时间线**，不是卡片网格。一道题的一生是**有先后的**——
+ *    拆成六个并排的盒子，就把「先押了多少、后发现是多少」这个次序抹平了。
+ *  · 轨道（rail）是绝对定位的：它不占布局宽度，375 窄屏下内容仍拿得到整格。
+ *  · ★375 宽硬约束：单列、不横向滚动。长文本（题面/判词/注记）一律
+ *    `overflow-wrap: anywhere`，判词用 `pre-wrap` 保留换行又不断行溢出。
+ *    任何 `nowrap` 都会在 375 上把整页顶出横向滚动条——本页一处都不用。
+ */
+.qpage { max-width: 720px; }
+
+/* ── 真值口径被排除统计：全页最重的一块警示 ── */
+.q-flag {
+  display: block; margin: 0 0 20px; padding: 10px 12px;
+  border: 1px solid var(--warn-border); border-left-width: 3px;
+  border-radius: var(--radius-row); background: var(--warn-bg);
+  color: var(--text); font-size: 12.5px; line-height: 1.65;
+}
+.q-flag-t {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 13px; font-weight: 600; margin-bottom: 4px;
+}
+.q-flag-t svg { flex: 0 0 auto; }
+.q-flag ul { margin: 6px 0 0; padding-left: 18px; }
+.q-flag li { margin-bottom: 3px; }
+.q-flag code { font-family: var(--font-mono); font-size: 10.5px; word-break: break-all; }
+
+/* ── 归档环：竖排时间线 ── */
+.qline { list-style: none; margin: 0; padding: 0; }
+.qline-node { position: relative; padding: 0 0 24px 26px; }
+.qline-node:last-child { padding-bottom: 4px; }
+/* 轨道：连接本节点与下一个节点；最后一个不画（画了会拖一条无意义的尾巴） */
+.qline-node::before {
+  content: ''; position: absolute; left: 5px; top: 16px; bottom: -4px;
+  width: 1px; background: var(--line);
+}
+.qline-node:last-child::before { display: none; }
+.qline-dot {
+  position: absolute; left: 0; top: 5px;
+  width: 11px; height: 11px; border-radius: 50%;
+  border: 2px solid var(--line); background: var(--bg);
+}
+/* 状态记号：实心＝这一步有值；空心＝这一步当时就是空的；斜纹边＝口径有问题 */
+.qline-node.is-set .qline-dot { background: var(--accent); border-color: var(--accent); }
+.qline-node.is-blank .qline-dot { background: var(--bg); }
+.qline-node.is-flagged .qline-dot { background: var(--warn); border-color: var(--warn); }
+
+.qline-h {
+  display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap;
+  margin: 0 0 5px; font-size: var(--font-size-h3); font-weight: 600; color: var(--text);
+}
+.qline-when { font-family: var(--font-mono); font-size: 11px; color: var(--muted); font-weight: 400; }
+.qline-b { min-width: 0; font-size: 13px; line-height: 1.7; color: var(--text); }
+.qline-b p { margin: 0 0 6px; }
+.qline-note { margin: 4px 0 0; font-size: 11.5px; line-height: 1.6; color: var(--muted); }
+
+/* ── 题面 ── */
+.q-statement {
+  margin: 0; font-size: 14.5px; line-height: 1.75; color: var(--text);
+  overflow-wrap: anywhere;
+}
+.q-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.q-tag {
+  display: inline-block; padding: 2px 7px;
+  border: 1px solid var(--line); border-radius: var(--radius-pill);
+  font-size: 10.5px; color: var(--muted); background: var(--panel);
+}
+.q-tag b { color: var(--text); font-weight: 600; }
+
+/* ── 两个数：你的数 / 引擎的数 各占一段（不并排——并排会暗示该跟着谁填）── */
+.q-num {
+  font-family: var(--font-mono); font-variant-numeric: tabular-nums;
+  font-size: 26px; font-weight: 600; line-height: 1.15; color: var(--text);
+}
+/* ★样本不足 ⇒ 降对比但**不隐藏**：隐藏会让人以为没算过，标红会让人当成基线 */
+.q-num.is-thin { color: var(--muted); }
+.q-num.is-none { color: var(--muted); font-size: 16px; font-weight: 400; font-family: var(--font-sans); }
+.q-num-note { margin: 4px 0 0; font-size: 11.5px; line-height: 1.6; color: var(--muted); }
+.q-num-note.is-warn { color: var(--text); }
+.q-raw {
+  display: block; margin: 6px 0 0; padding: 6px 8px;
+  border-left: 2px solid var(--line); background: var(--panel-2);
+  font-family: var(--font-mono); font-size: 11px; line-height: 1.6; color: var(--muted);
+  white-space: pre-wrap; overflow-wrap: anywhere;
+}
+
+/* ── 真值 ── */
+.q-truth {
+  display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap;
+  font-size: 15px; font-weight: 600; color: var(--text);
+}
+.q-truth.is-true { color: var(--ok); }
+.q-truth.is-false { color: var(--danger); }
+.q-truth.is-amb { color: var(--warn); }
+.q-truth.is-open { color: var(--muted); font-size: 13px; font-weight: 400; }
+
+/* ── 判分（判词）── */
+/* ★全文收进 details：一条不删（删＝少算证据），但默认不展开——
+   实测单题最多 70 条判词（多批重跑并存），375 屏默认摊开会把上面五段全顶没。 */
+.q-fold { margin: 6px 0 0; }
+.q-fold-h {
+  display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap;
+  padding: 6px 0; cursor: pointer; font-size: 12px; color: var(--accent);
+}
+.q-fold-h span { font-size: 10.5px; color: var(--muted); }
+.q-fold-h:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.q-verdicts { list-style: none; margin: 6px 0 0; padding: 0; }
+.q-verdict { padding: 7px 0; border-top: 1px solid var(--line); }
+.q-verdict:first-child { border-top: none; }
+.q-verdict-h {
+  display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap;
+  font-size: 12px; color: var(--text);
+}
+.q-verdict-p { font-family: var(--font-mono); font-weight: 600; }
+.q-verdict-t { font-size: 11px; color: var(--muted); font-family: var(--font-mono); }
+.q-verdict-text {
+  margin: 5px 0 0; font-size: 12px; line-height: 1.7; color: var(--muted);
+  white-space: pre-wrap; overflow-wrap: anywhere;
+}
+
+/* ══ T10：判词离散度 ══
+   形制纪律：
+   · 只用**点**（每条读数一个点落在 0–100% 轴上），**永不画折线**——
+     这批读数 created_at 逐位相同，横截面连成线就是凭空造一条时间轴。
+   · 口径两句话（横截面 / 重测信度）用常驻块，不折叠：折进 details 就等于没写。 */
+.qsp { margin: 16px 0 0; padding: 12px 0 0; border-top: 1px solid var(--line); min-width: 0; }
+/* 顶栏是 position:sticky（p1b6.css，壳层的既有行为，不在本页文件范围内）。
+   浏览器滚动到锚点时**不知道**有个 sticky 头会把头几行盖住 —— scroll-margin-top 就是干这个的。
+   少了它，锚点跳转过来正好把「这是横截面不是时间序列」这句压在顶栏底下。 */
+.qsp, .qline-node { scroll-margin-top: calc(var(--header-height) + 10px); }
+.qsp-h {
+  display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+  margin: 0 0 8px; font-size: 12.5px; font-weight: 600; color: var(--text);
+}
+.qsp-h svg { color: var(--muted); flex: 0 0 auto; }
+.qsp-rule {
+  padding: 8px 10px; margin: 0 0 10px;
+  border: 1px solid var(--warn-border); border-left-width: 3px;
+  border-radius: var(--radius-row); background: var(--warn-bg);
+  font-size: 11.5px; line-height: 1.65; color: var(--text);
+}
+.qsp-rule p { margin: 0 0 4px; }
+.qsp-rule p:last-child { margin-bottom: 0; }
+
+.qsp-head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; margin: 0 0 10px; }
+.qsp-num {
+  font-family: var(--font-mono); font-variant-numeric: tabular-nums;
+  font-size: 20px; font-weight: 600; color: var(--text); line-height: 1.2;
+}
+.qsp-head-d { flex: 1 1 200px; min-width: 0; font-size: 11.5px; line-height: 1.6; color: var(--muted); }
+
+.qsp-rows { list-style: none; margin: 0; padding: 0; }
+.qsp-row {
+  display: grid; grid-template-columns: 74px 1fr; grid-template-areas: 'n a' 'd d';
+  gap: 2px 8px; padding: 7px 0; border-top: 1px solid var(--line);
+}
+.qsp-row:first-child { border-top: none; }
+.qsp-rn { grid-area: n; font-size: 11.5px; color: var(--text); align-self: center; }
+.qsp-rd {
+  grid-area: d; font-family: var(--font-mono); font-size: 10.5px;
+  line-height: 1.7; color: var(--muted); overflow-wrap: anywhere;
+}
+/* 读数各项之间用「·」隔开：靠空格分隔在 10.5px 等宽字下会连读成一串。 */
+.qsp-rd > span + span::before { content: ' · '; opacity: 0.7; }
+
+/* 轴：两端竖线 + 一条基线。没有刻度线——刻度会暗示"这是条曲线上的位置"。 */
+.qsp-axis {
+  grid-area: a; position: relative; align-self: center;
+  height: 12px; min-width: 0;
+  border-left: 1px solid var(--line); border-right: 1px solid var(--line);
+  background: var(--panel-2);
+}
+.qsp-dot {
+  position: absolute; top: 50%; width: 7px; height: 7px;
+  margin: -3.5px 0 0 -3.5px; border-radius: 50%;
+  background: var(--accent); border: 1px solid var(--panel);
+}
+.qsp-scale {
+  display: flex; justify-content: space-between;
+  margin: 2px 0 0 82px; font-family: var(--font-mono);
+  font-size: 9.5px; color: var(--muted);
+}
+.qsp-none { margin: 0; font-size: 11.5px; line-height: 1.65; color: var(--muted); }
+.qsp-none b { color: var(--text); }
+.qsp-none code { font-family: var(--font-mono); overflow-wrap: anywhere; }
+.qsp-disc { margin: 10px 0 0; padding-left: 16px; font-size: 11px; line-height: 1.65; color: var(--muted); }
+.qsp-disc li { margin-bottom: 2px; }
+.qsp-src { margin: 6px 0 0; font-size: 10.5px; line-height: 1.6; color: var(--muted); overflow-wrap: anywhere; }
+.qsp-src code { font-family: var(--font-mono); }
+
+/* ── 现在的看法 ── */
+.q-now {
+  padding: 11px 12px; border: 1px solid var(--line);
+  border-radius: var(--radius-block); background: var(--panel);
+}
+.q-now p { margin: 0 0 6px; }
+.q-now p:last-child { margin-bottom: 0; }
+.q-now-list { margin: 6px 0 0; padding-left: 18px; font-size: 12.5px; line-height: 1.7; color: var(--muted); }
+.q-now-list li { margin-bottom: 3px; }
+
+/* ── 页脚：口径与纪律（默认折叠，纯复核用）── */
+.q-foot { margin-top: 28px; padding-top: 12px; border-top: 1px solid var(--line); }
+.q-foot-handle {
+  display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; width: 100%;
+  padding: 6px 0; border: none; background: none; cursor: pointer; text-align: left;
+  font-family: inherit; font-size: 12px; color: var(--muted);
+}
+.q-foot-handle:hover { color: var(--accent); }
+.q-foot-handle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.q-foot-body { font-size: 11.5px; line-height: 1.7; color: var(--muted); }
+.q-foot-body ul { margin: 4px 0 10px; padding-left: 18px; }
+.q-foot-body code { font-family: var(--font-mono); overflow-wrap: anywhere; }
+
+.q-back {
+  display: inline-flex; align-items: center; gap: 4px; margin-bottom: 10px;
+  font-size: 12px; color: var(--muted); text-decoration: none;
+}
+.q-back:hover { color: var(--accent); }
+.q-back:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* ★375 硬约束：单列。
+   ① 标签/值一律上下堆（grid 1fr），不并排——并排在 375 上必然折行或溢出；
+   ② 正文与数字降一档，省得一行放不下；
+   ③ 轨道内缩一点，把宽度让给内容。 */
+@media (max-width: 480px) {
+  .qline-node { padding-left: 22px; padding-bottom: 20px; }
+  .qline-node::before { left: 4px; }
+  .q-num { font-size: 22px; }
+  .q-statement { font-size: 14px; }
+  .q-foot-handle { font-size: 11.5px; }
+  /* ★点阵在 375 上仍是单列：变体名/轴/读数三行堆叠，不并排。
+     轴的可用宽度 = 343 − 22(轨道) − 8(内容边距) − 74(名) − 8(间隙) ≈ 231px，
+     7px 的点在上面仍可分辨；再窄就靠下面的数字兜底（图只是补充）。 */
+  .qsp-row { grid-template-columns: 62px 1fr; gap: 2px 6px; }
+  .qsp-scale { margin-left: 68px; }
+  .qsp-num { font-size: 18px; }
+}

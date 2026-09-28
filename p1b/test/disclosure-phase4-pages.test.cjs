@@ -91,19 +91,26 @@ test('④ ★禁词锁：两页源码与 App.tsx 不得含「预测」字样', (
   assert.deepEqual(bad, [], '禁词命中（A6 §3）：\n' + bad.join('\n'));
 });
 
-test('⑤ 路由接线锁：负结果在导航；已合并页仍可达（重定向到总览）', () => {
+test('⑤ 路由接线锁：**页面不得变成死链**（负结果/编译器/五页旧路径仍可达）', () => {
   const src = fs.readFileSync(path.join(ROOT, 'p1b/web/src/App.tsx'), 'utf8');
+  // ★2026-08-27 八轮第六/七改：导航由 9 项收成 5 项，负结果页从导航移出（它成了
+  //   「唯一有对外引用价值的档案页」，不进日常导航），五页看板并入 /where-off。
+  //   ⇒ 本闸**意图不变**（旧路径不得死链），但断言必须跟着新结构走：
+  //     负结果页：**不再要求在导航里**，只要求 Route 仍在（可直接访问/被引用）。
+  //     overview 等旧路径：现在重定向到合并体 /where-off。
   const checks = [
     ['import NegativeResultsPage', /import NegativeResultsPage from '\.\/pages\/disclosure\/NegativeResultsPage'/],
-    ['Route negative-results', /<Route path="\/negative-results" element=\{<NegativeResultsPage \/>\}/],
-    ['NavLink negative-results', /<NavLink to="\/negative-results"/],
-    // 2026-09-22 二轮：bayes-lens / arena 并入校准总览。
-    // 闸的意图不变——**页面不得变成死链**：旧路径必须仍有 Route，且指向总览。
-    ['Route bayes-lens → 总览', /<Route path="\/bayes-lens" element=\{<Navigate to="\/overview" replace \/>\}/],
-    ['Route arena → 总览', /<Route path="\/arena" element=\{<Navigate to="\/overview" replace \/>\}/],
-    ['import OverviewPage', /import OverviewPage from '\.\/pages\/audit\/OverviewPage'/],
-    ['Route overview', /<Route path="\/overview" element=\{<OverviewPage \/>\}/],
-    ['NavLink overview', /<NavLink to="\/overview"/],
+    ['Route negative-results（实页）', /<Route path="\/negative-results" element=\{<NegativeResultsPage \/>\}/],
+    // 八轮第六改：旧五页全部重定向到合并体，但 **Route 必须在**（书签不断）
+    ['Route overview → 合并体', /<Route path="\/overview" element=\{<Navigate to="\/where-off" replace \/>\}/],
+    ['Route audit → 合并体', /<Route path="\/audit" element=\{<Navigate to="\/where-off" replace \/>\}/],
+    ['Route calendar → 合并体', /<Route path="\/calendar" element=\{<Navigate to="\/where-off" replace \/>\}/],
+    ['Route compiler → 合并体', /<Route path="\/compiler" element=\{<Navigate to="\/where-off" replace \/>\}/],
+    // 已合并的老披露页也须仍可达（指向合并体而非死链）
+    ['Route bayes-lens', /<Route path="\/bayes-lens" element=\{<Navigate to="\/overview" replace \/>\}/],
+    ['Route arena', /<Route path="\/arena" element=\{<Navigate to="\/overview" replace \/>\}/],
+    // 旧接题页重定向到 /note（八轮第七改）
+    ['Route intake → note', /<Route path="\/intake" element=\{<Navigate to="\/note" replace \/>\}/],
   ];
   const bad = checks.filter(([, re]) => !re.test(src)).map(([n]) => n);
   assert.deepEqual(bad, [], '接线缺失：\n' + bad.join('\n'));
@@ -195,11 +202,14 @@ test('⑨ 第 4 期页面全可达（导航或有重定向，无死链）', () =
   const src = fs.readFileSync(path.join(ROOT, 'p1b/web/src/App.tsx'), 'utf8');
   // 2026-09-22 二轮：bayes-lens / arena 并入 /overview 后不再占导航项，
   // 但「可达性」这条不变量必须保持——旧路径仍须有 Route（重定向也算）。
+  // ★2026-08-27 八轮第六/七改：负结果页与编译器也退出导航（五页看板并入 /where-off、
+  //   编译器并入合并体），故「仍在导航里」这一条不再适用于它们。
+  //   闸的**意图是可达，不是必须在导航**——那两页仍可直接访问 / 被引用。
   for (const p of ['negative-results', 'bayes-lens', 'arena', 'compiler']) {
     assert.ok(new RegExp('<Route path="/' + p + '"').test(src), '缺 Route（页面变死链）: ' + p);
   }
-  // 仍在导航里的独立页面
-  for (const p of ['negative-results', 'compiler']) {
+  // 题线三动作必须在导航（八轮六/七改后它们是唯一的日常入口）
+  for (const p of ['resolve', 'note', 'where-off']) {
     assert.ok(new RegExp('<NavLink to="/' + p + '"').test(src), '缺 NavLink: ' + p);
   }
 });

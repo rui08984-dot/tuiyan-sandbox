@@ -295,3 +295,143 @@ test('GET /api/intake/questions：只读列表（最新 N 条、含 prob 字段�
   assert.equal(conn.prepare('SELECT COUNT(*) n FROM intake_questions').get().n, before, '只读不写');
   assert.ok(!/预测/.test(b.note), 'UI 文案禁「预测」字样');
 });
+
+// ── 10. 实验场域门（边界硬规则 C3，2026-09-27）· 第 -1 步 ─────────────────────
+//   真实对局（werewolf/botc/…）的预测题不入实验场账本；模拟局（werewolf_sim_*）与
+//   语料局（corpus:*）照常放行。判据单一真源 = src/evidence/labBoundary.js。
+const lab = require('../src/evidence/labBoundary');
+
+const conn = () => db.getConnection();
+const mkGame = (name, gameType, n) => conn().prepare('INSERT INTO games (name, game_type, player_count) VALUES (?,?,?)').run(name, gameType, n || 6).lastInsertRowid;
+const qCount = () => conn().prepare('SELECT COUNT(*) n FROM intake_questions').get().n;
+
+test('域门·真实局（game_id 权威，werewolf）→ rejected reason=other，落 intake_rejects 且不落 intake_questions', async () => {
+  const g = await app.inject({ method: 'POST', url: '/api/games', payload: { name: '域门真实局', type: 'werewolf', player_count: 6 } });
+  assert.equal(g.statusCode, 201);
+  const gid = g.json().game.id;
+  const nq = qCount();
+  const r = await classify({ statement: '本局首夜会不会倒民？', game_id: gid, checklist: ck() });
+  assert.equal(r.status, 200);
+  assert.equal(r.body.ok, true, '拒收不是失败');
+  assert.equal(r.body.rejected, true);
+  assert.equal(r.body.reason, 'other', '复用既有枚举 other（表/前端零改动）');
+  assert.equal(r.body.gate, 'descriptive');
+  const row = store.getReject(r.body.reject_id);
+  assert.equal(row.reason, 'other');
+  assert.equal(row.detail.scope, 'not_prediction_lab', 'detail 标注越界');
+  assert.equal(row.detail.game_id, gid);
+  assert.equal(row.detail.game_type, 'werewolf');
+  assert.equal(row.detail.checklist_hash, 'v3');
+  assert.equal(qCount(), nq, '被拒题不得落 intake_questions（只留拒收痕迹）');
+});
+
+test('域门·真实 botc 局 → 同样拒收（非 werewolf 一族才是真实局）', async () => {
+  const g = await app.inject({ method: 'POST', url: '/api/games', payload: { name: '域门 botc 局', type: 'botc', player_count: 5 } });
+  const r = await classify({ statement: '本局第一天会不会出鞘？', game_id: g.json().game.id, checklist: ck() });
+  assert.equal(r.body.rejected, true);
+  assert.equal(r.body.reason, 'other');
+  assert.equal(store.getReject(r.body.reject_id).detail.game_type, 'botc');
+});
+
+test('域门·模拟局（werewolf_sim_*）照常放行（防误伤）', async () => {
+  const gid = mkGame('域门模拟局', 'werewolf_sim_6p_onenight', 6);
+  const nq = qCount();
+  const r = await classify({ statement: '模拟局首夜倒民概率（6 人局）', game_id: gid, checklist: ck({ L3: yes4() }) });
+  assert.equal(r.body.rejected, false, '模拟局不被域门拒');
+  assert.equal(r.body.layer, 'L3', '照常走决策树');
+  assert.ok(r.body.intake_question_id > 0, '照常落 intake_questions');
+  assert.equal(qCount(), nq + 1, '落库一条');
+});
+
+test('域门·语料局（corpus:*）照常放行（防误伤）', async () => {
+  const gid = mkGame('域门语料局', 'corpus:dlt', 6);
+  const r = await classify({ statement: '大乐透 26105 期开奖号码和值 > 100', game_id: gid, checklist: ck({ L3: yes4() }) });
+  assert.equal(r.body.rejected, false, '语料局不被域门拒');
+  assert.equal(r.body.layer, 'L3');
+});
+
+test('域门·两个局参数都缺省即短路（既有调用方零回归：不传 game_id/game_type 一律不拒）', async () => {
+  const r = await classify({ statement: '外部题（无局归属）：2026 年 10 月某地是否破 30°C', checklist: ck({ L3: yes4() }) });
+  assert.equal(r.body.rejected, false);
+  assert.equal(r.body.layer, 'L3');
+  const nul = await classify({ statement: '显式空值视同缺省（短路）', game_id: null, game_type: '', checklist: ck({ L3: yes4() }) });
+  assert.equal(nul.body.rejected, false, '空值不当真实局判（禁把「没登记」读成「是真实局」）');
+});
+
+test('域门·game_type 提示路径：botc 拒收 / werewolf_sim_* 与 corpus:* 放行（不查库）', async () => {
+  const r1 = await classify({ statement: '自述 botc 局', game_type: 'botc', checklist: ck() });
+  assert.equal(r1.body.rejected, true);
+  assert.equal(store.getReject(r1.body.reject_id).detail.game_type, 'botc');
+  for (const gt of ['werewolf_sim_6p_tubian3d', 'corpus:openmeteo']) {
+    const r = await classify({ statement: '自述实验场 ' + gt, game_type: gt, checklist: ck({ L3: yes4() }) });
+    assert.equal(r.body.rejected, false, gt + ' 不被误伤');
+    assert.equal(r.body.layer, 'L3');
+  }
+});
+
+test('域门·门序早于 Q0：真实局题即使 Q0 三问全「是」也拒收；Q0-1「否」时记 other 而非 no_anchor', async () => {
+  const gid = mkGame('域门门序局', 'werewolf', 6);
+  const r1 = await classify({ statement: '真实局题（Q0 三问全绿）', game_id: gid, checklist: ck({ L3: yes4() }) });
+  assert.equal(r1.body.rejected, true, 'Q0 全绿也拦得住');
+  assert.equal(r1.body.reason, 'other');
+  const r2 = await classify({ statement: '真实局题（Q0-1 否）', game_id: gid, checklist: ck({ Q0_1: false }) });
+  assert.equal(r2.body.reason, 'other', '不得记成 no_anchor：真实局题不是「缺真值锚」，是越界题');
+  assert.equal(r2.body.detail.scope, 'not_prediction_lab');
+  assert.equal(store.getReject(r2.body.reject_id).detail.scope, 'not_prediction_lab');
+});
+
+test('域门·game_id 库中不存在 → 400（不接受「编个 id + 自述实验场」绕过）', async () => {
+  const r = await classify({ statement: '伪造 game_id', game_id: 999999, game_type: 'werewolf_sim_6p_onenight', checklist: ck({ L3: yes4() }) });
+  assert.equal(r.status, 400);
+  assert.ok(/不存在/.test(r.body.error), '报错带存在性说明：' + r.body.error);
+});
+
+test('域门·games.source 存在时压过 game_type（权威列），无该列时回退 game_type', () => {
+  const cols = conn().pragma('table_info(games)').map((c) => c.name);
+  if (cols.indexOf('source') === -1) conn().exec("ALTER TABLE games ADD COLUMN source TEXT");
+  // source 权威：source=sim 却是 werewolf ⇒ 实验场（不按 game_type 误判真实局）
+  assert.equal(lab.isRealGame({ game_type: 'werewolf', source: 'sim' }), false);
+  // source 权威：source=real 却是 werewolf_sim_* ⇒ 真实局（不按 game_type 放行）
+  assert.equal(lab.isRealGame({ game_type: 'werewolf_sim_6p_onenight', source: 'real' }), true);
+  // source 未知取值 ⇒ 回退 game_type，不静默放行
+  assert.equal(lab.isRealGame({ game_type: 'werewolf', source: 'replay' }), true);
+  assert.equal(lab.isRealGame({ game_type: 'corpus:dlt', source: 'replay' }), false);
+  // 无 source 列（:memory: 新库形态）⇒ 回退 game_type
+  assert.equal(lab.isRealGame({ game_type: 'botc' }), true);
+  assert.equal(lab.isRealGame({ game_type: 'corpus:dlt' }), false);
+  assert.equal(lab.isRealGame(null), false, '查不到局不禁作真实局判');
+  assert.equal(lab.classifyGame({ game_type: 'werewolf_sim_x' }).basis, 'game_type');
+  assert.equal(lab.classifyGame({ game_type: 'corpus:x', source: 'corpus' }).basis, 'source');
+  assert.equal(lab.classifyGameType('').scope, 'unknown');
+});
+
+test('域门·读侧 SQL 片段与 JS 判定逐行一致（含无局行 LEFT JOIN NULL 情形）', () => {
+  if (conn().pragma('table_info(games)').map((c) => c.name).indexOf('source') === -1) {
+    conn().exec("ALTER TABLE games ADD COLUMN source TEXT"); // 本例自带权威列（不依赖前序用例执行顺序）
+  }
+  const rows = conn().prepare(
+    'SELECT g.game_type AS game_type, ' + lab.NOT_REAL_GAME_PREDICTION_SQL() + ' AS keep FROM games g'
+    + ' UNION ALL SELECT g.game_type, ' + lab.NOT_REAL_GAME_PREDICTION_SQL()
+    + ' FROM (SELECT NULL AS game_type, NULL AS source) g'  // 末行 = LEFT JOIN 未命中（无局行，全 NULL）
+  ).all();
+  assert.ok(rows.length > 1, '有可比对样本');
+  assert.ok(rows.some((r) => r.keep), '样本含「保留（实验场/无局）」行');
+  assert.ok(rows.some((r) => !r.keep), '样本含「排除（真实局）」行——空样本会让本例变成空断言');
+  for (const row of rows) {
+    assert.equal(!!row.keep, !lab.isRealGame(row), '口径分叉：game_type=' + row.game_type);
+  }
+});
+
+test('域门拒收进分布：other 计数 ≥1，四原因仍全列出（0 计数可见，禁只报非零自掩）', async () => {
+  const b = j(await app.inject({ method: 'GET', url: '/api/intake/rejects' }));
+  const find = (k) => b.by_reason.filter((x) => x.reason === k)[0];
+  assert.equal(b.by_reason.length, 4, '枚举四原因全部列出');
+  assert.ok(find('other').n >= 1, '域门拒收已进分布（不是静默丢弃）');
+  // 注：本文件前面的「intakeStore additive 迁移」用例 DROP 过 intake_rejects ⇒ Q0 三类此时可能已归 0；
+  //   分布端点必须仍以 0 计数把它们列出——那正是本例要锁的「0 计数可见，禁只报非零自掩」。
+  for (const k of ['no_anchor', 'leak', 'tautology']) {
+    assert.ok(find(k), '枚举里必须有 ' + k + '（哪怕计数为 0）');
+    assert.equal(typeof find(k).n, 'number');
+  }
+  assert.equal(b.by_reason.reduce((s, x) => s + x.n, 0), b.total, '分布之和=总数');
+});

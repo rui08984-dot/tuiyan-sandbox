@@ -183,10 +183,15 @@ async function main() {
   console.log('[reconcile] 与存量注记不一致=' + dis.length + (dis.length ? ' ids=' + dis.map((x) => x.id).join(',') : ''));
   if (REPORT) { fs.writeFileSync(REPORT, JSON.stringify(report, null, 1)); console.log('[report] -> ' + REPORT); }
   if (!CONFIRM) { console.log('DRY-RUN：未写库。加 --confirm 执行。'); db.close(); return; }
-  const upd = db.prepare('UPDATE predictions SET evidence_json=? WHERE id=?');
-  const tx = db.transaction((us) => { for (const u of us) upd.run(u.next, u.id); });
+  // 收口 A（2026-09-28）：`AND outcome IS NULL` 原子守卫。
+  // evidence_json 装着 resolve 真值 spec ⇒ 已落定行的判定依据不可被回填改写。
+  // 条件与赋值同在一条 SQL 里，靠 SQLite 单语句原子性挡掉「选题→写回」之间的并发落定。
+  // 本脚本只 ADD baseRateNote（上面已逐行验过纯 add 变更），但纯加也不许加到已落定行上。
+  const upd = db.prepare('UPDATE predictions SET evidence_json=? WHERE id=? AND outcome IS NULL');
+  let blocked = 0;
+  const tx = db.transaction((us) => { for (const u of us) { if (upd.run(u.next, u.id).changes === 0) blocked++; } });
   tx(updates);
-  console.log('[write] UPDATEd rows=' + updates.length);
+  console.log('[write] UPDATEd rows=' + (updates.length - blocked) + ' | 守卫拒改(已落定):' + blocked);
   const left = db.prepare("SELECT COUNT(DISTINCT p.id) n FROM predictions p, json_each(p.evidence_json) e WHERE p.g2_regime='R4' AND json_extract(e.value,'$.resolve.kind') IN ('openmeteo_daily_max','dbnomics_series_value','cwl_ssq_red_contains','cwl_ssq_blue_odd') AND json_extract(e.value,'$.baseRateNote') IS NULL").get().n;
   console.log('[verify] 池内缺 baseRateNote 剩余=' + left);
   console.log('[verify] integrity_check=' + db.prepare('PRAGMA integrity_check').get().integrity_check);

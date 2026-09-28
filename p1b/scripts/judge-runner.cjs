@@ -10,7 +10,10 @@
  *  批次2-RC M2 范围修正（工程对齐 PREREG-RC §一「题源=v2 360 条」，非判据改动）：
  *  ①选题 SQL 加 checklist_hash='v2'——旧口径 450 条混入 R-A 老域 90 条（checklist v1），
  *  15:04/15:27 两跑实锤把 123 行 R-C 判词烧在 R-A 域（越界残段已归档清除，见
- *  verdicts-archive-rc-oos-20260912.json）；②median 写回改按 runId 批内口径（防跨批混算）。 */
+ *  verdicts-archive-rc-oos-20260912.json）；②median 写回改按 runId 批内口径（防跨批混算）。
+ * 批次3-IMMU（账本不可变护栏，2026-09-28）：选题 SQL 补 `pr.outcome IS NULL`（硬排除已落定行），
+ *  写回改条件更新（`AND outcome IS NULL`，同语句原子挡 TOCTOU），拒改条数计入 DONE 的 skipped。
+ *  护栏回归见 p1b/test/judge-runner-immutable.test.cjs。 */
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
@@ -38,9 +41,15 @@ async function main() {
   // sim 局数增长后区间漂移即漏判/误判。
   // 批次2-RC 范围修正：checklist_hash='v2' 只取 R-B 模板题域（PREREG-RC §一）；
   // corpus 语料题（checklist 也为 v2）由 g.source='sim' 双重排除；real 真人域永不卷入。
+  // 批次3-IMMU ①（账本不可变）：选题 SQL 硬排除已落定行（pr.outcome IS NULL）。
+  //   病象：此前无此条件 ⇒ 已结算（outcome 非空）的行同样进批，写回即等于**事后改写已落定的判据口径**，
+  //   而 Brier/ECE 的分子分母正是从这些行算出来的 ⇒ 读数随重跑批次漂移，已公布结果不可复现。
+  //   账本不可变＝落定即封：判据只能在落定**前**写，落定后只读。
+  //   （--limit/--slice 只是对上面这批的再切片，过滤口径在前，两者互不影响。）
   const preds = conn.prepare(
     "SELECT pr.id, pr.game_id FROM predictions pr JOIN games g ON g.id = pr.game_id"
-    + " WHERE g.source = 'sim' AND pr.layer IN ('L1','L6') AND pr.checklist_hash = 'v2' ORDER BY pr.id"
+    + " WHERE g.source = 'sim' AND pr.layer IN ('L1','L6') AND pr.checklist_hash = 'v2'"
+    + " AND pr.outcome IS NULL ORDER BY pr.id"
   ).all();
   // 烟测支持（批次1-R-A 工程修复）：--limit=N 只取前 N 条预测（选题 SQL/注入链/写回逻辑全不动）
   const limitArg = process.argv.find((a) => a.startsWith('--limit='));
@@ -59,7 +68,7 @@ async function main() {
     console.log('SLICE ' + k + '/' + n + ' selected=' + selectedFinal.length + '/' + selected.length);
   }
   console.log('RUN_ID=' + RUN_ID + (RUN_ID_EXPLICIT ? ' (--runid 显式传入)' : ' (缺省回退旧口径——建议显式 --runid=，防批次指纹污染)'));
-  let done = 0, medianed = 0, nulled = 0;
+  let done = 0, medianed = 0, nulled = 0, skipped = 0;
   for (const p of selectedFinal) {
     // 批次2-RC 纠正：幂等按 runId 计数（三批隔离语义——R-B 行不挡 R-C 批生成；
     // 旧口径 COUNT(*) 不分 runId 致 R-C 全量被 R-B 行跳过，pwsh-8 实证 medianed=2 即此）
@@ -93,13 +102,21 @@ async function main() {
     // 偶数分支：路数<3 时 median 退化为算术平均（2 路=(a+b)/2；0 路 med=null 如实保留 NULL）
     if (ps.length) med = ps.length % 2 ? ps[(ps.length - 1) / 2] : (ps[ps.length / 2 - 1] + ps[ps.length / 2]) / 2;
     const { updateAuditFields } = require('../src/db/predictionsStore');
-    updateAuditFields(p.id, { baselineBrier: undefined }); // no-op 占位：assigned_prob 单独更新
-    conn.prepare('UPDATE predictions SET assigned_prob = ? WHERE id = ?').run(med, p.id);
+    updateAuditFields(p.id, { baselineBrier: undefined }); // no-op 占位：判据值单独更新（**不含任何不可变守卫**，勿当护栏看）
+    // 批次3-IMMU ②：写回改**条件更新**——`AND outcome IS NULL` 与赋值同在一条 SQL 里，
+    //   靠 SQLite 单语句原子性挡掉 TOCTOU：选题 SQL 的过滤是批开始那一刻的快照，
+    //   若该行在「选题→写回」之间被别处落定（并发 resolve / 人工回填），裸写就会把它改脏。
+    //   changes=0 ⇒ 该行已落定或已消失 ⇒ **拒改**并如实计数（不静默当成功，批次报告里看得见）。
+    const changed = conn.prepare('UPDATE predictions SET assigned_prob = ? WHERE id = ? AND outcome IS NULL')
+      .run(med, p.id).changes;
+    if (changed === 0) { skipped++; console.log('SKIP-SETTLED pid=' + p.id + '（已落定，拒改判据值）'); done++; continue; }
     if (med === null) nulled++; else medianed++;
     done++;
     if (done % 10 === 0) console.log('PROGRESS ' + done + '/' + selectedFinal.length);
   }
-  console.log('DONE done=' + done + '/' + selectedFinal.length + ' medianed=' + medianed + ' nulled=' + nulled);
+  // skipped 独立计数（非 medianed/nulled 之和）：批次3-IMMU 护栏拦下的拒改条数必须可见，
+  // 恒 0 才说明这批没有并发落定；若非 0，翻这批的 runId 查是谁先落的定。
+  console.log('DONE done=' + done + '/' + selectedFinal.length + ' medianed=' + medianed + ' nulled=' + nulled + ' skipped=' + skipped);
   await app.close();
   try { db.closeCurrent(); } catch (e) {}
 }

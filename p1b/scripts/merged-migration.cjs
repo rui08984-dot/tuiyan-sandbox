@@ -370,7 +370,8 @@ async function unknownAccept(dbPath) {
         .run(gid, '预测卡', 'D-8.1 unknown 入账验收（副本库临时行）', layer, sec);
       r = { ok: true, id: Number(i.lastInsertRowid) };
     } catch (e) { r = { ok: false, code: (e && e.code) || null, message: String(e.message).split('\n')[0] }; }
-    if (r.ok) { db.prepare('DELETE FROM predictions WHERE id = ?').run(r.id); r.cleaned_up = true; }
+    // 收口 A（2026-09-28）：删除带上插行时的 statement 作二次确认，id 对错也删不到真实行。
+    if (r.ok) { db.prepare("DELETE FROM predictions WHERE id = ? AND statement = 'D-8.1 unknown 入账验收（副本库临时行）'").run(r.id); r.cleaned_up = true; }
     db.close();
     r.label = label; r.layer = layer; r.secondary_layer = sec;
     return r;

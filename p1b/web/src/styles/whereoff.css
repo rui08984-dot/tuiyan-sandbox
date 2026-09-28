@@ -16,6 +16,22 @@
 .whereoff-s1 { margin-bottom: 40px; }
 .whereoff-s2 { margin-bottom: 36px; }
 .whereoff-s3 { margin-bottom: 36px; }
+.whereoff-s5 { margin-bottom: 36px; }
+
+/* ★T9：单题入口。行内是「题面 + 三个小标签」，窄屏一律堆叠不并排（375 硬约束）。 */
+.qlist { list-style: none; margin: 0; padding: 0; }
+.qlist-row { border-bottom: 1px solid var(--line); }
+.qlist-link {
+  display: block; padding: 9px 0; text-decoration: none; color: inherit; min-width: 0;
+}
+.qlist-link:hover .qlist-txt { color: var(--accent); }
+.qlist-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.qlist-txt {
+  display: block; font-size: 13px; line-height: 1.6; color: var(--text);
+  overflow-wrap: anywhere;
+}
+.qlist-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 3px; }
+.qlist-meta span { font-family: var(--font-mono); font-size: 10.5px; color: var(--muted); }
 
 .habits { list-style: none; margin: 0; padding: 0; }
 .habit {

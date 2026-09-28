@@ -48,15 +48,23 @@ function register(app) {
   app.get('/api/disclosure/verdict-spread', async (req, reply) =>
     serve(/^verdict-spread-(\d{8})([a-z]?)\.json$/, 'node p1b/scripts/verdict-spread.cjs', reply));
 
-  // ── 2026-09-28 T6：揭晓分流（**只读**，三类）──
+  // ── 2026-09-28 T6：揭晓分流（**只读**，四段）──
   //   病象：旧「待落定」页把到期未解的题列成一队让人**全部手填**，
   //   但守护进程已在自动结算（实测一轮：到期 21 → 自动结 2 / pending 12 / fail 7）。
-  //   ⇒ 那页是倒退设计。本端点把「到期未解」按**能不能自动揭晓**分三类：
-  //     ① 已自动揭晓（守护进程已结，折叠展示结果）
-  //     ② 待你确认（机器拿不到但人能答，附「为什么」）
-  //     ③ 永远结不了（接口封禁 / 真值窗口已过，**不给假按钮**）
+  //   ⇒ 那页是倒退设计。本端点把「到期未解」按**能不能自动揭晓**分三类，
+  //     另把「已结算」单列一段（那是结果，不是待办）：
+  //     Ⓐ 已自动揭晓（守护进程已结，折叠展示结果）
+  //     ① 机器能自己查、此刻还没落定（ok：到期守护进程会自己结，**不是用户的活**）
+  //     ② 待你确认（need_human：机器拿不到但人能答，附「为什么」）
+  //     ③ 永远结不了（stuck：接口封禁 / 真值窗口已过，**不给假按钮**）
   //   ★分类真源见 src/evidence/revealClass.js（kind 的固有属性，非运行时日志——那没落库）。
   //   ★零写：不改 p1a.db 任何一列。
+  //
+  // ★2026-09-28 修：返回体曾只回 need_human / stuck 两桶，**ok 桶算完就扔**。
+  //   ⇒ counts.ok 有数、明细没行，前端只好写一句「有 N 条机器能自己查、既不列出来也不给键」
+  //   ——那是接口在替自己的缺失找借口。现在三桶逐桶回行，计数一律取自 split 本身
+  //   （不再混用 classCounts：它的 human/unknown 与 need_human 是**两个不同集合**，
+  //     同一个数字两个名字，界面必然数错）。unregistered 是 need_human 的**子桶**不是第四类。
   app.get('/api/disclosure/resolve-queue', async (req) => {
     const conn = require('../deps').db.getConnection();
     const today = new Date().toLocaleString('sv-SE', { timeZone: 'Asia/Shanghai' }).slice(0, 10);
@@ -89,19 +97,24 @@ function register(app) {
       today,
       counts: {
         auto_revealed: autoRows.length,
+        // ★三桶计数一律取自 split —— 与下面三个返回数组**同一份数据**，不另算一遍
+        ok: split.ok.length,
         need_human: split.human.length,
         stuck: split.stuck.length,
-        ...RC.classCounts(openRows),
+        unregistered: split.human.filter((r) => r.unregistered).length,
+        open_total: openRows.length,   // 三桶之和 ≡ 本值（互斥且完备的直证，前端可自校验）
       },
       auto_revealed: autoRows.map((r) => ({
         id: r.id, statement: r.statement, assigned_prob: r.assigned_prob,
         outcome: r.outcome, resolved_at: r.resolved_at, layer: r.layer, kind: r.kind,
       })),
+      ok: split.ok,
       need_human: split.human,
       stuck: split.stuck,
       discipline: [
         '三类互斥且完备：每个到期未解的题必属其一（分类依据＝kind 的取数能力，不是运行时日志——那没落库）。',
         '「永远结不了」的题**不给可点按钮**——点了没反应比不给更糟，用户会以为是 bug。',
+        'ok 桶同理**不给键**：到期后守护进程自己会结，页面只报「等它自己查」，不催用户动手。',
         '本端点只读：不改账本任何一列。揭晓仍由守护进程与 resolve 接口写。',
       ],
     };

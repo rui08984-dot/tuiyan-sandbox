@@ -7,6 +7,7 @@
 //   导致无法对临时库做回归测试；本条纪律见 commit 3384eba 留痕）。
 const { db } = require('../src/deps');
 const { resolvePrediction } = require('../src/db/predictionsStore');
+const { klineClosed } = require('../src/evidence/klineClosed'); // 日 K「已收盘」单一真源（2026-09-28）
 const CONFIRM = process.argv.includes('--confirm');
 const DB_ARG = (() => { const i = process.argv.indexOf('--db'); return i >= 0 && process.argv[i + 1] && process.argv[i + 1].slice(0, 2) !== '--' ? process.argv[i + 1] : null; })();
 const FETCH_MS = 30000;
@@ -183,6 +184,13 @@ const RESOLVERS = {
     if (futureDay(r.date)) return { pending: r.date + ' 尚未到（UTC 日未收盘）' };
     const j = await getJson(subst(r.url_template || r.url, r));
     if (!Array.isArray(j) || !j.length || !j[0] || j[0][4] === undefined) return { pending: 'Binance ' + r.date + ' 无该日 K 线' };
+    // ★2026-09-28 修：取 close 前必须证明这根 K 线**已收盘**。
+    //   病根不是预筛不够严，是**真值就在这一行写的**：上面那句 futureDay 用上海日历卡 UTC 日，
+    //   北京时间 00:00–07:59（＝UTC 16:00–23:59）时上海日期大 1 ⇒ 预筛放行 ⇒ j[0] 是**当日那根还在长的**
+    //   K 线 ⇒ 半日价格被当收盘价写进不可变账本。⚠ 只把 today()/shToday() 换成 UTC 不解决：
+    //   那只是把 8 小时错窗挪到 UTC 侧，正确性仍寄生在一个「省 API 调用」的启发式上。
+    //   判据取自数据自报的 closeTime（与时区无关），单一真源见 p1b/src/evidence/klineClosed.js。
+    if (!klineClosed(j[0])) return { pending: 'Binance ' + r.date + ' K 线未收盘（closeTime 在当前时刻之后，半日价格不作收盘价）' };
     return finish(r, Number(j[0][4]), 'Binance ' + r.symbol + ' ' + r.date + ' close=' + j[0][4]);
   },
   async kraken_daily_close(r) {
