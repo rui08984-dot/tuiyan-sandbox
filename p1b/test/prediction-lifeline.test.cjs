@@ -216,8 +216,16 @@ test('⑥ 排除标记不隐藏题面：被排除的行照样完整返回（正�
 test('⑦ 判词：条数与列表来自同一次读，逐条对得上', async () => {
   const before = (await get(rows.ok)).body.verdict_count;
   assert.equal(before, 0, '初始无判词');
-  vstore.saveVerdict({ predictionId: rows.ok, promptVariant: 'v1_evidence', temperature: 0.2, verdictText: '证据聚合：倾向不成立。\n\nRange: 1%-5%\nP=0.03', impliedProb: 0.03 });
-  vstore.saveVerdict({ predictionId: rows.ok, promptVariant: 'v2_skeptical', temperature: 0.7, verdictText: '怀疑派：判据可能偏窄。\n\nRange: 5%-15%\nP=0.09', impliedProb: 0.09 });
+  // ★2026-09-29 修正一枚定时炸弹：`rows.ok` 是**已结算**的题，而 `leak_state` 闸
+  //   （verdictsStore 的 `leakState`）会拒写结算后产生的判词。判据是全时间戳字面比较，
+  //   而 SQLite 的 `datetime()` 只有**秒级精度** ⇒ 结算后 1 秒内写入放行、≥1 秒后拒写。
+  //   换句话说这两行**一直靠「恰好同一秒」侥幸绿**，机器一慢就会随机转红。
+  //   实测过：等 0ms 写入 → 放行(clean)；等 1200ms 写入 → 拒写(post_settlement)。
+  //   本测试的意图是「判词条数与列表同源」，**不是**验时序闸（那件事由
+  //   `verdicts-leak-gate.test.cjs` 用夹具专门验），所以这里显式声明豁免——
+  //   写法照抄 `resolve-due-guard` 当初给 `allowNotDue` 开的那个口（predictionsStore.js:431）。
+  vstore.saveVerdict({ predictionId: rows.ok, promptVariant: 'v1_evidence', temperature: 0.2, verdictText: '证据聚合：倾向不成立。\n\nRange: 1%-5%\nP=0.03', impliedProb: 0.03, allowPostSettlement: true });
+  vstore.saveVerdict({ predictionId: rows.ok, promptVariant: 'v2_skeptical', temperature: 0.7, verdictText: '怀疑派：判据可能偏窄。\n\nRange: 5%-15%\nP=0.09', impliedProb: 0.09, allowPostSettlement: true });
   const b = (await get(rows.ok)).body;
   assert.equal(b.verdict_count, 2);
   assert.equal(b.verdicts.length, 2);
