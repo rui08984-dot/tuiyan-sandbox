@@ -177,6 +177,36 @@ function printCoverage() {
   process.stderr.write(L.join('\n') + '\n');
 }
 
+/**
+ * 唯一的 spawn 点（MCP 适配层也走这里，2026-09-29 抽出的唯一一处改动）。
+ *
+ * ── 为什么要抽 ────────────────────────────────────────────────────────────
+ *   `stdio: 'inherit'` 让子进程直接写本进程 stdout/stderr，父进程**一个字节都拿不到**。
+ *   MCP server 必须把 CLI 的输出收回来当 `content[0].text` 返回给模型 ⇒ 它需要一条
+ *   能指定 `stdio` 的 spawn。而本 CLI 自己必须继续用 `inherit`：改了它，
+ *   `node p1b/cli 体检 看板 > out.txt` 的 stdout 就会变（管道/重定向下的行为逐位不一样），
+ *   违反「关掉 MCP 之后一切逐位不变」这条第一纪律。
+ *
+ * ── 为什么不直接把 stdio 做成可配项的 main() 参数 ─────────────────────────
+ *   `main()` 的返回码、确认闸、位置参数分流、outDir 生成顺序**全都在这一条语句之前**，
+ *   任何签名改动都会把「MCP 调用 = 人工调用」这条等式变成两条路径。两处显式传参最省心：
+ *   `main()` 传 `inherit`，MCP 传 `pipe`，差异在调用点一眼可见、无法被误用。
+ *
+ * ★**调用方纪律**：`stdio` 一旦给 `pipe`，调用方**必须自己** `res.stdout` / `res.stderr`，
+ *   否则子进程的输出会静默丢失（`spawnSync` 不像 `spawn` 会自动 drain）。
+ *
+ * @param {string} scriptPath  子脚本绝对路径（p1b/scripts/ 下）
+ * @param {string[]} childArgs  位置参数之外的参数（build() 的产物 ＋ `--` 透传）
+ * @param {Array} [stdio]  三元 stdio；缺省 = 旧的 `['ignore','inherit','inherit']`
+ */
+function runChild(scriptPath, childArgs, stdio) {
+  return spawnSync(process.execPath, [scriptPath].concat(childArgs), {
+    cwd: C.ROOT,
+    stdio: stdio || ['ignore', 'inherit', 'inherit'],
+    env: process.env,
+  });
+}
+
 function main(argv) {
   if (!argv.length) { process.stdout.write(topUsage() + '\n'); return EXIT.OK; }
   if (isHelpTok(argv[0])) { process.stdout.write(topUsage() + '\n'); return EXIT.OK; }
@@ -266,11 +296,7 @@ function main(argv) {
   process.stderr.write('[p1b] ' + c.group.zh + ' · ' + c.zh + '　' + C.tierLabel(c)
     + '　→ node p1b/scripts/' + c.script + (childArgs.length ? ' ' + childArgs.join(' ') : '') + '\n');
 
-  const res = spawnSync(process.execPath, [scriptPath].concat(childArgs), {
-    cwd: C.ROOT,
-    stdio: ['ignore', 'inherit', 'inherit'],   // 子进程零交互（15 条命令全非交互）⇒ stdin 不给
-    env: process.env,
-  });
+  const res = runChild(scriptPath, childArgs, ['ignore', 'inherit', 'inherit']); // 子进程零交互（15 条命令全非交互）⇒ stdin 不给
   if (res.error) { process.stderr.write('✗ spawn 失败：' + res.error.message + '\n'); return EXIT.ERR; }
   if (res.signal) { process.stderr.write('✗ 子进程被信号 ' + res.signal + ' 终止\n'); return EXIT.ERR; }
   const code = res.status === null ? EXIT.ERR : res.status;
@@ -282,4 +308,4 @@ function main(argv) {
 
 if (require.main === module) process.exit(main(process.argv.slice(2)) || 0);
 
-module.exports = { main, topUsage, groupUsage, commandUsage, resolveCommand, EXIT };
+module.exports = { main, topUsage, groupUsage, commandUsage, resolveCommand, runChild, EXIT };
