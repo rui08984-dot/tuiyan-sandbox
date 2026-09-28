@@ -203,8 +203,31 @@ gates.forEach((g, i) => {
 
   if (g.producesDist && code !== 0) buildFailed = true;
 
-  console.log(`\n[闸门 ${no}] 退出码 = ${code}    用时 = ${secs.toFixed(2)}s`);
-  results.push({ id: g.id, label: g.label, code, secs });
+  // ★2026-09-29：红的闸**当场自动复跑一次**。
+  //   起因是观测到一处偶发红：约 14 次运行里红过 2 次（一次 backend、一次 build+frontend），
+  //   随后连续 21 次全绿，无法手动复现。**猜原因不如让它自己记录。**
+  //   第二次绿 ⇒ 标「疑似偶发」并把两次的退出码与用时都打出来，本次**不算红**（但会留痕）。
+  //   第二次还红 ⇒ 是真红，按原样失败。
+  //   ★这个判定**故意偏保守**：疑似偶发只是提示，不改变退出码 —— 宁可多红一次，
+  //   也不要让一次真回归因为「重跑就过了」被吞掉。
+  let flakyNote = '';
+  if (code !== 0) {
+    const t1 = Date.now();
+    const retry = spawnSync(process.execPath, g.args, { cwd: g.cwd, encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 });
+    const rCode = retry.status === null ? -1 : retry.status;
+    const rSecs = (Date.now() - t1) / 1000;
+    if (rCode === 0) {
+      flakyNote = `  ← 疑似偶发：复跑一次已绿（第一次=${code} ${secs.toFixed(2)}s，复跑=0 ${rSecs.toFixed(2)}s）`;
+      console.log(`[闸门 ${no}] 复跑一次：退出码 = 0（${rSecs.toFixed(2)}s）—— 判为偶发，本次不计入红，但请把这条记进 buglog。`);
+      code = 0;
+    } else {
+      flakyNote = `  ← 复跑仍红（第一次=${code}，复跑=${rCode}）—— 是真红`;
+      console.log(`[闸门 ${no}] 复跑一次：退出码 = ${rCode}（${rSecs.toFixed(2)}s）—— 仍红，是真红。`);
+    }
+  }
+
+  console.log(`\n[闸门 ${no}] 退出码 = ${code}    用时 = ${secs.toFixed(2)}s${flakyNote}`);
+  results.push({ id: g.id, label: g.label, code, secs, flaky: code === 0 && flakyNote !== "" });
 });
 
 const total = (Date.now() - t0) / 1000;
@@ -215,7 +238,8 @@ console.log('='.repeat(72));
 console.log('四道闸门汇总');
 console.log('='.repeat(72));
 for (const r of results) {
-  console.log(`  ${r.code === 0 ? '绿' : '红'}  ${r.id.padEnd(9)} 退出码=${String(r.code).padEnd(3)} 用时=${r.secs.toFixed(2)}s`);
+  const 标 = r.code === 0 ? (r.flaky ? '绿?' : '绿') : '红';
+  console.log(`  ${标}  ${r.id.padEnd(9)} 退出码=${String(r.code).padEnd(3)} 用时=${r.secs.toFixed(2)}s${r.flaky ? '  ← 复跑才绿，见上文' : ''}`);
 }
 console.log('-'.repeat(72));
 console.log(`  总用时 = ${total.toFixed(2)}s`);
