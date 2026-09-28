@@ -171,6 +171,7 @@ function runSmoke() {
   let s = 424242;
   function rnd() { s = (s * 1103515245 + 12345) % 2147483648; return s / 2147483648; }
   const N = 40;
+  let legacyRows = 0;   // 自报 legacy_post_settlement 的判词行数（豁免放行的代价，逐条计数）
   for (let i = 0; i < N; i++) {
     const truth = rnd() < 0.5;
     const flip = rnd() < 0.2; // v1 带 20% 过自信翻车 → 演示中位聚合稳健性
@@ -185,13 +186,31 @@ function runSmoke() {
     if (!rr.ok) throw new Error('烟测 resolve 失败 #' + pred.id);
     const probs = { v1_evidence: clamp01(p1), v2_skeptical: clamp01(p2), v3_baserate: clamp01(p3) };
     for (const r of ROUTES) {
-      vstore.saveVerdict({
+      // ★2026-09-29 显式时序豁免（这是读数批，跑的题已结算，豁免是有意的）：
+      //   上一行刚把父题 resolve 掉，判词写在结算之后几毫秒。判词层的结算时序闸
+      //   （src/db/verdictsStore.js 的 leakState，第七批）本来会拒写——判据是全时间戳字面比较，
+      //   而 SQLite datetime() 只有秒级精度 ⇒ 跨秒就落进 post_settlement 桶，静默不落库。
+      //   为什么仍然要放行：这一层**本来就是读数实验**（拿合成真值的题跑判词管线的读数），
+      //   不是在线落注；闸要它做的不是"不许跑"，而是"跑出来的行必须自报是读数行"。
+      //   传了豁免之后这一行落 leak_state='legacy_post_settlement'（不进 clean 桶）
+      //   并在返回值里 excluded++ 披露——放行不等于免费。
+      // ★逐调用点显式传参，**不是**全局开关：别的读数批漏了这一处就照样被闸拒。
+      //   影响面仅此一行调用；HTTP 在线落注路径（src/routes/verdicts.js）不持此口，
+      //   线上任何在线判词写入仍在闸内（见 verdicts-leak-gate.test.cjs 的路由锁）。
+      // 口径锁：p1b/test/reading-batch-leak-exempt.test.cjs —— 全仓只有本处传这个豁免。
+      const vr = vstore.saveVerdict({
         predictionId: pred.id, promptVariant: r, temperature: ROUTE_TEMP[r],
         verdictText: '[SMOKE ' + r + '] 合成判词文本（思路非答案，仅供管线烟测）\nP=' + probs[r].toFixed(2),
         impliedProb: probs[r],
-      });
+      }, { allowPostSettlement: true });
+      // ★原来这一处不检查返回值（第七批收据 §9-② 记为"静默不落库"）：现在有了豁免，
+      //   仍要把拒写当真失败抛出来——烟测跑完少几行，读数就没意义了。
+      if (!vr.ok) throw new Error('烟测判词落库失败 #' + pred.id + '/' + r + '：' + vr.reason);
+      if (vr.excluded) legacyRows++;
     }
   }
+  console.log('判词行 ' + (N * ROUTES.length) + ' 条已落；其中结算后生成、自报 legacy_post_settlement 的 '
+    + legacyRows + ' 条（同秒内写入的判 clean，不计）——读侧不得把这批当信息差信号');
   runAnalysis(N, ':memory: 合成数据（smoke，seed=424242，' + N + ' 点全 resolve）');
 }
 

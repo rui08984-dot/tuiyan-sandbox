@@ -10,10 +10,25 @@
  * provider 维度留空待第二把 key 扩展 3×N（表结构已兼容）。
  *
  * 铁律落点（契约设计，写死）：
- *   ①LLM 只产出文本（多路推理=合法四角色之一）；②implied_prob 必须由 extractImpliedProb
- *   按固定输出格式（末行 P=0.xx）正则机械抽取——LLM 不直接给数（项目两次负结果均死于
- *   LLM 直接输出数字）；③抽取失败 → implied_prob=NULL 如实落库（verdict_text 全量保留，
- *   消融时剔除该行），绝不编数；④单路失败不落库不编造，errors 数组如实标注。
+ *   ①LLM 只产出文本（多路推理=合法四角色之一）；②**implied_prob 只从结构化判词块的 p 字段读**
+ *   ——形状与机械校验在 `src/evidence/verdictSchema.js`（role/direction/confidence/p/reason/
+ *   abstain 六项，p 必须是 [0,1] 的**数值**）；③**缺结构化字段即拒（no_fallback）** ⇒
+ *   implied_prob=NULL 如实落库（verdict_text 全量保留，消融时剔除该行），绝不编数；
+ *   ④单路失败不落库不编造，errors 数组如实标注。
+ *
+ * ★2026-09-29 取数闸：把「禁止模型给数字」换成「约束它按结构给数字」
+ *   旧解法是「禁数字 ⇒ 逼它写散文 ⇒ 路由再猜它想说什么」。项目两次负结果（模型自由给数 →
+ *   稳定地给错同一个数）是**真的**，那次该禁的是"无约束直出"，不该顺带把"给数"也禁了——
+ *   于是数字没少，只是从"模型直出"挪到了"正则从散文里猜"。
+ *   而猜这一步读得懂「P=0.42」，读不懂「P=0.42 附近」，更分不清「模型声明的置信度」与
+ *   「散文里碰巧出现的那个 0.42」——这两样在正则眼里完全一样。
+ *   修法＝提示词要求结构化块 → 机械校验类型/枚举/范围 → 越界即拒、缺失即拒，且**不回退**。
+ *
+ * ★兼容开关 `P1B_VERDICT_LEGACY_TEXT_FALLBACK`（**默认关**，取值 1/on/true/yes/legacy 才开）：
+ *   它只为让库里已有的、只有 verdict_text 的旧行仍能取到数（旧数据可读）。
+ *   ★新数据不许走老路；且开关**只对"压根没有结构化块"的响应生效**——有块但校验不过的，
+ *   任何形态都拒。否则"校验不过"就有了逃生门：模型给 p=1.5，路由从散文里捡一个 0.42 顶上，
+ *   那一路的越界就再也拦不住了。
  *
  * 批次1-M1（p15）per-path 注入（B1(a) 信息差为准；队长规划 §1.2/§1.3）——
  *   v1_evidence：题面 + 账本证据块（loadEvidence：evidence_json→events id+game_id 双条件，
@@ -24,8 +39,10 @@
  *     true 占比，排除本条自身防自我泄漏；有效 n<10 如实标「基率样本不足」；L1 重言层与
  *     未分类层一律不注入——评审攻击 6：重言基率 0/30 白送）。措辞背景化（J3 FB+J6 Study2：
  *     「仅作背景参考」），禁任何「请据此更新」式更新指令（Schoenegger 实测更新指令劣化）。
- *   输出契约：末行 P=0.xx 不变（extractImpliedProb/judge-runner 全链兼容），其上一行新增
- *   「Range: A%-B%」区间行（区间端点=第二信号源，J2 Lu/J6；宽度入库供批次 1 消融）。
+ *   输出契约（2026-09-29 扩）：新增**结构化判词块**（`verdict-json` 围栏）——本路由取数的唯一真源；
+ *   末行 P=0.xx 仍要求模型给出，但它**只为仍在役的旧消费方保留**（`scripts/decouple9-run.cjs`
+ *   直接调 extractImpliedProb，本批禁改面之外），本路由不再读它，提示词要求两者相等；
+ *   其上一行是「Range: A%-B%」区间行（区间端点=第二信号源，J2 Lu/J6；宽度入库供批次 1 消融）。
  *
  * 证据块 3.0（命题 A 接线；用户 2026-09-13 拍板 Q2=A）——2.0→3.0 差异（**只增不改**）：
  *   2.0 = a 事件流 + b claims 按席位聚合 + c 机械特征卡（三段，纯代码）。
@@ -60,6 +77,8 @@ const { getGameOr404 } = require('./games');
 const { httpError, requireInt } = require('../util');
 // 3.0 d 段：机械矛盾检测器 W1-W6（真值盲/零 LLM/零网络；avalon.js 已同源只读引用）
 const DET = require('../detectors/werewolf-contradictions');
+// 结构化判词块的形状与机械校验（单一真源；本文件只管"怎么取"，不管"长什么样"）
+const vschema = require('../evidence/verdictSchema');
 
 /** 3 路预注册配置（变体×温度配对=任务书降级版；provider 维度留空待补） */
 const ROUTES = [
@@ -74,7 +93,10 @@ const VARIANT_ANGLE = {
   v3_baserate: '基率视角：忽略个案细节，从同类局型的历史基率出发评估该判定为真的可能性。',
 };
 
-const OUTPUT_FORMAT_RULE = '输出要求：正文分析不超过150字；在最后一行之前给一行「Range: A%-B%」格式（本路倾向的置信区间端点，整数百分比，例如 Range: 40%-60%）；最后一行必须严格是「P=0.xx」格式（0到1之间的小数，例如 P=0.65）。';
+const OUTPUT_FORMAT_RULE = '输出要求：正文分析不超过150字；'
+  + vschema.describeContract() + '\n'
+  + '在最后一行之前给一行「Range: A%-B%」格式（本路倾向的置信区间端点，整数百分比，例如 Range: 40%-60%）；'
+  + '最后一行必须严格是「P=0.xx」格式（0到1之间的小数，例如 P=0.65），且必须与结构化块里的 p 相同。';
 
 /** system 首行恒挂边界（思路非答案/参考铁律同源） */
 const SYSTEM_HEAD = '你是多路判词实验装置中的一路（合法角色：多路推理）。你的输出仅作复盘参考，不接入现场研判。';
@@ -92,7 +114,7 @@ function buildUserPrompt(prediction, game, extras) {
   if (o.evidenceBlock) lines.push(o.evidenceBlock); // v1 专属（B1(a)：v2 纯题面作信息差对照）
   const baseLine = formatBaselineLine(o.baseline); // v3 专属（LOO 基率背景行；L1/未分类 → null → 不注入）
   if (baseLine) lines.push(baseLine);
-  lines.push('请按你的视角输出分析，并在最后一行给出 P=0.xx。');
+  lines.push('请按你的视角输出分析，给出结构化判词块，并在最后一行给出与该块 p 相同的 P=0.xx。');
   return lines.join('\n');
 }
 
@@ -332,8 +354,13 @@ function formatBaselineLine(baseline) {
 }
 
 /**
- * implied_prob 机械抽取（契约：末行 P=0.xx；禁 LLM 自由给数）。
+ * implied_prob 机械抽取（**旧路**，契约：末行 P=0.xx）。
  * 只认 [0,1] 小数（P=1 / P=0 合法；P=1.5 / P=65% 不认）；从后往前找首个含 P= 之行。
+ *
+ * ★2026-09-29 起本函数**不再是取数真源**，只在两处活着：
+ *   ① 兼容开关 `P1B_VERDICT_LEGACY_TEXT_FALLBACK` 打开、且响应压根没有结构化块时（让旧行可读）；
+ *   ② `scripts/decouple9-run.cjs` 等仍直接调它的旧消费方（本批禁改面之外）。
+ *   新写入一律走 `readImpliedProb`。**不许**把它接回默认路径——那正是这次要拆掉的土办法。
  * @returns {number|null} 抓不到或越界 → null（不编数）
  */
 function extractImpliedProb(text) {
@@ -349,13 +376,111 @@ function extractImpliedProb(text) {
   return null;
 }
 
-/** MOCK 判词（确定性模板，零网络；三路可区分且末行带 P= 供抽取链路烟测）。
+// ── 兼容开关（默认关）──────────────────────────────────────────────────────
+// 名字按"它打开的是什么能力"来：它打开的是**回退到文本抽取**这件事，所以默认就是关的。
+// 反过来写成 `P1B_VERDICT_NO_FALLBACK=1` 会让"关掉闸"看起来像"打开功能"，容易被人顺手删掉。
+const LEGACY_TEXT_FALLBACK_ENV = 'P1B_VERDICT_LEGACY_TEXT_FALLBACK';
+const LEGACY_TEXT_FALLBACK_ON_VALUES = ['1', 'on', 'true', 'yes', 'legacy'];
+
+/**
+ * 兼容开关读值。**默认关**（env 未设 ⇒ false）；非法取值同样按"关"处理——
+ * 闸的默认值必须落在收紧的那一侧：拼错一个 env 名就等于悄悄把闸拆了。
+ * opts.legacyTextFallback 显式布尔优先（消融脚本要能单次覆盖，不必改进程环境）。
+ * @param {{legacyTextFallback?:boolean}} [opts]
+ * @returns {boolean}
+ */
+function legacyTextFallbackEnabled(opts) {
+  if (opts && typeof opts.legacyTextFallback === 'boolean') return opts.legacyTextFallback;
+  const v = process.env[LEGACY_TEXT_FALLBACK_ENV];
+  if (v === undefined || v === null) return false;
+  return LEGACY_TEXT_FALLBACK_ON_VALUES.indexOf(String(v).trim().toLowerCase()) !== -1;
+}
+
+/**
+ * ★取数闸（2026-09-29）：**结构化优先，缺结构化字段即拒**（no_fallback）。
+ *
+ * 三条分支，每条都给得出「这个数是怎么来的」（source）——因为库里 p=NULL 有两种天差地别的成因：
+ * 模型说"我答不了"（合法拒答）和模型没按格式输出（坏数据），合成一种就再也分不开了。
+ *   structured                     结构化块合格 ⇒ 直接读 p（不经任何文本解析）
+ *   structured_refusal             块合格但 abstain=true ⇒ 合法拒答，p 必为 NULL
+ *   no_fallback_structured_missing 压根没有块 ⇒ **拒，不回退**（默认形态）
+ *   no_fallback_structured_invalid 有块但不合格 ⇒ **拒，任何形态都拒**（开关救不了）
+ *   legacy_text / legacy_text_no_match 开关开启且无块时走老路（自报家门，让新旧数据在库里可区分）
+ *
+ * ★为什么"有块但不合格"不设逃生门：否则模型给 p=1.5 时，路由能从散文里捡一个 0.42 顶上，
+ *   那一路的越界就永远拦不住——闸会变成"校验失败时按老规矩办"，而老规矩正是错的那个。
+ *
+ * @param {string} text LLM 响应文本
+ * @param {{legacyTextFallback?:boolean}} [opts]
+ * @returns {{prob:number|null, source:string, ok:boolean, why:string, structured:object}}
+ */
+function readImpliedProb(text, opts) {
+  const found = vschema.parseStructured(text);
+  if (found.found) {
+    const v = vschema.validateStructured(found.payload);
+    if (v.ok) {
+      const base = { structured: { found: true, value: v.value, errors: [] } };
+      if (v.value.abstain) {
+        return Object.assign(base, {
+          prob: null, source: 'structured_refusal', ok: true,
+          why: '这一路按结构化契约显式拒答（abstain=true）⇒ 不给数是它自己的判断，如实留空'
+            + '（★不许拿散文里的 P= 顶上：拒答就是拒答）',
+        });
+      }
+      return Object.assign(base, {
+        prob: v.value.p, source: 'structured', ok: true,
+        why: 'implied_prob 直接读自结构化块的 p 字段（类型与范围经机械校验），不经文本抽取',
+      });
+    }
+    const detail = found.parseError
+      ? 'JSON 解析失败：' + found.parseError
+      : v.errors.join('；');
+    return {
+      prob: null, source: 'no_fallback_structured_invalid', ok: false,
+      structured: { found: true, value: null, errors: v.errors.concat(found.parseError ? [found.parseError] : []) },
+      why: '结构化块在、但不合格（' + detail + '）⇒ 拒，不编数。'
+        + '★此分支不受兼容开关影响：一条走了形状校验的响应没有退路，否则越界就等于没查',
+    };
+  }
+  if (legacyTextFallbackEnabled(opts)) {
+    const legacy = extractImpliedProb(text);
+    return {
+      prob: legacy,
+      source: legacy === null ? 'legacy_text_no_match' : 'legacy_text',
+      ok: legacy !== null,
+      structured: { found: false, value: null, errors: [] },
+      why: legacy === null
+        ? '响应里没有结构化判词块；兼容开关已开，但老路也没抽到数 ⇒ 如实留空，不编数'
+        : '响应里没有结构化判词块；兼容开关已开（' + LEGACY_TEXT_FALLBACK_ENV + '）⇒ 走了旧的「末行 P=0.xx」抽取。'
+          + '新数据不该走到这里（走了说明模型没按结构化契约输出）',
+    };
+  }
+  return {
+    prob: null, source: 'no_fallback_structured_missing', ok: false,
+    structured: { found: false, value: null, errors: [] },
+    why: '响应里没有结构化判词块 ⇒ 拒（no_fallback）。'
+      + '★不回退到「末行 P=0.xx」文本抽取：正则分不清"模型声明的数"和"散文里碰巧出现的数"',
+  };
+}
+
+/** MOCK 判词的固定档（确定性模板，零网络）。
+ *  三路各给一个**说得通的组合**，而不是随手配三个字段：p 决定方向与档位，否则夹具自己
+ *  就会造出"p=0.25 却报 confidence=high"这种自相矛盾的行，把读侧教成"这两个字段可以随便填"。
+ *  p 的三个值（0.25/0.50/0.75）是既有测试钉死的契约，一个不许动。 */
+const MOCK_VERDICTS = {
+  v1_evidence: { pText: '0.25', role: 'evidence_aggregation', direction: 'against', confidence: 'mid' },
+  v2_skeptical: { pText: '0.50', role: 'skeptical', direction: 'mixed', confidence: 'low' },
+  v3_baserate: { pText: '0.75', role: 'base_rate', direction: 'for', confidence: 'mid' },
+};
+
+/** MOCK 判词（确定性模板，零网络；三路可区分且带结构化块供取数闸烟测）。
  *  批次1-M1 同步：v1 附证据块行（真实查库所得，与 live 同源）；v3 附基率背景行；
- *  三路在末行 P=0.xx 契约之上加「Range: A%-B%」区间行（P±0.10，端点=第二信号源；
- *  extractImpliedProb 仍只认末行 P=，全链兼容不破坏）。 */
+ *  三路在结构化块之外保留「Range: A%-B%」区间行（P±0.10，端点=第二信号源）与末行 P=0.xx
+ *  （老契约，供 scripts/decouple9-run.cjs 那一类仍直接调 extractImpliedProb 的消费方）。
+ *  ★MOCK 走结构化块而不是靠末行 P=：否则"管线烟测"测的还是那条已经拆掉的土办法。 */
 function buildMockVerdict(variant, temperature, statement, extras) {
   const o = extras || {};
-  const mockProb = { v1_evidence: '0.25', v2_skeptical: '0.50', v3_baserate: '0.75' }[variant] || '0.50';
+  const spec = MOCK_VERDICTS[variant] || MOCK_VERDICTS.v2_skeptical;
   const brief = String(statement || '').slice(0, 40);
   const lines = [
     '[MOCK ' + variant + ' T=' + temperature + '] 判词（零网络模板）：就「' + brief
@@ -364,11 +489,15 @@ function buildMockVerdict(variant, temperature, statement, extras) {
   if (variant === 'v1_evidence' && o.evidenceBlock) lines.push(o.evidenceBlock);
   const baseLine = formatBaselineLine(o.baseline);
   if (variant === 'v3_baserate' && baseLine) lines.push(baseLine);
-  const p = parseFloat(mockProb);
+  const p = parseFloat(spec.pText);
   const lo = Math.max(0, Math.round((p - 0.10) * 100));
   const hi = Math.min(100, Math.round((p + 0.10) * 100));
-  lines.push('Range: ' + lo + '%-' + hi + '%'); // 区间行恒在 P= 之上；不含 P= 不干扰抽取
-  lines.push('P=' + mockProb);
+  lines.push(vschema.buildBlock({
+    role: spec.role, direction: spec.direction, confidence: spec.confidence,
+    p: p, reason: 'MOCK 夹具：零网络模板，不代表任何真实判断。', abstain: false,
+  }));
+  lines.push('Range: ' + lo + '%-' + hi + '%'); // 区间行恒在 P= 之上；不含 P= 不干扰老路
+  lines.push('P=' + spec.pText);                // 老契约行仍在（禁改面之外的旧消费方），本路由不再读它
   return lines.join('\n');
 }
 
@@ -452,7 +581,9 @@ function register(app, ctx) {
             if (cacheStore && ck) cacheStore.put(ck, { verdict_text: text, model: options.model || null, at: new Date().toISOString() });
           }
         }
-        const prob = extractImpliedProb(text); // 机械抽取：数字只从文本正则来
+        // ★取数走结构化闸：缺结构化字段即拒（no_fallback），不回退文本抽取（见文件头注）。
+        const read = readImpliedProb(text);
+        const prob = read.prob;
         const row = vstore.saveVerdict({
           predictionId: pid,
           promptVariant: route.variant,
@@ -476,6 +607,8 @@ function register(app, ctx) {
           temperature: row.temperature,
           implied_prob: row.implied_prob,
           extracted: prob !== null,
+          prob_source: read.source,   // ★这个数是怎么来的（读侧据此分"合法拒答/坏数据/走了老路"）
+          prob_why: read.why,
           created_at: row.created_at,
           run_id: row.run_id,
           model: row.model,
@@ -500,8 +633,10 @@ function register(app, ctx) {
       saved: saved,
       errors: errors,
       leak: leak,
-      note: 'LLM 只产出文本；implied_prob 由末行「P=0.xx」固定格式正则机械抽取，抽取失败落 NULL 不编数'
-        + '。本次写入的行 leak_state=clean（父题结算之前生成，可进 clean 读侧）'
+      note: 'implied_prob 只从结构化判词块的 p 字段读（类型与范围经机械校验，越界即拒、不编数）；'
+        + '响应里没有结构化块就如实落 NULL——★不回退到「末行 P=0.xx」文本抽取。'
+        + '每行的 prob_source 说明那个数是怎么来的。'
+        + '本次写入的行 leak_state=clean（父题结算之前生成，可进 clean 读侧）'
         + (leak.note ? '；' + leak.note : ''),
       l0_gate: predictions.l0Gate(),
     };
@@ -511,6 +646,10 @@ function register(app, ctx) {
 module.exports = {
   register, ROUTES, extractImpliedProb, buildMockVerdict, buildSystemPrompt, buildUserPrompt,
   loadEvidence, loadBaseline, formatBaselineLine, // 批次1-M1 per-path 注入件（测试与消融复用）
+  // 2026-09-29 取数闸：路由读数走 readImpliedProb（结构化优先、缺字段即拒）；extractImpliedProb
+  //   降级为旧路，只在兼容开关打开且响应无结构化块时、以及旧消费方手里活着。
+  readImpliedProb, legacyTextFallbackEnabled, LEGACY_TEXT_FALLBACK_ENV, LEGACY_TEXT_FALLBACK_ON_VALUES,
+  MOCK_VERDICTS,
   EVIDENCE_HEAD, NO_EVIDENCE_LINE, // 注入口径常量（测试断言复用，防文案漂移）
   // 证据块 3.0（命题 A 接线）：d 段常量 + 消融开关解析（测试/消融复用）
   EVIDENCE_VERSION, EVIDENCE_VERSION_2_0, EVIDENCE_V3_ENV,
