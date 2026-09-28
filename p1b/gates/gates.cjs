@@ -66,14 +66,38 @@ function frontendTests() {
 }
 
 /**
- * 范围差集提醒：node 的递归发现会额外捞进 p1b/test/meihua.js（扩展名 .js，不是 .test.cjs），
- * 里面正好 1 个用例。任务书点名的范围是 *.test.cjs，所以它不在门内。
- * 这里主动喊一声，免得「门绿了」被误读成「全量都绿了」。
+ * ★2026-09-29 补齐：原来这里只喊一声「本门未覆盖 test/meihua.js」。
+ *   「知道自己没覆盖」和「覆盖了」差着一整个用例 —— 现在直接把它纳进后端道。
+ *   它是全仓唯一一个非 `.test.cjs` 的用例文件，node 递归发现本来就会捞它，
+ *   所以纳入后**全量口径与 node 自身一致**，不再有「门绿了但全量没跑」的缝。
+ *   仍保留 OUT_OF_SCOPE_HINT（措辞改为「已覆盖，但命名不规范」），
+ *   因为**命名不规范本身是一条信息**：下一个人照 `.test.cjs` 写新测试，别照它写。
  */
+const EXTRA_BACKEND = [path.join('test', 'meihua.js')];
 const OUT_OF_SCOPE_HINT = {
   file: path.join('test', 'meihua.js'),
-  reason: '扩展名是 .js，不匹配 test/*.test.cjs；node 递归发现会捞它，里面 1 个用例。',
+  reason: '唯一一个非 .test.cjs 的用例文件（命名不规范，但它已被本门覆盖）。',
 };
+
+/**
+ * ★2026-09-29 新增：闸门**自身**的形态自检。
+ *   起因是 2026-09-28 第七批我给 `world.run` 传了**目录** `p1b/test`，
+ *   Node v24 会把 `--test` 的目录位置参当**模块**去 require ⇒ `Cannot find module`，
+ *   **一个用例都没跑**却恒红。本仓 buglog bug-9-mttcixzo 早已记过同一个坑，我漏抄。
+ *   那个坑在「工作流脚本」里，本文件管不到，所以在这里**把形态钉死**：
+ *   后端道必须逐个列出测试文件，且清单非空。
+ */
+function assertGateShape() {
+  const files = backendTests();
+  if (!files.length) throw new Error('闸门自检失败：后端道测试清单为空 —— 那样它会「跑 0 个用例」却报绿');
+  for (const f of files) {
+    if (fs.statSync(path.join(P1B, f)).isDirectory()) {
+      throw new Error('闸门自检失败：后端道清单里混进了目录 ' + f +
+        ' —— Node v24 会把 --test 的目录位置参当模块 require，跑 0 个用例却恒红');
+    }
+  }
+  return files.length + EXTRA_BACKEND.length;
+}
 
 // ---------------------------------------------------------------------------
 // 四道闸门（顺序即执行顺序，理由见文件头）
@@ -85,10 +109,10 @@ function buildGates() {
   return [
     {
       id: 'backend',
-      label: '后端 · node --test（p1b/test/*.test.cjs）',
+      label: '后端 · node --test（p1b/test/*.test.cjs ＋ meihua.js）',
       cwd: P1B,
-      args: ['--test', '--test-reporter=dot', ...backendTests()],
-      cmdForDisplay: () => `node --test --test-reporter=dot test/*.test.cjs  （${backendTests().length} 个文件）`,
+      args: ['--test', '--test-reporter=dot', ...backendTests(), ...EXTRA_BACKEND],
+      cmdForDisplay: () => `node --test --test-reporter=dot test/*.test.cjs test/meihua.js  （${backendTests().length + EXTRA_BACKEND.length} 个文件）`,
     },
     {
       id: 'build',
@@ -126,14 +150,17 @@ if (args.includes('--help') || args.includes('-h')) {
 }
 
 const gates = buildGates();
+// ★2026-09-29：形态自检在**建表时**就跑，不等到执行 —— 清单形态错了要当场炸，
+//   而不是跑完四道之后才发现后端道其实跑的是 0 个用例。
+const backendFileCount = assertGateShape();
 
 if (args.includes('--list')) {
-  console.log('后端道文件（%d）：', backendTests().length);
-  backendTests().forEach((f) => console.log('  ' + f));
+  console.log('后端道文件（%d）：', backendFileCount);
+  gates.find((g) => g.id === 'backend').args.slice(2).forEach((f) => console.log('  ' + f));
   console.log('前端道文件（%d）：', frontendTests().length + 1);
   frontendTests().forEach((f) => console.log('  ' + f));
   console.log('  ' + path.join('web', 'dist.test.mjs'));
-  console.log('\n范围外提醒：%s —— %s', OUT_OF_SCOPE_HINT.file, OUT_OF_SCOPE_HINT.reason);
+  console.log('\n命名不规范提醒：%s —— %s', OUT_OF_SCOPE_HINT.file, OUT_OF_SCOPE_HINT.reason);
   process.exit(0);
 }
 
@@ -197,7 +224,7 @@ console.log(`  总用时 = ${total.toFixed(2)}s`);
 if (buildFailed) {
   console.log('  ⚠ 构建道红 → 前端道跑在【陈旧 dist】上，dist.test.mjs 的结果本次不作数。');
 }
-console.log(`  范围外：${OUT_OF_SCOPE_HINT.file}（${OUT_OF_SCOPE_HINT.reason}）—— 本门未覆盖它。`);
+console.log(`  命名不规范：${OUT_OF_SCOPE_HINT.file}（${OUT_OF_SCOPE_HINT.reason}）`);
 console.log('='.repeat(72));
 
 if (failed.length > 0) {
