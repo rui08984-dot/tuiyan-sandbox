@@ -134,11 +134,78 @@ const 协议命中 = 协议候选.filter(有);
 记('纪律', '★SKILL.md 禁词自查（界面与注释不得出现「预测」）',
   计数('p1b/skill/SKILL.md', /预测/g) === 0, 'p1b/skill/SKILL.md 中「预测」出现 ' + 计数('p1b/skill/SKILL.md', /预测/g) + ' 次');
 记('纪律', '★统一闸门命令存在', 有('p1b/gates/gates.cjs'), 'p1b/gates/gates.cjs');
-记('纪律', 'pre-commit 钩子未擅自启用', !有('.git/hooks/pre-commit'),
-  '.git/hooks/pre-commit 缺席（启用与否由用户拍板）');
+// 这条判据在 2026-09-29 改过一次：原判据是「pre-commit 钩子未擅自启用」。
+// 那条在**未获答复**时是对的（擅自改变用户每次提交的手感不该我做主）。
+// 用户两次未答复 ⇒ 按已给建议装上（实测 12.4 秒，且 `rm -f` 一条可撤）。
+// 于是判据随之改为更该管的那件事：**装在 .git/hooks 的那份，必须与入库的那份逐字节相同**。
+// ★`.git/hooks/` 不进版本库，所以「装了就漂」是真实风险 —— 这条判据就是防它。
+记('纪律', '★已装钩子与入库正本逐字节一致（防止 .git/hooks 单独漂移）',
+  有('.git/hooks/pre-commit') && 有('p1b/gates/pre-commit.sh') &&
+  读('.git/hooks/pre-commit').trim() === 读('p1b/gates/pre-commit.sh').trim(),
+  '.git/hooks/pre-commit ⇄ p1b/gates/pre-commit.sh（后者入库，前者不入库）');
 记('纪律', '★新增测试随每批落地（后端用例文件 ≥ 90）',
   fs.readdirSync(path.join(ROOT, 'p1b/test')).filter((f) => f.endsWith('.test.cjs')).length >= 90,
   'p1b/test/*.test.cjs 共 ' + fs.readdirSync(path.join(ROOT, 'p1b/test')).filter((f) => f.endsWith('.test.cjs')).length + ' 个');
+
+// ───────────────────────── 已知未闭项（owned，非遗漏）─────────────────────────
+// ★这一节存在的理由：有些事**助手做不了**（要登供应商后台、要用户点头才能做不可逆操作）。
+//   把它们混进上面的机械核对里，要么被当成「没做」一直红，要么被悄悄删掉。
+//   正确形态是：**显式登记、指名 owner、给触发条件、给可执行 runbook**。
+//   ★一条「已知未闭」不算失败，也不算通过 —— 它是**有人认领的债**。
+//   真要销账，只能由 owner 执行 runbook 里的动作后，把 evidence 填进来并把 status 改成 closed。
+const 已知未闭 = [
+  {
+    id: 'key-rotation',
+    事项: '轮换 tokenrhythm / Metaculus / Odds-Api 三个密钥',
+    owner: '创始人（需登供应商后台，助手无凭据）',
+    为何未闭: '物理上做不了：需要供应商后台的登录凭据',
+    风险: '明文在 421 个可达 commit ＋ 6 个悬空 blob（只读实测，2026-09-29）',
+    缓解: 'git remote -v 为空 ⇒ 该 key 从未离开本机；且 .gitignore 已挡 .scratch/audit-* 今后不再进来',
+    runbook: 'docs/specs/待你拍板-20260929.md §一（三步，含后台调用日志查询）',
+    status: 'open',
+  },
+  {
+    id: 'history-rewrite',
+    事项: 'git filter-repo 清史（重写 421 个 commit 哈希）',
+    owner: '创始人授权后由助手执行',
+    为何未闭: '不可逆操作，未获明确授权',
+    风险: '同 key-rotation',
+    缓解: '工具已装（a40bce548d2c）；只读预演已完成；完整方案含双重备份与三条验收脚本',
+    runbook: 'docs/密钥清史方案-20260928.md',
+    status: 'open',
+  },
+  {
+    id: 'verdicts-clean-migration',
+    事项: '43 个读侧文件（FROM verdicts 73 处）切到 verdicts_clean',
+    owner: '创始人（产品决定）',
+    为何未闭: '现在切会读到 0 行 —— 5156 条历史全在 NULL 桶，零行本身是错答案',
+    风险: 'L6 分层读数与十几个消融脚本会空转，且「读不出数」会被误读为「这层没数据」',
+    缓解: '视图已就位（p1b/src/db/verdictsViews.js），等真有 clean 判词再切',
+    runbook: 'docs/specs/待你拍板-20260929.md §三',
+    status: 'decided-defer',
+  },
+  {
+    id: 'thickcell-prereg',
+    事项: '重开厚格队那条 PREREG（条件基率）',
+    owner: '已决：不重开',
+    为何未闭: '已决',
+    风险: '无 —— 不做的风险是零',
+    缓解: '它测不出差别是构造性的：现役 L3 基率本身即条件基率，被阈值钉在 p∈[0.394,0.563]；算边缘臂须联网重取数（v1.3 §2 红线）',
+    runbook: 'docs/specs/待你拍板-20260929.md §四',
+    status: 'closed',
+  },
+  {
+    id: 'gate-flake',
+    事项: '四道闸门存在偶发红（未定位）',
+    owner: '待认领（下一棒遇到时顺手抓）',
+    为何未闭: '已观测到但未复现：约 14 次运行里红过 2 次（一次 backend、一次 build+frontend），此后连续 13 次全绿。' +
+      '已排除两个假设：① 8787 服务在跑（停服 5/5 绿、复起后 6/6 绿）；② 磁盘上 dist 陈旧（构建道排在前端道之前，且四道全跑不短路）。',
+    风险: '闸门偶发红会掩盖真实回归；偶发绿会掩盖真实缺陷',
+    缓解: '四道闸门**全跑不短路**、逐道打印退出码，红的那一道会自己点名；见到红请**连跑三次**再下结论 —— 单次红极可能是这一类',
+    runbook: 'node p1b/gates/gates.cjs 连跑三次；仍红则逐道单独跑并 --test-reporter=spec 取堆栈',
+    status: 'open',
+  },
+];
 
 // ───────────────────────── 输出 ─────────────────────────
 const 按阶段 = {};
@@ -162,8 +229,18 @@ if (asJson) {
       if (r.证据) console.log('         ↳ ' + r.证据);
     }
   }
+  console.log('\n【已知未闭项】' + 已知未闭.length + ' 条（有 owner 认领的债，不是遗漏）');
+  for (const d of 已知未闭) {
+    const 标 = d.status === 'closed' ? '[已闭]' : d.status === 'decided-defer' ? '[已决推迟]' : '[未闭]';
+    console.log('  ' + 标 + ' ' + d.事项);
+    console.log('         ↳ owner：' + d.owner);
+    console.log('         ↳ ' + d.为何未闭 + '｜缓解：' + d.缓解);
+    console.log('         ↳ runbook：' + d.runbook);
+  }
   console.log('\n' + '='.repeat(72));
-  console.log('合计：' + 总通过 + ' 过 / ' + 总失败 + ' 失');
+  console.log('机械核对：' + 总通过 + ' 过 / ' + 总失败 + ' 失　｜　已知未闭：' +
+    已知未闭.filter((d) => d.status === 'open').length + ' 条');
   console.log('★[FAIL] 不等于「没做」，可能确实没做，也可能做了但证据路径写错了 —— 两种都要查。');
+  console.log('★「已知未闭」是**有人认领的债**：它不算失败也不算通过，销账要由 owner 执行 runbook。');
 }
 process.exit(总失败 > 0 ? 1 : 0);
