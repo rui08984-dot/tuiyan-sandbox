@@ -19,6 +19,10 @@ import { NavLink } from 'react-router-dom';
 import '../styles/home.css';
 import { SourceTag } from '../components/SourceTag';
 import { Wait } from '../components/Wait';
+import { ensureVisitorId } from '../lib/visitor';
+import {
+  EMPTY_LEAD, homeHeadline, personalState, showLedgerHero, type OwnCounts, type PersonalState,
+} from '../lib/firstRun';
 
 interface Ledger {
   records: number;
@@ -34,6 +38,14 @@ export default function HomePage() {
   const [led, setLed] = useState<Ledger | null>(null);
   const [cal, setCal] = useState<Calib | null>(null);
   const [bad, setBad] = useState(false);
+  /* ★2026-09-30 个人态（SPEC-first-run-ux）：这一页的主角是**你**的数。
+     判据在 lib/firstRun.ts（纯函数，可单测）；这里只取数。
+     ★分不开归属时是 'unknown' 而不是 'empty'——那个 0 的意思是「不知道你是谁」，
+       不是「你没有题」（与 ResolvePage / WhereOffPage 的 fail-closed 同一纪律）。 */
+  const [mine, setMine] = useState<OwnCounts | null>(null);
+  const [mineResolved, setMineResolved] = useState<number | null>(null);
+  const [mineStatus, setMineStatus] = useState<'loading' | 'ready' | 'failed'>('loading');
+  const [vid, setVid] = useState<string | null>(null);
 
   useEffect(() => {
     let alive = true;
@@ -50,6 +62,31 @@ export default function HomePage() {
     return () => { alive = false; };
   }, []);
 
+  /* ★取「我的题」：首访本机没有标识 ⇒ 先换一枚，换回来之前读到的 0 是假的
+     （与 ResolvePage 的 vidReady 闸同一条纪律，见 lib/visitor 头注）。 */
+  useEffect(() => {
+    let alive = true;
+    void ensureVisitorId().then((v) => {
+      if (!alive) return;
+      setVid(v);
+      if (!v) { setMineStatus('failed'); return; }
+      fetch('/api/analytics/questions?view=mine&limit=50&visitor_id=' + encodeURIComponent(v))
+        .then((r) => (r.ok ? r.json() : null))
+        .then((j) => {
+          if (!alive) return;
+          if (j && j.counts) {
+            setMine(j.counts as OwnCounts);
+            // 已落定的条数读**账本全体口径**（auto_revealed.mine），不是这 50 行切片
+            setMineResolved(typeof j.auto_revealed?.mine === 'number' ? j.auto_revealed.mine : null);
+            setMineStatus('ready');
+          } else setMineStatus('failed');
+        })
+        .catch(() => { if (alive) setMineStatus('failed'); });
+    });
+    return () => { alive = false; };
+  }, []);
+
+  const ps: PersonalState = personalState(mineStatus, vid, mine, mineResolved);
   const rate = led && led.records > 0 ? Math.round((led.resolved / led.records) * 100) : null;
 
   return (
@@ -58,11 +95,42 @@ export default function HomePage() {
       <section className="home-lead">
         <h1 className="home-title">把还没发生的事，提前问清楚</h1>
         <p className="home-sub">
-          这里记录 <b>{led ? led.records.toLocaleString('en-US') : '—'}</b> 道题：每道题都写明了问的是什么、
-          为什么这么答，以及真实结果出来之后答得对不对。<b>它不承诺能预知未来</b>——
-          它承诺的是每道题都有下落，每道题都对得出来源。
+          {ps.kind === 'empty' ? EMPTY_LEAD : (
+            <>
+              这里记录 <b>{led ? led.records.toLocaleString('en-US') : '—'}</b> 道题：每道题都写明了问的是什么、
+              为什么这么答，以及真实结果出来之后答得对不对。<b>它不承诺能预知未来</b>——
+              它承诺的是每道题都有下落，每道题都对得出来源。
+            </>
+          )}
         </p>
       </section>
+
+      {/* ★个人态：陌生人第一屏要看到的是他自己的数（本模块的当务之急）。
+         loading 不画任何一行：六个破折号同时闪一下比空着更晃（同下面 <Wait> 的纪律）。 */}
+      {ps.kind !== 'loading' ? (
+        <section className="home-mine" data-testid="home-mine" data-kind={ps.kind}>
+          <h2 className="home-mine-h">{homeHeadline(ps)}</h2>
+          {ps.kind === 'empty' ? (
+            <>
+              <p className="home-mine-d">
+                下面三个动作都是从零开始用的：写下一道题、到期回答一次、回来看偏差。
+                账本里已有的那些题<b>一条都没删</b>，只是<b>没有一条是你的</b>——条数在上面那条归属行里。
+              </p>
+              {/* ★空态必须给可点的下一步：只说空、不给按钮＝把用户晾在原地。 */}
+              <NavLink to="/note" className="btn btn-primary home-mine-cta" data-testid="home-first-note">
+                记下第一道
+              </NavLink>
+            </>
+          ) : null}
+          {ps.kind === 'unknown' ? (
+            <p className="home-mine-d">
+              归属没分出来时，「你的题」只能是空的——这是「不知道」，不是「没有」。
+              刷新一次通常就好了。
+            </p>
+          ) : null}
+        </section>
+      ) : null}
+
 
       {/* ══ ★八轮第四改 · 欠账优先，且**明确不做「为你推荐」** ══
        * 交互方向兵提的反直觉提案，我采纳并写在这里：
@@ -71,7 +139,15 @@ export default function HomePage() {
        * ⇒ 首页的主角是**还没落定的题数**（事实，可机检），不是系统建议（观点）。
        * ⇒ 下面只列**可核查的欠账事实**（到期日分布），不给「建议你去做什么」。
        * 反过来说：欠账为空时页面不退化成空白，而是显示「今天没有欠账」——
-       *   一个诚实的空态，比任何导航都更会说话。 */}
+       *   一个诚实的空态，比任何导航都更会说话。
+       *
+       * ★2026-09-30（SPEC-first-run-ux）**这两块的大数在空态下压掉**：
+       *   它们是**语料库**的数（多少道题还没落定、多少个格样本够），一个字都不属于
+       *   一个刚打开的陌生人。空态时把首页大字让给它＝本模块要消灭的那件事。
+       *   数据一条没少：条数由壳层那条归属常驻条报出，逐行清单在语料库视图里。
+       *   判据（不是 if 拍脑袋）＝ showLedgerHero(ps)，在 lib/firstRun.ts 里可单测。 */}
+      {showLedgerHero(ps) ? (
+        <>
       <section className="home-debt" aria-label="欠账">
         <div className="home-debt-main">
           {/* ★T2：加载中**不留「—」占位**——六个破折号同时闪一下比空着更晃。
@@ -131,6 +207,17 @@ export default function HomePage() {
           <div className="home-stat-note">还没落定；到期后由守护进程自动结算</div>
         </div>
       </section>
+        </>
+      ) : (
+        /* 空态替身：说清那两个大数去哪了（在哪一页、怎么看），并给一个可点的出口。
+           ★不是「暂无数据」——那两个数一直都在，只是不属于他。 */
+        <p className="home-mine-sub" data-testid="home-foreign">
+          账本里已经有的那些题（<b>没有一条是你的</b>：批量灌入的机器题与别的使用者的题）
+          仍在原地，一条都没删——它们的欠账数与样本数在
+          <NavLink to="/where-off">「我在哪儿偏了」</NavLink>的「语料库」视图里，
+          归属条上随时报得出条数。
+        </p>
+      )}
 
 
       {/* ★T2：失败态已由上面 <Wait state="error"> 承担（带重试出口），

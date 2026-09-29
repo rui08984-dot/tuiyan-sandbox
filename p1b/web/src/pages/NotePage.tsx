@@ -55,6 +55,14 @@ import { buildChecklist } from '../lib/noteChecklist';
    因为它天天被用错的两件事——把 62 当 0-1 直接发（后端 400），
    以及拿历史频率顶替用户没填的数（账本里看着样样齐全，其实没有人数）。 */
 import { submitGuard } from '../lib/noteProb';
+/* ★R1 回声（SPEC-first-run-ux）：「这是你的第 N 道题」——界面承认这件事发生过。
+   判据与文案在 lib/firstRun.ts（纯函数，可单测）。
+   ★要先有归属才数得出来：POST /api/analytics/event 带 question_created，
+     后端在同一个请求里把题记到访客名下（src/routes/analytics.js:130-134「建题即归属」）。
+     换不到标识 / 上报失败 / 读不到条数 ⇒ 一律**什么都不显示**（firstNoteEcho 返回 null），
+     绝不用 1 顶替「不知道」——那正是本仓最会骗人的那种省略。 */
+import { ensureVisitorId } from '../lib/visitor';
+import { firstNoteEcho } from '../lib/firstRun';
 
 /** 真值锚类型（来自 /api/disclosure/compiler 的 kinds 目录；此处只取展示用的代表若干）。 */
 interface KindSpec { kind: string; required: string[]; one_of: string[][]; }
@@ -109,6 +117,8 @@ export default function NotePage() {
      ★查不到就**什么都不显示**，绝不写 0：「没查到」与「真的是 0 条」必须长得不一样
      （与本文件 lookup 已知/未知的三态同一条纪律）。 */
   const [domains, setDomains] = useState<DomainsRow | null>(null);
+  /* ★R1：这道题记下之后，你名下现在是第几道。数不到就是 null（不写 1）。 */
+  const [mineN, setMineN] = useState<number | null>(null);
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState('');
 
@@ -181,12 +191,55 @@ export default function NotePage() {
     [advice, over],
   );
 
+  /** 落注成功之后的读数与回声——**旁支，一律不牵连回执**。
+   *
+   *  ★为什么这两段不写在 submit 里：submit 的主线只有两件事——把题落进账本，
+   *    以及失败时把已经亮出来的回执**全部撤干净**。域披露与 R1 归属各自带 fetch 与
+   *    catch，摊在主线里会把「失败要撤什么」那一段挤到三千字符开外，
+   *    改一次就够不着一次（同 firstRun.test.mjs 头注那条纪律：接线要看得见才检得出）。
+   *    拆开后 submit 只剩：过闸 → classify → create → 亮回执 → 失败全撤。
+   *
+   *  两条纪律（同 visitor.ts 埋点纪律①）：任一步失败都只是**少一句话**，
+   *    不动已经成立的回执；也绝不用 0/1 顶替「没查到」。 */
+  const afterLedger = useCallback((c: LedgerRow) => {
+    /* ① 域披露读数：只在**真落进账本之后**取。取它是为了让回执能说
+       「账本共 N 条，其中 M 条是人手写的」——那条外部题已和批量灌入的语料题分开数。 */
+    fetch('/api/predictions/domains')
+      .then((r) => (r.ok ? r.json() : null))
+      .then((j) => {
+        setDomains(j && typeof j.total === 'number' && j.by_scope && typeof j.by_scope.external === 'number'
+          ? { total: j.total, handWritten: j.by_scope.external } : null);
+      })
+      .catch(() => setDomains(null));
+    /* ② R1 归属与条数（两道请求）：先换到标识，再报一次 question_created ——
+       后端据此把这道题记到访客名下（src/routes/analytics.js:130-134「建题即归属」），
+       然后读一次「我的题」条数，拿到「第 N 道」。取不到就是 null，一个字都不显示。 */
+    void ensureVisitorId().then((vid) => {
+      if (!vid || !c || typeof c.id !== 'number') return;
+      return fetch('/api/analytics/event', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ event: 'question_created', visitor_id: vid, subject_id: c.id }),
+      })
+        .then((r) => (r.ok ? r.json() : null))
+        .then(() => fetch('/api/analytics/questions?view=mine&limit=1&visitor_id=' + encodeURIComponent(vid)))
+        .then((r) => (r.ok ? r.json() : null))
+        .then((j) => { if (j && j.counts && typeof j.counts.mine === 'number') setMineN(j.counts.mine); })
+        .catch(() => { /* 埋点/读数失败：不说那句话，不动回执 */ });
+    });
+  }, []);
+
   const submit = useCallback(async () => {
     /* ★闸在发请求之前（不是之后）：三件必答的事少一件就不许发出去。
        其中「你的判断」是 `assigned_prob` 的**唯一来源**——不放行就等于
        记下一条没有人数的题，而回执还写"收下了"。宁可当场说清为什么。 */
     const v = submitGuard({ statement, kind, myProb });
     if (!v.ok) { setErr(v.why); setBusy(false); return; }
+    /* ★上一笔的回执到此为止：它描述的是**上一道题**（到期日／押的数／第几道）。
+       不撤干净就往下走，这一笔在落注的那一下里会顶着上一笔的数显示——
+       那是"界面在拿旧读数作证"，比慢一拍坏得多。撤不撤得起看 busy：
+       落注途中一个回执都不画（见下方渲染处），画出来的必然是这一笔自己的数。 */
+    setLedger(null); setDomains(null); setMineN(null);
     setBusy(true); setErr('');
     try {
       /* 两步：先 classify 拿**层与到期口径**，再 create 把题与用户那个数落进账本。
@@ -213,29 +266,22 @@ export default function NotePage() {
       });
       // ★落注成功才把"记下了"说出口。setRes 在上面已经跑过一次，所以这里补的是**账本回执**。
       setLedger(c);
-      /* 域披露读数：只在**真落进账本之后**取。取它是为了让回执能说
-         「账本共 N 条，其中 M 条是人手写的」——那条外部题已和批量灌入的语料题分开数。
-         失败不牵连回执：上面 setLedger(c) 已经成立，这里只是多一句话，
-         拿不到就不显示（绝不用 0 顶替"没查到"）。 */
-      fetch('/api/predictions/domains')
-        .then((r) => (r.ok ? r.json() : null))
-        .then((j) => {
-          setDomains(j && typeof j.total === 'number' && j.by_scope && typeof j.by_scope.external === 'number'
-            ? { total: j.total, handWritten: j.by_scope.external } : null);
-        })
-        .catch(() => setDomains(null));
+      afterLedger(c);
     } catch (e) {
       /* ★失败必须如实报错，不许显示「收下了」——那正是最会骗人的地方。
          两步之间的失败也会走这里：classify 过了但 create 没过时，
-         `res` 已经是"收下了"，所以下面把它撤掉，别让界面停在一个半截状态上。 */
+         `res` 已经是"收下了"，所以下面把它撤掉，别让界面停在一个半截状态上。
+         ★撤的是**整块回执连同它的每一句旁白**：账本回执、域披露那条数、
+           以及 R1 的「第 N 道」——留着任何一句，它说的都是一件没发生的事。 */
       setRes(null);
       setLedger(null);
-      setDomains(null);   // 回执被撤了，那句「共 N 条」也必须跟着撤（否则界面停在一个半截状态上）
+      setDomains(null);
+      setMineN(null);
       setErr(e instanceof Error ? e.message : String(e));
     } finally {
       setBusy(false);
     }
-  }, [statement, kind, myProb, checklist]);
+  }, [statement, kind, myProb, checklist, afterLedger]);
 
   /* ★两段等待说两句话：查历史说「在数」，登记说「在登记」。
      共用一句"在数同类题的历史样本"会让人以为提交时也在数数——那是在解释一件没发生的事。 */
@@ -256,7 +302,7 @@ export default function NotePage() {
         <textarea
           id="note-stmt" className="note-text" rows={2} value={statement}
           placeholder="例：2026-09-30 伦敦日降水量超过 20mm 吗？"
-          onChange={(e) => { setStatement(e.target.value); setRes(null); setLedger(null); setDomains(null); }}
+          onChange={(e) => { setStatement(e.target.value); setRes(null); setLedger(null); setDomains(null); setMineN(null); }}
         />
 
         <label className="note-label" htmlFor="note-kind">答案去哪里查</label>
@@ -270,7 +316,7 @@ export default function NotePage() {
             丢了会让人以为"没这个来源"，那是更坏的错。 */}
         <select
           id="note-kind" className="note-select" value={kind}
-          onChange={(e) => { setKind(e.target.value); setRes(null); setLedger(null); setDomains(null); }}
+          onChange={(e) => { setKind(e.target.value); setRes(null); setLedger(null); setDomains(null); setMineN(null); }}
         >
           <option value="">选一个…</option>
           {KIND_GROUPS.map((g) => (
@@ -355,7 +401,7 @@ export default function NotePage() {
               <input
                 className="note-prob" inputMode="decimal" value={myProb}
                 placeholder="填 0-100"
-                onChange={(e) => { setMyProb(e.target.value); setRes(null); setLedger(null); setDomains(null); }}
+                onChange={(e) => { setMyProb(e.target.value); setRes(null); setLedger(null); setDomains(null); setMineN(null); }}
                 aria-label="你判断这件事发生的概率，填 0 到 100 之间的百分数"
               />
               <div className="note-num-note">
@@ -430,8 +476,11 @@ export default function NotePage() {
         testId="note-wait"
       />
 
-      {/* ── 回执：人话，且拒收的因果方向要说清 ── */}
-      {res ? <Receipt r={res} ledger={ledger} myProb={myProb} domains={domains} /> : null}
+      {/* ── 回执：人话，且拒收的因果方向要说清 ──
+          ★busy 期间**一个回执都不画**：那一下账本回执还没到，画出来的要么是上一笔的数
+          （旧到期日／旧押数／旧「第 N 道」），要么是"判出来了但没落进账本"——
+          两句都在替一件还没发生的事作证。等落注落定再画，画出来的必然是这一笔自己的数。 */}
+      {!busy && res ? <Receipt r={res} ledger={ledger} myProb={myProb} domains={domains} mineN={mineN} /> : null}
     </div>
   );
 }
@@ -462,8 +511,9 @@ type LedgerRow = {
  *   ——那句话在替一件没发生的事作证。现在 `ledger` 为空就只报"判成了什么、
  *   但没落进账本"，并把后端的原话摆出来。
  */
-function Receipt({ r, ledger, myProb, domains }: {
+function Receipt({ r, ledger, myProb, domains, mineN }: {
   r: IntakeClassifyResult; ledger: LedgerRow | null; myProb: string; domains: DomainsRow | null;
+  mineN: number | null;
 }) {
   const rej = (r as unknown as { rejected?: boolean; reason?: string; detail?: string }).rejected;
   const reason = (r as unknown as { reason?: string }).reason || 'other';
@@ -482,6 +532,8 @@ function Receipt({ r, ledger, myProb, domains }: {
   const detail = r as unknown as { layer?: string; engine?: string; matures_at?: string };
   /* 判成了层、但没落进账本：这是**半截状态**，必须自己说出来。
      旧文案在这条路上直接写「收下了」——那正是最会骗人的地方。 */
+  /* ★R1 文案：只在 ledger 有到期日/没有都照说，条数取不到就是 null（整块不渲染） */
+  const firstNote = ledger ? firstNoteEcho(mineN, ledger.matures_at) : null;
   if (!ledger) {
     return (
       <div className="note-receipt is-reject" data-testid="note-receipt">
@@ -529,6 +581,15 @@ function Receipt({ r, ledger, myProb, domains }: {
         <p className="note-receipt-sub" data-testid="note-domains">
           账本共 <b>{domains.total}</b> 条题，其中 <b>{domains.handWritten}</b> 条是人手写的
           （其余 {domains.total - domains.handWritten} 条是批量灌入的语料题、实验场题或真实局里的题——一条都没删）。
+        </p>
+      ) : null}
+      {/* ★R1 回声：第一次记下时界面承认这件事发生过。
+          ★只在归属真的记下、条数真的读到时才出现（mineN 为 null ⇒ firstNoteEcho 返回 null），
+            换不到标识或读数失败时这句话**整块不渲染**——不拿「第 1 道」顶替「不知道」。
+          ★它只报「这是第几道」与到期日，一个倾向性判断都不给（「你擅长汇率」是推荐，不是指路）。 */}
+      {firstNote ? (
+        <p className="note-receipt-sub note-receipt-echo" data-testid="note-echo">
+          <b>{firstNote}</b>
         </p>
       ) : null}
     </div>

@@ -28,6 +28,11 @@ import { Link } from 'react-router-dom';
 import { BiasStrip, type BiasPoint } from '../charts/BiasStrip';
 import { HelpMark } from '../components/ui';
 import { Wait } from '../components/Wait';
+/* ★R3 回声（SPEC-first-run-ux）：第一次看见自己有偏差时，界面承认这件事发生过。
+   判定与文案在 lib/firstRun.ts（纯函数，可单测）。
+   ★纪律核心：那句「1 道题不构成结论——记满 5 道再来比」**始终**在，
+     因为本项目的门槛是 n<30，而陌生人到 n=30 要几个月。不说明这一点就是在骗人。 */
+import { deviationEcho, type DevRow } from '../lib/firstRun';
 import '../styles/whereoff.css';
 
 /* ══ P0-4 埋点客户端（会话说起来/结束 + 回访一题）═══════════════════════════════
@@ -81,6 +86,8 @@ interface QueuePayload { auto_revealed?: QueueRow[] }
 interface QRow {
   id: number; statement: string; layer: string | null; source_type: string | null;
   matures_at: string | null; resolved_at: string | null; outcome: string | null;
+  /** ★R3 要它算「这道题你当时给了多少」——端点 listView 本来就给（见 ownershipStore:175） */
+  assigned_prob: number | null;
   view_bucket: 'mine' | 'corpus';
 }
 interface QuestionView {
@@ -233,6 +240,16 @@ export default function WhereOffPage() {
     [cells],
   );
 
+  /* ★R3：第一次有自己的偏差。
+     · 分母 n 取**账本全体口径**的 auto_revealed.mine（不是这 50 行切片），
+       所以「你有几道已落定的题」这句话不会因为切片上限而说小。
+     · 只报**这一道题**的事实（你给多少、实际多少、差多少），不给关于人的结论——
+       n=1 时那句「不构成结论」是纪律核心，deviationEcho 里恒在。 */
+  const echo = useMemo(
+    () => (qs ? deviationEcho(qs.rows as DevRow[], { minN: qs.min_n, resolvedTotal: qs.auto_revealed.mine }) : null),
+    [qs],
+  );
+
   return (
     <div className="whereoff">
       <header className="page-head">
@@ -242,6 +259,13 @@ export default function WhereOffPage() {
           这一页不给你总分——它只指出你在哪些地方系统性偏。
         </p>
       </header>
+
+      {echo ? (
+        <p className="whereoff-echo" data-testid="wo-echo">
+          <b>{echo.text}</b>
+          {' '}想看那道题的一生：<Link to={'/question/' + echo.id}>{'/question/' + echo.id}</Link>
+        </p>
+      ) : null}
 
       {bad ? (
         <Wait state="error" error="读不到读数件，后端没响应。" onRetry={() => location.reload()} testId="whereoff-wait-err" />
@@ -375,6 +399,15 @@ export default function WhereOffPage() {
                 {qview === 'mine'
                   ? '还没有归属你的题。记一笔写下的题会自动出现在这里。'
                   : '语料库现在是空的。'}
+                {/* ★空态必须给可点的下一步（SPEC-first-run-ux 边界·Always）：
+                    只说空、不给按钮＝把用户晾在原地。 */}
+                {qview === 'mine' ? (
+                  <span className="wo-empty-cta">
+                    <Link to="/note" className="btn btn-primary" data-testid="whereoff-empty-note">
+                      记下第一道
+                    </Link>
+                  </span>
+                ) : null}
               </p>
             ) : null}
 

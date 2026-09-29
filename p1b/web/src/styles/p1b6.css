@@ -246,3 +246,92 @@
 }
 .appbar-exit:hover { border-color: var(--accent); color: var(--accent); }
 .appbar-exit:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* ══ 首访两条常驻条（2026-09-30 · SPEC-first-run-ux）══
+ * ① 归属条：常驻一行，说清账本里的数据是谁的。**不遮挡、不弹窗**——它是背景事实。
+ * ② 引导条：一行可折叠，`×` 关掉即本机永不再现；展开时多占一行，仍不遮挡内容。
+ * ★色值全走 tokens（palette-single-source 闸）；动效在 reduced-motion 下关掉（a11y 闸）。 */
+.own-bar {
+  margin: 0 0 var(--space-2);
+  padding: 5px 10px;
+  border: 1px solid var(--line); border-radius: var(--radius-item);
+  background: var(--panel-2);
+  color: var(--muted); font-size: var(--font-size-small); line-height: 1.5;
+}
+.own-bar[data-state="loading"] { color: var(--muted); }
+.own-bar[data-state="failed"] { color: var(--danger); background: var(--danger-bg); border-color: var(--danger-border); }
+
+.fr-bar {
+  display: flex; align-items: center; gap: var(--space-2); flex-wrap: wrap;
+  margin: 0 0 var(--space-3);
+  padding: 4px 10px;
+  border: 1px dashed var(--line); border-radius: var(--radius-item);
+  font-size: var(--font-size-small);
+}
+.fr-toggle {
+  display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap;
+  background: transparent; border: 0; padding: 4px 0;
+  color: var(--text); font: inherit; font-size: var(--font-size-small);
+  font-weight: 600; cursor: pointer; text-align: left;
+}
+.fr-toggle:hover { color: var(--accent); }
+.fr-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.fr-here { color: var(--accent); font-weight: 500; }
+.fr-how {
+  flex: 1 1 100%; margin: 0;
+  color: var(--muted); line-height: 1.55;
+}
+.fr-how a { color: var(--accent); }
+.fr-nav { display: inline-flex; gap: 2px; margin-left: auto; }
+.fr-nav button {
+  min-width: 32px; min-height: 32px;
+  border: 1px solid var(--line); border-radius: var(--radius-item);
+  background: var(--panel); color: var(--muted);
+  font: inherit; font-size: var(--font-size-small); cursor: pointer;
+  transition: border-color 160ms ease, color 160ms ease;
+}
+.fr-nav button:hover { border-color: var(--accent); color: var(--accent); }
+.fr-nav button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.fr-nav button:active { transform: translateY(1px); }
+
+/* 个人态（首页）与三处空态补的出口 */
+.home-mine {
+  margin: 0 0 var(--space-5); padding: var(--space-4);
+  border: 1px solid var(--accent); border-radius: var(--radius-block);
+  background: color-mix(in srgb, var(--accent) 6%, var(--panel));
+}
+.home-mine-h { margin: 0 0 var(--space-2); font-size: var(--font-size-h3); font-weight: 700; }
+.home-mine-d { margin: 0 0 var(--space-3); color: var(--muted); line-height: var(--line-height); }
+.home-mine-d b { color: var(--text); }
+.home-mine-cta { display: inline-flex; align-items: center; text-decoration: none; }
+.home-mine-sub { margin: 0 0 var(--space-5); color: var(--muted); font-size: var(--font-size-small); line-height: var(--line-height); }
+.home-mine-sub b { color: var(--text); }
+.home-mine-sub a { color: var(--accent); }
+
+/* R1 回声：记下第一道时，界面承认这件事发生过 */
+.note-receipt-echo {
+  margin-top: var(--space-2); padding: 6px 10px;
+  border-left: 3px solid var(--accent);
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+  color: var(--text);
+}
+
+/* R2 回声里的那道题链接；R3 回声整条 */
+.resolve-toast-link { display: inline-block; margin-left: 8px; color: var(--accent); font-weight: 600; }
+.resolve-toast-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.resolve-clear-cta { display: inline-block; margin-top: var(--space-2); }
+
+.whereoff-echo {
+  margin: 0 0 var(--space-4); padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--accent); border-radius: var(--radius-block);
+  background: color-mix(in srgb, var(--accent) 6%, var(--panel));
+  color: var(--muted); line-height: var(--line-height);
+}
+.whereoff-echo b { color: var(--text); }
+.whereoff-echo a { color: var(--accent); }
+.wo-empty-cta { display: inline-block; margin-top: var(--space-2); }
+
+@media (prefers-reduced-motion: reduce) {
+  .fr-nav button { transition: none; }
+  .fr-nav button:active { transform: none; }
+}

@@ -55,6 +55,12 @@ import { ApiError, resolvePrediction } from '../api';
 import { Wait } from '../components/Wait';
 import { kindLabel, hasBareKindLabel } from '../lib/kindLabel';
 import { ensureVisitorId } from '../lib/visitor';
+/* ★R2 回声（SPEC-first-run-ux）：落定之后界面承认这件事发生过。
+   文案与失分算式在 lib/firstRun.ts（纯函数，可单测）。
+   ★绝不为「让回声更好看」去动归属三桶与那条 `bucket !== 'others'` 渲染守卫：
+     别人的题已在服务端整行脱敏（src/routes/disclosure.js），那是第二道防线。 */
+import { settleEcho } from '../lib/firstRun';
+import { Link } from 'react-router-dom';
 import '../styles/resolve.css';
 
 type Verdict = 'true' | 'false' | 'ambiguous';
@@ -125,7 +131,7 @@ interface QueueJson {
   discipline?: string[];
 }
 
-interface Toast { id: number; tone: 'ok' | 'warn' | 'err'; text: string; }
+interface Toast { id: number; tone: 'ok' | 'warn' | 'err'; text: string; link?: { to: string; label: string } }
 
 /** outcome → 0/1；判定存疑（ambiguous）不参与判分，如实返回 null */
 function truthOf(outcome: string | null | undefined): 1 | 0 | null {
@@ -243,9 +249,9 @@ export default function ResolvePage() {
     return () => { alive = false; };
   }, []);
 
-  const say = useCallback((tone: Toast['tone'], text: string) => {
+  const say = useCallback((tone: Toast['tone'], text: string, link?: { to: string; label: string }) => {
     const id = Date.now() + Math.random();
-    setToasts((t) => t.concat([{ id, tone, text }]));
+    setToasts((t) => t.concat([{ id, tone, text, link }]));
     setTimeout(() => setToasts((t) => t.filter((x) => x.id !== id)), 6000);
   }, []);
 
@@ -305,7 +311,19 @@ export default function ResolvePage() {
       //   切到别的桶时它还赖在列表里，而它其实已经是 revealed 了。
       //   偏差线不在本页长——它在观测台的标本带上，本页只负责"回答"，不负责"展示回答的结果"。
       setData((d) => (d ? dropResolved(d, row) : d));
-      say('ok', '已落定：' + clip(row.statement, 40) + (v === 'ambiguous' ? '（记为判定存疑）' : ''));
+      /* ★R2 回声：不再只说「已落定：题面前 40 字」——那句话说完就消失，界面不承认
+         发生过任何事。改成「第几道 ＋ 失分 ＋ 去哪儿看它」。
+         · 第几道 = auto_by_bucket.mine（**落定前**的快照）＋1；取不到就整段不带序数
+           （宁可不说，也不报一个可能错的数）。
+         · 失分 = (你当时给的数 − 实际)²，与上面 ① 的算式同一个口径（settleEcho）。
+         · 判定存疑（ambiguous）不参与判分，如实说「不计失分」，不拿 0 充数。 */
+      const e = settleEcho({
+        ordinal: data && data.auto_by_bucket ? data.auto_by_bucket.mine + 1 : null,
+        prob: v === 'ambiguous' ? null : row.assigned_prob,
+        truth: v === 'true' ? 1 : 0,
+      });
+      say('ok', e.text + (v === 'ambiguous' ? '（记为判定存疑）' : ''),
+        { to: '/question/' + row.id, label: '看这道题的一生' });
       // 静默重取：把 ① 那段与「已揭晓的归属拆解」一起对齐到刚落定之后的样子。
       //   放在回声之后 ⇒ 用户先看到自己那行消失，不必等这一跳。
       void load(vid, true);
@@ -544,6 +562,14 @@ export default function ResolvePage() {
                   ) : (
                     <>语料库里也没有到期未结的题。</>
                   )}
+                  {/* ★空态必须给可点的下一步（SPEC-first-run-ux 边界·Always）：
+                      只说空、不给按钮＝把用户晾在原地。这一页没有题可答时，
+                      能产生这道题的只有「记一笔」——所以出口就挂在这儿，且只有这一条。 */}
+                  <span className="resolve-clear-cta">
+                    <Link to="/note" className="btn btn-primary" data-testid="resolve-empty-note">
+                      记一笔：写一道到期能核对的题
+                    </Link>
+                  </span>
                 </>
               ) : (
                 <>语料库里没有等你回答的题（无归属记录的题要么已经自动揭晓，要么属于第三类）。</>
@@ -674,7 +700,10 @@ export default function ResolvePage() {
       {/* ── 回声：落定结果的即时反馈 ── */}
       <div className="resolve-toasts" role="log" aria-live="polite">
         {toasts.map((t) => (
-          <div key={t.id} className={'resolve-toast is-' + t.tone}>{t.text}</div>
+          <div key={t.id} className={'resolve-toast is-' + t.tone}>
+            {t.text}
+            {t.link ? <Link to={t.link.to} className="resolve-toast-link">{t.link.label}</Link> : null}
+          </div>
         ))}
       </div>
     </div>

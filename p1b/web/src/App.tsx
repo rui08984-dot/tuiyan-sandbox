@@ -29,6 +29,10 @@ import NegativeResultsPage from './pages/disclosure/NegativeResultsPage';   // �
 //     这不是本轮引入的（重定向早于本轮就在），本轮只删未使用的 import，不动路由语义；
 //     要真并进去属另立项。
 import { IconLayers, IconCompass, IconGear, IconBook, TermDrawer } from './components/ui';
+// ★2026-09-30 首访两条常驻条（SPEC-first-run-ux）：引导（只指路）＋ 归属（这些数是谁的）。
+//   挂在壳层而不是逐页挂 ⇒ **任何页面都可见**，且不随路由切换重挂（归属条不重取）。
+//   判定在 lib/firstRun.ts；这里只 import，不另立一套设计语言。
+import { FirstRun, OwnershipBar } from './pages/FirstRun';
 // ★八轮：装饰性 Canvas 粒子场（components/CanvasField.tsx）已从壳层移除，
 //   理由与「组件源码保留未删」的原因见 JSX 处注释。此处**不再 import**（免得 tsc 报未使用）。
 import './styles/p1b6.css';
@@ -166,6 +170,11 @@ function Shell() {
         </div>
       </header>
       <main className={containerClass(pathname)}>
+        {/* ★归属常驻条 ＋ 引导条在页面容器**之外**：
+            放容器内会被各页的 max-width 与顺序流牵着走，「任何页面可见」就成了逐页承诺；
+            放容器外，它们是壳层的一部分，页面增删不影响它们。 */}
+        <OwnershipBar />
+        <FirstRun />
         {/* key 变化 ⇒ 重挂载 ⇒ 播一次「通电」动画（首屏也播，进场要有仪式感） */}
         <div key={pathname} className="page-enter">
         <Routes>
