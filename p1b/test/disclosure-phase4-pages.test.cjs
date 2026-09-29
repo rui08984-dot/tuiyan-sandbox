@@ -6,8 +6,15 @@
  *   ① 两个端点已注册且能返回数据（negative-results / bayes-lens）
  *   ② ★I6 端点返回**精简投影**（不透传整件）—— 键集合固定，且不含 stage4 件里的重型字段（engine_sample/report/…）
  *   ③ ★I2 四要素完整性：每条 empirical/design_rejected 必须含 hypothesis/criterion/outcome/rerun（缺一即撤）
- *   ④ ★禁词锁：两页源码 + App.tsx 不得含「预测」字样（A6 §3）
+ *   ④ ★禁词锁：**会发给用户的披露页**源码 + App.tsx 不得含「预测」字样（A6 §3）
  *   ⑤ 路由接线锁：App.tsx 须含两页的 Route + NavLink + import
+ *
+ * ★2026-09-30 口径修正（死页面源码已删）：本页原把 BayesLensPage.tsx / ArenaPage.tsx
+ *   当作扫描与可达性的落点。这两个文件已从工作树删除（git status 实证，见 PAGES 处
+ *   与 ⑥⑥ 处），④⑥ 因 readFileSync ENOENT 变红。**修的不是断言强度，是扫描对象**：
+ *   禁词锁的意图（A6 §3：用户读到的文案里不出现「预测」）只对**会被渲染的页**成立，
+ *   扫一个永不渲染的死页本来就没在守意图。⇒ 落点换成接手它们的活页 WhereOffPage，
+ *     路由可达性（⑤⑨ 断言 /bayes-lens /arena 的重定向 Route 仍在）保持不变、未动一行。
  */
 const test = require('node:test');
 const assert = require('node:assert');
@@ -15,7 +22,12 @@ const fs = require('node:fs');
 const path = require('node:path');
 
 const ROOT = path.resolve(__dirname, '..', '..');
-const PAGES = ['p1b/web/src/pages/disclosure/NegativeResultsPage.tsx', 'p1b/web/src/pages/disclosure/BayesLensPage.tsx'];
+const PAGES = ['p1b/web/src/pages/disclosure/NegativeResultsPage.tsx', 'p1b/web/src/pages/WhereOffPage.tsx'];
+// ★扫描对象＝**真会渲染给用户的页**。删掉的 BayesLensPage.tsx 不会再被渲染
+//   （App.tsx 无其 import；/bayes-lens → /overview → /where-off，见 App.tsx:206 → :183），
+//   其字段已并入 WhereOffPage（该页头注自陈 cells/layers/bayes/lag_rank/prequential
+//   原在 OverviewPage/CalibrationReportPage/BayesLensPage 三页重复，现在其字段抽屉内）。
+//   ⇒ 禁词锁从「扫一个没人看得见的文件」改为「扫接手它的、真的会被看到的页」：闸门意图不降。
 
 function mkReply() { return { _c: 200, code(c) { this._c = c; return this; }, send(x) { this._sent = x; return x; } }; }
 
@@ -80,7 +92,7 @@ test('③ ★I2 要素完整性（★两类字段不同，按类断言）', asyn
   assert.deepEqual(bad, [], '要素缺失/错配：\n' + bad.join('\n'));
 });
 
-test('④ ★禁词锁：两页源码与 App.tsx 不得含「预测」字样', () => {
+test('④ ★禁词锁：披露页源码与 App.tsx 不得含「预测」字样（扫的是会渲染的页）', () => {
   const files = PAGES.concat(['p1b/web/src/App.tsx']);
   const bad = [];
   for (const f of files) {
@@ -145,9 +157,13 @@ test('⑥ ★A9 三行对比榜：口径纪律锁（禁跨题集直接比较）'
   // ⑤ ★人类基线须标注核验状态（转载级不得冒充已核验）
   assert.ok(r.human.status && /转载级/.test(r.human.status), '人类基线须如实标注「转载级」核验状态');
 
-  // ⑥ ★页面源码禁词（A6 §3）—— ArenaPage 单独查
-  const src = fs.readFileSync(path.join(ROOT, 'p1b/web/src/pages/disclosure/ArenaPage.tsx'), 'utf8');
-  assert.equal((src.match(/预测/g) || []).length, 0, 'ArenaPage 不得含禁词');
+  // ⑥ ★页面源码禁词（A6 §3）—— 单独查「用户点 /arena 后真正看到的那一页」。
+  //   ★2026-09-30：ArenaPage.tsx 已随死页面删除（git status: ` D .../ArenaPage.tsx`），
+  //   路由链 /arena → /overview → /where-off（App.tsx:207 → :183）最终落在 WhereOffPage，
+  //   故禁词扫描落到它身上。**可达性一条没松**：上面的端点断言（①–⑤）与
+  //   ⑤⑨ 的 Route 断言都仍按原样跑着，arena 变死链照样红。
+  const src = fs.readFileSync(path.join(ROOT, 'p1b/web/src/pages/WhereOffPage.tsx'), 'utf8');
+  assert.equal((src.match(/预测/g) || []).length, 0, 'WhereOffPage（/arena 的落地页）不得含禁词');
 });
 
 test('⑦ ★编译器门面：kind→层自动推断（只读历史，不出概率）', async () => {

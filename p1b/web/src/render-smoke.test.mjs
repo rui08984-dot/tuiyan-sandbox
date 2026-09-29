@@ -7,29 +7,40 @@
  *
  * 本闸做静态解析级检查（不真跑 React）：
  *   ① 本目录每个 .tsx 里，JSX 使用的组件名必须在同文件 import 或本地定义；
- *   ② charts/index.ts 导出的名字必须在对应文件里确实存在。
+ *   ② 全 src 每条**相对** import：模块文件必须存在，且被具名 import 的名字必须真的被它导出。
  * 覆盖不到运行时逻辑，但正好能挡住"删代码连带删 import"这一类。
+ *
+ * ★2026-09-30 改口径（死页源码已删净这一新事实）：
+ *   ② 原锚在 `charts/index.ts` 这个 barrel 上——它只被 8 个死页引用，死页删净后它自己
+ *   就成了纯死代码并随之删除。按老口径继续读它＝每次必红 ENOENT：一条永远红的死断言
+ *   等于没有闸，还会把别的真红淹没在噪声里。
+ *   ★**要挡的那类病没变**（引用了不存在的东西），只是锚点从「某一个 barrel 的 11 条」
+ *   换成「活源码的整张 import 图」：覆盖面严格变大，且新增原 ② 没有的一类——
+ *   **模块文件被删、import 却留着**（现在连仍活着的 components/ui/index.tsx 也一起管）。
+ *   ① 不需要改口径：它 walk 全 src 的 .tsx，死页只是让文件数变少，判定逻辑不依赖它们存在。
  */
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync, readdirSync, statSync } from 'node:fs';
-import { join, dirname } from 'node:path';
+import { readFileSync, readdirSync, statSync, existsSync } from 'node:fs';
+import { join, dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = dirname(fileURLToPath(import.meta.url));
 const srcRoot = join(root);
 
-function walk(dir, out = []) {
+function walk(dir, out = [], re = /\.tsx$/) {
   for (const f of readdirSync(dir)) {
     const p = join(dir, f);
-    if (statSync(p).isDirectory()) walk(p, out);
-    else if (/\.tsx$/.test(f)) out.push(p);
+    if (statSync(p).isDirectory()) walk(p, out, re);
+    else if (re.test(f)) out.push(p);
   }
   return out;
 }
 
 const files = walk(srcRoot);
 const code = new Map(files.map((p) => [p, readFileSync(p, 'utf8')]));
+// ② 的遍历面：.ts + .tsx（.d.ts 只有 /// 引用指令，不参与）
+const srcFiles = walk(srcRoot, [], /\.(ts|tsx)$/).filter((p) => !/\.d\.ts$/.test(p));
 
 test('① 每个 .tsx 的 JSX 组件名都已导入或本地定义', () => {
   const bad = [];
@@ -77,32 +88,96 @@ test('① 每个 .tsx 的 JSX 组件名都已导入或本地定义', () => {
   assert.deepEqual(bad, [], 'JSX 引用了未导入/未定义的组件：\n' + bad.join('\n'));
 });
 
-test('② charts/index.ts 的导出名在各源文件里确实存在', () => {
-  const idx = readFileSync(join(srcRoot, 'charts', 'index.ts'), 'utf8');
-  const bad = [];
-  // ★逐行匹配：`[^}]+` 在整篇 matchAll 下会**跨行**吞进下一条 export，
-  //   把 m[2] 污染成 "ChartFrame" 之外的串（实测 11 条全被判为"源文件缺失"）。
-  //   index.ts 的 export 都是单行形式，逐行即可覆盖，且不会跨行误配。
-  const re = /export\s+\{([^}]+)\}\s*from\s*'\.\/([^']+)'/g;
-  for (const line of idx.split('\n')) {
-    const m = re.exec(line);
-    if (!m) continue;
-    // index.ts 的 specifier 不带扩展名（'./ChartFrame'），而盘上是 ChartFrame.tsx
-    const base = join(srcRoot, 'charts', m[2]);
-    const file = ['.tsx', '.ts'].map((e) => base + e).find((f) => { try { readFileSync(f); return true; } catch { return false; } });
-    let src;
-    try { src = readFileSync(file ?? base, 'utf8'); } catch { bad.push('源文件缺失：' + m[2]); continue; }
+/* ── ② 的解析工具（2026-09-30 随口径改写一并落盘）───────────────────────── */
+
+// 注释会骗人：App.tsx 注释里就写着「五页（Overview/Audit/Intake/Calendar/Compiler）
+//   的 **import 已删**」，不剥注释就会把这段散文当 import 语句扫进来。
+//   ★`//` 只在后面不含引号时才当注释切，避免把 'https://…' 里的双斜杠误伤。
+function stripComments(t) {
+  return t.replace(/\/\*[\s\S]*?\*\//g, ' ').replace(/(^|[^:"'`\\])\/\/[^\n'"]*/g, '$1');
+}
+
+// 带 from 的子句（import 与 export … from 都算：re-export 同样会白屏）。
+//   ★子句必须**行内闭合**：花括号块（可跨行）单走一支，其余（`import Foo from`、
+//   `export const X = …`）用不含 \n 的惰性匹配。早先版本用 `[\s\S]*?` 一把抓，
+//   会从 `export const IconChart = ({ size, value … })` 一路惰性吞到 40 行后
+//   `export { Term } from './Term'` 的 from 上，把 IconChart 的**形参**当成了 import 名单。
+const CLAUSE_RE = /(?:^|\n)[ \t]*(?:import|export)\s+(?:type\s+)?(?:(\{[^}]*\})|([^\n]*?))\s*from\s*['"]([^'"]+)['"]/g;
+// 纯副作用 import：import './styles/charts.css'
+const SIDE_RE = /(?:^|\n)[ \t]*import\s*['"]([^'"]+)['"]/g;
+
+// specifier 不带扩展名（'./ErrorBar'），盘上是 ErrorBar.tsx —— 按 Vite 的解析口径试一遍
+const RESOLVE_EXT = ['', '.ts', '.tsx', '.js', '.jsx', '.css', '.json',
+  '/index.ts', '/index.tsx', '/index.js'];
+
+function resolveModule(fromFile, spec) {
+  const base = resolve(dirname(fromFile), spec);
+  for (const e of RESOLVE_EXT) {
+    const p = base + e;
+    if (existsSync(p) && statSync(p).isFile()) return p;
+  }
+  return null;
+}
+
+// 一个模块对外真正导出的名字（原始名，即 `as` 左侧）
+function exportedNames(src) {
+  const names = new Set();
+  if (/(?:^|\n)\s*export\s+default\b/.test(src)) names.add('default');
+  // export [type] { a, b as c } —— 本地列表与 re-export 列表都算导出
+  for (const m of src.matchAll(/(?:^|\n)\s*export\s+(?:type\s+)?\{([^}]*)\}/g)) {
     for (const part of m[1].split(',')) {
-      const nm = part.trim().split(/\s+as\s+/)[0].trim();
-      // ★用正则**字面量**而非 new RegExp('...\s...'): 字符串字面量里的 \s \b 会被
-      //   当作真实字符（实测 'export\s+...ChartFrame\b' 永不匹配）。这里动态拼名字，
-      //   故用 escape + 显式字符类，不依赖字符串里的反斜杠转义。
-      const esc = nm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-      const found = new RegExp('export[ \\t]+(function|const|class)[ \\t]+' + esc + '(?![A-Za-z0-9_])').test(src);
-      if (nm && !found) {
-        bad.push(m[2] + ' 未导出 ' + nm);
-      }
+      const nm = part.trim().replace(/^type\s+/, '').split(/\s+as\s+/)[0].trim();
+      if (nm) names.add(nm);
     }
   }
-  assert.deepEqual(bad, [], 'charts 导出了不存在的名字：\n' + bad.join('\n'));
+  // export [declare] [abstract] [async] function|const|let|var|class|interface|type|enum NAME
+  //   ★interface/type 必须收：import { BiasStrip, type BiasPoint } 里的 BiasPoint
+  //   是 `export interface`，只认 function/const/class 会把它误判成"未导出"。
+  for (const m of src.matchAll(
+    /(?:^|\n)\s*export\s+(?:declare\s+)?(?:abstract\s+)?(?:async\s+)?(?:function\s*\*?|const|let|var|class|interface|type|enum)\s+([A-Za-z_$][A-Za-z0-9_$]*)/g)) {
+    names.add(m[1]);
+  }
+  return names;
+}
+
+// 从 import 子句里取出「要向目标模块索取的原始名」
+function requestedNames(clause) {
+  const out = [];
+  for (const m of clause.matchAll(/\{([^}]*)\}/g)) {
+    for (const part of m[1].split(',')) {
+      // 句内 type 标记：{ BiasStrip, type BiasPoint }
+      const nm = part.trim().replace(/^type\s+/, '').split(/\s+as\s+/)[0].trim();
+      if (/^[A-Za-z_$][A-Za-z0-9_$]*$/.test(nm)) out.push(nm);
+    }
+  }
+  // 默认导入：import Foo from / import type Foo from
+  //   ★namespace（`* as api`）落在 else，只校验文件存在、不校验名字。
+  const head = clause.replace(/\{[^}]*\}/g, '').trim();
+  if (/^[A-Za-z_$][A-Za-z0-9_$]*$/.test(head)) out.push('default');
+  return out;
+}
+
+test('② 每条相对 import 都能在目标模块里找到对应 export（锚点＝活源码整张 import 图）', () => {
+  const bad = [];
+  for (const p of srcFiles) {
+    const rel = p.replace(srcRoot, '.');
+    const text = stripComments(readFileSync(p, 'utf8'));
+    const missing = (spec) => bad.push(rel + ' → import ' + JSON.stringify(spec) + ' 找不到模块文件');
+    for (const m of text.matchAll(CLAUSE_RE)) {
+      const clause = m[1] ?? m[2] ?? '';
+      const spec = m[3];
+      if (!spec.startsWith('.')) continue;            // 裸包名（react…）不归本闸管
+      const target = resolveModule(p, spec);
+      if (!target) { missing(spec); continue; }
+      if (/\.(json|css)$/.test(target)) continue;      // 资源模块没有具名 export 可言
+      const names = exportedNames(readFileSync(target, 'utf8'));
+      for (const nm of requestedNames(clause)) {
+        if (!names.has(nm)) bad.push(rel + ' → ' + JSON.stringify(spec) + ' 未导出 ' + nm);
+      }
+    }
+    for (const m of text.matchAll(SIDE_RE)) {
+      if (m[1].startsWith('.') && !resolveModule(p, m[1])) missing(m[1]);
+    }
+  }
+  assert.deepEqual(bad, [], 'import 指向不存在的模块或未导出的名字：\n' + bad.join('\n'));
 });

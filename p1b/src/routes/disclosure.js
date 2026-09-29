@@ -69,6 +69,16 @@ function register(app) {
     const conn = require('../deps').db.getConnection();
     const today = new Date().toLocaleString('sv-SE', { timeZone: 'Asia/Shanghai' }).slice(0, 10);
     const RC = require('../evidence/revealClass');
+    const ownership = require('../db/ownershipStore');
+    const analytics = require('../db/analyticsStore');
+    const { httpError } = require('../util');
+    const rawVisitor = (req.query && req.query.visitor_id) || null;
+    // ★格式非法的 visitor_id 必须 400，**不许静默忽略**——静默忽略等于把「我的题」
+    //   悄悄降级成「别人的题」，页面照常渲染，用户看不出自己被换了身份。
+    if (rawVisitor && !analytics.isValidId(rawVisitor)) {
+      throw httpError(400, 'visitor_id 格式非法（只允许字母数字与 _ - . :，≤64 字符）');
+    }
+    const visitorId = rawVisitor;
 
     // ① 已自动揭晓：已结算且有真值，按到期日倒序（最近的在前）
     const autoRows = conn.prepare(
@@ -87,9 +97,22 @@ function register(app) {
     ).all(today);
 
     const split = { ok: [], human: [], stuck: [] };
+    // ★逐行标注与三桶计数同源（见 bucketize）⇒ open_buckets 三桶之和 ≡ open_total 由构造保证
+    const own = ownership.bucketize(openRows.map((r) => r.id), visitorId);
     for (const r of openRows) {
       const c = RC.classifyReveal(r.kind);
-      (split[c.c] || split.human).push({ ...r, cls: c.c, why: c.note, unregistered: !c.kind || !RC.REVEAL_CLASS[c.kind] });
+      const bucket = own.buckets[r.id];
+      // ★「别人的题只报数、不列行」——照 p1b/test/question-views.test.cjs:230 已有的红线。
+      //   view_bucket 只是标签；题面必须**在服务端就脱敏**。前端不渲染 ≠ 没泄露：
+      //   响应体已经带着别人的题面进了浏览器，F12 就能读。
+      const isOthers = bucket === 'others';
+      const row = isOthers ? { ...r, statement: null } : r;
+      (split[c.c] || split.human).push({
+        ...row, cls: c.c,
+        why: isOthers ? '归属他人的题（只报数，不列行）' : c.note,
+        unregistered: !c.kind || !RC.REVEAL_CLASS[c.kind],
+        view_bucket: bucket,
+      });
     }
 
     return {
@@ -104,6 +127,15 @@ function register(app) {
         unregistered: split.human.filter((r) => r.unregistered).length,
         open_total: openRows.length,   // 三桶之和 ≡ 本值（互斥且完备的直证，前端可自校验）
       },
+      // 归属三桶（与上面三类正交）：这个待办集合里我的几条、语料库几条、别人的几条
+      open_buckets: own.counts,
+      // 已揭晓的归属拆解走账本全体口径（不是那 40 条切片）——它是账本的性质
+      auto_by_bucket: ownership.autoRevealedCounts(visitorId),
+      // known=false ⇒ 这枚标识服务端不认（换了库/清过档），此时「我的题」是 0，
+      //   但那意思**不是**「你没有题」，页面必须换一套措辞
+      viewer: { visitor_id: visitorId, known: Boolean(visitorId && analytics.getVisitorRow(visitorId)) },
+      // n<30 纪律的分母线（与 ownershipStore / 披露件门面同口径；不足就只记条数、不给比例）
+      min_n: ownership.MIN_N,
       auto_revealed: autoRows.map((r) => ({
         id: r.id, statement: r.statement, assigned_prob: r.assigned_prob,
         outcome: r.outcome, resolved_at: r.resolved_at, layer: r.layer, kind: r.kind,

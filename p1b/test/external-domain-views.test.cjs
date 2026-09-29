@@ -36,6 +36,27 @@ const J = (r) => r.json();
 const get = (app, url) => app.inject({ method: 'GET', url: url });
 const conn = () => db.getConnection();
 
+/** 「还没到期」那条外部题的到期日：**从生产的今天推算**，不写死日期。
+ *
+ *  ★2026-09-30 这道闸就是这么红的，不是产品回归，是夹具自己过期了：
+ *   夹具原先写死 `matures_at: '2026-09-30'` 并注释「晚于今天」，
+ *   而到期闸的判据是 `matures_at <= todayShanghai()`（src/db/predictionsStore.js:396，
+ *   当日即到期）。到了 09-30 当天这条题就**到期**了 ⇒ 「未到期被排除」不再排除它
+ *   ⇒ 它回到待落定页里 ⇒ 红的是一条已经讲不出原意的断言：
+ *   它叫「两个口径真的会分叉」，可那天起它压根没在分叉（两口径都是 1）。
+ *   写死日期的夹具必然在某一天腐坏，且腐坏时伪装成产品缺陷 —— 这正是本次的代价。
+ *
+ *  为什么 +1 年而不是 +1 天：生产的「今天」是**上海日历日**，这里从它出发，
+ *  即使跑测的机器时区与它差一整天，到期日也远远落在今天之后 ⇒ 恒不腐坏。
+ *  为什么不自己另写一套日期算法：predictionsStore.js:352-355 明确记着
+ *  「两边各写一套日期算法正是本项目已经吃过一次亏的地方」——
+ *  故直接用生产导出的 todayShanghai()，而不是复制它。 */
+const NOT_YET_DUE = (() => {
+  const d = new Date(predictionsStore.todayShanghai() + 'T00:00:00Z');
+  d.setUTCFullYear(d.getUTCFullYear() + 1);
+  return d.toISOString().slice(0, 10);
+})();
+
 let app = null;
 /** 各域的局：语料局（CLI 批量灌入那些题挂这里）、外部题容器局、真实局。 */
 let G = null;
@@ -82,8 +103,9 @@ test.before(async () => {
     real: mkGame('真实对局', 'werewolf', 'real'),
   };
 
-  // 外部题：2 条人手写的（一条已落定、一条在途）——这正是「记一笔」写进账本的那类
-  IDS.external.push(mkQuestion(G.external, '人手写的·伦敦日降水量', { matures_at: '2026-09-30', assigned_prob: 0.4 }));
+  // 外部题：2 条人手写的（一条在途、**且尚未到期**，一条已落定）——这正是「记一笔」写进账本的那类。
+  // 到期日走 NOT_YET_DUE（从生产今天 +1 年推算），**不得再写死日期**：见该常量上的说明。
+  IDS.external.push(mkQuestion(G.external, '人手写的·伦敦日降水量', { matures_at: NOT_YET_DUE, assigned_prob: 0.4 }));
   IDS.external.push(mkQuestion(G.external, '人手写的·欧元兑美元', { resolved_at: '2026-09-01 00:00:00', outcome: 'true', assigned_prob: 0.6 }));
   // 语料/实验场题：4 条批量灌入的（一条是测试夹具，照 question-views 的做法保留可见）
   IDS.lab.push(mkQuestion(G.lab, '票房榜：本周冠军', {}));
@@ -249,9 +271,11 @@ test('★未落定清单：每行自带域，且两个域拆分都 ≡ 逐行 cl
 });
 
 test('★两个口径真的会分叉（到期闸筛掉的外部题在 page 里看不见，在 by_scope 里还在）', async () => {
-  // IDS.external[0] 落在 2026-09-30，晚于今天 ⇒ 过了到期闸就不在页里
+  // IDS.external[0] 的到期日是 NOT_YET_DUE（生产今天 +1 年）⇒ 恒晚于今天
+  //   ⇒ 恒过到期闸而不进页。★不再写死日期，否则到了那一天本条会伪装成产品缺陷。
   const u = J(await get(app, '/api/predictions/unresolved?limit=500'));
   const notYetDue = IDS.external[0];
+  assert.ok(u.due_filter.today < NOT_YET_DUE, '前置：夹具必须真的是未到期（到期日 ' + NOT_YET_DUE + ' > 生产今天 ' + u.due_filter.today + '）');
   assert.ok(!u.items.some((r) => r.id === notYetDue), '没到期的题本来就不在待落定页里（既有到期闸语义，本轮不动）');
   assert.equal(u.by_scope.external, 1, '但它仍在「全部未落定」的 external 桶里 —— 不许因为不上页就当它没了');
   assert.equal(u.page_by_scope.external, 0, '这一页里的 external 确实是 0（到期闸筛掉的）');

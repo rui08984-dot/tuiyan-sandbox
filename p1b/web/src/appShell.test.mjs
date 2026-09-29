@@ -4,7 +4,12 @@ import assert from 'node:assert/strict';
 
 const app = readFileSync(new URL('./App.tsx', import.meta.url), 'utf8');
 const mystic = readFileSync(new URL('./pages/mystic/MysticPage.tsx', import.meta.url), 'utf8');
-const intake = readFileSync(new URL('./pages/intake/IntakePage.tsx', import.meta.url), 'utf8');
+/* ★2026-09-30：旧接题页 `pages/intake/IntakePage.tsx` 源码已删（`git status` 里是 ` D`）。
+ * 原这一行在**模块顶层**读它 ⇒ 一次 ENOENT 就让本文件 8 条用例**全部不执行**
+ * （实测 `node --test src/appShell.test.mjs` → tests 1 / pass 0 / fail 1 / exit 1）。
+ * 下面两条接题页 Term 闸改锚到**当前真正渲染的那一页** NotePage（`/intake` 已重定向到
+ * `/note`），守的仍是同一件事，不降低强度。改锚理由逐条写在用例旁的留痕注释里。 */
+const note = readFileSync(new URL('./pages/NotePage.tsx', import.meta.url), 'utf8');
 
 test('App 顶栏有术语表入口且挂载抽屉', () => {
   assert.ok(app.includes('TermDrawer'), '未挂载 TermDrawer');
@@ -30,15 +35,35 @@ test('玄学页已清零装饰性 emoji 图标', () => {
   assert.ok(mystic.includes('IconCompass'), '未换 SVG 图标');
 });
 
-test('接题页拒收门三问已接入术语', () => {
-  assert.ok(intake.includes("termId: 'truthAnchor'"), 'Q0-1 未接真值锚术语');
-  assert.ok(intake.includes("termId: 'cutoff'"), 'Q0-2 未接 cutoff 术语');
-  assert.ok(intake.includes('<Term id={q.termId}'), '未渲染 Term');
-  assert.ok(intake.includes("from '../../components/ui'"), '未导入 ui');
+/* ══════════ 2026-09-30：接题动作的 Term 闸改锚（死页源码已删） ══════════
+ * 原两条用例读的是 `pages/intake/IntakePage.tsx`。那一页的**组件自八轮起就不再渲染**
+ * （App.tsx `/intake` → `<Navigate to="/note">`），2026-09-30 源码从盘上删除。
+ *
+ * ★为什么不直接删掉这两条：删掉＝闸门消失，后面谁把真值锚那一栏的术语入口摘了，
+ *   没有任何一条断言会红。⇒ 改锚到**当前真正渲染的那一页**（记一笔 NotePage）。
+ *
+ * 两条原断言各自的去向（不藏）：
+ *   ① `termId: 'truthAnchor' / 'cutoff' / <Term id={q.termId}`（拒收门三问逐问接术语）
+ *     —— 这三问本身在**八轮第七改**就随「25 个复选框」一起从界面撤掉了（记一笔页
+ *     只答两件事：题面 + 答案去哪里查），活代码里已无 per-question termId 机制。
+ *     它的**意图**——「用户选真值锚这一栏必须有术语表兜底」——落在下面这条上。
+ *   ② `<Term id="truthAnchor" plain={REASON_LABEL…}`（拒收原因接术语）
+ *     —— 活页面 NotePage 的拒收理由是 `REASON_TEXT` 人话常量（NotePage.tsx:73-78、
+ *     渲染在 :474），**不再包 <Term>**；这句文案本身已由 note-form.test.mjs ⑤ 闸住
+ *     （是系统拒了你 / 没有能事后核对的地方 / 四种原因齐）。此处不重复设闸。
+ */
+test('★记一笔页「答案去哪里查」已接入术语（接题页减负版）', () => {
+  // ★选错真值锚正是后端 no_anchor 拒收的主因，这一栏接术语表不是装饰。
+  assert.ok(/<Term id="truthAnchor"/.test(note), '「答案去哪里查」未接真值锚术语（truthAnchor）');
+  assert.ok(note.includes('note-kind'), '缺真值锚类型选择（答案去哪里查）');
+  assert.ok(/from '\.\.\/components\/ui'/.test(note), '未导入 ui');
 });
 
-test('接题页拒收原因已接入术语', () => {
-  assert.ok(intake.includes("<Term id=\"truthAnchor\" plain={REASON_LABEL"), '拒收原因未接术语');
+/* ★新事实的断言：旧路径是书签与外部链接的入口，删了会断；断言的是**重定向路由仍在**，
+ * 不是「死页面仍在盘上」。同一对断言 note-form.test.mjs ④ 也有一份（双保险）。 */
+test('★旧接题页 /intake 仍重定向到 /note（书签不断）', () => {
+  assert.ok(app.includes('path="/intake"'), '/intake 旧路径消失（书签会断）');
+  assert.ok(/path="\/intake" element=\{<Navigate to="\/note"/.test(app), '/intake 须重定向到 /note');
 });
 
 /* ══════════ 2026-09-27 八轮：防「装饰回流」闸 ══════════

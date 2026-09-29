@@ -36,8 +36,15 @@
  *   ② PREREG 23：`.scratch/forecast-debate/` 下文件名含 PREREG 的 .md 冻结件 23 份。
  *   ③ 页面 25：`p1b/web/src/pages/**` 下 .tsx 共 25 个，其中 **8 个是重定向保留的死页面**
  *      （路由全为 `<Navigate replace>`、组件无任何 import，见 §死页面 断言）。
- *      那 8 个死页**不许为凑计数而删**——它们是 9 个前端测试的扫描目标（实测 14 处引用），
- *      删了是砍已被断言的行为；正解是「改扫 dist 产物」＝ADR-005 独立立项。
+ *      ★2026-09-30 实测更正：8 个死页的**源码已从磁盘删除**，pages/ 下 .tsx 由 26 降至 18；
+ *      8 条旧路径的 `<Navigate replace>` 重定向**全部保留**
+ *      （App.tsx:183/184/190/191/195/205/206/207），故旧书签不断。
+ *      §死页面 断言随之**翻面**——从「这 8 个仍在」改成「这 8 个不许复活」，
+ *      强度不减反增：收缩进冻结期之后再被逆转，现在也判红（原先只防「删了不落账」）。
+ *      「不许为凑计数而删死页」当初是**社会规则，不是本闸能机械判定的约束**；
+ *      本闸只认上限，删死页腾出的空间确实可以加新页（计数回到 26 仍绿），
+ *      真要加新页，基线上调照样得走 §APPROVED_RAISES 登记。改口径没有动这条上限。
+ *      当初否决「删死页换计数」的那条记录与其依据，原样留在 §APPROVED_RAISES 的 reason 里。
  *
  * ── ★FROZEN_BASELINE 是不动量，扩容只走 APPROVED_RAISES（2026-09-29 实测校正）──
  *   首次登记 pages 上调时踩过：按文件头「§基线防篡改 三步」把 `FROZEN_BASELINE.pages`
@@ -103,7 +110,10 @@ const APPROVED_RAISES = [
       + '`value: number | null | undefined;`；结论成立，零件确实在。）'
       + '本次上调由冻结闸当场拦下后、由评审人依该已批准方案批准，非事后补记。'
       + '★明确否决「删 8 个死页换计数」：那 8 个死页是 9 个前端测试的扫描目标（实测 14 处引用），'
-      + '删了是砍已被断言的行为；正解是「改扫 dist 产物」＝ADR-005 独立立项，不在本批。',
+      + '删了是砍已被断言的行为；正解是「改扫 dist 产物」＝ADR-005 独立立项，不在本批。'
+      + '（2026-09-30 追记：8 个死页的源码现已从磁盘删除，pages/ 下 .tsx 由 26 降至 18，'
+      + '§死页面 已按此新事实翻面为「不许复活」，见文件头。'
+      + '本条立的是「删死页不能替代登记上调基线」这一条，该约束仍然有效，不因删除而放宽。）',
     evidence: 'docs/specs/第六批收据-20260928.md',
   },
   // 示范（其余仍无）：{ metric: 'kinds', newBaseline: 28, date: '2026-xx-xx',
@@ -176,7 +186,7 @@ function countPrereg() {
   return acc.length;
 }
 
-/** ③ 前端页面组件数：pages/ 下全部 .tsx（含死页——死页本来就该被删，删了计数降）。 */
+/** ③ 前端页面组件数：pages/ 下全部 .tsx（死页本来就该被删，删了计数降——2026-09-30 起为 18）。 */
 function countPages() {
   const acc = [];
   const walk = (d) => {
@@ -212,7 +222,7 @@ const METRICS = [
   },
   {
     key: 'pages', label: '前端页面组件', count: countPages,
-    what: 'p1b/web/src/pages/ 下全部 .tsx（含 8 个重定向死页）',
+    what: 'p1b/web/src/pages/ 下全部 .tsx（8 个重定向死页的源码已于 2026-09-30 删除，计数 26→18）',
   },
 ];
 
@@ -232,12 +242,15 @@ for (const m of METRICS) {
 }
 
 // ══════════════════════════════════════════════════════════════════════
-// §2 死页面：8 个重定向保留的页组件，删了应能直接变绿
+// §2 死页面：8 个重定向页的源码**已删除**——不许复活，重定向不许跟着删
 // ══════════════════════════════════════════════════════════════════════
 
 // 2026-09-28 实测：下列 8 个 .tsx 在 p1b/web/src 内**无任何 import**（App.tsx 的 import 已删），
 // 且其路由全为 <Navigate replace>（App.tsx:182/183/189/190/194/200/201/202）⇒ 组件永不渲染。
-// 这 8 个是「本来就该被删」的存量，删任何一个都让 pages 计数下降，属本闸允许的方向。
+// 2026-09-30 实测：8 个 .tsx 已全部从磁盘删除（`git status` 8 个 D），pages/ 下 .tsx 由 26 降至 18。
+// ⇒ 本清单是「已删事实」的登记，不是「现存页面」的清单。**方向反转，强度不减**：
+//   删之前本闸防的是「删了不落账」（清单没跟上）；删之后本闸防的是「删了又搬回来」，
+//   两条都是本闸该管的，后者以前反而没人管。
 const DEAD_PAGES = [
   'pages/audit/AuditPage.tsx',
   'pages/audit/OverviewPage.tsx',
@@ -249,23 +262,41 @@ const DEAD_PAGES = [
   'pages/intake/IntakePage.tsx',
 ];
 
-test('死页面清单：8 个重定向保留页仍在，且确实无 import（清单腐化会判红）', () => {
+test('死页面清单：8 个已删页的源码不得复活（复活＝把冻结期内的收缩抵消掉）', () => {
   const src = fs.readFileSync(path.join(ROOT, 'p1b', 'web', 'src', 'App.tsx'), 'utf8');
+  // 2026-09-30 前的口径是「这 8 个仍在磁盘上」；源码既已删，断言随之翻面。
   // DEAD_PAGES 的路径相对 web/src/（不是相对 pages/）
-  const missing = DEAD_PAGES.filter((p) => !fs.existsSync(path.join(ROOT, 'p1b', 'web', 'src', p)));
-  assert.deepEqual(missing, [], `死页面已从磁盘删掉（好事，pages 计数已降）——请从 DEAD_PAGES 清单里移除：${missing.join(', ')}`);
+  const recreated = DEAD_PAGES.filter((p) => fs.existsSync(path.join(ROOT, 'p1b', 'web', 'src', p)));
+  assert.deepEqual(recreated, [],
+    `死页面源码被复活：${recreated.join(', ')}——本闸只减不增，删死页让出的计数不该再被填回去；`
+    + '真要恢复这些页面，等于页面重新扩容，须走 §APPROVED_RAISES 登记基线上调。');
 
-  // 逐个反证：这些组件名不得再出现在 App.tsx 的 import 里
+  // 逐个反证：这些组件名不得再出现在 App.tsx 的 import 里（源码回来还接回路由＝改回实页）
   const reimported = DEAD_PAGES.filter((p) => {
     const name = path.basename(p, '.tsx');
     return new RegExp(`^import\\s+${name}\\b`, 'm').test(src);
   });
   assert.deepEqual(reimported, [],
-    `下列死页被重新 import（不再是死页）：${reimported.join(', ')}——已从「重定向保留」变成实页，`
-    + `请把它移出 DEAD_PAGES 清单，否则本测试在骗自己。`);
+    `下列死页被重新 import：${reimported.join(', ')}——已从「已删」变回实页，`
+    + '本测试在骗自己：要么撤掉复活，要么把它记成一次真实的扩容。');
+
+  // 反「把清单条目删掉来躲过上面两条」：本清单是已删事实的登记，条目少了＝留痕被抹了
+  assert.deepEqual([...DEAD_PAGES].sort(), [
+    'pages/audit/AuditPage.tsx',
+    'pages/audit/OverviewPage.tsx',
+    'pages/disclosure/ArenaPage.tsx',
+    'pages/disclosure/BayesLensPage.tsx',
+    'pages/disclosure/CalendarPage.tsx',
+    'pages/disclosure/CalibrationReportPage.tsx',
+    'pages/disclosure/CompilerPage.tsx',
+    'pages/intake/IntakePage.tsx',
+  ], 'DEAD_PAGES 清单被改动——它是 2026-09-30 已删事实的登记，删条目即可让上面两条断言失效。'
+    + '新增死页请另立条目并在此处一并登记，不要就地改写历史删除记录。');
 });
 
-test('死页面清单：8 个都在 App.tsx 里有指向别处的重定向（书签不断的前提）', () => {
+// ★下面这条从「死页在场时的附属检查」升格为**书签不断的唯一守卫**：
+//   源码已删，旧路径的 <Navigate replace> 就是这些 URL 唯一的去路，删了即 404。
+test('死页面清单：8 条旧路径的重定向仍在 App.tsx 里（源码已删，这条是书签的最后一道）', () => {
   const src = fs.readFileSync(path.join(ROOT, 'p1b', 'web', 'src', 'App.tsx'), 'utf8');
   const redirects = [...src.matchAll(/<Route\s+path="([^"]+)"\s+element=\{<Navigate\s+to="([^"]+)"/g)]
     .map((m) => ({ from: m[1], to: m[2] }));

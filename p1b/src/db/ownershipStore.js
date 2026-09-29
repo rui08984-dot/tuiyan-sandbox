@@ -179,6 +179,51 @@ function listView(view, viewerId, opts) {
 }
 
 /**
+ * 给**一批已查出的题**标上归属桶，并给出这一集合的三桶计数。
+ *
+ * ── 为什么不能拿 listView 顶替 ──────────────────────────────────────────────
+ *   `listView` 是**全账本**的三桶查询。而页面要的常常是**某个已过滤集合**的三桶拆解
+ *   （例：「到期未解」这 33 条里我的几条、语料库几条、别人的几条）。
+ *   集合不同 ⇒ 两条路算不出同一个数。
+ *
+ * ── 恒等式由构造保证，不是「测试里断言过的巧合」 ──────────────────────────────
+ *   逐行标注与三桶计数读的是**同一次查询的同一份结果**（下面这一段循环），
+ *   所以 `mine + corpus + others === ids.length` 在这里算不出错。
+ *   接口纪律是「可自校验」；若两者来自两条独立查询，那句自校验就只是句口号。
+ *
+ * ── 口径与文件头纪律③一致，且 **fail-closed** ────────────────────────────────
+ *   corpus = **无归属记录**（不是「不是我的」——这两个定义在有第二个访客时结果完全不同）；
+ *   viewerId 为空（还没拿到访客标识）⇒ 任何有归属的行**一律判 others**：
+ *   把别人的题说成你的，比如实说「这是别人的」坏得多。
+ */
+function bucketize(predictionIds, viewerId) {
+  const ids = [];
+  const seen = new Set();
+  for (const n of (predictionIds || [])) {
+    if (Number.isInteger(n) && !seen.has(n)) { seen.add(n); ids.push(n); }
+  }
+  const conn = db.getConnection();
+  const ownerOf = new Map();
+  // 分块查：IN 的占位符不能无限长。500 是 SQLite 默认变量上限（老版本 999）之内的安全值。
+  for (let i = 0; i < ids.length; i += 500) {
+    const chunk = ids.slice(i, i + 500);
+    const ph = chunk.map(() => '?').join(',');
+    const stmt = conn.prepare(
+      'SELECT prediction_id AS id, visitor_id AS vid FROM question_owners WHERE prediction_id IN (' + ph + ')');
+    for (const r of stmt.all.apply(stmt, chunk)) ownerOf.set(r.id, r.vid);
+  }
+  const buckets = {};
+  const counts = { mine: 0, corpus: 0, others: 0, total: ids.length };
+  for (const id of ids) {
+    const vid = ownerOf.get(id);
+    const b = vid === undefined ? 'corpus' : (viewerId && vid === viewerId ? 'mine' : 'others');
+    buckets[id] = b;
+    counts[b] += 1;
+  }
+  return { buckets, counts };
+}
+
+/**
  * 视图总览。**纯只读**：只读 predictions + question_owners，零写账本、零写归属。
  * 每个视图都返回三桶计数（不隐藏语料库与他人题的存在）。
  */
@@ -211,5 +256,5 @@ function viewSummary(view, viewerId) {
 
 module.exports = {
   ensureOwnershipTables, SCHEMA_QUESTION_OWNERS, claim, getOwner, getOwnerFor, bucketCounts,
-  autoRevealedCounts, shareBlock, listView, viewSummary, BUCKETS, VIEWS, HOWS, MIN_N,
+  autoRevealedCounts, shareBlock, listView, viewSummary, bucketize, BUCKETS, VIEWS, HOWS, MIN_N,
 };

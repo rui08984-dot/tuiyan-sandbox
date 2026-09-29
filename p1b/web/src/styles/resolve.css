@@ -10,6 +10,8 @@
  * · ① 的行用等宽数字对齐：题面截断、结果与失分定宽，扫读时不跳格。
  * · ③ **零交互**：一列可点的东西都没有（连 disabled 键都不给——它会暗示"等会儿能点"）。
  * · 过期标记但不重排：排在前等于替人定优先级，那是推荐。
+ * · 归属三桶（.resolve-views）的数**挂在键上**：切过去之前就看得见。
+ *   「筛掉」和「没有」是两句不同的话，界面不许只说前一句。
  * · 补齐 .modal* —— 旧版用了这组类名，但全站样式里**从来没定义过**，
  *   所以"判定不清"那个对话框其实是一坨没样式的裸 div（Vite 不报错、测试也全绿）。
  */
@@ -38,7 +40,46 @@
 .resolve-count.is-human b { color: var(--accent); }
 .resolve-count.is-stuck b { color: var(--warn); }
 
-/* 端点给了数没给行的那一类：单独一行说清它是什么 */
+/* ── 归属三桶：题归谁、谁有权答它（2026-09-29）──
+ * 形制纪律：这三个键是**筛选器**，不是装饰。
+ *   · 键上永远带条数（切过去之前就看得见）——「筛掉」和「没有」是两句不同的话；
+ *   · 选中态用**填充 + 边框**双通道，不靠颜色单独承担（色弱也要分得出）；
+ *   · focus-visible 自己写：全局那份只兜住了本页少数几处，切换键是新的可点元素。
+ * ★不 import whereoff.css 借 .wo-view —— 那张表在本页走不到，且 charts.css 在 2026-09-29
+ *   已经因为「靠某个组件 import」被 tree-shake 出过一次生产产物（见 main.tsx 的留痕）。
+ *   新类名前缀 .resolve-*，与本页同生共死。 */
+.resolve-buckets { margin-bottom: var(--space-4); }
+.resolve-views { display: flex; flex-wrap: wrap; gap: 6px; }
+.resolve-view {
+  display: inline-flex; align-items: baseline; gap: 6px;
+  padding: 6px 12px; font: inherit; font-size: 13px; line-height: 1.4;
+  color: var(--muted); background: none;
+  border: 1px solid var(--line); border-radius: var(--radius-pill);
+  cursor: pointer; transition: background-color 120ms linear, border-color 120ms linear;
+}
+.resolve-view .u-mono { font-size: 11.5px; }
+.resolve-view:hover { border-color: var(--accent); color: var(--text); }
+/* 选中态：边框 + 底色两处同时变，不让颜色单独承担这个信息 */
+.resolve-view.is-on {
+  color: var(--text); background: var(--panel-2); border-color: var(--accent);
+  font-weight: 600;
+}
+.resolve-view:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.resolve-bucket-note {
+  margin: 10px 0 0; max-width: 72ch;
+  font-size: 12.5px; line-height: 1.7; color: var(--muted);
+}
+.resolve-bucket-note b { color: var(--text); }
+/* 恒等式对不上时是**错误**不是提示：它破了必须被看见，且要被读屏软件播报 */
+.resolve-bucket-warn {
+  margin: 8px 0 0; padding: 8px 12px;
+  font-size: 12.5px; line-height: 1.7; color: var(--warn);
+  border: 1px solid var(--warn-border); background: var(--warn-bg);
+  border-radius: var(--radius-item);
+}
+
+/* 端点给了数也给行、但这一桶里不该由人动手的那一类：单独一行说清它是什么 */
 .resolve-okline {
   margin: 0 0 var(--space-4); padding: 8px 12px;
   font-size: 12.5px; line-height: 1.7; color: var(--muted);
@@ -219,11 +260,16 @@ details[open] > summary.resolve-block-head .when-open { display: inline; }
 @media (max-width: 374px) {
   .resolve-count b { font-size: 22px; }
   .resolve-actions { flex-wrap: wrap; }
+  /* 375 硬约束：三个切换键横排放不下就换行，但不该把「语料库（33）」这类键挤成两行 */
+  .resolve-view { padding: 6px 9px; font-size: 12.5px; }
 }
 
 /* 动效纪律：本页不做入场动画（折叠是原生的、即时的）；
-   只在按钮底色上留一档极短的过渡，reduced-motion 下直接去掉。 */
+   只在按钮底色与切换键上留一档极短的过渡（各自定义在上面），reduced-motion 下直接去掉。
+   ★切换键的覆盖写在**同一个**块里：a11y 闸只查整站 css 里有没有 prefers-reduced-motion 这个词，
+   查不出哪一条规则漏网——漏一条就等于对那一个元素失效。 */
 .resolve-actions .btn { transition: background-color 120ms linear, border-color 120ms linear; }
 @media (prefers-reduced-motion: reduce) {
   .resolve-actions .btn { transition: none; }
+  .resolve-view { transition: none; }
 }

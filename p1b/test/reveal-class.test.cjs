@@ -52,7 +52,12 @@ test('② stuck 类必须写明「代码无法解决」或「窗口已过」', (
 test('★③ 端点只读：不得写账本', () => {
   const i = route.indexOf('/api/disclosure/resolve-queue');
   assert.ok(i > 0, '端点须存在');
-  const block = route.slice(i, i + 2200);
+  // ★2026-09-29 修：原来写死 slice(i, i+2200)，那是**量魔数不是量行为**——
+  //   端点块现在长 3514 字符，窗口根本够不到下面的断言内容，测试只剩「没报错」的意义。
+  //   改成按端点块的**真实边界**取（下一个路由注册为止），断言本身一字未动。
+  const nxt = route.indexOf('app.get(', i + 10);
+  const block = route.slice(i, nxt > 0 ? nxt : route.length);
+
   assert.equal(/INSERT|UPDATE|DELETE/i.test(block), false, '本端点只读，不得有写库语句');
   assert.ok(block.includes('resolved_at IS NULL') || block.includes('resolved_at IS NOT NULL'),
     '须按是否已结算分流');
@@ -60,7 +65,8 @@ test('★③ 端点只读：不得写账本', () => {
 
 test('④ 端点自带纪律声明（前端要据此写文案）', () => {
   const i = route.indexOf('/api/disclosure/resolve-queue');
-  const block = route.slice(i, i + 2600);
+  const nxt4 = route.indexOf('app.get(', i + 10);
+  const block = route.slice(i, nxt4 > 0 ? nxt4 : route.length);
   assert.ok(block.includes('discipline'), '须返回 discipline 声明块');
   assert.ok(/不给可点按钮|不给.*按钮/.test(block), '须声明「stuck 不给假按钮」');
 });
@@ -197,4 +203,54 @@ test('★⑥ ok 桶回归闸：counts.ok > 0 时必须同时给得出行（此�
     assert.ok(r.matures_at, '#' + r.id + ' ok 行须带到期日（否则页面无从说「等它自己查」）');
     assert.ok(r.why && /自动|到期/.test(r.why), '#' + r.id + ' ok 行须说清「机器到期自己会查」：' + r.why);
   }
+});
+
+test('★别人的题只报数、不列行（不泄露别人的题面），且三桶仍守恒', async () => {
+  // ★照 p1b/test/question-views.test.cjs:230 同一条红线，另加在 resolve-queue 上。
+  //   那条红线此前只覆盖 /api/analytics 侧；本端点是后加的，给行打了 view_bucket 标签
+  //   却照样把 statement 原样返回 ⇒ 题面随响应体进了浏览器。**前端不渲染 ≠ 没泄露。**
+  const conn = db.getConnection();
+
+  // ── 造一个真在 others 桶里的行，否则断言会空跑（这正是本测试第一版的毛病）──
+  const a = (await app.inject({ method: 'POST', url: '/api/analytics/session/start', payload: {} })).json().visitor_id;
+  const b = (await app.inject({ method: 'POST', url: '/api/analytics/session/start', payload: {} })).json().visitor_id;
+  const secret = '这是别人的题面·不该出现在我的待落定列表里';
+  const ins = conn.prepare(
+    'INSERT INTO predictions (game_id, source_type, statement, assigned_prob, evidence_json, layer, matures_at)' +
+    ' VALUES (?,?,?,?,?,?,?)'
+  );
+  ins.run(GID, '预测卡', secret, 0.5, JSON.stringify([{ resolve: { kind: 'cwl_ssq_red_contains' } }]), 'L2', '2020-01-07');
+  const mine = conn.prepare("SELECT id FROM predictions WHERE statement = ?").get(secret).id;
+  const claim = await app.inject({ method: 'POST', url: '/api/analytics/claim', payload: { prediction_id: mine, visitor_id: a } });
+  assert.equal(claim.statusCode, 200, '认领须成功（实得 ' + claim.statusCode + '：' + claim.body.slice(0, 200) + '）');
+
+  // ── 以 B 的身份取待落定列表 ──
+  const res = await app.inject({ method: 'GET', url: '/api/disclosure/resolve-queue?visitor_id=' + encodeURIComponent(b) });
+  assert.equal(res.statusCode, 200, '端点须 200');
+  const body = res.json();
+
+  // ① 前置条件：别人桶里**确实有行**——没有这条，本测试就是空跑绿灯
+  assert.ok(body.open_buckets.others >= 1,
+    '★本测试的前置条件：B 的视角下别人桶须至少 1 条（实得 ' + body.open_buckets.others + '）——否则断言空跑');
+
+  // ② 红线本体：整个响应体里不得出现那道题面
+  assert.ok(!res.body.includes(secret),
+    '★别人的题面泄进了响应体（前端不渲染不等于没泄露）');
+
+  // ③ 别人的行仍在（不隐藏存在），但 statement 已被服务端抹掉
+  const others = [...body.ok, ...body.need_human, ...body.stuck].filter((r) => r.view_bucket === 'others');
+  for (const r of others) {
+    assert.equal(r.statement, null, '#' + r.id + ' 是别人的题，statement 必须为 null（只报数、不列行）');
+  }
+
+  // ④ 三桶仍守恒（脱敏不许把行藏起来）
+  assert.equal(
+    body.open_buckets.mine + body.open_buckets.corpus + body.open_buckets.others,
+    body.counts.open_total,
+    '★脱敏后三桶之和仍须 ≡ open_total'
+  );
+
+  // ⑤ 反向：换成 A 的身份，题面该回来（证明不是「一律抹掉」的假修复）
+  const asA = await app.inject({ method: 'GET', url: '/api/disclosure/resolve-queue?visitor_id=' + encodeURIComponent(a) });
+  assert.ok(asA.body.includes(secret), '★自己的题面必须照常返回——否则这条闸变成了「一律不给」');
 });
