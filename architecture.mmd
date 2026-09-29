@@ -54,10 +54,10 @@ flowchart TB
     subgraph INFRA["纪律与基础设施"]
         direction LR
         PREREG["PREREG 冻结<br/>7 件 MATCH"]
-        TEST["测试 636/636"]
-        SCRIPTS["脚本 121 在役<br/>含 leak-scan"]
+        TEST["测试 984/984<br/>后端888+前端96"]
+        SCRIPTS["脚本 125 在役<br/>含 leak-scan"]
         UI["前端观测台<br/>七轮改造 0923<br/>含四页合一"]
-        HANDOFF["交接链 21 份<br/>+ 状态栈"]
+        HANDOFF["交接链 23 份<br/>第23=唯一入口 0929"]
     end
 
     ENGINES -.->|"判词"| VERD[("verdicts 5156")]
@@ -78,9 +78,10 @@ flowchart TB
         SECURE["网络默认收紧<br/>127.0.0.1 ＋ 令牌可选"]
         TLM["埋点 analytics<br/>作者/访客可分"]
         VIEWS["我的题/语料库/others<br/>三桶恒等式"]
-        HOLE1["密钥清史未做<br/>408 commit + 6 悬空 blob"]
-        HOLE2["analytics 未注册<br/>端点是死的"]
-        HOLE3["记一笔闭环施工中<br/>从不创建 prediction"]
+        HOLE1["密钥清史未做<br/>424 commit + 6 悬空 blob<br/>待创始人授权"]
+        HOLE2["analytics 已注册 0928<br/>server.js:190 ✅"]
+        HOLE3["记一笔闭环已闭 0929<br/>api.ts:333 真 POST ✅"]
+        HOLE4["ResolvePage 两视图未改<br/>0929 核实仍 open"]
     end
 
     LEDGER --> GUARD
@@ -94,11 +95,32 @@ flowchart TB
     HOLE1 -.-> SCRIPTG
     HOLE2 -.-> TLM
     HOLE3 --> INTAKE
+    HOLE4 -.-> VIEWS
+
+    subgraph D929["2026-09-29 专批：第九批 可信层对外"]
+        direction TB
+        REACH["样式可达性闸<br/>修生产事故 charts.css"]
+        GATE9["四道闸门自诊断<br/>崩溃复跑+显形"]
+        BR["诚实基率实验<br/>Δ=-0.0246 CI显著"]
+        LEAKSTATE["leak_state 三态<br/>历史零 backfill"]
+        PROTO["判据→模型协议<br/>结构化输出越界即拒"]
+        MCPL["MCP 打包层<br/>★可抛弃"]
+        BR -.->|"两句同时为真<br/>但≠掷骰子"| BOARD
+        LEAKSTATE -.->|"读侧视图"| BOARD
+        PROTO -.-> MCPL
+        MCPL -.->|"可撤"| PROTOCOL["协议三纪律<br/>空集永不等于通过"]
+    end
+
+    INTAKE --> REACH
+    REACH --> GATE9
+    ENGINES --> BR
+    VERD --> LEAKSTATE
+    PROTOCOL --> PROTO
 
     classDef done fill:#2e7d32,color:#fff
     classDef doing fill:#f9a825,color:#000
     classDef notstarted fill:#546e7a,color:#fff
 
-    class P0,P1,P2,P3,P4,P5,A1,TB,R3,LEDGER,VAULT,INTAKE,ENGINES,STAGE4,CAL,BOARD,PREREG,TEST,SCRIPTS,UI,HANDOFF,GATE,F1,F4,F5,F6,GUARD,EXPIRE,FROZE,SCRIPTG,SECURE,TLM,VIEWS done
-    class I1,HOLE3 doing
-    class A3,A5,HOLE1,HOLE2 notstarted
+    class P0,P1,P2,P3,P4,P5,A1,TB,R3,LEDGER,VAULT,INTAKE,ENGINES,STAGE4,CAL,BOARD,PREREG,TEST,SCRIPTS,UI,HANDOFF,GATE,F1,F4,F5,F6,GUARD,EXPIRE,FROZE,SCRIPTG,SECURE,TLM,VIEWS,REACH,GATE9,BR,LEAKSTATE,PROTO,MCPL,PROTOCOL,HOLE2,HOLE3 done
+    class I1 doing
+    class A3,A5,HOLE1,HOLE4 notstarted
