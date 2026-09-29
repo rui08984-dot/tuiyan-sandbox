@@ -42,7 +42,7 @@
 - 生产路径 ctx.fetchImpl 恒 undefined → 落到 p1a-terminal/src/llm.js 的全局 fetch（该处无 signal/超时）→ 上游不回包则**永久挂死**
 - 已修：p1b/src/llmOptions.js 增加 timeoutFetch（未注入 fetchImpl 时默认套 AbortController 超时；默认 120000ms，可用 **P1B_LLM_TIMEOUT_MS** 覆盖，<=0 关闭）
 - 验证证据：本地黑洞服务器（POST 永不回包）→ **1512ms 抛 AbortError**（不再挂死）；node --test **226/226 全绿**
-- 提交：**8f28ad2**（仅此一文件）；坑已记入 .dshwolf/buglog.json
+- 提交：**61437a7**（仅此一文件）；坑已记入 .dshwolf/buglog.json
 
 ### 更正记录（重要，防后手误判）
 - 前一轮曾判「repair 实例零推进、已 wedge」→ **有误**。依据：DB 行一直在增长（id 3658..3662 落在本地 23:18:55–23:20:36），并非停滞。

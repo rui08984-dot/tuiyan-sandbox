@@ -12,7 +12,7 @@
 | git init | E:\music player\.git（git 2.55.0.windows.3，此前无仓库） |
 | .gitignore | 新建根 .gitignore，任务清单全覆盖（见下） |
 | git config | 仅 --local：user.name="DSH Captain" user.email="dsh@local"（全局未动） |
-| commit | 61a0d3b「baseline: L0 收口+三线闭环+评审归档，147/147」 |
+| commit | e9fc345「baseline: L0 收口+三线闭环+评审归档，147/147」 |
 | tag | v0.9-l0-baseline |
 
 ### .gitignore 覆盖核对
@@ -37,7 +37,7 @@
 ```
 status-porcelain: []            <- 干净
 log-count: 1
-log: 61a0d3b baseline: L0 收口+三线闭环+评审归档，147/147
+log: e9fc345 baseline: L0 收口+三线闭环+评审归档，147/147
 tag-count: 1  tags: v0.9-l0-baseline
 author: DSH Captain dsh@local
 tracked-total: 1835

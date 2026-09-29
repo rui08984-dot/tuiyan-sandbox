@@ -22,13 +22,13 @@
 
 | 次 | 时刻（本地／UTC） | 实害 | 证据 |
 |---|---|---|---|
-| ① | 2026-09-16 23:37:43／15:37:43Z | 覆盖 tracked 件 `assumption-recalc-20260916.*`（＝`83a0451` 刚入库的**权威版**，**提交后 1 秒**）⇒ 权威版（带 `domain:openmeteo` 排除、L3 n/a）被换成「无排除」重跑态 | 工作区 diff：`excludes.domain ["openmeteo"]→[]`、L3 `n_dropped 369→0` |
+| ① | 2026-09-16 23:37:43／15:37:43Z | 覆盖 tracked 件 `assumption-recalc-20260916.*`（＝`045fe66` 刚入库的**权威版**，**提交后 1 秒**）⇒ 权威版（带 `domain:openmeteo` 排除、L3 n/a）被换成「无排除」重跑态 | 工作区 diff：`excludes.domain ["openmeteo"]→[]`、L3 `n_dropped 369→0` |
 | ② | 2026-09-17 12:44:11／04:44:11Z | 生成 stray 未跟踪件 `assumption-recalc-20260917.{json,md}`（无排除态） | mtime ＝ 本棒 `node --test` 时刻 |
 
 **修复**（照另两脚本既有范式）：`dna-s-dryrun.cjs`／`calab-run.cjs` **早有** `require.main === module` 守卫；本件补齐 → 顶层逻辑收进 `main()`；`recalcLayer` 默认参数由隐式 `SPEC_D` 改为显式 `[]`（纯函数去环境依赖），主流程显式传参。
 
 **验证三证**：
-1. **CLI 行为逐位不变**：`--exclude domain:openmeteo` 重跑 ⇒ 与 `83a0451` 权威件**非时间字段逐位一致**（md 正文除标题日期亦一致）；
+1. **CLI 行为逐位不变**：`--exclude domain:openmeteo` 重跑 ⇒ 与 `045fe66` 权威件**非时间字段逐位一致**（md 正文除标题日期亦一致）；
 2. **权威产物已复原**：`git checkout` 回权威版（`excludes.domain=["openmeteo"]`、L3 `n_dropped=369`、`brier=null`）；
 3. **require 零副作用**：require 前后 `sim/out` 清单＋size＋mtime 快照**完全相同**。
 

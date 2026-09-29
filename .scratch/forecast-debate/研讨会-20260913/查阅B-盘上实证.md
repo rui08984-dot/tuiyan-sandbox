@@ -5,34 +5,34 @@
 
 ## §0 实证范围声明
 
-- **工作区**：`E:/music player`（git 仓，HEAD 在本会话开始时＝4685bc2，结束时＝bc7971e）。
+- **工作区**：`E:/music player`（git 仓，HEAD 在本会话开始时＝0ff3efa，结束时＝34f98f5）。
 - **数据库**：`E:/music player/p1a-terminal/data/p1a.db`，全程 `new DatabaseSync(path, {readOnly:true})`（node:sqlite，node v24.19.0）。**零写库**。
 - **进程**：`node p1b/scripts/g2-report.cjs`（其自身声明句柄只读·纯 SQL·零写库，与实码一致：`new DatabaseSync(DB_PATH, { readOnly: true })`，无 --json/--text 参数时不落盘）；`node .scratch/r2/probe-f16.cjs`（R2 同款 `:memory:` 探针，不碰 p1a.db）；`node --test`（9 个测试文件全部 `dbPath: ':memory:'` ＋ `app.inject`，不起真端口，**未触碰 8787**）。
 - **git**：只读命令（log/status/show/diff/numstat），零写操作。
-- **⚠ 移动靶声明**：本会话进行中，并行②抽检棒连续落了 3 个提交：bc34826（15:26:55）、**296d97a（15:30:19，G2 门首达 PASS）**、bc7971e（15:40:45 阶段3转正）。本报告数字以 **2026-09-13 15:40 左右**为界；此前的"门 pending"表述已被 296d97a 更新为"门 PASS"。
+- **⚠ 移动靶声明**：本会话进行中，并行②抽检棒连续落了 3 个提交：c948d3d（15:26:55）、**7ee6897（15:30:19，G2 门首达 PASS）**、34f98f5（15:40:45 阶段3转正）。本报告数字以 **2026-09-13 15:40 左右**为界；此前的"门 pending"表述已被 7ee6897 更新为"门 PASS"。
 - **禁改声明**：除本报告外零文件写入。
 
 ## §1 R4 门距复算表（声称 vs 复现 vs 判定）
 
-行域说明：施工路径 §1 的数字是 **1503 快照**（语料扩量 a555c5f 之前）实测；a8f897d 之后总题变 1923。
+行域说明：施工路径 §1 的数字是 **1503 快照**（语料扩量 a48cfba 之前）实测；89fc7fd 之后总题变 1923。
 
 | # | 声称（来源） | 我的复现（SQL/命令原文） | 判定 |
 |---|---|---|---|
-| 1.1 | 总题数 **1923**（a555c5f） | `SELECT COUNT(*) n FROM predictions` → **1923** | ✅ 一致 |
+| 1.1 | 总题数 **1923**（a48cfba） | `SELECT COUNT(*) n FROM predictions` → **1923** | ✅ 一致 |
 | 1.2 | tautology **30**（施工路径 §1） | `SELECT COUNT(*) n FROM predictions WHERE tautology <> 0` → **30**；30 条全部无 evidence[].kind（sim 行）且 0 条有 resolve.date（`rd_bykind` 探针）→ **不进 ① 池、不扣任何 R4 数字** | ✅ 一致 |
 | 1.3 | 合格池 **1473**＝1503−tautology（施工路径 §1） | 旧公式现值：checklist_hash 空值 0 ⇒ 1923−30＝**1893**；R4 ①（细则 B 口径，g2-report 实跑）＝**1046**。**1473 已过期**（系 1503 快照值；1473 现在恰等于"带 kind 的行数"＝1923−450 sim，属巧合不同集） | ⚠️ **过期，勿再引用** |
 | 1.4 | horizon 三层 **617/66/21**（施工路径 §1，按 evidence.resolve.date−created_at） | 同公式现值（全 1923 行，干净分桶，负值单列）：`SELECT rd, substr(created_at,1,10) …` 计算得 **neg 521 / short 427 / mid 77 / long 21**（无 rd 877 行）。**长 21 ≥10 仍满足**；617→948 只是把负值并入短桶的算法差 | ⚠️ 过期但结论不变（长桶 21 稳定） |
-| 1.5 | ③ R4 正式读数 短419/中77/长21、长∩最难 18（85.7%）、严格独立长 3（design §4.2.1＋4685bc2 "③PASS"） | 复跑 `node p1b/scripts/g2-report.cjs` → `[③] 短 419 \| 中 77 \| 长 21 \| 未知 0 \| past_or_negative(backfill) 529 \| 长中 backfill 0`；`⑦披露: 长∩最难 18/21 = 85.7%`；`严格读法对照：独立长 3 -> FAIL`（细则 A 读法 PASS，两读法留档与 design §4.2.1 逐字一致） | ✅ 一致 |
-| 1.6 | ① **1046**（4685bc2；design D-2 "合格题池现 1,046"） | g2-report 实跑 → `[①] PASS 值 1046（resolved 198；realtime 517 / backfill 529）`；独立拆分：realtime 517＝cutoff_snapshot 17＋forward_batch 98＋b3_forward 32＋oct_forward 34＋wide_forward 165＋b4_forward 171；backfill 529＝backfill_snapshot 96＋b3_backfill 37＋wide_backfill 225＋b4_backfill 171；by_layer＝**L3 724 / L2 322（仅两层）**；排除项 no_resolve_date 877、cutoff_not_before_event **0**、tautology 0 | ✅ 一致（但见 §2.4 恒真性警告） |
-| 1.7 | ② pending（4685bc2）→ **②100%（296d97a "门首达 PASS"）** | 收据在盘 `p1b/sim/out/g2-audit-r4.json`（bc34826 落盘、296d97a 重写）：`items n=105, scored=105, ok=105, rate=1.0`；`meta.review_composition＝{machine:105, agent_semantic:105, human_calibration:14, user:0}`；`human_calibration`：**pre_fix 一致率 5/14＝0.357（<90% 不采信）→ 修正 machine 段（改按已注册 kind 契约）后 14/14 ⇒ 恢复采信**；`honesty`：非全人工、端用户 0 题、校准样本偏最易分歧处 | ✅ 数字复现；**证明力警告**见 §6 |
-| 1.8 | ④ **808**＝realtime 443＋backfill 365（4685bc2/design D-1） | g2-report 实跑 → `[④] PASS 值 808（realtime 443 / backfill 365；外生解析覆盖 933/1046；模式 {"pct_share":933}）` | ✅ 一致 |
-| 1.9 | 已到期未结算 **262 条**（R2 §2.1 硬伤 3；任务背景沿用） | `SELECT COUNT(DISTINCT p.id) … outcome IS NULL AND json_extract(e.value,'$.resolve.date') < date('now')` → **433**（wide_backfill 225 ＋ **b4_backfill 171** ＋ b3_backfill 37）；matures_at 口径同为 433。**daemon 未结清**（d349dac/db52d23 自认"积压433"、4685bc2"新 kind 取数函数"棒在途；corpus-resolve.cjs 未提交 +358 行即此工作）。"结清602->704"指的是 resolved 总数 602→704，不是积压清零 | ❌ **262 已过期，实际 433 未结** |
+| 1.5 | ③ R4 正式读数 短419/中77/长21、长∩最难 18（85.7%）、严格独立长 3（design §4.2.1＋0ff3efa "③PASS"） | 复跑 `node p1b/scripts/g2-report.cjs` → `[③] 短 419 \| 中 77 \| 长 21 \| 未知 0 \| past_or_negative(backfill) 529 \| 长中 backfill 0`；`⑦披露: 长∩最难 18/21 = 85.7%`；`严格读法对照：独立长 3 -> FAIL`（细则 A 读法 PASS，两读法留档与 design §4.2.1 逐字一致） | ✅ 一致 |
+| 1.6 | ① **1046**（0ff3efa；design D-2 "合格题池现 1,046"） | g2-report 实跑 → `[①] PASS 值 1046（resolved 198；realtime 517 / backfill 529）`；独立拆分：realtime 517＝cutoff_snapshot 17＋forward_batch 98＋b3_forward 32＋oct_forward 34＋wide_forward 165＋b4_forward 171；backfill 529＝backfill_snapshot 96＋b3_backfill 37＋wide_backfill 225＋b4_backfill 171；by_layer＝**L3 724 / L2 322（仅两层）**；排除项 no_resolve_date 877、cutoff_not_before_event **0**、tautology 0 | ✅ 一致（但见 §2.4 恒真性警告） |
+| 1.7 | ② pending（0ff3efa）→ **②100%（7ee6897 "门首达 PASS"）** | 收据在盘 `p1b/sim/out/g2-audit-r4.json`（c948d3d 落盘、7ee6897 重写）：`items n=105, scored=105, ok=105, rate=1.0`；`meta.review_composition＝{machine:105, agent_semantic:105, human_calibration:14, user:0}`；`human_calibration`：**pre_fix 一致率 5/14＝0.357（<90% 不采信）→ 修正 machine 段（改按已注册 kind 契约）后 14/14 ⇒ 恢复采信**；`honesty`：非全人工、端用户 0 题、校准样本偏最易分歧处 | ✅ 数字复现；**证明力警告**见 §6 |
+| 1.8 | ④ **808**＝realtime 443＋backfill 365（0ff3efa/design D-1） | g2-report 实跑 → `[④] PASS 值 808（realtime 443 / backfill 365；外生解析覆盖 933/1046；模式 {"pct_share":933}）` | ✅ 一致 |
+| 1.9 | 已到期未结算 **262 条**（R2 §2.1 硬伤 3；任务背景沿用） | `SELECT COUNT(DISTINCT p.id) … outcome IS NULL AND json_extract(e.value,'$.resolve.date') < date('now')` → **433**（wide_backfill 225 ＋ **b4_backfill 171** ＋ b3_backfill 37）；matures_at 口径同为 433。**daemon 未结清**（09babe9/a38c33a 自认"积压433"、0ff3efa"新 kind 取数函数"棒在途；corpus-resolve.cjs 未提交 +358 行即此工作）。"结清602->704"指的是 resolved 总数 602→704，不是积压清零 | ❌ **262 已过期，实际 433 未结** |
 | 1.10 | checklist_hash 空值 **0**（R2 §3A） | `SELECT COUNT(*) n FROM predictions WHERE checklist_hash IS NULL` → **0**；分组 v2 1681（resolved 462）/ bf1 152（152）/ v1 90（90） | ✅ 一致 |
-| 1.11 | public_exposure NULL **879**（R2 N2；3798165 称补 publicExposure:0） | `SELECT COUNT(*) n FROM predictions WHERE public_exposure IS NULL` → **仍 879**，kind 分布与 R2 N2 逐条相同（wide_backfill 280/wide_forward 183/forward_batch_b2 136/forward_batch 112/**oct_forward 69**/b3_backfill 52/b3_forward 47）。3798165（15:51 时点核对）只改了 **4 个脚本**（见 §2.3）供未来行使用；**历史 879 行从未回填**。oct 69 行落库于 2026-09-12 18:13（早于 3798165 提交时间 09-13 14:51），系旧 store 静默丢字段所致，其后仅回填过 checklist_hash。修复后落库的 b4 420 行（09-13 07:12）public_exposure 全部非空 ✅ | ⚠️ N2 数据面**原样未修**（脚本面已修） |
+| 1.11 | public_exposure NULL **879**（R2 N2；223c93c 称补 publicExposure:0） | `SELECT COUNT(*) n FROM predictions WHERE public_exposure IS NULL` → **仍 879**，kind 分布与 R2 N2 逐条相同（wide_backfill 280/wide_forward 183/forward_batch_b2 136/forward_batch 112/**oct_forward 69**/b3_backfill 52/b3_forward 47）。223c93c（15:51 时点核对）只改了 **4 个脚本**（见 §2.3）供未来行使用；**历史 879 行从未回填**。oct 69 行落库于 2026-09-12 18:13（早于 223c93c 提交时间 09-13 14:51），系旧 store 静默丢字段所致，其后仅回填过 checklist_hash。修复后落库的 b4 420 行（09-13 07:12）public_exposure 全部非空 ✅ | ⚠️ N2 数据面**原样未修**（脚本面已修） |
 | 1.12 | baseline_brier **0 行**（R2 N1） | `SELECT COUNT(*) n FROM predictions WHERE baseline_brier IS NOT NULL` → **0**（未变）。④ 已按 g2-report 设计改走 evidence.baseRateNote 外生解析（933/1046 可解析） | ✅ 一致（旁路已建） |
-| 1.13 | g2_regime＝'R4' 全 **1923** 行（a8f897d） | `SELECT g2_regime, COUNT(*) n FROM predictions GROUP BY g2_regime` → **R4×1923，无其他值** | ✅ 一致 |
-| 1.14 | matures_at 非空 **1046**（a8f897d） | `SELECT COUNT(*) n FROM predictions WHERE matures_at IS NOT NULL` → **1046**；range 2024-01-01..2026-10-30。**与"有 resolve.date 的行集"完全相同**（两口径都 1046，kind 分布逐条同）；backfill 529 条 **matures_at 全部＝resolve.date（事件日）**（eq 529 / neq 0） | ✅ 一致（恒真性警告见 §2.4） |
-| 1.15 | 迁移 21 列＋快照 sha256（db52d23） | `PRAGMA table_info(predictions)` → **21 列**，末两位 g2_regime/matures_at；DDL 在 `p1b/src/db/predictionsStore.js:60-61`（建表）与 :81-82（additive ALTER）。快照 `.scratch/backup/p1a-pre-R4-20260913071354.db`（3,588,096 B）实测 `sha256sum` → `3d1edec03e3f9ba8…6f12`，与留痕 `docs/sandbox/p1b/itest/p19-PROGRESS.md:332`（sha256 `3d1edec0…`）一致 | ✅ 一致 |
+| 1.13 | g2_regime＝'R4' 全 **1923** 行（89fc7fd） | `SELECT g2_regime, COUNT(*) n FROM predictions GROUP BY g2_regime` → **R4×1923，无其他值** | ✅ 一致 |
+| 1.14 | matures_at 非空 **1046**（89fc7fd） | `SELECT COUNT(*) n FROM predictions WHERE matures_at IS NOT NULL` → **1046**；range 2024-01-01..2026-10-30。**与"有 resolve.date 的行集"完全相同**（两口径都 1046，kind 分布逐条同）；backfill 529 条 **matures_at 全部＝resolve.date（事件日）**（eq 529 / neq 0） | ✅ 一致（恒真性警告见 §2.4） |
+| 1.15 | 迁移 21 列＋快照 sha256（a38c33a） | `PRAGMA table_info(predictions)` → **21 列**，末两位 g2_regime/matures_at；DDL 在 `p1b/src/db/predictionsStore.js:60-61`（建表）与 :81-82（additive ALTER）。快照 `.scratch/backup/p1a-pre-R4-20260913071354.db`（3,588,096 B）实测 `sha256sum` → `3d1edec03e3f9ba8…6f12`，与留痕 `docs/sandbox/p1b/itest/p19-PROGRESS.md:332`（sha256 `3d1edec0…`）一致 | ✅ 一致 |
 
 **§1 小结**：R4 五条判据的当前读数全部可独立复现；过期的是施工路径 §1 的 1503 快照数字（1473／617·66·21）与任务背景的"262 积压"（实际 433 且未结清）。
 
@@ -67,7 +67,7 @@ function assertAuditFields(f) {
   }
 ```
 
-既不在 KNOWN 也不在 SNAKE 的键（如 `checkListHash`/`gates`/`baselineBrierX`）两个 if 都不命中 → **静默忽略落 NULL**。`:145` 注释"未知 audit 键抛错"与实现不符；dd6c13b commit message（在史，`git log --all` 核得："加白名单校验防复发"）同样名不符实。**内存探针复现**（R2 同款 `node .scratch/r2/probe-f16.cjs`，`:memory:` 不碰生产库）：
+既不在 KNOWN 也不在 SNAKE 的键（如 `checkListHash`/`gates`/`baselineBrierX`）两个 if 都不命中 → **静默忽略落 NULL**。`:145` 注释"未知 audit 键抛错"与实现不符；f77da71 commit message（在史，`git log --all` 核得："加白名单校验防复发"）同样名不符实。**内存探针复现**（R2 同款 `node .scratch/r2/probe-f16.cjs`，`:memory:` 不碰生产库）：
 
 ```
 THROWS   | checklist_hash / baseline_brier / secondary_layer / public_exposure（4 个下划线键）✓
@@ -76,7 +76,7 @@ NO-THROW | checkListHash -> id=2 / checklisthash -> id=3 / gates -> id=4 / basel
 落库检查: s6-s9 全部 {"checklist_hash":null,"gate":null,"baseline_brier":null}   ← 静默丢字段实锤
 ```
 
-与 R2 §3B 的表逐格一致。**3798165 之后 store 守卫未改**（改的是 4 个脚本，见下）；R3 决策清单 §1 表格其实已如实登记"守卫 ⚠️ 仍是黑名单非白名单"——本核查确认该状态**至今未变**。
+与 R2 §3B 的表逐格一致。**223c93c 之后 store 守卫未改**（改的是 4 个脚本，见下）；R3 决策清单 §1 表格其实已如实登记"守卫 ⚠️ 仍是黑名单非白名单"——本核查确认该状态**至今未变**。
 
 ### §2.3 4 个语料脚本 —— 已修 ✅（仅对未来行生效）
 
@@ -85,7 +85,7 @@ NO-THROW | checkListHash -> id=2 / checklisthash -> id=3 / gates -> id=4 / basel
 
 ### §2.4 g2-report.cjs —— **已 R4 重写**（施工路径路径 5 的"待按 R4 实现"已过时）＋ 两条证明力警告
 
-- 现版头部自述"R4 口径（design §4.2 修订 R4）…纯 SQL 只读·零写库"，实码 `new DatabaseSync(DB_PATH, { readOnly: true })` 与声称一致。R4 五条＋细则 A/B/C/D 全部实装（复核见 §1.5-1.8）。旧 R3 版从未入过 git（`git log -- p1b/scripts/g2-report.cjs` 唯一提交＝bc34826，即 R4 版首次入库）；旧版备份在 `.scratch/d2/g2-report.r3.bak.cjs`。
+- 现版头部自述"R4 口径（design §4.2 修订 R4）…纯 SQL 只读·零写库"，实码 `new DatabaseSync(DB_PATH, { readOnly: true })` 与声称一致。R4 五条＋细则 A/B/C/D 全部实装（复核见 §1.5-1.8）。旧 R3 版从未入过 git（`git log -- p1b/scripts/g2-report.cjs` 唯一提交＝c948d3d，即 R4 版首次入库）；旧版备份在 `.scratch/d2/g2-report.r3.bak.cjs`。
 - 当前未提交 diff（6+/2−）只是新增"人类校准结账"展示行，不动判定。
 - **警告 1（① 的 cutoff 门构造性近恒真）**：backfill 529 条 `matures_at` 全部＝resolve.date（事件日），细则 B 的 backfill cutoff＝matures_at−1 天 < 事件日 **恒成立**；realtime 517 条 created_at（全库 2026-09-11..13）< 未来事件日，同样恒过。实测 `cutoff_not_before_event` 排除数＝**0**。⇒ ① 现阶段实质＝"有锚日期（resolve.date/matures_at）的行数"，cutoff 合规检查对当前数据零筛选力（合规性靠语句自述 cutoff＋Q0 拒收门兜底）。
 - **警告 2（① 池只含两层）**：by_layer＝L3 724＋L2 322；L1/L4/L5/L6 贡献 **0**。R4 ①③④ 的全部读数实际只由 L2/L3 天气·人口·开奖类语料构成。
@@ -100,13 +100,13 @@ cd "E:/music player/p1b" && time node --test
 ℹ duration_ms 1016.4968    (real 0m1.145s)
 ```
 
-**177/177 全绿、1.0 秒**——与 a8f897d/5fe893b 声称一致。关键用例在输出中可见：`loadEvidence 3.0（命题 A）：d 段…`、`loadEvidence 消融开关：…逐字节退回 2.0 形状`、`loadEvidence：corpus 型结构化 evidence…不再抛 RangeError（2026-09-13 修 500）`。
+**177/177 全绿、1.0 秒**——与 89fc7fd/b971a8d 声称一致。关键用例在输出中可见：`loadEvidence 3.0（命题 A）：d 段…`、`loadEvidence 消融开关：…逐字节退回 2.0 形状`、`loadEvidence：corpus 型结构化 evidence…不再抛 RangeError（2026-09-13 修 500）`。
 
 ## §4 git 链与未提交物清单
 
-### §4.1 提交链（git log --oneline，会话开始时 HEAD=4685bc2）
+### §4.1 提交链（git log --oneline，会话开始时 HEAD=0ff3efa）
 
-任务背景 4 项全部在史且语义与提交信息相符：993e5fe（R4 拍板）→ 3798165（F16 脚本修复）→ a8f897d（g2_regime/matures_at 迁移，"177测试绿"）→ a555c5f（1503→1923）。后续链：10effc1 → 2276ec9 → 5fe893b（修 500，177/177）→ 50f1d78（施工路径）→ e9aac75（R3）→ 42a9c62（细则）→ d349dac（R4 首跑 FAIL→根因）→ 6c208c8（细则 D）→ 4685bc2（门 pending 只差②）→ **会话中新增**：bc34826（②收据落盘＋初版一致率 35.7% 不采信＋揪出 machine 段 8 条假阳性）→ **296d97a（G2 门首达 PASS：②100% 采信 YES；machine 段改按 51 个已注册 kind 契约；残余风险已披露）** → bc7971e（阶段3转正留痕）。dd6c13b（F16 store 修复，自称"白名单"）亦在史（`git log --all` 核得）。
+任务背景 4 项全部在史且语义与提交信息相符：3e7f140（R4 拍板）→ 223c93c（F16 脚本修复）→ 89fc7fd（g2_regime/matures_at 迁移，"177测试绿"）→ a48cfba（1503→1923）。后续链：5b6f484 → f76cc8e → b971a8d（修 500，177/177）→ 9399422（施工路径）→ 85cc1f5（R3）→ 744f23b（细则）→ 09babe9（R4 首跑 FAIL→根因）→ 2cdfc68（细则 D）→ 0ff3efa（门 pending 只差②）→ **会话中新增**：c948d3d（②收据落盘＋初版一致率 35.7% 不采信＋揪出 machine 段 8 条假阳性）→ **7ee6897（G2 门首达 PASS：②100% 采信 YES；machine 段改按 51 个已注册 kind 契约；残余风险已披露）** → 34f98f5（阶段3转正留痕）。f77da71（F16 store 修复，自称"白名单"）亦在史（`git log --all` 核得）。
 
 ### §4.2 未提交改动（15:40 时点，git status --porcelain 非忽略项）
 
@@ -159,7 +159,7 @@ SQL：`SELECT COUNT(*) n FROM predictions WHERE evidence_json LIKE '%truth_previ
 ### ✅ 可直接引用（我已独立复现）
 - 账本：**1923 题**；resolved **704**（true 376 / false 328）；未解 1219；tautology 30（不进池）；checklist_hash 空值 **0**（v2 1681/bf1 152/v1 90）。
 - R4 迁移：21 列；`g2_regime='R4'`×1923；`matures_at` 非空 1046；迁移前快照 sha256 `3d1edec0…` 已留痕。
-- **门读数（g2-report.cjs 复跑）**：① **1046** PASS（realtime 517/backfill 529；L3 724+L2 322；resolved 198）｜③ **PASS**（短 419/中 77/长 21，长全 realtime，长∩最难 18=85.7%，严格读法独立长 3=FAIL 已留档）｜④ **808** PASS（443+365；baseRateNote 解析 933/1046）｜⑤ 月节律仅报告（2026-09 realtime 552/backfill 152）。**② 105/105=100%**（296d97a 门首达 PASS）。
+- **门读数（g2-report.cjs 复跑）**：① **1046** PASS（realtime 517/backfill 529；L3 724+L2 322；resolved 198）｜③ **PASS**（短 419/中 77/长 21，长全 realtime，长∩最难 18=85.7%，严格读法独立长 3=FAIL 已留档）｜④ **808** PASS（443+365；baseRateNote 解析 933/1046）｜⑤ 月节律仅报告（2026-09 realtime 552/backfill 152）。**② 105/105=100%**（7ee6897 门首达 PASS）。
 - 命题 A 接线：verdicts.js 证据块 3.0＋P1B_EVIDENCE_V3 消融开关真实在盘并有测试；PREREG 版本声明已写、hash 双复算命中（**但该修订未提交**）。
 - 177/177 测试绿（1.0 秒，:memory:）。
 
@@ -172,10 +172,10 @@ SQL：`SELECT COUNT(*) n FROM predictions WHERE evidence_json LIKE '%truth_previ
 - 合格池 **1473**（施工路径 §1，1503 快照）→ 旧公式 1893 / R4① 1046。
 - horizon **617/66/21**（同上）→ 同公式 427/77/21（负 521 单列）；长桶 21 不变、≥10 仍成立。
 - 到期未结 **262**（R2）→ **433**（wide_backfill 225＋b4_backfill 171＋b3_backfill 37），**未结清**，daemon 不覆盖新 kind，取数函数移植在途（corpus-resolve.cjs +358 行未提交）。
-- "g2-report.cjs 待按 R4 实现"（施工路径 §2 路径 5）→ **已实现并首跑 PASS**（bc34826/296d97a）；审议基线应更新。
+- "g2-report.cjs 待按 R4 实现"（施工路径 §2 路径 5）→ **已实现并首跑 PASS**（c948d3d/7ee6897）；审议基线应更新。
 
 ### 🔴 红队发现现状（未修项，引用数字时须知）
-- **F16 守卫仍是黑名单**（R3 已登记；本次源码逐行＋内存探针双重复核确认；`:145` 注释与 dd6c13b message 的"白名单/未知键抛错"说法均与实现不符）。
+- **F16 守卫仍是黑名单**（R3 已登记；本次源码逐行＋内存探针双重复核确认；`:145` 注释与 f77da71 message 的"白名单/未知键抛错"说法均与实现不符）。
 - **public_exposure 879 行 NULL 原样**（脚本面已修、数据面未回填；b4 新行正常）。
 - **baseline_brier 仍 0 行**（④ 已用 baseRateNote 外生解析旁路，N1 不再阻塞门）。
 - **truth_preview 152 条仍在 evidence_json**（全为已解行；F4 分库未做，未恶化）。

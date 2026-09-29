@@ -8,12 +8,12 @@
 
 | 项 | 值 | 证据 |
 |---|---|---|
-| 工作区／HEAD | 干净／`23843df` | `git status --porcelain`／`git log --oneline -1` |
+| 工作区／HEAD | 干净／`6f10eed` | `git status --porcelain`／`git log --oneline -1` |
 | 8787 | 未监听（netstat 命中 0） | 写库前记档纪律 |
 | 写前指纹 | predictions 1992/`14c519537f3eeb03`｜verdicts 5156｜truth_vault 1992｜games 88｜events 556｜claims 447 | `.scratch/p26/fp-before.json` |
 | ★与 09-18 写后比对 | **六表 sha 逐位相同** ⇒ 无第三方写入 | vs `.scratch/p25/fp-final.json` 全 MATCH |
 | 已解／未解／到期面 | 1553／439／**105**（L2 42｜L3 57｜L5 6） | 同上（due=2026-09-19） |
-| 修复层在位 | `resolve-spec-derive.test.cjs` 6/6 绿（修复＝commit `0ab7cc3`） | 写入前预检 |
+| 修复层在位 | `resolve-spec-derive.test.cjs` 6/6 绿（修复＝commit `00f77a8`） | 写入前预检 |
 
 到期面按 kind（前位）：openmeteo wind 16／sunshine 16／precip 14／frankfurter 15／ghcn 10／oddsapi 6／kraken 6／dlt 6／noaa_tide 5／npm 4／cta 3／elexon 2／co2 1／mlb 1。
 

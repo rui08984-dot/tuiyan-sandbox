@@ -9,8 +9,8 @@
 
 ## 已完成（全部带证据）
 
-1. **（十九）批 · 9 臂解耦实验**：PREREG 冻结（`.scratch/forecast-debate/PREREG-9臂解耦-v1.md`，sha `072e8486…`、MATCH=true）＋锚题 40＋400 条件跑批（608 调用／≈¥3.25／覆盖 390）⇒ 读数 C0 通过／C1 角色效应不可辨／C2 不可辨／λ̂_lo=−0.0792 ⇒ **出口 ③-b**。证据：收据 `p1b/sim/out/decouple9-receipt-20260917.md`＋读数件 `decouple9-analysis-20260917.{json,md}`＋commit `a9002bf`。
-2. **（二十）批 · 到期题例行结算 4 条**：safe-mutation 五步＋vault-sync（diff 0／ok／predictions 零改动）＋读数刷新（L3 可计分 529→533；分域 28→29 格）＋E2 预检稳定性自证（改层仍 0／L1×L6 ρ̂ 逐位不变／L2×L3 ρ̂≡1）。证据：收据 `p1b/sim/out/resolve-routine-receipt-20260917.md`＋commit `db1e1d2`。
+1. **（十九）批 · 9 臂解耦实验**：PREREG 冻结（`.scratch/forecast-debate/PREREG-9臂解耦-v1.md`，sha `072e8486…`、MATCH=true）＋锚题 40＋400 条件跑批（608 调用／≈¥3.25／覆盖 390）⇒ 读数 C0 通过／C1 角色效应不可辨／C2 不可辨／λ̂_lo=−0.0792 ⇒ **出口 ③-b**。证据：收据 `p1b/sim/out/decouple9-receipt-20260917.md`＋读数件 `decouple9-analysis-20260917.{json,md}`＋commit `970987e`。
+2. **（二十）批 · 到期题例行结算 4 条**：safe-mutation 五步＋vault-sync（diff 0／ok／predictions 零改动）＋读数刷新（L3 可计分 529→533；分域 28→29 格）＋E2 预检稳定性自证（改层仍 0／L1×L6 ρ̂ 逐位不变／L2×L3 ρ̂≡1）。证据：收据 `p1b/sim/out/resolve-routine-receipt-20260917.md`＋commit `b9d2fca`。
 3. **本锚的起点盘点**（下表）——**核对方式**＝逐项读盘上产物/脚本/件，非回忆。
 4. **步骤 1 完成 · 组合预检 §3.2＋§3.4 补齐**（闭第 2 期 #3）：
    - 落点＝`p1b/scripts/e2-combo-precheck.cjs`（**同一脚本**，照 PREREG §3.2「与 1 同脚本」）；件 `e2-combo-precheck-20260917.{json,md}` 新增键 `s32_falsification`／`s34_agreement`。
@@ -93,7 +93,7 @@
 - [x] **2. A1 假设重算器完整版**（第 3 期首选；v0 只做排除集重算） ← ✅ 2026-09-17 完成（见「已完成 5」）
 - [x] **3. 结果缓存生产接线**（第 1 期 #7 尾巴；改 LLM 调用路径，**须谨慎＋开关默认关**） ← ✅ 2026-09-17 完成（见「已完成 6」）
 - [x] 4. 索引与地图同步（project-atlas 产地图节＋留痕＋README＋p19 锚＋交接件） ← ✅ 2026-09-17 完成（A 类 §10 重刷 350→365 行＋B 类 §54；留痕 §86；README §4.5；p19 锚 §（二十一）＋索引 125 块；p23 锚；交接件 §21）
-- [x] 5. 落盘审计（逐件核存在＋`git ls-files` 在库＋工作区 0 未提交）＋提交＋记忆同步 ← ✅ 2026-09-17 完成（commit `ecef4b3`）
+- [x] 5. 落盘审计（逐件核存在＋`git ls-files` 在库＋工作区 0 未提交）＋提交＋记忆同步 ← ✅ 2026-09-17 完成（commit `6656c2a`）
 - [x] 6. （备选）A2 可解性上界探针／O1b kNN 对内版 ← **未做（正确：须先立新 PREREG，属拍板项）**
 - [x] 7. **（二十二）批 · 9 臂读数晋升入账本 ＋ 五项待裁裁决落地** ← ✅ 2026-09-17 完成（收据 `p1b/sim/out/decouple9-promote-receipt-20260917.md`；见「已完成 7」）
 

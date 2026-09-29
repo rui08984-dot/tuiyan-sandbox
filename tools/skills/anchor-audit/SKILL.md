@@ -43,7 +43,7 @@ node scripts/anchor_audit.mjs <锚或交接.md> <项目根目录> [--json]
 [OK]      p1b/scripts/corpus-backfill.cjs
 [MISSING] p1b/src/foo.js          ← 红
 [SKIP]    （描述性文本）
-[COMMIT]  44e127d OK
+[COMMIT]  eab2a8e OK
 ----
 总计 42 条引用 | OK 40 | MISSING 2 | SKIP 0 | COMMIT-OK 5
 ```

@@ -2,7 +2,7 @@
 
 日期：2026-09-12 ｜ 执行：施工棒（p16） ｜ 状态：**M1 完成停等验收**（M2 待 M1 验收后开工）
 
-前置：R-A 已验收（268/270，判据计分在 p15；commit 链 2d99a13→1536ec6→7bf650b→572088b→3144452→a1f7f1d→c65d66a）。
+前置：R-A 已验收（268/270，判据计分在 p15；commit 链 349db47→e622408→6c20b0a→2fa11f2→0e6f153→cd64263→ed7d644）。
 
 ## M1 · 清单与机制件
 
@@ -18,7 +18,7 @@
 - **routes/verdicts.js**：POST body 可选 `runId`/`model` 透传 saveVerdict（p13 版写端已支持两列；缺省 NULL=旧调用方兼容）；响应 saved[] 带 run_id/model 回显。
 - **judge-runner.cjs**：inject body 带 `runId`（=PREREG-判词重跑-v1.md 冻结 sha256 **前 12 位**，动态计算、排除 `> sha256` 行口径与文件协议一致，文件缺失如实 'prereg-missing'）+ `model='tokenrhythm/glm-5.3-flash'`；--limit 烟测参数沿用 R-A 版。
 - **verdicts.test.cjs** +1 用例：POST 带 runId/model → 落库读回+响应回显；缺省 → NULL（旧调用方兼容）。
-- **冻结 hash 事实链（如实记录）**：批次 1.5 落盘的 e2609e68（pwsh 口径）不可复算（R-A 回合 _ra-hash2.cjs 反向破解未命中即证据）；R-A 冻结 commit a1f7f1d 记档权威值 **f232e2a546890fab…**；本回合曾误把工作区（被回退污染的 e2609e68 版）改写为又一个 pwsh 口径值 f2d8fb3b，已用 `git checkout --` 恢复 HEAD 权威版并 node 口径复算**精确命中 f232e2a5**（judge-runner runId 动态计算自动=f232e2a54689）。教训=hash 计算禁止 pwsh Set-Content 中转（BOM/CRLF 污染），统一 node 原字节口径。
+- **冻结 hash 事实链（如实记录）**：批次 1.5 落盘的 e2609e68（pwsh 口径）不可复算（R-A 回合 _ra-hash2.cjs 反向破解未命中即证据）；R-A 冻结 commit cd64263 记档权威值 **f232e2a546890fab…**；本回合曾误把工作区（被回退污染的 e2609e68 版）改写为又一个 pwsh 口径值 f2d8fb3b，已用 `git checkout --` 恢复 HEAD 权威版并 node 口径复算**精确命中 f232e2a5**（judge-runner runId 动态计算自动=f232e2a54689）。教训=hash 计算禁止 pwsh Set-Content 中转（BOM/CRLF 污染），统一 node 原字节口径。
 
 ### 4. 哨兵熔断（p1b/sim/batch-runner.cjs，S1 A4 修法）
 - runSentinel 写报告后读回文本：`/WARN/` 命中 → `prog.sentinelWarns=(prog.sentinelWarns||0)+1` 否则清零；**连续 ≥2 → stepLog('STOP: sentinel WARN ×2 — 人工复核门')+saveProg+return**（与 token/llm-fail 熔断同级同形态）；哨兵本体不动（其诚实边界声明完善）。
@@ -55,7 +55,7 @@
 ## 4. 测试与 commit
 
 - node --test **158/158 全绿**（157+l0Gate 双口径用例；full-run.out 已刷新）
-- commit hash 见 git log「批次2-M2：l0Gate 双口径+模板 v2 落库 360+PREREG-RB v1 草案」（=9aa1a53）
+- commit hash 见 git log「批次2-M2：l0Gate 双口径+模板 v2 落库 360+PREREG-RB v1 草案」（=b344f43）
 
 ---
 
@@ -63,7 +63,7 @@
 
 ## 冻结与撤回留痕
 
-- **冻结 commit 锚=09706e3**「PREREG-RB v1 冻结+hash 记档（ca1b5cdb）」；hash=ca1b5cdbddfc7a3333b827fb453972e5f0c063cfe3f20e089bcc3b91752ed2bb（node 原字节口径排除 hash 行，复算自洽已验证；pwsh Set-Content 中转禁用——p16 M1 教训沿用）。文件名后缀「-待确认」为历史遗留，状态以文件头「已冻结」为准。
+- **冻结 commit 锚=964218b**「PREREG-RB v1 冻结+hash 记档（ca1b5cdb）」；hash=ca1b5cdbddfc7a3333b827fb453972e5f0c063cfe3f20e089bcc3b91752ed2bb（node 原字节口径排除 hash 行，复算自洽已验证；pwsh Set-Content 中转禁用——p16 M1 教训沿用）。文件名后缀「-待确认」为历史遗留，状态以文件头「已冻结」为准。
 - **archive-rb-pre**：R-A 产 verdicts 268 行全列导出 → .scratch/forecast-debate/verdicts-archive-rb-pre-20260912.json（复核回读=268）；run_id 分布全 NULL（R-A 跑批时通道未建，历史事实）。**不清表**：R-B 判词落同一 verdicts 表，批次隔离由 runId 列承担（M1 通道）；R-A 268 行零触碰。
 
 ## 烟测记录（2 题×3 路 live，5/6 行实证）

@@ -1,6 +1,6 @@
 # p15-PROGRESS · 批次1-M1+M2 · A1 三件套收口（施工棒）
 
-日期：2026-09-12 ｜ 执行：施工棒（p15） ｜ 状态：**M1 验收通过（1536ec6/7bf650b），M2 完成，停等验收**
+日期：2026-09-12 ｜ 执行：施工棒（p15） ｜ 状态：**M1 验收通过（e622408/6c20b0a），M2 完成，停等验收**
 
 ## M2 · apply 回填+tautology 置位+档案更正（2026-09-12）
 
@@ -28,9 +28,9 @@
 - 禁跑 judge-runner（重跑属 PREREG 后）✓；禁改 verdicts.js ✓；8787 零接触 ✓；临时脚本 _m2-tautology.cjs 已删
 - M2 的库写入仅两处：90 条 evidence_json 回填 + 30 条 tautology 置位（均队长指令原文口径）
 
-## M1 · A1 三件套代码+dry-run（已验收 1536ec6+7bf650b）
+## M1 · A1 三件套代码+dry-run（已验收 e622408+6c20b0a）
 
-## 改动清单（commit①=2d99a13 批次0.5；commit②=1536ec6 批次1-M1）
+## 改动清单（commit①=349db47 批次0.5；commit②=e622408 批次1-M1）
 
 | # | 文件 | 改动 |
 |---|---|---|
@@ -94,7 +94,7 @@ MODE=DRY-RUN
 
 # 批次 1.5 · TS/Platt 回测+Murphy 报表+PREREG v1（2026-09-12）
 
-前置：M2 验收通过（572088b）。本批次三件全零 LLM、库只读、未动 src/test。
+前置：M2 验收通过（2fa11f2）。本批次三件全零 LLM、库只读、未动 src/test。
 
 ## 1. ts-rebacktest.cjs（LOO 主口径）
 
@@ -129,7 +129,7 @@ MODE=DRY-RUN
 
 - PREREG-判词重跑-v1.md 冻结收口：头行「已冻结」（队长 2026-09-12 所改）；sha256 重算 = `f232e2a546890fabe5faf04c769b4628295d447faf0b4e5f577da3ec24eeb319`，L3 括注改「已冻结版正文 hash」
 - 口径（显式记档，`.scratch/forecast-debate/_ra-hash.cjs` 为复现脚本）：工作区文件原始字节（UTF-8/LF/无 BOM），**整行删除**「> sha256」行（含其行尾换行）后其余全文取 sha256；--apply 后自洽复算=同值 ✓
-- 旧值 e2609e68… 不可复现如实记档：对草案 blob（3144452，5898B）试 13 种排除口径假设（drop/empty × LF/CRLF × trim、保留前缀挖空值、仅挖 hex、`<HASH>` 占位、原文含行）全不命中——判为历史口径漂移；新 hash 以显式口径+脚本为复现锚
+- 旧值 e2609e68… 不可复现如实记档：对草案 blob（0e6f153，5898B）试 13 种排除口径假设（drop/empty × LF/CRLF × trim、保留前缀挖空值、仅挖 hex、`<HASH>` 占位、原文含行）全不命中——判为历史口径漂移；新 hash 以显式口径+脚本为复现锚
 - L5「当前版本=待确认版」为历史状态行，按施工令未动（改判据外文本超出 hash 行授权），留队长裁定
 - commit⑤ hash 见 git log「批次1-R-A：PREREG v1 冻结+hash 记档」
 

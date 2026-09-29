@@ -78,7 +78,7 @@ flowchart TB
         SECURE["网络默认收紧<br/>127.0.0.1 ＋ 令牌可选"]
         TLM["埋点 analytics<br/>作者/访客可分"]
         VIEWS["我的题/语料库/others<br/>三桶恒等式"]
-        HOLE1["密钥清史未做<br/>424 commit + 6 悬空 blob<br/>待创始人授权"]
+        HOLE1["密钥清史已闭 0929<br/>441 commit 零命中<br/>轮换仍待创始人"]
         HOLE2["analytics 已注册 0928<br/>server.js:190 ✅"]
         HOLE3["记一笔闭环已闭 0929<br/>api.ts:333 真 POST ✅"]
         HOLE4["ResolvePage 两视图未改<br/>0929 核实仍 open"]
@@ -122,5 +122,5 @@ flowchart TB
     classDef notstarted fill:#546e7a,color:#fff
 
     class P0,P1,P2,P3,P4,P5,A1,TB,R3,LEDGER,VAULT,INTAKE,ENGINES,STAGE4,CAL,BOARD,PREREG,TEST,SCRIPTS,UI,HANDOFF,GATE,F1,F4,F5,F6,GUARD,EXPIRE,FROZE,SCRIPTG,SECURE,TLM,VIEWS,REACH,GATE9,BR,LEAKSTATE,PROTO,MCPL,PROTOCOL,HOLE2,HOLE3 done
-    class I1 doing
-    class A3,A5,HOLE1,HOLE4 notstarted
+    class I1,HOLE1 doing
+    class A3,A5,HOLE4 notstarted
