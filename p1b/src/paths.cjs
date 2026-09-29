@@ -75,14 +75,42 @@ function platformDataDir(o) {
 
 /**
  * 现在是不是在**源码树**里跑（而不是打包件）。
- * 判据 = 仓库根有 `.git`；`P1B_DIST=1` 可显式覆盖（打包件不必带 .git）。
+ *
+ * ★2026-09-29 改判据：原来是「仓库根有没有 `.git`」，那是**问错了问题**——
+ *   它问的是「这是不是 git 仓库」，而我们真正要问的是「**我的数据在不在原地**」。
+ *   后果很具体：把仓库打包成 zip（★打包模块产出的正是没有 `.git` 的东西）再本地跑，
+ *   判据翻成 false ⇒ 数据**静默改道** `%LOCALAPPDATA%\P1bSandbox\`，
+ *   不报错、不提示，只是「昨天还在的数据今天不见了」——
+ *   而那是本轮所有改动里唯一一处会让人**今天干不了活**的情形。
+ *
+ * ⇒ 改成**两级**判据，缺一不可：
+ *
+ *   【第一级】原地那个库文件在 ⇒ 落原地，**不看有没有 .git**。
+ *     · 开发者 git clone：库在 ⇒ 落原地（与从前一致，开发态行为零变化）
+ *     · zip 副本里已有数据：库在 ⇒ 落原地（★这一级救的就是上面那个坑）
+ *
+ *   【第二级】原地没有数据 ⇒ 退回看 `.git`。
+ *     ★为什么这一级不能省：**fresh clone 与 fresh zip 在文件系统上完全一样**
+ *       （都有 p1a-terminal/ 与 p1b/、都没有库文件），唯一能分辨的信号就是 `.git`。
+ *       第一版改成「有 p1a-terminal/ 与 p1b/ 就算源码树」，结果 fresh zip 安装
+ *       也往程序目录里写数据 ⇒ **卸载即丢**，比原判据更糟 —— 被测试 ⑨c 当场抓住。
+ *     · 开发者刚 clone 完还没建库：有 .git ⇒ 落原地（他期望数据就在仓库里）
+ *     · 打包件全新安装：无 .git ⇒ 落平台数据目录
+ *     · 想强制走平台目录：`P1B_DIST=1` 显式覆盖（打包启动器用）
+ *
+ * ★为什么第一级也不能只看「有 package.json」：打包件里**也有** package.json
+ *   （根那个就是为打包建的），那样判据恒真 ⇒ 又回到第二级那个坑。
  */
 function isSourceCheckout(o) {
   const opt = o || {};
   const env = opt.env || process.env;
   if (String(env.P1B_DIST || '').trim() === '1') return false;
   const fs = require('fs');
-  return fs.existsSync(path.join(opt.root || REPO_ROOT, '.git'));
+  const root = opt.root || REPO_ROOT;
+  // 第一级：数据已经在这里，就不许改道（管它有没有 .git）
+  if (fs.existsSync(opt.dbPath || REPO_DB_PATH)) return true;
+  // 第二级：数据不在原地 ⇒ fresh clone 与 fresh zip 只剩 .git 能分辨
+  return fs.existsSync(path.join(root, '.git'));
 }
 
 /**
@@ -115,8 +143,13 @@ function resolveDbPath(env, opts) {
   if (explicitDir) return path.join(explicitDir, DB_FILE_NAME);
 
   // ③ 平台默认。★源码树里维持今天的路径（开发态行为零变化），已打包才落平台目录。
+  //   ★2026-09-29 修一处自相矛盾：原先**检测**用 o.dbPath（可注入）、**返回**却硬给
+  //   REPO_DB_PATH —— 查一个路径、返回另一个。生产下两者相同所以从未暴露，
+  //   但它让「注入一个假 root 验证判据」根本验不了（测试只能靠改文件本身）。
+  //   现在检测与返回用同一个 repoDb：生产行为逐字节不变，可注入性则真正成立。
+  const repoDb = o.dbPath || REPO_DB_PATH;
   const inSource = o.isSourceCheckout === undefined ? isSourceCheckout(o) : !!o.isSourceCheckout;
-  if (inSource) return REPO_DB_PATH;
+  if (inSource) return repoDb;
   return path.join(platformDataDir({ env: e, platform: o.platform, homedir: o.homedir }), DB_FILE_NAME);
 }
 

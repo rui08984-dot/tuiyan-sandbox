@@ -150,3 +150,81 @@ test('⑤ 只解析不做 IO：resolveDbPath 本身不建任何目录', () => {
     assert.equal(fs.existsSync(dir), false, '★paths.cjs 只解析：副作用留给调用方（db.init 会 mkdir）');
   } finally { rmrf(base); }
 });
+
+// ══════════════════════════════════════════════════════════════════
+// ★2026-09-29：判据从「有没有 .git」改成「数据在不在原地」。
+//   原判据的具体后果：打包成 zip（★打包模块产出的正是没有 .git 的东西）
+//   再本地跑 ⇒ 数据**静默改道** %LOCALAPPDATA%，不报错不提示，
+//   表现为「昨天还在的数据今天不见了」——本轮唯一一处会让人今天干不了活的。
+// ══════════════════════════════════════════════════════════════════
+
+test('⑨ ★zip 副本（无 .git）里已有数据 ⇒ 必须落原地，不许静默改道', () => {
+  const fs = require('fs');
+  const os = require('os');
+  const path = require('path');
+  const mod = require(path.join(__dirname, '..', 'src', 'paths.cjs'));
+
+  // 造一个「zip 副本」：有 p1a-terminal/ 与 p1b/，**没有 .git**，且库文件在原地
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'p1b-zip-'));
+  try {
+    fs.mkdirSync(path.join(dir, 'p1a-terminal', 'data'), { recursive: true });
+    fs.mkdirSync(path.join(dir, 'p1b'), { recursive: true });
+    const dbFile = path.join(dir, 'p1a-terminal', 'data', 'p1a.db');
+    fs.writeFileSync(dbFile, 'not-a-real-db-but-it-exists');
+    assert.equal(fs.existsSync(path.join(dir, '.git')), false, '前提失效：临时目录里居然有 .git');
+
+    const got = mod.resolveDbPath({}, { root: dir, dbPath: dbFile });
+    assert.equal(got, dbFile,
+      '★zip 副本里数据在原地却被改道到 ' + got + ' —— 这就是「昨天还在今天不见了」');
+  } finally {
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test('⑨b ★反向锁：把判据改回「只认 .git」⇒ 本条必须红', () => {
+  const fs = require('fs');
+  const os = require('os');
+  const path = require('path');
+  const mod = require(path.join(__dirname, '..', 'src', 'paths.cjs'));
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'p1b-zip2-'));
+  try {
+    fs.mkdirSync(path.join(dir, 'p1a-terminal', 'data'), { recursive: true });
+    fs.mkdirSync(path.join(dir, 'p1b'), { recursive: true });
+    const dbFile = path.join(dir, 'p1a-terminal', 'data', 'p1a.db');
+    fs.writeFileSync(dbFile, 'x');
+    // 旧判据在这��情形下的返回值（= false，因为它只看 .git）
+    const legacyAnswer = fs.existsSync(path.join(dir, '.git'));
+    assert.equal(legacyAnswer, false, '前提失效：临时目录里居然有 .git');
+    const env = { LOCALAPPDATA: 'C:/Users/x/AppData/Local' };
+    const platformDefault = path.join(
+      mod.platformDataDir({ env, platform: 'win32' }), 'p1a.db',
+    );
+    const real = mod.resolveDbPath(env, { root: dir, dbPath: dbFile });
+    assert.notEqual(real, platformDefault, '★新判据没生效：结果等于平台默认路径');
+    assert.equal(real, dbFile, '★数据在原地必须落原地');
+  } finally {
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test('⑨c 全新安装（原地无库）⇒ 仍落平台默认（改判据不许把新用户的数据写进 app 目录）', () => {
+  const fs = require('fs');
+  const os = require('os');
+  const path = require('path');
+  const mod = require(path.join(__dirname, '..', 'src', 'paths.cjs'));
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'p1b-fresh-'));
+  try {
+    fs.mkdirSync(path.join(dir, 'p1a-terminal', 'data'), { recursive: true });
+    fs.mkdirSync(path.join(dir, 'p1b'), { recursive: true });
+    // ★必须注入 LOCALAPPDATA：platformDataDir 在 win32 下拿不到它会直接抛，
+    //   那不是本条要测的东西（另两条已覆盖），所以这里把环境显式给足。
+    const env = { LOCALAPPDATA: 'C:/Users/x/AppData/Local' };
+    const got = mod.resolveDbPath(env, { root: dir, dbPath: path.join(dir, 'p1a-terminal', 'data', 'p1a.db') });
+    assert.match(got, /P1bSandbox/i,
+      '全新安装应落平台数据目录，实得 ' + got + '（否则数据会被写进程序目录，卸载即丢）');
+    assert.ok(!got.startsWith(dir),
+      '★数据不许落进程序目录 ' + dir + ' —— 卸载即丢');
+  } finally {
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
+});
