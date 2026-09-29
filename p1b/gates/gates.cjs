@@ -235,7 +235,8 @@ gates.forEach((g, i) => {
           `# gate=${g.id}\n# 第一次 exit=${code}（${secs.toFixed(2)}s）  复跑 exit=0（${rSecs.toFixed(2)}s）\n` +
           `# node ${process.version} / ${process.platform} / ${new Date().toString()}\n` +
           `# 复现：node p1b/gates/gates.cjs 连跑，看是否再触发\n\n` +
-          '===== 第一次的输出（尾部 8KB）=====\n' + firstOut + '\n\n' +
+          '===== 首跑输出未捕获 =====\n' +
+          '（首跑用 stdio:inherit，输出直接进终端。试过改 pipe 捕获：总用时翻倍、且首跑 exit=1 而输出全空，已回退 —— 见上方注释）\n\n' +
           '===== 复跑的输出（尾部 8KB）=====\n' + retry.stdout + '\n',
           'utf8');
         console.log('         已落盘：' + path.relative(REPO, f));
