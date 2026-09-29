@@ -220,7 +220,18 @@ gates.forEach((g, i) => {
     const retry = spawnSync(process.execPath, g.args, { cwd: g.cwd, encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 });
     const rCode = retry.status === null ? -1 : retry.status;
     const rSecs = (Date.now() - t1) / 1000;
-    if (rCode === 0) {
+    // ★2026-09-29 抓到 exit 3221225477 = 0xC0000005 = STATUS_ACCESS_VIOLATION
+    //   （Windows 访问违例、原生崩溃）之后加的判据：
+    //   **「进程崩了」与「测试不稳定」是两回事，不能一起当偶发放过。**
+    //   测试抖动 → 复跑绿合理；进程被原生层打死 → 复跑绿只是把环境故障藏起来。
+    //   退出码落在「信号/原生崩溃」区间（128+ 或 0xC0000000+）⇒ 不复跑、直接判真红。
+    const 是崩溃 = (c) => c >= 3221225472 || (c >= 128 && c < 3221225472) || c < 0;
+    if (是崩溃(code)) {
+      flakyNote = `  ← ★进程崩溃（非测试抖动）：exit=${code}`;
+      console.log(`[闸门 ${no}] 首跑退出码 ${code} 落在「信号/原生崩溃」区间（0xC0000000+ 或 128+）`);
+      console.log('         ⇒ 这是**进程被原生层打死**，不是测试不稳定。**不复跑、不放过** ——');
+      console.log('         复跑能绿只是把环境故障藏起来。常见来源：esbuild 原生二进制被并发/杀软打断。');
+    } else if (rCode === 0) {
       flakyNote = `  ← 疑似偶发：复跑一次已绿（第一次=${code} ${secs.toFixed(2)}s，复跑=0 ${rSecs.toFixed(2)}s）`;
       console.log(`[闸门 ${no}] 复跑一次：退出码 = 0（${rSecs.toFixed(2)}s）—— 判为偶发，本次不计入红。`);
       // ★把两次的输出都**落盘**。控制台会滚走 —— 只打终端的话，下一次偶发等于没记录，
