@@ -25,6 +25,7 @@ import './styles/tokens.css'; // 设计令牌（需在 app.css 之后：body 字
 //   每个 .tsx 里出现的 JSX 组件名，注释里提到某个路由组件名会被误判成「未导入组件」
 //   （已踩过一次：注释里描述重定向时写出了那个标签的名字，测试当场红，pre-commit 拦下了提交）。
 import './styles/charts.css';
+import './styles/charts.css';
 
 const rootEl = document.getElementById('root');
 if (!rootEl) throw new Error('#root 未找到');

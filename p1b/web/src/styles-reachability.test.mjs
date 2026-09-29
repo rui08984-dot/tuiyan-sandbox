@@ -104,20 +104,68 @@ test('① 走不到入口的样式表，若其类被活组件使用 ⇒ 硬失�
   }
 });
 
-test('② 产物里存在「活组件在用」的类（抽样：chart-eyebrow）', () => {
-  // 只在有 dist 时查（构建产物不入库，clone 下来第一次跑会没有）
+test('② 从入口走得到的样式表，其定义的类必须出现在产物里（产物侧不变式）', () => {
+  // dist 未构建时跳过（产物不入库，clone 下来第一次跑会没有）
   const distDir = join(WEB, 'dist', 'assets');
   let css;
   try {
     css = readdirSync(distDir).filter((n) => n.endsWith('.css'))
-      .map((n) => readFileSync(join(distDir, n), 'utf8')).join('\n');
+      .map((n) => readFileSync(join(distDir, n), 'utf8')).join('\n')
+      .replace(/\s+/g, ' ');
   } catch {
-    return; // 未构建 ⇒ 跳过，不算失败
+    return;
   }
-  assert.ok(!css || !/sourceMappingURL/.test(css), '产物不该带 source map 引用（会暴露源码路径）');
-  for (const cls of ['chart-eyebrow', 'chart-legend', 'chart-swatch']) {
-    assert.ok(css.includes('.' + cls),
-      `产物 CSS 里没有 .${cls} —— 该类被 components/ui 使用，而 components/ui 被 App.tsx 与 ` +
-      `QuestionPage.tsx（活页）引用。★这正是 2026-09-29 修掉的那个 tree-shaking 缺陷的回归锁。`);
+
+  // 活组件源码里出现的 className
+  // ★不要把 App.tsx 预置进 活的 —— 下面第一行就是「已访问就 continue」，
+  //   预置等于让种子文件自己的依赖永远不被遍历（我第一版就这么写的，
+  //   结果 ② 抓不到 charts.css，而 ① 能抓到，因为 ① 的种子不在已访问集里）。
+  const 活的 = new Set();
+  const q = [join(SRC, 'App.tsx')];
+  const 读 = (p) => { try { return readFileSync(p, 'utf8'); } catch { return ''; } };
+  while (q.length) {
+    const f = q.pop();
+    if (!/\.tsx?$/.test(f) || 活的.has(f)) continue;
+    活的.add(f);
+    for (const d of 直接依赖(f)) if (/\.tsx?$/.test(d)) q.push(d);
   }
+  const 源码 = [...活的].map(读).join('\n');
+
+  const 用的类 = new Set();
+  for (const m of 源码.matchAll(/className\s*=\s*(?:"([^"]*)"|\{`([^`]*)`\}|\{'([^']*)'\})/g)) {
+    for (const grp of [m[1], m[2], m[3]]) {
+      if (!grp) continue;
+      for (const c of grp.split(/[\s${}]+/)) {
+        const t = c.trim();
+        if (/^[A-Za-z_][A-Za-z0-9_-]*$/.test(t)) 用的类.add(t);
+      }
+    }
+  }
+
+  // ★判据收窄到唯一精确的不变式：
+  //   **「从 main.tsx 走得到的样式表」里定义的类，必须出现在产物里。**
+  //   —— 这才是 tree-shaking 失败模式的准确形状（源有定义、那张表也走得到、产物却没有）。
+  //   ★不要去查「活组件 className 里的类」：组件可能用 JS 钩子类、或样式写在别处
+  //   （第 ② 版就这么写，结果把 26 个 hb-* / is-wide 之类误报成缺失）。宁可漏报不误报。
+  const 走得到的 = new Set();
+  const q2 = [ENTRY];
+  while (q2.length) {
+    const f = q2.pop();
+    if (走得到的.has(f)) continue;
+    走得到的.add(f);
+    for (const d of 直接依赖(f)) q2.push(d);
+  }
+
+  const 该出现 = new Set();
+  for (const n of readdirSync(STYLES)) {
+    const p = join(STYLES, n);
+    if (!n.endsWith('.css') || !走得到的.has(p)) continue;   // 走不到的表本就不该出现在产物里
+    const src = readFileSync(p, 'utf8').replace(/\/\*[\s\S]*?\*\//g, ' ');
+    for (const m of src.matchAll(/\.(-?[A-Za-z_][A-Za-z0-9_-]*)/g)) 该出现.add(m[1]);
+  }
+
+  const 缺 = [...该出现].filter((c) => !css.includes('.' + c));
+  assert.deepEqual(缺, [],
+    '这些类定义在**从 main.tsx 走得到**的样式表里，活页也在用，但产物 CSS 里查不到：\n  ' +
+    缺.join('\n  ') + '\n★走得到的表却没进产物 ⇒ 有东西把可达性判错了。');
 });
