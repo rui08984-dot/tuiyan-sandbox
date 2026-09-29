@@ -1,0 +1,60 @@
+{
+  "name": "p1-sandbox-rename-before-publish",
+  "version": "0.1.0",
+  "description": "把判断力做成契约：记录你的判断，然后证明它没有说谎。（本地 SQLite 账本 ＋ Brier 校准 ＋ 五层预测引擎）",
+  "private": false,
+  "type": "commonjs",
+  "main": "p1b/src/server.js",
+  "license": "Apache-2.0",
+  "author": "DSH Captain",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node p1b/src/server.js",
+    "gates": "node p1b/gates/gates.cjs"
+  },
+  "files": [
+    "LICENSE",
+    "docs/RIGHTS.md",
+    "p1a-terminal/package.json",
+    "p1a-terminal/quickref.txt",
+    "p1a-terminal/shap.bat",
+    "p1a-terminal/src",
+    "p1a-terminal/scripts",
+    "p1a-terminal/test",
+    "p1b/package.json",
+    "p1b/start-p1b.bat",
+    "p1b/cli",
+    "p1b/gates",
+    "p1b/mcp",
+    "p1b/scripts",
+    "p1b/skill",
+    "p1b/src",
+    "p1b/test",
+    "p1b/test/fixtures/base-rate-golden.json",
+    "p1b/test/fixtures/base-rate-golden.pre-nfix-20260915.json",
+    "p1b/test/fixtures/odds-scores-sample-20260917.json",
+    "p1b/test/fixtures/stage4-golden-20260916.pre-advance.json",
+    "p1b/test/fixtures/stage4-golden-20260917.json",
+    "p1b/web/index.html",
+    "p1b/web/package.json",
+    "p1b/web/tsconfig.json",
+    "p1b/web/vite.config.ts",
+    "p1b/web/dist.test.mjs",
+    "p1b/web/scripts",
+    "p1b/web/src",
+    "!p1b/test/fixtures"
+  ],
+  "dependencies": {
+    "@fastify/cors": "^11.3.0",
+    "@fastify/static": "^8.0.3",
+    "better-sqlite3": "^13.0.3",
+    "fastify": "^5.2.1",
+    "lunar-javascript": "^1.7.7"
+  }
+}

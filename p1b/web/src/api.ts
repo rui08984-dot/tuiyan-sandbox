@@ -13,6 +13,11 @@ import type {
   AuditG2KpiResult,
 } from './types';
 
+// ★错误文案在**抛错那一处**统一成人话，不逐个页面改：
+//   所有页面本来就在显示 `e.message`，把文案做在这里 ⇒ 一处改动全部受益。
+//   `detail` 另存后端原话，供排错用（用户不必看，开发者要看得到）。
+import { describeHttp } from './lib/errorCopy';
+
 export const USE_MOCK = String(import.meta.env.VITE_USE_MOCK ?? '') === '1';
 
 /**
@@ -35,11 +40,18 @@ const mockApi = new Proxy({} as MockApi, {
 
 const BASE = '/api';
 
+/** 后端答了但没答对。`message` 已是人话（可安全直接展示）；`detail` 是后端原话，排错用。 */
 export class ApiError extends Error {
   status: number;
-  constructor(status: number, message: string) {
+  /** 后端自己那条原话。**用户不必看**，但不许丢——丢了下次排错只能靠猜。 */
+  detail: string;
+  /** 要不要重试：null 是「后端没说」，true/false 是它说的。 */
+  doNotRetry: boolean | null;
+  constructor(status: number, message: string, detail = '', doNotRetry: boolean | null = null) {
     super(message);
     this.status = status;
+    this.detail = detail;
+    this.doNotRetry = doNotRetry;
   }
 }
 
@@ -56,13 +68,29 @@ async function request<T>(path: string, method: string, body?: unknown): Promise
     throw new ApiError(0, '无法连接后端服务（/api）。请确认后端已启动（默认 127.0.0.1:8787）后重试。');
   }
   if (!res.ok) {
-    let msg = 'HTTP ' + res.status;
+    // 后端原话先取出来（如实透传进 hint），人话由 describeHttp 按状态码给
+    let detail = '';
+    let gate: string | undefined;
+    let doNotRetry: boolean | null = null;
     try {
       const data = await res.json();
-      if (data && typeof data.error === 'string') msg = data.error;
-      else if (data && typeof data.message === 'string') msg = data.message;
-    } catch { /* 非 JSON 错误体，保留 HTTP 状态文案 */ }
-    throw new ApiError(res.status, msg);
+      if (data && typeof data.error === 'string') detail = data.error;
+      else if (data && typeof data.message === 'string') detail = data.message;
+      // ★若后端带了结构化裁决（gates / mcp 链路会带），那一层仍然归 exitMap 所有，
+      //   本文件只消费、不解释——不许在这里按码自己判定含义。
+      const v = data && data.verdict;
+      if (v && typeof v.gate === 'string') gate = v.gate;
+      if (v && typeof v.do_not_retry === 'boolean') doNotRetry = v.do_not_retry;
+    } catch { /* 非 JSON 错误体，如实只给状态码那层文案 */ }
+    // ★带了 gate 也不在这里改写文案：那一层的裁决归 exitMap 所有，本处只消费不解释
+    const c = describeHttp(res.status, detail);
+    void gate;
+    throw new ApiError(
+      res.status,
+      c.title + '｜' + c.next + (c.hint ? '（' + c.hint + '）' : ''),
+      detail,
+      doNotRetry ?? c.doNotRetry,
+    );
   }
   if (res.status === 204) return undefined as T;
   return (await res.json()) as T;

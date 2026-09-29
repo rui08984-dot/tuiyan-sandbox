@@ -94,3 +94,8 @@ dashboard.html
 #   要看某次偶发的现场：直接读该目录，或跑 node p1b/gates/gates.cjs 复现。
 #   性质对照：.scratch/audit-* 已被上一条挡住（凭证二次拷贝），本条挡的是「运行日志」。
 .scratch/gate-flakes/
+
+# ===== 种子库（模块 privacy-seed，2026-09-30）=====
+# seed/*.db 是**构建产物**（由 p1b/scripts/make-seed-db.cjs 生成，每次 sha256 都可能变）⇒ 不入库。
+# seed/seed_provenance.json **入库** —— 它是「剔了什么、为什么、剩多少」的留痕。
+seed/*.db

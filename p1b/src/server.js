@@ -16,6 +16,8 @@ const crypto = require('crypto');
 const Fastify = require('fastify');
 
 const { db, llm, engine, P1A_ROOT } = require('./deps');
+const { resolveDbPath, describeDbPath } = require('./paths.cjs'); // C1 runtime-paths：数据目录解析
+const { assertSchemaSupported, migrate } = require('./schemaVersion'); // C1：app_meta ＋ 降级拒绝
 const botcClaims = require('./botc/claims'); // B2：BOTC 适配（剧本/专属谓词私有表）
 const { createProvidersStore } = require('./providersStore');
 const { createTaskQueue } = require('./taskQueue');
@@ -27,6 +29,23 @@ const registerProviders = require('./routes/providers').register;
 const registerOracle = require('./routes/oracle').register; // P2 W1：对局玄学化判词（赛后娱乐彩蛋，恒挂「娱乐参考」，绝不接入游戏研判）
 
 const WEB_DIST = path.join(__dirname, '..', 'web', 'dist');
+
+/**
+ * C2 error-ux：前端没构建时的兜底页。
+ * ★为什么必须是 HTML 而不是 JSON —— 回 JSON 会让人以为「是我地址打错了」，
+ * 于是去 URL 上反复改；而真实原因是**这个服务根本没带页面**。两件事的修法完全不同。
+ */
+const NO_WEB_HTML = [
+  '<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">',
+  '<title>P1b 网页工作台 · 前端没构建</title>',
+  '<style>body{font-family:system-ui,sans-serif;max-width:40rem;margin:4rem auto;padding:0 1rem;line-height:1.7}',
+  'code{background:#eee;padding:.1em .3em;border-radius:3px}</style></head><body>',
+  '<h1>你打开的地址不对。回 <code>/</code> 试试。</h1>',
+  '<p>不过更要紧的是：<strong>这个服务没有带页面</strong>（<code>p1b/web/dist</code> 不存在），',
+  '所以任何地址打开都是这一页。接口（<code>/api/*</code>）仍然是通的。</p>',
+  '<p>修法：在 <code>p1b/web</code> 下跑一次 <code>npm run build</code>，再重启服务。</p>',
+  '</body></html>',
+].join('\n');
 
 // ════════════════════════════════════════════════════════════════════
 // P0-2 暴露面闸（2026-09-28）。设计取向：**默认收紧、可选放宽**。
@@ -109,12 +128,32 @@ function readCookie(req, name) {
 /** 组装 Fastify 实例（不监听；测试用 app.inject 即真 HTTP 语义） */
 async function buildServer(opts) {
   opts = opts || {};
-  const dbPath = opts.dbPath || process.env.P1B_DB_PATH || db.DEFAULT_DB_PATH;
+  // 测试缝：默认仍是 p1b/web/dist。**不设时行为与从前逐字节一致**——
+  // 有了它，「前端没构建」这一形态才能被测，而不必真去删仓库里的 dist
+  // （删了会连累 dist.test.mjs，且中途崩掉就再也回不来）。
+  const webDist = opts.webDist || WEB_DIST;
+  // C1 runtime-paths：库路径改由 paths.cjs 解析（P1B_DB_PATH ＞ P1B_DATA_DIR ＞ 平台默认）。
+  // 源码树里不设任何环境变量时仍解析到今天的路径 —— 开发态行为零变化。
+  const dbPath = opts.dbPath || resolveDbPath();
+  assertSchemaSupported(dbPath); // 降级拒绝：库比程序新 ⇒ 抛错 ⇒ 退出码 6，**且必须在 db.init 之前**
   const llmMock = opts.llmMock !== undefined ? !!opts.llmMock : process.env.P1B_LLM_MOCK === '1';
   const store = createProvidersStore(opts.providersPath || process.env.P1B_PROVIDERS_PATH);
 
   db.init(dbPath); // 复用 p1a 连接管理（:memory: 或共享 data/p1a.db，WAL 多进程安全）
+  await migrate(dbPath, db.getConnection()); // C1：登记/推进 app_meta 版本号。首次登记不备份；真要动结构时先备份（schemaVersion.js:migrate）
   botcClaims.ensureBotcTables(db.getConnection()); // B2：p1b 私有表 botc_games/botc_claims（CREATE TABLE IF NOT EXISTS，additive，零碰 p1a 既有表）
+
+  // C2 error-ux：★「前端没构建」原来在这里静默跳过 —— 服务器照样起来、端口照样通，
+  // 但浏览器打开是 JSON 或空白，**全程没有一句说「前端没构建」**。这正是陌生人最常撞、
+  // 又最难自己查出来的一类故障。现在两路都讲：stderr 给人看，/api/health 给机器判。
+  const webBuilt = fs.existsSync(path.join(webDist, 'index.html'));
+  if (!webBuilt) {
+    process.stderr.write(
+      '[p1b] ⚠ 前端未构建：找不到 ' + path.join(webDist, 'index.html') + '\n' +
+      '        后果：服务与 /api 正常，但**浏览器打开任何地址都不是这个工作台**。\n' +
+      '        修法：cd p1b/web && npm run build，然后重启本服务。\n',
+    );
+  }
 
   const app = Fastify({ logger: opts.logger === true });
   // P0-2：监听形态在 buildServer 里也要算一遍——app.inject 的测试走的是同一条装配路径，
@@ -126,7 +165,7 @@ async function buildServer(opts) {
   if (corsOrigins.length) {
     await app.register(require('@fastify/cors'), { origin: (origin, cb) => cb(null, corsOrigins.includes(origin)) });
   }
-  const ctx = { db, llm, engine, store, llmMock, dbPath, p1aRoot: P1A_ROOT };
+  const ctx = { db, llm, engine, store, llmMock, dbPath, p1aRoot: P1A_ROOT, webBuilt, webDist };
   // B7：fetchImpl 测试缝（extract/advise 共用；生产恒 undefined 零行为变化——同 B3 通道约定）
   ctx.fetchImpl = typeof opts.fetchImpl === 'function' ? opts.fetchImpl : undefined;
   ctx.queue = createTaskQueue({ runner: makeAdviseRunner(ctx), maxTasks: opts.maxTasks || 200 });
@@ -137,6 +176,19 @@ async function buildServer(opts) {
     reply.code(status).send({ error: (err && err.message) ? err.message : String(err) });
   });
   app.setNotFoundHandler((req, reply) => {
+    // C2 error-ux：★404 现在是最坏的一屏——纯 JSON 字符串。陌生人看到
+    // `{"error":"not found: GET /xx"}` 既不知道发生了什么，也不知道该去哪。
+    // 三路分流：
+    //   · /api/*  → 机器契约，**保持 JSON**（前端 fetch 与既有测试都依赖它）
+    //   · 非 /api → SPA fallback：回 index.html（HashRouter 下前端自己路由）
+    //   · index.html 也没有 → 回一页 HTML 人话，**绝不回 JSON**
+    //     （此刻回 JSON 会让人以为是自己地址打错了，而真实原因是「前端没构建」）
+    if (!req.url.startsWith('/api')) {
+      if (webBuilt) {
+        return reply.type('text/html; charset=utf-8').send(fs.readFileSync(path.join(webDist, 'index.html')));
+      }
+      return reply.code(404).type('text/html; charset=utf-8').send(NO_WEB_HTML);
+    }
     reply.code(404).send({ error: 'not found: ' + req.method + ' ' + req.url });
   });
 
@@ -166,6 +218,9 @@ async function buildServer(opts) {
     service: 'p1b-web-workbench',
     db_path: dbPath,
     llm_mock: llmMock,
+    // C2：让**机器**也能判「前端在不在」。只写 stderr 的话，脚本与监控看不见；
+    // 只看这字段的话，人看不见。两者都要，所以两个出口都给。
+    web_built: webBuilt,
     engine: { db_contract: 'v1', reused_from: 'p1a-terminal' },
   }));
 
@@ -189,9 +244,10 @@ async function buildServer(opts) {
   //   纯只读聚合（analyticsStore），不新增表、不改既有端点。
   require('./routes/analytics').register(app, ctx); // 批次三：GET /api/analytics/questions｜/api/analytics/summary（只读聚合）
 
-  // 静态托管前端 dist：存在则挂（挂在 /api 之后，显式路由优先），不存在静默跳过
-  if (fs.existsSync(WEB_DIST)) {
-    await app.register(require('@fastify/static'), { root: WEB_DIST });
+  // 静态托管前端 dist：挂（挂在 /api 之后，显式路由优先）。C2：不再「不存在就静默跳过」——
+  // 没构建这件事已经在上面写进 stderr 并进了 /api/health，这里只管挂不挂。
+  if (fs.existsSync(webDist)) {
+    await app.register(require('@fastify/static'), { root: webDist });
   }
 
   app.decorate('p1b', ctx); // 挂运行参数快照（start 横幅打印实际 dbPath 用）
@@ -217,12 +273,16 @@ async function start() {
   const port = listen.port;
   const host = listen.host;
   const app = await buildServer({ listenConfig: listen });
-  const dbPath = (app.p1b && app.p1b.dbPath) || process.env.P1B_DB_PATH || db.DEFAULT_DB_PATH; // 实际生效 dbPath（横幅铁律：打印真实值）
+  const dbPath = (app.p1b && app.p1b.dbPath) || resolveDbPath(); // 实际生效 dbPath（横幅铁律：打印真实值）
+  const webBuilt = !!(app.p1b && app.p1b.webBuilt); // 与 /api/health 同一个判据，不许两处各判各的
+  const webDist = (app.p1b && app.p1b.webDist) || WEB_DIST;
   await app.listen({ port, host });
   const line = '-'.repeat(64);
   console.log(line);
   console.log('推演沙盘 P1b 网页工作台 · 后端已启动');
-  console.log('  数据库   : ' + dbPath + (dbPath === db.DEFAULT_DB_PATH ? '（与终端共用默认库）' : '（P1B_DB_PATH 覆盖）'));
+  // C1：标签跟着**真实来源**走。用 db.DEFAULT_DB_PATH 硬比会出事——走 P1B_DATA_DIR 时
+  // 它会打「（P1B_DB_PATH 覆盖）」，而实际覆盖它的根本不是那个变量。横幅在说假话。
+  console.log('  数据库   : ' + dbPath + describeDbPath(dbPath));
   console.log('  LLM 模式 : ' + (process.env.P1B_LLM_MOCK === '1' ? 'MOCK（P1B_LLM_MOCK=1，零网络）' : '按激活供应商（无 key 自动落 mock）'));
   console.log('  监听     : ' + host + ':' + port + (listen.exposed ? '（已开到局域网，令牌门生效）' : '（仅本机，局域网访问不通）'));
   if (!listen.exposed) {
@@ -234,7 +294,8 @@ async function start() {
     console.log('  本机访问 : ' + 'http://localhost:' + port);
     console.log('  手机     : ' + 'http://' + (lanAddresses(port)[1] || '').replace(/^https?:\/\//, '') + '  ← 连同一 Wi-Fi，首次打开要带 ?p1b_token=<令牌>');
   }
-  console.log('  前端 dist: ' + (fs.existsSync(WEB_DIST) ? '已挂载 ' + WEB_DIST : '未构建（p1b/web/dist 不存在，仅 API 可用）'));
+  // 横幅铁律：打印真实值。判据与 /api/health 的 web_built 同一个（看 index.html，不只看目录在不在）。
+  console.log('  前端 dist: ' + (webBuilt ? '已挂载 ' + webDist : '未构建（缺 index.html，浏览器打开的不是工作台；仅 API 可用）'));
   console.log(line);
   return app;
 }
@@ -242,7 +303,9 @@ async function start() {
 if (require.main === module) {
   start().catch((e) => {
     process.stderr.write('[p1b] 启动失败: ' + (e && e.stack ? e.stack : String(e)) + '\n');
-    process.exit(1);
+    // C1：退出码 6 = 「库比程序新」。它不是程序错误（1–5），是「你拿错了程序」——
+    // 混成 1 会让人去翻代码日志，而该做的是换程序或回退数据。err.exitCode 由 schemaVersion.js 给。
+    process.exit(typeof e.exitCode === 'number' ? e.exitCode : 1);
   });
 }
 module.exports = { buildServer, start, lanAddresses, resolveListenConfig, isOpenHost, WEB_DIST };

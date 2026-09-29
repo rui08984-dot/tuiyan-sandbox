@@ -1,0 +1,191 @@
+{
+  "生成于": "2026-09-29T20:41:42.569Z",
+  "模块": "privacy-seed",
+  "一句话": "这是示范数据，不是你的成绩。",
+  "免责": "本库由 p1a.db 拷贝而来，剔除了未经同意公开的真实玩家昵称与其角色判断；任何读数都只是演示用。",
+  "来源": {
+    "路径": "p1a-terminal/data/p1a.db",
+    "sha256": "d3f2016a26f07611bc2f2bcdeec39d84f46b4fdae63b7a142a5ad7e5a1592536",
+    "只读收据": "来源 sha256 构建前后一致 ⇒ 未被写入",
+    "结构": {
+      "table": 20,
+      "view": 3
+    }
+  },
+  "产物": {
+    "路径": "seed/p1a-seed.db",
+    "sha256": "31812d1a9086e0ee7b7294505c57f66d5b6163e5a5d553484c4271316bbe2a89",
+    "结构": {
+      "table": 20,
+      "view": 3
+    }
+  },
+  "剔除": {
+    "判据": "① 人工核出的 5 行真人昵称行（按 events.id 逐一列入，game_id=1）；② 引用这 5 行的事件级外键行（claims/actions）；③ hypotheses 整表；④ 真人局上的角色判断（contradictions）；⑤ 零泄漏表整表。",
+    "真人局": [
+      1
+    ],
+    "为什么不用「含中文且含号」": {
+      "该机械判据行数": 458,
+      "后果": "绝大多数是合法盘话（如「3号查杀5号」），按它剔会把种子库掏空 —— spec 明令不做。"
+    },
+    "为什么不用「N号+昵称」做剔除": {
+      "该模式命中行数": 173,
+      "其中真人行": 5,
+      "其中合成局模板行": 168,
+      "后果": "★该模式在合成局里 100% 命中模板盘话（「2号跳预言家」「1号给4号发金水」），按它剔＝ 168 条合法示范数据 + 363 条 claims 一起消失，且 game 2 的事件会归零 ⇒ 种子库变成空壳。**spec 自身有这处矛盾**：Success Criteria 写「= 0 行」，而同文 Boundaries 写「不要掏空种子库」。本脚本取后者（保数据），并把 0 行这条判据记为**未采纳**，理由见此。",
+      "实测证据": "按模式删 173 行后 events 556→383，合成局 551→383，game 2 事件数=0，claims 447→84（孤儿 363）。"
+    },
+    "逐表": {
+      "events": {
+        "剔": 5,
+        "留": 551,
+        "剔掉的_id": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "原因": "这 5 行 raw_text 带 4 位真实玩家的昵称，他们没同意过被公开"
+      },
+      "claims": {
+        "剔": 7,
+        "留": 440,
+        "原因": "指向被剔 events 的外键行，留着就是悬挂引用"
+      },
+      "actions": {
+        "剔": 1,
+        "留": 257,
+        "原因": "同上"
+      },
+      "hypotheses": {
+        "剔": 6,
+        "留": 0,
+        "原因": "spec Success Criteria 要求整表 0（这 6 行是对真人席位的角色判断）"
+      },
+      "contradictions": {
+        "剔": 1,
+        "留": 0,
+        "原因": "★超出 spec 字面清单：这是同一局真人游戏上 LLM 写的角色判断（「真女巫可能恰在5、12其中之一」），与 hypotheses 同类，留着等于把真人局的角色结论发出去"
+      },
+      "analytics_events": {
+        "剔": 0,
+        "留": 0,
+        "原因": "零泄漏锁（spec Success Criteria）"
+      },
+      "analytics_sessions": {
+        "剔": 0,
+        "留": 0,
+        "原因": "零泄漏锁（spec Success Criteria）"
+      },
+      "analytics_visitors": {
+        "剔": 0,
+        "留": 0,
+        "原因": "零泄漏锁（spec Success Criteria）"
+      },
+      "question_owners": {
+        "剔": 0,
+        "留": 0,
+        "原因": "零泄漏锁（spec Success Criteria）"
+      }
+    },
+    "没落盘的": "被剔的原文与昵称 token **一律不写进本文件、任何日志、任何测试夹具**（spec Boundaries: Never）；这里只留条数与 id。"
+  },
+  "读数": {
+    "口径": "五层读数 = 在 outcome∈{true,false} 且 assigned_prob 非空的 predictions 上，按 layer 分组：brier = mean((p − y)²)，y∈{0,1}；accuracy = (p>0.5 与 true 或 p≤0.5 与 false) 的比例。★这与看板简报里的读数（stage4-run.cjs 口径）不是同一个过滤器，两者不可混用。",
+    "分层": {
+      "L1": {
+        "n": 180,
+        "brier": 0.2115,
+        "accuracy": 0.6944
+      },
+      "L2": {
+        "n": 476,
+        "brier": 0.2385,
+        "accuracy": 0.5945
+      },
+      "L3": {
+        "n": 718,
+        "brier": 0.238,
+        "accuracy": 0.5919
+      },
+      "L5": {
+        "n": 56,
+        "brier": 0.1645,
+        "accuracy": 0.8214
+      },
+      "L6": {
+        "n": 270,
+        "brier": 0.1941,
+        "accuracy": 0.7222
+      }
+    },
+    "规模": {
+      "events": 551,
+      "players": 346,
+      "games": 90,
+      "predictions": 1994,
+      "claims": 440
+    }
+  },
+  "闸门": {
+    "全过": true,
+    "结论": [
+      [
+        "[OK]",
+        "G0 产物存在",
+        "文件在",
+        "E:\\music player\\seed\\p1a-seed.db"
+      ],
+      [
+        "[OK]",
+        "G1 真人行名单锁",
+        "5 行全不在",
+        "events.id ∈ {1,2,3,4,5} → 0"
+      ],
+      [
+        "[OK]",
+        "G2 events 昵称锁",
+        "0 行命中身份 token",
+        "账本 109 token × events.raw_text（551 行事件）→ 命中 0 行"
+      ],
+      [
+        "[OK]",
+        "G3 全库身份锁",
+        "全库 0 命中",
+        "扫了 138 个 TEXT 列 × 109 token → 0 命中"
+      ],
+      [
+        "[OK]",
+        "G4 hypotheses 锁",
+        "0 行",
+        "hypotheses → 0"
+      ],
+      [
+        "[OK]",
+        "G4b 角色判断锁",
+        "0 行",
+        "contradictions WHERE game_id ∈ {1} → 0（全表 0 行）"
+      ],
+      [
+        "[OK]",
+        "G5 零泄漏锁",
+        "0 行",
+        "analytics_events=0 analytics_sessions=0 analytics_visitors=0 question_owners=0"
+      ],
+      [
+        "[OK]",
+        "G6 结构锁",
+        "一致",
+        "table=20 view=3（来源 table=20 view=3）"
+      ],
+      [
+        "[OK]",
+        "G7 字节锁",
+        "字节里 0 命中",
+        "扫了 5.86 MB → 0 命中"
+      ]
+    ]
+  }
+}
