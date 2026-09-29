@@ -187,6 +187,11 @@ gates.forEach((g, i) => {
   try {
     // stdio: 'inherit' —— 子进程直接接管终端。--test-reporter=dot 是必须的：
     // 默认 TAP 打 900+ 用例会超 256KB 输出上限（实测，见交付报告）。
+    // ★2026-09-29 试过改成 pipe 捕获输出、让偶发红有证据留底，**害处大于好处，已回退**：
+    //   ① 总用时 13s → 26s（翻倍，而这道门现在每次提交都跑）；
+    //   ② 首跑 exit=1 而 stdout/stderr **全空**、复跑却 exit=0 —— 四道门**每次都这样**，
+    //      像 pipe 下的执行异常而不是测试失败（同一命令单独跑 exit=0 且有正常输出）。
+    //   证据留不住有别的办法：**复跑那次的输出本来就被捕获**，落盘用它即可。
     const r = spawnSync(process.execPath, g.args, { cwd: g.cwd, stdio: 'inherit', shell: false });
     if (r.error) spawnError = r.error;
     code = r.status === null ? 1 : r.status;
@@ -201,7 +206,6 @@ gates.forEach((g, i) => {
     console.log('  常见原因：依赖没装（先在 p1b 与 p1b/web 各跑一次 npm install）。');
   }
 
-  if (g.producesDist && code !== 0) buildFailed = true;
 
   // ★2026-09-29：红的闸**当场自动复跑一次**。
   //   起因是观测到一处偶发红：约 14 次运行里红过 2 次（一次 backend、一次 build+frontend），
@@ -210,7 +214,7 @@ gates.forEach((g, i) => {
   //   第二次还红 ⇒ 是真红，按原样失败。
   //   ★这个判定**故意偏保守**：疑似偶发只是提示，不改变退出码 —— 宁可多红一次，
   //   也不要让一次真回归因为「重跑就过了」被吞掉。
-  let flakyNote = '';
+  let flakyNote = "";
   if (code !== 0) {
     const t1 = Date.now();
     const retry = spawnSync(process.execPath, g.args, { cwd: g.cwd, encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 });
@@ -218,7 +222,26 @@ gates.forEach((g, i) => {
     const rSecs = (Date.now() - t1) / 1000;
     if (rCode === 0) {
       flakyNote = `  ← 疑似偶发：复跑一次已绿（第一次=${code} ${secs.toFixed(2)}s，复跑=0 ${rSecs.toFixed(2)}s）`;
-      console.log(`[闸门 ${no}] 复跑一次：退出码 = 0（${rSecs.toFixed(2)}s）—— 判为偶发，本次不计入红，但请把这条记进 buglog。`);
+      console.log(`[闸门 ${no}] 复跑一次：退出码 = 0（${rSecs.toFixed(2)}s）—— 判为偶发，本次不计入红。`);
+      // ★把两次的输出都**落盘**。控制台会滚走 —— 只打终端的话，下一次偶发等于没记录，
+      //   这个待查项就永远停在「未复现」。落盘是它能被销账的唯一前提。
+      try {
+        const dir = path.join(REPO, '.scratch', 'gate-flakes');
+        fs.mkdirSync(dir, { recursive: true });
+        const stamp = new Date().toISOString().replace(/[:.]/g, '-');
+        const f = path.join(dir, `flake-${stamp}-${g.id}.log`);
+        fs.writeFileSync(f,
+          '# 闸门偶发红 · 现场记录\n' +
+          `# gate=${g.id}\n# 第一次 exit=${code}（${secs.toFixed(2)}s）  复跑 exit=0（${rSecs.toFixed(2)}s）\n` +
+          `# node ${process.version} / ${process.platform} / ${new Date().toString()}\n` +
+          `# 复现：node p1b/gates/gates.cjs 连跑，看是否再触发\n\n` +
+          '===== 第一次的输出（尾部 8KB）=====\n' + firstOut + '\n\n' +
+          '===== 复跑的输出（尾部 8KB）=====\n' + retry.stdout + '\n',
+          'utf8');
+        console.log('         已落盘：' + path.relative(REPO, f));
+      } catch (e) {
+        console.log('         （落盘失败：' + e.message + '）');
+      }
       code = 0;
     } else {
       flakyNote = `  ← 复跑仍红（第一次=${code}，复跑=${rCode}）—— 是真红`;
@@ -227,6 +250,7 @@ gates.forEach((g, i) => {
   }
 
   console.log(`\n[闸门 ${no}] 退出码 = ${code}    用时 = ${secs.toFixed(2)}s${flakyNote}`);
+  if (g.producesDist && code !== 0) buildFailed = true;   // ★放在复跑之后：复跑转绿就不算红，否则会误报「前端跑在陈旧 dist 上」
   results.push({ id: g.id, label: g.label, code, secs, flaky: code === 0 && flakyNote !== "" });
 });
 
