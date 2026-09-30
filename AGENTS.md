@@ -162,3 +162,61 @@ Generated 2026-09-09T00:20:21.128Z · 1679 files · 109703 lines · 1.39s
 
 … 121 more directories not shown
 <!-- dsh-openwolf:end -->
+---
+
+## 机器规则：本机 Python 调用
+
+**必须使用全路径调用解释器：**
+
+```
+C:/Users/crx/AppData/Local/Programs/Python/Python313/python.exe
+```
+
+已装库（已验证可导入，**无需安装任何东西**）：`openpyxl 3.1.5`、`xlsxwriter 3.2.9`。
+
+### 陷阱：PATH 上的 python 是假的
+
+`python.exe` / `python3.exe` 解析到 `C:\Users\crx\AppData\Local\Microsoft\WindowsApps\`，
+那是 **Microsoft Store 占位程序（stub）**，不是解释器。执行它不报错也不输出，`python -V` 无返回、
+`import` 无结果。因此**以下探测方式得出的「Python 不可用」结论一律是错的**：
+
+- `Get-Command python`（只看得到 WindowsApps 路径）
+- `python -V` / `python -c "import ..."`（静默失败）
+
+判断 Python 是否可用，一律直接用全路径执行。
+
+### PowerShell 调用写法
+
+```powershell
+& 'C:/Users/crx/AppData/Local/Programs/Python/Python313/python.exe' 'E:/music player/script.py'
+```
+
+两点注意：
+1. 用**正斜杠** `/` 而非反斜杠 `\`，可避免嵌套工具调用中的转义问题。
+2. 路径含空格（`music player`）必须加引号；中文路径建议写在脚本内部常量里，不要放命令行参数。
+
+<!-- dsh-python:rule -->
+### 陷阱：嵌套工具调用的 `description` 也是必填
+
+在 `run_code` 内部调用 `tools.pwsh` 等嵌套工具时，其 schema 里的 `description` 是**必填**字段。
+漏掉它会在外层参数校验就失败，报错文本是：
+
+```
+ToolCallError: invalid arguments: missing required property "description"
+```
+
+**注意：外层 `run_code` 的 `description` 与内层 `tools.pwsh` 的 `description` 是两个独立字段，都要写。**
+
+```js
+// 错：内层漏了 description
+const r = await tools.pwsh({ command: "echo ok" });
+
+// 对
+const r = await tools.pwsh({ command: "echo ok", description: "连通性测试" });
+```
+
+该报错具有迷惑性：它看起来像 harness 层工具失效，实际上只是本次调用的参数缺失。
+遇到"某个工具突然全挂了"时，先用同一段 `run_code` 程序同时调一个已知可用的工具（如 `tools.write`）做对照，
+若其它工具正常，即可判定是该工具的调用参数问题，而非环境故障。
+
+<!-- dsh-nested-tool:rule -->

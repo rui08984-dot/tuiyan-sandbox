@@ -23,6 +23,7 @@ const { castByNumbers, castByTime, castByRandom, DISCLAIMER } = require('../lib/
 const { ensureOracleReadingsTable, saveOracleReading, listOracleReadings } = require('../db/oracleStore');
 const { getGameOr404 } = require('./games');
 const { httpError, requireInt, requireEnum } = require('../util');
+const { idempotent, ensureIdempotencyTables } = require('./idempotency'); // 2026-09-30 排盘留档写口幂等（发行阻断项）
 
 const METHODS = ['numbers', 'time', 'random'];
 /** 数字起卦防滥用上限（梅花传统任意正整数皆可起卦；服务端只挡天文数字） */
@@ -33,8 +34,13 @@ function register(app, ctx) {
   // p1b 私有表（additive、幂等）。挂在本 register（buildServer 内调用）与 botc 私有表同时机，
   // 换取 server.js 的单次原子编辑（require+register 同一条语句）。
   ensureOracleReadingsTable(db.getConnection());
+  ensureIdempotencyTables(db.getConnection()); // 幂等键私有表（additive、幂等，同上纪律）
 
-  app.post('/api/oracle/cast', async (req, reply) => {
+  // ★2026-09-30：加幂等包装（发行阻断项，见 routes/idempotency.js 文件头）。
+  //   method=random 时客户端超时会重发，而 random 每次派生不同的两数 ⇒ 没有幂等时
+  //   同一句「帮我起一卦」在档案里留下好几条互不相干的记录。带同一个键重发只留一条、
+  //   返回同一个档案 id。没带键的老调用方照写。
+  app.post('/api/oracle/cast', idempotent('POST /api/oracle/cast', async (req, reply) => {
     const body = (req.body && typeof req.body === 'object') ? req.body : {};
     const method = requireEnum('method', body.method, METHODS);
     const params = (body.params && typeof body.params === 'object') ? body.params : {};
@@ -90,7 +96,7 @@ function register(app, ctx) {
       created_at: row.created_at,
       game_id: row.game_id,
     };
-  });
+  }));
 
   app.get('/api/oracle/readings', async (req) => {
     const q = req.query || {};

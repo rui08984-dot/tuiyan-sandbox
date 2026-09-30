@@ -36,19 +36,24 @@ const tools = require('./tools.cjs');
 function capabilities() { return { tools: { listChanged: false } }; }
 
 const INSTRUCTIONS = [
-  '本 server 把本项目「万物可判定性账本」的 18 条只读/写盘 CLI 命令原样暴露成工具。',
+  '本 server 把本项目「万物可判定性账本」的 21 个工具原样暴露给你：18 条 CLI 命令的投影 ＋ 3 条对外工具',
+  '（p1b_note_record 记一笔 / p1b_where_i_bias 我在哪类事上偏 / p1b_which_layer 这事该归哪一类）。',
   '',
-  '三条读法，写进你的输出之前先记住：',
+  '四条读法，写进你的输出之前先记住：',
   '① exit 3 是**裁决不是崩溃**。门禁码走成功通道，返回里 isError 故意是 false，',
   '   真正的结论在 structuredContent.verdict（gate / meaning / where）。',
   '   逐条命令的 exit 3 含义不同，照 meaning 读，不要笼统读成「门禁不通过」。',
-  '② 写生产账本的 p1b_settle_corpus 与写备份的 p1b_backup_offsite **永远不会真的执行** ——',
-  '   确认闸在子进程启动前就拦下了（verdict.gate=\'NOT_CONFIRMED\'，带 will_execute）。',
-  '   把 will_execute 交给人类，别重试。',
+  '② 写生产账本的 p1b_settle_corpus、写备份的 p1b_backup_offsite，以及**记一笔的 p1b_note_record**',
+  '   **永远不会真的执行** —— 确认闸在动作之前就拦下了（verdict.gate=\'NOT_CONFIRMED\'）。',
+  '   前两条带 will_execute（一条可粘贴的命令行）；p1b_note_record 不带，',
+  '   因为落账通路只有 HTTP 端点与网页、CLI 侧没有对应命令，它给的是 write_plan ＋ how_to_record。',
+  '   把它们交给人类，别重试。',
   '③ 「没测到」不等于「通过」：unverifiable / n/a / not_reachable 都要原样报出数量，',
-  '   不能折进通过率里。',
+  '   不能折进通过率里。p1b_where_i_bias 的空榜也是同一类：**空榜是「还没测够」，不是「你没偏」**。',
+  '④ 每条工具的 description 里都有「不能做什么」与「越界时返回什么」两段 —— 转述前先读它们。',
+  '   本 server 不预判未来、不给建议、不碰任何令牌或密钥。',
   '',
-  '本 server 只 spawn 子进程，不自己连 p1a.db；返回体一律是账本中已结算的历史统计事实，',
+  '本 server 只 spawn 子进程（或一个也不起），不自己连 p1a.db；返回体一律是账本中已结算的历史统计事实，',
   '不构成任何对未来结果的判断。',
 ].join('\n');
 

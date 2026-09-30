@@ -132,6 +132,15 @@ const ISOLATED_BACKEND = [path.join('test', 'cli.test.cjs')];
 const ISOLATED_MARKER = 'GATE-SERIAL-ALONE';
 
 /**
+ * ★2026-09-30 新增：偶发红**现场落盘**的机械闸。
+ *   判据（阈值、取「两次里较慢的那次」、为什么取 1 秒而不是 0）全在 `flakeGate.cjs` 里，
+ *   并由 `p1b/test/gate-flake-guard.test.cjs` 用真值测边界。
+ *   ★判据**不住在本文件**：它所在的分支在测试里跑不到（要先让某道闸红、再复跑转绿），
+ *     写在原地就等于没有测试 —— 删掉它、把 1 改成 0，绿灯不会有任何反应。
+ */
+const flakeGate = require(path.join(__dirname, 'flakeGate.cjs'));
+
+/**
  * ★2026-09-29 新增：闸门**自身**的形态自检。
  *   起因是 2026-09-28 第七批我给 `world.run` 传了**目录** `p1b/test`，
  *   Node v24 会把 `--test` 的目录位置参当**模块**去 require ⇒ `Cannot find module`，
@@ -380,23 +389,37 @@ gates.forEach((g, i) => {
       console.log(`[闸门 ${no}] 复跑一次：退出码 = 0（${rSecs.toFixed(2)}s）—— ${本次崩溃 ? '原生崩溃已绕过' : '判为偶发'}，本次不计入红。`);
       // ★把两次的输出都**落盘**。控制台会滚走 —— 只打终端的话，下一次偶发等于没记录，
       //   这个待查项就永远停在「未复现」。落盘是它能被销账的唯一前提。
-      try {
-        const dir = path.join(REPO, '.scratch', 'gate-flakes');
-        fs.mkdirSync(dir, { recursive: true });
-        const stamp = new Date().toISOString().replace(/[:.]/g, '-');
-        const f = path.join(dir, `flake-${stamp}-${g.id}.log`);
-        fs.writeFileSync(f,
-          '# 闸门偶发红 · 现场记录\n' +
-          `# gate=${g.id}\n# 第一次 exit=${code}（${secs.toFixed(2)}s）  复跑 exit=0（${rSecs.toFixed(2)}s）\n` +
-          `# node ${process.version} / ${process.platform} / ${new Date().toString()}\n` +
-          `# 复现：node p1b/gates/gates.cjs 连跑，看是否再触发\n\n` +
-          '===== 首跑输出未捕获 =====\n' +
-          '（首跑用 stdio:inherit，输出直接进终端。试过改 pipe 捕获：总用时翻倍、且首跑 exit=1 而输出全空，已回退 —— 见上方注释）\n\n' +
-          '===== 复跑的输出 =====\n' + retryOut.join('\n') + '\n',
-          'utf8');
-        console.log('         已落盘：' + path.relative(REPO, f));
-      } catch (e) {
-        console.log('         （落盘失败：' + e.message + '）');
+      //
+      // ★2026-09-30 加一道机械闸：**用时不够格的现场不许进证据目录**（判据见 flakeGate.cjs）。
+      //   起因（实测）：`flake-20260930T08-23-28-601Z-backend.log` 记的是
+      //   「首跑 exit=1 / 0.00s，复跑 exit=0 / 0.00s」，而同目录另三份真现场是 78s／112s／123s。
+      //   后端道**单段**就要 100s+，0.00s 的现场在本机物理上不可能是真的 ——
+      //   那份是修闸门时在沙箱里把 spawnSync 打桩的验证产物，误进了证据目录。
+      //   ⇒ 谁按「看最新一份」的惯性去读它，会得出「后端道今天又红了」的错误结论。
+      const 落盘判定 = flakeGate.decide(secs, rSecs);
+      if (!落盘判定.record) {
+        console.log('         ★拒落盘：两次里较慢的一次只有 ' + 落盘判定.slowest.toFixed(2) + 's < ' + 落盘判定.min
+          + 's —— 这不是一次真跑（' + g.id + ' 单段就要 100s+），写进证据目录只会误导下一个按'
+          + '「看最新一份」去读的人。打桩产物请写到别处。');
+      } else {
+        try {
+          const dir = path.join(REPO, '.scratch', 'gate-flakes');
+          fs.mkdirSync(dir, { recursive: true });
+          const stamp = new Date().toISOString().replace(/[:.]/g, '-');
+          const f = path.join(dir, `flake-${stamp}-${g.id}.log`);
+          fs.writeFileSync(f,
+            '# 闸门偶发红 · 现场记录\n' +
+            `# gate=${g.id}\n# 第一次 exit=${code}（${secs.toFixed(2)}s）  复跑 exit=0（${rSecs.toFixed(2)}s）\n` +
+            `# node ${process.version} / ${process.platform} / ${new Date().toString()}\n` +
+            `# 复现：node p1b/gates/gates.cjs 连跑，看是否再触发\n\n` +
+            '===== 首跑输出未捕获 =====\n' +
+            '（首跑用 stdio:inherit，输出直接进终端。试过改 pipe 捕获：总用时翻倍、且首跑 exit=1 而输出全空，已回退 —— 见上方注释）\n\n' +
+            '===== 复跑的输出 =====\n' + retryOut.join('\n') + '\n',
+            'utf8');
+          console.log('         已落盘：' + path.relative(REPO, f));
+        } catch (e) {
+          console.log('         （落盘失败：' + e.message + '）');
+        }
       }
       code = 0;
     } else {

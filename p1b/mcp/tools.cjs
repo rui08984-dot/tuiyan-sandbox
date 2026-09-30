@@ -2,6 +2,15 @@
 /**
  * p1b/mcp/tools.cjs —— `tools/list` 与 `tools/call`。
  *
+ * ── 两张工具表，一个出口（2026-09-30 起）────────────────────────────────────
+ *   · **18 条 CLI 投影**：`toolTable.cjs` ＝ `p1b/cli/commands.cjs` 的 1:1 投影，一个字没改。
+ *   · **3 条对外工具**：`userTools.cjs`。它们在 CLI 侧**没有对应命令**
+ *     （「记一笔」的落账通路只有 HTTP 与网页；「我在哪类事上偏」原先只在网页；
+ *      「该归哪一类」的真源一直是内部件），硬塞进命令表要么新造一条生产写路径、
+ *      要么复制判据，两者都越过本批授权 ⇒ 单独立表（理由见该件头注）。
+ *   两张表**共用同一个 exit 码映射**（`exitMap.cjs`），所以模型读两种来源读到的是同一套
+ *   退出码语义，不需要学两遍。启动时两张表各自断言（`assertCoverage` / `assertUserCoverage`）。
+ *
  * ── 档位 → ToolAnnotations 是 1:1 抄写，不是重新设计 ────────────────────────
  *  `p1b/cli/commands.cjs` 已经把 18 条分成 R/F/W 三档并标了 net（实测 R10 / F7 / W1，
  *  net 唯一一条是 `settle/语料`）。这套分类是本项目「默认只读」纪律的载体，
@@ -32,6 +41,7 @@
  */
 
 const T = require('./toolTable.cjs');
+const U = require('./userTools.cjs');
 const { callCli } = require('./cliBridge.cjs');
 const { mapExit } = require('./exitMap.cjs');
 
@@ -68,7 +78,7 @@ function toolDef(c) {
   };
 }
 
-/** tools/list 的 tools 数组。`allowNet=false` 时滤掉 net:true 的那一条。 */
+/** tools/list 的 tools 数组 = 18 条 CLI 投影 ＋ 3 条对外工具。`allowNet=false` 时滤掉 net:true 的那一条。 */
 function listTools(opt) {
   const allowNet = !opt || netAllowed(opt.env);
   const out = [];
@@ -77,6 +87,9 @@ function listTools(opt) {
     if (c.net && !allowNet) continue;
     out.push(toolDef(c));
   }
+  // ★对外工具一律 net:false（三个都不打网），所以不受 allowNet 闸影响 ——
+  //   「关掉联机」只该摘掉那条 W+confirm 的语料结算件，不该连只读能力一起摘。
+  for (const t of U.listUserTools()) out.push(t);
   return out;
 }
 
@@ -106,6 +119,33 @@ function outDirOf(stderr) {
  */
 function callTool(name, args, opt) {
   const allowNet = !opt || netAllowed(opt.env);
+
+  // ── 对外工具（3 条）：与 CLI 投影走**同一个 exit 码映射**，只有 spawn 方式不同 ──
+  const u = U.lookupUserTool(name);
+  if (u) {
+    if (u.run === 'confirm-gate') {
+      // ★写意图工具：一个子进程都不起。返回体与 CLI 确认闸同构（verdict.gate='NOT_CONFIRMED'），
+      //   所以模型读这两种闸读到的是同一句话，不用学两套语义。
+      return Object.assign({ resultType: 'complete' }, U.callConfirmGateTool(u, args || {}));
+    }
+    const urun = U.spawnUserScript(u, args || {}, opt);
+    const umapped = mapExit(urun);
+    const utext = urun.stdout + (urun.stderr ? urun.stderr : '');
+    const usc = Object.assign({}, umapped.structuredContent, {
+      argv: urun.argv,
+      stdout_bytes: Buffer.byteLength(urun.stdout, 'utf8'),
+      stderr_bytes: Buffer.byteLength(urun.stderr, 'utf8'),
+    });
+    // 两条只读子进程都带 --json：解析结果挂在 data 上，模型既能读原文也能读结构化字段。
+    // 解析失败不抛 —— 原文已经逐字带回来了，解析只是**附加**的一份便利视图。
+    if (urun.exit === 0) {
+      try { usc.data = JSON.parse(urun.stdout); } catch (e) { usc.data = null; usc.data_parse_error = e.message; }
+    }
+    const uresult = { resultType: 'complete', content: [contentBlock(utext)], structuredContent: usc };
+    if (umapped.isError) uresult.isError = true;
+    return uresult;
+  }
+
   const c = T.lookup(name);
   if (!c) {
     // 「找不到这个工具」是**本层**的错（模型叫错了名字），按官方 CallToolResult 的注释，

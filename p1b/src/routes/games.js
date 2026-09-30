@@ -10,6 +10,7 @@ const botcClaims = require('../botc/claims'); // B2：botc 局剧本挂 p1b 私�
 const { SCRIPTS } = require('../botc/roles');
 const { httpError, requireInt, requireEnum, requireNonEmptyString, GAME_TYPES, toInt } = require('../util');
 const { listAdapters } = require('./adapters'); // 通用化：可用类型 = 内置三型 ∪ adapters/ 目录登记 id
+const { idempotent, ensureIdempotencyTables } = require('./idempotency'); // 2026-09-30 建局写口幂等（发行阻断项）
 
 function publicGame(row, currentDay) {
   return {
@@ -46,6 +47,8 @@ function allowedGameTypes() {
 }
 
 function register(app) {
+  // 幂等键私有表（additive、幂等；与 events/oracle 路由同一时机建，省 server.js 的一次原子编辑）
+  ensureIdempotencyTables(db.getConnection());
   app.get('/api/games', async () => {
     const conn = db.getConnection();
     const rows = conn.prepare(
@@ -57,7 +60,11 @@ function register(app) {
     return { games: rows.map((r) => Object.assign(publicGame(r, r.max_day || 0), { event_count: r.event_count, max_day: r.max_day || 0, script: r.script || null })) }; // P1b-4 列表需历史局标记：补 SQL 已算字段
   });
 
-  app.post('/api/games', async (req, reply) => {
+  // ★2026-09-30：建局写口加幂等包装（发行阻断项，见 routes/idempotency.js 文件头）。
+  //   键由调用方给（HTTP 头 Idempotency-Key 或 body.idempotency_key）；没带键的调用方**照写**，
+  //   只在响应里如实回报"这次没带键"并在 idempotency_keys 留一行 keyed=0 证据。
+  //   带同一个键重发 ⇒ 建局一次、返回同一个局 id（超时重试不再多出一局）。
+  app.post('/api/games', idempotent('POST /api/games', async (req, reply) => {
     const body = req.body || {};
     const name = requireNonEmptyString('name', body.name === undefined ? '' : String(body.name));
     const gt = body.type !== undefined ? body.type : body.game_type;
@@ -76,7 +83,7 @@ function register(app) {
     const players = db.getPlayers(game.id);
     reply.code(201);
     return { game: Object.assign(publicGame(game, 0), { script }), players };
-  });
+  }));
 
   app.get('/api/games/:id', async (req) => {
     const id = requireInt('game id', req.params.id, 1);

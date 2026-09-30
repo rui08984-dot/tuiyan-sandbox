@@ -13,6 +13,7 @@ const { withBotcExtractContext, mapBotcCarriersBack } = require('../botc/extract
 const { buildMacroCard, MACRO_KINDS } = require('../macros');
 const { resolveLlmOptions } = require('../llmOptions');
 const { getGameOr404, currentDayOf } = require('./games');
+const { idempotent, ensureIdempotencyTables } = require('./idempotency'); // 2026-09-30 入账写口幂等（发行阻断项）
 const {
   httpError, requireInt, requireEnum, requireNonEmptyString,
   PHASES, PREDICATES, ACTIONS, ACTIONS_NEED_TARGET, EVENT_TYPES,
@@ -77,6 +78,8 @@ function validateAction(gameId, a, idx) {
 }
 
 function register(app, ctx) {
+  // 幂等键私有表（additive、幂等；与 games/predictions 路由同一时机建）
+  ensureIdempotencyTables(db.getConnection());
   // ── §4 宏：直接结构化构造（不走 LLM），产同构待确认卡 ──
   app.post('/api/games/:id/events/macro', async (req) => {
     const gameId = requireInt('game id', req.params.id, 1);
@@ -134,7 +137,11 @@ function register(app, ctx) {
   });
 
   // ── 确认入账（宏与自由文本同一路径；事务原子）──
-  app.post('/api/games/:id/events/confirm', async (req, reply) => {
+  // ★2026-09-30：加幂等包装（发行阻断项，见 routes/idempotency.js 文件头）。
+  //   本口一次写 event+claims+actions 三处纯 INSERT，重试一次＝账本里多一段没发生过的剧情，
+  //   而 claim/action 只有 retract 没有删除（账本纪律）⇒ 重试的残留撤不掉。
+  //   键由调用方给；没带键的老调用方**照写**（响应里如实回报 + 落一行 keyed=0 证据）。
+  app.post('/api/games/:id/events/confirm', idempotent('POST /api/games/:id/events/confirm', async (req, reply) => {
     const gameId = requireInt('game id', req.params.id, 1);
     getGameOr404(gameId);
     const body = req.body || {};
@@ -198,7 +205,7 @@ function register(app, ctx) {
     tx();
     reply.code(201);
     return { ok: true, event_id: eventId, seq, claim_ids: claimIds, botc_claim_ids: botcClaimIds, action_ids: actionIds, warnings: split.warnings || [] };
-  });
+  }));
 
   // ── claims 修订 ──
   app.post('/api/games/:id/claims/:claimId/edit', async (req) => {

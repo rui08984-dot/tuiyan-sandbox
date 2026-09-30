@@ -33,6 +33,12 @@ import { Wait } from '../components/Wait';
    ★纪律核心：那句「1 道题不构成结论——记满 5 道再来比」**始终**在，
      因为本项目的门槛是 n<30，而陌生人到 n=30 要几个月。不说明这一点就是在骗人。 */
 import { deviationEcho, type DevRow } from '../lib/firstRun';
+/* ★2026-09-30：「你在哪类事上偏」的归并判据**搬出组件**。
+   病象：它此前只活在本页的一个 useMemo 里（见下方 habits），后端零命中 ⇒ 全项目最核心的
+   那个价值没有一个可被调用的接口。⇒ 真源移到 p1b/src/disclosure/habitRank.mjs（纯 ESM，
+   后端 require 同步加载、vite 原生 import，两头同一份），页面只负责渲染。
+   HABIT_RANK_BASIS 是同一处的判据说明，本页那段「为什么这么排」也从它取。 */
+import { rankHabits, HABIT_RANK_BASIS } from '../../../src/disclosure/habitRank.mjs';
 import '../styles/whereoff.css';
 
 /* ══ P0-4 埋点客户端（会话说起来/结束 + 回访一题）═══════════════════════════════
@@ -220,20 +226,13 @@ export default function WhereOffPage() {
       when: String(c.domain),        // 域无时间轴 ⇒ 按 id 稳定排，见下方说明
     })), [cells]);
 
-  /** 老犯的毛病：按域聚合，只取够样本的格；薄格不参与 */
-  const habits = useMemo(() => {
-    const by: Record<string, { n: number; ok: number; d: number; cnt: number }> = {};
-    for (const c of cells) {
-      if (c.delta_vs_half === null) continue;
-      const b = (by[c.domain] = by[c.domain] || { n: 0, ok: 0, d: 0, cnt: 0 });
-      b.n += c.scored_n; b.cnt += 1;
-      if (c.conclusion_allowed) { b.ok += 1; b.d += c.delta_vs_half; }
-    }
-    return Object.entries(by)
-      .filter(([, b]) => b.ok > 0)
-      .map(([domain, b]) => ({ domain, n: b.n, ok: b.ok, delta: b.d / b.ok }))
-      .sort((a, b) => Math.abs(b.delta) - Math.abs(a.delta));
-  }, [cells]);
+  /** 老犯的毛病：按域聚合，只取够样本的格；薄格不参与。
+   *  ★2026-09-30：判据搬走了，真源在 p1b/src/disclosure/habitRank.mjs（纯计算、零副作用，
+   *    后端 /api/disclosure/habits 与本页共用同一份）。此处**不再留第二份实现**——
+   *    判据一字未改，搬家前后的输出逐字段相同（回归锁在 test/habit-rank.test.cjs 的金样）。
+   *    连带的那句「为什么这么排」的说明也取自同一处（HABIT_RANK_BASIS），
+   *    免得计算一处、解释另一处。 */
+  const habits = useMemo(() => rankHabits(cells), [cells]);
 
   const thinOnly = useMemo(
     () => cells.filter((c) => !c.conclusion_allowed),
@@ -290,10 +289,9 @@ export default function WhereOffPage() {
           {/* ══ ② 你老犯的毛病：可认领的错 ══ */}
           <section className="whereoff-s2" data-testid="wo-habits">
             <h2 className="whereoff-h">你老犯的毛病</h2>
-            <p className="whereoff-note">
-              按「相对无信息线的平均偏差」排。只有样本够的格参与——样本不够的格一律
-              <b> 不参与排序、只记方向</b>，见下面那一栏。
-            </p>
+            {/* ★这段说明句也来自 p1b/src/disclosure/habitRank.mjs 的 HABIT_RANK_BASIS
+                （与上面的计算同源）：口径改了，这句话跟着改，不会留一段讲旧口径的文案。 */}
+            <p className="whereoff-note">{HABIT_RANK_BASIS.page_note}</p>
             <ol className="habits">
               {habits.map((h) => (
                 <li key={h.domain} className="habit">

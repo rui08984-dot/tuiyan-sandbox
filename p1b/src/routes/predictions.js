@@ -31,6 +31,7 @@ const baseRateMod = require('../evidence/baseRate'); // 基率读数单一真源
 const kindGate = require('../evidence/resolveKind'); // 真值锚 kind 支持表单一真源（三表派生），本路由不另立字面量
 const lab = require('../evidence/labBoundary'); // 域边界单一真源（real / lab / external 三种 scope）
 const extLedger = require('../db/externalLedger'); // 外部题容器局（2026-09-28 · 实现裁定待创始人复核）
+const { idempotent, ensureIdempotencyTables } = require('./idempotency'); // 2026-09-30 落注写口幂等（发行阻断项）
 
 const SOURCE_TYPES = store.SOURCE_TYPES;
 const OUTCOMES = store.OUTCOMES;
@@ -379,9 +380,13 @@ const DOMAIN_VIEWS = ['all', 'hand_written', 'other'];
 
 function register(app) {
   store.ensurePredictionsTable(db.getConnection()); // additive 私有表（幂等，零碰 p1a 既有表）
+  ensureIdempotencyTables(db.getConnection()); // 幂等键私有表（additive、幂等，同上纪律）
 
   // 落注（人工/调用方）
-  app.post('/api/games/:id/predictions', async (req, reply) => {
+  // ★2026-09-30：加幂等包装（发行阻断项，见 routes/idempotency.js 文件头）。
+  //   这条口是「记一道判断」的入口，一次超时重试 = 多一条预测 = 准确率当场被污染（账本无修正入口）。
+  //   键由调用方给；没带键的老调用方**照写**（只在响应里如实回报 + 落一行 keyed=0 证据）。
+  app.post('/api/games/:id/predictions', idempotent('POST /api/games/:id/predictions', async (req, reply) => {
     const gameId = requireInt('game id', req.params.id, 1);
     getGameOr404(gameId);
     const body = req.body || {};
@@ -391,7 +396,7 @@ function register(app) {
     const row = insertFromBody(gameId, body, { sourceType: sourceType, dayFromGame: true });
     reply.code(201);
     return row;
-  });
+  }));
 
   /* ══ 2026-09-28：外部题免局落注（`POST /api/predictions`）══
    *
@@ -435,7 +440,7 @@ function register(app) {
    *
    * 纪律：口算概率（"大概率"）仍被 `requireProb` 拒；layer 枚举、gate 枚举、
    *   evidence 结构仍由 store 的白名单校验，一条都没放松。 */
-  app.post('/api/predictions', async (req, reply) => {
+  app.post('/api/predictions', idempotent('POST /api/predictions', async (req, reply) => {
     const body = req.body || {};
     const spec = normalizeResolveSpec(body.resolve_spec);
     if (!spec) {
@@ -478,7 +483,7 @@ function register(app) {
       container: { game_id: container.id, name: container.name, scope: lab.classifyGameType(container.game_type).scope },
       intake_question_id: body.intake_question_id === undefined ? null : body.intake_question_id,
     });
-  });
+  }));
 
   // 分页清单
   app.get('/api/games/:id/predictions', async (req) => {

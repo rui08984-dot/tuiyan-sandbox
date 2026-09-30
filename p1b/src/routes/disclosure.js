@@ -4,6 +4,8 @@
  *
  * GET /api/disclosure/calendar    → 最新 p1b/sim/out/forecast-calendar-YYYYMMDD.json
  * GET /api/disclosure/calibration → 最新 p1b/sim/out/calibration-report-YYYYMMDD.json
+ * GET /api/disclosure/habits     → 同一份 calibration-report 的**归并投影**：按域归并的偏差榜
+ *                                   （口径真源 src/disclosure/habitRank.mjs，只读、零写库）
  * GET /api/disclosure/negative-results → 最新 p1b/sim/out/negative-results-ledger-YYYYMMDD.json（第 4 期 I2）
  * GET /api/disclosure/bayes-lens  → 最新 p1b/sim/out/stage4-run-five-layers-YYYYMMDD[a-z].json 的**精简投影**（第 4 期 I6）
  * 纪律：只读落盘件（latestByPattern 同款取最新日期件）；缺件 404 + 生成命令提示（不静默、不编数）；
@@ -36,6 +38,50 @@ function register(app) {
     serve(/^forecast-calendar-(\d{8})([a-z]?)\.json$/, 'node p1b/scripts/forecast-calendar.cjs', reply));
   app.get('/api/disclosure/calibration', async (req, reply) =>
     serve(/^calibration-report-(\d{8})([a-z]?)\.json$/, 'node p1b/scripts/calibration-report.cjs', reply));
+
+  // ── 2026-09-30：「你在哪类事上偏」对外（**只读**，additive）──
+  //   病象：/calibration 只逐格吐出 cells，**不做任何归并**；归并此前只活在一个 React
+  //   组件的 useMemo 里（WhereOffPage habits）⇒ 本项目最核心的那个价值没有可被调用的接口，
+  //   后端、脚本、外部调用方都够不着。
+  //   ⇒ 本端点把同一份归并（src/disclosure/habitRank.mjs，判据一字未改）暴露出来。
+  //   ★只读：只读落盘件 + 纯计算，零写库、零 LLM、零引擎重跑、零账本接触。
+  //   ★为什么这么排写在返回体的 ranking 里（连同剔掉的域）——不给调用方一个黑盒数字。
+  //     页面上那一句说明也从同一处取文案，避免"计算一处、解释另一处"。
+  app.get('/api/disclosure/habits', async (req, reply) => {
+    // 放在 handler 里面 require：与本文件既有风格一致（deps/revealClass 等都这么写）
+    const { rankHabits, habitBuckets, HABIT_RANK_BASIS } = require('../disclosure/habitRank.mjs');
+    const p = latest(/^calibration-report-(\d{8})([a-z]?)\.json$/);
+    if (!p) return reply.code(404).send({ error: 'n/a：缺披露件（未生成或尚未跑脚本）', hint: 'node p1b/scripts/calibration-report.cjs' });
+    let j;
+    try { j = JSON.parse(fs.readFileSync(p, 'utf8')); } catch (e) {
+      return reply.code(500).send({ error: '披露件不可解析: ' + path.basename(p) });
+    }
+    const cells = Array.isArray(j.cells) ? j.cells : [];
+    // ★剔掉的域也如实回：ok=0 意味着这个域一格都没测够 ⇒ n<30 纪律，不给比例。
+    //   归并只做一遍（habitBuckets 与 rankHabits 同源），本端点不自己数第二遍。
+    const dropped = habitBuckets(cells)
+      .filter((b) => b.ok === 0)
+      .map((b) => ({
+        domain: b.domain, n: b.n, cells: b.cells,
+        reason: '这个域没有任何一格够样本（ok=0）⇒ 按 n<30 纪律不给比例，只记方向',
+      }));
+    return {
+      source_file: path.basename(p),
+      generated_at: j.generated_at === undefined ? null : j.generated_at,
+      cells_total: j.cells_total === undefined ? null : j.cells_total,
+      cells_with_conclusion: j.cells_with_conclusion === undefined ? null : j.cells_with_conclusion,
+      habits: rankHabits(cells),
+      ranking: HABIT_RANK_BASIS,
+      dropped_domains: dropped,
+      read_only: true,
+      discipline: [
+        '本端点只读：只读落盘件 + 纯计算，不改账本任何一列、不重跑引擎、不调 LLM。',
+        'delta 的分母是**够样本的格数（ok）**，不是题数 n。',
+        '样本不足 30 的格不进本榜，也不出现在 dropped_domains 的任何比例字段里：只记方向。',
+        '归并口径的真源是 src/disclosure/habitRank.mjs，本端点与网页组件共用同一份。',
+      ],
+    };
+  });
 
   // ── 第 4 期 I2：负结果账本对外（15 号件 §I2「第 1 期末即可上，成本近零」）──
   app.get('/api/disclosure/negative-results', async (req, reply) =>
