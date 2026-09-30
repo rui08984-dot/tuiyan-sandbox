@@ -58,6 +58,20 @@ const INSTRUCTIONS = [
 ].join('\n');
 
 /** `server/discover` 的结果体。 */
+// ★2026-09-30 新增：旧版 initialize 握手要回 serverInfo.name。
+//   取值单一真源＝docs/mcp/server.json 的 name（读它而不是另写一份，
+//   否则发布时改了包名这里会悄悄对不上）。读不到就用稳定的回退值。
+function serverName() {
+  try {
+    const fs = require('node:fs');
+    const pth = require('node:path');
+    const j = JSON.parse(fs.readFileSync(pth.join(__dirname, '..', '..', 'docs', 'mcp', 'server.json'), 'utf8'));
+    return (j && typeof j.name === 'string' && j.name) || 'p1b';
+  } catch (e) {
+    return 'p1b';
+  }
+}
+
 function discoverResult() {
   return {
     resultType: 'complete',
@@ -91,6 +105,32 @@ function handleMessage(msg, opt) {
 
   try {
     switch (msg.method) {
+      // ★2026-09-30 老客户端兼容（创始人裁定「兼容吧」）。
+      //   本层的主路径是官方 2026-07-28 修订版（`server/discover` 取代 `initialize`）。
+      //   但**大量现存 MCP 客户端仍只发 `initialize`**——实测它们直连会拿到
+      //   -32601 METHOD_NOT_FOUND，也就是「明明装上了却连不上」。
+      //   ⇒ 这里把旧版三个方法**按兼容层实现**，不是新规范的一部分，是让两边都能连。
+      //   不改变新规范主路径：`server/discover` 照旧是首选，行为一字未动。
+      case 'initialize': {
+        // 旧版握手。回 protocolVersion / capabilities / serverInfo 三件，
+        // 并把本层支持的新规范版本一并放进 supportedVersions，让老客户端也能升级。
+        const r = discoverResult();
+        return isNotification ? null : ok(id, {
+          protocolVersion: (msg.params && msg.params.protocolVersion) || tools.PROTOCOL_VERSION,
+          capabilities: r.capabilities,
+          serverInfo: { name: serverName(), version: tools.PROTOCOL_VERSION },
+          // ★额外带一份：老客户端会忽略未知字段，但它据此能发现本层也支持新规范
+          supportedVersions: r.supportedVersions,
+          resultType: r.resultType,
+        });
+      }
+      // 旧版的「握手完成」通知。通知没有 id ⇒ 不回任何东西（JSON-RPC 规定）。
+      case 'notifications/initialized':
+      case 'initialized':
+        return null;
+      // 旧版的存活探测。回空对象即「活着」。
+      case 'ping':
+        return isNotification ? null : ok(id, {});
       case 'server/discover':
         return isNotification ? null : ok(id, discoverResult());
       case 'tools/list':

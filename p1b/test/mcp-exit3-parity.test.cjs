@@ -100,12 +100,25 @@ test('exit 2 的两种来源必须分开：确认闸 ⇒ 不算错；用法错 �
   assert.strictEqual(usage.structuredContent.verdict.gate, 'USAGE');
 });
 
-test('协议层：未知工具与已移除的 initialize 走协议级 error，不走 isError', () => {
+test('协议层：未知工具走协议级 error，不走 isError；initialize 已改为兼容层', () => {
   const { handleMessage } = require(path.join(ROOT, 'p1b', 'mcp', 'protocol.cjs'));
   const unknown = handleMessage({ jsonrpc: '2.0', id: 1, method: 'tools/call', params: { name: 'nope' } });
   assert.strictEqual(unknown.error.code, -32602, '未知工具应是 INVALID_PARAMS');
-  // 2026-07-28 已移除 initialize（实测 schema/2026-07-28/schema.ts 中该串出现 0 次），
-  // 老客户端按旧规范发 initialize 必须**明确失败**，而不是被半懂不懂地服务。
-  const init = handleMessage({ jsonrpc: '2.0', id: 2, method: 'initialize', params: {} });
-  assert.strictEqual(init.error.code, -32601, 'initialize 在本修订版已移除，应回 METHOD_NOT_FOUND');
+
+  // ★★2026-09-30 **决策变更**（创始人裁定「兼容吧」，推翻本条原来的另一半）。
+  //   原来这里断言「老客户端发 initialize 必须**明确失败**」（-32601），理由是
+  //   2026-07-28 修订版已移除该方法（实测 schema/2026-07-28/schema.ts 中该串 0 次）。
+  //   ★但那等于「装上了却连不上」——现存 MCP 客户端绝大多数仍只发 initialize。
+  //   ⇒ 现在 initialize / notifications/initialized / ping 作为**兼容层**被实现，
+  //   老客户端能连；★**新规范主路径（server/discover）一字未动**。
+  //   兼容层的完整用例见 `mcp-legacy-handshake.test.cjs`，此处只钉住「它不再是 -32601」。
+  const init = handleMessage({ jsonrpc: '2.0', id: 2, method: 'initialize', params: { protocolVersion: '2024-11-05' } });
+  assert.strictEqual(init.error, undefined,
+    '★initialize 现在是兼容层方法，不该再回 -32601（老客户端靠它连上来）：' + JSON.stringify(init.error));
+  assert.ok(init.result && init.result.capabilities && init.result.capabilities.tools,
+    '兼容层必须宣告 tools 能力，否则老客户端不列工具');
+  // ★但「未知方法仍要失败」这条不能被兼容层带歪：
+  assert.strictEqual(
+    handleMessage({ jsonrpc: '2.0', id: 3, method: 'some/method', params: {} }).error.code, -32601,
+    '★未知方法仍必须是 METHOD_NOT_FOUND——兼容层不许变成「什么都回 ok」');
 });
