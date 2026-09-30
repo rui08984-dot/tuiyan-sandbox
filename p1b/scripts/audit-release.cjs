@@ -463,7 +463,11 @@ function C14(ctx) {
     let 源库错 = '';
     try {
       if (!fs.existsSync(源库路径)) throw new Error('源库不存在：' + 源库路径);
-      const 源 = new DatabaseSync(源库路径, { readOnly: true });
+      // ★timeout 必填：并发跑测试时别的用例可能正持写锁。
+      //   不给 timeout ⇒ 一撞锁立刻抛 "database is locked" ⇒ C14 fail-closed 判红
+      //   ⇒ 整轮闸门假红（2026-09-30 实测踩到：首跑红、复跑绿，被标成「疑似偶发」）。
+      //   给了它就是「等锁」而不是「撞锁就炸」，判据本身没变。
+      const 源 = new DatabaseSync(源库路径, { readOnly: true, timeout: 15000 });
       try {
         // 从「被人工剔除的那 5 行原文」里抽出「N号+紧邻串」候选 —— 那些就是真人真名
         const re0 = new RegExp(SEAT_NICK_RE.source, SEAT_NICK_RE.flags);
