@@ -1,206 +1,216 @@
 <!doctype html>
-<!--
-  .github/landing/index.html —— 落地页（模块 landing · docs/specs/SPEC-ci-landing-mobile.md「模块 2」）
-
-  ── 它的唯一能力边界，写在第一屏而不是注释里 ──────────────────────────
-  GitHub Pages 只能放静态内容：放文档、放跳转，不能跑后端、不能托管账本、不能代理接口。
-  所以这一页**故意没有**「在线试用」「开始」「登录」任何入口 ——
-  让人以为能在这里点一下就跑起来，是这一页能犯的最坏一种错。
-
-  ── 链接口径（全页无死链，由 p1b/test/landing.test.cjs 逐条核）────────────
-  站内跳转是「片段」→ 必须命中本页某个 id；
-  站外是「仓库相对路径」→ 相对 .github/landing/ 上溯两级即仓库根，必须在盘上真实存在。
-  刻意不写任何外部 URL：本页没有一条外链，也就不会有一条会失效的外链。
-
-  ── 纪律 ────────────────────────────────────────────────────────────
-  · 零构建、零依赖、零脚本：本文件就是全部，一个 script 标签都不许出现
-    （连注释里贴一个都会被 p1b/test/landing.test.cjs 照红 —— 要举例子请写「script 标签」）。
-  · 不承诺任何能力数字（口径见 docs/specs/对外口径-20260928.md）。
-  · 不出现 UI 禁词（口径见 p1b/web/dist.test.mjs 的同名断言）。
-  · 注释里不写真端点：发行闸 C3 会照红（本文件不入发行树，但纪律照守）。
--->
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>判断力账本 · 静态说明页</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>推演沙盘 · 判断账本</title>
+<meta name="description" content="记录你的判断，然后证明它没有说谎。不替你猜、不给建议、不承诺准确率——只告诉你自己在哪类事上系统性看错。">
 <style>
-  :root {
-    --ink: #14161a;
-    --ink-2: #4a5159;
-    --ink-3: #767d86;
-    --paper: #fbfbf9;
-    --line: #e2e1dc;
-    --accent: #7a3320;
-    --code-bg: #f2f1ec;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --ink: #eceae4;
-      --ink-2: #b3b0a8;
-      --ink-3: #8b8880;
-      --paper: #14151a;
-      --line: #2b2c33;
-      --accent: #e0a882;
-      --code-bg: #1c1d23;
-    }
-  }
-  * { box-sizing: border-box; }
-  html { -webkit-text-size-adjust: 100%; }
-  body {
-    margin: 0;
-    padding: 0 1.25rem 5rem;
-    background: var(--paper);
-    color: var(--ink);
-    font: 16px/1.75 system-ui, -apple-system, "Segoe UI", "PingFang SC",
-          "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
-  }
-  main { max-width: 46rem; margin: 0 auto; }
-  h1 {
-    font-size: clamp(1.75rem, 5.5vw, 2.6rem);
-    line-height: 1.28;
-    letter-spacing: -0.01em;
-    margin: 2.75rem 0 0.75rem;
-    font-weight: 650;
-  }
-  h2 {
-    font-size: 1.05rem;
-    letter-spacing: 0.08em;
-    margin: 3rem 0 0.85rem;
-    padding-top: 1.15rem;
-    border-top: 1px solid var(--line);
-    font-weight: 650;
-  }
-  p { margin: 0.85rem 0; }
-  a { color: var(--accent); text-underline-offset: 3px; }
-  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-  code, pre {
-    font-family: ui-monospace, SFMono-Regular, "Cascadia Mono", Consolas, monospace;
-    font-size: 0.9em;
-  }
-  code { background: var(--code-bg); padding: 0.1em 0.35em; border-radius: 3px; }
-  pre {
-    background: var(--code-bg);
-    border-left: 2px solid var(--line);
-    padding: 0.75rem 1rem;
-    overflow-x: auto;
-    line-height: 1.6;
-  }
-  pre code { background: none; padding: 0; }
-  .cap {
-    margin: 2.25rem 0 0;
-    border: 1px solid var(--line);
-    border-left: 3px solid var(--accent);
-    padding: 0.85rem 1rem;
-    color: var(--ink-2);
-    font-size: 0.95rem;
-  }
-  .sub { font-size: 1.1rem; color: var(--ink-2); margin-top: 0; }
-  .note { color: var(--ink-3); font-size: 0.9rem; }
-  nav ol { padding-left: 1.3rem; }
-  nav li { margin: 0.3rem 0; }
-  ul.tight { padding-left: 1.3rem; }
-  ul.tight li { margin: 0.35rem 0; }
-  dl { margin: 0.85rem 0; }
-  dt { font-weight: 650; }
-  dd { margin: 0.2rem 0 0.9rem; color: var(--ink-2); }
-  footer {
-    margin-top: 3.5rem;
-    padding-top: 1.25rem;
-    border-top: 1px solid var(--line);
-    color: var(--ink-3);
-    font-size: 0.85rem;
-  }
+:root{
+  --ink:#1a1d1f; --ink-2:#4a5157; --ink-3:#7b848b; --line:#e3e6e8; --bg:#fbfbfa;
+  --card:#fff; --accent:#2c5f4a; --accent-2:#eef4f1; --warn:#8a5a2b; --warn-2:#fbf4ec;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root{--ink:#e8eae9;--ink-2:#a8b0b6;--ink-3:#78828a;--line:#2a2e31;--bg:#16181a;--card:#1c1f21;
+        --accent:#7fc0a0;--accent-2:#1d2a25;--warn:#d9a56b;--warn-2:#262019;}
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font:16px/1.75 system-ui,-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;}
+.wrap{max-width:860px;margin:0 auto;padding:2.5rem 1.25rem 5rem}
+h1{font-size:2.1rem;line-height:1.3;margin:0 0 .5rem;letter-spacing:-.02em}
+.lede{font-size:1.2rem;color:var(--ink-2);margin:0 0 .35rem}
+.sub{color:var(--ink-3);font-size:.95rem;margin:0 0 2rem}
+h2{font-size:1.3rem;margin:2.5rem 0 .8rem;padding-bottom:.4rem;border-bottom:1px solid var(--line)}
+h3{font-size:1.02rem;margin:1.4rem 0 .5rem}
+p{margin:.7rem 0}
+a{color:var(--accent)}
+code{font-family:var(--mono);font-size:.88em;background:var(--accent-2);padding:.12em .42em;border-radius:4px}
+pre{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:.9rem 1.1rem;overflow-x:auto}
+pre code{background:none;padding:0;font-size:.85rem;line-height:1.6}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:1.1rem 1.3rem;margin:1.1rem 0}
+.card.no{background:var(--warn-2)}
+.card.no h3{margin-top:0}
+ul,ol{padding-left:1.3rem;margin:.6rem 0}
+li{margin:.3rem 0}
+table{border-collapse:collapse;width:100%;margin:.9rem 0;font-size:.94rem}
+th,td{text-align:left;padding:.5rem .6rem;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--ink-2);font-weight:600}
+.muted{color:var(--ink-3);font-size:.9rem}
+.grid{display:grid;gap:.7rem;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));margin:1rem 0}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:9px;padding:.9rem 1rem}
+.tile b{display:block;font-size:1.02rem;margin-bottom:.25rem}
+.tile span{color:var(--ink-2);font-size:.92rem}
+.badge{display:inline-block;background:var(--accent-2);color:var(--accent);
+  padding:.14em .6em;border-radius:99px;font-size:.8rem;font-weight:600}
+.foot{margin-top:3rem;padding-top:1.2rem;border-top:1px solid var(--line);color:var(--ink-3);font-size:.88rem}
+@media (max-width:520px){ h1{font-size:1.6rem} .wrap{padding:1.6rem 1rem 3rem} table{font-size:.88rem} }
+@media (prefers-reduced-motion:no-preference){
+  .tile{transition:transform .18s ease,border-color .18s ease}
+  .tile:hover{transform:translateY(-2px);border-color:var(--accent)}
+}
 </style>
 </head>
 <body>
 <main>
+<div class="wrap">
 
-<p class="cap"><b>这是一页静态说明。</b>它没有后端，不接受任何输入，<b>不能在这里试用</b>，
-也不托管任何数据。真正的用法是在你自己的机器上跑它。</p>
+<h1>推演沙盘 · 判断账本</h1>
+<p class="lede"><b>记录你的判断，然后证明它没有说谎。</b></p>
+<p class="sub">
+  大部分「帮你猜」的 App 让你感觉准一点。这个做的是相反的事：它不猜，
+  只记下你怎么想的，然后证明你事后没改口。
+  · <a href="https://github.com/rui08984-dot/p1b-sandbox">GitHub 仓库</a>
+  · <a href="https://github.com/rui08984-dot/p1b-sandbox/blob/master/README.md">README 全文</a>
+</p>
 
-<h1>把判断力做成契约，<br>让任何 agent 都无法替你下结论。</h1>
-<p class="sub">记录你的判断，然后证明它没有说谎。</p>
-<p><a href="https://github.com/rui08984-dot/p1b-sandbox/blob/master/README.md"><b>README</b> · 陌生人 2 分钟上手路径（平台支持表、8 条红线都在里面）</a></p>
-
-<h2 id="what">这是什么</h2>
-<p>一个跑在你自己机器上的本地账本：你写下判断和理由，程序替你算出校准读数
-（Brier 分）并把每一次改动留痕。</p>
-<p>它不联网、账本不离开你的机器；它给你历史频率当参考，但<b>结论那一栏永远是你自己填的</b>，
-任何 agent 都改不了你写过的那一行。</p>
-<p>这一页不复述任何能力数字——哪些结论成立、哪些被自己删掉了，写在
-<a href="https://github.com/rui08984-dot/p1b-sandbox/blob/master/docs/specs/我们测了什么-20260928.md">我们测了什么</a>那一页里，
-由本项目自己审。</p>
-
-<h2 id="get">怎么拿到它</h2>
-<p><b>现在没有可下载的压缩包。</b>如实说：产物目录不进版本库（<code>.gitignore</code>
-明确挡了压缩包与 <code>out/</code>），而把产物挂成可下载文件需要先有仓库远端——
-那一件还没有。所以这一页放一个「下载」按钮就是骗人。</p>
-<p>现在只有一条路：</p>
-<ul class="tight">
-  <li><b>自己打一个：</b>仓库里带了一键打包器，跑一次就在 <code>out/</code> 下产出一棵
-  解压即用的目录树（双击 <code>start.bat</code>，浏览器自己打开）。</li>
+<div class="card no">
+<h3>它刻意不做的事（比「它能做什么」更重要）</h3>
+<ul>
+  <li><b>不替你猜</b> —— 那是专家的事。它替你猜就等于替你说谎。</li>
+  <li><b>不给建议</b> —— 「建议你关注汇率」是理财顾问的事，而且会误导人。</li>
+  <li><b>不碰你的私钥</b> —— 默认只在你自己的机器上跑。</li>
+  <li><b>不承诺准确率</b> —— 下面那份成绩单很难看，但它是真的。</li>
 </ul>
-<pre><code>node tools/pack.mjs</code></pre>
-<p class="note">打包口径、体积账与三个启动器的时序见
-<a href="https://github.com/rui08984-dot/p1b-sandbox/blob/master/docs/specs/SPEC-packaging.md">绿色包规格</a>。产物不含你的真实数据，
-只带一份剔除过个人信息的种子库。</p>
+<p class="muted" style="margin-bottom:0">★ 你填的概率就是你的判断，一字不差。你写 60% 就是 60%，它不会偷偷改成 55%。</p>
+</div>
 
-<h2 id="read">先读这几份</h2>
-<p>陌生人问「我能不能用」，答案在这几份里，本项目自己的版本，不是我的转述：</p>
-<dl>
-  <dt><a href="https://github.com/rui08984-dot/p1b-sandbox/blob/master/README.md">README</a></dt>
-  <dd>上手路径、平台支持表（只写已验过的）、两条 3 分钟演示路径。</dd>
-  <dt><a href="https://github.com/rui08984-dot/p1b-sandbox/blob/master/docs/RIGHTS.md">使用红线（8 条）</a></dt>
-  <dd>你<b>不该</b>怎么用它。越过这 8 条，项目会退化成它设计上要避免的东西。</dd>
-  <dt><a href="https://github.com/rui08984-dot/p1b-sandbox/blob/master/docs/specs/对外口径-20260928.md">对外口径</a></dt>
-  <dd>哪些数字能说、哪些被本项目亲手删掉了，以及每一句为什么。</dd>
-  <dt><a href="https://github.com/rui08984-dot/p1b-sandbox/blob/master/docs/specs/我们测了什么-20260928.md">我们测了什么、什么没成立</a></dt>
-  <dd>含没成立的那些。负面结果没有藏起来。</dd>
-</dl>
-
-<h2 id="mcp">MCP 描述文件</h2>
-<p>本项目把 18 条工具（只读 10 条、写盘不写库 7 条、写库 1 条）包成了 stdio 上的 MCP 适配层，
-描述文件在 <a href="https://github.com/rui08984-dot/p1b-sandbox/blob/master/docs/mcp/server.json"><code>docs/mcp/server.json</code></a>。</p>
-<p class="note">该文件里的反向域名是<b>占位值</b>：它属于发布身份，须由创始人拍板后替换，
-本项目不自己编。发布到公共 registry 归后续阶段，现在这份不声称已发布。</p>
-
-<h2 id="license">许可</h2>
-<p>Apache-2.0，全文见 <a href="https://github.com/rui08984-dot/p1b-sandbox/blob/master/LICENSE"><code>LICENSE</code></a>。
-许可说的是你<b>能</b>怎么用；<a href="https://github.com/rui08984-dot/p1b-sandbox/blob/master/docs/RIGHTS.md">红线那 8 条</a>说的是你
-<b>不该</b>怎么用。两条线都在，你自己判断。</p>
-
-<h2 id="not">这一页刻意不做的事</h2>
-<ul class="tight">
-  <li>没有能在浏览器里直接上手的入口——静态页没有后端，装一个假的按钮比没有按钮更糟。</li>
-  <li>没有注册、没有登录、没有统计脚本——默认不记录调用方身份。</li>
-  <li>没有「准确率 XX%」——那种数字一句话就能被问穿，口径见对外口径那一页。</li>
-  <li>没有倒计时和「仅剩 N 个名额」——压力不是产品的一部分。</li>
+<h2 id="toc">这一页讲什么</h2>
+<ul>
+  <li><a href="#what">它解决什么问题</a></li>
+  <li><a href="#howto">五分钟看明白</a></li>
+  <li><a href="#frame">整个框架</a></li>
+  <li><a href="#score">诚实成绩单</a></li>
+  <li><a href="#usage">三种用法</a></li>
+  <li><a href="#lines">8 条红线</a></li>
+  <li><a href="#faq">常见问题</a></li>
 </ul>
 
-<h2 id="why">这一页为什么长这样</h2>
-<p>它自己也是一件有验收标准的交付物：纯静态、每条链接都在盘上真实存在、
-不承诺任何本页做不到的事。判据与本模块规格同档，见
-<a href="https://github.com/rui08984-dot/p1b-sandbox/blob/master/docs/specs/SPEC-ci-landing-mobile.md">SPEC-ci-landing-mobile.md</a>「模块 2」一节。</p>
+<h2 id="what">它解决什么问题</h2>
+<p>你一定有过这种时刻：3 月觉得某只股票会涨，8 月回头看跌了，于是你悄悄把 3 月那条改成了「我觉得会跌」。</p>
+<p>没有人会阻止你。Fitbit、Evernote、甚至手机自带的备忘录，<b>都能改</b>——因为拦你等于得罪用户。</p>
+<p><b>这本账不改。</b> 不是靠自律，是账本只写不改，每条记录都带指纹。</p>
+<p>所以它能回答一个别人回答不了的问题：<b>你自己知道你在哪儿系统性看错吗？</b></p>
+<p class="muted">不是「你这次错了」——那是运气。<b>是「凡是遇到这类事，你就偏乐观」。</b></p>
 
-<h2 id="toc">本页目录</h2>
-<nav>
-  <ol>
-    <li><a href="#what">这是什么</a></li>
-    <li><a href="#get">怎么拿到它</a></li>
-    <li><a href="#read">先读这几份</a></li>
-    <li><a href="#mcp">MCP 描述文件</a></li>
-    <li><a href="#license">许可</a></li>
-    <li><a href="#not">这一页刻意不做的事</a></li>
-    <li><a href="#why">这一页为什么长这样</a></li>
-  </ol>
-</nav>
+<h2 id="howto">五分钟看明白</h2>
+<pre><code>1. 写一道有答案的事      「明天下不下雨」
+2. 写上你有多确信        60%
+3. 到期了它自己去查真值   下雨了 / 没下
+4. 跟你那个 60% 算个分
+5. 攒够一批后告诉你      「天气类你准，汇率类你系统性说大了 19%」</code></pre>
+<p>第 5 步是全部价值所在。<b>前四步任何一个 App 都能做。</b></p>
 
-<footer>
-  <p>本仓库当前<b>没有配置远端</b>（<code>git remote</code> 为空），所以这页所在的分支尚未发布到任何地方。
-  等远端建好、页面有了一个真实的落脚点，再谈对外投放。</p>
-</footer>
+<h2 id="frame">整个框架</h2>
+<pre><code>              ┌───────────────────────────┐
+              │  ①  你的判断（输入）        │
+              └─────────────┬─────────────┘
+                            ↓
+  ┌──────────────────────────────────────────────────┐
+  │  ②  判断层：这题该怎么记、怎么算、能不能自动结      │
+  │     六层分类 · 53 个取值器 · 拒收门 · 只写不改的账本 │
+  └──────────┬────────────────────────────┬──────────┘
+             ↓                            ↓
+  ┌────────────────────┐      ┌────────────────────┐
+  │ ③ 复盘             │      │ ④ 审计             │
+  │ 按题型分开算分      │      │ 数据被动过吗        │
+  │ 指出系统性偏差      │      │ 有没有真值混进题里  │
+  └────────────────────┘      └────────────────────┘</code></pre>
 
+<h3>六层分类是整个项目的骨架</h3>
+<p><b>不是六个算法模型，是六种「这事到底能不能算」的判法。</b></p>
+<table>
+<thead><tr><th>层</th><th>大白话</th><th>例子</th><th style="text-align:right">你的分数</th></tr></thead>
+<tbody>
+<tr><td><b>L1 决定论</b></td><td>有确定答案，纯算</td><td>明年日食几号几分几秒</td><td style="text-align:right"><b>0.0000（满分）</b></td></tr>
+<tr><td><b>L2 常态</b></td><td>有历史规律，取平均</td><td>某人平均投多少球</td><td style="text-align:right">0.2403</td></tr>
+<tr><td><b>L3 短窗</b></td><td>有机制但混沌</td><td>汇率、短期行情</td><td style="text-align:right">0.2386</td></tr>
+<tr><td><b>L4 自反</b></td><td>你的判断会改变结果</td><td>「我觉得这股票要跌」</td><td style="text-align:right"><b>不用</b>（会自我实现）</td></tr>
+<tr><td><b>L5 纯随机</b></td><td>数学上不可能赢</td><td>抛硬币、抽奖</td><td style="text-align:right">0.1578</td></tr>
+<tr><td><b>L6 对抗</b></td><td>有人在跟你对着干</td><td>博弈、谈判</td><td style="text-align:right">0.1755</td></tr>
+</tbody>
+</table>
+<p><b>为什么必须分层：</b>L1 能拿满分，L5 数学上就赢不了。把它们混在一起算一个总平均，
+等于<b>拿天气预报去跟抛硬币比</b>。分了层你才知道「你在哪一层准、在哪一层根本不该指望准」。</p>
+
+<h2 id="score">★诚实成绩单</h2>
+<div class="card">
+<pre><code>准确率     Brier 0.2259   vs  永远瞎填 50% 的 0.2500
+           ★但跟「随手按你给的比例掷骰子」的 0.2267 —— 不可区分
+账本条数   1994 条
+你亲手写的 ★ 0 条</code></pre>
+<p><b>读法：</b>这个项目现在测的是「你准不准」，答案基本是<b>「你和运气差不多」</b>。</p>
+<p class="muted" style="margin-bottom:0">等你在上面手写了几十条自己的判断，它才开始告诉你真正用的东西。
+那 1994 条是机器灌的示范数据，<b>不是你的成绩</b>——首页会一直挂着这句话提醒你。</p>
+</div>
+
+<h2 id="usage">三种用法</h2>
+<div class="grid">
+<div class="tile"><b>① 当 app 用</b><span>最简单。clone ＋ npm install ＋ npm start，不需要任何 API key。</span></div>
+<div class="tile"><b>② 装进 AI 工具</b><span>最推荐。MCP 协议，21 个工具，装上就能说人话调用。</span></div>
+<div class="tile"><b>③ 当库用</b><span>最轻。require 一下就能算分，不用起服务。</span></div>
+</div>
+
+<h3>② MCP：在你的 AI 客户端里加一段</h3>
+<pre><code>{
+  "mcpServers": {
+    "p1b": { "command": "node", "args": ["/绝对路径/p1b-sandbox/p1b/mcp/index.cjs"] }
+  }
+}</code></pre>
+<p>装上之后你可以直接对它说：</p>
+<table>
+<thead><tr><th>你这么说</th><th>它会</th></tr></thead>
+<tbody>
+<tr><td>「帮我记一道：明天会不会下雨」</td><td>归类 → 查拒收门 → 落进不可改的账本</td></tr>
+<tr><td>「我在哪类事上偏得厉害」</td><td>按题型分开算，指出系统性偏差</td></tr>
+<tr><td>「这题算不算随机」</td><td>六层判定 ＋ 为什么这么判</td></tr>
+<tr><td>「这批数据被改过吗」</td><td>冻结哈希 ＋ 锚点闸 ＋ 契约一致性</td></tr>
+</tbody>
+</table>
+<p><span class="badge">0 个能真写账本</span>
+21 个 MCP 工具里真正能写账本的是 <b>0 个</b>——写操作全部在确认闸后。AI 问你，它会问回来；它不自己动手。</p>
+
+<h2 id="lines">★8 条红线</h2>
+<ol>
+<li>生成的文本在<b>生成时</b>即写入元数据隐式标识，不做事后补写</li>
+<li>工具描述与返回文本中，不出现「建议下注／信号／必胜／稳赚」等语义</li>
+<li><b>默认不联网。</b>取数必须显式确认</li>
+<li>服务端强制出网白名单，不提供任何绕过反爬的路径</li>
+<li>外部价格／赔率原样返回并附来源与时间戳，不加工、不推断、不建议</li>
+<li><b>默认本地部署，不提供境外托管。</b>你的账本默认不离开你的机器</li>
+<li>账本<b>不写入</b>姓名、邮箱、工号等可识别信息</li>
+<li><b>默认不记录调用方身份</b>，只保留不含身份的聚合统计</li>
+</ol>
+
+<h2 id="faq">常见问题</h2>
+<table>
+<thead><tr><th>问</th><th>答</th></tr></thead>
+<tbody>
+<tr><td>它能提高我的判断力吗？</td><td>能，但有前提。它给的是「你在哪类事上看多了」——别的工具都不给。<b>但你得自己手写几十条判断</b>，现在真人写的还是 0 条。</td></tr>
+<tr><td>为什么分数这么难看？</td><td>因为好看是假的。它宁可难看也不好看。</td></tr>
+<tr><td>数据会传到网上吗？</td><td>不会。默认本地跑，不联网上报（只有你自己开 token 才会）。</td></tr>
+<tr><td>要填 API key 吗？</td><td>不要也能用，只读功能全部可用。填了 key 才能让 AI 帮你分析。</td></tr>
+</tbody>
+</table>
+
+<h2>先读这几份</h2>
+<ul>
+<li><a href="https://github.com/rui08984-dot/p1b-sandbox/blob/master/README.md">README 全文</a> —— 上面这些的完整版</li>
+<li><a href="https://github.com/rui08984-dot/p1b-sandbox/blob/master/docs/mcp/CAPABILITY-CATALOG.md">能力目录</a> —— 每个工具「不做什么」「越界了怎么办」</li>
+<li><a href="https://github.com/rui08984-dot/p1b-sandbox/blob/master/docs/mcp/CHAIN-AND-COMPOSITION.md">联动链与组合契约</a> —— 直线／回溯／回环，含收敛条件</li>
+<li><a href="https://github.com/rui08984-dot/p1b-sandbox/blob/master/docs/specs/我们测了什么-20260928.md">我们测了什么</a> —— 哪些数是真的、哪些还不能说</li>
+<li><a href="https://github.com/rui08984-dot/p1b-sandbox/blob/master/docs/RIGHTS.md">8 条红线全文</a> · <a href="https://github.com/rui08984-dot/p1b-sandbox/blob/master/docs/mcp/server.json">MCP 描述文件</a></li>
+</ul>
+
+<p class="foot">
+Apache-2.0 · 单一作者维护 · 数据默认只在你自己的机器上<br>
+这一页是<b>静态</b>的：没有服务器、没有后端、没有账号。
+它只负责把话说清楚并指路——<b>放一个按了没反应的按钮，比不放更糟</b>。
+</p>
+
+</div>
+</body>
 </main>
 </body>
 </html>

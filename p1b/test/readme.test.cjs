@@ -28,7 +28,13 @@ const { spawnSync } = require('node:child_process');
 const ROOT = path.resolve(__dirname, '..', '..');
 const README_REL = 'README.md';
 const DEMO_REL = path.join('docs', '演示路径.md');
-const 上限行 = 80;
+// ★2026-09-30 上限由 80 放宽到 260，**不是**为了给写长找借口。
+//   80 行是本项目自己在 `SPEC-readme.md` 里定的「陌生人 2 分钟读完」口径；
+//   创始人明确要求首页「给小白介绍好一点、把整个框架解释清楚、丰富一点」，
+//   ⇒ 那个 2 分钟的口径被**主动放弃**了，换成「读得懂」优先。
+//   仍保留上限（而不是无上限）：README 一旦长到没人愿意点开，就等于没写。
+//   —— 它守的是「别让它长成手册」，不是「别让它长大」。
+const 上限行 = 260;
 const 运行超时 = 120000;
 
 const 读 = (rel) => fs.readFileSync(path.join(ROOT, rel), 'utf8');

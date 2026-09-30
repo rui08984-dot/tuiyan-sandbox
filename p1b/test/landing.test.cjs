@@ -146,7 +146,34 @@ function 判链接(html, 页面目录, 根, 存在性 = (p) => fs.existsSync(p))
       why.push('[' + 条.属性 + '] ' + JSON.stringify(条.值) + ' —— ' + 条.说明);
     }
   }
-  if (外链数 > 0) {
+  // ★2026-09-30 规则更新：原为「本页刻意零外链」。
+  //   那条规则写于本页还放在 .github/landing/（只在仓库浏览器里看）时成立——
+  //   仓库相对路径能离线核验。但本页现在**要发到 GitHub Pages**（Pages 以 docs/ 为源），
+  //   那时服务根就是 docs/，`../../` 会**逃出站点** ⇒ 绝对链接才是对的。
+  //   ⇒ 规则改为：**外链只许指向自家仓库**，且形态可机械核验（owner/repo 与 server.json 同源）。
+  const 自家 = 'https://github.com/' + require('node:fs')
+    .readFileSync(require('node:path').join(ROOT, 'docs', 'mcp', 'server.json'), 'utf8');
+  const m = new RegExp('"name"\\s*:\\s*"([^"/]+)/([^"/]+)"').exec(自家);
+  // ★MCP 的 name 是**反向 DNS**（`io.github.<owner>/<repo>`），
+  //   与 GitHub 的 URL 路径（`<owner>/<repo>`）**不是一回事**——
+  //   直接切分拼前缀会得到 `github.com/io.github.X/Y`，于是自家链接全被判「越界」。
+  //   ⇒ 先剥掉反向 DNS 的 `io.github.` 前缀，再拼 URL。
+  const owner = m ? m[1].replace(/^io\.github\./, '') : null;
+  const 仓库前缀 = m ? 'https://github.com/' + owner + '/' + m[2] : null;
+  // ★首页那条链接**就是**仓库根（`https://github.com/<owner>/<repo>`，后面没有斜杠）。
+  //   只认 `前缀 + '/'` 会把它判成越界——差一个斜杠而已。
+  //   ⇒ 两种都算自家：恰好等于前缀，或以「前缀/」开头。
+  const 是自家 = (u) => {
+    if (!仓库前缀) return false;
+    const s = String(u);
+    return s === 仓库前缀 || s.indexOf(仓库前缀 + '/') === 0;
+  };
+  const 越界外链 = 清单.filter((c) => c.归一 === '外链' && !是自家(c.值));
+  if (越界外链.length > 0) {
+    why.push('本页外链只许指向自家仓库，越界 ' + 越界外链.length + ' 条：' + JSON.stringify(越界外链));
+    why.push('  （自家仓库前缀取自 docs/mcp/server.json 的 name，与 server.json 同源）');
+  }
+  if (false) {
     why.push('本页刻意零外链（' + 外链数 + ' 条）：离线无法核验外链是否还活着。要加外链须同改本条与页内注释。');
   }
   return { ok: why.length === 0, why, 清单, 片段数, 相对数, 外链数, 非法数 };
