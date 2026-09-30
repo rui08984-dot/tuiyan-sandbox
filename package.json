@@ -1,7 +1,7 @@
 {
   "name": "p1-sandbox-rename-before-publish",
   "version": "0.1.0",
-  "description": "把判断力做成契约：记录你的判断，然后证明它没有说谎。（本地 SQLite 账本 ＋ Brier 校准 ＋ 五层预测引擎）",
+  "description": "一个算 Brier 分的账本，LLM 不参与给数",
   "private": false,
   "type": "commonjs",
   "main": "p1b/src/server.js",

@@ -20,15 +20,34 @@
   flex: 0 0 auto;
 }
 /* 窄屏纪律：11 项导航在 360px 下放不下 ⇒ 导航条自身横向滚动，
- * 保住每项 44px 触控目标（不靠压缩可点面积换不溢出）。滚动条隐身。 */
+ * 保住每项 44px 触控目标（不靠压缩可点面积换不溢出）。
+ *
+ * ★2026-09-30（SPEC-ci-landing-mobile 模块 3）：滚动条**不再隐身**。
+ *   原为 `scrollbar-width: none` ＋ `::-webkit-scrollbar { height: 0 }` 两条一起藏干净
+ *   ⇒ 手机上首屏只看得见「待落定」，右边还压着「记一笔／我在哪儿偏了／现场」三块，
+ *     而**看不见也看不出还能横滑**。滚动条是这条横路唯一的路标，藏起来＝把路牌也拆了。
+ *   改为 3px 淡色指示条：细到不与 44px 触控目标争注意力，粗到「右边还有东西」看得见。 */
 .appbar-nav {
   display: flex; gap: 4px;
   min-width: 0; flex: 1 1 auto;
   overflow-x: auto; overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
+  /* Firefox 侧：`scrollbar-width` 只有 auto/thin/none 三档，**没有自定义尺寸的 API**，
+     所以 Firefox 桌面端拿到的是 `thin`——**不是 3px**（thin 具体多粗由浏览器定，
+     本机未实测；且桌面端不在本轨目标内）。
+     3px 这个精确值走下面的 ::-webkit-scrollbar（Chromium／Safari 走那条）——
+     两者不一致是平台限制，不是本处没写；本项目的手机目标是 Chromium／WebKit 系。 */
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--muted) 45%, transparent) transparent;
 }
-.appbar-nav::-webkit-scrollbar { height: 0; }
+.appbar-nav::-webkit-scrollbar { height: 3px; }
+.appbar-nav::-webkit-scrollbar-track { background: transparent; }
+/* 滑块色走 --muted 的半透明档：不新增色值（palette-single-source 闸），
+   且 --muted 在 [data-mode="live"] 下被重定义 ⇒ 现场深色页自动跟着翻，不做两套。 */
+.appbar-nav::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--muted) 45%, transparent);
+  border-radius: var(--radius-pill);
+}
 /* 极窄屏：品牌只留图标，把宽度让给导航（图标有 aria-label，不丢可访问名） */
 @media (max-width: 420px) {
   .brand > span { display: none; }

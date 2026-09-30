@@ -1,0 +1,78 @@
+# ============================================================
+# .github/workflows/ci.yml —— 四道闸门（p1b/gates/gates.cjs）
+# ------------------------------------------------------------
+# 本文件**不描述**四道闸门是什么，它只把 gates.cjs 已经跑的那四条命令
+# 原样搬到 CI 上。判据、阈值、复跑策略一概不在这里写第二遍。
+#
+# ★同源纪律：下面每个 run 的值都必须是 gates.cjs 自己打印的那条命令
+#   （去掉尾部「（N 个文件）」这类括号注释），逐字一致。
+#   p1b/test/ci-workflow.test.cjs 会把 gates.cjs 在 vm 沙箱里真跑一遍、
+#   取出它打印的四条命令，逐条断言本文件命中；删掉任意一条 ⇒ 那条测试红。
+#   ⇒ 两边不会悄悄漂移。改闸门请改 gates.cjs，不要改这里。
+#
+# ★顺序即语义：构建排在前端前面。gates.cjs 的文件头写明，
+#   p1b/web/dist.test.mjs 在 dist 不存在时直接 exit 1；
+#   若把前端排到构建前面，新机器上前端道必假红。
+#
+# ★shell 必须开 globstar：前端道的文件参数是 web/src/**/*.test.mjs。
+#   ubuntu 的 bash 默认不开 globstar ⇒ `**` 退化成 `*` ⇒ 只匹配一层子目录，
+#   web/src/ 顶层的用例被**静默漏掉**（实测 34 个只剩 15 个）⇒ CI 假绿。
+#   守卫测试会自己复算一遍这个差额，所以这条不是口头约定。
+# ============================================================
+
+name: 四道闸门
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  gates:
+    name: gates（后端 / 构建 / 前端 / 类型）
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        # 见文件头：不开 globstar 会漏掉 web/src/ 顶层的用例文件。
+        shell: bash -O globstar -eo pipefail {0}
+    steps:
+      - name: 检出
+        uses: actions/checkout@v4
+
+      - name: 装 node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      # ---- 依赖：三个有 lockfile 的包各自装，仓库根没有 lockfile 故不装 ----
+      - name: 装依赖 · p1a-terminal
+        working-directory: p1a-terminal
+        run: npm ci --no-audit --no-fund
+
+      - name: 装依赖 · p1b
+        working-directory: p1b
+        run: npm ci --no-audit --no-fund
+
+      - name: 装依赖 · p1b/web
+        working-directory: p1b/web
+        run: npm ci --no-audit --no-fund
+
+      # ---- 以下四步与 p1b/gates/gates.cjs 的 buildGates() 逐条同源、逐条同序 ----
+
+      - name: 闸门 1/4 · 后端 · node --test
+        working-directory: p1b
+        run: node --test --test-reporter=dot test/*.test.cjs test/meihua.js
+
+      - name: 闸门 2/4 · 构建 · vite build
+        run: node p1b/web/node_modules/vite/bin/vite.js build p1b/web
+
+      - name: 闸门 3/4 · 前端 · node --test
+        working-directory: p1b
+        run: node --test --test-reporter=dot web/src/**/*.test.mjs web/dist.test.mjs
+
+      - name: 闸门 4/4 · 类型 · tsc --noEmit
+        run: node p1b/web/node_modules/typescript/bin/tsc -p p1b/web/tsconfig.json --noEmit

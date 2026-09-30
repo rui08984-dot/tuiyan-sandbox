@@ -1,0 +1,5 @@
+{
+  "_说明": "演示路径 B 用的**空候选集**。它存在的唯一目的：让 Q0 拒收门在候选 0 条时 exit 3 而不是 exit 0 —— 空集不许被读成通过。判据见 p1b/scripts/anchor-gate.cjs:209。",
+  "candidates": [],
+  "drops": []
+}
