@@ -21,6 +21,9 @@
   "files": [
     "LICENSE",
     "docs/RIGHTS.md",
+    "docs/mcp/CAPABILITY-CATALOG.md",
+    "docs/mcp/CHAIN-AND-COMPOSITION.md",
+    "docs/mcp/server.json",
     "p1a-terminal/package.json",
     "p1a-terminal/quickref.txt",
     "p1a-terminal/shap.bat",
