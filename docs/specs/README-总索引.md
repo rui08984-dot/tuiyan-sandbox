@@ -1011,3 +1011,72 @@ Brier(按 p) **0.2254** vs Brier(按 0.5) **0.2500**，Δ **−0.0246**，CI95 *
 - 密钥可达 commit 数有 408／424 两口径，**以 424 为准**（09-29 最后一次全量实测）
 - §8 登记的两个「半成品」洞**已闭**：`analytics.js` 已于 `server.js:190` 补注册；
   「记一笔」已真 POST `/predictions`（`api.ts:333`，201）
+
+---
+
+## 10 · 当前状态（2026-09-29 更新 · **产品化交付四批收口** · 陌生人能装上了）
+
+> ★**本节与 §6/§7/§8 冲突时以本节为准**（前三节是历史快照，保留不动）。
+> ★**唯一入口交接**：`.scratch/handoff/推演沙盘-交接-20260929-产品化交付-终态.md`（**第 24 份**）。
+> **能力地图**：`CAPABILITY-MAP-产品化交付.md`（Phase 0 人工闸已过）· 地图 `项目全资源地图-20260914.md` §85
+
+### 10.1 一句话
+
+> **产品已经被前四轮的返工修好了。这一轮找到的阻断点里，没有一个是产品能力的——全部是「陌生人不知道怎么开始」。**
+> 这是本项目历史上第一次出现「瓶颈从『想清楚这是什么』变成『让别人装上』」的局面。
+
+### 10.2 四批交付（提交与闸门逐条可核）
+
+| 批 | 交付 | 提交 |
+|---|---|---|
+| 线 0 | 密钥清史 ＋ 662 处旧哈希回填 | `cc109f0` |
+| 线 1 | ResolvePage 三桶 ＋ 删 8 个死页面 ＋ 隐私红线 | `89b4d73` |
+| 第 1 批 | 种子库隐私剔除 ∥ 许可证 ∥ 数据目录＋错误人话化 | `5e8fff6` |
+| 第 2 批 | 发布体检闸（14 项）∥ 个人态首屏＋首次回声 | `894b32d` |
+| 第 3 批 | 原生模块多候选解析 ∥ 绿色 zip ＋ 三个启动器 | `408db84` |
+| 第 4 批 | 根 README ∥ CI ∥ 静态落地页 ∥ 移动端骨架 | `a73250c` ＋ `615ddaa` |
+
+**实测**：四道闸门 exit 0（后端 119 文件／build／前端 36 文件／tsc）· **发行体检 14/14 全绿** · 用例 **1200+**
+
+### 10.3 能力地图的 13 个模块与它们在哪
+
+| 模块 | spec | 状态 |
+|---|---|---|
+| `privacy-seed` | `SPEC-privacy-seed.md` | ✅ 种子库 + 真人昵称剔除（真名零残留） |
+| `licensing` | `SPEC-licensing.md` | ✅ Apache-2.0 ＋ 根 package.json ＋ 8 条红线 |
+| `runtime-paths` | `SPEC-runtime-paths.md` | ✅ 三平台数据目录 ＋ 降级拒绝（退出码 6） |
+| `error-ux` | `SPEC-error-ux.md` | ✅ 错误人话化 ＋ SPA fallback ＋ 前端未构建告警 |
+| `release-gate` | `SPEC-release-gate.md` | ✅ `audit-release.cjs` 14 项，产物上全绿 |
+| `first-run-ux` | `SPEC-first-run-ux.md` | ✅ 个人态首屏 ＋ 只指路引导 ＋ 三个回声 |
+| `deps-fix` | `SPEC-deps-fix.md` | ✅ 多候选解析 ＋ 57 处路径登记（留 P1） |
+| `packaging` | `SPEC-packaging.md` | ✅ 绿色 zip ＋ 三个启动器 |
+| `readme` | `SPEC-readme.md` | ✅ 根 README 71 行 |
+| `ci` | `SPEC-ci-landing-mobile.md` | ✅ Actions 与闸门同源 |
+| `landing` | `SPEC-ci-landing-mobile.md` | ⚠️ 已建，但 `.github/` 不可作 Pages 发布源 |
+| `mobile` | `SPEC-ci-landing-mobile.md` | ⚠️ 滚动条已修；**真机实测待创始人** |
+| `remote` | — | ⛔ **未建**：push 不可撤回，须创始人给地址 |
+
+### 10.4 ⚠️ 八条未销账（**不记作完成**）
+
+1. **git remote 未建** —— 须创始人给仓库地址
+2. **便携 node.exe 再分发权未确认** —— 现产物是逐字节拷贝本机 v24.19.0；要公开分发须换官方 zip ＋ 校验 sha256
+3. **`server.json` 的 name 是占位符** `io.github.example/p1b-ledger` —— 反向 DNS 名是发布身份，须创始人定
+4. **真机移动端实测** —— 需真手机 ＋ 手动放行防火墙；回执骨架已就位并标注待补
+5. **落地页无法真正上线** —— `.github/` 是保留目录
+6. **根包名是临时串** `p1-sandbox-rename-before-publish`
+7. **npm publish / MCP registry / Claude Marketplace** —— 归 P1
+8. **另外 57 处绝对／拼接路径** —— 已登记，正解是 P1 的 `node:sqlite` 迁移
+
+### 10.5 ★复现全部结论
+
+```bash
+node scripts/plan-audit.cjs                        # 机械核对 30 项
+cd p1b && node gates/gates.cjs                     # 四道闸门
+node p1b/scripts/audit-release.cjs --tree out/p1b-sandbox-v0.1.0-win-x64   # 发行体检 14 项
+node p1b/scripts/secret-preflight.cjs              # 密钥体检（只打指纹不打本体）
+```
+
+★**看到闸门输出里的「绿?」不要当绿灯** —— 那表示首跑红、复跑才绿。去读
+`.scratch/gate-flakes/` 里那次落盘的现场。第 4 批实测踩到过一次，**那不是偶发，是真回归**。
+
+（2026-09-29 · 产品化交付四批收口 · 八条未销账如实登记）
