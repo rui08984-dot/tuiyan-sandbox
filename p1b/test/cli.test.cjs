@@ -21,10 +21,22 @@
  * 模块加载它」这一对同形字样即算命中）——本文件对 p1b/cli 只 spawn CLI 本身、
  * 对 p1b/scripts 连模块加载都不做。
  * ★**本段注释刻意不写出那条正则的完整字面量**：那个检测是纯文本扫描，谁在注释里
- * 照抄一遍同形样例，谁就会被当成「require 了一个不存在的脚本」而打红（本件 2026-09-27
- * 首次落地时正是这么打红的，`scripts-require-safety.test.cjs:61` 报「测试引用了不存在的
- * 脚本」）。同族可参 `scripts-require-safety.test.cjs:19` 自己的 `SELF` 跳过写法。
+ *   照抄一遍同形样例，谁就会被当成「require 了一个不存在的脚本」而打红（本件 2026-09-27
+ *   首次落地时正是这么打红的，`scripts-require-safety.test.cjs:61` 报「测试引用了不存在的
+ *   脚本」）。同族可参 `scripts-require-safety.test.cjs:19` 自己的 `SELF` 跳过写法。
+ *
+ * GATE-SERIAL-ALONE
+ * ★2026-09-30：本文件在闸门里**独占一次串行运行**，不与别的测试文件并行。
+ *   起因：用例①断言的是一条**全局不变式**（任何 F 档命令都不许写 `p1b/sim/out`），
+ *   取证手段是**整目录快照**、窗口约 5s；而 `node --test` 按 CPU 并行跑文件（本机并发 27），
+ *   另有 11 个同款快照的文件在跑（见上方第 8-10 行）⇒ 只要**任何一轨**在那 5s 内合法地
+ *   写了一下 `p1b/sim/out`，本断言就对不上——2026-09-30 闸门实测红过一次（4903ms），
+ *   单跑本文件 5/5 全绿，被误记成「疑似偶发」。
+ *   修法是**改运行语境**（`p1b/gates/gates.cjs` 的 ISOLATED_BACKEND），不是改判据：
+ *   下面的整目录快照、逐位比对、5 条 F 档命令、反向确认产物，**一个字都没动**；
+ *   本文件也没有被 skip。文件头这一行标记是给闸门的形态自检对账用的，两边必须都在。
  */
+
 const test = require('node:test');
 const assert = require('node:assert');
 const fs = require('node:fs');
@@ -48,9 +60,36 @@ function runCli(args) {
   return { status: r.status, stdout: r.stdout || '', stderr: r.stderr || '', all: (r.stdout || '') + (r.stderr || '') };
 }
 
-/** 目录快照：照 `e2-combo-precheck.test.cjs:110` 的同款口径（文件名 + mtimeMs）。 */
+/**
+ * 目录快照。判据**只加强、不放松**：多走一层递归，覆盖 sim/out 下的子目录。
+ *
+ * ★2026-09-30 加的那一层是有实测依据的，不是洁癖：
+ *   原口径（同 `e2-combo-precheck.test.cjs:110`）只 `readdir` **顶层**并 stat 每个顶层项。
+ *   实测（临时目录对照）：往 `sim/out` 的**子目录**里
+ *     ① **新建**一个文件 ⇒ 看得见（子目录自身的 mtimeMs 变了）；
+ *     ② **覆写一个已存在的同名文件** ⇒ **看不见**（改文件内容不动父目录的 mtime，
+ *        而那个文件根本不在顶层 readdir 里）。
+ *   而 `p1b/sim/out` 底下确有 8 个子目录、243 个文件（batch/ 有 134 个）。
+ *   ⇒ 原口径漏掉了「②」这一整类写。F 档命令若往 batch/ 里写同名文件，今天是抓不到的。
+ *   这正是本文件头第 8-10 行那句「挡不住『另一个文件被顺带覆盖』」的本意，
+ *   递归口径才真正兑现它。
+ *
+ * 保持不变的：仍是**整目录快照、逐位比对**（没有改成「只查我关心的那几个文件」），
+ * 仍是 mtimeMs（外加 size：同刻改写同样长度时多一道独立信号）。
+ */
 function snapDir(dir) {
-  return fs.readdirSync(dir).sort().map((f) => f + ':' + fs.statSync(path.join(dir, f)).mtimeMs).join('\n');
+  const out = [];
+  (function walk(abs, rel) {
+    const entries = fs.readdirSync(abs, { withFileTypes: true })
+      .sort((a, b) => (a.name < b.name ? -1 : a.name > b.name ? 1 : 0));
+    for (const e of entries) {
+      const a = path.join(abs, e.name);
+      const r = rel ? rel + '/' + e.name : e.name;
+      if (e.isDirectory()) walk(a, r);
+      else if (e.isFile()) { const s = fs.statSync(a); out.push(r + ':' + s.mtimeMs + ':' + s.size); }
+    }
+  })(dir, '');
+  return out.join('\n');
 }
 function sha256(p) { return crypto.createHash('sha256').update(fs.readFileSync(p)).digest('hex'); }
 

@@ -18,6 +18,9 @@
  *   3. 绝不修改任何文件：这里只 spawn 只读/构建类命令，没有任何 --fix / --write 形参。
  *      唯一的写副作用是「构建」道写 p1b/web/dist/（已在 .gitignore:7，不入库）。
  *   4. 一切路径以本文件位置反推（__dirname），所以从任何 cwd 调用都成立。
+ *   5. ★2026-09-30：一道闸可以是多「段」（目前只有后端道＝单跑批 ＋ 并行批）。
+ *      段数、拆分理由、加入新段的条件，一律写在下面的 ISOLATED_BACKEND 里；
+ *      汇总表仍按**四道**记，不把「段」冒充成新的闸门。
  *
  * ★为什么「构建」排在「前端测试」前面：
  *   p1b/web/dist.test.mjs:9-11 断言 dist/assets 必须存在，否则报 ENOENT 直接 exit 1。
@@ -52,6 +55,17 @@ function backendTests() {
     .map((f) => path.join('test', f));
 }
 
+/** 只取基名（单跑批与并行批对账用；两批的清单元素都是 'test/xxx.test.cjs' 形态） */
+function basename(rel) { return rel.split(path.sep).pop(); }
+
+/** 后端道的**并行批**＝全部测试文件**减去**单跑批那几个（两批的并集仍等于全集，见 assertGateShape） */
+function backendBatch() {
+  const 单跑 = new Set(ISOLATED_BACKEND.map((f) => basename(f)));
+  const 批 = backendTests().filter((f) => !单跑.has(basename(f)));
+  if (!批.length) throw new Error('闸门自检失败：并行批为空 —— 后端道会变成「只跑一个文件」');
+  return 批;
+}
+
 /** 递归列出 p1b/web/src 下全部 *.test.mjs（前端道，不含 dist.test.mjs） */
 function frontendTests() {
   const out = [];
@@ -80,6 +94,44 @@ const OUT_OF_SCOPE_HINT = {
 };
 
 /**
+ * ★2026-09-30 新增：后端道的**单跑批**（串行、独占机器）。
+ *
+ * 病象（已确诊）：`test/cli.test.cjs` 的用例①在 2026-09-30 一次闸门运行里红过（4903ms），
+ *   单独跑该文件 5/5 全绿，闸门把它记成「疑似偶发 · 绿?」（现场单：
+ *   `.scratch/gate-flakes/flake-2026-09-30T06-23-39-961Z-backend.log`）。
+ *   红的断言是 `cli.test.cjs:69` 的整目录快照比对。
+ *
+ * 根因（设计层面）：该用例断言的是一条**全局不变式**——「任何 F 档命令都不许写
+ *   `p1b/sim/out`」——取证手段是**整目录快照**（`readdir` ＋ 每文件 mtimeMs，
+ *   `cli.test.cjs:52`），窗口约 5s（其间起 5 个子进程）。
+ *   本仓有 12 个测试文件用同款口径在同一个目录上取快照（`cli.test.cjs:8-10` 自己的注释
+ *   就点了名，样板见 `e2-combo-precheck.test.cjs:110`）。而 `node --test` **按 CPU 并行跑文件**
+ *   （本机 `os.availableParallelism()` = 28 ⇒ 默认并发 27 个文件）。
+ *   ⇒ 只要**任何一轨**在那 5s 窗口内合法地写了一下 `p1b/sim/out`，
+ *      别人的快照就对不上——**与 F 档命令是否清白无关**。
+ *   不变式是对的，**断言方式在并行语境下天然失效**。
+ *
+ * 为什么选「单跑批」而不是别的（两条都不许破：判据不弱、测试不被绕过）：
+ *   ✗ 放宽判据（只查我关心的几个文件 / 变化了就重试 / 加容忍）：题面第①条明令不许，
+ *     且那等于把「任何 F 档命令都不许碰 sim/out」这条全量保证缩成局部保证。
+ *   ✗ 在 `cli.test.cjs` 里取一把跨进程锁，让别的测试文件也来加锁：
+ *     锁是**双方协议**，只有一方守约等于没有锁；而「谁会写 sim/out」是这份清单里
+ *     最脆的一环（写方是脚本的 `--out-dir` 默认值，几十个脚本都有），漏一个就静默失效。
+ *     且要在别的文件里插等待逻辑，等于把 12 个文件都改了，风险远大于收益。
+ *   ✓ **单跑批**：把这一个文件从并行批里摘出来，**独占**一次 `node --test`
+ *     （`--test-concurrency=1`），跑完再跑其余 118 个文件的并行批。
+ *     整目录快照、逐位比对、5 条 F 档命令、反向确认产物——**一个字都没改**；
+ *     变的只是「跑它的时候旁边没有别人」。其余 118 个文件的并行度完全不变
+ *     （实测并行批 100–120s，单跑批约 6s）。
+ *
+ * 维护约定：往里加文件＝「这个文件断言的是全局不变式（整仓目录/整仓文件的快照比对），
+ *   并行跑必假红」。加完在文件头写上标记 `GATE-SERIAL-ALONE`（下面的自检会核对，
+ *   对不上当场炸，不会静默退化）。
+ */
+const ISOLATED_BACKEND = [path.join('test', 'cli.test.cjs')];
+const ISOLATED_MARKER = 'GATE-SERIAL-ALONE';
+
+/**
  * ★2026-09-29 新增：闸门**自身**的形态自检。
  *   起因是 2026-09-28 第七批我给 `world.run` 传了**目录** `p1b/test`，
  *   Node v24 会把 `--test` 的目录位置参当**模块**去 require ⇒ `Cannot find module`，
@@ -96,6 +148,28 @@ function assertGateShape() {
         ' —— Node v24 会把 --test 的目录位置参当模块 require，跑 0 个用例却恒红');
     }
   }
+  // ★2026-09-30 补：单跑批的三条形态锁。目的只有一个 —— **隔离不许静默退化**
+  //   （退化＝文件被改名/挪走，于是它悄悄回到并行批，整目录快照又开始假红）。
+  //   ① 清单里的每个文件都必须在场（改名当场炸，而不是悄悄失效）；
+  //   ② 单跑批与并行批的并集必须恰好等于全集（不许漏跑、不许跑两遍）；
+  //   ③ 单跑批里的文件必须自带标记 `GATE-SERIAL-ALONE`（标记与清单两头对账）。
+  const 已知 = new Set(files.map((f) => basename(f)));
+  for (const f of ISOLATED_BACKEND) {
+    if (!已知.has(basename(f))) {
+      throw new Error('闸门自检失败：单跑批里的 ' + f + ' 已不在 p1b/test 下 —— ' +
+        '它多半被改名或挪走了。请更新 gates.cjs 的 ISOLATED_BACKEND，' +
+        '**不要**就这么让它回到并行批（它断言的是全局不变式，并行跑必假红）');
+    }
+    if (fs.readFileSync(path.join(P1B, f), 'utf8').indexOf(ISOLATED_MARKER) < 0) {
+      throw new Error('闸门自检失败：单跑批里的 ' + f + ' 找不到标记 ' + ISOLATED_MARKER +
+        ' —— 请在该文件头写上这行标记（两批的归属要有一处人可读的凭据）');
+    }
+  }
+  const 并集 = new Set([...ISOLATED_BACKEND, ...backendBatch()].map((f) => basename(f)));
+  if (并集.size !== files.length) {
+    throw new Error('闸门自检失败：单跑批 ∪ 并行批 ≠ 后端道全集（' +
+      并集.size + ' vs ' + files.length + '）—— 有文件既没进单跑批也没进并行批');
+  }
   return files.length + EXTRA_BACKEND.length;
 }
 
@@ -111,8 +185,21 @@ function buildGates() {
       id: 'backend',
       label: '后端 · node --test（p1b/test/*.test.cjs ＋ meihua.js）',
       cwd: P1B,
-      args: ['--test', '--test-reporter=dot', ...backendTests(), ...EXTRA_BACKEND],
-      cmdForDisplay: () => `node --test --test-reporter=dot test/*.test.cjs test/meihua.js  （${backendTests().length + EXTRA_BACKEND.length} 个文件）`,
+      // ★2026-09-30：后端道拆成两「段」——单跑批（串行独占）＋并行批。理由见 ISOLATED_BACKEND。
+      //   两段的并集＝全集（assertGateShape 已钉死），任一段红 ⇒ 本道红。
+      aloneFiles: ISOLATED_BACKEND,
+      aloneArgs: ['--test', '--test-reporter=dot', '--test-concurrency=1', ...ISOLATED_BACKEND],
+      batchFiles: backendBatch(),
+      args: ['--test', '--test-reporter=dot', ...backendBatch(), ...EXTRA_BACKEND],
+      // ★两段各打印**一行**「命令」，格式与其余三道闸逐字同款
+      //   （`node …<命令本体>（N 个文件）`，尾部括号注记由 ci-workflow.test.cjs 的 coreOf 剥掉）。
+      //   之所以要两行：那份守卫在 vm 沙箱里真跑本文件，把 spawnSync 打桩成恒绿，
+      //   然后断言「打印出的命令条数 == spawn 次数」并按序一一对账 cwd。
+      //   ⇒ 一段 spawn 就得对应一行命令，否则守卫立刻报红（2026-09-30 实测：改成一整行多行文本
+      //   就会因为正则的 `.` 不跨行而整条漏读）。**别把这行合并回去。**
+      cmdForDisplay: (seg) => (seg && seg.tag === '单跑批'
+        ? `node --test --test-reporter=dot --test-concurrency=1 test/cli.test.cjs（${ISOLATED_BACKEND.length} 个文件，串行独占）`
+        : `node --test --test-reporter=dot test/*.test.cjs test/meihua.js  （${backendTests().length + EXTRA_BACKEND.length - ISOLATED_BACKEND.length} 个文件）`),
     },
     {
       id: 'build',
@@ -155,12 +242,19 @@ const gates = buildGates();
 const backendFileCount = assertGateShape();
 
 if (args.includes('--list')) {
+  // ★2026-09-30：`后端道文件（N）：`／`前端道文件（N）：` 这两个表头与它们下面的清单
+  //   **是契约**（ci-workflow.test.cjs 的 ⑧ 按表头正则 + 两空格缩进解析，与 yml 的 glob
+  //   展开结果逐条对账）。单跑批/并行批的拆分说明另起一块印在最后，不要混进这两张表里。
+  const bg = gates.find((g) => g.id === 'backend');
   console.log('后端道文件（%d）：', backendFileCount);
-  gates.find((g) => g.id === 'backend').args.slice(2).forEach((f) => console.log('  ' + f));
+  bg.batchFiles.concat(EXTRA_BACKEND, bg.aloneFiles).forEach((f) => console.log('  ' + f));
   console.log('前端道文件（%d）：', frontendTests().length + 1);
   frontendTests().forEach((f) => console.log('  ' + f));
   console.log('  ' + path.join('web', 'dist.test.mjs'));
   console.log('\n命名不规范提醒：%s —— %s', OUT_OF_SCOPE_HINT.file, OUT_OF_SCOPE_HINT.reason);
+  console.log('后端道拆分（串行独占的单跑批 ＋ 并行批；理由见 gates.cjs 的 ISOLATED_BACKEND）：');
+  console.log('  单跑批 %d 个：%s', bg.aloneFiles.length, bg.aloneFiles.join(' '));
+  console.log('  并行批 %d 个：%s', bg.batchFiles.length + EXTRA_BACKEND.length, '（上表除去单跑批那几个）');
   process.exit(0);
 }
 
@@ -173,32 +267,65 @@ const t0 = Date.now();
 let buildFailed = false;
 const 崩溃计数 = [];   // 本次运行里被原生崩溃打断过的闸（已知 vite/esbuild 约 8%）
 
+/**
+ * ★2026-09-30：一道闸可以是多「段」。目前只有后端道是两段（单跑批 ＋ 并行批）。
+ *   **单跑批排第一**：它断言的是工作树里那个生产目录的全局不变式，
+ *   取快照的窗口越早、旁边越空，越可靠（spawnSync 会等本段所有子进程退出才返回，
+ *   所以「跑完并行批再跑单跑批」也成立，但把最脆的那段放在最前面，
+ *   一旦它红就能在两分钟的大批之前先把话说完）。
+ */
+function segmentsOf(g) {
+  const segs = [];
+  if (g.aloneArgs) segs.push({ tag: '单跑批', files: g.aloneFiles, args: g.aloneArgs });
+  if (g.args) segs.push({ tag: '并行批', files: g.batchFiles, args: g.args });
+  return segs;
+}
+
 gates.forEach((g, i) => {
   const no = `${i + 1}/${gates.length}`;
+  const segs = segmentsOf(g);
   console.log('');
   console.log('='.repeat(72));
   console.log(`[闸门 ${no}] ${g.label}`);
-  console.log(`  cwd     : ${g.cwd}`);
-  console.log(`  命令     : ${g.cmdForDisplay()}`);
+  // ★2026-09-30：cwd / 命令**逐段各打一对**（单段闸＝与 2026-09-29 之前逐字相同）。
+  //   原因见 buildGates() 里 cmdForDisplay 上方的注释：ci-workflow.test.cjs 按
+  //   「一条 命令 行 ↔ 一次 spawn」对账，多段必须多行、少段必须少行。
+  for (const seg of segs) {
+    console.log(`  cwd     : ${g.cwd}`);
+    console.log(`  命令     : ${g.cmdForDisplay(seg)}`);
+  }
   console.log('='.repeat(72));
 
   const started = Date.now();
-  let code;
+  let code = 0;
   let spawnError = null;
-  try {
-    // stdio: 'inherit' —— 子进程直接接管终端。--test-reporter=dot 是必须的：
-    // 默认 TAP 打 900+ 用例会超 256KB 输出上限（实测，见交付报告）。
-    // ★2026-09-29 试过改成 pipe 捕获输出、让偶发红有证据留底，**害处大于好处，已回退**：
-    //   ① 总用时 13s → 26s（翻倍，而这道门现在每次提交都跑）；
-    //   ② 首跑 exit=1 而 stdout/stderr **全空**、复跑却 exit=0 —— 四道门**每次都这样**，
-    //      像 pipe 下的执行异常而不是测试失败（同一命令单独跑 exit=0 且有正常输出）。
-    //   证据留不住有别的办法：**复跑那次的输出本来就被捕获**，落盘用它即可。
-    const r = spawnSync(process.execPath, g.args, { cwd: g.cwd, stdio: 'inherit', shell: false });
-    if (r.error) spawnError = r.error;
-    code = r.status === null ? 1 : r.status;
-  } catch (e) {
-    spawnError = e;
-    code = 1;
+  for (const seg of segs) {
+    if (segs.length > 1) {
+      console.log('');
+      console.log(`---- [闸门 ${no}] ${seg.tag}：${seg.files.length} 个文件 ----`);
+    }
+    const segStart = Date.now();
+    let segCode;
+    try {
+      // stdio: 'inherit' —— 子进程直接接管终端。--test-reporter=dot 是必须的：
+      // 默认 TAP 打 900+ 用例会超 256KB 输出上限（实测，见交付报告）。
+      // ★2026-09-29 试过改成 pipe 捕获输出、让偶发红有证据留底，**害处大于好处，已回退**：
+      //   ① 总用时 13s → 26s（翻倍，而这道门现在每次提交都跑）；
+      //   ② 首跑 exit=1 而 stdout/stderr **全空**、复跑却 exit=0 —— 四道门**每次都这样**，
+      //      像 pipe 下的执行异常而不是测试失败（同一命令单独跑 exit=0 且有正常输出）。
+      //   证据留不住有别的办法：**复跑那次的输出本来就被捕获**，落盘用它即可。
+      const r = spawnSync(process.execPath, seg.args, { cwd: g.cwd, stdio: 'inherit', shell: false });
+      if (r.error && !spawnError) spawnError = r.error;
+      segCode = r.status === null ? 1 : r.status;
+    } catch (e) {
+      if (!spawnError) spawnError = e;
+      segCode = 1;
+    }
+    if (segs.length > 1) {
+      console.log(`\n[闸门 ${no}/${seg.tag}] 退出码 = ${segCode}    用时 = ${((Date.now() - segStart) / 1000).toFixed(2)}s`);
+    }
+    // 任一段红 ⇒ 本道红；退出码取**最后一个**非零段（两段都红时，复跑提示里能看出是哪个）
+    if (segCode !== 0) code = segCode;
   }
   const secs = (Date.now() - started) / 1000;
 
@@ -218,8 +345,17 @@ gates.forEach((g, i) => {
   let flakyNote = "";
   if (code !== 0) {
     const t1 = Date.now();
-    const retry = spawnSync(process.execPath, g.args, { cwd: g.cwd, encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 });
-    const rCode = retry.status === null ? -1 : retry.status;
+    // ★2026-09-30：复跑必须**把该道的每一段都重跑一遍**。
+    //   早先只有一段（g.args），所以复跑＝重跑全部；拆成两段后若只复跑并行批，
+    //   单跑批那一段的红就永远复现不出来 ⇒ 「疑似偶发」的判定会失真。
+    let rCode = 0;
+    const retryOut = [];
+    for (const seg of segs) {
+      const retry = spawnSync(process.execPath, seg.args, { cwd: g.cwd, encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 });
+      const rc = retry.status === null ? -1 : retry.status;
+      if (rc !== 0) rCode = rc;
+      retryOut.push('===== 复跑·' + seg.tag + ' =====\n' + (retry.stdout || '') + (retry.stderr || ''));
+    }
     const rSecs = (Date.now() - t1) / 1000;
     // ★2026-09-29 抓到 exit 3221225477 = 0xC0000005 = STATUS_ACCESS_VIOLATION
     //   （Windows 访问违例、原生崩溃）之后加的判据：
@@ -256,7 +392,7 @@ gates.forEach((g, i) => {
           `# 复现：node p1b/gates/gates.cjs 连跑，看是否再触发\n\n` +
           '===== 首跑输出未捕获 =====\n' +
           '（首跑用 stdio:inherit，输出直接进终端。试过改 pipe 捕获：总用时翻倍、且首跑 exit=1 而输出全空，已回退 —— 见上方注释）\n\n' +
-          '===== 复跑的输出（尾部 8KB）=====\n' + retry.stdout + '\n',
+          '===== 复跑的输出 =====\n' + retryOut.join('\n') + '\n',
           'utf8');
         console.log('         已落盘：' + path.relative(REPO, f));
       } catch (e) {
