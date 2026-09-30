@@ -46,6 +46,33 @@ const isMechanicalCJKHao = (s) => /[一-鿿]/.test(s) && String(s).includes('号
 
 const 零泄漏表 = Object.freeze(['analytics_events', 'analytics_sessions', 'analytics_visitors', 'question_owners']);
 
+/**
+ * ★**应用启动时自建的表** —— G6 结构锁唯一不参与比对的一小份名单（2026-09-30 定）。
+ *
+ * `app_meta` 由 `p1b/src/schemaVersion.js:53` 的 `APP_META_DDL` 在**服务启动时**建出来
+ * （内容就一行 `schema_version=1`）。它是**应用运行时元数据，不是来源数据**，所以
+ * 拿它去卡「种子库结构是否与来源一致」是拿错了尺子：
+ *   · 它不属于「种子库该有的一切数据表」，剔它不是隐私工作，剔它也不是「剔除过头」；
+ *   · **种子库不需要它** —— 首次启动时 schemaVersion 自己会建。`schemaVersion.js:188-192`
+ *     把「盘上还没有 app_meta（null）」明确写成首装的**正常路径**，`migrate()` 走
+ *     null → 登记，既不备份也不报错。所以「种子库零启动就位」这件事它是天生的。
+ *
+ * ★**为什么它当初会把闸门顶红（实测，非推断）**：来源 `p1a.db` 是 WAL 模式，而建 `app_meta`
+ *   的那个事务还留在**未 checkpoint 的 `-wal`** 里。于是两边的可见性对不上：
+ *     · 走 SQLite 连接读来源 → `-wal` 会被读进来 ⇒ 看得见 21 张表；
+ *     · `build()` 的 `fs.copyFileSync` → **只拷主库文件，不拷 `-wal`** ⇒ 产物 20 张表。
+ *   谁先按 README 起一次服务，这道闸就红一次。属于「正常使用即触发」。
+ *
+ * ★**排除必须两侧都做**，不能只排来源。否则哪天 `-wal` 被 checkpoint 进主库，
+ *   `copyFileSync` 就会把 `app_meta` 一起带进产物，届时「只排来源」反而变成产物多出一张表，照红。
+ *
+ * ★**这份名单不是万能橡皮擦**：它只列应用自己建的表，G6 仍按**表名集合**逐张比，
+ *   少一张真数据表照样红（`make-seed-db.test.cjs` 有反向锁钉死这一点）。
+ *   ★要往里加名字，先回答一句：**这张表是应用建的，还是数据带来的？**
+ *   视图不在本名单内 —— 若将来应用会自建视图，让它照红，那需要的是一次真的产品决定。
+ */
+const 应用自建表 = Object.freeze(['app_meta']);
+
 // ── 工具 ─────────────────────────────────────────────────────────────
 function sha256File(p) {
   const fd = fs.openSync(p, 'r');
@@ -89,6 +116,39 @@ const 结构计数 = (db) => {
   for (const x of r) o[x.type] = x.n;
   return o;
 };
+/**
+ * 结构签名 = **表名与视图名的有序集合**（不是计数）。
+ * ★为什么不用计数：{a,b,c} 与 {a,b,d} 的计数都是 3，计数判「一致」，
+ *   而实际上有一张表被换名成了另一张 —— 那正是「剔除过头」的另一种形态。集合比计数严。
+ */
+const 结构签名 = (db) => {
+  const s = { tables: [], views: [] };
+  for (const r of db.prepare("SELECT type, name FROM sqlite_master WHERE type IN ('table','view')").all()) {
+    (r.type === 'table' ? s.tables : s.views).push(r.name);
+  }
+  s.tables.sort(); s.views.sort();
+  return s;
+};
+const 排掉自建 = (names) => names.filter((n) => !应用自建表.includes(n));
+/**
+ * G6 的判据本体。**两侧各自排掉「应用自建表」后**，表名集合与视图名集合必须完全相等。
+ * 源基准为 null（`--check-only` 模式）⇒ 无基准可比，返回 ok=true 并把有基准标成 false。
+ */
+function 比结构(产, 源) {
+  const 空 = { 有基准: false, ok: true, 少表: [], 多表: [], 少视图: [], 多视图: [] };
+  if (!源) return 空;
+  const pt = 排掉自建(产.tables), st = 排掉自建(源.tables);
+  const pv = 产.views, sv = 源.views;
+  const 少表 = st.filter((n) => !pt.includes(n));
+  const 多表 = pt.filter((n) => !st.includes(n));
+  const 少视图 = sv.filter((n) => !pv.includes(n));
+  const 多视图 = pv.filter((n) => !sv.includes(n));
+  return {
+    有基准: true,
+    ok: !少表.length && !多表.length && !少视图.length && !多视图.length,
+    少表, 多表, 少视图, 多视图,
+  };
+}
 
 // ── 昵称 token 账本（★只在内存里，绝不落盘）───────────────────────────
 /**
@@ -169,8 +229,10 @@ function scanBytes(file, ledger) {
 /**
  * 七道闸。返回 { red:[], rows:[[闸,结论,证据]] }。
  * ★每道闸都**先断言前提**（表在不在、行数是多少）再断言结论 —— 不做「空跑绿灯」。
+ *
+ * @param sourceSig {tables,views} 结构签名（排掉「应用自建表」后与产物比）；null ＝无基准，G6 不判
  */
-function runGates(productPath, ledger, sourceStruct, realGames) {
+function runGates(productPath, ledger, sourceSig, realGames) {
   const rows = [];
   const red = [];
   const put = (ok, name, concl, ev) => { rows.push([ok ? '[OK]' : '[红]', name, concl, ev]); if (!ok) red.push(name + '：' + concl + '（' + ev + '）'); };
@@ -215,11 +277,23 @@ function runGates(productPath, ledger, sourceStruct, realGames) {
     const leakTotal = 零泄漏表.reduce((a, t) => a + (行数(db, t) || 0), 0);
     put(leakTotal === 0, 'G5 零泄漏锁', leakTotal === 0 ? '0 行' : '还有 ' + leakTotal + ' 行', leak);
 
-    // G6 结构锁：表数/视图数与来源一致
-    const st = 结构计数(db);
-    const okStruct = !sourceStruct || (st.table === sourceStruct.table && st.view === sourceStruct.view);
-    put(okStruct, 'G6 结构锁', okStruct ? '一致' : '与来源不一致',
-        'table=' + st.table + ' view=' + st.view + (sourceStruct ? '（来源 table=' + sourceStruct.table + ' view=' + sourceStruct.view + '）' : '（无来源基准）'));
+    // G6 结构锁：表/视图**名字**与来源一致 —— 意图不变（缺表＝剔除过头，必须红），
+    //   只是不再把「应用启动时自建的表」算进来（见 应用自建表）。
+    const 产签名 = 结构签名(db);
+    const cmp = 比结构(产签名, sourceSig);
+    const 差异 = []
+      .concat(cmp.少表.length ? ['来源有产物无：' + cmp.少表.join(',')] : [])
+      .concat(cmp.多表.length ? ['产物多出：' + cmp.多表.join(',')] : [])
+      .concat(cmp.少视图.length ? ['来源有视图产物无：' + cmp.少视图.join(',')] : [])
+      .concat(cmp.多视图.length ? ['产物多出视图：' + cmp.多视图.join(',')] : []);
+    const 形 = (s) => 'table=' + s.tables.length + ' view=' + s.views.length;
+    const 形比锁 = (s) => 'table=' + 排掉自建(s.tables).length + ' view=' + s.views.length;
+    put(cmp.ok, 'G6 结构锁',
+        cmp.ok ? (cmp.有基准 ? '一致' : '无来源基准，本闸不判') : '与来源不一致：' + 差异.join('；'),
+        '产物 ' + 形(产签名) + '（比锁后 ' + 形比锁(产签名) + '）' +
+        (cmp.有基准 ? ' ↔ 来源 ' + 形(sourceSig) + '（比锁后 ' + 形比锁(sourceSig) + '）'
+                   : '（无来源基准）') +
+        '；排除应用自建表 ' + 应用自建表.join(','));
 
     // G7 字节锁：文件字节层面也别有
     const by = scanBytes(productPath, ledger);
@@ -290,11 +364,12 @@ function build(opts) {
 
   // ① 只读来源，算剔除计划与身份账本
   const srcDb = new DatabaseSync(src, { readOnly: true });
-  let plan, ledgerSet, sourceStruct;
+  let plan, ledgerSet, sourceSig, sourceCounts;
   try {
     plan = buildPlan(srcDb);
     ({ ledger: ledgerSet } = buildLedger(srcDb));
-    sourceStruct = 结构计数(srcDb);
+    sourceSig = 结构签名(srcDb);        // G6 的比对基准（表名集合）
+    sourceCounts = 结构计数(srcDb);     // ★仍是原样的 {table,view} —— C9 读的就是这个形状
   } finally { srcDb.close(); }
 
   // ② 幂等：已存在就退出，**绝不覆盖**
@@ -326,7 +401,7 @@ function build(opts) {
   const immutable = shaBefore === shaAfter;
 
   // ⑤ 体检 + 读数
-  const gates = runGates(out, ledgerSet, sourceStruct, plan.realGameIds);
+  const gates = runGates(out, ledgerSet, sourceSig, plan.realGameIds);
   const pdb = new DatabaseSync(out, { readOnly: true });
   let layers, counts;
   try { layers = layerReadings(pdb); counts = { events: 行数(pdb, 'events'), players: 行数(pdb, 'players'), games: 行数(pdb, 'games'), predictions: 行数(pdb, 'predictions'), claims: 行数(pdb, 'claims') }; }
@@ -341,7 +416,13 @@ function build(opts) {
       路径: path.relative(ROOT, src).replace(/\\/g, '/'),
       sha256: shaBefore,
       只读收据: immutable ? '来源 sha256 构建前后一致 ⇒ 未被写入' : '★来源 sha256 变了 ⇒ 脚本出错了，请查',
-      结构: sourceStruct,
+      结构: sourceCounts,           // ★原样 {table,view} 计数，发行闸 C9 依赖这个形状，别改
+      比锁结构: {                   // ★G6 真正拿来比的东西（应用自建表已在两侧排掉）
+        表: sourceSig.tables,
+        比锁后: 排掉自建(sourceSig.tables),
+        视图: sourceSig.views,
+        排除的应用自建表: 应用自建表,
+      },
     },
     产物: { 路径: path.relative(ROOT, out).replace(/\\/g, '/'), sha256: sha256File(out) },
     剔除: {
@@ -363,7 +444,10 @@ function build(opts) {
       逐表: {
         events: { 剔: plan.drop.events.rows, 留: counts.events, 剔掉的_id: plan.drop.events.ids, 原因: '这 5 行 raw_text 带 4 位真实玩家的昵称，他们没同意过被公开' },
         claims: { 剔: plan.drop.claims.rows, 留: counts.claims, 原因: plan.drop.claims.why },
-        actions: { 剔: plan.drop.actions.rows, 留: 行数(new DatabaseSync(out, { readOnly: true }), 'actions'), 原因: plan.drop.actions.why },
+        // ★原来这里是 `行数(new DatabaseSync(out, {readOnly:true}), 'actions')` ——
+        //   句柄开了不关，是个**真泄漏**。它平时不发作（要等 GC 回收后才松开），
+        //   但同一时刻就要删产物目录的调用方会被 Windows 挡下（EPERM）。
+        actions: { 剔: plan.drop.actions.rows, 留: (() => { const d = new DatabaseSync(out, { readOnly: true }); try { return 行数(d, 'actions'); } finally { d.close(); } })(), 原因: plan.drop.actions.why },
         hypotheses: { 剔: plan.drop.hypotheses.rows, 留: 0, 原因: plan.drop.hypotheses.why },
         contradictions: { 剔: plan.drop.contradictions.rows, 留: 0, 原因: plan.drop.contradictions.why },
         ...Object.fromEntries(零泄漏表.map((t) => [t, { 剔: plan.drop[t].rows, 留: 0, 原因: plan.drop[t].why }])),
@@ -381,7 +465,11 @@ function build(opts) {
   };
   // 结构那项另开连接取，避免上面的临时句柄泄漏
   const tmp = new DatabaseSync(out, { readOnly: true });
-  try { provenance.产物.结构 = 结构计数(tmp); } finally { tmp.close(); }
+  try {
+    provenance.产物.结构 = 结构计数(tmp);            // ★原样 {table,view}，发行闸 C9 依赖
+    const 产签名 = 结构签名(tmp);
+    provenance.产物.比锁结构 = { 表: 产签名.tables, 比锁后: 排掉自建(产签名.tables), 视图: 产签名.views };
+  } finally { tmp.close(); }
 
   fs.mkdirSync(path.dirname(opts.provenance), { recursive: true });
   fs.writeFileSync(opts.provenance, JSON.stringify(provenance, null, 2) + '\n', 'utf8');
@@ -459,8 +547,8 @@ function main() {
 if (require.main === module) main();
 
 module.exports = {
-  HAND_VERIFIED_EVENT_IDS, SEAT_NICK_RE, 零泄漏表,
+  HAND_VERIFIED_EVENT_IDS, SEAT_NICK_RE, 零泄漏表, 应用自建表,
   build, buildPlan, buildLedger, runGates, scanLedger, scanBytes,
-  layerReadings, 结构计数, 行数, sha256File, parseArgs, main,
+  layerReadings, 结构计数, 结构签名, 比结构, 行数, sha256File, parseArgs, main,
   DEFAULT_SOURCE, DEFAULT_OUT, DEFAULT_PROVENANCE,
 };

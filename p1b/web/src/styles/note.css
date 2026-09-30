@@ -5,6 +5,71 @@
  * 拒收的回执把因果方向说清：**是系统拒了你**，不是「你没通过考试」。 */
 .note { max-width: 720px; }
 
+/* ══ 常驻步进指示（2026-09-30）══
+ * 病象：那一屏没有 bug，缺的是"我在第几步"这句话——用户看着不动的页面猜。
+ * 形制纪律（每条都有理由）：
+ * · **常驻在文档流里**，不是浮层：position/z-index 一个都不设。
+ *   一个指示器如果压住别的内容，它自己就成了新的遮挡问题。
+ * · 三步是**横排**的方点，不是竖排的长列表：它要占的是一眼扫过的那一行，
+ *   竖排三行会把下面那两个必答的输入框挤到折叠线以下。
+ * · 状态**不只靠颜色**：每个点旁边有 stateWord 文字（"已完成/正在这一步/卡住了"），
+ *   色觉障碍与灰度打印下同样读得出来。
+ * · 动效只有一处（"正在这一步"那个点的呼吸），且 reduced-motion 下**真的停**。 */
+.note-steps {
+  margin: 0 0 18px; padding: 12px 14px;
+  border: 1px solid var(--line); border-radius: var(--radius-item);
+  background: var(--panel-2);
+}
+.note-steps-head {
+  margin: 0 0 10px; font-size: 12.5px; line-height: 1.6; color: var(--muted);
+  display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline;
+}
+.note-steps-at { color: var(--text); font-weight: 600; }
+.note-steps-lack { color: var(--warn); }
+.note-steps-ok { color: var(--ok); }
+
+.note-steps-list {
+  display: flex; flex-wrap: wrap; gap: 8px 18px;
+  margin: 0 0 8px; padding: 0; list-style: none;
+}
+.note-step { display: flex; align-items: center; gap: 7px; min-width: 0; }
+/* 方点：三种状态靠 填充 / 空心 / 描边 分开，reduced-motion 下也分得清 */
+.note-step-n {
+  flex: 0 0 auto;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 20px; height: 20px; border-radius: 50%;
+  border: 1.5px solid var(--line); background: transparent;
+  color: var(--muted);
+  font-family: var(--font-mono); font-size: 11px; font-weight: 600; line-height: 1;
+}
+.note-step.is-done .note-step-n { border-color: var(--ok); background: var(--ok-bg); color: var(--ok); }
+.note-step.is-now .note-step-n { border-color: var(--accent); color: var(--accent); animation: note-step-breathe 1.6s ease-in-out infinite; }
+.note-step.is-blocked .note-step-n { border-color: var(--warn); background: var(--warn-bg); color: var(--warn); }
+
+.note-step-txt { display: flex; flex-direction: column; min-width: 0; }
+.note-step-label { font-size: 12.5px; font-weight: 600; line-height: 1.35; color: var(--text); }
+.note-step.is-todo .note-step-label { color: var(--muted); font-weight: 400; }
+.note-step-state { font-size: 11px; line-height: 1.35; color: var(--muted); }
+.note-step.is-blocked .note-step-state { color: var(--warn); }
+.note-step.is-done .note-step-state { color: var(--ok); }
+
+.note-steps-note { margin: 0; font-size: 12px; line-height: 1.6; color: var(--muted); }
+
+@keyframes note-step-breathe {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.55; }
+}
+/* ★reduced-motion：停的是动效，**状态一个字都不许少**（关掉动效不许顺手把字也藏了） */
+@media (prefers-reduced-motion: reduce) {
+
+  .note-step { animation: none; }
+}
+
+@media (max-width: 375px) {
+  .note-steps { padding: 10px 11px; }
+  .note-steps-list { gap: 6px 12px; }
+}
+
 .note-label {
   display: block; margin: 0 0 6px;
   font-size: 12.5px; font-weight: 600; color: var(--text);

@@ -27,7 +27,12 @@ const fs = require('node:fs');
 const path = require('node:path');
 
 const ROOT = path.resolve(__dirname, '..', '..');
-const 页面路径 = path.join(ROOT, '.github', 'landing', 'index.html');
+// ★2026-09-29 改位置：`.github/` 是 GitHub 保留目录，**Pages 不会从那里发布**
+// （那是用户/组织 profile 仓库的用法，不是普通仓库）。普通仓库的 Pages 源只有三种：
+// 分支根、`/docs`、或 Actions 工作流。⇒ 落到 `docs/landing/`，Pages 选 `/docs` 即可。
+// ★同时把页内 `../../` 相对链接改成**绝对 GitHub URL**：以 `/docs` 为发布源时服务根
+//   就是 `docs/`，`../../` 会**逃出站点**——链接基准随发布位置变，静态页不该吃这个亏。
+const 页面路径 = path.join(ROOT, 'docs', 'landing', 'index.html');
 const 页面目录 = path.dirname(页面路径);
 const 描述路径 = path.join(ROOT, 'docs', 'mcp', 'server.json');
 const 根README路径 = path.join(ROOT, 'README.md');
@@ -85,6 +90,21 @@ function 判链接(html, 页面目录, 根, 存在性 = (p) => fs.existsSync(p))
       if (!frag) { 条.说明 = '空片段（href="#"）'; 非法数++; }
       else if (!ids.has(frag)) { 条.说明 = '片段 #' + frag + ' 在本页没有对应 id'; 非法数++; }
       else 片段数++;
+    } else if (/^https?:\/\/github\.com\/rui08984-dot\/p1b-sandbox\//i.test(值)) {
+      // ★2026-09-29 新增这一类：页内链接改成**绝对 GitHub URL** 后（Pages 以 /docs
+      //   为发布源时，`../../` 会逃出站点），原先「仓库相对类」数到 0 ⇒ 那个死链检查
+      //   **变成空跑绿灯**。⇒ 给绝对 URL 单开一个**可机械校验**的类：
+      //   它必须指向本仓的 blob/master/ 路径，且后面跟着一个真实存在的文件。
+      const rel = 值.replace(/^https?:\/\/github\.com\/rui08984-dot\/p1b-sandbox\/blob\/master\//i, '');
+      条.归一 = '仓库绝对';
+      条.说明 = '';
+      if (!rel || rel.includes('..')) {
+        条.说明 = '绝对仓库 URL 没给出干净的仓库内路径：' + 值; 非法数++;
+      } else if (!fs.existsSync(path.join(ROOT, ...decodeURIComponent(rel).split('/')))) {
+        条.说明 = '死链（仓库内不存在该文件）：' + rel; 非法数++;
+      } else {
+        相对数++;   // 与「相对」同一个计数桶 —— 它验的就是「这个文件在不在」
+      }
     } else if (/^https?:/i.test(值) || 值.startsWith('//')) {
       条.归一 = '外链';
       条.说明 = '外链离线无法核验是否还活着';

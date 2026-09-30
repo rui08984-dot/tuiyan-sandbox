@@ -37,6 +37,12 @@ import type { IntakeClassifyResult } from '../types';
 import '../styles/note.css';
 import { Term } from '../components/ui';
 import { Wait } from '../components/Wait';
+/* ★常驻步进指示（2026-09-30 · 创始人实测「我在填在这一步但是页面不会变」）。
+   那一屏没有 bug，缺的是"我在第几步"这句话——本组件只把**已有的 phase** 画出来，
+   不新增流程、不动门禁。判定与文案全在 lib/noteSteps.ts（那里有禁词闸与"不许出现读数值"闸），
+   本页只负责把同一个 phase 递进去。 */
+import { NoteSteps } from '../components/NoteSteps';
+import { stepsViewOf } from '../lib/noteSteps';
 import { KIND_GROUPS, kindLabel } from '../lib/kindLabel';
 /* ★判定搬进纯函数：组件级测试要 jsdom/Testing Library（本项目禁新依赖），
    而"这段等待该显示成什么"恰恰是最该被单测的东西（空白与"查不到"同形＝骗人）。
@@ -287,6 +293,12 @@ export default function NotePage() {
      共用一句"在数同类题的历史样本"会让人以为提交时也在数数——那是在解释一件没发生的事。 */
   const wait = waitViewOf({ err, busy, phase });
 
+  /* ★常驻步进指示的输入。
+     ★只递 phase / lookup / 两个输入框的值 —— **一个读数都不递**：
+     递了 base 就等于给显示层开第二个数来源（assigned_prob 只有一个来源，见上方 submit 注释）。
+     「还差什么」由 stepsViewOf 内部调 submitGuard 得到，与真正拦人的那道闸同一个返回值。 */
+  const steps = stepsViewOf({ statement, kind, phase, myProb, lookup, busy });
+
   return (
     <div className="note">
       <header className="page-head note-head">
@@ -295,6 +307,11 @@ export default function NotePage() {
           把一件还没发生的事写下来。到期后回来回答，就落定了。
         </p>
       </header>
+
+      {/* ── 常驻步进指示：不在流程里做任何 gating，只是把已有的 phase 说出来 ──
+          放在两件必答的事**之前**：用户一进页就看得见自己在第几步，
+          而不是填到一半才发现"页面不动"。 */}
+      <NoteSteps view={steps} />
 
       {/* ── 两件本来就得人做的事：题面 + 真值锚类型 ── */}
       <section className="note-in">

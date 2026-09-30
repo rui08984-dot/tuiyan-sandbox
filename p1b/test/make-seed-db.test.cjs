@@ -140,16 +140,27 @@ test('⑦ 零泄漏锁：analytics_* 与 question_owners 全为 0，且这些表
 });
 
 // ═══ ⑧ 结构锁 ═══
-test('⑧ 结构锁：sqlite_master 表数与视图数与来源一致（结构留住了）', () => {
+test('⑧ 结构锁：排掉「应用启动时自建的表」后，产物的表名/视图名与来源逐张相同', () => {
+  assert.ok(BUILT, '③ 没跑，产物不存在');
+  const mod = require(SCRIPT);
   const s = new DatabaseSync(SRC, { readOnly: true });
   const p = new DatabaseSync(BUILT.out, { readOnly: true });
   try {
-    const cnt = (d) => {
-      const o = { table: 0, view: 0 };
-      for (const r of d.prepare("SELECT type, COUNT(*) n FROM sqlite_master WHERE type IN ('table','view') GROUP BY type").all()) o[r.type] = r.n;
-      return o;
-    };
-    assert.deepEqual(cnt(p), cnt(s), '产物的表/视图数与来源不一致');
+    const 产 = mod.结构签名(p);
+    const 源 = mod.结构签名(s);
+    // ★前置一：产物确实留住了结构。少了这一句，「两边相同」可能只是两边都空。
+    assert.ok(产.tables.length > 15, '产物只有 ' + 产.tables.length + ' 张表 —— 结构没留住，⑧ 是空跑绿灯');
+    // ★前置二：来源里**不能**有产物没有的真数据表。少一张正是 G6 要抓的「剔除过头」，
+    //   若这里已经不满足，⑧ 就是在给一个已经坏掉的产物发通行证。
+    const 缺失真表 = 源.tables.filter((n) => !产.tables.includes(n) && !mod.应用自建表.includes(n));
+    assert.deepEqual(缺失真表, [], '来源里有产物没有的真数据表：' + 缺失真表.join(',') + ' —— 前提已失效，⑧ 测不到东西');
+
+    const cmp = mod.比结构(产, 源);
+    assert.ok(cmp.ok,
+      '结构对不上 —— 来源有产物无：' + cmp.少表.join(',') +
+      '；产物多出：' + cmp.多表.join(',') +
+      '；来源有视图产物无：' + cmp.少视图.join(',') +
+      '；产物多出视图：' + cmp.多视图.join(','));
   } finally { s.close(); p.close(); }
 });
 
@@ -376,4 +387,177 @@ test('⑮ ★反向锁：外键清理被废掉时本条必须红（证明 ⑭ �
   s.close();
   assert.ok(ifCleanupDisabled > 0, '人工名单为空 ⇒ ⑭ 的前提失效');
   assert.equal(actual, 0, '产物里本该有 ' + ifCleanupDisabled + ' 条悬挂，实际 ' + actual);
+});
+
+// ══════════════════════════════════════════════════════════════════
+// ★★2026-09-30 G6 结构锁的恒红（route a：比对排除「应用启动时自建的表」）
+//
+// 病象：来源库 21 表 / 产物 20 表，差的正好一张 app_meta ⇒ G6 恒红 exit 4。
+//   真实病因是**快照可见性**，不是「数据剔错了」：来源 p1a.db 是 WAL 模式，
+//   建 app_meta 的事务还留在未 checkpoint 的 -wal 里 ⇒ 走连接读来源看得见 21 张表，
+//   而 build() 的 fs.copyFileSync 只拷主库文件 ⇒ 产物 20 张。
+//   任何人按 README 起一次服务，这道闸就红一次。
+//
+// ★同一天的后续观测（13:28，来源已被 checkpoint 成 21 表 / -wal 0 字节）：同一个病换了张脸。
+//   app_meta 一旦进了主库文件，`copyFileSync` 就把它**一起带进产物** ⇒ 变成「来源 21 / 产物 21」。
+//   所以排除必须**两侧都做**（`make-seed-db.cjs` 的 `应用自建表` 已是如此），
+//   本测试的夹具也必须**先把基线归一化**，否则它测的是一次会过期的库状态，而不是病。
+// ══════════════════════════════════════════════════════════════════
+
+test('⑯ ★G6 排除应用自建表：来源多一张应用自建表 ⇒ 结构锁仍绿', () => {
+  // ★为什么用「真起一次服务」的等价现场搭夹具，而不是手搓一个签名：
+  //   手搓签名只能证明比函数算得对，证明不了 build() 这条真路径。
+  //   这里照原样搭一遍：拷主库文件 → WAL 模式下建 app_meta → 顶着连接不 checkpoint。
+  const mod = require(SCRIPT);
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'seed-g6-'));
+  const src2 = path.join(dir, 'src-with-appmeta.db');
+  const out = path.join(dir, 'seed.db');
+  const prov = path.join(dir, 'prov.json');
+  let keeper = null;
+  const 签名 = (p) => { const d = new DatabaseSync(p, { readOnly: true }); try { return mod.结构签名(d); } finally { d.close(); } };
+  try {
+    // ① 起点：**归一化**出一个确定不含应用自建表的主库文件，再拿它当基线。
+    //   ★为什么要多这一步（实测 2026-09-30 13:28）：来源 p1a.db 的 app_meta 已经被
+    //   checkpoint 进**主库文件**了（21 表，-wal 0 字节）。原写法直接断言「拷出来就不带
+    //   app_meta」—— 那只对**还没被 checkpoint 过**的来源成立，等于把夹具绑死在一次会过期
+    //   的库状态上：谁按 README 起一次服务、SQLite 顺手 checkpoint，本测试就假红。
+    //   先 DROP 再 close（close ⇒ 最后一个连接 ⇒ checkpoint 回主库），于是无论来源当下是
+    //   哪种状态，本测试都复现**同一个**病：那张表只存在于未 checkpoint 的 -wal 里。
+    fs.copyFileSync(SRC, src2);
+    {
+      const 归一 = new DatabaseSync(src2);
+      try { 归一.exec('DROP TABLE IF EXISTS app_meta'); } finally { 归一.close(); }
+    }
+    const 起点 = 签名(src2);
+    assert.ok(!起点.tables.includes('app_meta'), '前提失效：归一化之后起点仍带 app_meta');
+    assert.ok(起点.tables.length > 15, '前提失效：拷贝后只有 ' + 起点.tables.length + ' 张表');
+
+    // ② 「服务在跑」的等价现场：WAL 模式下建 app_meta，**不 checkpoint**（keeper 顶着最后一个连接）
+    keeper = new DatabaseSync(src2);
+    keeper.exec('PRAGMA journal_mode=WAL');
+    const w = new DatabaseSync(src2);
+    w.exec(`CREATE TABLE app_meta (key TEXT PRIMARY KEY, value TEXT NOT NULL, updated_at TEXT NOT NULL DEFAULT (datetime('now')))`);
+    w.close();
+
+    const 现场源 = 签名(src2);
+    // ★前置一：走连接此刻真的能读到 app_meta，且只多出这一张
+    assert.ok(现场源.tables.includes('app_meta'), '前提失效：走连接读不到 app_meta，本测试没在复现病因');
+    assert.equal(现场源.tables.length, 起点.tables.length + 1, '前提失效：来源多出的表不正好 1 张');
+    assert.equal(现场源.views.length, 起点.views.length, '前提失效：视图数变了，本测试只该动表');
+
+    // ③ 走真的 build()，不是手搓签名
+    const r = mod.build({ source: src2, out, provenance: prov });
+
+    // ★前置二：产物确实比来源少一张表。**少了这一句，⑧/⑯ 都可能是在给「两边本来就一样」发通行证。**
+    const 产物签名 = 签名(out);
+    assert.ok(!产物签名.tables.includes('app_meta'), '前提失效：产物里也有 app_meta（-wal 已被 checkpoint？）');
+    assert.equal(产物签名.tables.length, 现场源.tables.length - 1,
+      '前提失效：产物与来源的表数差不是 1，实得 ' + (现场源.tables.length - 产物签名.tables.length));
+
+    // 结论
+    const g6 = r.gates.rows.find((x) => x[1] === 'G6 结构锁');
+    assert.ok(g6, 'G6 那一行不见了');
+    assert.equal(g6[0], '[OK]', '★来源只多了一张应用自建的表，G6 却判红：' + g6[2] + ' ← ' + g6[3]);
+    assert.equal(r.code, 0, '★构建仍报红（exit ' + r.code + '）：' + r.gates.red.join('；'));
+  } finally {
+    if (keeper) keeper.close();
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test('⑰ ★反向锁：真数据表少一张 ⇒ G6 必红（排除名单不是万能橡皮擦）', () => {
+  const mod = require(SCRIPT);
+  // ★不能依赖 BUILT.out：⑭ 清理临时目录已经把 p1b/.tmp 整个删了。
+  //   这里自己拿一份真产物：优先拷已入库的种子库，没有就现建一份。
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'seed-g6r-'));
+  try {
+    const 靶场 = path.join(dir, 'seed.db');
+    if (fs.existsSync(OUT)) fs.copyFileSync(OUT, 靶场);
+    else mod.build({ source: SRC, out: 靶场, provenance: path.join(dir, 'prov.json') });
+
+    const s = new DatabaseSync(SRC, { readOnly: true });
+    const p = new DatabaseSync(靶场, { readOnly: true });
+    let 源, 产;
+    try { 源 = mod.结构签名(s); 产 = mod.结构签名(p); }
+    finally { s.close(); p.close(); }
+
+    // ★前置：靶场里挑得出「一张真数据表」来当靶子，且靶子够多
+    const 靶 = 产.tables.filter((n) => !mod.应用自建表.includes(n));
+    assert.ok(靶.length > 15, '靶场里能当靶子的真数据表只有 ' + 靶.length + ' 张 —— 前提失效');
+    const t = 靶[靶.length - 1];
+    assert.ok(产.tables.includes(t) && 源.tables.includes(t), '前提失效：靶子「' + t + '」不在来源/产物里');
+
+    // ① 来源少一张真数据表（产物仍有）⇒ 产物「多出一张」⇒ 必须红
+    const 少的来源 = { tables: 源.tables.filter((n) => n !== t), views: 源.views };
+    assert.ok(!少的来源.tables.includes(t), '前提失效：没能从来源签名里去掉靶子');
+    const c1 = mod.比结构(产, 少的来源);
+    assert.equal(c1.ok, false, '★来源少一张真数据表「' + t + '」时 G6 仍判绿 —— 排除名单被当成了万能橡皮擦');
+    assert.ok(c1.多表.includes(t), '★红了，但没点名多出的是哪张表：' + JSON.stringify(c1.多表));
+
+    // ② 另一头：产物少一张真数据表（＝「剔除过头」）⇒ 同样必须红。**这才是 G6 的原意。**
+    const 剔过头的产物 = { tables: 产.tables.filter((n) => n !== t), views: 产.views };
+    const c2 = mod.比结构(剔过头的产物, 源);
+    assert.equal(c2.ok, false, '★产物少一张真数据表「' + t + '」时 G6 仍判绿 —— G6 的原意（缺表＝剔除过头）没了');
+    assert.ok(c2.少表.includes(t), '★红了，但没点名缺的是哪张表：' + JSON.stringify(c2.少表));
+
+    // ③ 端到端：真把一张真数据表从产物里删掉，runGates 必须报红，且**只有** G6 红
+    const bad = path.join(dir, 'overpruned.db');
+    fs.copyFileSync(靶场, bad);
+    const w = new DatabaseSync(bad);
+    try { w.exec('DROP TABLE "' + t + '"'); } finally { w.close(); }
+
+    const led = (() => { const d = new DatabaseSync(SRC, { readOnly: true }); const r = mod.buildLedger(d); d.close(); return r.ledger; })();
+    assert.ok(led.size > 20, '前提失效：身份账本空了，G3/G7 会变成空跑绿灯');
+
+    const g = mod.runGates(bad, led, 源, [1]);
+    const g6 = g.rows.find((x) => x[1] === 'G6 结构锁');
+    assert.ok(g6, 'G6 那一行不见了');
+    assert.equal(g6[0], '[红]', '★产物真被剔掉一张真数据表「' + t + '」，G6 居然是绿的 ← ' + g6[3]);
+    assert.ok(g6[2].includes(t), '★G6 报红但没点名缺的那张表：' + g6[2]);
+    // ★非空前置：确认这个坏产物**只有** G6 红 —— 否则上面的红可能来自别的闸，说不清是谁咬住的
+    assert.equal(g.red.length, 1, '★坏产物红了 ' + g.red.length + ' 项（' + g.red.join('；') + '），不止 G6 ⇒ 归因不清');
+  } finally { fs.rmSync(dir, { recursive: true, force: true }); }
+});
+
+test('⑱ ★排除名单只装应用自建的表，且 G6 比的是名字不是个数', () => {
+  const mod = require(SCRIPT);
+  const s = new DatabaseSync(SRC, { readOnly: true });
+  const 源 = mod.结构签名(s);
+  s.close();
+  assert.ok(源.tables.length > 15, '前提失效：来源库只有 ' + 源.tables.length + ' 张表');
+
+  // ① 名单非空且已冻结 —— 空名单＝什么都没排除，⑯/⑰ 都成了空跑
+  assert.ok(Array.isArray(mod.应用自建表) && mod.应用自建表.length > 0, '排除名单是空的 —— G6 根本没排除任何东西');
+  assert.ok(Object.isFrozen(mod.应用自建表), '排除名单没冻结 —— 运行时改一改就等于没有名单');
+
+  // ② ★名单里不许混进**本脚本自己操作的数据表**（那就是橡皮擦的定义）
+  const 本脚本操作的真数据表 = ['events', 'claims', 'actions', 'hypotheses', 'contradictions', ...mod.零泄漏表];
+  const 混进来的 = 本脚本操作的真数据表.filter((n) => mod.应用自建表.includes(n));
+  assert.deepEqual(混进来的, [], '★排除名单混进了本脚本要剔除/锁定的真数据表：' + 混进来的.join(',') + ' —— 那就是橡皮擦');
+
+  // ③ 名单里的名字必须**真的存在于来源库**，否则是打错字 —— 打错字＝静默失效，且没人会发现
+  for (const n of mod.应用自建表) {
+    assert.ok(源.tables.includes(n), '★排除名单里的「' + n + '」在来源库里根本不存在 —— 名单打错字，等于没排除');
+  }
+
+  // ④ ★G6 比的是**名字集合**不是个数：同样张数、不同名字 ⇒ 必须红
+  //   （这一条钉住「G6 被改严了」而不是「被放宽了」：原实现只比计数，换名会漏过去）
+  //   场景：产物是 x1/x2/x3，来源把 x3 改名成了 zz —— 两边张数都是 3。
+  const 产物签名 = { tables: ['x1', 'x2', 'x3'], views: [] };
+  const 来源签名 = { tables: ['x1', 'x2', 'zz'], views: [] };
+  assert.equal(产物签名.tables.length, 来源签名.tables.length, '前提失效：两边张数不同，本条测的就不是「同名」这件事');
+  assert.ok(产物签名.tables.length > 0, '前提失效：夹具是空的 ⇒ ④ 是空跑绿灯');
+  const c = mod.比结构(产物签名, 来源签名);
+  assert.equal(c.ok, false, '★张数相同、名字不同的两个结构被判「一致」—— G6 被退回计数比对了，「缺表＝剔除过头」的原意已经失效');
+  // 方向别弄反：多表＝产物有而来源没有；少表＝来源有而产物没有
+  assert.deepEqual(c.多表, ['x3'], '★没点名「产物多出的是哪张表」：' + JSON.stringify(c.多表));
+  assert.deepEqual(c.少表, ['zz'], '★没点名「来源有而产物缺的是哪张表」：' + JSON.stringify(c.少表));
+
+  // ⑤ 排除名单**两侧都排**：来源与产物都有 app_meta 时也必须绿
+  //   （否则哪天来源的 -wal 被 checkpoint 掉、app_meta 进了主库，产物也会带上它 ⇒ 翻成另一种红）
+  const 带A = { tables: ['t1', 't2', ...mod.应用自建表], views: [] };
+  const 带B = { tables: ['t1', 't2'], views: [] };
+  assert.ok(带A.tables.length > 带B.tables.length, '前提失效：两侧没能造出 app_meta 的有无之差');
+  assert.equal(mod.比结构(带A, 带B).ok, true,
+    '★产物也带 app_meta 时判红 —— 排除只做了来源那一侧；-wal 一被 checkpoint 就会踩到');
 });
