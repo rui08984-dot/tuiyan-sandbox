@@ -9,6 +9,9 @@
  */
 const fs = require('fs');
 const path = require('path');
+// deps-fix：better-sqlite3 改多候选解析（源码树 / 上提 app\/node_modules / npm install 三种布局都认），
+// 不再假定 node_modules 一定在 p1a-terminal 下面。★只改「怎么找到」，开库那一行一字未动。
+const { betterSqlite3 } = require('./_betterSqlite3.cjs');
 const ROOT = path.resolve(__dirname, '..', '..');
 function arg(n, d) { const i = process.argv.indexOf('--' + n); return i >= 0 && process.argv[i + 1] && process.argv[i + 1].slice(0, 2) !== '--' ? process.argv[i + 1] : d; }
 const TEXT_OUT = arg('text', null);
@@ -45,7 +48,7 @@ const s4 = readJson(S4_FILE);
 // ── 账本计数（只读库）──
 let ledger = null;
 try {
-  const D = require(path.join(ROOT, 'p1a-terminal', 'node_modules', 'better-sqlite3'));
+  const D = betterSqlite3();
   const db = new D(path.join(ROOT, 'p1a-terminal', 'data', 'p1a.db'), { readonly: true });
   const one = (s) => db.prepare(s).get();
   ledger = {

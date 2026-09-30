@@ -11,6 +11,9 @@
 const fs = require('fs');
 const path = require('path');
 const { execFileSync } = require('child_process');
+// deps-fix：better-sqlite3 改多候选解析（源码树 / 上提 app\/node_modules / npm install 三种布局都认），
+// 不再假定 node_modules 一定在 p1a-terminal 下面。★只改「怎么找到」，开库那一行一字未动。
+const { betterSqlite3 } = require('./_betterSqlite3.cjs');
 const ROOT = path.resolve(__dirname, '..', '..');
 function arg(n, d) { const i = process.argv.indexOf('--' + n); return i >= 0 && process.argv[i + 1] && process.argv[i + 1].slice(0, 2) !== '--' ? process.argv[i + 1] : d; }
 const FLAG = (n) => process.argv.indexOf('--' + n) >= 0;
@@ -36,7 +39,7 @@ try {
 
 // ── ② DB 增长（近 10 分钟新增 verdicts；created_at 为 UTC，与 datetime('now') 同域）──
 try {
-  const D = require(path.join(ROOT, 'p1a-terminal', 'node_modules', 'better-sqlite3'));
+  const D = betterSqlite3();
   const db = new D(DB_PATH, { readonly: true });
   const c = (where) => db.prepare("SELECT COUNT(*) c FROM verdicts WHERE run_id LIKE ? " + (where || '')).get(PREFIX + '%').c;
   const n10 = db.prepare("SELECT COUNT(*) c FROM verdicts WHERE run_id LIKE ? AND created_at >= datetime('now','-10 minutes')").get(PREFIX + '%').c;
@@ -50,7 +53,7 @@ try {
 try {
   if (fs.existsSync(STATE)) {
     const st = JSON.parse(fs.readFileSync(STATE, 'utf8'));
-    const D = require(path.join(ROOT, 'p1a-terminal', 'node_modules', 'better-sqlite3'));
+    const D = betterSqlite3();
     const db = new D(DB_PATH, { readonly: true });
     const stV = db.prepare('SELECT COUNT(*) c FROM verdicts WHERE prediction_id=? AND run_id=? AND prompt_variant=?');
     const VARS = ['v1_evidence', 'v2_skeptical', 'v3_baserate'];

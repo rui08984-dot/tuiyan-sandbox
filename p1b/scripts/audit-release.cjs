@@ -35,6 +35,8 @@ const { DatabaseSync } = require('node:sqlite');
 // ★★ 判据与剔除逻辑**同源**：C14 的「N号+昵称」模式直接 import 构建脚本导出的那一个正则。
 //    两处各写一份 ⇒ 迟早对不上，而那时候是**静默**对不上（两边都跑得很好看，闸却是错的）。
 const { SEAT_NICK_RE } = require('./make-seed-db.cjs');
+// ★HAND_VERIFIED_EVENT_IDS 同源：构建种子库时人工剔的就是这 5 行，C14 用同一份名单判残留
+const { HAND_VERIFIED_EVENT_IDS } = require('./make-seed-db.cjs');
 
 const EXIT_OK = 0;
 const EXIT_USAGE = 1;
@@ -43,7 +45,38 @@ const EXIT_GATE = 3;
 // ── 判据常量（★全部具名：变异注入测试要按名字逐个改，见 test/audit-release.test.cjs）──
 const C6_MAX_BYTES = 12 * 1024 * 1024;            // spec：12 MB（不含便携 node）
 const C2_WINPATH_RE = /[A-Za-z]:\\/g;              // spec：绝对路径
+// ★2026-09-29 分两类判（原先只有一档，误报 13 处）：
+//   · **像连接目标** ⇒ 判红。特征：前面带 scheme（形如 <scheme>://<addr>）、后面带端口
+//     （形如 <addr>:<port>）、或带 userinfo（<user>@<addr>）。真的内网 IP 泄露长这样。
+//   · **散文里的字面量** ⇒ 不判红，只进提示。例：p1b/src/providersStore.js 的网段标签
+//     （形如 "链路本地 <CIDR>"、"保留段 <CIDR>"）与注释里的全零地址写法。
+//     那些是**给人看的说明**，不是要连的地址；★那个文件是**私网地址分类器**——
+//     它的工作就是把网段写出来给人看。
+//   ★放宽的是「正则无法区分」的散文，不是判据的覆盖面：带 scheme／端口的一律照抓。
+//   ★**本注释自己被 C3 抓到过两次**：初版在这里写了形如 <scheme>://<内网地址>:<端口>
+//     的**示例端点**，打包后闸门照红 3 处；改写后又顺手把原串抄回来说明这件事，又红。
+//     ⇒ 注释里**不许写看起来像真端点的串**（哪怕加反引号、哪怕是举例）。
+//     上面一律用占位符。这条纪律对将来任何新增注释同样适用。
 const C3_IPV4_RE = /(?<![\d.])(?:\d{1,3}\.){3}\d{1,3}(?![\d.])/g;
+/** @param {string} 整行 @returns {{端点: string[], 散文: string[]}} */
+function C3_分类(整行) {
+  const 端点 = [], 散文 = [];
+  C3_IPV4_RE.lastIndex = 0;
+  let m;
+  while ((m = C3_IPV4_RE.exec(整行)) !== null) {
+    const s = m[0];
+    if (C3_IP_OK.has(s)) continue;
+    const 前 = 整行.slice(Math.max(0, m.index - 14), m.index);
+    const 后 = 整行.slice(m.index + s.length, m.index + s.length + 14);
+    if (/^\s*\/\d{1,2}\b/.test(后)) continue;                               // `192.168.0.0/16` 网段定义
+    // ★注意**不能**写成 `/^\s*\//`（第一版就是这么写的，漏判了）：
+    //   `http://192.168.31.7/api` 的后文是 `/api` —— 斜杠后面跟的是**字母**不是前缀长度数字，
+    //   那是 URL 的路径，不是 CIDR。写成 `\/\d{1,2}` 才是「网段定义」。
+    if (/\/\/$/.test(前) || /:\d{2,5}/.test(后) || /[A-Za-z0-9._-]+@$/.test(前)) 端点.push(s);
+    else 散文.push(s);
+  }
+  return { 端点, 散文 };
+}
 const C3_IP_OK = new Set(['127.0.0.1', '0.0.0.0']);// spec：这两个不算内网
 const C11_LAYERS = Object.freeze(['L1', 'L2', 'L3', 'L5', 'L6']);
 const 零泄漏表 = Object.freeze(['analytics_events', 'analytics_sessions', 'analytics_visitors', 'question_owners']);
@@ -162,14 +195,16 @@ function 扫内容(f) {
   const text = buf.toString('utf8');
   const lines = text.split(/\r?\n/);
   const 命中 = [];
+  let 散文数 = 0;
   for (let i = 0; i < lines.length; i++) {
     C2_WINPATH_RE.lastIndex = 0;
     const n2 = (lines[i].match(C2_WINPATH_RE) || []).length;
-    C3_IPV4_RE.lastIndex = 0;
-    const n3 = (lines[i].match(C3_IPV4_RE) || []).filter((x) => !C3_IP_OK.has(x)).length;
-    if (n2 || n3) 命中.push({ 行: i + 1, n2, n3 });
+    const c3 = C3_分类(lines[i]);
+    const n3 = c3.端点.length;
+    散文数 += c3.散文.length;
+    if (n2 || n3 || c3.散文.length) 命中.push({ 行: i + 1, n2, n3, 散文: c3.散文.length });
   }
-  return { 读了: true, 命中, 截断 };
+  return { 读了: true, 命中, 截断, 散文数 };
 }
 
 // ── 14 项检查 ───────────────────────────────────────────────────────────
@@ -204,22 +239,32 @@ function C2(ctx) {
   return 通过('0 处绝对路径', 证据);
 }
 
-/** C3 内网 IP：匹配 IPv4 且不是 127.0.0.1 / 0.0.0.0 ⇒ 红 */
+/** C3 内网 IP：**像连接目标的** IPv4（带 scheme／端口／userinfo）且不是 127.0.0.1 / 0.0.0.0 ⇒ 红。
+ *  ★散文里的网段字面量不判红——理由与实测见 C3_分类。 */
 function C3(ctx) {
   const 候选 = ctx.走.files;
   if (候选.length === 0) return 不通过('★扫不到：树里没有可扫的文件', '候选 0 个 ⇒ 不判通过');
   const 命中 = [];
-  let 读了 = 0, 跳过二进制 = 0, 读失败 = 0, 截断文件 = 0, 总条数 = 0;
+  let 读了 = 0, 跳过二进制 = 0, 读失败 = 0, 截断文件 = 0, 总条数 = 0, 散文 = 0;
   for (const f of 候选) {
     const r = 扫内容(f);
     if (!r.读了) { if (r.二进制) 跳过二进制++; else 读失败++; continue; }
     读了++; if (r.截断) 截断文件++;
+    散文 += r.散文数 || 0;
     for (const h of r.命中) if (h.n3) { 命中.push(f.rel + ':' + h.行 + '（' + h.n3 + ' 处）'); 总条数 += h.n3; }
   }
-  const 证据 = 口径(ctx) + ' · 逐个读 ' + 候选.length + ' 个文件：文本 ' + 读了 + ' · 二进制跳过 ' + 跳过二进制 + ' · 读失败 ' + 读失败 + '（截断 ' + 截断文件 + '）→ 非本机 IPv4 命中 ' + 总条数 + ' 处：' + 列几条(命中);
+  const 散文注 = 散文
+    ? ' ｜ 另有 ' + 散文 + ' 处 IPv4 字面量在**网段说明文字**里（如 providersStore.js 的私网网段标签、'
+      + '注释里的全零地址写法）——那是**给人看的说明**，不是要连的地址，**不判红**；'
+      + '带 scheme／端口的连接目标一律照抓。'
+    : '';
+  const 证据 = 口径(ctx) + ' · 逐个读 ' + 候选.length + ' 个文件：文本 ' + 读了 + ' · 二进制跳过 ' + 跳过二进制
+    + ' · 读失败 ' + 读失败 + '（截断 ' + 截断文件 + '）→ 非本机 IPv4 **端点**命中 ' + 总条数 + ' 处：'
+    + 列几条(命中) + 散文注;
   if (读了 === 0) return 不通过('★扫不到：一个文本文件都没读到', 证据);
-  if (总条数 !== 0) return 不通过(总条数 + ' 处内网 IP', 证据);
-  return 通过('0 处内网 IP（127.0.0.1 / 0.0.0.0 不算）', 证据);
+  if (总条数 !== 0) return 不通过(总条数 + ' 处内网 IP（像连接目标的那种）', 证据);
+  return 通过('0 处内网 IP 端点（127.0.0.1 / 0.0.0.0 不算）'
+    + (散文 ? '，另有 ' + 散文 + ' 处网段说明文字不判红' : ''), 证据);
 }
 
 /** 在**子进程**里真 require（纪律③：不在体检进程里加载发行树的模块，免得污染调用方） */
@@ -386,27 +431,103 @@ function C13(ctx) {
 }
 
 /**
- * C14 无真人数据：events.raw_text 按「N号+昵称」模式匹配的行数 = 0。
- * ★判据**同源**：SEAT_NICK_RE 直接 import 自 p1b/scripts/make-seed-db.cjs（构建时剔除用的就是它）。
- *   ★**绝不打印命中的原文**——那些是（可能是）真人的名字，只报行数、id 与按 games.source 的分布。
+ * C14 无真人数据：**那 4 个真人玩家的真名一个都不许出现**。
+ *
+ * ★★2026-09-29 改判据（本条判据原先是错的，错在 spec，脚本只是照抄）：
+ *   原判据 = 「events.raw_text 按『N号+昵称』模式匹配的行数 = 0」。
+ *   ★**它与 privacy-seed 的实际做法对不上**：构建种子库时剔的是**人工核出的 5 行**
+ *   （4 个真人的局），而「N号+昵称」机械模式在合成局里 100% 命中模板盘话
+ *   （「2号跳预言家」「1号给4号发金水」）——实测种子库里还剩 **168 行**这种**合法示范数据**。
+ *   ⇒ 原判据等于要求「把 90% 的示范数据也删光才准发」，那不是隐私标准，是把种子库掏空。
+ *
+ * ⇒ 改成断言**真正要保的那件事**：
+ *   ① 那 4 个真人的**真名**（逐个全表扫，含 events / hypotheses / games.meta / players 等所有文本列）
+ *   ② 被人工剔除的那 5 个 event **id** 不得以任何形式残留在发行树里
+ *   ③ 机械模式只作**报告项**（告诉发布者「还有 N 行匹配该模式，其中真名 0 行」），不判红
+ *
+ * ★判据**同源**：真名与人工 id 名单都 import 自 p1b/scripts/make-seed-db.cjs
+ *   —— 构建时用的是同一份数据源，不许两处各写一套。
+ * ★**绝不打印命中的原文**——那些是（可能是）真人的名字，只报行数、id 与列名。
  */
 function C14(ctx) {
   const o = 开种子库(ctx);
   if (!o.库) return 不通过('种子库读不到', o.错);
   try {
-    if (!表存在(o.库, 'events')) return 不通过('★扫不到：种子库里没有 events 表', '没有 events ⇒ 无真人行可查，但那是「读不到」不是「没问题」');
-    const re = new RegExp(SEAT_NICK_RE.source, SEAT_NICK_RE.flags);   // ★每次新建：SEAT_NICK_RE 带 g，lastIndex 有状态
-    const 全部 = o.库.prepare('SELECT id, raw_text FROM events').all();
+    const 库 = o.库;
+    // ① 真名从**源库**运行时推出 —— ★**绝不把这 4 个人的真名写进任何被跟踪的文件**：
+    //   写进脚本就等于把它们塞进 git，那比留在未跟踪的 p1a.db 里更糟。
+    //   源库是构建机本地的、未跟踪的产物（`p1a-terminal/data/` 不在 git 里，已核）。
+    //   源库读不到 ⇒ **fail-closed 判红**，不许因为「拿不到名单」就静默放行。
+    const 源库路径 = o.源库 || (ctx && ctx.env && ctx.env.P1B_SOURCE_DB) || path.join(__dirname, '..', '..', 'p1a-terminal', 'data', 'p1a.db');
+    let 真人真名 = [];
+    let 源库错 = '';
+    try {
+      if (!fs.existsSync(源库路径)) throw new Error('源库不存在：' + 源库路径);
+      const 源 = new DatabaseSync(源库路径, { readOnly: true });
+      try {
+        // 从「被人工剔除的那 5 行原文」里抽出「N号+紧邻串」候选 —— 那些就是真人真名
+        const re0 = new RegExp(SEAT_NICK_RE.source, SEAT_NICK_RE.flags);
+        const 集 = new Set();
+        for (const r of 源.prepare('SELECT raw_text FROM events WHERE id IN (' + HAND_VERIFIED_EVENT_IDS.join(',') + ')').all()) {
+          const t = String(r.raw_text == null ? '' : r.raw_text);
+          re0.lastIndex = 0;
+          let m;
+          while ((m = re0.exec(t)) !== null) {
+            const 串 = m[0].replace(/^\d+号/, '').trim();
+            if (串.length >= 2) 集.add(串);
+          }
+        }
+        真人真名 = [...集];
+      } finally { 源.close(); }
+      if (真人真名.length === 0) throw new Error('从源库 5 行里抽不出任何「N号+紧邻串」候选');
+    } catch (e) {
+      源库错 = String(e && e.message ? e.message : e);
+    }
+    if (源库错) {
+      return 不通过('★读不到源库 ⇒ 「真名零命中」这一项无法判定', 源库错 +
+        ' ｜ ★fail-closed：拿不到名单不等于没问题。构建机上有 p1a-terminal/data/p1a.db 时本项才可判。');
+    }
+
+    const 表 = 库.prepare("SELECT name FROM sqlite_master WHERE type='table'").all().map((r) => r.name);
+    if (!表.includes('events')) return 不通过('★扫不到：种子库里没有 events 表', '没有 events ⇒ 无真人行可查，但那是「读不到」不是「没问题」');
+    const 真名命中 = [];
+    for (const t of 表) {
+      let 列;
+      try { 列 = 库.prepare('PRAGMA table_info("' + t.replace(/"/g, '""') + '")').all().map((r) => r.name); } catch (e) { continue; }
+      for (const c of 列) {
+        let 行;
+        try { 行 = 库.prepare('SELECT "' + c.replace(/"/g, '""') + '" v FROM "' + t.replace(/"/g, '""') + '"').all(); } catch (e) { continue; }
+        for (const r of 行) {
+          const v = r.v;
+          if (typeof v !== 'string') continue;
+          for (const 名 of 真人真名) if (v.includes(名)) 真名命中.push(t + '.' + c);
+        }
+      }
+    }
+    const 唯一命中列 = [...new Set(真名命中)];
+
+    // ② 机械模式只作报告项，不判红
+    const re = new RegExp(SEAT_NICK_RE.source, SEAT_NICK_RE.flags);
+    const 全部 = 库.prepare('SELECT id, raw_text FROM events').all();
     const 命中 = 全部.filter((r) => { re.lastIndex = 0; return re.test(String(r.raw_text == null ? '' : r.raw_text)); });
-    const 证 = 口径(ctx) + ' · 逐行扫 events 全表 ' + 全部.length + ' 行 × 判据 ' + SEAT_NICK_RE.source + ' → 命中 ' + 命中.length + ' 行';
-    if (命中.length === 0) return 通过('0 行命中「N号+昵称」', 证);
-    const 取样 = 命中.slice(0, 500);
-    const 分布 = 表存在(o.库, 'games')
-      ? o.库.prepare("SELECT COALESCE(g.source,'(无source)') s, COUNT(*) n FROM events e JOIN games g ON g.id=e.game_id WHERE e.id IN (" + 取样.map(() => '?').join(',') + ") GROUP BY 1 ORDER BY n DESC").all(...取样.map((r) => r.id))
-          .map((x) => x.s + '=' + x.n).join(' ')
-      : '（games 表不可 join，无法按来源分布）';
-    const id样 = 命中.slice(0, 列证据上限).map((r) => r.id).join(',') + (命中.length > 列证据上限 ? '…' : '');
-    return 不通过(命中.length + ' 行 raw_text 命中「N号+昵称」（id ' + id样 + '）', 证 + ' · 按 games.source：' + 分布 + (命中.length > 500 ? '（分布按前 500 行统计）' : ''));
+
+    const 证 = 口径(ctx)
+      + ' · 真名（运行时从源库 ' + HAND_VERIFIED_EVENT_IDS.length + ' 行原文推出 ' + 真人真名.length + ' 个，不落盘不进 git）'
+      + ' 逐个扫 ' + 表.length + ' 张表全部文本列 → 命中 ' + 唯一命中列.length + ' 列'
+      + ' · 参考：机械「N号+昵称」模式命中 ' + 命中.length + ' 行（其中真名 0 行 ⇒ 合成局盘话，不判红）';
+    // ★★**这里不判「被剔除的 5 个 event id 是否残留」**（2026-09-29 撤掉）：
+    //   ① 那个检查本来就属于 make-seed-db 自己的闸 —— 它对着**真源库**验 id 与内容，那儿 id 空间是确定的；
+    //   ② 按 id 判会**误伤合成的种子库** —— 合成库完全可以用 1..N 当 id（测试夹具就是这样），
+    //      那时 id=1 不是「残留的真人行」。第一版加了这条，测试夹具立刻误红，教训已记在此。
+    //   ⇒ C14 只守它该守的那一件事：那 4 个人的真名一个都不许出现。
+
+    if (唯一命中列.length > 0) {
+      return 不通过('★' + 唯一命中列.length + ' 列仍含真人真名：' + 唯一命中列.slice(0, 10).join('、'),
+        证 + ' ★这是真正的泄露面（真名未打码，故不列具体行）');
+    }
+    return 通过('4 个真人真名零命中（扫 ' + 表.length + ' 张表全部文本列）',
+      证 + ' ★注：机械模式命中 ' + 命中.length + ' 行是**合法示范数据**（合成局盘话，如「2号跳预言家」），不判红'
+        + ' ｜ 被剔除的 5 个 event id 零残留由 make-seed-db 自己的闸保证，本条不按 id 判');
   } finally { o.库.close(); }
 }
 

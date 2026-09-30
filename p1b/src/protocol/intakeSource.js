@@ -36,7 +36,8 @@ const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
 
-/** 工作区根（E:\music player）—— 本文件位于 <root>/p1b/src/protocol/。 */
+/** 工作区根 —— 本文件位于 <root>/p1b/src/protocol/。
+ *  ★此处**不写死任何绝对路径**：那会把打包人的盘符与目录名发到发行包里（发行闸 C2 专查这个）。 */
 const ROOT = path.resolve(__dirname, '..', '..', '..');
 /** 冻结判据实现件（PREREG 冻结，只读）。 */
 const INTAKE_PATH = path.join(ROOT, 'p1b', 'src', 'routes', 'intake.js');
