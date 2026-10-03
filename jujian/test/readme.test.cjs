@@ -38,7 +38,7 @@ delete CLEAN_ENV.NODE_OPTIONS;
 /** 全部测试文件（含本文件自己）。 */
 const TEST_FILES = [
   'test/store.test.cjs', 'test/api.test.cjs', 'test/kernel-drift.test.cjs',
-  'test/readme.test.cjs', 'test/cli.test.cjs', 'test/mcp.test.cjs', 'test/bench.test.cjs',
+  'test/readme.test.cjs', 'test/cli.test.cjs', 'test/mcp.test.cjs', 'test/bench.test.cjs', 'test/zero-dep.test.cjs',
 ];
 /** 除了本文件之外的测试文件。
  *  ★为什么必须排除自己：本文件是「跑别的测试」的守卫，

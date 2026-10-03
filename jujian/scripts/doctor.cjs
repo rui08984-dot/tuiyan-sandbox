@@ -104,12 +104,19 @@ function bad(name, detail) { CHECKS.push({ level: 'bad', name, detail: detail ||
       + '多出来的每一个都是你将来要背的包。');
   } else {
     ok('依赖声明', '只有 fastify（存储用 Node 自带的 node:sqlite，无原生模块）');
+    ok('零依赖面', '★命令行 / MCP / 盲测三个入口只要一个 Node，不需要 npm install');
   }
   try {
     require('fastify/package.json');
-    ok('依赖就位', 'fastify ' + require('fastify/package.json').version + '（没装的话跑 npm install）');
+    ok('依赖就位', 'fastify ' + require('fastify/package.json').version + '（只有 HTTP 服务要它）');
   } catch (e) {
-    bad('依赖就位', 'fastify 没装。在本目录跑：npm install');
+    // ★**提醒，不是阻塞。**
+    //   实测（2026-10-04）：命令行、MCP、盲测三个入口**零依赖**，
+    //   只有 `npm start` 的 HTTP 服务需要 fastify。
+    //   把它报成「阻塞」等于告诉用户「装不上」—— 而他其实完全能用，
+    //   只是用不了浏览器那一路。★那就成了体检在制造假的绝望。
+    warn('依赖就位', 'fastify 没装。★不影响命令行 / MCP / 盲测（这三个入口零依赖）；'
+      + '只有 `npm start` 的网页与 HTTP 接口要它。想要那一路就在本目录跑 npm install');
   }
 })();
 
