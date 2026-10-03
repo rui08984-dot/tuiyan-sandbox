@@ -1,0 +1,17 @@
+# 局鉴 · 依赖与运行产物
+node_modules/
+
+# 运行期库文件（复盘数据属于玩家，不入库）
+data/*.db
+data/*.db-wal
+data/*.db-shm
+*.sqlite
+*.sqlite3
+
+# 导出件（玩家自己的对局导出，默认不入库）
+export/
+*.export.json
+
+# 测试与工具的临时产物
+.tmp/
+*.log

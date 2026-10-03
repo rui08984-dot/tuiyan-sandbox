@@ -1,0 +1,45 @@
+{
+  "name": "jujian",
+  "version": "0.1.0",
+  "description": "局鉴 · 社交推理游戏复盘台：把一局狼人杀／血染钟楼／阿瓦隆拆成结构化声称，抓出互相矛盾的地方，每条结论都能回查到原始发言。它不替你下结论。",
+  "keywords": [
+    "social-deduction",
+    "werewolf",
+    "blood-on-the-clocktower",
+    "avalon",
+    "game-review",
+    "claim-tracking",
+    "contradiction-detection"
+  ],
+  "license": "Apache-2.0",
+  "author": "DSH Captain",
+  "type": "commonjs",
+  "main": "src/server.js",
+  "bin": {
+    "jujian": "bin/jujian.cjs"
+  },
+  "engines": {
+    "node": ">=22.5.0"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test test/*.test.cjs",
+    "gates": "node gates/gates.cjs",
+    "doctor": "node scripts/doctor.cjs",
+    "replay": "node scripts/replay-bench.cjs"
+  },
+  "dependencies": {
+    "fastify": "^5.12.3"
+  },
+  "files": [
+    "LICENSE",
+    "README.md",
+    "bin",
+    "data",
+    "docs",
+    "gates",
+    "scripts",
+    "src",
+    "test"
+  ]
+}
