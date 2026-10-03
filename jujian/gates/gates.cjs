@@ -29,7 +29,7 @@ const GATES = [
     desc: '存储层 ＋ 契约层 ＋ 内核漂移守卫 ＋ README 守卫',
     cmd: process.execPath,
     args: ['--test', '--test-reporter=dot', 'test/store.test.cjs', 'test/api.test.cjs',
-      'test/kernel-drift.test.cjs', 'test/readme.test.cjs', 'test/cli.test.cjs'],
+      'test/kernel-drift.test.cjs', 'test/readme.test.cjs', 'test/cli.test.cjs', 'test/mcp.test.cjs'],
     cwd: ROOT,
   },
   {

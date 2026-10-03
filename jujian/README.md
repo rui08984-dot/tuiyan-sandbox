@@ -141,6 +141,45 @@ jujian 1 advise --day=2                  # 天结算，直接打印矛盾清单
 
 ---
 
+## 接进 AI 客户端（MCP）
+
+```bash
+jujian-mcp        # stdio，8 个工具
+```
+
+```jsonc
+// 客户端配置示例
+{ "mcpServers": { "jujian": { "command": "node",
+  "args": ["/你的路径/jujian/bin/jujian-mcp.cjs"] } } }
+```
+
+### ★这个 server 不能替你往账本里写任何东西
+
+8 个工具里 **5 个读、3 个只起草**：
+
+| 读（真的查库） | 只起草（一个字节都不写） |
+|---|---|
+| `jujian_list_games` 列局 | `jujian_record_claim` 起草一条声称 |
+| `jujian_game_state` 读整局状态 | `jujian_record_speech` 起草一次抽取 |
+| `jujian_review_card` 读参谋卡 | `jujian_review_day` 起草一次天结算 |
+| `jujian_contradictions` 只看矛盾清单 | |
+| `jujian_game_types` 支持哪些游戏 | |
+
+后三条返回的永远是**草案**，`gate` 恒为 `NOT_CONFIRMED`、`do_not_retry` 恒为 `true`，
+并附一条人可以直接粘贴的命令。要真写入，由人自己跑。
+
+**为什么不给它写权限**：局鉴的全部价值是「矛盾清单里每一条都能回查到原始发言、
+每一条都说得出也可能不是矛盾的理由」。这个价值完全建立在「账本里那句是谁说的」可信之上。
+一条没人核对过的声称混进去，矛盾检测就在编造上推理，而它的输出看起来和有据可查的一模一样。
+
+### 兼容两套协议
+
+新规范（2026-07-28）走 `server/discover`。**老客户端只发 `initialize` 也照样能连** ——
+只支持新规范的话，它们会拿到 -32601，症状是「明明装上了却连不上」，那是最难排查的一类装不上。
+新旧两条路径都有用例钉着。
+
+---
+
 ## 它从哪来
 
 局鉴是从**推演沙盘**里独立出来的一个模块。它继承了两样东西，都在盘上可查：
@@ -183,7 +222,7 @@ A：`GET /api/games/:id/export` 导出整局 JSON，带元信息和计数。库�
 ## 开发者
 
 ```bash
-npm test          # 72 例
+npm test          # 85 例
 npm run gates     # 三道闸门（测试 / 冒烟 / 体检）
 npm run doctor    # 只体检
 ```

@@ -249,4 +249,10 @@ function register(app, ctx) {
   });
 }
 
-module.exports = { register, makeAdviseRunner };
+module.exports = {
+  register, makeAdviseRunner,
+  // 读侧：按天组装参谋卡（MCP 的 jujian_review_card 复用它，避免同一套「卡是什么形状」
+  // 有两份定义）。只在**读**已落库数据，不重算、不写库。
+  buildCards,
+  EVIDENCE_DAY_SQL: EVIDENCE_DAY_SQL,
+};
