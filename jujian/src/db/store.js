@@ -247,7 +247,12 @@ function addPlayer(opts) {
   return db.prepare('SELECT * FROM players WHERE id=?').get(Number(info.lastInsertRowid));
 }
 
-function addEvent(opts) {
+/**
+ * 写操作分两层：**Core 不带事务**（假定调用方已在事务里），公开函数用 tx() 包一层。
+ * 这个分层不是为了好看，是为了 recordEvent 能把「事件＋它的声称＋它的行动」
+ * 放进同一个事务——若公开函数各自开事务，嵌套守卫会当场拦下（那正是它该做的事）。
+ */
+function addEventCore(opts) {
   const db = getConnection();
   requireGame(db, opts.game_id);
   assertInt('day', opts.day, 1);
@@ -262,49 +267,47 @@ function addEvent(opts) {
   } else if (opts.type !== 'system') {
     fail('type=' + opts.type + ' 的事件必须给 actor_seat（座位号）；仅 type=system 允许 null');
   }
-  return tx(db, () => {
-    const seq = db.prepare('SELECT COALESCE(MAX(seq),0)+1 AS s FROM events WHERE game_id=?')
-      .get(opts.game_id).s;
-    const info = db.prepare(
-      'INSERT INTO events (game_id, day, phase, seq, type, actor_seat, raw_text) VALUES (?,?,?,?,?,?,?)')
-      .run(opts.game_id, opts.day, opts.phase, seq, opts.type, actorPid, opts.raw_text);
-    return {
-      id: Number(info.lastInsertRowid), game_id: opts.game_id, day: opts.day,
-      phase: opts.phase, seq, type: opts.type, actor_seat: actorSeat, raw_text: opts.raw_text,
-    };
-  });
+  const seq = db.prepare('SELECT COALESCE(MAX(seq),0)+1 AS s FROM events WHERE game_id=?')
+    .get(opts.game_id).s;
+  const info = db.prepare(
+    'INSERT INTO events (game_id, day, phase, seq, type, actor_seat, raw_text) VALUES (?,?,?,?,?,?,?)')
+    .run(opts.game_id, opts.day, opts.phase, seq, opts.type, actorPid, opts.raw_text);
+  return {
+    id: Number(info.lastInsertRowid), game_id: opts.game_id, day: opts.day,
+    phase: opts.phase, seq, type: opts.type, actor_seat: actorSeat, raw_text: opts.raw_text,
+  };
 }
+function addEvent(opts) { return tx(getConnection(), () => addEventCore(opts)); }
 
 /** 批量落声称：整批一个事务，任一条不合法则整批不落。 */
-function addClaims(eventId, claims) {
+function addClaimsCore(eventId, claims) {
   const db = getConnection();
   const ev = getEventRow(db, eventId);
   if (!Array.isArray(claims) || claims.length === 0) fail('addClaims: claims 必须为非空数组');
-  return tx(db, () => {
-    const ins = db.prepare('INSERT INTO claims (event_id, seat, subject_seat, predicate, object, extracted_by, confirmed_by_user) VALUES (?,?,?,?,?,?,?)');
-    const out = [];
-    for (const c of claims) {
-      assertInt('seat', c.seat, 1);
-      assertInt('subject_seat', c.subject_seat, 1);
-      seatToPlayerId(db, ev.game_id, c.seat);
-      seatToPlayerId(db, ev.game_id, c.subject_seat);
-      assertEnum('predicate', c.predicate, PREDICATES);
-      requireNonEmptyString('object', c.object);
-      if (c.extracted_by !== undefined) requireNonEmptyString('extracted_by', c.extracted_by);
-      const info = ins.run(eventId, c.seat, c.subject_seat, c.predicate, c.object,
-        c.extracted_by === undefined ? 'llm' : c.extracted_by,
-        c.confirmed_by_user === undefined ? 0 : (c.confirmed_by_user ? 1 : 0));
-      out.push(db.prepare('SELECT * FROM claims WHERE id=?').get(Number(info.lastInsertRowid)));
-    }
-    return out;
-  });
+  const ins = db.prepare('INSERT INTO claims (event_id, seat, subject_seat, predicate, object, extracted_by, confirmed_by_user) VALUES (?,?,?,?,?,?,?)');
+  const out = [];
+  for (const c of claims) {
+    assertInt('seat', c.seat, 1);
+    assertInt('subject_seat', c.subject_seat, 1);
+    seatToPlayerId(db, ev.game_id, c.seat);
+    seatToPlayerId(db, ev.game_id, c.subject_seat);
+    assertEnum('predicate', c.predicate, PREDICATES);
+    requireNonEmptyString('object', c.object);
+    if (c.extracted_by !== undefined) requireNonEmptyString('extracted_by', c.extracted_by);
+    const info = ins.run(eventId, c.seat, c.subject_seat, c.predicate, c.object,
+      c.extracted_by === undefined ? 'llm' : c.extracted_by,
+      c.confirmed_by_user === undefined ? 0 : (c.confirmed_by_user ? 1 : 0));
+    out.push(db.prepare('SELECT * FROM claims WHERE id=?').get(Number(info.lastInsertRowid)));
+  }
+  return out;
 }
+function addClaims(eventId, claims) { return tx(getConnection(), () => addClaimsCore(eventId, claims)); }
 function addClaim(opts) {
   if (!opts || typeof opts !== 'object') fail('addClaim: 参数必须为对象 {event_id,seat,subject_seat,predicate,object,...}');
-  return addClaims(opts.event_id, [opts])[0];
+  return tx(getConnection(), () => addClaimsCore(opts.event_id, [opts])[0]);
 }
 
-function addAction(opts) {
+function addActionCore(opts) {
   const db = getConnection();
   const ev = getEventRow(db, opts.event_id);
   assertInt('seat', opts.seat, 1);
@@ -316,6 +319,7 @@ function addAction(opts) {
     .run(opts.event_id, opts.seat, opts.action, target, opts.result === undefined ? null : opts.result);
   return db.prepare('SELECT * FROM actions WHERE id=?').get(Number(info.lastInsertRowid));
 }
+function addAction(opts) { return tx(getConnection(), () => addActionCore(opts)); }
 
 const ORDER_SQL = "ORDER BY e.day, CASE e.phase WHEN 'night' THEN 0 WHEN 'day' THEN 1 ELSE 2 END, e.seq";
 
@@ -458,6 +462,43 @@ function exportGame(gameId) {
     counts: { events: state.events.length, claims: state.claims.length, actions: state.actions.length },
   };
   return state;
+}
+
+/**
+ * ★一次录入的原子单元：事件 ＋ 它的声称 ＋ 它的行动 ＋ BOTC 专属声称，**全成或全不成**。
+ *
+ * 为什么必须是存储层的一个函数，而不是路由里连着调四个函数：
+ *   「3号说我验了1号」这句话被拆成 event ＋ claim ＋ claim 三行。
+ *   如果它们分开写，中间失败就会留下一句**查无此事的查杀**——
+ *   而矛盾检测正是靠这些行互相咬合才能工作，缺一半的账本会得出错误结论。
+ *   半个事件比没有事件更危险：它看起来是完整的。
+ *
+ * ★沙盘的 db 层没提供这个单元（原实现靠 db.transaction 包住四个各自不带事务的函数）。
+ *   那是 better-sqlite3 的接口形状，不是好设计；局鉴把它收进存储层，顺带让
+ *   「哪些写操作构成一个原子单元」这个问题**只有一处答案**。
+ *
+ * @param head  {game_id, day, phase, type, actor_seat, raw_text}
+ * @param parts {claims?, actions?, botc_claims?} 三组行参，均为 store 的行参形状
+ * @returns {event, claim_ids, action_ids, botc_claim_ids}
+ */
+function recordEvent(head, parts = {}) {
+  const db = getConnection();
+  return tx(db, () => {
+    const ev = addEventCore(head);
+    const claimIds = [];
+    const actionIds = [];
+    const botcClaimIds = [];
+    for (const c of (parts.claims || [])) {
+      claimIds.push(addClaimsCore(ev.id, [c])[0].id);
+    }
+    for (const a of (parts.actions || [])) {
+      actionIds.push(addActionCore(Object.assign({ event_id: ev.id }, a)).id);
+    }
+    for (const b of (parts.botc_claims || [])) {
+      for (const row of addBotcClaimsCore(ev.id, [b])) botcClaimIds.push(row.id);
+    }
+    return { event: ev, claim_ids: claimIds, action_ids: actionIds, botc_claim_ids: botcClaimIds };
+  });
 }
 
 // ── 矛盾 / 假设 ───────────────────────────────────────────────────────────
@@ -616,28 +657,27 @@ function getGameScript(gameId) {
   const row = getConnection().prepare('SELECT script FROM botc_games WHERE game_id=?').get(gameId);
   return row === undefined ? null : row.script;
 }
-function addBotcClaims(eventId, claims) {
+function addBotcClaimsCore(eventId, claims) {
   const db = getConnection();
   const ev = getEventRow(db, eventId);
   if (!Array.isArray(claims) || claims.length === 0) fail('addBotcClaims: claims 必须为非空数组');
-  return tx(db, () => {
-    const ins = db.prepare('INSERT INTO botc_claims (game_id, event_id, seat, subject_seat, predicate, object, extracted_by, confirmed_by_user) VALUES (?,?,?,?,?,?,?,?)');
-    const out = [];
-    for (const c of claims) {
-      assertInt('seat', c.seat, 1);
-      assertInt('subject_seat', c.subject_seat, 1);
-      seatToPlayerId(db, ev.game_id, c.seat);
-      seatToPlayerId(db, ev.game_id, c.subject_seat);
-      assertEnum('predicate', c.predicate, BOTC_PREDICATES);
-      const info = ins.run(ev.game_id, eventId, c.seat, c.subject_seat, c.predicate,
-        c.object === undefined ? '' : c.object,
-        c.extracted_by === undefined ? 'llm' : c.extracted_by,
-        c.confirmed_by_user ? 1 : 0);
-      out.push(db.prepare('SELECT * FROM botc_claims WHERE id=?').get(Number(info.lastInsertRowid)));
-    }
-    return out;
-  });
+  const ins = db.prepare('INSERT INTO botc_claims (game_id, event_id, seat, subject_seat, predicate, object, extracted_by, confirmed_by_user) VALUES (?,?,?,?,?,?,?,?)');
+  const out = [];
+  for (const c of claims) {
+    assertInt('seat', c.seat, 1);
+    assertInt('subject_seat', c.subject_seat, 1);
+    seatToPlayerId(db, ev.game_id, c.seat);
+    seatToPlayerId(db, ev.game_id, c.subject_seat);
+    assertEnum('predicate', c.predicate, BOTC_PREDICATES);
+    const info = ins.run(ev.game_id, eventId, c.seat, c.subject_seat, c.predicate,
+      c.object === undefined ? '' : c.object,
+      c.extracted_by === undefined ? 'llm' : c.extracted_by,
+      c.confirmed_by_user ? 1 : 0);
+    out.push(db.prepare('SELECT * FROM botc_claims WHERE id=?').get(Number(info.lastInsertRowid)));
+  }
+  return out;
 }
+function addBotcClaims(eventId, claims) { return tx(getConnection(), () => addBotcClaimsCore(eventId, claims)); }
 function listBotcClaims(gameId, opts) {
   const db = getConnection();
   requireGame(db, gameId);
@@ -695,7 +735,7 @@ module.exports = {
   // 事件与声称
   addEvent, addClaim, addClaims, addAction, listEvents, getClaims, getActions,
   getClaim, getAction, updateClaimObject, updateAction, retractClaim, retractAction,
-  recentClaimsBySeat, loadGameState, exportGame,
+  recentClaimsBySeat, loadGameState, exportGame, recordEvent,
   // 参谋卡
   saveContradictions, saveHypotheses, getContradictions, getHypotheses, saveAdvisorCard,
   // BOTC

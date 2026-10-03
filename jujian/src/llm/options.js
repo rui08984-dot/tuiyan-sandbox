@@ -1,0 +1,114 @@
+'use strict';
+/**
+ * p1b/src/llmOptions.js —— 把「激活供应商配置」翻译成 p1a llm.js 的 options 注入。
+ * 链路对齐 p1a-terminal/src/cli.js 的 loadLlmConfig/withLlmOptions：
+ *   {apiKey, baseUrl, model}（model 取 cards.model 优先）注入 llm.extract/advisor 的 input.options。
+ * mock 优先级：P1B_LLM_MOCK=1（或 buildServer opts.llmMock）→ options.mockMode=true（零网络，测试铁律）；
+ * 无激活供应商/无 key 时不注入 apiKey —— llm.js resolveMode 自然落 MOCK。
+ */
+// ── 默认超时 fetch（2026-09-14 新增，additive；不改变任何契约）──────────────
+// 事故根因：2026-09-13 21:46 起的补漏跑批 wedge 在首个 LLM 请求上（TCP Established、
+// 86 分钟 CPU 仅 0.11s、out/err 日志 0 字节、state 零写入）——上游不回包而 fetch 无超时，
+// 整条跑批永久挂死。此处为所有未注入 fetchImpl 的 LLM 路径套 AbortController 超时：
+// 超时 → AbortError → 由各调用方既有 try/catch 记录并继续（fail-fast 取代 hang-forever）。
+// 默认 120s（实测单次 ≈18.5s，6 倍余量）；P1B_LLM_TIMEOUT_MS 可覆盖；<=0 表示不超时。
+const DEFAULT_LLM_TIMEOUT_MS = Number(process.env.P1B_LLM_TIMEOUT_MS || 120000);
+
+// ── 请求体旋钮：reasoning_effort（2026-09-14 新增，additive；env 未设时零行为变化）──────
+// 背景（实测）：tokenrhythm 的 glm-5.3-flash **强制深度思考**（关思考 → HTTP 400 REASONING_REQUIRED），
+//   默认档单次补漏判词 ≈7 分钟（思考 token 占绝大多数）。实测 `reasoning_effort='low'` **有效**：
+//   思考 token 1245→562（−55%）、单次延迟 33.5s→7.8s（−77%），且正常产出可见文本；
+//   'minimal'/'none' 无效（实测与默认档无异）。
+// 为什么在此处：请求体在 p1a-terminal/src/llm.js（**禁改面**）拼装；p1b 的注入点是 fetchImpl，
+//   故在 fetch 层对 chat/completions 的 JSON body 做**显式可选**合并——env 未设 ⇒ 一字不改。
+// 口径：P1B_LLM_REASONING_EFFORT=low|minimal|none|medium|high（未设/非法值 ⇒ 不动）；**调用时读 env**（可测/可切）。
+const REASONING_EFFORT_VALUES = ['low', 'minimal', 'none', 'medium', 'high'];
+function reasoningEffort() {
+  const v = String(process.env.P1B_LLM_REASONING_EFFORT || '').trim().toLowerCase();
+  return REASONING_EFFORT_VALUES.indexOf(v) !== -1 ? v : null;
+}
+/** 只对 chat/completions 的 JSON body 合并 reasoning_effort（已显式给值不覆盖；解析失败不改）。 */
+function mergeReasoningEffort(url, init) {
+  const effort = reasoningEffort();
+  if (!effort || !init || typeof init.body !== 'string') return init;
+  if (String(url).indexOf('/chat/completions') === -1) return init;
+  try {
+    const b = JSON.parse(init.body);
+    if (!b || typeof b !== 'object' || b.reasoning_effort !== undefined) return init;
+    b.reasoning_effort = effort;
+    return Object.assign({}, init, { body: JSON.stringify(b) });
+  } catch (e) { return init; }
+}
+
+function timeoutFetch(ms) {
+  return function (url, init) {
+    let opts = Object.assign({}, init || {});
+    opts = mergeReasoningEffort(url, opts); // 可选旋钮（env 未设 ⇒ 原样）
+    if (ms > 0 && !opts.signal) {
+      const ctrl = new AbortController();
+      const timer = setTimeout(function () { ctrl.abort(); }, ms);
+      if (timer && typeof timer.unref === 'function') timer.unref();
+      opts.signal = ctrl.signal;
+      return fetch(url, opts).finally(function () { clearTimeout(timer); });
+    }
+    return fetch(url, opts);
+  };
+}
+
+// ── 生效口径描述（2026-09-14 新增，additive）─────────────────────────────────
+// 背景：本文件此前只回答「注入了什么」，没有任何一处回答「当前实际会用什么」。
+// 结果=可观测性缺口：编排器把写死的标签（如 'tokenrhythm/glm-5.3-flash'）落进 verdicts.model，
+// 与真正生效的 provider/model 脱钩——换 provider 后行标签不变，看起来"没生效"。
+// describeEffective 给全链一个**唯一事实源**：当前 provider 是谁、key 从哪来、实际 model 是什么。
+// 判据（与 p1a-terminal/src/llm.js 的 DEFAULT_MODEL/resolveMode 逐字对齐，勿各写一套）：
+//   mode：opts.mockMode true→MOCK／false→LIVE／否则有 key→LIVE 无 key→MOCK
+//   model：MOCK 时 null（无真实模型）；LIVE 时 opts.model → env LLM_MODEL → 'deepseek-chat'
+//   key_source：providers（providers.json）> env（LLM_API_KEY/DEEPSEEK_API_KEY 兜底）> none
+const DEFAULT_CHAT_MODEL = 'deepseek-chat';
+let envFallbackWarned = false;
+function describeEffective({ store, llmMock, options } = {}) {
+  const opts = options || resolveLlmOptions({ store, llmMock });
+  const envKey = process.env.LLM_API_KEY || process.env.DEEPSEEK_API_KEY || '';
+  const keySource = opts.apiKey ? 'providers' : (envKey ? 'env' : 'none');
+  const mock = opts.mockMode === true ? true : (opts.mockMode === false ? false : !(opts.apiKey || envKey));
+  const mode = mock ? 'MOCK' : 'LIVE';
+  let provider = null;
+  try { const cfg = store.read(); provider = cfg.active || null; } catch (e) { provider = null; }
+  if (keySource === 'env' && !envFallbackWarned) {
+    envFallbackWarned = true; // 每进程告警一次（handoff 验收⑤：fallback 触发须披露）
+    process.stderr.write('[p1b] LLM key 兜底到 env（providers.json 无可用 key）——请检查激活供应商配置\n');
+  }
+  return {
+    mode, mock,
+    provider,
+    base_url: opts.baseUrl || null,
+    model: mock ? null : (opts.model || process.env.LLM_MODEL || DEFAULT_CHAT_MODEL),
+    key_source: keySource,
+    has_key: keySource !== 'none',
+    reasoning_effort: reasoningEffort(), // 可观测性：当前是否对请求体施加降思考档（env 驱动）
+  };
+}
+
+function resolveLlmOptions({ store, llmMock, fetchImpl }) {
+  const opts = {};
+  if (llmMock) opts.mockMode = true;
+  // 测试缝（B3）：makeAdviseRunner 的 ctx 可直传 fetchImpl（llm.js 明示「options.fetchImpl
+  // 可注入，测试零真实网络」）。生产 ctx 无此键 → 落到下面的默认超时 fetch（2026-09-14 修复）。
+  if (typeof fetchImpl === 'function') opts.fetchImpl = fetchImpl;
+  else if (typeof fetch === 'function') opts.fetchImpl = timeoutFetch(DEFAULT_LLM_TIMEOUT_MS);
+  try {
+    const cfg = store.read();
+    const p = cfg.active && cfg.providers ? cfg.providers[cfg.active] : null;
+    if (p) {
+      if (typeof p.api_key === 'string' && p.api_key) opts.apiKey = p.api_key;
+      if (p.base_url) opts.baseUrl = p.base_url;
+      const model = (p.cards && p.cards.model) || (p.extraction && p.extraction.model) || p.model;
+      if (model) opts.model = model;
+    }
+  } catch (e) {
+    // 配置缺失/损坏不阻断服务：LLM 层自行落 MOCK（与 cli.js loadLlmConfig 容错同思路）
+  }
+  return opts;
+}
+
+module.exports = { resolveLlmOptions, describeEffective, DEFAULT_CHAT_MODEL, timeoutFetch, mergeReasoningEffort, reasoningEffort };
