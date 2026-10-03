@@ -152,7 +152,67 @@ async function build(opts = {}) {
   require('./routes/events').register(app, ctx);
   require('./routes/advise').register(app, ctx);
 
+  // ── 网页托管 ──────────────────────────────────────────────────────────
+  //  手写静态托管，不引 @fastify/static：局鉴的依赖表里只该有 fastify 一个，
+  //  而且中间件也只是包一层 fs.createReadStream。自己写还能顺手做两件要紧的事：
+  //    · **目录穿越防护**（下面 path.resolve 后的前缀校验）
+  //    · **路径 → 内容类型**的映射集中在一处，改起来只有一个地方
+  const webDir = path.join(ROOT, 'web');
+  app.get('/', async (req, reply) => reply.type('text/html; charset=utf-8').send(await readWeb(webDir, 'index.html')));
+  // ★用通配而不是正则：Fastify 5 的 app.get(url) 只收字符串，正则要走对象形式，
+  //   而通配 '/*' 会把余下路径收进 req.params['*']，配合下面的前缀校验更直白。
+  //   /api/* 的路由是更具体的静态路径，Fastify 优先匹配它们，不受影响。
+  app.get('/*', async (req, reply) => {
+    const rel = decodeURIComponent(req.params['*'] || 'index.html');
+    const file = path.resolve(webDir, rel);
+    // ★目录穿越防护：解析后必须仍在 web/ 之内。
+    if (file !== webDir && !file.startsWith(webDir + path.sep)) {
+      return reply.code(403).send({ error: '路径越界', status: 403 });
+    }
+    // ★★按扩展名白名单放行，而不是「文件存在就发」。
+    //   这条是被实测逼出来的：`web/package.json`（声明 ES 模块用的构建标记）
+    //   一落进 web/，`/../package.json` 就被 HTTP 归一化到 web 根并**真的返回了 200**。
+    //   那个文件本身无害，但「存在即发」这个规则意味着**任何人往 web/ 里放一个文件，
+    //   它就自动变成对外可访问的**。白名单把这个口子关上：
+    //   只有浏览器要的那几类资源能出去，其余一律 404。
+    const ext = path.extname(file).toLowerCase();
+    if (!SERVEABLE.has(ext)) {
+      return reply.code(404).send({ error: '不提供这类文件：' + rel, status: 404 });
+    }
+    if (!fs.existsSync(file) || !fs.statSync(file).isFile()) {
+      return reply.code(404).send({ error: '没有这个文件：' + rel, status: 404 });
+    }
+    reply.type(MIME[ext] || 'application/octet-stream');
+    // ★本地工具最忌讳「改了代码刷新却没变化」。
+    //   浏览器对 ES 模块的缓存尤其顽固：同一 URL 只改 hash 根本不重新加载文档，
+    //   于是你改完 app.js、按了刷新，页面跑的**还是旧模块**，而且没有任何提示。
+    //   ⇒ 本地资源一律 no-store：多几百字节请求，换「改了立刻见效」。
+    reply.header('Cache-Control', 'no-store, must-revalidate');
+    return reply.send(await fs.promises.readFile(file));
+  });
+
   return app;
+}
+
+const MIME = {
+  '.html': 'text/html; charset=utf-8',
+  '.css': 'text/css; charset=utf-8',
+  '.js': 'text/javascript; charset=utf-8',
+  '.mjs': 'text/javascript; charset=utf-8',
+  '.svg': 'image/svg+xml',
+  '.png': 'image/png',
+  '.webp': 'image/webp',
+  '.woff2': 'font/woff2',
+  '.ico': 'image/x-icon',
+};
+/** 只有浏览器真会去取的类型才对外。
+ *  ★刻意**不含 .json**：web/package.json 那类构建标记不需要给浏览器，
+ *   放出去只会在「谁能访问到构建配置」这件事上多一个问题的答案。 */
+const SERVEABLE = new Set(Object.keys(MIME));
+
+async function readWeb(webDir, rel) {
+  const file = path.resolve(webDir, rel);
+  return fs.promises.readFile(file);
 }
 
 async function start(opts = {}) {

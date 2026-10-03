@@ -44,7 +44,12 @@ const INCLUDE_FILES = [
   'scripts/doctor.cjs', 'scripts/smoke.cjs', 'scripts/build-release.cjs',
 ];
 
-const INCLUDE_DIRS = ['src', 'bench', 'test'];
+const INCLUDE_DIRS = ['src', 'bench', 'test', 'web'];
+
+/** 构建期的标记文件：只给 Node 看，浏览器与发行包都不需要。
+ *  web/package.json 声明那里是 ES 模块目录 —— 浏览器本来��按模块加载它，
+ *  Node 也需要它，但**发行包的用户不会去跑 Node 的测试**，带着它只是多一份构建配置。 */
+const TOOLING = new Set(['web/package.json']);
 
 const EXCLUDE_RE = [
   /(^|\/)node_modules(\/|$)/,
@@ -83,7 +88,7 @@ function collect() {
   for (const d of INCLUDE_DIRS) {
     const abs = path.join(ROOT, d);
     if (!fs.existsSync(abs)) throw new Error('打包清单里的目录不存在: ' + d);
-    for (const rel of walk(abs, d)) if (!excluded(rel)) files.push(rel);
+    for (const rel of walk(abs, d)) if (!excluded(rel) && !TOOLING.has(rel)) files.push(rel);
   }
   return files.sort();
 }
@@ -148,6 +153,13 @@ function audit(tree) {
       .filter((f) => f.endsWith('.md') && !f.endsWith('.truth.md')).length;
   } catch (_) { /* 目录缺失已由 ① 的必需文件间接覆盖 */ }
   add('盲测档案 5 局', games === 5, games + ' 局');
+
+  // ⑧ 网页：五个屏都要能取到，且 web/package.json（ES 模块标记）**不外发**
+  for (const u of ['index.html', 'app.css', 'app.js', 'api.js', 'views/games.js', 'views/record.js', 'views/review.js', 'views/about.js']) {
+    add('网页 ' + u, fs.existsSync(path.join(tree, 'web', u)), '');
+  }
+  add('网页构建标记不外发', !fs.existsSync(path.join(tree, 'web', 'package.json')),
+    '★web/package.json 只是 ES 模块标记，浏览器用不到，不该进发行包');
 
   return checks;
 }

@@ -30,7 +30,8 @@ const GATES = [
     cmd: process.execPath,
     args: ['--test', '--test-reporter=dot', 'test/store.test.cjs', 'test/api.test.cjs',
       'test/kernel-drift.test.cjs', 'test/readme.test.cjs', 'test/cli.test.cjs',
-      'test/mcp.test.cjs', 'test/bench.test.cjs', 'test/zero-dep.test.cjs'],
+      'test/mcp.test.cjs', 'test/bench.test.cjs', 'test/zero-dep.test.cjs',
+      'test/web.test.cjs', 'test/render.test.cjs'],
     cwd: ROOT,
   },
   {

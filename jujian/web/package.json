@@ -1,0 +1,13 @@
+{
+  "//": [
+    "★这个文件只为一件事存在：声明 web/ 整个目录是 ES 模块。",
+    "浏览器早就这么认（index.html 里是 <script type=module>），",
+    "但 Node 会按本项目 package.json 的 type: commonjs 去解析 web/*.js，",
+    "于是 test/render.test.cjs 想 import 它们时会报",
+    "'Cannot use import statement outside a module'。",
+    "",
+    "它没有别的作用：不进 npm 包（不是发布物），不参与运行时。",
+    "留着一句话的说明，是为了下一个删掉它的人能立刻知道代价。"
+  ],
+  "type": "module"
+}

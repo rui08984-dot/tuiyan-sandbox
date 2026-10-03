@@ -1,0 +1,281 @@
+/* ==========================================================================
+   局鉴 · web/app.css —— 设计令牌与组件
+   --------------------------------------------------------------------------
+   无构建步骤：这一份 CSS 直接由浏览器读，不经过任何预处理器或打包器。
+   理由与 src/ 的选型同一条：**局鉴的承诺是「下载即跑」**，
+   给界面加一条构建链，等于把这条承诺在最常用的一路上弄丢。
+
+   排版原则（和内核同源）：矛盾是主角。
+   所以「矛盾」「无辜解释」「欠定度」三样在视觉层级上必须最重，
+   一切装饰都要给它们让路。
+   ========================================================================== */
+
+:root {
+  /* ── 底色三层：背景 / 面 / 浮起 ─────────────────────────────────────── */
+  --bg:        hsl(220 14% 10%);
+  --surface:   hsl(220 13% 13%);
+  --raised:    hsl(220 12% 17%);
+  --line:      hsl(220 10% 24%);
+  --line-soft: hsl(220 10% 20%);
+
+  /* ── 字色四层 ───────────────────────────────────────────────────────── */
+  --fg:      hsl(40 12% 92%);
+  --fg-mute: hsl(40  8% 68%);
+  --fg-dim:  hsl(40  6% 48%);
+
+  /* ── 语义色：只给三样东西用 ─────────────────────────────────────────── */
+  /* 矛盾（主角，唯一允许大面积使用的彩色） */
+  --clash:      hsl(  8 62% 56%);
+  --clash-bg:   hsl(  8 40% 14%);
+  --clash-line: hsl(  8 45% 34%);
+  /* 无辜解释（免责，语气应当是温和的，不是警告） */
+  --innocent:      hsl(190 45% 58%);
+  --innocent-bg:   hsl(190 34% 13%);
+  /* 证据（回查入口） */
+  --proof:      hsl( 92 40% 55%);
+  --proof-bg:   hsl( 92 26% 12%);
+
+  --accent: hsl(40 62% 58%);
+  --accent-bg: hsl(40 40% 14%);
+
+  /* ── 欠定度三档：越高越"接近确定"，但**永远不到 1** ──────────────────── */
+  --ud-high: hsl(  8 58% 56%);
+  --ud-mid:  hsl(32 62% 55%);
+  --ud-low:  hsl(220 12% 52%);
+
+  /* ── 尺度 ───────────────────────────────────────────────────────────── */
+  --r-sm: 4px; --r-md: 8px; --r-lg: 14px;
+  --sp-1: 4px; --sp-2: 8px; --sp-3: 12px; --sp-4: 16px; --sp-5: 24px; --sp-6: 32px;
+  --fs-xs: 12px; --fs-sm: 13px; --fs-md: 15px; --fs-lg: 18px; --fs-xl: 24px; --fs-2xl: 30px;
+  --mono: ui-monospace, "SF Mono", "Cascadia Code", Consolas, "Sarasa Mono SC", monospace;
+  --sans: system-ui, -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: hsl(40 26% 97%); --surface: hsl(40 30% 100%); --raised: hsl(40 24% 95%);
+    --line: hsl(40 14% 84%); --line-soft: hsl(40 14% 89%);
+    --fg: hsl(220 18% 16%); --fg-mute: hsl(220 10% 38%); --fg-dim: hsl(220 8% 54%);
+    --clash: hsl(6 58% 44%); --clash-bg: hsl(6 70% 97%); --clash-line: hsl(6 50% 78%);
+    --innocent: hsl(196 52% 34%); --innocent-bg: hsl(196 60% 97%);
+    --proof: hsl(100 42% 26%); --proof-bg: hsl(100 50% 96%);
+    --accent: hsl(32 62% 38%); --accent-bg: hsl(40 70% 95%);
+    --ud-high: hsl(6 58% 44%); --ud-mid: hsl(30 70% 40%); --ud-low: hsl(220 10% 48%);
+  }
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--bg); color: var(--fg);
+  font: var(--fs-md)/1.6 var(--sans);
+  -webkit-font-smoothing: antialiased;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+button, input, select, textarea { font: inherit; color: inherit; }
+
+/* ── 版心 ─────────────────────────────────────────────────────────────── */
+.wrap { max-width: 940px; margin: 0 auto; padding: 0 var(--sp-4); }
+.wrap-narrow { max-width: 660px; margin: 0 auto; padding: 0 var(--sp-4); }
+
+/* ── 顶栏 ─────────────────────────────────────────────────────────────── */
+.top {
+  position: sticky; top: 0; z-index: 20;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line-soft);
+}
+.top-in { display: flex; align-items: center; gap: var(--sp-3); height: 52px; }
+.brand { font-weight: 650; letter-spacing: .02em; font-size: var(--fs-lg); color: var(--fg); white-space: nowrap; }
+.brand:hover { text-decoration: none; }
+.brand em { font-style: normal; color: var(--fg-dim); font-weight: 400; font-size: var(--fs-xs); margin-left: var(--sp-2); }
+.top-nav { margin-left: auto; display: flex; gap: var(--sp-1); }
+/* ★窄屏：顶栏必须**横滑**，不能换行。
+ *   390px 下「录入」被拆成「录/入」两行、一个比正文还高的导航项 ——
+ *   而这屏的使用场景正是饭桌上的手机，导航被拆行是最先被看见的破损。 */
+@media (max-width: 560px) {
+  .top-in { gap: var(--sp-2); }
+  .brand em { display: none; }
+  .brand { font-size: var(--fs-md); }
+  .top-nav { overflow-x: auto; flex-wrap: nowrap; scrollbar-width: none; }
+  .top-nav::-webkit-scrollbar { display: none; }
+  .top-nav a { white-space: nowrap; padding: 5px 7px; font-size: var(--fs-sm); }
+}
+.top-nav a:hover { background: var(--raised); text-decoration: none; }
+.top-nav a[aria-current="page"] { color: var(--accent); background: var(--accent-bg); }
+
+/* ── 页头：一句定位 + 一句免责。这是产品的脸，必须在第一屏 ──────────────── */
+.hero { padding: var(--sp-6) 0 var(--sp-5); }
+.hero h1 { margin: 0 0 var(--sp-2); font-size: var(--fs-2xl); line-height: 1.25; letter-spacing: -.01em; }
+.hero p { margin: 0; color: var(--fg-mute); font-size: var(--fs-md); max-width: 56ch; }
+.hero .disclaim {
+  margin-top: var(--sp-3); display: inline-block;
+  padding: 3px 10px; border-radius: 999px;
+  background: var(--surface); border: 1px solid var(--line);
+  color: var(--fg-mute); font-size: var(--fs-xs);
+}
+
+/* ── 卡片 ─────────────────────────────────────────────────────────────── */
+.card {
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--r-lg); padding: var(--sp-4); margin-bottom: var(--sp-3);
+}
+.card-t { display: flex; align-items: baseline; gap: var(--sp-2); margin-bottom: var(--sp-3); }
+.card-t h2 { margin: 0; font-size: var(--fs-lg); }
+.card-t .n { margin-left: auto; color: var(--fg-dim); font-size: var(--fs-sm); font-variant-numeric: tabular-nums; }
+
+/* ── ★矛盾条目：视觉主角 ──────────────────────────────────────────────── */
+.clash {
+  border: 1px solid var(--clash-line); border-left-width: 3px;
+  background: var(--clash-bg); border-radius: var(--r-md);
+  padding: var(--sp-3) var(--sp-4); margin-bottom: var(--sp-3);
+}
+.clash:last-child { margin-bottom: 0; }
+.clash-desc { font-weight: 600; line-height: 1.5; margin-bottom: var(--sp-2); }
+.clash-meta { display: flex; flex-wrap: wrap; gap: var(--sp-2); align-items: center; font-size: var(--fs-xs); }
+
+.ud {
+  display: inline-block; padding: 1px 8px; border-radius: 999px;
+  border: 1px solid currentColor; font-weight: 600; letter-spacing: .02em;
+}
+.ud-high { color: var(--ud-high); }
+.ud-mid  { color: var(--ud-mid); }
+.ud-low  { color: var(--ud-low); }
+
+/* 无辜解释：★用冷色而不是警告色 —— 它是免责不是报错 */
+.innocent { margin-top: var(--sp-2); padding: var(--sp-2) var(--sp-3);
+  background: var(--innocent-bg); border-radius: var(--r-sm); font-size: var(--fs-sm); }
+.innocent-t { color: var(--innocent); font-weight: 600; margin-bottom: 2px; font-size: var(--fs-xs); }
+.innocent ul { margin: 0; padding-left: 1.1em; color: var(--fg-mute); }
+.innocent li { margin: 1px 0; }
+
+/* 回查入口：点它才去看原文 —— 默认不展开，因为多数矛盾看一眼描述就够 */
+.proof {
+  margin-top: var(--sp-2); font-size: var(--fs-xs);
+  display: inline-flex; gap: 6px; flex-wrap: wrap; align-items: center;
+}
+.proof button {
+  background: var(--proof-bg); color: var(--proof);
+  border: 1px solid color-mix(in srgb, var(--proof) 40%, transparent);
+  border-radius: var(--r-sm); padding: 2px 8px; cursor: pointer; font-size: var(--fs-xs);
+  font-family: var(--mono);
+}
+.proof button:hover { background: color-mix(in srgb, var(--proof) 18%, transparent); }
+.quote {
+  margin-top: var(--sp-2); padding: var(--sp-2) var(--sp-3);
+  background: var(--raised); border-left: 2px solid var(--line);
+  border-radius: var(--r-sm); font-size: var(--fs-sm); color: var(--fg-mute);
+}
+.quote .eid { color: var(--proof); font-family: var(--mono); font-size: var(--fs-xs); margin-right: 6px; }
+
+/* ── 席位小片 ─────────────────────────────────────────────────────────── */
+.seats { display: flex; flex-wrap: wrap; gap: var(--sp-1); }
+.seat {
+  padding: 3px 9px; border-radius: 999px; font-size: var(--fs-xs);
+  background: var(--raised); border: 1px solid var(--line-soft); color: var(--fg-mute);
+  cursor: pointer; font-family: var(--mono);
+}
+.seat:hover { border-color: var(--accent); color: var(--accent); }
+.seat.wolf { background: var(--clash-bg); border-color: var(--clash-line); color: var(--clash); }
+.seat.pick { background: var(--accent-bg); border-color: var(--accent); color: var(--accent); }
+.seat.off { opacity: .35; cursor: not-allowed; }
+
+/* ── 表单 ─────────────────────────────────────────────────────────────── */
+label { display: block; font-size: var(--fs-sm); color: var(--fg-mute); margin-bottom: var(--sp-1); }
+input[type=text], input[type=number], select, textarea {
+  width: 100%; padding: 8px 10px; border-radius: var(--r-md);
+  background: var(--bg); border: 1px solid var(--line); color: var(--fg);
+}
+input:focus, select:focus, textarea:focus { outline: 2px solid color-mix(in srgb, var(--accent) 55%, transparent); outline-offset: 1px; }
+textarea { resize: vertical; min-height: 76px; line-height: 1.55; }
+.row { display: flex; gap: var(--sp-3); flex-wrap: wrap; }
+.row > * { flex: 1 1 140px; }
+.field { margin-bottom: var(--sp-3); }
+
+.btn {
+  padding: 8px 16px; border-radius: var(--r-md); cursor: pointer; white-space: nowrap;
+  background: var(--raised); border: 1px solid var(--line); color: var(--fg);
+}
+.btn:hover { border-color: var(--fg-dim); }
+.btn:disabled { opacity: .45; cursor: not-allowed; }
+.btn-primary { background: var(--accent); border-color: var(--accent); color: hsl(220 20% 8%); font-weight: 600; }
+.btn-primary:hover { filter: brightness(1.08); }
+.btn-sm { padding: 4px 10px; font-size: var(--fs-xs); border-radius: var(--r-sm); }
+.btn-row { display: flex; gap: var(--sp-2); flex-wrap: wrap; }
+
+/* ── 宏录入：三型并排，点了就出待确认卡 ────────────────────────────────── */
+.macros { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-2); }
+@media (max-width: 560px) { .macros { grid-template-columns: 1fr; } }
+.macro {
+  text-align: left; padding: var(--sp-3); border-radius: var(--r-md);
+  background: var(--bg); border: 1px solid var(--line); cursor: pointer;
+}
+.macro:hover { border-color: var(--accent); }
+.macro b { display: block; font-size: var(--fs-md); margin-bottom: 2px; }
+.macro span { font-size: var(--fs-xs); color: var(--fg-dim); }
+
+/* ── 待确认卡 ─────────────────────────────────────────────────────────── */
+.pending {
+  margin-top: var(--sp-3); padding: var(--sp-3);
+  border: 1px dashed var(--accent); border-radius: var(--r-md); background: var(--accent-bg);
+}
+.pending-t { font-size: var(--fs-xs); color: var(--accent); font-weight: 600; margin-bottom: var(--sp-2); }
+
+/* ── 列表行 ───────────────────────────────────────────────────────────── */
+.rows { display: flex; flex-direction: column; }
+.rowitem {
+  display: flex; align-items: center; gap: var(--sp-3);
+  padding: var(--sp-3) 0; border-bottom: 1px solid var(--line-soft);
+}
+.rowitem:last-child { border-bottom: 0; }
+.rowitem .t { font-weight: 550; }
+.rowitem .m { color: var(--fg-dim); font-size: var(--fs-xs); font-family: var(--mono); }
+.rowitem .r { margin-left: auto; display: flex; gap: var(--sp-2); align-items: center; }
+
+/* ── 表格（声称/事件）─────────────────────────────────────────────────── */
+table { width: 100%; border-collapse: collapse; font-size: var(--fs-sm); }
+th, td { text-align: left; padding: 7px var(--sp-2); border-bottom: 1px solid var(--line-soft); vertical-align: top; }
+th { color: var(--fg-dim); font-weight: 550; font-size: var(--fs-xs); }
+td.num, th.num { font-family: var(--mono); text-align: right; white-space: nowrap; }
+/* ★窄屏表格横向滚动，不压缩列 —— 压缩会把「撤回」拆成两行。 */
+@media (max-width: 560px) {
+  .card table { display: block; overflow-x: auto; white-space: nowrap; }
+}
+tbody tr:hover { background: var(--raised); }
+
+/* ── 提示条 ───────────────────────────────────────────────────────────── */
+.note {
+  padding: var(--sp-3); border-radius: var(--r-md); font-size: var(--fs-sm);
+  background: var(--surface); border: 1px solid var(--line); color: var(--fg-mute);
+}
+.note-warn { border-color: var(--clash-line); background: var(--clash-bg); color: var(--fg); }
+.note-ok { border-color: color-mix(in srgb, var(--proof) 40%, transparent); background: var(--proof-bg); }
+.note b { color: var(--fg); }
+
+/* ★空态的写法是有讲究的：「没发现矛盾」≠「这局没人撒谎」 */
+.empty { text-align: center; padding: var(--sp-6) var(--sp-4); color: var(--fg-dim); }
+.empty .big { font-size: var(--fs-lg); color: var(--fg-mute); margin-bottom: var(--sp-2); }
+
+/* ── 页脚：定位句常驻，因为它是产品的一部分 ──────────────────────────── */
+.foot {
+  margin-top: var(--sp-6); padding: var(--sp-4) 0 var(--sp-6);
+  border-top: 1px solid var(--line-soft); color: var(--fg-dim); font-size: var(--fs-xs);
+}
+.foot .tag { display: inline-block; margin-right: var(--sp-3); }
+
+.toast {
+  position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%);
+  background: var(--raised); border: 1px solid var(--line); color: var(--fg);
+  padding: 9px 16px; border-radius: 999px; font-size: var(--fs-sm); z-index: 60;
+  box-shadow: 0 8px 28px hsl(0 0% 0% / .35);
+  animation: rise .18s ease-out;
+}
+@keyframes rise { from { opacity: 0; transform: translate(-50%, 8px); } }
+@media (prefers-reduced-motion: reduce) { .toast { animation: none; } }
+
+.spin { display: inline-block; width: 13px; height: 13px; border: 2px solid var(--line);
+  border-top-color: var(--accent); border-radius: 50%; animation: sp .7s linear infinite; }
+@keyframes sp { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .spin { animation-duration: 2.4s; } }

@@ -38,7 +38,7 @@ delete CLEAN_ENV.NODE_OPTIONS;
 /** 全部测试文件（含本文件自己）。 */
 const TEST_FILES = [
   'test/store.test.cjs', 'test/api.test.cjs', 'test/kernel-drift.test.cjs',
-  'test/readme.test.cjs', 'test/cli.test.cjs', 'test/mcp.test.cjs', 'test/bench.test.cjs', 'test/zero-dep.test.cjs',
+  'test/readme.test.cjs', 'test/cli.test.cjs', 'test/mcp.test.cjs', 'test/bench.test.cjs', 'test/zero-dep.test.cjs', 'test/web.test.cjs', 'test/render.test.cjs',
 ];
 /** 除了本文件之外的测试文件。
  *  ★为什么必须排除自己：本文件是「跑别的测试」的守卫，
@@ -84,6 +84,9 @@ test('★③ README 承诺的端点数与实际注册一致', async () => {
     flat.push(stack.join(''));
   }
   await app.close();
+  // ★只数 /api/*：静态托管注册了 '/' 与 '/*' 两条路由，它们不是对外接口。
+  //   第一版把全部路由算进来，于是加了网页之后这个守卫就红了 ——
+  //   而它本来问的是「对外接口有几个」，与怎么托管页面无关。
   const api = flat.filter((p) => p.startsWith('/api/'));
   const claimed = Number((readme.match(/(\d+)\s*个 HTTP 端点/) || [])[1]);
   assert.ok(claimed, '★README 没写端点数量');

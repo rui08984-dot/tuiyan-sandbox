@@ -52,8 +52,9 @@ test('★① 端点清单与文档一致（21 个 ＋ health ＝ 22 条）', () 
     if (!m) continue;
     const depth = m[1].length;                 // 缩进宽度 = 树层级
     stack.length = depth / 4;
-    stack.push(m[2].replace(/ \(.*\)$/, ''));
-    flat.push(stack.join(''));
+    // ★树里的段已带前导斜杠（"api/games"），直接 join 会得到 '//api/games'
+    stack.push(m[2].replace(/ \(.*\)$/, '').replace(/^\/+|\/+$/g, ''));
+    flat.push('/' + stack.filter(Boolean).join('/'));
   }
   const expect = [
     '/api/health', '/api/adapters',
@@ -68,9 +69,14 @@ test('★① 端点清单与文档一致（21 个 ＋ health ＝ 22 条）', () 
     '/api/games/:id/cards', '/api/games/:id/cards/:day',
   ];
   for (const p of expect) assert.ok(flat.includes(p), '少注册了: ' + p);
-  // 反向：登记了但没在这份清单里的端点必须是 0 —— 对外接口不许偷偷加
-  assert.deepEqual(flat.filter((p) => !expect.includes(p)), [],
-    '★有端点没写进清单。对外接口必须有名有据，改了清单再改这里。');
+  // ★反向锁只看 /api/*。静态托管注册的 '/' 与 '/*' 也在同一棵树里，
+  //   但它们不是对外接口 —— 把它们算进「端点清单」会让这道守卫答非所问，
+  //   而且一旦有人改托管方式它就红，红的却与接口增减无关。
+  const apiOnly = flat.filter((p) => p.startsWith('/api/'));
+  const extra = apiOnly.filter((p) => !expect.includes(p));
+  assert.deepEqual(extra, [],
+    '★有端点没写进清单。对外接口必须有名有据，改了清单再改这里。实际多出来的：'
+    + JSON.stringify(extra));
 });
 
 test('② health 自报定位与运行态；未知路径 404 且形状统一', async () => {
