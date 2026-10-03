@@ -73,8 +73,12 @@ async function runBotcAdvise(state, day, options) {
   const checklist = reviewChecklist(card);
   let saved = false, saveError = null, replaced = null;
   try {
-    replaced = hasCardForDay(gameId, day) ? replaceSameDayCard(gameId, day) : null; // bug-27 修：同日覆盖
-    store.saveAdvisorCard(gameId, day, { contradictions: persistable, hypotheses: r.hypotheses });
+    // 同日重结算＝原子覆盖（删与写同一事务）；无旧卡则普通写入。
+    if (hasCardForDay(gameId, day)) {
+      replaced = store.replaceAdvisorCard(gameId, day, { contradictions: persistable, hypotheses: r.hypotheses });
+    } else {
+      store.saveAdvisorCard(gameId, day, { contradictions: persistable, hypotheses: r.hypotheses });
+    }
     saved = true;
   } catch (e) {
     saveError = (e && e.message) ? e.message : String(e); // 回存失败不影响展示（cli 同思路）
@@ -136,8 +140,11 @@ function makeAdviseRunner(ctx) {
     let saved = false, saveError = null, replaced = null;
     try {
       // bug-27 修：同日重结算＝覆盖（先清当日旧卡，再写新卡），防重复入库灌水
-      replaced = hasCardForDay(gameId, day) ? replaceSameDayCard(gameId, day) : null;
-      store.saveAdvisorCard(gameId, day, card); // RD1 + 引用 id 存在性 + 事务原子（db 层硬校验）
+      if (hasCardForDay(gameId, day)) {
+        replaced = store.replaceAdvisorCard(gameId, day, card);
+      } else {
+        store.saveAdvisorCard(gameId, day, card); // RD1 + 引用 id 存在性 + 事务原子（存储层硬校验）
+      }
       saved = true;
     } catch (e) {
       saveError = (e && e.message) ? e.message : String(e); // 回存失败不影响展示（cli 同思路）
@@ -172,40 +179,20 @@ function buildCards(gameId) {
 }
 
 /**
- * 幂等守卫（2026-09-14 修 bug-27）：**重复天结算会导致参谋卡重复入库**。
+ * 同日重结算 → 委托给 store.replaceAdvisorCard（删旧 ＋ 写新在**同一事务**里）。
  *
- * 病象（实测）：`POST /api/games/:id/day/:n/advise` 对同一 (game,day) 无防重守卫；每次 enqueue 都跑一遍
- *   adviseRunner → `store.saveAdvisorCard` 是**纯 INSERT 无幂等** ⇒ 同一天的 hypotheses/contradictions 逐次累加。
- *   实证：生产库 game_id=1 有 7 条 hypotheses（含 2 套重复）+ 3 条完全相同的 contradictions。
+ * ★原来的两步实现（先删后写）会丢数据：删成功、写失败 ⇒ 当天存档变空，
+ *   而写失败被「回存失败不影响展示」的 catch 吞掉，用户仍看到新卡，以为存下来了。
+ *   实测复现过：第二次天结算后 /cards/:day 直接 404，假设与矛盾双双消失。
+ *   事务边界收进存储层后，写失败整体回滚，旧卡原样还在 —— 「还是上一版」比「凭空消失」好。
  *
- * 修法（**不动禁改面** p1a-terminal/src/store.js）：在 p1b 调用侧，保存**之前**先删掉该 (game,day) 的旧卡，
- *   再写新卡 —— 语义＝「同一天重结算＝覆盖」，与「账本不可变」不冲突（参谋卡是**派生视图**，非账本事实）。
- *
- * 边界（写死，防误伤）：
- *   · hypotheses 有 day 列 ⇒ 精确按 (game_id, day) 删。
- *   · contradictions **无 day 列**（表设计如此）⇒ 其归属由「引用的 claim/action 所在事件的最大 day」反推
- *     （与 buildCards 的 evidence_day 同口径）。只删 **day ≤ 本次 day** 的矛盾，避免误删后续天的证据对。
- *     ⚠ 已知局限：若某矛盾引用的 claim 跨天，其反推 day 可能落在别的天 —— 故删除范围保守取 ≤ 本次 day。
- *   · 只删 generated_by='llm' 的行（人类手工/其它来源不可被结算覆盖）。
+ * 保留的边界（与原实现同口径，写在存储层 EVIDENCE_DAY_SQL 的注释里）：
+ *   · hypotheses 有 day 列 ⇒ 精确按 (game_id, day) 删
+ *   · contradictions 无 day 列 ⇒ 由引用事件的最大 day 反推，只删 ≤ 本次 day 的
+ *   · 只删 generated_by='llm' 的行 —— 人类手写的永不被结算覆盖
  */
-function replaceSameDayCard(gameId, day) {
-  const conn = store.getConnection();
-  const tx = store.tx(conn, () => {
-    // 1) 当日假设：精确删
-    const delH = conn.prepare('DELETE FROM hypotheses WHERE game_id=? AND day=?');
-    const delHN = delH.run(gameId, day).changes;
-    // 2) 当日矛盾：无 day 列 ⇒ 用「引用事件的最大 day ≤ 本次 day」反推
-    const rows = conn.prepare(EVIDENCE_DAY_SQL).all(gameId);
-    const ids = rows.filter((r) => r.evidence_day !== null && r.evidence_day !== undefined && r.evidence_day <= day)
-      .map((r) => r.row_id);
-    let delCN = 0;
-    if (ids.length) {
-      const delC = conn.prepare("DELETE FROM contradictions WHERE game_id=? AND id=? AND generated_by='llm'");
-      for (const id of ids) delCN += delC.run(gameId, id).changes;
-    }
-    return { deleted_hypotheses: delHN, deleted_contradictions: delCN };
-  });
-  return tx();
+function replaceSameDayCard(gameId, day, card) {
+  return store.replaceAdvisorCard(gameId, day, card);
 }
 
 /** 该 (game,day) 是否已有参谋卡存档（用于上报 replaced 标记，不阻断生成） */

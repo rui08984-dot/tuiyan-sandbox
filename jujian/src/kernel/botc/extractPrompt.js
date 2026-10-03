@@ -180,7 +180,8 @@ function withBotcExtractContext(options, script, speakerSeat) {
  * @returns {{claims: Array, warnings: string[]}}
  */
 function mapBotcCarriersBack(claims) {
-  const claimsMod = require('./claims'); // 惰性 require：词表单一来源（claims.js 无反向依赖，无环）
+  const claimsMod = require('./wordmap'); // ★局鉴改动：原为惰性 require('./claims')，把内核拉向存储层；
+  //   词表已搬进 kernel/botc/wordmap.js（纯数据），这里只换来源，逻辑一字未改。
   const out = [];
   const warnings = [];
   for (let i = 0; i < (claims || []).length; i++) {

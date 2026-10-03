@@ -25,15 +25,12 @@
 const store = require('../db/store');
 const { httpError } = require('../http/util');
 const roles = require('../kernel/botc/roles');
+// ★局鉴改动：三张表搬进 kernel/botc/wordmap.js（纯数据）。
+//   原来它们在这里定义、抽取侧在函数体内惰性 require 本模块去取，
+//   于是 kernel 里藏了一条通往存储层的边。现在两侧共用同一个真源。
+const { BOTC_CLAIM_PREDICATES, ROLE_ASSERT_PREDICATES, BOTC_WORD_MAP } = require('../kernel/botc/wordmap');
 
 const BOTC_GAME_TYPE = 'botc';
-const BOTC_CLAIM_PREDICATES = ['is_demon', 'is_minion', 'status_drunk', 'status_poisoned'];
-const ROLE_ASSERT_PREDICATES = ['is_role', 'claims_role'];
-
-/** 阵营/状态词 → BOTC 专属谓词。精确全词匹配，防「带着爪牙走」这类长句误伤。 */
-const BOTC_WORD_MAP = {
-  恶魔: 'is_demon', 爪牙: 'is_minion', 醉酒: 'status_drunk', 中毒: 'status_poisoned',
-};
 
 /** 建 BOTC 私有表（幂等）。 */
 function ensureBotcTables() { return store.ensureBotcTables(); }

@@ -584,11 +584,60 @@ function getHypotheses(gameId) {
 }
 
 /**
+ * ★同日重结算 = **原子地**「删旧 ＋ 写新」。
+ *
+ * ── 这条是被一个真事故逼出来的 ────────────────────────────────────────────
+ *   原实现是两步：先 replaceSameDayCard() 删掉当天旧卡，再 saveAdvisorCard() 写新卡。
+ *   看起来等价于覆盖，其实不是：
+ *     ① 两步之间没有事务 ⇒ 删成功、写失败 ⇒ **当天存档变空**；
+ *     ② 而写失败被「回存失败不影响展示」的 catch 吞掉，只在响应里留一句 save_error，
+ *        界面上仍然正常显示新卡 —— 用户以为存下来了，其实存档没了。
+ *   实测复现：第二次天结算后 `/cards/:day` 返回 404，假设与矛盾双双消失。
+ *
+ *   这与 recordEvent 那条原则是同一条：「半件事比没有事更危险，因为它看起来是完整的」。
+ *   ⇒ 现在删除与写入在**同一个事务**里。写失败就整体回滚，旧卡原样还在 ——
+ *     「还是上一版」比「凭空消失」好得多，且用户看得见。
+ *
+ * @returns {{deleted_hypotheses:number, deleted_contradictions:number, written:number}}
+ */
+function replaceAdvisorCard(gameId, day, card) {
+  const db = getConnection();
+  requireGame(db, gameId);
+  assertInt('day', day, 1);
+  return tx(db, () => {
+    // 1) 当日假设：按 (game_id, day) 精确删
+    const delH = db.prepare('DELETE FROM hypotheses WHERE game_id=? AND day=?').run(gameId, day).changes;
+    // 2) 当日矛盾：contradictions 表无 day 列（表设计如此）⇒ 其归属由
+    //    「所引用 claim/action 所在事件的最大 day」反推，只删 ≤ 本次 day 的，
+    //    且只删 generated_by='llm' 的（人类手写的永不被结算覆盖）。
+    const rows = db.prepare(EVIDENCE_DAY_SQL).all(gameId);
+    const ids = rows
+      .filter((r) => r.evidence_day !== null && r.evidence_day !== undefined && r.evidence_day <= day)
+      .map((r) => r.row_id);
+    let delC = 0;
+    if (ids.length) {
+      const del = db.prepare("DELETE FROM contradictions WHERE game_id=? AND id=? AND generated_by='llm'");
+      for (const id of ids) delC += del.run(gameId, id).changes;
+    }
+    // 3) 同事务内写新卡；失败则整体回滚，旧卡完好
+    const written = saveAdvisorCardCore(gameId, day, card);
+    return { deleted_hypotheses: delH, deleted_contradictions: delC, written: written };
+  });
+}
+
+/** 矛盾对的归属日反推 SQL。暴露出来给 replaceAdvisorCard 用，也供路由层回读证据_day。 */
+const EVIDENCE_DAY_SQL = 'SELECT c.id AS row_id,'
+  + ' (SELECT MAX(ev.day) FROM events ev WHERE ev.id IN ('
+  + 'SELECT event_id FROM claims WHERE id IN (c.claim_a, c.claim_b)'
+  + ' UNION SELECT event_id FROM actions WHERE id IN (c.action_a, c.action_b))) AS evidence_day'
+  + ' FROM contradictions c WHERE c.game_id=?';
+
+/**
  * 天结算参谋卡落库 = 矛盾 + 假设两组行（卡不是独立表，是这两张表的视图）。
  * ★refId 允许 'c12'/'a3' 这类带前缀记号：矛盾检测器给出的 pair_id 就是这个形状，
  *   直接塞进引用列会违反 FK，所以先剥前缀。剥不动就拒，不猜。
  */
-function saveAdvisorCard(gameId, day, card) {
+function saveAdvisorCardCore(gameId, day, card) {
   const db = getConnection();
   requireGame(db, gameId);
   assertInt('day', day, 1);
@@ -601,7 +650,7 @@ function saveAdvisorCard(gameId, day, card) {
     if (!Number.isInteger(n) || n < 1) fail('参谋卡引用 id 非法: ' + JSON.stringify(v));
     return n;
   };
-  return tx(db, () => {
+  return (function write() {
     let written = 0;
     const insC = db.prepare('INSERT INTO contradictions (game_id, claim_a, claim_b, action_a, action_b, conflict_desc, underdetermination, innocent_explanations, generated_by) VALUES (?,?,?,?,?,?,?,?,?)');
     card.contradictions.forEach((c, i) => {
@@ -639,7 +688,12 @@ function saveAdvisorCard(gameId, day, card) {
       written++;
     });
     return written;
-  });
+  }());
+}
+
+/** 落库参谋卡（自带事务）。同日重结算请用 replaceAdvisorCard，它把删与写放进同一事务。 */
+function saveAdvisorCard(gameId, day, card) {
+  return tx(getConnection(), () => saveAdvisorCardCore(gameId, day, card));
 }
 
 // ── BOTC 剧本与专属声称 ───────────────────────────────────────────────────
@@ -737,7 +791,8 @@ module.exports = {
   getClaim, getAction, updateClaimObject, updateAction, retractClaim, retractAction,
   recentClaimsBySeat, loadGameState, exportGame, recordEvent,
   // 参谋卡
-  saveContradictions, saveHypotheses, getContradictions, getHypotheses, saveAdvisorCard,
+  saveContradictions, saveHypotheses, getContradictions, getHypotheses,
+  saveAdvisorCard, replaceAdvisorCard, EVIDENCE_DAY_SQL,
   // BOTC
   ensureBotcTables, setGameScript, getGameScript,
   addBotcClaims, listBotcClaims, getBotcClaim, updateBotcClaimObject, retractBotcClaim,

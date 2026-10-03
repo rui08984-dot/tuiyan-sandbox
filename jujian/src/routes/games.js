@@ -8,7 +8,7 @@
 const store = require('../db/store');
 const botcClaims = require('../game/botcClaims'); // B2：botc 局剧本挂 p1b 私有表 botc_games
 const { SCRIPTS } = require('../kernel/botc/roles');
-const { httpError, requireInt, requireEnum, requireNonEmptyString, GAME_TYPES, toInt } = require('../http/util');
+const { httpError, requireInt, requireEnum, requireNonEmptyString, GAME_TYPES, MAX_PLAYERS, toInt } = require('../http/util');
 const { listAdapters } = require('../http/adapters'); // 通用化：可用类型 = 内置三型 ∪ adapters/ 目录登记 id
 const { idempotent, ensureIdempotencyTables } = require('../http/idempotency'); // 2026-09-30 建局写口幂等（发行阻断项）
 
@@ -70,7 +70,7 @@ function register(app) {
     const gt = body.type !== undefined ? body.type : body.game_type;
     requireEnum('game_type', gt, allowedGameTypes());
     const pc = requireInt('player_count', body.player_count, 1);
-    if (pc > 99) throw httpError(400, 'player_count 上限 99');
+    if (pc > MAX_PLAYERS) throw httpError(400, 'player_count 上限 ' + MAX_PLAYERS + '（局鉴口径见 src/http/util.js）');
     // B2：botc 局支持挂剧本（tb|bmr|snv，给了就强校验枚举），落 p1b 私有表 botc_games
     //（games 表既有结构零改动）。script 可选（兼容既有无剧本 botc 局的建局路径，
     // 基线 49 用例 gameB 即此形态）；无剧本的 botc 局录角色/阵营/状态声称时 400（见 events/confirm）。非 botc 局忽略 script 字段（werewolf 路径零改动）。
