@@ -17,7 +17,8 @@
   "main": "src/server.js",
   "bin": {
     "jujian": "bin/jujian.cjs",
-    "jujian-mcp": "bin/jujian-mcp.cjs"
+    "jujian-mcp": "bin/jujian-mcp.cjs",
+    "jujian-bench": "bin/jujian-bench.cjs"
   },
   "engines": {
     "node": ">=22.5.0"
@@ -28,7 +29,8 @@
     "gates": "node gates/gates.cjs",
     "doctor": "node scripts/doctor.cjs",
     "replay": "node scripts/replay-bench.cjs",
-    "mcp": "node bin/jujian-mcp.cjs"
+    "mcp": "node bin/jujian-mcp.cjs",
+    "bench": "node bench/run-bench.cjs"
   },
   "dependencies": {
     "fastify": "^5.12.3"

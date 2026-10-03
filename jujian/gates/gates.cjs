@@ -26,10 +26,11 @@ const ROOT = path.join(__dirname, '..');
 const GATES = [
   {
     name: '测试',
-    desc: '存储层 ＋ 契约层 ＋ 内核漂移守卫 ＋ README 守卫',
+    desc: '存储层 ＋ 契约层 ＋ 内核漂移守卫 ＋ README 守卫 ＋ CLI ＋ MCP ＋ 盲测守卫',
     cmd: process.execPath,
     args: ['--test', '--test-reporter=dot', 'test/store.test.cjs', 'test/api.test.cjs',
-      'test/kernel-drift.test.cjs', 'test/readme.test.cjs', 'test/cli.test.cjs', 'test/mcp.test.cjs'],
+      'test/kernel-drift.test.cjs', 'test/readme.test.cjs', 'test/cli.test.cjs',
+      'test/mcp.test.cjs', 'test/bench.test.cjs'],
     cwd: ROOT,
   },
   {
@@ -44,6 +45,16 @@ const GATES = [
     desc: 'Node 版本 / 角色数据 / 内核可加载 / 依赖 / 库版本 / 端口 —— 出厂前查五类安装事故',
     cmd: process.execPath,
     args: ['scripts/doctor.cjs'],
+    cwd: ROOT,
+  },
+  {
+    name: '盲测',
+    // ★这道闸门存在的理由：这套读数原先只躺在 docs/ 里，**没有一条命令能复现它**。
+    //   变成闸门之后，每次提交都会重跑一遍 —— 真值锚点被动、切片裁头失效、
+    //   对跳抓不到了，都会在提交那一刻响，而不是几周后有人想起来才看。
+    desc: '5 局真实对局（双层档案）跑成可复跑读数：矛盾检出 / 引用真实性 / RD1 守卫 / 抽取覆盖率',
+    cmd: process.execPath,
+    args: ['bench/run-bench.cjs'],
     cwd: ROOT,
   },
 ];
