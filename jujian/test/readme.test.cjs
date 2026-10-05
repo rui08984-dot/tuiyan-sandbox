@@ -172,6 +172,18 @@ test('⑨ 反链检查：README 引用的每个文件都真实存在', () => {
   }
 });
 
+test('★⑭ 换行由仓库规定，与每个人的 git 配置无关', () => {
+  // ★这条是被一次「发布后别人克隆下来测试是红的」逼出来的：
+  //   作者那台机器设了 core.autocrlf=false，所以本地永远 LF、守卫永远绿；
+  //   换个干净环境克隆，全局 autocrlf 生效 → 检出 CRLF → 下面那条守卫当场判红。
+  //   「在我这儿是对的」不等于「发出去是对的」——而发布出去是给所有人用的。
+  const ga = path.join(ROOT, '.gitattributes');
+  assert.ok(fs.existsSync(ga), '★缺 .gitattributes —— 换行必须由仓库自己规定，不能指望每个人的 git 配置');
+  const text = fs.readFileSync(ga, 'utf8');
+  assert.match(text, /\*\s+text=auto\s+eol=lf/, '.gitattributes 必须声明全局 eol=lf');
+  assert.match(text, /\.bat\s+text eol=crlf/, 'Windows 批处理要保留 CRLF，否则跑不起来');
+});
+
 test('⑩ 纯 LF、末尾有换行、无制表符缩进', () => {
   assert.ok(!readme.includes('\r\n'), 'README 必须是纯 LF');
   assert.ok(readme.endsWith('\n'), 'README 末尾必须有换行');

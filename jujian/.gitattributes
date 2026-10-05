@@ -1,0 +1,36 @@
+# 局鉴 · 换行与文件属性
+#
+# ★这个文件是被一次「别人克隆下来测试是红的」逼出来的。
+#
+#   仓库里存的是 LF（正确），但那台开发机的仓库设了 core.autocrlf=false，
+#   于是本地永远是 LF、守卫也永远是绿的。发布之后换个干净环境克隆，
+#   全局 autocrlf 生效 → 检出成 CRLF → test/readme.test.cjs 的
+#   「README 必须是纯 LF」当场判红。
+#
+#   ★教训很普通也很贵：**「在我这儿是对的」不等于「发出去是对的」。**
+#   守卫只覆盖了作者自己的那台机器，而发布出去的东西是给所有人用的。
+#
+# ⇒ 换行由仓库自己规定，与每个人的 git 配置无关。
+
+* text=auto eol=lf
+
+# ★Windows 批处理必须保留 CRLF，否则在 Windows 上跑不起来。
+*.bat  text eol=crlf
+*.cmd  text eol=crlf
+
+# 二进制：禁止任何行尾转换，也禁止 diff 二进制内容
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.webp binary
+*.ico  binary
+*.woff binary
+*.woff2 binary
+*.pdf  binary
+*.db   binary
+*.sqlite binary
+*.sqlite3 binary
+
+# 锁文件：入库但不做行尾转换（内容哈希要稳定）
+package-lock.json text eol=lf -diff
