@@ -90,8 +90,15 @@ try {
 问('【5】泄漏口');
 try {
   const ig = fs.readFileSync(path.join(ROOT, '.gitignore'), 'utf8');
-  if (/^\.scratch\/audit-\*/m.test(ig)) 绿('.gitignore 已挡 .scratch/audit-*（新的会话记录不会再把密钥带进来）');
-  else 红('.gitignore **没有** .scratch/audit-* 规则 —— 这正是当初密钥被提交进去的那条路');
+  // ★口径升级（2026-10-05）：原来只挡 `.scratch/audit-*`；
+  //   2026-10-05 整理时整个 `.scratch/` 都出库并入 ignore —— 这比原来的
+  //   窄规则**更强**，所以这里要认「整目录被挡」同样算堵住。
+  //   只认老规则的话，规则一变强它反而报红 —— 那是判据比现实窄。
+  const wholeDir = /^\.scratch\/\s*$/m.test(ig);
+  const narrow = /^\.scratch\/audit-\*/m.test(ig);
+  if (wholeDir) 绿('.gitignore 已挡**整个** .scratch/（比原来的 audit-* 窄规则更强）');
+  else if (narrow) 绿('.gitignore 已挡 .scratch/audit-*');
+  else 红('.gitignore **既没有** .scratch/audit-* 也没有整个 .scratch/ —— 这正是当初密钥被提交进去的那条路');
 } catch (e) { 红(`读 .gitignore 失败：${e.message}`); }
 
 // ── 6. 当前这把 key 是不是泄露的那把（不打印本体）────────────────────
@@ -146,8 +153,8 @@ if (结果.红.length) {
 问('  0. 备份（两步都做，缺一不可）：');
 问('       git clone --mirror "E:\\music player" D:\\p1a-backup\\mirror.git');
 问('       git bundle create D:\\p1a-backup\\bundle.bundle --all');
-问('  1. 删掉 .scratch/audit-3gen 下那两个文件（全 refs 去重后只此两处）：');
-问('       git filter-repo --path .scratch/audit-3gen --invert-paths');
+问('  1. 删掉 docs/assets/audit-3gen 下那两个文件（全 refs 去重后只此两处）：');
+问('       git filter-repo --path docs/assets/audit-3gen --invert-paths');
 问('  2. 剪掉悬空对象（git log 看不见但 cat-file 读得出的那 6 个）：');
 问('       git reflog expire --expire=now --all && git gc --prune=now --aggressive');
 问('  3. 验收（三条都要过）：');

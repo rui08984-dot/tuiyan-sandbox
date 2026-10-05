@@ -2,7 +2,7 @@
 'use strict';
 /*
  * PREREG-命题A-3.0消融 · 跑批编排器（批次 4 第三步）
- * 判据来源：.scratch/forecast-debate/PREREG-命题A-3.0消融-v1.md（**只读，本脚本不改**）
+ * 判据来源：docs/assets/forecast-debate/PREREG-命题A-3.0消融-v1.md（**只读，本脚本不改**）
  * 三臂：A=3.0 真实 d 段（默认 on）／B=2.0（P1B_EVIDENCE_V3=0）／C=sham 等 token（P1B_EVIDENCE_V3_MODE=sham）
  * 每臂每窗独立 run_id ＝ preregA-run1-{arm}-{window}
  * 双窗：cutoff／full —— **真正调用** p1b/scripts/prereg-a-windows.cjs（assertSingleWindow 生效），
@@ -39,10 +39,10 @@ const MODEL = arg('model', 'tokenrhythm/glm-5.3-flash');
 const TAG = arg('tag', 'run1');
 const RUN_PREFIX = arg('run-prefix', 'preregA-run1-');
 const DB_PATH = path.resolve(arg('db', path.join(ROOT, 'p1a-terminal', 'data', 'p1a.db')));
-const STATE_PATH = path.resolve(arg('state', path.join(ROOT, '.scratch', 'forecast-debate', 'prereg-a', 'run-state-' + TAG + '.json')));
+const STATE_PATH = path.resolve(arg('state', path.join(ROOT, 'docs', 'assets', 'forecast-debate', 'prereg-a', 'run-state-' + TAG + '.json')));
 const JSON_OUT = arg('json', null);
 const PROVIDERS_ARG = arg('providers', null); // 缺省 null ⇒ 不传 providersPath（REAL 走 buildServer 默认真实配置；MOCK 由 --mock 决定）
-const PREREG = path.join(ROOT, '.scratch', 'forecast-debate', 'PREREG-命题A-3.0消融-v1.md');
+const PREREG = path.join(ROOT, 'docs', 'assets', 'forecast-debate', 'PREREG-命题A-3.0消融-v1.md');
 const V3K = 'P1B_EVIDENCE_V3', MODEK = 'P1B_EVIDENCE_V3_MODE';
 const ARM_ENV = {
   A: { set: {}, note: '3.0 真实 d 段（默认 on）' },

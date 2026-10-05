@@ -29,7 +29,7 @@ if (oos.length) {
     prediction_ids: [...new Set(oos.map((r) => r.prediction_id))],
     rows: oos,
   };
-  const dest = 'E:/music player/.scratch/forecast-debate/verdicts-archive-rc-oos-20260912.json';
+  const dest = 'E:/music player/docs/assets/forecast-debate/verdicts-archive-rc-oos-20260912.json';
   fs.writeFileSync(dest, JSON.stringify(out, null, 1), 'utf8');
   const back = JSON.parse(fs.readFileSync(dest, 'utf8'));
   console.log('归档 -> ' + dest + ' 回读 row_count=' + back.row_count);

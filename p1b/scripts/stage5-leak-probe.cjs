@@ -24,7 +24,7 @@ const fs = require('fs');
 const path = require('path');
 const ROOT = path.resolve(__dirname, '..', '..');
 function arg(n, d) { const i = process.argv.indexOf('--' + n); return i >= 0 && process.argv[i + 1] && process.argv[i + 1].slice(0, 2) !== '--' ? process.argv[i + 1] : d; }
-const SURFACE = arg('surface', path.join(ROOT, '.scratch/backtest/predictions-public-surface.db'));
+const SURFACE = arg('surface', path.join(ROOT, 'docs/assets/backtest/predictions-public-surface.db'));
 const DB = arg('db', path.join(ROOT, 'p1a-terminal/data/p1a.db'));
 const OUT = arg('out', path.join(ROOT, 'p1b/sim/out/stage5-leak-probe-latest.json'));
 

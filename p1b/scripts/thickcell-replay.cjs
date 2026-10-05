@@ -2,7 +2,7 @@
 /**
  * p1b/scripts/thickcell-replay.cjs —— **厚格基建总票·共享 walk-forward 重放骨架**（2026-09-18 · 第 3 期票 B 的实现件）
  *
- * 依据（唯一冻结文本）：`.scratch/forecast-debate/PREREG-厚格基建总票-v1.md`
+ * 依据（唯一冻结文本）：`docs/assets/forecast-debate/PREREG-厚格基建总票-v1.md`
  *   （sha256 `e12c9db67ab2f5dd5a94d0ecf712944eff682db8b06b4bf714b9a2bbd5752985`）
  *   §1 池与单元／§2 共享骨架／§3 共享判据 C1–C3／§5 撤票／§6 MDE 义务／§8 泄漏防线／§10 边界。
  *
@@ -279,14 +279,14 @@ function runSelftest(pool, cells) {
 }
 
 function main() {
-  const frozen = path.join(ROOT, '.scratch', 'forecast-debate', 'PREREG-厚格基建总票-v1.md');
+  const frozen = path.join(ROOT, 'docs', 'assets', 'forecast-debate', 'PREREG-厚格基建总票-v1.md');
   const hasFrozen = fs.existsSync(frozen);
   const { pool, cells } = buildPool(DB_PATH);
 
   // ★★ 开跑令闸
   if (!ARMS.length) {
     console.log('=== 厚格基建总票 · 开跑前提状态（无 --arms ⇒ 拒跑，零写盘）===');
-    console.log('  PREREG 冻结件：' + (hasFrozen ? '在盘（.scratch/forecast-debate/PREREG-厚格基建总票-v1.md）' : '★缺失'));
+    console.log('  PREREG 冻结件：' + (hasFrozen ? '在盘（docs/assets/forecast-debate/PREREG-厚格基建总票-v1.md）' : '★缺失'));
     console.log('  池（PREREG §1 规则派生）：域 ∈ {' + DOMAINS.join(', ') + '}｜层 ∈ {' + LAYERS.join(', ') + '}⇒ 得 ' + pool.length + ' 题');
     console.log('  单元（layer×domain 格；准入门 n≥' + MIN_N + '）：');
     for (const c of cells) console.log('    ' + c.cell.padEnd(20) + ' n=' + String(c.n).padStart(4) + '  ' + (c.eligible ? '✅ 可判读' : '⚠ n<' + MIN_N + ' 只探索'));

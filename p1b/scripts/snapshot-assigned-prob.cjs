@@ -7,14 +7,14 @@
  * assigned_prob 本列可被 runner 重算，故重算前必须先留快照）。
  *
  * 导出 predictions 全部行 (id, game_id, statement, assigned_prob, resolved_at, outcome) 到
- * .scratch/forecast-debate/assigned-prob-snapshot-20260912.json；预期 90 行，行数≠90 如实
+ * docs/assets/forecast-debate/assigned-prob-snapshot-20260912.json；预期 90 行，行数≠90 如实
  * 打印 WARN 不硬过。只读库，零写入（除快照 JSON 本身）。
  */
 const fs = require('fs');
 const path = require('path');
 const { db } = require('../src/deps');
 
-const OUT = path.join(__dirname, '..', '..', '.scratch', 'forecast-debate', 'assigned-prob-snapshot-20260912.json');
+const OUT = path.join(__dirname, '..', '..', '.run-out', 'forecast-debate', 'assigned-prob-snapshot-20260912.json');
 const EXPECTED_ROWS = 90;
 
 function main() {

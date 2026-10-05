@@ -2,8 +2,8 @@
 /**
  * p1b/src/evidence/stage5Pool.js —— **阶段 5 路线 (b) 冻结池谓词与指纹的单一真源**。
  *
- * 判据来源（唯一）：`.scratch/forecast-debate/PREREG-阶段5-前瞻数值信号-v1.md` §3（八条资格谓词）
- *   ＋ 勘误件 `.scratch/forecast-debate/PREREG-阶段5-前瞻数值信号-v1.1-补充与勘误.md`（§3 指纹填实）。
+ * 判据来源（唯一）：`docs/assets/forecast-debate/PREREG-阶段5-前瞻数值信号-v1.md` §3（八条资格谓词）
+ *   ＋ 勘误件 `docs/assets/forecast-debate/PREREG-阶段5-前瞻数值信号-v1.1-补充与勘误.md`（§3 指纹填实）。
  *
  * 为何单列此文件（缺陷 D-B 的教训）：
  *   首发实验把池谓词**内联在未入库的 `.tmp` 脚本**里，且抓取失败静默 `continue` ⇒

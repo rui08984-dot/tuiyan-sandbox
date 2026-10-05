@@ -65,7 +65,7 @@ test('backfill-base-rate：dry-run 零写入 → --confirm 只物化安全集 + 
   for (const r of preRows) preRead[r.id] = br.readBaseRate(JSON.parse(r.evidence_json)[0]);
   pre.close();
 
-  // ② confirm（--snapshot 指向临时路径：测试不得污染仓库 .scratch/backup/）
+  // ② confirm（--snapshot 指向临时路径：测试不得污染仓库 .run-out/backup/）
   const snapPath = tmp('snap.db');
   const out2 = run(['--db', dbPath, '--confirm', '--snapshot', snapPath]);
   assert.match(out2, /written rows = 1/, '只物化 1 行（id=1）');

@@ -18,7 +18,7 @@ const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 const ERR_LOG = path.join(__dirname, '..', 'sim', 'out', 'judge-errors.log');
-const PREREG_MD = path.join(__dirname, '..', '..', '.scratch', 'forecast-debate', 'PREREG-判词重跑-v1.md');
+const PREREG_MD = path.join(__dirname, '..', '..', 'docs', 'assets', 'forecast-debate', 'PREREG-判词重跑-v1.md');
 /** 旧口径（缺省回退用）：PREREG-判词重跑-v1.md sha256 前 12 位（排除 `> sha256` 行）；文件缺失→'prereg-missing' */
 function calcRunId() {
   try {

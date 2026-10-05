@@ -582,7 +582,7 @@ test('⑩ 对真实仓库根跑一遍：★C1 必红（仓库里有 p1a-terminal
  *
  * 跑法（★用 cp 备份还原，**绝对不要用 git checkout** —— 它会把工作流尚未提交的改动一起退掉）：
  *   node p1b/test/audit-release.test.cjs                 # 期望：全绿
- *   node .scratch/mutate-release.cjs C10                 # 期望：★测试红，且红在 C10 那条
+ *   node docs/assets/mutate-release.cjs C10                 # 期望：★测试红，且红在 C10 那条
  *   node p1b/test/audit-release.test.cjs                 # 还原后：全绿
  */
 const 变异表 = [

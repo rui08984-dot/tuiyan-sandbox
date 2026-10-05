@@ -17,7 +17,7 @@ if (junk.length) {
     row_count: junk.length,
     rows: junk,
   };
-  const dest = 'E:/music player/.scratch/forecast-debate/verdicts-archive-dryruntest-20260912.json';
+  const dest = 'E:/music player/docs/assets/forecast-debate/verdicts-archive-dryruntest-20260912.json';
   fs.writeFileSync(dest, JSON.stringify(out, null, 1), 'utf8');
   console.log('归档 -> ' + dest + ' 回读=' + JSON.parse(fs.readFileSync(dest, 'utf8')).row_count);
   const del = conn.transaction(() => {

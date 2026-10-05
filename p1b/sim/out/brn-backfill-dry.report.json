@@ -1,6 +1,6 @@
 {
  "generated_at": "2026-09-13T08:28:09.839Z",
- "db": "E:/music player/.scratch/backup/p1a-pre-brnbackfill-20260913082428.db",
+ "db": "E:/music player/.run-out/backup/p1a-pre-brnbackfill-20260913082428.db",
  "confirm": false,
  "script": "p1b/scripts/backfill-baserate-note.cjs",
  "rows": [

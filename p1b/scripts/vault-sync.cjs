@@ -100,7 +100,7 @@ async function main() {
   if (!CONFIRM) { console.log('DRY-RUN：未写库（--confirm 才执行；执行前自动在线快照）。'); return; }
 
   // ── 快照（在线备份 API；WAL 未 checkpoint 时拷文件会丢数据）──
-  const snapPath = SNAP ? path.resolve(SNAP) : path.join(ROOT, '.scratch', 'backup', 'p1a-pre-vaultsync-' + ts() + '.db');
+  const snapPath = SNAP ? path.resolve(SNAP) : path.join(ROOT, '.run-out', 'backup', 'p1a-pre-vaultsync-' + ts() + '.db');
   fs.mkdirSync(path.dirname(snapPath), { recursive: true });
   const src = new Database(DB_PATH, { readonly: true, fileMustExist: true });
   await src.backup(snapPath);

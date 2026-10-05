@@ -5,7 +5,7 @@ const crypto = require('crypto');
 const Database = require('E:/music player/p1a-terminal/node_modules/better-sqlite3');
 const SRC = 'E:/music player/p1a-terminal/data/p1a.db';
 const stamp = process.argv[2] || new Date().toISOString().replace(/[-:T]/g, '').slice(0, 14);
-const out = 'E:/music player/.scratch/backup/p1a-pre-long2-' + stamp + '.db';
+const out = 'E:/music player/.run-out/backup/p1a-pre-long2-' + stamp + '.db';
 if (fs.existsSync(out)) throw new Error('snapshot exists: ' + out);
 const sha = (p) => crypto.createHash('sha256').update(fs.readFileSync(p)).digest('hex').toUpperCase();
 const db = new Database(SRC, { readonly: true });

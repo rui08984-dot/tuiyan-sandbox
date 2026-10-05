@@ -30,7 +30,7 @@ const path = require('path');
 const crypto = require('crypto');
 const { db } = require('../src/deps');
 
-const RAW_OUT = path.join(__dirname, '..', '..', '.scratch', 'forecast-debate', 'voi-a-raw-20260912.json');
+const RAW_OUT = path.join(__dirname, '..', '..', '.run-out', 'forecast-debate', 'voi-a-raw-20260912.json');
 const DB_PATH = path.join(__dirname, '..', '..', 'p1a-terminal', 'data', 'p1a.db');
 
 const TYPE_MAP = {

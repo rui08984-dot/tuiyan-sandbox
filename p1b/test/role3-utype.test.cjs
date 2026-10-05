@@ -2,7 +2,7 @@
 /**
  * p1b/test/role3-utype.test.cjs —— U 型路径题回归锁（2026-09-21 · 四十批）
  *
- * 判据来源：设计题证据件 `.scratch/p29/...证据件-20260920.md` §1.2（U 型 noisy-OR，规则冻结）
+ * 判据来源：设计题证据件 `docs/assets/p29/...证据件-20260920.md` §1.2（U 型 noisy-OR，规则冻结）
  *   ＋ 交接件 §1 首选下一棒 ①「U 型（noisy-OR）路径题出题（规则已冻结，路径型子命题现 0 条）」。
  *
  * 覆盖：
@@ -114,7 +114,7 @@ test('⑦ ★候选留痕旁路（--record-candidates）', () => {
   const n = (SRC2.match(/recDrop\('parent'/g) || []).length;
   assert.equal(n, 5, '应有 5 处父题级 recDrop 调用（实测 ' + n + '）');
   // ④ 产物锁：若留痕件已生成，须含 counts 与严格口径说明
-  const recPath = path.join(ROOT, '.scratch/p37/utype-candidates.json');
+  const recPath = path.join(ROOT, 'docs/assets/p37/utype-candidates.json');
   if (fs.existsSync(recPath)) {
     const r = JSON.parse(fs.readFileSync(recPath, 'utf8'));
     assert.ok(r.counts && typeof r.counts.proposed_total === 'number', '留痕件须含 counts.proposed_total');

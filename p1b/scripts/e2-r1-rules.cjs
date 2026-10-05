@@ -3,7 +3,7 @@
 /*
  * p1b/scripts/e2-r1-rules.cjs —— E2 · R1 语义重判臂：规则冻结核验 ＋ 错配/降档人口计数（2026-09-17）
  *
- * 规则来源（唯一）：`.scratch/forecast-debate/E2-R1-规则版-v1-冻结件-20260917.md`（**已冻结**；改动＝版本递进）。
+ * 规则来源（唯一）：`docs/assets/forecast-debate/E2-R1-规则版-v1-冻结件-20260917.md`（**已冻结**；改动＝版本递进）。
  * 依据链：PREREG-E2 §2 R1 行｜11 号件 §⑧ **M5①**（「R1 规则版 v1 须 sha 冻结**先于任何 R1-vs-R0 读数**」）｜
  *   design §1.2 层判定优先级 **L5→L6→L1→L3→L2→L4**（取最特殊层）｜19 号件 §3 裁决三（layer×resolve_kind 错配审计＝E2 C1 供料）。
  *
@@ -27,7 +27,7 @@ function arg(n, d) {
 }
 const DB_PATH = arg('db', path.join(ROOT, 'p1a-terminal', 'data', 'p1a.db'));
 const OUT_DIR = arg('out-dir', path.join(ROOT, 'p1b', 'sim', 'out'));
-const RULES = arg('rules', path.join(ROOT, '.scratch', 'forecast-debate', 'E2-R1-规则版-v1-冻结件-20260917.md'));
+const RULES = arg('rules', path.join(ROOT, 'docs', 'assets', 'forecast-debate', 'E2-R1-规则版-v1-冻结件-20260917.md'));
 const NB = Number(arg('boot', '1000'));
 const SEED = Number(arg('seed', '987654321'));
 const MIN_N = 30;                 // R1-B 阈值＝项目既有准入线（K F13），不新造

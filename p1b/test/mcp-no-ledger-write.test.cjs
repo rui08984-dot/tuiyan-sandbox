@@ -65,8 +65,8 @@ function argsFor(name) {
   switch (name) {
     case 'p1b_audit_anchor_gate': return { candidates: path.join(__dirname, 'fixtures', 'does-not-exist.json') };
     case 'p1b_audit_prereg_freeze': return { prereg_file: path.join(__dirname, 'fixtures', 'does-not-exist.md') };
-    case 'p1b_backup_offsite': return { dest: path.join(ROOT, '.scratch', 'mcp-no-ledger-write', 'dest') };
-    case 'p1b_backup_restore_drill': return { backup_dir: path.join(ROOT, '.scratch', 'mcp-no-ledger-write', 'nonexistent-backups') };
+    case 'p1b_backup_offsite': return { dest: path.join(ROOT, '.run-out', 'mcp-no-ledger-write', 'dest') };
+    case 'p1b_backup_restore_drill': return { backup_dir: path.join(ROOT, '.run-out', 'mcp-no-ledger-write', 'nonexistent-backups') };
     // ★写意图那一条给**三件齐的**参数：跑一个「本来就该被拒」的样本，
     //   等于没跑到它的正常路径 —— 而正常路径才是最可能出错的那条。
     case 'p1b_note_record': return { statement: '本测试用的一条判断（不会落账）', prob: 0.62, kind: 'openmeteo_daily_max' };

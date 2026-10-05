@@ -1,2 +1,0 @@
-
-> **【勘误 2026-09-10 · 三代复审补记】** §九与 §三.6 所指 `config/providers.json` 已迁移：实际路径=`p1a-terminal/config/providers.json`（456B，mtime 2026-09-08 12:43，.gitignore 随迁生效）。另：80 用例全绿的测试收据=`docs/sandbox/botc-adapt/itest/extract-retest/b7-test-run6.log`（tests 80/pass 80/fail 0，2026-09-09 10:04），`p1b/test/run.out` 为 2026-09-08 16:50 的 49/49 基线，勿混引。依据=`.scratch/audit-3gen/审计报告-三代复审.md` A2/A3。

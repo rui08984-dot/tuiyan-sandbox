@@ -117,7 +117,7 @@ test('⑦ ★候选留痕旁路（--record-candidates）＋ 严格口径', () =>
   const n = (SRC.match(/recDrop\(/g) || []).length - 1;
   assert.equal(n, 3, '应有 3 处 recDrop 调用（实测 ' + n + '）');
   // ★产物锁：含 counts 与「源/geo 级」如实标注
-  const recPath = path.join(ROOT, '.scratch/p37/i1-candidates.json');
+  const recPath = path.join(ROOT, 'docs/assets/p37/i1-candidates.json');
   if (fs.existsSync(recPath)) {
     const r = JSON.parse(fs.readFileSync(recPath, 'utf8'));
     assert.equal(r.counts.proposed_total, r.counts.candidates + r.counts.drops, '提议全集＝候选＋被丢');

@@ -1,6 +1,6 @@
 {
  "script": "p1b/scripts/mdl-retention.cjs",
- "basis": ".scratch/forecast-debate/研讨会-20260916-预测万物v3/18-跨学科移植-深度报告.md §7（消费者 19 号 §1.1/§4.3）",
+ "basis": "docs/assets/forecast-debate/研讨会-20260916-预测万物v3/18-跨学科移植-深度报告.md §7（消费者 19 号 §1.1/§4.3）",
  "anchors": [
   "DOI 10.1016/0005-1098(78)90005-5",
   "DOI 10.2307/2981683"

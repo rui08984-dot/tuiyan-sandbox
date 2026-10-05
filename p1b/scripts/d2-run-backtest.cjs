@@ -6,9 +6,9 @@
  * 判据来源（唯一）：PREREG-D2 v1（sha `70cf9d17…`）＋ v1.1 补充与勘误（四处勘误）。
  *
  * 隔离纪律（照 PREREG §7「零账本写」＋ 规格 §3.2 G-D2-0）：
- *   · **只读影子题面库**（`.scratch/backtest/predictions-public-surface.db`）——该库里 truth_vault **物理不存在**；
+ *   · **只读影子题面库**（`docs/assets/backtest/predictions-public-surface.db`）——该库里 truth_vault **物理不存在**；
  *   · **不打开生产库**（p1a.db）——本脚本全文无 p1a.db 路径；
- *   · 产物全部落 `.scratch/backtest/`，**零账本写**。
+ *   · 产物全部落 `docs/assets/backtest/`，**零账本写**。
  *
  * 零 LLM（纯机械：题面 ＋ 算术）。
  * 用法：node p1b/scripts/d2-run-backtest.cjs [--questions <f>] [--out <f>]
@@ -23,9 +23,9 @@ function arg(n, d) {
   const i = process.argv.indexOf('--' + n);
   return i >= 0 && process.argv[i + 1] && process.argv[i + 1].slice(0, 2) !== '--' ? process.argv[i + 1] : d;
 }
-const QFILE = arg('questions', path.join(ROOT, '.scratch', 'backtest', 'd2-questions.json'));
-const OUTFILE = arg('out', path.join(ROOT, '.scratch', 'backtest', 'd2-report.json'));
-const SURFACE = path.join(ROOT, '.scratch', 'backtest', 'predictions-public-surface.db');
+const QFILE = arg('questions', path.join(ROOT, 'docs', 'assets', 'backtest', 'd2-questions.json'));
+const OUTFILE = arg('out', path.join(ROOT, '.run-out', 'backtest', 'd2-report.json'));
+const SURFACE = path.join(ROOT, 'docs', 'assets', 'backtest', 'predictions-public-surface.db');
 
 const PREREG_SHA = '70cf9d17e87d0522d979b8da00eba9967ccdb5f4201a97935e94864e84a37ee4';
 const MIN_N = 30;   // A5 / 规格 §4.3-3

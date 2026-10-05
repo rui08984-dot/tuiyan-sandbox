@@ -2,7 +2,7 @@
 /**
  * p1b/test/dlt-referer.test.cjs —— dlt resolver Referer 回归锁（2026-09-21 · 四十三批）
  *
- * 背景（诊断件 `.scratch/p36/dlt专项诊断-20260921.md`）：
+ * 背景（诊断件 `docs/assets/p36/dlt专项诊断-20260921.md`）：
  *   `dlt_draw_result` 38 条**全部未解**（总 38 = 未解 38），daemon 报 HTTP 567。
  *   ★根因：**不是网络问题，是 daemon 的 UA 策略触发反爬**——
  *     daemon L74 强制注入浏览器 UA（`UA_DEFAULT`），而 sporttery 对「浏览器 UA」要求

@@ -102,7 +102,7 @@ function contentBlock(text) { return { type: 'text', text: text }; }
 
 /** 从 CLI 的「→ node p1b/scripts/… 」那一行里把暂存目录读回来（非 F 档为 null）。 */
 function outDirOf(stderr) {
-  const m = /[^\r\n]*?\.scratch[\\/]cli[\\/]\d{8}-\d{6}/.exec(stderr || '');
+  const m = /[^\r\n]*?\.run-out[\\/]cli[\\/]\d{8}-\d{6}/.exec(stderr || '');
   return m ? m[0].trim() : null;
 }
 
@@ -168,7 +168,7 @@ function callTool(name, args, opt) {
   const text = run.stdout + (run.stderr ? run.stderr : '');
   const structuredContent = Object.assign({}, mapped.structuredContent, {
     argv: run.argv,
-    // F 档产物落在 CLI 自己生成的暂存目录（`.scratch/cli/<时间戳>/`）。本层不去算那个目录
+    // F 档产物落在 CLI 自己生成的暂存目录（`.run-out/cli/<时间戳>/`）。本层不去算那个目录
     // —— 算了就等于把 stamp() 的口径抄一份，抄的那份迟早跟原的不一致。直接从 CLI 打印的
     // 「→ node p1b/scripts/… --out-dir <目录>」那一行里读回来，是它说什么就是什么。
     output_dir: outDirOf(run.stderr),

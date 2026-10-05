@@ -2,7 +2,7 @@
 /**
  * d2-backtest.test.cjs —— D2 历史回测引擎 **口径与隔离锁定测试**（2026-09-15）。
  *
- * 判据来源：`.scratch/forecast-debate/PREREG-D2-历史回测引擎-v1.md`（sha 70cf9d17…）
+ * 判据来源：`docs/assets/forecast-debate/PREREG-D2-历史回测引擎-v1.md`（sha 70cf9d17…）
  *   ＋ `…-v1.1-补充与勘误.md`（四处勘误：D2-A horizon 解耦／D2-B 批配额／D2-C HB 范围／D2-D 极档不可达）。
  *
  * 铁律：零网络、零 LLM、零写库（只读产物与影子库；**不打开生产库**）。
@@ -14,9 +14,9 @@ const fs = require('node:fs');
 const { DatabaseSync } = require('node:sqlite');
 
 const ROOT = path.resolve(__dirname, '..', '..');
-const QF = path.join(ROOT, '.scratch/backtest/d2-questions.json');
-const RF = path.join(ROOT, '.scratch/backtest/d2-report.json');
-const SURFACE = path.join(ROOT, '.scratch/backtest/predictions-public-surface.db');
+const QF = path.join(ROOT, 'docs/assets/backtest/d2-questions.json');
+const RF = path.join(ROOT, 'docs/assets/backtest/d2-report.json');
+const SURFACE = path.join(ROOT, 'docs/assets/backtest/predictions-public-surface.db');
 
 test('D2 题面：C1/C3 —— cutoff = 出题日 23:59 且严格早于事件日（勘误 D2-A）', () => {
   assert.ok(fs.existsSync(QF), '前提：题面产物存在');

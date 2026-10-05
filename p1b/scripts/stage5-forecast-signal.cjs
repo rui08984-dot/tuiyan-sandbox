@@ -3,8 +3,8 @@
 /*
  * p1b/scripts/stage5-forecast-signal.cjs —— 阶段 5 路线 (b)「前瞻数值信号」**冻结实验的可复现脚本**。
  *
- * 判据来源（唯一）：`.scratch/forecast-debate/PREREG-阶段5-前瞻数值信号-v1.md`（sha256 见 v1.1 勘误件）
- *   ＋ 勘误/补充：`.scratch/forecast-debate/PREREG-阶段5-前瞻数值信号-v1.1-补充与勘误.md`
+ * 判据来源（唯一）：`docs/assets/forecast-debate/PREREG-阶段5-前瞻数值信号-v1.md`（sha256 见 v1.1 勘误件）
+ *   ＋ 勘误/补充：`docs/assets/forecast-debate/PREREG-阶段5-前瞻数值信号-v1.1-补充与勘误.md`
  *
  * 为何有本脚本（缺陷 D-B 的修复）：首个「冻结后确认跑」用的是一份**未入库的 `.tmp/` 脚本**，
  *   其抓取错误路径为 `console.log('ERR'); continue;` —— **静默跳过整个分块**。
@@ -194,8 +194,8 @@ const parseBase = P.parseBaseRate;
   const base = path.join(OUTDIR, 'stage5-forecast-signal-' + TAG);
   fs.writeFileSync(base + '.json', JSON.stringify({
     script: 'p1b/scripts/stage5-forecast-signal.cjs',
-    prereg: '.scratch/forecast-debate/PREREG-阶段5-前瞻数值信号-v1.md',
-    errata: '.scratch/forecast-debate/PREREG-阶段5-前瞻数值信号-v1.1-补充与勘误.md',
+    prereg: 'docs/assets/forecast-debate/PREREG-阶段5-前瞻数值信号-v1.md',
+    errata: 'docs/assets/forecast-debate/PREREG-阶段5-前瞻数值信号-v1.1-补充与勘误.md',
     generated_at: new Date().toISOString(),
     pool_fingerprint_sha256: poolFp,
     n_pool: pool.length,

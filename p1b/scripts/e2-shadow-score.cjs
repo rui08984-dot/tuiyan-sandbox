@@ -56,7 +56,7 @@ function arg(n, d) {
 }
 const DB_PATH = arg('db', path.join(ROOT, 'p1a-terminal', 'data', 'p1a.db'));
 const OUT_DIR = arg('out-dir', path.join(ROOT, 'p1b', 'sim', 'out'));
-const RULES = arg('rules', path.join(ROOT, '.scratch', 'forecast-debate', 'E2-R1-规则版-v1-冻结件-20260917.md'));
+const RULES = arg('rules', path.join(ROOT, 'docs', 'assets', 'forecast-debate', 'E2-R1-规则版-v1-冻结件-20260917.md'));
 const ARMS = process.argv.indexOf('--arms') !== -1;
 const NB = Number(arg('boot', '1000'));
 const SEED = Number(arg('seed', '987654321'));

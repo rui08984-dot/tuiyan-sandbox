@@ -3,7 +3,7 @@
  * p1b/src/engines/l3_aci.js —— L3 短窗混沌层最小引擎（stat_baseline + ACI 在线校准）（2026-09-14）
  *
  * 依据：design §1.6（L3 引擎姿态＝**基率+短窗校准**；K 8.4 两件套）＋
- *   `.scratch/forecast-debate/G-合并.md` §8.4（**F24 ACI 外环** γ=0.005 × **F18 滚动窗/0.99^衰减内环**，F33 归一化平稳）。
+ *   `docs/assets/forecast-debate/G-合并.md` §8.4（**F24 ACI 外环** γ=0.005 × **F18 滚动窗/0.99^衰减内环**，F33 归一化平稳）。
  *
  * 契约（纯函数：零 db / 零 LLM / 零网络）：
  *   入参 l3Aci({ baseRateNote? | counts?{k,n} | history?, feedback?:[{p,y}], alphaStar?, gamma?, decay?, alphaMin?, alphaMax? })

@@ -102,3 +102,33 @@ seed/*.db
 
 # Windows 误建（重定向写错目标名时会生成一个叫 nul 的文件）
 nul
+
+# ── 2026-10-05：发布前清理 —— 这些都是别的东西的工作残留，不是本仓资产 ──
+.agent-teams/
+.tmp-fetch/
+.tmp/
+.tmp-jcdss/
+.dsh-tmp-research/
+.dshwolf/
+.dsh-session-import/
+.dsh-vision-router/
+.zcode/
+.playwright-mcp/
+.dsh-vision-toolkit/
+.sessionrelay/
+
+# 施工草稿：本目录整目录不入库（PREREG 冻结判据件已迁至 docs/prereg/）
+.scratch/
+
+# Windows 误建的垃圾文件（重定向写错目标名）
+nul
+=
+性质：*
+来源：*
+生成时点：*
+生成：*
+命名约定：*
+依据文献：*
+
+# 测试与脚本的运行期产物（不入库）
+.run-out/

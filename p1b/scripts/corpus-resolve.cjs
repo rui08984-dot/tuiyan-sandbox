@@ -69,7 +69,7 @@ const RESOLVERS = {
   //   back_ball=两位串 → 后区是否含该号；front_max_ge=N → 前区最大号是否 >= N（同题只带一个字段）。
   async dlt_draw_result(r) {
     const u = 'https://webapi.sporttery.cn/gateway/lottery/getHistoryPageListV1.qry?gameNo=85&provinceId=0&pageSize=60&isVerify=1&pageNo=1';
-    // ★2026-09-21（四十三）批：显式传 Referer——修 38 条全未解（诊断见 .scratch/p36/dlt专项诊断-20260921.md）
+    // ★2026-09-21（四十三）批：显式传 Referer——修 38 条全未解（诊断见 docs/assets/p36/dlt专项诊断-20260921.md）
     //   根因：daemon 强制注入浏览器 UA，而 sporttery 对「浏览器 UA」要求完整浏览器头上下文
     //   ⇒ 裸浏览器 UA 判爬虫（HTTP 567）。实测：浏览器 UA+Referer → 200；非浏览器 UA → 200。
     //   本 resolver 显式给 Referer（最小改动；不改 daemon 全局默认值——那会影响全部 61 kind）。

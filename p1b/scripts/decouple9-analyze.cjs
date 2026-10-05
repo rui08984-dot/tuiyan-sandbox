@@ -3,7 +3,7 @@
 /*
  * p1b/scripts/decouple9-analyze.cjs —— 9 臂解耦实验 · 判据机（2026-09-17）
  *
- * 依据（唯一）：`.scratch/forecast-debate/PREREG-9臂解耦-v1.md`（**冻结件**；正文 sha 不符 ⇒ exit 3）。
+ * 依据（唯一）：`docs/assets/forecast-debate/PREREG-9臂解耦-v1.md`（**冻结件**；正文 sha 不符 ⇒ exit 3）。
  * 输入：`p1b/sim/out/decouple9-verdicts-20260917.jsonl`（runner 产物）＋ 锚题工件 ＋ 账本（只读，用于**存量混淆基线**）。
  * 输出：`decouple9-analysis-20260917.{json,md}`（读数件）。
  *
@@ -25,7 +25,7 @@ function arg(n, d) {
 const STRICT = process.argv.indexOf('--allow-partial') === -1;   // 默认：工件不全 ⇒ 硬失败（防拿半批出读数）
 const JSONL = path.resolve(arg('jsonl', path.join(ROOT, 'p1b', 'sim', 'out', 'decouple9-verdicts-20260917.jsonl')));
 const ANCHOR = path.resolve(arg('anchor', path.join(ROOT, 'p1b', 'sim', 'out', 'decouple9-anchor-20260917.json')));
-const PREREG_PATH = path.resolve(arg('prereg', path.join(ROOT, '.scratch', 'forecast-debate', 'PREREG-9臂解耦-v1.md')));
+const PREREG_PATH = path.resolve(arg('prereg', path.join(ROOT, 'docs', 'assets', 'forecast-debate', 'PREREG-9臂解耦-v1.md')));
 const OUT_DIR = path.resolve(arg('out-dir', path.join(ROOT, 'p1b', 'sim', 'out')));
 const DB_PATH = path.resolve(arg('db', path.join(ROOT, 'p1a-terminal', 'data', 'p1a.db')));
 const NB = Number(arg('boot', '1000'));

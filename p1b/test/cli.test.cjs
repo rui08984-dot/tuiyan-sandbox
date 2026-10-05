@@ -13,7 +13,7 @@
  *      3 是本项目最核心的防 Goodhart 设计的载体（`anchor-gate.cjs:209` 候选 0 条不许被读成
  *      「通过」；`e2-r1-rules.cjs:122` 冻结件 sha 不 MATCH 就要停）—— 抹平了这条设计就废了。
  *
- * **零网络、零写库**：三条用例跑的命令分别是「只写 .scratch/cli/ 的 F 档」「被闸拦下的
+ * **零网络、零写库**：三条用例跑的命令分别是「只写 .run-out/cli/ 的 F 档」「被闸拦下的
  * 写库命令」「喂空候选文件的只读门禁件」，没有一个真打网或真写生产库。
  *
  * **spawn 绝不 require p1b/scripts 下的脚本**（`scripts-require-safety.test.cjs:40` 的口径：
@@ -52,7 +52,7 @@ const SCRIPTS = path.join(ROOT, 'p1b', 'scripts');
 const SIMOUT = path.join(ROOT, 'p1b', 'sim', 'out');
 const KIND_MD = path.join(ROOT, 'docs', 'specs', 'kind-目录表.md');
 const PROD_DB = path.join(ROOT, 'p1a-terminal', 'data', 'p1a.db');
-const CLI_OUT = path.join(ROOT, '.scratch', 'cli');
+const CLI_OUT = path.join(ROOT, '.run-out', 'cli');
 
 /** 跑一次 CLI，捕获全部输出与退出码。 */
 function runCli(args) {
@@ -109,13 +109,13 @@ test('① F 档命令不得写 p1b/sim/out，也不得覆盖 docs/specs/kind-目
   assert.equal(sha256(KIND_MD), kind0, 'F 档命令覆盖了 git tracked 的 docs/specs/kind-目录表.md');
   assert.equal(fs.statSync(PROD_DB).size + ':' + fs.statSync(PROD_DB).mtimeMs, db0, 'F 档命令碰了生产库 p1a.db（F 档定义上不许）');
 
-  // 反向确认：产物**确实**落到了 .scratch/cli/（否则上面的「不变」可能只是「压根没产出」的假绿）
+  // 反向确认：产物**确实**落到了 .run-out/cli/（否则上面的「不变」可能只是「压根没产出」的假绿）
   const dirs = fs.existsSync(CLI_OUT) ? fs.readdirSync(CLI_OUT).filter((d) => fs.statSync(path.join(CLI_OUT, d)).isDirectory()) : [];
-  assert.ok(dirs.length > 0, '.scratch/cli/ 下应有 F 档产出的时间戳目录');
+  assert.ok(dirs.length > 0, '.run-out/cli/ 下应有 F 档产出的时间戳目录');
   const produced = dirs.flatMap((d) => fs.readdirSync(path.join(CLI_OUT, d)));
-  assert.ok(produced.some((f) => f === 'kind-目录表.md'), 'kind 目录的产物应被改道到 .scratch/cli/，实得：' + produced.join(','));
-  assert.ok(produced.some((f) => /^calibration-report-.*\.json$/.test(f)), '校准报告的产物应被改道到 .scratch/cli/');
-  assert.ok(produced.some((f) => /^g2-audit-review\.tsv$/.test(f)), '抽检清单的产物应被改道到 .scratch/cli/');
+  assert.ok(produced.some((f) => f === 'kind-目录表.md'), 'kind 目录的产物应被改道到 .run-out/cli/，实得：' + produced.join(','));
+  assert.ok(produced.some((f) => /^calibration-report-.*\.json$/.test(f)), '校准报告的产物应被改道到 .run-out/cli/');
+  assert.ok(produced.some((f) => /^g2-audit-review\.tsv$/.test(f)), '抽检清单的产物应被改道到 .run-out/cli/');
 });
 
 test('② 默认只读：写库命令无 --确认 ⇒ exit 2 且子进程未启动', () => {

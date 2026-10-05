@@ -1,6 +1,6 @@
 {
  "script": "p1b/scripts/stage5-rank-diagnostic.cjs",
- "basis": ".scratch/forecast-debate/研讨会-20260916-预测万物v3/18-跨学科移植-深度报告.md §2.3",
+ "basis": "docs/assets/forecast-debate/研讨会-20260916-预测万物v3/18-跨学科移植-深度报告.md §2.3",
  "anchors": [
   "DOI 10.1175/1520-0493(2001)129<0550:iorhfv>2.0.co;2",
   "DOI 10.1175/waf884.1"

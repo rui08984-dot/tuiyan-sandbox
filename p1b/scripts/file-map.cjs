@@ -54,10 +54,10 @@ const OVERRIDE = {
   'p1b/scripts/g2-report.cjs': 'G2 门月报（R4 口径实现）',
   'p1b/scripts/stage4-run.cjs': '五层分层真跑（L1/L2/L3/L5/L6）',
   'p1b/test/fixtures/base-rate-golden.json': '基率解析金样（151 条真实注记×三读序；批次 3 冻结）',
-  '.scratch/forecast-debate/PREREG-命题A-3.0消融-v1.md': 'PREREG 冻结件（sha 5d6907d1；改动＝版本递进）',
-  '.scratch/forecast-debate/PREREG-检索式预测-v1-骨架.md': '阶段 5 PREREG 骨架（**未冻结**；2026-09-15 已填裁决要点＋谓词计数＋N_min=256）',
-  '.scratch/forecast-debate/PREREG附件A-检索式预测-提示词-v1-草案.md': '阶段 5 提示词全文附件（LLM 出证据行、不出概率；冻结时写 sha）',
-  '.scratch/handoff/推演沙盘-交接-20260914-深夜-批次3.md': '**最新唯一入口**（覆盖此前全部交接链）',
+  'docs/assets/forecast-debate/PREREG-命题A-3.0消融-v1.md': 'PREREG 冻结件（sha 5d6907d1；改动＝版本递进）',
+  'docs/assets/forecast-debate/PREREG-检索式预测-v1-骨架.md': '阶段 5 PREREG 骨架（**未冻结**；2026-09-15 已填裁决要点＋谓词计数＋N_min=256）',
+  'docs/assets/forecast-debate/PREREG附件A-检索式预测-提示词-v1-草案.md': '阶段 5 提示词全文附件（LLM 出证据行、不出概率；冻结时写 sha）',
+  'docs/handoff/推演沙盘-交接-20260929-发布与接口交付.md': '**最新唯一入口**（覆盖此前全部交接链）',
 };
 const SKIP_DIRS = new Set(['node_modules', '.git', 'dist', '.tmp', '_session_extract', 'p7-chrome-profile', 'assets', '素材库', 'out', 'cache']);
 const EXT_OK = /\.(md|json|cjs|mjs|js|txt|log|out|db|bat|cmd|ps1)$/i;
@@ -102,7 +102,7 @@ function walk(dir, out) {
     const rel = (dir ? dir + '/' : '') + e.name;
     if (e.isDirectory()) { walk(rel, out); continue; }
     if (!EXT_OK.test(e.name) || SKIP_FILE.test(e.name)) continue;
-    if (/\.db$/.test(e.name) && rel.indexOf('.scratch/backup') === 0) continue; // 快照只列目录级
+    if (/\.db$/.test(e.name) && rel.indexOf('.run-out/backup') === 0) continue; // 快照只列目录级
     out.push(rel);
   }
 }
@@ -110,8 +110,8 @@ const SECTIONS = [
   ['根目录', ['AGENTS.md', '项目全资源地图-20260914.md', 'AI音乐电台账号调研与执行方案.md', '电台执行手册-整理版.md']],
   ['docs/specs（规格·报告·判据）', null],
   ['docs/plans 与 docs/sandbox（计划与锚）', null],
-  ['.scratch/handoff（交接链）', null],
-  ['.scratch/forecast-debate（研究档案·PREREG）', null],
+  ['docs/assets/handoff（交接链）', null],
+  ['docs/assets/forecast-debate（研究档案·PREREG）', null],
   ['p1b/src（产品代码）', null],
   ['p1b/scripts（脚本：取数/跑批/报表/体检）', null],
   ['p1b/test（测试）', null],
@@ -165,16 +165,16 @@ const all = [];
 walk('docs/specs', all); emit('docs/specs（规格·报告·判据）', all.filter((p) => p.startsWith('docs/specs/')));
 const plans = []; walk('docs/plans', plans); walk('docs/sandbox/p1b/itest', plans);
 emit('docs/plans 与 docs/sandbox/p1b/itest（计划与进度锚）', plans);
-const ho = []; walk('.scratch/handoff', ho); emit('*.scratch/handoff（交接链，最新入口在末行）', ho);
-const fd = []; walk('.scratch/forecast-debate', fd); emit('.scratch/forecast-debate（研究档案/PREREG/实验报告）', fd);
+const ho = []; walk('docs/assets/handoff', ho); emit('*docs/assets/handoff（交接链，最新入口在末行）', ho);
+const fd = []; walk('docs/assets/forecast-debate', fd); emit('docs/assets/forecast-debate（研究档案/PREREG/实验报告）', fd);
 const src = []; walk('p1b/src', src); emit('p1b/src（产品代码）', src);
 const sc = []; walk('p1b/scripts', sc); emit('p1b/scripts（脚本；归档区见 archive/README.md）', sc);
 const te = []; walk('p1b/test', te); emit('p1b/test（测试）', te);
 const so = []; walk('p1b/sim/out', so); emit('p1b/sim/out（收据与读数件；大件 .db/截图不入列）', so);
 md.push('### 其它（目录级）');
 md.push('');
-md.push('- `.scratch/backup/` —— 迁移/修复前的 SQLite 快照（sha256 记在各收据；本目录不逐件列）');
-md.push('- `.scratch/merged-migration/`、`.scratch/backtest/` —— F4/迁移排练件与只读题面库');
+md.push('- `.run-out/backup/` —— 迁移/修复前的 SQLite 快照（sha256 记在各收据；本目录不逐件列）');
+md.push('- `docs/assets/merged-migration/`、`docs/assets/backtest/` —— F4/迁移排练件与只读题面库');
 md.push('- `p1a-terminal/data/p1a.db` —— **生产账本**（predictions/verdicts/truth_vault…）；`p1a-terminal/**` 为 p1a 线（含禁改面）');
 md.push('- `p1b/web/`（前端源码与 dist 构建）、`tools/`、`scripts/` —— 见各自 README/索引');
 md.push('');

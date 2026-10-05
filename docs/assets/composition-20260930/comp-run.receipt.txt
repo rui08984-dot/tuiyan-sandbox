@@ -1,0 +1,170 @@
+# 能力图 × 三种组合契约 —— 实测台（RUN=COMPO0XOFQ）
+- 沙箱库：E:\music player\.scratch\composition-20260930\sandbox-p1a.db
+- 生产库：E:\music player\p1a-terminal\data\p1a.db（本脚本**不打开**它）
+- 端口：动态分配（生产 8787）；P1B_LLM_MOCK=1 零真实 LLM
+- PASS 沙箱库 ≠ 生产库
+- 服务已起：http://127.0.0.1:8807（真监听）
+- /api/health ⇒ 200 db=undefined
+- PASS 服务在独立端口上真响应
+
+## 组合① 直线（Straight line）
+- no_rows 用 kind：cwl_ssq_blue_odd_forward
+
+### ①-0 正常直线  （marker=C1OK）
+  步 S1 归层（内含拒收门） ⇒ OK  {"status":200,"rejected":false,"layer":"L3","gate":"descriptive"}
+  步 S2 取值（诚实区间） ⇒ OK  {"http":200,"body_ok":true,"enough":true,"state":"enough","n":113}
+  步 S3 记账（写账本） ⇒ OK  {"status":201,"id":2010,"error":null}
+  ⇒ 走通。写入清点：{"predictions":1,"intake_questions":1,"intake_rejects":0,"verdicts":0,"idempotency_keys":1,"resolved":0}
+- PASS ① 正常直线走通
+- PASS ① 写进账本 1 行 — predictions=1
+- PASS ① 接题层留痕 1 行 — intake_questions=1
+
+### ①-P1 破坏 S1 前提：拒收门 Q0-1 答否  （marker=C1P1）
+  步 S1 归层（内含拒收门） ⇒ STOP  {"status":200,"rejected":true,"reason":"no_anchor","gate":"descriptive"}
+  ⇒ 停在第 S1 步。**前序写入如实清点（不回滚）**：{"predictions":0,"intake_questions":0,"intake_rejects":1,"verdicts":0,"idempotency_keys":1,"resolved":0}
+- PASS ①-P1 停在 S1（拒收门）
+- PASS ①-P1 账本零行（拒收不进 predictions） — predictions=0
+- PASS ①-P1 拒收**留痕**（intake_rejects 有行，不静默） — intake_rejects=1
+- PASS ①-P1 拒收原因=no_anchor — no_anchor
+
+### ①-P2 破坏 S2 前提：同类题 n=0（账本里没这一类）  （marker=C1P2）
+  步 S1 归层（内含拒收门） ⇒ OK  {"status":200,"rejected":false,"layer":"L3","gate":"descriptive"}
+  步 S2 取值（诚实区间） ⇒ STOP  {"http":200,"body_ok":true,"enough":false,"state":"no_rows","n":0}
+  ⇒ 停在第 S2 步。**前序写入如实清点（不回滚）**：{"predictions":0,"intake_questions":1,"intake_rejects":0,"verdicts":0,"idempotency_keys":1,"resolved":0}
+- PASS ①-P2 停在 S2（取值给不出数）
+- PASS ①-P2 停下原因=no_rows（不是"样本不足"） — no_rows
+- PASS ①-P2 ★S1 的写入仍在、如实报告 — intake_questions=1 predictions=0
+- 薄样本 kind（0<n<30）：openmeteo_archive_daily_precipitation_sum
+
+### ①-P2b 破坏 S2 前提：同类题 openmeteo_archive_daily_precipitation_sum 有数但 <30  （marker=C1P2B）
+  步 S1 归层（内含拒收门） ⇒ OK  {"status":200,"rejected":false,"layer":"L3","gate":"descriptive"}
+  步 S2 取值（诚实区间） ⇒ STOP  {"http":200,"body_ok":true,"enough":false,"state":"too_thin","n":28}
+  ⇒ 停在第 S2 步。**前序写入如实清点（不回滚）**：{"predictions":0,"intake_questions":1,"intake_rejects":0,"verdicts":0,"idempotency_keys":1,"resolved":0}
+- PASS ①-P2b 停在 S2（too_thin 不给数） — state=too_thin n=28
+
+### ①-P3 破坏 S3 前提：口语概率「大概率」  （marker=C1P3）
+  步 S1 归层（内含拒收门） ⇒ OK  {"status":200,"rejected":false,"layer":"L3","gate":"descriptive"}
+  步 S2 取值（诚实区间） ⇒ OK  {"http":200,"body_ok":true,"enough":true,"state":"enough","n":113}
+  步 S3 记账（写账本） ⇒ STOP  {"status":400,"error":"prob 必须是 0-1 的数值（口语概率如「大概率」须由调用方澄清为数值后落库，本接口不收口语），收到: \"大概率\""}
+  ⇒ 停在第 S3 步。**前序写入如实清点（不回滚）**：{"predictions":0,"intake_questions":1,"intake_rejects":0,"verdicts":0,"idempotency_keys":1,"resolved":0}
+- PASS ①-P3 停在 S3（400 拒收口语） — status=400
+- PASS ①-P3 ★前两步写入仍在、如实报告 — intake_questions=1 predictions=0
+
+## 组合② 回溯（Backtrack）
+
+### ②-0 正常回溯（换源重试）  （marker=C2OK）
+  步 S1 归层 L3 ⇒ OK  {"status":200,"rejected":false,"layer":"L3","gate":"descriptive"}
+  步 S2 记初判（题入账） ⇒ OK  {"status":201,"id":2011,"error":null}
+  步 S3 取真值（取不到 ⇒ 回溯扳机，不停） ⇒ TRIGGER→回溯边  {"pid":2011,"status":409,"ok":false,"error":"这道题还没到期，真值尚未产生（到期日 2026-12-20，今天 2026-09-30）——落定不可逆且没有修正入口，所以现在不能答。未到期：到期日 2026-12-20 晚于今天"}
+  步 S4 揭晓分流（能不能自动查） ⇒ OK  {"status":200,"counts":{"auto_revealed":40,"ok":12,"need_human":11,"stuck":13,"unregistered":2,"open_total":36}}
+  步 S5 回溯：换层重归 + 换源另记一条 ⇒ OK  {"reclass_layer":"L2","new_id":2012}
+  ⇒ 走通。写入清点：{"predictions":2,"intake_questions":2,"intake_rejects":0,"verdicts":0,"idempotency_keys":3,"resolved":0}
+- PASS ② 走通到 S5 — completed
+- PASS ② 回溯=追加新题，旧题**未被改写**（账本 2 行） — predictions=2
+- PASS ② 旧题仍挂在未落定清单里（无作废口） — resolved=0
+
+### ②-P3 破坏 S3 前提：题未到期硬要真值  （marker=C2P3）
+  步 S1 归层 L3 ⇒ OK  {"status":200,"rejected":false,"layer":"L3","gate":"descriptive"}
+  步 S2 记初判（题入账） ⇒ OK  {"status":201,"id":2013,"error":null}
+  步 S3 取真值（未到期 ⇒ 必须拒） ⇒ STOP  {"pid":2013,"status":409,"ok":false,"error":"这道题还没到期，真值尚未产生（到期日 2026-12-20，今天 2026-09-30）——落定不可逆且没有修正入口，所以现在不能答。未到期：到期日 2026-12-20 晚于今天"}
+  ⇒ 停在第 S3 步。**前序写入如实清点（不回滚）**：{"predictions":1,"intake_questions":1,"intake_rejects":0,"verdicts":0,"idempotency_keys":4,"resolved":0}
+- PASS ②-P3 停在 S3（409 未到期） — status=409
+- PASS ②-P3 ★前两步写入仍在、如实报告 — predictions=1 intake_questions=1
+
+### ②-P3b 破坏 S3 前提：已落定再改一次（账本不可变）  （marker=C2P3B）
+  步 S1 归层 L3 ⇒ OK  {"status":200,"rejected":false,"layer":"L3","gate":"descriptive"}
+  步 S2 记初判 ⇒ OK  {"status":201,"id":2014,"error":null}
+  步 S3 第一次落定（应成功） ⇒ OK  {"pid":2014,"status":200,"ok":true,"error":null}
+  步 S4 第二次改判（应 409） ⇒ STOP  {"pid":2014,"status":409,"ok":false,"error":"该记录已落定（resolved_at=2026-09-30 11:30:40，outcome=true）。账本不可改——这正是它可信的原因。目前**没有**修正入口（需要单独立项）"}
+  ⇒ 停在第 S4 步。**前序写入如实清点（不回滚）**：{"predictions":1,"intake_questions":1,"intake_rejects":0,"verdicts":0,"idempotency_keys":5,"resolved":1}
+- PASS ②-P3b 停在 S4（已落定拒改 409） — status=409
+- PASS ②-P3b 真值没被第二次改掉
+
+### ②-P5 破坏 S5 前提：decided_layer 非法（L4 不可作 primary）  （marker=C2P5）
+  步 S1 归层 L3 ⇒ OK  {"status":200,"rejected":false,"layer":"L3","gate":"descriptive"}
+  步 S2 记初判 ⇒ OK  {"status":201,"id":2015,"error":null}
+  步 S3 取真值（取不到 ⇒ 回溯扳机，不停） ⇒ TRIGGER→回溯边  {"pid":2015,"status":409,"ok":false,"error":"这道题还没到期，真值尚未产生（到期日 2026-12-20，今天 2026-09-30）——落定不可逆且没有修正入口，所以现在不能答。未到期：到期日 2026-12-20 晚于今天"}
+  步 S4 揭晓分流 ⇒ OK  {"status":200,"counts":{"auto_revealed":40,"ok":12,"need_human":11,"stuck":13,"unregistered":2,"open_total":36}}
+  步 S5 回溯重归层（decided_layer=L4 ⇒ 必须拒） ⇒ STOP  {"status":400}
+  ⇒ 停在第 S5 步。**前序写入如实清点（不回滚）**：{"predictions":1,"intake_questions":1,"intake_rejects":0,"verdicts":0,"idempotency_keys":6,"resolved":0}
+- PASS ②-P5 停在 S5（400 非法 primary 层） — status=400
+- PASS ②-P5 ★前序写入仍在、如实报告 — predictions=1
+
+## 组合③ 回环（Loop）
+
+### ③ 第 1 轮  （marker=C3OKR1）
+  步 S1 记一道（第 1 轮判断） ⇒ OK  {"status":201,"id":2016,"error":null}
+  步 S2 结算（真值=false） ⇒ OK  {"pid":2016,"status":200,"ok":true,"error":null}
+  步 S3 打分（分层 Brier + 偏差归并） ⇒ OK  {"calib_status":"ok","calib_n":1702,"habits_status":200,"habit_rows":9}
+  步 S4 偏差检测（这一轮 Brier） ⇒ OK  {"round":1,"n":1,"brier":0.7225}
+  ⇒ 走通。写入清点：{"predictions":1,"intake_questions":0,"intake_rejects":0,"verdicts":0,"idempotency_keys":7,"resolved":1}
+
+### ③ 第 2 轮  （marker=C3OKR2）
+  步 S1 记一道（第 2 轮判断） ⇒ OK  {"status":201,"id":2017,"error":null}
+  步 S2 结算（真值=false） ⇒ OK  {"pid":2017,"status":200,"ok":true,"error":null}
+  步 S3 打分（分层 Brier + 偏差归并） ⇒ OK  {"calib_status":"ok","calib_n":1703,"habits_status":200,"habit_rows":9}
+  步 S4 偏差检测（这一轮 Brier） ⇒ OK  {"round":2,"n":1,"brier":0.3025}
+  ⇒ 走通。写入清点：{"predictions":1,"intake_questions":0,"intake_rejects":0,"verdicts":0,"idempotency_keys":8,"resolved":1}
+
+### ③ 第 3 轮  （marker=C3OKR3）
+  步 S1 记一道（第 3 轮判断） ⇒ OK  {"status":201,"id":2018,"error":null}
+  步 S2 结算（真值=false） ⇒ OK  {"pid":2018,"status":200,"ok":true,"error":null}
+  步 S3 打分（分层 Brier + 偏差归并） ⇒ OK  {"calib_status":"ok","calib_n":1704,"habits_status":200,"habit_rows":9}
+  步 S4 偏差检测（这一轮 Brier） ⇒ OK  {"round":3,"n":1,"brier":0.16}
+  ⇒ 走通。写入清点：{"predictions":1,"intake_questions":0,"intake_rejects":0,"verdicts":0,"idempotency_keys":9,"resolved":1}
+
+  ③ 逐轮读数：[{"round":1,"prob":0.85,"b":{"n":1,"brier":0.7225},"outcome":"completed","pid":2016},{"round":2,"prob":0.55,"b":{"n":1,"brier":0.3025},"outcome":"completed","pid":2017},{"round":3,"prob":0.4,"b":{"n":1,"brier":0.16},"outcome":"completed","pid":2018}]
+  ③ 轮间 Brier Δ：[-0.42,-0.1425]（负=变小=在收敛）
+  ③ 收敛判定：{"max_rounds":3,"deltas":[-0.42,-0.1425],"converged":true,"reason":"达轮数上限 3","stop_rule":"三条任一命中即停：① 轮数 = 3；② 本轮 Brier ≥ 上一轮（不再缩小）；③ 某轮 Brier 样本 n=0。★不允许「一直转」。"}
+- PASS ③ 回环跑满 3 轮且每轮都落一条新判断 — rounds=3
+- PASS ③ 每轮一条新题、旧题一题不改（累计 3 行） — rows=3
+- PASS ③ 收敛条件可判定（不是"一直转"） — "达轮数上限 3"
+
+### ③-P1 破坏 S1 前提：回环写回时给了口语概率  （marker=C3P1）
+  步 S1 记一道（口语概率） ⇒ STOP  {"status":400,"error":"prob 必须是 0-1 的数值（口语概率如「大概率」须由调用方澄清为数值后落库，本接口不收口语），收到: \"有点悬\""}
+  ⇒ 停在第 S1 步。**前序写入如实清点（不回滚）**：{"predictions":0,"intake_questions":0,"intake_rejects":0,"verdicts":0,"idempotency_keys":9,"resolved":0}
+- PASS ③-P1 停在 S1（400） — status=400
+- PASS ③-P1 账本零行（写不进就没得回滚） — predictions=0
+
+### ③-P2 破坏 S2 前提：回环第 2 轮结算时题未到期  （marker=C3P2）
+  步 S1 记一道（到期日推到未来） ⇒ OK  {"status":201,"id":2019,"error":null}
+  步 S2 结算（未到期 ⇒ 必须拒） ⇒ STOP  {"pid":2019,"status":409,"ok":false,"error":"这道题还没到期，真值尚未产生（到期日 2026-12-20，今天 2026-09-30）——落定不可逆且没有修正入口，所以现在不能答。未到期：到期日 2026-12-20 晚于今天"}
+  ⇒ 停在第 S2 步。**前序写入如实清点（不回滚）**：{"predictions":1,"intake_questions":0,"intake_rejects":0,"verdicts":0,"idempotency_keys":10,"resolved":0}
+- PASS ③-P2 停在 S2（409） — status=409
+- PASS ③-P2 ★第 1 轮的题已落库、如实报告、不回滚 — predictions=1
+
+### ③-P3 破坏 S3 前提：本轮新增样本 n=1 < 30，打分给不出可回写的结论  （marker=C3P3）
+  步 S1 记一道 ⇒ OK  {"status":201,"id":2020,"error":null}
+  步 S2 结算 ⇒ OK  {"pid":2020,"status":200,"ok":true,"error":null}
+  步 S3 打分（本轮 n=1 ⇒ 不足 MIN_N=30，不给结论） ⇒ STOP  {"本轮n":1,"MIN_N":30,"能否据此回写":false}
+  ⇒ 停在第 S3 步。**前序写入如实清点（不回滚）**：{"predictions":1,"intake_questions":0,"intake_rejects":0,"verdicts":0,"idempotency_keys":11,"resolved":1}
+- PASS ③-P3 停在 S3（本轮 n<30 ⇒ 不许回写） — stopped_at_S3
+- PASS ③-P3 ★S1/S2 的写入仍在、如实报告 — predictions=1
+
+  ③ 幂等三连（同键同体／同键同体重放／同键异体）：
+    1) 201 id=2021 hdr=first-write
+    2) 201 id=2021 hdr=replayed
+    3) 409 id=undefined err=同一个幂等键配了不同的请求体 ⇒ 拒绝（否则会把另一条请求的结果当成本次结果端回去）。本次请求指纹 714bd90741
+- PASS ③ 幂等：重放返回同一个 id、不多写 — id1=2021 id2=2021 rows=1
+- PASS ③ 幂等：同键异体 409 拒 — status=409
+    4) 不带键：201 id=2022 hdr=absent
+- PASS ③ 不带键的老调用方照写（不静默改成拒绝） — rows=2
+
+## 附：判词节点（POST verdicts，LLM mock）
+  ① 未结算题生成判词 ⇒ {"status":200,"saved":3,"variants":["v1_evidence","v2_skeptical","v3_baserate"],"errors":0}
+- PASS 判词·未结算可写（三路变体） — {"st":200,"n":3}
+  ① 判词落库清点：{"predictions":1,"intake_questions":0,"intake_rejects":0,"verdicts":3,"idempotency_keys":14,"resolved":0}
+- PASS 判词落 verdicts 表 — verdicts=3
+  ②a 结算(200)后**同秒**要判词 ⇒ {"status":200,"saved":3}
+  ②b 结算(200)后**隔 2.5 秒**要判词 ⇒ {"status":409,"saved":0,"error":"这道题已结算（结算于 2026-09-30 11:30:40），判词要到 2026-09-30 11:30:43 才生成——那是拿着答案回头看，不是对这道题的信"}
+  ② 全部清点（★结算写入仍在、判词按闸分流）：{"predictions":3,"intake_questions":0,"intake_rejects":0,"verdicts":6,"idempotency_keys":16,"resolved":2}
+- PASS 判词探针·两条都结算成功 — 200/200
+- PASS ★实测到防泄漏闸的同秒缺口：同秒判词被放行（200） — status=200 saved=3
+- PASS ★隔秒判词被闸挡住（409） — status=409
+- PASS 判词·前序写入仍在、不回滚 — {"pred":3,"res":2,"verd":6}
+
+## 结论
+- 断言：PASS 42 / FAIL 0
+
+[comp-run] RUN=COMPO0XOFQ PASS=42 FAIL=0
+EXIT=0

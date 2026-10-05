@@ -3,8 +3,8 @@
 /*
  * p1b/scripts/stage5-rank-diagnostic.cjs —— 滞后集合 3 档秩检验（Watson）· **逐对件**（2026-09-17）
  *
- * 依据（唯一）：`.scratch/forecast-debate/研讨会-20260916-预测万物v3/18-跨学科移植-深度报告.md` §2.3
- *   ＋ 蓝图 `.scratch/forecast-debate/研讨会-20260916-预测万物v3/20-合议-v3.1大升级蓝图.md` 第 5 步
+ * 依据（唯一）：`docs/assets/forecast-debate/研讨会-20260916-预测万物v3/18-跨学科移植-深度报告.md` §2.3
+ *   ＋ 蓝图 `docs/assets/forecast-debate/研讨会-20260916-预测万物v3/20-合议-v3.1大升级蓝图.md` 第 5 步
  *   （「U8 加滞后集合 3 档秩检验节（Watson 统计量）」，0.5 人日）。
  * 出处锚（照 18 号件实抓）：Hamill 2001 DOI 10.1175/1520-0493(2001)129<0550:iorhfv>2.0.co;2；
  *   Elmore 2005 DOI 10.1175/waf884.1（卡方对秩序不敏感，小样本改用 Cramér–von Mises 家族 ⇒ 采 Watson）。
@@ -270,7 +270,7 @@ function main() {
   const base = path.join(OUTDIR, 'stage5-rank-diagnostic-' + TAG);
   fs.writeFileSync(base + '.json', JSON.stringify({
     script: 'p1b/scripts/stage5-rank-diagnostic.cjs',
-    basis: '.scratch/forecast-debate/研讨会-20260916-预测万物v3/18-跨学科移植-深度报告.md §2.3',
+    basis: 'docs/assets/forecast-debate/研讨会-20260916-预测万物v3/18-跨学科移植-深度报告.md §2.3',
     anchors: ['DOI 10.1175/1520-0493(2001)129<0550:iorhfv>2.0.co;2', 'DOI 10.1175/waf884.1'],
     generated_at: new Date().toISOString(),
     discipline: { ledger_write: false, llm: false, network: false },

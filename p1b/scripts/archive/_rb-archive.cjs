@@ -11,7 +11,7 @@ const out = {
   row_count: rows.length,
   rows: rows,
 };
-const dest = 'E:/music player/.scratch/forecast-debate/verdicts-archive-rb-pre-20260912.json';
+const dest = 'E:/music player/docs/assets/forecast-debate/verdicts-archive-rb-pre-20260912.json';
 fs.writeFileSync(dest, JSON.stringify(out, null, 1), 'utf8');
 console.log('ARCHIVE rows=' + rows.length + ' -> ' + dest);
 console.log('复核回读=' + JSON.parse(fs.readFileSync(dest, 'utf8')).row_count);

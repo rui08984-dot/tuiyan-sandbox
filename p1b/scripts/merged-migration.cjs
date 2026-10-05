@@ -32,8 +32,8 @@ const store = require(path.join(ROOT, 'p1b', 'src', 'db', 'predictionsStore.js')
 const intake = require(path.join(ROOT, 'p1b', 'src', 'db', 'intakeStore.js'));
 
 const PROD = path.join(ROOT, 'p1a-terminal', 'data', 'p1a.db');
-const BACKUP_DIR = path.join(ROOT, '.scratch', 'backup');
-const EVID_DIR = path.join(ROOT, '.scratch', 'merged-migration');
+const BACKUP_DIR = path.join(ROOT, '.run-out', 'backup');
+const EVID_DIR = path.join(ROOT, '.run-out', 'merged-migration');
 
 function arg(name, dflt) {
   const i = process.argv.indexOf('--' + name);
@@ -397,7 +397,7 @@ async function unknownAccept(dbPath) {
   if (!out.pass) process.exit(1);
 }
 
-/** 生成固化回滚脚本到 .scratch/backup/（把 phase2 前的原始 DDL / 期望行数 / 逐行 sha256 / 快照路径钉死进去）。 */
+/** 生成固化回滚脚本到 .run-out/backup/（把 phase2 前的原始 DDL / 期望行数 / 逐行 sha256 / 快照路径钉死进去）。 */
 function takeRollbackScript(dbPath, baseline) {
   const ev = JSON.parse(fs.readFileSync(path.join(EVID_DIR, 'phase2-evidence.json'), 'utf8'));
   const tpl = fs.readFileSync(path.join(ROOT, 'p1b', 'scripts', '_rollback-template.cjs'), 'utf8');

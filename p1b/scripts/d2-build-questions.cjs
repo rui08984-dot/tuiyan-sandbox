@@ -3,7 +3,7 @@
 /*
  * p1b/scripts/d2-build-questions.cjs —— D2 历史回测引擎 · **出题器**（照 PREREG v1 §3/§5）。
  *
- * 判据来源（唯一）：`.scratch/forecast-debate/PREREG-D2-历史回测引擎-v1.md`
+ * 判据来源（唯一）：`docs/assets/forecast-debate/PREREG-D2-历史回测引擎-v1.md`
  *   （sha256 `70cf9d17…`；冻结后禁改，改动＝版本递进）。
  *
  * 纪律（PREREG §2）：
@@ -11,7 +11,7 @@
  *   C2 题面与证据**只允许 cutoff 前**可观测的字段/事件（真值字段一律不得进入）；
  *   C3 cutoff ＝ 事件前一天 23:59（Asia/Shanghai），落库非空且脚本自校验。
  *
- * 零 LLM、零生产库写（只读 archive API；产物落 .scratch/backtest/）。
+ * 零 LLM、零生产库写（只读 archive API；产物落 docs/assets/backtest/）。
  * 用法：node p1b/scripts/d2-build-questions.cjs [--out <dir>] [--limit <n>]
  *   env：NODE_USE_ENV_PROXY=1 HTTPS_PROXY=http://127.0.0.1:2080（若需代理）
  */
@@ -24,7 +24,7 @@ function arg(n, d) {
   const i = process.argv.indexOf('--' + n);
   return i >= 0 && process.argv[i + 1] && process.argv[i + 1].slice(0, 2) !== '--' ? process.argv[i + 1] : d;
 }
-const OUTDIR = arg('out', path.join(ROOT, '.scratch', 'backtest'));
+const OUTDIR = arg('out', path.join(ROOT, '.run-out', 'backtest'));
 const LIMIT = Number(arg('limit', '0')) || 0;
 
 // ── 冻结物（照 PREREG §7；改动＝版本递进）──
@@ -178,7 +178,7 @@ function roundNice(v, varName) {
 
   const artifact = {
     script: 'p1b/scripts/d2-build-questions.cjs',
-    prereg: '.scratch/forecast-debate/PREREG-D2-历史回测引擎-v1.md',
+    prereg: 'docs/assets/forecast-debate/PREREG-D2-历史回测引擎-v1.md',
     prereg_sha256: '70cf9d17e87d0522d979b8da00eba9967ccdb5f4201a97935e94864e84a37ee4',
     generated_at: new Date().toISOString(),
     source: 'archive-api.open-meteo.com/v1/archive（ERA5 再分析格点；**非站点实测**）',
@@ -188,7 +188,7 @@ function roundNice(v, varName) {
     event_window: EVT_START + '..' + EVT_END,
     base_rate_domain: [BASE_LO, BASE_HI],
     quantiles: QUANTILES,
-    prereg_v11: '.scratch/forecast-debate/PREREG-D2-历史回测引擎-v1.1-补充与勘误.md',
+    prereg_v11: 'docs/assets/forecast-debate/PREREG-D2-历史回测引擎-v1.1-补充与勘误.md',
     horizons: HORIZONS,
     quota_total: QUOTA_TOTAL,
     quota_hard_cap: QUOTA_HARD_CAP,

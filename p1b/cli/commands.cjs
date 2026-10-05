@@ -14,12 +14,12 @@
  *    再模块加载它」这一对同形字样即算命中。本 CLI 对 p1b/scripts 只 spawn，天然不在命中面内。
  *    ★**本注释刻意不写出那条正则的完整字面量**：谁把它照抄进 `p1b/test/` 下的文件，谁就会
  *    被当成「require 了一个不存在的脚本」而打红（`scripts-require-safety.test.cjs:61`）。
- * ③ **默认只读**：R 档命令 CLI 一个写盘参数都不注入；F 档只往 `.scratch/cli/<时间戳>/`
+ * ③ **默认只读**：R 档命令 CLI 一个写盘参数都不注入；F 档只往 `.run-out/cli/<时间戳>/`
  *    注入（永不入库）；W/N 档必须显式 `--确认`（或 `--confirm`）才 spawn。
  *
  * ── 档位记号（每条命令都标，帮助里逐条显示）────────────────────────────────
  *   R ＝ 只读：零写盘、零写库、零网络（CLI 不注入任何写参数）
- *   F  ＝ 写盘不写库：产物只落 `.scratch/cli/<ts>/`，永不进 `p1b/sim/out/` 或 `docs/specs/`
+ *   F  ＝ 写盘不写库：产物只落 `.run-out/cli/<ts>/`，永不进 `p1b/sim/out/` 或 `docs/specs/`
  *   W  ＝ 写 `p1a.db`（生产账本）——必须 `--确认`
  *   N  ＝ 打网络
  *
@@ -52,7 +52,7 @@ const ROOT = path.join(__dirname, '..', '..');
 /** 被包装的脚本目录。CLI 只从这里取文件，**从不写入**。 */
 const SCRIPTS = path.join(ROOT, 'p1b', 'scripts');
 /** F 档产物的唯一落点（已加进 `.gitignore`）。 */
-const OUT_ROOT = path.join(ROOT, '.scratch', 'cli');
+const OUT_ROOT = path.join(ROOT, '.run-out', 'cli');
 
 /**
  * 会让「R 档命令」开始写盘的透传参数。CLI 不拦（拦了会改子脚本行为），
@@ -253,7 +253,7 @@ const GROUPS = [
         net: false,
         desc: '从备份里挑一份恢复到临时件，校验 sha256/integrity_check/核心表行数与内容 sha256，报告「能不能用」（绝不碰生产库）',
         pos: [{ name: '备份目录', desc: '异地备份所在目录，如 D:/p1a-backup' }],
-        // F 档：只往 .scratch/cli/<ts>/ 写报告与临时件，不写 p1a.db ⇒ 不需要 CLI 确认闸。
+        // F 档：只往 .run-out/cli/<ts>/ 写报告与临时件，不写 p1a.db ⇒ 不需要 CLI 确认闸。
         // 脚本自己还有一道 --确认（默认 dry-run），两层闸各管各的。
         build: (ctx, pos) => (pos[0] ? ['--dir', pos[0]] : []),
       },

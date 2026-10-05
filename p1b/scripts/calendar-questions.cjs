@@ -4,7 +4,7 @@
  * p1b/scripts/calendar-questions.cjs —— I1「日历即题源」出题器（2026-09-21 · 第 3 期票 I1 第二步）
  *
  * 依据（**引用不新造**）：交接件 §1 首选下一棒 ②「I1 日历即题源：三源日历已登记 ⇒ 下一步＝生成器＋候选留痕＋
- *   anchor-gate（过锚率 80% 判据）」。三源日历登记的**证据**在 `.scratch/p31/修复收据-20260921.md §6`
+ *   anchor-gate（过锚率 80% 判据）」。三源日历登记的**证据**在 `docs/assets/p31/修复收据-20260921.md §6`
  *   （dbnomics-eurostat／fred／ecb 三节，各含 cadence／evidenceUrl／howToUse／自跑记录）。
  *
  * ★本件的立项理由（**与 corpus-thicken 缺陷同根**）：出题器若不知道「源什么时候发布」，

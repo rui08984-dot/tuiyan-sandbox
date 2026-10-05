@@ -235,7 +235,7 @@ test('A⑥ 对外表的自检：写意图工具不许挂子脚本，spawn 型必
 
 test('B 偶发红落盘闸：那份打桩现场（0.00s / 0.00s）必须被拒，真现场必须放行', () => {
   // ★判据取两次里**较慢**的那次：复跑才是「真跑一遍」的那次。
-  //   起点是 `.scratch/gate-flakes/` 里那份假现场（首跑 0.00s / 复跑 0.00s），
+  //   起点是 `.run-out/gate-flakes/` 里那份假现场（首跑 0.00s / 复跑 0.00s），
   //   它曾让「看最新一份」的人得出「后端道今天又红了」的错误结论。
   assert.strictEqual(flakeGate.decide(0, 0).record, false, '0.00s 的打桩现场被放进了证据目录');
   // 同目录另三份真现场（78s / 112s / 123s）必须照常落盘 —— 闸不能把真现场也杀掉
@@ -263,6 +263,6 @@ test('B② 落盘处真的接上了判据（不是只加了一个没人调的件
   assert.ok(/flakeGate\.decide\(/.test(src), 'gates.cjs 没有调用 flakeGate.decide');
   // 落盘的那一行必须落在判据的**否**分支之外：拒收分支里不许出现 writeFileSync 目标目录
   const guardAt = src.indexOf('flakeGate.decide(');
-  const writeAt = src.indexOf("path.join(REPO, '.scratch', 'gate-flakes')", guardAt);
+  const writeAt = src.indexOf("path.join(REPO, '.run-out', 'gate-flakes')", guardAt);
   assert.ok(writeAt > guardAt, '落盘处的闸门不在写盘之前（顺序反了）');
 });

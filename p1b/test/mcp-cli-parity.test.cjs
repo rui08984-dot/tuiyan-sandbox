@@ -34,7 +34,7 @@ const tools = require(path.join(ROOT, 'p1b', 'mcp', 'tools.cjs'));
 
 function sha256(s) { return crypto.createHash('sha256').update(s, 'utf8').digest('hex'); }
 
-/** 抹掉 ISO-8601 时间戳与 `.scratch/cli/<时间戳>/` 路径里的易变段。 */
+/** 抹掉 ISO-8601 时间戳与 `.run-out/cli/<时间戳>/` 路径里的易变段。 */
 function normalize(s) {
   return String(s)
     .replace(/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z/g, '<TS>')

@@ -90,7 +90,7 @@ const ci = overall.ci95;
 const layers = {}; // additive：L1/L6 分层分区报（PREREG §3「分别报、禁混算」）
 for (const lyr of Array.from(new Set(pairs.map((r) => r.layer))).sort()) layers[lyr] = stats(pairs.filter((r) => r.layer === lyr));
 const out = { script: 'p1b/scripts/prereg-a-bootstrap.cjs',
-  prereg: { file: '.scratch/forecast-debate/PREREG-命题A-3.0消融-v1.md', section: '§3/§4', sha256: '5d6907d1910acab842b92a172714d44b13cadf474f33d45008ea67f0a6098845' },
+  prereg: { file: 'docs/assets/forecast-debate/PREREG-命题A-3.0消融-v1.md', section: '§3/§4', sha256: '5d6907d1910acab842b92a172714d44b13cadf474f33d45008ea67f0a6098845' },
   pairing_key: 'prediction_id×prompt_variant×temperature×model',
   arms: { treatment: RUN_T, baseline: RUN_B }, delta_definition: 'Brier(baseline) − Brier(treatment)（正=治疗臂更优）',
   n_pairs: n, brier_treatment: bT, brier_baseline: bB, delta_brier: dMean, ci95: ci, murphy_bins: BINS,

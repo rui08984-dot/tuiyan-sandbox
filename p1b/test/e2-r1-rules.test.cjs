@@ -17,7 +17,7 @@ const { execFileSync } = require('node:child_process');
 
 const ROOT = path.resolve(__dirname, '..', '..');
 const SCRIPT = path.join(ROOT, 'p1b', 'scripts', 'e2-r1-rules.cjs');
-const RULES = path.join(ROOT, '.scratch', 'forecast-debate', 'E2-R1-规则版-v1-冻结件-20260917.md');
+const RULES = path.join(ROOT, 'docs', 'assets', 'forecast-debate', 'E2-R1-规则版-v1-冻结件-20260917.md');
 const PROD = path.join(ROOT, 'p1a-terminal', 'data', 'p1a.db');
 const SIMOUT = path.join(ROOT, 'p1b', 'sim', 'out');
 const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'p1b-r1-'));

@@ -1,7 +1,7 @@
 'use strict';
 /*
  * p1b/scripts/_rollback-template.cjs —— 「合并迁移」回滚脚本**模板**。
- * 由 scripts/merged-migration.cjs rollback-script 生成固化实例到 .scratch/backup/（占位符被替换为固化常量）。
+ * 由 scripts/merged-migration.cjs rollback-script 生成固化实例到 .run-out/backup/（占位符被替换为固化常量）。
  * 用法（生成物）：node rollback-merged-migration-<ts>.cjs --db <库> [--to phase1|pre] [--apply]
  *   --to phase1（默认）：只回退 phase2 —— predictions 恢复原始 CHECK；F4 三件保留。
  *   --to pre          ：两次都回退 —— 再 drop 掉 truth_vault / process_roles / predictions_public。

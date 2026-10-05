@@ -1,7 +1,7 @@
 {
  "script": "p1b/scripts/prereg-a-bootstrap.cjs",
  "prereg": {
-  "file": ".scratch/forecast-debate/PREREG-命题A-3.0消融-v1.md",
+  "file": "docs/assets/forecast-debate/PREREG-命题A-3.0消融-v1.md",
   "section": "§3/§4",
   "sha256": "5d6907d1910acab842b92a172714d44b13cadf474f33d45008ea67f0a6098845"
  },

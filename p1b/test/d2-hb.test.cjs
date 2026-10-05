@@ -2,7 +2,7 @@
 /**
  * d2-hb.test.cjs —— D2-HB 层级贝叶斯部分池化 **口径与收敛锁定测试**（2026-09-15）。
  *
- * 判据来源：`.scratch/forecast-debate/PREREG-D2-HB-v1.md`（sha `e510a58d…`，已冻结）
+ * 判据来源：`docs/assets/forecast-debate/PREREG-D2-HB-v1.md`（sha `e510a58d…`，已冻结）
  *   ＋ `…-v1.1-补充与勘误.md`（收缩量口径更正，版本递进）。
  * 上游：规格 D2 §11.5（部分池化条款）＋ E-算法工具箱 §8。
  *
@@ -14,8 +14,8 @@ const path = require('node:path');
 const fs = require('node:fs');
 
 const ROOT = path.resolve(__dirname, '..', '..');
-const HB = path.join(ROOT, '.scratch/backtest/d2-hb-report.json');
-const D2 = path.join(ROOT, '.scratch/backtest/d2-report.json');
+const HB = path.join(ROOT, 'docs/assets/backtest/d2-hb-report.json');
+const D2 = path.join(ROOT, 'docs/assets/backtest/d2-report.json');
 
 test('D2-HB：收敛判据四项全 PASS（照 PREREG §5；任一不达即整体作废）', () => {
   assert.ok(fs.existsSync(HB), '前提：HB 产物存在');

@@ -49,8 +49,8 @@ const TEXT_OUT = arg('text', path.join(OUT_DIR, 'role3-replay-' + DATE_STAMP + '
 const ARMS = FLAG('arms');
 const SELFTEST = FLAG('selftest');
 
-const PREREG = path.join(ROOT, '.scratch', 'forecast-debate', 'PREREG-角色③情景分支合成器-v1-20260920.md');
-const PREREG_V11 = path.join(ROOT, '.scratch', 'forecast-debate', 'PREREG-角色③情景分支合成器-v1.1-勘误-20260920.md');
+const PREREG = path.join(ROOT, 'docs', 'assets', 'forecast-debate', 'PREREG-角色③情景分支合成器-v1-20260920.md');
+const PREREG_V11 = path.join(ROOT, 'docs', 'assets', 'forecast-debate', 'PREREG-角色③情景分支合成器-v1.1-勘误-20260920.md');
 const RUN_ID = 'ca1b5cdbddfc';           // PREREG §3 冻结的判词批
 const B = 1000, SEED = 987654321;        // PREREG §4 冻结的 bootstrap 参数
 const NONINF_MARGIN = 0.005;             // C1 上界

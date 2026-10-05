@@ -71,8 +71,8 @@ test('④ 金样 identity：退化输入（P(A)=直接、P(B)=1）⇒ Δ≡0、�
 test('⑤ ★冻结件回归锁：v1 与 v1.1 逐件复算 MATCH=true', () => {
   const { freezeSha } = require(path.join(ROOT, 'p1b', 'scripts', 'prereg-freeze.cjs'));
   const files = [
-    '.scratch/forecast-debate/PREREG-角色③情景分支合成器-v1-20260920.md',
-    '.scratch/forecast-debate/PREREG-角色③情景分支合成器-v1.1-勘误-20260920.md',
+    'docs/assets/forecast-debate/PREREG-角色③情景分支合成器-v1-20260920.md',
+    'docs/assets/forecast-debate/PREREG-角色③情景分支合成器-v1.1-勘误-20260920.md',
   ];
   for (const f of files) {
     const r = freezeSha(path.join(ROOT, f));

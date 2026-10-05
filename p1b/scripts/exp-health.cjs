@@ -18,7 +18,7 @@ const ROOT = path.resolve(__dirname, '..', '..');
 function arg(n, d) { const i = process.argv.indexOf('--' + n); return i >= 0 && process.argv[i + 1] && process.argv[i + 1].slice(0, 2) !== '--' ? process.argv[i + 1] : d; }
 const FLAG = (n) => process.argv.indexOf('--' + n) >= 0;
 const PREFIX = arg('prefix', 'preregA-full1-');
-const STATE = arg('state', path.join(ROOT, '.scratch', 'forecast-debate', 'prereg-a', 'run-state-full1-repair.json'));
+const STATE = arg('state', path.join(ROOT, 'docs', 'assets', 'forecast-debate', 'prereg-a', 'run-state-full1-repair.json'));
 const JSON_OUT = arg('json', null);
 const DB_PATH = path.join(ROOT, 'p1a-terminal', 'data', 'p1a.db');
 

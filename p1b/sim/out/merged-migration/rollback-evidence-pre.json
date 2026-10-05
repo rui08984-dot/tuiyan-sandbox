@@ -1,6 +1,6 @@
 {
  "rollback_to": "pre",
- "db": ".scratch/merged-migration/rollback-rehearsal.db",
+ "db": "docs/assets/merged-migration/rollback-rehearsal.db",
  "rows": 1923,
  "rows_ok": true,
  "dump_sha256": "4bd8f607cc299862a7e4f1dace0b9005fa5df39781c01001a9a4239b24495ce0",

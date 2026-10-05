@@ -105,7 +105,7 @@ test('⑤ CLI dry-run：合成迷你库零写 ＋ 报告落盘；require 零副�
 
   const out = execFileSync(process.execPath, [SCRIPT, '--db', mini, '--snapshots', snap, '--report-dir', tmpDir], { encoding: 'utf8' });
   assert.ok(/DRY-RUN/.test(out) && /候选 1/.test(out), 'dry-run 应报候选且不写库: ' + out.slice(0, 160));
-  // ★回归锁（2026-09-17 实测缺陷）：首版测试**未传 --report-dir** ⇒ 报告写到默认 .scratch/backtest/ ⇒ **覆盖仓库里的生产运行报告**
+  // ★回归锁（2026-09-17 实测缺陷）：首版测试**未传 --report-dir** ⇒ 报告写到默认 docs/assets/backtest/ ⇒ **覆盖仓库里的生产运行报告**
   //   （同族：§(八) 顶层写盘＋require、§80 误打生产 —— 纪律「输入/输出目录必须解耦」）。
   assert.ok(fs.readdirSync(tmpDir).some((x) => /^odds-questions-report-/.test(x)), '★报告须落 --report-dir（tmp），不得写仓库');
   const d2 = new DatabaseSync(mini, { readOnly: true });

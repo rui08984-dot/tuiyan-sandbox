@@ -20,8 +20,8 @@ const ROOT = path.resolve(__dirname, '..', '..');
 const Database = require(path.join(ROOT, 'p1a-terminal', 'node_modules', 'better-sqlite3'));
 const { assertWritable } = require('./_sqlite-guard.cjs');   // 必须带扩展名：CJS 无扩展名解析不试 .cjs
 const PROD = path.join(ROOT, 'p1a-terminal', 'data', 'p1a.db');
-const SURFACE = path.join(ROOT, '.scratch', 'backtest', 'predictions-public-surface.db');
-const EVID = path.join(ROOT, '.scratch', 'merged-migration', 'gd2-0-evidence.json');
+const SURFACE = path.join(ROOT, 'docs', 'assets', 'backtest', 'predictions-public-surface.db');
+const EVID = path.join(ROOT, '.run-out', 'merged-migration', 'gd2-0-evidence.json');
 
 function arg(name, dflt) {
   const i = process.argv.indexOf('--' + name);

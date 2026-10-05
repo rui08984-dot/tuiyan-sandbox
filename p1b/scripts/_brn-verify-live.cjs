@@ -1,7 +1,7 @@
 'use strict';
 // _brn-verify-live：在【实况库】上证明 174 条是「纯加 baseRateNote」，其余键逐字不动，且新注记可被 g2-report 解析。
 const Database = require('E:/music player/p1a-terminal/node_modules/better-sqlite3');
-const SNAP = new Database('E:/music player/.scratch/backup/p1a-pre-brnbackfill-20260913082428.db', { readonly: true });
+const SNAP = new Database('E:/music player/.run-out/backup/p1a-pre-brnbackfill-20260913082428.db', { readonly: true });
 const LIVE = new Database('E:/music player/p1a-terminal/data/p1a.db', { readonly: true });
 const KINDS = ['openmeteo_daily_max', 'dbnomics_series_value', 'cwl_ssq_red_contains', 'cwl_ssq_blue_odd'];
 function parseBaseRate(note) {

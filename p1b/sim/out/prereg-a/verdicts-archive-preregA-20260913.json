@@ -4,7 +4,7 @@
   "tag": "preregA-20260913",
   "domain": "games.source='sim'（题源列口径；predictions.source_type 恒为中文「预测卡」不可作域过滤）",
   "prereg": {
-   "file": ".scratch/forecast-debate/PREREG-命题A-3.0消融-v1.md",
+   "file": "docs/assets/forecast-debate/PREREG-命题A-3.0消融-v1.md",
    "sha256": "5d6907d1910acab842b92a172714d44b13cadf474f33d45008ea67f0a6098845"
   },
   "generated_at": "2026-09-13T09:27:00.828Z",

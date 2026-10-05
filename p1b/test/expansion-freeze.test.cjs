@@ -33,7 +33,7 @@
  *      扣掉 7 条 `_` 前缀的内部辅助 kind（_omHourlyMean/_omDaily/_dbnPeriod/_dbnMonthMean/
  *      _eurostatJsonstat/_delphiFlu/_noaaTideDailyHigh）＝ 27 个对外取数器。
  *      与提交 3b9d559「T3 真值锚人话化：27 个引擎标识 → 10 个领域分组」对齐。
- *   ② PREREG 23：`.scratch/forecast-debate/` 下文件名含 PREREG 的 .md 冻结件 23 份。
+ *   ② PREREG 23：`docs/assets/forecast-debate/` 下文件名含 PREREG 的 .md 冻结件 23 份。
  *   ③ 页面 25：`p1b/web/src/pages/**` 下 .tsx 共 25 个，其中 **8 个是重定向保留的死页面**
  *      （路由全为 `<Navigate replace>`、组件无任何 import，见 §死页面 断言）。
  *      ★2026-09-30 实测更正：8 个死页的**源码已从磁盘删除**，pages/ 下 .tsx 由 26 降至 18；
@@ -65,7 +65,7 @@ const crypto = require('node:crypto');
 
 const ROOT = path.resolve(__dirname, '..', '..');
 const CONTRACT = path.join(ROOT, 'p1b', 'sim', 'out', 'g2-contract-frozen-r4.json');
-const PREREG_DIR = path.join(ROOT, '.scratch', 'forecast-debate');
+const PREREG_DIR = path.join(ROOT, 'docs', 'assets', 'forecast-debate');
 const PAGES_DIR = path.join(ROOT, 'p1b', 'web', 'src', 'pages');
 
 // ══════════════════════════════════════════════════════════════════════
@@ -117,7 +117,7 @@ const APPROVED_RAISES = [
     evidence: 'docs/specs/第六批收据-20260928.md',
   },
   // 示范（其余仍无）：{ metric: 'kinds', newBaseline: 28, date: '2026-xx-xx',
-  //                 by: '…', reason: '…', evidence: '.scratch/…-收据.md' }
+  //                 by: '…', reason: '…', evidence: 'docs/assets/…-收据.md' }
 ];
 
 // ══════════════════════════════════════════════════════════════════════
@@ -218,7 +218,7 @@ const METRICS = [
   },
   {
     key: 'prereg', label: 'PREREG 冻结件', count: countPrereg,
-    what: '.scratch/forecast-debate/ 下文件名含 PREREG 的 .md',
+    what: 'docs/assets/forecast-debate/ 下文件名含 PREREG 的 .md',
   },
   {
     key: 'pages', label: '前端页面组件', count: countPages,

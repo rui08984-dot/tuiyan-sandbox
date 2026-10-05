@@ -476,7 +476,7 @@ const RECIPES = [
   }
 
   db.closeCurrent && db.closeCurrent();
-  const p = path.join(ROOT, '.scratch', 'backtest', 'thicken-report-' + TODAY + '.json');
+  const p = path.join(ROOT, '.run-out', 'backtest', 'thicken-report-' + TODAY + '.json');
   fs.mkdirSync(path.dirname(p), { recursive: true });
   fs.writeFileSync(p, JSON.stringify(report, null, 1), 'utf8');
   console.log('');

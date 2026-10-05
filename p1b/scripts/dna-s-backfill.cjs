@@ -13,7 +13,7 @@
  *     `dna-s-source-snapshot.cjs` 一次性拉取，零 LLM）；窗尾=题 cutoff，窗内不含 cutoff 后信息；
  *     无快照系列的行**回退** ledger 档并如实计数（覆盖统计见输出）。
  *   · ledger（回退档）：账本结局序列（同 dry-run；look-ahead 风险如实标注）。
- * 写库纪律（照 §4）：①写前 netstat 8787 记档 ②写前在线快照（better-sqlite3 backup → .scratch/backup/）
+ * 写库纪律（照 §4）：①写前 netstat 8787 记档 ②写前在线快照（better-sqlite3 backup → .run-out/backup/）
  *   ③单事务 INSERT-only ④写后复核行数/无 UPDATE（只 INSERT 新行）。
  * 用法：
  *   node p1b/scripts/dna-s-backfill.cjs --db <path>                 # dry-run（零写）
@@ -174,7 +174,7 @@ validateArgs();
   const B = require(path.join(ROOT, 'p1a-terminal', 'node_modules', 'better-sqlite3'));
   // 写前在线快照（生产写；副本演练可用 --no-snapshot）
   if (!NO_SNAPSHOT) {
-    const bkDir = path.join(ROOT, '.scratch', 'backup');
+    const bkDir = path.join(ROOT, '.run-out', 'backup');
     fs.mkdirSync(bkDir, { recursive: true });
     const bk = path.join(bkDir, 'p1a-pre-dnas-' + new Date().toISOString().replace(/[:.]/g, '-') + '.db');
     const src = new B(DB_PATH, { readonly: true });

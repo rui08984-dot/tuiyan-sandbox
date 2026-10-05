@@ -64,7 +64,7 @@
   "orphan_ids": []
  },
  "snapshot": {
-  "path": ".scratch/backup/p1a-pre-vaultsync-2026-09-14T15-11-50-344Z.db",
+  "path": ".run-out/backup/p1a-pre-vaultsync-2026-09-14T15-11-50-344Z.db",
   "sha256": "f4b253e9ace02ed24e6a4d446e15f93bf710aac7f5b08f30ba470212165b98d6",
   "integrity": "ok",
   "predictions_rows": 1935

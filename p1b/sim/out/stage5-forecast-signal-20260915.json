@@ -1,7 +1,7 @@
 {
  "script": "p1b/scripts/stage5-forecast-signal.cjs",
- "prereg": ".scratch/forecast-debate/PREREG-阶段5-前瞻数值信号-v1.md",
- "errata": ".scratch/forecast-debate/PREREG-阶段5-前瞻数值信号-v1.1-补充与勘误.md",
+ "prereg": "docs/assets/forecast-debate/PREREG-阶段5-前瞻数值信号-v1.md",
+ "errata": "docs/assets/forecast-debate/PREREG-阶段5-前瞻数值信号-v1.1-补充与勘误.md",
  "generated_at": "2026-09-15T10:03:07.270Z",
  "pool_fingerprint_sha256": "901981a5790f6b26d5be9b264f2dbb4ddc18c33bd3f6dc9f9e57a995e2b97251",
  "n_pool": 105,

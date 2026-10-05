@@ -13,7 +13,7 @@ const crypto = require('crypto');
 const ROOT = path.resolve(__dirname, '..', '..');
 function arg(n, d) { const i = process.argv.indexOf('--' + n); return i >= 0 && process.argv[i + 1] && process.argv[i + 1].slice(0, 2) !== '--' ? process.argv[i + 1] : d; }
 const TAG = arg('tag', 'preregA-20260913');
-const OUT_DIR = path.resolve(arg('out-dir', path.join(ROOT, '.scratch', 'forecast-debate', 'prereg-a')));
+const OUT_DIR = path.resolve(arg('out-dir', path.join(ROOT, 'docs', 'assets', 'forecast-debate', 'prereg-a')));
 const DB_PATH = arg('db', path.join(ROOT, 'p1a-terminal', 'data', 'p1a.db'));
 const Database = require(path.join(ROOT, 'p1a-terminal', 'node_modules', 'better-sqlite3'));
 const db = new Database(DB_PATH, { readonly: true }); // 只读纪律：源库绝不写（无 INSERT/UPDATE）
@@ -28,7 +28,7 @@ const byRun = {};
 for (const r of rows) { const k = r.run_id === null ? 'NULL' : String(r.run_id); byRun[k] = (byRun[k] || 0) + 1; }
 const archive = {
   meta: { script: 'p1b/scripts/prereg-a-archive.cjs', tag: TAG, domain: "games.source='sim'（题源列口径；predictions.source_type 恒为中文「预测卡」不可作域过滤）",
-    prereg: { file: '.scratch/forecast-debate/PREREG-命题A-3.0消融-v1.md', sha256: '5d6907d1910acab842b92a172714d44b13cadf474f33d45008ea67f0a6098845' },
+    prereg: { file: 'docs/assets/forecast-debate/PREREG-命题A-3.0消融-v1.md', sha256: '5d6907d1910acab842b92a172714d44b13cadf474f33d45008ea67f0a6098845' },
     generated_at: new Date().toISOString(), note: '跑前归档：账本不可变，本件生成后禁改。' },
   counts: { verdicts_sim: rows.length, by_run_id: byRun }, rows: rows
 };

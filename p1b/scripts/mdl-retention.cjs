@@ -3,7 +3,7 @@
 /*
  * p1b/scripts/mdl-retention.cjs —— 18⑥ MDL 两部码留位判据 ＋ 效度回放（2026-09-17）
  *
- * 依据（唯一）：`.scratch/forecast-debate/研讨会-20260916-预测万物v3/18-跨学科移植-深度报告.md` §7
+ * 依据（唯一）：`docs/assets/forecast-debate/研讨会-20260916-预测万物v3/18-跨学科移植-深度报告.md` §7
  *   ＋ 消费者 `19-骨架裁剪-深度报告.md` §1.1/§4.3（19 号是本框架登记的第一个消费者）。
  * 出处锚（照 18 号件实抓）：Rissanen 1978 *Automatica* DOI 10.1016/0005-1098(78)90005-5（MDL 两部码）；
  *   Dawid 1984 *JRSS-A* DOI 10.2307/2981683（prequential 原则）；BIC 桥「每自由参数 (ln n)/2 nats」见 18 号 §7。
@@ -281,7 +281,7 @@ function main() {
   const base = path.join(OUT_DIR, 'mdl-retention-' + today);
   fs.writeFileSync(base + '.json', JSON.stringify({
     script: 'p1b/scripts/mdl-retention.cjs',
-    basis: '.scratch/forecast-debate/研讨会-20260916-预测万物v3/18-跨学科移植-深度报告.md §7（消费者 19 号 §1.1/§4.3）',
+    basis: 'docs/assets/forecast-debate/研讨会-20260916-预测万物v3/18-跨学科移植-深度报告.md §7（消费者 19 号 §1.1/§4.3）',
     anchors: ['DOI 10.1016/0005-1098(78)90005-5', 'DOI 10.2307/2981683'],
     generated_at: new Date().toISOString(),
     discipline: { ledger_write: false, llm: false, network: false },

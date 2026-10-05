@@ -17,7 +17,7 @@ const RUNNER = path.join(ROOT, 'p1b', 'scripts', 'decouple9-run.cjs');
 const ANALYZE = path.join(ROOT, 'p1b', 'scripts', 'decouple9-analyze.cjs');
 const FREEZE = path.join(ROOT, 'p1b', 'scripts', 'prereg-freeze.cjs');
 const LAMBDA = path.join(ROOT, 'p1b', 'scripts', 'lambda-overlap.cjs');
-const PREREG = path.join(ROOT, '.scratch', 'forecast-debate', 'PREREG-9臂解耦-v1.md');
+const PREREG = path.join(ROOT, 'docs', 'assets', 'forecast-debate', 'PREREG-9臂解耦-v1.md');
 const ANCHOR = path.join(ROOT, 'p1b', 'sim', 'out', 'decouple9-anchor-20260917.json');
 
 const R = require(RUNNER);
@@ -168,7 +168,7 @@ test('⑨ prereg-freeze 重构零行为变化：既有冻结件复算全部 MATC
     ['PREREG-厚格基建总票-v1.3-裁决补充-20260920.md', '49a381db'],
   ];
   for (const [name, prefix] of files) {
-    const p = path.join(ROOT, '.scratch', 'forecast-debate', name);
+    const p = path.join(ROOT, 'docs', 'assets', 'forecast-debate', name);
     if (!fs.existsSync(p)) continue;
     const r = F.freezeSha(p);
     assert.equal(r.match, true, name + ' 须 MATCH');

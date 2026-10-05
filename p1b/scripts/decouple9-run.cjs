@@ -3,7 +3,7 @@
 /*
  * p1b/scripts/decouple9-run.cjs —— 9 臂解耦实验 · 跑批编排器（2026-09-17）
  *
- * 依据（唯一）：`.scratch/forecast-debate/PREREG-9臂解耦-v1.md`（**冻结件，本脚本只读不改**；
+ * 依据（唯一）：`docs/assets/forecast-debate/PREREG-9臂解耦-v1.md`（**冻结件，本脚本只读不改**；
  *   正文 sha 不符 ⇒ 硬失败 exit 3、零写盘）——PREREG 由 16 号件 §4B「3×3 解耦实验升格为 PREREG 化
  *   多样性测量实验」立题，蓝图 §2.2 #4 写死 0.8 阈值与立项分支，19 号件 §3.2 降级为先导。
  *
@@ -44,12 +44,12 @@ function arg(n, d) {
 const FLAG = (n) => process.argv.indexOf('--' + n) >= 0;
 
 // ── 冻结口径常量（改任一＝版本递进） ────────────────────────────────────────
-const PREREG_PATH = path.resolve(arg('prereg', path.join(ROOT, '.scratch', 'forecast-debate', 'PREREG-9臂解耦-v1.md')));
+const PREREG_PATH = path.resolve(arg('prereg', path.join(ROOT, 'docs', 'assets', 'forecast-debate', 'PREREG-9臂解耦-v1.md')));
 const ANCHOR_PATH = path.resolve(arg('anchor', path.join(ROOT, 'p1b', 'sim', 'out', 'decouple9-anchor-20260917.json')));
 const DB_PATH = path.resolve(arg('db', path.join(ROOT, 'p1a-terminal', 'data', 'p1a.db')));
 const TAG = arg('tag', 'main');
 const OUT_JSONL = path.resolve(arg('jsonl', path.join(ROOT, 'p1b', 'sim', 'out', 'decouple9-verdicts-20260917.jsonl')));
-const STATE_PATH = path.resolve(arg('state', path.join(ROOT, '.scratch', 'forecast-debate', 'decouple9', 'run-state-' + TAG + '.json')));
+const STATE_PATH = path.resolve(arg('state', path.join(ROOT, 'docs', 'assets', 'forecast-debate', 'decouple9', 'run-state-' + TAG + '.json')));
 const REPORT_JSON = arg('report', null);
 const LIMIT = Number(arg('limit', '0')) || null;
 const MAX_CALLS = Number(arg('max-calls', '450'));

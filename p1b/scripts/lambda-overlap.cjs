@@ -8,7 +8,7 @@
  *   ＋ 16 号件 §4B（「核心副产物＝λ̂ 实测（照 InfoDiv 笔记的信息重叠度量，**变体对间读数相关 ＋ 同意率双口径**）」）
  *   ＋ 19 号件 §3.2（降级版＝**零 LLM 调用**）。
  * 理论出处：Satopää et al. 2014（NIPS）*Modeling Probability Forecasts via Information Diversity*，arXiv:1406.2148v5
- *   （项目全文精读笔记 `.scratch/forecast-debate/全文精读/二期/二期笔记-InfoDiv.md`；主文缓存 1389 行在盘）。
+ *   （项目全文精读笔记 `docs/assets/forecast-debate/全文精读/二期/二期笔记-InfoDiv.md`；主文缓存 1389 行在盘）。
  *   关键式：p_i = Φ(X_{B_i}/√(1−δ_i))；Cov(X_{B_i},X_{B_j}) ＝ |B_i∩B_j| ⇒ 对称信息下 **Corr(X_i,X_j) ＝ λ**；
  *   极端化因子 F55 **γ̂ ＝ N/((N−1)λ̂+1)**（N=3 ⇒ γ̂ ＝ 3/(2λ̂+1)）。
  *
@@ -95,7 +95,7 @@ function gammaHat(lam) { return 3 / (2 * lam + 1); }
 
 /**
  * **附录 B 的 MLE（对称信息模型）** —— arXiv:1501.06943v1 `APPENDIX B: PARAMETER ESTIMATION UNDER SYMMETRIC INFORMATION` 逐式实现
- * （2026-09-17 回读；★该附录**就在盘上缓存**：`.scratch/forecast-debate/全文精读/_cache-K-1501.06943.txt` 第 1197 行起）。
+ * （2026-09-17 回读；★该附录**就在盘上缓存**：`docs/assets/forecast-debate/全文精读/_cache-K-1501.06943.txt` 第 1197 行起）。
  *
  * 数据：每题给 N 个成员的 probit 读数 P＝(Φ⁻¹(p_1)…Φ⁻¹(p_N))；散布矩阵 S_P＝Σ_题 P·P′。
  * 目标（原文 (12) ＋ (A_Ω,B_Ω) 版，**凸**）：
@@ -304,7 +304,7 @@ function main() {
     generated_at: new Date().toISOString(),
     discipline: { ledger_write: false, llm: false, network: false, calls_to_llm: 0 },
     method_disclosures: {
-      surrogate_not_mle: '双口径（probit 相关／同意率反演）为**代理量**；★2026-09-17 更正：附录 B **并非不在盘上**——arXiv:1501.06943v1 官方 HTML 缓存自带该附录（`.scratch/forecast-debate/全文精读/_cache-K-1501.06943.txt` L1197 起），本件已逐式实现其 MLE（`fitSymmetricMLE`，λ_mle 字段）⇒ **代理量与法定 MLE 并列披露**；0.8 阈值仍挂在代理量（MLE 未进判据，改动＝版本递进）。',
+      surrogate_not_mle: '双口径（probit 相关／同意率反演）为**代理量**；★2026-09-17 更正：附录 B **并非不在盘上**——arXiv:1501.06943v1 官方 HTML 缓存自带该附录（`docs/assets/forecast-debate/全文精读/_cache-K-1501.06943.txt` L1197 起），本件已逐式实现其 MLE（`fitSymmetricMLE`，λ_mle 字段）⇒ **代理量与法定 MLE 并列披露**；0.8 阈值仍挂在代理量（MLE 未进判据，改动＝版本递进）。',
       confounding: '3 变体与 3 温度一一绑定 ⇒ 测得重叠 ≤ 纯角色重叠（温度采样抖动只衰减相关；尺度项不改相关）⇒ 按「下界」读。',
       clip: 'p∈{0,1} 截断到 0.001/0.999（照论文 GJP 实证做法，InfoDiv 笔记 §增量 7）。',
     },

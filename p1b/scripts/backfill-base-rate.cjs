@@ -16,7 +16,7 @@ function arg(n, d) { const i = process.argv.indexOf('--' + n); return i >= 0 && 
 const DB = arg('db', path.join(ROOT, 'p1a-terminal', 'data', 'p1a.db'));
 const CONFIRM = process.argv.indexOf('--confirm') >= 0;
 const LIMIT = arg('limit', null) ? Number(arg('limit')) : null;
-// --snapshot <path>：覆盖写前快照路径（测试用临时路径，避免污染仓库）；缺省落 .scratch/backup/。
+// --snapshot <path>：覆盖写前快照路径（测试用临时路径，避免污染仓库）；缺省落 .run-out/backup/。
 // --no-snapshot：不写快照（仅在已由调用方另行留证时用；默认**总是**写）。
 const SNAPSHOT = arg('snapshot', null);
 const NO_SNAPSHOT = process.argv.indexOf('--no-snapshot') >= 0;
@@ -116,7 +116,7 @@ function buildRow(ev) {
 
   // ③ 快照
   const stamp = new Date().toISOString().replace(/[:.]/g, '-');
-  const snap = NO_SNAPSHOT ? null : (SNAPSHOT || path.join(ROOT, '.scratch/backup', 'p1a-pre-brbackfill-' + stamp + '.db'));
+  const snap = NO_SNAPSHOT ? null : (SNAPSHOT || path.join(ROOT, '.run-out/backup', 'p1a-pre-brbackfill-' + stamp + '.db'));
   const wdb = new bs3(DB);
   wdb.pragma('journal_mode = WAL');
   if (snap) { await wdb.backup(snap); out.push('snapshot = ' + snap); }

@@ -98,7 +98,7 @@ const OUT_OF_SCOPE_HINT = {
  *
  * 病象（已确诊）：`test/cli.test.cjs` 的用例①在 2026-09-30 一次闸门运行里红过（4903ms），
  *   单独跑该文件 5/5 全绿，闸门把它记成「疑似偶发 · 绿?」（现场单：
- *   `.scratch/gate-flakes/flake-2026-09-30T06-23-39-961Z-backend.log`）。
+ *   `.run-out/gate-flakes/flake-2026-09-30T06-23-39-961Z-backend.log`）。
  *   红的断言是 `cli.test.cjs:69` 的整目录快照比对。
  *
  * 根因（设计层面）：该用例断言的是一条**全局不变式**——「任何 F 档命令都不许写
@@ -403,7 +403,7 @@ gates.forEach((g, i) => {
           + '「看最新一份」去读的人。打桩产物请写到别处。');
       } else {
         try {
-          const dir = path.join(REPO, '.scratch', 'gate-flakes');
+          const dir = path.join(REPO, '.run-out', 'gate-flakes');
           fs.mkdirSync(dir, { recursive: true });
           const stamp = new Date().toISOString().replace(/[:.]/g, '-');
           const f = path.join(dir, `flake-${stamp}-${g.id}.log`);

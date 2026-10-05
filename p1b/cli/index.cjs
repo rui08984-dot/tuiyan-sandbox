@@ -4,8 +4,8 @@
  *
  * 用法（组 + 命令，两段式；命令名单独出现时也能解析，见 `resolveCommand`）：
  *   node p1b/cli 体检 看板
- *   node p1b/cli 读数 G2门 -- --json .scratch/cli/x/g2.json
- *   node p1b/cli 门禁 锚点 .scratch/p37/i1-candidates.json
+ *   node p1b/cli 读数 G2门 -- --json .run-out/cli/x/g2.json
+ *   node p1b/cli 门禁 锚点 docs/assets/p37/i1-candidates.json
  *   node p1b/cli --help
  *   node p1b/cli 读数 校准 --help
  *
@@ -30,7 +30,7 @@
  * ── 确认闸（默认只读）────────────────────────────────────────────────────
  *   凡 `tier=W`（会写 `p1a.db`）的命令，**必须**显式 `--确认`（英文 `--confirm` 同义）
  *   才 spawn。否则打印「将要执行什么」并 exit 2，**子进程一次都不起**。
- *   `tier=F` 只往 `.scratch/cli/<时间戳>/` 写，永不入库，不需要确认。
+ *   `tier=F` 只往 `.run-out/cli/<时间戳>/` 写，永不入库，不需要确认。
  *
  * ── 参数分流 ─────────────────────────────────────────────────────────────
  *   组名/命令名之后、下一个独立 `--` 之前的 token = **位置参数**（按命令表的 `pos` 消费）；
@@ -81,7 +81,7 @@ function topUsage() {
   L.push('      node p1b/cli <组> <命令> --help （单条命令的用法与只读性）');
   L.push('');
   L.push('默认只读：写 p1a.db 的命令必须显式 --确认（或 --confirm），否则只打印「将要执行什么」并退出。');
-  L.push('F 档（写盘不写库）的产物一律落 .scratch/cli/<时间戳>/，不入 p1b/sim/out、不入 docs/specs/。');
+  L.push('F 档（写盘不写库）的产物一律落 .run-out/cli/<时间戳>/，不入 p1b/sim/out、不入 docs/specs/。');
   L.push('退出码: 0 成功｜1 CLI 错｜2 用法错（含缺 --确认）｜3 门禁码（原样透出，勿抹平）｜4 预检失败｜其它=子进程原码');
   L.push('');
   for (const g of C.GROUPS) {
@@ -90,7 +90,7 @@ function topUsage() {
     for (const c of g.commands) L.push(line(c, w));
     L.push('');
   }
-  L.push('档位: R 只读（零写盘/零写库/零网络）｜F 写盘不写库（只落 .scratch/cli/）｜W 写 p1a.db｜N 打网络');
+  L.push('档位: R 只读（零写盘/零写库/零网络）｜F 写盘不写库（只落 .run-out/cli/）｜W 写 p1a.db｜N 打网络');
   L.push('');
   L.push('显式排除件（不在表内，理由随附）：');
   for (const [n, why] of C.EXCLUDED) L.push('  ' + n + ' —— ' + why);
@@ -114,11 +114,11 @@ function commandUsage(c) {
   L.push('');
   L.push('  ' + c.desc);
   L.push('  子脚本：p1b/scripts/' + c.script);
-  L.push('  档位　：' + C.tierLabel(c) + (c.tier === 'R' ? '（CLI 不注入任何写参数）' : c.tier === 'F' ? '（产物只落 .scratch/cli/<时间戳>/，不写 p1a.db）' : '（★写生产账本 p1a.db，必须 --确认）'));
+  L.push('  档位　：' + C.tierLabel(c) + (c.tier === 'R' ? '（CLI 不注入任何写参数）' : c.tier === 'F' ? '（产物只落 .run-out/cli/<时间戳>/，不写 p1a.db）' : '（★写生产账本 p1a.db，必须 --确认）'));
   if (c.net) L.push('  网络　：会打外部数据源（离线环境慎跑）');
   if (c.pos && c.pos.length) for (const p of c.pos) L.push('  位置参数 <' + p.name + '>：' + p.desc);
   if (c.confirm) L.push('  确认闸：加 --确认（或 --confirm）才会真的执行；不加则打印将要执行的命令并 exit 2（子进程不起）');
-  if (c.build && c.tier === 'F') L.push('  注入　：CLI 自动补写盘路径参数，指向 .scratch/cli/<时间戳>/（可再用 -- 覆盖）');
+  if (c.build && c.tier === 'F') L.push('  注入　：CLI 自动补写盘路径参数，指向 .run-out/cli/<时间戳>/（可再用 -- 覆盖）');
   if (c.writes) L.push('  写到　：' + c.writes);
   if (c.tier === 'R') L.push('  提醒　：R 档不含写参数，但若你在 -- 之后透传 ' + C.WRITE_FLAGS.join(' / ') + '，子脚本会开始写盘——CLI 只提醒不拦（薄包装原则）');
   return L.join('\n');

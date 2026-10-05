@@ -16,7 +16,7 @@ const inj = require('./acr-inject.cjs');
 const P1A_ROOT = path.join(__dirname, '..', '..', 'p1a-terminal');
 const Database = require(path.join(P1A_ROOT, 'node_modules', 'better-sqlite3'));
 const DB_PATH = path.join(P1A_ROOT, 'data', 'p1a.db');
-const OUT_JSON = path.join(__dirname, '..', '..', '.scratch', 'forecast-debate', 'acr-phase1-results.json');
+const OUT_JSON = path.join(__dirname, '..', '..', '.run-out', 'forecast-debate', 'acr-phase1-results.json');
 
 // ── 单局加载（照 rb-attribution.cjs 先例：actor_seat=players.id 须 JOIN 还原座位号）──
 function loadGame(db, gid) {

@@ -39,13 +39,14 @@ test('① ★硬失败锁：父题已结算 ⇒ 拒绝冻结', () => {
   const r = db.prepare('SELECT id FROM predictions WHERE resolved_at IS NOT NULL LIMIT 1').get();
   db.close();
   assert.ok(r && r.id, '账本应有已解行（前置）');
-  const tmp = path.join(ROOT, '.scratch/p35/_test-resolved-parent.json');
+  fs.mkdirSync(path.join(ROOT, '.run-out/p35'), { recursive: true });
+  const tmp = path.join(ROOT, '.run-out/p35/_test-resolved-parent.json');
   fs.writeFileSync(tmp, JSON.stringify([{ statement: 'x', resolve: { kind: 'k', pick: 'home' }, meta: { parent_prediction_id: r.id } }]), 'utf8');
-  const res = run(['freeze', '--candidates', tmp, '--out', path.join(ROOT, '.scratch/p35/_never-written.json')]);
+  const res = run(['freeze', '--candidates', tmp, '--out', path.join(ROOT, '.run-out/p35/_never-written.json')]);
   assert.equal(res.code, 4, '★父题已结算时须 exit 4（实测 ' + res.code + '）\n' + res.out);
   assert.ok(/冻结失败/.test(res.out), '须明确报「冻结失败」');
   assert.ok(/不得事后冻结/.test(res.out), '须说明理由');
-  assert.ok(!fs.existsSync(path.join(ROOT, '.scratch/p35/_never-written.json')), '★失败时不得写盘');
+  assert.ok(!fs.existsSync(path.join(ROOT, '.run-out/p35/_never-written.json')), '★失败时不得写盘');
   fs.unlinkSync(tmp);
 });
 
@@ -70,7 +71,7 @@ test('③ ★篡改检测：改一条分支 ⇒ MISMATCH', () => {
   if (!fs.existsSync(fp)) return;
   const f = JSON.parse(fs.readFileSync(fp, 'utf8'));
   f.branch_set[0].pick = 'TAMPERED';
-  const tmp = path.join(ROOT, '.scratch/p35/_test-tampered.json');
+  const tmp = path.join(ROOT, '.run-out/p35/_test-tampered.json');
   fs.writeFileSync(tmp, JSON.stringify(f), 'utf8');
   const res = run(['verify', '--frozen', tmp]);
   assert.equal(res.code, 6, '★篡改后 verify 须 exit 6（实测 ' + res.code + '）');

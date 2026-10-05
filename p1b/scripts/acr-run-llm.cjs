@@ -19,8 +19,8 @@ const { chatOnce } = require(path.join(__dirname, '..', 'sim', 'llm-client.cjs')
 const inj = require('./acr-inject.cjs');
 
 const DB_PATH = path.join(__dirname, '..', '..', 'p1a-terminal', 'data', 'p1a.db');
-const OUT_JSON = path.join(__dirname, '..', '..', '.scratch', 'forecast-debate', 'acr-phase2-llm-results.json');
-const LOG_PATH = path.join(__dirname, '..', '..', '.scratch', 'forecast-debate', 'acr-phase2-llm-run.log');
+const OUT_JSON = path.join(__dirname, '..', '..', '.run-out', 'forecast-debate', 'acr-phase2-llm-results.json');
+const LOG_PATH = path.join(__dirname, '..', '..', '.run-out', 'forecast-debate', 'acr-phase2-llm-run.log');
 
 const SEATS = [1, 2, 3, 4, 5, 6];
 const TEMP = 0.2;                        // S2 §① 判词温度预注册低温端
@@ -235,7 +235,7 @@ async function main() {
   const withFull = argv.indexOf('--full') !== -1;
   const reps = Number(process.env.ACR2_REPS || 3);
   const RATE = inj.RATES[1];                                  // 0.30（RATES=[0.10,0.30,0.50]）
-  const CACHE = path.join(__dirname, '..', '..', '.scratch', 'forecast-debate', 'acr2-cache.json');
+  const CACHE = path.join(__dirname, '..', '..', '.run-out', 'forecast-debate', 'acr2-cache.json');
   let cache = {};
   try { cache = JSON.parse(fs.readFileSync(CACHE, 'utf8')); } catch (e) { cache = {}; }
   const saveCache = () => fs.writeFileSync(CACHE, JSON.stringify(cache, null, 1), 'utf8');
@@ -262,7 +262,7 @@ async function main() {
     saveCache();                                              // 逐条件落盘（崩溃不丢已付费样本）
     return s;
   }
-  const outPath = arg('out', path.join(__dirname, '..', '..', '.scratch', 'forecast-debate',
+  const outPath = arg('out', path.join(__dirname, '..', '..', '.run-out', 'forecast-debate',
     'acr-phase2-llm-results-' + cls + (withFull ? '-full' : '') + '.json'));
   const WIN = [['cutoff', cutoffView]];
   if (withFull) WIN.push(['full', fullView]);

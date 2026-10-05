@@ -2,7 +2,7 @@
 // RC-3 烟测（跑完即删）：L6 型 5 条+proc_calc 型 1 条 × 3 路 live；runId=PREREG-RC hash 前 12 位
 const crypto = require('crypto');
 const fs = require('fs');
-const P = 'E:/music player/.scratch/forecast-debate/PREREG-RC-v1-待确认.md';
+const P = 'E:/music player/docs/assets/forecast-debate/PREREG-RC-v1-待确认.md';
 const lines = fs.readFileSync(P, 'utf8').split(/\r?\n/).filter((l) => !l.startsWith('> sha256'));
 const RUN_ID = crypto.createHash('sha256').update(lines.join('\n'), 'utf8').digest('hex').slice(0, 12);
 const L6_PAT = [/号存活/, /自称平民实为狼/, /第一条公开发言的玩家未被放逐/, /至少有一名狼人获得至少 1 票/, /被放逐者是狼人，且其最高票唯一/];

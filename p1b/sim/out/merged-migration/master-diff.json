@@ -1,5 +1,5 @@
 {
- "pre_snapshot": ".scratch/backup/p1a-pre-phase1-20260913163521.db",
+ "pre_snapshot": ".run-out/backup/p1a-pre-phase1-20260913163521.db",
  "post_db": "p1a-terminal/data/p1a.db",
  "objects_before": 18,
  "objects_after": 21,

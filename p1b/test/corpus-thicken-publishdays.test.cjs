@@ -77,7 +77,7 @@ test('⑤ ★候选留痕旁路：数据过滤 vs 候选丢弃（口径分离锁
   // 落盘须单列 data_filtered
   assert.ok(/data_filtered:/.test(SRC2), '留痕件须单列 data_filtered');
   // 产物锁：若留痕件存在，proposed_total 不得含 data_filtered
-  const rp = path.join(ROOT, '.scratch/p37/thicken-elexon3.json');
+  const rp = path.join(ROOT, 'docs/assets/p37/thicken-elexon3.json');
   if (fs.existsSync(rp)) {
     const r = JSON.parse(fs.readFileSync(rp, 'utf8'));
     assert.equal(r.counts.proposed_total, r.counts.candidates_generated + r.counts.drops, '提议全集＝候选＋候选丢弃（★不含数据过滤）');

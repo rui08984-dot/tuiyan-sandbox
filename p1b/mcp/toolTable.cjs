@@ -164,7 +164,7 @@ const DESC = {
 
   'p1b_read_calibration': [
     '分域格校准报告用这条（哪个题域判得偏、偏多少）。',
-    '怎么读：产物落 .scratch/cli/<时间戳>/，`structuredContent.output_dir` 给出该目录。',
+    '怎么读：产物落 .run-out/cli/<时间戳>/，`structuredContent.output_dir` 给出该目录。',
     'F 档：只写这个暂存目录，不写 p1a.db、不覆盖任何既有产物。',
   ].join('\n'),
 
@@ -236,7 +236,7 @@ const DESC = {
     'integrity_check、核心表行数与内容 sha256，然后报告能不能用。',
     '怎么读：⚠ exit 3 表示**这份备份不可用**（不是 0，也不是「演练失败」这种模糊说法），',
     '照实报告哪一份、哪一项校验没过。',
-    '★**它绝不碰生产库** —— 只写 .scratch 下的临时件。产物路径见 `structuredContent.output_dir`。',
+    '★**它绝不碰生产库** —— 只写 .run-out/ 下的临时件。产物路径见 `structuredContent.output_dir`。',
     'F 档，不经确认闸（它不写生产库）。',
   ].join('\n'),
 };

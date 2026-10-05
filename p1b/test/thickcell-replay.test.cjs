@@ -209,9 +209,9 @@ test('⑩ kNN 臂：无历史时退静态格基率（不猜）；四维缺一者
 
 test('⑧ PREREG v1／v1.1／v1.2 三件冻结自检：各自 MATCH=true，且上游件未被改动', () => {
   const { freezeSha } = require(path.join(ROOT, 'p1b', 'scripts', 'prereg-freeze.cjs'));
-  const v1 = path.join(ROOT, '.scratch', 'forecast-debate', 'PREREG-厚格基建总票-v1.md');
-  const v11 = path.join(ROOT, '.scratch', 'forecast-debate', 'PREREG-厚格基建总票-v1.1-补充与勘误-20260918.md');
-  const v12 = path.join(ROOT, '.scratch', 'forecast-debate', 'PREREG-厚格基建总票-v1.2-补充-kNN预注册-20260918.md');
+  const v1 = path.join(ROOT, 'docs', 'assets', 'forecast-debate', 'PREREG-厚格基建总票-v1.md');
+  const v11 = path.join(ROOT, 'docs', 'assets', 'forecast-debate', 'PREREG-厚格基建总票-v1.1-补充与勘误-20260918.md');
+  const v12 = path.join(ROOT, 'docs', 'assets', 'forecast-debate', 'PREREG-厚格基建总票-v1.2-补充-kNN预注册-20260918.md');
   assert.ok(fs.existsSync(v1) && fs.existsSync(v11) && fs.existsSync(v12), '三件须都在盘');
   assert.equal(freezeSha(v1).match, true, 'v1 原件须仍 MATCH（版本递进＝原件一字不动）');
   assert.equal(freezeSha(v11).match, true, 'v1.1 须 MATCH');

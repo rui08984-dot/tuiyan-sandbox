@@ -33,7 +33,7 @@ const LEAGUE = arg('league', 'soccer_epl');
 const SNAPSHOTS = arg('snapshots', path.join(ROOT, 'p1b', 'sim', 'out', 'odds-snapshots-' + LEAGUE + '.jsonl'));
 const DB_ARG = arg('db', null);
 const MAX_PER_RUN = Number(arg('max', '24'));
-const REPORT_DIR = arg('report-dir', path.join(ROOT, '.scratch', 'backtest'));   // ★报告目录可注入（测试须写 tmp，禁覆盖仓库产物）
+const REPORT_DIR = arg('report-dir', path.join(ROOT, '.run-out', 'backtest'));   // ★报告目录可注入（测试须写 tmp，禁覆盖仓库产物）
 const CAP = Number(arg('cap', '100'));   // 首版上限（取自草案 §3 的配额讨论：≈100 题量级）
 const LO = 0.15, HI = 0.85;
 const KIND = 'oddsapi_h2h';
