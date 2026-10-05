@@ -648,3 +648,68 @@ C15「无便携 node」第一版**是失效的**：它扫 `ctx.走.files`，而�
 
 ★**仍未做**：npm publish（需账号/token，本机无）、registry 实际挂载（需先 publish）、
 真第三方 MCP 客户端联调（用官方 SDK 连通了，但没装桌面客户端）——**不假成功**。
+
+## 〇·十六、2026-10-06 专节：★公开发布（匿名 clone 实测三轮）
+
+> 触发：创始人令「欧克发布吧……记得跟我的那些仓库的格式参考一下，尽量写的好一点」。
+
+### 一、发布结果
+
+| 维度 | 之前 | 之后 |
+|---|---|---|
+| 仓库 | `p1b-sandbox`（private） | ★**`rui08984-dot/tuiyan-sandbox`（public）** |
+| 发行包 | 41.4 MB（含便携 Node） | **8.3 MB**（不带 Node，用户自己装） |
+| README | 中文 238 行，无 badges | **中英双语**（260/151 行）＋ badges ＋ 顶部总览图 |
+| 上手段 | `npm install`（跑不通） | ★`npm run bootstrap` 一条命令 ＋ `npm run doctor` |
+| topics | 无 | 11 个 ASCII 主题 |
+| 已跟踪 | 3761 | **2363** |
+
+### 二、★三次匿名 clone，每次都得靠实测才发现新问题
+
+这是本次最值钱的方法论产出。**本机永远复现不了这类问题**——
+本机依赖齐、行尾对、库也在。只有以陌生人身份 clone 才量得出来。
+
+**第 1 次**：四道闸门全红。
+宗因三个叠加：① README 写的目录名还是旧的 `p1b-sandbox`
+② 缺引擎依赖（`better-sqlite3` 在 `p1a-terminal/package.json`）
+③ 缺前端（`p1b/web` 自己的 package.json）—— build/types 两道 **0.08 秒秒退**，
+★「秒退」本身就是信号（这两道平时要 1–2 秒）
+④ 根目录也没有 `npm start` 可用
+→ 修：加 `scripts/bootstrap.cjs`，按依赖顺序装齐三个子包
+
+**第 2 次**：bootstrap 本身跑不通。
+`spawnSync('npm.cmd', …, {stdio:'inherit', timeout:900000})` ⇒ `EINVAL`，退出码 null。
+Windows 上 `.cmd` 必须 `shell:true`，而 `stdio:'inherit'` 与 `timeout` **不能同时用**。
+★另外它的 verify 报了一个**假阳性**：我在 p1b 的 checks 里写了 better-sqlite3，
+而 `schemaVersion.js:36` 是**故意**用绝对路径 require 引擎那份（注释自述「零新依赖」），
+p1b 的 package.json 因此**故意不声明**它。
+★一个因为猜错而报红的 bootstrap 比没有更糟 —— 它会教会用户忽略它的输出。
+
+**第 3 次**：backend 仍红 17 秒就退，根因 `no such table: predictions`。
+真根因：生产库（含真实玩家信息）按设计不入库，一批读数脚本默认读它。
+→ 修：加 `scripts/doctor.cjs`，三十秒说清「缺什么／为什么／三条路」，
+并写死「**没有 D 选项**：含真实玩家信息的库绝不随仓库分发」。
+★doctor 第一版也踩坑：只看文件在不在，结果 clone 上那个 40960 字节的
+**空壳库**（node --test 留下的，0 张表）被报成「生产库在」。
+★空壳比不在更坏：它让你以为有数据。→ 改成真 `sqlite_master` 数表。
+
+### 三、终验（匿名 clone 走 README 三步）
+
+```
+npm run bootstrap  → 三段全绿，关键依赖真能 require
+npm run doctor     → 2 项提醒（不阻塞），给出三条补数据出路
+cd p1b && node gates/gates.cjs
+                  → build/frontend/types 绿；backend 红在缺种子库
+                    ★这是**预期状态**，不是缺陷：陌生人 clone 本就没有种子库
+```
+
+### 四、沿用的格式（对齐你的其他仓库）
+
+SessionRelay 的：徽章行（Node/MCP/平台/用例/License）＋ 一句话定位块引用 ＋ 顶部架构图 ＋
+「60 秒演示」＋ 痛点表 ＋ 红线清单。pi-bridge 的：ASCII 数据流图 ＋ 「为什么需要它」。
+agent-skills 的：中文优先、表格密集、每节一句结论。
+
+★`package.json` 的 description **原样未动**（`readme.test` ② 用精确相等钉着它），
+品牌信息改放进未钉死的字段：keywords 13 个 ＋ homepage。
+
+（〇·十六 完 · 2026-10-06 · 沙盘零文件改动 · 公开仓已发布）
