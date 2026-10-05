@@ -99,3 +99,6 @@ dashboard.html
 # seed/*.db 是**构建产物**（由 p1b/scripts/make-seed-db.cjs 生成，每次 sha256 都可能变）⇒ 不入库。
 # seed/seed_provenance.json **入库** —— 它是「剔了什么、为什么、剩多少」的留痕。
 seed/*.db
+
+# Windows 误建（重定向写错目标名时会生成一个叫 nul 的文件）
+nul
