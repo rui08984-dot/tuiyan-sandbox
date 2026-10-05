@@ -16,7 +16,9 @@
   },
   "scripts": {
     "start": "node p1b/src/server.js",
-    "gates": "node p1b/gates/gates.cjs"
+    "gates": "node p1b/gates/gates.cjs",
+    "bootstrap": "node scripts/bootstrap.cjs",
+    "bootstrap:verify": "node scripts/bootstrap.cjs && cd p1b && node gates/gates.cjs"
   },
   "files": [
     "LICENSE",

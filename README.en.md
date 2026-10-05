@@ -61,10 +61,17 @@ This section matters more than the one above.
 ## 30 seconds in
 
 ```bash
-git clone <this repo> && cd tuiyan-sandbox
-npm install
+git clone https://github.com/rui08984-dot/tuiyan-sandbox.git
+cd tuiyan-sandbox
+npm run bootstrap
 cd p1b && node gates/gates.cjs
 ```
+
+★**Use `bootstrap`, not `npm install`**: this repo has **three nested package.json
+files** (engine `p1a-terminal`, backend `p1b`, frontend `p1b/web`), each with its own
+dependency tree. Installing only the root leaves the engine and frontend uninstalled,
+and the gates fail with "native module not requireable / vite not found" — error
+messages nowhere near the real cause. `bootstrap` installs all three, in order.
 
 Three checks that actually run: the plan audit, the four backend/frontend/type gates, and
 the 15-item release audit. The release audit verifies there is **no API key left in the
