@@ -90,12 +90,14 @@ function 判链接(html, 页面目录, 根, 存在性 = (p) => fs.existsSync(p))
       if (!frag) { 条.说明 = '空片段（href="#"）'; 非法数++; }
       else if (!ids.has(frag)) { 条.说明 = '片段 #' + frag + ' 在本页没有对应 id'; 非法数++; }
       else 片段数++;
-    } else if (/^https?:\/\/github\.com\/rui08984-dot\/p1b-sandbox\//i.test(值)) {
+    } else if (/^https?:\/\/github\.com\/rui08984-dot\/(p1b-sandbox|tuiyan-sandbox)\//i.test(值)) {
       // ★2026-09-29 新增这一类：页内链接改成**绝对 GitHub URL** 后（Pages 以 /docs
       //   为发布源时，`../../` 会逃出站点），原先「仓库相对类」数到 0 ⇒ 那个死链检查
       //   **变成空跑绿灯**。⇒ 给绝对 URL 单开一个**可机械校验**的类：
       //   它必须指向本仓的 blob/master/ 路径，且后面跟着一个真实存在的文件。
-      const rel = 值.replace(/^https?:\/\/github\.com\/rui08984-dot\/p1b-sandbox\/blob\/master\//i, '');
+      // ★2026-10-06 仓名从 p1b-sandbox 改为 tuiyan-sandbox：新旧都认，
+      //   只认新的会让落地页里存量旧链全判死链（那是一堆假阳性）。
+      const rel = 值.replace(/^https?:\/\/github\.com\/rui08984-dot\/(?:p1b-sandbox|tuiyan-sandbox)\/blob\/master\//i, '');
       条.归一 = '仓库绝对';
       条.说明 = '';
       if (!rel || rel.includes('..')) {

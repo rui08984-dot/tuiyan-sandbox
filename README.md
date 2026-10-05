@@ -1,11 +1,33 @@
 # 推演沙盘 · 判断账本
 
+简体中文 | [English](./README.en.md)
+
+![Node](https://img.shields.io/badge/Node-%E2%89%A522.5-339933)
+![MCP](https://img.shields.io/badge/MCP-21%E5%B7%A5%E5%85%B7-6C5CE7)
+![平台](https://img.shields.io/badge/%E5%B9%B3%E5%8F%B0-Windows_%7C_macOS_%7C_Linux-2D7DD2)
+![测试](https://img.shields.io/badge/%E7%94%A8%E4%BE%8B-1200%2B-4C9A2A)
+![红线](https://img.shields.io/badge/%E7%BA%A0%E7%BA%A7-8_%E6%9D%A1-EB4D4B)
+![License](https://img.shields.io/badge/License-Apache--2.0-EAC435)
+
 > **记录你的判断，然后证明它没有说谎。**
 >
 > **把判断力做成契约，让任何 agent 都无法替你下结论。**
 
 大部分「帮你猜」的 App 做的是让你**感觉**准一点。这个做的是相反的事：
 **它不猜。它只做一件别人不做的事——记下你怎么想的，然后证明你事后没改口。**
+
+```
+   你写下一道题               它做的三件事
+   ┌──────────────┐      ┌────────────────────────────────┐
+   │ 明天上海最高  │      │  ①  记账  原样记下你的确信度     │
+   │ 气温 > 35°C  │ ───▶ │       只写不改，每条带指纹       │
+   │     60%      │      │  ②  判分  到期自动去查真值       │
+   └──────────────┘      │       按题型分开算                │
+                         │  ③  复盘  指出你系统性偏哪儿     │
+   ┌──────────────┐      └────────────────────────────────┘
+   │ Brier 0.2259 │ ◀───  「天气类你准，汇率类你说大了 19%」
+   └──────────────┘
+```
 
 ---
 
@@ -43,7 +65,7 @@
 ## 30 秒上手
 
 ```bash
-git clone https://github.com/rui08984-dot/p1b-sandbox.git
+git clone https://github.com/rui08984-dot/tuiyan-sandbox.git
 cd p1b-sandbox
 npm install
 npm start          # 浏览器打开 http://127.0.0.1:8787/
@@ -51,7 +73,7 @@ npm start          # 浏览器打开 http://127.0.0.1:8787/
 
 **不需要任何 API key。** 第一次启动是强制 mock 模式，你能用到全部只读功能。
 
-Windows 用户也可以直接下载绿色包解压双击（见 [Releases](https://github.com/rui08984-dot/p1b-sandbox/releases)）。
+Windows 用户也可以直接下载绿色包解压双击（见 [Releases](https://github.com/rui08984-dot/tuiyan-sandbox/releases)）。
 
 ### 平台支持（只写验过的）
 

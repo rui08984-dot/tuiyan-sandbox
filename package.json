@@ -1,5 +1,5 @@
 {
-  "name": "p1-sandbox-rename-before-publish",
+  "name": "tuiyan-sandbox",
   "version": "0.1.0",
   "description": "一个算 Brier 分的账本，LLM 不参与给数",
   "private": false,
@@ -9,7 +9,7 @@
   "author": "DSH Captain",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/rui08984-dot/tuiyan-sandbox.git"
   },
   "engines": {
     "node": ">=20"
@@ -59,5 +59,21 @@
     "better-sqlite3": "^13.0.3",
     "fastify": "^5.2.1",
     "lunar-javascript": "^1.7.7"
-  }
+  },
+  "keywords": [
+    "brier",
+    "brier-score",
+    "prediction",
+    "forecasting",
+    "calibration",
+    "ledger",
+    "judgment",
+    "推演沙盘",
+    "判断账本",
+    "appendix-only",
+    "llm-free",
+    "local-first",
+    "mcp"
+  ],
+  "homepage": "https://github.com/rui08984-dot/tuiyan-sandbox"
 }
