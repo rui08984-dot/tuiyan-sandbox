@@ -104,7 +104,7 @@ const HELP = `局鉴 · 社交推理游戏复盘台
 
   局
     games                  列出全部局
-    new <名字>             建局（--type=werewolf|botc|avalon --players=N --script=tb|bmr|snv）
+    new <名字>             建局（--type=werewolf|botc|script|avalon --players=N --script=tb|bmr|snv）
     <局号> show            整局状态
     <局号> export          导出 JSON
 
@@ -214,6 +214,12 @@ async function main() {
     const text = rest.slice(3).join(' ');
     if (!text) die('要给原话：jujian 1 say 3 "我是预言家，昨晚验的4号"');
     const llm = require('../src/llm/engine');
+    // ★mockMode 的语义是「三态」：true 强制 MOCK / false 强制 LIVE / undefined 由 key 自动定。
+    //   第一版传 `mock && !process.env.JUJIAN_LLM_API_KEY` ⇒ 无 key 且没设 JUJIAN_LLM_MOCK 时算出 **false**
+    //   ⇒ 强制 LIVE ⇒ 三次重试全部「LIVE_MODE 需要 LLM_API_KEY」⇒ 命令退出非零，
+    //   而上一行 stderr 还打印着「本次走 MOCK 模式」。**提示与实际相反**，且这台机器上必崩。
+    //   ⇒ 改成：设了 JUJIAN_LLM_MOCK=1 才传 true（显式要 MOCK）；其余一律不传（undefined），
+    //     让引擎按 key 在不在自己决定 —— 没 key 自然落 MOCK，有 key 才走 LIVE。
     const mock = process.env.JUJIAN_LLM_MOCK === '1';
     if (!mock && !(process.env.JUJIAN_LLM_API_KEY || process.env.LLM_API_KEY || process.env.DEEPSEEK_API_KEY)) {
       process.stderr.write('提示：没找到 JUJIAN_LLM_API_KEY，本次走 MOCK 模式（零网络，措辞固定）。\n');
@@ -222,7 +228,7 @@ async function main() {
     const r = await llm.extractEvent(text, {
       day, seats: state.players.map((p) => p.seat), events: state.events,
       claims: state.claims, actions: state.actions, actor_seat: seat,
-    }, { mockMode: mock && !process.env.JUJIAN_LLM_API_KEY });
+    }, mock ? { mockMode: true } : undefined);
     out({ 模式: r.meta && r.meta.mode, 事件: r.event, 声称: r.claims, 说明: '★这是待确认卡，没落库。确认请用 confirm 接口。' });
     return 0;
   }

@@ -35,10 +35,14 @@ const CLEAN_ENV = Object.assign({}, process.env);
 delete CLEAN_ENV.NODE_TEST_CONTEXT;
 delete CLEAN_ENV.NODE_OPTIONS;
 
-/** 全部测试文件（含本文件自己）。 */
+/** 全部测试文件（含本文件自己）。
+ *  ★这份清单**容易漏**（新加的文件忘了加进来，它的用例数就不计数、闸门也不跑它）——
+ *    所以下面 ★⑮ 有一条对 `test/` 目录做**自动发现**的核对：
+ *    目录里有什么，这里就得写什么。加测试文件时忘了改这里，立即红。 */
 const TEST_FILES = [
   'test/store.test.cjs', 'test/api.test.cjs', 'test/kernel-drift.test.cjs',
   'test/readme.test.cjs', 'test/cli.test.cjs', 'test/mcp.test.cjs', 'test/bench.test.cjs', 'test/zero-dep.test.cjs', 'test/web.test.cjs', 'test/render.test.cjs',
+  'test/package.test.cjs', 'test/regress-20261006.test.cjs',
 ];
 /** 除了本文件之外的测试文件。
  *  ★为什么必须排除自己：本文件是「跑别的测试」的守卫，
@@ -122,7 +126,12 @@ test('★④ README 承诺的用例数与实际一致', () => {
 });
 
 test('⑤ 平台与版本要求写的是已验过的那一个', () => {
-  assert.match(readme, /Node ≥ 22\.5/, '必须写清 Node 最低版本（node:sqlite 的门槛）');
+  // ★门槛在 2026-10-06 被实测修正过：node:sqlite 的「免 --experimental-sqlite 标志」
+  //   不是从 22.5 开始的一条直线 —— 实测 22.12 ✗ / 22.13 ✓ / 23.0–23.3 ✗ / 23.4 ✓。
+  //   照旧的 22.5 写，会让那一串版本的用户体检全绿、然后每个命令都崩在
+  //   "No such built-in module: node:sqlite" 上。README 必须写实测过的那两个区间。
+  assert.match(readme, /Node ≥ 22\.13/, '必须写清 Node 最低版本（实测：22.13 起 node:sqlite 免标志）');
+  assert.match(readme, /23\.4/, '23 线另有 23.4 起的区间，不能只写 22 线');
   assert.doesNotMatch(readme, /Node ≥ 1[0-9]\./, '版本门槛写错会导致装了跑不起来');
 });
 
@@ -182,6 +191,21 @@ test('★⑭ 换行由仓库规定，与每个人的 git 配置无关', () => {
   const text = fs.readFileSync(ga, 'utf8');
   assert.match(text, /\*\s+text=auto\s+eol=lf/, '.gitattributes 必须声明全局 eol=lf');
   assert.match(text, /\.bat\s+text eol=crlf/, 'Windows 批处理要保留 CRLF，否则跑不起来');
+});
+
+test('★⑮ 测试清单必须与 test/ 目录一一对应（漏一个 = 它的用例数不进守卫、闸门也可能不跑它）', () => {
+  // ★这条是 2026-10-06 加的：新增 test/package.test.cjs 与 test/regress-20261006.test.cjs 时，
+  //   上面那份手写 TEST_FILES 差点又漏掉它们 —— 而 ★④ 是靠这份清单数「用例总数」的，
+  //   漏掉就意味着**README 的数字能对上一个不完整的清单**（守卫看着是绿的，其实没管齐全）。
+  //   ⇒ 口径改成：目录里有多少个 *.test.cjs，清单里就得有多少个，一个不多一个不少。
+  const onDisk = fs.readdirSync(path.join(ROOT, 'test'))
+    .filter((f) => f.endsWith('.test.cjs'))
+    .map((f) => 'test/' + f)
+    .sort();
+  const listed = [...TEST_FILES].sort();
+  assert.deepEqual(listed, onDisk,
+    '★TEST_FILES 与 test/ 目录不一致。\n  只在目录里: ' + onDisk.filter((f) => !listed.includes(f)).join(', ')
+    + '\n  只在清单里: ' + listed.filter((f) => !onDisk.includes(f)).join(', '));
 });
 
 test('⑩ 纯 LF、末尾有换行、无制表符缩进', () => {

@@ -29,15 +29,34 @@ function ok(name, detail) { CHECKS.push({ level: 'ok', name, detail: detail || '
 function warn(name, detail) { CHECKS.push({ level: 'warn', name, detail: detail || '' }); worst = Math.max(worst, 1); }
 function bad(name, detail) { CHECKS.push({ level: 'bad', name, detail: detail || '' }); worst = Math.max(worst, 2); }
 
-// ── ① Node 版本：node:sqlite 需要 ≥22.5 ───────────────────────────────────
+// ── ① Node 版本：node:sqlite 的免 flag 门槛是**两段**，不是一条直线 ──────────────
+//   ★这条是被实测逼出来的（2026-10-06，本机真装多个版本逐个探针）。
+//     官方版本史只给了两行：「v22.5.0 Added in」＋「v22.13.0 no longer behind --experimental-sqlite」，
+//     照着写成「≥22.13 就行」会**漏掉 23 线**。实测结果（`require('node:sqlite')` 直连）：
+//       v22.12.0 → THROWS      v22.13.0 → OK
+//       v23.0.0  → THROWS      v23.1.0  → THROWS
+//       v23.2.0  → THROWS      v23.3.0  → THROWS      v23.4.0 → OK
+//     ⇒ 这是个**非单调**门槛：22.13 过了，23.0–23.3 又不行，23.4 才好。
+//       旧口径「≥22.5」会让 22.5–22.12 与 23.0–23.3 六七个版本的用户
+//       **体检全绿然后每个命令都崩**，崩法是一句「No such built-in module」——
+//       用户根本猜不到是版本差在 minor 上。体检把阻塞项报成绿灯是最不该犯的错。
+//   ⇒ 现在按实测的真实区间判，并把「怎么修」写成可直接照抄的两条路。
 (function checkNode() {
-  const major = Number(process.versions.node.split('.')[0]);
-  const minor = Number(process.versions.node.split('.')[1]);
-  const enough = major > 22 || (major === 22 && minor >= 5);
-  if (!enough) {
-    bad('Node 版本', `当前 v${process.versions.node}。局鉴的存储用 Node 自带的 node:sqlite，需要 ≥22.5.0。`);
+  const [major, minor] = process.versions.node.split('.').map(Number);
+  const okNoFlag = (major === 22 && minor >= 13) || (major === 23 && minor >= 4) || major >= 24;
+  const needsFlag = (major === 22 && minor >= 5 && minor < 13)
+    || (major === 23 && minor < 4);
+  if (okNoFlag) {
+    ok('Node 版本', `v${process.versions.node}（node:sqlite 开箱可用）`);
+  } else if (needsFlag) {
+    // ★说清「为什么」和「合法值是什么」：这条提示必须能被直接照抄。
+    bad('Node 版本', `当前 v${process.versions.node}。node:sqlite 在本版本仍藏在 `
+      + `--experimental-sqlite 标志后面（实测：22.13 与 23.4 起才解除，23.0–23.3 又回到标志后）。`
+      + `两条路任选：①升级到 v22.13+ 或 v23.4+（推荐）；`
+      + `②每条命令都加标志，例如 node --experimental-sqlite src/server.js（或 npm start -- --experimental-sqlite）。`);
   } else {
-    ok('Node 版本', `v${process.versions.node}（node:sqlite 可用）`);
+    bad('Node 版本', `当前 v${process.versions.node}。局鉴的存储用 Node 自带的 node:sqlite，`
+      + `它是 v22.5.0 才加入的。需要 v22.13.0+ 或 v23.4.0+（实测免标志的两个区间）。`);
   }
 })();
 

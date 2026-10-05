@@ -1,12 +1,17 @@
 {
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.rui08984-dot/jujian",
-  "version": "0.1.0",
+  "title": "局鉴",
   "description": "局鉴 · 社交推理游戏复盘台 —— 把一局狼人杀／血染钟楼／阿瓦隆拆成结构化声称，抓出互相矛盾的地方，每条结论都能回查到原始发言。它不替你下结论。",
+  "repository": {
+    "url": "https://github.com/rui08984-dot/jujian",
+    "source": "github"
+  },
+  "version": "0.1.0",
   "packages": [
     {
-      "registryType": "mcp",
-      "registryBaseUrl": "https://registry.modelcontextprotocol.io",
-      "identifier": "io.github.rui08984-dot/jujian",
+      "registryType": "npm",
+      "identifier": "jujian",
       "version": "0.1.0",
       "transport": { "type": "stdio" },
       "runtimeHint": "npx",
@@ -14,12 +19,14 @@
         {
           "name": "JUJIAN_DB",
           "description": "对局库文件路径。默认 <项目>/data/jujian.db。",
+          "format": "string",
           "isRequired": false,
           "isSecret": false
         },
         {
           "name": "JUJIAN_LLM_API_KEY",
           "description": "AI 分析用的 API key。★不设就走 MOCK 模式（零网络，功能全可用，只是措辞固定）。key 只从环境变量读，绝不写入任何文件。",
+          "format": "string",
           "isRequired": false,
           "isSecret": true
         }

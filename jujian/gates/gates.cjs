@@ -12,10 +12,12 @@
  *   测试照样绿，只是矛盾少了、或者开始编造。
  *   ⇒ 把这些承诺做成每次提交都必须过的机械闸门，而不是靠人记得。
  *
- * ── 与推演沙盘四道闸门的不同（刻意不同，不照抄）────────────────────────
- *   沙盘有 build / types 两道前端闸门，因为那边带 React 前端。
- *   局鉴 v0.1.0 **没有前端**（见 §定位），所以闸门换成三道与后端同权重的东西：
- *   冒烟、端点清单、体检。多一道「契约不许悄悄变」��少一道「产物能构建」。
+ * ── 与推演沙盘闸门的不同（刻意不同，不照抄）────────────────────────────
+ *   沙盘有 build / types 两道前端闸门，因为那边带 React 前端与构建链。
+ *   局鉴的前端是**零构建**的原生 ES 模块（见 README「网页」），没有产物可构建，
+ *   所以没有「构建」道；换成四道与承诺同权重的东西：
+ *   测试、冒烟、体检、盲测。多一道「契约不许悄悄变」，少一道「产物能构建」。
+ *   ★注意：这里说的是「没有构建步骤」，不是「没有前端」—— 前端在 v0.1.0 就有了。
  */
 
 const path = require('node:path');
@@ -23,15 +25,25 @@ const { spawnSync } = require('node:child_process');
 
 const ROOT = path.join(__dirname, '..');
 
+/** ★测试清单**自动发现**，不写死。
+ *  写死的第一版漏过一次风险：新增测试文件若忘了加进这个数组，它会**悄悄不跑**，
+ *  而闸门照样全绿 —— 这与本项目「守卫不许空转」的纪律直接冲突。
+ *  现在改成扫 test/ 目录：文件一落盘就自动进闸门，漏不掉。
+ *  （排序保证输出稳定；只收 .test.cjs，与 `npm test` 的口径一致。） */
+function discoverTests() {
+  const fs = require('node:fs');
+  const dir = path.join(ROOT, 'test');
+  const files = fs.readdirSync(dir).filter((f) => f.endsWith('.test.cjs')).sort();
+  if (!files.length) throw new Error('★test/ 目录下一个 *.test.cjs 都没有 —— 闸门的测试道会空转，这条必须拦住');
+  return files.map((f) => 'test/' + f);
+}
+
 const GATES = [
   {
     name: '测试',
-    desc: '存储层 ＋ 契约层 ＋ 内核漂移守卫 ＋ README 守卫 ＋ CLI ＋ MCP ＋ 盲测守卫',
+    desc: '存储层 ＋ 契约层 ＋ 内核漂移守卫 ＋ README 守卫 ＋ CLI ＋ MCP ＋ 打包守卫 ＋ 盲测守卫（清单自动发现）',
     cmd: process.execPath,
-    args: ['--test', '--test-reporter=dot', 'test/store.test.cjs', 'test/api.test.cjs',
-      'test/kernel-drift.test.cjs', 'test/readme.test.cjs', 'test/cli.test.cjs',
-      'test/mcp.test.cjs', 'test/bench.test.cjs', 'test/zero-dep.test.cjs',
-      'test/web.test.cjs', 'test/render.test.cjs'],
+    args: ['--test', '--test-reporter=dot', ...discoverTests()],
     cwd: ROOT,
   },
   {

@@ -36,7 +36,7 @@ const pkg = require('../package.json');
 //   通配会在某天悄悄多带一个目录出去（比如带上了运行期库文件）。
 //   这里逐条列，发行体检会核对「实际打进去的 == ��里列的」。
 const INCLUDE_FILES = [
-  'LICENSE', 'README.md', 'package.json',
+  '.gitattributes', 'LICENSE', 'README.md', 'package.json',
   'bin/jujian.cjs', 'bin/jujian-mcp.cjs', 'bin/jujian-bench.cjs',
   'data/roles-zh.json',
   'docs/CAPABILITIES.md', 'docs/mcp/server.json',
@@ -46,10 +46,14 @@ const INCLUDE_FILES = [
 
 const INCLUDE_DIRS = ['src', 'bench', 'test', 'web'];
 
-/** 构建期的标记文件：只给 Node 看，浏览器与发行包都不需要。
- *  web/package.json 声明那里是 ES 模块目录 —— 浏览器本来��按模块加载它，
- *  Node 也需要它，但**发行包的用户不会去跑 Node 的测试**，带着它只是多一份构建配置。 */
-const TOOLING = new Set(['web/package.json']);
+/** ★曾经这里排除过 `web/package.json`（"发行包的用户不会去跑 Node 的测试"）。
+ *  2026-10-06 实测推翻了这个判断：发行树**带着 `test/` 与 `gates/`**，
+ *  而 `test/render.test.cjs` 的动态 `import` 需要它来把 `web/*.js` 当 ES 模块解析 ——
+ *  排掉它 ⇒ 发行树里跑测试**当场 3 条红**（"Cannot use import statement outside a module"）。
+ *  这正是本项目记过的那类事故：**「在我这儿是对的」≠「发出去是对的」**。
+ *  ⇒ 现在它与 `.gitattributes` 一起随包发：两个都是**几百字节的守卫依赖**，
+ *    缺了它们，发出去的那份自己就是红的。 */
+const TOOLING = new Set([]);
 
 const EXCLUDE_RE = [
   /(^|\/)node_modules(\/|$)/,
@@ -154,12 +158,19 @@ function audit(tree) {
   } catch (_) { /* 目录缺失已由 ① 的必需文件间接覆盖 */ }
   add('盲测档案 5 局', games === 5, games + ' 局');
 
-  // ⑧ 网页：五个屏都要能取到，且 web/package.json（ES 模块标记）**不外发**
+  // ⑧ 网页：五个屏都要能取到，且 web/package.json（ES 模块标记）**要随包发**
   for (const u of ['index.html', 'app.css', 'app.js', 'api.js', 'views/games.js', 'views/record.js', 'views/review.js', 'views/about.js']) {
     add('网页 ' + u, fs.existsSync(path.join(tree, 'web', u)), '');
   }
-  add('网页构建标记不外发', !fs.existsSync(path.join(tree, 'web', 'package.json')),
-    '★web/package.json 只是 ES 模块标记，浏览器用不到，不该进发行包');
+  // ★这条在 2026-10-06 被实测**反转**过：原先要求「构建标记不外发」，
+  //   而发行树**带着 test/ 与 gates/** —— 排除它会让发行树里跑测试当场 3 条红
+  //   （render.test.cjs 的动态 import 报 "Cannot use import statement outside a module"）。
+  //   两个标记文件（web/package.json、.gitattributes）都只有几百字节，
+  //   却是「发出去的那份自己是不是绿的」所必需。发出去是红的，比多两个小文件糟得多。
+  add('网页构建标记随包发', fs.existsSync(path.join(tree, 'web', 'package.json')),
+    '★web/package.json 是 Node 侧把 web/*.js 当 ES 模块解析所必需的（render 测试要它），缺了发行树自己是红的');
+  add('.gitattributes 随包发', fs.existsSync(path.join(tree, '.gitattributes')),
+    '★换行守卫（readme.test.cjs ⑭）要读它；缺了发行树自己是红的');
 
   return checks;
 }

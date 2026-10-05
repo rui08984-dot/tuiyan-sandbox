@@ -36,22 +36,32 @@
 ## 三分钟跑起来
 
 ```bash
-git clone <本仓库> jujian
+git clone https://github.com/rui08984-dot/jujian.git
 cd jujian
 npm install
 node scripts/doctor.cjs     # 体检：查 Node 版本、角色数据、依赖、端口
 npm start                   # 起服务，默认 http://127.0.0.1:8788
 ```
 
-只需要 Node ≥ 22.5。**没有数据库要装，没有原生模块要编**（存储用 Node 自带的 `node:sqlite`）。
+或者从 npm 装到全局：`npm i -g jujian` —— 那之后 `jujian` / `jujian-mcp` / `jujian-bench` 三个命令直接可用。
+（只跑 `npm install` 的话它们**不在 PATH 上**：用 `npx jujian …` 或在仓库里写 `node bin/jujian.cjs …`。）
 
-想先看一眼它会做什么，不装不启：
+端口被占就换一个：`PORT=8899 npm start`（Windows PowerShell 写 `$env:PORT=8899; npm start`）。
+
+只需要 **Node ≥ 22.13**（或 ≥ 23.4）。**没有数据库要装，没有原生模块要编**（存储用 Node 自带的 `node:sqlite`）。
+
+★版本门槛为什么不是 22.5：`node:sqlite` 虽然 22.5 就有，但那之后仍在 `--experimental-sqlite` 标志后面，
+且**不是一条直线**（实测：22.13 解除、23.0–23.3 又回到标志后、23.4 再解除）。少写这一句，
+用 22.5–22.12 或 23.0–23.3 的人会看到体检全绿、然后每个命令都报 `No such built-in module`。
+
+想先看一眼它会做什么，不用起服务：
 
 ```bash
 node scripts/smoke.cjs
 ```
 
 它会走完一局：建局 → 录三句发言 → 入账 → 天结算出矛盾 → 撤回 → 导出 → 演示三条数据护栏 → 验证幂等 → 验证令牌门，全在内存库里跑完，零网络。
+（它要 `fastify`，所以先跑过 `npm install`；真正零依赖的是命令行 / MCP / 盲测那三个入口。）
 
 ---
 
@@ -94,7 +104,7 @@ node scripts/smoke.cjs
 
 ## 能力清单
 
-21 个 HTTP 端点，全在 `docs/CAPABILITIES.md`（每条写了「它做什么／不能做什么／越界了怎么办」）。摘要：
+21 个 HTTP 端点，全在 `docs/CAPABILITIES.md`（每条写了「它做什么／越界了怎么办」，并注明它**不做什么**）。摘要：
 
 | 组 | 端点 |
 |---|---|
@@ -109,7 +119,10 @@ node scripts/smoke.cjs
 
 ## 命令行
 
-饭桌上你只想敲一行，不想开浏览器：
+饭桌上你只想敲一行，不想开浏览器。
+下面这些裸命令（`jujian` / `jujian-mcp` / `jujian-bench`）来自包的 `bin` 声明 ——
+用 `npm install -g jujian` 全局装、或在本目录 `npm link` 之后才有；
+不想装就等价地写 `node bin/jujian.cjs ...`。
 
 ```bash
 jujian new "周五饭桌局" --players=12      # 建局
@@ -120,7 +133,10 @@ jujian 1 say 3 "我是预言家，昨晚验的4号"   # 自由文本抽取（走
 jujian 1 advise --day=2                  # 天结算，直接打印矛盾清单
 ```
 
-`advise` 的实际输出长这样：
+★`say` 产出的是**待确认卡**，它自己**不落库** —— 确认入账在网页或 `POST /api/games/:id/events/confirm`。
+宏三型（`claim` / `check` / `good`）则是直接落库的：它们不经 AI，没有需要人核的东西。
+
+`advise` 的实际输出长这样（下面这局的命令是：3 号、6 号各跳一次预言家）：
 
 ```
 第 2 天 · 天结算
@@ -152,6 +168,9 @@ jujian-mcp        # stdio，8 个工具
 { "mcpServers": { "jujian": { "command": "node",
   "args": ["/你的路径/jujian/bin/jujian-mcp.cjs"] } } }
 ```
+
+Windows 上 JSON 里的路径用双反斜杠（或正斜杠），例如把 `/你的路径/` 换成
+`你的盘符:\\你的路径\\`，其余照写。
 
 ### ★这个 server 不能替你往账本里写任何东西
 
@@ -214,6 +233,10 @@ npm install && npm start      # 只有这一路需要装依赖
 jujian-bench
 ```
 
+★5 份档案里**能进读数的是 4 局**：`replay-botc-rulebook` 那份只有玩家名字、没有座位号，
+而真值评分依赖座位号 —— bench **不猜**名字到座位的映射，如实把它登记为「未覆盖、不计入分母」。
+（宁可少一局，也不猜一局。）
+
 ```
 【replay-werewolf-lyingman-s02e01】11 人 · 3 天
   事件 31 条，其中抽到声称的 10 条（覆盖 32%）｜ 声称 11 条（角色 4）
@@ -272,21 +295,30 @@ JUJIAN_HOST=0.0.0.0 JUJIAN_SHARED_TOKEN=你自己想的随机串 npm start
 # 手机浏览器打开 http://<本机局域网IP>:8788/?jujian_token=<那串字符>
 ```
 
-开完令牌后写口全部要带令牌。不开令牌对外监听会被**拒绝启动**——这是故意的。
+Windows PowerShell 的等价写法（POSIX 那套前缀赋值在 PowerShell 里不生效）：
+
+```powershell
+$env:JUJIAN_HOST='0.0.0.0'; $env:JUJIAN_SHARED_TOKEN='你自己想的随机串'; npm start
+```
+
+**开了令牌之后，一切请求都要带令牌**（读口和 `/api/health` 也要——health 会报出库路径，那属于信息）。
+不开令牌就对外监听会被**拒绝启动**——这是故意的。
 
 **Q：数据能带走吗？**
-A：`GET /api/games/:id/export` 导出整局 JSON，带元信息和计数。库文件本身也在 `data/jujian.db`，直接拷走即可。
+A：`GET /api/games/:id/export` 导出整局 JSON，带元信息和计数。库文件本身是单个 SQLite 文件
+（默认 `data/jujian.db`），直接拷走即可。
 
 ---
 
 ## 开发者
 
 ```bash
-npm test          # 122 例
-npm run gates     # 三道闸门（测试 / 冒烟 / 体检）
+npm test          # 132 例
+npm run gates     # 四道闸门（测试 / 冒烟 / 体检 / 盲测）
 npm run doctor    # 只体检
 ```
 
-闸门为什么是这三道，见 `gates/gates.cjs` 的文件头。
+闸门为什么是这四道，见 `gates/gates.cjs` 的文件头。测试清单由闸门**自动发现**（扫 `test/*.test.cjs`），
+新加测试文件不需要改闸门。
 
 许可：Apache-2.0，见 [LICENSE](LICENSE)。
