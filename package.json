@@ -18,7 +18,8 @@
     "start": "node p1b/src/server.js",
     "gates": "node p1b/gates/gates.cjs",
     "bootstrap": "node scripts/bootstrap.cjs",
-    "bootstrap:verify": "node scripts/bootstrap.cjs && cd p1b && node gates/gates.cjs"
+    "bootstrap:verify": "node scripts/bootstrap.cjs && cd p1b && node gates/gates.cjs",
+    "doctor": "node scripts/doctor.cjs"
   },
   "files": [
     "LICENSE",
