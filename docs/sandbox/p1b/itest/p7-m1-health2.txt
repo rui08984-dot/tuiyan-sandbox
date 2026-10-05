@@ -1,6 +1,0 @@
-== health of PID 7212 ==
-HEALTH_STATUS=200
-{"ok":true,"service":"p1b-web-workbench","db_path":"E:\\music player\\docs\\sandbox\\p1b\\itest\\p7-run.db","llm_mock":true,"engine":{"db_contract":"v1","reused_from":"p1a-terminal"}}
-GAMES_STATUS=200
-{"games":[]}
-DONE

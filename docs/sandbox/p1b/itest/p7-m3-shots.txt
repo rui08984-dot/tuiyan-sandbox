@@ -1,9 +1,0 @@
-=== shots check @ 15:08:07 ===
-p7-card-wolf-390.png | 191999B | 15:03:06
-p7-live-1280.png | 57372B | 15:03:49
-p7-live-botc-390.png | 156877B | 15:03:36
-p7-live-wolf-390.png | 156896B | 15:03:48
-p7-manage-1280.png | 86438B | 15:03:40
-p7-settings-1280.png | 54847B | 15:03:44
-count=6
-DONE

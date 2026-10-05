@@ -132,3 +132,7 @@ nul
 
 # 测试与脚本的运行期产物（不入库）
 .run-out/
+
+# Python 字节码缓存（cpython 版本相关，不是源码）
+__pycache__/
+*.pyc

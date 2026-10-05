@@ -1,8 +1,0 @@
-=== start @ 14:58:46 ===
-port8787: FREE
-db-trio-after: NONE (clean)
-new PID=25288
-{"ok":true,"service":"p1b-web-workbench","db_path":"E:\\music player\\docs\\sandbox\\p1b\\itest\\p7-run.db","llm_mock":true,"engine":{"db_contract":"v1","reused_from":"p1a-terminal"}}
-health-ok: True
-proc: node alive
-DONE

@@ -1,3 +1,0 @@
-VERIFIED PID=33012 CMD="C:\Program Files\nodejs\node.exe" src/server.js -> killing
-RESULT: PID GONE
-PORT 8787 FREE

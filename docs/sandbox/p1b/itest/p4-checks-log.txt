@@ -1,7 +1,0 @@
-G1 假设区几何: {"n":3,"top0":764,"top1":764,"left0":31,"left1":199,"cols":"160px 160px"}
-OK   G1 双栏对峙（两卡并排：同 top±2、left0<left1）
-OK   G2a 勾选生效（done 划线样式）
-OK   G2b 本机持久化（p1b.advisor.checks.v1 含 2:1）
-OK   G3 刷新回看后勾选保持
-PNG saved: p4-advisor-checks-mobile-390.png
-CHECKS RESULT: ALL PASS
