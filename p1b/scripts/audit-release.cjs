@@ -535,6 +535,48 @@ function C14(ctx) {
   } finally { o.库.close(); }
 }
 
+/**
+ * C15 无便携 node：发行树里不许出现 node.exe / node（2026-09-30 拍板补的判据）。
+ *
+ * ★为什么是"不许有"而不是"报了就行"：
+ *   `runtime\node\node.exe` 是 **Node 官方自己的构建产物**，不是本项目的代码。
+ *   把它塞进发行包＝替 Node 做再分发，而那件事从未取得授权。
+ *   （本项目自己的代码是 Apache-2.0，可以发；Node 的可执行文件不是。）
+ *
+ * ★为什么必须做成判据而不只是"这次没打进去"：
+ *   下次重打包的人不会记得 2026-09-30 有过这个决定；
+ *   而把 node.exe 加回来只需要一行 copy。判据是唯一能把这个决定钉住的东西。
+ *
+ * ★为什么这里不能扫 ctx.走.files：
+ *   走树时刻意 `continue` 跳过了 `node` 目录的**内容**（那些 config/ 与 .db-wal
+ *   会让 C7/C8 等判据全是假阳性），所以 node.exe 压根不进 files。
+ *   第一版就是扫 files 的 ⇒ 树里明明有 node.exe，它报「0 个」——
+ *   **判据看起来在工作，实际什么都没检查**。这正是本项目最贵的那类失败。
+ *   ⇒ 这里直接查盘：目录名命中 ＋ 文件存在性，两条都走。
+ */
+function C15(ctx) {
+  const root = ctx.tree;
+  const 目录命中 = ctx.走.dirs.filter((d) => /(^|\/|\\)node$/i.test(d));
+  const 文件命中 = [];
+  for (const p of [
+    'runtime/node/node.exe', 'runtime/node/node', 'node.exe', 'node',
+  ]) {
+    try { if (fs.statSync(path.join(root, p)).isFile()) 文件命中.push(p); } catch { /* 不存在 */ }
+  }
+  const 便携 = path.join(root, 'runtime', 'node', 'node.exe');
+  const 便携在 = fs.existsSync(便携);
+  const 命中 = [...new Set([...目录命中.map((d) => d + '/'), ...文件命中, ...(便携在 ? ['runtime/node/node.exe'] : [])])];
+  const 证据 = 口径(ctx)
+    + ' → 便携 node 目录（走树只在 dirs 里留名）' + 目录命中.length + ' 个 · 顶层可执行 '
+    + 文件命中.length + ' 个 · runtime/node/node.exe 存在=' + 便携在
+    + ' ｜ 便携 node 体积（不计入 C6 预算）：' + MB(ctx.走.字节.便携)
+    + ' ｜ 启动器工作方式：优先用系统装的 Node，找不到才退老包的便携 node（tools/launcher/start.bat）';
+  if (命中.length !== 0) {
+    return 不通过('发行树里有 node 可执行文件（那是 Node 官方的构建产物，再分发权未取得）', 证据);
+  }
+  return 通过('0 个 node 可执行文件（Node 由用户自己装，启动器已支持）', 证据);
+}
+
 const 检查表 = Object.freeze([
   { id: 'C1', 码: 11, 名: '密钥', 查: C1 },
   { id: 'C2', 码: 12, 名: '绝对路径', 查: C2 },
@@ -550,6 +592,7 @@ const 检查表 = Object.freeze([
   { id: 'C12', 码: 22, 名: '契约表', 查: C12 },
   { id: 'C13', 码: 23, 名: '启动无残留', 查: C13 },
   { id: 'C14', 码: 24, 名: '无真人数据', 查: C14 },
+  { id: 'C15', 码: 25, 名: '无便携 node', 查: C15 },
 ]);
 
 // ── 主流程 ─────────────────────────────────────────────────────────────
@@ -614,7 +657,9 @@ function main(argv) {
     说('');
     if (r.失败码.length === 0) 说('✔ ' + r.项.length + ' 项全过。');
     else 说('✘ 红 ' + r.失败码.length + ' 项（逐项失败码 ' + r.失败码.join(', ') + '；进程退出码 ' + EXIT_GATE + ' ＝门禁码，不是错误码）');
-    说('★这 14 项是发布标准。为了让发行包通过而放宽任何一项，都是改发布标准——Ask first。');
+    // 项数**动态**取自检查表：写死 "14" 的话，下次加一条判据这句就变成假话
+    //  —— 而它恰恰是在说「不许为了让包过而放宽判据」。
+    说('★这 ' + 检查表.length + ' 项是发布标准。为了让发行包通过而放宽任何一项，都是改发布标准——Ask first。');
   }
   process.exitCode = r.码;
 }

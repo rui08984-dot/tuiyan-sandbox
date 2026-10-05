@@ -41,7 +41,15 @@ title P1b sandbox - local workbench
 
 set "APPDIR=%~dp0"
 if "%APPDIR:~-1%"=="\" set "APPDIR=%APPDIR:~0,-1%"
-set "NODE=%APPDIR%\runtime\node\node.exe"
+rem  Node resolution (2026-10-05): packages now ship NO bundled node.exe because its
+rem    redistribution rights were never cleared. Order:
+rem      1) a Node already installed on this machine (where.exe / PATH)  <- new packages
+rem      2) runtime\node\node.exe, if this package happens to be an older one
+rem    Resolution order is deliberate: a user who has Node installed should use *that*,
+rem    so upgrading it is their business, not this package's.
+set "NODE="
+for /f "delims=" %%I in ('where node 2^>nul') do if not defined NODE set "NODE=%%I"
+if not defined NODE if exist "%APPDIR%\runtime\node\node.exe" set "NODE=%APPDIR%\runtime\node\node.exe"
 set "BOOT=%APPDIR%\launcher\boot.cjs"
 set "SEEDCHK=%APPDIR%\launcher\seedcheck.cjs"
 
@@ -158,7 +166,13 @@ echo Service stopped. Your data is still here: %P1B_DATA_DIR%
 endlocal & exit /b 0
 
 :nonode
-echo [5/8] Bundled Node not found: runtime\node\node.exe
-echo        This package was not unpacked completely (antivirus often quarantines exe files).
-echo        Close the antivirus and unpack the zip again.
+echo [5/8] Node not found on this machine, and this package does not bundle one.
+echo.
+echo   To use this workbench you need Node.js 22.5 or newer. Install it once, then double-click start.bat again.
+echo     - Windows official installer: https://nodejs.org/en/download  (choose "LTS", run the .msi, keep the defaults)
+echo     - Afterwards, close and reopen this window and run start.bat again.
+echo.
+echo   Why the package does not bundle a Node.exe: that file is Node's own build, and
+echo   redistributing it separately needs permission that was never obtained. The package
+echo   only carries this project's own code, which is Apache-2.0.
 endlocal & exit /b 4

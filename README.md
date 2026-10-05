@@ -216,7 +216,7 @@ A：不会。21 个 MCP 工具里**真正能写账本的是 0 个**——写操�
 
 - `node scripts/plan-audit.cjs` —— 机械核对 30 项
 - `cd p1b && node gates/gates.cjs` —— 四道闸门：后端 / 构建 / 前端 / 类型
-- `node p1b/scripts/audit-release.cjs --tree out/p1b-sandbox-v0.1.0-win-x64` —— 发行体检 14 项
+- `node p1b/scripts/audit-release.cjs --tree out/p1b-sandbox-v0.1.1-win-x64` —— 发行体检 15 项
 
 | 形态 | 数量 | 入口 |
 |---|---:|---|

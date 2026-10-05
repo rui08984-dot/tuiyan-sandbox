@@ -182,11 +182,14 @@ test('① 干净树 ⇒ exit 0 且 14 项全绿（★先断言循环真的跑了
   }
 
   const r = 跑JSON(dir);
-  // ── 循环执行痕迹：14 项逐项都跑了 ──
+  // ── 循环执行痕迹：检查表有几项就逐项跑几项 ──
   assert.equal(r.码, 0, 'exit 应为 0。\n' + r.出);
-  assert.equal(r.j.项.length, 14, '★14 项必须逐项跑完（项数少于 14 说明有项被漏）');
+  // ★项数**动态**取自检查表，不写死 14 —— 加一条判据（C15 无便携 node）时
+  //   写死的 14 会让这条自己红，而它想守的是「有项被漏」。
+  assert.equal(r.j.项.length, A.检查表.length,
+    '★' + A.检查表.length + ' 项必须逐项跑完（项数少于它说明有项被漏）');
   assert.deepEqual(r.j.项.map((x) => x.id), A.检查表.map((c) => c.id), '项号与顺序 = 检查表');
-  assert.deepEqual(r.j.项.map((x) => x.码), [11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24], '逐项失败码 11–24');
+  assert.deepEqual(r.j.项.map((x) => x.码), A.检查表.map((c) => c.码), '逐项失败码 = 检查表');
   assert.deepEqual(红项集(r.j), [], '干净树无红项。红的：' + JSON.stringify(r.j.项.filter((x) => x.红)));
   // 逐项证据里都要写清「扫了多少」——「没扫到」不许被读成「没问题」
   for (const x of r.j.项) assert.ok(x.证据 && x.证据.length > 8, x.id + ' 证据为空');
@@ -247,17 +250,32 @@ const 注入表 = [
     db.prepare('INSERT INTO events (id,game_id,raw_text) VALUES (98,1,?)').run(假昵称行);
     db.close();
   } },
+  // ★C15 的变异必须真的放一个 node.exe 进去，不能只建个空目录 ——
+  //   第一版我想着"建个 runtime/node 目录就算"，那对判据的盘上存在性检查是空的，
+  //   注入了却不红 ⇒ 反向锁形同虚设。文件必须是真的（字节数无所谓，存在就行）。
+  { 项: 'C15', 预期: ['C15'], 说明: '塞一个假 node.exe 进 runtime/node/（再分发权未取得的东西回来了）', 注入: (d) => {
+    const dir = path.join(d, 'runtime', 'node');
+    fs.mkdirSync(dir, { recursive: true });
+    fs.writeFileSync(path.join(dir, 'node.exe'), 'not really node, but C15 cannot tell\n');
+  } },
 ];
 
-test('② 反向锁：14 类缺陷逐项单独注入（15 条：C10/C13 各有两半）⇒ 红项恰好等于预期（★断言循环跑了 15 次）', () => {
-  // ── 前置条件：注入表 15 行，其中 14 行与检查表逐项对齐，另 1 行是 C10 的第二半 ──
-  assert.equal(注入表.length, 16, '★注入表必须 16 条（14 项 + C10 的第二半 + C14b 的「假 token 不该红」反向）');
-  assert.deepEqual(注入表.filter((x) => !x.项.endsWith('b')).map((x) => x.项), A.检查表.map((c) => c.id), '14 条主注入项号与检查表逐项对齐');
+test('② 反向锁：每类缺陷逐项单独注入 ⇒ 红项恰好等于预期（★断言循环跑了注入表那么多次）', () => {
+  // ── 前置条件：注入表 = 主注入（与检查表逐项对齐）＋ 若干 b 后缀的纯反向条目 ──
+  const 纯反向 = 注入表.filter((x) => x.项.endsWith('b')).map((x) => x.项);
+  assert.deepEqual(纯反向, ['C10b', 'C14b'],
+    '★b 后缀纯反向条目应当恰是这两条（C10 的第二半 ＋ 「假 token 不该红」）');
+  // ★条数动态推，不写死 —— 加判据或加反向都会让写死的数字变红，
+  //   而它想守的是「检查表加了判据，注入表忘了跟」。
+  assert.equal(注入表.length, A.检查表.length + 纯反向.length,
+    '★注入表 = 检查表 ' + A.检查表.length + ' 项 ＋ ' + 纯反向.length + ' 条纯反向，实际 ' + 注入表.length);
+  assert.deepEqual(注入表.filter((x) => !x.项.endsWith('b')).map((x) => x.项), A.检查表.map((c) => c.id), '★每条主注入项号与检查表逐项对齐（检查表加了判据，注入表必须跟着加，否则新判据没有反向锁）');
   assert.deepEqual(注入表.filter((x) => x.项.endsWith('b')).map((x) => x.项), ['C10b', 'C14b'],
     '第二半注入：C10b ＋ C14b（C14b 是「假 token 不该红」的反向锁）');
 
   let 跑过 = 0;
   const 记录 = [];
+  const 纯反向条数 = 注入表.filter((x) => x.预期.length === 0).length;   // 预期不红的注入（假 token 那条）
   for (const inj of 注入表) {
     const { dir } = 造干净树('inj-' + inj.项);
     const 本项 = inj.项.replace(/b$/, '');            // 'C10b' 的判据住在 C10 里
@@ -290,16 +308,19 @@ test('② 反向锁：14 类缺陷逐项单独注入（15 条：C10/C13 各有�
     assert.ok(x.结论 && x.结论.length > 4, inj.项 + '：红项必须带可读的「为什么」');
     assert.ok(x.证据 && x.证据.length > 8, inj.项 + '：红项必须带可读的「凭什么」');
   }
-  assert.equal(跑过, 16, '★注入循环确实执行了 16 次（防 forEach 空数组空跑）');
-  // ★2026-09-29：退出码不再全为 3 —— 14 条「该红」⇒ 3，C14b（预期空）⇒ 0。
-  //   两种都该只出现，且 0 只该出现一次（那就是 C14b）。
+  assert.equal(跑过, 注入表.length, '★注入循环确实执行了 ' + 注入表.length + ' 次（防 forEach 空数组空跑）');
+  // ★退出码不全是 3 —— 注入表里凡「预期: []」的那几条（纯反向）⇒ 0，其余该红的 ⇒ 3。
+  //   0 只该出现那么多次，多一次就说明有一条本该红的没红。
   assert.deepEqual([...new Set(记录.map((r) => r[1]))].sort((a, b) => a - b), [0, 3],
-    '★16 条里应有且只有两种退出码：3（该红的）与 0（预期不红的 C14b）');
-  assert.equal(记录.filter((r) => r[1] === 0).length, 1, '★只有 C14b 一条应当退出码 0');
-  // 16 条注入的红项组合：14 个检查项各一种 ＋ C10b 与 C10 相同（不新增）
-  // ＋ C14b 的**空集**（新增一种）＝ 15 种。
-  assert.equal(new Set(记录.map((r) => r[2])).size, 15,
-    '★16 条注入应产出 15 种不同红项组合：14 个检查项各一种，C10b 与 C10 相同不新增，C14b 的空集新增一种');
+    '★注入表里应有且只有两种退出码：3（该红的）与 0（预期不红的纯反向）');
+  assert.equal(记录.filter((r) => r[1] === 0).length, 纯反向条数, '只有 ' + 纯反向条数 + ' 条纯反向注入应当退出码 0');
+  // 红项组合数 = 主注入条数（每条至少一种组合）＋ 空集那 1 种
+  //   —— C10b 与 C10 恰好命中同一组合，所以不新增；其余 b 后缀同理可能撞车，
+  //      因此这里判「≥ 主注入条数」而不是写死等式，写死会在下次加变异时假红。
+  const 组合 = new Set(记录.map((r) => r[2]));
+  assert.ok(组合.size >= A.检查表.length,
+    '★' + 注入表.length + ' 条注入只产出 ' + 组合.size + ' 种红项组合，少于检查表项数 '
+    + A.检查表.length + ' —— 说明有注入根本没咬动人（空跑注入）');
   // 反方向也要成立：空 config/ 目录只有 C7 红（C1 不许跟着红）
   assert.deepEqual(记录.find((r) => r[0] === 'C7')[2], 'C7', '空 config/ 目录 ⇒ 只有 C7 红');
   assert.deepEqual(记录.find((r) => r[0] === 'C1')[2], 'C1+C7', 'C1 那条按 spec 判据的蕴含带出 C7（结构性耦合，不是漏判）');
@@ -399,8 +420,9 @@ test('⑤ 用法错：缺 --tree / 未知参数 / --only 里的坏项号 ⇒ exi
   const 坏项号 = 跑JSON(tmpRoot, ['--only', 'C9,C99']);
   assert.equal(坏项号.码, 1, '--only 里的坏项号 ⇒ 1（不许当成「那项通过」）');
   assert.match(坏项号.出, /不存在的项号/, '要点名是哪个项号不存在');
-  // 13 项确实都在（--only 合法值）
-  assert.equal(A.检查表.length, 14, '检查表 14 项');
+  // 检查表确实都在（--only 合法值）—— 条数动态，写死会让加判据这件事本身变红
+  assert.ok(A.检查表.length >= 14, '检查表至少 14 项，当前 ' + A.检查表.length + ' 项');
+  assert.equal(new Set(A.检查表.map((c) => c.码)).size, A.检查表.length, '★失败码不许重码');
 });
 
 // ── ⑥ 门禁码与多报 ────────────────────────────────────────────────────
@@ -554,7 +576,7 @@ test('⑨ 对真实产物跑 C9/C10/C11/C14：C9 C10 C11 绿（实测值逐条�
 // ── ⑩ 对**真实仓库**跑一遍（看 C1/C2/C3/C12/C13 在真文件上的行为）─────
 test('⑩ 对真实仓库根跑一遍：★C1 必红（仓库里有 p1a-terminal/config/providers.json），C12 必绿（契约 sha 对得上 kind 表）', () => {
   const r = 跑JSON(ROOT);
-  assert.equal(r.j.项.length, 14, '14 项都跑了（★证明不是只跑了 --only 那几项）');
+  assert.equal(r.j.项.length, A.检查表.length, A.检查表.length + ' 项都跑了（★证明不是只跑了 --only 那几项）');
   assert.equal(取项(r.j, 'C1').红, true, '★仓库根不是发行树：p1a-terminal/config/providers.json 存在 ⇒ C1 红');
   assert.match(取项(r.j, 'C1').证据, /p1a-terminal\/config\/providers\.json/, 'C1 指到了真文件');
   assert.equal(取项(r.j, 'C12').红, false, '★C12 绿：契约冻结件 sha256 与 docs/specs/kind-目录表.md 登记值一致：' + 取项(r.j, 'C12').证据);
@@ -604,12 +626,15 @@ const 变异表 = [
   // ★2026-09-29 换锚：原锚「if (命中.length === 0) return 通过」在判据修正后已不存在，
   //   变异注入会打到 0 处。改锚到新源码里唯一的那句判红入口。
   { 项: 'C14', 从: 'if (唯一命中列.length > 0)', 到: 'if (唯一命中列.length > 999)' },
+  // ★C15 的变异必须是「让判据看不见」而不是「让包变干净」——
+  //   把存在性检查改成恒 false 最直接：往包里塞多少 node.exe 它都当没看见。
+  { 项: 'C15', 从: 'const 便携在 = fs.existsSync(便携);', 到: 'const 便携在 = false && fs.existsSync(便携);' },
 ];
 
 test('⑪ 变异表本身可用：16 条变异串在源码里**各出现且只出现一次**', () => {
   // ── 前置条件：变异锚点必须唯一，否则「变异注入」改到的是别的地方，测的就不是那一项 ──
   const src = fs.readFileSync(脚本, 'utf8');
-  assert.ok(变异表.length >= 14, '★变异表至少 14 条（每项至少一条）');
+  assert.ok(变异表.length >= A.检查表.length, '★变异表至少 ' + A.检查表.length + ' 条（每项至少一条）');
   const 覆盖 = new Set(变异表.map((m) => m.项.replace(/b$/, '')));
   for (const c of A.检查表) assert.ok(覆盖.has(c.id), c.id + ' 没有对应的变异锚点');
   for (const m of 变异表) {

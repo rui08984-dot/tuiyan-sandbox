@@ -124,6 +124,24 @@ function 开浏览器(url, 禁) {
 }
 
 /**
+ * Node 解析：系统里装的优先，老包的便携 node.exe 兜底。
+ * ★`process.execPath` 是「正在跑本件的那个 node」—— 用户自己装的那个，
+ *   比另起 PATH 找 PATH 更稳（版本一定配得上本件）。
+ * @returns {string|null} 可用的 node 绝对路径；两边都没有 ⇒ null
+ */
+function resolveNodeExe(树根) {
+  if (process.execPath && fs.existsSync(process.execPath)) return process.execPath;
+  const 便携 = path.join(树根, 'runtime', 'node', 'node.exe');
+  if (fs.existsSync(便携)) return 便携;
+  // 最后一条路：PATH 上直接有个 node（极少见，但 Windows 上确实有绿色版把这当常态）
+  try {
+    const r = require('child_process').spawnSync('node', ['-e', ''], { stdio: 'ignore' });
+    if (r.status === 0 || r.error === undefined) return 'node';
+  } catch { /* 落到 null */ }
+  return null;
+}
+
+/**
  * 把控制台输出**同时**抄进 startup.log。
  * ★为什么必须有它：健康检查超时（退出码 5）时，唯一能救命的线索就是服务自己打过什么，
  *   而那些话此刻只在屏幕上滚过去就没了。
@@ -167,9 +185,15 @@ async function 主流程(argv) {
   if (args.includes('--debug')) process.env.P1B_DEBUG = '1';   // start-debug.bat 传的就是它
   const 不开浏览器 = args.includes('--no-browser') || process.env.P1B_NO_BROWSER === '1';
   const 超时 = Number(process.env.P1B_HEALTH_TIMEOUT_MS || 30000);
-  const nodeExe = path.join(树根, 'runtime', 'node', 'node.exe');
-  if (!fs.existsSync(nodeExe)) {
-    process.stderr.write('[boot] 找不到便携 Node：runtime\\node\\node.exe（这个包解压不完整，请重新解压）\n');
+  // ★Node 解析口径与 start.bat 一致（2026-10-05 起发行包**不带**便携 node.exe：
+  //   那是 Node 自己的构建产物，单独再分发需要从未取得的授权）。
+  //   解析顺序：① 系统里已装的 Node（PATH）② 老包里的 runtime\node\node.exe。
+  //   本文件自己就已经跑在某个 node 上了（start.bat 用它拉起本件），
+  //   所以 ① 命中时直接用 process.execPath —— 它就是用户那个 Node，版本一致最稳。
+  const nodeExe = resolveNodeExe(树根);
+  if (!nodeExe) {
+    process.stderr.write('[boot] 这台机器上没有 Node（package 也不再自带）。\n'
+      + '        安装 Node.js 22.5+：https://nodejs.org/en/download （选 LTS，一路默认）\n');
     return 4;
   }
   const 启动日志 = 挂启动日志(日志目录);
