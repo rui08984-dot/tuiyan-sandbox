@@ -50,10 +50,22 @@ function bad(name, detail) { CHECKS.push({ level: 'bad', name, detail: detail ||
     ok('Node 版本', `v${process.versions.node}（node:sqlite 开箱可用）`);
   } else if (needsFlag) {
     // ★说清「为什么」和「合法值是什么」：这条提示必须能被直接照抄。
+    //   ★★★ 2026-10-06 第二次实测修正 ★★★
+    //   第一版这里写的是「npm start -- --experimental-sqlite」，**那是错的**。
+    //   本机真测：npm 会把 `--` 之后的参数**追加在脚本名后面**（`node src/server.js --experimental-sqlite`），
+    //   而 Node 只认**脚本名之前**的选项 ⇒ 该标志被当成普通参数，node:sqlite 照样加载不了。
+    //   （实测数据：`node probe.cjs --experimental-sqlite` → execArgv=[]、sqlite THROWS；
+    //    `node --experimental-sqlite probe.cjs` → execArgv=["--experimental-sqlite"]、sqlite OK。）
+    //   ⇒ 只给**实测可行**的两条路，且都写成可直接粘贴的形式。
     bad('Node 版本', `当前 v${process.versions.node}。node:sqlite 在本版本仍藏在 `
-      + `--experimental-sqlite 标志后面（实测：22.13 与 23.4 起才解除，23.0–23.3 又回到标志后）。`
-      + `两条路任选：①升级到 v22.13+ 或 v23.4+（推荐）；`
-      + `②每条命令都加标志，例如 node --experimental-sqlite src/server.js（或 npm start -- --experimental-sqlite）。`);
+      + `--experimental-sqlite 标志后面（实测：22.13 与 23.4 起才解除，23.0–23.3 又回到标志后）。\n`
+      + `      两条路任选：\n`
+      + `      ①升级 Node 到 v22.13+ 或 v23.4+（推荐，一劳永逸）；\n`
+      + `      ②保留当前版本，加环境变量（★这是唯一能配合 npm start / npm run 用的写法）：\n`
+      + `        PowerShell:  $env:NODE_OPTIONS='--experimental-sqlite'; npm start\n`
+      + `        bash/zsh:    NODE_OPTIONS=--experimental-sqlite npm start\n`
+      + `      ★注意：\`npm start -- --experimental-sqlite\` **不管用** —— npm 会把标志放到脚本名之后，\n`
+      + `        Node 只认脚本名之前的选项，那个标志会被无声忽略。`);
   } else {
     bad('Node 版本', `当前 v${process.versions.node}。局鉴的存储用 Node 自带的 node:sqlite，`
       + `它是 v22.5.0 才加入的。需要 v22.13.0+ 或 v23.4.0+（实测免标志的两个区间）。`);

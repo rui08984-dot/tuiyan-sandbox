@@ -72,6 +72,27 @@ test('★回归 · doctor 不许把「装了会崩」的 Node 版本报成绿灯
     '★报错必须带「为什么」——只说「版本不对」用户无法判断该升级还是该加标志');
 });
 
+test('★回归 · doctor 给的补救命令必须是**真能用的**那条（实测：npm start -- 标志会被吞）', () => {
+  // ★★★ 这条的由来（2026-10-06 实测，我自己第一版就写错了）★★★
+  //   Node 只认**脚本名之前**的选项。实测：
+  //     node probe.cjs --experimental-sqlite → execArgv=[]、sqlite THROWS（标志被当普通参数）
+  //     node --experimental-sqlite probe.cjs → execArgv=["--experimental-sqlite"]、sqlite OK
+  //   而 `npm start -- --experimental-sqlite` 经 npm 展开后变成
+  //     `node src/server.js --experimental-sqlite`
+  //   —— 标志落在脚本名**之后**，被无声忽略。用户照抄后仍然崩，且以为「我按提示做了」。
+  //   ⇒ 提示里只许出现实测可行的那条（NODE_OPTIONS），且必须**明确警告**错的那种。
+  const doc = fs.readFileSync(path.join(ROOT, 'scripts', 'doctor.cjs'), 'utf8');
+  assert.match(doc, /NODE_OPTIONS/,
+    '★doctor 必须给出 NODE_OPTIONS 这条 —— 它是唯一能配合 npm start / npm run 使用的写法');
+  assert.match(doc, /不管用/,
+    '★doctor 必须显式警告「npm start -- --experimental-sqlite 不管用」——'
+    + '否则用户第一反应就是加 --，然后以为照提示做了却仍然崩');
+  // 反例闸：不许把 `npm start -- --experimental-sqlite` 当成**建议**写出来。
+  // （允许它出现在「×× 不管用」这句警告里 —— 所以判据是「紧跟着不能是肯定语气」。）
+  const badAdvice = /（或\s*`?npm start -- --experimental-sqlite/.test(doc);
+  assert.ok(!badAdvice, '★doctor 的提示里不许再把 npm 的 -- 透传写成可行方案（实测它会被吞）');
+});
+
 test('★回归 · 真跑一次 doctor，本机必须过（免得守卫自己把正常环境判红）', () => {
   const r = spawnSync(process.execPath, [path.join(ROOT, 'scripts', 'doctor.cjs')],
     { encoding: 'utf8', env: bareEnv(), timeout: 120000 });
