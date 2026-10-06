@@ -91,6 +91,23 @@ test('★② web/ 是 HTTP 服务的运行时依赖，必须在包里（前端�
     '★npm 包里缺 web/package.json —— 它是 ES 模块标记，render 测试要靠它 import web/views/*.js');
 });
 
+test('★②b 两个「守卫依赖」文件必须在包里 —— 缺了它们，装完跑测试是红的', { skip: SKIP }, () => {
+  // ★这条是被一次**变异测试**逼出来的（2026-10-06）：
+  //   我把 `files` 里的 `.gitattributes` 删掉，跑 ★② —— **它照样绿**。
+  //   而 npm pack 实测：74 → 73 个文件，`.gitattributes` 真的没了。
+  //   缺了它会发生什么？`test/readme.test.cjs` ⑭ 要读它，读不到直接判红 ——
+  //   也就是说**装了这个包的人 `npm test` 会红**，而我的守卫没拦住。
+  //   ★这正是本项目最怕的那类：守卫看起来在岗，漏的恰好是它该看的那个文件。
+  //   ⇒ 单列一条，把「发行物里必须能跑通测试」所依赖的文件逐个点名。
+  const files = packFileList();
+  for (const [f, why] of [
+    ['.gitattributes', '换行守卫（readme.test.cjs ★⑭）要读它；缺了它，包使用者跑 npm test 直接红'],
+    ['web/package.json', 'ES 模块标记；缺了它，render 测试三条红'],
+  ]) {
+    assert.ok(files.includes(f), '★npm 包里缺 ' + f + ' —— ' + why);
+  }
+});
+
 test('★③ 玩家数据一个字节都不许进包（连自己的库一起发给别人是最糟的事）', { skip: SKIP }, () => {
   const files = packFileList();
   const db = files.filter((f) => /\.(db|db-wal|db-shm|sqlite3?)$/.test(f));

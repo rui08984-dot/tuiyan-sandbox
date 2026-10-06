@@ -313,7 +313,7 @@ A：`GET /api/games/:id/export` 导出整局 JSON，带元信息和计数。库�
 ## 开发者
 
 ```bash
-npm test          # 133 例
+npm test          # 134 例
 npm run gates     # 四道闸门（测试 / 冒烟 / 体检 / 盲测）
 npm run doctor    # 只体检
 ```
